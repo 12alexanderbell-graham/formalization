@@ -1,6 +1,6 @@
 # Formalization program: run instructions
 
-Read fresh every run. Alexander may edit this file at any time; the latest version wins.
+Read fresh every run. This file is maintained by the program itself (annex LIV) and by Alexander; his instructions win. Runs should improve it whenever they find a better way to work.
 
 ## Standing instructions
 
@@ -10,6 +10,7 @@ Read fresh every run. Alexander may edit this file at any time; the latest versi
 4. Local Lean: try installing it with the official `elan` installer from github.com/leanprover/elan (Alexander has authorized this). If the environment refuses, do not try to get around the refusal: use the CI judge on GitHub instead, and note it in the run record.
 5. If the repository can't be reached, still run: do what is possible and put the results in your final message, marked NOT SAVED.
 6. Message Alexander only under annex L.2. Result first, bullets, any question in bold.
+7. This is an ever-improving program (annex LIV): when you notice a fundamental issue or a repeated pattern, find its root cause and fix it in the repository, then log the change as an experiment for a later run to evaluate.
 
 ## Current phase: setup, then target selection
 

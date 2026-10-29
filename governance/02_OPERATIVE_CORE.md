@@ -22,6 +22,10 @@ Compact checklist. The binding text is `01_CONSTITUTION_FORMALIZATION.md` plus t
 
 Target pick ≤ 2 runs · first milestone through the whole pipeline ≤ 3 runs after the pick · daily review line in `STATE.md` · 24 runs with no new AUDITED + PROVED headline or finding = diagnose, change approach, tell Alexander · records short.
 
+## Ever-improving (LIV)
+
+Notice a fundamental issue or a repeated pattern → find the root cause → fix it (this run or first thing next run) → log it as an experiment → a later run checks the effect. You own `PROMPT.md`, the annex, the core, scripts, CI (strengthen or repair only) and the layout. Never touch the verbatim original or weaken evidence standards. The scheduled task's prompt never needs replacing: fix things in the repository.
+
 ## Statuses (XXXVIII)
 
 SOURCE · STATED · AUDITED · PROVED-CONDITIONAL · PROVED · REFUTED · BLOCKED · INFORMAL.

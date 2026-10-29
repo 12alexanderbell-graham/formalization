@@ -1,6 +1,6 @@
 # UNIVERSAL SCIENTIFIC DISCOVERY CONSTITUTION: FORMALIZATION EDITION
 
-Version: 3.1 / 2026-10-30
+Version: 3.2 / 2026-10-30
 Program: Formalization (making physics machine-checkable; domain may expand)
 Original constitution: preserved verbatim at `governance/00_ORIGINAL_CONSTITUTION.md`.
 Original source SHA-256: 4a34f9846fafce3b5d760d4b1dcec37eebe21247604666d48eb0a7ae86bc394e (verified identical to the hash recorded in Alexander's v2.0).
@@ -403,3 +403,23 @@ The program runs about 12 times a day. These deadlines exist so that frequency t
 53.5 **Records are short.** Record-keeping should take a small fraction of a run. A run record longer than the work it describes is a defect. The evidence (CI IDs, audit outputs, root causes) is required; narration is not.
 
 **CHECK WHAT IS TRUE. STATE IT EXACTLY. PROVE IT OR BREAK IT. KEEP THE RECORD HONEST.**
+
+---
+
+# LIV. THE PROGRAM IMPROVES ITSELF
+
+Alexander's standing instruction: **this is an ever-improving program.** It applies the original's XXVI in full and gives it teeth.
+
+54.1 **Duty to fix.** When a run notices a fundamental issue in the program, or a pattern that repeats (the same kind of failure, wasted step, tooling friction, bad choice or stall appearing in two or more runs), it does not just log it. It studies the root cause (original XVII, XIX) and fixes it, in the same run if possible and otherwise as the next run's first task. Noticing and not fixing is a defect.
+
+54.2 **Pattern hunting.** The daily review (53.3) also reads the last day's run records and `LEDGER.md` looking for repeated patterns: steps that keep failing, time that keeps going to the same non-result work, checks that never catch anything, instructions runs keep misreading. Each pattern found gets a root cause and a fix or a written reason why no fix is needed.
+
+54.3 **What the program may change by itself:** `PROMPT.md`, this annex, the operative core, `STATE.md` structure, file layout, scripts, the CI workflow (only to strengthen or repair it; 39.5 still applies to anything that would weaken it), the Lean project setup, and its own working methods. The program owns these files. Alexander may also edit them, and his instructions win.
+
+54.4 **What it may not change:** the verbatim original constitution (`00_ORIGINAL_CONSTITUTION.md`); the evidence, integrity and honesty standards (XXXVIII, XXXIX, XL, XLIII); the rule that weakening the judge needs Alexander; the no-contact rule (47.1). Improvement means getting better at producing checked results, never making it easier to call something a result.
+
+54.5 **Every change is an experiment** (original 26.1). Log it in `LEDGER.md` with: the problem, its root cause, the change, what it should improve, and how a later run will tell. A later run checks the effect and keeps or reverses the change (original 26.4). After any governance edit: bump the annex version, regenerate `CONSTITUTION_COMPLETE.md` and `governance/SHA256SUMS`.
+
+54.6 **The scheduled task's stored prompt never needs replacing.** It only says: attach the repository, read `PROMPT.md`, follow it. Every instruction that can change lives in the repository, so the program fixes itself by editing the repository. If a run ever concludes that something outside the repository must change (the schedule's frequency, a permission, an account setting), it messages Alexander with the exact change and why (L.2), and keeps working within what it can change meanwhile.
+
+54.7 **Improvement is measured in results.** A change counts as an improvement only if later runs produce more AUDITED + PROVED results or findings, fewer wasted runs, or faster recovery (original 26.2, 26.3). New rules, prompts or documents are not improvements by themselves.

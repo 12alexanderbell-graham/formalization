@@ -30,3 +30,8 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 - Positive control 2, branch `control/axiom-in-checked`: run 40967118310 FAILED as required; axiom-audit reported `Checked.control_uses_axiom → [Checked.control_bad_axiom]`.
 - Both caught by axiom-audit inside the lean-action step, before the grep backstop ran. Branches kept, not merged.
 - Remaining judge gap: nanoda report-only (see entry above).
+
+## 2026-10-30 · governance · annex v3.1 → v3.2 (LIV, ever-improving)
+- Alexander's standing instruction: the program improves itself; when it notices a fundamental issue or a repeated pattern it studies and fixes it; he should never need to replace the scheduled task's prompt.
+- Added annex LIV (duty to fix, daily pattern hunting, what runs may and may not change, every change logged as an experiment and evaluated later, stored prompt never needs replacing), a matching block in the operative core, and item 7 in PROMPT.md. Scheduled task prompt updated once, from the setup chat, to say the program maintains its own instructions.
+- How to tell if it works: patterns logged in LEDGER get fixes within a run or two, and later runs record whether each fix helped.
