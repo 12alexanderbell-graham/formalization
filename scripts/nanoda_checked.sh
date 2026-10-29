@@ -3,6 +3,8 @@
 # written separately from Lean's own kernel). Adapted from leanprover/lean-action v1.7.0
 # scripts/run_nanoda.sh, which could not detect our module name. Part of the judge (annex 39.5).
 set -euo pipefail
+# Axiom settings match lean-action upstream: nanoda is the independent type checker here.
+# The axiom judge for our own declarations is axiom-audit (allowlist: propext, Classical.choice, Quot.sound).
 MODULE_NAME="Checked"
 rm -rf _lean4export _nanoda_lib _nanoda_export.txt _nanoda_config.json
 git clone --depth 1 https://github.com/leanprover/lean4export.git _lean4export
