@@ -34,8 +34,8 @@ jobs:
           axiom-audit-root: "Checked"
           leanchecker: "true"
           leanchecker-args: "Checked"
-          nanoda: "true"
-          nanoda-allow-sorry: "false"
+      - name: Independent type check of Checked with nanoda
+        run: scripts/nanoda_checked.sh
       - name: No sorry / axiom / native_decide in Checked sources (belt and braces)
         run: |
           if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
