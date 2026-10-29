@@ -1,0 +1,16 @@
+name = "Formalization"
+defaultTargets = ["Checked", "Work"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.35.0"
+
+# Promoted results only. CI fails on any sorry, non-standard axiom,
+# kernel-replay failure or nanoda failure. Declarations live in namespace `Checked`.
+[[lean_lib]]
+name = "Checked"
+
+# Drafts. sorry allowed. Declarations live in namespace `Work`.
+[[lean_lib]]
+name = "Work"

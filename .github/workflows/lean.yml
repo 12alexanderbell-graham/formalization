@@ -1,0 +1,43 @@
+# The external judge (annex XXXIX). Changing this file is an integrity event (annex 39.5):
+# log it in LEDGER.md, and never weaken a check without Alexander's explicit approval.
+name: Lean judge
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  work:
+    name: work (drafts, sorry allowed)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: leanprover/lean-action@v1.7.0
+        with:
+          use-mathlib-cache: "true"
+          build-args: "Work"
+
+  checked:
+    name: checked (strict)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: leanprover/lean-action@v1.7.0
+        env:
+          LEAN_NUM_THREADS: "1"
+        with:
+          use-mathlib-cache: "true"
+          build-args: "Checked"
+          axiom-audit: "true"
+          axiom-audit-allow: "propext,Classical.choice,Quot.sound"
+          axiom-audit-root: "Checked"
+          leanchecker: "true"
+          leanchecker-args: "Checked"
+          nanoda: "true"
+          nanoda-allow-sorry: "false"
+      - name: No sorry / axiom / native_decide in Checked sources (belt and braces)
+        run: |
+          if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
+            echo "Forbidden token found in Checked"; exit 1
+          fi
