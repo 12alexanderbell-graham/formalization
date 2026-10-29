@@ -15,7 +15,7 @@ Read fresh every run. Alexander may edit this file at any time; the latest versi
 
 `STATE.md` says what is done. Until these are done, they come first:
 
-**S1. Prove the judge works.**
+**S1. Prove the judge works. DONE 2026-10-30 (see LEDGER). Skip.**
 - Push a commit and confirm both CI jobs (`work`, `checked`) go green on the trivial placeholder theorem.
 - Positive controls on a throwaway branch: a `sorry` in `Checked` must make CI fail; a custom `axiom` used in `Checked` must make CI fail. Record the run IDs. Delete nothing; leave the branches.
 - If any check in the workflow doesn't work as intended, fix the workflow and log it in `LEDGER.md` as an integrity event (annex 39.5).

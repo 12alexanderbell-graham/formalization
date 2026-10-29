@@ -4,3 +4,5 @@
 - Created the repository layout, governance files, Lean skeleton and CI workflow.
 - Reassembled Alexander's original constitution from five uploaded parts; SHA-256 4a34f9846fafce3b5d760d4b1dcec37eebe21247604666d48eb0a7ae86bc394e matches the hash in his v2.0 file.
 - CI never run yet. Local Lean install refused by the environment.
+- CI judge set up and proven: green on main (run 40967111191); positive controls on `control/sorry-in-checked` and `control/axiom-in-checked` failed as required, both caught by axiom-audit. nanoda report-only (format mismatch). S1 done.
+- Scheduled task "Formalization run" created: every 2 hours (12 runs a day), cloud only.
