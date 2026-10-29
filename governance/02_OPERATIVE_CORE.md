@@ -13,10 +13,14 @@ Compact checklist. The binding text is `01_CONSTITUTION_FORMALIZATION.md` plus t
 3. Write down the bottleneck, and what a yes or a no would change. (Original IX)
 4. Do the hard work on it for the whole run. Hardest part first. Understand in plain words before typing Lean. (Original IV, XII; XLIV)
 5. Two strikes on the same approach: change approach and record why. (XLIV)
-6. Anything promoted to `Checked`: fidelity audit first. (XL)
+6. Headline statements and definitions promoted to `Checked`: fidelity audit first. Helper lemmas don't need it. (XL, 40.0)
 7. Anything that looks like a finding or a big result: preserve, freeze, attack, referee subagent, prior-art check, then tell Alexander. (Original XXVIII, XXIX; XLVII.2)
 8. Push, confirm the remote head equals your commit, read CI by run ID. (39.8)
 9. Write the run record front page, update `LEDGER.md`, `BLUEPRINT.md`, `CHANGELOG.md`, rewrite `STATE.md` with the exact next step. Remove `LOCK`. (LI, 48.5)
+
+## Pace (LIII)
+
+Target pick ≤ 2 runs · first milestone through the whole pipeline ≤ 3 runs after the pick · daily review line in `STATE.md` · 24 runs with no new AUDITED + PROVED headline or finding = diagnose, change approach, tell Alexander · records short.
 
 ## Statuses (XXXVIII)
 

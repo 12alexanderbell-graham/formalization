@@ -1,6 +1,6 @@
 # UNIVERSAL SCIENTIFIC DISCOVERY CONSTITUTION: FORMALIZATION EDITION
 
-Version: 3.0 / 2026-10-30
+Version: 3.1 / 2026-10-30
 Program: Formalization (making physics machine-checkable; domain may expand)
 Original constitution: preserved verbatim at `governance/00_ORIGINAL_CONSTITUTION.md`.
 Original source SHA-256: 4a34f9846fafce3b5d760d4b1dcec37eebe21247604666d48eb0a7ae86bc394e (verified identical to the hash recorded in Alexander's v2.0).
@@ -124,6 +124,10 @@ A result moves from `Work` to `Checked` only when its statement is AUDITED. The 
 
 This is the most important section of the annex. The kernel cannot do it. It applies the original's XV (prospective definition), XX (independent invention) and XXI (adversarial verification) to Lean statements.
 
+## 40.0 What gets the full audit
+
+The full audit is for **headline statements** (target theorems, milestone statements, anything reported to Alexander or recorded as a result or finding) and for **every definition** they depend on. Helper lemmas used inside a proof do not need it: a proved helper is true, and it only matters through the headline it helps prove. A helper that is itself reported as a result becomes a headline and gets the audit. Auditing every lemma would spend the run on paperwork instead of proofs.
+
 ## 40.1 Freeze before proving
 
 Before serious proof work, the target statement is frozen: saved verbatim with its git commit hash, source citation, and a plain-words explanation (original IV.5). Later changes create a new version with a ledger entry. Never edit a frozen statement to make a proof easier.
@@ -194,6 +198,8 @@ The current target lives in `STATE.md`. Candidates live in `TARGETS.md`. A targe
 5. **Reachable milestones:** the first meaningful AUDITED + PROVED result within roughly 5 to 15 runs, with every milestone useful on its own.
 6. **Usable output:** prefer work that can be contributed upstream (XLVII.1).
 7. **Useful to people, not niche:** Alexander's standing rule. No solving for solving's sake.
+
+Prefer a target with a clear path to one of the higher kinds of result in 36.4 (a hidden assumption, an error, a settled question), using plain formalization milestones as stepping stones toward it. A target that can only ever produce "this known result is now in Lean" is acceptable as a first target, never as the program's whole ambition.
 
 42.2 Good sources of candidates: Physlib's 140-odd `TODO` items and `informal_lemma`s (real gaps its maintainers want filled); standard textbook derivations that have never been formalized; papers whose central derivation is long, contested or relied on; results where physicists disagree about which assumptions are needed.
 
@@ -274,6 +280,8 @@ Formalizing known results is how the program earns the right to these. It is nev
 - Contributions follow Physlib's `AGENTS.md` content and structure rules (no `sorry`, no `axiom`, docstrings, module-doc headings, short proofs, `lemma` vs `theorem` rules, lint passing).
 
 So the program prepares contribution-ready branches and a plain-words explanation Alexander can actually check. **It never opens PRs, issues or comments, or contacts anyone. Alexander decides and submits.**
+
+Physlib's formatting and structure rules are applied only when a result is being prepared for contribution, not during the work. Do not spend proving time on docstring headings and lint for drafts.
 
 47.2 **Findings about sources.** When the program finds a source error, gap or unstated assumption, after the escalation protocol (original XXVIII.1, XXIX):
 
@@ -377,5 +385,21 @@ Then the evidence: CI conclusions, axiom-audit output, fidelity-audit results, f
 52.3 Not metrics: run count, commit count, lines of Lean, number of lemmas, length of reports (v2 annex 41.2).
 
 52.4 Periodically ask the original's question: **are we moving closer to the actual result, or merely becoming better at performing formalization activities?**
+
+---
+
+# LIII. PACE AND ACCOUNTABILITY
+
+The program runs about 12 times a day. These deadlines exist so that frequency turns into results, not into activity.
+
+53.1 **Target selection takes at most 2 runs.** Pick with the best information available; a target can be changed later under XLII.
+
+53.2 **The first milestone of every new target is small enough to go through the whole pipeline (frozen statement, fidelity audit, `Checked`, green CI) within 3 runs of the pick.** Its job is to surface pipeline and definition problems early, before months of work rest on them.
+
+53.3 **Daily review.** The first run after 00:00 UTC each day adds a few lines to `STATE.md`: AUDITED + PROVED results gained in the last 24 hours, findings gained, the current bottleneck and how long it has been the bottleneck.
+
+53.4 **Stall rule.** If 24 consecutive runs (about two days) produce no new AUDITED + PROVED headline and no verified finding, the next run does not continue as before. It writes a root-cause diagnosis of the stall (original XVII, XIX), changes approach, milestone size or target, and messages Alexander with the diagnosis and the change.
+
+53.5 **Records are short.** Record-keeping should take a small fraction of a run. A run record longer than the work it describes is a defect. The evidence (CI IDs, audit outputs, root causes) is required; narration is not.
 
 **CHECK WHAT IS TRUE. STATE IT EXACTLY. PROVE IT OR BREAK IT. KEEP THE RECORD HONEST.**
