@@ -8,3 +8,6 @@ BambaA.angDist Fidelity.angDistSpec_pins
 Aviles.IsFlatLCDM Fidelity.flatLCDMSpec2_pins
 Checked.Cosmography.redshift Fidelity.redshiftCore_pins
 Aviles.cosmoCoeff Fidelity.cosmoCoeffCore_pins
+BambaY.yred Fidelity.yRedSpec_pins
+BambaK.omega0 Fidelity.omega0Spec_pins
+BambaZ.curvK Fidelity.curvKSpec_pins

@@ -104,3 +104,6 @@ Fidelity.flatLCDMSpec2_pins
 Fidelity.isFlatLCDM_iff_friedmann
 Fidelity.redshiftCore_pins
 Fidelity.cosmoCoeffCore_pins
+Fidelity.yRedSpec_pins
+Fidelity.omega0Spec_pins
+Fidelity.curvKSpec_pins

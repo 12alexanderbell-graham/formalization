@@ -130,3 +130,10 @@ Checked.Fidelity.HubbleSpec SPEC
 Checked.Fidelity.LumDistSpec SPEC
 Checked.Fidelity.LumDistSpec2 SPEC
 Checked.Fidelity.coshBounce WITNESS
+Checked.Fidelity.RayOK SPEC
+Checked.Fidelity.RedshiftSpecCore SPEC
+Checked.Fidelity.CoeffOK SPEC
+Checked.Fidelity.CosmoCoeffSpecCore SPEC
+Checked.Fidelity.YRedSpec SPEC
+Checked.Fidelity.Omega0Spec SPEC
+Checked.Fidelity.CurvKSpec SPEC
