@@ -15,7 +15,7 @@ Bottleneck now: curvature in Lean. C6/C7 (the review's curvature terms at y³, y
 - **PROVED** (F2) `Checked.Cosmography.CPL.flatCPL_coeffs`, `printedL0_ne`, `clsL0Claim_false`; `CPLExistence.exists_flatCPL`, `printedL0_false_at`, tool `exists_local_model`: run 0430Z (CI 41007523313, 41007796446 green).
 - **PROVED** (F3) `Checked.Cosmography.CCS.lookback_fifth_order`, `printedD4_fails`, `printedD4_fails_past`, `ccsD4Claim_false`, `ccsD4ClaimPast_false`: run 0628Z (promotion dac809b, CI 41019261348 green).
 - **PROVED** (F4) `Checked.Cosmography.BambaY.lumDist_y_third_order` (flat d_L(y) to y³, any C³ a, d_L from ∫dt/a), `printedD2y_fails`, `printedD2y_fails_past`, `bambaD2yClaim_false`, `bambaD2yClaimPast_false`. Audit `runs/2026-10-30T0828Z/audit.md`. Promotion c22016e, CI 41034616298 green (build, leanchecker, axiom-audit, nanoda).
-- **PROVED** (F5) `Checked.Cosmography.CVdQ.dQ_y_third_order` (flat d_Q(y) to y³), `printedQ2_fails_past`, `cvdQClaim_false`, `cvdQClaimPast_false`. Audit same file, section C1. Promotion 2d9e567, CI 41036122533 CI_RESULT.
+- **PROVED** (F5) `Checked.Cosmography.CVdQ.dQ_y_third_order` (flat d_Q(y) to y³), `printedQ2_fails_past`, `cvdQClaim_false`, `cvdQClaimPast_false`. Audit same file, section C1. Promotion 2d9e567, CI 41036122533 green (build, leanchecker, axiom-audit, nanoda).
 - **Findings F1–F5** (FINDINGS.md): all verified and reported to Alexander (F4, F5 this run).
 - Candidates C6, C7 (Bamba et al. 2012 Eqs. 10.55–10.57, 10.61–10.63: curvature terms of D³, D⁴ in y): two routes (screen subagent run 0628Z; referee run 0828Z with own sympy to y⁵ + Milne + open-dust Mattig). C8 one route. R⁵_D misprint in CCS 2008 (A5): sympy + typeset only.
 
@@ -38,7 +38,7 @@ Bottleneck now: curvature in Lean. C6/C7 (the review's curvature terms at y³, y
 None. F4, F5 sent as information (any contact with authors is his call, 47.1).
 
 ## Exact next step
-1. If the F5 line above does not say green, read CI 41036122533 by ID first.
+1. Read CI of this run's last commits (e55dab6 and the LOCK-removal commit) by ID.
 2. Curved d_L (why: unblocks C6, C7 and the curved halves of F4/F5): `Work/Cosmography/Transverse.lean` already has `transverse K χ` (Bamba Eq. 10.28 for general K: sin/identity/sinh) and `transverse_expansion` (S_K(χ) = χ − Kχ³/6 + K²χ⁵/120 + o(χ⁵) for every K; proved this run, no sorry, via the ODE S′ = C, C′ = −KS and five `littleO_of_hasDerivAt` steps; helper, move to Checked with the C6 headline); then a fifth-order curved version of `lumDist_y_third_order` (sympy generator like `runs/2026-10-30T0828Z/scripts/gen_dly.py`, A to x⁵, B to x⁴). Freeze the C6 claim (10.55)–(10.57) first; witness Milne (a = t, K = −1, exact H₀d_L = z + z²/2) for D³_{L,y}; C7 via d_A = d_L(1−y)².
 3. Screen Sec. XI of 1205.3421 (pp. 112–125) with the run-0628Z subagent brief; ask for whole equation blocks.
 4. Optional: R⁵_D (CCS 2008 A5): χ(x) to x⁶ via `littleO_of_hasDerivAt`.

@@ -38,7 +38,7 @@
 - Hub screen of Bamba et al. 2012 Sec. 10: candidates C5–C8 (C5 sign error confirmed by a second route; upstream source correct). CI 41019261348 (promotion) green.
 
 ## 2026-10-30T0828Z (scheduled run)
-- Env: repo ok (pre-cloned); local Lean via elan ok; CI runs 41026700321, 41027239565, 41032795335, 41034616298, 41034875158 green; F5 promotion CI in STATE.
+- Env: repo ok (pre-cloned); local Lean via elan ok; CI runs 41026700321, 41027239565, 41032795335, 41034616298, 41034875158, 41035264438, 41036122533 green (F4 and F5 promotions incl. nanoda).
 - **Verified finding F4** (Bamba et al. 2012 review Eq. 10.54: sign of the y-redshift d_L coefficient D²_{L,y}; upstream correct; review's own d_A,y contradicts it). **Verified finding F5** (Cattoën–Visser 2007 Eq. 59, also gr-qc/0703122 and 0809.0537 Eq. 32: d_Q(y) y² prefactor 1/12 → 1/24). PROVED + AUDITED in Checked: general flat d_L(y) and d_Q(y) to third order (d_L from the comoving integral), refutations of the printed coefficients. Blind restatements closed in Lean; referees STANDS-WITH-CORRECTIONS. C6, C7 confirmed by a second route.
 - New tools: `littleO_of_hasDerivAt` (MVT: integrals, real powers), `rpow_expansion`; Work helper `transverse_expansion` (curved S_K to χ⁵, every K) for C6/C7.
 - PROMPT notes: MVT method; heartbeat trap; referee as second route. LEDGER: 0628Z experiments evaluated (keep).

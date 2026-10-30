@@ -6,7 +6,7 @@ Environment: repo pre-cloned (add_repo not exposed; not needed), pushes verified
 
 **WHAT WE ACTUALLY DID:** froze, proved, audited (blind restatement closed in Lean both ways), refereed and promoted two candidates: general flat d_L(y) and d_Q(y) to third order in y (luminosity distance from the comoving integral), with refutations of the printed coefficients.
 
-**RESULT:** PROVED + AUDITED: `Checked.Cosmography.BambaY.{lumDist_y_third_order, printedD2y_fails, printedD2y_fails_past, bambaD2yClaim_false, bambaD2yClaimPast_false}` (CI 41034616298 green) and `Checked.Cosmography.CVdQ.{dQ_y_third_order, printedQ2_fails_past, cvdQClaim_false, cvdQClaimPast_false}` (CI in STATE). Verified findings **F4** (Bamba et al. 2012 Eq. 10.54 sign) and **F5** (Cattoën–Visser 2007 Eq. 59, 1/12 → 1/24). C6, C7 confirmed by a second route (referee).
+**RESULT:** PROVED + AUDITED: `Checked.Cosmography.BambaY.{lumDist_y_third_order, printedD2y_fails, printedD2y_fails_past, bambaD2yClaim_false, bambaD2yClaimPast_false}` (CI 41034616298 green) and `Checked.Cosmography.CVdQ.{dQ_y_third_order, printedQ2_fails_past, cvdQClaim_false, cvdQClaimPast_false}` (CI 41036122533 green). Verified findings **F4** (Bamba et al. 2012 Eq. 10.54 sign) and **F5** (Cattoën–Visser 2007 Eq. 59, 1/12 → 1/24). C6, C7 confirmed by a second route (referee).
 
 **ACTUAL IMPROVEMENT:** first luminosity-distance theorems (integral of 1/a, not lookback time); MVT tool for integrals and real powers; two findings in one run.
 
