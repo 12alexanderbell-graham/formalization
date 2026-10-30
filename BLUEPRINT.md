@@ -6,7 +6,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `peano3` (3rd order): PROVED in Work (helper; copy in Checked).
 - M1 `lookback_second_order` (o(z²)): **PROVED** (Checked, AUDITED).
 - M1b `lookback_second_order_bigO` (O(z³), C³): **PROVED** (Checked, AUDITED).
-- M2 d_L = (c/H₀)[z + ½(1 − q₀)z² + o(z²)], needs χ = c∫dt/a expansion and r = S_k(χ): not started.
+- M2 d_L = (c/H₀)[z + ½(1 − q₀)z² + o(z²)], needs χ = c∫dt/a expansion and r = S_k(χ): **flat case done in y** (F4 node; to y³); z version and curved S_k not started.
+- Tool `littleO_of_hasDerivAt` (R(t₀)=0, R′ = o((t−t₀)ⁿ) ⇒ R = o((t−t₀)ⁿ⁺¹); mean-value inequality) + FTC for χ = ∫dt/a: **PROVED** (Checked, in `BambaDLy`). Gives the comoving distance to any order from the Taylor polynomial of 1/a.
 - M3 d_L z³ coefficient −(1/6)[1 − q₀ − 3q₀² + j₀ + kc²/(H₀²a₀²)] (curvature enters): not started.
 - M4 series inversion to fifth order: **done for lookback time** (`Checked.Cosmography.CCS.inversion`: if u = A(x) + o(x⁵) with A the quintic of (A1), then x − P(1/u − 1) = o(x⁵); truncated-power method with sympy-generated remainder polynomials, `runs/2026-10-30T0628Z/scripts/gen2.py`). Reusable for d_L, d_Q, χ series (C1, M2, M3) by changing A and P.
 - F1 (was C2) `flatLCDM_coeffs`, `avilesL0Claim_false`, `avilesM0Claim_false`, `printedL0_false_at`, `printedM0_false_at`: **PROVED** (Checked, AUDITED). Method reusable: polynomial Friedmann identity, repeated `step`, generated certificates.
@@ -14,3 +15,5 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - F3 (was C3) `Checked.Cosmography.CCS.lookback_fifth_order` (general fifth-order lookback series, any C⁵ a), `printedD4_fails`, `printedD4_fails_past`, `ccsD4Claim_false`, `ccsD4ClaimPast_false`: **PROVED** (Checked, AUDITED; CI in STATE).
 - R⁵_D (CCS 2008 A5, comoving distance in powers of H₀D/c, l₀/6 vs l₀/720): sympy only; would need χ(x) = ∫dx/A(x) expansion (Taylor of 1/a, integrate): not started.
 - C1 refutation (d_Q(y) y² coefficient): needs d_L to O(z³) (M3) or an explicit model; not started.
+- F4 (was C5) `Checked.Cosmography.BambaY.lumDist_y_third_order` (flat d_L(y) to y³, any C³ a), `printedD2y_fails`, `printedD2y_fails_past`, `bambaD2yClaim_false`, `bambaD2yClaimPast_false`: **PROVED** (Checked, AUDITED; CI in STATE).
+- C6/C7 (curvature terms of D³,D⁴ in y for d_L, d_A): need S_K(χ) = χ − Kχ³/6 + K²χ⁵/120 + o(χ⁵) and the fifth-order version of the F4 theorem: not started (second route done).
