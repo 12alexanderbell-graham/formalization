@@ -361,10 +361,31 @@ def CCSD4ClaimPast : Prop :=
 theorem printedD4_fails_past (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
     (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0) (hq : decel a t₀ ≠ 0) :
     ¬ (fun t => remainder printedD4 a t₀ t) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5) := by
-  sorry
+  intro hp
+  have hc := (lookback_fifth_order a t₀ ha ha0 hH).mono (nhdsWithin_le_nhds (s := Set.Iio t₀))
+  set c : ℝ := -(21 / 8 * decel a t₀ ^ 4) with hcdef
+  have hc0 : c ≠ 0 := neg_ne_zero.2 (mul_ne_zero (by norm_num) (pow_ne_zero 4 hq))
+  have hdiff : (fun t => c * redshift a t₀ t ^ 5) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5) := by
+    refine (hp.sub hc).congr' (Eventually.of_forall fun t => ?_) EventuallyEq.rfl
+    simp only [remainder, series, printedD4, correctD4, hcdef]; ring
+  have hself : (fun t => redshift a t₀ t ^ 5) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5) :=
+    (hdiff.const_mul_left c⁻¹).congr' (Eventually.of_forall fun t => by
+      simp only; rw [← mul_assoc, inv_mul_cancel₀ hc0, one_mul]) EventuallyEq.rfl
+  have hd : DifferentiableAt ℝ a t₀ := ha.differentiableAt (by norm_num)
+  have hev := (hasDerivAt_redshift a t₀ hd ha0).eventually_ne (c := 0) (neg_ne_zero.2 hH)
+  have hev' : ∀ᶠ t in 𝓝[<] t₀, redshift a t₀ t ≠ 0 :=
+    nhdsWithin_mono t₀ (fun t (ht : t < t₀) => ne_of_lt ht) hev
+  have hfreq : ∃ᶠ t in 𝓝[<] t₀, ‖redshift a t₀ t ^ 5‖ ≠ 0 :=
+    (hev'.mono fun t ht => by simpa using ht).frequently
+  exact isLittleO_irrefl' hfreq hself
 
 /-- The past-only reading of the printed claim is false (de Sitter). -/
 theorem ccsD4ClaimPast_false : ¬ CCSD4ClaimPast := by
-  sorry
+  intro h
+  have hH : hubble Real.exp 0 = 1 := by simp [hubble, Real.deriv_exp]
+  have hq : decel Real.exp 0 = -1 := by simp [decel, Real.deriv_exp]
+  exact printedD4_fails_past Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
+    (by rw [hH]; norm_num) (by rw [hq]; norm_num)
+    (h Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [hH]; norm_num))
 
 end Work.Cosmography.CCS
