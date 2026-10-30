@@ -50,6 +50,16 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
 - **Referee (subagent, independent):** STANDS-WITH-CORRECTIONS (adopted: not flat-only; the review extends rather than reproduces CV Eq. (52); crop label).
 - **Errata:** none found (arXiv v1–v3 identical; web search).
 
+### F5 (was C1). Cattoën & Visser, Class. Quantum Grav. 24, 5985 (2007), arXiv:0710.1887v1, Eq. (59) (also gr-qc/0703122 v1–v3 and arXiv:0809.0537v1 Eq. (32)): deceleration-distance y² coefficient 1/12 should be 1/24
+- **Printed:** d_Q(y) = d_H y{1 − (q₀/2)y + **(1/12)**[3 − 2q₀ + 12q₀² − 4(j₀ + Ω₀)]y² + O(y³)}, d_Q = d_L/(1+z)^{3/2} (their Eq. 5), y = z/(1+z), Ω₀ = 1 + kc²/(H₀²a₀²) (typeset: `runs/2026-10-30T0220Z/typeset/C1_cv2007_eq58_60.png`; referee re-rendered all available versions).
+- **Correct:** prefactor **1/24** (curvature-independent). The papers' own ln d_Q series (0710.1887 Eq. 64, 0809.0537 Eq. 37, gr-qc/0703122 Eq. 65) correspond to 1/24. De Sitter: exact H₀d_Q = y(1−y)^{−1/2}: 3/8 vs printed 3/4; Einstein–de Sitter: −1/8 vs −1/4.
+- **Lean evidence (Checked, promotion CI in STATE):** `Checked.Cosmography.CVdQ.dQ_y_third_order` (flat FLRW, every scale factor C³ at t₀, a(t₀), H₀ ≠ 0: H₀d_Q = y[1 − (q₀/2)y + Q²y²] + o(y³) with Q² over 24; uses `Real.rpow` and the F4 theorem); `printedQ2_fails_past` (printed fails in every flat such model with −1 − 2q₀ + 12q₀² − 4j₀ ≠ 0); `cvdQClaim_false`, `cvdQClaimPast_false` (flat de Sitter).
+- **Classification:** Source error (misprint), carried through three papers of the same authors. **Scope:** no numerical result affected: 0809.0537's fits use the (correct) logarithmic series; 0710.1887 has no fits. A reader using the displayed d_Q(y) formula gets the y² term doubled.
+- **Plain words:** in a series used to compare supernova distances with cosmological parameters, one printed fraction is twice what it should be; the authors' own logarithmic version (which they actually fit) is right.
+- **Fidelity audit:** `runs/2026-10-30T0828Z/audit.md` (section C1; blind restatement closed in Lean both ways, `Work/Cosmography/CVdQAudit.lean`).
+- **Referee (subagent, independent):** STANDS-WITH-CORRECTIONS (adopted: origin is gr-qc/0703122; d_Q is Eq. 5). All 14 other series in 0710.1887 check out.
+- **Errata:** none found (only v1 of 0710.1887 and 0809.0537; web search).
+
 ## Candidates under verification (UNVERIFIED, not findings)
 
 From the literature screen of run 2026-10-30T0028Z (`runs/2026-10-30T0028Z/screen/SCREEN_REPORT.md`). Protocol before any of these becomes a finding (original XXVIII.1, XXIX; annex 47.2):
@@ -62,7 +72,8 @@ From the literature screen of run 2026-10-30T0028Z (`runs/2026-10-30T0028Z/scree
 
 | ID | Source | Claim to check | Status |
 |---|---|---|---|
-| C1 | Cattoën & Visser 2007 (0710.1887v1) Eq. 59; repeated 2008 (0809.0537v1) Eq. 32 | d_Q(y) y²-coefficient printed 1/12, should be 1/24 (paper's own Eq. 64 and 0809.0537 Eq. 17 agree with 1/24) | typeset CONFIRMED as printed (rendered PDF); sympy + hand check; no erratum. Next: Lean |
+| C1 | → **F5** (run 0828Z) | — | — |
+| (C1 history) | Cattoën & Visser 2007 (0710.1887v1) Eq. 59; repeated 2008 (0809.0537v1) Eq. 32 | d_Q(y) y²-coefficient printed 1/12, should be 1/24 (paper's own Eq. 64 and 0809.0537 Eq. 17 agree with 1/24) | typeset CONFIRMED as printed (rendered PDF); sympy + hand check; no erratum. Next: Lean |
 | C2 | Aviles et al. 2012 | — | → **F1** |
 | C5 | Bamba et al. 2012 | — | → **F4** |
 | (C5 history) | Bamba, Capozziello, Nojiri, Odintsov 2012 (1205.3421) Eq. (10.54), d_L in y = z/(1+z) | D²_{L,y} printed −(1/6)(12−5q₀+3q₀²−j₀−Ω₀); overall sign wrong | typeset read twice (screen subagent; main session read crop); hand check flat de Sitter d_L = y/(1−y)²: D² = 3, printed −3. Upstream Cattoën–Visser 2007 (0710.1887v1) Eq. (52) has the correct + sign (typeset read; `runs/2026-10-30T0628Z/screen_bamba/upstream_*`): error introduced in the review. Next: Lean (flat de Sitter d_L = z(1+z) suffices) |

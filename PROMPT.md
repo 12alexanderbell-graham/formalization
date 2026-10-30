@@ -15,7 +15,7 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 
 ## Current phase: work target 1
 
-S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1, F2, F3 (FINDINGS.md); candidate C1 is typeset-confirmed and needs Lean evidence.
+S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1–F5 (FINDINGS.md); candidates C6–C8 (Bamba et al. 2012 Sec. X curvature terms) are next.
 
 ## Working notes (maintained by runs, annex LIV)
 
@@ -32,3 +32,6 @@ S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmog
 - **Screen hubs, not single papers** (run 0628Z): F2 and F3 were both copied into the same review (Bamba et al. 2012, arXiv:1205.3421) and into other papers of the same group. When a finding's source has a review or follow-up that reprints it, check every formula in that reprint's section with sympy.
 - **Records quote FINDINGS, not memory:** STATE once misdescribed C3's error (said −l₀/120 was wrong; it is the q₀⁴ term). When STATE or a message names a formula error, copy it from the FINDINGS row or the typeset crop.
 - **Commit attribution:** end every commit message with the attribution trailer lines given in the session's system reminder (write the message with `git commit -F <file>`). Runs 0430Z and 0628Z forgot it on several commits.
+- **Integrals and real powers without iterated derivatives** (run 0828Z): `Checked.Cosmography.BambaY.littleO_of_hasDerivAt` (R(t₀) = 0, R′ = o((t−t₀)ⁿ) ⇒ R = o((t−t₀)ⁿ⁺¹), mean-value inequality). Comoving distance: R = a₀H₀χ − P(x) with P = ∫ of the truncated 1/A, R′ from FTC (`intervalIntegral.integral_hasDerivAt_left`). Real powers: apply it twice (`CVdQ.rpow_expansion`). Then multiply expansions and close with a sympy polynomial identity (`scripts/gen_dly.py`, `gen_dq.py`).
+- **Heartbeat trap** (run 0828Z, cost ~25 min): inside a long proof with `set x := … with hx` variables, `fun_prop`/`unfold` on big polynomials and `Tendsto` ascriptions over them time out (whnf unfolds the `set` bodies). Put every continuity/boundedness fact about generated polynomials in a standalone lemma (`cont_W3`, `bdd_Q3`) and use `CCS.bdd`. Bisect slow proofs by truncating with `sorry` (one job at a time: the box has 2 cores).
+- **Second route by the referee:** the referee subagent's own derivation counts as the second route for sibling candidates in the same source (C6, C7 confirmed this way in run 0828Z); ask referees to check the whole equation block, not only the claim.

@@ -114,3 +114,18 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 - STATE (run 0430Z) misstated C3's error (named the l₀ term); caught by sympy before any Lean work. PROMPT note: quote FINDINGS/crops, not memory.
 - This run's commits before the records commit lack the attribution trailer (second run in a row). PROMPT note added. No history rewriting (48.3).
 - Referee subagent read the arXiv abs listing via export.arxiv.org after WebFetch timed out (PROMPT lists it among routes not to use); no finding content relies on it. Next referee prompts: say "if arxiv.org/abs is unreachable, report it; do not use mirrors".
+
+## 2026-10-30 · run 2026-10-30T0828Z · verified findings F4, F5
+- C5 → **F4**: Bamba et al. 2012 (arXiv:1205.3421 v1–v3) Eq. (10.54): D²_{L,y} overall sign wrong (+ in upstream Cattoën–Visser 2007 Eq. 52); review's own d_A,y contradicts it. Frozen 6636035 → PROVED in Work 819f3be (CI 41032795335 green) → AUDITED (`runs/2026-10-30T0828Z/audit.md`, blind closed in `Work/Cosmography/BambaDLyAudit.lean`) → promoted c22016e (CI 41034616298 green: build, leanchecker, axiom-audit, nanoda): `Checked.Cosmography.BambaY.lumDist_y_third_order`, `printedD2y_fails[_past]`, `bambaD2yClaim[Past]_false`. Referee STANDS-WITH-CORRECTIONS (error holds for all curvature; not in Lean).
+- C1 → **F5**: Cattoën–Visser 2007 Eq. (59) (also gr-qc/0703122, 0809.0537 Eq. 32): d_Q(y) y² prefactor 1/12 → 1/24. Frozen d18789a → PROVED in Work 63610cd → AUDITED (audit.md §C1, blind closed in `Work/Cosmography/CVdQAudit.lean`) → promoted 2d9e567 (CI: see STATE): `Checked.Cosmography.CVdQ.dQ_y_third_order`, `printedQ2_fails_past`, `cvdQClaim[Past]_false`. Referee STANDS-WITH-CORRECTIONS.
+- C6, C7: second route done (referee's independent sympy to y⁵, Milne and open-dust Mattig exact checks): differences confirmed. Lean pending (curved S_K).
+- Correction: `source_C1.md` first cited d_Q as Eq. 3 (it is Eq. 5); `typeset/C5_p110_Omega0_def_eq10.52-53.png` shows only the Ω₀ definition (name overstates). Corrected in text, files kept.
+
+## 2026-10-30 · experiment (annex LIV) · evaluation of run 0628Z experiments
+- Truncated-power method: reused for d_L(y) and d_Q(y) (both theorems ≤ 10 local iterations each). KEEP.
+- Hub screening: C5 from the hub screen became F4 in one run; C6, C7 confirmed. KEEP.
+- Commit attribution note: every commit of run 0828Z carries the trailer. KEEP.
+
+## 2026-10-30 · experiment (annex LIV) · heartbeat trap and MVT tool
+- Problem: main d_L(y) proof timed out (whnf, 2M heartbeats) with no error location; ~25 min lost bisecting. Root cause: `fun_prop`/`Tendsto` ascriptions on large generated polynomials inside a context full of `set` variables. Change: standalone continuity/boundedness lemmas; PROMPT note with bisection advice. Effect seen: elaboration 3.5 min → 25 s, no heartbeat option. How to tell: next generated-polynomial proofs should need no heartbeat options.
+- New tool `littleO_of_hasDerivAt` (integrals, real powers via MVT). How to tell: C6/C7 (S_K(χ) expansions) and z-versions of d_L should reuse it without new analysis lemmas.
