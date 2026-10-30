@@ -12,6 +12,8 @@ Non-vacuity (trust track T2): 62 headlines have hypotheses; 62 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
+Transcriptions (trust track T3): 38 PRINTED definitions; 23 carry a machine-checked
+agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
 
 ## Unpinned physics definitions, by number of headlines resting on them
 
@@ -35,52 +37,52 @@ unconditional (binders are plain data only).
 | `CPLExistence.exists_flatCPL` | IsFlatCPL | — | — | unconditional |
 | `CPLExistence.printedL0_false_at` | cosmoCoeff, IsFlatCPL | — | — | `cpl_printedL0_false_at` |
 | `CPLExistence.exists_local_model` | — | — | — | `exists_local_model` |
-| `CCS.lookback_fifth_order` | cosmoCoeff, decel, hubble, redshift | — | D1, D2, D3 | `lookback_fifth_order` |
-| `CCS.printedD4_fails` | cosmoCoeff, decel, hubble, redshift | — | D1, D2, D3, printedD4 | `printedD4_fails` |
-| `CCS.printedD4_fails_past` | cosmoCoeff, decel, hubble, redshift | — | D1, D2, D3, printedD4 | `printedD4_fails` |
-| `CCS.ccsD4Claim_false` | cosmoCoeff, decel, hubble, redshift | — | CCSD4Claim, D1, D2, D3, printedD4 | unconditional |
-| `CCS.ccsD4ClaimPast_false` | cosmoCoeff, decel, hubble, redshift | — | CCSD4ClaimPast, D1, D2, D3, printedD4 | unconditional |
-| `BambaY.lumDist_y_third_order` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y | `lumDist_y_third_order` |
-| `BambaY.printedD2y_fails` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y, printedD2y | `printedD2y_fails_past` |
-| `BambaY.printedD2y_fails_past` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y, printedD2y | `printedD2y_fails_past` |
-| `BambaY.bambaD2yClaim_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | BambaD2yClaim, D1y, printedD2y | unconditional |
-| `BambaY.bambaD2yClaimPast_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | BambaD2yClaimPast, D1y, printedD2y | unconditional |
+| `CCS.lookback_fifth_order` | cosmoCoeff, decel, hubble, redshift | — | D1², D2², D3² | `lookback_fifth_order` |
+| `CCS.printedD4_fails` | cosmoCoeff, decel, hubble, redshift | — | D1², D2², D3², printedD4² | `printedD4_fails` |
+| `CCS.printedD4_fails_past` | cosmoCoeff, decel, hubble, redshift | — | D1², D2², D3², printedD4² | `printedD4_fails` |
+| `CCS.ccsD4Claim_false` | cosmoCoeff, decel, hubble, redshift | — | CCSD4Claim, D1², D2², D3², printedD4² | unconditional |
+| `CCS.ccsD4ClaimPast_false` | cosmoCoeff, decel, hubble, redshift | — | CCSD4ClaimPast, D1², D2², D3², printedD4² | unconditional |
+| `BambaY.lumDist_y_third_order` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y² | `lumDist_y_third_order` |
+| `BambaY.printedD2y_fails` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y², printedD2y² | `printedD2y_fails_past` |
+| `BambaY.printedD2y_fails_past` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y², printedD2y² | `printedD2y_fails_past` |
+| `BambaY.bambaD2yClaim_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | BambaD2yClaim, D1y², printedD2y² | unconditional |
+| `BambaY.bambaD2yClaimPast_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | BambaD2yClaimPast, D1y², printedD2y² | unconditional |
 | `CVdQ.dQ_y_third_order` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | dQFlat | `lumDist_y_third_order` |
-| `CVdQ.printedQ2_fails_past` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | dQFlat, printedQ2 | `printedQ2_fails_past` |
-| `CVdQ.cvdQClaim_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | CVdQClaim, dQFlat, printedQ2 | unconditional |
-| `CVdQ.cvdQClaimPast_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | CVdQClaimPast, dQFlat, printedQ2 | unconditional |
-| `BambaK.lumDist_y_fifth_order` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, printedD4y, D1y | `lumDist_z_fifth_order` |
-| `BambaK.printedD3y_fails` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, D1y | `printedD3y_fails_past` |
-| `BambaK.printedD3y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, D1y | `printedD3y_fails_past` |
-| `BambaK.printedD4y_fails` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, printedD4y, D1y | `printedD4y_fails_past` |
-| `BambaK.printedD4y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, printedD4y, D1y | `printedD4y_fails_past` |
-| `BambaK.bambaD3yClaim_false` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | BambaD3yClaim, printedD3y, D1y | unconditional |
-| `BambaK.bambaD3yClaimPast_false` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | BambaD3yClaimPast, printedD3y, D1y | unconditional |
-| `BambaK.bambaD4yClaim_false` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | BambaD4yClaim, printedD3y, printedD4y, D1y | unconditional |
-| `BambaK.bambaD4yClaimPast_false` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | BambaD4yClaimPast, printedD3y, printedD4y, D1y | unconditional |
-| `BambaK.milne_printedD3y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, D1y | unconditional |
-| `BambaK.milne_printedD4y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, printedD4y, D1y | unconditional |
+| `CVdQ.printedQ2_fails_past` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | dQFlat, printedQ2² | `printedQ2_fails_past` |
+| `CVdQ.cvdQClaim_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | CVdQClaim, dQFlat, printedQ2² | unconditional |
+| `CVdQ.cvdQClaimPast_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | CVdQClaimPast, dQFlat, printedQ2² | unconditional |
+| `BambaK.lumDist_y_fifth_order` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y², printedD4y², D1y² | `lumDist_z_fifth_order` |
+| `BambaK.printedD3y_fails` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y², D1y² | `printedD3y_fails_past` |
+| `BambaK.printedD3y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y², D1y² | `printedD3y_fails_past` |
+| `BambaK.printedD4y_fails` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y², printedD4y², D1y² | `printedD4y_fails_past` |
+| `BambaK.printedD4y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y², printedD4y², D1y² | `printedD4y_fails_past` |
+| `BambaK.bambaD3yClaim_false` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | BambaD3yClaim, printedD3y², D1y² | unconditional |
+| `BambaK.bambaD3yClaimPast_false` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | BambaD3yClaimPast, printedD3y², D1y² | unconditional |
+| `BambaK.bambaD4yClaim_false` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | BambaD4yClaim, printedD3y², printedD4y², D1y² | unconditional |
+| `BambaK.bambaD4yClaimPast_false` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | BambaD4yClaimPast, printedD3y², printedD4y², D1y² | unconditional |
+| `BambaK.milne_printedD3y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y², D1y² | unconditional |
+| `BambaK.milne_printedD4y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y², printedD4y², D1y² | unconditional |
 | `Transverse.transverse_expansion` | transverse | — | — | unconditional |
-| `BambaA.angDist_y_fifth_order` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1, DA2, printedDA3, printedDA4 | `lumDist_z_fifth_order` |
-| `BambaA.printedDA3_fails` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1, DA2, printedDA3 | `printedDA3_fails` |
-| `BambaA.printedDA3_fails_past` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1, DA2, printedDA3 | `printedDA3_fails` |
-| `BambaA.printedDA4_fails` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1, DA2, printedDA3, printedDA4 | `printedDA4_fails` |
-| `BambaA.printedDA4_fails_past` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1, DA2, printedDA3, printedDA4 | `printedDA4_fails` |
-| `BambaA.bambaDA3Claim_false` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | BambaDA3Claim, DA1, DA2, printedDA3 | unconditional |
-| `BambaA.bambaDA3ClaimPast_false` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | BambaDA3ClaimPast, DA1, DA2, printedDA3 | unconditional |
-| `BambaA.bambaDA4Claim_false` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | BambaDA4Claim, DA1, DA2, printedDA3, printedDA4 | unconditional |
-| `BambaA.bambaDA4ClaimPast_false` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | BambaDA4ClaimPast, DA1, DA2, printedDA3, printedDA4 | unconditional |
-| `BambaA.milne_printedDA4_fails_past` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1, DA2, printedDA3, printedDA4 | unconditional |
-| `BambaZ.lumDist_z_fifth_order` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z, DL2z, DL3z, printedDL4z | `lumDist_z_fifth_order` |
-| `BambaZ.angDist_z_fifth_order` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z, DA2z, DA3z, printedDA4z | `lumDist_z_fifth_order` |
-| `BambaZ.printedDL4z_fails_past` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z, DL2z, DL3z, printedDL4z | `printedDA4z_fails_past` |
-| `BambaZ.printedDA4z_fails_past` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z, DA2z, DA3z, printedDA4z | `printedDA4z_fails_past` |
-| `BambaZ.bambaDLzClaim_false` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | BambaDLzClaim, DL1z, DL2z, DL3z, printedDL4z | unconditional |
-| `BambaZ.bambaDLzClaimPast_false` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | BambaDLzClaimPast, DL1z, DL2z, DL3z, printedDL4z | unconditional |
-| `BambaZ.bambaDAzClaim_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | BambaDAzClaim, DA1z, DA2z, DA3z, printedDA4z | unconditional |
-| `BambaZ.bambaDAzClaimPast_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | BambaDAzClaimPast, DA1z, DA2z, DA3z, printedDA4z | unconditional |
-| `BambaZ.milne_printedDL4z_fails_past` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z, DL2z, DL3z, printedDL4z | unconditional |
-| `BambaZ.printed_flat_eq` | — | — | printedDA4z, printedDL4z | unconditional |
+| `BambaA.angDist_y_fifth_order` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1², DA2², printedDA3², printedDA4² | `lumDist_z_fifth_order` |
+| `BambaA.printedDA3_fails` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1², DA2², printedDA3² | `printedDA3_fails` |
+| `BambaA.printedDA3_fails_past` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1², DA2², printedDA3² | `printedDA3_fails` |
+| `BambaA.printedDA4_fails` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1², DA2², printedDA3², printedDA4² | `printedDA4_fails` |
+| `BambaA.printedDA4_fails_past` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1², DA2², printedDA3², printedDA4² | `printedDA4_fails` |
+| `BambaA.bambaDA3Claim_false` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | BambaDA3Claim, DA1², DA2², printedDA3² | unconditional |
+| `BambaA.bambaDA3ClaimPast_false` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | BambaDA3ClaimPast, DA1², DA2², printedDA3² | unconditional |
+| `BambaA.bambaDA4Claim_false` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | BambaDA4Claim, DA1², DA2², printedDA3², printedDA4² | unconditional |
+| `BambaA.bambaDA4ClaimPast_false` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | BambaDA4ClaimPast, DA1², DA2², printedDA3², printedDA4² | unconditional |
+| `BambaA.milne_printedDA4_fails_past` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1², DA2², printedDA3², printedDA4² | unconditional |
+| `BambaZ.lumDist_z_fifth_order` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z², DL2z², DL3z², printedDL4z² | `lumDist_z_fifth_order` |
+| `BambaZ.angDist_z_fifth_order` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z², DA2z², DA3z², printedDA4z² | `lumDist_z_fifth_order` |
+| `BambaZ.printedDL4z_fails_past` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z², DL2z², DL3z², printedDL4z² | `printedDA4z_fails_past` |
+| `BambaZ.printedDA4z_fails_past` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z², DA2z², DA3z², printedDA4z² | `printedDA4z_fails_past` |
+| `BambaZ.bambaDLzClaim_false` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | BambaDLzClaim, DL1z², DL2z², DL3z², printedDL4z² | unconditional |
+| `BambaZ.bambaDLzClaimPast_false` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | BambaDLzClaimPast, DL1z², DL2z², DL3z², printedDL4z² | unconditional |
+| `BambaZ.bambaDAzClaim_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | BambaDAzClaim, DA1z², DA2z², DA3z², printedDA4z² | unconditional |
+| `BambaZ.bambaDAzClaimPast_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | BambaDAzClaimPast, DA1z², DA2z², DA3z², printedDA4z² | unconditional |
+| `BambaZ.milne_printedDL4z_fails_past` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z², DL2z², DL3z², printedDL4z² | unconditional |
+| `BambaZ.printed_flat_eq` | — | — | printedDA4z², printedDL4z² | unconditional |
 | `FRCosmo.fR_values` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, P2, P3, Q0, Q2, Q3 | `fR_values` |
 | `FRCosmo.curv_derivs` | cosmoCoeff, curv, decel, hubble | — | — | `curv_derivs` |
 | `FRCosmo.exists_LCDM_model` | IsFlatLCDM, FriedmannEq, MasterEq, curv, hubble | — | — | `eta20_hasDerivAt` |
@@ -97,13 +99,13 @@ unconditional (binders are plain data only).
 | `FREta.printedEta20Claim_false` | — | — | P0, P2, Q0, Q2, PrintedEta20Claim, jL, lL, printed20, printedDen, qL, sL | unconditional |
 | `FREta.printedEta30Claim_false` | — | — | P0, P3, Q0, Q3, PrintedEta30Claim, jL, lL, printed30, printedDen, qL, sL | unconditional |
 | `FREta.eta_numbers` | — | — | — | unconditional |
-| `DemianskiZ.flat_corrections` | — | — | printedDA4z, printedDL4z, demDA4, demDL4 | unconditional |
-| `DemianskiZ.demDL4_fails_past` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z, DL2z, DL3z, demDL4 | `printedD4_fails` |
-| `DemianskiZ.demDA4_fails_past` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z, DA2z, DA3z, demDA4 | `demDA4_fails_past` |
-| `DemianskiZ.demDLzClaim_false` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z, DL2z, DL3z, DemDLzClaim, demDL4 | unconditional |
-| `DemianskiZ.demDLzClaimPast_false` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z, DL2z, DL3z, DemDLzClaimPast, demDL4 | unconditional |
-| `DemianskiZ.demDAzClaim_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z, DA2z, DA3z, DemDAzClaim, demDA4 | unconditional |
-| `DemianskiZ.demDAzClaimPast_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z, DA2z, DA3z, DemDAzClaimPast, demDA4 | unconditional |
+| `DemianskiZ.flat_corrections` | — | — | printedDA4z², printedDL4z², demDA4², demDL4² | unconditional |
+| `DemianskiZ.demDL4_fails_past` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z², DL2z², DL3z², demDL4² | `printedD4_fails` |
+| `DemianskiZ.demDA4_fails_past` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z², DA2z², DA3z², demDA4² | `demDA4_fails_past` |
+| `DemianskiZ.demDLzClaim_false` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z², DL2z², DL3z², DemDLzClaim, demDL4² | unconditional |
+| `DemianskiZ.demDLzClaimPast_false` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z², DL2z², DL3z², DemDLzClaimPast, demDL4² | unconditional |
+| `DemianskiZ.demDAzClaim_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z², DA2z², DA3z², DemDAzClaim, demDA4² | unconditional |
+| `DemianskiZ.demDAzClaimPast_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | DA1z², DA2z², DA3z², DemDAzClaimPast, demDA4² | unconditional |
 | `Fidelity.lumDistSpec2_pins` | lumDist, redshift | — | — | `lumDistSpec2_pins` |
 | `Fidelity.hubbleSpec_pins` | hubble | — | — | `hubbleSpec_pins` |
 | `Fidelity.decelSpec_pins` | decel | — | — | `decelSpec_pins` |

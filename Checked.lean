@@ -27,3 +27,5 @@ import Checked.Fidelity.FRSpecs
 import Checked.Fidelity.TransverseSpec
 import Checked.Trust.NonVacuity
 import Checked.Trust.Witnesses
+import Checked.Trust.SecondReading
+import Checked.Trust.Transcriptions
