@@ -4,3 +4,4 @@ import Work.Cosmography.LookbackAudit
 import Work.Cosmography.LookbackThird
 import Work.Cosmography.AvilesLCDM
 import Work.Cosmography.AvilesAudit
+import Work.Cosmography.AvilesWitness

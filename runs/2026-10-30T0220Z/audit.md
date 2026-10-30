@@ -65,3 +65,24 @@ Subagent given only `source_C2.md` (no Work/Checked/git). Its file: `Aviles_blin
 **Verdict: AUDITED.** Status of the C2 finding: Lean evidence and fidelity audit done;
 remaining before it can be reported (FINDINGS protocol): referee subagent, prior-art check
 (does anyone cite or reuse the wrong formula?), nanoda repair.
+
+---
+
+# Addendum: `Checked.Cosmography.AvilesWitness` (referee follow-up, same run)
+
+Referee weakness: the refutation was machine-checked only at Ω = 1. Added (Work → Checked,
+statements byte-identical apart from namespace/imports/docstring):
+- `lam_isFlatLCDM`: a(t) = sinh(t)^{2/3} is flat ΛCDM at t₀ > 0 with Ω = 1/cosh²(t₀) (the
+  standard ΛCDM solution with H₀-units scaled out); `exists_flatLCDM`: every Ω ∈ (0,1) has a
+  C⁶ (indeed C^∞) model.
+- `printedL0_false_at`: for every Ω ∈ (0,1), the Ω-instance of the frozen claim
+  `AvilesL0Claim` is false. `printedM0_false_at`: same for m₀ at every Ω ∈ (0,1) with
+  3Ω² + 2Ω − 2 ≠ 0 (the referee's exception Ω = (√7 − 1)/3, where printed and true m₀
+  coincide).
+- Fidelity: no new definitions; the statements are the frozen claims specialised to a fixed Ω
+  (same `IsFlatLCDM`, `cosmoCoeff`, same printed polynomials), so the blind restatement above
+  covers them. Not vacuous by construction (`exists_flatLCDM`). The m₀ exception is stated as
+  an explicit hypothesis, not hidden. Junk values: none new (sinh t > 0 near t₀ > 0, so rpow
+  and division are genuine).
+
+**Verdict: AUDITED.**
