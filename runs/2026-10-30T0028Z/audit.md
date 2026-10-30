@@ -59,3 +59,24 @@ Its statement (`runs/2026-10-30T0028Z/Lookback_blind.lean`):
 Translation errors. No Source errors.
 
 **Verdict: AUDITED.**
+
+---
+
+# Fidelity audit: `lookback_second_order_bigO` (milestone 1b)
+
+Frozen: commit `e5b5372`, `Work/Cosmography/LookbackThird.lean`. Statement identical in `Work`
+and `Checked` (diff). Same definitions as milestone 1 (unchanged).
+
+**Origin.** This is the blind restater's reading of "+ …": remainder O(z³) under `C³`.
+- 40.2: the blind restater's statement, **verbatim with its own definitions**, is derived from
+  it in Lean (`Blind.lookback_expansion` in `Work/Cosmography/LookbackAudit.lean`). So the
+  program's Lean statement implies the independent formalization exactly; the divergence
+  recorded for milestone 1 is closed by proving both readings.
+- Not vacuous: de Sitter `a = exp` instantiates it (`LookbackAudit`, last example).
+- Coefficient pinned: O(z³) implies o(z²), so `nearMiss_wrong_coefficient` applies.
+- Junk values / types / quantifiers: as milestone 1; `ContDiffAt ℝ 3 a t₀` makes all three
+  derivatives genuine.
+- Hypothesis necessity of C³ for O(z³): not shown in Lean (would need an explicit C² non-C³
+  scale factor with a z^{5/2}-type error); recorded as not done, low value.
+
+**Verdict: AUDITED.**

@@ -1,4 +1,6 @@
+import Mathlib
 import Checked.Cosmography.Lookback
+import Checked.Cosmography.LookbackThird
 
 /-!
 # Fidelity audit tests for `Checked.Cosmography.lookback_second_order` (annex XL, 40.3)
@@ -126,3 +128,35 @@ lemma decel_eq_blind (a : ℝ → ℝ) (t : ℝ) (ha : a t ≠ 0) (hd : deriv a 
   field_simp
 
 end Work.CosmographyAudit
+
+/-! ### Blind restatement, verbatim, follows from milestone 1b
+
+The blind restater's own statement (`runs/2026-10-30T0028Z/Lookback_blind.lean`), with its own
+definitions copied unchanged, is derived from `Checked.Cosmography.lookback_second_order_bigO`. -/
+
+namespace Blind
+
+noncomputable def hubble (a : ℝ → ℝ) (t : ℝ) : ℝ := deriv a t / a t
+noncomputable def decel (a : ℝ → ℝ) (t : ℝ) : ℝ :=
+  -(deriv (deriv a) t / a t) * (hubble a t)⁻¹ ^ 2
+noncomputable def redshift (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ := a t₀ / a t - 1
+def lookback (t₀ t : ℝ) : ℝ := t₀ - t
+
+theorem lookback_expansion (a : ℝ → ℝ) (t₀ : ℝ)
+    (ha : ContDiffAt ℝ 3 a t₀) (ha₀ : 0 < a t₀) (hH : deriv a t₀ ≠ 0) :
+    (fun t => lookback t₀ t
+        - (hubble a t₀)⁻¹ * (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2))
+      =O[nhds t₀] (fun t => redshift a t₀ t ^ 3) := by
+  have h := Checked.Cosmography.lookback_second_order_bigO a t₀ ha ha₀.ne' hH
+  have hd : decel a t₀ = Checked.Cosmography.decel a t₀ := by
+    rw [Work.CosmographyAudit.decel_eq_blind a t₀ ha₀.ne' hH]; rfl
+  refine h.congr_left fun t => ?_
+  simp only [lookback, hd, div_eq_inv_mul, Checked.Cosmography.redshift, redshift,
+    Checked.Cosmography.hubble, hubble]
+
+end Blind
+
+/-! ### Milestone 1b is not vacuous: de Sitter satisfies its hypotheses -/
+
+example := Checked.Cosmography.lookback_second_order_bigO Real.exp 0
+  Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne' (by simp [Real.deriv_exp])
