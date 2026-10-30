@@ -24,3 +24,5 @@ import Checked.Fidelity.YOmegaKSpecs
 import Checked.Fidelity.FlatPins
 import Checked.Fidelity.FriedmannCPL
 import Checked.Fidelity.FRSpecs
+import Checked.Trust.NonVacuity
+import Checked.Trust.Witnesses

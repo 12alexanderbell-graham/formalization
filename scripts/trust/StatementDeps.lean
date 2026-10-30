@@ -15,7 +15,10 @@ Each such definition is reported as
 * `UNPINNED` otherwise: the weakest unchecked step behind that headline.
 
 Blocking errors (CI fails): a headline or pin name that does not resolve to exactly one constant
-in `Checked`; a pin theorem whose statement does not mention the definition it claims to pin.
+in `Checked`; a pin theorem whose statement does not mention the definition it claims to pin;
+a headline with a hypothesis (or a binder that is not plain data) and no **non-vacuity witness**:
+a `Checked` theorem whose statement is syntactically `Checked.Trust.nvObligation` of the headline
+(`∃` of all its binders and hypotheses; trust track T2, run 2228Z, `Checked/Trust/NonVacuity.lean`).
 The UNPINNED report is informational (annex LIV: report first, block later).
 
 Run: `lake env lean scripts/trust/StatementDeps.lean` (after `lake build Checked`).
@@ -75,8 +78,19 @@ def resolve (cands : Array Name) (s : String) : Except String Name :=
 end StatementDeps
 
 open StatementDeps in
+set_option maxHeartbeats 0 in
 run_cmd do
   let env ← getEnv
+  -- candidate non-vacuity witnesses: Checked theorems whose statement is an `∃` or `True`
+  let nvCands : Array (Name × Expr) := env.constants.map₁.fold (init := #[]) fun acc n ci =>
+    if isCheckedConst env n && !n.isInternal then
+      match ci with
+      | .thmInfo t =>
+        if t.type.isAppOf ``Exists || t.type.isConstOf ``True then acc.push (n, t.type) else acc
+      | _ => acc
+    else acc
+  let mut nNeed := 0
+  let mut nWit := 0
   let cands : Array Name := env.constants.map₁.fold (init := #[]) fun acc n _ =>
     if isCheckedConst env n && !n.isInternal then acc.push n else acc
   let heads ← readLines "scripts/trust/headlines.txt"
@@ -117,6 +131,18 @@ run_cmd do
       nHeads := nHeads + 1
       let ci := (env.find? hn).get!
       unless ci matches .thmInfo _ do errors := errors.push s!"{hn} is not a theorem"
+      let (nw, ob) ← liftTermElabM do
+        return (← Checked.Trust.needsWitness ci.type, ← Checked.Trust.nvObligation ci.type)
+      let mut nvCol := "unconditional"
+      if nw then
+        nNeed := nNeed + 1
+        match nvCands.find? (fun (n, t) => n != hn && t == ob) with
+        | some (w, _) =>
+          nWit := nWit + 1
+          nvCol := s!"`{w.componentsRev.head!}`"
+        | none =>
+          nvCol := "**MISSING**"
+          errors := errors.push s!"{hn}: no non-vacuity witness (a Checked theorem stating `nonvacuity% {hn}`)"
       let ds := (deps env stop ci.type {}).toList.filter (reportable env) |>.toArray.qsort
         (·.toString < ·.toString)
       let mut pins : Array String := #[]
@@ -138,7 +164,7 @@ run_cmd do
       if gaps.isEmpty then nClean := nClean + 1
       let shortH := (hn.toString.replace "Checked.Cosmography." "").replace "Checked." ""
       let fmt (a : Array String) : String := if a.isEmpty then "—" else ", ".intercalate a.toList
-      rows := rows.push s!"| `{shortH}` | {fmt pins} | {fmt gaps} | {fmt transcr} |"
+      rows := rows.push s!"| `{shortH}` | {fmt pins} | {fmt gaps} | {fmt transcr} | {nvCol} |"
       logInfo m!"{hn}\n{String.intercalate "\n" lines.toList}"
   let summary := gapCount.toList.toArray.qsort (fun a b => a.2 > b.2)
   let summaryLines := summary.toList.map fun (n, k) => s!"| `{n}` | {k} |"
@@ -153,6 +179,10 @@ run_cmd do
     "Pure formulas, series templates, remainders and specs are omitted from the table.",
     "",
     s!"Headlines: {nHeads}. Resting on no unpinned physics definition: {nClean}.",
+    s!"Non-vacuity (trust track T2): {nNeed} headlines have hypotheses; {nWit} of them have a",
+    "machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,",
+    "obligation computed from the statement by `Checked.Trust.nvObligation`); the others are",
+    "unconditional (binders are plain data only).",
     "",
     "## Unpinned physics definitions, by number of headlines resting on them",
     "",
@@ -161,10 +191,11 @@ run_cmd do
     "",
     "## Per headline",
     "",
-    "| Headline | Pinned | Unpinned physics | Transcriptions |",
-    "|---|---|---|---|"] ++ rows.toList) ++ "\n"
+    "| Headline | Pinned | Unpinned physics | Transcriptions | Non-vacuity witness |",
+    "|---|---|---|---|---|"] ++ rows.toList) ++ "\n"
   IO.FS.writeFile "TRUST_MAP.md" md
-  logInfo m!"SUMMARY: {nHeads} headlines; {nClean} rest on no unpinned physics definition.\n\
+  logInfo m!"SUMMARY: {nHeads} headlines; {nClean} rest on no unpinned physics definition; \
+    non-vacuity: {nWit}/{nNeed} conditional headlines witnessed.\n\
     {String.intercalate "\n" (summary.toList.map fun (n, k) => s!"  {k}  {n}")}"
   unless unclassified.isEmpty do
     logInfo m!"UNCLASSIFIED (add to scripts/trust/def_kinds.txt): {unclassified.toList}"
