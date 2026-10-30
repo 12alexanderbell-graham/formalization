@@ -15,3 +15,4 @@ import Work.Cosmography.BambaDLyAudit
 import Work.Cosmography.CVdQ
 import Work.Cosmography.CVdQAudit
 import Work.Cosmography.Transverse
+import Work.Cosmography.BambaCurved
