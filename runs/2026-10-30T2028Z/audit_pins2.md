@@ -16,3 +16,7 @@ Files: `Checked/Fidelity/RedshiftCoeffSpecs.lean`, `YOmegaKSpecs.lean`, `FlatPin
 | Residual | Same-model authorship (spec writers, referee, prover). `comoving_pins` and `lumDistFlat_pins` pin relative to `LumDistSpec2`'s laws. |
 
 Verdict: AUDITED.
+
+## Addendum: `IsFlatCPL` (`Checked/Fidelity/FriedmannCPL.lean`)
+- Blind `FriedmannCPL` frozen in f15af15, copied verbatim (diff of the def body: identical). Referee `referee_friedmannCPL.md`: STANDS (continuity sign, CPL rewrite, quantifiers, no junk loophole; sympy closed form).
+- `isFlatCPL_iff_friedmannCPL` for every Ω, w₀, wₐ, a, t₀ (backward direction integrates the differential continuity equation on a ball and uses Darboux for the sign of H); `flatCPL_pins : (∀ …, P … ↔ FriedmannCPL …) → P = IsFlatCPL`. Axioms: standard three. AUDITED.

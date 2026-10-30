@@ -7,18 +7,17 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 95. Resting on no unpinned physics definition: 76.
+Headlines: 97. Resting on no unpinned physics definition: 83.
 
 ## Unpinned physics definitions, by number of headlines resting on them
 
 | Definition | Headlines |
 |---|---|
 | `Checked.Cosmography.FRCosmo.curv` | 9 |
-| `Checked.Cosmography.FRCosmo.FriedmannEq` | 7 |
-| `Checked.Cosmography.FRCosmo.IsFRCosmo` | 7 |
-| `Checked.Cosmography.FRCosmo.rhoM` | 7 |
 | `Checked.Cosmography.FRCosmo.MasterEq` | 7 |
-| `Checked.Cosmography.CPL.IsFlatCPL` | 5 |
+| `Checked.Cosmography.FRCosmo.IsFRCosmo` | 7 |
+| `Checked.Cosmography.FRCosmo.FriedmannEq` | 7 |
+| `Checked.Cosmography.FRCosmo.rhoM` | 7 |
 | `Checked.Cosmography.CVdQ.dQFlat` | 4 |
 | `Checked.Cosmography.Transverse.transverse` | 1 |
 
@@ -33,11 +32,11 @@ Headlines: 95. Resting on no unpinned physics definition: 76.
 | `Aviles.avilesM0Claim_false` | IsFlatLCDM, cosmoCoeff | — | AvilesM0Claim |
 | `AvilesWitness.printedL0_false_at` | IsFlatLCDM, cosmoCoeff | — | — |
 | `AvilesWitness.printedM0_false_at` | IsFlatLCDM, cosmoCoeff | — | — |
-| `CPL.flatCPL_coeffs` | cosmoCoeff, decel, hubble, redshift | IsFlatCPL | — |
-| `CPL.printedL0_ne` | cosmoCoeff, hubble, redshift | IsFlatCPL | — |
-| `CPL.clsL0Claim_false` | cosmoCoeff, hubble, redshift | IsFlatCPL | CLSL0Claim |
-| `CPLExistence.exists_flatCPL` | hubble, redshift | IsFlatCPL | — |
-| `CPLExistence.printedL0_false_at` | cosmoCoeff, hubble, redshift | IsFlatCPL | — |
+| `CPL.flatCPL_coeffs` | cosmoCoeff, IsFlatCPL, decel | — | — |
+| `CPL.printedL0_ne` | cosmoCoeff, IsFlatCPL | — | — |
+| `CPL.clsL0Claim_false` | cosmoCoeff, IsFlatCPL | — | CLSL0Claim |
+| `CPLExistence.exists_flatCPL` | IsFlatCPL | — | — |
+| `CPLExistence.printedL0_false_at` | cosmoCoeff, IsFlatCPL | — | — |
 | `CPLExistence.exists_local_model` | — | — | — |
 | `CCS.lookback_fifth_order` | cosmoCoeff, decel, hubble, redshift | — | D1, D2, D3 |
 | `CCS.printedD4_fails` | cosmoCoeff, decel, hubble, redshift | — | D1, D2, D3, printedD4 |
@@ -121,3 +120,5 @@ Headlines: 95. Resting on no unpinned physics definition: 76.
 | `Fidelity.curvKSpec_pins` | curvK | — | — |
 | `Fidelity.lumDistFlat_pins` | lumDistFlat, redshift | — | — |
 | `Fidelity.comoving_pins` | comoving, redshift | — | — |
+| `Fidelity.flatCPL_pins` | IsFlatCPL | — | — |
+| `Fidelity.isFlatCPL_iff_friedmannCPL` | IsFlatCPL | — | — |

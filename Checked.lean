@@ -22,3 +22,4 @@ import Checked.Fidelity.FriedmannLCDM
 import Checked.Fidelity.RedshiftCoeffSpecs
 import Checked.Fidelity.YOmegaKSpecs
 import Checked.Fidelity.FlatPins
+import Checked.Fidelity.FriedmannCPL

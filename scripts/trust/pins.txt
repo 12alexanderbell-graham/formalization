@@ -13,3 +13,4 @@ BambaK.omega0 Fidelity.omega0Spec_pins
 BambaZ.curvK Fidelity.curvKSpec_pins
 BambaY.lumDistFlat Fidelity.lumDistFlat_pins
 BambaY.comoving Fidelity.comoving_pins
+CPL.IsFlatCPL Fidelity.flatCPL_pins

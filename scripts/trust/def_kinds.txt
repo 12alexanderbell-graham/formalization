@@ -137,3 +137,4 @@ Checked.Fidelity.CosmoCoeffSpecCore SPEC
 Checked.Fidelity.YRedSpec SPEC
 Checked.Fidelity.Omega0Spec SPEC
 Checked.Fidelity.CurvKSpec SPEC
+Checked.Fidelity.FriedmannCPL SPEC
