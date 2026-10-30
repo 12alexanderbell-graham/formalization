@@ -2,7 +2,7 @@
 
 Compact checklist. The binding text is `01_CONSTITUTION_FORMALIZATION.md` plus the verbatim original `00_ORIGINAL_CONSTITUTION.md`. When in doubt, open the section cited.
 
-**Objective:** physics that a machine has checked and people rely on, and errors found in physics people rely on. Not runs, not reports, not lines of Lean. (Governing directive, XXXVI)
+**Goal (Alexander, 2026-10-30, 36.0):** make fields checkable: a system (proofs in Lean, rigorous simulators, test suites for scientific claims) that lets scientists trust AI to do scientific work without outside verification. Physics results are test cases of that system. Not runs, not reports, not lines of Lean. (XXXVI)
 
 **The gap:** the kernel checks proofs, not meaning. Fidelity is the hard part. (XXXVII)
 
@@ -47,4 +47,4 @@ Weaken a statement and keep its name · hide `sorry` · `axiom` · `native_decid
 
 Verified finding or major result · something seriously wrong · a decision that is his. Result first, bullets, key line and any question in bold.
 
-**Are we closer to checked physics that matters, or just better at running rounds?**
+**Can a scientist trust more of what we produce without checking it themselves than yesterday, and by what measure?**

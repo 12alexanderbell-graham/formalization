@@ -35,6 +35,8 @@ Order of authority when anything conflicts:
 
 # XXXVI. MISSION
 
+36.0 **Goal of the program (Alexander, 2026-10-30, verbatim; governs 36.1–36.5):** "Making fields checkable. Specifically, formalization: turning maths, physics and chemistry into forms a machine can verify (proofs in Lean, rigorous simulators, test suites for scientific claims). By that I mean making a program, system, proof, whatever, that allows scientists to trust AI to do scientific work without outside verification." The physics work in 36.1–36.4 is the proving ground for that system; progress is measured by how much of the program's output can be trusted without outside checking (PROMPT standing instruction 9).
+
 36.1 **Make important physics machine-checkable where it is not checkable today, and use the checking to find out what is actually true.** Take a body of physics, state it in Lean 4, prove it, and either confirm it or find exactly where and why it breaks.
 
 36.2 The domain is physics. Alexander has said the domain can expand later; expansion is his decision (L.3).

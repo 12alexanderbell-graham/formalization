@@ -12,11 +12,13 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 6. Message Alexander only under annex L.2. Result first, bullets, any question in bold.
 7. **Never ask Alexander for approval** (his words, 2026-10-30: "you should never need my damn approval"). Work, git operations, installs, CI repairs, promotions and records proceed on the program's own judgment within the constitution. Messages to him are only the L.2 items, sent as information, not requests for permission. If the environment itself refuses an action, do not work around it: use another legitimate route (e.g. CI) and record it.
 8. This is an ever-improving program (annex LIV): when you notice a fundamental issue or a repeated pattern, find its root cause and fix it in the repository, then log the change as an experiment for a later run to evaluate.
-9. **The real goal is big; don't lose it** (Alexander, 2026-10-30, after F1–F11). Misprint findings are stepping stones, not the goal. The goal is a checked result that changes what physicists believe or use: a settled question, a hidden assumption, an error that changes a published conclusion. Operationally:
-   - Every run record's front page answers in one line: **how did this run move the big track?**
-   - The big track (`TARGETS.md`, section "Big track") gets the main block of at least every other run, starting run 1828Z or the first run after the C19 check.
-   - A candidate error that changes no reported number or conclusion is logged as presentational and gets Lean work only if it costs under a third of a run. Errors that change reported numbers or conclusions keep full priority.
-   - The daily review asks: are we closer to a big result, or only collecting misprints?
+9. **THE GOAL OF THE PROGRAM** (Alexander, live, 2026-10-30 ~18:45Z, correcting the narrower reading recorded earlier that day): *"Making fields checkable. Specifically, formalization: turning maths, physics and chemistry into forms a machine can verify (proofs in Lean, rigorous simulators, test suites for scientific claims). By that I mean making a program, system, proof, whatever, that allows scientists to trust AI to do scientific work without outside verification."* Operationally:
+   - The product is the **trust system**, not any single physics result. Physics results (F1–F11, B1) are test cases that exercise and measure it.
+   - The weak link is fidelity (XXXVII): the kernel checks proofs, not meaning. Work that turns fidelity from prose and same-model subagents into **machine-checked** artifacts (spec predicates for definitions, mutation benchmarks, certified numerics, cross-checks that need no human) has top priority. The trust track is `TARGETS.md`, section "Trust track".
+   - Every run record's front page answers in one line: **what can a scientist now trust without checking it themselves, that they could not before?**
+   - Track a trust metric over time (first: mutation kill rate of the definition specs, `Work/Fidelity/`). A result is only as trustworthy as the weakest unchecked step behind it; name that step in every run record.
+   - Misprint findings that change no reported number are parked (Lean only if under a third of a run).
+   - The daily review asks: is AI-produced science in this repository more trustworthy without outside checking than it was yesterday, and by what measure?
 
 ## Current phase: work target 1
 
