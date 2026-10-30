@@ -15,7 +15,7 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 
 ## Current phase: work target 1
 
-S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1–F7 (FINDINGS.md); next: C9–C10, Sec. XI screen.
+S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1–F8 (FINDINGS.md); next: C10, then Sec. XI candidates C11–C14.
 
 ## Working notes (maintained by runs, annex LIV)
 
@@ -38,3 +38,5 @@ S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmog
 - **Truncated-series algebra** (run 1028Z): `Checked.Cosmography.BambaK.approx_mul`, `approx_pow`: if f − p(X) = o(X⁵), g − r(X) = o(X⁵) and p·r = m + x⁶W (sympy, `ring`), then fg − m(X) = o(X⁵). Build any series as: Taylor (w ≈ A), MVT for integrals (u ≈ P), powers by `approx_pow`, one final coefficient identity (`idFin`). Generator pattern: `runs/2026-10-30T1028Z/scripts/gen_curved.py` + `emit_lean.py` (emits the Lean defs; no hand transcription). For order n ≠ 5, generalize the exponent first.
 - **`unfold` order:** `unfold Outer Inner` — list definitions that introduce others first (`unfold Spoly N1 CCS.Apoly`, not `unfold CCS.Apoly Spoly N1`), else `ring` fails on a true identity.
 - **Subagent file hygiene:** briefs must say: downloaded PDFs, full-page renders and text dumps go to a temp dir outside the repo; only crops (≤ 200 KB each) go into `runs/<run>/typeset/`.
+- **Subagents in parallel at freeze time** (run 1232Z): subagent calls block the session. Right after the freeze commit, launch blind restatement, referee and any screen in ONE message (they run concurrently); the referee needs only the frozen statements (attack them, independent derivation, provenance, prior art). Run 1232Z lost ~48 min to a referee started after the proofs.
+- **New series from proved series** (run 1232Z): when a series in another variable (z vs y) or another distance (d_A vs d_L) is needed, prove an exact rational identity with sympy (`field_simp; ring` checks it) and transfer the remainder (`Checked.Cosmography.BambaZ.transfer`); no new analysis.

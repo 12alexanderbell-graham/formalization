@@ -52,3 +52,9 @@
 - **Verified finding F7** (same review Eqs. 10.61–10.63, from 0902.0088 Eqs. 62–64: curvature terms of D³_{A,y}, D⁴_{A,y} wrong). PROVED + AUDITED in Checked as a corollary (d_A = d_L/(1+z)²); blind closed in Lean; referee STANDS.
 - Message to Alexander: F6, F7 (L.2).
 
+## 2026-10-30T1232Z (scheduled run)
+- Env: repo ok (pre-cloned; stale local main reset to origin); local Lean via elan ok; previous CI 41052780695 green; this run's CI in STATE.
+- **Verified finding F8** (Bamba et al. 2012 Eqs. 10.43–10.44, 10.50–10.51, from Capozziello & Salzano 2009: z-series D⁴_L, D⁴_A miss +k²/120; truncation inherited from Visser 2004; minor). PROVED + AUDITED in Checked: general curved d_L(z), d_A(z) to z⁵ for every real K; refutations for every K ≠ 0. Blind closed in Lean; referee STANDS-WITH-CORRECTIONS.
+- Sec. XI screen: candidates C11–C14 (F(R) cosmography relations, η numbers), F2 reprint traced to 2008. C10 second route.
+- PROMPT notes: parallel subagents at freeze; series transfer by exact identities. LEDGER: 1028Z experiments evaluated (keep).
+- Message to Alexander: F8 (L.2).

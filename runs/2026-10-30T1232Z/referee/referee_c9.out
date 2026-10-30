@@ -1,0 +1,36 @@
+(A) generic C^6 scale factor, H0 = a0 = 1, k = K (truncated-series reversion, no y-series):
+  D_L^0: true - printed = 0
+  D_L^1: true - printed = 0
+  D_L^2: true - printed = 0
+  D_L^3: true - printed = 0
+  D_L^4: true - printed = k**2/120
+  D_A^0: true - printed = 0
+  D_A^1: true - printed = 0
+  D_A^2: true - printed = 0
+  D_A^3: true - printed = 0
+  D_A^4: true - printed = k**2/120
+
+(B) exact models (series of the closed form vs printed with model q,j,s,l,k):
+  Milne a=t, K=-1: q=0, j=0, s=0, l=0, k=-1, k^2/120=1/120
+     true-printed (L,A) for D^0..D^4: [(0, 0), (0, 0), (0, 0), (0, 0), (1/120, 1/120)]
+  closed dS a=cosh t, K=+1, a0=2: q=-4/3, j=4/3, s=16/9, l=16/9, k=1/3, k^2/120=1/1080
+     true-printed (L,A) for D^0..D^4: [(0, 0), (0, 0), (0, 0), (0, 0), (1/1080, 1/1080)]
+  open dS a=sinh t, K=-1, a0=3/4: q=-9/25, j=9/25, s=81/625, l=81/625, k=-16/25, k^2/120=32/9375
+     true-printed (L,A) for D^0..D^4: [(0, 0), (0, 0), (0, 0), (0, 0), (32/9375, 32/9375)]
+  a=e^t, K=+1: q=-1, j=1, s=1, l=1, k=1, k^2/120=1/120
+     true-printed (L,A) for D^0..D^4: [(0, 0), (0, 0), (0, 0), (0, 0), (1/120, 1/120)]
+  a=e^t, K=-1: q=-1, j=1, s=1, l=1, k=-1, k^2/120=1/120
+     true-printed (L,A) for D^0..D^4: [(0, 0), (0, 0), (0, 0), (0, 0), (1/120, 1/120)]
+  dust Mattig Om=3/10: q=3/20, j=3/10, s=-189/200, l=819/200, k=-7/10, k^2/120=49/12000
+     true-printed (L,A) for D^0..D^4: [(0, 0), (0, 0), (0, 0), (0, 0), (49/12000, 49/12000)]
+  dust Mattig Om=2: q=1, j=2, s=-8, l=46, k=1, k^2/120=1/120
+     true-printed (L,A) for D^0..D^4: [(0, 0), (0, 0), (0, 0), (0, 0), (1/120, 1/120)]
+  dust Mattig Om=1/2: q=1/4, j=1/2, s=-13/8, l=59/8, k=-1/2, k^2/120=1/480
+     true-printed (L,A) for D^0..D^4: [(0, 0), (0, 0), (0, 0), (0, 0), (1/480, 1/480)]
+
+(C) size of the omitted term: |Delta(H0 d_L)| = k^2 z^5/120, relative to H0 d_L ~ z:
+  |Omega_k|=0.001: rel. shift k^2 z^4/120 -> z=0.5: 5.2e-10, z=1.0: 8.3e-09, z=1.5: 4.2e-08, z=2.0: 1.3e-07
+  |Omega_k|=0.01: rel. shift k^2 z^4/120 -> z=0.5: 5.2e-08, z=1.0: 8.3e-07, z=1.5: 4.2e-06, z=2.0: 1.3e-05
+  |Omega_k|=0.1: rel. shift k^2 z^4/120 -> z=0.5: 5.2e-06, z=1.0: 8.3e-05, z=1.5: 4.2e-04, z=2.0: 1.3e-03
+  |Omega_k|=0.3: rel. shift k^2 z^4/120 -> z=0.5: 4.7e-05, z=1.0: 7.5e-04, z=1.5: 3.8e-03, z=2.0: 1.2e-02
+  |Omega_k|=1.0: rel. shift k^2 z^4/120 -> z=0.5: 5.2e-04, z=1.0: 8.3e-03, z=1.5: 4.2e-02, z=2.0: 1.3e-01

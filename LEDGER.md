@@ -144,3 +144,15 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 ## 2026-10-30 · run 2026-10-30T1028Z · verified finding F7
 - C7 → **F7**: Bamba et al. 2012 Eqs. (10.61)–(10.63) (verbatim from 0902.0088 Eqs. 62–64): printed − correct = −q₀(Ω₀−1)/4 (D³_{A,y}), −(Ω₀−1)[(Ω₀−1) + 10j₀ − 45q₀² + 20q₀]/120 (D⁴_{A,y}). Frozen 4337b9b → PROVED in Work 8e2df42 (headline compiled on the first attempt as a corollary of F6's theorem) → AUDITED (audit.md §C7, blind closed in `Work/Cosmography/BambaAngularAudit.lean`, referee STANDS) → promoted to `Checked.Cosmography.BambaA` (CI in STATE).
 - Note: the C7 referee said both `all_goals ring` lines were dead; one was needed (compile failed when removed). Lean, not the referee, decides.
+
+## 2026-10-30 · run 2026-10-30T1232Z · verified finding F8
+- C9 → **F8**: Bamba et al. 2012 Eqs. (10.43)–(10.44), (10.50)–(10.51) (verbatim from CS 2009 Eqs. (31)–(52)): z-series D⁴_L, D⁴_A miss +k²/120, k = Kc²/(H₀²a₀²). Frozen 8c553aa → PROVED in Work 974b7a3 → AUDITED (`runs/2026-10-30T1232Z/audit.md`, blind closed 0314608) → promoted to `Checked.Cosmography.BambaZ` (CI in STATE). Referee STANDS-WITH-CORRECTIONS (provenance, origin Visser 2004 Eq. 40, size).
+- Sec. XI screen: candidates C11–C14 (FINDINGS), F2 reprint (11.38) traced to Capozziello, Cardone, Salzano 2008 Eq. (40). C10 second route.
+
+## 2026-10-30 · experiment (annex LIV) · evaluation of run 1028Z experiments
+- Truncated-series algebra: not needed for C9 — an exact rational identity (1+z)⁵[S_y(z/(1+z)) − S_z] = z⁶W plus a transfer lemma did it; headline compiled on the second local attempt (one trivial tactic fix). KEEP (and the corollary pattern: new series from proved series by exact identities).
+- `unfold` order: no failures this run. KEEP. Subagent file hygiene: all three subagents kept PDFs/renders out of the repo (screen 332 KB of crops/scripts). KEEP.
+
+## 2026-10-30 · experiment (annex LIV) · start the referee at freeze time
+- Problem: subagents run synchronously; this run blind (9 min) and screen (16 min) ran in parallel, but the referee ran alone afterwards and took 48 min, the largest single block of the run. Root cause: the referee was started only after proofs; but its main work (independent derivation, provenance, prior art, statement attack) needs only the frozen statements.
+- Change: PROMPT note: launch blind restatement, referee and any screen together right after the freeze commit; the referee attacks the frozen statements, the main session then checks the proofs. How to tell: next finding's run has no serial referee block.

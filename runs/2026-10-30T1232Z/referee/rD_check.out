@@ -1,0 +1,9 @@
+R^0_D: true - printed = 0
+R^1_D: true - printed = 0
+R^2_D: true - printed = 0
+R^3_D: true - printed = 0
+R^4_D: true - printed = k**2/120
+R^5_D: true - printed = (15*k**2 - 119*l)/720
+true R^5_D (k=0) * 720 = 20*j*q + 60*j + l + 90*q**2 + 240*q - 10*s + 120
+printed R^5_D (k=0) * 720 = 20*j*q + 60*j + 120*l + 90*q**2 + 240*q - 10*s + 120
+true R^5_D k-part * 720 = -15*k*(j - k + 10*q + 15)
