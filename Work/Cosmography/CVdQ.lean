@@ -6,7 +6,7 @@ import Checked.Cosmography.BambaDLy
 
 Source (typeset text verified by rendering the PDF, run 2026-10-30T0220Z,
 `runs/2026-10-30T0220Z/typeset/C1_cv2007_eq58_60.png`; definitions read this run from the PDF text):
-"• The 'deceleration distance': d_Q = d_L/(1 + z)^{3/2}." (Eq. 3) "[...] Ω₀ = 1 + kc²/(H₀²a₀²)"
+"• The 'deceleration distance': d_Q = d_L/(1 + z)^{3/2}." (Eq. 5; run 0828Z referee correction, first drafted as Eq. 3) "[...] Ω₀ = 1 + kc²/(H₀²a₀²)"
 (Eq. 16), y = z/(1 + z), d_H = c/H₀, and
 "d_Q(y) = d_H y{1 − (q₀/2) y + (1/12)[3 − 2q₀ + 12q₀² − 4(j₀ + Ω₀)] y² + O(y³)}."   (59)
 (The paper's own Eq. (64) for ln[d_Q/y] has 1/24[3 − 2q₀ + 9q₀² − 4(j₀ + Ω₀)], which corresponds

@@ -16,3 +16,18 @@ Headlines: `lumDist_y_third_order`, `printedD2y_fails`, `printedD2y_fails_past`,
 - **Scope:** Lean covers the flat instance (`Ω₀ = 1`). The referee shows the sign error holds for every curvature (Milne, open-dust Mattig checks; sympy); not in Lean.
 - **Referee** (`referee/`): STANDS-WITH-CORRECTIONS. Corrections taken: the error is not flat-only (scope note above); the review does not simply "reproduce" CV Eq. (52) (it adds y³, y⁴ and d_A,y; its curvature terms there are wrong: C6, C7 now confirmed by a second independent derivation); crop `typeset/C5_p110_Omega0_def_eq10.52-53.png` shows only the Ω₀ definition (mislabelled; (10.52)–(10.54) are in `crop_p111_eq10.54-57_DLy.png`). No erratum or prior report found; D_{L,y} is not used numerically in the review (presentational error).
 - **Axioms:** `#print axioms` on all five headlines (Checked): `propext, Classical.choice, Quot.sound`.
+
+# Fidelity audit (annex XL): C1, Cattoën–Visser 2007 Eq. (59)
+
+Headlines: `dQ_y_third_order`, `printedQ2_fails_past`, `cvdQClaim_false`, `cvdQClaimPast_false` (namespace `…Cosmography.CVdQ`). New definitions: `dQFlat` (= d_L/(1+z)^{3/2}, `Real.rpow`), `printedQ2`, `correctQ2`, `seriesQ`, `remainderQ`, `CVdQClaim`, `CVdQClaimPast`; reuses the audited F4 definitions.
+
+- **Frozen:** commit d18789a. Proof commit 63610cd; statements byte-identical (diff removes only `sorry`). Docstring citation fixed after the referee (d_Q is Eq. 5, not 3); no statement touched.
+- **Source:** `source_C1.md`; typeset (59) read in run 0220Z and by the referee this run (only v1 exists; 0809.0537v1 Eq. (32) identical).
+- **Blind restatement:** `blind/C1_blind.lean` (own definitions; refuted the claim itself on de Sitter). Closed in Lean (`Work/Cosmography/CVdQAudit.lean`, `C1Audit`): `remainder_eq` (blind remainder = ours for any coefficient, once a(t₀) ≠ 0), `blind_implies_ours` (same analytic class, past-only), `blind_false`, `blind_derived_holds` (our general theorem gives the blind's independently derived 1/24). Same model, shared blind spots.
+- **Not vacuous / bites:** de Sitter satisfies all hypotheses; exact H₀d_Q = y(1−y)^{−1/2}: coefficient 3/8 = `correctQ2 (-1) 1 1`, printed 3/4.
+- **Near-misses:** printed fails in every flat C³ model with −1 − 2q₀ + 12q₀² − 4j₀ ≠ 0 (printed − correct = correct); corrected holds for all.
+- **Junk values:** `rpow` base 1 + z = a₀/a > 0 near t₀ (proved on the neighbourhood, `Real.inv_rpow` used only there); others as F4.
+- **Types/quantifiers:** real; o(y³) weakest reading (blind's O(y⁴) reading implied); two-sided and past-only refuted.
+- **Classification:** Source error (misprint 1/12 for 1/24). **Scope:** flat instance in Lean; referee: curvature-independent (constant term), EdS check.
+- **Referee:** STANDS-WITH-CORRECTIONS: the 1/12 already appears in gr-qc/0703122 (v1–v3, Eq. 59/60) and is copied into 0710.1887 (59) and 0809.0537 (32); the papers' fits use the correct ln-series, so no numerical result is affected; d_Q is Eq. (5). All adopted.
+- **Axioms:** `#print axioms` on the four Checked headlines: `propext, Classical.choice, Quot.sound`.

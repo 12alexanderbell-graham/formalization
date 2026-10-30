@@ -7,3 +7,4 @@ import Checked.Cosmography.CPLCoefficients
 import Checked.Cosmography.CPLExistence
 import Checked.Cosmography.CCSLookback
 import Checked.Cosmography.BambaDLy
+import Checked.Cosmography.CVdQ
