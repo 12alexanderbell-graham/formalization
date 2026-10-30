@@ -1,13 +1,13 @@
 # TRUSTED DEFINITIONS
 
-**Machine-checked fidelity (trust track T1, run 1828Z).** The prose rows below are being replaced by Lean specs in `Work/Fidelity/` (`python3 scripts/fidelity_killrate.py` prints the status):
+**Machine-checked fidelity (trust track T1, run 1828Z).** The prose rows below are being replaced by Lean specs in `Checked/Fidelity/` (benchmarks in `Work/Fidelity/`) (`python3 scripts/fidelity_killrate.py` prints the status):
 
 | Definition | Spec | Pinned? (spec ⇒ equal to the definition on the physical domain) |
 |---|---|---|
 | `BambaK.lumDist` | `LumDistSpec2` (anchors + Etherington d_L = (1+z)²d_A) | yes, `lumDistSpec2_pins` (every K, t ≤ t₀, a > 0 continuous on [t, t₀]) |
-| `BambaA.angDist` | `AngDistSpec` | yes, `Gaps.angDistSpec_pins` |
+| `BambaA.angDist` | `AngDistSpec` | yes, `Checked.Fidelity.angDistSpec_pins` |
 | `hubble` | `HubbleSpec` | yes, `hubbleSpec_pins` (a > 0, differentiable at t) |
-| `decel` | `DecelSpec` | yes, `Gaps.decelSpec_pins` (a > 0, twice differentiable, ȧ ≠ 0) |
+| `decel` | `DecelSpec` | yes, `Checked.Fidelity.decelSpec_pins` (a > 0, twice differentiable, ȧ ≠ 0) |
 | `Aviles.IsFlatLCDM` | `FlatLCDMSpec` | no (anchors and near-misses only) |
 
 Every `def`, `structure` or `class` the program writes: what it is meant to capture, and the tests showing it behaves correctly on known examples (annex 40.5). Prefer Mathlib and Physlib definitions.

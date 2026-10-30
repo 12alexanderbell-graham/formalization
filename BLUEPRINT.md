@@ -1,8 +1,8 @@
 # BLUEPRINT
 
-## Trust track T1 (definition fidelity), `Work/Fidelity/`
-- Specs + `meets_spec`: LumDistSpec, LumDistSpec2, HubbleSpec, DecelSpec, AngDistSpec, FlatLCDMSpec: PROVED in Work (not audited for Checked).
-- Pins: `lumDistSpec2_pins`, `hubbleSpec_pins`, `Gaps.decelSpec_pins`, `Gaps.angDistSpec_pins`: PROVED in Work. `flatLCDMSpec_pins`: not started.
+## Trust track T1 (definition fidelity), `Checked/Fidelity/` (specs, pins; AUDITED, promotion 43191aa) and `Work/Fidelity/` (benchmarks)
+- Specs + `meets_spec`: LumDistSpec, LumDistSpec2, HubbleSpec, DecelSpec, AngDistSpec, FlatLCDMSpec: Checked, AUDITED (PROVED on green promotion CI).
+- Pins: `lumDistSpec2_pins`, `hubbleSpec_pins`, `decelSpec_pins`, `angDistSpec_pins` (Checked.Fidelity.Pins): Checked, AUDITED. `flatLCDMSpec_pins`: not started.
 - Mutation benchmark: 30/30 blind + 10/10 author refuted (Work). Spec gaps: 4 found, 4 closed.
 - Next: promotion to Checked with audit; CI report of unpinned definitions; T2.
 

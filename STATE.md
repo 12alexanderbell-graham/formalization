@@ -6,9 +6,9 @@ Last updated: 2026-10-30, run 2026-10-30T1828Z (scheduled; Alexander joined live
 GOAL (annex 36.0, Alexander 2026-10-30, verbatim in PROMPT instruction 9): a system that lets scientists trust AI-produced science without outside verification. Physics (target 1, cosmography; F1–F11; B1) is the proving ground. Active: **Trust track T1, definition fidelity** (`TARGETS.md`).
 
 ## Trust track status
-- **T1 definition fidelity** (`Work/Fidelity/`, Work only, CI-built, standard axioms, no sorry):
+- **T1 definition fidelity**: specs + pins promoted to `Checked/Fidelity/` (LumDistSpec.lean, MoreSpecs.lean, Pins.lean; audit `runs/2026-10-30T1828Z/audit_fidelity.md`, referee `referee_specs.md`; PROVED once promotion CI 41114284138 is green). Mutant benchmarks and spec gaps stay in `Work/Fidelity/`:
   - Specs: `LumDistSpec` (anchors), `LumDistSpec2` (anchors + Etherington), `HubbleSpec`, `DecelSpec`, `AngDistSpec`, `FlatLCDMSpec`. All met by the program's definitions (`*_meets_spec*`).
-  - **Pinning** (any function meeting the spec = the definition on the physical domain): `lumDistSpec2_pins`, `hubbleSpec_pins` (LumDistSpec2.lean), `Gaps.decelSpec_pins`, `Gaps.angDistSpec_pins` (SpecGaps.lean). Not pinned: `FlatLCDMSpec` (the model hypothesis behind F1), `LumDistSpec` (anchors only; 4 gaps proved in SpecGaps.lean).
+  - **Pinning** (any function meeting the spec = the definition on the physical domain): `Checked.Fidelity.lumDistSpec2_pins`, `hubbleSpec_pins`, `decelSpec_pins`, `angDistSpec_pins` (Pins.lean). Not pinned: `FlatLCDMSpec` (the model hypothesis behind F1), `LumDistSpec` (anchors only; 4 gaps proved in SpecGaps.lean).
   - Metric (`python3 scripts/fidelity_killrate.py`): blind mutants 30/30 refuted in Lean (2 excluded as equal on the physical domain), author mutants 10/10; spec gaps found by a spec-aware adversary: 4 (all in anchors-only `LumDistSpec`, all closed by `LumDistSpec2`).
   - Protocol that produced honest numbers: spec writer and red team are separate subagents blind to each other; freeze both before refuting; then a spec-aware adversary searches for wrong definitions that pass; close gaps with general laws + a pinning theorem.
 - T2–T5: not started (TARGETS.md).
@@ -33,7 +33,7 @@ GOAL (annex 36.0, Alexander 2026-10-30, verbatim in PROMPT instruction 9): a sys
 ## Environment (this run)
 - Repo pre-cloned; local main fast-forwarded; pushes verified (remote head = local each time).
 - Local Lean: elan + `lake exe cache get` (~3 min); build Checked deps by module.
-- CI (read by ID): 41107164729 (LOCK), 41107875967 (goal records), 41109420256 (LumDistSpec + blind 12) green. 41111474000 (freeze b68bff5), 41112096428 (RedTeamMoreCheck), 41113310308 (SpecGaps, LumDistSpec2) were in progress at record time: read next run. Records/LOCK-removal commit: read next run.
+- CI (read by ID): 41107164729 (LOCK), 41107875967 (goal records), 41109420256 (LumDistSpec + blind 12) green. 41111474000 (freeze b68bff5), 41112096428 (RedTeamMoreCheck) green. 41113310308 (SpecGaps, LumDistSpec2), 41113487602 (records), 41114284138 (promotion to Checked/Fidelity): see the last records commit or read next run.
 
 ## Daily review (53.3), 2026-10-30
 - Earlier today: F1–F11 verified findings, many AUDITED + PROVED headlines (see CHANGELOG).
@@ -48,7 +48,7 @@ GOAL (annex 36.0, Alexander 2026-10-30, verbatim in PROMPT instruction 9): a sys
 - F10: existence of F(R) models on the ε-family for ε ≠ 0 is not shown (paper does not claim it); the ε-range defect at Ω = 0.041 (pole at ε ≈ 0.032) is sympy only.
 - F11: whether Demianski et al.'s joint fits used the printed D⁴_A/D⁴_L (effect on q₀, j₀) cannot be settled from the paper.
 
-- T1: specs and pins are in Work, not Checked (not yet audited for promotion). All agents (spec writer, red team, adversary) are the same model: correlated misconceptions in the laws are not excluded; anchors from closed forms are the independent cross-check.
+- T1: `IsFlatLCDM` is not pinned; `LumDistSpec` (anchors only) is kept for the record, `LumDistSpec2` is the trusted one. All agents (spec writer, red team, adversary) are the same model: correlated misconceptions in the laws are not excluded; anchors from closed forms are the independent cross-check.
 - T1: `AngDistSpec`'s flat/closed/open laws are near-restatements of the definition; their independence is the blind authorship plus the anchors.
 
 ## Open questions for Alexander
@@ -57,7 +57,7 @@ None.
 ## Exact next step
 1. Read CI 41111474000, 41112096428, 41113310308 and the records commit by ID; fix anything red first.
 2. **T1, close the last gap:** spec-aware adversary on `FlatLCDMSpec` (the model hypothesis behind F1). Then either prove `flatLCDMSpec_pins` (expected route: add the law "P Ω a t₀ ↔ H₀ > 0 ∧ eventually a > 0, differentiable and H² = H₀²(Ω(1+z)³ + 1 − Ω)", cross-checked by the existing anchors) or record the gaps.
-3. **T1 → Checked:** promote the specs and pinning theorems (`Checked/Fidelity/…`, specific imports, fidelity audit of the laws: each law matched to a textbook equation by a referee subagent who sees only the spec). Then CI makes "definition is pinned" part of the judge, and TRUSTED_DEFINITIONS rows cite the pin theorem instead of prose.
+3. T1 → Checked: DONE this run (promotion 43191aa) if CI 41114284138 is green; if red, fix first. Then rewrite the prose TRUSTED_DEFINITIONS rows for these five definitions to cite the pin theorems.
 4. **T1 generalization:** add a CI check that every `def` in `Checked/` used by a headline either has a pinning spec or is listed as unpinned with a reason (report-only first, LIV).
 5. Then T2 (statement fidelity, machine checks: non-vacuity witness per Checked headline, hypothesis-drop mutation) — the next weakest link.
 Why: these make "the definition means the physics" a kernel-checked fact for everything the findings rest on. Blocking: nothing.
