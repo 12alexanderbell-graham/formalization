@@ -39,3 +39,7 @@ for name,S,P in [('L',SY,PL),('A',SA,PA)]:
     assert sp.expand(W*z**6-num)==0 and sp.Poly(W,z).degree()<=4
     out[name]=W
     print(name,'W =',W)
+# emit Lean defs (no hand transcription)
+with open('/tmp/claude_WZ.lean','w') as f:
+    for name in ['L','A']:
+        f.write('noncomputable def W%s (q j s l Ω z : ℝ) : ℝ :=\n  %s\n\n' % (name, str(out[name]).replace('**','^').replace('Omega','Ω')))

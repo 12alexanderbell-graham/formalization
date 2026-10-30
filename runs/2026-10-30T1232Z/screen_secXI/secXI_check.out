@@ -1,0 +1,22 @@
+== (10.6)-(10.9): derivatives of H
+d^1H/dt^1 = -H**2*(q0 + 1) ; printed-derived = 0
+d^2H/dt^2 = H**3*(j0 + 3*q0 + 2) ; printed-derived = 0
+d^3H/dt^3 = -H**4*(4*j0 + 3*q0**2 + 12*q0 - s0 + 6) ; printed-derived = 0
+d^4H/dt^4 = H**5*(10*j0*q0 + 20*j0 + l0 + 30*q0**2 + 60*q0 - 5*s0 + 24) ; printed-derived = 0
+== (11.7)-(11.13): R and its derivatives, R=-6(Hdot+2H^2)
+R^(0)_0/H0^2 derived = 6*(q0 - 1) ; printed - derived = 0
+R^(1)_0/H0^3 derived = 6*(-j0 + q0 + 2) ; printed - derived = 0
+R^(2)_0/H0^4 derived = -6*(q0**2 + 8*q0 + s0 + 6) ; printed - derived = 0
+R^(3)_0/H0^5 derived = 6*(2*j0*q0 + 8*j0 - l0 + 18*q0**2 + 48*q0 + s0 + 24) ; printed - derived = -24*j0*(q0 + 4)
+(11.7) diff: 0
+(11.8) diff: 0
+(11.9) diff: 0
+== (11.18): differentiate master eq (11.5)
+printed(11.18) - derived = -(3*H0**2*Omega_M*F2(R(t))*Derivative(R(t), t) - 3*H0**2*Omega_M*F2(R(t)) + 2*A(t)**3*F1(R(t))*F2(R(t))*Derivative(Hf(t), t) + A(t)**3*F1(R(t))*F3(R(t))*Hf(t)*Derivative(R(t), t)**2 - A(t)**3*F1(R(t))*F3(R(t))*Hf(t)*Derivative(R(t), t) - A(t)**3*F1(R(t))*F3(R(t))*Derivative(R(t), t)*Derivative(R(t), (t, 2)) + A(t)**3*F1(R(t))*F3(R(t))*Derivative(R(t), (t, 2)) - A(t)**3*F1(R(t))*F4(R(t))*Derivative(R(t), t)**3 + A(t)**3*F1(R(t))*F4(R(t))*Derivative(R(t), t)**2 - A(t)**3*F2(R(t))**2*Hf(t)*Derivative(R(t), t)**2 + A(t)**3*F2(R(t))**2*Hf(t)*Derivative(R(t), t) + A(t)**3*F2(R(t))**2*Derivative(R(t), t)*Derivative(R(t), (t, 2)) - A(t)**3*F2(R(t))**2*Derivative(R(t), (t, 2)) + A(t)**3*F2(R(t))*F3(R(t))*Derivative(R(t), t)**3 - A(t)**3*F2(R(t))*F3(R(t))*Derivative(R(t), t)**2)*Derivative(R(t), t)/(2*A(t)**3*F1(R(t))**2)
+== (11.3)-(11.4) curvature-fluid continuity (Bianchi) check
+(11.3) lhs-rhs simplifies to: -3*H0**2*Omega_M*F2(R(t))*Derivative(R(t), t)/(A(t)**3*F1(R(t))**2) - F(R(t))*F2(R(t))*Derivative(R(t), t)**2/(2*F1(R(t))**2) + Derivative(R(t), t)**2/2 - Derivative(R(t), t)/2 - 3*F2(R(t))*Hf(t)**2*Derivative(R(t), t)/F1(R(t)) - 3*F2(R(t))*Derivative(Hf(t), t)*Derivative(R(t), t)/F1(R(t)) - 3*F3(R(t))*Hf(t)*Derivative(R(t), t)**3/F1(R(t)) + 3*F3(R(t))*Hf(t)*Derivative(R(t), t)**2/F1(R(t)) + 3*F2(R(t))**2*Hf(t)*Derivative(R(t), t)**3/F1(R(t))**2  (expected 0 identically)
+== Solve (11.14),(11.15),(11.20) with F'(R0)=1, H0=1
+number of solutions (correct eqs): 1
+f0 = 6*(-3*Omega_M*j0**2*q0 - 16*Omega_M*j0**2 + Omega_M*j0*l0 - 20*Omega_M*j0*q0**2 - 64*Omega_M*j0*q0 - 7*Omega_M*j0*s0 - 12*Omega_M*j0 - Omega_M*l0*q0 - 2*Omega_M*l0 - 3*Omega_M*q0**4 - 25*Omega_M*q0**3 - 6*Omega_M*q0**2*s0 - 96*Omega_M*q0**2 - 41*Omega_M*q0*s0 - 72*Omega_M*q0 - 3*Omega_M*s0**2 - 22*Omega_M*s0 - 20*Omega_M + 2*j0**3 + 3*j0**2*q0**2 + 10*j0**2*q0 - 6*j0**2 - j0*l0*q0 + 17*j0*q0**3 + 52*j0*q0**2 + 4*j0*q0*s0 + 54*j0*q0 + 6*j0*s0 + 36*j0 + l0*q0**2 + 2*l0*q0 + 3*q0**5 + 28*q0**4 + 6*q0**3*s0 + 118*q0**3 + 44*q0**2*s0 + 72*q0**2 + 3*q0*s0**2 + 22*q0*s0 - 76*q0 - 12*s0 - 64)/(3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104)
+f2 = -(-6*Omega_M*j0 - 9*Omega_M*q0**2 - 66*Omega_M*q0 - 9*Omega_M*s0 - 42*Omega_M + 2*j0**2 + 2*j0*q0 - 2*j0 + 6*q0**3 + 50*q0**2 + 6*q0*s0 + 74*q0 + 6*s0 + 32)/(6*(3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104))
+f3 = -(-9*Omega_M*j0*q0 - 36*Omega_M*j0 + 3*Omega_M*l0 - 45*Omega_M*q0**2 - 78*Omega_M*q0 + 3*Omega_M*s0 - 12*Omega_M + 2*j0**2 + 4*j0*q0**2 + 12*j0*q0 - 2*j0*s0 + 6*j0 - 2*l0*q0 - 2*l0 + 30*q0**3 + 84*q0**2 - 2*q0*s0 + 78*q0 + 24)/(36*(-j0 + q0 + 2)*(3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104))

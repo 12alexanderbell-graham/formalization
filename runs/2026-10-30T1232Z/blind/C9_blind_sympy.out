@@ -1,0 +1,66 @@
+x(z) = H0 (t - t0) as series in z:
+  z^1: -1
+  z^2: (q0 + 2)/2
+  z^3: -(-j0 + 3*q0**2 + 6*q0 + 6)/6
+  z^4: (-10*j0*q0 - 12*j0 + 15*q0**3 + 36*q0**2 + 36*q0 - s0 + 24)/24
+  z^5: -(10*j0**2 - 105*j0*q0**2 - 200*j0*q0 - 120*j0 - l0 + 105*q0**4 + 300*q0**3 + 360*q0**2 - 15*q0*s0 + 240*q0 - 20*s0 + 120)/120
+
+===== Luminosity distance d_L (coefficient of z^(n+1) in H0 d/c; k = K c^2/(H0^2 a0^2)) =====
+D^0 correct          = 1
+D^0 correct (x1) = 1
+D^0 printed - correct = 0   [OK]
+D^1 correct          = 1/2 - q0/2
+D^1 correct (x2) = 1 - q0
+D^1 printed - correct = 0   [OK]
+D^2 correct          = -j0/6 - k/6 + q0**2/2 + q0/6 - 1/6
+D^2 correct (x6) = -j0 - k + 3*q0**2 + q0 - 1
+D^2 printed - correct = 0   [OK]
+D^3 correct          = 5*j0*q0/12 + 5*j0/24 + k*(q0/4 + 1/12) - 5*q0**3/8 - 5*q0**2/8 - q0/12 + s0/24 + 1/12
+D^3 correct (x24) = 10*j0*q0 + 5*j0 + k*(6*q0 + 2) - 15*q0**3 - 15*q0**2 - 2*q0 + s0 + 2
+D^3 printed - correct = 0   [OK]
+D^4 correct          = j0**2/12 - 7*j0*q0**2/8 - 11*j0*q0/12 - 9*j0/40 + k**2/120 + k*(j0/12 - 3*q0**2/8 - q0/3 - 1/24) - l0/120 + 7*q0**4/8 + 11*q0**3/8 + 27*q0**2/40 - q0*s0/8 + q0/20 - 11*s0/120 - 1/20
+D^4 correct (x120) = 10*j0**2 - 105*j0*q0**2 - 110*j0*q0 - 27*j0 + k**2 + k*(10*j0 - 45*q0**2 - 40*q0 - 5) - l0 + 105*q0**4 + 165*q0**3 + 81*q0**2 - 15*q0*s0 + 6*q0 - 11*s0 - 6
+D^4 printed - correct = -k**2/120   [MISMATCH]
+
+===== Angular-diameter distance d_A (coefficient of z^(n+1) in H0 d/c; k = K c^2/(H0^2 a0^2)) =====
+D^0 correct          = 1
+D^0 correct (x1) = 1
+D^0 printed - correct = 0   [OK]
+D^1 correct          = -q0/2 - 3/2
+D^1 correct (x2) = -q0 - 3
+D^1 printed - correct = 0   [OK]
+D^2 correct          = -j0/6 - k/6 + q0**2/2 + 7*q0/6 + 11/6
+D^2 correct (x6) = -j0 - k + 3*q0**2 + 7*q0 + 11
+D^2 printed - correct = 0   [OK]
+D^3 correct          = 5*j0*q0/12 + 13*j0/24 + k*(q0/4 + 5/12) - 5*q0**3/8 - 13*q0**2/8 - 23*q0/12 + s0/24 - 25/12
+D^3 correct (x24) = 10*j0*q0 + 13*j0 + k*(6*q0 + 10) - 15*q0**3 - 39*q0**2 - 46*q0 + s0 - 50
+D^3 printed - correct = 0   [OK]
+D^4 correct          = j0**2/12 - 7*j0*q0**2/8 - 7*j0*q0/4 - 137*j0/120 + k**2/120 + k*(j0/12 - 3*q0**2/8 - 5*q0/6 - 17/24) - l0/120 + 7*q0**4/8 + 21*q0**3/8 + 137*q0**2/40 - q0*s0/8 + 163*q0/60 - 7*s0/40 + 137/60
+D^4 correct (x120) = 10*j0**2 - 105*j0*q0**2 - 210*j0*q0 - 137*j0 + k**2 + k*(10*j0 - 45*q0**2 - 100*q0 - 85) - l0 + 105*q0**4 + 315*q0**3 + 411*q0**2 - 15*q0*s0 + 326*q0 - 21*s0 + 274
+D^4 printed - correct = -k**2/120   [MISMATCH]
+
+Identity check  d_A - d_L/(1+z)^2 (to z^5): 0
+Printed d_A - printed d_L/(1+z)^2 (to z^5): 0
+
+===== Exact model checks =====
+
+Milne a=t, K=-1:
+  exact   H0 dL/c = z**2/2 + z
+  derived H0 dL/c = z**2/2 + z   derived-exact: 0
+  printed H0 dL/c = -z**5/120 + z**2/2 + z   printed-exact: -z**5/120
+  exact   H0 dA/c = 3*z**5 - 5*z**4/2 + 2*z**3 - 3*z**2/2 + z
+  derived-exact (dA): 0
+  printed-exact (dA): -z**5/120
+
+de Sitter a=e^t, K=0:
+  exact   H0 dL/c = z**2 + z
+  derived H0 dL/c = z**2 + z   derived-exact: 0
+  printed H0 dL/c = z**2 + z   printed-exact: 0
+  exact   H0 dA/c = z**5 - z**4 + z**3 - z**2 + z
+  derived-exact (dA): 0
+  printed-exact (dA): 0
+
+===== Numeric check: a = cosh t, t0 = 1, K = +1, c = 1 =====
+z = 1/100: exact H0 dL = 0.01013683296516813784561716
+  derived series error  = 9.21280E-13   (expect ~ z^6 = 1e-12)
+  printed series error  = 1.35817E-12

@@ -1,0 +1,21 @@
+printed (11.42),(11.43) numeric: [(0.041, 0.1521, 4.02), (0.25, -0.1187, -0.1837)]
+correct      eta20/eps=-2*(27*Omega_M**2 + 24*Omega_M - 32)/(27*Omega_M*(Omega_M - 2)*(27*Omega_M**2 + 60*Omega_M + 112))
+             eta30/eps=-2*(81*Omega_M**2 - 60*Omega_M - 16)/(243*Omega_M**2*(Omega_M - 2)*(27*Omega_M**2 + 60*Omega_M + 112))
+             numeric: [(0.041, -0.2494, -0.4), (0.25, -0.032, -0.0152)]
+R3 misprint  eta20/eps=-2*(27*Omega_M**2 + 24*Omega_M - 32)/(27*(Omega_M - 2)*(27*Omega_M**3 + 60*Omega_M**2 + 128*Omega_M + 32))
+             eta30/eps=-2*(81*Omega_M**3 - 84*Omega_M**2 - 48*Omega_M + 32)/(243*Omega_M**2*(Omega_M - 2)*(27*Omega_M**3 + 60*Omega_M**2 + 128*Omega_M + 32))
+             numeric: [(0.041, -0.0314, 2.0005), (0.25, -0.0151, 0.0177)]
++HdRd        eta20/eps=-2*(27*Omega_M**2 + 24*Omega_M - 32)/(27*Omega_M*(Omega_M - 2)*(27*Omega_M**2 + 72*Omega_M + 112))
+             eta30/eps=-2*(63*Omega_M**2 - 48*Omega_M - 16)/(243*Omega_M**2*(Omega_M - 2)*(27*Omega_M**2 + 72*Omega_M + 112))
+             numeric: [(0.041, -0.2484, -0.3882), (0.25, -0.0313, -0.0137)]
+both         eta20/eps=-2*(27*Omega_M**2 + 24*Omega_M - 32)/(27*(Omega_M - 2)*(27*Omega_M**3 + 72*Omega_M**2 + 128*Omega_M + 32))
+             eta30/eps=-2*(63*Omega_M**3 - 72*Omega_M**2 - 48*Omega_M + 32)/(243*Omega_M**2*(Omega_M - 2)*(27*Omega_M**3 + 72*Omega_M**2 + 128*Omega_M + 32))
+             numeric: [(0.041, -0.0313, 2.0007), (0.25, -0.0149, 0.018)]
+from printed P0,Q0,P2,Q2,P3,Q3 only (R cancels): eta20/eps = -2*(27*Omega_M**2 + 24*Omega_M - 32)/(27*Omega_M*(Omega_M - 2)*(27*Omega_M**2 + 60*Omega_M + 112)) ; eta30/eps = -2*(81*Omega_M**2 - 60*Omega_M - 16)/(243*Omega_M**2*(Omega_M - 2)*(27*Omega_M**2 + 60*Omega_M + 112))
+  P0*Om+Q0 at LCDM: 9*Omega_M**2*(Omega_M - 2)*(27*Omega_M**2 + 60*Omega_M + 112)/32
+Rcor consistent with exact solution: 0
+Rup - Rcor = 2*(3*j0**2*q0 + 10*j0**2 + 11*j0*q0**2 + 4*j0*q0 - 18*j0 + 90*q0**2) ; Rrev - Rcor = 2*(3*j0**2*q0 + 10*j0**2 + 11*j0*q0**2 + 4*j0*q0 + 90*q0**2)
+de Sitter (q,j,s,l)=(-1,1,1,1): Rcor= 0  Rup= 172  Rrev= 208
+LCDM F(R0) with review R: 27*Omega_M**2*(Omega_M - 2)*(27*Omega_M**2 + 60*Omega_M + 112)/(243*Omega_M**4 + 540*Omega_M**3 - 6264*Omega_M**2 + 9360*Omega_M - 3328)   [expected R0+2Lambda = 3*Omega_M - 6 ]  at Om=0.25: 0.2773714251501786 vs -5.25
+LCDM F(R0) with upstream R: 27*Omega_M**2*(Omega_M - 2)*(27*Omega_M**2 + 60*Omega_M + 112)/(243*Omega_M**4 + 540*Omega_M**3 - 6264*Omega_M**2 + 9360*Omega_M - 2752)   [expected R0+2Lambda = 3*Omega_M - 6 ]  at Om=0.25: 0.47855927159321765 vs -5.25
+LCDM F(R0) with corrected R: 3*(Omega_M - 2)   [expected R0+2Lambda = 3*Omega_M - 6 ]  at Om=0.25: -5.25 vs -5.25
