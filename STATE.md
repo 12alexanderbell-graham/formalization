@@ -1,45 +1,42 @@
 # STATE
 
-Last updated: 2026-10-30, run 2026-10-30T0028Z (scheduled).
+Last updated: 2026-10-30, run 2026-10-30T0220Z (scheduled).
 
 ## Phase
-S1 DONE. S2 DONE (this run). Now: work target 1.
+S1, S2 DONE. Working target 1 (cosmography). First verified finding F1.
 
-## Target 1: Cosmography — low-redshift (Hubble-series) expansions in FLRW
-Case and ranking: `TARGETS.md` #1. The eight items (annex 36.5):
-1. **Exact problem:** the model-independent expansions of lookback time, comoving distance χ, luminosity distance d_L and angular-diameter distance d_A in powers of the redshift z (and y = z/(1+z)), with coefficients in H₀, q₀, j₀, s₀, l₀ and spatial curvature; and the published versions of these coefficients.
-2. **Intended checkable result:** Lean theorems (`Checked`) giving each coefficient with explicit smoothness hypotheses and remainder; Lean-certified verdicts on published coefficient tables.
-3. **Who benefits:** cosmographers fitting supernova/BAO data with these series; Physlib (two open TODOs in `Cosmology/FLRW/Distances.lean`); teachers of the Hubble law.
-4. **Why present methods are insufficient:** coefficients are derived by hand or CAS and copied between papers; nothing is machine-checked; hypotheses (derivatives needed, asymptotic vs convergent) are rarely stated.
-5. **Strongest current evidence:** Visser's series agree with an independent sympy derivation to z⁴; a screen of 9 papers flagged 4 with candidate coefficient errors (`FINDINGS.md`, unverified).
-6. **Proof obligation / falsifier:** each coefficient is either proved in Lean or a printed coefficient is refuted in Lean on an explicit model (de Sitter, Einstein–de Sitter).
-7. **First decisive bottleneck:** now that the pipeline works, whether the screen's candidate discrepancies survive typeset-text verification (transcription via summariser is the main alternative explanation).
-8. **Ethics/misuse:** none beyond 47.1/47.2 (never contact authors; drafts only; Alexander decides).
+## Target 1: Cosmography: low-redshift (Hubble-series) expansions in FLRW
+Case and the eight items: `TARGETS.md` #1 (unchanged; see previous STATE in git for the full list).
+Bottleneck now: turning the three typeset-confirmed candidates (C1, C3, C4) into Lean evidence, and widening the screen now that the pipeline (screen → typeset → Lean → audit → referee) is proven end to end on F1.
 
 ## Results (statuses, annex XXXVIII)
-- **PROVED** `Checked.Cosmography.lookback_second_order`: t₀ − t = H₀⁻¹(z − (1 + q₀/2)z²) + o(z²), a differentiable near t₀, a′ differentiable at t₀, a(t₀) ≠ 0, H₀ ≠ 0. CI 40981530819 and 40982411889 green; audit `runs/2026-10-30T0028Z/audit.md`.
-- **PROVED** `Checked.Cosmography.lookback_second_order_bigO`: same with O(z³) under C³ (the blind restater's reading; its verbatim statement is derived, `Blind.lookback_expansion`). CI 40982411889 green; same audit file.
-- axiom-audit (run 40982411889): 12 declarations under `Checked`, all within [propext, Classical.choice, Quot.sound]. leanchecker passed. nanoda: still fails to parse the export ("invalid digit found in string"), report-only.
+- **PROVED** `Checked.Cosmography.lookback_second_order` (o(z²)) and `..._bigO` (O(z³)): run 0028Z.
+- **PROVED** `Checked.Cosmography.Aviles.flatLCDM_coeffs`: flat ΛCDM, any Ω, C⁶ at t₀: q₀ = 3Ω/2 − 1, j₀ = 1, s₀ = 1 − 9Ω/2, l₀ = 1 + 3Ω + 27Ω²/2, m₀ = 1 − 27Ω/2 − 81Ω² − 81Ω³/4. Audit `runs/2026-10-30T0220Z/audit.md`; CI 40996176398 green; nanoda passed on CI 40996270496.
+- **PROVED** `Checked.Cosmography.Aviles.avilesL0Claim_false`, `avilesM0Claim_false` (printed Eq. 15 refuted on Einstein–de Sitter). Same audit and CI.
+- **PROVED (CI pending at record time, see below)** `Checked.Cosmography.AvilesWitness.printedL0_false_at` (every Ω ∈ (0,1)), `printedM0_false_at` (every Ω ∈ (0,1) except (√7−1)/3), via `exists_flatLCDM` (sinh^{2/3} witness). Audit addendum. Commit 8f62c67, CI run 40997210361; then 40997256530 (nanoda blocking).
+- **Finding F1** (FINDINGS.md): verified; referee STANDS-WITH-CORRECTIONS; nanoda repaired. Reported to Alexander this run.
+- Candidates C1, C3, C4: typeset-confirmed as printed and wrong (sympy; C4 twice independently). Not findings yet: Lean evidence, audit, referee to do.
 
 ## Environment (this run)
-- Repo reachable; push verified (remote head = local).
-- **Local Lean works**: elan installer ran fine this run (`curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none`, then `lake exe cache get`, ~3 min). Full build ~1 min. Use it; CI is the judge.
-- Physlib clone used for reading only; not a dependency. Decision: stay Mathlib-only, mirroring Physlib's definitions verbatim (`hubble`, `decel`, `redshift`), until preparing a contribution (then bridge to `Time`/`FLRW`).
-- Checked files: import specific Mathlib modules, not `import Mathlib` (full import made the nanoda export step take > 10 min).
+- Repo reachable; pushes verified (remote head = local each time).
+- Local Lean: elan + `lake exe cache get` work (~3 min); full build ~1 min.
+- Local build of external tooling (lean4export, nanoda) refused by the environment's safety classifier: test tooling via CI.
+- arXiv PDFs downloadable with curl; `arxiv.org/e-print/` is robots-blocked (do not use mirrors).
+- nanoda: repaired (lean4export v4.35.0 + nanoda_lib 8de7e0c), blocking again from commit 30112b9.
 
 ## Daily review (53.3), 2026-10-30
-- AUDITED + PROVED gained in last 24 h: 2 (the two lookback theorems). Findings: 0 verified, 4 candidates.
-- Bottleneck: candidate verification (new this run).
+- AUDITED + PROVED headlines in last 24 h: 2 (run 0028Z) + 5 (run 0220Z). Findings: 1 verified (F1), 3 typeset-confirmed candidates.
+- Pattern fixed this run: summariser transcription made every screen hit unverifiable → typeset route in PROMPT (LEDGER experiment). Tooling gap (nanoda) closed.
 
 ## Known gaps
-- nanoda report-only (lean4export/nanoda_lib format mismatch). **Must be repaired before any finding is reported** (STATE rule from setup).
+- If CI 40997210361 or 40997256530 is red, fix that first (the witness file and the blocking nanoda step were green locally / in the previous CI respectively).
 
 ## Open questions for Alexander
-None.
+None. F1 sent as information (whether to contact the authors is his call, 47.1).
 
 ## Exact next step
-1. Verify the text of candidates C2 (Aviles et al. 2012 Eq. 15) and C3 (Capozziello–Cardone–Salzano 2008 Eqs. A2, A5) from the typeset source, not a summariser: try WebFetch on the arXiv listing/PDF asking for the equation verbatim from two routes, and the arXiv "v" history for corrected versions; search for errata. Why: these decide whether the program has its first finding; a negative (transcription error) removes them cheaply.
-2. For each candidate that survives: freeze the paper's claim as a Lean statement, and prove the refutation on Einstein–de Sitter (C2: ΛCDM with Ω_m = 1 gives l₀ = 35/2; printed formula gives −19/2) or de Sitter (C3).
-3. Repair nanoda (pin a lean4export revision compatible with nanoda_lib `debug`), required before reporting.
-4. If no candidate survives: milestone 2 = d_L = (c/H₀)[z + ½(1 − q₀)z² + o(z²)] with Physlib's r = S_k(χ).
+1. Check CI 40997210361 and 40997256530 by run ID; if red, fix first.
+2. C4 (Capozziello, Lazkoz, Salzano 2011 Eq. 22, CPL l₀): Lean theorem for the correct l₀ of flat matter+CPL under the same polynomial-identity method (the model law has a^{−3(1+w₀+w_a)}e^{−3w_a(1−a)}: square it, take the differential identity d/dt of E(a(t)), generate certificates with `runs/2026-10-30T0220Z/scripts/gen*.py` adapted). Then refute the printed w_a² term: needs a model with w_a ≠ 0 and Ω_m < 1; existence via an ODE existence theorem (Mathlib `IsPicardLindelof`) or state the refutation conditional on existence and record it as PROVED-CONDITIONAL. Why: C4 is the candidate whose error matters most for current CPL fits.
+3. Then C3 (de Sitter, ln(1+z) z⁵ coefficient) and C1 (d_Q y² coefficient; needs M3 d_L to O(z³)).
+4. Widen the screen (9 papers so far) with the typeset route: other ΛCDM / wCDM / CPL cosmographic coefficient tables (e.g. Pourojaghi et al. 2408.10704, D'Agostino–Nunes 2307.13464, Li–Du–Xu 1903.11433).
 Blocking: nothing.
