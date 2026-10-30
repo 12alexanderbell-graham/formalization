@@ -79,3 +79,20 @@ No Translation error found.
 - Corrections adopted: "missing minus operator" wording for s₀; Ω = 0 witness is a boundary case,
   other Ω covered by `printedL0_ne` (unconditional statement; existence of models with
   0 < Ω < 1, w ≠ const not yet constructed in Lean — next step).
+
+## Addendum: existence for every parameter point (`Checked/Cosmography/CPLExistence.lean`)
+Closes the referee's caveat. Headlines: `exists_flatCPL` (for every Ω, w₀, wₐ there is a scale
+factor with `IsFlatCPL Ω w₀ wₐ a 0` and `ContDiffAt ℝ 5 a 0`) and `printedL0_false_at` (for every
+Ω, w₀, wₐ with (1−Ω)(7−Ω)wₐ ≠ 0, such a model has l₀ ≠ printed). Tool: `exists_local_model`
+(any law H/H₀ = E(a/a₀) with E C⁵ at 1, E(1) = 1 has a positive C⁵ solution near t₀ = 0, a(0) = 1),
+from Mathlib's `ContDiffAt.exists_forall_mem_closedBall_exists_eq_forall_mem_Ioo_hasDerivAt₀`
+(Picard–Lindelöf) and a C⁰→C⁵ bootstrap on an open interval (`contDiffOn_succ_iff_deriv_of_isOpen`).
+- Fidelity: reuses the audited `IsFlatCPL`, `cosmoCoeff`; t₀ = 0 and a(t₀) = 1 are normalisations
+  (the claim is ∃, so fixing them only makes the witness more specific). `cplE` is Eq. (17) with
+  1 + z = 1/x, matched to `IsFlatCPL` inside the proof (no separate trust).
+- Not vacuous / not trivial: content is the ODE existence theorem plus the bootstrap.
+- Junk values: `1/x`, real power and √ are only evaluated near x = 1 (argument 1 at x = 1);
+  positivity of a near 0 is proved, not assumed.
+- Consequence: the printed l₀ is false at the paper's own toy-model point (Ω_m, w₀, wₐ) =
+  (0.245, −0.93, −0.41) and at every interior point with wₐ ≠ 0. Local build; axioms
+  propext, Classical.choice, Quot.sound.

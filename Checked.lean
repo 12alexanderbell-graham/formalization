@@ -4,3 +4,4 @@ import Checked.Cosmography.LookbackThird
 import Checked.Cosmography.LCDMCoefficients
 import Checked.Cosmography.LCDMWitness
 import Checked.Cosmography.CPLCoefficients
+import Checked.Cosmography.CPLExistence
