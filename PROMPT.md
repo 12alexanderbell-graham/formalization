@@ -12,19 +12,12 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 6. Message Alexander only under annex L.2. Result first, bullets, any question in bold.
 7. This is an ever-improving program (annex LIV): when you notice a fundamental issue or a repeated pattern, find its root cause and fix it in the repository, then log the change as an experiment for a later run to evaluate.
 
-## Current phase: setup, then target selection
+## Current phase: work target 1
 
-`STATE.md` says what is done. Until these are done, they come first:
+S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step.
 
-**S1. Prove the judge works. DONE 2026-10-30 (see LEDGER). Skip.**
-- Push a commit and confirm both CI jobs (`work`, `checked`) go green on the trivial placeholder theorem.
-- Positive controls on a throwaway branch: a `sorry` in `Checked` must make CI fail; a custom `axiom` used in `Checked` must make CI fail. Record the run IDs. Delete nothing; leave the branches.
-- If any check in the workflow doesn't work as intended, fix the workflow and log it in `LEDGER.md` as an integrity event (annex 39.5).
+## Working notes (maintained by runs, annex LIV)
 
-**S2. Pick target 1** (annex XLII).
-- Build `TARGETS.md`: ranked candidates, each with importance, checkability (what Mathlib/Physlib already have), error potential, prior-art check, first milestone, and who it helps.
-- Mine Physlib's `TODO` and `informal_lemma` items as one source, but not the only one.
-- Pick target 1, write the case and the eight items of annex 36.5 in `STATE.md`, add Physlib as a dependency if the target needs it (pin the commit), freeze the first milestone's statement.
-- Message Alexander with the pick (it is a target change under L.2).
-
-After S1 and S2, the phase is: work the target.
+- Local Lean: install with the elan installer and `lake exe cache get` (commands in `STATE.md`); iterate locally, let CI judge.
+- `Checked` files import specific Mathlib modules, never `import Mathlib` (CI time and nanoda export scale with the import closure). `Work` files may import Mathlib.
+- Published formulas read through WebFetch pass through a summarising model: a transcription is UNVERIFIED until checked against the typeset text by a second route. Never treat a screen discrepancy as a finding before that.

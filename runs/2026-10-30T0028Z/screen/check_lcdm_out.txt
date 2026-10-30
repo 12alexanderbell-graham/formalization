@@ -1,0 +1,8 @@
+q,j,s,l = [(2*Okk + 3*Omega_m - 2)/2, 1 - Okk, (2*Okk**2 + 3*Okk*Omega_m - 4*Okk - 9*Omega_m + 2)/2, (2*Okk**2 + 18*Okk*Omega_m - 4*Okk + 27*Omega_m**2 + 6*Omega_m + 2)/2]
+dL diff = 0
+dA diff = 0
+chi diff = 0
+r diff = 0
+lookback diff = 0
+Hz diff = 0
+lnDLoverZ diff = 0

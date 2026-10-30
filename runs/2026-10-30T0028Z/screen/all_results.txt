@@ -1,0 +1,122 @@
+##### cv2007.py
+OK   CV2007 eq20 dL(z) (through z^3)
+OK   CV2007 eq21 dF(z) (through z^3)
+OK   CV2007 eq22 dP(z) (through z^3)
+OK   CV2007 eq23 dQ(z) (through z^3)
+OK   CV2007 eq24 dA(z) (through z^3)
+OK   CV2007 eq2 dL(z) k-form (through z^3)
+OK   CV2007 eq26 ln dL/z (through z^2)
+OK   CV2007 eq25 mu (bracket) (through z^2)
+OK   CV2007 eq27 ln dF/z (through z^2)
+OK   CV2007 eq28 ln dP/z (through z^2)
+OK   CV2007 eq29 ln dQ/z (through z^2)
+OK   CV2007 eq30 ln dA/z (through z^2)
+OK   CV2007 eq52 dL(y) (through y^3)
+OK   CV2007 eq57 dF(y) (through y^3)
+OK   CV2007 eq58 dP(y) (through y^3)
+DIFF CV2007 eq59 dQ(y) (through y^3)
+   y^3: printed (4*Omega_k - 4*j + 12*q**2 - 2*q - 1)/12 | ref (4*Omega_k - 4*j + 12*q**2 - 2*q - 1)/24 | diff (4*Omega_k - 4*j + 12*q**2 - 2*q - 1)/24
+OK   CV2007 eq60 dA(y) (through y^3)
+OK   CV2007 eq61 ln dL/y (through y^2)
+OK   CV2007 eq62 ln dF/y (through y^2)
+OK   CV2007 eq63 ln dP/y (through y^2)
+OK   CV2007 eq64 ln dQ/y (through y^2)
+OK   CV2007 eq65 ln dA/y (through y^2)
+##### cv2008_fits.py
+OK   CV2008fits eq3 (=0710.1887 eq2) (through z^3)
+OK   CV2008fits eq14 (=0710.1887 eq20) (through z^3)
+OK   CV2008fits eq15 (=0710.1887 eq21) (through z^3)
+OK   CV2008fits eq16 (=0710.1887 eq22) (through z^3)
+OK   CV2008fits eq17 (=0710.1887 eq23) (through z^3)
+OK   CV2008fits eq18 (=0710.1887 eq24) (through z^3)
+OK   CV2008fits eq19 (=0710.1887 eq25) (through z^2)
+OK   CV2008fits eq20 (=0710.1887 eq26) (through z^2)
+OK   CV2008fits eq21 (=0710.1887 eq27) (through z^2)
+OK   CV2008fits eq22 (=0710.1887 eq28) (through z^2)
+OK   CV2008fits eq23 (=0710.1887 eq29) (through z^2)
+OK   CV2008fits eq24 (=0710.1887 eq30) (through z^2)
+OK   CV2008fits eq29 (=0710.1887 eq52) (through y^3)
+OK   CV2008fits eq30 (=0710.1887 eq57) (through y^3)
+OK   CV2008fits eq31 (=0710.1887 eq58) (through y^3)
+DIFF CV2008fits eq32 (=0710.1887 eq59) (through y^3)
+   y^3: printed (4*Omega_k - 4*j + 12*q**2 - 2*q - 1)/12 | ref (4*Omega_k - 4*j + 12*q**2 - 2*q - 1)/24 | diff (4*Omega_k - 4*j + 12*q**2 - 2*q - 1)/24
+OK   CV2008fits eq33 (=0710.1887 eq60) (through y^3)
+OK   CV2008fits eq34 (=0710.1887 eq61) (through y^2)
+OK   CV2008fits eq35 (=0710.1887 eq62) (through y^2)
+OK   CV2008fits eq36 (=0710.1887 eq63) (through y^2)
+OK   CV2008fits eq37 (=0710.1887 eq64) (through y^2)
+OK   CV2008fits eq38 (=0710.1887 eq65) (through y^2)
+##### visser2004_eos.py
+Eq25 kappa0 diff: 0
+Eq28 d2p/drho2 diff: 0
+Eq29 (k=0) diff: 0
+OK   Visser2004 eq46 dL(z) (through z^4)
+##### chiba_nakamura1998.py
+OK   CN1998 eq2.9-2.11 H0 dL(z) (through z^3)
+OK   CN1998 eq2.3,2.5,2.6 H(z) (through z^2)
+##### vitagliano2010.py
+OK   VXLV2010 eq4 dL(z) (through z^4)
+OK   VXLV2010 eq9 dL(y) (through y^4)
+OK   VXLV2010 eq10/11 ln(dL/y), mu(y) (through y^3)
+##### agl2012.py
+OK   AGLQ2012 App.A dL(z) (through z^5)
+OK   AGLQ2012 App.A dF(z) (through z^5)
+OK   AGLQ2012 App.A dP(z) (through z^5)
+OK   AGLQ2012 App.A dQ(z) (through z^5)
+OK   AGLQ2012 eq15 q0(LCDM): exact 3*Omega_m/2 - 1 
+OK   AGLQ2012 eq15 j0(LCDM): exact 1 
+OK   AGLQ2012 eq15 s0(LCDM): exact 1 - 9*Omega_m/2 
+DIFF AGLQ2012 eq15 l0(LCDM): exact 27*Omega_m**2/2 + 3*Omega_m + 1 | printed-exact = -27*Omega_m**2
+DIFF AGLQ2012 eq15 m0(LCDM): exact -81*Omega_m**3/4 - 81*Omega_m**2 - 27*Omega_m/2 + 1 | printed-exact = -81*Omega_m**3/4 - 27*Omega_m**2/2 + 27*Omega_m/2
+OK   AGLQ2012 eq4q
+OK   AGLQ2012 eq4j
+OK   AGLQ2012 eq4s
+OK   AGLQ2012 eq4l
+OK   AGLQ2012 eq4m
+OK   AGLQ2012 eq12P
+OK   AGLQ2012 eq12dP
+OK   AGLQ2012 eq12d2P
+OK   AGLQ2012 eq12d3P
+OK   AGLQ2012 eq12d4P
+##### ccs2008.py
+DIFF CCS2008 A2 D(z)=c*lookback (through z^5)
+   z^5: printed (10*j**2 - 105*j*q**2 - 200*j*q - 120*j - l + 420*q**4 + 300*q**3 + 360*q**2 - 15*q*s + 240*q - 20*s + 120)/120 | ref (10*j**2 - 105*j*q**2 - 200*j*q - 120*j - l + 105*q**4 + 300*q**3 + 360*q**2 - 15*q*s + 240*q - 20*s + 120)/120 | diff 21*q**4/8
+DIFF CCS2008 A6 dL(z) (through z^5)
+   z^5: printed (-10*Omega_k*j + 45*Omega_k*q**2 + 40*Omega_k*q + 5*Omega_k + 10*j**2 - 105*j*q**2 - 110*j*q - 27*j - l + 105*q**4 + 165*q**3 + 81*q**2 - 15*q*s + 6*q - 11*s - 6)/120 | ref (Omega_k**2 - 10*Omega_k*j + 45*Omega_k*q**2 + 40*Omega_k*q + 5*Omega_k + 10*j**2 - 105*j*q**2 - 110*j*q - 27*j - l + 105*q**4 + 165*q**3 + 81*q**2 - 15*q*s + 6*q - 11*s - 6)/120 | diff -Omega_k**2/120
+DIFF CCS2008 A7 dA(z) (through z^5)
+   z^5: printed (-10*Omega_k*j + 45*Omega_k*q**2 + 100*Omega_k*q + 85*Omega_k + 10*j**2 - 105*j*q**2 - 210*j*q - 137*j - l + 105*q**4 + 315*q**3 + 411*q**2 - 15*q*s + 326*q - 21*s + 274)/120 | ref (Omega_k**2 - 10*Omega_k*j + 45*Omega_k*q**2 + 100*Omega_k*q + 85*Omega_k + 10*j**2 - 105*j*q**2 - 210*j*q - 137*j - l + 105*q**4 + 315*q**3 + 411*q**2 - 15*q*s + 326*q - 21*s + 274)/120 | diff -Omega_k**2/120
+DIFF CCS2008 A5 r0(D)/(D/a0) (through T^5)
+   T^4: printed (10*Omega_k*q + 35*Omega_k + 8*j + 6*q**2 + 36*q - s + 24)/120 | ref (Omega_k**2 + 10*Omega_k*q + 35*Omega_k + 8*j + 6*q**2 + 36*q - s + 24)/120 | diff -Omega_k**2/120
+   T^5: printed (3*Omega_k*j + 30*Omega_k*q + 45*Omega_k + 4*j*q + 12*j + 24*l + 18*q**2 + 48*q - 2*s + 24)/144 | ref (15*Omega_k**2 + 15*Omega_k*j + 150*Omega_k*q + 225*Omega_k + 20*j*q + 60*j + l + 90*q**2 + 240*q - 10*s + 120)/720 | diff (-15*Omega_k**2 + 119*l)/720
+reference r/D coefficients:
+  T^0 1
+  T^1 1/2
+  T^2 (Omega_k + q + 2)/6
+  T^3 (6*Omega_k + j + 6*q + 6)/24
+  T^4 (Omega_k**2 + 10*Omega_k*q + 35*Omega_k + 8*j + 6*q**2 + 36*q - s + 24)/120
+  T^5 (15*Omega_k**2 + 15*Omega_k*j + 150*Omega_k*q + 225*Omega_k + 20*j*q + 60*j + l + 90*q**2 + 240*q - 10*s + 120)/720
+##### cls2011.py
+OK   CLS2011 eq4 mu(z): ln(dL/z) coefficients (through z^4)
+OK   CLS2011 eq12 d^nH/dz^n identity (all z)
+OK   CLS2011 eq13 d^nH/dz^n identity (all z)
+OK   CLS2011 eq14 d^nH/dz^n identity (all z)
+OK   CLS2011 eq15 d^nH/dz^n identity (all z)
+OK   CLS2011 CPL q0 
+OK   CLS2011 CPL j0 
+DIFF CLS2011 CPL s0 | printed-exact = 27*w0**3*(Omega_m - 3)*(Omega_m - 1)/2
+     exact: w0**3*(-27*Omega_m**2/4 + 27*Omega_m - 81/4) + w0**2*(-27*Omega_m**2/4 + 171*Omega_m/4 - 36) + w0*(-9*Omega_m**2*wa/4 + 18*Omega_m*wa + 81*Omega_m/4 - 63*wa/4 - 81/4) + wa*(33*Omega_m/4 - 33/4) - 7/2
+DIFF CLS2011 CPL l0 | printed-exact = -2*wa**2*(Omega_m - 7)*(Omega_m - 1)
+     exact: w0**4*(81*Omega_m**2 - 405*Omega_m/2 + 243/2) + w0**3*(162*Omega_m**2 - 1917*Omega_m/4 + 1269/4) + w0**2*(297*Omega_m**2*wa/4 + 189*Omega_m**2/2 - 459*Omega_m*wa/2 - 396*Omega_m + 621*wa/4 + 603/2) + w0*(189*Omega_m**2*wa/4 - 927*Omega_m*wa/4 - 489*Omega_m/4 + 369*wa/2 + 489/4) + wa**2*(9*Omega_m**2/4 - 18*Omega_m + 63/4) + wa*(213/4 - 213*Omega_m/4) + 35/2
+##### dunsby_luongo2016.py
+flat dL z^6 ref: -(280*j**2*q + 190*j**2 - 1260*j*q**3 - 1995*j*q**2 - 1040*j*q + 35*j*s - 168*j - 21*l*q - 19*l - m + 945*q**5 + 1995*q**4 + 1560*q**3 - 210*q**2*s + 504*q**2 - 285*q*s + 24*q - 104*s - 24)/720
+OK   DL2016 eq13-14 dL(z) flat (through z^6)
+OK   DL2016 eq60 D(z) (through z^4)
+OK   DL2016 eq11a 
+OK   DL2016 eq11b 
+OK   DL2016 eq11c 
+OK   DL2016 eq11d 
+OK   DL2016 eq11e 
+OK   DL2016 eq8a 
+OK   DL2016 eq8b 
+OK   DL2016 eq8c 
+OK   DL2016 eq8d 
