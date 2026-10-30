@@ -1,0 +1,21 @@
+C3  D(z)/(cz/H0) coefficients D_z^n:
+  D_z^0 = 1
+  D_z^1 = -q0/2 - 1
+  D_z^2 = -j0/6 + q0**2/2 + q0 + 1
+  D_z^3 = 5*j0*q0/12 + j0/2 - 5*q0**3/8 - 3*q0**2/2 - 3*q0/2 + s0/24 - 1
+  D_z^4 = j0**2/12 - 7*j0*q0**2/8 - 5*j0*q0/3 - j0 - l0/120 + 7*q0**4/8 + 5*q0**3/2 + 3*q0**2 - q0*s0/8 + 2*q0 - s0/6 + 1
+  printed D_z^4 - derived = 21*q0**4/8
+  printed D_z^3 - derived = 0
+C3  r0/(D/a0) coefficients R_D^n:
+  R_D^0 = 1
+  R_D^1 = 1/2
+  R_D^2 = (-eps2 + q0 + 2)/6
+  R_D^3 = (-6*eps2 + j0 + 6*q0 + 6)/24
+  R_D^4 = (eps2**2 - 10*eps2*q0 - 35*eps2 + 8*j0 + 6*q0**2 + 36*q0 - s0 + 24)/120
+  R_D^5 = (15*eps2**2 - 15*eps2*j0 - 150*eps2*q0 - 225*eps2 + 20*j0*q0 + 60*j0 + l0 + 90*q0**2 + 240*q0 - 10*s0 + 120)/720
+  printed R_D^5 - derived = -eps2**2/48 + 119*l0/720
+  printed R_D^4 - derived = -eps2**2/120
+C1  d_L(z)/d_H = z**3*(-eps2/6 - j0/6 + q0**2/2 + q0/6 - 1/6) + z**2*(1/2 - q0/2) + z
+C1  d_Q(y)/(d_H y): y^1 coeff = -q0/2 ; y^2 coeff = (-4*Omega0 - 4*j0 + 12*q0**2 - 2*q0 + 3)/24
+     24*coeff = -4*Omega0 - 4*j0 + 12*q0**2 - 2*q0 + 3   12*coeff = -2*Omega0 - 2*j0 + 6*q0**2 - q0 + 3/2
+C1  d_Q(z): 24 * z^2 coeff = -4*Omega0 - 4*j0 + 12*q0**2 + 22*q0 + 27  (C&V 0809.0537 Eq.17 prints 27+22q0+12q0^2-4(j0+Omega0))

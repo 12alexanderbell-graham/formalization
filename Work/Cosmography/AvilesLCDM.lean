@@ -36,12 +36,12 @@ def IsFlatLCDM (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : Prop :=
 
 /-- The printed claim for `l₀` (frozen verbatim from Eq. (15)). -/
 def AvilesL0Claim : Prop :=
-  ∀ (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ →
+  ∀ (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ → ContDiffAt ℝ 6 a t₀ →
     cosmoCoeff 5 a t₀ = 1 + 3 * Ω - 27 / 2 * Ω ^ 2
 
 /-- The printed claim for `m₀` (frozen verbatim from Eq. (15)). -/
 def AvilesM0Claim : Prop :=
-  ∀ (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ →
+  ∀ (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ → ContDiffAt ℝ 6 a t₀ →
     cosmoCoeff 6 a t₀ = 1 - 27 / 2 * Ω ^ 2 - 81 * Ω ^ 2 - 81 / 2 * Ω ^ 3
 
 /-! ## Einstein–de Sitter: `a(t) = t^{2/3}` -/
@@ -106,7 +106,7 @@ theorem m0_eds {t : ℝ} (ht : 0 < t) : cosmoCoeff 6 eds t = -455 / 4 := by
 formula gives `−19/2`, the true value is `35/2`. -/
 theorem avilesL0Claim_false : ¬ AvilesL0Claim := by
   intro h
-  have := h 1 eds 1 (eds_isFlatLCDM one_pos)
+  have := h 1 eds 1 (eds_isFlatLCDM one_pos) (Real.contDiffAt_rpow_const_of_ne one_ne_zero)
   rw [l0_eds one_pos] at this
   norm_num at this
 
@@ -114,7 +114,7 @@ theorem avilesL0Claim_false : ¬ AvilesL0Claim := by
 gives `−134`, the true value is `−455/4`. -/
 theorem avilesM0Claim_false : ¬ AvilesM0Claim := by
   intro h
-  have := h 1 eds 1 (eds_isFlatLCDM one_pos)
+  have := h 1 eds 1 (eds_isFlatLCDM one_pos) (Real.contDiffAt_rpow_const_of_ne one_ne_zero)
   rw [m0_eds one_pos] at this
   norm_num at this
 
