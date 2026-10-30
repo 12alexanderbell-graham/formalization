@@ -35,3 +35,4 @@ import Work.Fidelity.RedTeamMore
 import Work.Fidelity.RedTeamMoreCheck
 import Work.Fidelity.SpecGaps
 import Work.Fidelity.LumDistSpec2
+import Work.Fidelity.SpecGapsLCDM
