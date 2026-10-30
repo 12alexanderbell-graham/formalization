@@ -22,3 +22,4 @@ import Work.Cosmography.BambaAngularAudit
 import Work.Cosmography.BambaZ
 import Work.Cosmography.BambaZAudit
 import Work.Cosmography.FRCosmo
+import Work.Cosmography.FRCosmoAudit
