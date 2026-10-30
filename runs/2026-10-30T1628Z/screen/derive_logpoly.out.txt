@@ -1,0 +1,47 @@
+flat LCDM: b_n (coefficient of [ln(1+z)]^n);  a_n = b_n ln(10)^(n-1)
+  b1 = 1
+  b2 = 3/2 - 3*Omega_m/4
+  b3 = 9*Omega_m**2/8 - 2*Omega_m + 7/6
+  b4 = -135*Omega_m**3/64 + 9*Omega_m**2/2 - 47*Omega_m/16 + 5/8
+  b5 = 567*Omega_m**4/128 - 729*Omega_m**3/64 + 315*Omega_m**2/32 - 25*Omega_m/8 + 31/120
+
+general cosmography: b_n in q0,j0,s0,l0,Omega_k
+  b1 = 1
+  b2 = 1 - q0/2
+  b3 = Omega_k/6 - j0/6 + q0**2/2 - q0/3 + 1/2
+  b4 = -Omega_k*q0/4 + Omega_k/6 + 5*j0*q0/12 - j0/24 - 5*q0**3/8 + q0**2/8 - q0/8 + s0/24 + 1/6
+  b5 = Omega_k**2/120 - Omega_k*j0/12 + 3*Omega_k*q0**2/8 - Omega_k*q0/6 + Omega_k/12 + j0**2/12 - 7*j0*q0**2/8 - j0*q0/12 - j0/60 - l0/120 + 7*q0**4/8 + q0**3/8 + q0**2/20 - q0*s0/8 - q0/30 - s0/120 + 1/24
+
+z-series d_L = z (D0 + D1 z + ...):
+  D0 = 1
+  D1 = 1/2 - q0/2
+  D2 = Omega_k/6 - j0/6 + q0**2/2 + q0/6 - 1/6
+  D3 = -Omega_k*q0/4 - Omega_k/12 + 5*j0*q0/12 + 5*j0/24 - 5*q0**3/8 - 5*q0**2/8 - q0/12 + s0/24 + 1/12
+  D4 = Omega_k**2/120 - Omega_k*j0/12 + 3*Omega_k*q0**2/8 + Omega_k*q0/3 + Omega_k/24 + j0**2/12 - 7*j0*q0**2/8 - 11*j0*q0/12 - 9*j0/40 - l0/120 + 7*q0**4/8 + 11*q0**3/8 + 27*q0**2/40 - q0*s0/8 + q0/20 - 11*s0/120 - 1/20
+
+[ok] general cosmographic b_n reduce to flat-LCDM b_n with LCDM (q0,j0,s0,l0)
+
+flat LCDM a3(a2) = 2*a2**2 - 10*a2*log(10)/3 + 5*log(10)**2/3
+
+printed - derived (0 means AGREES):
+  Lusso+19 eq8 a2:  0
+  Lusso+19 eq8 a3:  0
+  Lusso+19 eq8 a4:  0
+  RL19 Methods a2 (printed, no ln10):  -3*Omega_m/4 + 3*Omega_m*log(10)/4 - 3*log(10)/2 + 3/2
+  RL19 Methods a2 == b2 (natural-log coeff):  0
+  RL19 Methods a3 (printed, no ln10):  -9*Omega_m**2*log(10)**2/8 + 9*Omega_m**2/8 - 2*Omega_m + 2*Omega_m*log(10)**2 - 7*log(10)**2/6 + 7/6
+  RL19 Methods a3 == b3 (natural-log coeff):  0
+  RL19 a3=5/3-10/3 a2+2a2^2 (printed):  -10*a2/3 + 10*a2*log(10)/3 - 5*log(10)**2/3 + 5/3
+  RL19 a3(a2) with ln10->1 equals (a3/ln10^2)((a2/ln10)):  0
+  Banerjee+21 eq4 a3=(6a2^2-10a2 ln10+5ln10^2)/3:  0
+  Lusso+19 eq3 D_L^0 (flat):  0
+  Lusso+19 eq4 D_L^1 (flat):  0
+  Lusso+19 eq5 D_L^2 (flat):  0
+  Lusso+19 eq6 D_L^3 (flat):  0
+  Lusso+19 eq7 D_L^4 (flat):  -7*q0**4/4
+
+flat LCDM, Omega_m=0.3:
+  a2 = 2.9358   (b2 = 1.2750)
+  a3 = 3.5412   (b3 = 0.6679)
+  a4 = 1.1207   (b4 = 0.0918)
+  a5 = -1.8242   (b5 = -0.0649)

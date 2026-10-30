@@ -1,0 +1,25 @@
+Yang+20 Table 2 recomputed: Omega_m(a_n) real roots, and error = da/|da/dOm|
+  SNe, quasars, GRBs
+     a2: Omega_m roots [0.144]  errors(+,-) [(0.096, 0.094)]
+     a3: Omega_m roots [0.297, 1.481]  errors(+,-) [(0.13, 0.133), (0.13, 0.133)]
+     a4: Omega_m roots [1.291]  errors(+,-) [(0.066, 0.067)]
+  SNe, quasars
+     a2: Omega_m roots [0.219]  errors(+,-) [(0.1, 0.098)]
+     a3: Omega_m roots [0.18, 1.597]  errors(+,-) [(0.12, 0.123), (0.12, 0.123)]
+     a4: Omega_m roots [1.339]  errors(+,-) [(0.071, 0.068)]
+  SNe, GRBs
+     a2: Omega_m roots [0.087]  errors(+,-) [(0.108, 0.106)]
+     a3: Omega_m roots [0.573, 1.205]  errors(+,-) [(0.297, 0.332), (0.297, 0.332)]
+     a4: Omega_m roots [0.193]  errors(+,-) [(0.15, 0.143)]
+
+RL19 Fig.3: LCDM-curve residual of the flat-wCDM point (a2(w),a3(w)) = -3*w*(Omega_m - 1)*(w + 1)*log(10)**2/4
+   zeros in w: [-1, 0]
+   Om=0.2: w=1 -> (a2,a3)=(0.345,0.062)  residual 6.362;  w=0 -> (1.727,1.546) residual 0.000
+   Om=0.3: w=1 -> (a2,a3)=(0.518,-0.170)  residual 5.567;  w=0 -> (1.727,1.546) residual 0.000
+   Om=0.4: w=1 -> (a2,a3)=(0.691,-0.283)  residual 4.772;  w=0 -> (1.727,1.546) residual 0.000
+   Om=0.5: w=1 -> (a2,a3)=(0.863,-0.276)  residual 3.976;  w=0 -> (1.727,1.546) residual 0.000
+
+LCDM Om=0.3: a2=2.9358 a3=3.5412 ; curve vertex a2=1.9188 a3=1.4727
+RL19 Methods as printed at Om=0.3: a2=1.2750  a3(7/6-2Om+9/8 Om)=0.9042
+
+Yang+20 (A.2) check: a2,a3,a4 at Om=0.3 = [2.9358, 3.54123, 1.12066]

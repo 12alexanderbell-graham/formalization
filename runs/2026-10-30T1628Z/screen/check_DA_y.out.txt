@@ -1,0 +1,17 @@
+D_A^0 = 1
+D_A^1 = -q0/2 - 3/2
+D_A^2 = Omega_k/6 - j0/6 + q0**2/2 + 7*q0/6 + 11/6
+D_A^3 = -Omega_k*q0/4 - 5*Omega_k/12 + 5*j0*q0/12 + 13*j0/24 - 5*q0**3/8 - 13*q0**2/8 - 23*q0/12 + s0/24 - 25/12
+D_A^4 = Omega_k**2/120 - Omega_k*j0/12 + 3*Omega_k*q0**2/8 + 5*Omega_k*q0/6 + 17*Omega_k/24 + j0**2/12 - 7*j0*q0**2/8 - 7*j0*q0/4 - 137*j0/120 - l0/120 + 7*q0**4/8 + 21*q0**3/8 + 137*q0**2/40 - q0*s0/8 + 163*q0/60 - 7*s0/40 + 137/60
+
+Demianski+17b printed D_A^n - derived (flat part, Omega_k=0):
+  D_A^1: 0
+  D_A^2: 0
+  D_A^3: 0
+  D_A^4: 137*j0/60
+  curvature part of derived D_A^3: -Omega_k*(3*q0 + 5)/12   (Omega_k = -k c^2/(H0^2 a0^2))
+
+Yang+20 (A.4): C1 = -(q0 - 3)/2  C2 = (-j0 + 3*q0**2 - 5*q0 + 11)/6 (flat)
+  C1 printed - derived: 0
+  C2 printed - derived (flat): 0
+  (A.5) at (q0,j0)=(-0.55,1): C1 = 1.7750000  C2 = 2.2762500   printed 1.775, 2.27652
