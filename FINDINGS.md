@@ -26,6 +26,7 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
 - **Fidelity audit:** `runs/2026-10-30T0430Z/audit.md` (blind restatement closed in Lean, both directions; four independent derivations agree, incl. a numerical ODE integration).
 - **Referee (subagent, independent):** STANDS-WITH-CORRECTIONS (adopted: s₀ wording, scope via Fig. 2, propagation, boundary-witness caveat — the last since closed by `printedL0_false_at`).
 - **Errata:** none found (arXiv v1, v2 only; web search). No paper found pointing out the error.
+- **Provenance correction (run 1232Z, typeset read):** the same l₀ (213 + (7−Ω_M)w_a) is already in Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583 v1 and v2, Eq. (40) (`runs/2026-10-30T1232Z/typeset/CCS2008_0802.1583v1_p6_eq40_l0.png`), and is reprinted in Bamba et al. 2012 (11.38). The error predates CLS 2011.
 
 ### F3 (was C3). Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v2, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴
 - **Printed:** D⁴_z = 1 + 2q₀ + 3q₀² + (5/2)q₀³ + **(7/2)q₀⁴** − (5/3)q₀j₀ − (7/8)q₀²j₀ − j₀ + j₀²/12 − q₀s₀/8 − s₀/6 − l₀/120, in D(z) = (cz/H₀)[D⁰ + … + D⁴z⁴], D = c(t₀ − t*) (typeset, rendered twice independently; `runs/2026-10-30T0628Z/typeset/C3_ccs2008_v2_p16_A2.png`). App. A absent in v1.
@@ -118,6 +119,6 @@ From the literature screen of run 2026-10-30T0028Z (`runs/2026-10-30T0028Z/scree
 | C12 | same, (11.18), (11.20) (p. 115); upstream Eqs. (20), (22) | +ḢṘ (+Ḣ₀Ṙ₀) should be −ḢṘ (from differentiating (11.5)); P/Q match only with − (misprint) | as C11 (cand2). One route |
 | C13 | same, (11.31) (p. 116); upstream Eq. (33) has a different wrong form | printed R (in F(R₀) relation) fails the paper's own ΛCDM test (11.40) (F(R₀) = +0.277 at Ω = 0.25 instead of −5.25) and de Sitter (gives 208, must be 0); corrected R passes both; R cancels in η₂₀, η₃₀ (figures unaffected) | as C11 (cand3), high confidence. One route |
 | C14 | same, (11.42)–(11.45) (p. 121); upstream Eqs. (43)–(44) | η₂₀/ε, η₃₀/ε computed from the paper's own printed (11.21)–(11.30): −0.249, −0.400 (Ω = 0.041), −0.032, −0.015 (Ω = 0.25); printed 0.15, 4, −0.12, −0.18. Cause unknown | as C11 (cand5), medium confidence. One route |
-| (F2 reprint) | same, (11.38) (p. 119); upstream 0802.1583 Eq. (40) | CPL l₀ w_a² term missing factor 9 = F2's error; screen found it already in Capozziello, Cardone, Salzano 2008, i.e. before CLS 2011 (F2 provenance to check by typeset) | run 1232Z screen (cand4) |
+| (F2 reprint) | same, (11.38) (p. 119); upstream 0802.1583 Eq. (40) | CPL l₀ w_a² term missing factor 9 = F2's error; already in Capozziello, Cardone, Salzano 2008 Eq. (40) (typeset confirmed v1, v2; F2 provenance corrected) | run 1232Z screen (cand4) |
 | C3 | Capozziello, Cardone, Salzano 2008 | — | → **F3** |
 | C4 | Capozziello, Lazkoz, Salzano 2011 | — | → **F2** |
