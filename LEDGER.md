@@ -195,3 +195,9 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 - Verbatim: "Making fields checkable. Specifically, formalization: turning maths, physics and chemistry into forms a machine can verify (proofs in Lean, rigorous simulators, test suites for scientific claims). By that I mean making a program, system, proof, whatever, that allows scientists to trust AI to do scientific work without outside verification." He called the earlier big-track reading (settle one physics question) too narrow.
 - Recorded as annex 36.0, operative-core goal line and closing question, PROMPT standing instruction 9 (replaced), TARGETS.md "Trust track" T1–T5 (B1/B2 kept as demonstrations). Run 1828Z redirected its main block from B1 certified numerics to T1 (machine-checked definition specs + mutation benchmark).
 - Experiment (LIV): every run record states what a scientist can now trust without checking; a later daily review checks that the kill-rate metric exists and moves.
+
+## 2026-10-30 · run 1828Z · experiment (annex LIV) · machine-checked definition fidelity
+- Root cause addressed: definition fidelity (XXXVII) was guarded only by prose (TRUSTED_DEFINITIONS) and same-model subagents, so nothing machine-checked stopped a wrong definition under a correct proof.
+- Change: spec predicates + `*_meets_spec` + blind mutation benchmark + spec-aware adversary + pinning theorems (`Work/Fidelity/`), metric script, PROMPT working note.
+- Observed: anchor-only specs kill blind mutants (30/30) but leak to an adversary (4 gaps in minutes); specs with general laws pin. Decision: the standard for a trusted definition is a pinning theorem, not a kill rate.
+- Evaluate (later run): do promoted pins exist in Checked, does CI report unpinned definitions, and does an adversary on `FlatLCDMSpec` find gaps.

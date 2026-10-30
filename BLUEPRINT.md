@@ -1,5 +1,11 @@
 # BLUEPRINT
 
+## Trust track T1 (definition fidelity), `Work/Fidelity/`
+- Specs + `meets_spec`: LumDistSpec, LumDistSpec2, HubbleSpec, DecelSpec, AngDistSpec, FlatLCDMSpec: PROVED in Work (not audited for Checked).
+- Pins: `lumDistSpec2_pins`, `hubbleSpec_pins`, `Gaps.decelSpec_pins`, `Gaps.angDistSpec_pins`: PROVED in Work. `flatLCDMSpec_pins`: not started.
+- Mutation benchmark: 30/30 blind + 10/10 author refuted (Work). Spec gaps: 4 found, 4 closed.
+- Next: promotion to Checked with audit; CI report of unpinned definitions; T2.
+
 Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXXVIII). Mathlib-only; definitions mirror Physlib's.
 
 - `peano2` (Peano 2nd-order Taylor at a point, a differentiable near, a′ differentiable at t₀): PROVED (helper, Checked).

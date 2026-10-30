@@ -73,3 +73,9 @@
 - New source families screened: log-polynomial quasar cosmography (relations behind the > 4σ tension claims all correct); Capozziello, D'Agostino, Luongo 2019 review → candidates C19–C23 (C19 H(z) z³ sign and C20 G_eff condition change the paper's f(T) reconstruction numbers; one route each).
 - PROMPT notes: screen a new hub at every freeze; transcriptions must reproduce printed numbers; build scope; rational identities. LEDGER: 1428Z experiments evaluated.
 - Message to Alexander: F10, F11 (L.2).
+
+## 2026-10-30T1828Z (scheduled run; Alexander joined live)
+- Env: repo ok (pre-cloned); local Lean via elan + cache; CI 41107164729, 41107875967, 41109420256 green; later runs in STATE.
+- Alexander redefined the goal live (annex 36.0, verbatim): a system that lets scientists trust AI science without outside verification. PROMPT instruction 9, core, TARGETS (Trust track T1–T5) rewritten. B1 numbers kept as a demonstration (`runs/2026-10-30T1828Z/b1_numbers.out.txt`).
+- **T1 definition fidelity, machine-checked** (`Work/Fidelity/`): specs for lumDist, angDist, hubble, decel, IsFlatLCDM; blind red-team mutants 30/30 refuted in Lean; a spec-aware adversary found 4 gaps in the anchors-only d_L spec; `LumDistSpec2` (Etherington) closes them; pinning theorems for lumDist, angDist, hubble, decel. Metric script `scripts/fidelity_killrate.py`.
+- PROMPT: working note on the fidelity protocol; LEDGER experiment.

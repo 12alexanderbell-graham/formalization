@@ -1,13 +1,17 @@
 # STATE
 
-Last updated: 2026-10-30, run 2026-10-30T1628Z (scheduled).
+Last updated: 2026-10-30, run 2026-10-30T1828Z (scheduled; Alexander joined live).
 
 ## Phase
-S1, S2 DONE. Working target 1 (cosmography). Verified findings F1–F11.
+GOAL (annex 36.0, Alexander 2026-10-30, verbatim in PROMPT instruction 9): a system that lets scientists trust AI-produced science without outside verification. Physics (target 1, cosmography; F1–F11; B1) is the proving ground. Active: **Trust track T1, definition fidelity** (`TARGETS.md`).
 
-## Target 1: Cosmography: low-redshift (Hubble-series) expansions in FLRW
-Case and the eight items: `TARGETS.md` #1 (unchanged).
-Bottleneck now: source supply beyond the Bamba hub. Run 1628Z opened the GRB/quasar cosmography family (F11 from Demianski 2017 / Lusso 2019; the log-polynomial relations behind the > 4σ tension are correct). The CDL 2019 review (1904.01427) screen (end of run 1628Z) gave C19–C23, two of which change reported numbers: work those next. Negative branch: if two more hubs come back clean, the misprint-hunting yield is exhausted and target 1 should move to a settled-question result (convergence/truncation of cosmographic series, TARGETS #1 hidden-assumption angle).
+## Trust track status
+- **T1 definition fidelity** (`Work/Fidelity/`, Work only, CI-built, standard axioms, no sorry):
+  - Specs: `LumDistSpec` (anchors), `LumDistSpec2` (anchors + Etherington), `HubbleSpec`, `DecelSpec`, `AngDistSpec`, `FlatLCDMSpec`. All met by the program's definitions (`*_meets_spec*`).
+  - **Pinning** (any function meeting the spec = the definition on the physical domain): `lumDistSpec2_pins`, `hubbleSpec_pins` (LumDistSpec2.lean), `Gaps.decelSpec_pins`, `Gaps.angDistSpec_pins` (SpecGaps.lean). Not pinned: `FlatLCDMSpec` (the model hypothesis behind F1), `LumDistSpec` (anchors only; 4 gaps proved in SpecGaps.lean).
+  - Metric (`python3 scripts/fidelity_killrate.py`): blind mutants 30/30 refuted in Lean (2 excluded as equal on the physical domain), author mutants 10/10; spec gaps found by a spec-aware adversary: 4 (all in anchors-only `LumDistSpec`, all closed by `LumDistSpec2`).
+  - Protocol that produced honest numbers: spec writer and red team are separate subagents blind to each other; freeze both before refuting; then a spec-aware adversary searches for wrong definitions that pass; close gaps with general laws + a pinning theorem.
+- T2–T5: not started (TARGETS.md).
 
 ## Results (statuses, annex XXXVIII)
 - **PROVED** `Checked.Cosmography.lookback_second_order`, `..._bigO`: run 0028Z.
@@ -25,16 +29,15 @@ Bottleneck now: source supply beyond the Bamba hub. Run 1628Z opened the GRB/qua
 - **Findings F1–F11** (FINDINGS.md): all verified and reported to Alexander (F10, F11 this run).
 - C8 one route. C10 (R⁴_D, R⁵_D): two routes (referees 1028Z, 1232Z). C12: two routes, misprint, not formalized. C11, C13 → F9; C14 → F10; C15, C16 → F11. C17, C18 (screen 1628Z): one route, presentational. C19–C23 (screen2 1628Z, CDL 2019 review 1904.01427): one route each; C19, C20 change reported numbers.
 
+
 ## Environment (this run)
-- Repo pre-cloned shallow (add_repo not exposed; not needed); unshallowed, stale local main reset to origin/main. Pushes verified (remote head = local each time).
-- Local Lean: elan + `lake exe cache get`; new files elaborate in < 10 s; `lake build Work` (all) exceeds 2 min locally — build named modules.
-- CI (read by ID): previous run's last 41082158609 green; LOCK 41090422641, C14 freeze 41091234687, proofs 41093221867, blind closure 41093819830, C14 promotion 41093965309 (checked job incl. nanoda 6.3 min, no-sorry) all green. C15/C16 freeze 41094514730, proofs 41096213672, promotion 41096316923 (both jobs incl. nanoda): all green. Records/LOCK-removal commit: read next run.
+- Repo pre-cloned; local main fast-forwarded; pushes verified (remote head = local each time).
+- Local Lean: elan + `lake exe cache get` (~3 min); build Checked deps by module.
+- CI (read by ID): 41107164729 (LOCK), 41107875967 (goal records), 41109420256 (LumDistSpec + blind 12) green. 41111474000 (freeze b68bff5), 41112096428 (RedTeamMoreCheck), 41113310308 (SpecGaps, LumDistSpec2) were in progress at record time: read next run. Records/LOCK-removal commit: read next run.
 
 ## Daily review (53.3), 2026-10-30
-- AUDITED + PROVED headlines in last 24 h: 2 (0028Z) + 5 (0220Z) + 5 (0430Z) + 5 (0628Z) + 9 (0828Z) + 12 + 6 (1028Z) + 10 (1232Z) + 8 (1428Z) + 8 + 7 (1628Z). Findings: F1–F11 verified.
-- Bottleneck history: candidate supply (0628Z) answered by hub screening; curvature tooling (1028Z–1232Z); F(R) machinery (1428Z). Run 1628Z: new source families (GRB/quasar cosmography → F11; CDL 2019 review → C19–C23).
-- Patterns fixed run 1428Z: HasDerivAt combinator shape (PROMPT note); differentiate-eventual-identity pattern recorded. 1232Z experiments evaluated: keep.
-- Honest check: F1–F9 are formula misprints in one hub and its upstream papers; numbers in those papers were mostly unaffected. The checked general theorems (cosmographic series, F(R) closure) are the durable value. Next: aim at results people compute with (TARGETS.md).
+- Earlier today: F1–F11 verified findings, many AUDITED + PROVED headlines (see CHANGELOG).
+- Alexander's correction (1828Z): the product is the trust system. Honest check against it: until this run, fidelity (the step a scientist cannot check from the kernel) rested on prose and same-model subagents. Now 4 of the 5 central definitions are pinned by machine-checked specs, and there is a metric. Are we closer to AI science trustworthy without outside checking? Yes for definition fidelity of these 5; no progress yet on statement fidelity (T2), transcription (T3), numerics (T4), or a pipeline false-acceptance rate (T5).
 
 ## Known gaps
 - Cosmetic linter warnings in generated proofs. Leave.
@@ -45,13 +48,16 @@ Bottleneck now: source supply beyond the Bamba hub. Run 1628Z opened the GRB/qua
 - F10: existence of F(R) models on the ε-family for ε ≠ 0 is not shown (paper does not claim it); the ε-range defect at Ω = 0.041 (pole at ε ≈ 0.032) is sympy only.
 - F11: whether Demianski et al.'s joint fits used the printed D⁴_A/D⁴_L (effect on q₀, j₀) cannot be settled from the paper.
 
+- T1: specs and pins are in Work, not Checked (not yet audited for promotion). All agents (spec writer, red team, adversary) are the same model: correlated misconceptions in the laws are not excluded; anchors from closed forms are the independent cross-check.
+- T1: `AngDistSpec`'s flat/closed/open laws are near-restatements of the definition; their independence is the blind authorship plus the anchors.
+
 ## Open questions for Alexander
-None. F10, F11 sent as information (any contact with authors is his call, 47.1).
+None.
 
 ## Exact next step
-1. Read CI of this run's last commits by ID (C15/C16 runs above if still pending; records/LOCK-removal commit).
-1b. **Big track B1** (`TARGETS.md`; Alexander 2026-10-30: "the real goal is big, don't lose it"; PROMPT standing instruction 9): this or the next run spends its main block on B1's first milestone: freeze the statement (exact paper definitions of the log-polynomial and μ), then certified enclosures of the ΛCDM comoving integral in Lean. C19 below is capped at half a run.
-2. C19 first (why: printed H(z) z³ sign error that feeds the paper's f(T) reconstruction and fit numbers (262), Figs. 30–35 — the first candidate whose error changes reported results): typeset check of (246) and upstream 1706.02962 (26) yourself (crops in `runs/2026-10-30T1628Z/screen2/`); Lean: H/H₀ = 1 + E₁z + E₂z² + E₃z³ + o(z³) for every C⁴ scale factor (corollary of the lookback series or direct via `littleO_of_hasDerivAt`), then printed E₃ fails whenever its sign matters (EdS a = t^{2/3}, or every model with −3q₀²−3q₀³+j₀(3+4q₀)+s₀ ≠ 0). Freeze; blind + referee + next screen (e.g. 1706.02962 in full, or Benetti & Capozziello 2019 1910.09975) in one message. Then C21 (via `FRCosmo`; read what (211) assumes about F″Ṙ at t₀) and C20.
-3. C10, C17, C18, C22, C23 are presentational: parked (PROMPT instruction 9), Lean only if under a third of a run.
-4. If two hubs come back clean: plan the settled-question track (convergence radius / truncation error of the z-series vs y-series in flat ΛCDM, TARGETS #1) and tell Alexander (target-direction change, 42.4).
-Blocking: nothing.
+1. Read CI 41111474000, 41112096428, 41113310308 and the records commit by ID; fix anything red first.
+2. **T1, close the last gap:** spec-aware adversary on `FlatLCDMSpec` (the model hypothesis behind F1). Then either prove `flatLCDMSpec_pins` (expected route: add the law "P Ω a t₀ ↔ H₀ > 0 ∧ eventually a > 0, differentiable and H² = H₀²(Ω(1+z)³ + 1 − Ω)", cross-checked by the existing anchors) or record the gaps.
+3. **T1 → Checked:** promote the specs and pinning theorems (`Checked/Fidelity/…`, specific imports, fidelity audit of the laws: each law matched to a textbook equation by a referee subagent who sees only the spec). Then CI makes "definition is pinned" part of the judge, and TRUSTED_DEFINITIONS rows cite the pin theorem instead of prose.
+4. **T1 generalization:** add a CI check that every `def` in `Checked/` used by a headline either has a pinning spec or is listed as unpinned with a reason (report-only first, LIV).
+5. Then T2 (statement fidelity, machine checks: non-vacuity witness per Checked headline, hypothesis-drop mutation) — the next weakest link.
+Why: these make "the definition means the physics" a kernel-checked fact for everything the findings rest on. Blocking: nothing.
