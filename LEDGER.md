@@ -187,3 +187,6 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 
 ## 2026-10-30 · experiment (annex LIV) · local build scope and `field_simp`
 - `lake build Work` locally exceeded the 2-min tool limit (other Work modules not cached). Build named modules (`lake build Work.Cosmography.X`) with an explicit timeout. `field_simp` left Ω⁻¹ / reordered cubics unsolved twice; `rw [div_eq_div_iff …]` / `div_sub_div` then `ring` closed them first time. PROMPT note.
+
+## 2026-10-30 · Alexander's instruction (chat, after run 1628Z) · "the real goal is big, don't lose it"
+- Recorded as PROMPT standing instruction 9 (big-track rule: one-line big-track answer in every run record; big track gets the main block of at least every other run; presentational misprints parked unless cheap). New section "Big track" in TARGETS.md with B1 (truncation of cosmographic Hubble-diagram fits vs the > 4σ ΛCDM tension claim: settle the mathematical half by proof) and B2 candidates. STATE next step updated. Experiment (LIV): a later daily review checks whether runs since this change produced progress on B1 (frozen statement, certified enclosures) and not only misprints.

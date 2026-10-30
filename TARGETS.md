@@ -30,3 +30,20 @@ Ranked candidates (annex XLII). Every candidate ever considered stays here with 
 
 ## 8. Noted, not ranked — Liouville–Arnold conclusion; Borel's lemma on spacetime; time-dependent div/curl results; Pöschl–Teller reflectionless; rigid-sphere cross section
 - Large foundations (Liouville–Arnold, Borel) or modest content; revisit when target 1 parks.
+
+## Big track (Alexander 2026-10-30: "the real goal is big, don't lose it")
+
+### B1 — Is the high-redshift "tension with ΛCDM" from cosmographic Hubble diagrams an artifact of the truncated expansion? (ACTIVE alongside target 1)
+- **Exact problem:** Risaliti & Lusso 2019 (Nat. Astron.), Lusso et al. 2019 (A&A 628 L4), Bargiacchi et al. 2021 fit a truncated log-polynomial (or Taylor/y) expansion of d_L to quasar + SN + GRB data up to z ≈ 7 and report a > 4σ deviation of the fitted coefficients from the values ΛCDM implies. Critics (Yang, Banerjee, Ó Colgáin 2020, 1911.01681; Banerjee et al. 2021, 2009.04109) argue, numerically, that exact ΛCDM itself is badly represented by the truncated series at z ≳ 2, so the deviation is expected. The mathematical half of this dispute is decidable by proof.
+- **Intended checkable result:** Lean theorems, for flat ΛCDM over an interval of Ω_m (e.g. [0.2, 0.4]): (i) the coefficients a₂, a₃, a₄ implied by matching at z = 0 (already screened: correct in all papers); (ii) rigorous lower bounds on |μ_ΛCDM(z) − μ_truncated(z)| (distance modulus) on the data's redshift range, compared with the reported error budget; (iii) ideally: no choice of the truncated coefficients near the ΛCDM-implied values reproduces exact ΛCDM within the data errors on [z₁, z₂]. Statement: "if ΛCDM is true, a fit with this truncation must find coefficients ≥ k σ away from the Taylor values" — a settled question (36.4, highest kind) under explicit assumptions.
+- **Who benefits:** the quasar/GRB Hubble-diagram community and everyone citing the tension; cosmography as a method (when a truncated series is legitimate at all).
+- **Why present methods are insufficient:** both sides argue with numerics and mock fits; nobody has a proof of the truncation error over the relevant range, and the published convergence discussions (Cattoën–Visser 2007) are about radius of convergence, not error bounds in the fitted variable.
+- **Strongest current evidence:** Yang et al. Table 2 (Ω_m inferred from a_n inconsistent; a₄ needs Ω_m > 1); Banerjee et al. mock failures (8σ/6σ). Screen 1628Z: the coefficient algebra on both sides is correct, so the dispute is about truncation, not misprints.
+- **Falsifier / proof obligation:** if the proven truncation error over the data range is below the data errors for all Ω_m in range, the critique fails and the tension claim stands mathematically; if above, the tension test as performed cannot distinguish ΛCDM.
+- **First decisive bottleneck:** rigorous enclosures of the ΛCDM integral χ(z) = ∫₀^z dz′/√(Ω(1+z′)³ + 1 − Ω) at finitely many z in Lean (monotone bounds / Riemann sums with error terms, or a certified series with remainder), uniformly in Ω on an interval. Then the exact log-polynomial value and the subtraction are algebra.
+- **Ethics/misuse:** none.
+- **First milestone (≤ 3 runs):** Lean theorem: for Ω_m ∈ [0.25, 0.35], the third-order log-polynomial with ΛCDM-implied a₂, a₃ misses the exact ΛCDM distance modulus by more than 0.1 mag at z = 5 (or whatever the certified number is; frozen before proof with the paper's exact definitions).
+
+### B2 — candidates to rank (not yet ranked)
+- Einstein static universe stability (#3 above): "unstable" made precise; neutral stability to inhomogeneous modes (Barrow et al. 2003) — a settled-question angle.
+- f(R)/f(T) cosmographic reconstruction (CDL 2019 review, C19–C21): do the published reconstructed theories satisfy their own field equations? (C20: G_eff < 0 in the paper's own solution.)

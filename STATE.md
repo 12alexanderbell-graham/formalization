@@ -50,7 +50,8 @@ None. F10, F11 sent as information (any contact with authors is his call, 47.1).
 
 ## Exact next step
 1. Read CI of this run's last commits by ID (C15/C16 runs above if still pending; records/LOCK-removal commit).
+1b. **Big track B1** (`TARGETS.md`; Alexander 2026-10-30: "the real goal is big, don't lose it"; PROMPT standing instruction 9): this or the next run spends its main block on B1's first milestone: freeze the statement (exact paper definitions of the log-polynomial and μ), then certified enclosures of the ΛCDM comoving integral in Lean. C19 below is capped at half a run.
 2. C19 first (why: printed H(z) z³ sign error that feeds the paper's f(T) reconstruction and fit numbers (262), Figs. 30–35 — the first candidate whose error changes reported results): typeset check of (246) and upstream 1706.02962 (26) yourself (crops in `runs/2026-10-30T1628Z/screen2/`); Lean: H/H₀ = 1 + E₁z + E₂z² + E₃z³ + o(z³) for every C⁴ scale factor (corollary of the lookback series or direct via `littleO_of_hasDerivAt`), then printed E₃ fails whenever its sign matters (EdS a = t^{2/3}, or every model with −3q₀²−3q₀³+j₀(3+4q₀)+s₀ ≠ 0). Freeze; blind + referee + next screen (e.g. 1706.02962 in full, or Benetti & Capozziello 2019 1910.09975) in one message. Then C21 (via `FRCosmo`; read what (211) assumes about F″Ṙ at t₀) and C20.
-3. C10 (R⁴_D, R⁵_D, two routes) via `littleO_of_hasDerivAt` when the CDL candidates are done.
+3. C10, C17, C18, C22, C23 are presentational: parked (PROMPT instruction 9), Lean only if under a third of a run.
 4. If two hubs come back clean: plan the settled-question track (convergence radius / truncation error of the z-series vs y-series in flat ΛCDM, TARGETS #1) and tell Alexander (target-direction change, 42.4).
 Blocking: nothing.

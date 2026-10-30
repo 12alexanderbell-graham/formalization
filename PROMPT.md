@@ -11,6 +11,11 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 5. If the repository can't be reached, still run: do what is possible and put the results in your final message, marked NOT SAVED.
 6. Message Alexander only under annex L.2. Result first, bullets, any question in bold.
 7. **Never ask Alexander for approval** (his words, 2026-10-30: "you should never need my damn approval"). Work, git operations, installs, CI repairs, promotions and records proceed on the program's own judgment within the constitution. Messages to him are only the L.2 items, sent as information, not requests for permission. If the environment itself refuses an action, do not work around it: use another legitimate route (e.g. CI) and record it.
+9. **The real goal is big; don't lose it** (Alexander, 2026-10-30, after F1–F11). Misprint findings are stepping stones, not the goal. The goal is a checked result that changes what physicists believe or use: a settled question, a hidden assumption, an error that changes a published conclusion. Operationally:
+   - Every run record's front page answers in one line: **how did this run move the big track?**
+   - The big track (`TARGETS.md`, section "Big track") gets the main block of at least every other run, starting run 1828Z or the first run after the C19 check.
+   - A candidate error that changes no reported number or conclusion is logged as presentational and gets Lean work only if it costs under a third of a run. Errors that change reported numbers or conclusions keep full priority.
+   - The daily review asks: are we closer to a big result, or only collecting misprints?
 8. This is an ever-improving program (annex LIV): when you notice a fundamental issue or a repeated pattern, find its root cause and fix it in the repository, then log the change as an experiment for a later run to evaluate.
 
 ## Current phase: work target 1
