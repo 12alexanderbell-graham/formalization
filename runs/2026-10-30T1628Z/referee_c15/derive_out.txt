@@ -1,0 +1,30 @@
+D0_L = 1
+D1_L = -(q - 1)/2
+D2_L = (-j + 3*q**2 + q - 1)/6
+D3_L = -(-10*j*q - 5*j + 15*q**3 + 15*q**2 + 2*q - s - 2)/24
+D4_L = 10*j**2 - 105*j*q**2 - 110*j*q - 27*j - l + 105*q**4 + 165*q**3 + 81*q**2 - 15*q*s + 6*q - 11*s - 6
+D0_A = 1
+D1_A = -(q + 3)/2
+D2_A = (-j + 3*q**2 + 7*q + 11)/6
+D3_A = -(-10*j*q - 13*j + 15*q**3 + 39*q**2 + 46*q - s + 50)/24
+D4_A = 10*j**2 - 105*j*q**2 - 210*j*q - 137*j - l + 105*q**4 + 315*q**3 + 411*q**2 - 15*q*s + 326*q - 21*s + 274
+L0 correct-printed: 0   A0 correct-printed: 0
+L1 correct-printed: 0   A1 correct-printed: 0
+L2 correct-printed: 0   A2 correct-printed: 0
+L3 correct-printed: 0   A3 correct-printed: 0
+L4 correct-printed: 7*q**4/4   A4 correct-printed: -137*j/60
+s->-s  L4 diff: 7*q**4/4 + q*s/4 + 11*s/60  | A4 diff: -137*j/60 + q*s/4 + 7*s/20
+l->-l  L4 diff: l/60 + 7*q**4/4  | A4 diff: -137*j/60 + l/60
+s,l->-s,-l  L4 diff: l/60 + 7*q**4/4 + q*s/4 + 11*s/60  | A4 diff: -137*j/60 + l/60 + q*s/4 + 7*s/20
+j->-j  L4 diff: 7*j*q**2/4 + 11*j*q/6 + 9*j/20 + 7*q**4/4  | A4 diff: 7*j*q**2/4 + 7*j*q/2
+q->-q  L4 diff: 11*j*q/6 + 7*q**4/4 - 11*q**3/4 + q*s/4 - q/10  | A4 diff: 7*j*q/2 - 137*j/60 - 21*q**3/4 + q*s/4 - 163*q/30
+d_L(y) coeffs*: [1, 3/2 - q/2, -j/6 + q**2/2 - 5*q/6 + 11/6, 5*j*q/12 - 7*j/24 - 5*q**3/8 + 7*q**2/8 - 13*q/12 + s/24 + 25/12, j**2/12 - 7*j*q**2/8 + 3*j*q/4 - 47*j/120 - l/120 + 7*q**4/8 - 9*q**3/8 + 47*q**2/40 - q*s/8 - 77*q/60 + 3*s/40 + 137/60]
+q0=-0.50  D4 error=-0.10938  equivalent l0 shift=13.125  (rel to D4 at LCDM Om=0.3: see below)
+q0=-0.55  D4 error=-0.16014  equivalent l0 shift=19.216  (rel to D4 at LCDM Om=0.3: see below)
+q0=-0.60  D4 error=-0.22680  equivalent l0 shift=27.216  (rel to D4 at LCDM Om=0.3: see below)
+q0=-0.40  D4 error=-0.04480  equivalent l0 shift=5.376  (rel to D4 at LCDM Om=0.3: see below)
+q0=-0.70  D4 error=-0.42017  equivalent l0 shift=50.421  (rel to D4 at LCDM Om=0.3: see below)
+LCDM exact d_L coeffs: [1, 31/40, -219/800, 111/12800, 74067/1280000]
+LCDM Om=0.3 (q,j,s,l): [{js: 1, ls: 623/200, qs: -11/20, ss: -7/20}]
+  correct D4_L = 0.05786484375  printed D4_L = -0.10227109375  correct D4_A = 1.11927109375  printed D4_A = 3.4026044270833333
+  error at z=1 in d_L bracket, L: -0.1601359375  bracket total 1.56778671875

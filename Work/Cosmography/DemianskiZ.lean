@@ -79,7 +79,8 @@ def DemDAzClaimPast : Prop :=
 theorem flat_corrections (q j s l : ℝ) :
     correctDL4z q j s l 0 - demDL4 q j s l = 7 / 4 * q ^ 4 ∧
     correctDA4z q j s l 0 - demDA4 q j s l = -(137 / 60) * j := by
-  sorry
+  unfold correctDL4z correctDA4z printedDL4z printedDA4z demDL4 demDA4
+  constructor <;> ring
 
 /-- The printed `D⁴_L` fails, from the past, in every flat `C⁵` model with `a(t₀) ≠ 0`, `H₀ ≠ 0`,
 `q₀ ≠ 0`. -/
@@ -87,7 +88,19 @@ theorem demDL4_fails_past (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 
     (hH : hubble a t₀ ≠ 0) (hq : decel a t₀ ≠ 0) :
     ¬ (fun t => remLz (fun q j s l _ => demDL4 q j s l) 0 a t₀ t)
       =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5) := by
-  sorry
+  intro hp
+  have hd : DifferentiableAt ℝ a t₀ := ha.differentiableAt (by norm_num)
+  have hc := (lumDist_z_fifth_order 0 a t₀ ha ha0 hH).mono (nhdsWithin_le_nhds (s := Set.Iio t₀))
+  have hdiff : (fun t => (7 / 4 * decel a t₀ ^ 4) * redshift a t₀ t ^ 5)
+      =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5) := by
+    refine (hp.sub hc).congr' (Eventually.of_forall fun t => ?_) EventuallyEq.rfl
+    have := (flat_corrections (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀)
+      (cosmoCoeff 5 a t₀)).1
+    have hk : curvK 0 a t₀ = 0 := by simp [curvK]
+    simp only [remLz, seriesZ, hk]
+    linear_combination (redshift a t₀ t ^ 5) * this
+  exact not_isLittleO_self_past_z a t₀ hd ha0 hH 5
+    (mul_ne_zero (by norm_num) (pow_ne_zero 4 hq)) hdiff
 
 /-- The printed `D⁴_A` fails, from the past, in every flat `C⁵` model with `a(t₀) ≠ 0`, `H₀ ≠ 0`,
 `j₀ ≠ 0`. -/
@@ -95,18 +108,43 @@ theorem demDA4_fails_past (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 
     (hH : hubble a t₀ ≠ 0) (hj : cosmoCoeff 3 a t₀ ≠ 0) :
     ¬ (fun t => remAz (fun q j s l _ => demDA4 q j s l) 0 a t₀ t)
       =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5) := by
-  sorry
+  intro hp
+  have hd : DifferentiableAt ℝ a t₀ := ha.differentiableAt (by norm_num)
+  have hc := (angDist_z_fifth_order 0 a t₀ ha ha0 hH).mono (nhdsWithin_le_nhds (s := Set.Iio t₀))
+  have hdiff : (fun t => -(137 / 60 * cosmoCoeff 3 a t₀) * redshift a t₀ t ^ 5)
+      =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5) := by
+    refine (hp.sub hc).congr' (Eventually.of_forall fun t => ?_) EventuallyEq.rfl
+    have := (flat_corrections (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀)
+      (cosmoCoeff 5 a t₀)).2
+    have hk : curvK 0 a t₀ = 0 := by simp [curvK]
+    simp only [remAz, seriesZ, hk]
+    linear_combination (redshift a t₀ t ^ 5) * this
+  exact not_isLittleO_self_past_z a t₀ hd ha0 hH 5 (neg_ne_zero.2 (mul_ne_zero (by norm_num) hj)) hdiff
 
 theorem demDLzClaim_false : ¬ DemDLzClaim := by
-  sorry
+  intro h
+  exact demDL4_fails_past Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
+    (by rw [BambaY.deSitter_vals.1]; norm_num) (by rw [BambaY.deSitter_vals.2.1]; norm_num)
+    ((h Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [BambaY.deSitter_vals.1]; norm_num)).mono
+      (nhdsWithin_le_nhds (s := Set.Iio 0)))
 
 theorem demDAzClaim_false : ¬ DemDAzClaim := by
-  sorry
+  intro h
+  exact demDA4_fails_past Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
+    (by rw [BambaY.deSitter_vals.1]; norm_num) (by rw [BambaY.deSitter_vals.2.2]; norm_num)
+    ((h Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [BambaY.deSitter_vals.1]; norm_num)).mono
+      (nhdsWithin_le_nhds (s := Set.Iio 0)))
 
 theorem demDLzClaimPast_false : ¬ DemDLzClaimPast := by
-  sorry
+  intro h
+  exact demDL4_fails_past Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
+    (by rw [BambaY.deSitter_vals.1]; norm_num) (by rw [BambaY.deSitter_vals.2.1]; norm_num)
+    (h Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [BambaY.deSitter_vals.1]; norm_num))
 
 theorem demDAzClaimPast_false : ¬ DemDAzClaimPast := by
-  sorry
+  intro h
+  exact demDA4_fails_past Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
+    (by rw [BambaY.deSitter_vals.1]; norm_num) (by rw [BambaY.deSitter_vals.2.2]; norm_num)
+    (h Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [BambaY.deSitter_vals.1]; norm_num))
 
 end Work.Cosmography.DemianskiZ

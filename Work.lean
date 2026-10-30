@@ -27,3 +27,5 @@ import Work.Cosmography.FREta
 import Work.Cosmography.FREtaBlind
 import Work.Cosmography.FREtaAudit
 import Work.Cosmography.DemianskiZ
+import Work.Cosmography.DemianskiZBlind
+import Work.Cosmography.DemianskiZAudit
