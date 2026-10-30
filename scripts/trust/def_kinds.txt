@@ -1,0 +1,132 @@
+# Kind of every program-written definition that a headline statement rests on (trust map).
+# Read by scripts/trust/StatementDeps.lean. Kinds:
+#   PHYSICS   meaning-bearing definition (a physical quantity or model); needs a pinning spec
+#             (scripts/trust/pins.txt) to be machine-trusted (trust track T1)
+#   PRINTED   verbatim transcription of a formula printed in a source; trust = transcription
+#             fidelity (trust track T3)
+#   CLAIM     a source's claim, stated as a Prop from PRINTED/PHYSICS parts (refuted or proved)
+#   FORMULA   explicit algebraic expression (series template, derived coefficient); its meaning
+#             is the displayed expression, certified by the headline proof itself
+#   COMPOSITE built only from other listed definitions (remainders, ratios)
+#   SPEC      a machine-checked specification (refereed textbook laws)
+#   WITNESS   a concrete example function
+# Format: <full name> <KIND>. Unlisted definitions are reported as UNCLASSIFIED.
+Checked.Cosmography.Aviles.AvilesL0Claim CLAIM
+Checked.Cosmography.Aviles.AvilesM0Claim CLAIM
+Checked.Cosmography.Aviles.cosmoCoeff PHYSICS
+Checked.Cosmography.BambaA.BambaDA3Claim CLAIM
+Checked.Cosmography.BambaA.BambaDA3ClaimPast CLAIM
+Checked.Cosmography.BambaA.BambaDA4Claim CLAIM
+Checked.Cosmography.BambaA.BambaDA4ClaimPast CLAIM
+Checked.Cosmography.BambaA.DA1 PRINTED
+Checked.Cosmography.BambaA.DA2 PRINTED
+Checked.Cosmography.BambaA.correctDA3 FORMULA
+Checked.Cosmography.BambaA.correctDA4 FORMULA
+Checked.Cosmography.BambaA.printedDA3 PRINTED
+Checked.Cosmography.BambaA.printedDA4 PRINTED
+Checked.Cosmography.BambaA.remA COMPOSITE
+Checked.Cosmography.BambaK.BambaD3yClaim CLAIM
+Checked.Cosmography.BambaK.BambaD3yClaimPast CLAIM
+Checked.Cosmography.BambaK.BambaD4yClaim CLAIM
+Checked.Cosmography.BambaK.BambaD4yClaimPast CLAIM
+Checked.Cosmography.BambaK.correctD3y FORMULA
+Checked.Cosmography.BambaK.correctD4y FORMULA
+Checked.Cosmography.BambaK.omega0 PHYSICS
+Checked.Cosmography.BambaK.printedD3y PRINTED
+Checked.Cosmography.BambaK.printedD4y PRINTED
+Checked.Cosmography.BambaK.remK COMPOSITE
+Checked.Cosmography.BambaK.seriesY4 FORMULA
+Checked.Cosmography.BambaY.BambaD2yClaim CLAIM
+Checked.Cosmography.BambaY.BambaD2yClaimPast CLAIM
+Checked.Cosmography.BambaY.D1y PRINTED
+Checked.Cosmography.BambaY.comoving PHYSICS
+Checked.Cosmography.BambaY.correctD2y FORMULA
+Checked.Cosmography.BambaY.lumDistFlat PHYSICS
+Checked.Cosmography.BambaY.printedD2y PRINTED
+Checked.Cosmography.BambaY.remainderY COMPOSITE
+Checked.Cosmography.BambaY.seriesY FORMULA
+Checked.Cosmography.BambaY.yred PHYSICS
+Checked.Cosmography.BambaZ.BambaDAzClaim CLAIM
+Checked.Cosmography.BambaZ.BambaDAzClaimPast CLAIM
+Checked.Cosmography.BambaZ.BambaDLzClaim CLAIM
+Checked.Cosmography.BambaZ.BambaDLzClaimPast CLAIM
+Checked.Cosmography.BambaZ.DA1z PRINTED
+Checked.Cosmography.BambaZ.DA2z PRINTED
+Checked.Cosmography.BambaZ.DA3z PRINTED
+Checked.Cosmography.BambaZ.DL1z PRINTED
+Checked.Cosmography.BambaZ.DL2z PRINTED
+Checked.Cosmography.BambaZ.DL3z PRINTED
+Checked.Cosmography.BambaZ.correctDA4z FORMULA
+Checked.Cosmography.BambaZ.correctDL4z FORMULA
+Checked.Cosmography.BambaZ.curvK PHYSICS
+Checked.Cosmography.BambaZ.printedDA4z PRINTED
+Checked.Cosmography.BambaZ.printedDL4z PRINTED
+Checked.Cosmography.BambaZ.remAz COMPOSITE
+Checked.Cosmography.BambaZ.remLz COMPOSITE
+Checked.Cosmography.BambaZ.seriesZ FORMULA
+Checked.Cosmography.CCS.CCSD4Claim CLAIM
+Checked.Cosmography.CCS.CCSD4ClaimPast CLAIM
+Checked.Cosmography.CCS.D1 PRINTED
+Checked.Cosmography.CCS.D2 PRINTED
+Checked.Cosmography.CCS.D3 PRINTED
+Checked.Cosmography.CCS.correctD4 FORMULA
+Checked.Cosmography.CCS.printedD4 PRINTED
+Checked.Cosmography.CCS.remainder COMPOSITE
+Checked.Cosmography.CCS.series FORMULA
+Checked.Cosmography.CPL.CLSL0Claim CLAIM
+Checked.Cosmography.CPL.IsFlatCPL PHYSICS
+Checked.Cosmography.CVdQ.CVdQClaim CLAIM
+Checked.Cosmography.CVdQ.CVdQClaimPast CLAIM
+Checked.Cosmography.CVdQ.correctQ2 FORMULA
+Checked.Cosmography.CVdQ.dQFlat PHYSICS
+Checked.Cosmography.CVdQ.printedQ2 PRINTED
+Checked.Cosmography.CVdQ.remainderQ COMPOSITE
+Checked.Cosmography.CVdQ.seriesQ FORMULA
+Checked.Cosmography.DemianskiZ.DemDAzClaim CLAIM
+Checked.Cosmography.DemianskiZ.DemDAzClaimPast CLAIM
+Checked.Cosmography.DemianskiZ.DemDLzClaim CLAIM
+Checked.Cosmography.DemianskiZ.DemDLzClaimPast CLAIM
+Checked.Cosmography.DemianskiZ.demDA4 PRINTED
+Checked.Cosmography.DemianskiZ.demDL4 PRINTED
+Checked.Cosmography.FRCosmo.FriedmannEq PHYSICS
+Checked.Cosmography.FRCosmo.IsFRCosmo PHYSICS
+Checked.Cosmography.FRCosmo.MasterEq PHYSICS
+Checked.Cosmography.FRCosmo.P0 PRINTED
+Checked.Cosmography.FRCosmo.P2 PRINTED
+Checked.Cosmography.FRCosmo.P3 PRINTED
+Checked.Cosmography.FRCosmo.PrintedF0Claim CLAIM
+Checked.Cosmography.FRCosmo.PrintedF0ClaimMul CLAIM
+Checked.Cosmography.FRCosmo.PrintedR3Claim CLAIM
+Checked.Cosmography.FRCosmo.Q0 PRINTED
+Checked.Cosmography.FRCosmo.Q2 PRINTED
+Checked.Cosmography.FRCosmo.Q3 PRINTED
+Checked.Cosmography.FRCosmo.correctR FORMULA
+Checked.Cosmography.FRCosmo.curv PHYSICS
+Checked.Cosmography.FRCosmo.printedR PRINTED
+Checked.Cosmography.FRCosmo.rhoM PHYSICS
+Checked.Cosmography.FREta.PrintedEta20Claim CLAIM
+Checked.Cosmography.FREta.PrintedEta30Claim CLAIM
+Checked.Cosmography.FREta.correct20 FORMULA
+Checked.Cosmography.FREta.correct30 FORMULA
+Checked.Cosmography.FREta.eta20 COMPOSITE
+Checked.Cosmography.FREta.eta20Of COMPOSITE
+Checked.Cosmography.FREta.eta30 COMPOSITE
+Checked.Cosmography.FREta.eta30Of COMPOSITE
+Checked.Cosmography.FREta.jL PRINTED
+Checked.Cosmography.FREta.lL PRINTED
+Checked.Cosmography.FREta.printed20 PRINTED
+Checked.Cosmography.FREta.printed30 PRINTED
+Checked.Cosmography.FREta.printedDen PRINTED
+Checked.Cosmography.FREta.qL PRINTED
+Checked.Cosmography.FREta.sL PRINTED
+Checked.Cosmography.Transverse.transverse PHYSICS
+Checked.Cosmography.redshift PHYSICS
+Checked.Fidelity.AngDistSpec SPEC
+Checked.Fidelity.DecelSpec SPEC
+Checked.Fidelity.FlatLCDMSpec SPEC
+Checked.Fidelity.FlatLCDMSpec2 SPEC
+Checked.Fidelity.FriedmannLCDM SPEC
+Checked.Fidelity.HubbleSpec SPEC
+Checked.Fidelity.LumDistSpec SPEC
+Checked.Fidelity.LumDistSpec2 SPEC
+Checked.Fidelity.coshBounce WITNESS

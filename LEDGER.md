@@ -201,3 +201,6 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 - Change: spec predicates + `*_meets_spec` + blind mutation benchmark + spec-aware adversary + pinning theorems (`Work/Fidelity/`), metric script, PROMPT working note.
 - Observed: anchor-only specs kill blind mutants (30/30) but leak to an adversary (4 gaps in minutes); specs with general laws pin. Decision: the standard for a trusted definition is a pinning theorem, not a kill rate.
 - Evaluate (later run): do promoted pins exist in Checked, does CI report unpinned definitions, and does an adversary on `FlatLCDMSpec` find gaps.
+
+## 2026-10-30 · run 2028Z · integrity event (annex 39.5): CI step added (strengthening only)
+- New step in the `checked` job: `lake env lean scripts/trust/StatementDeps.lean`. It computes, for every headline in `scripts/trust/headlines.txt`, the program definitions its statement rests on and writes `TRUST_MAP.md`. Blocking: a headline, pin or kind entry that does not resolve to exactly one Checked constant; a pin theorem whose statement does not mention its definition. Informational: unpinned physics definitions; stale committed `TRUST_MAP.md` (warning). No existing check changed.

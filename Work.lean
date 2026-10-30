@@ -37,3 +37,4 @@ import Work.Fidelity.SpecGaps
 import Work.Fidelity.LumDistSpec2
 import Work.Fidelity.SpecGapsLCDM
 import Work.Fidelity.FriedmannBlind
+import Work.Fidelity.BlindSpecsZC

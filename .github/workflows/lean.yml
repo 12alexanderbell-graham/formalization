@@ -41,3 +41,11 @@ jobs:
           if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
             echo "Forbidden token found in Checked"; exit 1
           fi
+      - name: Statement dependencies and trust map (registry errors block; unpinned report informational; run 2028Z, see LEDGER)
+        run: |
+          set -o pipefail
+          lake env lean scripts/trust/StatementDeps.lean | tail -n 40
+          if ! git diff --quiet -- TRUST_MAP.md; then
+            echo "::warning::TRUST_MAP.md in the repository is stale; regenerate with: lake env lean scripts/trust/StatementDeps.lean"
+            git diff --stat -- TRUST_MAP.md
+          fi

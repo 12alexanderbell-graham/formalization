@@ -1,0 +1,8 @@
+# Definitions pinned by a machine-checked specification (trust track T1).
+# Format: <definition (unique suffix)> <pin theorem (unique suffix)>
+# CI checks that the pin theorem exists in Checked and that its statement mentions the definition.
+Checked.Cosmography.hubble Fidelity.hubbleSpec_pins
+Checked.Cosmography.decel Fidelity.decelSpec_pins
+BambaK.lumDist Fidelity.lumDistSpec2_pins
+BambaA.angDist Fidelity.angDistSpec_pins
+Aviles.IsFlatLCDM Fidelity.flatLCDMSpec2_pins

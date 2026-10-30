@@ -1,0 +1,104 @@
+# Headline theorems (STATE.md "Results"; statuses PROVED). One name per line; a unique suffix of
+# the full name is enough. Read by scripts/trust/StatementDeps.lean (CI step "statement
+# dependencies"): every name must resolve to exactly one theorem in Checked, else CI fails.
+# F0 (milestone)
+Checked.Cosmography.lookback_second_order
+Checked.Cosmography.lookback_second_order_bigO
+# F1
+Aviles.flatLCDM_coeffs
+Aviles.avilesL0Claim_false
+Aviles.avilesM0Claim_false
+AvilesWitness.printedL0_false_at
+AvilesWitness.printedM0_false_at
+# F2
+CPL.flatCPL_coeffs
+CPL.printedL0_ne
+CPL.clsL0Claim_false
+CPLExistence.exists_flatCPL
+CPLExistence.printedL0_false_at
+CPLExistence.exists_local_model
+# F3
+CCS.lookback_fifth_order
+CCS.printedD4_fails
+CCS.printedD4_fails_past
+CCS.ccsD4Claim_false
+CCS.ccsD4ClaimPast_false
+# F4
+BambaY.lumDist_y_third_order
+BambaY.printedD2y_fails
+BambaY.printedD2y_fails_past
+BambaY.bambaD2yClaim_false
+BambaY.bambaD2yClaimPast_false
+# F5
+CVdQ.dQ_y_third_order
+CVdQ.printedQ2_fails_past
+CVdQ.cvdQClaim_false
+CVdQ.cvdQClaimPast_false
+# F6
+BambaK.lumDist_y_fifth_order
+BambaK.printedD3y_fails
+BambaK.printedD3y_fails_past
+BambaK.printedD4y_fails
+BambaK.printedD4y_fails_past
+BambaK.bambaD3yClaim_false
+BambaK.bambaD3yClaimPast_false
+BambaK.bambaD4yClaim_false
+BambaK.bambaD4yClaimPast_false
+BambaK.milne_printedD3y_fails_past
+BambaK.milne_printedD4y_fails_past
+Transverse.transverse_expansion
+# F7
+BambaA.angDist_y_fifth_order
+BambaA.printedDA3_fails
+BambaA.printedDA3_fails_past
+BambaA.printedDA4_fails
+BambaA.printedDA4_fails_past
+BambaA.bambaDA3Claim_false
+BambaA.bambaDA3ClaimPast_false
+BambaA.bambaDA4Claim_false
+BambaA.bambaDA4ClaimPast_false
+BambaA.milne_printedDA4_fails_past
+# F8
+BambaZ.lumDist_z_fifth_order
+BambaZ.angDist_z_fifth_order
+BambaZ.printedDL4z_fails_past
+BambaZ.printedDA4z_fails_past
+BambaZ.bambaDLzClaim_false
+BambaZ.bambaDLzClaimPast_false
+BambaZ.bambaDAzClaim_false
+BambaZ.bambaDAzClaimPast_false
+BambaZ.milne_printedDL4z_fails_past
+BambaZ.printed_flat_eq
+# F9
+FRCosmo.fR_values
+FRCosmo.curv_derivs
+FRCosmo.exists_LCDM_model
+FRCosmo.printedR3Claim_false
+FRCosmo.printedF0Mul_false_at
+FRCosmo.printedF0ClaimMul_false
+FRCosmo.printedF0_false_at
+FRCosmo.printedF0Claim_false
+# F10
+FREta.eta_ratios
+FREta.eta20_hasDerivAt
+FREta.eta30_hasDerivAt
+FREta.printedEta20_false_at
+FREta.printedEta30_false_at
+FREta.printedEta20Claim_false
+FREta.printedEta30Claim_false
+FREta.eta_numbers
+# F11
+DemianskiZ.flat_corrections
+DemianskiZ.demDL4_fails_past
+DemianskiZ.demDA4_fails_past
+DemianskiZ.demDLzClaim_false
+DemianskiZ.demDLzClaimPast_false
+DemianskiZ.demDAzClaim_false
+DemianskiZ.demDAzClaimPast_false
+# T1 fidelity
+Fidelity.lumDistSpec2_pins
+Fidelity.hubbleSpec_pins
+Fidelity.decelSpec_pins
+Fidelity.angDistSpec_pins
+Fidelity.flatLCDMSpec2_pins
+Fidelity.isFlatLCDM_iff_friedmann
