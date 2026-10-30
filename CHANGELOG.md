@@ -91,3 +91,10 @@
 - T1: F(R) definitions (`curv`, `rhoM`, `FriedmannEq`, `MasterEq`) pinned against a blind F(R) spec (referee STANDS).
 - Metric: physics headlines resting only on pinned definitions 77/82 (start ≤ 15/88); pinned definitions 17 (start 4).
 - PROMPT notes: blind-spec → verbatim core → meets → pin-by-general-law protocol; trust map usage. LEDGER: experiment (trust map), evaluation of run 1828Z experiments.
+
+## 2026-10-30T2228Z (scheduled run)
+- Env: repo ok (pre-cloned); local Lean via elan ok; previous CI green; CI 41139919276 green, control 41140145749 failed as required; others in STATE.
+- **T2a (statement fidelity), machine-checked non-vacuity:** obligation computed from each statement (`Checked/Trust/NonVacuity.lean`), 62/62 conditional headlines witnessed (`Checked/Trust/Witnesses.lean`), CI blocks a missing witness. Adversarial subagent found 7 holes; all fixed in-run.
+- **T1 closed:** `transverse` pinned by a blind ODE law (Grönwall uniqueness); `dQFlat` reclassified PRINTED; 101/101 headlines on pinned definitions; unpinned physics definitions now block CI.
+- **T3 started:** blind second reading of 23 printed coefficients; all 23 agree with the program's transcriptions (Lean `ring`).
+- LEDGER: two integrity events (CI strengthened), experiment T2a. No message to Alexander (no finding; infrastructure progress only).

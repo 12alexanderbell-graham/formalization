@@ -5,7 +5,14 @@
 - Pins (17 definitions): `lumDistSpec2_pins`, `hubbleSpec_pins`, `decelSpec_pins`, `angDistSpec_pins` (PROVED); run 2028Z: `flatLCDMSpec2_pins` + `isFlatLCDM_iff_friedmann` (PROVED, CI 41125393349), `redshiftCore_pins`, `cosmoCoeffCore_pins`, `yRedSpec_pins`, `omega0Spec_pins`, `curvKSpec_pins`, `lumDistFlat_pins`, `comoving_pins`, `flatCPL_pins` + `isFlatCPL_iff_friedmannCPL`, `ricciSpec_pins`, `rhoM_eq_dust`, `friedmannEq_iff_blind`, `masterEq_iff_blind` (AUDITED; CI in STATE).
 - Trust map (`scripts/trust/StatementDeps.lean`, `TRUST_MAP.md`, CI step): per headline, the definitions its statement rests on. 77 of 82 physics headlines rest only on pinned definitions. Unpinned: `dQFlat` (F5), `transverse` (helper).
 - Mutation benchmark: 30/30 blind + 10/10 author refuted (Work). Spec gaps: 4 + 4 found, all closed by pins.
-- Next: `dQFlat`; T2.
+- Run 2228Z: `transverse` pinned (`Checked/Fidelity/TransverseSpec.lean`, blind ODE law, `transverseSpec_pins`); `dQFlat` PRINTED. 101/101 headlines on pinned definitions; CI-blocking.
+
+## Trust track T2 (statement fidelity), `Checked/Trust/`
+- `NonVacuity.lean` (obligation generator, `nonvacuity%`), `Witnesses.lean` (62 witnesses): **PROVED**-level checks in CI (blocking). Adversarial review `runs/2026-10-30T2228Z/nv_adversary.md`.
+- Next: hypothesis necessity (T2b).
+
+## Trust track T3 (transcription fidelity), `Checked/Trust/`
+- `SecondReading.lean` (blind second transcription, 23 coefficients), `Transcriptions.lean` (23 agreement theorems). Next: remaining 15 PRINTED definitions.
 
 Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXXVIII). Mathlib-only; definitions mirror Physlib's.
 
