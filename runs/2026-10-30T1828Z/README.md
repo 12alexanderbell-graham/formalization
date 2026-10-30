@@ -18,6 +18,6 @@ Environment: repo pre-cloned (add_repo not exposed, not needed); local main fast
 
 **RESULT:** blind kill rate 30/30 (`scripts/fidelity_killrate.py`). Pinning theorems for 4 of 5 specified definitions. Lesson (PROMPT note): anchor lists are test suites and leak (4 gaps found by an adversary in minutes); general laws + a pinning theorem close the domain; anchors then cross-check the laws.
 
-**WHAT COULD STILL BE WRONG:** every agent is the same model, so correlated errors in the laws are possible. A pinning spec is only as right as its laws, and `AngDistSpec`'s laws are close to restating the definition: the anchors are the independent check. Red-team difficulty is uncalibrated (30/30 may mean easy mutants). `IsFlatLCDM` is not pinned. Promotion: specs + pins moved to `Checked/Fidelity/` after referee (`referee_specs.md`: all fields physically correct, sympy-checked) and audit (`audit_fidelity.md`); PROVED status depends on promotion CI 41114284138.
+**WHAT COULD STILL BE WRONG:** every agent is the same model, so correlated errors in the laws are possible. A pinning spec is only as right as its laws, and `AngDistSpec`'s laws are close to restating the definition: the anchors are the independent check. Red-team difficulty is uncalibrated (30/30 may mean easy mutants). `IsFlatLCDM` is not pinned. Promotion: specs + pins moved to `Checked/Fidelity/` after referee (`referee_specs.md`: all fields physically correct, sympy-checked) and audit (`audit_fidelity.md`); promotion CI 41114284138 green (incl. nanoda): PROVED.
 
 **NEXT:** see STATE.

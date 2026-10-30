@@ -6,7 +6,7 @@ Last updated: 2026-10-30, run 2026-10-30T1828Z (scheduled; Alexander joined live
 GOAL (annex 36.0, Alexander 2026-10-30, verbatim in PROMPT instruction 9): a system that lets scientists trust AI-produced science without outside verification. Physics (target 1, cosmography; F1–F11; B1) is the proving ground. Active: **Trust track T1, definition fidelity** (`TARGETS.md`).
 
 ## Trust track status
-- **T1 definition fidelity**: specs + pins promoted to `Checked/Fidelity/` (LumDistSpec.lean, MoreSpecs.lean, Pins.lean; audit `runs/2026-10-30T1828Z/audit_fidelity.md`, referee `referee_specs.md`; PROVED once promotion CI 41114284138 is green). Mutant benchmarks and spec gaps stay in `Work/Fidelity/`:
+- **T1 definition fidelity**: specs + pins promoted to `Checked/Fidelity/` (LumDistSpec.lean, MoreSpecs.lean, Pins.lean; audit `runs/2026-10-30T1828Z/audit_fidelity.md`, referee `referee_specs.md`; **PROVED**: promotion 43191aa, CI 41114284138 green incl. nanoda). Mutant benchmarks and spec gaps stay in `Work/Fidelity/`:
   - Specs: `LumDistSpec` (anchors), `LumDistSpec2` (anchors + Etherington), `HubbleSpec`, `DecelSpec`, `AngDistSpec`, `FlatLCDMSpec`. All met by the program's definitions (`*_meets_spec*`).
   - **Pinning** (any function meeting the spec = the definition on the physical domain): `Checked.Fidelity.lumDistSpec2_pins`, `hubbleSpec_pins`, `decelSpec_pins`, `angDistSpec_pins` (Pins.lean). Not pinned: `FlatLCDMSpec` (the model hypothesis behind F1; adversary found 3 plausible + 1 contrived gaps, `Work/Fidelity/SpecGapsLCDM.lean`), `LumDistSpec` (anchors only; 4 gaps proved in SpecGaps.lean).
   - Metric (`python3 scripts/fidelity_killrate.py`): blind mutants 30/30 refuted in Lean (2 excluded as equal on the physical domain), author mutants 10/10; spec gaps found by a spec-aware adversary: 4 (all in anchors-only `LumDistSpec`, all closed by `LumDistSpec2`).
@@ -33,7 +33,7 @@ GOAL (annex 36.0, Alexander 2026-10-30, verbatim in PROMPT instruction 9): a sys
 ## Environment (this run)
 - Repo pre-cloned; local main fast-forwarded; pushes verified (remote head = local each time).
 - Local Lean: elan + `lake exe cache get` (~3 min); build Checked deps by module.
-- CI (read by ID): 41107164729 (LOCK), 41107875967 (goal records), 41109420256 (LumDistSpec + blind 12) green. 41111474000 (freeze b68bff5), 41112096428 (RedTeamMoreCheck) green. 41113310308 (SpecGaps, LumDistSpec2), 41113487602 (records), 41114284138 (promotion to Checked/Fidelity): see the last records commit or read next run.
+- CI (read by ID): 41107164729 (LOCK), 41107875967 (goal records), 41109420256 (LumDistSpec + blind 12) green. 41111474000 (freeze b68bff5), 41112096428 (RedTeamMoreCheck) green. 41113310308 (SpecGaps, LumDistSpec2), 41113487602 (records), 41114284138 (promotion to Checked/Fidelity, both jobs incl. nanoda), 41114344276 (records) all green. 41115616706 (SpecGapsLCDM) and the final records commit: read next run.
 
 ## Daily review (53.3), 2026-10-30
 - Earlier today: F1–F11 verified findings, many AUDITED + PROVED headlines (see CHANGELOG).
@@ -57,7 +57,7 @@ None.
 ## Exact next step
 1. Read CI 41111474000, 41112096428, 41113310308 and the records commit by ID; fix anything red first.
 2. **T1, close the `FlatLCDMSpec` gaps** (adversary done this run, `Work/Fidelity/SpecGapsLCDM.lean`, all Lean-proved): 3 plausible wrong predicates pass the spec — (i) flatness forgotten (∃ Ω_k; accepts Milne), (ii) cosmographic stand-in q₀ = 3Ω/2 − 1 (accepts a = t at Ω = 2/3), (iii) Ω ≥ 0 added (rejects the genuine bounce cosh^{2/3}, Ω = −1/sinh²t₀ < 0; `bounce_isFlatLCDM`) — plus 1 contrived. Write `FlatLCDMSpec2` in Checked/Fidelity: add negative anchors Milne (every Ω) and a curved matter+Λ model, a positive Ω < 0 anchor (bounce, proof already in SpecGapsLCDM), and a non-ΛCDM model with matching q₀ but j₀ ≠ 1; refute the four gaps; rerun the adversary. A pinning theorem here would only restate the definition (the definition IS the textbook law), so for this predicate the standard is: anchors dense enough that a fresh adversary finds no plausible gap.
-3. T1 → Checked: DONE this run (promotion 43191aa) if CI 41114284138 is green; if red, fix first. Then rewrite the prose TRUSTED_DEFINITIONS rows for these five definitions to cite the pin theorems.
+3. T1 → Checked: DONE (promotion 43191aa, CI 41114284138 green). Rewrite the prose TRUSTED_DEFINITIONS rows for these five definitions to cite the pin theorems.
 4. **T1 generalization:** add a CI check that every `def` in `Checked/` used by a headline either has a pinning spec or is listed as unpinned with a reason (report-only first, LIV).
 5. Then T2 (statement fidelity, machine checks: non-vacuity witness per Checked headline, hypothesis-drop mutation) — the next weakest link.
 Why: these make "the definition means the physics" a kernel-checked fact for everything the findings rest on. Blocking: nothing.
