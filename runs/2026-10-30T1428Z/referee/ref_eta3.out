@@ -1,0 +1,10 @@
+bracket sign +1, const +18, q^2 coeff 0: R_LCDM = -(243*Omega**4 + 540*Omega**3 - 6264*Omega**2 + 9360*Omega - 3328)/16;  /target = (243*Omega**4 + 540*Omega**3 - 6264*Omega**2 + 9360*Omega - 3328)/(9*Omega*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+bracket sign +1, const +18, q^2 coeff 180: R_LCDM = -(243*Omega**4 + 540*Omega**3 + 216*Omega**2 + 720*Omega - 448)/16;  /target = (243*Omega**4 + 540*Omega**3 + 216*Omega**2 + 720*Omega - 448)/(9*Omega*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+bracket sign +1, const -18, q^2 coeff 0: R_LCDM = -(243*Omega**4 + 540*Omega**3 - 6264*Omega**2 + 9360*Omega - 2752)/16;  /target = (243*Omega**4 + 540*Omega**3 - 6264*Omega**2 + 9360*Omega - 2752)/(9*Omega*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+bracket sign +1, const -18, q^2 coeff 180: R_LCDM = -(243*Omega**4 + 540*Omega**3 + 216*Omega**2 + 720*Omega + 128)/16;  /target = (243*Omega**4 + 540*Omega**3 + 216*Omega**2 + 720*Omega + 128)/(9*Omega*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+bracket sign -1, const +18, q^2 coeff 0: R_LCDM = -9*(27*Omega**4 + 60*Omega**3 - 608*Omega**2 + 960*Omega - 256)/16;  /target = (27*Omega**4 + 60*Omega**3 - 608*Omega**2 + 960*Omega - 256)/(Omega*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+bracket sign -1, const +18, q^2 coeff 180: R_LCDM = -9*(27*Omega**4 + 60*Omega**3 + 112*Omega**2 + 64)/16;  /target = (27*Omega**4 + 60*Omega**3 + 112*Omega**2 + 64)/(Omega*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+bracket sign -1, const -18, q^2 coeff 0: R_LCDM = -9*(27*Omega**4 + 60*Omega**3 - 608*Omega**2 + 960*Omega - 320)/16;  /target = (27*Omega**4 + 60*Omega**3 - 608*Omega**2 + 960*Omega - 320)/(Omega*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+bracket sign -1, const -18, q^2 coeff 180: R_LCDM = -9*Omega**2*(27*Omega**2 + 60*Omega + 112)/16;  /target = Omega*(27*Omega**2 + 60*Omega + 112)/(27*Omega**3 + 276*Omega**2 - 4*Omega - 8)
+UPSTREAM (33) R in LCDM: R*F(R0)/H0^2 + 6(P0 Om+Q0) = 3*(Omega - 2)*(909*Omega**2 - 1170*Omega + 344)/2
+  real roots of the non-trivial factor: [0.454521, 0.832607]

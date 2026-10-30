@@ -1,0 +1,18 @@
+printed denominator factors: (Omega - 2)*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8)
+== correct LCDM l0 (11.39) : l0 = 27*Omega**2/2 + 3*Omega + 1
+  (P0 Om+Q0)_LCDM = 9*Omega**2*(Omega - 2)*(27*Omega**2 + 60*Omega + 112)/32
+  eta20/eps = -2*(27*Omega**2 + 24*Omega - 32)/(27*Omega*(Omega - 2)*(27*Omega**2 + 60*Omega + 112))
+  eta30/eps = -2*(81*Omega**2 - 60*Omega - 16)/(243*Omega**2*(Omega - 2)*(27*Omega**2 + 60*Omega + 112))
+  eta20 - printed(11.42): -8*(27*Omega**2 + 24*Omega - 32)*(54*Omega**2 - 29*Omega - 2)/(27*Omega*(Omega - 2)*(27*Omega**2 + 60*Omega + 112)*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+  eta30 - printed(11.43): -4*(3*Omega + 8)*(27*Omega**2 + 24*Omega - 32)*(54*Omega**2 - 29*Omega - 2)/(243*Omega**2*(Omega - 2)*(27*Omega**2 + 60*Omega + 112)*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+   Om=0.041: eta20/eps=-0.2494 (finite-diff -0.2494), eta30/eps=-0.4 (finite-diff -0.4); printed formula: 0.1521, 4.02
+   Om=0.25: eta20/eps=-0.03199 (finite-diff -0.03199), eta30/eps=-0.01517 (finite-diff -0.01517); printed formula: -0.1187, -0.1837
+== sign-flipped l0 (Aviles-type slip) : l0 = -27*Omega**2/2 + 3*Omega + 1
+  (P0 Om+Q0)_LCDM = 9*Omega**2*(Omega - 2)*(27*Omega**2 - 12*Omega + 112)/32
+  eta20/eps = -2*(27*Omega**2 + 24*Omega - 32)/(27*Omega*(Omega - 2)*(27*Omega**2 - 12*Omega + 112))
+  eta30/eps = -2*(189*Omega**2 - 132*Omega - 16)/(243*Omega**2*(Omega - 2)*(27*Omega**2 - 12*Omega + 112))
+  eta20 - printed(11.42): -8*(27*Omega**2 + 24*Omega - 32)*(72*Omega**2 - 29*Omega - 2)/(27*Omega*(Omega - 2)*(27*Omega**2 - 12*Omega + 112)*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+  eta30 - printed(11.43): -4*(3*Omega + 8)*(27*Omega**2 + 24*Omega - 32)*(72*Omega**2 - 29*Omega - 2)/(243*Omega**2*(Omega - 2)*(27*Omega**2 - 12*Omega + 112)*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8))
+   Om=0.041: eta20/eps=-0.256 (finite-diff -0.256), eta30/eps=-0.4726 (finite-diff -0.4726); printed formula: 0.1521, 4.02
+   Om=0.25: eta20/eps=-0.03719 (finite-diff -0.03719), eta30/eps=-0.02528 (finite-diff -0.02528); printed formula: -0.1187, -0.1837
+printed numbers: (11.44) eta20 = 0.15 eps (0.041), -0.12 eps (0.25); (11.45) eta30 = 4 eps (0.041), -0.18 eps (0.25)

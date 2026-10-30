@@ -1,0 +1,8 @@
+d^0R/dt^0 - printed(11.10) = 0
+d^1R/dt^1 - printed(11.11) = 0
+d^2R/dt^2 - printed(11.12) = 0
+d^3R/dt^3 - printed(11.13) = 24*H0**5*j0*(q0 + 4)
+d3R/dt3 / (-6H0^5) = -2*j0*q0 - 8*j0 + l0 - 18*q0**2 - 48*q0 - s0 - 24
+standard-convention eqs identical (E1@0, E2@0, dE2/dt@0): [True, True, True]
+paper-form eqs equal the untruncated ones: [True, True, True]
+denominator of F(R0): 3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104

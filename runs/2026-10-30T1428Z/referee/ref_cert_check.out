@@ -1,0 +1,4 @@
+T0 : no certificate in ansatz
+T2 : T*H0^3 = c1*H0^3*E1 + c2*H0^1*E2 + c3*H0^0*E3 with [0, j0 - 3*q0**2 - 25*q0 - 3*s0 - 20, j0 - q0 - 2] ; residual 0
+T3 : T*H0^3 = c1*H0^3*E1 + c2*H0^1*E2 + c3*H0^0*E3 with [0, 3*j0*q0 + 9*j0 - l0 + 18*q0**2 + 53*q0 + 2*s0 + 28, -j0 + q0**2 + 9*q0 + s0 + 8] ; residual 0
+T0 = -2Rco*E1 - 6(q+2-j)(3q^2+25q+3s+20-j)*E2 - 6(q+2-j)^2/H0*E3 ; residual 0

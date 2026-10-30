@@ -1,0 +1,21 @@
+/-- Algebra of the closure system: (11.14), (11.15), (11.20) with `F′ = 1`, `F⁽⁴⁾ = 0`, the
+`H`-derivatives written through `(q₀, j₀, s₀, l₀)`. Certificates from
+`runs/2026-10-30T1428Z/scripts/cert_lean.py`. -/
+lemma alg (q j s l H Ω x0 x2 x3 : ℝ) (hH : H ≠ 0)
+    (e1 : 3 * H ^ 2 = 3 * H ^ 2 * Ω + (x0 - (-6 * ((-H ^ 2 * (1 + q)) + 2 * H ^ 2))) / 2 - 3 * H * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * x2)
+    (e2 : -2 * (-H ^ 2 * (1 + q)) = 3 * H ^ 2 * Ω + (-6 * ((-H ^ 4 * (4 * j + 3 * q ^ 2 + 12 * q - s + 6)) + 4 * (-H ^ 2 * (1 + q)) ^ 2 + 4 * H * (H ^ 3 * (j + 3 * q + 2)))) * x2 + (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * ((-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * x3 - H * x2))
+    (e3 : -2 * x2 * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * (-H ^ 2 * (1 + q)) - 2 * (H ^ 3 * (j + 3 * q + 2)) = -3 * H * (3 * H ^ 2 * Ω) + (-6 * ((H ^ 5 * (10 * j * q + 20 * j + l + 30 * q ^ 2 + 60 * q - 5 * s + 24)) + 12 * (-H ^ 2 * (1 + q)) * (H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 4 * (4 * j + 3 * q ^ 2 + 12 * q - s + 6)))) * x2 + 3 * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * (-6 * ((-H ^ 4 * (4 * j + 3 * q ^ 2 + 12 * q - s + 6)) + 4 * (-H ^ 2 * (1 + q)) ^ 2 + 4 * H * (H ^ 3 * (j + 3 * q + 2)))) * x3 - (-H ^ 2 * (1 + q)) * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * x2 - H * (-6 * ((-H ^ 4 * (4 * j + 3 * q ^ 2 + 12 * q - s + 6)) + 4 * (-H ^ 2 * (1 + q)) ^ 2 + 4 * H * (H ^ 3 * (j + 3 * q + 2)))) * x2 - H * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) ^ 2 * x3) :
+    correctR q j s l * x0 = -6 * H ^ 2 * (P0 q j s l * Ω + Q0 q j s l) ∧
+    correctR q j s l * (6 * H ^ 2) * x2 = -(P2 q j s * Ω + Q2 q j s) ∧
+    (j - q - 2) * correctR q j s l * (6 * H ^ 2) ^ 2 * x3 = -(P3 q j s l * Ω + Q3 q j s l) := by
+  have h3 : H ^ 3 ≠ 0 := pow_ne_zero 3 hH
+  refine ⟨?_, ?_, ?_⟩
+  · apply mul_left_cancel₀ h3
+    simp only [correctR, P0, Q0]
+    linear_combination (6*H^3*j^2*q + 20*H^3*j^2 - 2*H^3*j*l + 22*H^3*j*q^2 + 8*H^3*j*q - 4*H^3*j*s - 36*H^3*j + 2*H^3*l*q + 4*H^3*l + 6*H^3*q^4 + 68*H^3*q^3 + 12*H^3*q^2*s + 360*H^3*q^2 + 100*H^3*q*s + 492*H^3*q + 6*H^3*s^2 + 80*H^3*s + 208*H^3) * e1 + (-6*H^3*j^2 + 18*H^3*j*q^2 + 156*H^3*j*q + 18*H^3*j*s + 132*H^3*j - 18*H^3*q^3 - 186*H^3*q^2 - 18*H^3*q*s - 420*H^3*q - 36*H^3*s - 240*H^3) * e2 + (-6*H^2*j^2 + 12*H^2*j*q + 24*H^2*j - 6*H^2*q^2 - 24*H^2*q - 24*H^2) * e3
+  · apply mul_left_cancel₀ h3
+    simp only [correctR, P2, Q2]
+    linear_combination (0) * e1 + (H*j - 3*H*q^2 - 25*H*q - 3*H*s - 20*H) * e2 + (j - q - 2) * e3
+  · apply mul_left_cancel₀ h3
+    simp only [correctR, P3, Q3]
+    linear_combination (0) * e1 + (3*H*j*q + 9*H*j - H*l + 18*H*q^2 + 53*H*q + 2*H*s + 28*H) * e2 + (-j + q^2 + 9*q + s + 8) * e3

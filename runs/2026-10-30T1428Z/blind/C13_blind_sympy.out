@@ -1,0 +1,103 @@
+== Check (10.6)-(10.9) [H derivatives] ==
+  (10.6) direct - printed = 0
+  (10.7) direct - printed = 0
+  (10.8) direct - printed = 0
+  (10.9) direct - printed = 0
+== Check (11.10)-(11.13) [R derivatives] ==
+  (11.10) direct  = 6*H0**2*(q0 - 1)
+  (11.10) direct - printed = 0
+  (11.11) direct  = 6*H0**3*(-j0 + q0 + 2)
+  (11.11) direct - printed = 0
+  (11.12) direct  = -6*H0**4*(q0**2 + 8*q0 + s0 + 6)
+  (11.12) direct - printed = 0
+  (11.13) direct  = 6*H0**5*(2*j0*q0 + 8*j0 - l0 + 18*q0**2 + 48*q0 + s0 + 24)
+  (11.13) direct - printed = 24*H0**5*j0*(q0 + 4)
+== Consistency: d/dt[E(11.1)] - 3H*E(11.5), using R = -6(Hd+2H^2) only: 0 (0 => (11.5) is d/dt of (11.1) when H != 0)
+== (11.18): exact d/dt of (11.5) minus printed (11.18) == f2*h1*r1/f1
+
+== Closure with the EXACT time derivative of (11.5) ==
+  [exact] number of solutions for (F2,F3): 1
+--- [exact] derived ---
+  F(R0)/(6H0^2)      = (-3*Omega_M*j0**2*q0 - 16*Omega_M*j0**2 + Omega_M*j0*l0 - 20*Omega_M*j0*q0**2 - 64*Omega_M*j0*q0 - 7*Omega_M*j0*s0 - 12*Omega_M*j0 - Omega_M*l0*q0 - 2*Omega_M*l0 - 3*Omega_M*q0**4 - 25*Omega_M*q0**3 - 6*Omega_M*q0**2*s0 - 96*Omega_M*q0**2 - 41*Omega_M*q0*s0 - 72*Omega_M*q0 - 3*Omega_M*s0**2 - 22*Omega_M*s0 - 20*Omega_M + 2*j0**3 + 3*j0**2*q0**2 + 10*j0**2*q0 - 6*j0**2 - j0*l0*q0 + 17*j0*q0**3 + 52*j0*q0**2 + 4*j0*q0*s0 + 54*j0*q0 + 6*j0*s0 + 36*j0 + l0*q0**2 + 2*l0*q0 + 3*q0**5 + 28*q0**4 + 6*q0**3*s0 + 118*q0**3 + 44*q0**2*s0 + 72*q0**2 + 3*q0*s0**2 + 22*q0*s0 - 76*q0 - 12*s0 - 64)/(3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104)
+  F''(R0)*6H0^2      = -(-6*Omega_M*j0 - 9*Omega_M*q0**2 - 66*Omega_M*q0 - 9*Omega_M*s0 - 42*Omega_M + 2*j0**2 + 2*j0*q0 - 2*j0 + 6*q0**3 + 50*q0**2 + 6*q0*s0 + 74*q0 + 6*s0 + 32)/(3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104)
+  F'''(R0)*(6H0^2)^2 = -(-9*Omega_M*j0*q0 - 36*Omega_M*j0 + 3*Omega_M*l0 - 45*Omega_M*q0**2 - 78*Omega_M*q0 + 3*Omega_M*s0 - 12*Omega_M + 2*j0**2 + 4*j0*q0**2 + 12*j0*q0 - 2*j0*s0 + 6*j0 - 2*l0*q0 - 2*l0 + 30*q0**3 + 84*q0**2 - 2*q0*s0 + 78*q0 + 24)/((-j0 + q0 + 2)*(3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104))
+  derived R (normalised so coeff of l0 is (j0-q0-2)):
+     R_der = j0**2*(-3*q0 - 10) + j0*(-11*q0**2 - 4*q0 + 18) + l0*(j0 - q0 - 2) - 3*q0**4 - 34*q0**3 - 180*q0**2 - 246*q0 - 3*s0**2 + s0*(2*j0 - 6*q0**2 - 50*q0 - 40) - 104
+     R_der - R_printed = -2*(3*j0**2*q0 + 10*j0**2 + 11*j0*q0**2 + 4*j0*q0 + 90*q0**2)
+  P0_der = j0**2*(-3*q0 - 16) + j0*(-20*q0**2 - 64*q0 - 12) + l0*(j0 - q0 - 2) - 3*q0**4 - 25*q0**3 - 96*q0**2 - 72*q0 - 3*s0**2 + s0*(-7*j0 - 6*q0**2 - 41*q0 - 22) - 20
+  Q0_der = 2*j0**3 + j0**2*(3*q0**2 + 10*q0 - 6) + j0*(17*q0**3 + 52*q0**2 + 54*q0 + 36) + l0*(-j0*q0 + q0**2 + 2*q0) + 3*q0**5 + 28*q0**4 + 118*q0**3 + 72*q0**2 + 3*q0*s0**2 - 76*q0 + s0*(4*j0*q0 + 6*j0 + 6*q0**3 + 44*q0**2 + 22*q0 - 12) - 64
+  P0_der - P0_printed = 0
+  Q0_der - Q0_printed = 0
+  P2_der = 6*j0 + 9*q0**2 + 66*q0 + 9*s0 + 42
+  Q2_der = -2*j0**2 + j0*(2 - 2*q0) - 6*q0**3 - 50*q0**2 - 74*q0 + s0*(-6*q0 - 6) - 32
+  P2_der - P2_printed = 0
+  Q2_der - Q2_printed = 0
+  P3_der = j0*(-9*q0 - 36) + 3*l0 - 45*q0**2 - 78*q0 + 3*s0 - 12
+  Q3_der = 2*j0**2 + j0*(4*q0**2 + 12*q0 + 6) + l0*(-2*q0 - 2) + 30*q0**3 + 84*q0**2 + 78*q0 + s0*(-2*j0 - 2*q0) + 24
+  P3_der - P3_printed = 0
+  Q3_der - Q3_printed = 0
+  F0_der - F0_printed (simplified) = -12*H0**2*(3*j0**2*q0 + 10*j0**2 + 11*j0*q0**2 + 4*j0*q0 + 90*q0**2)*(-3*Omega_M*j0**2*q0 - 16*Omega_M*j0**2 + Omega_M*j0*l0 - 20*Omega_M*j0*q0**2 - 64*Omega_M*j0*q0 - 7*Omega_M*j0*s0 - 12*Omega_M*j0 - Omega_M*l0*q0 - 2*Omega_M*l0 - 3*Omega_M*q0**4 - 25*Omega_M*q0**3 - 6*Omega_M*q0**2*s0 - 96*Omega_M*q0**2 - 41*Omega_M*q0*s0 - 72*Omega_M*q0 - 3*Omega_M*s0**2 - 22*Omega_M*s0 - 20*Omega_M + 2*j0**3 + 3*j0**2*q0**2 + 10*j0**2*q0 - 6*j0**2 - j0*l0*q0 + 17*j0*q0**3 + 52*j0*q0**2 + 4*j0*q0*s0 + 54*j0*q0 + 6*j0*s0 + 36*j0 + l0*q0**2 + 2*l0*q0 + 3*q0**5 + 28*q0**4 + 6*q0**3*s0 + 118*q0**3 + 44*q0**2*s0 + 72*q0**2 + 3*q0*s0**2 + 22*q0*s0 - 76*q0 - 12*s0 - 64)/((-3*j0**2*q0 - 10*j0**2 - j0*l0 - 11*j0*q0**2 - 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104)*(3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104))
+  F2_der - F2_printed (simplified) = (3*j0**2*q0 + 10*j0**2 + 11*j0*q0**2 + 4*j0*q0 + 90*q0**2)*(-6*Omega_M*j0 - 9*Omega_M*q0**2 - 66*Omega_M*q0 - 9*Omega_M*s0 - 42*Omega_M + 2*j0**2 + 2*j0*q0 - 2*j0 + 6*q0**3 + 50*q0**2 + 6*q0*s0 + 74*q0 + 6*s0 + 32)/(3*H0**2*(-3*j0**2*q0 - 10*j0**2 - j0*l0 - 11*j0*q0**2 - 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104)*(3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104))
+  F3_der - F3_printed (simplified) = (3*j0**2*q0 + 10*j0**2 + 11*j0*q0**2 + 4*j0*q0 + 90*q0**2)*(-9*Omega_M*j0*q0 - 36*Omega_M*j0 + 3*Omega_M*l0 - 45*Omega_M*q0**2 - 78*Omega_M*q0 + 3*Omega_M*s0 - 12*Omega_M + 2*j0**2 + 4*j0*q0**2 + 12*j0*q0 - 2*j0*s0 + 6*j0 - 2*l0*q0 - 2*l0 + 30*q0**3 + 84*q0**2 - 2*q0*s0 + 78*q0 + 24)/(18*H0**4*(-j0 + q0 + 2)*(-3*j0**2*q0 - 10*j0**2 - j0*l0 - 11*j0*q0**2 - 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104)*(3*j0**2*q0 + 10*j0**2 - j0*l0 + 11*j0*q0**2 + 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 180*q0**2 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104))
+
+== Closure with the PRINTED (11.18)/(11.20) (sign +Hdot*Rdot) ==
+  [printed-11.20] number of solutions for (F2,F3): 1
+--- [printed-11.20] derived ---
+  F(R0)/(6H0^2)      = (-5*Omega_M*j0**2*q0 - 18*Omega_M*j0**2 + Omega_M*j0*l0 - 16*Omega_M*j0*q0**2 - 52*Omega_M*j0*q0 - 7*Omega_M*j0*s0 - 4*Omega_M*j0 - Omega_M*l0*q0 - 2*Omega_M*l0 - 3*Omega_M*q0**4 - 27*Omega_M*q0**3 - 6*Omega_M*q0**2*s0 - 106*Omega_M*q0**2 - 41*Omega_M*q0*s0 - 88*Omega_M*q0 - 3*Omega_M*s0**2 - 22*Omega_M*s0 - 28*Omega_M + 2*j0**3 + 5*j0**2*q0**2 + 12*j0**2*q0 - 6*j0**2 - j0*l0*q0 + 13*j0*q0**3 + 40*j0*q0**2 + 4*j0*q0*s0 + 46*j0*q0 + 6*j0*s0 + 36*j0 + l0*q0**2 + 2*l0*q0 + 3*q0**5 + 30*q0**4 + 6*q0**3*s0 + 128*q0**3 + 44*q0**2*s0 + 88*q0**2 + 3*q0*s0**2 + 22*q0*s0 - 68*q0 - 12*s0 - 64)/(5*j0**2*q0 + 12*j0**2 - j0*l0 + 7*j0*q0**2 - 8*j0*q0 - 2*j0*s0 - 26*j0 + l0*q0 + 2*l0 + 3*q0**4 + 36*q0**3 + 6*q0**2*s0 + 190*q0**2 + 50*q0*s0 + 262*q0 + 3*s0**2 + 40*s0 + 112)
+  F''(R0)*6H0^2      = -(-6*Omega_M*j0 - 9*Omega_M*q0**2 - 66*Omega_M*q0 - 9*Omega_M*s0 - 42*Omega_M + 2*j0**2 + 2*j0*q0 - 2*j0 + 6*q0**3 + 50*q0**2 + 6*q0*s0 + 74*q0 + 6*s0 + 32)/(5*j0**2*q0 + 12*j0**2 - j0*l0 + 7*j0*q0**2 - 8*j0*q0 - 2*j0*s0 - 26*j0 + l0*q0 + 2*l0 + 3*q0**4 + 36*q0**3 + 6*q0**2*s0 + 190*q0**2 + 50*q0*s0 + 262*q0 + 3*s0**2 + 40*s0 + 112)
+  F'''(R0)*(6H0^2)^2 = -(-15*Omega_M*j0*q0 - 42*Omega_M*j0 + 3*Omega_M*l0 - 39*Omega_M*q0**2 - 60*Omega_M*q0 + 3*Omega_M*s0 + 2*j0**2 + 8*j0*q0**2 + 20*j0*q0 - 2*j0*s0 + 10*j0 - 2*l0*q0 - 2*l0 + 26*q0**3 + 68*q0**2 - 2*q0*s0 + 58*q0 + 16)/((-j0 + q0 + 2)*(5*j0**2*q0 + 12*j0**2 - j0*l0 + 7*j0*q0**2 - 8*j0*q0 - 2*j0*s0 - 26*j0 + l0*q0 + 2*l0 + 3*q0**4 + 36*q0**3 + 6*q0**2*s0 + 190*q0**2 + 50*q0*s0 + 262*q0 + 3*s0**2 + 40*s0 + 112))
+  derived R (normalised so coeff of l0 is (j0-q0-2)):
+     R_der = j0**2*(-5*q0 - 12) + j0*(-7*q0**2 + 8*q0 + 26) + l0*(j0 - q0 - 2) - 3*q0**4 - 36*q0**3 - 190*q0**2 - 262*q0 - 3*s0**2 + s0*(2*j0 - 6*q0**2 - 50*q0 - 40) - 112
+     R_der - R_printed = -2*(4*j0**2*q0 + 11*j0**2 + 9*j0*q0**2 - 2*j0*q0 - 4*j0 + q0**3 + 95*q0**2 + 8*q0 + 4)
+  P0_der = j0**2*(-5*q0 - 18) + j0*(-16*q0**2 - 52*q0 - 4) + l0*(j0 - q0 - 2) - 3*q0**4 - 27*q0**3 - 106*q0**2 - 88*q0 - 3*s0**2 + s0*(-7*j0 - 6*q0**2 - 41*q0 - 22) - 28
+  Q0_der = 2*j0**3 + j0**2*(5*q0**2 + 12*q0 - 6) + j0*(13*q0**3 + 40*q0**2 + 46*q0 + 36) + l0*(-j0*q0 + q0**2 + 2*q0) + 3*q0**5 + 30*q0**4 + 128*q0**3 + 88*q0**2 + 3*q0*s0**2 - 68*q0 + s0*(4*j0*q0 + 6*j0 + 6*q0**3 + 44*q0**2 + 22*q0 - 12) - 64
+  P0_der - P0_printed = -2*(q0 + 1)*(-j0 + q0 + 2)**2
+  Q0_der - Q0_printed = 2*q0*(q0 + 1)*(-j0 + q0 + 2)**2
+  P2_der = 6*j0 + 9*q0**2 + 66*q0 + 9*s0 + 42
+  Q2_der = -2*j0**2 + j0*(2 - 2*q0) - 6*q0**3 - 50*q0**2 - 74*q0 + s0*(-6*q0 - 6) - 32
+  P2_der - P2_printed = 0
+  Q2_der - Q2_printed = 0
+  P3_der = j0*(-15*q0 - 42) + 3*l0 - 39*q0**2 - 60*q0 + 3*s0
+  Q3_der = 2*j0**2 + j0*(8*q0**2 + 20*q0 + 10) + l0*(-2*q0 - 2) + 26*q0**3 + 68*q0**2 + 58*q0 + s0*(-2*j0 - 2*q0) + 16
+  P3_der - P3_printed = 6*(q0 + 1)*(-j0 + q0 + 2)
+  Q3_der - Q3_printed = -4*(q0 + 1)**2*(-j0 + q0 + 2)
+  F0_der - F0_printed (simplified) = -12*H0**2*(-15*Omega_M*j0**4*q0**2 - 110*Omega_M*j0**4*q0 - 186*Omega_M*j0**4 + 3*Omega_M*j0**3*l0*q0 + 10*Omega_M*j0**3*l0 - 112*Omega_M*j0**3*q0**3 - 591*Omega_M*j0**3*q0**2 - 30*Omega_M*j0**3*q0*s0 - 658*Omega_M*j0**3*q0 - 79*Omega_M*j0**3*s0 - 46*Omega_M*j0**3 + 8*Omega_M*j0**2*l0*q0**2 - 12*Omega_M*j0**2*l0*q0 - 20*Omega_M*j0**2*l0 - 9*Omega_M*j0**2*q0**5 - 260*Omega_M*j0**2*q0**4 - 18*Omega_M*j0**2*q0**3*s0 - 1413*Omega_M*j0**2*q0**3 - 233*Omega_M*j0**2*q0**2*s0 - 2512*Omega_M*j0**2*q0**2 - 9*Omega_M*j0**2*q0*s0**2 - 423*Omega_M*j0**2*q0*s0 - 350*Omega_M*j0**2*q0 - 30*Omega_M*j0**2*s0**2 - 166*Omega_M*j0**2*s0 - 100*Omega_M*j0**2 - 11*Omega_M*j0*l0*q0**3 + 64*Omega_M*j0*l0*q0**2 - 8*Omega_M*j0*l0*q0 - 33*Omega_M*j0*q0**6 - 336*Omega_M*j0*q0**5 - 66*Omega_M*j0*q0**4*s0 - 3041*Omega_M*j0*q0**4 - 502*Omega_M*j0*q0**3*s0 - 7362*Omega_M*j0*q0**3 - 33*Omega_M*j0*q0**2*s0**2 - 1171*Omega_M*j0*q0**2*s0 - 3234*Omega_M*j0*q0**2 - 12*Omega_M*j0*q0*s0**2 - 304*Omega_M*j0*q0*s0 - 1792*Omega_M*j0*q0 - 108*Omega_M*j0*s0 - 456*Omega_M*j0 - 90*Omega_M*l0*q0**3 - 180*Omega_M*l0*q0**2 - 261*Omega_M*q0**6 - 2301*Omega_M*q0**5 - 531*Omega_M*q0**4*s0 - 8874*Omega_M*q0**4 - 3627*Omega_M*q0**3*s0 - 6258*Omega_M*q0**3 - 270*Omega_M*q0**2*s0**2 - 1818*Omega_M*q0**2*s0 - 372*Omega_M*q0**2 + 180*Omega_M*q0*s0 + 1368*Omega_M*q0 + 72*Omega_M*s0 + 336*Omega_M + 8*j0**5*q0 + 22*j0**5 + 15*j0**4*q0**3 + 104*j0**4*q0**2 + 92*j0**4*q0 - 74*j0**4 - 3*j0**3*l0*q0**2 - 10*j0**3*l0*q0 + 100*j0**3*q0**4 + 458*j0**3*q0**3 + 18*j0**3*q0**2*s0 + 842*j0**3*q0**2 + 70*j0**3*q0*s0 + 704*j0**3*q0 + 66*j0**3*s0 + 428*j0**3 - 8*j0**2*l0*q0**3 + 12*j0**2*l0*q0**2 + 20*j0**2*l0*q0 + 9*j0**2*q0**6 + 245*j0**2*q0**5 + 18*j0**2*q0**4*s0 + 1426*j0**2*q0**4 + 218*j0**2*q0**3*s0 + 2592*j0**2*q0**3 + 9*j0**2*q0**2*s0**2 + 516*j0**2*q0**2*s0 - 364*j0**2*q0**2 + 30*j0**2*q0*s0**2 + 118*j0**2*q0*s0 - 1524*j0**2*q0 - 156*j0**2*s0 - 872*j0**2 + 11*j0*l0*q0**4 - 64*j0*l0*q0**3 + 8*j0*l0*q0**2 + 33*j0*q0**7 + 360*j0*q0**6 + 66*j0*q0**5*s0 + 2936*j0*q0**5 + 526*j0*q0**4*s0 + 6184*j0*q0**4 + 33*j0*q0**3*s0**2 + 886*j0*q0**3*s0 + 6200*j0*q0**3 + 12*j0*q0**2*s0**2 + 730*j0*q0**2*s0 + 5116*j0*q0**2 + 168*j0*q0*s0 + 1424*j0*q0 + 72*j0*s0 + 400*j0 + 90*l0*q0**4 + 180*l0*q0**3 + 264*q0**7 + 2608*q0**6 + 534*q0**5*s0 + 10988*q0**5 + 3912*q0**4*s0 + 6350*q0**4 + 270*q0**3*s0**2 + 1830*q0**3*s0 - 8724*q0**3 - 1308*q0**2*s0 - 8216*q0**2 - 168*q0*s0 - 1232*q0 - 48*s0 - 256)/((-3*j0**2*q0 - 10*j0**2 - j0*l0 - 11*j0*q0**2 - 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104)*(5*j0**2*q0 + 12*j0**2 - j0*l0 + 7*j0*q0**2 - 8*j0*q0 - 2*j0*s0 - 26*j0 + l0*q0 + 2*l0 + 3*q0**4 + 36*q0**3 + 6*q0**2*s0 + 190*q0**2 + 50*q0*s0 + 262*q0 + 3*s0**2 + 40*s0 + 112))
+  F2_der - F2_printed (simplified) = (4*j0**2*q0 + 11*j0**2 + 9*j0*q0**2 - 2*j0*q0 - 4*j0 + q0**3 + 95*q0**2 + 8*q0 + 4)*(-6*Omega_M*j0 - 9*Omega_M*q0**2 - 66*Omega_M*q0 - 9*Omega_M*s0 - 42*Omega_M + 2*j0**2 + 2*j0*q0 - 2*j0 + 6*q0**3 + 50*q0**2 + 6*q0*s0 + 74*q0 + 6*s0 + 32)/(3*H0**2*(-3*j0**2*q0 - 10*j0**2 - j0*l0 - 11*j0*q0**2 - 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104)*(5*j0**2*q0 + 12*j0**2 - j0*l0 + 7*j0*q0**2 - 8*j0*q0 - 2*j0*s0 - 26*j0 + l0*q0 + 2*l0 + 3*q0**4 + 36*q0**3 + 6*q0**2*s0 + 190*q0**2 + 50*q0*s0 + 262*q0 + 3*s0**2 + 40*s0 + 112))
+  F3_der - F3_printed (simplified) = (-45*Omega_M*j0**3*q0**2 - 282*Omega_M*j0**3*q0 - 426*Omega_M*j0**3 + 9*Omega_M*j0**2*l0*q0 + 30*Omega_M*j0**2*l0 - 285*Omega_M*j0**2*q0**3 - 1101*Omega_M*j0**2*q0**2 + 6*Omega_M*j0**2*q0*s0 - 756*Omega_M*j0**2*q0 + 27*Omega_M*j0**2*s0 + 18*Omega_M*j0**2 + 33*Omega_M*j0*l0*q0**2 + 12*Omega_M*j0*l0*q0 + 9*Omega_M*j0*q0**5 - 270*Omega_M*j0*q0**4 + 18*Omega_M*j0*q0**3*s0 - 1290*Omega_M*j0*q0**3 + 201*Omega_M*j0*q0**2*s0 - 2370*Omega_M*j0*q0**2 + 9*Omega_M*j0*q0*s0**2 + 282*Omega_M*j0*q0*s0 + 1248*Omega_M*j0*q0 + 9*Omega_M*j0*s0**2 + 120*Omega_M*j0*s0 + 324*Omega_M*j0 + 270*Omega_M*l0*q0**2 - 9*Omega_M*q0**6 - 174*Omega_M*q0**5 - 18*Omega_M*q0**4*s0 - 4677*Omega_M*q0**4 - 201*Omega_M*q0**3*s0 - 8724*Omega_M*q0**3 - 9*Omega_M*q0**2*s0**2 - 321*Omega_M*q0**2*s0 - 4470*Omega_M*q0**2 - 27*Omega_M*q0*s0**2 - 636*Omega_M*q0*s0 - 2820*Omega_M*q0 - 18*Omega_M*s0**2 - 228*Omega_M*s0 - 672*Omega_M + 8*j0**4*q0 + 22*j0**4 + 22*j0**3*q0**3 + 142*j0**3*q0**2 - 8*j0**3*q0*s0 + 198*j0**3*q0 - 22*j0**3*s0 + 78*j0**3 - 6*j0**2*l0*q0**2 - 26*j0**2*l0*q0 - 20*j0**2*l0 + 172*j0**2*q0**4 + 776*j0**2*q0**3 - 22*j0**2*q0**2*s0 + 1404*j0**2*q0**2 - 10*j0**2*q0*s0 + 878*j0**2*q0 + 12*j0**2*s0 + 244*j0**2 - 22*j0*l0*q0**3 - 30*j0*l0*q0**2 - 8*j0*l0*q0 - 6*j0*q0**6 + 172*j0*q0**5 - 12*j0*q0**4*s0 + 850*j0*q0**4 - 148*j0*q0**3*s0 + 854*j0*q0**3 - 6*j0*q0**2*s0**2 - 494*j0*q0**2*s0 - 1014*j0*q0**2 - 12*j0*q0*s0**2 - 288*j0*q0*s0 - 1368*j0*q0 - 6*j0*s0**2 - 96*j0*s0 - 352*j0 - 180*l0*q0**3 - 180*l0*q0**2 + 6*q0**7 + 122*q0**6 + 12*q0**5*s0 + 3236*q0**5 + 146*q0**4*s0 + 9142*q0**4 + 6*q0**3*s0**2 + 350*q0**3*s0 + 10538*q0**3 + 24*q0**2*s0**2 + 828*q0**2*s0 + 6532*q0**2 + 30*q0*s0**2 + 592*q0*s0 + 2528*q0 + 12*s0**2 + 160*s0 + 512)/(18*H0**4*(-j0 + q0 + 2)*(-3*j0**2*q0 - 10*j0**2 - j0*l0 - 11*j0*q0**2 - 4*j0*q0 - 2*j0*s0 - 18*j0 + l0*q0 + 2*l0 + 3*q0**4 + 34*q0**3 + 6*q0**2*s0 + 50*q0*s0 + 246*q0 + 3*s0**2 + 40*s0 + 104)*(5*j0**2*q0 + 12*j0**2 - j0*l0 + 7*j0*q0**2 - 8*j0*q0 - 2*j0*s0 - 26*j0 + l0*q0 + 2*l0 + 3*q0**4 + 36*q0**3 + 6*q0**2*s0 + 190*q0**2 + 50*q0*s0 + 262*q0 + 3*s0**2 + 40*s0 + 112))
+
+== LCDM check (11.39)/(11.40) ==
+  q0 from LCDM a(t): 0 (diff vs 11.39)
+  j0 from LCDM a(t): 0 (diff vs 11.39)
+  s0 from LCDM a(t): 0 (diff vs 11.39)
+  l0 from LCDM a(t): 0 (diff vs 11.39)
+  printed R at LCDM: -(243*Omega_M**4 + 540*Omega_M**3 - 6264*Omega_M**2 + 9360*Omega_M - 3328)/16
+  printed P0*Om+Q0 at LCDM: 9*Omega_M**2*(Omega_M - 2)*(27*Omega_M**2 + 60*Omega_M + 112)/32
+  printed P2*Om+Q2 at LCDM: 0
+  printed P3*Om+Q3 at LCDM: 0
+  printed (j-q-2) at LCDM: -3*Omega_M/2
+  printed F(R0) at LCDM: 27*H0**2*Omega_M**2*(Omega_M - 2)*(27*Omega_M**2 + 60*Omega_M + 112)/(243*Omega_M**4 + 540*Omega_M**3 - 6264*Omega_M**2 + 9360*Omega_M - 3328)  target R0+2Lambda = 3*H0**2*(Omega_M - 2)
+  printed F'' at LCDM: 0
+  printed F''' at LCDM: 0
+  [exact] derived F(R0) at LCDM: 3*H0**2*(Omega_M - 2)  minus target: 0
+  [exact] derived F'' at LCDM: 0
+  [exact] derived F''' at LCDM: 0
+  [printed-11.20] derived F(R0) at LCDM: 3*H0**2*(Omega_M - 2)  minus target: 0
+  [printed-11.20] derived F'' at LCDM: 0
+  [printed-11.20] derived F''' at LCDM: 0
+  printed F'' with only (q0,j0)=LCDM: 0
+  printed F''' with only (q0,j0)=LCDM: 0
+  printed F(R0) with only (q0,j0)=LCDM minus R0+2Lambda: 24*H0**2*(Omega_M - 2)*(909*Omega_M**2 - 1170*Omega_M + 416)/(243*Omega_M**4 + 1188*Omega_M**3 + 216*Omega_M**2*s0 - 3420*Omega_M**2 + 24*Omega_M*l0 + 912*Omega_M*s0 + 8424*Omega_M + 48*s0**2 - 96*s0 - 3280)
+  [exact] F'' with only (q0,j0)=LCDM: 0
+  [exact] F''' with only (q0,j0)=LCDM: 0
+  [exact] F(R0) with only (q0,j0)=LCDM minus R0+2Lambda: 0
+
+== Diagnostic variants (denominator R only) ==
+  exact (11.18) + printed (11.13): R - R_printed = -2*(j0**2*q0 + 2*j0**2 + 13*j0*q0**2 + 16*j0*q0 + 16*j0 + 90*q0**2)
+  printed (11.18) + printed (11.13): R - R_printed = -2*(2*j0**2*q0 + 3*j0**2 + 11*j0*q0**2 + 10*j0*q0 + 12*j0 + q0**3 + 95*q0**2 + 8*q0 + 4)
+
+== Degenerate case j0 = q0 + 2 (Rdot0 = 0), exact (11.18) ==
+  F3 appears in (11.15)? False  in (11.20)? False
+  F''(R0)*6H0^2 from (11.15) alone = -(-3*Omega_M + 2*q0 + 2)/(q0**2 + 8*q0 + s0 + 6)
+  residual of (11.20) (extra consistency condition) = -H0**3*(3*Omega_M*l0 - 54*Omega_M*q0**2 - 132*Omega_M*q0 + 3*Omega_M*s0 - 84*Omega_M - 2*l0*q0 - 2*l0 + 34*q0**3 + 106*q0**2 - 4*q0*s0 + 116*q0 - 4*s0 + 44)/(q0**2 + 8*q0 + s0 + 6)
+  general derived F0 formula at j0=q0+2 minus direct value = 0
+  general derived F2 formula at j0=q0+2 minus direct value = 0

@@ -1,0 +1,24 @@
+correct R : with only (q0,j0) fixed to LCDM:
+   P2 Om+Q2 = 0   P3 Om+Q3 = 0
+   F(R0)/H0^2 - (R0+2Lambda)/H0^2 = 0
+printed R : with only (q0,j0) fixed to LCDM:
+   P2 Om+Q2 = 0   P3 Om+Q3 = 0
+   F(R0)/H0^2 - (R0+2Lambda)/H0^2 = 24*(Omega - 2)*(909*Omega**2 - 1170*Omega + 416)/(243*Omega**4 + 1188*Omega**3 + 216*Omega**2*s0 - 3420*Omega**2 + 24*Omega*l0 + 912*Omega*s0 + 8424*Omega + 48*s0**2 - 96*s0 - 3280)
+== correct R
+  eta20: O(1) = 0   O(eps) coeff = -2*(27*Omega**2 + 24*Omega - 32)/(27*Omega*(Omega - 2)*(27*Omega**2 + 60*Omega + 112))
+  eta30: O(1) = 0   O(eps) coeff = -2*(81*Omega**2 - 60*Omega - 16)/(243*Omega**2*(Omega - 2)*(27*Omega**2 + 60*Omega + 112))
+  ratio to printed (11.42): (27*Omega**3 + 276*Omega**2 - 4*Omega - 8)/(Omega*(27*Omega**2 + 60*Omega + 112))
+  ratio to printed (11.43): -(81*Omega**2 - 60*Omega - 16)*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8)/(3*(27*Omega**2 + 60*Omega + 112)*(81*Omega**3 - 110*Omega**2 + 40*Omega + 16))
+   Om=0.041: eta20/eps = -0.2494, eta30/eps = -0.4
+   Om=0.25: eta20/eps = -0.03199, eta30/eps = -0.01517
+== printed R
+  eta20: O(1) = 0   O(eps) coeff = -2*(27*Omega**2 + 24*Omega - 32)/(27*Omega*(Omega - 2)*(27*Omega**2 + 60*Omega + 112))
+  eta30: O(1) = 0   O(eps) coeff = -2*(81*Omega**2 - 60*Omega - 16)/(243*Omega**2*(Omega - 2)*(27*Omega**2 + 60*Omega + 112))
+  ratio to printed (11.42): (27*Omega**3 + 276*Omega**2 - 4*Omega - 8)/(Omega*(27*Omega**2 + 60*Omega + 112))
+  ratio to printed (11.43): -(81*Omega**2 - 60*Omega - 16)*(27*Omega**3 + 276*Omega**2 - 4*Omega - 8)/(3*(27*Omega**2 + 60*Omega + 112)*(81*Omega**3 - 110*Omega**2 + 40*Omega + 16))
+   Om=0.041: eta20/eps = -0.2494, eta30/eps = -0.4
+   Om=0.25: eta20/eps = -0.03199, eta30/eps = -0.01517
+printed formulas (11.42),(11.43) at Om=0.041: eta20/eps = 0.1521, eta30/eps = 17.01
+printed formulas (11.42),(11.43) at Om=0.25: eta20/eps = -0.1187, eta30/eps = -0.5308
+printed (11.44): 0.15 (Om=0.041), -0.12 (Om=0.25); (11.45): 4 (0.041), -0.18 (0.25)
+printed denominator expanded: 27*Omega**4 + 222*Omega**3 - 556*Omega**2 + 16

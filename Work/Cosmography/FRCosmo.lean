@@ -142,6 +142,215 @@ def PrintedF0ClaimMul : Prop :=
         (P0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) * Ω
           + Q0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀))
 
+/-! ## Proof tools (helpers; not part of the frozen statements) -/
+
+lemma key (f : ℝ → ℝ) (k : ℕ) (t : ℝ) (hk : DifferentiableAt ℝ (deriv^[k] f) t) :
+    HasDerivAt (deriv^[k] f) (deriv^[k+1] f t) t := by
+  simpa [Function.iterate_succ_apply'] using hk.hasDerivAt
+
+lemma cds4 (f : ℝ → ℝ) (t : ℝ) (h : ContDiffAt ℝ 4 f t) :
+    DifferentiableAt ℝ (deriv^[0] f) t ∧ DifferentiableAt ℝ (deriv^[1] f) t ∧
+    DifferentiableAt ℝ (deriv^[2] f) t ∧ DifferentiableAt ℝ (deriv^[3] f) t := by
+  have c3 : ContDiffAt ℝ 3 (deriv^[1] f) t := h.derivWithin (by norm_num)
+  have c2 : ContDiffAt ℝ 2 (deriv^[2] f) t := by
+    have := c3.derivWithin (m := 2) (by norm_num)
+    simpa [Function.iterate_succ_apply'] using this
+  have c1 : ContDiffAt ℝ 1 (deriv^[3] f) t := by
+    have := c2.derivWithin (m := 1) (by norm_num)
+    simpa [Function.iterate_succ_apply'] using this
+  exact ⟨h.differentiableAt (by norm_num), c3.differentiableAt (by norm_num),
+    c2.differentiableAt (by norm_num), c1.differentiableAt (by norm_num)⟩
+
+lemma cds5 (f : ℝ → ℝ) (t : ℝ) (h : ContDiffAt ℝ 5 f t) :
+    DifferentiableAt ℝ (deriv^[0] f) t ∧ DifferentiableAt ℝ (deriv^[1] f) t ∧
+    DifferentiableAt ℝ (deriv^[2] f) t ∧ DifferentiableAt ℝ (deriv^[3] f) t ∧
+    DifferentiableAt ℝ (deriv^[4] f) t := by
+  have c4 : ContDiffAt ℝ 4 (deriv^[1] f) t := h.derivWithin (by norm_num)
+  obtain ⟨-, d2, d3, d4⟩ := cds4 _ t c4
+  refine ⟨h.differentiableAt (by norm_num), c4.differentiableAt (by norm_num), ?_, ?_, ?_⟩
+  · simpa [← Function.iterate_succ_apply' deriv, Function.iterate_succ_apply] using d2
+  · simpa [← Function.iterate_succ_apply' deriv, Function.iterate_succ_apply] using d3
+  · simpa [← Function.iterate_succ_apply' deriv, Function.iterate_succ_apply] using d4
+
+lemma hubble_contDiffAt {a : ℝ → ℝ} {t : ℝ} (hs : ContDiffAt ℝ 5 a t) (ha : a t ≠ 0) :
+    ContDiffAt ℝ 4 (hubble a) t := by
+  have hd : ContDiffAt ℝ 4 (deriv a) t := hs.derivWithin (by norm_num)
+  exact hd.div (hs.of_le (by norm_num)) ha
+
+/-- Eventual derivative data of `a` and `H`. -/
+lemma derivData (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hs : ContDiffAt ℝ 5 a t₀) :
+    ∀ᶠ t in 𝓝 t₀, 0 < a t ∧
+      HasDerivAt (deriv^[0] a) (deriv^[1] a t) t ∧ HasDerivAt (deriv^[1] a) (deriv^[2] a t) t ∧
+      HasDerivAt (deriv^[2] a) (deriv^[3] a t) t ∧ HasDerivAt (deriv^[3] a) (deriv^[4] a t) t ∧
+      HasDerivAt (deriv^[4] a) (deriv^[5] a t) t ∧
+      HasDerivAt (deriv^[0] (hubble a)) (deriv^[1] (hubble a) t) t ∧
+      HasDerivAt (deriv^[1] (hubble a)) (deriv^[2] (hubble a) t) t ∧
+      HasDerivAt (deriv^[2] (hubble a)) (deriv^[3] (hubble a) t) t ∧
+      HasDerivAt (deriv^[3] (hubble a)) (deriv^[4] (hubble a) t) t := by
+  have hpos : ∀ᶠ t in 𝓝 t₀, 0 < a t := hs.continuousAt.eventually (lt_mem_nhds ha)
+  have hsm : ∀ᶠ t in 𝓝 t₀, ContDiffAt ℝ 5 a t := hs.eventually (by simp)
+  filter_upwards [hpos, hsm] with t hp h
+  obtain ⟨a0, a1, a2, a3, a4⟩ := cds5 a t h
+  obtain ⟨b0, b1, b2, b3⟩ := cds4 _ t (hubble_contDiffAt h hp.ne')
+  exact ⟨hp, key a 0 t a0, key a 1 t a1, key a 2 t a2, key a 3 t a3, key a 4 t a4,
+    key _ 0 t b0, key _ 1 t b1, key _ 2 t b2, key _ 3 t b3⟩
+
+
+/-- If `F` vanishes near `x` and has derivative `G` near `x`, then `G` vanishes near `x`. -/
+lemma step {F G : ℝ → ℝ} {x : ℝ} (hF : ∀ᶠ t in 𝓝 x, F t = 0)
+    (hG : ∀ᶠ t in 𝓝 x, HasDerivAt F (G t) t) : ∀ᶠ t in 𝓝 x, G t = 0 := by
+  filter_upwards [hF.eventually_nhds, hG] with t hFt hGt
+  have h : F =ᶠ[𝓝 t] fun _ => (0 : ℝ) := hFt
+  rw [← hGt.deriv, h.deriv_eq]
+  simp
+
+/-- Derivatives of `H` at `t₀` from the cosmographic parameters (the review's (10.6)–(10.9)). -/
+lemma hvals (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hH : 0 < hubble a t₀)
+    (hs : ContDiffAt ℝ 5 a t₀) :
+    deriv^[1] (hubble a) t₀ = -hubble a t₀ ^ 2 * (1 + decel a t₀) ∧
+    deriv^[2] (hubble a) t₀ = hubble a t₀ ^ 3 * (cosmoCoeff 3 a t₀ + 3 * decel a t₀ + 2) ∧
+    deriv^[3] (hubble a) t₀ = -hubble a t₀ ^ 4 * (4 * cosmoCoeff 3 a t₀ + 3 * decel a t₀ ^ 2
+      + 12 * decel a t₀ - cosmoCoeff 4 a t₀ + 6) ∧
+    deriv^[4] (hubble a) t₀ = hubble a t₀ ^ 5 * (10 * cosmoCoeff 3 a t₀ * decel a t₀
+      + 20 * cosmoCoeff 3 a t₀ + cosmoCoeff 5 a t₀ + 30 * decel a t₀ ^ 2 + 60 * decel a t₀
+      - 5 * cosmoCoeff 4 a t₀ + 24) := by
+  set D : ℕ → ℝ → ℝ := fun k => deriv^[k] a with hD
+  set h : ℕ → ℝ → ℝ := fun k => deriv^[k] (hubble a) with hh
+  have hd := derivData a t₀ ha hs
+  have G0 : ∀ᶠ t in 𝓝 t₀, D 1 t - h 0 t * D 0 t = 0 := by
+    filter_upwards [hd] with t ⟨hp, _⟩
+    simp only [hD, hh, Function.iterate_zero, id, Function.iterate_one, hubble]
+    field_simp
+    ring
+  have G1 := step G0 (G := fun t => D 2 t - (h 1 t * D 0 t + h 0 t * D 1 t)) (by
+    filter_upwards [hd] with t ⟨_, d0, d1, _, _, _, h0, _⟩
+    exact d1.sub (h0.mul d0))
+  have G2 := step G1 (G := fun t => D 3 t - (h 2 t * D 0 t + 2 * h 1 t * D 1 t + h 0 t * D 2 t)) (by
+    filter_upwards [hd] with t ⟨_, d0, d1, d2, _, _, h0, h1, _⟩
+    exact (d2.sub ((h1.mul d0).add (h0.mul d1))).congr_deriv (by ring))
+  have G3 := step G2 (G := fun t => D 4 t - (h 3 t * D 0 t + 3 * h 2 t * D 1 t
+      + 3 * h 1 t * D 2 t + h 0 t * D 3 t)) (by
+    filter_upwards [hd] with t ⟨_, d0, d1, d2, d3, _, h0, h1, h2, _⟩
+    exact (d3.sub (((h2.mul d0).add ((h1.const_mul 2).mul d1)).add (h0.mul d2))).congr_deriv
+      (by ring))
+  have G4 := step G3 (G := fun t => D 5 t - (h 4 t * D 0 t + 4 * h 3 t * D 1 t
+      + 6 * h 2 t * D 2 t + 4 * h 1 t * D 3 t + h 0 t * D 4 t)) (by
+    filter_upwards [hd] with t ⟨_, d0, d1, d2, d3, d4, h0, h1, h2, h3⟩
+    exact (d4.sub ((((h3.mul d0).add ((h2.const_mul 3).mul d1)).add ((h1.const_mul 3).mul d2)).add
+      (h0.mul d3))).congr_deriv (by ring))
+  have e1 := G1.self_of_nhds
+  have e2 := G2.self_of_nhds
+  have e3 := G3.self_of_nhds
+  have e4 := G4.self_of_nhds
+  simp only [hD, hh, Function.iterate_zero, id_eq, Function.iterate_one] at e1 e2 e3 e4
+  have hA : a t₀ ≠ 0 := ha.ne'
+  have hd1 : deriv a t₀ = hubble a t₀ * a t₀ := by rw [hubble]; field_simp
+  have hd2 : deriv^[2] a t₀ = -decel a t₀ * a t₀ * hubble a t₀ ^ 2 := by
+    have h2 : deriv^[2] a t₀ = deriv (deriv a) t₀ := rfl
+    have : deriv a t₀ ≠ 0 := by rw [hd1]; positivity
+    rw [h2, decel, hd1]
+    field_simp
+  have hc : ∀ n, deriv^[n] a t₀ = cosmoCoeff n a t₀ * a t₀ * hubble a t₀ ^ n := by
+    intro n
+    rw [cosmoCoeff, iteratedDeriv_eq_iterate]
+    field_simp
+  simp only [hd1, hd2, hc 3, hc 4, hc 5] at e1 e2 e3 e4
+  simp only [Function.iterate_one]
+  have h1v : deriv (hubble a) t₀ = -hubble a t₀ ^ 2 * (1 + decel a t₀) := by
+    apply mul_left_cancel₀ hA
+    linear_combination (-1) * e1
+  simp only [h1v] at e2 e3 e4
+  have h2v : deriv^[2] (hubble a) t₀ =
+      hubble a t₀ ^ 3 * (cosmoCoeff 3 a t₀ + 3 * decel a t₀ + 2) := by
+    apply mul_left_cancel₀ hA
+    linear_combination (-1) * e2
+  simp only [h2v] at e3 e4
+  have h3v : deriv^[3] (hubble a) t₀ = -hubble a t₀ ^ 4 * (4 * cosmoCoeff 3 a t₀
+      + 3 * decel a t₀ ^ 2 + 12 * decel a t₀ - cosmoCoeff 4 a t₀ + 6) := by
+    apply mul_left_cancel₀ hA
+    linear_combination (-1) * e3
+  simp only [h3v] at e4
+  refine ⟨h1v, h2v, h3v, ?_⟩
+  apply mul_left_cancel₀ hA
+  linear_combination (-1) * e4
+
+
+/-- Algebra of the closure system: (11.14), (11.15), (11.20) with `F′ = 1`, `F⁽⁴⁾ = 0`, the
+`H`-derivatives written through `(q₀, j₀, s₀, l₀)`. Certificates from
+`runs/2026-10-30T1428Z/scripts/cert_lean.py`. -/
+lemma alg (q j s l H Ω x0 x2 x3 : ℝ) (hH : H ≠ 0)
+    (e1 : 3 * H ^ 2 = 3 * H ^ 2 * Ω + (x0 - (-6 * ((-H ^ 2 * (1 + q)) + 2 * H ^ 2))) / 2 - 3 * H * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * x2)
+    (e2 : -2 * (-H ^ 2 * (1 + q)) = 3 * H ^ 2 * Ω + (-6 * ((-H ^ 4 * (4 * j + 3 * q ^ 2 + 12 * q - s + 6)) + 4 * (-H ^ 2 * (1 + q)) ^ 2 + 4 * H * (H ^ 3 * (j + 3 * q + 2)))) * x2 + (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * ((-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * x3 - H * x2))
+    (e3 : -2 * x2 * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * (-H ^ 2 * (1 + q)) - 2 * (H ^ 3 * (j + 3 * q + 2)) = -3 * H * (3 * H ^ 2 * Ω) + (-6 * ((H ^ 5 * (10 * j * q + 20 * j + l + 30 * q ^ 2 + 60 * q - 5 * s + 24)) + 12 * (-H ^ 2 * (1 + q)) * (H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 4 * (4 * j + 3 * q ^ 2 + 12 * q - s + 6)))) * x2 + 3 * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * (-6 * ((-H ^ 4 * (4 * j + 3 * q ^ 2 + 12 * q - s + 6)) + 4 * (-H ^ 2 * (1 + q)) ^ 2 + 4 * H * (H ^ 3 * (j + 3 * q + 2)))) * x3 - (-H ^ 2 * (1 + q)) * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) * x2 - H * (-6 * ((-H ^ 4 * (4 * j + 3 * q ^ 2 + 12 * q - s + 6)) + 4 * (-H ^ 2 * (1 + q)) ^ 2 + 4 * H * (H ^ 3 * (j + 3 * q + 2)))) * x2 - H * (-6 * ((H ^ 3 * (j + 3 * q + 2)) + 4 * H * (-H ^ 2 * (1 + q)))) ^ 2 * x3) :
+    correctR q j s l * x0 = -6 * H ^ 2 * (P0 q j s l * Ω + Q0 q j s l) ∧
+    correctR q j s l * (6 * H ^ 2) * x2 = -(P2 q j s * Ω + Q2 q j s) ∧
+    (j - q - 2) * correctR q j s l * (6 * H ^ 2) ^ 2 * x3 = -(P3 q j s l * Ω + Q3 q j s l) := by
+  have h3 : H ^ 3 ≠ 0 := pow_ne_zero 3 hH
+  refine ⟨?_, ?_, ?_⟩
+  · apply mul_left_cancel₀ h3
+    simp only [correctR, P0, Q0]
+    linear_combination (6*H^3*j^2*q + 20*H^3*j^2 - 2*H^3*j*l + 22*H^3*j*q^2 + 8*H^3*j*q - 4*H^3*j*s - 36*H^3*j + 2*H^3*l*q + 4*H^3*l + 6*H^3*q^4 + 68*H^3*q^3 + 12*H^3*q^2*s + 360*H^3*q^2 + 100*H^3*q*s + 492*H^3*q + 6*H^3*s^2 + 80*H^3*s + 208*H^3) * e1 + (-6*H^3*j^2 + 18*H^3*j*q^2 + 156*H^3*j*q + 18*H^3*j*s + 132*H^3*j - 18*H^3*q^3 - 186*H^3*q^2 - 18*H^3*q*s - 420*H^3*q - 36*H^3*s - 240*H^3) * e2 + (-6*H^2*j^2 + 12*H^2*j*q + 24*H^2*j - 6*H^2*q^2 - 24*H^2*q - 24*H^2) * e3
+  · apply mul_left_cancel₀ h3
+    simp only [correctR, P2, Q2]
+    linear_combination (0) * e1 + (H*j - 3*H*q^2 - 25*H*q - 3*H*s - 20*H) * e2 + (j - q - 2) * e3
+  · apply mul_left_cancel₀ h3
+    simp only [correctR, P3, Q3]
+    linear_combination (0) * e1 + (3*H*j*q + 9*H*j - H*l + 18*H*q^2 + 53*H*q + 2*H*s + 28*H) * e2 + (-j + q^2 + 9*q + s + 8) * e3
+
+/-- `R`, `Ṙ`, `R̈` near `t₀` and `d³R/dt³` at `t₀` through the derivatives of `H` ((11.6)–(11.9)). -/
+lemma curvData (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hs : ContDiffAt ℝ 5 a t₀) :
+    (∀ᶠ t in 𝓝 t₀, HasDerivAt (curv a) (-6 * (deriv^[2] (hubble a) t
+        + 4 * deriv^[0] (hubble a) t * deriv^[1] (hubble a) t)) t) ∧
+    (∀ᶠ t in 𝓝 t₀, deriv (curv a) t = -6 * (deriv^[2] (hubble a) t
+        + 4 * deriv^[0] (hubble a) t * deriv^[1] (hubble a) t)) ∧
+    (∀ᶠ t in 𝓝 t₀, HasDerivAt (fun t => -6 * (deriv^[2] (hubble a) t
+        + 4 * deriv^[0] (hubble a) t * deriv^[1] (hubble a) t))
+        (-6 * (deriv^[3] (hubble a) t + 4 * deriv^[1] (hubble a) t ^ 2
+          + 4 * deriv^[0] (hubble a) t * deriv^[2] (hubble a) t)) t) ∧
+    (∀ᶠ t in 𝓝 t₀, deriv^[2] (curv a) t = -6 * (deriv^[3] (hubble a) t
+        + 4 * deriv^[1] (hubble a) t ^ 2 + 4 * deriv^[0] (hubble a) t * deriv^[2] (hubble a) t)) ∧
+    (∀ᶠ t in 𝓝 t₀, HasDerivAt (fun t => -6 * (deriv^[3] (hubble a) t
+        + 4 * deriv^[1] (hubble a) t ^ 2 + 4 * deriv^[0] (hubble a) t * deriv^[2] (hubble a) t))
+        (-6 * (deriv^[4] (hubble a) t + 12 * deriv^[1] (hubble a) t * deriv^[2] (hubble a) t
+          + 4 * deriv^[0] (hubble a) t * deriv^[3] (hubble a) t)) t) := by
+  have hd := derivData a t₀ ha hs
+  have hc : curv a = fun t => -6 * (deriv^[1] (hubble a) t + 2 * deriv^[0] (hubble a) t ^ 2) := rfl
+  have D1 : ∀ᶠ t in 𝓝 t₀, HasDerivAt (curv a) (-6 * (deriv^[2] (hubble a) t
+        + 4 * deriv^[0] (hubble a) t * deriv^[1] (hubble a) t)) t := by
+    filter_upwards [hd] with t ⟨_, _, _, _, _, _, h0, h1, _, _⟩
+    rw [hc]
+    exact ((h1.add ((h0.pow 2).const_mul 2)).const_mul (-6)).congr_deriv (by push_cast; ring)
+  have E1 : ∀ᶠ t in 𝓝 t₀, deriv (curv a) t = -6 * (deriv^[2] (hubble a) t
+        + 4 * deriv^[0] (hubble a) t * deriv^[1] (hubble a) t) := by
+    filter_upwards [D1] with t h using h.deriv
+  have D2 : ∀ᶠ t in 𝓝 t₀, HasDerivAt (fun t => -6 * (deriv^[2] (hubble a) t
+        + 4 * deriv^[0] (hubble a) t * deriv^[1] (hubble a) t))
+        (-6 * (deriv^[3] (hubble a) t + 4 * deriv^[1] (hubble a) t ^ 2
+          + 4 * deriv^[0] (hubble a) t * deriv^[2] (hubble a) t)) t := by
+    filter_upwards [hd] with t ⟨_, _, _, _, _, _, h0, h1, h2, _⟩
+    exact ((h2.add ((h0.const_mul 4).mul h1)).const_mul (-6)).congr_deriv (by ring)
+  have E2 : ∀ᶠ t in 𝓝 t₀, deriv^[2] (curv a) t = -6 * (deriv^[3] (hubble a) t
+        + 4 * deriv^[1] (hubble a) t ^ 2 + 4 * deriv^[0] (hubble a) t * deriv^[2] (hubble a) t) := by
+    filter_upwards [E1.eventually_nhds, D2] with t h hD
+    rw [Function.iterate_succ_apply', Function.iterate_one]
+    exact (Filter.EventuallyEq.deriv_eq h).trans hD.deriv
+  have D3 : ∀ᶠ t in 𝓝 t₀, HasDerivAt (fun t => -6 * (deriv^[3] (hubble a) t
+        + 4 * deriv^[1] (hubble a) t ^ 2 + 4 * deriv^[0] (hubble a) t * deriv^[2] (hubble a) t))
+        (-6 * (deriv^[4] (hubble a) t + 12 * deriv^[1] (hubble a) t * deriv^[2] (hubble a) t
+          + 4 * deriv^[0] (hubble a) t * deriv^[3] (hubble a) t)) t := by
+    filter_upwards [hd] with t ⟨_, _, _, _, _, _, h0, h1, h2, h3⟩
+    exact (((h3.add ((h1.pow 2).const_mul 4)).add ((h0.const_mul 4).mul h2)).const_mul (-6)).congr_deriv
+      (by push_cast; ring)
+  exact ⟨D1, E1, D2, E2, D3⟩
+
+lemma deriv3_curv (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hs : ContDiffAt ℝ 5 a t₀) :
+    deriv^[3] (curv a) t₀ = -6 * (deriv^[4] (hubble a) t₀
+      + 12 * deriv^[1] (hubble a) t₀ * deriv^[2] (hubble a) t₀
+      + 4 * deriv^[0] (hubble a) t₀ * deriv^[3] (hubble a) t₀) := by
+  obtain ⟨-, -, -, E2, D3⟩ := curvData a t₀ ha hs
+  rw [Function.iterate_succ_apply']
+  exact (Filter.EventuallyEq.deriv_eq E2).trans D3.self_of_nhds.deriv
+
 /-- **Correct (11.10)–(11.13).** -/
 theorem curv_derivs (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hH : 0 < hubble a t₀)
     (hs : ContDiffAt ℝ 5 a t₀) :
@@ -152,7 +361,72 @@ theorem curv_derivs (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hH : 0 < h
     deriv^[3] (curv a) t₀ = -6 * hubble a t₀ ^ 5 *
       (cosmoCoeff 5 a t₀ - cosmoCoeff 4 a t₀ - 2 * (decel a t₀ + 4) * cosmoCoeff 3 a t₀
         - 6 * (3 * decel a t₀ + 8) * decel a t₀ - 24) := by
-  sorry
+  obtain ⟨h1v, h2v, h3v, h4v⟩ := hvals a t₀ ha hH hs
+  obtain ⟨-, E1, -, E2, -⟩ := curvData a t₀ ha hs
+  have h3 := deriv3_curv a t₀ ha hs
+  simp only [Function.iterate_one, Function.iterate_zero, id_eq] at h1v E1 E2 h3 ⊢
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · show -6 * (deriv (hubble a) t₀ + 2 * hubble a t₀ ^ 2) = _
+    rw [h1v]; ring
+  · rw [E1.self_of_nhds, h2v, h1v]; ring
+  · rw [E2.self_of_nhds, h3v, h1v, h2v]; ring
+  · rw [h3, h4v, h1v, h2v, h3v]; ring
+
+/-- The closure system at `t₀`: (11.14), (11.15) and the time derivative of (11.5) ((11.20),
+with the correct `−Ḣ₀Ṙ₀`), using `F′(R₀) = 1`, `F⁽⁴⁾(R₀) = 0`. -/
+lemma closure (Ω : ℝ) (a F : ℝ → ℝ) (t₀ : ℝ) (hM : IsFRCosmo Ω a F t₀) :
+    (3 * hubble a t₀ ^ 2 = 3 * hubble a t₀ ^ 2 * Ω + (F (curv a t₀) - (-6 * ((deriv^[1] (hubble a) t₀) + 2 * hubble a t₀ ^ 2))) / 2 - 3 * hubble a t₀ * (-6 * ((deriv^[2] (hubble a) t₀) + 4 * hubble a t₀ * (deriv^[1] (hubble a) t₀))) * deriv^[2] F (curv a t₀)) ∧
+    (-2 * (deriv^[1] (hubble a) t₀) = 3 * hubble a t₀ ^ 2 * Ω + (-6 * ((deriv^[3] (hubble a) t₀) + 4 * (deriv^[1] (hubble a) t₀) ^ 2 + 4 * hubble a t₀ * (deriv^[2] (hubble a) t₀))) * deriv^[2] F (curv a t₀) + (-6 * ((deriv^[2] (hubble a) t₀) + 4 * hubble a t₀ * (deriv^[1] (hubble a) t₀))) * ((-6 * ((deriv^[2] (hubble a) t₀) + 4 * hubble a t₀ * (deriv^[1] (hubble a) t₀))) * deriv^[3] F (curv a t₀) - hubble a t₀ * deriv^[2] F (curv a t₀))) ∧
+    (-2 * deriv^[2] F (curv a t₀) * (-6 * ((deriv^[2] (hubble a) t₀) + 4 * hubble a t₀ * (deriv^[1] (hubble a) t₀))) * (deriv^[1] (hubble a) t₀) - 2 * (deriv^[2] (hubble a) t₀) = -3 * hubble a t₀ * (3 * hubble a t₀ ^ 2 * Ω) + (-6 * ((deriv^[4] (hubble a) t₀) + 12 * (deriv^[1] (hubble a) t₀) * (deriv^[2] (hubble a) t₀) + 4 * hubble a t₀ * (deriv^[3] (hubble a) t₀))) * deriv^[2] F (curv a t₀) + 3 * (-6 * ((deriv^[2] (hubble a) t₀) + 4 * hubble a t₀ * (deriv^[1] (hubble a) t₀))) * (-6 * ((deriv^[3] (hubble a) t₀) + 4 * (deriv^[1] (hubble a) t₀) ^ 2 + 4 * hubble a t₀ * (deriv^[2] (hubble a) t₀))) * deriv^[3] F (curv a t₀) - (deriv^[1] (hubble a) t₀) * (-6 * ((deriv^[2] (hubble a) t₀) + 4 * hubble a t₀ * (deriv^[1] (hubble a) t₀))) * deriv^[2] F (curv a t₀) - hubble a t₀ * (-6 * ((deriv^[3] (hubble a) t₀) + 4 * (deriv^[1] (hubble a) t₀) ^ 2 + 4 * hubble a t₀ * (deriv^[2] (hubble a) t₀))) * deriv^[2] F (curv a t₀) - hubble a t₀ * (-6 * ((deriv^[2] (hubble a) t₀) + 4 * hubble a t₀ * (deriv^[1] (hubble a) t₀))) ^ 2 * deriv^[3] F (curv a t₀)) := by
+  obtain ⟨ha, hH, hs, hF, hfr, hmas, hnew, hcub⟩ := hM
+  obtain ⟨D1, E1, D2, E2, D3⟩ := curvData a t₀ ha hs
+  have hd := derivData a t₀ ha hs
+  have hFd : ∀ x, HasDerivAt (deriv^[0] F) (deriv^[1] F x) x ∧
+      HasDerivAt (deriv^[1] F) (deriv^[2] F x) x ∧ HasDerivAt (deriv^[2] F) (deriv^[3] F x) x ∧
+      HasDerivAt (deriv^[3] F) (deriv^[4] F x) x := by
+    intro x
+    obtain ⟨b0, b1, b2, b3⟩ := cds4 F x hF.contDiffAt
+    exact ⟨key F 0 x b0, key F 1 x b1, key F 2 x b2, key F 3 x b3⟩
+  have hR0 : curv a t₀ = -6 * (deriv^[1] (hubble a) t₀ + 2 * hubble a t₀ ^ 2) := rfl
+  have hrho : rhoM Ω a t₀ t₀ = 3 * hubble a t₀ ^ 2 * Ω := by
+    simp [rhoM, div_self ha.ne']
+  refine ⟨?_, ?_, ?_⟩
+  · unfold FriedmannEq at hfr
+    rw [hnew, E1.self_of_nhds, hrho] at hfr
+    simp only [Function.iterate_zero, id_eq] at hfr ⊢
+    linear_combination hfr - (1 / 2 : ℝ) * hR0
+  · have hm := hmas.self_of_nhds
+    unfold MasterEq at hm
+    rw [hnew, E1.self_of_nhds, E2.self_of_nhds, hrho] at hm
+    simp only [Function.iterate_zero, Function.iterate_one, id_eq] at hm ⊢
+    linear_combination hm
+  · obtain ⟨_, d0, _, _, _, _, h0d, h1d, _, _⟩ := hd.self_of_nhds
+    have cR := D1.self_of_nhds
+    have f1 := (hFd (curv a t₀)).2.1.comp t₀ cR
+    have f2 := (hFd (curv a t₀)).2.2.1.comp t₀ cR
+    have f3 := (hFd (curv a t₀)).2.2.2.comp t₀ cR
+    have ad : HasDerivAt a (deriv^[1] a t₀) t₀ := d0
+    have hrd := (((hasDerivAt_const t₀ (a t₀)).div ad ha.ne').pow 3).const_mul
+      (3 * hubble a t₀ ^ 2 * Ω)
+    have hG := ((f1.const_mul (-2)).mul h1d).sub
+      ((hrd.add (D3.self_of_nhds.mul f2)).add
+        (D2.self_of_nhds.mul ((D2.self_of_nhds.mul f3).sub (h0d.mul f2))))
+    have h0 := hG.unique ((hasDerivAt_const t₀ (0 : ℝ)).congr_of_eventuallyEq ?_)
+    · have hd1 : deriv^[1] a t₀ = hubble a t₀ * a t₀ := by
+        simp only [Function.iterate_one, hubble]; field_simp
+      rw [hd1, hcub] at h0
+      simp only [Function.comp, Function.iterate_zero, id_eq, Function.iterate_one, hnew,
+        Pi.div_apply, Pi.mul_apply, Pi.sub_apply, Pi.add_apply, div_self ha.ne', one_pow, mul_one] at h0 ⊢
+      push_cast at h0
+      field_simp at h0
+      apply mul_left_cancel₀ ha.ne'
+      linear_combination (1 : ℝ) * h0
+    · filter_upwards [hmas, E1, E2] with t hm e1 e2
+      unfold MasterEq rhoM at hm
+      rw [e1, e2] at hm
+      simp only [Function.comp, Function.iterate_zero, Function.iterate_one, id_eq, Pi.mul_apply,
+        Pi.sub_apply, Pi.add_apply, Pi.div_apply, Pi.pow_apply] at hm ⊢
+      linear_combination hm
 
 /-- **Correct (11.21), (11.23), (11.24)** (multiplied out; no nondegeneracy needed). -/
 theorem fR_values (Ω : ℝ) (a F : ℝ → ℝ) (t₀ : ℝ) (hM : IsFRCosmo Ω a F t₀) :
@@ -170,7 +444,11 @@ theorem fR_values (Ω : ℝ) (a F : ℝ → ℝ) (t₀ : ℝ) (hM : IsFRCosmo Ω
         * (6 * hubble a t₀ ^ 2) ^ 2 * deriv^[3] F (curv a t₀) =
       -(P3 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) * Ω
           + Q3 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)) := by
-  sorry
+  obtain ⟨e1, e2, e3⟩ := closure Ω a F t₀ hM
+  obtain ⟨h1v, h2v, h3v, h4v⟩ := hvals a t₀ hM.pos hM.expanding hM.smooth_a
+  simp only [h1v, h2v, h3v, h4v] at e1 e2 e3
+  exact alg _ _ _ _ _ _ _ _ _ hM.expanding.ne' (by linear_combination e1) (by linear_combination e2)
+    (by linear_combination e3)
 
 /-- (11.40), the paper's own check: for every `Ω ∈ (0,1)` there is a flat ΛCDM scale factor
 which, with `F(R) = R + 2Λ`, `Λ = 3H₀²(1 − Ω)`, satisfies every hypothesis of `IsFRCosmo`. -/
