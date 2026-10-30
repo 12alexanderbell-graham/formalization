@@ -24,3 +24,5 @@ import Work.Cosmography.BambaZAudit
 import Work.Cosmography.FRCosmo
 import Work.Cosmography.FRCosmoAudit
 import Work.Cosmography.FREta
+import Work.Cosmography.FREtaBlind
+import Work.Cosmography.FREtaAudit
