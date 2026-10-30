@@ -35,3 +35,4 @@
 - New reusable tool: asymptotic series inversion (`Checked.Cosmography.CCS.inversion`).
 - PROMPT working notes: series inversion method; hub screening; records quote FINDINGS; commit attribution.
 - Message to Alexander: verified finding F3 (L.2).
+- Hub screen of Bamba et al. 2012 Sec. 10: candidates C5–C8 (C5 sign error confirmed by a second route; upstream source correct). CI 41019261348 (promotion) green.

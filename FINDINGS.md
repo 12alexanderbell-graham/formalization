@@ -53,5 +53,9 @@ From the literature screen of run 2026-10-30T0028Z (`runs/2026-10-30T0028Z/scree
 |---|---|---|---|
 | C1 | Cattoën & Visser 2007 (0710.1887v1) Eq. 59; repeated 2008 (0809.0537v1) Eq. 32 | d_Q(y) y²-coefficient printed 1/12, should be 1/24 (paper's own Eq. 64 and 0809.0537 Eq. 17 agree with 1/24) | typeset CONFIRMED as printed (rendered PDF); sympy + hand check; no erratum. Next: Lean |
 | C2 | Aviles et al. 2012 | — | → **F1** |
+| C5 | Bamba, Capozziello, Nojiri, Odintsov 2012 (1205.3421) Eq. (10.54), d_L in y = z/(1+z) | D²_{L,y} printed −(1/6)(12−5q₀+3q₀²−j₀−Ω₀); overall sign wrong | typeset read twice (screen subagent; main session read crop); hand check flat de Sitter d_L = y/(1−y)²: D² = 3, printed −3. Upstream Cattoën–Visser 2007 (0710.1887v1) Eq. (52) has the correct + sign (typeset read; `runs/2026-10-30T0628Z/screen_bamba/upstream_*`): error introduced in the review. Next: Lean (flat de Sitter d_L = z(1+z) suffices) |
+| C6 | same, Eqs. (10.55)–(10.57) D³_{L,y}, D⁴_{L,y} | curvature (Ω₀) dependence wrong: printed − correct = (Ω₀−1)(8−12q₀)/24 and −(Ω₀−1)²/120 − (5/12)q₀(Ω₀−1); flat parts right | screen subagent: typeset 300 dpi, sympy, Milne exact check, internal inconsistency with the paper's own z-coefficients (10.39–10.51). UNVERIFIED by second route |
+| C7 | same, Eqs. (10.61)–(10.63) D³_{A,y}, D⁴_{A,y} | printed − correct = −q₀(Ω₀−1)/4 and −(Ω₀−1)[(Ω₀−1)+10j₀−45q₀²+20q₀]/120 | as C6 |
+| C8 | same, Eqs. (10.13), (10.19) (z(D) x⁵ coefficient, l₀ instead of l₀/120) and (10.29) | origin of the R⁵_D l₀ error (F3 notes); D⁴_z and μ-series M⁴ (10.68) use l₀/120 correctly | as C6 |
 | C3 | Capozziello, Cardone, Salzano 2008 | — | → **F3** |
 | C4 | Capozziello, Lazkoz, Salzano 2011 | — | → **F2** |
