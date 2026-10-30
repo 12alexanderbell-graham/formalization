@@ -29,3 +29,6 @@ import Work.Cosmography.FREtaAudit
 import Work.Cosmography.DemianskiZ
 import Work.Cosmography.DemianskiZBlind
 import Work.Cosmography.DemianskiZAudit
+import Work.Fidelity.LumDistSpec
+import Work.Fidelity.RedTeamLumDist
+import Work.Fidelity.RedTeamLumDistCheck
