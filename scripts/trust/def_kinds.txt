@@ -148,3 +148,5 @@ Checked.Fidelity.DustDensity SPEC
 Checked.Fidelity.FRFirstEq SPEC
 Checked.Fidelity.FRSecondEq SPEC
 Checked.Fidelity.TransverseSpec SPEC
+Checked.Trust.Control2.fakeDist PHYSICS
+Checked.Trust.Control2.HiddenClaim CLAIM

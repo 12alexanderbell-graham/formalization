@@ -115,3 +115,5 @@ Fidelity.ricciSpec_pins
 Fidelity.friedmannEq_iff_blind
 Fidelity.masterEq_iff_blind
 Fidelity.transverseSpec_pins
+Trust.Control2.uses_unpinned
+Trust.Control2.hidden_vacuous
