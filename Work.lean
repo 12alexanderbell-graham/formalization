@@ -23,3 +23,4 @@ import Work.Cosmography.BambaZ
 import Work.Cosmography.BambaZAudit
 import Work.Cosmography.FRCosmo
 import Work.Cosmography.FRCosmoAudit
+import Work.Cosmography.FREta
