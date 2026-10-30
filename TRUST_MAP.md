@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 100. Resting on no unpinned physics definition: 95.
-Non-vacuity (trust track T2): 57 headlines have hypotheses; 57 of them have a
+Headlines: 101. Resting on no unpinned physics definition: 101.
+Non-vacuity (trust track T2): 62 headlines have hypotheses; 62 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -17,8 +17,6 @@ unconditional (binders are plain data only).
 
 | Definition | Headlines |
 |---|---|
-| `Checked.Cosmography.CVdQ.dQFlat` | 4 |
-| `Checked.Cosmography.Transverse.transverse` | 1 |
 
 ## Per headline
 
@@ -47,10 +45,10 @@ unconditional (binders are plain data only).
 | `BambaY.printedD2y_fails_past` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y, printedD2y | `printedD2y_fails_past` |
 | `BambaY.bambaD2yClaim_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | BambaD2yClaim, D1y, printedD2y | unconditional |
 | `BambaY.bambaD2yClaimPast_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | BambaD2yClaimPast, D1y, printedD2y | unconditional |
-| `CVdQ.dQ_y_third_order` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | dQFlat | — | `lumDist_y_third_order` |
-| `CVdQ.printedQ2_fails_past` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | dQFlat | printedQ2 | `printedQ2_fails_past` |
-| `CVdQ.cvdQClaim_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | dQFlat | CVdQClaim, printedQ2 | unconditional |
-| `CVdQ.cvdQClaimPast_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | dQFlat | CVdQClaimPast, printedQ2 | unconditional |
+| `CVdQ.dQ_y_third_order` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | dQFlat | `lumDist_y_third_order` |
+| `CVdQ.printedQ2_fails_past` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | dQFlat, printedQ2 | `printedQ2_fails_past` |
+| `CVdQ.cvdQClaim_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | CVdQClaim, dQFlat, printedQ2 | unconditional |
+| `CVdQ.cvdQClaimPast_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | — | CVdQClaimPast, dQFlat, printedQ2 | unconditional |
 | `BambaK.lumDist_y_fifth_order` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, printedD4y, D1y | `lumDist_z_fifth_order` |
 | `BambaK.printedD3y_fails` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, D1y | `printedD3y_fails_past` |
 | `BambaK.printedD3y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, D1y | `printedD3y_fails_past` |
@@ -62,7 +60,7 @@ unconditional (binders are plain data only).
 | `BambaK.bambaD4yClaimPast_false` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | BambaD4yClaimPast, printedD3y, printedD4y, D1y | unconditional |
 | `BambaK.milne_printedD3y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, D1y | unconditional |
 | `BambaK.milne_printedD4y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, printedD4y, D1y | unconditional |
-| `Transverse.transverse_expansion` | — | transverse | — | unconditional |
+| `Transverse.transverse_expansion` | transverse | — | — | unconditional |
 | `BambaA.angDist_y_fifth_order` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1, DA2, printedDA3, printedDA4 | `lumDist_z_fifth_order` |
 | `BambaA.printedDA3_fails` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1, DA2, printedDA3 | `printedDA3_fails` |
 | `BambaA.printedDA3_fails_past` | cosmoCoeff, angDist, omega0, yred, decel, hubble | — | DA1, DA2, printedDA3 | `printedDA3_fails` |
@@ -111,7 +109,7 @@ unconditional (binders are plain data only).
 | `Fidelity.decelSpec_pins` | decel | — | — | `decelSpec_pins` |
 | `Fidelity.angDistSpec_pins` | angDist | — | — | `angDistSpec_pins` |
 | `Fidelity.flatLCDMSpec2_pins` | IsFlatLCDM | — | — | `flatLCDMSpec2_pins` |
-| `Fidelity.isFlatLCDM_iff_friedmann` | IsFlatLCDM | — | — | unconditional |
+| `Fidelity.isFlatLCDM_iff_friedmann` | IsFlatLCDM | — | — | `isFlatLCDM_iff_friedmann` |
 | `Fidelity.redshiftCore_pins` | redshift | — | — | `redshiftCore_pins` |
 | `Fidelity.cosmoCoeffCore_pins` | cosmoCoeff | — | — | `cosmoCoeffCore_pins` |
 | `Fidelity.yRedSpec_pins` | yred | — | — | `yRedSpec_pins` |
@@ -120,7 +118,8 @@ unconditional (binders are plain data only).
 | `Fidelity.lumDistFlat_pins` | lumDistFlat, redshift | — | — | `comoving_pins` |
 | `Fidelity.comoving_pins` | comoving, redshift | — | — | `comoving_pins` |
 | `Fidelity.flatCPL_pins` | IsFlatCPL | — | — | `flatCPL_pins` |
-| `Fidelity.isFlatCPL_iff_friedmannCPL` | IsFlatCPL | — | — | unconditional |
+| `Fidelity.isFlatCPL_iff_friedmannCPL` | IsFlatCPL | — | — | `isFlatCPL_iff_friedmannCPL` |
 | `Fidelity.ricciSpec_pins` | curv | — | — | `ricciSpec_pins` |
-| `Fidelity.friedmannEq_iff_blind` | FriedmannEq, curv | — | — | unconditional |
-| `Fidelity.masterEq_iff_blind` | MasterEq, curv | — | — | unconditional |
+| `Fidelity.friedmannEq_iff_blind` | FriedmannEq, curv | — | — | `friedmannEq_iff_blind` |
+| `Fidelity.masterEq_iff_blind` | MasterEq, curv | — | — | `masterEq_iff_blind` |
+| `Fidelity.transverseSpec_pins` | transverse | — | — | `transverseSpec_pins` |

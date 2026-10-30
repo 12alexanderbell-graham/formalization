@@ -41,7 +41,7 @@ jobs:
           if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
             echo "Forbidden token found in Checked"; exit 1
           fi
-      - name: Statement dependencies, trust map and non-vacuity witnesses (registry errors and missing witnesses block; unpinned report informational; runs 2028Z, 2228Z, see LEDGER)
+      - name: Statement dependencies, trust map and non-vacuity witnesses (registry errors, unpinned physics definitions and missing witnesses block; runs 2028Z, 2228Z, see LEDGER)
         run: |
           set -o pipefail
           lake env lean scripts/trust/StatementDeps.lean | tail -n 40

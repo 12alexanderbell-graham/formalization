@@ -80,7 +80,10 @@ Checked.Cosmography.CPL.IsFlatCPL PHYSICS
 Checked.Cosmography.CVdQ.CVdQClaim CLAIM
 Checked.Cosmography.CVdQ.CVdQClaimPast CLAIM
 Checked.Cosmography.CVdQ.correctQ2 FORMULA
-Checked.Cosmography.CVdQ.dQFlat PHYSICS
+# dQFlat: a convention defined by the source (Cattoën–Visser 2007 Eq. 5: d_Q := d_L/(1+z)^{3/2}),
+# built only from the pinned lumDistFlat and redshift; no independent physical law exists to pin
+# it, so its trust is transcription of Eq. 5 (read in run 0828Z, confirmed by the referee). Run 2228Z.
+Checked.Cosmography.CVdQ.dQFlat PRINTED
 Checked.Cosmography.CVdQ.printedQ2 PRINTED
 Checked.Cosmography.CVdQ.remainderQ COMPOSITE
 Checked.Cosmography.CVdQ.seriesQ FORMULA
@@ -144,3 +147,4 @@ Checked.Fidelity.RicciFlatFLRWSpec SPEC
 Checked.Fidelity.DustDensity SPEC
 Checked.Fidelity.FRFirstEq SPEC
 Checked.Fidelity.FRSecondEq SPEC
+Checked.Fidelity.TransverseSpec SPEC

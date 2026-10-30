@@ -114,3 +114,4 @@ Fidelity.isFlatCPL_iff_friedmannCPL
 Fidelity.ricciSpec_pins
 Fidelity.friedmannEq_iff_blind
 Fidelity.masterEq_iff_blind
+Fidelity.transverseSpec_pins

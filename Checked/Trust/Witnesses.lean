@@ -24,6 +24,7 @@ import Checked.Fidelity.YOmegaKSpecs
 import Checked.Fidelity.FlatPins
 import Checked.Fidelity.FriedmannCPL
 import Checked.Fidelity.FRSpecs
+import Checked.Fidelity.TransverseSpec
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -41,7 +42,10 @@ Instances used:
 * **flat ΛCDM** at `Ω = 1/2` (`exists_flatLCDM`, `lcdm_facts`), **flat CPL** at
   `(Ω, w₀, wₐ) = (1/2, −1, 1)` (`exists_flatCPL`): the model-predicate headlines.
 * **the definitions themselves** (`*_meets_spec`): every pinning theorem's specification is
-  satisfiable, so no pin is vacuous.
+  satisfiable, so no pin is vacuous; light rays are taken with emission strictly before
+  observation (`t = −1 < t₀ = 0`), not at the degenerate point `t = t₀`.
+* the four equivalences `program ↔ blind formulation` need one side to hold somewhere
+  (an equivalence of two unsatisfiable conditions is vacuous).
 -/
 
 open Filter Topology Real
@@ -227,7 +231,7 @@ theorem printedEta30_false_at : nonvacuity% FREta.printedEta30_false_at :=
 the physical domain of the pin is nonempty -/
 
 theorem lumDistSpec2_pins : nonvacuity% Fidelity.lumDistSpec2_pins :=
-  ⟨lumDist, lumDist_meets_spec2, 0, Real.exp, 0, 0, le_rfl, fun s _ => Real.exp_pos s,
+  ⟨lumDist, lumDist_meets_spec2, 0, Real.exp, 0, -1, by norm_num, fun s _ => Real.exp_pos s,
     Real.continuous_exp.continuousOn, trivial⟩
 
 theorem hubbleSpec_pins : nonvacuity% Fidelity.hubbleSpec_pins :=
@@ -239,14 +243,14 @@ theorem decelSpec_pins : nonvacuity% Fidelity.decelSpec_pins :=
     dS_a0, trivial⟩
 
 theorem angDistSpec_pins : nonvacuity% Fidelity.angDistSpec_pins :=
-  ⟨angDist, angDist_meets_spec, 0, Real.exp, 0, 0, le_rfl, fun s _ => Real.exp_pos s,
+  ⟨angDist, angDist_meets_spec, 0, Real.exp, 0, -1, by norm_num, fun s _ => Real.exp_pos s,
     Real.continuous_exp.continuousOn, trivial⟩
 
 theorem flatLCDMSpec2_pins : nonvacuity% Fidelity.flatLCDMSpec2_pins :=
   ⟨IsFlatLCDM, isFlatLCDM_meets_spec2, trivial⟩
 
 theorem redshiftCore_pins : nonvacuity% Fidelity.redshiftCore_pins :=
-  ⟨redshift, redshift_meets_core, Real.exp, 0, 0,
+  ⟨redshift, redshift_meets_core, Real.exp, 0, -1,
     ⟨fun s _ => Real.exp_pos s, Real.contDiff_exp.contDiffOn⟩, trivial⟩
 
 theorem cosmoCoeffCore_pins : nonvacuity% Fidelity.cosmoCoeffCore_pins :=
@@ -254,7 +258,7 @@ theorem cosmoCoeffCore_pins : nonvacuity% Fidelity.cosmoCoeffCore_pins :=
     ⟨Real.exp_pos 0, dS_smooth _, by simp [Real.deriv_exp]⟩, trivial⟩
 
 theorem yRedSpec_pins : nonvacuity% Fidelity.yRedSpec_pins :=
-  ⟨yred, yred_meets_spec, Real.exp, 0, 0, Real.exp_pos 0, Real.exp_pos 0, trivial⟩
+  ⟨yred, yred_meets_spec, Real.exp, 0, -1, Real.exp_pos 0, Real.exp_pos (-1), trivial⟩
 
 theorem omega0Spec_pins : nonvacuity% Fidelity.omega0Spec_pins :=
   ⟨omega0, omega0_meets_spec, 1, Real.exp, 0, Real.exp_pos 0, Real.differentiableAt_exp,
@@ -265,11 +269,11 @@ theorem curvKSpec_pins : nonvacuity% Fidelity.curvKSpec_pins :=
     by simp [Real.deriv_exp], trivial⟩
 
 theorem lumDistFlat_pins : nonvacuity% Fidelity.lumDistFlat_pins :=
-  ⟨lumDist, lumDist_meets_spec2, Real.exp, 0, 0, le_rfl, fun s _ => Real.exp_pos s,
+  ⟨lumDist, lumDist_meets_spec2, Real.exp, 0, -1, by norm_num, fun s _ => Real.exp_pos s,
     Real.continuous_exp.continuousOn, trivial⟩
 
 theorem comoving_pins : nonvacuity% Fidelity.comoving_pins :=
-  ⟨lumDist, lumDist_meets_spec2, Real.exp, 0, 0, le_rfl, fun s _ => Real.exp_pos s,
+  ⟨lumDist, lumDist_meets_spec2, Real.exp, 0, -1, by norm_num, fun s _ => Real.exp_pos s,
     Real.continuous_exp.continuousOn, trivial⟩
 
 theorem flatCPL_pins : nonvacuity% Fidelity.flatCPL_pins :=
@@ -278,5 +282,28 @@ theorem flatCPL_pins : nonvacuity% Fidelity.flatCPL_pins :=
 theorem ricciSpec_pins : nonvacuity% Fidelity.ricciSpec_pins :=
   ⟨curv, curv_meets_spec, Real.exp, Real.exp, Real.exp, 0, Real.exp_pos 0,
     Eventually.of_forall fun s => Real.hasDerivAt_exp s, Real.hasDerivAt_exp 0, trivial⟩
+
+theorem transverseSpec_pins : nonvacuity% Fidelity.transverseSpec_pins :=
+  ⟨Checked.Cosmography.Transverse.transverse, transverse_meets_spec, trivial⟩
+
+/-! ## Equivalences with blind formulations: the program side holds somewhere -/
+
+theorem isFlatLCDM_iff_friedmann : nonvacuity% Fidelity.isFlatLCDM_iff_friedmann := by
+  obtain ⟨a, t₀, hL, -⟩ := exists_flatLCDM (Ω := 1 / 2) (by norm_num) (by norm_num)
+  exact ⟨1 / 2, a, t₀, hL⟩
+
+theorem isFlatCPL_iff_friedmannCPL : nonvacuity% Fidelity.isFlatCPL_iff_friedmannCPL := by
+  obtain ⟨a, hL, -⟩ := exists_flatCPL (1 / 2) (-1) 1
+  exact ⟨1 / 2, -1, 1, a, 0, hL⟩
+
+theorem friedmannEq_iff_blind : nonvacuity% Fidelity.friedmannEq_iff_blind := by
+  obtain ⟨a, t₀, -, hM⟩ := Checked.Cosmography.FRCosmo.exists_LCDM_model (Ω := 1 / 2)
+    (by norm_num) (by norm_num)
+  exact ⟨1 / 2, a, _, t₀, t₀, hM.friedmann⟩
+
+theorem masterEq_iff_blind : nonvacuity% Fidelity.masterEq_iff_blind := by
+  obtain ⟨a, t₀, -, hM⟩ := Checked.Cosmography.FRCosmo.exists_LCDM_model (Ω := 1 / 2)
+    (by norm_num) (by norm_num)
+  exact ⟨1 / 2, a, _, t₀, t₀, hM.master.self_of_nhds⟩
 
 end Checked.Trust.NV

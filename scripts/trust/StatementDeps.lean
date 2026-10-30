@@ -19,7 +19,8 @@ in `Checked`; a pin theorem whose statement does not mention the definition it c
 a headline with a hypothesis (or a binder that is not plain data) and no **non-vacuity witness**:
 a `Checked` theorem whose statement is syntactically `Checked.Trust.nvObligation` of the headline
 (`∃` of all its binders and hypotheses; trust track T2, run 2228Z, `Checked/Trust/NonVacuity.lean`).
-The UNPINNED report is informational (annex LIV: report first, block later).
+Since run 2228Z (all physics definitions pinned or classified) a headline resting on an unpinned
+PHYSICS or UNCLASSIFIED definition is also a blocking error (annex LIV: report first, block later).
 
 Run: `lake env lean scripts/trust/StatementDeps.lean` (after `lake build Checked`).
 -/
@@ -159,6 +160,7 @@ run_cmd do
         else if k == "PHYSICS" || k == "UNCLASSIFIED" then
           gaps := gaps.push short
           gapCount := gapCount.insert d ((gapCount.find? d).getD 0 + 1)
+          errors := errors.push s!"{hn} rests on the unpinned {k} definition {d}: pin it (pins.txt) or classify it (def_kinds.txt)"
           if k == "UNCLASSIFIED" then unclassified := unclassified.insert d
         else if k == "PRINTED" || k == "CLAIM" then transcr := transcr.push short
       if gaps.isEmpty then nClean := nClean + 1

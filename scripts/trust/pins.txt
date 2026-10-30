@@ -18,3 +18,4 @@ FRCosmo.curv Fidelity.ricciSpec_pins
 FRCosmo.rhoM Fidelity.rhoM_eq_dust
 FRCosmo.FriedmannEq Fidelity.friedmannEq_iff_blind
 FRCosmo.MasterEq Fidelity.masterEq_iff_blind
+Transverse.transverse Fidelity.transverseSpec_pins
