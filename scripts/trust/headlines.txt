@@ -107,3 +107,5 @@ Fidelity.cosmoCoeffCore_pins
 Fidelity.yRedSpec_pins
 Fidelity.omega0Spec_pins
 Fidelity.curvKSpec_pins
+Fidelity.lumDistFlat_pins
+Fidelity.comoving_pins

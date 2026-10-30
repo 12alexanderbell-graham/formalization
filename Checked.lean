@@ -21,3 +21,4 @@ import Checked.Fidelity.Pins
 import Checked.Fidelity.FriedmannLCDM
 import Checked.Fidelity.RedshiftCoeffSpecs
 import Checked.Fidelity.YOmegaKSpecs
+import Checked.Fidelity.FlatPins

@@ -7,19 +7,17 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 93. Resting on no unpinned physics definition: 69.
+Headlines: 95. Resting on no unpinned physics definition: 76.
 
 ## Unpinned physics definitions, by number of headlines resting on them
 
 | Definition | Headlines |
 |---|---|
 | `Checked.Cosmography.FRCosmo.curv` | 9 |
-| `Checked.Cosmography.BambaY.comoving` | 9 |
-| `Checked.Cosmography.BambaY.lumDistFlat` | 9 |
-| `Checked.Cosmography.FRCosmo.MasterEq` | 7 |
-| `Checked.Cosmography.FRCosmo.rhoM` | 7 |
 | `Checked.Cosmography.FRCosmo.FriedmannEq` | 7 |
 | `Checked.Cosmography.FRCosmo.IsFRCosmo` | 7 |
+| `Checked.Cosmography.FRCosmo.rhoM` | 7 |
+| `Checked.Cosmography.FRCosmo.MasterEq` | 7 |
 | `Checked.Cosmography.CPL.IsFlatCPL` | 5 |
 | `Checked.Cosmography.CVdQ.dQFlat` | 4 |
 | `Checked.Cosmography.Transverse.transverse` | 1 |
@@ -46,15 +44,15 @@ Headlines: 93. Resting on no unpinned physics definition: 69.
 | `CCS.printedD4_fails_past` | cosmoCoeff, decel, hubble, redshift | — | D1, D2, D3, printedD4 |
 | `CCS.ccsD4Claim_false` | cosmoCoeff, decel, hubble, redshift | — | CCSD4Claim, D1, D2, D3, printedD4 |
 | `CCS.ccsD4ClaimPast_false` | cosmoCoeff, decel, hubble, redshift | — | CCSD4ClaimPast, D1, D2, D3, printedD4 |
-| `BambaY.lumDist_y_third_order` | cosmoCoeff, yred, decel, hubble, redshift | comoving, lumDistFlat | D1y |
-| `BambaY.printedD2y_fails` | cosmoCoeff, yred, decel, hubble, redshift | comoving, lumDistFlat | D1y, printedD2y |
-| `BambaY.printedD2y_fails_past` | cosmoCoeff, yred, decel, hubble, redshift | comoving, lumDistFlat | D1y, printedD2y |
-| `BambaY.bambaD2yClaim_false` | cosmoCoeff, yred, decel, hubble, redshift | comoving, lumDistFlat | BambaD2yClaim, D1y, printedD2y |
-| `BambaY.bambaD2yClaimPast_false` | cosmoCoeff, yred, decel, hubble, redshift | comoving, lumDistFlat | BambaD2yClaimPast, D1y, printedD2y |
-| `CVdQ.dQ_y_third_order` | cosmoCoeff, yred, decel, hubble, redshift | comoving, lumDistFlat, dQFlat | — |
-| `CVdQ.printedQ2_fails_past` | cosmoCoeff, yred, decel, hubble, redshift | comoving, lumDistFlat, dQFlat | printedQ2 |
-| `CVdQ.cvdQClaim_false` | cosmoCoeff, yred, decel, hubble, redshift | comoving, lumDistFlat, dQFlat | CVdQClaim, printedQ2 |
-| `CVdQ.cvdQClaimPast_false` | cosmoCoeff, yred, decel, hubble, redshift | comoving, lumDistFlat, dQFlat | CVdQClaimPast, printedQ2 |
+| `BambaY.lumDist_y_third_order` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y |
+| `BambaY.printedD2y_fails` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y, printedD2y |
+| `BambaY.printedD2y_fails_past` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | D1y, printedD2y |
+| `BambaY.bambaD2yClaim_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | BambaD2yClaim, D1y, printedD2y |
+| `BambaY.bambaD2yClaimPast_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble | — | BambaD2yClaimPast, D1y, printedD2y |
+| `CVdQ.dQ_y_third_order` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | dQFlat | — |
+| `CVdQ.printedQ2_fails_past` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | dQFlat | printedQ2 |
+| `CVdQ.cvdQClaim_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | dQFlat | CVdQClaim, printedQ2 |
+| `CVdQ.cvdQClaimPast_false` | cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift | dQFlat | CVdQClaimPast, printedQ2 |
 | `BambaK.lumDist_y_fifth_order` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, printedD4y, D1y |
 | `BambaK.printedD3y_fails` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, D1y |
 | `BambaK.printedD3y_fails_past` | cosmoCoeff, lumDist, omega0, yred, decel, hubble | — | printedD3y, D1y |
@@ -121,3 +119,5 @@ Headlines: 93. Resting on no unpinned physics definition: 69.
 | `Fidelity.yRedSpec_pins` | yred | — | — |
 | `Fidelity.omega0Spec_pins` | omega0 | — | — |
 | `Fidelity.curvKSpec_pins` | curvK | — | — |
+| `Fidelity.lumDistFlat_pins` | lumDistFlat, redshift | — | — |
+| `Fidelity.comoving_pins` | comoving, redshift | — | — |
