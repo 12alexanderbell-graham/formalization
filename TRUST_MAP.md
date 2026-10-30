@@ -12,7 +12,7 @@ Non-vacuity (trust track T2): 62 headlines have hypotheses; 62 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Transcriptions (trust track T3): 38 PRINTED definitions; 23 carry a machine-checked
+Transcriptions (trust track T3): 38 PRINTED definitions; 36 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
 
 ## Unpinned physics definitions, by number of headlines resting on them
@@ -83,21 +83,21 @@ agreement with an independent blind second reading (`Checked/Trust/Transcription
 | `BambaZ.bambaDAzClaimPast_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | BambaDAzClaimPast, DA1z², DA2z², DA3z², printedDA4z² | unconditional |
 | `BambaZ.milne_printedDL4z_fails_past` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z², DL2z², DL3z², printedDL4z² | unconditional |
 | `BambaZ.printed_flat_eq` | — | — | printedDA4z², printedDL4z² | unconditional |
-| `FRCosmo.fR_values` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, P2, P3, Q0, Q2, Q3 | `fR_values` |
+| `FRCosmo.fR_values` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0², P2², P3², Q0², Q2², Q3² | `fR_values` |
 | `FRCosmo.curv_derivs` | cosmoCoeff, curv, decel, hubble | — | — | `curv_derivs` |
 | `FRCosmo.exists_LCDM_model` | IsFlatLCDM, FriedmannEq, MasterEq, curv, hubble | — | — | `eta20_hasDerivAt` |
 | `FRCosmo.printedR3Claim_false` | cosmoCoeff, curv, decel, hubble | — | PrintedR3Claim | unconditional |
-| `FRCosmo.printedF0Mul_false_at` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, Q0, printedR | `eta20_hasDerivAt` |
-| `FRCosmo.printedF0ClaimMul_false` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, PrintedF0ClaimMul, Q0, printedR | unconditional |
-| `FRCosmo.printedF0_false_at` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, Q0, printedR | `printedF0_false_at` |
-| `FRCosmo.printedF0Claim_false` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, PrintedF0Claim, Q0, printedR | unconditional |
-| `FREta.eta_ratios` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, P2, P3, Q0, Q2, Q3 | `eta_ratios` |
-| `FREta.eta20_hasDerivAt` | — | — | P0, P2, Q0, Q2, jL, lL, qL, sL | `eta20_hasDerivAt` |
-| `FREta.eta30_hasDerivAt` | — | — | P0, P3, Q0, Q3, jL, lL, qL, sL | `eta20_hasDerivAt` |
-| `FREta.printedEta20_false_at` | — | — | P0, P2, Q0, Q2, jL, lL, printed20, printedDen, qL, sL | `printedEta30_false_at` |
-| `FREta.printedEta30_false_at` | — | — | P0, P3, Q0, Q3, jL, lL, printed30, printedDen, qL, sL | `printedEta30_false_at` |
-| `FREta.printedEta20Claim_false` | — | — | P0, P2, Q0, Q2, PrintedEta20Claim, jL, lL, printed20, printedDen, qL, sL | unconditional |
-| `FREta.printedEta30Claim_false` | — | — | P0, P3, Q0, Q3, PrintedEta30Claim, jL, lL, printed30, printedDen, qL, sL | unconditional |
+| `FRCosmo.printedF0Mul_false_at` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0², Q0², printedR² | `eta20_hasDerivAt` |
+| `FRCosmo.printedF0ClaimMul_false` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0², PrintedF0ClaimMul, Q0², printedR² | unconditional |
+| `FRCosmo.printedF0_false_at` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0², Q0², printedR² | `printedF0_false_at` |
+| `FRCosmo.printedF0Claim_false` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0², PrintedF0Claim, Q0², printedR² | unconditional |
+| `FREta.eta_ratios` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0², P2², P3², Q0², Q2², Q3² | `eta_ratios` |
+| `FREta.eta20_hasDerivAt` | — | — | P0², P2², Q0², Q2², jL, lL², qL², sL² | `eta20_hasDerivAt` |
+| `FREta.eta30_hasDerivAt` | — | — | P0², P3², Q0², Q3², jL, lL², qL², sL² | `eta20_hasDerivAt` |
+| `FREta.printedEta20_false_at` | — | — | P0², P2², Q0², Q2², jL, lL², printed20², printedDen², qL², sL² | `printedEta30_false_at` |
+| `FREta.printedEta30_false_at` | — | — | P0², P3², Q0², Q3², jL, lL², printed30², printedDen², qL², sL² | `printedEta30_false_at` |
+| `FREta.printedEta20Claim_false` | — | — | P0², P2², Q0², Q2², PrintedEta20Claim, jL, lL², printed20², printedDen², qL², sL² | unconditional |
+| `FREta.printedEta30Claim_false` | — | — | P0², P3², Q0², Q3², PrintedEta30Claim, jL, lL², printed30², printedDen², qL², sL² | unconditional |
 | `FREta.eta_numbers` | — | — | — | unconditional |
 | `DemianskiZ.flat_corrections` | — | — | printedDA4z², printedDL4z², demDA4², demDL4² | unconditional |
 | `DemianskiZ.demDL4_fails_past` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z², DL2z², DL3z², demDL4² | `printedD4_fails` |

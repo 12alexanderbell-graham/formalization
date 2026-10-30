@@ -96,5 +96,5 @@
 - Env: repo ok (pre-cloned); local Lean via elan ok; previous CI green; CI 41139919276 green, control 41140145749 failed as required; others in STATE.
 - **T2a (statement fidelity), machine-checked non-vacuity:** obligation computed from each statement (`Checked/Trust/NonVacuity.lean`), 62/62 conditional headlines witnessed (`Checked/Trust/Witnesses.lean`), CI blocks a missing witness. Adversarial subagent found 7 holes; all fixed in-run.
 - **T1 closed:** `transverse` pinned by a blind ODE law (Grönwall uniqueness); `dQFlat` reclassified PRINTED; 101/101 headlines on pinned definitions; unpinned physics definitions now block CI.
-- **T3 started:** blind second reading of 23 printed coefficients; all 23 agree with the program's transcriptions (Lean `ring`).
+- **T3 started:** blind second reading of 36 printed coefficients (two batches); all 36 agree with the program's transcriptions (Lean `ring`).
 - LEDGER: two integrity events (CI strengthened), experiment T2a. No message to Alexander (no finding; infrastructure progress only).

@@ -9,7 +9,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 - **Trust map** (`TRUST_MAP.md`, generated and enforced by `scripts/trust/StatementDeps.lean` in CI). Three machine-checked metrics (run 2228Z):
   - **T1:** 101/101 headlines rest only on pinned definitions (19 pins; `transverse` pinned by blind ODE law, `transverseSpec_pins`; `dQFlat` reclassified PRINTED: source convention). **Blocking** since 2228Z: a headline on an unpinned PHYSICS/UNCLASSIFIED definition fails CI.
   - **T2a non-vacuity:** 62/62 conditional headlines have a witness of `nonvacuity% h` (obligation computed from the statement: `Checked/Trust/NonVacuity.lean`; witnesses `Checked/Trust/Witnesses.lean`). **Blocking.** Adversarial review fixed 7 holes (`runs/2026-10-30T2228Z/nv_adversary.md`). Every pin's spec is thereby proved satisfiable.
-  - **T3 second reading:** 23/38 PRINTED definitions have a machine-checked agreement with a blind second transcription (`Checked/Trust/SecondReading.lean`, `Transcriptions.lean`; marked ² in the map). Informational. Not yet read twice: F(R)/η coefficients (`FRCosmo.P0…Q3`, `printedR`, `FREta.*`), `dQFlat` (Eq. 5), and the F1/F2 claims' printed parts inside CLAIM definitions.
+  - **T3 second reading:** 36/38 PRINTED definitions have a machine-checked agreement with a blind second transcription (`Checked/Trust/SecondReading.lean`, `Transcriptions.lean`; marked ² in the map). Informational. Second batch (F(R) `P0…Q3`, `printedR`, η `qL/sL/lL`, `printed20/30/Den`) agrees too (`SecondReadingFR.lean`, `TranscriptionsFR.lean`); the second reader reproduced the paper's η numbers (11.44)–(11.45) and, by its own sympy check, re-found the F9/F10 inconsistencies (printed R; ε-coefficients not the expansion of the printed formulas). Not yet read twice: `dQFlat` (Eq. 5), `jL` (= 1), and the printed parts inside the F1/F2 CLAIM definitions.
 - Mutation benchmark (`python3 scripts/fidelity_killrate.py`): blind 30/30, author 10/10.
 - Controls: `control/bad-pin-registry` (2028Z) and `control/vacuous-headline` (CI 41140145749) FAILED as required at the trust-map step; `control/unpinned-and-hidden` CI 41142047810: read next run (expected: two errors, unpinned `fakeDist` and hidden-hypothesis vacuity).
 - T4, T5: not started.
@@ -36,7 +36,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 - CI (read by ID): 41138309671 (LOCK) green, 41139919276 (non-vacuity v1) green; control 41140145749 FAILED as required ("no non-vacuity witness" for the vacuous headline; decoy rejected). 41141815326 (T1 close, hardened generator), 41142867442 (T3), 41142047810 (control 2) and the records commit: read next run.
 
 ## Daily review (53.3), 2026-10-30
-- 22:28Z run: statement fidelity and transcription fidelity became machine-checked (non-vacuity 62/62 enforced; second reading 23/38); T1 closed and enforced (101/101).
+- 22:28Z run: statement fidelity and transcription fidelity became machine-checked (non-vacuity 62/62 enforced; second reading 36/38); T1 closed and enforced (101/101).
 - Is AI-produced science here more trustworthy without outside checking than this morning? Yes, by a machine-computed measure: 77 of 82 physics headlines now rest only on definitions pinned by blind textbook laws (none this morning; ≤ 15 at 20:28Z), and the dependency map itself is CI-generated. Not yet: statement fidelity (T2), transcription (T3), numerics (T4), pipeline false-acceptance rate (T5).
 
 ## Known gaps
@@ -60,7 +60,7 @@ None.
 
 ## Exact next step
 1. Read CI 41141815326, 41142867442, the records run, and control 41142047810 (must FAIL with both errors: `uses_unpinned … fakeDist` and `hidden_vacuous: no non-vacuity witness`). Fix anything red first.
-2. T3: second readings for the remaining 15 PRINTED definitions (F(R) `P0…Q3`, `printedR`: crops in `runs/2026-10-30T1428Z/`; η `qL…lL`, `printed20/30/Den`: `runs/2026-10-30T1628Z/referee/`; `dQFlat` Eq. 5). Same protocol as run 2228Z (blind subagent, verbatim copy, `gen_transcriptions.py`). Then consider making "PRINTED without second reading" blocking.
+2. T3: second-read `dQFlat` (Eq. 5) and the printed formulas inside the F1/F2 CLAIM definitions (Aviles Eq. 15 l₀/m₀, CLS Eq. 22 l₀): factor them out as PRINTED defs first. Then make "PRINTED without second reading" blocking.
 3. T2b hypothesis necessity: for each headline hypothesis, either a Checked counterexample (other hypotheses hold, conclusion fails) or a registry entry DOMAIN with reason; start with the refutations' nondegeneracy hypotheses (`decel ≠ 0`, `K ≠ 0`, …), where the counterexample is the model making the printed and correct coefficients coincide.
 4. T5 (pipeline false-acceptance rate): seed wrong claims of each kind the checks target (vacuous, unpinned, mis-transcribed, wrong definition) on control branches and record which the CI catches; a mis-transcription is not caught by CI today unless it is among the 23 second-read.
 Blocking: nothing.

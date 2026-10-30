@@ -29,3 +29,5 @@ import Checked.Trust.NonVacuity
 import Checked.Trust.Witnesses
 import Checked.Trust.SecondReading
 import Checked.Trust.Transcriptions
+import Checked.Trust.SecondReadingFR
+import Checked.Trust.TranscriptionsFR
