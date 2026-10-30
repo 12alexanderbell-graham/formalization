@@ -1,6 +1,6 @@
 import Checked.Cosmography.BambaAngular
 import Checked.Cosmography.LCDMWitness
-import Work.Fidelity.LumDistSpec
+import Checked.Fidelity.LumDistSpec
 
 /-!
 # Machine-checked fidelity: specifications for `hubble`, `decel`, `angDist`, `IsFlatLCDM`
@@ -25,7 +25,7 @@ Conventions: `c = 1`; `t < t₀` is the past; `1 + z = a(t₀)/a(t)`; the curvat
 scales as `K ↦ c²K` under `a ↦ c a` (`S_K(χ) = sin(√K χ)/√K`, `χ`, `sinh(√−K χ)/√−K`).
 -/
 
-namespace Work.Fidelity
+namespace Checked.Fidelity
 
 open Filter Topology Checked.Cosmography Checked.Cosmography.Aviles
 open Checked.Cosmography.BambaY Checked.Cosmography.BambaK Checked.Cosmography.BambaA
@@ -123,8 +123,8 @@ structure FlatLCDMSpec (P : ℝ → (ℝ → ℝ) → ℝ → Prop) : Prop where
   eds : ∀ t₀ : ℝ, 0 < t₀ → P 1 (fun t => t ^ (2 / 3 : ℝ)) t₀
   /-- Expanding de Sitter `a = e^{ht}` (`h > 0`) is flat ΛCDM with `Ω = 0`, at every `t₀`. -/
   deSitter : ∀ h t₀ : ℝ, 0 < h → P 0 (fun t => Real.exp (h * t)) t₀
-  /-- Matter + positive Λ: `a = sinh^{2/3} t` (closed form `a ∝ sinh^{2/3}((3/2)√Λ t)`, units
-  `(3/2)√Λ = 1`) is flat ΛCDM at `t₀ > 0` with `Ω = 1/cosh² t₀ ∈ (0,1)` (`H = (2/3) coth t`). -/
+  /-- Matter + positive Λ: `a = sinh^{2/3} t` (closed form `a ∝ sinh^{2/3}((3/2)√(Λ/3) t)` with Einstein's Λ, units
+  `(3/2)√(Λ/3) = 1`) is flat ΛCDM at `t₀ > 0` with `Ω = 1/cosh² t₀ ∈ (0,1)` (`H = (2/3) coth t`). -/
   lcdm : ∀ t₀ : ℝ, 0 < t₀ → P (1 / Real.cosh t₀ ^ 2) (fun t => Real.sinh t ^ (2 / 3 : ℝ)) t₀
   /-- Matter + negative Λ (`Ω > 1`): `a = sin^{2/3} t` (`H = (2/3) cot t`) is flat ΛCDM at
   `t₀ ∈ (0, π/2)` (expanding phase) with `Ω = 1/cos² t₀`. -/
@@ -462,4 +462,4 @@ theorem isFlatLCDM_meets_spec : FlatLCDMSpec IsFlatLCDM where
     have h1 := h₁.1
     field_simp at h1; linarith
 
-end Work.Fidelity
+end Checked.Fidelity

@@ -1,4 +1,4 @@
-import Work.Fidelity.MoreSpecs
+import Checked.Fidelity.MoreSpecs
 import Work.Fidelity.RedTeamMore
 import Work.Fidelity.RedTeamLumDistCheck
 
@@ -16,6 +16,8 @@ it free) and `ra5` (differs only for t > t₀, outside the brief's admissible in
 -/
 
 namespace Work.Fidelity
+
+open Checked.Fidelity
 
 open Real Filter Topology Checked.Cosmography Checked.Cosmography.BambaY
 open Checked.Cosmography.Transverse Checked.Cosmography.BambaK Checked.Cosmography.BambaA
@@ -204,6 +206,8 @@ theorem reject_rL2 : ¬ FlatLCDMSpec rL2 := fun h => by
 end Work.Fidelity
 
 namespace Work.Fidelity
+
+open Checked.Fidelity
 
 open Real Filter Topology Checked.Cosmography Work.Fidelity.RedTeamMore
 

@@ -12,8 +12,11 @@ import pathlib, re
 # (documented in the *Check.lean headers); reported, not scored.
 EXCLUDED = {"rq4": "differs only where adot = 0 (q undefined)",
             "ra5": "differs only for t > t0 (outside the admissible domain)"}
-root = pathlib.Path(__file__).resolve().parent.parent / "Work" / "Fidelity"
-text = {p.name: p.read_text() for p in sorted(root.glob("*.lean"))}
+base = pathlib.Path(__file__).resolve().parent.parent
+text = {}
+for d in ("Checked/Fidelity", "Work/Fidelity"):
+    for p in sorted((base / d).glob("*.lean")):
+        text[p.name] = p.read_text()
 allsrc = "\n".join(text.values())
 rejected = set(re.findall(r"theorem reject_(\w+)\s*:\s*¬", allsrc))
 rows = []

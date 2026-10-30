@@ -27,7 +27,7 @@ mutants, when found, name the gaps of the specification.
 Conventions: `c = 1`; `t < t₀` is the past; `1 + z = a(t₀)/a(t)`.
 -/
 
-namespace Work.Fidelity
+namespace Checked.Fidelity
 
 open Real Checked.Cosmography Checked.Cosmography.BambaY Checked.Cosmography.Transverse
 open Checked.Cosmography.BambaK
@@ -259,4 +259,4 @@ theorem reject_mNoSqrtDiv : ¬ LumDistSpec mNoSqrtDiv := fun h => by
   rw [show 2 * (Real.log 2 / 2) = Real.log 2 by ring, sinh_log2] at this
   norm_num at this
 
-end Work.Fidelity
+end Checked.Fidelity

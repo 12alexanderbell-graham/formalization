@@ -15,3 +15,6 @@ import Checked.Cosmography.BambaZ
 import Checked.Cosmography.FRCosmo
 import Checked.Cosmography.FREta
 import Checked.Cosmography.DemianskiZ
+import Checked.Fidelity.LumDistSpec
+import Checked.Fidelity.MoreSpecs
+import Checked.Fidelity.Pins

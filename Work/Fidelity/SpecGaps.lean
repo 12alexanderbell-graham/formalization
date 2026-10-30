@@ -1,5 +1,4 @@
-import Work.Fidelity.LumDistSpec
-import Work.Fidelity.MoreSpecs
+import Checked.Fidelity.Pins
 
 /-!
 # Spec gaps: wrong definitions that satisfy the fidelity specifications
@@ -27,7 +26,7 @@ namespace Work.Fidelity.Gaps
 
 open Real Filter Topology Checked.Cosmography Checked.Cosmography.BambaY
 open Checked.Cosmography.BambaK Checked.Cosmography.BambaA Checked.Cosmography.Transverse
-open Work.Fidelity
+open Checked.Fidelity
 
 /-! ## Helpers -/
 
@@ -238,54 +237,7 @@ theorem gap_qq1_differs :
 
 /-! ## `DecelSpec` and `AngDistSpec` pin the definition on the admissible domain -/
 
-/-- No gap in `DecelSpec`: on every positive scale factor, twice differentiable at `t` with
-`ȧ(t) ≠ 0`, any `Q` meeting the spec equals `decel`. -/
-theorem decelSpec_pins (Q : (ℝ → ℝ) → ℝ → ℝ) (h : DecelSpec Q) (a a' : ℝ → ℝ) (a'' t : ℝ)
-    (h1 : ∀ᶠ s in 𝓝 t, HasDerivAt a (a' s) s) (h2 : HasDerivAt a' a'' t) (ha : 0 < a t)
-    (hd : a' t ≠ 0) : Q a t = decel a t := by
-  rw [h.formula a a' a'' t h1 h2 ha hd, ms_decel_formula a a' a'' t h1 h2]
-
-lemma int_div_const (a : ℝ → ℝ) (c t₀ t : ℝ) :
-    (∫ s in t..t₀, 1 / (a s / c)) = c * comoving a t₀ t := by
-  unfold comoving
-  rw [← intervalIntegral.integral_const_mul]
-  congr 1; funext s; rw [one_div_div, div_eq_mul_one_div]
-
-/-- No gap in `AngDistSpec`: for every curvature `K`, every scale factor positive and
-continuous on `[t, t₀]`, and `t ≤ t₀`, any `D` meeting the spec equals `angDist`
-(`flat`/`closed`/`open` fix `K ∈ {0, ±1}`, `rescale` transports them to every `K`). -/
-theorem angDistSpec_pins (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) (h : AngDistSpec D) (K : ℝ)
-    (a : ℝ → ℝ) (t₀ t : ℝ) (htt : t ≤ t₀) (hpos : ∀ s ∈ Set.Icc t t₀, 0 < a s)
-    (hcont : ContinuousOn a (Set.Icc t t₀)) : D K a t₀ t = angDist K a t₀ t := by
-  obtain ⟨h0, h00⟩ := ms_ends htt hpos
-  rw [ms_angDist_eq K a t₀ t h0 h00]
-  rcases lt_trichotomy K 0 with hK | rfl | hK
-  · set c := Real.sqrt (-K) with hcdef
-    have hc : 0 < c := Real.sqrt_pos.2 (by linarith)
-    have e1 : c ^ 2 * (-1) = K := by rw [hcdef, Real.sq_sqrt (by linarith)]; ring
-    have hab : (fun s => c * (a s / c)) = a := by funext s; field_simp
-    have hb : ∀ s ∈ Set.Icc t t₀, 0 < a s / c := fun s hs => div_pos (hpos s hs) hc
-    calc D K a t₀ t = D (c ^ 2 * (-1)) (fun s => c * (a s / c)) t₀ t := by rw [e1, hab]
-      _ = D (-1) (fun s => a s / c) t₀ t := h.rescale c hc (-1) (fun s => a s / c) t₀ t
-      _ = a t / c * Real.sinh (∫ s in t..t₀, 1 / (a s / c)) :=
-          h.open (fun s => a s / c) t₀ t htt hb (hcont.div_const c)
-      _ = a t * transverse K (comoving a t₀ t) := by
-          rw [int_div_const]
-          simp only [transverse, not_lt.2 hK.le, hK, ite_false, ite_true, ← hcdef]
-          field_simp
-  · rw [h.flat a t₀ t htt hpos hcont]; simp [transverse, comoving]
-  · set c := Real.sqrt K with hcdef
-    have hc : 0 < c := Real.sqrt_pos.2 hK
-    have e1 : c ^ 2 * 1 = K := by rw [hcdef, Real.sq_sqrt hK.le]; ring
-    have hab : (fun s => c * (a s / c)) = a := by funext s; field_simp
-    have hb : ∀ s ∈ Set.Icc t t₀, 0 < a s / c := fun s hs => div_pos (hpos s hs) hc
-    calc D K a t₀ t = D (c ^ 2 * 1) (fun s => c * (a s / c)) t₀ t := by rw [e1, hab]
-      _ = D 1 (fun s => a s / c) t₀ t := h.rescale c hc 1 (fun s => a s / c) t₀ t
-      _ = a t / c * Real.sin (∫ s in t..t₀, 1 / (a s / c)) :=
-          h.closed (fun s => a s / c) t₀ t htt hb (hcont.div_const c)
-      _ = a t * transverse K (comoving a t₀ t) := by
-          rw [int_div_const]
-          simp only [transverse, hK, ite_true, ← hcdef]
-          field_simp
+/-! The pinning theorems `decelSpec_pins`, `angDistSpec_pins` found here were promoted to
+`Checked/Fidelity/Pins.lean` (run 1828Z). -/
 
 end Work.Fidelity.Gaps

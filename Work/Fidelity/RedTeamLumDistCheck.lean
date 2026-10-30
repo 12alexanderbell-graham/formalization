@@ -1,4 +1,4 @@
-import Work.Fidelity.LumDistSpec
+import Checked.Fidelity.LumDistSpec
 import Work.Fidelity.RedTeamLumDist
 
 /-!
@@ -14,6 +14,8 @@ unbiased number.
 -/
 
 namespace Work.Fidelity
+
+open Checked.Fidelity
 
 open Real Checked.Cosmography Checked.Cosmography.BambaY Checked.Cosmography.Transverse
 open Checked.Cosmography.BambaK Work.Fidelity.RedTeam
