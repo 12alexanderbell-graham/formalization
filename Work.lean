@@ -34,3 +34,4 @@ import Work.Fidelity.RedTeamLumDist
 import Work.Fidelity.RedTeamLumDistCheck
 import Work.Fidelity.MoreSpecs
 import Work.Fidelity.RedTeamMore
+import Work.Fidelity.RedTeamMoreCheck

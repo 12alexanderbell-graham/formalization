@@ -8,6 +8,10 @@ this script only counts, and reports surviving mutants (specification gaps).
 Usage: python3 scripts/fidelity_killrate.py
 """
 import pathlib, re
+# Mutants equal to the true definition on the physical domain fixed by the red-team brief
+# (documented in the *Check.lean headers); reported, not scored.
+EXCLUDED = {"rq4": "differs only where adot = 0 (q undefined)",
+            "ra5": "differs only for t > t0 (outside the admissible domain)"}
 root = pathlib.Path(__file__).resolve().parent.parent / "Work" / "Fidelity"
 text = {p.name: p.read_text() for p in sorted(root.glob("*.lean"))}
 allsrc = "\n".join(text.values())
@@ -15,12 +19,15 @@ rejected = set(re.findall(r"theorem reject_(\w+)\s*:\s*¬", allsrc))
 rows = []
 for name, src in text.items():
     if name.startswith("RedTeam") and not name.endswith("Check.lean"):
-        kind, muts = "blind", re.findall(r"def (rt\d+)\b", src)
+        kind, muts = "blind", re.findall(r"def (r[a-zA-Z]{0,2}\d+)\b", src)
     elif name.endswith("Spec.lean"):
         kind, muts = "author", re.findall(r"def (m[A-Z]\w*)\b", src)
     else:
         continue
     for m in muts:
+        if m in EXCLUDED:
+            print(f"excluded {name}:{m}: {EXCLUDED[m]}")
+            continue
         rows.append((kind, name, m, m in rejected))
 for kind in ("blind", "author"):
     sel = [r for r in rows if r[0] == kind]
