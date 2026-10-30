@@ -60,7 +60,7 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 ## 2026-10-30 · run 2026-10-30T0220Z · first verified finding F1
 - C1–C4: typeset text confirmed for all four (rendered PDF pages read as images; C2 also by pdftotext and the paper's own Table V). All four printed formulas are wrong as printed; crops in `runs/2026-10-30T0220Z/typeset/`.
 - C2 → **F1**: Aviles et al. 2012 Eq. (15) l₀, m₀ misprinted; paper's numbers unaffected; misprint repeated in arXiv:1405.6935 Eq. (30).
-- PROVED + AUDITED (Checked): `Checked.Cosmography.Aviles.flatLCDM_coeffs` (flat ΛCDM q₀…m₀, every Ω), `avilesL0Claim_false`, `avilesM0Claim_false` (Einstein–de Sitter), `Checked.Cosmography.AvilesWitness.printedL0_false_at` / `printedM0_false_at` (every Ω ∈ (0,1); m₀ except (√7−1)/3). CI 40996176398 green (first three); witness file: see STATE for its CI run. Blind restatement derived verbatim; referee STANDS-WITH-CORRECTIONS (corrections adopted).
+- PROVED + AUDITED (Checked): `Checked.Cosmography.Aviles.flatLCDM_coeffs` (flat ΛCDM q₀…m₀, every Ω), `avilesL0Claim_false`, `avilesM0Claim_false` (Einstein–de Sitter), `Checked.Cosmography.AvilesWitness.printedL0_false_at` / `printedM0_false_at` (every Ω ∈ (0,1); m₀ except (√7−1)/3). CI 40996176398 green (first three); witness file: CI 40997256530 green with nanoda blocking. Blind restatement derived verbatim; referee STANDS-WITH-CORRECTIONS (corrections adopted).
 
 ## 2026-10-30 · integrity event · nanoda repaired, blocking again
 - Root cause: `scripts/nanoda_checked.sh` used nanoda_lib's `debug` branch (2025-10), which predates lean4export's JSON format 3.1.0; and lean4export HEAD had moved to v4.36.0-rc1.
