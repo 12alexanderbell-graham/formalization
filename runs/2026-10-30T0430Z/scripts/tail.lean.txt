@@ -1,0 +1,10 @@
+  have hH0 : H₀ ≠ 0 := hH.ne'
+  have cc : ∀ n, cosmoCoeff n a t₀ = D n t₀ / (a₀ * H₀ ^ n) := fun n => by
+    rw [cosmoCoeff, iteratedDeriv_eq_iterate]
+  have hdec : decel a t₀ = -(D 2 t₀ * a₀) / D 1 t₀ ^ 2 := rfl
+  subst hp
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [hdec, he_d2, he_d1]; field_simp; ring
+  · rw [cc, he_d3]; field_simp; ring
+  · rw [cc, he_d4]; field_simp; ring
+  · rw [cc, he_d5]; field_simp; ring

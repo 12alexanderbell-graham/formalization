@@ -1,0 +1,97 @@
+  obtain ⟨hH, hev⟩ := hL
+  obtain ⟨p, hp⟩ : ∃ p : ℝ, p = 3 * (1 + w₀ + wₐ) := ⟨_, rfl⟩
+  set a₀ := a t₀ with ha₀
+  set H₀ := hubble a t₀ with hH₀
+  have ha0 : 0 < a₀ := hev.self_of_nhds.1
+  set g : ℝ → ℝ := fun t => (a₀ / a t) ^ p * Real.exp (-3 * wₐ * (1 - a t / a₀)) with hgdef
+  set D : ℕ → ℝ → ℝ := fun k => deriv^[k] a with hD
+  set G : ℕ → ℝ → ℝ := fun k => deriv^[k] g with hG
+  have hsm : ∀ᶠ t in 𝓝 t₀, ContDiffAt ℝ 5 a t := hs.eventually (by simp)
+  have hpos : ∀ᶠ t in 𝓝 t₀, 0 < a t := hev.mono fun t h => h.1
+  have gsm : ∀ t, ContDiffAt ℝ 5 a t → 0 < a t → ContDiffAt ℝ 5 g t := by
+    intro t h hat
+    exact ((contDiffAt_const.div h hat.ne').rpow_const_of_ne (div_pos ha0 hat).ne').mul
+      ((contDiffAt_const.mul (contDiffAt_const.sub (h.div_const _))).exp)
+  have hgsm : ∀ᶠ t in 𝓝 t₀, ContDiffAt ℝ 5 g t := by
+    filter_upwards [hsm, hpos] with t h hat using gsm t h hat
+  have key : ∀ (f : ℝ → ℝ) k t, DifferentiableAt ℝ (deriv^[k] f) t →
+      HasDerivAt (deriv^[k] f) (deriv^[k+1] f t) t := by
+    intro f k t hk
+    simpa [Function.iterate_succ_apply'] using hk.hasDerivAt
+  have cds : ∀ (f : ℝ → ℝ) t, ContDiffAt ℝ 5 f t →
+      DifferentiableAt ℝ (deriv^[0] f) t ∧ DifferentiableAt ℝ (deriv^[1] f) t ∧
+      DifferentiableAt ℝ (deriv^[2] f) t ∧ DifferentiableAt ℝ (deriv^[3] f) t ∧
+      DifferentiableAt ℝ (deriv^[4] f) t := by
+    intro f t h
+    have c4 : ContDiffAt ℝ 4 (deriv^[1] f) t := h.derivWithin (by norm_num)
+    have c3 : ContDiffAt ℝ 3 (deriv^[2] f) t := by
+      have := c4.derivWithin (m := 3) (by norm_num)
+      simpa [Function.iterate_succ_apply'] using this
+    have c2 : ContDiffAt ℝ 2 (deriv^[3] f) t := by
+      have := c3.derivWithin (m := 2) (by norm_num)
+      simpa [Function.iterate_succ_apply'] using this
+    have c1 : ContDiffAt ℝ 1 (deriv^[4] f) t := by
+      have := c2.derivWithin (m := 1) (by norm_num)
+      simpa [Function.iterate_succ_apply'] using this
+    exact ⟨h.differentiableAt (by norm_num), c4.differentiableAt (by norm_num),
+      c3.differentiableAt (by norm_num), c2.differentiableAt (by norm_num),
+      c1.differentiableAt (by norm_num)⟩
+  have hder : ∀ᶠ t in 𝓝 t₀, HasDerivAt (D 0) (D 1 t) t ∧ HasDerivAt (D 1) (D 2 t) t ∧
+      HasDerivAt (D 2) (D 3 t) t ∧ HasDerivAt (D 3) (D 4 t) t ∧ HasDerivAt (D 4) (D 5 t) t ∧
+      HasDerivAt (G 0) (G 1 t) t ∧ HasDerivAt (G 1) (G 2 t) t ∧
+      HasDerivAt (G 2) (G 3 t) t ∧ HasDerivAt (G 3) (G 4 t) t := by
+    filter_upwards [hsm, hgsm] with t h hg'
+    obtain ⟨a0, a1, a2, a3, a4⟩ := cds a t h
+    obtain ⟨g0, g1, g2, g3, -⟩ := cds g t hg'
+    exact ⟨key a 0 t a0, key a 1 t a1, key a 2 t a2, key a 3 t a3, key a 4 t a4,
+      key g 0 t g0, key g 1 t g1, key g 2 t g2, key g 3 t g3⟩
+  have he_d0 : D 0 t₀ = a₀ := rfl
+  have he_d1 : D 1 t₀ = H₀ * a₀ := by
+    have h1 : D 1 t₀ = deriv a t₀ := rfl
+    rw [h1, hH₀, hubble, ← ha₀]
+    field_simp
+  have he_g0 : G 0 t₀ = 1 := by
+    simp only [hG, hgdef, Function.iterate_zero, id, ← ha₀, div_self ha0.ne', Real.one_rpow,
+      sub_self, mul_zero, Real.exp_zero, mul_one]
+  -- the model, polynomial form
+  have hgc : ContinuousAt g t₀ := (gsm t₀ hs ha0).continuousAt
+  have harg : ∀ᶠ t in 𝓝 t₀, 0 < Ω * (a₀ / a t) ^ 3 + (1 - Ω) * g t := by
+    have hc : ContinuousAt (fun t => Ω * (a₀ / a t) ^ 3 + (1 - Ω) * g t) t₀ := by
+      have : ContinuousAt a t₀ := hs.continuousAt
+      exact ((continuousAt_const.div this ha0.ne').pow 3 |>.const_mul Ω).add
+        (hgc.const_mul _)
+    have h1 : (0 : ℝ) < Ω * (a₀ / a t₀) ^ 3 + (1 - Ω) * g t₀ := by
+      have : g t₀ = 1 := he_g0
+      rw [this, ← ha₀, div_self ha0.ne']; norm_num
+    exact hc.eventually (lt_mem_nhds h1)
+  have hE0 : ∀ᶠ t in 𝓝 t₀, a t * deriv a t ^ 2 -
+      H₀ ^ 2 * (Ω * a₀ ^ 3 + (1 - Ω) * a t ^ 3 * g t) = 0 := by
+    filter_upwards [hev, harg] with t ⟨hat, _, hHt⟩ hS
+    have hz : 1 + redshift a t₀ t = a₀ / a t := by rw [redshift, add_sub_cancel]
+    have hexp : -(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t) = -3 * wₐ * (1 - a t / a₀) := by
+      rw [hz, redshift]; field_simp; ring
+    rw [hexp, hz, ← hp] at hHt
+    have hg' : (a₀ / a t) ^ p * Real.exp (-3 * wₐ * (1 - a t / a₀)) = g t := rfl
+    rw [mul_assoc (1 - Ω), hg'] at hHt
+    have hsq := congrArg (fun x => x ^ 2) hHt
+    simp only [hubble, mul_pow, Real.sq_sqrt hS.le] at hsq
+    rw [div_pow, div_eq_iff (pow_pos hat 2).ne'] at hsq
+    rw [hsq, div_pow]
+    field_simp
+    ring
+  have hE1 : ∀ᶠ t in 𝓝 t₀, a₀ * a t * deriv g t + p * a₀ * g t * deriv a t -
+      3 * wₐ * a t * g t * deriv a t = 0 := by
+    filter_upwards [hev] with t ⟨hat, hda, _⟩
+    have hq : 0 < a₀ / a t := by positivity
+    have h1 : HasDerivAt (fun t => a₀ / a t) ((0 * a t - a₀ * deriv a t) / a t ^ 2) t :=
+      (hasDerivAt_const t a₀).div hda.hasDerivAt hat.ne'
+    have h2 := h1.rpow_const (p := p) (Or.inl hq.ne')
+    have h3 : HasDerivAt (fun t => -3 * wₐ * (1 - a t / a₀))
+        (-3 * wₐ * (-(deriv a t / a₀))) t :=
+      ((hda.hasDerivAt.div_const a₀).const_sub 1).const_mul _
+    have h4 := h2.mul h3.exp
+    have hgd : deriv g t = _ := h4.deriv
+    rw [hgd, Real.rpow_sub_one hq.ne']
+    simp only [g]
+    field_simp
+    ring
