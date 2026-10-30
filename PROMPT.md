@@ -15,7 +15,7 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 
 ## Current phase: work target 1
 
-S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. First verified finding F1 (FINDINGS.md); candidates C1, C3, C4 are typeset-confirmed and need Lean evidence.
+S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1, F2 (FINDINGS.md); candidates C1, C3 are typeset-confirmed and need Lean evidence.
 
 ## Working notes (maintained by runs, annex LIV)
 
@@ -25,4 +25,6 @@ S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmog
 - **Typeset route that works** (run 0220Z): `curl -sSfL -o p.pdf https://arxiv.org/pdf/<id>v<N>`, find the page with `pdftotext -f p -l p`, render with `pdftoppm -r 200 -png`, crop with PIL, and read the PNG with the Read tool. Check every arXiv version. `arxiv.org/e-print/` (LaTeX source) is robots-blocked: do not use it or mirrors (ar5iv, export.arxiv.org). Keep crops in `runs/<run>/typeset/`.
 - **Internal-consistency check:** a paper's own numerical tables often reveal which formula was really used (F1: Table V followed the correct formula). Check them before calling a misprint consequential.
 - **Long derivative chains in Lean:** generate the `HasDerivAt` combinator terms and `linear_combination` certificates with sympy (`runs/2026-10-30T0220Z/scripts/gen.py`, `gen2.py`) rather than writing them by hand; Lean only checks. Pattern: square the model law into a polynomial identity that holds near t₀, differentiate it repeatedly (`step` lemma: eventually-zero ⇒ derivative eventually zero), solve at t₀.
+- **Witness models without closed forms** (run 0430Z): `Checked.Cosmography.CPLExistence.exists_local_model` turns any expansion law H/H₀ = E(a/a₀) with E C⁵ at 1 into a C⁵ scale factor near t₀ (Mathlib Picard–Lindelöf + bootstrap). Use it instead of hunting for explicit solutions; instantiate E and match `IsFlat…` as in `exists_flatCPL`.
+- **Non-polynomial Friedmann laws** (run 0430Z): introduce one auxiliary function for the non-polynomial factor (e.g. g = (1+z)^p e^{…}) plus its exact chain-rule identity; differentiate both identities and solve at t₀ without dividing (`runs/2026-10-30T0430Z/scripts/gen_cpl.py`). Needs `set_option maxHeartbeats 8000000 in` for 5th order.
 - **External tooling** (lean4export, nanoda) cannot be built locally: the environment refuses running external code. Test tooling changes through CI.

@@ -79,3 +79,20 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 
 ## 2026-10-30 · governance note · Alexander: never ask for approval
 - Recorded as PROMPT.md standing instruction 7. Runs do not ask him for permission; L.2 messages are information only. Environment refusals are not worked around (this run: local build of lean4export/nanoda refused → tested via CI).
+
+## 2026-10-30 · run 2026-10-30T0430Z · second verified finding F2
+- C4 → **F2**: Capozziello, Lazkoz, Salzano 2011 Eq. (22): CPL l₀ w_a² term missing a factor 9; paper's numbers unaffected (Fig. 2 follows the correct value); misprint reprinted in Bamba et al. 2012 (arXiv:1205.3421) Eq. (11.38).
+- Frozen 4663ac9 → PROVED in Work (CI 41006086049 green) → AUDITED (`runs/2026-10-30T0430Z/audit.md`; blind restatement closed in Lean, CI 41007266062 green) → PROVED in Checked f6ce0b2 (CI 41007523313 green: build, leanchecker, axiom-audit, nanoda 336194 decls no errors): `Checked.Cosmography.CPL.flatCPL_coeffs`, `printedL0_ne`, `clsL0Claim_false`.
+- `Checked.Cosmography.CPLExistence.exists_flatCPL`, `printedL0_false_at` (+ tool `exists_local_model`): AUDITED (addendum) → Checked b6267ff (CI 41007796446: see CHANGELOG/STATE for conclusion).
+- Referee: STANDS-WITH-CORRECTIONS (corrections adopted; caveat "no interior-Ω model" closed by `printedL0_false_at`).
+
+## 2026-10-30 · experiment (annex LIV) · ODE existence instead of closed-form witnesses
+- Problem: refutations need a model with the printed formula's parameters; closed forms exist only for special parameters (F1 needed a sinh trick; C4's closed form only at Ω = 0). Root cause: witnesses were hunted case by case.
+- Change: generic `exists_local_model` (Mathlib Picard–Lindelöf + C⁵ bootstrap) in Checked; PROMPT working note.
+- How to tell: next refutations (C3, C1, any wCDM/CPL screen hit) should need no bespoke witness; count runs spent on witnesses.
+
+## 2026-10-30 · experiment (annex LIV) · auxiliary function for non-polynomial laws
+- Problem: CPL law has a real power and an exponential, not a polynomial identity. Change: one auxiliary g with its exact chain-rule identity, both differentiated, solved at t₀ without division (`scripts/gen_cpl.py`). Effect seen: whole theorem compiled after 3 local iterations (one fix was a `Pi.mul_apply` simp lemma, one a heartbeat limit). Keep.
+
+## 2026-10-30 · process note · commit attribution
+- Earlier commits of this run (d1e3bb4…e3d4606) lack the session attribution trailer the environment asks for; later commits carry it. No history rewriting (48.3); recorded here.

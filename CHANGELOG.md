@@ -21,3 +21,10 @@
 - nanoda repaired (pinned lean4export v4.35.0 + nanoda_lib master) and made blocking again.
 - PROMPT.md: Alexander's no-approval instruction; typeset route; proof-generation note.
 - Message to Alexander: verified finding F1 (L.2).
+
+## 2026-10-30T0430Z (scheduled run)
+- Env: repo ok (session repo pre-cloned; add_repo tool not exposed, not needed); local Lean via elan ok; CI runs 41003668913, 41006086049, 41007266062, 41007523313 green (last with nanoda); 41007796446 see STATE.
+- **Second verified finding F2** (CLS 2011 Eq. 22, CPL l₀ missing factor 9; reprinted in Bamba et al. 2012). PROVED + AUDITED in Checked: general flat matter + CPL q₀…l₀ for every Ω, w₀, wₐ; printed l₀ refuted (explicit model, and at every parameter point with (1−Ω)(7−Ω)wₐ ≠ 0 via ODE existence). Blind restatement closed in Lean; referee STANDS-WITH-CORRECTIONS.
+- New reusable tool: `exists_local_model` (local model for any smooth expansion law).
+- PROMPT working notes: witness by ODE existence; auxiliary-function method.
+- Message to Alexander: verified finding F2 (L.2).
