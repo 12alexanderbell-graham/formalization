@@ -20,3 +20,4 @@ import Work.Cosmography.BambaCurvedAudit
 import Work.Cosmography.BambaAngular
 import Work.Cosmography.BambaAngularAudit
 import Work.Cosmography.BambaZ
+import Work.Cosmography.BambaZAudit
