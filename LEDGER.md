@@ -156,3 +156,14 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 ## 2026-10-30 · experiment (annex LIV) · start the referee at freeze time
 - Problem: subagents run synchronously; this run blind (9 min) and screen (16 min) ran in parallel, but the referee ran alone afterwards and took 48 min, the largest single block of the run. Root cause: the referee was started only after proofs; but its main work (independent derivation, provenance, prior art, statement attack) needs only the frozen statements.
 - Change: PROMPT note: launch blind restatement, referee and any screen together right after the freeze commit; the referee attacks the frozen statements, the main session then checks the proofs. How to tell: next finding's run has no serial referee block.
+
+## 2026-10-30 · run 2026-10-30T1428Z · verified finding F9
+- C13 (+ C11) → **F9**: Bamba et al. 2012 (arXiv:1205.3421 v1–v3) Eq. (11.31), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583 v1/v2) Eq. (33): correct R − printed R = −2(3j₀²q₀ + 10j₀² + 11j₀q₀² + 4j₀q₀ + 90q₀²); printed F(R₀) formula (11.21) fails the paper's ΛCDM check (11.40) at every Ω ∈ (0,1); (11.13) sign of 2(q₀+4)j₀. Frozen 4ff3816 → PROVED in Work 1df6387, 5adf870 → AUDITED (`runs/2026-10-30T1428Z/audit.md`, blind closed c849eb5) → promoted to `Checked.Cosmography.FRCosmo` 2d0fae5 (CI in STATE). Referee STANDS. C12, C14: second routes.
+
+## 2026-10-30 · experiment (annex LIV) · evaluation of run 1232Z experiments
+- Subagents at freeze time: blind (21 min) and referee (13 min) ran in parallel right after the freeze; no serial referee block; proofs started after both returned, nothing redone. KEEP. Residual cost: the session is blocked while they run (≈ 21 min idle). Next: prepare the generator scripts (sympy certificates) before the freeze commit so the post-freeze work is pure Lean.
+- Series transfer by exact identities: not exercised (no new series this run).
+
+## 2026-10-30 · experiment (annex LIV) · HasDerivAt combinators must mirror the parse tree
+- Problem: 5 failed local compiles in this run came from `exact (combinator).congr_deriv (by ring)` where the combinator's function was not syntactically the target function (`c * f * g` needs `(hf.const_mul c).mul hg`, not `(hf.mul hg).const_mul c`; sums are left-associated). Lean then elaborates `ring` against an unassigned metavariable and reports "ring failed … = ?m". Second source: `HasDerivAt.mul` and friends leave Pi-applications `(f * g) t`, which need `Pi.mul_apply`, `Pi.sub_apply`, `Pi.div_apply` before `ring`.
+- Change: PROMPT working note. How to tell: next derivative-chain proof compiles with ≤ 2 such errors.

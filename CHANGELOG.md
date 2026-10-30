@@ -58,3 +58,10 @@
 - Sec. XI screen: candidates C11–C14 (F(R) cosmography relations, η numbers), F2 reprint traced to 2008. C10 second route.
 - PROMPT notes: parallel subagents at freeze; series transfer by exact identities. LEDGER: 1028Z experiments evaluated (keep).
 - Message to Alexander: F8 (L.2).
+
+## 2026-10-30T1428Z (scheduled run)
+- Env: repo ok (pre-cloned; stale local main reset to origin); local Lean via elan ok; previous CI 41069186273 green; this run: 41071807029, 41073073503, 41078117151, 41078660695, 41079150781, 41079704808 (promotion, incl. nanoda) all green.
+- **Verified finding F9** (Bamba et al. 2012 Sec. XI, F(R) cosmography: denominator R of (11.31) wrong — from Capozziello, Cardone, Salzano 2008 Eq. (33), with a further +18/−18 slip — so the printed F(R₀) formula (11.21) fails the paper's own ΛCDM check (11.40); (11.13) sign error). PROVED + AUDITED in Checked: F(R₀), F″(R₀), F‴(R₀) from (q₀, j₀, s₀, l₀) for every model of the metric F(R) FLRW equations (no nondegeneracy); ΛCDM model for every Ω ∈ (0,1); refutations. Three independent derivations agree; blind closed in Lean; referee STANDS.
+- C12, C14 second routes. Tools: `hvals`, `curvData`, differentiate-an-eventual-identity pattern.
+- PROMPT notes: combinator shape, field-equation differentiation, de Sitter witness. LEDGER: 1232Z experiments evaluated (keep).
+- Message to Alexander: F9 (L.2).

@@ -15,7 +15,7 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 
 ## Current phase: work target 1
 
-S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1–F8 (FINDINGS.md); next: C10, then Sec. XI candidates C11–C14.
+S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1–F9 (FINDINGS.md); next: C14, C10 (see `STATE.md`), then a new source family.
 
 ## Working notes (maintained by runs, annex LIV)
 
@@ -40,3 +40,6 @@ S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmog
 - **Subagent file hygiene:** briefs must say: downloaded PDFs, full-page renders and text dumps go to a temp dir outside the repo; only crops (≤ 200 KB each) go into `runs/<run>/typeset/`.
 - **Subagents in parallel at freeze time** (run 1232Z): subagent calls block the session. Right after the freeze commit, launch blind restatement, referee and any screen in ONE message (they run concurrently); the referee needs only the frozen statements (attack them, independent derivation, provenance, prior art). Run 1232Z lost ~48 min to a referee started after the proofs.
 - **New series from proved series** (run 1232Z): when a series in another variable (z vs y) or another distance (d_A vs d_L) is needed, prove an exact rational identity with sympy (`field_simp; ring` checks it) and transfer the remainder (`Checked.Cosmography.BambaZ.transfer`); no new analysis.
+- **HasDerivAt combinators mirror the parse tree** (run 1428Z, 5 wasted compiles): `c * f * g` is `(hf.const_mul c).mul hg`; sums are left-associated; otherwise `exact (…).congr_deriv (by ring)` fails with "ring failed … = ?m". After `.mul`/`.sub`/`.div`, simp with `Pi.mul_apply, Pi.sub_apply, Pi.div_apply` before `ring`.
+- **Differentiating a field equation** (run 1428Z): state it as `∀ᶠ t in 𝓝 t₀, E t`, build `hG : HasDerivAt G X t₀` with combinators (let Lean infer G), then `hG.unique ((hasDerivAt_const t₀ 0).congr_of_eventuallyEq hG0)` gives X = 0. H-derivatives at t₀ from (q₀, j₀, s₀, l₀): `Checked.Cosmography.FRCosmo.hvals`; R, Ṙ, R̈ near t₀: `curvData`.
+- **Simplest global witness:** de Sitter `a = exp` (H ≡ 1, all cosmographic parameters ±1, globally C^∞) closes blind restatements that demand global smoothness (`Work/Cosmography/FRCosmoAudit.lean`).
