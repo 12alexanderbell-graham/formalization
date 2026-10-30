@@ -36,3 +36,11 @@ for kind in ("blind", "author"):
     for r in sel:
         if not r[3]:
             print(f"  SURVIVOR {r[1]}:{r[2]}")
+
+# Pinning: a theorem `<spec>_pins` proves that every function meeting the spec equals the
+# program's definition on the admissible domain (no mutant can survive it there).
+specs = sorted(set(re.findall(r"structure (\w+Spec\d?)\b", allsrc)))
+pins = set(m.lower() for m in re.findall(r"theorem (\w+)_pins\b", allsrc))
+for sp in specs:
+    key = sp[0].lower() + sp[1:]
+    print(f"spec {sp}: {'PINS the definition' if key.lower() in pins else 'anchors only (does not pin)'}")

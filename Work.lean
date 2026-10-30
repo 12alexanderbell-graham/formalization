@@ -35,3 +35,5 @@ import Work.Fidelity.RedTeamLumDistCheck
 import Work.Fidelity.MoreSpecs
 import Work.Fidelity.RedTeamMore
 import Work.Fidelity.RedTeamMoreCheck
+import Work.Fidelity.SpecGaps
+import Work.Fidelity.LumDistSpec2
