@@ -15,7 +15,7 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 
 ## Current phase: work target 1
 
-S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1, F2 (FINDINGS.md); candidates C1, C3 are typeset-confirmed and need Lean evidence.
+S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1, F2, F3 (FINDINGS.md); candidate C1 is typeset-confirmed and needs Lean evidence.
 
 ## Working notes (maintained by runs, annex LIV)
 
@@ -28,3 +28,7 @@ S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmog
 - **Witness models without closed forms** (run 0430Z): `Checked.Cosmography.CPLExistence.exists_local_model` turns any expansion law H/H₀ = E(a/a₀) with E C⁵ at 1 into a C⁵ scale factor near t₀ (Mathlib Picard–Lindelöf + bootstrap). Use it instead of hunting for explicit solutions; instantiate E and match `IsFlat…` as in `exists_flatCPL`.
 - **Non-polynomial Friedmann laws** (run 0430Z): introduce one auxiliary function for the non-polynomial factor (e.g. g = (1+z)^p e^{…}) plus its exact chain-rule identity; differentiate both identities and solve at t₀ without dividing (`runs/2026-10-30T0430Z/scripts/gen_cpl.py`). Needs `set_option maxHeartbeats 8000000 in` for 5th order.
 - **External tooling** (lean4export, nanoda) cannot be built locally: the environment refuses running external code. Test tooling changes through CI.
+- **Series in z without derivatives of compositions** (run 0628Z): Mathlib `taylor_isLittleO` gives a = a₀A(x) + o(x⁵); then invert/compose with truncated powers: z = Z₁(x) + o, z^{k+1} = Z_{k+1}(x) + o using Z₁Z_k = Z_{k+1} + x⁶W_k (sympy emits Z_k, W_k; `ring` checks). See `Checked.Cosmography.CCS.inversion` and `runs/2026-10-30T0628Z/scripts/gen2.py`. Whole general theorem took ~5 local iterations. Prefer this over iterated `HasDerivAt` chains for any distance–redshift series.
+- **Screen hubs, not single papers** (run 0628Z): F2 and F3 were both copied into the same review (Bamba et al. 2012, arXiv:1205.3421) and into other papers of the same group. When a finding's source has a review or follow-up that reprints it, check every formula in that reprint's section with sympy.
+- **Records quote FINDINGS, not memory:** STATE once misdescribed C3's error (said −l₀/120 was wrong; it is the q₀⁴ term). When STATE or a message names a formula error, copy it from the FINDINGS row or the typeset crop.
+- **Commit attribution:** end every commit message with the attribution trailer lines given in the session's system reminder (write the message with `git commit -F <file>`). Runs 0430Z and 0628Z forgot it on several commits.

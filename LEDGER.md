@@ -96,3 +96,21 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 
 ## 2026-10-30 · process note · commit attribution
 - Earlier commits of this run (d1e3bb4…e3d4606) lack the session attribution trailer the environment asks for; later commits carry it. No history rewriting (48.3); recorded here.
+
+## 2026-10-30 · run 2026-10-30T0628Z · third verified finding F3
+- C3 → **F3**: Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583v2) Eq. (A2): lookback-distance D⁴_z has 7/2 q₀⁴, correct 7/8 q₀⁴; paper's d_L, d_A unaffected; misprint reprinted in arXiv:0902.0088 Eq. (25), 1104.3096 Eq. (A2), 1205.3421 Eq. (10.25).
+- Frozen 362315b, 76227bf → PROVED in Work (374dee3 CI 41016090351 green; ee4fd5b) → AUDITED (`runs/2026-10-30T0628Z/audit.md`; blind restatement closed in Lean, `Work/Cosmography/CCSAudit.lean`) → promoted dac809b (CI: see STATE): `Checked.Cosmography.CCS.lookback_fifth_order`, `printedD4_fails`, `printedD4_fails_past`, `ccsD4Claim_false`, `ccsD4ClaimPast_false`.
+- Referee: STANDS. Pipeline time for a candidate: one run (freeze → PROVED general theorem → audit → referee → promotion).
+
+## 2026-10-30 · experiment (annex LIV) · truncated-power series inversion
+- Problem: distance–redshift series need composition/inversion of Taylor series; iterated `HasDerivAt` chains (F1/F2 method) grow fast and need heartbeat hacks. Root cause: differentiating compositions instead of composing expansions.
+- Change: `taylor_isLittleO` + `inversion` lemma (truncated powers, sympy remainders, `ring` checks). Effect seen: general fifth-order lookback theorem in ~5 local iterations, 27 s elaboration, no heartbeat options.
+- How to tell: C1 (d_Q) and M2/M3 (d_L) should reuse it with a new A/P; count iterations.
+
+## 2026-10-30 · experiment (annex LIV) · hub screening
+- Observation: the Bamba et al. 2012 review reprints both F2 and F3; 0902.0088 and 1104.3096 reprint F3. Errors propagate within one group's papers and its review. Change: PROMPT note; STATE next step screens the review's cosmography sections formula by formula. How to tell: findings per screened formula vs the 2026-10-30T0028Z broad screen.
+
+## 2026-10-30 · process note · records and attribution
+- STATE (run 0430Z) misstated C3's error (named the l₀ term); caught by sympy before any Lean work. PROMPT note: quote FINDINGS/crops, not memory.
+- This run's commits before the records commit lack the attribution trailer (second run in a row). PROMPT note added. No history rewriting (48.3).
+- Referee subagent read the arXiv abs listing via export.arxiv.org after WebFetch timed out (PROMPT lists it among routes not to use); no finding content relies on it. Next referee prompts: say "if arxiv.org/abs is unreachable, report it; do not use mirrors".

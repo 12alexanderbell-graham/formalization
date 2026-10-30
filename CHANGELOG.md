@@ -28,3 +28,10 @@
 - New reusable tool: `exists_local_model` (local model for any smooth expansion law).
 - PROMPT working notes: witness by ODE existence; auxiliary-function method.
 - Message to Alexander: verified finding F2 (L.2).
+
+## 2026-10-30T0628Z (scheduled run)
+- Env: repo ok (pre-cloned; add_repo tool not exposed, not needed); local Lean via elan ok; CI runs 41014293442, 41015036651, 41016090351, 41016197447, 41016220832 green; promotion CI in STATE.
+- **Third verified finding F3** (Capozziello, Cardone, Salzano 2008 Eq. A2: lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴; reprinted in three later papers incl. the Bamba et al. 2012 review). PROVED + AUDITED in Checked: general fifth-order lookback series for every C⁵ scale factor; printed D⁴ refuted in every model with q₀ ≠ 0 (two-sided and past-only). Blind restatement closed in Lean; referee STANDS.
+- New reusable tool: asymptotic series inversion (`Checked.Cosmography.CCS.inversion`).
+- PROMPT working notes: series inversion method; hub screening; records quote FINDINGS; commit attribution.
+- Message to Alexander: verified finding F3 (L.2).
