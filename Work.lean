@@ -39,3 +39,4 @@ import Work.Fidelity.SpecGapsLCDM
 import Work.Fidelity.FriedmannBlind
 import Work.Fidelity.BlindSpecsZC
 import Work.Fidelity.BlindSpecs3
+import Work.Fidelity.BlindFR
