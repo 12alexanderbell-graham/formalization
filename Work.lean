@@ -6,3 +6,4 @@ import Work.Cosmography.AvilesLCDM
 import Work.Cosmography.AvilesAudit
 import Work.Cosmography.AvilesWitness
 import Work.Cosmography.CPLCoefficients
+import Work.Cosmography.CPLAudit

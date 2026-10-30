@@ -302,14 +302,11 @@ lemma hubble_cplW_zero : hubble cplW 0 = 1 := by
 lemma contDiffAt_cplW (n : WithTop ℕ∞) {t : ℝ} (ht : t < 1) : ContDiffAt ℝ n cplW t :=
   contDiffAt_const.sub ((contDiffAt_const.sub contDiffAt_id).log (by simp; linarith))
 
-/-- The witness obeys the flat CPL law (17) with Ω = 0, w₀ = −1, wₐ = 2/3, at t₀ = 0. -/
-theorem cplW_isFlatCPL : IsFlatCPL 0 (-1) (2 / 3) cplW 0 := by
-  refine ⟨by rw [hubble_cplW_zero]; norm_num, ?_⟩
-  have hc : ContinuousAt cplW 0 := (contDiffAt_cplW 0 (by norm_num)).continuousAt
-  have hpos : ∀ᶠ t in 𝓝 (0 : ℝ), 0 < cplW t :=
-    hc.eventually (lt_mem_nhds (by rw [cplW_zero]; norm_num))
-  filter_upwards [hpos, gt_mem_nhds (show (0 : ℝ) < 1 by norm_num)] with t hat ht
-  refine ⟨hat, (hasDerivAt_cplW ht).differentiableAt, ?_⟩
+/-- The witness obeys law (17) at every `t < 1` where it is positive. -/
+lemma cplW_law {t : ℝ} (hat : 0 < cplW t) (ht : t < 1) :
+    hubble cplW t = hubble cplW 0 * √(0 * (1 + redshift cplW 0 t) ^ 3 +
+      (1 - 0) * (1 + redshift cplW 0 t) ^ (3 * (1 + -1 + 2 / 3 : ℝ)) *
+        Real.exp (-(3 * (2 / 3 : ℝ) * redshift cplW 0 t) / (1 + redshift cplW 0 t))) := by
   have hu : 0 < 1 - t := by linarith
   have hz : 1 + redshift cplW 0 t = 1 / cplW t := by
     rw [redshift, cplW_zero]; ring
@@ -329,6 +326,15 @@ theorem cplW_isFlatCPL : IsFlatCPL 0 (-1) (2 / 3) cplW 0 := by
     ring
   rw [hsq, Real.sqrt_sq (by positivity)]
   ring
+
+/-- The witness obeys the flat CPL law (17) with Ω = 0, w₀ = −1, wₐ = 2/3, at t₀ = 0. -/
+theorem cplW_isFlatCPL : IsFlatCPL 0 (-1) (2 / 3) cplW 0 := by
+  refine ⟨by rw [hubble_cplW_zero]; norm_num, ?_⟩
+  have hc : ContinuousAt cplW 0 := (contDiffAt_cplW 0 (by norm_num)).continuousAt
+  have hpos : ∀ᶠ t in 𝓝 (0 : ℝ), 0 < cplW t :=
+    hc.eventually (lt_mem_nhds (by rw [cplW_zero]; norm_num))
+  filter_upwards [hpos, gt_mem_nhds (show (0 : ℝ) < 1 by norm_num)] with t hat ht
+  exact ⟨hat, (hasDerivAt_cplW ht).differentiableAt, cplW_law hat ht⟩
 
 /-- **Refutation of the printed l₀ in Eq. (22)**, by an explicit flat CPL model
 (Ω = 0, w₀ = −1, wₐ = 2/3, a(t) = 1 − log(1 − t), t₀ = 0): true l₀ = 24, printed 160/9. -/
