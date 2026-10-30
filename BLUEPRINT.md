@@ -2,10 +2,10 @@
 
 ## Trust track T1 (definition fidelity), `Checked/Fidelity/` (specs, pins) and `Work/Fidelity/` (benchmarks, blind originals)
 - Specs + `meets_spec`: LumDistSpec, LumDistSpec2, HubbleSpec, DecelSpec, AngDistSpec, FlatLCDMSpec: **PROVED** (CI 41114284138). Run 2028Z: FlatLCDMSpec2 + FriedmannLCDM (blind), RedshiftSpecCore, CosmoCoeffSpecCore, YRedSpec, Omega0Spec, CurvKSpec (blind, verbatim): AUDITED (`runs/2026-10-30T2028Z/audit_friedmann.md`, `audit_pins2.md`), CI in STATE.
-- Pins (13 definitions): `lumDistSpec2_pins`, `hubbleSpec_pins`, `decelSpec_pins`, `angDistSpec_pins` (PROVED); run 2028Z: `flatLCDMSpec2_pins` + `isFlatLCDM_iff_friedmann` (PROVED, CI 41125393349), `redshiftCore_pins`, `cosmoCoeffCore_pins`, `yRedSpec_pins`, `omega0Spec_pins`, `curvKSpec_pins`, `lumDistFlat_pins`, `comoving_pins`, `flatCPL_pins` + `isFlatCPL_iff_friedmannCPL` (AUDITED; CI in STATE).
-- Trust map (`scripts/trust/StatementDeps.lean`, `TRUST_MAP.md`, CI step): per headline, the definitions its statement rests on. 68 of 82 physics headlines rest only on pinned definitions. Unpinned: FRCosmo (`curv`, `rhoM`, `FriedmannEq`, `MasterEq`, `IsFRCosmo`; F9, F10), `dQFlat` (F5), `transverse` (helper).
+- Pins (17 definitions): `lumDistSpec2_pins`, `hubbleSpec_pins`, `decelSpec_pins`, `angDistSpec_pins` (PROVED); run 2028Z: `flatLCDMSpec2_pins` + `isFlatLCDM_iff_friedmann` (PROVED, CI 41125393349), `redshiftCore_pins`, `cosmoCoeffCore_pins`, `yRedSpec_pins`, `omega0Spec_pins`, `curvKSpec_pins`, `lumDistFlat_pins`, `comoving_pins`, `flatCPL_pins` + `isFlatCPL_iff_friedmannCPL`, `ricciSpec_pins`, `rhoM_eq_dust`, `friedmannEq_iff_blind`, `masterEq_iff_blind` (AUDITED; CI in STATE).
+- Trust map (`scripts/trust/StatementDeps.lean`, `TRUST_MAP.md`, CI step): per headline, the definitions its statement rests on. 77 of 82 physics headlines rest only on pinned definitions. Unpinned: `dQFlat` (F5), `transverse` (helper).
 - Mutation benchmark: 30/30 blind + 10/10 author refuted (Work). Spec gaps: 4 + 4 found, all closed by pins.
-- Next: F(R) blind spec; `dQFlat`; T2.
+- Next: `dQFlat`; T2.
 
 Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXXVIII). Mathlib-only; definitions mirror Physlib's.
 

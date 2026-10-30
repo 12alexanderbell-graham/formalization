@@ -2,9 +2,9 @@
 
 Environment: repo pre-cloned (add_repo not exposed, not needed); local main fast-forwarded; pushes verified (remote head = local each time). Local Lean via elan + `lake exe cache get` (~4 min). CI read by ID (STATE). Governance: PROMPT, core, STATE, CHANGELOG read. Previous run's CI (41115616706, 41116631712) green.
 
-**WHAT CAN A SCIENTIST NOW TRUST WITHOUT CHECKING IT THEMSELVES?** For 68 of the 82 physics headline theorems (F0–F11), every program-written physics definition the statement uses is pinned: a Lean theorem says any function obeying blind-written textbook laws equals the program's definition on the physical domain. At the start of the run this held for at most 15 of 88 headlines. And which definitions each headline rests on is now computed by machine (CI), not listed by hand.
+**WHAT CAN A SCIENTIST NOW TRUST WITHOUT CHECKING IT THEMSELVES?** For 77 of the 82 physics headline theorems (F0–F11), every program-written physics definition the statement uses is pinned: a Lean theorem says any function obeying blind-written textbook laws equals the program's definition on the physical domain. At the start of the run this held for at most 15 of 88 headlines. And which definitions each headline rests on is now computed by machine (CI), not listed by hand.
 
-**WEAKEST UNCHECKED STEP NOW:** for the 14 remaining physics headlines, their unpinned definitions: the metric F(R) field equations (`FRCosmo.curv`, `rhoM`, `FriedmannEq`, `MasterEq`, `IsFRCosmo`; F9, F10), the deceleration distance `dQFlat` (F5). For all headlines: the textbook laws themselves (blind subagents of the same model, refereed, anchored by closed forms), and transcriptions of printed formulas (T3).
+**WEAKEST UNCHECKED STEP NOW:** for the 5 remaining physics headlines: the deceleration distance `dQFlat` (F5; its definition d_Q = d_L/(1+z)^{3/2} is a convention with no independent law yet) and the S_K helper `transverse`. For all headlines: the textbook laws themselves (blind subagents of the same model, refereed, anchored by closed forms), and transcriptions of printed formulas (T3).
 
 **BOTTLENECK AND WHY:** STATE's next step was to close the `FlatLCDMSpec` gaps. Doing so exposed the real question: "4 of 5 central definitions pinned" was a hand-picked list. Which definitions do the headlines actually rest on? A machine answer (trust map) showed `cosmoCoeff` (67 headlines) and `redshift` (58) were unpinned: the run's main block went there. Yes = the trust metric moves on what the findings actually use.
 
@@ -15,7 +15,9 @@ Environment: repo pre-cloned (add_repo not exposed, not needed); local main fast
 
 4. `IsFlatCPL` (F2) pinned the same way as ΛCDM: blind `FriedmannCPL` (dark-energy continuity in differential form; referee STANDS), `isFlatCPL_iff_friedmannCPL` (integrates the continuity equation on a ball; Darboux), `flatCPL_pins`.
 
-**RESULT (metric):** physics headlines resting only on pinned definitions: 68/82 (start ≤ 15/88). Pinned definitions: 13 (start 4). Blind kill rate unchanged 30/30.
+5. The metric F(R) cosmology definitions (F9, F10): blind spec derived from the F(R) field equations and mapped to the review's sign convention (referee re-derived it in sympy: STANDS); `ricciSpec_pins`, `rhoM_eq_dust`, `friedmannEq_iff_blind`, `masterEq_iff_blind`.
+
+**RESULT (metric):** physics headlines resting only on pinned definitions: 77/82 (start ≤ 15/88). Pinned definitions: 17 (start 4). Blind kill rate unchanged 30/30.
 
 **WHAT COULD STILL BE WRONG:** same-model authorship of specs, referee and proofs (correlated misconceptions); the dependency walk counts only `Checked`-namespace definitions (Mathlib's `deriv`, `iteratedDeriv`, `∫` are trusted as Mathlib); `def_kinds.txt` classification is by hand (a physics definition misfiled as FORMULA would hide a gap — 43 FORMULA entries, all explicit polynomial/rational expressions in parameters).
 

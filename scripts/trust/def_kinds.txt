@@ -2,6 +2,8 @@
 # Read by scripts/trust/StatementDeps.lean. Kinds:
 #   PHYSICS   meaning-bearing definition (a physical quantity or model); needs a pinning spec
 #             (scripts/trust/pins.txt) to be machine-trusted (trust track T1)
+#   (IsFRCosmo is COMPOSITE: its fields are pinned definitions plus the source's explicit model
+#   assumptions F′(R₀) = 1, F⁽⁴⁾(R₀) = 0, run 2028Z)
 #   PRINTED   verbatim transcription of a formula printed in a source; trust = transcription
 #             fidelity (trust track T3)
 #   CLAIM     a source's claim, stated as a Prop from PRINTED/PHYSICS parts (refuted or proved)
@@ -89,7 +91,7 @@ Checked.Cosmography.DemianskiZ.DemDLzClaimPast CLAIM
 Checked.Cosmography.DemianskiZ.demDA4 PRINTED
 Checked.Cosmography.DemianskiZ.demDL4 PRINTED
 Checked.Cosmography.FRCosmo.FriedmannEq PHYSICS
-Checked.Cosmography.FRCosmo.IsFRCosmo PHYSICS
+Checked.Cosmography.FRCosmo.IsFRCosmo COMPOSITE
 Checked.Cosmography.FRCosmo.MasterEq PHYSICS
 Checked.Cosmography.FRCosmo.P0 PRINTED
 Checked.Cosmography.FRCosmo.P2 PRINTED
@@ -138,3 +140,7 @@ Checked.Fidelity.YRedSpec SPEC
 Checked.Fidelity.Omega0Spec SPEC
 Checked.Fidelity.CurvKSpec SPEC
 Checked.Fidelity.FriedmannCPL SPEC
+Checked.Fidelity.RicciFlatFLRWSpec SPEC
+Checked.Fidelity.DustDensity SPEC
+Checked.Fidelity.FRFirstEq SPEC
+Checked.Fidelity.FRSecondEq SPEC

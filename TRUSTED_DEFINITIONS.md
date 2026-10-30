@@ -15,6 +15,7 @@
 | `BambaK.omega0` | `Omega0Spec` (blind; total Ω₀) | yes, `omega0Spec_pins` (a₀ > 0, H₀ ≠ 0) |
 | `BambaZ.curvK` | `CurvKSpec` (blind; k = −Ω_k) | yes, `curvKSpec_pins` (a₀ > 0, H₀ ≠ 0) |
 | `BambaY.lumDistFlat`, `BambaY.comoving` | via `LumDistSpec2` | yes, `lumDistFlat_pins`, `comoving_pins` |
+| `FRCosmo.curv`, `rhoM`, `FriedmannEq`, `MasterEq` | blind `RicciFlatFLRWSpec`, `DustDensity`, `FRFirstEq`, `FRSecondEq` (review sign convention) | yes, `ricciSpec_pins`, `rhoM_eq_dust`, `friedmannEq_iff_blind`, `masterEq_iff_blind` |
 | `CPL.IsFlatCPL` | blind `FriedmannCPL` (dust + CPL fluid, differential continuity) | yes, `flatCPL_pins`; `isFlatCPL_iff_friedmannCPL` (every Ω, w₀, wₐ) |
 
 Which definitions each headline rests on, and which are still unpinned: `TRUST_MAP.md` (generated, CI).

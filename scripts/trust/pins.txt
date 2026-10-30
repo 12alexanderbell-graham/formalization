@@ -14,3 +14,7 @@ BambaZ.curvK Fidelity.curvKSpec_pins
 BambaY.lumDistFlat Fidelity.lumDistFlat_pins
 BambaY.comoving Fidelity.comoving_pins
 CPL.IsFlatCPL Fidelity.flatCPL_pins
+FRCosmo.curv Fidelity.ricciSpec_pins
+FRCosmo.rhoM Fidelity.rhoM_eq_dust
+FRCosmo.FriedmannEq Fidelity.friedmannEq_iff_blind
+FRCosmo.MasterEq Fidelity.masterEq_iff_blind

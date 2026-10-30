@@ -20,3 +20,8 @@ Verdict: AUDITED.
 ## Addendum: `IsFlatCPL` (`Checked/Fidelity/FriedmannCPL.lean`)
 - Blind `FriedmannCPL` frozen in f15af15, copied verbatim (diff of the def body: identical). Referee `referee_friedmannCPL.md`: STANDS (continuity sign, CPL rewrite, quantifiers, no junk loophole; sympy closed form).
 - `isFlatCPL_iff_friedmannCPL` for every Ω, w₀, wₐ, a, t₀ (backward direction integrates the differential continuity equation on a ball and uses Darboux for the sign of H); `flatCPL_pins : (∀ …, P … ↔ FriedmannCPL …) → P = IsFlatCPL`. Axioms: standard three. AUDITED.
+
+## Addendum: F(R) definitions (`Checked/Fidelity/FRSpecs.lean`)
+- Blind `RicciFlatFLRWSpec`, `DustDensity`, `FRFirstEq`, `FRSecondEq` frozen in ff9272f, copied verbatim (block substring check passed; the blind file's unused `hubble` helper not copied). Referee `referee_FR.md`: STANDS (sympy re-derivation from the metric F(R) field equations, mapped to the review's convention R = −R_c, F(R) = −f(−R); GR limit; ΛCDM = R + 2Λ consistent with the review's (11.39)–(11.40)).
+- `curv_meets_spec` (all fields), `ricciSpec_pins` (a > 0, twice differentiable), `rhoM_eq_dust` (`rfl`), `friedmannEq_iff_blind`, `masterEq_iff_blind` (every Ω, a, F, t₀, t, with R = curv a). `IsFRCosmo` reclassified COMPOSITE (fields: pinned definitions + the source's explicit assumptions F′(R₀) = 1, F⁽⁴⁾(R₀) = 0). Axioms: standard three. AUDITED.
+- Referee's caution kept for downstream statements: the blind equations take R as a parameter; the program always instantiates R = curv a, and `IsFRCosmo` carries C⁵/C⁴ smoothness, so no `deriv^[n]` junk enters the headlines.

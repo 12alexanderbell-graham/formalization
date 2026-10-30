@@ -7,17 +7,12 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 97. Resting on no unpinned physics definition: 83.
+Headlines: 100. Resting on no unpinned physics definition: 95.
 
 ## Unpinned physics definitions, by number of headlines resting on them
 
 | Definition | Headlines |
 |---|---|
-| `Checked.Cosmography.FRCosmo.curv` | 9 |
-| `Checked.Cosmography.FRCosmo.MasterEq` | 7 |
-| `Checked.Cosmography.FRCosmo.IsFRCosmo` | 7 |
-| `Checked.Cosmography.FRCosmo.FriedmannEq` | 7 |
-| `Checked.Cosmography.FRCosmo.rhoM` | 7 |
 | `Checked.Cosmography.CVdQ.dQFlat` | 4 |
 | `Checked.Cosmography.Transverse.transverse` | 1 |
 
@@ -84,15 +79,15 @@ Headlines: 97. Resting on no unpinned physics definition: 83.
 | `BambaZ.bambaDAzClaimPast_false` | cosmoCoeff, angDist, curvK, decel, hubble, redshift | — | BambaDAzClaimPast, DA1z, DA2z, DA3z, printedDA4z |
 | `BambaZ.milne_printedDL4z_fails_past` | cosmoCoeff, lumDist, curvK, decel, hubble, redshift | — | DL1z, DL2z, DL3z, printedDL4z |
 | `BambaZ.printed_flat_eq` | — | — | printedDA4z, printedDL4z |
-| `FRCosmo.fR_values` | cosmoCoeff, decel, hubble | FriedmannEq, IsFRCosmo, MasterEq, curv, rhoM | P0, P2, P3, Q0, Q2, Q3 |
-| `FRCosmo.curv_derivs` | cosmoCoeff, decel, hubble | curv | — |
-| `FRCosmo.exists_LCDM_model` | IsFlatLCDM, hubble | FriedmannEq, IsFRCosmo, MasterEq, curv, rhoM | — |
-| `FRCosmo.printedR3Claim_false` | cosmoCoeff, decel, hubble | curv | PrintedR3Claim |
-| `FRCosmo.printedF0Mul_false_at` | cosmoCoeff, decel, hubble | FriedmannEq, IsFRCosmo, MasterEq, curv, rhoM | P0, Q0, printedR |
-| `FRCosmo.printedF0ClaimMul_false` | cosmoCoeff, decel, hubble | FriedmannEq, IsFRCosmo, MasterEq, curv, rhoM | P0, PrintedF0ClaimMul, Q0, printedR |
-| `FRCosmo.printedF0_false_at` | cosmoCoeff, decel, hubble | FriedmannEq, IsFRCosmo, MasterEq, curv, rhoM | P0, Q0, printedR |
-| `FRCosmo.printedF0Claim_false` | cosmoCoeff, decel, hubble | FriedmannEq, IsFRCosmo, MasterEq, curv, rhoM | P0, PrintedF0Claim, Q0, printedR |
-| `FREta.eta_ratios` | cosmoCoeff, decel, hubble | FriedmannEq, IsFRCosmo, MasterEq, curv, rhoM | P0, P2, P3, Q0, Q2, Q3 |
+| `FRCosmo.fR_values` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, P2, P3, Q0, Q2, Q3 |
+| `FRCosmo.curv_derivs` | cosmoCoeff, curv, decel, hubble | — | — |
+| `FRCosmo.exists_LCDM_model` | IsFlatLCDM, FriedmannEq, MasterEq, curv, hubble | — | — |
+| `FRCosmo.printedR3Claim_false` | cosmoCoeff, curv, decel, hubble | — | PrintedR3Claim |
+| `FRCosmo.printedF0Mul_false_at` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, Q0, printedR |
+| `FRCosmo.printedF0ClaimMul_false` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, PrintedF0ClaimMul, Q0, printedR |
+| `FRCosmo.printedF0_false_at` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, Q0, printedR |
+| `FRCosmo.printedF0Claim_false` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, PrintedF0Claim, Q0, printedR |
+| `FREta.eta_ratios` | cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble | — | P0, P2, P3, Q0, Q2, Q3 |
 | `FREta.eta20_hasDerivAt` | — | — | P0, P2, Q0, Q2, jL, lL, qL, sL |
 | `FREta.eta30_hasDerivAt` | — | — | P0, P3, Q0, Q3, jL, lL, qL, sL |
 | `FREta.printedEta20_false_at` | — | — | P0, P2, Q0, Q2, jL, lL, printed20, printedDen, qL, sL |
@@ -122,3 +117,6 @@ Headlines: 97. Resting on no unpinned physics definition: 83.
 | `Fidelity.comoving_pins` | comoving, redshift | — | — |
 | `Fidelity.flatCPL_pins` | IsFlatCPL | — | — |
 | `Fidelity.isFlatCPL_iff_friedmannCPL` | IsFlatCPL | — | — |
+| `Fidelity.ricciSpec_pins` | curv | — | — |
+| `Fidelity.friedmannEq_iff_blind` | FriedmannEq, curv | — | — |
+| `Fidelity.masterEq_iff_blind` | MasterEq, curv | — | — |

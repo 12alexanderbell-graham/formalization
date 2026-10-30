@@ -88,5 +88,6 @@
 - New trust tool: trust map (`scripts/trust/StatementDeps.lean` → `TRUST_MAP.md`; CI step; negative-control branch `control/bad-pin-registry`). It showed `cosmoCoeff` (67 headlines) and `redshift` (58) unpinned.
 - T1: blind specs (frozen) and pins for `redshift` (integral law), `cosmoCoeff` (Taylor law; uniqueness of Taylor coefficients), `yred`, `omega0`, `curvK`, plus `lumDistFlat`, `comoving` through `LumDistSpec2`. Referee: laws STAND (convention notes applied). Audited.
 - T1: `IsFlatCPL` pinned against blind `FriedmannCPL` (`isFlatCPL_iff_friedmannCPL`, `flatCPL_pins`); referee STANDS.
-- Metric: physics headlines resting only on pinned definitions 68/82 (start ≤ 15/88); pinned definitions 13 (start 4).
+- T1: F(R) definitions (`curv`, `rhoM`, `FriedmannEq`, `MasterEq`) pinned against a blind F(R) spec (referee STANDS).
+- Metric: physics headlines resting only on pinned definitions 77/82 (start ≤ 15/88); pinned definitions 17 (start 4).
 - PROMPT notes: blind-spec → verbatim core → meets → pin-by-general-law protocol; trust map usage. LEDGER: experiment (trust map), evaluation of run 1828Z experiments.

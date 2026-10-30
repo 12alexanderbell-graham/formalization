@@ -111,3 +111,6 @@ Fidelity.lumDistFlat_pins
 Fidelity.comoving_pins
 Fidelity.flatCPL_pins
 Fidelity.isFlatCPL_iff_friedmannCPL
+Fidelity.ricciSpec_pins
+Fidelity.friedmannEq_iff_blind
+Fidelity.masterEq_iff_blind
