@@ -1,4 +1,7 @@
-import Mathlib
+import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.Analysis.Calculus.Deriv.Pow
+import Mathlib.Analysis.Asymptotics.Lemmas
+import Mathlib.Analysis.SpecificLimits.Normed
 
 /-!
 # Lookback time to second order in redshift (target 1, milestone 1; PROMOTED)
