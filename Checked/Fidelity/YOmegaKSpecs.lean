@@ -11,6 +11,11 @@ definitions in `TRUST_MAP.md` were `BambaY.yred` (30 headlines), `BambaK.omega0`
 `Work/Fidelity/BlindSpecs3.lean` (frozen in commit f15af15), written by a subagent that did not
 read any repository definition. We prove that the program's definitions meet them and that each
 specification pins its definition through its determining law.
+
+Conventions (referee `runs/2026-10-30T2028Z/referee_specs2.md`): `omega0` is the **total**
+density parameter Ω₀ = 1 + K/(a₀H₀)² (not the matter-only Ω_m of much ΛCDM literature);
+`curvK` is k = +K/(a₀H₀)² = Ω₀ − 1 = **−Ω_k** (Visser's cosmography convention), the opposite
+sign of the Planck/Weinberg/Dodelson Ω_k. The specs enforce these readings (`not_omega_k`).
 -/
 
 namespace Checked.Fidelity

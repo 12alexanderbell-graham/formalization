@@ -42,8 +42,12 @@ for kind in ("blind", "author"):
 
 # Pinning: a theorem `<spec>_pins` proves that every function meeting the spec equals the
 # program's definition on the admissible domain (no mutant can survive it there).
-specs = sorted(set(re.findall(r"structure (\w+Spec\d?)\b", allsrc)))
+# Blind source files (Work/Fidelity/Blind*.lean, FriedmannBlind.lean) are frozen originals; their
+# verbatim copies in Checked/Fidelity carry the pins, so only the Checked copies are listed.
+src_pinned = "\n".join(v for k, v in text.items() if not k.startswith(("Blind", "FriedmannBlind")))
+specs = sorted(set(re.findall(r"structure (\w+Spec\w*)\b", src_pinned)))
 pins = set(m.lower() for m in re.findall(r"theorem (\w+)_pins\b", allsrc))
 for sp in specs:
-    key = sp[0].lower() + sp[1:]
-    print(f"spec {sp}: {'PINS the definition' if key.lower() in pins else 'anchors only (does not pin)'}")
+    key = sp.lower()
+    pinned = key in pins or key.replace("spec", "") in pins
+    print(f"spec {sp}: {'PINS the definition' if pinned else 'anchors only (does not pin)'}")

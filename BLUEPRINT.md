@@ -1,10 +1,11 @@
 # BLUEPRINT
 
-## Trust track T1 (definition fidelity), `Checked/Fidelity/` (specs, pins; AUDITED, promotion 43191aa) and `Work/Fidelity/` (benchmarks)
-- Specs + `meets_spec`: LumDistSpec, LumDistSpec2, HubbleSpec, DecelSpec, AngDistSpec, FlatLCDMSpec: **PROVED** (Checked, AUDITED, CI 41114284138).
-- Pins: `lumDistSpec2_pins`, `hubbleSpec_pins`, `decelSpec_pins`, `angDistSpec_pins` (Checked.Fidelity.Pins): **PROVED** (Checked, AUDITED, CI 41114284138). `flatLCDMSpec_pins`: not started.
-- Mutation benchmark: 30/30 blind + 10/10 author refuted (Work). Spec gaps: 4 found, 4 closed.
-- Next: promotion to Checked with audit; CI report of unpinned definitions; T2.
+## Trust track T1 (definition fidelity), `Checked/Fidelity/` (specs, pins) and `Work/Fidelity/` (benchmarks, blind originals)
+- Specs + `meets_spec`: LumDistSpec, LumDistSpec2, HubbleSpec, DecelSpec, AngDistSpec, FlatLCDMSpec: **PROVED** (CI 41114284138). Run 2028Z: FlatLCDMSpec2 + FriedmannLCDM (blind), RedshiftSpecCore, CosmoCoeffSpecCore, YRedSpec, Omega0Spec, CurvKSpec (blind, verbatim): AUDITED (`runs/2026-10-30T2028Z/audit_friedmann.md`, `audit_pins2.md`), CI in STATE.
+- Pins (12 definitions): `lumDistSpec2_pins`, `hubbleSpec_pins`, `decelSpec_pins`, `angDistSpec_pins` (PROVED); run 2028Z: `flatLCDMSpec2_pins` + `isFlatLCDM_iff_friedmann` (PROVED, CI 41125393349), `redshiftCore_pins`, `cosmoCoeffCore_pins`, `yRedSpec_pins`, `omega0Spec_pins`, `curvKSpec_pins`, `lumDistFlat_pins`, `comoving_pins` (AUDITED; CI in STATE).
+- Trust map (`scripts/trust/StatementDeps.lean`, `TRUST_MAP.md`, CI step): per headline, the definitions its statement rests on. 63 of 82 physics headlines rest only on pinned definitions. Unpinned: FRCosmo (`curv`, `rhoM`, `FriedmannEq`, `MasterEq`, `IsFRCosmo`; F9, F10), `IsFlatCPL` (F2; blind `FriedmannCPL` frozen), `dQFlat` (F5), `transverse` (helper).
+- Mutation benchmark: 30/30 blind + 10/10 author refuted (Work). Spec gaps: 4 + 4 found, all closed by pins.
+- Next: `IsFlatCPL ↔ FriedmannCPL`; F(R) blind spec; T2.
 
 Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXXVIII). Mathlib-only; definitions mirror Physlib's.
 

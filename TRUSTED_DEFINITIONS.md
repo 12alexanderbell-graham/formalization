@@ -8,7 +8,15 @@
 | `BambaA.angDist` | `AngDistSpec` | yes, `Checked.Fidelity.angDistSpec_pins` |
 | `hubble` | `HubbleSpec` | yes, `hubbleSpec_pins` (a > 0, differentiable at t) |
 | `decel` | `DecelSpec` | yes, `Checked.Fidelity.decelSpec_pins` (a > 0, twice differentiable, ȧ ≠ 0) |
-| `Aviles.IsFlatLCDM` | `FlatLCDMSpec` | no (anchors and near-misses only) |
+| `Aviles.IsFlatLCDM` | `FlatLCDMSpec2` (anchors + blind Friedmann law `FriedmannLCDM`) | yes, `flatLCDMSpec2_pins` (P = IsFlatLCDM everywhere); `isFlatLCDM_iff_friedmann` |
+| `redshift` | `RedshiftSpecCore` (blind, verbatim core) | yes, `redshiftCore_pins` (a > 0, C¹ on the ray) |
+| `Aviles.cosmoCoeff` | `CosmoCoeffSpecCore` (blind, verbatim core) | yes, `cosmoCoeffCore_pins` (a > 0, Cⁿ near t₀, ȧ ≠ 0) |
+| `BambaY.yred` | `YRedSpec` (blind) | yes, `yRedSpec_pins` (a(t₀), a(t) > 0) |
+| `BambaK.omega0` | `Omega0Spec` (blind; total Ω₀) | yes, `omega0Spec_pins` (a₀ > 0, H₀ ≠ 0) |
+| `BambaZ.curvK` | `CurvKSpec` (blind; k = −Ω_k) | yes, `curvKSpec_pins` (a₀ > 0, H₀ ≠ 0) |
+| `BambaY.lumDistFlat`, `BambaY.comoving` | via `LumDistSpec2` | yes, `lumDistFlat_pins`, `comoving_pins` |
+
+Which definitions each headline rests on, and which are still unpinned: `TRUST_MAP.md` (generated, CI).
 
 Every `def`, `structure` or `class` the program writes: what it is meant to capture, and the tests showing it behaves correctly on known examples (annex 40.5). Prefer Mathlib and Physlib definitions.
 

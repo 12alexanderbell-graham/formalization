@@ -81,3 +81,11 @@
 - Adversary on `FlatLCDMSpec`: 3 plausible + 1 contrived gaps (Lean-proved), to close next run.
 - Referee of the spec laws (all correct); fidelity audit; specs + pins promoted to `Checked/Fidelity/` (43191aa).
 - PROMPT: working note on the fidelity protocol; LEDGER experiment.
+
+## 2026-10-30T2028Z (scheduled run)
+- Env: repo ok (pre-cloned); local Lean via elan ok; previous CI 41115616706, 41116631712 green; this run's CI in STATE.
+- T1: `IsFlatLCDM` pinned by a blind first-principles formulation (`FriedmannLCDM`; `isFlatLCDM_iff_friedmann`, Darboux for the sign of H; `FlatLCDMSpec2`, `flatLCDMSpec2_pins`). Referee STANDS; audited; promotion CI 41125393349 green.
+- New trust tool: trust map (`scripts/trust/StatementDeps.lean` → `TRUST_MAP.md`; CI step; negative-control branch `control/bad-pin-registry`). It showed `cosmoCoeff` (67 headlines) and `redshift` (58) unpinned.
+- T1: blind specs (frozen) and pins for `redshift` (integral law), `cosmoCoeff` (Taylor law; uniqueness of Taylor coefficients), `yred`, `omega0`, `curvK`, plus `lumDistFlat`, `comoving` through `LumDistSpec2`. Referee: laws STAND (convention notes applied). Audited.
+- Metric: physics headlines resting only on pinned definitions 63/82 (start ≤ 15/88); pinned definitions 12 (start 4).
+- PROMPT notes: blind-spec → verbatim core → meets → pin-by-general-law protocol; trust map usage. LEDGER: experiment (trust map), evaluation of run 1828Z experiments.

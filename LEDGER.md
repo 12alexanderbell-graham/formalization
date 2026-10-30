@@ -204,3 +204,12 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 
 ## 2026-10-30 · run 2028Z · integrity event (annex 39.5): CI step added (strengthening only)
 - New step in the `checked` job: `lake env lean scripts/trust/StatementDeps.lean`. It computes, for every headline in `scripts/trust/headlines.txt`, the program definitions its statement rests on and writes `TRUST_MAP.md`. Blocking: a headline, pin or kind entry that does not resolve to exactly one Checked constant; a pin theorem whose statement does not mention its definition. Informational: unpinned physics definitions; stale committed `TRUST_MAP.md` (warning). No existing check changed.
+
+## 2026-10-30 · run 2028Z · evaluation of run 1828Z experiment (machine-checked definition fidelity)
+- Promoted pins exist in Checked: yes (and 8 more this run). CI reports unpinned definitions: yes, since this run (trust map step). Adversary gaps on `FlatLCDMSpec`: closed by a pinning theorem against a blind first-principles formulation rather than by more anchors. KEEP; standard confirmed: pin by a general law, anchors cross-check the law.
+
+## 2026-10-30 · run 2028Z · experiment (annex LIV) · trust map: which definitions do the headlines actually rest on?
+- Problem: the trust claim "4 of 5 central definitions pinned" (run 1828Z) was a hand-picked list; nobody had computed which program definitions the headline statements use. Root cause: dependency of statements on definitions was tracked in prose (TRUSTED_DEFINITIONS), not by machine.
+- Change: `scripts/trust/StatementDeps.lean` (Lean metaprogram over the compiled environment: statement → definitions, transitively, stopping at pinned ones), registries `headlines.txt`, `pins.txt`, `def_kinds.txt`, generated `TRUST_MAP.md`, CI step (registry errors block; report informational; stale-map warning).
+- Observed: at first run 15/88 headlines rested only on pinned definitions; the two most-used definitions were unpinned. After targeting them: 63/82 physics headlines.
+- Evaluate (later run): does every new headline get added to `headlines.txt` (else the map silently shrinks — consider a CI check that every `theorem` cited in STATE "Results" is listed); did the control run fail as required; make the UNPINNED report blocking for new headlines once the F(R)/CPL backlog is closed.
