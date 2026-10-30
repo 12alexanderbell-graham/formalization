@@ -15,7 +15,7 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 
 ## Current phase: work target 1
 
-S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1–F9 (FINDINGS.md); next: C14, C10 (see `STATE.md`), then a new source family.
+S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1–F11 (FINDINGS.md). The Bamba et al. 2012 hub is nearly exhausted; work now goes to new source families (first: GRB/quasar cosmography, F11), screened by subagents at each freeze.
 
 ## Working notes (maintained by runs, annex LIV)
 
@@ -43,3 +43,7 @@ S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmog
 - **HasDerivAt combinators mirror the parse tree** (run 1428Z, 5 wasted compiles): `c * f * g` is `(hf.const_mul c).mul hg`; sums are left-associated; otherwise `exact (…).congr_deriv (by ring)` fails with "ring failed … = ?m". After `.mul`/`.sub`/`.div`, simp with `Pi.mul_apply, Pi.sub_apply, Pi.div_apply` before `ring`.
 - **Differentiating a field equation** (run 1428Z): state it as `∀ᶠ t in 𝓝 t₀, E t`, build `hG : HasDerivAt G X t₀` with combinators (let Lean infer G), then `hG.unique ((hasDerivAt_const t₀ 0).congr_of_eventuallyEq hG0)` gives X = 0. H-derivatives at t₀ from (q₀, j₀, s₀, l₀): `Checked.Cosmography.FRCosmo.hvals`; R, Ṙ, R̈ near t₀: `curvData`.
 - **Simplest global witness:** de Sitter `a = exp` (H ≡ 1, all cosmographic parameters ±1, globally C^∞) closes blind restatements that demand global smoothness (`Work/Cosmography/FRCosmoAudit.lean`).
+- **Screen a new hub at every freeze** (run 1628Z): in the same message as blind + referee, launch a screen subagent on a new source family (printed cosmographic series, F(R)/f(T) relations, Padé or log-polynomial coefficient relations). Candidates against a Checked general theorem cost one subtraction: copy `Checked.Cosmography.DemianskiZ.demDL4_fails_past` (any printed z-series to z⁵ vs `BambaZ.lumDist_z_fifth_order`). Run 1628Z: the screen found F11, proved and promoted in the same run.
+- **Transcriptions must reproduce the paper's own numbers** (run 1628Z): nested brackets across fractions were misparsed twice ((11.43): `6[(81Ω−110)Ω+40]Ω + 16`). If the source prints numbers computed from a formula, a transcription is not used (Lean, report) until it reproduces them; say this in every blind/referee/screen brief.
+- **Local build scope:** `lake build Work` can exceed the tool's 2-minute default (uncached Work modules); build named modules (`lake build Work.Cosmography.X`) and pass an explicit `timeout`.
+- **Rational identities:** when `field_simp` leaves `x⁻¹` or reorders factors so that `ring` fails, rewrite with `div_eq_div_iff hb hd` (or `div_sub_div`, `div_mul_div_comm`) and finish with `ring`; prove the nonzero side conditions by `simp [h…]`/`positivity`. Derivative of ε·K(ε) at 0 with K only continuous: `Checked.Cosmography.FREta.hasDerivAt_mul_cont`.

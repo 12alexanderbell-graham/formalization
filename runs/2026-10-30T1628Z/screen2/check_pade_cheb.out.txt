@@ -1,0 +1,20 @@
+c2 projection integral numeric: 0.3928125  exact: 0.3928125
+c0 printed - derived: 0
+c1 printed - derived: 0
+c2 printed - derived: 0
+c3 printed - derived: 0
+c4 printed - derived: 0
+sum c_k T_k == dL: 0
+R11 b1 = (-10*j0*q0 - 5*j0 + 15*q0**3 + 15*q0**2 + 14*q0 - s0 - 14)/(3*(-j0 + 3*q0**2 + q0 + 7))
+(C.1) printed - derived: 0
+(C.3) printed - derived: 0
+rho_R11 (199) at (195): 1.01406  1/|b1| derived: 1.01406
+rho_P11 2/(1-q0): 1.29032  rho_dL2 (1-q0)/2: 0.775000
+P1,1: coeffs z^0..z^2 of (P - dL): [0, 0, 0] | z^{n+m+1}: True
+P1,2: coeffs z^0..z^3 of (P - dL): [0, 0, 0, 0] | z^{n+m+1}: True
+P2,1: coeffs z^0..z^3 of (P - dL): [0, 0, 0, 0] | z^{n+m+1}: True
+P1,3: coeffs z^0..z^4 of (P - dL): [0, 0, 0, 0, 0] | z^{n+m+1}: True
+P2,2: coeffs z^0..z^4 of (P - dL): [0, 0, 0, 0, 0] | z^{n+m+1}: True
+P3,1: coeffs z^0..z^4 of (P - dL): [0, 0, 0, 0, 0] | z^{n+m+1}: True
+(207) printed - [d/dz(P21/(1+z))]^-1: 0
+(207) - H Taylor through z^2: [0, 0, 0]

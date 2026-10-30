@@ -65,3 +65,11 @@
 - C12, C14 second routes. Tools: `hvals`, `curvData`, differentiate-an-eventual-identity pattern.
 - PROMPT notes: combinator shape, field-equation differentiation, de Sitter witness. LEDGER: 1232Z experiments evaluated (keep).
 - Message to Alexander: F9 (L.2).
+
+## 2026-10-30T1628Z (scheduled run)
+- Env: repo ok (pre-cloned, shallow; unshallowed, stale local main reset to origin); local Lean via elan + cache; previous CI 41082158609 green; this run 41090422641, 41091234687, 41093221867, 41093819830, 41093965309 (C14 promotion, incl. nanoda) green; later runs in STATE.
+- **Verified finding F10** (C14: Bamba et al. 2012 (11.42)–(11.45), from 0802.1583: first-order F(R)-vs-GR deviations η₂₀, η₃₀ wrong in formula and number; conclusion survives). PROVED + AUDITED in Checked (`FREta`).
+- **Verified finding F11** (C15/C16: Demianski et al. 2017 flat D⁴_L −105q₀⁴ and D⁴_A +137j₀; D⁴_L reprinted in Lusso et al. 2019; absorbed by free l₀ in d_L-only fits). PROVED + AUDITED in Checked (`DemianskiZ`).
+- New source families screened: log-polynomial quasar cosmography (relations behind the > 4σ tension claims all correct); Capozziello, D'Agostino, Luongo 2019 review → candidates C19–C23 (C19 H(z) z³ sign and C20 G_eff condition change the paper's f(T) reconstruction numbers; one route each).
+- PROMPT notes: screen a new hub at every freeze; transcriptions must reproduce printed numbers; build scope; rational identities. LEDGER: 1428Z experiments evaluated.
+- Message to Alexander: F10, F11 (L.2).

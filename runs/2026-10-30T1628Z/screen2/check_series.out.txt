@@ -1,0 +1,15 @@
+H(z)/H0 coefficients (z^k * k!):
+0 1
+1 q0 + 1
+2 j0 - q0**2
+3 -4*j0*q0 - 3*j0 + 3*q0**3 + 3*q0**2 - s0
+(165d)/(204) printed - correct: 0
+(246) printed - correct: 8*j0*q0 + 6*j0 - 6*q0**3 - 6*q0**2 + 2*s0
+(163) printed - correct: 0
+LCDM E3 exact: 3*Om*(27*Om**2 - 36*Om + 8)/8  correct-formula: 3*Om*(27*Om**2 - 36*Om + 8)/8  printed(204): 3*Om*(27*Om**2 - 36*Om + 8)/8
+LCDM Om=0.3 numbers: E3 exact -0.0416249999999999  printed (204) -0.0416249999999999
+LCDM q0,j0,s0: [3*Om/2 - 1, 1, 1 - 9*Om/2]
+166 printed - true = Hd*(1 - h)/h**2 | at h=1: 0
+167 printed - true = (-2*Hd*h + Hdd*h - Hdd)/h**3 | at h=1: -2*Hd
+168 printed - true = (-3*Hd**2 + 4*Hdd*h**2 - 4*Hdd*h + 3*h**2)/h**4 | at h=1: 3 - 3*Hd**2
+identity check s: 0

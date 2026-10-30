@@ -167,3 +167,23 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 ## 2026-10-30 · experiment (annex LIV) · HasDerivAt combinators must mirror the parse tree
 - Problem: 5 failed local compiles in this run came from `exact (combinator).congr_deriv (by ring)` where the combinator's function was not syntactically the target function (`c * f * g` needs `(hf.const_mul c).mul hg`, not `(hf.mul hg).const_mul c`; sums are left-associated). Lean then elaborates `ring` against an unassigned metavariable and reports "ring failed … = ?m". Second source: `HasDerivAt.mul` and friends leave Pi-applications `(f * g) t`, which need `Pi.mul_apply`, `Pi.sub_apply`, `Pi.div_apply` before `ring`.
 - Change: PROMPT working note. How to tell: next derivative-chain proof compiles with ≤ 2 such errors.
+
+## 2026-10-30 · run 2026-10-30T1628Z · verified findings F10, F11
+- C14 → **F10**: Bamba et al. 2012 (11.42)–(11.45) (from 0802.1583 Eqs. (43)–(44); reprinted 0902.0088 (107)–(108)): correct first-order η₂₀, η₃₀ coefficients −2(27Ω²+24Ω−32)/(27Ω(Ω−2)(27Ω²+60Ω+112)), −2(81Ω²−60Ω−16)/(243Ω²(Ω−2)(27Ω²+60Ω+112)). Frozen a164886 → PROVED in Work 8b1301e → AUDITED (`runs/2026-10-30T1628Z/audit.md`, blind closed fc4a51f) → promoted `Checked.Cosmography.FREta` f258555, CI 41093965309 green (incl. nanoda). Referee STANDS-WITH-CORRECTIONS.
+- C15, C16 → **F11**: Demianski et al. 2017 (1609.09631) flat D⁴_L −105q₀⁴ (→ +105), D⁴_A +137j₀ (→ −137); D⁴_L reprinted in Lusso et al. 2019 (1907.07692). Frozen ab63005 → PROVED in Work 40619cb → AUDITED (`runs/2026-10-30T1628Z/audit_c15.md`; blind proved all its refutations, same transcription in `DemianskiZAudit`) → promoted `Checked.Cosmography.DemianskiZ` 21729d5 (CI in STATE). Referee STANDS-WITH-CORRECTIONS. Found by a new-hub screen launched at the C14 freeze; refuted in ~15 min with the Checked F8 theorems.
+- Screen of the log-polynomial quasar cosmography hub: every coefficient relation used in the > 4σ tension tests and in the critiques AGREES (negative result recorded); minor C17, C18.
+
+## 2026-10-30 · experiment (annex LIV) · evaluation of run 1428Z experiments
+- HasDerivAt combinators mirror the parse tree: not exercised (this run's derivatives went through `hasDerivAt_mul_cont`, continuity only). Keep the note.
+- Generator before freeze (1232Z follow-up): `gen_eta.py` written before the C14 freeze; post-freeze work was pure Lean (3 local compiles to close all eight headlines). KEEP.
+
+## 2026-10-30 · experiment (annex LIV) · screen a new hub at every freeze
+- Problem: the session idles while blind and referee run (≈ 10 min this run, 21 min in 1428Z), and the Bamba hub is exhausted (STATE). Root cause: subagent time was spent only on the claim in hand.
+- Change: PROMPT note: in the same message as blind + referee, launch a screen of a new source family; its candidates are checked against the Checked general theorems right away. This run: the screen found F11 in the same run. How to tell: next runs keep producing candidates from new families without a dedicated screening run.
+
+## 2026-10-30 · experiment (annex LIV) · transcriptions must reproduce the paper's own numbers
+- Problem: the (11.43) numerator bracket was misparsed twice by subagents (1428Z referee `ref_eta.py`, 1628Z blind). Root cause: nested brackets across a fraction are ambiguous in a crop; nobody checked the transcription against the printed numbers until later.
+- Change: PROMPT note and brief rule: when the source prints numbers computed from a formula, the transcription must reproduce them before it is used. How to tell: no further misparse reaches a Lean file or a report.
+
+## 2026-10-30 · experiment (annex LIV) · local build scope and `field_simp`
+- `lake build Work` locally exceeded the 2-min tool limit (other Work modules not cached). Build named modules (`lake build Work.Cosmography.X`) with an explicit timeout. `field_simp` left Ω⁻¹ / reordered cubics unsolved twice; `rw [div_eq_div_iff …]` / `div_sub_div` then `ring` closed them first time. PROMPT note.
