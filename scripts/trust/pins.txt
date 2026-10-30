@@ -11,3 +11,4 @@ Aviles.cosmoCoeff Fidelity.cosmoCoeffCore_pins
 BambaY.yred Fidelity.yRedSpec_pins
 BambaK.omega0 Fidelity.omega0Spec_pins
 BambaZ.curvK Fidelity.curvKSpec_pins
+Checked.Cosmography.redshift Fidelity.decelSpec_pins
