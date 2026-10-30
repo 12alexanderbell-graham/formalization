@@ -34,8 +34,7 @@ jobs:
           axiom-audit-root: "Checked"
           leanchecker: "true"
           leanchecker-args: "Checked"
-      - name: Independent type check of Checked with nanoda (REPORT-ONLY until repaired, see LEDGER)
-        continue-on-error: true
+      - name: Independent type check of Checked with nanoda (blocking; repaired run 2026-10-30T0220Z, see LEDGER)
         run: scripts/nanoda_checked.sh
       - name: No sorry / axiom / native_decide in Checked sources (belt and braces)
         run: |
