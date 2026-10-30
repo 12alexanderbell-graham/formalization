@@ -18,3 +18,4 @@ import Checked.Cosmography.DemianskiZ
 import Checked.Fidelity.LumDistSpec
 import Checked.Fidelity.MoreSpecs
 import Checked.Fidelity.Pins
+import Checked.Fidelity.FriedmannLCDM
