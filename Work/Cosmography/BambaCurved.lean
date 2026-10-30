@@ -28,7 +28,14 @@ Conventions (as `Checked.Cosmography`): `c = 1`, `hubble a t = ȧ/a`, `decel a t
 `cosmoCoeff n a t = a⁽ⁿ⁾/(a Hⁿ)` (j, s, l for n = 3, 4, 5), `redshift a t₀ t = a(t₀)/a(t) − 1`,
 `comoving a t₀ t = ∫_t^{t₀} dt'/a(t')`.
 
-FROZEN (annex 40.1) in run 2026-10-30T1028Z before proof work.
+FROZEN (annex 40.1) in run 2026-10-30T1028Z before proof work (commit b485344).
+
+Referee notes (run 2026-10-30T1028Z, `runs/2026-10-30T1028Z/referee/`): (10.52)–(10.63) are copied
+verbatim from Capozziello & Salzano 2009 (arXiv:0902.0088, Eqs. (53)–(64)); identical in 1205.3421
+v1–v3. The review's own (10.30) truncates `r₀ = χ − Kχ³/3! + O(χ⁵)`, which explains the
+`(Ω₀ − 1)²/120` part of the D⁴ error; the `5q₀(Ω₀ − 1)/12` part and the whole D³ error are not
+explained by that truncation (the closed exponential witness fails under either reading). The
+correct D³ with curvature agrees with Vitagliano et al. 2010 (arXiv:0911.1249) Eq. (1.9).
 -/
 
 namespace Work.Cosmography.BambaK
@@ -636,7 +643,8 @@ theorem printedD4y_fails (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiff
   fun hp => printedD4y_fails_past K a t₀ ha ha0 hH hD
     (hp.mono (nhdsWithin_le_nhds (s := Set.Iio t₀)))
 
-/-- de Sitter expansion `a = exp` at `t₀ = 0` with closed spatial sections `K = 1`:
+/-- Closed exponential expansion: `a = exp` at `t₀ = 0` with closed spatial sections `K = 1`
+(an FLRW metric; not de Sitter spacetime, whose closed slicing is `a = cosh t`):
 `H₀ = 1`, `q₀ = −1`, `Ω₀ = 2`. -/
 lemma closedExp_vals : hubble Real.exp 0 = 1 ∧ decel Real.exp 0 = -1 ∧ omega0 1 Real.exp 0 = 2 := by
   have hH : hubble Real.exp 0 = 1 := by simp [hubble, Real.deriv_exp]
@@ -679,7 +687,10 @@ lemma milne_vals : hubble (fun t => t) 1 = 1 ∧ decel (fun t => t) 1 = 0 ∧
   refine ⟨hH, by simp [decel], ?_⟩
   simp only [omega0, hH]; norm_num
 
-/-- Both printed curvature terms fail in the Milne universe, from the past. -/
+/-- Both printed curvature terms fail in the Milne universe, from the past. Standalone instance
+refutations: `a = t` is not positive for all `t`, so Milne is not an instance of the frozen claims
+(which the closed exponential model refutes). The Milne `D⁴` failure comes entirely from the
+`(Ω₀ − 1)²/120` term (`q₀ = 0`), i.e. from the `K²χ⁵/120` term the review truncates in (10.30). -/
 theorem milne_printedD3y_fails_past :
     ¬ (fun t => remK correctD2y printedD3y (fun _ _ _ _ _ => 0) (-1) (fun t => t) 1 t)
       =o[𝓝[<] 1] (fun t => yred (fun t => t) 1 t ^ 4) := by

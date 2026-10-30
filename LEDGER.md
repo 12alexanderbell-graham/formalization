@@ -129,3 +129,15 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 ## 2026-10-30 · experiment (annex LIV) · heartbeat trap and MVT tool
 - Problem: main d_L(y) proof timed out (whnf, 2M heartbeats) with no error location; ~25 min lost bisecting. Root cause: `fun_prop`/`Tendsto` ascriptions on large generated polynomials inside a context full of `set` variables. Change: standalone continuity/boundedness lemmas; PROMPT note with bisection advice. Effect seen: elaboration 3.5 min → 25 s, no heartbeat option. How to tell: next generated-polynomial proofs should need no heartbeat options.
 - New tool `littleO_of_hasDerivAt` (integrals, real powers via MVT). How to tell: C6/C7 (S_K(χ) expansions) and z-versions of d_L should reuse it without new analysis lemmas.
+
+## 2026-10-30 · run 2026-10-30T1028Z · verified finding F6
+- C6 → **F6**: Bamba et al. 2012 (arXiv:1205.3421 v1–v3) Eqs. (10.55)–(10.57), verbatim from Capozziello & Salzano 2009 (arXiv:0902.0088) Eqs. (56)–(58): printed − correct = −(Ω₀−1)(3q₀−2)/6 (D³), −(Ω₀−1)²/120 − 5q₀(Ω₀−1)/12 (D⁴). Frozen b485344 → PROVED in Work be8b84d → AUDITED (`runs/2026-10-30T1028Z/audit.md`, blind closed in `Work/Cosmography/BambaCurvedAudit.lean`) → promoted to `Checked.Cosmography.BambaK` + `Checked.Cosmography.Transverse` (CI in STATE).
+- Correction (referee, rendered page): F4's sign error is already in 0902.0088 Eq. (55); FINDINGS F4 "introduced in the review" was wrong; corrected by a note in F6 and F4's row kept.
+
+## 2026-10-30 · experiment (annex LIV) · truncated-series algebra
+- Observation: every d_L/d_Q/lookback theorem so far rebuilt remainder chains by hand (third order took ~10 iterations; one ~25-min heartbeat trap). Change: generic `approx_mul`/`approx_pow` (f ≈ p :⇔ f − p(X) = o(X⁵)), so a series proof is a list of sympy identities `p·r = m + x⁶W` plus one coefficient identity. Effect seen: fifth-order curved d_L(y) compiled after 4 local iterations (~15 min), all errors trivial. How to tell: C7 (d_A) and the z-series (C9) should each take ≤ 3 iterations reusing it.
+- Pitfall found: `unfold A B` processes names in order, so a definition introduced by unfolding B is not unfolded by an earlier A; list outer definitions first. PROMPT note.
+
+## 2026-10-30 · process note · referee file hygiene
+- The referee wrote ~20 MB of third-party PDFs and full-page renders into `runs/…/referee/`. Moved to the session scratchpad before commit (never committed); only crops kept in `typeset/`. Change: PROMPT note; referee briefs must say "PDFs and full pages in a temp dir, crops only in the repo".
+
