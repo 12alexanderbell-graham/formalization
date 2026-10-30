@@ -18,3 +18,4 @@ import Work.Cosmography.Transverse
 import Work.Cosmography.BambaCurved
 import Work.Cosmography.BambaCurvedAudit
 import Work.Cosmography.BambaAngular
+import Work.Cosmography.BambaAngularAudit

@@ -15,7 +15,7 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
 
 ## Current phase: work target 1
 
-S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1–F6 (FINDINGS.md); next: C7 (d_A,y curvature terms, corollary of F6 theorem), C9–C10, Sec. XI screen.
+S1 (judge proven) and S2 (target pick) are DONE (see LEDGER). Target 1 is cosmographic low-redshift expansions; `STATE.md` has the case, results and the exact next step. Verified findings F1–F7 (FINDINGS.md); next: C9–C10, Sec. XI screen.
 
 ## Working notes (maintained by runs, annex LIV)
 

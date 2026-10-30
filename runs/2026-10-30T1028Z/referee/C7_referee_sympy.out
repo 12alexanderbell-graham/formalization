@@ -1,0 +1,10 @@
+c0,c1 = 0 1
+D1 check: 0
+D2 check: 0
+printed-correct D3 = -q*(Omega - 1)/4  claimed: 0
+printed-correct D4 = (Omega - 1)*(-Omega - 10*j + 45*q**2 - 20*q + 1)/120  claimed: 0
+flat agreement: 0 0
+exp K=1: dD3 = 1/4  dD4 = 9/20
+exact exp K=1 series: -59*y**5/120 - y**4/3 - y**3/6 + y
+formula at witness: -59*y**5/120 - y**4/3 - y**3/6 + y
+Milne formula: -y**2/2 + y  exact: y - y^2/2 ; dD3,dD4 = 0 -1/120

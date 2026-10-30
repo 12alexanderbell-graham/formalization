@@ -141,3 +141,6 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 ## 2026-10-30 · process note · referee file hygiene
 - The referee wrote ~20 MB of third-party PDFs and full-page renders into `runs/…/referee/`. Moved to the session scratchpad before commit (never committed); only crops kept in `typeset/`. Change: PROMPT note; referee briefs must say "PDFs and full pages in a temp dir, crops only in the repo".
 
+## 2026-10-30 · run 2026-10-30T1028Z · verified finding F7
+- C7 → **F7**: Bamba et al. 2012 Eqs. (10.61)–(10.63) (verbatim from 0902.0088 Eqs. 62–64): printed − correct = −q₀(Ω₀−1)/4 (D³_{A,y}), −(Ω₀−1)[(Ω₀−1) + 10j₀ − 45q₀² + 20q₀]/120 (D⁴_{A,y}). Frozen 4337b9b → PROVED in Work 8e2df42 (headline compiled on the first attempt as a corollary of F6's theorem) → AUDITED (audit.md §C7, blind closed in `Work/Cosmography/BambaAngularAudit.lean`, referee STANDS) → promoted to `Checked.Cosmography.BambaA` (CI in STATE).
+- Note: the C7 referee said both `all_goals ring` lines were dead; one was needed (compile failed when removed). Lean, not the referee, decides.

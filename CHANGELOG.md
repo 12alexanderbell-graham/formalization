@@ -49,5 +49,6 @@
 - **Verified finding F6** (Bamba et al. 2012 Eqs. 10.55–10.57, verbatim from Capozziello & Salzano 2009 Eqs. 56–58: curvature terms of D³_{L,y}, D⁴_{L,y} wrong; flat parts right). PROVED + AUDITED in Checked: general curved d_L(y) to y⁵ for every real K and every C⁵ scale factor; refutations (general conditions, a = eᵗ with K = 1, Milne). Blind restatement closed in Lean; referee STANDS-WITH-CORRECTIONS.
 - F4 provenance corrected (sign error already in 0902.0088 Eq. 55). New candidates C9, C10 (referee side checks); C7 third route.
 - New tool: truncated-series algebra (`approx_mul`, `approx_pow`). PROMPT notes: approx algebra; `unfold` order; referee file hygiene.
-- Message to Alexander: F6 (L.2).
+- **Verified finding F7** (same review Eqs. 10.61–10.63, from 0902.0088 Eqs. 62–64: curvature terms of D³_{A,y}, D⁴_{A,y} wrong). PROVED + AUDITED in Checked as a corollary (d_A = d_L/(1+z)²); blind closed in Lean; referee STANDS.
+- Message to Alexander: F6, F7 (L.2).
 

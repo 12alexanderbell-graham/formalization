@@ -10,3 +10,4 @@ import Checked.Cosmography.BambaDLy
 import Checked.Cosmography.CVdQ
 import Checked.Cosmography.Transverse
 import Checked.Cosmography.BambaCurved
+import Checked.Cosmography.BambaAngular
