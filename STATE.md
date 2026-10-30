@@ -32,7 +32,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 ## Environment (this run)
 - Repo pre-cloned; local main fast-forwarded; pushes verified (remote head = local each time).
 - Local Lean: elan + `lake exe cache get` (~4 min); `lake build Checked` incremental ~1 min; `StatementDeps.lean` ~45 s locally.
-- CI (read by ID): 41123446006 (LOCK), 41124321746 (blind freeze), 41125393349 (FriedmannLCDM promotion), 41126702062 (trust map + CI step; step green in 24 s), 41128066055 (redshift/cosmoCoeff pins), 41128573266 (y/Ω₀/k pins), 41128920530 (FlatPins), 41129676490 (records) all green. **Control** 41128703059 (`control/bad-pin-registry`): FAILED as required, at the trust-map step: "pin theorem Checked.Fidelity.decelSpec_pins does not mention Checked.Cosmography.redshift". 41130370885 (CPL pin), 41131025614 (BlindFR freeze), 41131724132 (F(R) pins) and the final records commit: in progress at run end — read next run.
+- CI (read by ID): 41123446006 (LOCK), 41124321746 (blind freeze), 41125393349 (FriedmannLCDM promotion), 41126702062 (trust map + CI step; step green in 24 s), 41128066055 (redshift/cosmoCoeff pins), 41128573266 (y/Ω₀/k pins), 41128920530 (FlatPins), 41129676490 (records) all green. **Control** 41128703059 (`control/bad-pin-registry`): FAILED as required, at the trust-map step: "pin theorem Checked.Fidelity.decelSpec_pins does not mention Checked.Cosmography.redshift". 41130370885 (CPL pin), 41131025614 (BlindFR freeze), 41131724132 (F(R) pins) green: all 17 pins PROVED (CI green, standard axioms, AUDITED). Records runs 41131794341 and the CI-ids commit: read next run.
 
 ## Daily review (53.3), 2026-10-30
 - Is AI-produced science here more trustworthy without outside checking than this morning? Yes, by a machine-computed measure: 77 of 82 physics headlines now rest only on definitions pinned by blind textbook laws (none this morning; ≤ 15 at 20:28Z), and the dependency map itself is CI-generated. Not yet: statement fidelity (T2), transcription (T3), numerics (T4), pipeline false-acceptance rate (T5).
@@ -55,7 +55,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 None.
 
 ## Exact next step
-1. Read CI 41130370885, 41131025614, 41131724132 and the final records run by ID; fix anything red first (CPL and F(R) pins are AUDITED, PROVED once green).
+1. Read CI 41131794341 and the last records run by ID; fix anything red first.
 2. `IsFlatCPL`: DONE this run (`flatCPL_pins`).
 3. F(R) definitions: DONE this run (`Checked/Fidelity/FRSpecs.lean`).
 4. `dQFlat` (F5): pin relative to `LumDistSpec2` is only a restatement of d_Q = d_L/(1+z)^{3/2} (Cattoën–Visser Eq. 5); classify as PRINTED-definition or find an independent law.
