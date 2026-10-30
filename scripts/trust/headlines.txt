@@ -102,3 +102,5 @@ Fidelity.decelSpec_pins
 Fidelity.angDistSpec_pins
 Fidelity.flatLCDMSpec2_pins
 Fidelity.isFlatLCDM_iff_friedmann
+Fidelity.redshiftCore_pins
+Fidelity.cosmoCoeffCore_pins

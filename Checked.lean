@@ -19,3 +19,4 @@ import Checked.Fidelity.LumDistSpec
 import Checked.Fidelity.MoreSpecs
 import Checked.Fidelity.Pins
 import Checked.Fidelity.FriedmannLCDM
+import Checked.Fidelity.RedshiftCoeffSpecs

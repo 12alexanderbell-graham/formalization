@@ -6,3 +6,5 @@ Checked.Cosmography.decel Fidelity.decelSpec_pins
 BambaK.lumDist Fidelity.lumDistSpec2_pins
 BambaA.angDist Fidelity.angDistSpec_pins
 Aviles.IsFlatLCDM Fidelity.flatLCDMSpec2_pins
+Checked.Cosmography.redshift Fidelity.redshiftCore_pins
+Aviles.cosmoCoeff Fidelity.cosmoCoeffCore_pins
