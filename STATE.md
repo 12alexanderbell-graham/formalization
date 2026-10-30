@@ -24,7 +24,7 @@ Bottleneck now: candidate supply in the cosmography hub. Sec. X of the review is
 ## Environment (this run)
 - Repo pre-cloned (add_repo not exposed; not needed). Pushes verified (remote head = local each time).
 - Local Lean: elan + `lake exe cache get` (~3 min); BambaCurved elaborates in ~35 s; full `lake build Checked Work` from a fresh box ~15 min (Work audit files import Mathlib).
-- CI: LOCK e4f9837 (41041055001); freeze b485344; proofs be8b84d; promotion and records: CI_PLACEHOLDER.
+- CI (all green, read by ID): C6 freeze b485344 (41041698955), proofs be8b84d (41042754470), C6 promotion 76e6e64 (41048210895: build, leanchecker, axiom-audit, nanoda); C7 freeze 4337b9b (41048344960), proofs 8e2df42 (41048549262), C7 promotion 0a5db51 (41051129131). LOCK-removal commit: read next run.
 
 ## Daily review (53.3), 2026-10-30
 - AUDITED + PROVED headlines in last 24 h: 2 (0028Z) + 5 (0220Z) + 5 (0430Z) + 5 (0628Z) + 9 (0828Z) + 12 + 6 (1028Z). Findings: F1–F7 verified.

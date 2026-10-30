@@ -1,6 +1,6 @@
 # Run 2026-10-30T1028Z (scheduled)
 
-Environment: repo pre-cloned (add_repo not exposed; not needed); pushes verified (remote head = local); local Lean via elan + cache (~3 min); previous run's last CI runs 41036605782, 41037683712 green; this run's CI in STATE.
+Environment: repo pre-cloned (add_repo not exposed; not needed); pushes verified (remote head = local); local Lean via elan + cache (~3 min); previous run's last CI runs 41036605782, 41037683712 green; CI 41048210895 (C6 promotion), 41051129131 (C7 promotion) green; others in STATE.
 
 **TARGET AND BOTTLENECK:** target 1 (cosmography). Bottleneck: curvature in Lean (C6/C7 needed the curved comoving transverse distance and a fifth-order curved d_L(y)). Yes → finding F6 and the first general curved d_L series in Lean; no → the screen and referee derivations were wrong.
 
