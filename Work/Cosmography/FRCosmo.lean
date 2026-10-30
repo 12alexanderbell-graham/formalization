@@ -450,15 +450,103 @@ theorem fR_values (Ω : ℝ) (a F : ℝ → ℝ) (t₀ : ℝ) (hM : IsFRCosmo Ω
   exact alg _ _ _ _ _ _ _ _ _ hM.expanding.ne' (by linear_combination e1) (by linear_combination e2)
     (by linear_combination e3)
 
+/-! ## ΛCDM witness ((11.39)–(11.40)) -/
+
+section
+open Real Checked.Cosmography.AvilesWitness
+
+lemma deriv_hubble_lam {t : ℝ} (ht : 0 < t) : deriv (hubble lam) t = -(2 / 3) / sinh t ^ 2 := by
+  have hs : 0 < sinh t := sinh_pos_iff.2 ht
+  have heq : hubble lam =ᶠ[𝓝 t] fun u => 2 / 3 * cosh u / sinh u := by
+    filter_upwards [lt_mem_nhds ht] with u hu using hubble_lam hu
+  rw [heq.deriv_eq]
+  have hd := ((hasDerivAt_cosh t).const_mul (2 / 3 : ℝ)).div (hasDerivAt_sinh t) hs.ne'
+  have hd' : deriv (fun u => 2 / 3 * cosh u / sinh u) t = _ := hd.deriv
+  rw [hd']
+  have h1 := cosh_sq t
+  field_simp
+  linear_combination (-1 : ℝ) * h1
+
+lemma iter_affine (c : ℝ) : deriv (fun R : ℝ => R + c) = (fun _ => 1) ∧
+    ∀ k, deriv^[k + 2] (fun R : ℝ => R + c) = (fun _ => 0) := by
+  have h1 : deriv (fun R : ℝ => R + c) = fun _ => 1 := by
+    funext x; simp
+  refine ⟨h1, ?_⟩
+  intro k
+  induction k with
+  | zero => simp [h1]
+  | succ n ih => rw [Function.iterate_succ_apply', ih]; funext x; simp
+
+theorem lcdm_witness {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
+    ∃ (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ ∧ ContDiffAt ℝ 6 a t₀ ∧
+      IsFRCosmo Ω a (fun R => R + 6 * hubble a t₀ ^ 2 * (1 - Ω)) t₀ := by
+  set u := √(1 / Ω - 1) with hu
+  have hu0 : 0 < u := sqrt_pos.2 (by rw [lt_sub_iff_add_lt, zero_add, lt_div_iff₀ h0]; linarith)
+  set t₀ := arsinh u
+  have ht0 : 0 < t₀ := arsinh_pos_iff.2 hu0
+  have hΩ : 1 / cosh t₀ ^ 2 = Ω := by
+    rw [cosh_sq, sinh_arsinh, hu, sq_sqrt (by rw [sub_nonneg, le_div_iff₀ h0]; linarith)]
+    field_simp
+    ring
+  have hs6 : ContDiffAt ℝ 6 lam t₀ :=
+    (contDiff_sinh.contDiffAt).rpow_const_of_ne (sinh_pos_iff.2 ht0).ne'
+  have hs0 : 0 < sinh t₀ := sinh_pos_iff.2 ht0
+  have hc0 : 0 < cosh t₀ := cosh_pos t₀
+  obtain ⟨hF1, hFk⟩ := iter_affine (6 * hubble lam t₀ ^ 2 * (1 - Ω))
+  have hF2 := hFk 0
+  have hF3 := hFk 1
+  have hF4 := hFk 2
+  simp only [zero_add, Nat.reduceAdd] at hF2 hF3 hF4
+  have hl0 : 0 < lam t₀ := rpow_pos_of_pos hs0 _
+  refine ⟨lam, t₀, hΩ ▸ lam_isFlatLCDM ht0, hs6, ?_⟩
+  refine ⟨rpow_pos_of_pos hs0 _, by rw [hubble_lam ht0]; positivity, hs6.of_le (by norm_num),
+    contDiff_id.add contDiff_const, ?_, ?_, by rw [hF1], by rw [hF4]⟩
+  · unfold FriedmannEq rhoM
+    simp only [hF1, hF2, div_self hl0.ne', one_pow]
+    ring
+  · filter_upwards [lt_mem_nhds ht0] with t ht
+    have hs : 0 < sinh t := sinh_pos_iff.2 ht
+    unfold MasterEq rhoM
+    simp only [hF1, hF2, hF3]
+    rw [deriv_hubble_lam ht, hubble_lam ht0, div_pow (lam t₀), lam_cube ht0, lam_cube ht, ← hΩ]
+    field_simp
+    ring
+
+end
+
+/-- ΛCDM data used by the refutations: the witness, its cosmographic parameters ((11.39)) and
+`R₀`. -/
+lemma lcdm_facts {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
+    ∃ (a : ℝ → ℝ) (t₀ : ℝ), IsFRCosmo Ω a (fun R => R + 6 * hubble a t₀ ^ 2 * (1 - Ω)) t₀ ∧
+      decel a t₀ = 3 / 2 * Ω - 1 ∧ cosmoCoeff 3 a t₀ = 1 ∧ cosmoCoeff 4 a t₀ = 1 - 9 / 2 * Ω ∧
+      cosmoCoeff 5 a t₀ = 1 + 3 * Ω + 27 / 2 * Ω ^ 2 ∧
+      curv a t₀ = -6 * hubble a t₀ ^ 2 * (1 - (3 / 2 * Ω - 1)) := by
+  obtain ⟨a, t₀, hL, h6, hM⟩ := lcdm_witness h0 h1
+  obtain ⟨hq, hj, hs, hl, -⟩ := flatLCDM_coeffs Ω a t₀ hL h6
+  obtain ⟨hR0, -, -, -⟩ := curv_derivs a t₀ hM.pos hM.expanding hM.smooth_a
+  exact ⟨a, t₀, hM, hq, hj, hs, hl, by rw [hR0, hq]⟩
+
+lemma quad_pos (Ω : ℝ) : 0 < 909 * Ω ^ 2 - 1170 * Ω + 416 := by
+  nlinarith [sq_nonneg (Ω - 585 / 909)]
+
 /-- (11.40), the paper's own check: for every `Ω ∈ (0,1)` there is a flat ΛCDM scale factor
 which, with `F(R) = R + 2Λ`, `Λ = 3H₀²(1 − Ω)`, satisfies every hypothesis of `IsFRCosmo`. -/
 theorem exists_LCDM_model {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
     ∃ (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ ∧
       IsFRCosmo Ω a (fun R => R + 6 * hubble a t₀ ^ 2 * (1 - Ω)) t₀ := by
-  sorry
+  obtain ⟨a, t₀, hL, -, hM⟩ := lcdm_witness h0 h1
+  exact ⟨a, t₀, hL, hM⟩
 
 theorem printedR3Claim_false : ¬ PrintedR3Claim := by
-  sorry
+  intro h
+  obtain ⟨a, t₀, hM, hq, hj, -, -, -⟩ := lcdm_facts (Ω := 1 / 4) (by norm_num) (by norm_num)
+  have e := h a t₀ hM.pos hM.expanding hM.smooth_a
+  obtain ⟨-, -, -, hR3⟩ := curv_derivs a t₀ hM.pos hM.expanding hM.smooth_a
+  rw [hR3, hq, hj] at e
+  have hH := hM.expanding
+  have : hubble a t₀ ^ 5 * 81 = 0 := by linear_combination e
+  have : 0 < hubble a t₀ ^ 5 * 81 := by positivity
+  linarith
 
 /-- The multiplied-out printed relation fails in ΛCDM at every `Ω ∈ (0,1)`. -/
 theorem printedF0Mul_false_at {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
@@ -468,16 +556,24 @@ theorem printedF0Mul_false_at {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
         -6 * hubble a t₀ ^ 2 *
           (P0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) * Ω
             + Q0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)) := by
-  sorry
+  intro h
+  obtain ⟨a, t₀, hM, hq, hj, hs, hl, hR0⟩ := lcdm_facts h0 h1
+  have e := h a _ t₀ hM
+  rw [hq, hj, hs, hl, hR0] at e
+  simp only [printedR, P0, Q0] at e
+  have hH := hM.expanding
+  have k : hubble a t₀ ^ 2 * ((2 - Ω) * (909 * Ω ^ 2 - 1170 * Ω + 416)) = 0 := by
+    linear_combination (-2 / 3 : ℝ) * e
+  have : 0 < hubble a t₀ ^ 2 * ((2 - Ω) * (909 * Ω ^ 2 - 1170 * Ω + 416)) := by
+    have := quad_pos Ω
+    have : 0 < 2 - Ω := by linarith
+    positivity
+  linarith
 
 theorem printedF0ClaimMul_false : ¬ PrintedF0ClaimMul := by
-  sorry
+  intro h
+  exact printedF0Mul_false_at (Ω := 1 / 4) (by norm_num) (by norm_num) (fun a F t₀ hM => h _ a F t₀ hM)
 
-/-- The printed relation (division form) fails in ΛCDM at the review's concordance value
-`Ω = 1/4` (Sec. XI uses `Ω_M = 0.25` and `0.041`; both are covered by the `Ω ∈ (0,1)` statement
-below whenever the printed `R` is nonzero there). -/
-theorem printedF0Claim_false : ¬ PrintedF0Claim := by
-  sorry
 
 /-- Division form at every `Ω ∈ (0,1)` where the printed `R` is nonzero in ΛCDM
 (`printedR` at ΛCDM is `−(243Ω⁴ + 540Ω³ − 6264Ω² + 9360Ω − 3328)/16`). -/
@@ -489,6 +585,33 @@ theorem printedF0_false_at {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1)
         -(P0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) * Ω
             + Q0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀))
           / printedR (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) := by
-  sorry
+  intro h
+  obtain ⟨a, t₀, hM, hq, hj, hs, hl, hR0⟩ := lcdm_facts h0 h1
+  have hne : printedR (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) ≠ 0 := by
+    rw [hq, hj, hs, hl]
+    simp only [printedR]
+    intro e
+    apply hR
+    linear_combination (-16 : ℝ) * e
+  have e := h a _ t₀ hM hne
+  have hH := hM.expanding
+  rw [div_eq_div_iff (by positivity) hne] at e
+  rw [hq, hj, hs, hl, hR0] at e
+  simp only [printedR, P0, Q0] at e
+  have k : hubble a t₀ ^ 2 * ((2 - Ω) * (909 * Ω ^ 2 - 1170 * Ω + 416)) = 0 := by
+    linear_combination (-2 / 3 : ℝ) * e
+  have : 0 < hubble a t₀ ^ 2 * ((2 - Ω) * (909 * Ω ^ 2 - 1170 * Ω + 416)) := by
+    have := quad_pos Ω
+    have : 0 < 2 - Ω := by linarith
+    positivity
+  linarith
+
+/-- The printed relation (division form) fails in ΛCDM at the review's concordance value
+`Ω = 1/4` (Sec. XI uses `Ω_M = 0.25` and `0.041`; both are covered by the `Ω ∈ (0,1)` statement
+below whenever the printed `R` is nonzero there). -/
+theorem printedF0Claim_false : ¬ PrintedF0Claim := by
+  intro h
+  exact printedF0_false_at (Ω := 1 / 4) (by norm_num) (by norm_num) (by norm_num)
+    (fun a F t₀ hM hne => h _ a F t₀ hM hne)
 
 end Work.Cosmography.FRCosmo
