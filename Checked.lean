@@ -12,3 +12,4 @@ import Checked.Cosmography.Transverse
 import Checked.Cosmography.BambaCurved
 import Checked.Cosmography.BambaAngular
 import Checked.Cosmography.BambaZ
+import Checked.Cosmography.FRCosmo
