@@ -83,7 +83,7 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 ## 2026-10-30 · run 2026-10-30T0430Z · second verified finding F2
 - C4 → **F2**: Capozziello, Lazkoz, Salzano 2011 Eq. (22): CPL l₀ w_a² term missing a factor 9; paper's numbers unaffected (Fig. 2 follows the correct value); misprint reprinted in Bamba et al. 2012 (arXiv:1205.3421) Eq. (11.38).
 - Frozen 4663ac9 → PROVED in Work (CI 41006086049 green) → AUDITED (`runs/2026-10-30T0430Z/audit.md`; blind restatement closed in Lean, CI 41007266062 green) → PROVED in Checked f6ce0b2 (CI 41007523313 green: build, leanchecker, axiom-audit, nanoda 336194 decls no errors): `Checked.Cosmography.CPL.flatCPL_coeffs`, `printedL0_ne`, `clsL0Claim_false`.
-- `Checked.Cosmography.CPLExistence.exists_flatCPL`, `printedL0_false_at` (+ tool `exists_local_model`): AUDITED (addendum) → Checked b6267ff (CI 41007796446: see CHANGELOG/STATE for conclusion).
+- `Checked.Cosmography.CPLExistence.exists_flatCPL`, `printedL0_false_at` (+ tool `exists_local_model`): AUDITED (addendum) → PROVED in Checked b6267ff (CI 41007796446 green, nanoda 374957 decls).
 - Referee: STANDS-WITH-CORRECTIONS (corrections adopted; caveat "no interior-Ω model" closed by `printedL0_false_at`).
 
 ## 2026-10-30 · experiment (annex LIV) · ODE existence instead of closed-form witnesses
