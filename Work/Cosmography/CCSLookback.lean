@@ -351,4 +351,20 @@ theorem ccsD4Claim_false : ¬ CCSD4Claim := by
     (h Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [hH]; norm_num))
 
 
+/-- The printed claim read for past emission only (`t < t₀`, the physical case), weakest reading,
+strongest hypotheses. -/
+def CCSD4ClaimPast : Prop :=
+  ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
+    (fun t => remainder printedD4 a t₀ t) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5)
+
+/-- The printed `D⁴` fails for past emission in every `C⁵` model with `H₀ ≠ 0`, `q₀ ≠ 0`. -/
+theorem printedD4_fails_past (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
+    (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0) (hq : decel a t₀ ≠ 0) :
+    ¬ (fun t => remainder printedD4 a t₀ t) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5) := by
+  sorry
+
+/-- The past-only reading of the printed claim is false (de Sitter). -/
+theorem ccsD4ClaimPast_false : ¬ CCSD4ClaimPast := by
+  sorry
+
 end Work.Cosmography.CCS
