@@ -200,7 +200,6 @@ lemma bdd_Q3 {α : Type*} {L : Filter α} (q j u₀ : ℝ) {U V : α → ℝ} (h
     (hV : Tendsto V L (𝓝 0)) : (fun t => Q3 q j (U t) (V t)) =O[L] (fun _ => (1 : ℝ)) :=
   (((cont_Q3 q j).tendsto (u₀, 0)).comp (hU.prodMk_nhds hV)).isBigO_one ℝ
 
-set_option maxHeartbeats 2000000 in
 /-- **Luminosity distance to third order in `y`** (flat FLRW, correct `D²_{L,y}`): for every
 scale factor that is `C³` at `t₀`, with `a(t₀) ≠ 0` and `H₀ ≠ 0`. -/
 theorem lumDist_y_third_order (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 3 a t₀)
