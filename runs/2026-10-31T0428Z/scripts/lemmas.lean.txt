@@ -1,0 +1,100 @@
+
+lemma J3_lower0 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1) :
+    (1588549 / 800000 : ℝ) - (173265881 / 100000000 : ℝ) * Ω ≤ ∫ v in (1/2:ℝ)..1, gL Ω v := by
+  have key := J_lower Ω hΩ₀ hΩ₁ (1/2:ℝ) (1 / 80 : ℝ) (by norm_num) (by norm_num) 40
+    (fun i => (cZ30.getD i 0 : ℝ) / 100000) (fun i => by positivity)
+  have e : (1/2:ℝ) + ((40:ℕ):ℝ) * (1 / 80 : ℝ) = 1 := by norm_num
+  rw [e] at key
+  refine le_trans ?_ key
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, cZ30]
+  norm_num
+  linarith
+
+lemma J3_lower1 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1) :
+    (182945119 / 100000000 : ℝ) - (120219491 / 100000000 : ℝ) * Ω ≤ ∫ v in (1/2:ℝ)..1, gL Ω v := by
+  have key := J_lower Ω hΩ₀ hΩ₁ (1/2:ℝ) (1 / 80 : ℝ) (by norm_num) (by norm_num) 40
+    (fun i => (cZ31.getD i 0 : ℝ) / 100000) (fun i => by positivity)
+  have e : (1/2:ℝ) + ((40:ℕ):ℝ) * (1 / 80 : ℝ) = 1 := by norm_num
+  rw [e] at key
+  refine le_trans ?_ key
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, cZ31]
+  norm_num
+  linarith
+
+lemma J7_lower0 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1) :
+    (141929311 / 50000000 : ℝ) - (284250829 / 100000000 : ℝ) * Ω ≤ ∫ v in (3536/10000:ℝ)..1, gL Ω v := by
+  have key := J_lower Ω hΩ₀ hΩ₁ (3536/10000:ℝ) (101 / 6250 : ℝ) (by norm_num) (by norm_num) 40
+    (fun i => (cZ70.getD i 0 : ℝ) / 100000) (fun i => by positivity)
+  have e : (3536/10000:ℝ) + ((40:ℕ):ℝ) * (101 / 6250 : ℝ) = 1 := by norm_num
+  rw [e] at key
+  refine le_trans ?_ key
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, cZ70]
+  norm_num
+  linarith
+
+lemma J7_lower1 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1) :
+    (998388 / 390625 : ℝ) - (47016993 / 25000000 : ℝ) * Ω ≤ ∫ v in (3536/10000:ℝ)..1, gL Ω v := by
+  have key := J_lower Ω hΩ₀ hΩ₁ (3536/10000:ℝ) (101 / 6250 : ℝ) (by norm_num) (by norm_num) 40
+    (fun i => (cZ71.getD i 0 : ℝ) / 100000) (fun i => by positivity)
+  have e : (3536/10000:ℝ) + ((40:ℕ):ℝ) * (101 / 6250 : ℝ) = 1 := by norm_num
+  rw [e] at key
+  refine le_trans ?_ key
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, cZ71]
+  norm_num
+  linarith
+
+set_option maxHeartbeats 8000000 in
+lemma J3_upper0 (Ω : ℝ) (hΩa : (1 / 5 : ℝ) ≤ Ω) (hΩb : Ω ≤ (3 / 10 : ℝ)) :
+    ∫ v in (1/2:ℝ)..1, gL Ω v ≤ (203715349 / 100000000 : ℝ) + (-91364007 / 50000000 : ℝ) * Ω := by
+  have hp1 : ∀ i : ℕ, i < 80 → ((pZ30.getD i 0 : ℝ) / 100000) ^ 2 ≤
+      (1 / 5 : ℝ) + (1 - (1 / 5 : ℝ)) * (1/2 + (i:ℝ) * (1/160)) ^ 6 := by
+    intro i hi; interval_cases i <;> norm_num [pZ30]
+  have hq1 : ∀ i : ℕ, i < 80 → (3 / 10 : ℝ) + (1 - (3 / 10 : ℝ)) * (1/2 + (i:ℝ) * (1/160)) ^ 6 ≤
+      ((qZ30.getD i 0 : ℝ) / 100000) ^ 2 := by
+    intro i hi; interval_cases i <;> norm_num [qZ30]
+  have hpp : ∀ i : ℕ, i < 80 → (0:ℝ) < (pZ30.getD i 0 : ℝ) / 100000 := by
+    intro i hi; interval_cases i <;> norm_num [pZ30]
+  have hqp : ∀ i : ℕ, i < 80 → (0:ℝ) < (qZ30.getD i 0 : ℝ) / 100000 := by
+    intro i hi; interval_cases i <;> norm_num [qZ30]
+  have hv : ∀ i : ℕ, i < 80 → (0:ℝ) ≤ 1/2 + (i:ℝ) * (1/160) ∧ 1/2 + (i:ℝ) * (1/160) ≤ 1 := by
+    intro i hi
+    have : (i:ℝ) ≤ 79 := by exact_mod_cast Nat.le_of_lt_succ hi
+    constructor <;> nlinarith [(Nat.cast_nonneg i : (0:ℝ) ≤ i)]
+  have key := J_upper Ω (by linarith) (by linarith) (1/2) (1/160) (by norm_num) (by norm_num) 80
+    (fun i => (pZ30.getD i 0 : ℝ) / 100000) (fun i => (qZ30.getD i 0 : ℝ) / 100000) hpp hqp
+    (fun i hi => le_trans (hp1 i hi) (y_mono Ω _ _ hΩa (hv i hi).1 (hv i hi).2))
+    (fun i hi => le_trans (y_mono _ Ω _ hΩb (hv i hi).1 (hv i hi).2) (hq1 i hi))
+  have e : (1/2:ℝ) + ((80:ℕ):ℝ) * (1/160) = 1 := by norm_num
+  rw [e] at key
+  refine le_trans key ?_
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, pZ30, qZ30]
+  norm_num
+  linarith
+
+set_option maxHeartbeats 8000000 in
+lemma J3_upper1 (Ω : ℝ) (hΩa : (3 / 10 : ℝ) ≤ Ω) (hΩb : Ω ≤ (2 / 5 : ℝ)) :
+    ∫ v in (1/2:ℝ)..1, gL Ω v ≤ (93266813 / 50000000 : ℝ) + (-62727941 / 50000000 : ℝ) * Ω := by
+  have hp1 : ∀ i : ℕ, i < 80 → ((pZ31.getD i 0 : ℝ) / 100000) ^ 2 ≤
+      (3 / 10 : ℝ) + (1 - (3 / 10 : ℝ)) * (1/2 + (i:ℝ) * (1/160)) ^ 6 := by
+    intro i hi; interval_cases i <;> norm_num [pZ31]
+  have hq1 : ∀ i : ℕ, i < 80 → (2 / 5 : ℝ) + (1 - (2 / 5 : ℝ)) * (1/2 + (i:ℝ) * (1/160)) ^ 6 ≤
+      ((qZ31.getD i 0 : ℝ) / 100000) ^ 2 := by
+    intro i hi; interval_cases i <;> norm_num [qZ31]
+  have hpp : ∀ i : ℕ, i < 80 → (0:ℝ) < (pZ31.getD i 0 : ℝ) / 100000 := by
+    intro i hi; interval_cases i <;> norm_num [pZ31]
+  have hqp : ∀ i : ℕ, i < 80 → (0:ℝ) < (qZ31.getD i 0 : ℝ) / 100000 := by
+    intro i hi; interval_cases i <;> norm_num [qZ31]
+  have hv : ∀ i : ℕ, i < 80 → (0:ℝ) ≤ 1/2 + (i:ℝ) * (1/160) ∧ 1/2 + (i:ℝ) * (1/160) ≤ 1 := by
+    intro i hi
+    have : (i:ℝ) ≤ 79 := by exact_mod_cast Nat.le_of_lt_succ hi
+    constructor <;> nlinarith [(Nat.cast_nonneg i : (0:ℝ) ≤ i)]
+  have key := J_upper Ω (by linarith) (by linarith) (1/2) (1/160) (by norm_num) (by norm_num) 80
+    (fun i => (pZ31.getD i 0 : ℝ) / 100000) (fun i => (qZ31.getD i 0 : ℝ) / 100000) hpp hqp
+    (fun i hi => le_trans (hp1 i hi) (y_mono Ω _ _ hΩa (hv i hi).1 (hv i hi).2))
+    (fun i hi => le_trans (y_mono _ Ω _ hΩb (hv i hi).1 (hv i hi).2) (hq1 i hi))
+  have e : (1/2:ℝ) + ((80:ℕ):ℝ) * (1/160) = 1 := by norm_num
+  rw [e] at key
+  refine le_trans key ?_
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, pZ31, qZ31]
+  norm_num
+  linarith
