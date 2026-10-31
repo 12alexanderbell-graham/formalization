@@ -317,3 +317,12 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 - Root cause: nothing checked the prose a scientist reads; checks covered statements, definitions and numbers only.
 - Change: docstrings written for all 27 headlines and 8 claim definitions (`runs/2026-10-31T0828Z/scripts/set_docs.py`; docstrings are not in the frozen registry, statements unchanged); `validation/make_packet.py --check` (new blocking CI job) fails on any registered headline without a self-contained docstring (≥ 40 characters, not "Same …"/"Two-sided version") and on a stale packet, and, once `validation/SENT.md` names the commit sent to reviewers, on any change to the packet; `scripts/trust/StatementDeps.lean` prefers the witness named after the headline (now every conditional headline shows its own witness).
 - Evaluate (later run): the expert round's MINOR reports on prose; no new headline lands without a docstring.
+
+## 2026-10-31 · run 0828Z · experiment (annex LIV) · pilot every outside-facing deliverable with a different model first
+- Problem: the expert round can be run once; defects it finds in presentation would waste it.
+- Change: before sending, the packet was reviewed blind by two Sonnet subagents under the experts' rules (only the packet, no repository).
+- Observed: it caught all 8 planted defects and found 6 genuine minor defects (all prose), which led to a systematic fix (27 docstrings, a CI rule).
+- Evaluate (later run): the expert round's MINOR count on genuine items should be lower than the pilot's 6; any material miss the pilot did not see measures what model reviewers cannot replace.
+
+## 2026-10-31 · run 0828Z · B1 statements frozen before proof
+- `Work.Cosmography.B1Sep.cubic_separation` frozen in 8be0a7b, `cubic_direction` in 1229815 (after the referee's direction remark); both proved with statements byte-identical to their freezes (docstrings reworded after the referee: "agrees within 0.05 mag at z = 3 and z = 7", not "reproduces"). Not registered (Work only).
