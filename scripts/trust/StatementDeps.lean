@@ -92,6 +92,32 @@ partial def unusedHyps (ty v : Expr) (acc : Array Name := #[]) (fuel : Nat := 8)
       | _ => return acc
     | _, _ => return acc
 
+/-- Logical form of what a statement asserts (trust track T2c, run 2026-10-31T1028Z): after its
+leading `∀`/`→` prefix, the head of the conclusion, through conjunctions: `EXISTS` (`∃`, `∃!`),
+`NOT` (`¬`, `≠`, `→ False`), `IFF`, `OTHER`. Read against the plain-words docstring by
+`scripts/trust/check_prose.py` (red-team defect A05: an existential headline read as universal). -/
+partial def concShapes (b : Expr) : MetaM (Array String) := do
+  let b := b.consumeMData
+  if b.isAppOfArity ``And 2 then
+    return (← concShapes b.appFn!.appArg!) ++ (← concShapes b.appArg!)
+  if b.isAppOf ``Exists || b.isAppOf ``ExistsUnique then return #["EXISTS"]
+  if b.isAppOf ``Not || b.isAppOf ``Ne || b.isConstOf ``False then return #["NOT"]
+  if b.isAppOfArity ``Iff 2 then return #["IFF"]
+  if b.isForall then
+    return ← forallTelescope b fun _ c => do
+      if c.consumeMData.isConstOf ``False then return #["NOT"]
+      concShapes c
+  return #["OTHER"]
+
+/-- `(has universally bound data, shapes)` of a theorem statement. A `∀` anywhere in the
+conclusion also counts as universal (e.g. `∃ a, ∀ t, …`). -/
+def stmtShape (ty : Expr) : MetaM (Bool × Array String) := forallTelescope ty fun xs b => do
+  let mut data := false
+  for x in xs do
+    unless ← isProp (← inferType x) do data := true
+  let inner := (b.find? fun e => e.isForall && e.bindingBody!.hasLooseBVar 0).isSome
+  return (data || inner, ← concShapes b)
+
 /-- Fingerprint of a frozen constant: its statement, and for definitions also its body. -/
 def fingerprint (ci : ConstantInfo) : String :=
   let h := match ci.value? with
@@ -464,6 +490,43 @@ run_cmd do
       let fmt (a : Array String) : String := if a.isEmpty then "—" else ", ".intercalate a.toList
       rows := rows.push s!"| `{shortH}` | {fmt pins} | {fmt gaps} | {fmt transcr} | {nvCol} |"
       logInfo m!"{hn}\n{String.intercalate "\n" lines.toList}"
+  -- meaning carried by prose (trust track T2c, run 2026-10-31T1028Z; red-team defects A04, B04,
+  -- A05, D04 were accepted by every check because their meaning lived in names and docstrings):
+  -- for every headline and every non-pinned definition a headline reaches, write the docstring,
+  -- the statement's logical shape and the pinned definitions it actually reaches (through
+  -- formulas, composites and claims) to `.lake/meaning.jsonl`; `scripts/trust/check_prose.py`
+  -- checks the docstrings and names against them (glossary `scripts/trust/glossary.txt`).
+  let mut mlines : Array String := #[]
+  let mut defUsers : NameMap (Array Name) := {}
+  for h in heads do
+    if let .ok hn := resolve cands h then
+      let ci := (env.find? hn).get!
+      -- shape and quantifiers are read after unfolding the program's own non-pinned definitions
+      -- (claims, formulas, composites): `¬ Claim` with `Claim := ∀ …` is about every model
+      let expTy ← liftCoreM <| Meta.deltaExpand ci.type fun n => isCheckedConst env n && !stop.contains n
+      let (univ, shapes) ← liftTermElabM <| stmtShape expTy
+      let reached := (deps env stop ci.type {}).toList
+      let pinsR := reached.filter (stop.contains ·)
+      let others := reached.filter fun d => !stop.contains d && reportable env d
+      for d in others do
+        defUsers := defUsers.insert d (((defUsers.find? d).getD #[]).push hn)
+      let doc := (← findDocString? env hn).getD ""
+      mlines := mlines.push (Json.mkObj [("type", "headline"), ("name", toString hn),
+        ("doc", doc), ("universal", univ), ("shapes", toJson shapes),
+        ("record", (`Checked.Records).isPrefixOf hn),
+        ("pinned", toJson (pinsR.map toString)),
+        ("defs", Json.mkObj (others.map fun d => (toString d, Json.str ((kinds.find? d).getD "UNCLASSIFIED"))))]).compress
+  for (d, users) in defUsers.toList do
+    let dc := (env.find? d).get!
+    let own := (deps env stop (dc.value?.getD (.sort 0)) (deps env stop dc.type {})).toList.filter (stop.contains ·)
+    let doc := (← findDocString? env d).getD ""
+    mlines := mlines.push (Json.mkObj [("type", "def"), ("name", toString d),
+      ("kind", (kinds.find? d).getD "UNCLASSIFIED"), ("doc", doc),
+      ("pinned", toJson (own.map toString)), ("users", toJson (users.map toString))]).compress
+  for (d, _) in pinned.toList do
+    mlines := mlines.push (Json.mkObj [("type", "pinned"), ("name", toString d)]).compress
+  IO.FS.writeFile ".lake/meaning.jsonl" (String.intercalate "\n" mlines.toList ++ "\n")
+  logInfo m!"meaning: {mlines.size} entries written to .lake/meaning.jsonl"
   let summary := gapCount.toList.toArray.qsort (fun a b => a.2 > b.2)
   let summaryLines := summary.toList.map fun (n, k) => s!"| `{n}` | {k} |"
   let printedDefs := kinds.toList.filter (fun (_, k) => k == "PRINTED")

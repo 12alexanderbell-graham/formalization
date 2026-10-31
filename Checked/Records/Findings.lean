@@ -138,8 +138,8 @@ theorem F10_printed_pole : ∃ r : ℝ, RoundsTo r 0.176 3 ∧ FREta.printedDen 
   exact exists_root_roundsTo (by fun_prop) _ _ (by norm_num)
 
 /-- The two factors of the hypothesis `(54Ω² − 29Ω − 2)(27Ω² + 24Ω − 32) ≠ 0` of `printedEta20_false_at`,
-`printedEta30_false_at` vanish at `Ω ≈ 0.599` and `Ω ≈ 0.731` respectively (proved: a root of each,
-rounded to three decimals). In words, not proved here: these are their only roots in `(0, 1)`, and
+`printedEta30_false_at` have roots: there is a root `Ω ≈ 0.599` of the first factor and a root
+`Ω ≈ 0.731` of the second (proved: existence of a root of the first and of the second, rounded to three decimals). In words, not proved here: these are their only roots in `(0, 1)`, and
 together with the root `Ω ≈ 0.176` of the printed denominator, where (11.42)–(11.43) are undefined
 (`F10_printed_pole`), they are the points of `(0, 1)` the two refutations do not cover. -/
 theorem F10_exceptions :
@@ -148,7 +148,7 @@ theorem F10_exceptions :
   ⟨exists_root_roundsTo (by fun_prop) _ _ (by norm_num),
     exists_root_roundsTo (by fun_prop) _ _ (by norm_num)⟩
 
-/-- At `Ω = 0.041` the ε-family (11.41) reaches `j₀ − q₀ − 2 = 0` at `ε ≈ 0.032`. -/
+/-- At `Ω = 0.041` there is an `ε ≈ 0.032` at which the ε-family (11.41) reaches `j₀ − q₀ − 2 = 0`. -/
 theorem F10_family_pole : ∃ ε : ℝ, RoundsTo ε 0.032 3 ∧ FREta.Jfam (41 / 1000) ε = 0 := by
   refine ⟨123 / 3877, ?_, ?_⟩
   · unfold RoundsTo; simp only [abs_le]; norm_num

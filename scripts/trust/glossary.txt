@@ -1,0 +1,23 @@
+# Glossary of meaning-bearing terms (trust track T2c, run 2026-10-31T1028Z).
+# Read by scripts/trust/check_prose.py. A docstring of a headline (or of a definition a headline
+# rests on) that uses a term on the left must belong to a statement that actually reaches one of
+# the PINNED definitions on the right (through formulas, composites and claims; pinned bodies are
+# not entered). A name or a docstring cannot give a statement a meaning its definitions lack
+# (red-team defects A04: `angDistEth` called an angular-diameter distance; B04: `lumDistEdS`
+# called a luminosity distance; both built from other definitions, classified FORMULA).
+# Format: <python regex> => <short names of pinned definitions, any one suffices>
+# Changing or deleting a line weakens a blocking check: LEDGER entry required (annex XLIII).
+(?i)luminosity[- ]distance|(?<![A-Za-z])d_L\b|(?<![A-Za-z])d_\{L\b => lumDist lumDistFlat
+(?i)angular[- ]diameter[- ]distance|(?<![A-Za-z])d_A\b|(?<![A-Za-z])d_\{A\b => angDist
+(?i)comoving distance => comoving lumDistFlat transverse lumDist angDist
+(?i)ΛCDM|\bLCDM\b|lambda[- ]?CDM => IsFlatLCDM
+(?i)\bCPL\b|Chevallier|Linder => IsFlatCPL
+(?i)hubble (rate|parameter|function) => hubble cosmoCoeff IsFlatLCDM IsFlatCPL
+(?i)deceleration parameter => decel cosmoCoeff
+(?i)\bredshift => redshift yred
+(?i)\bcurvature\b|\bcurved\b => lumDist angDist transverse curvK omega0 curv
+(?i)\bRicci\b => curv
+(?i)\bFriedmann\b => FriedmannEq MasterEq IsFlatLCDM IsFlatCPL
+(?i)\bF\(R\)|\bf\(R\) => FriedmannEq MasterEq curv
+(?i)critical (point|isotherm|temperature|pressure|volume|constants?)|\bZ_c\b => IsCriticalIsotherm
+(?i)deceleration distance|(?<![A-Za-z])d_Q\b => lumDistFlat
