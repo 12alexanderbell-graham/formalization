@@ -15,7 +15,7 @@
 - Bridge `lumDistFlat_flatLCDM` (FTC, substitution v = (1+z)^{-1/2}): **PROVED** (AUDITED).
 - Certified enclosures of ∫ 2/√(Ω+(1−Ω)v⁶) (Riemann sums, tangent/secant bounds; `J_lower`, `J_upper`, tool lemmas `rsum_le_integral`, `integral_le_lsum`, `tangent_le`, `le_secant`): **PROVED** (helpers).
 - `cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss`: **PROVED** (AUDITED). Witness `exists_flatLCDM_on`: PROVED.
-- `Work.Cosmography.B1Sep.cubic_separation` (any cubic agreeing with exact ΛCDM within 0.05 mag at z = 3, 7 up to an offset lies > 5/4 from the ΛCDM point) and `cubic_direction` (on the side a₂ − a₂^ΛCDM < 7 log₁₀2 (a₃ − a₃^ΛCDM)): **PROVED in Work** (run 0828Z; frozen first; blind restatement closed for `cubic_separation`; referee STANDS-WITH-CORRECTIONS). Promotion needs: NV witness (a matching cubic: two-sided enclosure of J₇/J₃), blind restatement of `cubic_direction`.
+- `Work.Cosmography.B1Sep.cubic_separation` (any cubic agreeing with exact ΛCDM within 0.05 mag at z = 3, 7 up to an offset lies > 5/4 from the ΛCDM point) and `cubic_direction` (on the side a₂ − a₂^ΛCDM < 7 log₁₀2 (a₃ − a₃^ΛCDM)): **PROVED in Work** (run 0828Z; frozen first; blind restatement closed for `cubic_separation`; referee STANDS-WITH-CORRECTIONS). Both blind restatements closed in Lean. Promotion needs: NV witness (a matching cubic: two-sided enclosure of J₇/J₃).
 - Next node: fit-level statement (least-squares or minimax cubic over z ≤ 5.1, Ω up to 1), then σ comparison (C27).
 
 ## Trust track T3 (transcription fidelity), `Checked/Trust/`
