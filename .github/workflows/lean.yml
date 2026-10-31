@@ -64,4 +64,7 @@ jobs:
       - name: Frozen statements and definitions change only with a LEDGER entry naming them (run 2026-10-31T0028Z)
         env:
           BASE: ${{ github.event.before || github.event.pull_request.base.sha }}
-        run: python3 scripts/trust/check_relock.py "$BASE"
+        run: |
+          python3 scripts/trust/check_relock.py "$BASE"
+          # certified numbers of FINDINGS.md may not be changed or downgraded silently (run 2026-10-31T0228Z)
+          python3 scripts/trust/check_numbers.py --base "$BASE"

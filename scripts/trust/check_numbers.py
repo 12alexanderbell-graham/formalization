@@ -12,10 +12,15 @@ is a decimal (or follows ≈/≃) carries a tag right after it:
   [in]     an input chosen for illustration (a parameter value), not a result;
   [unc]    computed but NOT machine-checked (the reader sees that it is unchecked).
 
+With `--base REF` (CI, after the frozen-registry check) it also compares with REF: a certified
+pair (number, [✓name]) present at REF and absent now (number changed, or tag downgraded to
+[src]/[in]/[unc]) needs a LEDGER.md line added since REF naming `name` (as frozen entries do).
+
 Not numbers for this rule: arXiv identifiers, equation numbers in parentheses "(10.54)",
 anything inside `code`. Run after StatementDeps.lean (which writes the .tsv).
 """
 import re
+import subprocess
 import sys
 
 FINDINGS = "FINDINGS.md"
@@ -29,7 +34,39 @@ def norm(s):
     return s.replace("−", "-")
 
 
+def certified_pairs(text):
+    m = re.search(r"^## Verified findings\n(.*?)(?=^## )", text, re.S | re.M)
+    sec = m.group(1) if m else ""
+    sec = re.sub(r"`[^`]*`", "", sec)
+    out = {}
+    for t in re.finditer(r"(" + NUM + r")\[✓([A-Za-z0-9_]+)\]", sec):
+        k = (norm(t.group(1)), t.group(2))
+        out[k] = out.get(k, 0) + 1
+    return out
+
+
+def base_check(base):
+    old = subprocess.run(["git", "show", f"{base}:{FINDINGS}"], capture_output=True, text=True)
+    if old.returncode != 0:
+        print(f"certified-number diff: no {FINDINGS} at {base}; skipped")
+        return 0
+    before = certified_pairs(old.stdout)
+    after = certified_pairs(open(FINDINGS, encoding="utf-8").read())
+    lost = [k for k, c in before.items() if after.get(k, 0) < c]
+    led = subprocess.run(["git", "diff", base, "HEAD", "--", "LEDGER.md"], capture_output=True, text=True).stdout
+    added = "\n".join(l[1:] for l in led.splitlines() if l.startswith("+") and not l.startswith("+++"))
+    missing = [k for k in lost if not re.search(r"(?<![\w.])" + re.escape(k[1]) + r"(?![\w])", added)]
+    print(f"certified-number diff vs {base}: {len(before)} certified pairs before, {len(after)} now, "
+          f"{len(lost)} removed or changed")
+    for num, name in missing:
+        print(f"::error::certified number {num}[✓{name}] was changed, removed or downgraded without a "
+              f"LEDGER.md entry naming {name}")
+    return 1 if missing else 0
+
+
 def main():
+    if len(sys.argv) == 3 and sys.argv[1] == "--base":
+        return base_check(sys.argv[2])
     try:
         rows = [l.split("\t") for l in open(TSV, encoding="utf-8").read().splitlines() if l.strip()]
     except FileNotFoundError:
