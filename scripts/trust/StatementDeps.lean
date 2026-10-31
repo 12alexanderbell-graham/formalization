@@ -171,9 +171,25 @@ run_cmd do
   -- pin shape (run 0028Z; red-team defect B03 "pinned" a definition by restating it): the pin
   -- theorem's statement must use a SPEC-kind definition whose own type and body do not mention
   -- the definition being pinned.
+  -- Load-bearing positions only (red team C, defect C02 put the spec in a decorative conjunct):
+  -- the head of a hypothesis, or the head of a side of the conclusion when it is `=` or `↔`.
   for (dn, tn) in pinned.toList do
     let ty := (env.find? tn).get!.type
-    let specs := (deps env {} ty {}).toList.filter fun s =>
+    -- heads of a proposition: under its `∀`s, the head, or the heads of both sides of `=`/`↔`
+    let propHeads (p : Expr) (withHead : Bool) : MetaM (Array Name) := forallTelescope p fun _ b => do
+      let sides := match b.eq? with
+        | some (_, l, r) => #[l, r]
+        | none => match b.iff? with
+          | some (l, r) => #[l, r]
+          | none => if withHead then #[b] else #[]
+      return sides.filterMap (·.getAppFn.constName?)
+    let heads : Array Name ← liftTermElabM <| forallTelescope ty fun xs concl => do
+      let mut hs : Array Name := #[]
+      for x in xs do
+        let d ← inferType x
+        if ← isProp d then hs := hs ++ (← propHeads d true)
+      return hs ++ (← propHeads concl false)
+    let specs := heads.toList.filter fun s =>
       kinds.find? s == some "SPEC" &&
         let sc := (env.find? s).get!
         !(deps env {} (sc.value?.getD (.sort 0)) (deps env {} sc.type {})).contains dn
