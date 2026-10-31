@@ -49,3 +49,4 @@ import Work.Chemistry.CubicEOS
 import Work.Chemistry.CubicEOSBlind
 import Work.Fidelity.CriticalSpec
 import Work.Chemistry.CubicEOSAudit
+import Work.Chemistry.CubicEOSTemp
