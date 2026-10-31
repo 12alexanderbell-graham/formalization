@@ -136,3 +136,9 @@
 - Pilot fixes: 27/125 headlines had no self-contained plain-words claim; docstrings written (statements unchanged) and now required by the new blocking CI job `validation-packet`; `F10_exceptions` docstring corrected; trust map shows each headline's own non-vacuity witness.
 - **B1 (part 2):** `Checked.Cosmography.B1Sep.cubic_separation` (a cubic agreeing with exact flat ΛCDM, Ω ∈ [0.2, 0.4], within 0.05 mag at z = 3 and 7 up to an offset lies > 5/4 from the ΛCDM point) and `cubic_direction` (on the side a₂ − a₂^ΛCDM < 7 log₁₀2 (a₃ − a₃^ΛCDM)), frozen, proved, both blind restatements closed in Lean, NV witness, promoted to Checked (PROVED + AUDITED, `Checked.Cosmography.B1Sep.*`); referee STANDS-WITH-CORRECTIONS: the RL19 offset points the other way (FINDINGS candidate C27).
 - Message to Alexander (L.2: a decision/action that is his, and a result): packet ready to send; B1 direction.
+
+## 2026-10-31T1028Z (scheduled run)
+- Env: repo ok (add_repo not exposed, pre-cloned); local Lean via elan + cache; CI green on every push read (ids in STATE).
+- THE RESULT part 3 (T5) + part 1: new blocking check T2c `scripts/trust/check_prose.py` (docstrings, names and statement shape against what the statement reaches; glossary; record conjuncts through pinned/printed definitions); docstrings of headlines and pinned definitions frozen (relock, LEDGER); written-out defining laws back terms (B1's ΛCDM machine-backed). Prose baseline 25 known gaps (shrink-only).
+- T5 judge v6: A04, A05, B04 rejected (accepted before); red team E (Sonnet, 8 defects aimed at the new check) judged, table `runs/2026-10-31T1028Z/t5/RESULTS.md`.
+- Own records: 8 certified-number records found resting on free formulas (baseline; fix queued).

@@ -21,3 +21,7 @@
 (?i)\bF\(R\)|\bf\(R\) => FriedmannEq MasterEq curv
 (?i)critical (point|isotherm|temperature|pressure|volume|constants?)|\bZ_c\b => IsCriticalIsotherm
 (?i)deceleration distance|(?<![A-Za-z])d_Q\b => lumDistFlat
+(?i)angular[- ]size[- ]distance|diameter[- ]distance|area[- ]distance => angDist
+(?i)\bflux[- ]distance|bolometric[- ]distance|luminosity[- ]based distance => lumDist lumDistFlat
+(?i)proper[- ]motion distance|transverse comoving distance => transverse comoving
+(?i)lookback time => redshift
