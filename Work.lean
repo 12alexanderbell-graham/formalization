@@ -50,3 +50,5 @@ import Work.Chemistry.CubicEOSBlind
 import Work.Fidelity.CriticalSpec
 import Work.Chemistry.CubicEOSAudit
 import Work.Chemistry.CubicEOSTemp
+import Work.Chemistry.CubicEOSTempBlind
+import Work.Chemistry.CubicEOSTempAudit
