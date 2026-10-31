@@ -62,7 +62,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 
 ## Environment (this run)
 - Repo pre-cloned (add_repo not exposed; not needed); fast-forwarded to f06b3c2; no LOCK. Local Lean: elan + cache + Checked build (~20 min incl. rebuild after docstring edits). Previous runs' CI green (41181290751).
-- This run's CI: 41184752504 (LOCK) green, 41187108998 (validation packet + docstrings; new job `validation-packet`) green; freeze/proof pushes 41187249914, 41188319770 and later: read next run.
+- This run's CI (all green): 41184752504 (LOCK), 41187108998 (validation packet + docstrings; new job `validation-packet`), 41187249914 (B1 freeze), 41188319770, 41188597784 (proofs in Work), 41188882078 (records), 41189031037 (blind direction); promotion 733d15c: 41190328467 green (build, nanoda, trust step incl. NV 78/78, relock, validation packet). Final records commit: read next run.
 - Subagents: two pilot reviewers (Sonnet, parallel), blind restater and referee for B1 separation (parallel).
 
 ## Daily review (53.3), 2026-10-31
