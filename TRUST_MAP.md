@@ -12,7 +12,7 @@ Non-vacuity (trust track T2): 70 headlines have hypotheses; 70 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Transcriptions (trust track T3): 41 PRINTED definitions; 36 carry a machine-checked
+Transcriptions (trust track T3): 41 PRINTED definitions; 39 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
 
 ## Unpinned physics definitions, by number of headlines resting on them
@@ -140,6 +140,6 @@ agreement with an independent blind second reading (`Checked/Trust/Transcription
 | `Records.F10_family_pole` | — | — | jL, qL² | unconditional |
 | `Records.F11_sizes` | — | — | — | unconditional |
 | `B1.lumDistFlat_flatLCDM` | lumDistFlat, hubble, redshift | — | — | `lumDistFlat_flatLCDM` |
-| `B1.cubic_misses_z3` | lumDistFlat, hubble, redshift | — | logPolyDL3, lusA2, lusA3 | `cubic_misses_z3` |
-| `B1.cubic_misses_z7` | lumDistFlat, hubble, redshift | — | logPolyDL3, lusA2, lusA3 | `cubic_misses_z7` |
-| `B1.cubic_shape_miss` | lumDistFlat, hubble, redshift | — | logPolyDL3, lusA2, lusA3 | `cubic_shape_miss` |
+| `B1.cubic_misses_z3` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z3` |
+| `B1.cubic_misses_z7` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z7` |
+| `B1.cubic_shape_miss` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_shape_miss` |

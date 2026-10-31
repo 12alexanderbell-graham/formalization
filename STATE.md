@@ -1,9 +1,9 @@
 # STATE
 
-Last updated: 2026-10-31, run 2026-10-31T0228Z (scheduled).
+Last updated: 2026-10-31, run 2026-10-31T0428Z (scheduled).
 
 ## Phase
-GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-produced science without outside verification. Physics (target 1, cosmography; F1–F11; B1) is the proving ground. Active: **Trust track T5 (measured false-acceptance rate), T4 (certified numbers, started 0228Z), T2, T3** (`TARGETS.md`, "THE RESULT" part 3); T1 closed (all headlines on pinned definitions, CI-enforced). Measured by the trust map and the T5 benchmark (`runs/2026-10-31T0028Z/t5/`).
+GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-produced science without outside verification. Physics (target 1, cosmography; F1–F11; B1) is the proving ground. Active: **Trust track T5 (measured false-acceptance rate), T4 (certified numbers, started 0228Z), T2, T3** (`TARGETS.md`, "THE RESULT" part 3); T1 closed (all headlines on pinned definitions, CI-enforced). Measured by the trust map and the T5 benchmark (`runs/2026-10-31T0028Z/t5/`). **THE RESULT part 2 started (run 0428Z): B1, first certified new-science result** (below).
 
 ## Trust track status
 - **Trust map** (`TRUST_MAP.md`, generated and enforced by `scripts/trust/StatementDeps.lean` in CI). Three machine-checked metrics (run 2228Z):
@@ -18,7 +18,14 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 - **New blocking checks (run 0028Z; LEDGER integrity event):** frozen registry `scripts/trust/frozen.txt` (239 fingerprints: headline and pin statements; definition statement + body + kind; a change needs relock + a LEDGER line naming it, `check_relock.py`); unused binders in headlines and pins (T2b level 0; baseline 0); pins must use an independent SPEC definition; theorems cited in STATE/FINDINGS must be registered headlines (or pure mathematics); Checked may not import Work; private definitions reported; stale TRUST_MAP.md fails.
 - **T4 certified numbers (run 0228Z):** every computed decimal in FINDINGS.md (outside "Candidates under verification") is the literal of a registered headline in `Checked/Records/Findings.lean` (`RoundsTo x d k`; 14 records, 26 distinct values, most stated for every flat ΛCDM/CPL model through pinned definitions); inputs beside them are bound to the record (`[in✓name]`); `scripts/trust/check_numbers.py` blocks any mismatch, untagged number, or silent change/demotion. Tally: 27 certified, 15 bound inputs, 13 quoted [src], 2 unchecked [unc] (F2 figure crossings). Found and fixed one wrong number in our own records (F11 −87 → −86). Not covered yet: fractions, STATE numbers, the prose label of a certified number, records of free formulas.
 
+## B1 (THE RESULT part 2; run 0428Z): truncation of the RL19 cubic log-polynomial, certified
+- **PROVED + AUDITED** (Checked, `Checked/Cosmography/B1Truncation.lean`): `Checked.Cosmography.B1.lumDistFlat_flatLCDM` (bridge: d_L of the pinned `lumDistFlat` = (1+z)/H₀ ∫_{√(a/a₀)}^1 2/√(Ω+(1−Ω)v⁶) dv in any model obeying the flat ΛCDM Friedmann law on the whole interval), `cubic_misses_z3` (> 0.09 mag), `cubic_misses_z7` (> 0.3 mag), `cubic_shape_miss` (z = 7 miss minus z = 3 miss > 0.18 mag, independent of H₀ and zero point), all for every Ω ∈ [0.2, 0.4]; non-vacuity witness in the same file (exact solution a = sinh(3t/2)^{2/3}). Audit `runs/2026-10-31T0428Z/audit_b1.md`; referee STANDS-WITH-CORRECTIONS; blind restatement closed in Lean; transcriptions second-read (²).
+- Method (reusable for any monotone integrand): certified Riemann sums with tangent (lower, no per-term checks) and secant (upper) bounds for 1/√y; generator `runs/2026-10-31T0428Z/scripts/emit_b1.py`.
+- Source facts (`runs/2026-10-31T0428Z/rl19_numbers.md`, one reading): RL19 prints no (a₂, a₃) values (contours only, Fig. 3; free offset m; quasars z ≤ 5.1); Lusso+19 Table 2 (4th order, three samples) prints no covariances; RL19 Supp. Fig. 5 appears to plot the Taylor-coefficient polynomials (≈ 13% off at z = 5.9) though Lusso+19 describe "a few per cent".
+- Not yet: the fit-level statement (how far any well-fitting cubic must lie from the ΛCDM point), its comparison with the published contours, Ω outside [0.2, 0.4], curvature.
+
 ## Results (statuses, annex XXXVIII)
+- **PROVED** (B1, run 0428Z) `Checked.Cosmography.B1.lumDistFlat_flatLCDM`, `cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss` (see B1 above).
 - **PROVED** (records, run 0228Z) `Checked.Records.F1_l0`, `F1_printedL0`, `F1_m0_agrees`, `F2_toy`, `F2_error`, `F3_D4_LCDM`, `F8_sizes`, `F9_values`, `F9_pole`, `F10_eta`, `F10_printed_pole`, `F10_exceptions`, `F10_family_pole`, `F11_sizes`: the certified numbers of FINDINGS (CI 41161681161, 41164490744 green incl. nanoda).
 - **PROVED** `Checked.Cosmography.lookback_second_order`, `..._bigO`: run 0028Z.
 - **PROVED** (F1) `Checked.Cosmography.Aviles.flatLCDM_coeffs`, `avilesL0Claim_false`, `avilesM0Claim_false`, `AvilesWitness.printedL0_false_at`, `printedM0_false_at`: run 0220Z.
@@ -37,11 +44,12 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 
 
 ## Environment (this run)
-- Repo pre-cloned (add_repo not exposed; not needed); fast-forwarded to 083ba66; no LOCK. Local Lean: elan + cache (~2 min). Previous run's CI all green (41158289729 v4, 41159094092, 41159417139).
-- This run's CI: 41161681161, 41161750691, 41162882811, 41163073712, 41163416612, 41163616232, 41164490744 all green; control 41163600735 FAILED at check_relock (required). Final records push: read next run.
-- T5 judging in the worktree `../fz2` (judge v5); a defect touching a base module costs ~9 min (full Checked+Work rebuild).
+- Repo pre-cloned (add_repo not exposed; not needed); fast-forwarded to 51e1ad0; no LOCK. Local Lean: elan + cache (~3 min). Previous run's final CI 41166670314 green.
+- This run's CI: 41168702419 (LOCK), 41169538464 (freeze), 41171394447 (Work proofs) green; promotion 41172396747 and later: read next run if not recorded below.
+- Subagents: referee (B1), blind restater, blind second reader, source reader (RL19/L19/L20 numbers). The referee consulted ar5iv HTML for prior art (not allowed by the PROMPT note; no formula taken from it); briefs now say no ar5iv.
 
 ## Daily review (53.3), 2026-10-31
+- 04:28Z run: first certified result of the system on a live scientific dispute (B1): the RL19 test's ΛCDM reference cubic misses exact ΛCDM by > 0.09 mag (z = 3), > 0.3 mag (z = 7), shape > 0.18 mag, for every Ω_m ∈ [0.2, 0.4], with rigorous integral enclosures in Lean. Measure: AUDITED + PROVED headlines 115 → 119; first computed (not closed-form) certified numbers; NV 70/70; second-read transcriptions +3.
 - 02:28Z run: the records became machine-checked for numbers (26 values certified in Lean, every computed decimal in FINDINGS tied to one by CI); one wrong number found in our own records; a fourth red team passed all 8 of its defects through the first version of the new check; after two hardenings 2 genuine holes remain (number labels, free-formula records). Measure: wrong-number defects (A06, B07, D02, D03, D07) all caught now; none were before.
 - 00:28Z run (first of the day): the first measurement of the system as a whole. The pipeline that the trust metrics described as machine-checking every link accepted every valid seeded wrong claim (15/15) from a different model's red teams; the strengthened checks catch the classes that change *existing* checked content (statements, transcriptions, pins, classifications) or cite unregistered results, and not yet new wrong definitions dressed as formulas, wrong numbers in prose, existential or partly used hypotheses.
 - Is AI-produced science here more trustworthy without outside checking than yesterday, and by what measure? Yes: false acceptance on the A+B benchmark fell from 15/15 to 6/15, and the number now exists. Experiment check (Alexander 2026-10-31, no narrowing): this run's plan and records state the full goal (THE RESULT) and its next decisive step; no reduced scope recorded.
@@ -72,10 +80,10 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 None.
 
 ## Exact next step
-0. **Read PROMPT instruction 10 and `TARGETS.md` "THE RESULT" first** (Alexander, 2026-10-31): the work is the full goal, demonstrated and published. Choose each run's block by which of its five parts it moves most; the items below are the immediate queue, not the ambition.
-1. Read this run's final CI by ID; fix anything red first.
-2. **Generated records** (closes D01, A03, A04, B04, A05 as a class; the reader-facing artifact must not be prose): a Lean script that writes, per headline, the statement with FORMULA/COMPOSITE/CLAIM definitions unfolded down to pinned PHYSICS, PRINTED and Mathlib, flags (∃-conclusion, no physics definition = pure arithmetic, hypotheses), and per record the sentence "‹quantity› = ‹value› in ‹model›" generated from the RoundsTo statement; FINDINGS/STATE then quote generated sentences (CI: stale = error). Records must evaluate registered definitions, not free formulas (D04): rewrite `F1_printedL0`, `F8_sizes`, `F9_values`, `F9_pole`, `F10_exceptions`, `F11_sizes` over PRINTED/FORMULA definitions with second readings.
-3. T5: re-judge with judge v5 the 0028Z defects not re-judged (`runs/2026-10-31T0228Z/t5/run_prio_v5.sh` skips finished ones) and A04/A05/B04 under the author-regenerates-map rule if `final_*` did not finish; then a fresh red team E (different model) against the generated records.
-4. T4 next: fractions in FINDINGS ("true 35/2 vs printed −19/2") and numbers in STATE; then numbers produced by computation (B1 certified distance integrals).
-5. T3: second-read `dQFlat` and the printed parts of the F1/F2 CLAIM definitions; make "PRINTED without second reading" blocking.
+0. **Read PROMPT instruction 10 and `TARGETS.md` "THE RESULT" first** (Alexander, 2026-10-31): the work is the full goal, demonstrated and published. Choose each run's block by which of its five parts it moves most (PROMPT working note "part rotation"); the items below are the immediate queue, not the ambition.
+1. Read CI of this run's last pushes by ID (promotion 41172396747, transcriptions, records); fix anything red first.
+2. **B1 separation theorem (decisive for the dispute):** any cubic log-polynomial (any a₂, a₃, any magnitude offset m) that reproduces exact flat ΛCDM within ε (e.g. 0.05 mag) at a set of redshifts in [0, 5.1] (RL19 quasar range) must have (a₂, a₃) at least δ from the ΛCDM point, for every Ω ∈ [0.2, 0.4]. Plan: the shape miss is linear-fractional in (a₂, a₃) through log P; bound the Lipschitz constant of 5 log₁₀(P(x₂)/P(x₁)) in (a₂, a₃) on a box, combine with the certified miss (method of this run, upper and lower enclosures at 2–3 redshifts, e.g. z = 1, 3, 5 with 1+z = 2, 4, 6 — z = 5 needs ln 3 bounds: prove from `Real.exp` bounds or use z = 1, 3, 7). Then compare δ with RL19 Fig. 3's contour scale (`rl19_numbers.md`; read the ellipse from the typeset figure by a second route).
+3. Generated records (closes T5 holes D01, A03, A04, B04, A05 as a class) — see run 0228Z plan: per headline, the statement with FORMULA/COMPOSITE/CLAIM unfolded, flags, generated sentences; records over registered definitions (D04).
+4. T5: re-judge the remaining 0028Z defects with judge v5; fresh red team E against generated records.
+5. T4: fractions in FINDINGS and numbers in STATE; B1 numbers into a certified records form (lower bounds: extend `check_numbers` with a `[≥name]` tag for certified bounds).
 Blocking: nothing.

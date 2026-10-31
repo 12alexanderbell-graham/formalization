@@ -44,3 +44,4 @@ import Work.Cosmography.B1Truncation
 import Work.Cosmography.B1Blind
 import Work.Cosmography.B1Witness
 import Work.Cosmography.B1Audit
+import Work.Trust.SecondReadingB1

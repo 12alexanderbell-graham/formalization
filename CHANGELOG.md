@@ -114,3 +114,11 @@
 - **T5:** judge v5 replicates CI exactly (Work build included); red team D (Sonnet, 8 defects vs the number check), two in-run hardenings; control `control/frozen-record` failed at check_relock in CI (41163600735) as required. Table `runs/2026-10-31T0228Z/t5/RESULTS.md`.
 - PROMPT notes: certified numbers, judge v5. TARGETS: T4 started. LEDGER: integrity events, records correction, experiment, evaluation of 0028Z.
 - No message to Alexander (no new finding; infrastructure progress; the corrected F11 number is a record slip in a reported aside, not a finding change).
+
+## 2026-10-31T0428Z (scheduled run)
+- Env: repo ok (pre-cloned); local Lean via elan ok; previous CI 41166670314 green; this run's CI ids in STATE.
+- **THE RESULT part 2 started: B1, first certified new-science result.** For every flat ΛCDM model with Ω_m ∈ [0.2, 0.4], the RL19 cubic log-polynomial at the ΛCDM-implied coefficients misses the exact distance modulus by > 0.09 mag (z = 3), > 0.3 mag (z = 7), and its miss grows by > 0.18 mag from z = 3 to z = 7 (H₀- and zero-point-free). PROVED + AUDITED in Checked (`Checked/Cosmography/B1Truncation.lean`), with the bridge from the pinned `lumDistFlat` to the ΛCDM integral and an exact global witness (sinh^{2/3}). Referee STANDS-WITH-CORRECTIONS; blind restatement closed in Lean; three new PRINTED definitions second-read and machine-checked (T3).
+- New method: certified Riemann sums with tangent/secant bounds (certificates by script, checked by Lean).
+- Source facts for the next step: `runs/2026-10-31T0428Z/rl19_numbers.md`.
+- PROMPT notes: certified integrals; part rotation; no ar5iv in any brief. LEDGER: experiment, evaluation status of 0228Z.
+- Message to Alexander (L.2, major result): B1 first certified result.

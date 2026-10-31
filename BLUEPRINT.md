@@ -11,6 +11,12 @@
 - `NonVacuity.lean` (obligation generator, `nonvacuity%`), `Witnesses.lean` (62 witnesses): **PROVED**-level checks in CI (blocking). Adversarial review `runs/2026-10-30T2228Z/nv_adversary.md`.
 - Next: hypothesis necessity (T2b).
 
+## B1 (THE RESULT part 2), `Checked/Cosmography/B1Truncation.lean`
+- Bridge `lumDistFlat_flatLCDM` (FTC, substitution v = (1+z)^{-1/2}): **PROVED** (AUDITED).
+- Certified enclosures of ∫ 2/√(Ω+(1−Ω)v⁶) (Riemann sums, tangent/secant bounds; `J_lower`, `J_upper`, tool lemmas `rsum_le_integral`, `integral_le_lsum`, `tangent_le`, `le_secant`): **PROVED** (helpers).
+- `cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss`: **PROVED** (AUDITED). Witness `exists_flatLCDM_on`: PROVED.
+- Next node: separation theorem (fit-level), then σ comparison.
+
 ## Trust track T3 (transcription fidelity), `Checked/Trust/`
 - `SecondReading.lean` (blind second transcription, 23 coefficients), `Transcriptions.lean` (23 agreement theorems). Next: remaining 15 PRINTED definitions.
 
