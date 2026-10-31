@@ -45,7 +45,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 
 ## Environment (this run)
 - Repo pre-cloned (add_repo not exposed; not needed); fast-forwarded to 51e1ad0; no LOCK. Local Lean: elan + cache (~3 min). Previous run's final CI 41166670314 green.
-- This run's CI: 41168702419 (LOCK), 41169538464 (freeze), 41171394447 (Work proofs) green; promotion 41172396747 and later: read next run if not recorded below.
+- This run's CI: 41168702419 (LOCK), 41169538464 (freeze), 41171394447 (Work proofs), 41172396747 (promotion: build, leanchecker, axiom audit, nanoda, trust step, relock), 41173318266 (records, second reading) all green. This CI-id commit: read next run.
 - Subagents: referee (B1), blind restater, blind second reader, source reader (RL19/L19/L20 numbers). The referee consulted ar5iv HTML for prior art (not allowed by the PROMPT note; no formula taken from it); briefs now say no ar5iv.
 
 ## Daily review (53.3), 2026-10-31
