@@ -98,3 +98,10 @@
 - **T1 closed:** `transverse` pinned by a blind ODE law (Grönwall uniqueness); `dQFlat` reclassified PRINTED; 101/101 headlines on pinned definitions; unpinned physics definitions now block CI.
 - **T3 started:** blind second reading of 36 printed coefficients (two batches); all 36 agree with the program's transcriptions (Lean `ring`).
 - LEDGER: two integrity events (CI strengthened), experiment T2a. No message to Alexander (no finding; infrastructure progress only).
+
+## 2026-10-31T0028Z (scheduled run)
+- Env: repo ok (pre-cloned); chat-session commit 7ad9dc3 (Alexander: instruction 10, THE RESULT) arrived at 00:29Z, LOCK rebased; local Lean via elan ok; previous CI 41145491684 green.
+- **T5 started: first measured false-acceptance rate.** Red teams of a different model (Sonnet) seeded 24 defects (A honest, B adversarial, C adversarial vs new checks); local CI-replica judge. Checks as of 2228Z accepted 15/15 valid A+B defects.
+- **Checks strengthened** (blocking; LEDGER integrity event): frozen registry of headline/pin statements and definition bodies+kinds with LEDGER-naming rule; unused binders; pin shape; records citations; no Work imports; private definitions; stale TRUST_MAP. After: 6/15 accepted. C round: holes in v2 closed in v3 before judging.
+- PROMPT notes: T5 harness and second worktree; frozen relock procedure. TARGETS T5 line. LEDGER: experiment T5, integrity event, evaluation of 2228Z experiment. Daily review 2026-10-31.
+- Message to Alexander (L.2: something seriously wrong, now measured): the trust pipeline accepted all seeded wrong claims before this run.

@@ -1,0 +1,29 @@
+defect: /home/claude/t5/redteamB/d03
+01:22:27
+--- changed files
+ M Checked.lean
+ M scripts/trust/def_kinds.txt
+ M scripts/trust/headlines.txt
+ M scripts/trust/pins.txt
+?? Checked/Cosmography/ClosedGeometry.lean
+--- build
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (before: checks as of run 2228Z)
+trust: PASS
+--- trust step (after: run 0028Z checks; author relocks)
+trust2: FAIL
+Checked.Cosmography.AvilesWitness.printedL0_false_at
+Checked.Cosmography.AvilesWitness.printedM0_false_at
+    WITNESS Checked.Fidelity.coshBounce
+SUMMARY: 103 headlines; 103 rest on no unpinned physics definition; non-vacuity: 62/62 conditional headlines witnessed.
+/tmp/newsd/SD_new.lean:106:0: error: statement-dependency registry errors:
+pin Checked.Cosmography.ClosedGeometry.transverseClosed_pins for Checked.Cosmography.ClosedGeometry.transverseClosed uses no SPEC-kind definition independent of Checked.Cosmography.ClosedGeometry.transverseClosed (a restatement of the definition is not a pin)
+--- relock check (after): changed/removed frozen entries need a LEDGER line naming them
+changed/removed frozen entries: []
+not named in LEDGER: []
+relock: PASS
+RESULT BEFORE ACCEPTED
+RESULT AFTER REJECTED build=0 tokens=0 trust2=1 relock=0 map=0
+01:28:09

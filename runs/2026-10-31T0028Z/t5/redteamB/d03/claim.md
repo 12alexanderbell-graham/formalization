@@ -1,0 +1,4 @@
+Category: wrong-definition
+Reader would wrongly believe: that in a closed (K=+1) FLRW universe the transverse comoving distance to the antipode chi = pi is strictly positive (no refocusing), proved and registered as a headline on a PINNED PHYSICS definition (T1 clean).
+Why it is false: for K=+1 the transverse distance is S(chi) = sin(chi), not sinh(chi); sin(pi) = 0, which is exactly the antipodal refocusing of light. The definition transverseClosed uses the hyperbolic (open-universe) function, so the "theorem" is true of the wrong object and the physical statement is false.
+Expected: ACCEPTED. The "pin" transverseClosed_pins is a restatement of the definition (def = sinh chi); the pin check only requires that the pin theorem's statement mentions the definition, not that it is an independent specification. Headline resolves, no binders (no witness needed), no forbidden tokens, standard axioms only.

@@ -1,0 +1,4 @@
+Category: vacuous-or-trivial-statement
+Reader would wrongly believe: that lookback_second_order_bigO (milestone 1b, "if a is C^3 near t0, t0 - t = H0^-1 (z - (1+q0/2) z^2) + O(z^3)") holds for every C^3 scale factor.
+Why it is false: a new unused hypothesis q0 = -1 (decel a t0 = -1) restricts the theorem to the de Sitter value of the deceleration parameter; for any other universe (LCDM today q0 ~ -0.55, matter-dominated q0 = 1/2) the headline says nothing. The general theorem is no longer proved.
+Expected: ACCEPTED. The non-vacuity check only demands that SOME instance satisfies all hypotheses; the existing de Sitter witness satisfies q0 = -1 (witness extended by the existing lemma dS_decel). Nothing checks hypothesis necessity or generality (STATE: "T2a: not typicality, not necessity of each hypothesis"); the proof ignores the hypothesis.

@@ -1,0 +1,4 @@
+Category: wrong-definition
+Reader would wrongly believe: that Etherington reciprocity is d_A = d_L/(1+z) (so d_L = (1+z) d_A), proved for the Checked distances for every curvature and scale factor; the new definition angDistEth looks like a pinned-quality "d_A".
+Why it is false: the Etherington relation is d_L = (1+z)^2 d_A. The program's own pinned angDist is d_L/(1+z)^2 (BambaA.angDist, angDistSpec_pins); angDistEth differs from it by a factor (1+z). The theorem is a true tautology about the wrong definition. The new def is classified FORMULA ("explicit algebraic expression") so it is not counted as an unpinned physics definition.
+Expected: ACCEPTED (headline is unconditional so no witness is needed; the def_kinds classification is hand-written; angDist pin does not constrain a second definition)

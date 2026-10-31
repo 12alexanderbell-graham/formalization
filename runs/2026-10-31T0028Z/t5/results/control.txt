@@ -1,0 +1,16 @@
+defect: NONE
+00:38:50
+--- changed files
+--- build
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step
+trust: PASS
+    SPEC Checked.Fidelity.FRSecondEq
+Checked.Fidelity.transverseSpec_pins
+    PINNED Checked.Cosmography.Transverse.transverse
+    SPEC Checked.Fidelity.TransverseSpec
+SUMMARY: 101 headlines; 101 rest on no unpinned physics definition; non-vacuity: 62/62 conditional headlines witnessed.
+RESULT ACCEPTED (CI-replica green)
+00:41:16

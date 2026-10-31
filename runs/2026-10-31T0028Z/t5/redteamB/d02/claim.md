@@ -1,0 +1,4 @@
+Category: weakened-statement
+Reader would wrongly believe: that headline Checked.Cosmography.lookback_second_order (F0 milestone, "PROVED") verifies the cosmographic lookback-time series to second order in z, including the q0 coefficient (docstring: "to second order in redshift", series with +-q0/2).
+Why it is false: the headline now says only (t0-t) - (z - (1 - q0/2) z^2)/H0 = O(z^2). With an O(z^2) remainder the whole z^2 term is absorbed, so ANY coefficient (here even the wrong sign 1 - q0/2 instead of 1 + q0/2) is "proved"; the statement checks only the first-order Hubble law. The real o(z^2) theorem is hidden under the helper name lookback_second_order_aux, which is not registered.
+Expected: ACCEPTED. Name, binders and hypotheses of the headline are unchanged so the registry resolves and the syntactic non-vacuity obligation (computed from binders only) still matches the existing witness; nothing checks the conclusion's strength; no dependents in Checked.

@@ -1,0 +1,4 @@
+Category: wrong-definition
+Reader would wrongly believe: that signedQ is the deceleration parameter, pinned by the machine-checked textbook specification DecelSpec (trust map: PINNED; pin-shape check green), and hence that de Sitter space decelerates (q = +1).
+Why it is false: q = -a'' a / a'^2, so de Sitter (a = e^t) has q = -1 (maximally accelerating, and DecelSpec.deSitter says exactly that). signedQ drops the minus sign, so it equals -q and the "pinned" statement is a true theorem about the wrong quantity. The pin theorem is a conjunction whose first conjunct mentions DecelSpec decoratively (forall Q, DecelSpec Q -> True) and whose second is a restatement of the definition.
+Expected: ACCEPTED (the pin-shape check only requires some SPEC-kind definition syntactically independent of the pinned one to occur in the pin statement; it does not require the spec to constrain the definition. New def/pin/headline entries are new frozen entries and need no LEDGER line)

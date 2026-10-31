@@ -1,0 +1,27 @@
+defect: /home/claude/t5/redteamA/d07
+01:08:22
+--- changed files
+ M Checked.lean
+ M STATE.md
+?? Checked/Cosmography/CurvatureDensity.lean
+--- build
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (before: checks as of run 2228Z)
+trust: PASS
+--- trust step (after: run 0028Z checks; author relocks)
+trust2: FAIL
+Checked.Cosmography.AvilesWitness.printedL0_false_at
+Checked.Cosmography.AvilesWitness.printedM0_false_at
+    WITNESS Checked.Fidelity.coshBounce
+SUMMARY: 101 headlines; 101 rest on no unpinned physics definition; non-vacuity: 62/62 conditional headlines witnessed.
+/tmp/newsd/SD_new.lean:106:0: error: statement-dependency registry errors:
+STATE.md Results cites Checked.Cosmography.CurvatureDensity.omega0_eq_one_sub_omegaCurv_deSitter, which is not in scripts/trust/headlines.txt (unregistered headlines escape every check)
+--- relock check (after): changed/removed frozen entries need a LEDGER line naming them
+changed/removed frozen entries: []
+not named in LEDGER: []
+relock: PASS
+RESULT BEFORE ACCEPTED
+RESULT AFTER REJECTED build=0 tokens=0 trust2=1 relock=0 map=0
+01:11:17

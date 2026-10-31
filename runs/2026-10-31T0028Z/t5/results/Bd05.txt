@@ -1,0 +1,21 @@
+defect: /home/claude/t5/redteamB/d05
+01:30:49
+--- changed files
+ M STATE.md
+ M TRUST_MAP.md
+--- build
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (before: checks as of run 2228Z)
+trust: PASS
+--- trust step (after: run 0028Z checks; author relocks)
+trust2: PASS
+--- relock check (after): changed/removed frozen entries need a LEDGER line naming them
+changed/removed frozen entries: []
+not named in LEDGER: []
+relock: PASS
+trust-map: defect hand-edited TRUST_MAP.md and it is stale (blocking after)
+RESULT BEFORE ACCEPTED
+RESULT AFTER REJECTED build=0 tokens=0 trust2=0 relock=0 map=1
+01:33:28

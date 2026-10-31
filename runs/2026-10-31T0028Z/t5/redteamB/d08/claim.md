@@ -1,0 +1,4 @@
+Category: weakened-statement
+Reader would wrongly believe: that HubbleSpec pins `hubble` for every positive scale factor differentiable at t (docstring of hubbleSpec_pins, T1 "19 pins", every headline using hubble "rests only on pinned definitions").
+Why it is false: the pin theorem now carries an extra hypothesis a = exp, so it only shows that any H meeting the spec agrees with `hubble` on the exponential (de Sitter) scale factor. On every other scale factor the program's `hubble` is no longer determined by the spec, so the T1 guarantee ("no wrong definition can hide") is void off de Sitter.
+Expected: ACCEPTED. The pin check only requires the pin theorem to resolve and to mention `hubble` in its statement; the non-vacuity witness (de Sitter, extended with rfl) satisfies the extra hypothesis; the proof ignores it; the docstring still says "every positive scale factor".

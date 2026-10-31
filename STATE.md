@@ -1,9 +1,9 @@
 # STATE
 
-Last updated: 2026-10-30, run 2026-10-30T2228Z (scheduled).
+Last updated: 2026-10-31, run 2026-10-31T0028Z (scheduled).
 
 ## Phase
-GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-produced science without outside verification. Physics (target 1, cosmography; F1–F11; B1) is the proving ground. Active: **Trust track T2 (statement fidelity) and T3 (transcription fidelity)** (`TARGETS.md`); T1 closed (all headlines on pinned definitions, CI-enforced). Measured by the trust map.
+GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-produced science without outside verification. Physics (target 1, cosmography; F1–F11; B1) is the proving ground. Active: **Trust track T5 (measured false-acceptance rate), T2, T3** (`TARGETS.md`, "THE RESULT" part 3); T1 closed (all headlines on pinned definitions, CI-enforced). Measured by the trust map and the T5 benchmark (`runs/2026-10-31T0028Z/t5/`).
 
 ## Trust track status
 - **Trust map** (`TRUST_MAP.md`, generated and enforced by `scripts/trust/StatementDeps.lean` in CI). Three machine-checked metrics (run 2228Z):
@@ -12,7 +12,9 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
   - **T3 second reading:** 36/38 PRINTED definitions have a machine-checked agreement with a blind second transcription (`Checked/Trust/SecondReading.lean`, `Transcriptions.lean`; marked ² in the map). Informational. Second batch (F(R) `P0…Q3`, `printedR`, η `qL/sL/lL`, `printed20/30/Den`) agrees too (`SecondReadingFR.lean`, `TranscriptionsFR.lean`); the second reader reproduced the paper's η numbers (11.44)–(11.45) and, by its own sympy check, re-found the F9/F10 inconsistencies (printed R; ε-coefficients not the expansion of the printed formulas). Not yet read twice: `dQFlat` (Eq. 5), `jL` (= 1), and the printed parts inside the F1/F2 CLAIM definitions.
 - Mutation benchmark (`python3 scripts/fidelity_killrate.py`): blind 30/30, author 10/10.
 - Controls: `control/bad-pin-registry` (2028Z) and `control/vacuous-headline` (CI 41140145749) FAILED as required at the trust-map step; `control/unpinned-and-hidden` CI 41142047810 FAILED as required with both errors.
-- T4, T5: not started.
+- **T5 false acceptance (run 0028Z, first measurement):** red teams of a different model (Sonnet) seeded 24 defects (A honest, B adversarial, C adversarial vs the new checks; `runs/2026-10-31T0028Z/t5/`). **Checks as of 2228Z accepted 15 of 15 valid A+B defects** (one INVALID: missing import). After this run's strengthening: **6 of 15 accepted** (caught: everything that changes frozen content or cites unregistered results; accepted: new wrong definitions labelled FORMULA, wrong numbers and scope in prose, an existential headline). Red team C (vs the new checks): see run README. Table: `runs/2026-10-31T0028Z/README.md`.
+- **New blocking checks (run 0028Z; LEDGER integrity event):** frozen registry `scripts/trust/frozen.txt` (239 fingerprints: headline and pin statements; definition statement + body + kind; a change needs relock + a LEDGER line naming it, `check_relock.py`); unused binders in headlines and pins (T2b level 0; baseline 0); pins must use an independent SPEC definition; theorems cited in STATE/FINDINGS must be registered headlines (or pure mathematics); Checked may not import Work; private definitions reported; stale TRUST_MAP.md fails.
+- T4: not started.
 
 ## Results (statuses, annex XXXVIII)
 - **PROVED** `Checked.Cosmography.lookback_second_order`, `..._bigO`: run 0028Z.
@@ -32,8 +34,13 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 
 
 ## Environment (this run)
-- Repo pre-cloned; main fast-forwarded; pushes verified (remote head = local each time). Local Lean: elan + cache (~4 min); `lake build Checked` incremental ~1–3 min; `StatementDeps.lean` ~1:50 locally (was 45 s; the non-vacuity pass).
-- CI (read by ID): 41138309671 (LOCK) green, 41139919276 (non-vacuity v1) green; control 41140145749 FAILED as required ("no non-vacuity witness" for the vacuous headline; decoy rejected). 41141815326 (T1 close, hardened generator) green. Control 2 41142047810 FAILED as required with both errors (`uses_unpinned … fakeDist`; `hidden_vacuous: no non-vacuity witness`). 41142867442 (T3 batch 1), 41142998164 (records), 41143675338 (T3 batch 2) green: the non-vacuity, pin and second-reading checks are PROVED-level (CI green, standard axioms). Final records commit: read next run.
+- Repo pre-cloned (add_repo not exposed; not needed); main fast-forwarded; a chat session pushed 7ad9dc3 (Alexander's instruction 10) at 00:29Z, LOCK rebased on it. Local Lean: elan + cache (~4 min), `lake build Checked` ~3 min from scratch. Previous run's final CI 41145491684 green (all 2228Z runs confirmed green).
+- Development in a second worktree (`../fz2`, symlinked `.lake/packages`) because the T5 judge resets the main tree after every defect.
+- This run's CI: read next run (IDs in CHANGELOG if seen).
+
+## Daily review (53.3), 2026-10-31
+- 00:28Z run (first of the day): the first measurement of the system as a whole. The pipeline that the trust metrics described as machine-checking every link accepted every valid seeded wrong claim (15/15) from a different model's red teams; the strengthened checks catch the classes that change *existing* checked content (statements, transcriptions, pins, classifications) or cite unregistered results, and not yet new wrong definitions dressed as formulas, wrong numbers in prose, existential or partly used hypotheses.
+- Is AI-produced science here more trustworthy without outside checking than yesterday, and by what measure? Yes: false acceptance on the A+B benchmark fell from 15/15 to 6/15, and the number now exists. Experiment check (Alexander 2026-10-31, no narrowing): this run's plan and records state the full goal (THE RESULT) and its next decisive step; no reduced scope recorded.
 
 ## Daily review (53.3), 2026-10-30
 - 22:28Z run: statement fidelity and transcription fidelity became machine-checked (non-vacuity 62/62 enforced; second reading 36/38); T1 closed and enforced (101/101).
@@ -54,14 +61,15 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 - T2a: non-vacuity = one instance satisfies all hypotheses; not typicality, not necessity of each hypothesis. Witness instances are mostly de Sitter (a = eᵗ). The obligation generator unfolds only `Checked` definitions.
 - T3: second readings are by the same model (independent reading of the same images); CCS 2008 Eq. (A2) exists only in arXiv v2 (docstrings cite v1/v2 crops); Demianski (23) double minus at a line break read as −210q₀j₀ by both readings.
 - T1: `AngDistSpec`'s flat/closed/open laws are near-restatements of the definition; their independence is the blind authorship plus the anchors.
+- **T5 open holes (accepted by the strengthened checks; `runs/2026-10-31T0028Z/README.md`):** a *new* wrong definition classified FORMULA/COMPOSITE (A04, B04: kinds are hand-assigned; only PHYSICS needs a pin); wrong numbers and overstated prose in STATE/FINDINGS (A03, A06, B07, the STATE half of B05: records are not generated from Lean); an existential headline read as universal (A05); C-round holes (see run README). A LEDGER line naming a changed frozen constant passes `check_relock.py`: the guard is disclosure, not prevention.
 
 ## Open questions for Alexander
 None.
 
 ## Exact next step
 0. **Read PROMPT instruction 10 and `TARGETS.md` "THE RESULT" first** (Alexander, 2026-10-31): the work is the full goal, demonstrated and published. Choose each run's block by which of its five parts it moves most; the items below are the immediate queue, not the ambition.
-1. Read the CI runs listed under Environment that are not yet confirmed green. Fix anything red first.
-2. T3: second-read `dQFlat` (Eq. 5) and the printed formulas inside the F1/F2 CLAIM definitions (Aviles Eq. 15 l₀/m₀, CLS Eq. 22 l₀): factor them out as PRINTED defs first. Then make "PRINTED without second reading" blocking.
-3. T2b hypothesis necessity: for each headline hypothesis, either a Checked counterexample (other hypotheses hold, conclusion fails) or a registry entry DOMAIN with reason; start with the refutations' nondegeneracy hypotheses (`decel ≠ 0`, `K ≠ 0`, …), where the counterexample is the model making the printed and correct coefficients coincide.
-4. T5 (pipeline false-acceptance rate): seed wrong claims of each kind the checks target (vacuous, unpinned, mis-transcribed, wrong definition) on control branches and record which the CI catches; a mis-transcription is not caught by CI today unless it is among the 23 second-read.
+1. Read this run's CI by ID (first push of the frozen registry: if `frozen.txt` fingerprints differ in CI from local, the hashes are not portable: switch `fingerprint` to a hash of the pretty-printed statement and relock). Fix anything red first.
+2. T5: if the C round (judged against v3, `runs/2026-10-31T0028Z/t5/results/C*_v3.txt`) is incomplete, finish it; then close the C holes that are mechanical (bundled conjunctions: split ∧ hypotheses before the unused check; pins: require a hypothesis `Spec D` with `D` a bound variable used by the proof) and rerun A, B, C. Then a fresh red team D (different model) against the new version: the benchmark grows, the accepted fraction must fall.
+3. T5 open classes need new mechanisms, not patches: (a) FORMULA/COMPOSITE dodge: a definition whose docstring or name claims a physical quantity must be PHYSICS (or be proved equal to a pinned PHYSICS definition in the stated model, e.g. `lumDistEdS = lumDist` in EdS); (b) records: generate the Results and FINDINGS numbers from Lean (a script that prints each headline's statement and each certified interval) so prose cannot overstate; (c) existential headlines: flag `∃`-conclusions in the map.
+4. T3: second-read `dQFlat` (Eq. 5) and the printed formulas inside the F1/F2 CLAIM definitions; then make "PRINTED without second reading" blocking and forbid numeric literals in CLAIM bodies (all printed numbers in PRINTED definitions).
 Blocking: nothing.

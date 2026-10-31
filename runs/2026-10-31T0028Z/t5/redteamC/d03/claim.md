@@ -1,0 +1,4 @@
+Category: wrong-definition
+Reader would wrongly believe: that Einstein-de Sitter is older than the Hubble time, proved by a registered headline whose trust-map row shows no unpinned, unclassified or physics definition at all ("rests on no unpinned physics definition", dependency list empty).
+Why it is false: the EdS age is (2/3)/H0, i.e. 2/3 of the Hubble time (the docstring says so); the definition edsAge = 3/2 inverts the fraction. This is the classic fact that a matter-dominated universe is YOUNGER than 1/H0, motivating a cosmological constant. The wrong number lives in a `private` definition: its name is internal (`_private...`), the `reportable` filter in StatementDeps drops internal names, so the physics definition the headline rests on is never listed, never classified UNCLASSIFIED/PHYSICS (no error), and never frozen.
+Expected: ACCEPTED (private defs are invisible to the dependency report, the classification requirement and the frozen registry)

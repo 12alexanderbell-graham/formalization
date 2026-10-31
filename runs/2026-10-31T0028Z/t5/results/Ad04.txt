@@ -1,0 +1,23 @@
+defect: /home/claude/t5/redteamA/d04
+00:58:16
+--- changed files
+ M Checked.lean
+ M STATE.md
+ M scripts/trust/def_kinds.txt
+ M scripts/trust/headlines.txt
+?? Checked/Cosmography/Etherington.lean
+--- build
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (before: checks as of run 2228Z)
+trust: PASS
+--- trust step (after: run 0028Z checks; author relocks)
+trust2: PASS
+--- relock check (after): changed/removed frozen entries need a LEDGER line naming them
+changed/removed frozen entries: []
+not named in LEDGER: []
+relock: PASS
+RESULT BEFORE ACCEPTED
+RESULT AFTER ACCEPTED
+01:00:49

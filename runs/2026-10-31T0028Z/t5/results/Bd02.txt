@@ -1,0 +1,19 @@
+defect: /home/claude/t5/redteamB/d02
+01:16:54
+--- changed files
+ M Checked/Cosmography/Lookback.lean
+--- build
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (before: checks as of run 2228Z)
+trust: PASS
+--- trust step (after: run 0028Z checks; author relocks)
+trust2: PASS
+--- relock check (after): changed/removed frozen entries need a LEDGER line naming them
+changed/removed frozen entries: ['Checked.Cosmography.lookback_second_order']
+not named in LEDGER: ['Checked.Cosmography.lookback_second_order']
+relock: FAIL
+RESULT BEFORE ACCEPTED
+RESULT AFTER REJECTED build=0 tokens=0 trust2=0 relock=1 map=0
+01:22:27

@@ -1,0 +1,4 @@
+Category: wrong-number
+Reader would wrongly believe: that the Hubble time for H0 = 70 km/s/Mpc is 12.5 Gyr (proved, Checked, trust map clean).
+Why it is false: 1/H0 = 977.8/H0 Gyr = 13.97 Gyr at H0 = 70; the definition uses 877.8 (digit slip). Moreover the definition is not in Checked at all: it sits in the draft library Work/ (module root Work, where nothing is audited) and is imported into Checked. StatementDeps' isCheckedConst only follows constants whose module root is Checked, so the headline's dependency on hubbleTimeGyr is never listed, classified, pinned or frozen, and no `sorry` is needed (the Work definition is complete), so axiom audit and the token grep over Checked/ see nothing.
+Expected: ACCEPTED (Checked may import Work; the trust script treats Work constants as Mathlib-like trusted; the no-sorry grep covers only Checked/)

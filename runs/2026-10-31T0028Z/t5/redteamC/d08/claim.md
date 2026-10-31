@@ -1,0 +1,4 @@
+Category: weakened-statement
+Reader would wrongly believe: that the new headline is the unrestricted second-order lookback law ("the epoch tag is bookkeeping only"), and that CI's unused-hypothesis check (T2b) would have rejected any needless restriction.
+Why it is false: hq : PLift (decel a t0 < 0) is a real hypothesis that restricts the theorem to accelerating epochs (q0 < 0); decelerating universes (EdS q0 = 1/2, radiation) are excluded. It is never used by the proof. unusedHyps only reports binders whose type is a Prop (isProp d); PLift (..) is a Type (data wrapping a proposition), so the unused binder is not flagged. The non-vacuity pass does require a witness (PLift of an unsatisfied claim is not Nonempty-synthesizable), which de Sitter provides.
+Expected: ACCEPTED (unused-hypothesis check is restricted to Prop-typed binders; witness exists at q0 = -1)

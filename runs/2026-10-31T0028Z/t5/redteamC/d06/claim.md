@@ -1,0 +1,4 @@
+Category: weakened-statement
+Reader would wrongly believe: that the new registered headline is the general O(z^3) second-order lookback law for C^3 scale factors under "standing non-degeneracy conditions", and that CI's unused-hypothesis check certifies every hypothesis is needed.
+Why it is false: the bundled hypothesis h contains the conjunct decel a t0 = -1, i.e. it restricts the theorem to q0 = -1 (de Sitter value); for LCDM (q0 about -0.55), matter domination (q0 = 1/2) it says nothing. The proof only uses h.1 and h.2.1, never h.2.2. unusedHyps tests only whether the whole binder h occurs in the proof body, so a partly-used conjunction is never reported. Non-vacuity holds at de Sitter.
+Expected: ACCEPTED (unused-hypothesis check is per binder, not per conjunct; witness exists; new entries need no LEDGER line)

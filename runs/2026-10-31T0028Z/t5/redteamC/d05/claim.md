@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that a new Checked theorem lookback_dS_second_order proves the second-order lookback law "for every scale factor and every q0" and supersedes the F0 milestones.
+Why it is false: the theorem is the instance a = exp, t0 = 0 (de Sitter, q0 = -1) of the existing lookback_second_order, so it carries no information about any other model or q0. It is cited in STATE.md as PROVED, but in a new section "## Further results" that the new check (4) ignores: the check reads only the text between "## Results" and the next "\n## ", so a theorem cited elsewhere need not be a registered headline and is subject to none of the frozen, unused-hypothesis, pin, non-vacuity or dependency checks.
+Expected: ACCEPTED (records check scope is the Results section only; the theorem is genuinely proved so the build and axiom audit pass; TRUST_MAP unchanged because nothing is registered)

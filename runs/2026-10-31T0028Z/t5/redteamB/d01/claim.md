@@ -1,0 +1,4 @@
+Category: mistranscription
+Reader would wrongly believe: that Aviles et al. (arXiv:1204.2007) Eq. (15) prints l0 = 1 + 3 Om - (27/4) Om^2 (the Lean "frozen verbatim" claim AvilesL0Claim, FINDINGS F1 and the refuted-claim theorems all say so); the real paper prints -(27/2) Om^2.
+Why it is false: the coefficient of Om^2 in the printed formula was changed from 27/2 to 27/4 in the CLAIM definition, in printedL0_false_at and in FINDINGS, and the refutations still go through (EdS: 1+3-27/4 = -11/4 != 35/2; linarith still gives Om^2 = 0). The source's actual misprint (sign of the 27/2 term) is misreported, and the true size of the discrepancy (27 Om^2 vs 81/4 Om^2) is wrong.
+Expected: ACCEPTED. The printed part of a CLAIM definition has no second reading (STATE.md says "Not yet read twice: the printed parts inside the F1/F2 CLAIM definitions"; the Transcriptions check only covers PRINTED-kind defs); everything still compiles, no pin/registry/witness check looks at it.

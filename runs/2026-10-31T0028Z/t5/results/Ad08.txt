@@ -1,0 +1,24 @@
+defect: /home/claude/t5/redteamA/d08
+01:11:17
+--- changed files
+ M Checked.lean
+ M STATE.md
+ M scripts/trust/headlines.txt
+?? Checked/Cosmography/LookbackAccel.lean
+--- build
+build: FAIL
+error: Checked/Cosmography/LookbackAccel.lean:33:3: Unknown constant `Real.exp`
+error: Checked/Cosmography/LookbackAccel.lean:33:46: Unknown constant `Real.differentiableAt_exp`
+error: Checked/Cosmography/LookbackAccel.lean:34:62: Unknown constant `Real.exp_pos`
+error: Checked/Cosmography/LookbackAccel.lean:34:11: Unknown constant `Real.deriv_exp`
+error: Checked/Cosmography/LookbackAccel.lean:34:4: unsolved goals
+error: Checked/Cosmography/LookbackAccel.lean:35:13: Unknown constant `Real.deriv_exp`
+error: Checked/Cosmography/LookbackAccel.lean:35:4: unsolved goals
+error: Checked/Cosmography/LookbackAccel.lean:37:41: Unknown constant `Real.exp`
+error: Checked/Cosmography/LookbackAccel.lean:36:4: unsolved goals
+error: build failed
+--- forbidden tokens
+tokens: PASS
+RESULT BEFORE REJECTED build=1 tokens=0 trust=1
+RESULT AFTER REJECTED build=1 tokens=0 trust2=1 relock=1 map=0
+01:11:22

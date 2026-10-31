@@ -1,0 +1,21 @@
+defect: /home/claude/t5/redteamB/d01
+01:11:22
+--- changed files
+ M Checked/Cosmography/LCDMCoefficients.lean
+ M Checked/Cosmography/LCDMWitness.lean
+ M FINDINGS.md
+--- build
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (before: checks as of run 2228Z)
+trust: PASS
+--- trust step (after: run 0028Z checks; author relocks)
+trust2: PASS
+--- relock check (after): changed/removed frozen entries need a LEDGER line naming them
+changed/removed frozen entries: ['Checked.Cosmography.Aviles.AvilesL0Claim', 'Checked.Cosmography.Aviles.AvilesM0Claim', 'Checked.Cosmography.AvilesWitness.printedL0_false_at']
+not named in LEDGER: ['Checked.Cosmography.Aviles.AvilesL0Claim', 'Checked.Cosmography.Aviles.AvilesM0Claim', 'Checked.Cosmography.AvilesWitness.printedL0_false_at']
+relock: FAIL
+RESULT BEFORE ACCEPTED
+RESULT AFTER REJECTED build=0 tokens=0 trust2=0 relock=1 map=0
+01:16:54
