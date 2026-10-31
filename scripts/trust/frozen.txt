@@ -2,6 +2,15 @@
 # theorem, pinned and classified definition. Generated: TRUST_RELOCK=1 lake env lean
 # scripts/trust/StatementDeps.lean. Changing or removing a line needs a LEDGER.md entry
 # naming the constant in the same push (CI: scripts/trust/check_relock.py). Run 0028Z.
+Checked.Chemistry.CubicEOS.IsCriticalIsotherm 3fe72f789c73b8fb-PHYSICS
+Checked.Chemistry.CubicEOS.critCubic bcc66f496c822441-FORMULA
+Checked.Chemistry.CubicEOS.critCubic_existsUnique 6d7807f2
+Checked.Chemistry.CubicEOS.cubicP fcd6eac8ab18200d-FORMULA
+Checked.Chemistry.CubicEOS.exists_unique_critical 16dbea0c
+Checked.Chemistry.CubicEOS.isCritical_iff bf82f2
+Checked.Chemistry.CubicEOS.pr_constants 94456501
+Checked.Chemistry.CubicEOS.rk_constants c770e048
+Checked.Chemistry.CubicEOS.vdW_constants 5d1bd947
 Checked.Cosmography.Aviles.AvilesL0Claim 718231ef8f06aaa1-CLAIM
 Checked.Cosmography.Aviles.AvilesM0Claim ce1651bf5fd1dd30-CLAIM
 Checked.Cosmography.Aviles.IsFlatLCDM 4c42ed3aaeef354
@@ -210,6 +219,8 @@ Checked.Cosmography.redshift d6c1d91179cb8340-PHYSICS
 Checked.Fidelity.AngDistSpec 25618f87-SPEC
 Checked.Fidelity.CoeffOK 54b463b234103b4f-SPEC
 Checked.Fidelity.CosmoCoeffSpecCore 7671324e-SPEC
+Checked.Fidelity.CriticalSpec.CriticalSpec 421fe2bc-SPEC
+Checked.Fidelity.CriticalSpec.criticalSpec_pins 64311790
 Checked.Fidelity.CurvKSpec 9be681e2-SPEC
 Checked.Fidelity.DecelSpec 29997a50-SPEC
 Checked.Fidelity.DustDensity 274cc28b6e4a8f5b-SPEC

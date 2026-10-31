@@ -46,3 +46,6 @@ import Work.Cosmography.B1Witness
 import Work.Cosmography.B1Audit
 import Work.Trust.SecondReadingB1
 import Work.Chemistry.CubicEOS
+import Work.Chemistry.CubicEOSBlind
+import Work.Fidelity.CriticalSpec
+import Work.Chemistry.CubicEOSAudit

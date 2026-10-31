@@ -27,6 +27,7 @@ import Checked.Fidelity.FRSpecs
 import Checked.Fidelity.TransverseSpec
 import Checked.Records.Findings
 import Checked.Cosmography.B1Truncation
+import Checked.Chemistry.CubicEOS
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -352,5 +353,36 @@ theorem cubic_shape_miss : nonvacuity% Checked.Cosmography.B1.cubic_shape_miss :
     Checked.Cosmography.B1.exists_flatLCDM_on
   exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH0, hH, hz3, hz7,
     trivial⟩
+
+/-! ### Chemistry (run 2026-10-31T0628Z): cubic equations of state. Critical points from
+`exists_unique_critical` (R = a = b = 1); van der Waals explicitly (T = 8/27, v = 3). -/
+
+theorem isCritical_iff : nonvacuity% Checked.Chemistry.CubicEOS.isCritical_iff := by
+  refine ⟨1, 1, 1, 0, 0, 8 / 27, 3, by norm_num, by norm_num, by norm_num, ?_⟩
+  rw [Checked.Chemistry.CubicEOS.isCritical_iff 1 1 1 0 0 (8 / 27) 3 (by norm_num) (by norm_num)
+    (by norm_num)]
+  norm_num
+
+theorem critCubic_existsUnique : nonvacuity% Checked.Chemistry.CubicEOS.critCubic_existsUnique :=
+  ⟨0, 0, by norm_num, by norm_num, trivial⟩
+
+theorem exists_unique_critical : nonvacuity% Checked.Chemistry.CubicEOS.exists_unique_critical :=
+  ⟨1, 1, 1, 0, 0, by norm_num, by norm_num, by norm_num, by norm_num, by norm_num, trivial⟩
+
+theorem vdW_constants : nonvacuity% Checked.Chemistry.CubicEOS.vdW_constants := by
+  refine ⟨1, 1, 1, 8 / 27, 3, by norm_num, by norm_num, by norm_num, ?_, trivial⟩
+  rw [Checked.Chemistry.CubicEOS.isCritical_iff 1 1 1 0 0 (8 / 27) 3 (by norm_num) (by norm_num)
+    (by norm_num)]
+  norm_num
+
+theorem rk_constants : nonvacuity% Checked.Chemistry.CubicEOS.rk_constants := by
+  obtain ⟨⟨T, v⟩, ⟨_, hv, hc⟩, -⟩ := Checked.Chemistry.CubicEOS.exists_unique_critical 1 1 1 1 0
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+  exact ⟨1, 1, 1, T, v, by norm_num, by norm_num, hv, hc, trivial⟩
+
+theorem pr_constants : nonvacuity% Checked.Chemistry.CubicEOS.pr_constants := by
+  obtain ⟨⟨T, v⟩, ⟨_, hv, hc⟩, -⟩ := Checked.Chemistry.CubicEOS.exists_unique_critical 1 1 1 2 (-1)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+  exact ⟨1, 1, 1, T, v, by norm_num, by norm_num, hv, hc, trivial⟩
 
 end Checked.Trust.NV

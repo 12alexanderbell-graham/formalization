@@ -154,3 +154,7 @@ Checked.Cosmography.FREta.Jfam COMPOSITE
 Checked.Cosmography.B1.lusA2 PRINTED
 Checked.Cosmography.B1.lusA3 PRINTED
 Checked.Cosmography.B1.logPolyDL3 PRINTED
+Checked.Chemistry.CubicEOS.cubicP FORMULA
+Checked.Chemistry.CubicEOS.critCubic FORMULA
+Checked.Chemistry.CubicEOS.IsCriticalIsotherm PHYSICS
+Checked.Fidelity.CriticalSpec.CriticalSpec SPEC

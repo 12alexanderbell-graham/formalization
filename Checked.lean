@@ -36,3 +36,5 @@ import Checked.Trust.TranscriptionsFR
 import Checked.Cosmography.B1Truncation
 import Checked.Trust.SecondReadingB1
 import Checked.Trust.TranscriptionsB1
+import Checked.Chemistry.CubicEOS
+import Checked.Fidelity.CriticalSpec
