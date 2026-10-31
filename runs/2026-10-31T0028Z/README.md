@@ -2,6 +2,8 @@
 
 Environment: repo pre-cloned (add_repo not exposed, not needed); a chat session pushed Alexander's instruction 10 (7ad9dc3) at 00:29Z, this run's LOCK rebased on it. Local Lean via elan + cache. Previous CI (41145491684) green. Governance, PROMPT (incl. new instruction 10, TARGETS "THE RESULT"), STATE, CHANGELOG read.
 
+**THE RESULT:** part 3 (measured trust) started: first false-acceptance measurement of the whole pipeline against seeded wrong claims from red teams of a different model, and the checks strengthened against what it found; part 1 (every link machine-checked) advanced by the frozen registry, unused-binder and pin-shape checks.
+
 **WHAT CAN A SCIENTIST NOW TRUST WITHOUT CHECKING IT THEMSELVES?** How often this system accepts wrong science, measured for the first time: the checks as they stood yesterday accepted **15 of 15** valid wrong claims seeded by red teams of a different model; the checks pushed this run reject 9 of them (one only in part): every defect that silently changes checked content or cites an unregistered result (**6 of 15 still accepted**), and from now on no registered headline, pin, transcription or classification can change without CI forcing a LEDGER entry that names it.
 
 **WEAKEST UNCHECKED STEP NOW:** new definitions that carry physics under a non-physics label (FORMULA/COMPOSITE: A04, B04), and prose records (numbers and scope in STATE/FINDINGS: A03, A06, B07); then the C-round holes in the new checks.
