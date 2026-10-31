@@ -2,6 +2,12 @@
 
 Read fresh every run. This file is maintained by the program itself (annex LIV) and by Alexander; his instructions win. Runs should improve it whenever they find a better way to work.
 
+## THE GOAL AND THE RESULT — read this before anything else (guarded by CI: `scripts/goal_guard.py`)
+
+- **Goal** (Alexander, 2026-10-30, verbatim): "a program, system, proof, whatever, that allows scientists to trust AI to do scientific work without outside verification" — making maths, physics and chemistry machine-checkable (Lean proofs, rigorous simulators, test suites for scientific claims).
+- **The result we are building and will publish is that goal achieved, in full** (Alexander, 2026-10-31): not misprint papers, not a methods note, not a "scoped" or "realistic" version. Plan: `TARGETS.md` "THE RESULT" (five parts).
+- **Never narrow it** ("stop narrowing shit down and deciding only part of something is possible", 2026-10-31). This instruction has been lost about three times; that is why CI now fails if it disappears from this file, from the operative core, from TARGETS or STATE, or if a run record omits its **THE RESULT:** line.
+
 ## Standing instructions
 
 1. Follow `governance/02_OPERATIVE_CORE.md` every run. On the first run, after lost context, or after the governance files change, read `governance/01_CONSTITUTION_FORMALIZATION.md` and `governance/00_ORIGINAL_CONSTITUTION.md` in full.

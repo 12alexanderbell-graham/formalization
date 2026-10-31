@@ -8,6 +8,13 @@ on:
   workflow_dispatch:
 
 jobs:
+  goal-guard:
+    name: goal guard (the goal and the no-narrowing instruction must not be lost; 2026-10-31, see LEDGER)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: python3 scripts/goal_guard.py
+
   work:
     name: work (drafts, sorry allowed)
     runs-on: ubuntu-latest
