@@ -30,6 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - uses: leanprover/lean-action@v1.7.0
         env:
           LEAN_NUM_THREADS: "1"
@@ -48,11 +50,16 @@ jobs:
           if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
             echo "Forbidden token found in Checked"; exit 1
           fi
-      - name: Statement dependencies, trust map and non-vacuity witnesses (registry errors, unpinned physics definitions and missing witnesses block; runs 2028Z, 2228Z, see LEDGER)
+      - name: Statement dependencies, trust map, non-vacuity witnesses, pin shape, frozen registry, unused hypotheses, records (all blocking; runs 2028Z, 2228Z, 2026-10-31T0028Z, see LEDGER)
         run: |
           set -o pipefail
           lake env lean scripts/trust/StatementDeps.lean | tail -n 40
           if ! git diff --quiet -- TRUST_MAP.md; then
-            echo "::warning::TRUST_MAP.md in the repository is stale; regenerate with: lake env lean scripts/trust/StatementDeps.lean"
+            echo "::error::TRUST_MAP.md in the repository is stale (blocking since run 2026-10-31T0028Z); regenerate with: lake env lean scripts/trust/StatementDeps.lean"
             git diff --stat -- TRUST_MAP.md
+            exit 1
           fi
+      - name: Frozen statements and definitions change only with a LEDGER entry naming them (run 2026-10-31T0028Z)
+        env:
+          BASE: ${{ github.event.before || github.event.pull_request.base.sha }}
+        run: python3 scripts/trust/check_relock.py "$BASE"

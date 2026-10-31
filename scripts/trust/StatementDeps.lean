@@ -56,11 +56,48 @@ partial def deps (env : Environment) (stop : NameSet) (e : Expr) (acc : NameSet)
 /-- Definitions worth reporting: user-facing `def`s and inductive types, not auxiliary
 constants (proof terms, matchers, projections, constructors). -/
 def reportable (env : Environment) (n : Name) : Bool :=
-  !n.isInternal && !(Lean.Meta.isMatcherCore env n) && !env.isProjectionFn n &&
+  !(privateToUserName n).isInternal && !(Lean.Meta.isMatcherCore env n) && !env.isProjectionFn n &&
   match env.find? n with
   | some (.defnInfo _) => true
   | some (.inductInfo _) => true
   | _ => false
+
+/-- Hypotheses (`Prop` binders) of a theorem statement `ty` that its proof term `v` never uses
+(trust track T2b, run 2026-10-31T0028Z). An unused hypothesis means the statement claims less
+than was proved and silently excludes cases (red-team defects A08, B06, B08). Walks binders and
+proof lambdas in step; stops (reports nothing further) where they stop matching. -/
+partial def unusedHyps (ty v : Expr) (acc : Array Name := #[]) (fuel : Nat := 8) :
+    MetaM (Array Name) := do
+  match v with
+  | .mdata _ v' => unusedHyps ty v' acc fuel
+  | .lam _ _ vb _ =>
+    let ty ← if ty.isForall then pure ty else whnf ty
+    match ty with
+    | .forallE n d b bi =>
+      -- every binder except instances: hypotheses, and data or wrapped hypotheses (`PLift P`,
+      -- red team C, defect C08) that the proof never touches
+      let acc := if !bi.isInstImplicit && !vb.hasLooseBVar 0 then acc.push n else acc
+      withLocalDecl n bi d fun x => unusedHyps (b.instantiate1 x) (vb.instantiate1 x) acc fuel
+    | _ => return acc
+  | _ =>
+    -- a proof that is (an application of) another `Checked` theorem: look through it (C01)
+    match v.getAppFn, fuel with
+    | .const c us, fuel + 1 =>
+      let env ← getEnv
+      match env.find? c with
+      | some (.thmInfo t) =>
+        if isCheckedConst env c then
+          unusedHyps ty ((t.value.instantiateLevelParams t.levelParams us).beta v.getAppArgs) acc fuel
+        else return acc
+      | _ => return acc
+    | _, _ => return acc
+
+/-- Fingerprint of a frozen constant: its statement, and for definitions also its body. -/
+def fingerprint (ci : ConstantInfo) : String :=
+  let h := match ci.value? with
+    | some v => mixHash ci.type.hash v.hash
+    | none => ci.type.hash
+  (Nat.toDigits 16 h.toNat).asString
 
 def readLines (p : System.FilePath) : IO (Array String) := do
   let s ← IO.FS.readFile p
@@ -84,7 +121,7 @@ run_cmd do
   let env ← getEnv
   -- candidate non-vacuity witnesses: Checked theorems whose statement is an `∃` or `True`
   let nvCands : Array (Name × Expr) := env.constants.map₁.fold (init := #[]) fun acc n ci =>
-    if isCheckedConst env n && !n.isInternal then
+    if isCheckedConst env n && !(privateToUserName n).isInternal then
       match ci with
       | .thmInfo t =>
         if t.type.isAppOf ``Exists || t.type.isConstOf ``True then acc.push (n, t.type) else acc
@@ -104,7 +141,7 @@ run_cmd do
   let mut nNeed := 0
   let mut nWit := 0
   let cands : Array Name := env.constants.map₁.fold (init := #[]) fun acc n _ =>
-    if isCheckedConst env n && !n.isInternal then acc.push n else acc
+    if isCheckedConst env n && !(privateToUserName n).isInternal then acc.push n else acc
   let heads ← readLines "scripts/trust/headlines.txt"
   let pinLines ← readLines "scripts/trust/pins.txt"
   let kindLines ← readLines "scripts/trust/def_kinds.txt"
@@ -131,6 +168,98 @@ run_cmd do
       | .error e => errors := errors.push e
     | _ => errors := errors.push s!"bad def_kinds line: {l}"
   let stop : NameSet := pinned.foldl (init := {}) fun s n _ => s.insert n
+  -- pin shape (run 0028Z; red-team defect B03 "pinned" a definition by restating it): the pin
+  -- theorem's statement must use a SPEC-kind definition whose own type and body do not mention
+  -- the definition being pinned.
+  for (dn, tn) in pinned.toList do
+    let ty := (env.find? tn).get!.type
+    let specs := (deps env {} ty {}).toList.filter fun s =>
+      kinds.find? s == some "SPEC" &&
+        let sc := (env.find? s).get!
+        !(deps env {} (sc.value?.getD (.sort 0)) (deps env {} sc.type {})).contains dn
+    if specs.isEmpty then
+      errors := errors.push s!"pin {tn} for {dn} uses no SPEC-kind definition independent of {dn} (a restatement of the definition is not a pin)"
+  -- frozen registry (run 0028Z): headlines, pins, pinned and classified definitions may not change
+  -- (statement, or statement and body) unless `scripts/trust/frozen.txt` is updated, which CI
+  -- allows only with a LEDGER.md entry naming the constant (scripts/trust/check_relock.py).
+  let mut frozenNow : NameMap String := {}
+  for h in heads do
+    if let .ok hn := resolve cands h then
+      frozenNow := frozenNow.insert hn (fingerprint (env.find? hn).get!)
+  for (dn, tn) in pinned.toList do
+    frozenNow := frozenNow.insert dn (fingerprint (env.find? dn).get!)
+    frozenNow := frozenNow.insert tn (fingerprint (env.find? tn).get!)
+  for (dn, k) in kinds.toList do
+    -- the kind label is frozen too (red team C, defect C07 relabelled PRINTED as FORMULA)
+    frozenNow := frozenNow.insert dn (fingerprint (env.find? dn).get! ++ "-" ++ k)
+  let frozenLines := (frozenNow.toList.toArray.qsort (fun a b => a.1.toString < b.1.toString)).map
+    fun (n, f) => s!"{n} {f}"
+  if (← IO.getEnv "TRUST_RELOCK") == some "1" then
+    IO.FS.writeFile "scripts/trust/frozen.txt" (String.intercalate "\n" ([
+      "# Frozen fingerprints (statement; for definitions statement + body) of every headline, pin",
+      "# theorem, pinned and classified definition. Generated: TRUST_RELOCK=1 lake env lean",
+      "# scripts/trust/StatementDeps.lean. Changing or removing a line needs a LEDGER.md entry",
+      "# naming the constant in the same push (CI: scripts/trust/check_relock.py). Run 0028Z."] ++
+      frozenLines.toList) ++ "\n")
+    logInfo m!"frozen.txt rewritten ({frozenLines.size} entries)"
+  else
+    let lockLines ← readLines "scripts/trust/frozen.txt"
+    let mut locked : Std.HashMap String String := {}
+    for l in lockLines do
+      match l.splitOn " " |>.filter (· ≠ "") with
+      | [n, f] => locked := locked.insert n f
+      | _ => errors := errors.push s!"bad frozen.txt line: {l}"
+    for (n, f) in frozenNow.toList do
+      match locked.get? n.toString with
+      | some f' =>
+        if f != f' then
+          errors := errors.push s!"FROZEN {n} changed (statement or definition body): if intended, relock (TRUST_RELOCK=1) and name it in a LEDGER.md entry"
+      | none => errors := errors.push s!"{n} is not in scripts/trust/frozen.txt: relock (TRUST_RELOCK=1)"
+    -- an entry that is no longer registered was removed without relocking (red team C)
+    let nowStr : Std.HashSet String := frozenNow.foldl (init := {}) fun s n _ => s.insert n.toString
+    for (n, _) in locked.toList do
+      unless nowStr.contains n do
+        errors := errors.push s!"FROZEN {n} is no longer registered (headline, pin or kind removed): relock and name it in a LEDGER.md entry"
+  -- Checked may import only Checked and libraries, never the drafts in `Work` (red team C, defect
+  -- C04 hid a wrong constant in a Work module that a Checked headline imported)
+  for m in env.header.moduleNames do
+    if m.getRoot == `Work then
+      errors := errors.push s!"Checked imports the draft module {m}: Work is not checked"
+  -- unused hypotheses (T2b level 0) in headlines and pin theorems
+  for h in heads ++ (pinned.toList.map (·.2.toString)).toArray do
+    if let .ok hn := resolve cands h then
+      let ci := (env.find? hn).get!
+      if let .thmInfo t := ci then
+        let us ← liftTermElabM <| unusedHyps t.type t.value
+        unless us.isEmpty do
+          errors := errors.push s!"{hn}: hypotheses {us.toList} are never used by the proof: the statement claims less than is proved (drop them)"
+  -- records (run 0028Z; red-team defect A07): a Checked theorem cited in STATE.md "Results" must be
+  -- a registered headline, so that it is subject to every check above.
+  -- (whole STATE.md and FINDINGS.md: red team C, defect C05 cited one under a new heading)
+  let results := (← IO.FS.readFile "STATE.md") ++ "\n" ++ (← IO.FS.readFile "FINDINGS.md")
+  let headSet : NameSet := heads.foldl (init := {}) fun s h =>
+    match resolve cands h with | .ok hn => s.insert hn | .error _ => s
+  let toks := (results.splitOn "`").toArray.zipIdx.filterMap fun (t, i) =>
+    if i % 2 == 1 && !t.contains ' ' && !t.isEmpty then some t else none
+  let mut nCited := 0
+  for t in toks do
+    -- `name[_suffix]` cites name and name_suffix
+    let variants := match t.splitOn "[" with
+      | [a, r] => match r.splitOn "]" with
+        | [b, c] => [a ++ c, a ++ b ++ c]
+        | _ => [t]
+      | _ => [t]
+    for v in variants do
+      let thms := cands.filter fun n =>
+        (n.toString == v || n.toString.endsWith ("." ++ v)) &&
+        (env.find? n matches some (.thmInfo _))
+      if thms.size == 1 then
+        nCited := nCited + 1
+        -- exempt: pure-mathematics lemmas whose statement uses no program definition
+        let pure := ((deps env {} (env.find? thms[0]!).get!.type {}).toList.filter (reportable env)).isEmpty
+        unless headSet.contains thms[0]! || pure do
+          errors := errors.push s!"STATE.md/FINDINGS.md cite {thms[0]!}, which is not in scripts/trust/headlines.txt (unregistered headlines escape every check)"
+  logInfo m!"records: {nCited} theorem citations in STATE.md and FINDINGS.md checked against headlines.txt"
   let mut gapCount : NameMap Nat := {}
   let mut unclassified : NameSet := {}
   let mut rows : Array String := #[]
