@@ -130,6 +130,23 @@ def stmtShape (ty : Expr) : MetaM (Bool × Array String) := forallTelescope ty f
   let inner := (b.find? fun e => e.isForall && e.bindingBody!.hasLooseBVar 0).isSome
   return (data || inner, ← concShapes b)
 
+/-- Every equation inside an expression (traversing binders). -/
+partial def collectEqs (e : Expr) (acc : Array Expr := #[]) : Array Expr :=
+  let acc := if e.isAppOfArity ``Eq 3 then acc.push e else acc
+  match e with
+  | .app f a => collectEqs a (collectEqs f acc)
+  | .lam _ d b _ | .forallE _ d b _ => collectEqs b (collectEqs d acc)
+  | .letE _ t v b _ => collectEqs b (collectEqs v (collectEqs t acc))
+  | .mdata _ b => collectEqs b acc
+  | _ => acc
+
+/-- Skeleton of an equation: variables (bound or free) erased, constants and literals kept. Two
+equations with the same skeleton state the same law up to the names of their variables (run 1028Z:
+a statement that writes out the flat ΛCDM Friedmann law instead of using `IsFlatLCDM` carries the
+law; its docstring may call it ΛCDM). -/
+def eqSkeleton (e : Expr) : String :=
+  toString (e.replace fun x => if x.isBVar || x.isFVar then some (mkConst `_v) else none)
+
 /-- Fingerprint of a frozen constant: its statement, and for definitions also its body. -/
 def fingerprint (ci : ConstantInfo) : String :=
   let h := match ci.value? with
@@ -516,6 +533,12 @@ run_cmd do
   -- formulas, composites and claims) to `.lake/meaning.jsonl`; `scripts/trust/check_prose.py`
   -- checks the docstrings and names against them (glossary `scripts/trust/glossary.txt`).
   let mut mlines : Array String := #[]
+  -- laws of pinned predicates: equations in their bodies that mention a pinned definition
+  let lawSk : Array (Name × String) := pinned.foldl (init := #[]) fun acc d _ =>
+    match env.find? d with
+    | some (.defnInfo dv) => (collectEqs dv.value).foldl (init := acc) fun acc q =>
+        if q.getUsedConstants.any (fun c => stop.contains c && c != d) then acc.push (d, eqSkeleton q) else acc
+    | _ => acc
   let mut defUsers : NameMap (Array Name) := {}
   for h in heads do
     if let .ok hn := resolve cands h then
@@ -530,7 +553,10 @@ run_cmd do
       for d in others do
         defUsers := defUsers.insert d (((defUsers.find? d).getD #[]).push hn)
       let doc := (← findDocString? env hn).getD ""
+      let sks := (collectEqs expTy).map eqSkeleton
+      let laws := (lawSk.filter fun (_, k) => sks.contains k).map (·.1) |>.toList.eraseDups
       mlines := mlines.push (Json.mkObj [("type", "headline"), ("name", toString hn),
+        ("laws", toJson (laws.map toString)),
         ("doc", doc), ("universal", univ), ("shapes", toJson shapes),
         ("record", (`Checked.Records).isPrefixOf hn),
         -- conjuncts that assert a certified number but reach no pinned or transcribed definition

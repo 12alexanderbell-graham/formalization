@@ -10,7 +10,9 @@ what the prose may say against what the Lean statement actually contains, using 
 `scripts/trust/StatementDeps.lean` writes to `.lake/meaning.jsonl`:
 
 1. Vocabulary (glossary `scripts/trust/glossary.txt`): a meaning-bearing term in the docstring of a
-   headline must be backed by a pinned definition the statement reaches; in the docstring of a
+   headline must be backed by a pinned definition the statement reaches, or whose defining law
+   (an equation in its body over other pinned definitions) the statement writes out verbatim up to
+   variable names (`laws`, run 1028Z: B1 states the flat ΛCDM Friedmann law on an interval); in the docstring of a
    definition a headline rests on, by a pinned definition that the definition or one of the
    headlines using it reaches.
 2. Names: a definition a headline rests on, other than the pinned definition itself, may not carry
@@ -85,7 +87,7 @@ def main():
 
     for h in heads.values():
         doc = h["doc"]
-        vocab(h["name"], doc, h["pinned"])
+        vocab(h["name"], doc, h["pinned"] + h.get("laws", []))
         shapes = h["shapes"]
         if "EXISTS" in shapes and not EXIST.search(doc):
             errs.append((f"{h['name']}|exists", f"{h['name']}: the statement asserts existence (∃) but the docstring does not say so "
@@ -107,7 +109,7 @@ def main():
             continue
         reached = set(r["pinned"])
         for u in r["users"]:
-            reached |= set(heads[u]["pinned"]) if u in heads else set()
+            reached |= set(heads[u]["pinned"] + heads[u].get("laws", [])) if u in heads else set()
         vocab(f"definition {r['name']} ({r['kind']})", r["doc"], reached)
         if r["name"] in pinned_full:
             continue
