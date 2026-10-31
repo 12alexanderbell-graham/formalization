@@ -307,6 +307,16 @@ run_cmd do
       let ci := (env.find? hn).get!
       if let .thmInfo t := ci then
         let us ← liftTermElabM <| unusedHyps t.type t.value
+        -- a hypothesis that is a conjunction is checked per binder only, so a partly used
+        -- conjunct goes unnoticed (red team C, defect C06): hypotheses must be curried
+        let conj ← liftTermElabM <| forallTelescope t.type fun xs _ => do
+          let mut out : Array Name := #[]
+          for x in xs do
+            let d ← instantiateMVars (← inferType x)
+            if d.consumeMData.isAppOfArity ``And 2 then out := out.push (← x.fvarId!.getUserName)
+          return out
+        unless conj.isEmpty do
+          errors := errors.push s!"{hn}: hypotheses {conj.toList} are conjunctions; state each conjunct as its own hypothesis (so the unused-hypothesis check sees each)"
         unless us.isEmpty do
           errors := errors.push s!"{hn}: hypotheses {us.toList} are never used by the proof: the statement claims less than is proved (drop them)"
   -- records (run 0028Z; red-team defect A07): a Checked theorem cited in STATE.md "Results" must be

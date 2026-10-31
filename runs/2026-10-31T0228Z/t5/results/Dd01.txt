@@ -1,0 +1,5 @@
+defect: /home/claude/formalization/runs/2026-10-31T0228Z/t5/redteamD/d01  base: 283f8e9467d17bbc9623d4dfd136065f92e7e8a7
+03:06:24
+--- changed files
+ M FINDINGS.md
+--- build Checked Work
