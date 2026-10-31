@@ -107,7 +107,19 @@ partial def concShapes (b : Expr) : MetaM (Array String) := do
     return ← forallTelescope b fun _ c => do
       if c.consumeMData.isConstOf ``False then return #["NOT"]
       concShapes c
+  -- library predicates that are existentials or negations in disguise (`Set.Nonempty`, red team E,
+  -- defect E03): one step of unfolding at default transparency
+  let b' ← whnfD b
+  if b'.isAppOf ``Exists || b'.isAppOf ``ExistsUnique then return #["EXISTS"]
+  if b'.isAppOf ``Not then return #["NOT"]
   return #["OTHER"]
+
+/-- The top-level conjuncts of a statement's conclusion (through `∀`, `→` and `∧`, not `∃`). -/
+partial def topConjuncts (e : Expr) (acc : Array Expr := #[]) : Array Expr :=
+  match e.consumeMData with
+  | .forallE _ _ b _ => topConjuncts b acc
+  | e => if e.isAppOfArity ``And 2 then topConjuncts (e.getArg! 1) (topConjuncts (e.getArg! 0) acc)
+         else acc.push e
 
 /-- `(has universally bound data, shapes)` of a theorem statement. A `∀` anywhere in the
 conclusion also counts as universal (e.g. `∃ a, ∀ t, …`). -/
@@ -311,15 +323,22 @@ run_cmd do
   -- (statement, or statement and body) unless `scripts/trust/frozen.txt` is updated, which CI
   -- allows only with a LEDGER.md entry naming the constant (scripts/trust/check_relock.py).
   let mut frozenNow : NameMap String := {}
+  -- the plain-words docstrings of headlines and pinned definitions are frozen too (run 1028Z; red
+  -- team E: E02 reversed the sign convention in the docstring of the pinned `decel`, E04 turned a
+  -- refutation's docstring into an endorsement, E06 generalised a record's docstring; a docstring
+  -- is what a scientist reads, so changing it needs a LEDGER line like any frozen change)
+  let docFp := fun (n : Name) => do
+    return s!"-doc{hash ((← findDocString? env n).getD "")}"
   for h in heads do
     if let .ok hn := resolve cands h then
-      frozenNow := frozenNow.insert hn (fingerprint (env.find? hn).get!)
+      frozenNow := frozenNow.insert hn (fingerprint (env.find? hn).get! ++ (← docFp hn))
   for (dn, tn) in pinned.toList do
-    frozenNow := frozenNow.insert dn (fingerprint (env.find? dn).get!)
+    frozenNow := frozenNow.insert dn (fingerprint (env.find? dn).get! ++ (← docFp dn))
     frozenNow := frozenNow.insert tn (fingerprint (env.find? tn).get!)
   for (dn, k) in kinds.toList do
     -- the kind label is frozen too (red team C, defect C07 relabelled PRINTED as FORMULA)
-    frozenNow := frozenNow.insert dn (fingerprint (env.find? dn).get! ++ "-" ++ k)
+    let d ← if pinned.contains dn then docFp dn else pure ""
+    frozenNow := frozenNow.insert dn (fingerprint (env.find? dn).get! ++ d ++ "-" ++ k)
   let frozenLines := (frozenNow.toList.toArray.qsort (fun a b => a.1.toString < b.1.toString)).map
     fun (n, f) => s!"{n} {f}"
   if (← IO.getEnv "TRUST_RELOCK") == some "1" then
@@ -514,6 +533,12 @@ run_cmd do
       mlines := mlines.push (Json.mkObj [("type", "headline"), ("name", toString hn),
         ("doc", doc), ("universal", univ), ("shapes", toJson shapes),
         ("record", (`Checked.Records).isPrefixOf hn),
+        -- conjuncts that assert a certified number but reach no pinned or transcribed definition
+        -- (red team E, defect E05 put a free formula next to a genuine pinned conjunct)
+        ("free_conjuncts", toJson ((topConjuncts ci.type).filter (fun c =>
+            !(roundsToLits c).isEmpty &&
+            !((deps env stop c {}).toList.any fun d => stop.contains d ||
+              (kinds.find? d) == some "PRINTED" || (kinds.find? d) == some "CLAIM"))).size),
         ("pinned", toJson (pinsR.map toString)),
         ("defs", Json.mkObj (others.map fun d => (toString d, Json.str ((kinds.find? d).getD "UNCLASSIFIED"))))]).compress
   for (d, users) in defUsers.toList do

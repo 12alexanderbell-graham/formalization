@@ -1,0 +1,8 @@
+defect: /home/claude/formalization/runs/2026-10-31T0028Z/t5/redteamA/d05  base: 62584abd1199ccb2c2a01c691d0b31d40673c790
+11:22:33
+--- changed files
+ M Checked.lean
+ M STATE.md
+ M scripts/trust/headlines.txt
+?? Checked/Cosmography/DemianskiCorrected.lean
+--- build Checked Work

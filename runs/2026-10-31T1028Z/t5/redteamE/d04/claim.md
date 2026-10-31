@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that Lean confirms the printed D^2_{L,y} of Bamba et al. Eq. (10.54) (the flat d_L(y) series with it is d_L + o(y^3) in every flat C^3 model), i.e. that finding F4 is void and the review's formula needs no correction.
+Why it is false: the theorem proves the opposite: for every such model the remainder is NOT o(y^3) (statement `not (remainder =o y^3)`); the printed D^2 has the wrong overall sign (F4; correct is +1/6(12 - 5q0 + 3q0^2 - j0 - Omega0)), and e.g. in flat de Sitter the series with the printed coefficient is off at order y^3.
+Expected: ACCEPTED. The negation rule (rule 3) only demands that SOME negation word occurs anywhere in the docstring of a pure-negation headline (NEG matches "no", "not", "≠", ...): the flipped text still contains "≠" in its hypotheses and "no correction"; it checks presence, not polarity. Docstrings are not part of the frozen fingerprint; the packet is regenerated.
