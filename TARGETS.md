@@ -40,7 +40,7 @@ Ranked candidates (annex XLII). Every candidate ever considered stays here with 
 2. **AI doing new science through it.** The AI produces results nobody has checked (first: B1, the truncation question behind the quasar/GRB "tension with ΛCDM"; then open problems in maths, physics and chemistry chosen for consequence), and the system certifies them.
 3. **Measured trust.** False-acceptance rate (T5): large adversarial sets of plausible wrong claims of every kind (wrong definition, vacuous statement, misread formula, wrong number, wrong simulation, wrong data claim), seeded by red teams of different models and by mechanical mutation; the rate with and without each check.
 4. **Validated once against outside experts.** A blind comparison in which independent scientists check a sample of certified outputs; the system must have missed nothing they find. This is done once, to validate the system, so that later work needs none.
-5. **Breadth.** Mathematics, physics and chemistry, each with at least one certified new result.
+5. **Breadth.** Mathematics, physics and chemistry, each with at least one certified new result. *Status (run 0628Z): chemistry started — critical point of the cubic equations of state (existence/uniqueness for the two-parameter family, vdW/RK/PR constants), PROVED + AUDITED + pinned; textbook-level, not yet new. Next in chemistry: certified phase equilibrium (Maxwell construction, acentric factors). Mathematics: not started.*
 
 **The paper:** the system, the certified new results, the false-acceptance measurements, the expert validation. Alexander publishes; the program prepares everything (no-contact rule 47.1).
 

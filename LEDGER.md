@@ -294,3 +294,15 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 ## 2026-10-31 · run 0428Z · new headlines (relock, new entries only)
 - Registered: `Checked.Cosmography.B1.lumDistFlat_flatLCDM`, `cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss`; definitions `lusA2`, `lusA3`, `logPolyDL3` (PRINTED, second-read). frozen.txt: new entries only, no existing entry changed.
 - Evaluation of run 0228Z experiment (records as certified data): not yet due (needs generated sentences; queued in STATE).
+
+## 2026-10-31 · run 0628Z · new headlines (relock, new entries only)
+- Registered: `Checked.Chemistry.CubicEOS.isCritical_iff`, `critCubic_existsUnique`, `exists_unique_critical`, `vdW_constants`, `rk_constants`, `pr_constants`; definitions `cubicP`, `critCubic` (FORMULA), `IsCriticalIsotherm` (PHYSICS, pinned by `Checked.Fidelity.CriticalSpec.criticalSpec_pins`), `CriticalSpec` (SPEC). frozen.txt: 11 new entries, no existing entry changed.
+- Statements changed between freeze (9241870) and proof, all strengthenings (hypotheses removed, none added): `isCritical_iff` without R, b, T > 0; constants theorems without R, T > 0; `exists_unique_critical` with 1 + u + w > 0 in place of positivity of v² + ubv + wb² for all v ≥ b (implied by it). Recorded in `runs/2026-10-31T0628Z/audit_eos.md`.
+
+## 2026-10-31 · run 0628Z · evaluation (partial) of run 0428Z experiment (part rotation)
+- Runs since the change: 0428Z moved part 2 (B1), 0628Z moved part 5 (chemistry, first non-physics domain). Part 4 (outside-expert validation) has not moved in any run; it cannot be completed by the program alone (no-contact rule 47.1) but its preparation can: queued as the next block (STATE step 2). Part 3/1 measures did not regress (125/125 pinned, NV 76/76, no check changed). Keep; full evaluation after 6 runs.
+
+## 2026-10-31 · run 0628Z · experiment (annex LIV) · a new domain through the unchanged pipeline
+- Question: is the trust pipeline cosmology-specific? Change: none to the checks; chemistry entered through the same freeze → parallel subagents (blind restater, referee, blind spec writer, screen) → proof → pin → NV → registry path.
+- Observed: one run from nothing to 6 AUDITED + PROVED headlines and a pin; the blind spec writer proved its own textbook reference meets its spec, so the pin cost two lines once the program's definition coincided with the reference. Friction found: the unused-hypothesis check forced removing frozen hypotheses after proof (a strengthening, but it changes frozen text); the NV obligation for an `↔` conclusion needs an instance of the left side.
+- Evaluate (later run): the next new domain (mathematics) reaches AUDITED + PROVED in ≤ 1 run with no check changed.

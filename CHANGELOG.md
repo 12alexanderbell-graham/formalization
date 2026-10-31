@@ -122,3 +122,10 @@
 - Source facts for the next step: `runs/2026-10-31T0428Z/rl19_numbers.md`.
 - PROMPT notes: certified integrals; part rotation; no ar5iv in any brief. LEDGER: experiment, evaluation status of 0228Z.
 - Message to Alexander (L.2, major result): B1 first certified result.
+
+## 2026-10-31T0628Z (scheduled run)
+- Env: repo ok (pre-cloned); local Lean via elan ok; previous CI 41174555288 green; this run's CI ids in STATE.
+- **THE RESULT part 5 started: chemistry, first certified result outside physics.** For the generalized two-parameter cubic equation of state (vdW, RK/SRK, PR family): closed-form critical conditions, existence and uniqueness of the critical point, and Z_c, Ω_b, Ω_a at every critical point (vdW exact; RK 1/3, 0.08664, 0.42748; PR 0.3074, 0.07780, 0.45724), for every temperature function a(T). PROVED + AUDITED in Checked (`Checked/Chemistry/CubicEOS.lean`); `IsCriticalIsotherm` pinned by a blind derivative-free spec (`Checked/Fidelity/CriticalSpec.lean`); blind restatement closed in Lean; referee STANDS-WITH-CORRECTIONS.
+- Screen of 17 chemistry sources: candidates C24, C25 (arXiv:2607.10076v1, RK P_c coefficient 2.5% high; PR Z_c formula missing a factor), C26 (Soave 1972 truncation); two routes for C24/C25.
+- PROMPT notes: NV obligation of an iff; freeze with minimal hypotheses; blind spec writer proves its own reference; Checked imports for calculus. LEDGER: new headlines, statement strengthening after freeze, part-rotation evaluation (part 5 moved; part 4 queued next).
+- Message to Alexander (L.2, major result): first certified chemistry result.

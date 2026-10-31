@@ -1,0 +1,24 @@
+# Run 2026-10-31T0628Z (scheduled)
+
+Environment: repo pre-cloned (add_repo not exposed, not needed), fast-forwarded to 273fe8f; no LOCK. Local Lean via elan + `lake exe cache get` + full Checked build (~6 min). Previous run's final CI 41174555288 green. Governance, PROMPT, STATE, last CHANGELOG read.
+
+**THE RESULT:** part 5 (breadth) moves for the first time: chemistry is the second domain with a machine-checked, audited, pinned result (critical point of the cubic equations of state used by every process simulator). Part 1 gains a second physical definition pinned by a blind derivative-free law. Chosen by the part-rotation rule: parts 4 and 5 had no progress for ≥ 4 runs; part 4 needs outside experts (the program can only prepare it), so part 5 got the block.
+
+**WHAT CAN A SCIENTIST NOW TRUST WITHOUT CHECKING IT THEMSELVES?** For every equation of state of the form P = RT/(v−b) − a/(v² + ubv + wb²) with u > −2 and 1 + u + w > 0, and constant a, b > 0, the critical point (T > 0, v > b with (∂P/∂v)_T = (∂²P/∂v²)_T = 0) exists and is unique, and v_c/b is the unique root above 1 of x³ − 3x² − 3(u+w)x − (u² + uw − w) (`Checked.Chemistry.CubicEOS.isCritical_iff`, `critCubic_existsUnique`, `exists_unique_critical`). At every critical point, whatever the temperature function a(T): van der Waals Z_c = 3/8, Ω_b = 1/8, Ω_a = 27/64; Redlich–Kwong/Soave Z_c = 1/3, Ω_b = 0.08664, Ω_a = 0.42748; Peng–Robinson Z_c = 0.3074, Ω_b = 0.07780, Ω_a = 0.45724 (`vdW_constants`, `rk_constants`, `pr_constants`; decimals certified by enclosing the root of the critical cubic, not by floating point). "Critical point" is pinned: any predicate satisfying a blind specification whose determining law, p(v′) − p(v) = o((v′ − v)²), does not mention derivatives agrees with the program's on every C² isotherm (`Checked.Fidelity.CriticalSpec.criticalSpec_pins`).
+
+**WEAKEST UNCHECKED STEP NOW:** the classification of `cubicP` as FORMULA (its meaning is the displayed expression; that the (u, w) instances are vdW/RK/PR rests on the blind restater's own pressure functions agreeing by `ring`, a second reading, and on textbook knowledge of both readers: same model). And, for temperature-dependent a(T), existence/uniqueness of T_c itself is not covered (referee item A); the constants are.
+
+**BOTTLENECK AND WHY:** THE RESULT requires certified results in mathematics, physics *and* chemistry; nothing existed outside physics, and nothing showed that the pipeline (freeze, blind restatement, referee, blind spec + pin, NV witness, certified numbers, CI registry) carries over to a new field without new infrastructure. Yes = the pipeline is domain-general (and the cost of a new domain is known); no = parts of the trust system are cosmology-specific. It was yes: one run, no change to any check.
+
+**WHAT WE DID:**
+1. Froze six statements (9241870) before proof; launched blind restater, referee, blind spec writer and a literature screen in one message.
+2. Proved all six (Work, then Checked with specific Mathlib imports): derivatives of P by `HasDerivAt` combinators; the critical conditions reduce to the cubic by one `linear_combination`; uniqueness of the root by convexity written as the exact identity (z−1)f(y) − (z−y)f(1) − (y−1)f(z) = (z−1)(y+z−2)(y−1)(y−z); existence by IVT; constants by reducing each Ω modulo the critical cubic (sympy quotient, `linear_combination` checks) to a quadratic in x and enclosing x to 10⁻⁷.
+3. Pin: the blind spec writer (did not see the definition) wrote `CriticalSpec` (15 fields: Taylor-flatness law, vdW anchors, near misses including a non-inflection stationary point, invariances) and proved its own textbook reference meets it; copied verbatim to Checked; meets and pin in two lines.
+4. Audit (`audit_eos.md`): blind restatement closed in Lean (`Work/Chemistry/CubicEOSAudit.lean`); referee STANDS-WITH-CORRECTIONS (`referee_eos.md`); statements strengthened at proof time (hypotheses removed only).
+5. Screen of 17 sources (`screen_eos.md`): arXiv:2607.10076v1 prints a Redlich–Kwong P_c coefficient 2.5% high (C24) and a Peng–Robinson Z_c formula missing a factor χ (C25, decimal right); both confirmed by a second route this run (crop read, mpmath). Soave 1972's 0.42747 is a truncation (C26). Everything else checked was right.
+
+**RESULT:** 6 new AUDITED headlines promoted to Checked (CI ids in STATE); 125/125 headlines on pinned definitions; NV 76/76; one new pin (19 entries in `pins.txt`).
+
+**WHAT COULD STILL BE WRONG:** the textbook definition itself (horizontal inflection) is what both the spec writer and the program used: correlated by construction (same model); the spec's anchors (vdW at 8a/27Rb, 3b) are the independent check. Uniqueness for a(T) not proved. C24/C25 are in one recent preprint; consequence small.
+
+**NEXT:** STATE "Exact next step".

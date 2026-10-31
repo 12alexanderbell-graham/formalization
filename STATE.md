@@ -1,9 +1,9 @@
 # STATE
 
-Last updated: 2026-10-31, run 2026-10-31T0428Z (scheduled).
+Last updated: 2026-10-31, run 2026-10-31T0628Z (scheduled).
 
 ## Phase
-GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-produced science without outside verification. Physics (target 1, cosmography; F1–F11; B1) is the proving ground. Active: **Trust track T5 (measured false-acceptance rate), T4 (certified numbers, started 0228Z), T2, T3** (`TARGETS.md`, "THE RESULT" part 3); T1 closed (all headlines on pinned definitions, CI-enforced). Measured by the trust map and the T5 benchmark (`runs/2026-10-31T0028Z/t5/`). **THE RESULT part 2 started (run 0428Z): B1, first certified new-science result** (below).
+GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-produced science without outside verification. Physics (target 1, cosmography; F1–F11; B1) is the proving ground. Active: **Trust track T5 (measured false-acceptance rate), T4 (certified numbers, started 0228Z), T2, T3** (`TARGETS.md`, "THE RESULT" part 3); T1 closed (all headlines on pinned definitions, CI-enforced). Measured by the trust map and the T5 benchmark (`runs/2026-10-31T0028Z/t5/`). **THE RESULT part 2 started (run 0428Z): B1, first certified new-science result** (below). **Part 5 started (run 0628Z): chemistry, cubic equations of state** (below); the pipeline carried over to a new field with no change to any check.
 
 ## Trust track status
 - **Trust map** (`TRUST_MAP.md`, generated and enforced by `scripts/trust/StatementDeps.lean` in CI). Three machine-checked metrics (run 2228Z):
@@ -24,7 +24,14 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 - Source facts (`runs/2026-10-31T0428Z/rl19_numbers.md`, one reading): RL19 prints no (a₂, a₃) values (contours only, Fig. 3; free offset m; quasars z ≤ 5.1); Lusso+19 Table 2 (4th order, three samples) prints no covariances; RL19 Supp. Fig. 5 appears to plot the Taylor-coefficient polynomials (≈ 13% off at z = 5.9) though Lusso+19 describe "a few per cent".
 - Not yet: the fit-level statement (how far any well-fitting cubic must lie from the ΛCDM point), its comparison with the published contours, Ω outside [0.2, 0.4], curvature.
 
+## Chemistry (THE RESULT part 5; run 0628Z): critical point of the cubic equations of state
+- **PROVED + AUDITED** (Checked, `Checked/Chemistry/CubicEOS.lean`): `Checked.Chemistry.CubicEOS.isCritical_iff` (closed-form critical conditions of P = RT/(v−b) − a/(v²+ubv+wb²)), `critCubic_existsUnique` (one root x > 1 of x³ − 3x² − 3(u+w)x − (u²+uw−w) for u > −2, 1+u+w > 0), `exists_unique_critical` (exactly one critical point T > 0, v > b, constant a), `vdW_constants` (3/8, 1/8, 27/64 exact), `rk_constants` (Z_c = 1/3, Ω_b = 0.08664, Ω_a = 0.42748), `pr_constants` (0.3074, 0.07780, 0.45724), at every critical point and for every a(T). Audit `runs/2026-10-31T0628Z/audit_eos.md`; referee STANDS-WITH-CORRECTIONS; blind restatement closed in Lean.
+- Pin: `IsCriticalIsotherm` (PHYSICS) pinned by the blind spec `CriticalSpec` (derivative-free Taylor-flatness law; `Checked/Fidelity/CriticalSpec.lean`, pin listed in `scripts/trust/pins.txt`).
+- Screen (`runs/2026-10-31T0628Z/screen_eos.md`, 17 sources): C24 (arXiv:2607.10076v1 RK P_c coefficient 2.5% high), C25 (same, PR Z_c formula missing χ), C26 (Soave 1972 0.42747 truncation): FINDINGS candidates, two routes for C24/C25.
+- Not yet: existence/uniqueness of T_c for temperature-dependent a(T) (fixed point); three-parameter cubics (Patel–Teja); phase equilibrium (saturation pressure by the Maxwell construction, acentric factor) — the first chemistry *computation* (rigorous simulator) and candidate new result.
+
 ## Results (statuses, annex XXXVIII)
+- **PROVED** (chemistry, run 0628Z) `Checked.Chemistry.CubicEOS.isCritical_iff`, `critCubic_existsUnique`, `exists_unique_critical`, `vdW_constants`, `rk_constants`, `pr_constants` (see Chemistry above).
 - **PROVED** (B1, run 0428Z) `Checked.Cosmography.B1.lumDistFlat_flatLCDM`, `cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss` (see B1 above).
 - **PROVED** (records, run 0228Z) `Checked.Records.F1_l0`, `F1_printedL0`, `F1_m0_agrees`, `F2_toy`, `F2_error`, `F3_D4_LCDM`, `F8_sizes`, `F9_values`, `F9_pole`, `F10_eta`, `F10_printed_pole`, `F10_exceptions`, `F10_family_pole`, `F11_sizes`: the certified numbers of FINDINGS (CI 41161681161, 41164490744 green incl. nanoda).
 - **PROVED** `Checked.Cosmography.lookback_second_order`, `..._bigO`: run 0028Z.
@@ -44,11 +51,12 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 
 
 ## Environment (this run)
-- Repo pre-cloned (add_repo not exposed; not needed); fast-forwarded to 51e1ad0; no LOCK. Local Lean: elan + cache (~3 min). Previous run's final CI 41166670314 green.
-- This run's CI: 41168702419 (LOCK), 41169538464 (freeze), 41171394447 (Work proofs), 41172396747 (promotion: build, leanchecker, axiom audit, nanoda, trust step, relock), 41173318266 (records, second reading) all green. This CI-id commit: read next run.
-- Subagents: referee (B1), blind restater, blind second reader, source reader (RL19/L19/L20 numbers). The referee consulted ar5iv HTML for prior art (not allowed by the PROMPT note; no formula taken from it); briefs now say no ar5iv.
+- Repo pre-cloned (add_repo not exposed; not needed); fast-forwarded to 273fe8f; no LOCK. Local Lean: elan + cache + Checked build (~6 min). Previous run's final CI 41174555288 green.
+- This run's CI: 41176818098 (LOCK), 41177525384 (freeze), 41179844409 (promotion b16d04e: build, nanoda, axiom audit, trust step, relock) all green. Records commit: read next run.
+- Subagents (one message, in parallel): blind restater, referee (STANDS-WITH-CORRECTIONS), blind spec writer (CriticalSpec, fully proved for its own reference), screen of 17 chemistry sources.
 
 ## Daily review (53.3), 2026-10-31
+- 06:28Z run: first result outside physics. Chemistry's cubic equations of state: existence and uniqueness of the critical point for the whole two-parameter family and the vdW/RK/PR constants at every critical point, certified and pinned. Measure: AUDITED + PROVED headlines 119 → 125; domains with certified results 1 → 2; the pipeline needed no new check to enter a new field.
 - 04:28Z run: first certified result of the system on a live scientific dispute (B1): the RL19 test's ΛCDM reference cubic misses exact ΛCDM by > 0.09 mag (z = 3), > 0.3 mag (z = 7), shape > 0.18 mag, for every Ω_m ∈ [0.2, 0.4], with rigorous integral enclosures in Lean. Measure: AUDITED + PROVED headlines 115 → 119; first computed (not closed-form) certified numbers; NV 70/70; second-read transcriptions +3.
 - 02:28Z run: the records became machine-checked for numbers (26 values certified in Lean, every computed decimal in FINDINGS tied to one by CI); one wrong number found in our own records; a fourth red team passed all 8 of its defects through the first version of the new check; after two hardenings 2 genuine holes remain (number labels, free-formula records). Measure: wrong-number defects (A06, B07, D02, D03, D07) all caught now; none were before.
 - 00:28Z run (first of the day): the first measurement of the system as a whole. The pipeline that the trust metrics described as machine-checking every link accepted every valid seeded wrong claim (15/15) from a different model's red teams; the strengthened checks catch the classes that change *existing* checked content (statements, transcriptions, pins, classifications) or cite unregistered results, and not yet new wrong definitions dressed as formulas, wrong numbers in prose, existential or partly used hypotheses.
@@ -81,9 +89,9 @@ None.
 
 ## Exact next step
 0. **Read PROMPT instruction 10 and `TARGETS.md` "THE RESULT" first** (Alexander, 2026-10-31): the work is the full goal, demonstrated and published. Choose each run's block by which of its five parts it moves most (PROMPT working note "part rotation"); the items below are the immediate queue, not the ambition.
-1. Read CI of this run's last pushes by ID (promotion 41172396747, transcriptions, records); fix anything red first.
-2. **B1 separation theorem (decisive for the dispute):** any cubic log-polynomial (any a₂, a₃, any magnitude offset m) that reproduces exact flat ΛCDM within ε (e.g. 0.05 mag) at a set of redshifts in [0, 5.1] (RL19 quasar range) must have (a₂, a₃) at least δ from the ΛCDM point, for every Ω ∈ [0.2, 0.4]. Plan: the shape miss is linear-fractional in (a₂, a₃) through log P; bound the Lipschitz constant of 5 log₁₀(P(x₂)/P(x₁)) in (a₂, a₃) on a box, combine with the certified miss (method of this run, upper and lower enclosures at 2–3 redshifts, e.g. z = 1, 3, 5 with 1+z = 2, 4, 6 — z = 5 needs ln 3 bounds: prove from `Real.exp` bounds or use z = 1, 3, 7). Then compare δ with RL19 Fig. 3's contour scale (`rl19_numbers.md`; read the ellipse from the typeset figure by a second route).
-3. Generated records (closes T5 holes D01, A03, A04, B04, A05 as a class) — see run 0228Z plan: per headline, the statement with FORMULA/COMPOSITE/CLAIM unfolded, flags, generated sentences; records over registered definitions (D04).
-4. T5: re-judge the remaining 0028Z defects with judge v5; fresh red team E against generated records.
-5. T4: fractions in FINDINGS and numbers in STATE; B1 numbers into a certified records form (lower bounds: extend `check_numbers` with a `[≥name]` tag for certified bounds).
+1. Read CI of this run's records push by ID (promotion 41179844409 green); fix anything red first.
+2. **Part 4 (no progress ever; part rotation gives it the next block):** prepare the one-time expert validation completely, so Alexander only has to send it: protocol (blind sample of certified outputs across F1–F11, B1, chemistry; what experts are asked; what counts as a miss), the sample packet (each item: claim in plain words, source, Lean statement, what was checked mechanically), and the scoring rule. Program prepares, Alexander contacts (47.1). Record in `TARGETS.md` part 4.
+3. **B1 separation theorem** (part 2, decisive for the dispute): STATE B1 above; plan unchanged (Lipschitz bound of the shape miss in (a₂, a₃) + certified enclosures at z = 1, 3, 7).
+4. **Chemistry, first computed result (part 5 + part 1 "rigorous simulators"):** certified saturation pressure of the van der Waals / Peng–Robinson fluid at T_r = 0.7 (Maxwell equal-area construction, existence/uniqueness of the coexistence pair, IVT enclosures) ⇒ the model's acentric factor (vdW ω ≈ −0.30 is commonly quoted); then maths (part 5).
+5. Generated records (T5 holes D01, A03, A04, B04, A05); T5 re-judge; T4 fractions/STATE numbers.
 Blocking: nothing.
