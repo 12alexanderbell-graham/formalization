@@ -173,6 +173,32 @@ partial def posRoundsToLits (e : Expr) (acc : Array (Option String) := #[]) : Ar
     else if e.isAppOfArity `Checked.Records.RoundsTo 3 then roundsToLits e acc
     else acc
 
+/-- A rational numeral as written (`3 / 10`, `-1 / 2`, `0.245`, `7`) as `(numerator, denominator)`. -/
+partial def ratLit? (e : Expr) : Option (Int × Nat) :=
+  let e := e.consumeMData
+  -- real-valued numerals only (not the ℕ in `ContDiffAt ℝ 6` or `cosmoCoeff 5`)
+  if !(e.getAppNumArgs > 0 && (e.getArg! 0).consumeMData.isConstOf ``Real) then none
+  else if e.isAppOfArity ``Neg.neg 3 then (ratLit? (e.getArg! 2)).map fun (n, d) => (-n, d)
+  else if e.isAppOfArity ``HDiv.hDiv 6 then
+    match ratLit? (e.getArg! 4), ratLit? (e.getArg! 5) with
+    | some (a, b), some (c, d) => if c > 0 then some (a * d, b * c.toNat) else none
+    | _, _ => none
+  else match decLit? e with
+    | some (neg, m, d) => some ((if neg then -1 else 1) * (m : Int), 10 ^ d)
+    | none => none
+
+/-- Every rational numeral in a statement (the parameters a record is stated at). -/
+partial def ratLits (e : Expr) (acc : Array (Int × Nat) := #[]) : Array (Int × Nat) :=
+  match ratLit? e with
+  | some r => acc.push r
+  | none =>
+    match e with
+    | .mdata _ b => ratLits b acc
+    | .forallE _ d b _ => ratLits b (ratLits d acc)
+    | .lam _ d b _ => ratLits b (ratLits d acc)
+    | .app f a => ratLits a (ratLits f acc)
+    | _ => acc
+
 end StatementDeps
 
 open StatementDeps in
@@ -363,6 +389,7 @@ run_cmd do
   -- `RoundsTo x d k`; its decimals are written to `.lake/records_numbers.tsv`, against which
   -- `scripts/trust/check_numbers.py` checks every `[✓name]` tag in FINDINGS.md.
   let mut recLines : Array String := #[]
+  let mut parLines : Array String := #[]
   for h in heads do
     if let .ok hn := resolve cands h then
       if (`Checked.Records).isPrefixOf hn then
@@ -371,12 +398,15 @@ run_cmd do
           errors := errors.push s!"{hn} is in Checked.Records but asserts no RoundsTo"
         if (roundsToLits (env.find? hn).get!.type).size != lits.size then
           errors := errors.push s!"{hn}: a RoundsTo in a position the statement does not assert (under ¬, ∨, ↔ or in a hypothesis)"
+        for (n, d) in ratLits (env.find? hn).get!.type do
+          parLines := parLines.push s!"{hn.componentsRev.head!}\t{n}/{d}"
         for l in lits do
           match l with
           | some str => recLines := recLines.push s!"{hn.componentsRev.head!}\t{str}"
           | none => errors := errors.push s!"{hn}: a RoundsTo whose value is not a decimal literal with at most k decimals"
   IO.FS.createDirAll ".lake"
   IO.FS.writeFile ".lake/records_numbers.tsv" (String.intercalate "\n" recLines.toList ++ "\n")
+  IO.FS.writeFile ".lake/records_params.tsv" (String.intercalate "\n" parLines.toList ++ "\n")
   logInfo m!"certified numbers: {recLines.size} RoundsTo literals in Checked.Records headlines"
   let mut gapCount : NameMap Nat := {}
   let mut unclassified : NameSet := {}

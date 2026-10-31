@@ -8,6 +8,10 @@ is a decimal (or follows ≈/≃) carries a tag right after it:
   [✓name]  certified: `Checked.Records.name` is a registered headline whose statement contains
            `RoundsTo x d k` with `d` written with `k` decimals exactly as in the prose
            (literals extracted by scripts/trust/StatementDeps.lean into .lake/records_numbers.tsv);
+  [in✓name] an input (parameter value) at which the record `name` is stated: the value must be one
+           of the rational numerals in its statement (red team D, defect D02 changed Ω_m = 0.3 to 0.7
+           next to certified values computed at 0.3). In a sentence (split at ". " and "; ") that
+           contains a certified number, bare [in] and [src] are errors;
   [src]    quoted from the source (a number printed in the paper);
   [in]     an input chosen for illustration (a parameter value), not a result;
   [unc]    computed but NOT machine-checked (the reader sees that it is unchecked).
@@ -28,6 +32,7 @@ import re
 import subprocess
 import sys
 from decimal import Decimal
+from fractions import Fraction
 
 FINDINGS = "FINDINGS.md"
 TSV = ".lake/records_numbers.tsv"
@@ -36,7 +41,8 @@ UNVERIFIED = "## Candidates under verification"
 DASHES = "−–—‐‑‒-"
 SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹"
 NUM = r"[" + DASHES + r"]?\d+(?:\.\d+)?(?:×10[⁻⁺]?[" + SUP + r"]+)?"
-TAG = r"\[(✓[A-Za-z0-9_]+|src|in|unc)\]"
+TAG = r"\[(✓[A-Za-z0-9_]+|in✓[A-Za-z0-9_]+|src|in|unc)\]"
+PARAMS = ".lake/records_params.tsv"
 
 
 def norm(s):
@@ -72,7 +78,7 @@ def code_blank(line):
 def certified_pairs(text):
     out = {}
     for line in scope(text).split("\n"):
-        for t in re.finditer(r"(" + NUM + r")\[✓([A-Za-z0-9_]+)\]", code_blank(line)):
+        for t in re.finditer(r"(" + NUM + r")\[((?:in)?✓[A-Za-z0-9_]+)\]", code_blank(line)):
             k = (norm(t.group(1)), t.group(2))
             out[k] = out.get(k, 0) + 1
     return out
@@ -92,10 +98,11 @@ def base_check(base):
     lost = [k for k, c in before.items() if after.get(k, 0) < c]
     led = subprocess.run(["git", "diff", base, "HEAD", "--", "LEDGER.md"], capture_output=True, text=True).stdout
     added = "\n".join(l[1:] for l in led.splitlines() if l.startswith("+") and not l.startswith("+++"))
-    missing = [k for k in lost if not re.search(r"(?<![\w.])" + re.escape(k[1]) + r"(?![\w])", added)]
+    missing = [k for k in lost if not re.search(r"(?<![\w.])" + re.escape(k[1].split("✓")[-1]) + r"(?![\w])", added)]
     print(f"certified-number diff vs {base}: {len(before)} certified pairs before, {len(after)} now, "
           f"{len(lost)} removed or changed")
     for num, name in missing:
+        name = name.replace("in✓", "").replace("✓", "")
         print(f"::error::certified number {num}[✓{name}] was changed, removed or downgraded without a "
               f"LEDGER.md entry naming {name}")
     return 1 if missing else 0
@@ -112,6 +119,14 @@ def main():
     cert = {}
     for name, val in rows:
         cert.setdefault(name, []).append(val)
+    params = {}
+    try:
+        for l in open(PARAMS, encoding="utf-8").read().splitlines():
+            if l.strip():
+                name, fr = l.split("\t")
+                params.setdefault(name, set()).add(Fraction(fr))
+    except FileNotFoundError:
+        pass
     text = open(FINDINGS, encoding="utf-8").read()
     if "## Verified findings" not in text:
         print("::error::FINDINGS.md has no '## Verified findings' section")
@@ -123,7 +138,15 @@ def main():
         for t in re.finditer(r"(" + NUM + r")" + TAG, s):
             num, tag = t.group(1), t.group(2)
             tagged_starts.add(t.start(1))
-            if tag.startswith("✓"):
+            if tag.startswith("in✓"):
+                name = tag[3:]
+                v, _ = value(num)
+                if Fraction(v) not in params.get(name, set()):
+                    errors.append(f"{num}[{tag}]: {name} is not stated at {num} (its parameters: "
+                                  f"{sorted(str(x) for x in params.get(name, set()))[:12]})")
+                else:
+                    counts["in"] += 1
+            elif tag.startswith("✓"):
                 name = tag[1:]
                 if name not in cert:
                     errors.append(f"[✓{name}] after {num}: no registered Checked.Records headline {name} asserts a RoundsTo")
@@ -135,7 +158,12 @@ def main():
                 counts[tag] += 1
         for t in re.finditer(r"\[(✓[^\]]*|src|in|unc)\]×10", s):
             errors.append(f"power of ten after the tag {t.group()[:-3]}: write it before the tag, 1.3×10⁻⁵[✓name]")
-        for t in re.finditer(r"\[(✓[^\]]*|src|in|unc)\]", s):
+        # an input in a sentence with a certified number must be bound to a record (red team D, D02)
+        for sent in re.split(r"(?<=[.;])\s", s):
+            if "[✓" in sent and ("[in]" in sent or "[src]" in sent or "[unc]" in sent):
+                errors.append(f"bare [in]/[src]/[unc] in a sentence with a certified number: bind the parameter to "
+                              f"its record, 0.3[in✓name], or move the quote to its own sentence: {sent.strip()[:90]}")
+        for t in re.finditer(r"\[(✓[^\]]*|in✓[^\]]*|src|in|unc)\]", s):
             if not any(re.match(NUM + r"$", s[a:t.start()]) for a in tagged_starts if a < t.start()):
                 errors.append(f"tag {t.group()} not directly after a number: {line.strip()[:80]}")
         for t in re.finditer(r"(?<![\w.])(" + NUM + r")(?!\d)(?!\.\d)", s):

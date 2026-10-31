@@ -80,7 +80,7 @@ theorem F2_error (w₀ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hL : CPL.IsFlatCPL
 /-! ## F3 (Capozziello, Cardone, Salzano 2008, Eq. (A2)) -/
 
 /-- In every flat ΛCDM model with `Ω_m = 0.3` (q₀ = −0.55): the correct lookback `D⁴` is
-`0.2153`, the printed one `0.4555`, and the excess `printed − correct` is `0.24`. -/
+`0.2153`, the printed one `0.4555`, the excess `printed − correct` is `0.24`, and `q₀ = −0.55`. -/
 theorem F3_D4_LCDM (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatLCDM (3 / 10) a t₀)
     (hs : ContDiffAt ℝ 6 a t₀) :
     RoundsTo (CCS.correctD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀)
@@ -89,7 +89,8 @@ theorem F3_D4_LCDM (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatLCDM (3 / 10) a t�
       (cosmoCoeff 5 a t₀)) 0.4555 4 ∧
     RoundsTo (CCS.printedD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀)
       (cosmoCoeff 5 a t₀) - CCS.correctD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀)
-      (cosmoCoeff 5 a t₀)) 0.24 2 := by
+      (cosmoCoeff 5 a t₀)) 0.24 2 ∧
+    RoundsTo (decel a t₀) (-0.55) 2 := by
   obtain ⟨hq, hj, hs4, hl, -⟩ := flatLCDM_coeffs _ a t₀ hL hs
   rw [hq, hj, hs4, hl]
   unfold CCS.correctD4 CCS.printedD4 RoundsTo; simp only [abs_le]; norm_num
