@@ -26,6 +26,7 @@ import Checked.Fidelity.FriedmannCPL
 import Checked.Fidelity.FRSpecs
 import Checked.Fidelity.TransverseSpec
 import Checked.Records.Findings
+import Checked.Cosmography.B1Truncation
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -324,5 +325,32 @@ theorem F2_error : nonvacuity% Checked.Records.F2_error := by
 theorem F3_D4_LCDM : nonvacuity% Checked.Records.F3_D4_LCDM := by
   obtain ⟨a, t₀, hL, hs⟩ := exists_flatLCDM (Ω := 3 / 10) (by norm_num) (by norm_num)
   exact ⟨a, t₀, hL, hs, trivial⟩
+
+/-! ### B1 (run 2026-10-31T0428Z): the exact global ΛCDM solution `a = sinh(3t/2)^{2/3}`,
+`Ω = 1/5`, with sources at z = 3 and z = 7 (`Checked.Cosmography.B1.exists_flatLCDM_on`). -/
+
+theorem lumDistFlat_flatLCDM : nonvacuity% Checked.Cosmography.B1.lumDistFlat_flatLCDM := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH0, hH, -, -⟩ :=
+    Checked.Cosmography.B1.exists_flatLCDM_on
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₀, le_trans h73 h30, hpos, hdiff, hH0, hH, trivial⟩
+
+theorem cubic_misses_z3 : nonvacuity% Checked.Cosmography.B1.cubic_misses_z3 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH0, hH, hz3, -⟩ :=
+    Checked.Cosmography.B1.exists_flatLCDM_on
+  have hsub : Set.Icc t₃ t₀ ⊆ Set.Icc t₇ t₀ := Set.Icc_subset_Icc_left h73
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₃, t₀, h30, fun s hs => hpos s (hsub hs),
+    fun s hs => hdiff s (hsub hs), hH0, fun s hs => hH s (hsub hs), hz3, trivial⟩
+
+theorem cubic_misses_z7 : nonvacuity% Checked.Cosmography.B1.cubic_misses_z7 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH0, hH, -, hz7⟩ :=
+    Checked.Cosmography.B1.exists_flatLCDM_on
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₀, le_trans h73 h30, hpos, hdiff, hH0, hH, hz7,
+    trivial⟩
+
+theorem cubic_shape_miss : nonvacuity% Checked.Cosmography.B1.cubic_shape_miss := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH0, hH, hz3, hz7⟩ :=
+    Checked.Cosmography.B1.exists_flatLCDM_on
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH0, hH, hz3, hz7,
+    trivial⟩
 
 end Checked.Trust.NV

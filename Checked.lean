@@ -33,3 +33,4 @@ import Checked.Trust.SecondReading
 import Checked.Trust.Transcriptions
 import Checked.Trust.SecondReadingFR
 import Checked.Trust.TranscriptionsFR
+import Checked.Cosmography.B1Truncation

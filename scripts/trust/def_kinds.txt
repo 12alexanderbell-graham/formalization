@@ -151,3 +151,6 @@ Checked.Fidelity.FRSecondEq SPEC
 Checked.Fidelity.TransverseSpec SPEC
 Checked.Records.RoundsTo MATH
 Checked.Cosmography.FREta.Jfam COMPOSITE
+Checked.Cosmography.B1.lusA2 PRINTED
+Checked.Cosmography.B1.lusA3 PRINTED
+Checked.Cosmography.B1.logPolyDL3 PRINTED

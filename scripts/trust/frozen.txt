@@ -11,6 +11,13 @@ Checked.Cosmography.Aviles.cosmoCoeff 451e3f3da4b393c-PHYSICS
 Checked.Cosmography.Aviles.flatLCDM_coeffs 36ab46ca
 Checked.Cosmography.AvilesWitness.printedL0_false_at 17999513
 Checked.Cosmography.AvilesWitness.printedM0_false_at 7ec34f79
+Checked.Cosmography.B1.cubic_misses_z3 d9343d40
+Checked.Cosmography.B1.cubic_misses_z7 3e709ce4
+Checked.Cosmography.B1.cubic_shape_miss dc509154
+Checked.Cosmography.B1.logPolyDL3 de85466a389577a8-PRINTED
+Checked.Cosmography.B1.lumDistFlat_flatLCDM e42d16c7
+Checked.Cosmography.B1.lusA2 37d0e0a185ad599d-PRINTED
+Checked.Cosmography.B1.lusA3 29255de2ffbc4f30-PRINTED
 Checked.Cosmography.BambaA.BambaDA3Claim c2c69fd78531bc13-CLAIM
 Checked.Cosmography.BambaA.BambaDA3ClaimPast e42decd8092ce067-CLAIM
 Checked.Cosmography.BambaA.BambaDA4Claim c905cecdae3fda86-CLAIM

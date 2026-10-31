@@ -130,3 +130,8 @@ Records.F10_printed_pole
 Records.F10_exceptions
 Records.F10_family_pole
 Records.F11_sizes
+# B1 (run 2026-10-31T0428Z): RL19 cubic log-polynomial vs exact flat ΛCDM, certified (Riemann sums)
+B1.lumDistFlat_flatLCDM
+B1.cubic_misses_z3
+B1.cubic_misses_z7
+B1.cubic_shape_miss
