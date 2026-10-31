@@ -485,8 +485,8 @@ lemma dir_step (Ω a₂ a₃ J3 J7 L U : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : 
     linarith
   exact lt_of_mul_lt_mul_right key (by positivity)
 
-/-- **B1 direction.** Same hypotheses as `cubic_separation`: every cubic log-polynomial that
-agrees with exact flat ΛCDM (`Ω ∈ [0.2, 0.4]`) within 0.05 mag at `z = 3` and `z = 7` up to a common
+/-- **B1 direction.** In every flat ΛCDM model with `Ω ∈ [0.2, 0.4]` (sources at `z = 3`, `z = 7`;
+hypotheses as in `cubic_separation`), every cubic log-polynomial that agrees with exact flat ΛCDM (`Ω ∈ [0.2, 0.4]`) within 0.05 mag at `z = 3` and `z = 7` up to a common
 offset lies strictly on one side of a line through the ΛCDM-implied point:
 `a₂ − lusA2 Ω < 7 log₁₀2 · (a₃ − lusA3 Ω)` (slope `7 log₁₀ 2 ≈ 2.107`). Truncation can move a
 matching cubic only towards smaller `a₂` / larger `a₃` relative to that line.

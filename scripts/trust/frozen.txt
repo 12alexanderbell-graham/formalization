@@ -27,6 +27,8 @@ Checked.Cosmography.B1.logPolyDL3 de85466a389577a8-PRINTED
 Checked.Cosmography.B1.lumDistFlat_flatLCDM e42d16c7
 Checked.Cosmography.B1.lusA2 37d0e0a185ad599d-PRINTED
 Checked.Cosmography.B1.lusA3 29255de2ffbc4f30-PRINTED
+Checked.Cosmography.B1Sep.cubic_direction 5e2d4a4f
+Checked.Cosmography.B1Sep.cubic_separation c0443124
 Checked.Cosmography.BambaA.BambaDA3Claim c2c69fd78531bc13-CLAIM
 Checked.Cosmography.BambaA.BambaDA3ClaimPast e42decd8092ce067-CLAIM
 Checked.Cosmography.BambaA.BambaDA4Claim c905cecdae3fda86-CLAIM

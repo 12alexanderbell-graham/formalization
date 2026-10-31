@@ -69,7 +69,7 @@
   },
   {
    "item": 3,
-   "headline": "Checked.Fidelity.comoving_pins"
+   "headline": "Checked.Fidelity.masterEq_iff_blind"
   },
   {
    "item": 5,
@@ -81,7 +81,7 @@
   },
   {
    "item": 8,
-   "headline": "Checked.Records.F10_eta"
+   "headline": "Checked.Records.F1_printedL0"
   },
   {
    "item": 9,
@@ -97,11 +97,11 @@
   },
   {
    "item": 12,
-   "headline": "Checked.Cosmography.DemianskiZ.demDA4_fails_past"
+   "headline": "Checked.Fidelity.lumDistFlat_pins"
   },
   {
    "item": 13,
-   "headline": "Checked.Cosmography.FREta.printedEta20_false_at"
+   "headline": "Checked.Cosmography.DemianskiZ.demDLzClaim_false"
   },
   {
    "item": 14,
@@ -125,11 +125,11 @@
   },
   {
    "item": 19,
-   "headline": "Checked.Fidelity.decelSpec_pins"
+   "headline": "Checked.Records.F11_sizes"
   },
   {
    "item": 20,
-   "headline": "Checked.Records.F10_exceptions"
+   "headline": "Checked.Cosmography.B1Sep.cubic_separation"
   },
   {
    "item": 22,
@@ -153,7 +153,7 @@
   },
   {
    "item": 27,
-   "headline": "Checked.Cosmography.B1.cubic_misses_z7"
+   "headline": "Checked.Cosmography.B1Sep.cubic_direction"
   },
   {
    "item": 28,
@@ -165,7 +165,7 @@
   },
   {
    "item": 31,
-   "headline": "Checked.Records.F9_values"
+   "headline": "Checked.Records.F2_toy"
   },
   {
    "item": 32,
@@ -173,7 +173,7 @@
   },
   {
    "item": 33,
-   "headline": "Checked.Chemistry.CubicEOS.isCritical_iff"
+   "headline": "Checked.Chemistry.CubicEOS.exists_unique_critical"
   },
   {
    "item": 34,
@@ -181,11 +181,11 @@
   },
   {
    "item": 35,
-   "headline": "Checked.Records.F2_toy"
+   "headline": "Checked.Records.F10_eta"
   },
   {
    "item": 37,
-   "headline": "Checked.Fidelity.masterEq_iff_blind"
+   "headline": "Checked.Fidelity.redshiftCore_pins"
   },
   {
    "item": 38,

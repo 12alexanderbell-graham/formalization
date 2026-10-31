@@ -135,6 +135,8 @@ B1.lumDistFlat_flatLCDM
 B1.cubic_misses_z3
 B1.cubic_misses_z7
 B1.cubic_shape_miss
+B1Sep.cubic_separation
+B1Sep.cubic_direction
 # Chemistry (run 2026-10-31T0628Z): critical point of the generalized cubic equation of state (vdW, RK/SRK, PR)
 Checked.Chemistry.CubicEOS.isCritical_iff
 Checked.Chemistry.CubicEOS.critCubic_existsUnique

@@ -28,6 +28,7 @@ import Checked.Fidelity.TransverseSpec
 import Checked.Records.Findings
 import Checked.Cosmography.B1Truncation
 import Checked.Chemistry.CubicEOS
+import Checked.Cosmography.B1SepWitness
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -384,5 +385,20 @@ theorem pr_constants : nonvacuity% Checked.Chemistry.CubicEOS.pr_constants := by
   obtain ⟨⟨T, v⟩, ⟨_, hv, hc⟩, -⟩ := Checked.Chemistry.CubicEOS.exists_unique_critical 1 1 1 2 (-1)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
   exact ⟨1, 1, 1, T, v, by norm_num, by norm_num, hv, hc, trivial⟩
+
+/-! ### B1 separation/direction (run 2026-10-31T0828Z): exact ΛCDM at `Ω = 1/5` and the cubic
+`a₂ = 0, a₃ = 147/25, H = 1` (`Checked.Cosmography.B1SepWitness.hyps_satisfiable`). -/
+
+theorem cubic_separation : nonvacuity% Checked.Cosmography.B1Sep.cubic_separation := by
+  obtain ⟨Ω, a, t₇, t₃, t₀, a₂, a₃, H, c, h1, h2, h73, h30, hpos, hdiff, hH0, hH, hz3, hz7, hHp,
+    hp3, hp7, hm3, hm7⟩ := Checked.Cosmography.B1SepWitness.hyps_satisfiable
+  exact ⟨Ω, h1, h2, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH0, hH, hz3, hz7, a₂, a₃, H, c, hHp,
+    hp3, hp7, hm3, hm7, trivial⟩
+
+theorem cubic_direction : nonvacuity% Checked.Cosmography.B1Sep.cubic_direction := by
+  obtain ⟨Ω, a, t₇, t₃, t₀, a₂, a₃, H, c, h1, h2, h73, h30, hpos, hdiff, hH0, hH, hz3, hz7, hHp,
+    hp3, hp7, hm3, hm7⟩ := Checked.Cosmography.B1SepWitness.hyps_satisfiable
+  exact ⟨Ω, h1, h2, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH0, hH, hz3, hz7, a₂, a₃, H, c, hHp,
+    hp3, hp7, hm3, hm7, trivial⟩
 
 end Checked.Trust.NV

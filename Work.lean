@@ -48,6 +48,7 @@ import Work.Cosmography.B1Separation
 import Work.Cosmography.B1SepBlind
 import Work.Cosmography.B1DirBlind
 import Work.Cosmography.B1SepAudit
+import Work.Cosmography.B1SepWitness
 import Work.Trust.SecondReadingB1
 import Work.Chemistry.CubicEOS
 import Work.Chemistry.CubicEOSBlind

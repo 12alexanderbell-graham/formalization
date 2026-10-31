@@ -2,26 +2,21 @@
 
 **Area:** Certified numbers of the findings
 
-**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
+**Source:** Aviles, Gruber, Luongo, Quevedo, PRD 86, 123516 (2012), arXiv:1204.2007 (v1 and v2), Eq. (15): misprinted ΛCDM l₀ and m₀
 
 ## Claim in plain words (the system's own text)
 
-The correct first-order coefficients (`FREta.correct20`, `correct30`, the `ε`-derivatives of
-η₂₀, η₃₀ by `FREta.eta20_hasDerivAt`, `eta30_hasDerivAt`) at the paper's `Ω = 0.041, 0.25`.
+The printed `l₀ = 1 + 3Ω − (27/2)Ω²` at `Ω = 0.3` is `0.685`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem F10_eta :
-    RoundsTo (FREta.correct20 (41 / 1000)) (-0.249) 3 ∧
-    RoundsTo (FREta.correct20 (1 / 4)) (-0.032) 3 ∧
-    RoundsTo (FREta.correct30 (41 / 1000)) (-0.400) 3 ∧
-    RoundsTo (FREta.correct30 (1 / 4)) (-0.0152) 4 := …
+theorem F1_printedL0 : RoundsTo (1 + 3 * (3 / 10) - 27 / 2 * (3 / 10) ^ 2) 0.685 3 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FREta.correct20`, `Cosmography.FREta.correct30`, `Records.RoundsTo`
+See GLOSSARY.md: `Records.RoundsTo`
 
 ## What the system checked mechanically
 

@@ -326,3 +326,6 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 
 ## 2026-10-31 · run 0828Z · B1 statements frozen before proof
 - `Work.Cosmography.B1Sep.cubic_separation` frozen in 8be0a7b, `cubic_direction` in 1229815 (after the referee's direction remark); both proved with statements byte-identical to their freezes (docstrings reworded after the referee: "agrees within 0.05 mag at z = 3 and z = 7", not "reproduces"). Not registered (Work only).
+
+## 2026-10-31 · run 0828Z · new headlines (relock, new entries only)
+- Registered: `Checked.Cosmography.B1Sep.cubic_separation`, `Checked.Cosmography.B1Sep.cubic_direction` (promoted from Work, statements byte-identical to their freezes 8be0a7b, 1229815); no new definitions; NV witnesses `Checked.Trust.NV.cubic_separation`, `cubic_direction` from `Checked.Cosmography.B1SepWitness.hyps_satisfiable`. Frozen registry relocked (2 new entries).

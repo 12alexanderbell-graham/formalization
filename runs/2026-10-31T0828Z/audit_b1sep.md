@@ -1,0 +1,11 @@
+# Fidelity audit (annex XL): `Checked.Cosmography.B1Sep.cubic_separation`, `cubic_direction` (run 0828Z)
+
+- **Frozen before proof:** `cubic_separation` in 8be0a7b, `cubic_direction` in 1229815 (Work); proofs leave both statements byte-identical (checked by diff); promoted unchanged.
+- **Blind restatement:** two subagents, each blind to the program's file, wrote `Work/Cosmography/B1SepBlind.lean` (existential offset, polynomial at the literals 3, 7, conclusion `5/4 < √(…)`) and `Work/Cosmography/B1DirBlind.lean` (ratio written polynomial/exact, offset δ). Both are derived from the program's statements in Lean (`Work/Cosmography/B1SepAudit.lean`: `blind_closed`, `blind_direction_closed`).
+- **Not vacuous:** `Checked.Cosmography.B1SepWitness.hyps_satisfiable` (exact ΛCDM `a = sinh(3t/2)^{2/3}`, Ω = 1/5; cubic a₂ = 0, a₃ = 147/25, H = 1; offset midway; certified `0.96 ≤ Y ≤ 1.04` for the distance ratio, J₇ upper bound by a new secant certificate); NV witnesses in `Checked/Trust/Witnesses.lean`.
+- **Not trivial / bites:** at the ΛCDM-implied point both conclusions are false (distance 0; `0 < 0`), so the hypotheses must exclude it, which is `cubic_shape_miss`'s content; the witness cubic (0, 5.88) is 3.7 from the ΛCDM point (Ω = 1/5), consistent with the bound.
+- **Near misses (numerics, referee + run scripts):** with 0.1 mag per redshift instead of 0.05 the direction no longer follows from two points (ρ* = 2.4 gives m < 0 at Ω = 0.2); the separation bound's true value is 1.98 (certified 1.25).
+- **Junk values:** `Real.logb` of a non-positive ratio is excluded by `hp₃`, `hp₇`, `H > 0` (all used by the proof); `lumDistFlat > 0` follows from the bridge. Referee: every junk branch lies ≥ 4.8 from the ΛCDM point.
+- **Types, quantifiers, units:** log₁₀ convention of `lusA2`/`lusA3` (Lusso et al. 2019 Eq. 8) and `logPolyDL3` agree; offset `c` universally bound in hypotheses ≡ "for some offset".
+- **Referee:** STANDS-WITH-CORRECTIONS (`referee_b1sep.md`); corrections adopted: wording "agrees within 0.05 mag at z = 3 and z = 7" (not "reproduces"), two-point criterion stated as not a fit-level result, credit to Banerjee et al. 2021, direction clause added (`cubic_direction`).
+- **Error classification:** none found (Translation / Underspecified / Source: none).
