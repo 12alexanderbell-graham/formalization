@@ -1,0 +1,29 @@
+defect: /home/claude/t5/redteamC/d04
+01:59:14
+--- changed files
+ M Checked.lean
+ M STATE.md
+ M TRUST_MAP.md
+ M scripts/trust/headlines.txt
+?? Checked/Cosmography/HubbleTimeFacts.lean
+?? Work/Cosmography/HubbleTime.lean
+--- build
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (before: checks as of run 2228Z)
+trust: PASS
+--- trust step (after: run 0028Z checks; author relocks)
+trust2: FAIL
+Checked.Cosmography.AvilesWitness.printedL0_false_at
+Checked.Cosmography.AvilesWitness.printedM0_false_at
+    WITNESS Checked.Fidelity.coshBounce
+SUMMARY: 102 headlines; 102 rest on no unpinned physics definition; non-vacuity: 62/62 conditional headlines witnessed.
+/tmp/newsd/SD_new.lean:120:0: error: statement-dependency registry errors:
+--- relock check (after): changed/removed frozen entries need a LEDGER line naming them
+changed/removed frozen entries: []
+not named in LEDGER: []
+relock: PASS
+RESULT BEFORE ACCEPTED
+RESULT AFTER REJECTED build=0 tokens=0 trust2=1 relock=0 map=0
+02:03:03

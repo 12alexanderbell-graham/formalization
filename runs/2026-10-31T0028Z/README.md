@@ -4,7 +4,7 @@ Environment: repo pre-cloned (add_repo not exposed, not needed); a chat session 
 
 **THE RESULT:** part 3 (measured trust) started: first false-acceptance measurement of the whole pipeline against seeded wrong claims from red teams of a different model, and the checks strengthened against what it found; part 1 (every link machine-checked) advanced by the frozen registry, unused-binder and pin-shape checks.
 
-**WHAT CAN A SCIENTIST NOW TRUST WITHOUT CHECKING IT THEMSELVES?** How often this system accepts wrong science, measured for the first time: the checks as they stood yesterday accepted **15 of 15** valid wrong claims seeded by red teams of a different model; the checks pushed this run reject 9 of them (one only in part): every defect that silently changes checked content or cites an unregistered result (**6 of 15 still accepted**), and from now on no registered headline, pin, transcription or classification can change without CI forcing a LEDGER entry that names it.
+**WHAT CAN A SCIENTIST NOW TRUST WITHOUT CHECKING IT THEMSELVES?** How often this system accepts wrong science, measured for the first time: the checks as they stood yesterday accepted **15 of 15** valid wrong claims seeded by red teams of a different model; the checks pushed this run reject 9 of them (**6 of 15 still accepted**); a third red team aimed at the new checks got 2 of 8 through (all 23 had passed yesterday's checks); and from now on no registered headline, pin, transcription or classification can change without CI forcing a LEDGER entry that names it.
 
 **WEAKEST UNCHECKED STEP NOW:** new definitions that carry physics under a non-physics label (FORMULA/COMPOSITE: A04, B04), and prose records (numbers and scope in STATE/FINDINGS: A03, A06, B07); then the C-round holes in the new checks.
 
@@ -36,7 +36,9 @@ Environment: repo pre-cloned (add_repo not exposed, not needed); a chat session 
 | B07 | wrong number in FINDINGS | ACCEPTED | ACCEPTED | — |
 | B08 | pin restricted to de Sitter | ACCEPTED | caught | frozen + unused |
 
-\* A01/A02 change frozen CLAIM bodies; confirmed runs in `t5/results/Ad0{1,2}_v2.txt` when present. Red team C: C_RESULTS_PLACEHOLDER
+\* A01/A02 change frozen CLAIM bodies; confirmed runs in `t5/results/Ad0{1,2}_v2.txt` when present. Red team C: all 8 compiled; **the 2228Z checks accepted 8/8; v3 accepts 2/8**: C02 (spec placed in a decorative conjunct of a pin; v4, pushed after judging, counts only load-bearing SPEC positions: not yet re-judged) and C06 (hypothesis bundled in a conjunction, only partly used: open). Caught: C01 (unused hypothesis behind a bare-constant proof; look-through), C03 (private definition now visible: UNCLASSIFIED), C04 and C05 (trust step failed; error text not captured by the judge's filter, expected: Work import, citation outside "Results"; harness filter fixed, confirm next run), C07 (kind relabel: frozen kind, relock needs LEDGER), C08 (`PLift` hypothesis: all binders checked).
+
+**Totals:** checks as of 2228Z accepted **23 of 23** valid seeded wrong claims; the checks now on main accept **8 of 23** (A+B 6/15 under v2, C 2/8 under v3). CI: main 41156834643 green (first CI run of the frozen registry: fingerprints portable); control `control/frozen-weakened` (B02 relocked without LEDGER) run 41158182668: read next run, must FAIL at check_relock.
 
 **WHAT COULD STILL BE WRONG:** the local judge replicates CI except axiom audit, leanchecker and nanoda (no defect targets the kernel); "caught" for the frozen registry means *disclosed*: an author who names the change in LEDGER passes; red teams are one model (Sonnet) and saw the check code (B, C) or not (A); 24 defects are a small sample, so the rate is a first point, not an estimate with error bars.
 

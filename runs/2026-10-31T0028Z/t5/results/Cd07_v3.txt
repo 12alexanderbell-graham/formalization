@@ -1,0 +1,21 @@
+defect: /home/claude/t5/redteamC/d07
+02:08:10
+--- changed files
+ M STATE.md
+ M TRUST_MAP.md
+ M scripts/trust/def_kinds.txt
+--- build
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (before: checks as of run 2228Z)
+trust: PASS
+--- trust step (after: run 0028Z checks; author relocks)
+trust2: PASS
+--- relock check (after): changed/removed frozen entries need a LEDGER line naming them
+changed/removed frozen entries: ['Checked.Cosmography.CVdQ.dQFlat', 'Checked.Cosmography.FREta.jL']
+not named in LEDGER: ['Checked.Cosmography.CVdQ.dQFlat', 'Checked.Cosmography.FREta.jL']
+relock: FAIL
+RESULT BEFORE ACCEPTED
+RESULT AFTER REJECTED build=0 tokens=0 trust2=0 relock=1 map=0
+02:10:43

@@ -25,7 +25,7 @@ if [ $B = 0 ]; then
   echo "--- trust step (before: checks as of run 2228Z)"
   if [ "$(cat /tmp/judge_sd.rc)" = 0 ]; then echo "trust: PASS"; S=0; else echo "trust: FAIL"; grep -iE "error|rests on|witness|pin |FROZEN|cites" /tmp/judge_sd.log | grep -v "^\s" | head -n 12; fi
   echo "--- trust step (after: run 0028Z checks; author relocks)"
-  if [ "$(cat /tmp/judge_sd2.rc)" = 0 ]; then echo "trust2: PASS"; S2=0; else echo "trust2: FAIL"; grep -iE "error|rests on|witness|pin |never used|cites|not a pin" /tmp/judge_sd2.log | head -n 12; fi
+  if [ "$(cat /tmp/judge_sd2.rc)" = 0 ]; then echo "trust2: PASS"; S2=0; else echo "trust2: FAIL"; grep -iE "error|rests on|witness|pin |never used|cite|not a pin|imports|FROZEN|registered" /tmp/judge_sd2.log | grep -v "^ " | head -n 20; cp /tmp/judge_sd2.log $OUT.sd2.log; fi
   echo "--- relock check (after): changed/removed frozen entries need a LEDGER line naming them"
   python3 - <<'PY' && R2=0
 import subprocess,sys
