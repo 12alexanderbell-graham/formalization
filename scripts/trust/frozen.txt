@@ -253,7 +253,7 @@ Checked.Records.F1_printedL0 14edb71f
 Checked.Records.F2_error e5984cbc
 Checked.Records.F2_toy 1453ba8e
 Checked.Records.F3_D4_LCDM f5bf540
-Checked.Records.F8_sizes 13036514
+Checked.Records.F8_sizes 7af2682d
 Checked.Records.F9_pole bbb3e2d3
 Checked.Records.F9_values 26204386
 Checked.Records.RoundsTo 6490dd4a817db795-MATH

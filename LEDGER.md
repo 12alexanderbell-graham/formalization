@@ -268,3 +268,8 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 ## 2026-10-31 · run 0228Z · records correction found by the new check
 - F11 said the l₀ shift absorbing the D⁴_L error is "≈ −87 at their q₀ = −0.80"; −210·(0.80)⁴ = −86.016 (`Checked.Records.F11_sizes`). Corrected to −86 in FINDINGS.md. No reported finding changes.
 - F2 wording: "error 2·0.7·6.7·0.25 = 2.345" replaced by the certified "true − printed = 2(1−Ω_m)(7−Ω_m)w_a² = 2.345" (valid for every w₀, `F2_error`).
+
+## 2026-10-31 · run 0228Z · integrity event (annex 39.5): certified-number and records checks hardened after red team D
+- Red team D (Sonnet, 8 defects against the checks of this run, `runs/2026-10-31T0228Z/t5/redteamD/`) found, among others: a certificate by `¬ RoundsTo` (D05), a new `## ` heading that ended the scanned section (D06), an en dash read as a minus sign (D07), a power of ten outside the checked token (D03), citations of invented theorem names (D08).
+- Changes (all strengthening): `StatementDeps.lean` takes only *asserted* `RoundsTo` (through ∀, →-conclusion, ∧, ∃; error if one sits under ¬/∨/↔ or in a hypothesis) and fails on a backticked dotted name in STATE/FINDINGS that lies in an existing Checked namespace but names no constant; `check_numbers.py` scans all of FINDINGS.md except the "Candidates under verification" section, reads every dash as a minus, and treats `1.3×10⁻⁵` as one number (power of ten before the tag).
+- Frozen entry changed: `F8_sizes` now certifies the shift k²z⁴/120 itself (0.000013 at 6 decimals) instead of 10⁵ times it, so the prose `1.3×10⁻⁵[✓F8_sizes]` is checked including the exponent.

@@ -100,7 +100,7 @@ theorem F3_D4_LCDM (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatLCDM (3 / 10) a t�
 (`H₀d_L = z + z²/2` exactly) the omitted `z⁵/120` relative to `H₀d_L` is `0.56 %` at `z = 1` and
 `6.7 %` at `z = 2`. -/
 theorem F8_sizes :
-    RoundsTo ((1 / 100) ^ 2 * 2 ^ 4 / 120 * 10 ^ 5) 1.3 1 ∧
+    RoundsTo ((1 / 100) ^ 2 * 2 ^ 4 / 120) 0.000013 6 ∧
     RoundsTo (100 * ((1 : ℝ) ^ 5 / 120) / (1 + 1 ^ 2 / 2)) 0.56 2 ∧
     RoundsTo (100 * ((2 : ℝ) ^ 5 / 120) / (2 + 2 ^ 2 / 2)) 6.7 1 := by
   unfold RoundsTo; simp only [abs_le]; norm_num

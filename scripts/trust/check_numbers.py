@@ -16,32 +16,65 @@ With `--base REF` (CI, after the frozen-registry check) it also compares with RE
 pair (number, [✓name]) present at REF and absent now (number changed, or tag downgraded to
 [src]/[in]/[unc]) needs a LEDGER.md line added since REF naming `name` (as frozen entries do).
 
+Scope: the whole of FINDINGS.md except the section "## Candidates under verification" (which is
+labelled UNVERIFIED as a whole); a new heading does not end the scope (red team D, defect D06).
+Signs: hyphen, minus sign, en dash and other dashes all count as a minus (D07). A number written
+with a power of ten, `1.3×10⁻⁵`, is one token whose value must equal the certified literal (D03).
+
 Not numbers for this rule: arXiv identifiers, equation numbers in parentheses "(10.54)",
 anything inside `code`. Run after StatementDeps.lean (which writes the .tsv).
 """
 import re
 import subprocess
 import sys
+from decimal import Decimal
 
 FINDINGS = "FINDINGS.md"
 TSV = ".lake/records_numbers.tsv"
+UNVERIFIED = "## Candidates under verification"
 
-NUM = r"[−-]?\d+(?:\.\d+)?"
+DASHES = "−–—‐‑‒-"
+SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹"
+NUM = r"[" + DASHES + r"]?\d+(?:\.\d+)?(?:×10[⁻⁺]?[" + SUP + r"]+)?"
 TAG = r"\[(✓[A-Za-z0-9_]+|src|in|unc)\]"
 
 
 def norm(s):
-    return s.replace("−", "-")
+    for d in DASHES:
+        s = s.replace(d, "-")
+    return s
+
+
+def value(tok):
+    """(exact value, number of decimals) of a prose number or a certified literal."""
+    tok = norm(tok)
+    exp = 0
+    if "×10" in tok:
+        tok, e = tok.split("×10")
+        e = e.replace("⁻", "-").replace("⁺", "")
+        exp = int("".join(str(SUP.index(c)) if c in SUP else c for c in e))
+    dec = len(tok.split(".")[1]) if "." in tok else 0
+    return Decimal(tok).scaleb(exp), max(dec - exp, 0)
+
+
+def scope(text):
+    i = text.find("\n" + UNVERIFIED)
+    if i < 0:
+        return text
+    j = text.find("\n## ", i + 1)
+    return text[:i] + ("\n" + text[j:] if j >= 0 else "")
+
+
+def code_blank(line):
+    return re.sub(r"`[^`]*`", lambda mm: " " * len(mm.group()), line)
 
 
 def certified_pairs(text):
-    m = re.search(r"^## Verified findings\n(.*?)(?=^## )", text, re.S | re.M)
-    sec = m.group(1) if m else ""
-    sec = re.sub(r"`[^`]*`", "", sec)
     out = {}
-    for t in re.finditer(r"(" + NUM + r")\[✓([A-Za-z0-9_]+)\]", sec):
-        k = (norm(t.group(1)), t.group(2))
-        out[k] = out.get(k, 0) + 1
+    for line in scope(text).split("\n"):
+        for t in re.finditer(r"(" + NUM + r")\[✓([A-Za-z0-9_]+)\]", code_blank(line)):
+            k = (norm(t.group(1)), t.group(2))
+            out[k] = out.get(k, 0) + 1
     return out
 
 
@@ -74,55 +107,47 @@ def main():
         return 1
     cert = {}
     for name, val in rows:
-        cert.setdefault(name, set()).add(val)
+        cert.setdefault(name, []).append(val)
     text = open(FINDINGS, encoding="utf-8").read()
-    m = re.search(r"^## Verified findings\n(.*?)(?=^## )", text, re.S | re.M)
-    if not m:
+    if "## Verified findings" not in text:
         print("::error::FINDINGS.md has no '## Verified findings' section")
         return 1
-    sec = m.group(1)
     errors, counts = [], {"✓": 0, "src": 0, "in": 0, "unc": 0}
-    for ln, line in enumerate(sec.split("\n")):
-        s = re.sub(r"`[^`]*`", lambda mm: " " * len(mm.group()), line)
-        # tagged numbers
-        tagged_spans = []
+    for line in scope(text).split("\n"):
+        s = code_blank(line)
+        tagged_starts = set()
         for t in re.finditer(r"(" + NUM + r")" + TAG, s):
-            num, tag = norm(t.group(1)), t.group(2)
-            tagged_spans.append(t.span(1))
+            num, tag = t.group(1), t.group(2)
+            tagged_starts.add(t.start(1))
             if tag.startswith("✓"):
                 name = tag[1:]
                 if name not in cert:
-                    errors.append(f"[✓{name}] after {num}: no registered Checked.Records headline {name} states a RoundsTo")
-                elif num not in cert[name]:
-                    errors.append(f"{num}[✓{name}]: {name} certifies {sorted(cert[name])}, not {num}")
+                    errors.append(f"[✓{name}] after {num}: no registered Checked.Records headline {name} asserts a RoundsTo")
+                elif value(num) not in [value(v) for v in cert[name]]:
+                    errors.append(f"{num}[✓{name}]: {name} certifies {cert[name]}, not {num}")
                 else:
                     counts["✓"] += 1
             else:
                 counts[tag] += 1
-        for t in re.finditer(r"\[[^\]]*\]", s):
-            body = t.group()[1:-1]
-            if (body.startswith("✓") or body in ("src", "in", "unc")) and not any(
-                    a <= t.start() <= b + 1 for a, b in tagged_spans):
-                errors.append(f"tag [{body}] not directly after a number: {line.strip()[:80]}")
-        # numbers that need a tag
+        for t in re.finditer(r"\[(✓[^\]]*|src|in|unc)\]×10", s):
+            errors.append(f"power of ten after the tag {t.group()[:-3]}: write it before the tag, 1.3×10⁻⁵[✓name]")
+        for t in re.finditer(r"\[(✓[^\]]*|src|in|unc)\]", s):
+            if not any(re.match(NUM + r"$", s[a:t.start()]) for a in tagged_starts if a < t.start()):
+                errors.append(f"tag {t.group()} not directly after a number: {line.strip()[:80]}")
         for t in re.finditer(r"(?<![\w.])(" + NUM + r")(?!\d)(?!\.\d)", s):
             a, b = t.span(1)
             num = t.group(1)
-            is_dec = "." in num
-            before = s[:a].rstrip()
-            approx = before.endswith(("≈", "≃"))
-            if not (is_dec or approx):
+            is_dec = "." in num or "×10" in num
+            approx = s[:a].rstrip().endswith(("≈", "≃"))
+            if not (is_dec or approx) or a in tagged_starts:
                 continue
-            if any(x == a for x, _ in tagged_spans):
-                continue
-            # equation numbers "(10.54)", "(11.42)–(11.45)", arXiv ids, versions
             if s[a - 1:a] == "(" and s[b:b + 1] == ")":
-                continue
-            if re.fullmatch(r"\d{4}\.\d{4,5}", num.lstrip("−-")):
-                continue
+                continue  # equation number
+            if re.fullmatch(r"\d{4}\.\d{4,5}", num):
+                continue  # arXiv identifier
             errors.append(f"untagged number {num}: …{s[max(0, a - 50):b + 15].strip()}…")
     total = sum(counts.values())
-    print(f"certified numbers (FINDINGS.md verified findings): {counts['✓']} certified [✓], "
+    print(f"certified numbers (FINDINGS.md outside '{UNVERIFIED}'): {counts['✓']} certified [✓], "
           f"{counts['src']} quoted [src], {counts['in']} inputs [in], {counts['unc']} unchecked [unc]; "
           f"{total} tagged")
     for e in errors:

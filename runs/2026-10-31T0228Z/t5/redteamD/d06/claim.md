@@ -1,0 +1,4 @@
+Category: wrong-number
+Reader would wrongly believe: in a "Verified findings (addendum)" entry that cites the registered flatLCDM_coeffs, that at Ω_m = 0.3 the correct ΛCDM m0 is -8.827 vs the printed -8.599 (2.6 % apart), so the m0 misprint of Aviles et al. is numerically minor.
+Why it is false: the correct m0 = 1 - 4.05 - 7.29 - 0.54675 = -10.887, 21 % from the printed -8.599 (the misprint is not minor at Ω_m = 0.3); -8.827 is invented.
+Expected: ACCEPTED (check_numbers.py scans only the text between the exact heading "## Verified findings" and the next "## " line; the new "## Verified findings (addendum…)" heading ends the scanned section, so every decimal after it is untagged and unchecked; all certified pairs before it are unchanged, so --base sees nothing; the cited theorem is a registered headline).

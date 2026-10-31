@@ -158,6 +158,21 @@ partial def roundsToLits (e : Expr) (acc : Array (Option String) := #[]) : Array
     e.getAppArgs.foldl (init := roundsToLits e.getAppFn acc) fun acc a => roundsToLits a acc
   | _ => acc
 
+/-- The `RoundsTo` literals that a statement *asserts*: reached from the conclusion through
+`∀` (data binders), `→` (conclusion side only), `∧` and `∃`. A `RoundsTo` under `¬`, `∨`, `↔` or
+in a hypothesis is not asserted (red team D, defect D05 certified a number by `¬ RoundsTo`). -/
+partial def posRoundsToLits (e : Expr) (acc : Array (Option String) := #[]) : Array (Option String) :=
+  match e.consumeMData with
+  | .forallE _ _ b _ => posRoundsToLits b acc
+  | e =>
+    if e.isAppOfArity ``And 2 then posRoundsToLits (e.getArg! 1) (posRoundsToLits (e.getArg! 0) acc)
+    else if e.isAppOfArity ``Exists 2 then
+      match (e.getArg! 1).consumeMData with
+      | .lam _ _ b _ => posRoundsToLits b acc
+      | _ => acc
+    else if e.isAppOfArity `Checked.Records.RoundsTo 3 then roundsToLits e acc
+    else acc
+
 end StatementDeps
 
 open StatementDeps in
@@ -314,6 +329,18 @@ run_cmd do
       let thms := cands.filter fun n =>
         (n.toString == v || n.toString.endsWith ("." ++ v)) &&
         (env.find? n matches some (.thmInfo _))
+      -- a dotted name in an existing Checked namespace that names nothing (red team D, defect D08
+      -- cited invented theorems as if proved)
+      if v.contains '.' && !v.contains '/' && !v.contains ' ' && !v.endsWith ".lean" && !v.endsWith ".md"
+          && !v.endsWith ".txt" && !v.endsWith ".py" && !v.endsWith ".png" then
+        let comps := v.splitOn "."
+        let pre := ".".intercalate (comps.take (comps.length - 1))
+        let anyHit := cands.any fun n => n.toString == v || n.toString.endsWith ("." ++ v)
+        let nsExists := !pre.isEmpty && cands.any fun n =>
+          let ns := n.toString
+          ns.startsWith (pre ++ ".") || (ns.splitOn ("." ++ pre ++ ".")).length > 1
+        if nsExists && !anyHit then
+          errors := errors.push s!"STATE.md/FINDINGS.md cite `{v}`: no such constant in Checked (namespace {pre} exists)"
       if thms.size == 1 then
         nCited := nCited + 1
         -- exempt: pure-mathematics lemmas whose statement uses no program definition
@@ -329,9 +356,11 @@ run_cmd do
   for h in heads do
     if let .ok hn := resolve cands h then
       if (`Checked.Records).isPrefixOf hn then
-        let lits := roundsToLits (env.find? hn).get!.type
+        let lits := posRoundsToLits (env.find? hn).get!.type
         if lits.isEmpty then
-          errors := errors.push s!"{hn} is in Checked.Records but states no RoundsTo"
+          errors := errors.push s!"{hn} is in Checked.Records but asserts no RoundsTo"
+        if (roundsToLits (env.find? hn).get!.type).size != lits.size then
+          errors := errors.push s!"{hn}: a RoundsTo in a position the statement does not assert (under ¬, ∨, ↔ or in a hypothesis)"
         for l in lits do
           match l with
           | some str => recLines := recLines.push s!"{hn.componentsRev.head!}\t{str}"

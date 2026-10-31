@@ -1,0 +1,19 @@
+defect: /home/claude/formalization/runs/2026-10-31T0028Z/t5/redteamA/d01  base: f367ffbfd00c9b57e6d29def6245b291aee4bff0
+02:52:16
+--- changed files
+ M Checked/Cosmography/LCDMCoefficients.lean
+--- build Checked Work
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (author relocks)
+trust: PASS
+map: PASS
+--- certified numbers
+certified numbers (FINDINGS.md verified findings): 26 certified [✓], 19 quoted [src], 10 inputs [in], 2 unchecked [unc]; 57 tagged
+--- frozen registry + certified-number diff vs base
+changed: Checked.Cosmography.Aviles.AvilesL0Claim  -- NOT named in a LEDGER.md addition
+changed: Checked.Cosmography.Aviles.AvilesM0Claim  -- NOT named in a LEDGER.md addition
+::error::2 frozen statement(s)/definition(s) changed or removed without a LEDGER.md entry naming them (annex XLIII: never weaken a statement and keep its name)
+RESULT V5 REJECTED build=0 tokens=0 trust=0 map=0 numbers=0 relock=1
+03:01:28
