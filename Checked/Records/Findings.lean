@@ -155,7 +155,7 @@ theorem F10_family_pole : ∃ ε : ℝ, RoundsTo ε 0.032 3 ∧ FREta.Jfam (41 /
 /-- At `q₀ = −0.80`: the shift `l₀ ↦ l₀ − 210q₀⁴` that absorbs the D⁴_L error is `−86`, and the
 error `(7/4)q₀⁴ z⁴` inside the bracket at `z = 1` is `0.72`. -/
 theorem F11_sizes :
-    RoundsTo (-210 * (-4 / 5) ^ 4) (-86) 0 ∧ RoundsTo (7 / 4 * (-4 / 5) ^ 4 * 1 ^ 4) 0.72 2 := by
+    RoundsTo (-210 * (-4 / 5) ^ 4) (-86) 0 ∧ RoundsTo (7 / 4 * (-4 / 5) ^ 4) 0.72 2 := by
   unfold RoundsTo; simp only [abs_le]; norm_num
 
 end Checked.Records
