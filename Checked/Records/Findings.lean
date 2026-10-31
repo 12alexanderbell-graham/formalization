@@ -137,8 +137,11 @@ theorem F10_printed_pole : ∃ r : ℝ, RoundsTo r 0.176 3 ∧ FREta.printedDen 
   unfold FREta.printedDen
   exact exists_root_roundsTo (by fun_prop) _ _ (by norm_num)
 
-/-- The only points of `(0, 1)` not covered by `printedEta20_false_at`, `printedEta30_false_at`
-(their hypothesis `(54Ω² − 29Ω − 2)(27Ω² + 24Ω − 32) ≠ 0`) are `Ω ≈ 0.599` and `Ω ≈ 0.731`. -/
+/-- The two factors of the hypothesis `(54Ω² − 29Ω − 2)(27Ω² + 24Ω − 32) ≠ 0` of `printedEta20_false_at`,
+`printedEta30_false_at` vanish at `Ω ≈ 0.599` and `Ω ≈ 0.731` respectively (proved: a root of each,
+rounded to three decimals). In words, not proved here: these are their only roots in `(0, 1)`, and
+together with the root `Ω ≈ 0.176` of the printed denominator, where (11.42)–(11.43) are undefined
+(`F10_printed_pole`), they are the points of `(0, 1)` the two refutations do not cover. -/
 theorem F10_exceptions :
     (∃ r : ℝ, RoundsTo r 0.599 3 ∧ 54 * r ^ 2 - 29 * r - 2 = 0) ∧
     (∃ r : ℝ, RoundsTo r 0.731 3 ∧ 27 * r ^ 2 + 24 * r - 32 = 0) :=

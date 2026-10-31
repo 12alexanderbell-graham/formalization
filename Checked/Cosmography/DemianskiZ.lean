@@ -79,12 +79,13 @@ def DemDAzClaim : Prop :=
     (fun t => remAz (fun q j s l _ => demDA4 q j s l) 0 a t₀ t)
       =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5)
 
-/-- Same, past emission only. -/
+/-- Printed `d_L(z)` series as in `DemDLzClaim`, past emission only (`t → t₀⁻`). -/
 def DemDLzClaimPast : Prop :=
   ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
     (fun t => remLz (fun q j s l _ => demDL4 q j s l) 0 a t₀ t)
       =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5)
 
+/-- Printed `d_A(z)` series as in `DemDAzClaim`, past emission only (`t → t₀⁻`). -/
 def DemDAzClaimPast : Prop :=
   ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
     (fun t => remAz (fun q j s l _ => demDA4 q j s l) 0 a t₀ t)
@@ -139,6 +140,9 @@ theorem demDA4_fails_past (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 
     linear_combination (redshift a t₀ t ^ 5) * this
   exact not_isLittleO_self_past_z a t₀ hd ha0 hH 5 (neg_ne_zero.2 (mul_ne_zero (by norm_num) hj)) hdiff
 
+/-- The flat `d_L(z)` series printed by Demianski et al. 2017 (and Lusso et al. 2019), with its printed
+`D⁴_L`, is not `d_L + o(z⁵)` for every analytic, everywhere positive flat scale factor with `H₀ > 0`:
+the claim is false. -/
 theorem demDLzClaim_false : ¬ DemDLzClaim := by
   intro h
   exact demDL4_fails_past Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
@@ -146,6 +150,8 @@ theorem demDLzClaim_false : ¬ DemDLzClaim := by
     ((h Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [BambaY.deSitter_vals.1]; norm_num)).mono
       (nhdsWithin_le_nhds (s := Set.Iio 0)))
 
+/-- The flat `d_A(z)` series printed by Demianski et al. 2017 (Eq. (23)), with its printed `D⁴_A`, is not
+`d_A + o(z⁵)` for every analytic, everywhere positive flat scale factor with `H₀ > 0`: the claim is false. -/
 theorem demDAzClaim_false : ¬ DemDAzClaim := by
   intro h
   exact demDA4_fails_past Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
@@ -153,12 +159,16 @@ theorem demDAzClaim_false : ¬ DemDAzClaim := by
     ((h Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [BambaY.deSitter_vals.1]; norm_num)).mono
       (nhdsWithin_le_nhds (s := Set.Iio 0)))
 
+/-- The Demianski et al. `d_L(z)` claim is false even for past emission only (`t → t₀⁻`): see
+`demDLzClaim_false`. -/
 theorem demDLzClaimPast_false : ¬ DemDLzClaimPast := by
   intro h
   exact demDL4_fails_past Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
     (by rw [BambaY.deSitter_vals.1]; norm_num) (by rw [BambaY.deSitter_vals.2.1]; norm_num)
     (h Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [BambaY.deSitter_vals.1]; norm_num))
 
+/-- The Demianski et al. `d_A(z)` claim is false even for past emission only (`t → t₀⁻`): see
+`demDAzClaim_false`. -/
 theorem demDAzClaimPast_false : ¬ DemDAzClaimPast := by
   intro h
   exact demDA4_fails_past Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'

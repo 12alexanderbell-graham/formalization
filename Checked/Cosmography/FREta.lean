@@ -302,12 +302,18 @@ theorem printedEta30_false_at {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) (hd : print
   have := h0.ne'
   exact div_ne_zero hn (by positivity) key.symm
 
+/-- The review's (11.42), read as the first-order statement `η₂₀(Ω, ε) = η₂₀(Ω, 0) + printed20(Ω)·ε + o(ε)`
+(derivative in `ε` at `0` on the family (11.41)) for every `0 < Ω < 1` where the printed denominator is
+nonzero, is false. -/
 theorem printedEta20Claim_false : ¬ PrintedEta20Claim := by
   intro h
   exact printedEta20_false_at (Ω := 1 / 4) (by norm_num) (by norm_num)
     (by unfold printedDen; norm_num) (by norm_num)
     (h _ (by norm_num) (by norm_num) (by unfold printedDen; norm_num))
 
+/-- The review's (11.43), read as the first-order statement `η₃₀(Ω, ε) = η₃₀(Ω, 0) + printed30(Ω)·ε + o(ε)`
+(derivative in `ε` at `0` on the family (11.41)) for every `0 < Ω < 1` where the printed denominator is
+nonzero, is false. -/
 theorem printedEta30Claim_false : ¬ PrintedEta30Claim := by
   intro h
   exact printedEta30_false_at (Ω := 1 / 4) (by norm_num) (by norm_num)

@@ -126,11 +126,12 @@ def BambaDAzClaim : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
     (fun t => remAz printedDA4z K a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5)
 
-/-- Same claims, past emission only (`t < t₀`). -/
+/-- Claim (10.38)–(10.44) as in `BambaDLzClaim`, past emission only (`t → t₀⁻`). -/
 def BambaDLzClaimPast : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
     (fun t => remLz printedDL4z K a t₀ t) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5)
 
+/-- Claim (10.45)–(10.51) as in `BambaDAzClaim`, past emission only (`t → t₀⁻`). -/
 def BambaDAzClaimPast : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
     (fun t => remAz printedDA4z K a t₀ t) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5)
@@ -243,7 +244,9 @@ theorem lumDist_z_fifth_order (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : Con
   simp only [remLz, remK, yred, curvK_eq]
   linear_combination hid
 
-/-- **Headline.** Same for `d_A`. -/
+/-- **Headline.** `d_A` to fifth order in `z` with the printed `D⁰…D³_A` and the corrected `D⁴_A`
+(`correctDA4z`: the printed (10.50)–(10.51) misses `+k²/120`), every `K`, every scale factor `C⁵` at `t₀`
+with `a(t₀) ≠ 0`, `H₀ ≠ 0`. -/
 theorem angDist_z_fifth_order (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
     (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0) :
     (fun t => remAz correctDA4z K a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5) := by
@@ -287,21 +290,31 @@ theorem printedDA4z_fails_past (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : Co
     simp only [remAz, seriesZ, correctDA4z]; ring
   exact not_isLittleO_self_past_z a t₀ hd ha0 hH 5 (curvK_ne K a t₀ ha0 hH hK) hdiff
 
+/-- The review's claim (10.38)–(10.44) is false: it is not true that for every curvature `K` and every
+analytic, everywhere positive scale factor with `H₀ > 0` the `d_L(z)` series with the printed
+`D⁰…D⁴_L` equals `d_L + o(z⁵)` as `t → t₀`. -/
 theorem bambaDLzClaim_false : ¬ BambaDLzClaim := by
   intro h
   exact printedDL4z_fails_past 1 Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
     (by rw [closedExp_vals.1]; norm_num) one_ne_zero
     ((h 1 Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [closedExp_vals.1]; norm_num)).mono (nhdsWithin_le_nhds (s := Set.Iio 0)))
+/-- The review's claim (10.45)–(10.51) is false: it is not true that for every curvature `K` and every
+analytic, everywhere positive scale factor with `H₀ > 0` the `d_A(z)` series with the printed
+`D⁰…D⁴_A` equals `d_A + o(z⁵)` as `t → t₀`. -/
 theorem bambaDAzClaim_false : ¬ BambaDAzClaim := by
   intro h
   exact printedDA4z_fails_past 1 Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
     (by rw [closedExp_vals.1]; norm_num) one_ne_zero
     ((h 1 Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [closedExp_vals.1]; norm_num)).mono (nhdsWithin_le_nhds (s := Set.Iio 0)))
+/-- The review's claim (10.38)–(10.44) is false even for past emission only (`t → t₀⁻`): see
+`bambaDLzClaim_false`. -/
 theorem bambaDLzClaimPast_false : ¬ BambaDLzClaimPast := by
   intro h
   exact printedDL4z_fails_past 1 Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'
     (by rw [closedExp_vals.1]; norm_num) one_ne_zero
     (h 1 Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [closedExp_vals.1]; norm_num))
+/-- The review's claim (10.45)–(10.51) is false even for past emission only (`t → t₀⁻`): see
+`bambaDAzClaim_false`. -/
 theorem bambaDAzClaimPast_false : ¬ BambaDAzClaimPast := by
   intro h
   exact printedDA4z_fails_past 1 Real.exp 0 Real.contDiff_exp.contDiffAt (Real.exp_pos 0).ne'

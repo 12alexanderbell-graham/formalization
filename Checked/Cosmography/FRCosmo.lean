@@ -359,7 +359,10 @@ lemma deriv3_curv (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hs : ContDif
   rw [Function.iterate_succ_apply']
   exact (Filter.EventuallyEq.deriv_eq E2).trans D3.self_of_nhds.deriv
 
-/-- **Correct (11.10)–(11.13).** -/
+/-- **Correct (11.10)–(11.13).** For every flat FLRW scale factor `C⁵` at `t₀` with `a(t₀) > 0`, `H₀ > 0`,
+the Ricci scalar `R = −6(Ḣ + 2H²)` (the review's sign convention) and its first three time derivatives
+at `t₀`: `R₀ = −6H₀²(1 − q₀)`, `Ṙ₀ = −6H₀³(j₀ − q₀ − 2)`, `R̈₀ = −6H₀⁴(s₀ + q₀² + 8q₀ + 6)`,
+`R⃛₀ = −6H₀⁵[l₀ − s₀ − 2(q₀ + 4)j₀ − 6(3q₀ + 8)q₀ − 24]` (the review's (11.13) prints `+2(q₀ + 4)j₀`). -/
 theorem curv_derivs (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hH : 0 < hubble a t₀)
     (hs : ContDiffAt ℝ 5 a t₀) :
     curv a t₀ = -6 * hubble a t₀ ^ 2 * (1 - decel a t₀) ∧
@@ -545,6 +548,9 @@ theorem exists_LCDM_model {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
   obtain ⟨a, t₀, hL, -, hM⟩ := lcdm_witness h0 h1
   exact ⟨a, t₀, hL, hM⟩
 
+/-- The review's (11.13), `d³R₀/dt³ = −6H₀⁵[l₀ − s₀ + 2(q₀ + 4)j₀ − 6(3q₀ + 8)q₀ − 24]`, does not hold for
+every flat FLRW scale factor `C⁵` at `t₀` with `a(t₀) > 0`, `H₀ > 0` (the correct term is
+`−2(q₀ + 4)j₀`: `curv_derivs`). -/
 theorem printedR3Claim_false : ¬ PrintedR3Claim := by
   intro h
   obtain ⟨a, t₀, hM, hq, hj, -, -, -⟩ := lcdm_facts (Ω := 1 / 4) (by norm_num) (by norm_num)
@@ -578,6 +584,9 @@ theorem printedF0Mul_false_at {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
     positivity
   linarith
 
+/-- The review's (11.21) with its printed common denominator `R` (11.31), multiplied out
+(`R·F(R₀) = −6H₀²(P₀Ω + Q₀)`, no division), does not hold for every F(R) cosmology satisfying the
+paper's field equations (`IsFRCosmo`). -/
 theorem printedF0ClaimMul_false : ¬ PrintedF0ClaimMul := by
   intro h
   exact printedF0Mul_false_at (Ω := 1 / 4) (by norm_num) (by norm_num) (fun a F t₀ hM => h _ a F t₀ hM)

@@ -425,10 +425,17 @@ run_cmd do
       let mut nvCol := "unconditional"
       if nw then
         nNeed := nNeed + 1
-        match nvCands.find? (fun (n, t) => n != hn && t == ob) with
+        -- prefer the witness named after the headline; a witness of another headline with the
+        -- same obligation is shown as such (pilot validation, run 2026-10-31T0828Z: the bare name
+        -- of another theorem in this column misled reviewers)
+        let same := fun (n : Name) => n.componentsRev.head!.toString.endsWith hn.componentsRev.head!.toString
+        let found := (nvCands.find? (fun (n, t) => n != hn && t == ob && same n)).orElse
+          fun _ => nvCands.find? (fun (n, t) => n != hn && t == ob)
+        match found with
         | some (w, _) =>
           nWit := nWit + 1
-          nvCol := s!"`{w.componentsRev.head!}`"
+          nvCol := if same w then s!"`{w.componentsRev.head!}`"
+            else s!"`{w.componentsRev.head!}` (shared: same obligation)"
         | none =>
           nvCol := "**MISSING**"
           errors := errors.push s!"{hn}: no non-vacuity witness (a Checked theorem stating `nonvacuity% {hn}`)"

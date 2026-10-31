@@ -78,11 +78,12 @@ def BambaDA4Claim : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
     (fun t => remA correctDA3 printedDA4 K a t₀ t) =o[𝓝 t₀] (fun t => yred a t₀ t ^ 5)
 
-/-- Same claims, past emission only. -/
+/-- Claim (10.61) as in `BambaDA3Claim`, past emission only (`t → t₀⁻`). -/
 def BambaDA3ClaimPast : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
     (fun t => remA printedDA3 (fun _ _ _ _ _ => 0) K a t₀ t) =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 4)
 
+/-- Claim (10.62)–(10.63) as in `BambaDA4Claim`, past emission only (`t → t₀⁻`). -/
 def BambaDA4ClaimPast : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
     (fun t => remA correctDA3 printedDA4 K a t₀ t) =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 5)
@@ -159,6 +160,9 @@ theorem printedDA3_fails_past (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : Con
     simp only [remA, correctDA3, hcdef]; ring
   exact not_isLittleO_self_past a t₀ hd ha0 hH 4 hc0 hdiff
 
+/-- The printed `D³_{A,y}` (Eq. (10.61)) fails in every FLRW model of curvature `K` whose scale factor is
+`C⁵` at `t₀` with `a(t₀) ≠ 0`, `H₀ ≠ 0`, `q₀ ≠ 0` and `Ω₀ ≠ 1`: the `d_A(y)` series is not
+`d_A + o(y⁴)` as `t → t₀` (two-sided; past-only: `printedDA3_fails_past`). -/
 theorem printedDA3_fails (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
     (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0) (hD : decel a t₀ * (omega0 K a t₀ - 1) ≠ 0) :
     ¬ (fun t => remA printedDA3 (fun _ _ _ _ _ => 0) K a t₀ t)
@@ -185,6 +189,10 @@ theorem printedDA4_fails_past (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : Con
     simp only [remA, correctDA4, hcdef]; ring
   exact not_isLittleO_self_past a t₀ hd ha0 hH 5 hc0 hdiff
 
+/-- The printed `D⁴_{A,y}` (Eqs. (10.62)–(10.63)), used with the corrected `D³_{A,y}`, fails in every FLRW
+model of curvature `K` whose scale factor is `C⁵` at `t₀` with `a(t₀) ≠ 0`, `H₀ ≠ 0` and
+`(Ω₀ − 1)[(Ω₀ − 1) + 10j₀ − 45q₀² + 20q₀] ≠ 0`: the `d_A(y)` series is not `d_A + o(y⁵)` as `t → t₀`
+(two-sided; past-only: `printedDA4_fails_past`). -/
 theorem printedDA4_fails (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
     (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0)
     (hD : (omega0 K a t₀ - 1) * ((omega0 K a t₀ - 1) + 10 * cosmoCoeff 3 a t₀
@@ -196,6 +204,9 @@ theorem printedDA4_fails (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiff
 
 lemma closedExp_j : cosmoCoeff 3 Real.exp 0 = 1 := deSitter_vals.2.2
 
+/-- The review's claim (10.61) is false: it is not true that for every curvature `K` and every analytic,
+everywhere positive scale factor with `H₀ > 0` the `d_A(y)` series with the printed `D⁰…D³_{A,y}`
+equals `d_A + o(y⁴)` as `t → t₀`. -/
 theorem bambaDA3Claim_false : ¬ BambaDA3Claim := by
   intro h
   obtain ⟨hH, hq, hΩ⟩ := closedExp_vals
@@ -203,6 +214,9 @@ theorem bambaDA3Claim_false : ¬ BambaDA3Claim := by
     (by rw [hH]; norm_num) (by rw [hq, hΩ]; norm_num)
     (h 1 Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [hH]; norm_num))
 
+/-- The review's claim (10.62)–(10.63) is false: it is not true that for every curvature `K` and every
+analytic, everywhere positive scale factor with `H₀ > 0` the `d_A(y)` series with the corrected
+`D³_{A,y}` and the printed `D⁴_{A,y}` equals `d_A + o(y⁵)` as `t → t₀`. -/
 theorem bambaDA4Claim_false : ¬ BambaDA4Claim := by
   intro h
   obtain ⟨hH, hq, hΩ⟩ := closedExp_vals
@@ -210,6 +224,8 @@ theorem bambaDA4Claim_false : ¬ BambaDA4Claim := by
     (by rw [hH]; norm_num) (by rw [hq, hΩ, closedExp_j]; norm_num)
     (h 1 Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [hH]; norm_num))
 
+/-- The review's claim (10.61) is false even for past emission only (`t → t₀⁻`): see
+`bambaDA3Claim_false`. -/
 theorem bambaDA3ClaimPast_false : ¬ BambaDA3ClaimPast := by
   intro h
   obtain ⟨hH, hq, hΩ⟩ := closedExp_vals
@@ -217,6 +233,8 @@ theorem bambaDA3ClaimPast_false : ¬ BambaDA3ClaimPast := by
     (by rw [hH]; norm_num) (by rw [hq, hΩ]; norm_num)
     (h 1 Real.exp 0 Real.contDiff_exp Real.exp_pos (by rw [hH]; norm_num))
 
+/-- The review's claim (10.62)–(10.63) is false even for past emission only (`t → t₀⁻`): see
+`bambaDA4Claim_false`. -/
 theorem bambaDA4ClaimPast_false : ¬ BambaDA4ClaimPast := by
   intro h
   obtain ⟨hH, hq, hΩ⟩ := closedExp_vals
