@@ -19,6 +19,11 @@ Read fresh every run. This file is maintained by the program itself (annex LIV) 
    - Track a trust metric over time (first: mutation kill rate of the definition specs, `Work/Fidelity/`). A result is only as trustworthy as the weakest unchecked step behind it; name that step in every run record.
    - Misprint findings that change no reported number are parked (Lean only if under a third of a run).
    - The daily review asks: is AI-produced science in this repository more trustworthy without outside checking than it was yesterday, and by what measure?
+10. **THE RESULT WE ARE BUILDING TOWARD IS THE GOAL ITSELF, IN FULL** (Alexander, chat, 2026-10-31 ~00:25Z, after a session narrowed it: "nothing solid is keeping you in a scope and preventing you from doing anything, stop narrowing shit down and deciding only part of something is possible"). The publishable result is: *a working system that lets scientists trust AI-produced science without outside verification, demonstrated end to end.* Not a misprint paper, not a methods note, not a "scoped version". Rules that follow:
+   - Never answer "what is possible" by shrinking the goal to a subset, a niche or a "realistic version", and never pad plans with pessimistic run counts. State what is established, what is not, and the next decisive step (original II, 2.3, 17.3, 30.2: do not lower ambition because the problem is hard; do not manufacture pessimism; reject exactly what the evidence rejects).
+   - "Scope" in a run record describes what has been *established so far*, never a limit on what is *attempted*.
+   - The goal names mathematics, physics and chemistry and proofs, rigorous simulators and test suites. Work goes wherever the trust system needs it to go; cosmography is only where it started.
+   - The plan to the result is `TARGETS.md`, section "THE RESULT".
 
 ## Current phase: work target 1
 

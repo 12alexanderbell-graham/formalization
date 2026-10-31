@@ -59,6 +59,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 None.
 
 ## Exact next step
+0. **Read PROMPT instruction 10 and `TARGETS.md` "THE RESULT" first** (Alexander, 2026-10-31): the work is the full goal, demonstrated and published. Choose each run's block by which of its five parts it moves most; the items below are the immediate queue, not the ambition.
 1. Read the CI runs listed under Environment that are not yet confirmed green. Fix anything red first.
 2. T3: second-read `dQFlat` (Eq. 5) and the printed formulas inside the F1/F2 CLAIM definitions (Aviles Eq. 15 l₀/m₀, CLS Eq. 22 l₀): factor them out as PRINTED defs first. Then make "PRINTED without second reading" blocking.
 3. T2b hypothesis necessity: for each headline hypothesis, either a Checked counterexample (other hypotheses hold, conclusion fails) or a registry entry DOMAIN with reason; start with the refutations' nondegeneracy hypotheses (`decel ≠ 0`, `K ≠ 0`, …), where the counterexample is the model making the printed and correct coefficients coincide.

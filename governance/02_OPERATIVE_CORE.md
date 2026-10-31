@@ -4,6 +4,8 @@ Compact checklist. The binding text is `01_CONSTITUTION_FORMALIZATION.md` plus t
 
 **Goal (Alexander, 2026-10-30, 36.0):** make fields checkable: a system (proofs in Lean, rigorous simulators, test suites for scientific claims) that lets scientists trust AI to do scientific work without outside verification. Physics results are test cases of that system. Not runs, not reports, not lines of Lean. (XXXVI)
 
+**The result (Alexander, 2026-10-31):** the goal itself, demonstrated end to end and published; never narrowed to a subset. Plan: `TARGETS.md` "THE RESULT"; PROMPT instruction 10.
+
 **The gap:** the kernel checks proofs, not meaning. Fidelity is the hard part. (XXXVII)
 
 ## Every run
