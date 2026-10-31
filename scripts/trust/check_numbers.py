@@ -79,6 +79,10 @@ def certified_pairs(text):
 
 
 def base_check(base):
+    # a new branch has no "before" commit (all zeros): compare with the parent, as check_relock.py does
+    if not base or set(base) == {"0"} or subprocess.run(
+            ["git", "cat-file", "-e", base + "^{commit}"], capture_output=True).returncode:
+        base = "HEAD~1"
     old = subprocess.run(["git", "show", f"{base}:{FINDINGS}"], capture_output=True, text=True)
     if old.returncode != 0:
         print(f"certified-number diff: no {FINDINGS} at {base}; skipped")
