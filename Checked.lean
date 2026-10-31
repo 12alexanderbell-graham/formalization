@@ -25,6 +25,8 @@ import Checked.Fidelity.FlatPins
 import Checked.Fidelity.FriedmannCPL
 import Checked.Fidelity.FRSpecs
 import Checked.Fidelity.TransverseSpec
+import Checked.Records.Basic
+import Checked.Records.Findings
 import Checked.Trust.NonVacuity
 import Checked.Trust.Witnesses
 import Checked.Trust.SecondReading

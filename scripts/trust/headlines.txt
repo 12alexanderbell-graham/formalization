@@ -115,3 +115,18 @@ Fidelity.ricciSpec_pins
 Fidelity.friedmannEq_iff_blind
 Fidelity.masterEq_iff_blind
 Fidelity.transverseSpec_pins
+# Certified numbers of the findings (run 2026-10-31T0228Z; tags [✓name] in FINDINGS.md, scripts/trust/check_numbers.py)
+Records.F1_l0
+Records.F1_printedL0
+Records.F1_m0_agrees
+Records.F2_toy
+Records.F2_error
+Records.F3_D4_LCDM
+Records.F8_sizes
+Records.F9_values
+Records.F9_pole
+Records.F10_eta
+Records.F10_printed_pole
+Records.F10_exceptions
+Records.F10_family_pole
+Records.F11_sizes

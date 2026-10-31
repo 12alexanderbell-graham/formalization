@@ -25,6 +25,7 @@ import Checked.Fidelity.FlatPins
 import Checked.Fidelity.FriedmannCPL
 import Checked.Fidelity.FRSpecs
 import Checked.Fidelity.TransverseSpec
+import Checked.Records.Findings
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -305,5 +306,23 @@ theorem masterEq_iff_blind : nonvacuity% Fidelity.masterEq_iff_blind := by
   obtain ⟨a, t₀, -, hM⟩ := Checked.Cosmography.FRCosmo.exists_LCDM_model (Ω := 1 / 2)
     (by norm_num) (by norm_num)
   exact ⟨1 / 2, a, _, t₀, t₀, hM.master.self_of_nhds⟩
+
+/-! ### Certified numbers of the findings (`Checked/Records/Findings.lean`, run 2026-10-31T0228Z) -/
+
+theorem F1_l0 : nonvacuity% Checked.Records.F1_l0 := by
+  obtain ⟨a, t₀, hL, hs⟩ := exists_flatLCDM (Ω := 3 / 10) (by norm_num) (by norm_num)
+  exact ⟨a, t₀, hL, hs, trivial⟩
+
+theorem F2_toy : nonvacuity% Checked.Records.F2_toy := by
+  obtain ⟨a, hL, hs⟩ := exists_flatCPL (245 / 1000) (-93 / 100) (-41 / 100)
+  exact ⟨a, 0, hL, hs, trivial⟩
+
+theorem F2_error : nonvacuity% Checked.Records.F2_error := by
+  obtain ⟨a, hL, hs⟩ := exists_flatCPL (3 / 10) (-1) (-1 / 2)
+  exact ⟨-1, a, 0, hL, hs, trivial⟩
+
+theorem F3_D4_LCDM : nonvacuity% Checked.Records.F3_D4_LCDM := by
+  obtain ⟨a, t₀, hL, hs⟩ := exists_flatLCDM (Ω := 3 / 10) (by norm_num) (by norm_num)
+  exact ⟨a, t₀, hL, hs, trivial⟩
 
 end Checked.Trust.NV

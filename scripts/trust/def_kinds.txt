@@ -12,6 +12,7 @@
 #   COMPOSITE built only from other listed definitions (remainders, ratios)
 #   SPEC      a machine-checked specification (refereed textbook laws)
 #   WITNESS   a concrete example function
+#   MATH      a pure-mathematics predicate (no physical meaning; e.g. `RoundsTo`: rounding of a number)
 # Format: <full name> <KIND>. Unlisted definitions are reported as UNCLASSIFIED.
 Checked.Cosmography.Aviles.AvilesL0Claim CLAIM
 Checked.Cosmography.Aviles.AvilesM0Claim CLAIM
@@ -148,3 +149,5 @@ Checked.Fidelity.DustDensity SPEC
 Checked.Fidelity.FRFirstEq SPEC
 Checked.Fidelity.FRSecondEq SPEC
 Checked.Fidelity.TransverseSpec SPEC
+Checked.Records.RoundsTo MATH
+Checked.Cosmography.FREta.Jfam COMPOSITE

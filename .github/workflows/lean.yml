@@ -50,10 +50,12 @@ jobs:
           if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
             echo "Forbidden token found in Checked"; exit 1
           fi
-      - name: Statement dependencies, trust map, non-vacuity witnesses, pin shape, frozen registry, unused hypotheses, records (all blocking; runs 2028Z, 2228Z, 2026-10-31T0028Z, see LEDGER)
+      - name: Statement dependencies, trust map, non-vacuity witnesses, pin shape, frozen registry, unused hypotheses, records, certified numbers (all blocking; runs 2028Z, 2228Z, 2026-10-31T0028Z, 0228Z, see LEDGER)
         run: |
           set -o pipefail
           lake env lean scripts/trust/StatementDeps.lean | tail -n 40
+          # certified numbers in FINDINGS.md (run 2026-10-31T0228Z; reads .lake/records_numbers.tsv)
+          python3 scripts/trust/check_numbers.py
           if ! git diff --quiet -- TRUST_MAP.md; then
             echo "::error::TRUST_MAP.md in the repository is stale (blocking since run 2026-10-31T0028Z); regenerate with: lake env lean scripts/trust/StatementDeps.lean"
             git diff --stat -- TRUST_MAP.md

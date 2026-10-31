@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 101. Resting on no unpinned physics definition: 101.
-Non-vacuity (trust track T2): 62 headlines have hypotheses; 62 of them have a
+Headlines: 115. Resting on no unpinned physics definition: 115.
+Non-vacuity (trust track T2): 66 headlines have hypotheses; 66 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -125,3 +125,17 @@ agreement with an independent blind second reading (`Checked/Trust/Transcription
 | `Fidelity.friedmannEq_iff_blind` | FriedmannEq, curv | — | — | `friedmannEq_iff_blind` |
 | `Fidelity.masterEq_iff_blind` | MasterEq, curv | — | — | `masterEq_iff_blind` |
 | `Fidelity.transverseSpec_pins` | transverse | — | — | `transverseSpec_pins` |
+| `Records.F1_l0` | IsFlatLCDM, cosmoCoeff | — | — | `F1_l0` |
+| `Records.F1_printedL0` | — | — | — | unconditional |
+| `Records.F1_m0_agrees` | IsFlatLCDM, cosmoCoeff | — | — | unconditional |
+| `Records.F2_toy` | cosmoCoeff, IsFlatCPL | — | — | `F2_toy` |
+| `Records.F2_error` | cosmoCoeff, IsFlatCPL | — | — | `F2_error` |
+| `Records.F3_D4_LCDM` | IsFlatLCDM, cosmoCoeff, decel | — | printedD4² | `F1_l0` |
+| `Records.F8_sizes` | — | — | — | unconditional |
+| `Records.F9_values` | — | — | — | unconditional |
+| `Records.F9_pole` | — | — | — | unconditional |
+| `Records.F10_eta` | — | — | — | unconditional |
+| `Records.F10_printed_pole` | — | — | printedDen² | unconditional |
+| `Records.F10_exceptions` | — | — | — | unconditional |
+| `Records.F10_family_pole` | — | — | jL, qL² | unconditional |
+| `Records.F11_sizes` | — | — | — | unconditional |

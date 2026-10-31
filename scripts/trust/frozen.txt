@@ -169,6 +169,7 @@ Checked.Cosmography.FRCosmo.printedF0_false_at ba05c54e
 Checked.Cosmography.FRCosmo.printedR 9e27f0f55426e8d9-PRINTED
 Checked.Cosmography.FRCosmo.printedR3Claim_false 67fa9563
 Checked.Cosmography.FRCosmo.rhoM d912bfd6201b10eb-PHYSICS
+Checked.Cosmography.FREta.Jfam 762ce152ab04cc8a-COMPOSITE
 Checked.Cosmography.FREta.PrintedEta20Claim 10aee0cf2e52abc7-CLAIM
 Checked.Cosmography.FREta.PrintedEta30Claim 22378ee7343db890-CLAIM
 Checked.Cosmography.FREta.correct20 49e10d5dde1bce19-FORMULA
@@ -241,3 +242,18 @@ Checked.Fidelity.rhoM_eq_dust 9146605b
 Checked.Fidelity.ricciSpec_pins b9b55e3b
 Checked.Fidelity.transverseSpec_pins 3ee8d9ea
 Checked.Fidelity.yRedSpec_pins fd86ed02
+Checked.Records.F10_eta f15eb2b3
+Checked.Records.F10_exceptions f8c180c0
+Checked.Records.F10_family_pole 77d6616e
+Checked.Records.F10_printed_pole 87fd43e
+Checked.Records.F11_sizes 6bb4c49
+Checked.Records.F1_l0 86e62cc4
+Checked.Records.F1_m0_agrees 9bfdd380
+Checked.Records.F1_printedL0 14edb71f
+Checked.Records.F2_error e5984cbc
+Checked.Records.F2_toy 1453ba8e
+Checked.Records.F3_D4_LCDM f5bf540
+Checked.Records.F8_sizes 13036514
+Checked.Records.F9_pole bbb3e2d3
+Checked.Records.F9_values 26204386
+Checked.Records.RoundsTo 6490dd4a817db795-MATH

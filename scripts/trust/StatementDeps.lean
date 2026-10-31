@@ -113,6 +113,51 @@ def resolve (cands : Array Name) (s : String) : Except String Name :=
   else if hits.size == 0 then .error s!"no constant in Checked matches `{s}`"
   else .error s!"`{s}` is ambiguous: {hits.toList}"
 
+/-- A natural-number literal (raw, or `OfNat.ofNat _ n _`). -/
+partial def natLit? (e : Expr) : Option Nat :=
+  match e.consumeMData with
+  | .lit (.natVal n) => some n
+  | e => if e.isAppOfArity ``OfNat.ofNat 3 then natLit? (e.getArg! 1) else none
+
+/-- A decimal literal as written: `(negative, mantissa, decimals)`, e.g. `-0.400` ↦ `(true, 400, 3)`,
+`-86` ↦ `(true, 86, 0)`. -/
+partial def decLit? (e : Expr) : Option (Bool × Nat × Nat) :=
+  let e := e.consumeMData
+  if e.isAppOfArity ``Neg.neg 3 then
+    (decLit? (e.getArg! 2)).map fun (n, m, d) => (!n, m, d)
+  else if e.isAppOfArity ``OfScientific.ofScientific 5 then
+    match natLit? (e.getArg! 2), e.getArg! 3, natLit? (e.getArg! 4) with
+    | some m, .const ``Bool.true _, some d => some (false, m, d)
+    | _, _, _ => none
+  else (natLit? e).map fun m => (false, m, 0)
+
+/-- `d` written with exactly `k` decimals (`none` if the literal has more significant decimals). -/
+def fmtDec (neg : Bool) (m d k : Nat) : Option String :=
+  let v? : Option Nat := if d ≤ k then some (m * 10 ^ (k - d))
+    else if m % 10 ^ (d - k) == 0 then some (m / 10 ^ (d - k)) else none
+  v?.map fun v =>
+    let ip := v / 10 ^ k
+    let fp := toString (v % 10 ^ k)
+    let fp := String.ofList (List.replicate (k - fp.length) '0') ++ fp
+    (if neg && v != 0 then "-" else "") ++ toString ip ++ (if k == 0 then "" else "." ++ fp)
+
+/-- Every `Checked.Records.RoundsTo x d k` in a statement, as the decimal string of `d` at `k`
+places (certified numbers of the records, run 2026-10-31T0228Z). -/
+partial def roundsToLits (e : Expr) (acc : Array (Option String) := #[]) : Array (Option String) :=
+  match e with
+  | .mdata _ b => roundsToLits b acc
+  | .forallE _ d b _ => roundsToLits b (roundsToLits d acc)
+  | .lam _ d b _ => roundsToLits b (roundsToLits d acc)
+  | .letE _ t v b _ => roundsToLits b (roundsToLits v (roundsToLits t acc))
+  | .app .. =>
+    let acc := if e.isAppOfArity `Checked.Records.RoundsTo 3 then
+      acc.push (match decLit? (e.getArg! 1), natLit? (e.getArg! 2) with
+        | some (n, m, d), some k => fmtDec n m d k
+        | _, _ => none)
+      else acc
+    e.getAppArgs.foldl (init := roundsToLits e.getAppFn acc) fun acc a => roundsToLits a acc
+  | _ => acc
+
 end StatementDeps
 
 open StatementDeps in
@@ -276,6 +321,24 @@ run_cmd do
         unless headSet.contains thms[0]! || pure do
           errors := errors.push s!"STATE.md/FINDINGS.md cite {thms[0]!}, which is not in scripts/trust/headlines.txt (unregistered headlines escape every check)"
   logInfo m!"records: {nCited} theorem citations in STATE.md and FINDINGS.md checked against headlines.txt"
+  -- certified numbers (run 2026-10-31T0228Z; red-team defects A06, B07 changed numbers in
+  -- FINDINGS.md and every check accepted them): every headline in `Checked.Records` states
+  -- `RoundsTo x d k`; its decimals are written to `.lake/records_numbers.tsv`, against which
+  -- `scripts/trust/check_numbers.py` checks every `[✓name]` tag in FINDINGS.md.
+  let mut recLines : Array String := #[]
+  for h in heads do
+    if let .ok hn := resolve cands h then
+      if (`Checked.Records).isPrefixOf hn then
+        let lits := roundsToLits (env.find? hn).get!.type
+        if lits.isEmpty then
+          errors := errors.push s!"{hn} is in Checked.Records but states no RoundsTo"
+        for l in lits do
+          match l with
+          | some str => recLines := recLines.push s!"{hn.componentsRev.head!}\t{str}"
+          | none => errors := errors.push s!"{hn}: a RoundsTo whose value is not a decimal literal with at most k decimals"
+  IO.FS.createDirAll ".lake"
+  IO.FS.writeFile ".lake/records_numbers.tsv" (String.intercalate "\n" recLines.toList ++ "\n")
+  logInfo m!"certified numbers: {recLines.size} RoundsTo literals in Checked.Records headlines"
   let mut gapCount : NameMap Nat := {}
   let mut unclassified : NameSet := {}
   let mut rows : Array String := #[]
