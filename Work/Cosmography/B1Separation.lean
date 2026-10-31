@@ -1,13 +1,14 @@
 import Checked.Cosmography.B1Truncation
 
 /-!
-# B1 separation: a cubic log-polynomial that reproduces exact ΛCDM cannot sit at the ΛCDM point
+# B1 two-point separation and direction: a cubic log-polynomial that agrees with exact ΛCDM at z = 3 and z = 7 cannot sit at the ΛCDM point, and lies on one side of it
 
 **Question (TARGETS.md, B1; STATE "B1 separation theorem").** Risaliti & Lusso 2019 (Nat. Astron.
 3, 272; arXiv:1811.02590) and Lusso et al. 2019 (A&A 628, L4; arXiv:1907.07692) fit the Hubble
 diagram with `D_L = ln(10)(c/H₀)(x + a₂x² + a₃x³)`, `x = log₁₀(1+z)`, and report a > 4σ distance
 of the fitted `(a₂, a₃)` from the point flat ΛCDM implies (`lusA2 Ω`, `lusA3 Ω`, Lusso et al. 2019
-Eq. (8)). If the universe is exactly flat ΛCDM, where does a cubic that *reproduces* it land?
+Eq. (8)). If the universe is exactly flat ΛCDM, how far from the ΛCDM point, and on which side,
+must a cubic lie whose distance modulus agrees with the exact one at z = 3 and z = 7?
 
 **Statement.** For every flat ΛCDM model with `Ω ∈ [0.2, 0.4]` (same hypotheses as
 `Checked.Cosmography.B1.cubic_shape_miss`: the Friedmann law holds on the whole interval back to a
@@ -15,8 +16,16 @@ source at `z = 7`), and every cubic log-polynomial — any coefficients `a₂, a
 `H > 0`, any magnitude offset `c` — whose distance modulus agrees with the exact one up to the
 common offset `c` within 0.05 mag at both `z = 3` and `z = 7`:
 `(a₂ − a₂^ΛCDM)² + (a₃ − a₃^ΛCDM)² > (5/4)²`.
-In words: matching exact ΛCDM to 0.05 mag at z = 3 and z = 7 forces the fitted coefficients more
-than 1.25 (Euclidean, in the papers' (a₂, a₃) units) away from the ΛCDM-implied point.
+In words: agreeing with exact ΛCDM, up to a common offset, within 0.05 mag at z = 3 and at z = 7
+forces the coefficients more than 1.25 (Euclidean, in the papers' (a₂, a₃) units) away from the
+ΛCDM-implied point (`cubic_separation`), on the side `a₂ − a₂^ΛCDM < 7 log₁₀2 (a₃ − a₃^ΛCDM)`
+(`cubic_direction`). The condition is one scalar constraint on the ratio of the polynomial at the
+two redshifts (H and c drop out); it says nothing about other redshifts and is a two-point
+criterion, not a statement about least-squares fits over a data range (referee,
+`runs/2026-10-31T0828Z/referee_b1sep.md`: the true minimum distance is 1.98; least-squares cubic
+fits to exact ΛCDM over z ≤ 5 do not meet the 0.1 mag shape condition). The mechanism (a cubic
+matching ΛCDM sits far from the Taylor point) is Banerjee et al. 2021 (arXiv:2009.04109, mock fits);
+new here are the certified Ω-uniform, offset-free bounds and the direction.
 
 Positivity of the polynomial distance at both redshifts is assumed (a negative distance has no
 distance modulus; `Real.logb` would silently take the absolute value).
@@ -246,12 +255,10 @@ lemma dd6 : (5 / 4 : ℝ) ^ 2 * ((9 - 4 * (1577/625 : ℝ)) ^ 2 * 0.6931471808 ^
       + (27 - 8 * (1577/625 : ℝ)) ^ 2 * 0.6931471808 ^ 6 / ((10 * 0.6931471803 - 24 / 1000) / 3) ^ 4)
       < (1741/2500 : ℝ) ^ 2 := by norm_num
 
-/-- **B1 separation.** In every flat ΛCDM model with `Ω ∈ [0.2, 0.4]` (sources at `z = 3`, `z = 7`),
-any cubic log-polynomial (coefficients `a₂, a₃`, normalisation `H > 0`, positive at both
-redshifts) that reproduces the exact distance modulus up to a common offset `c` within 0.05 mag
-at `z = 3` and at `z = 7` has `(a₂, a₃)` at Euclidean distance more than `5/4` from the
-ΛCDM-implied point `(lusA2 Ω, lusA3 Ω)`. -/
-theorem cubic_separation (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 5)
+/-- The analytic step shared by `cubic_separation` and `cubic_direction`: the 0.05-mag match at
+`z = 3, 7` gives `2 J₇ (1 − κ) P₃ ≤ J₃ P₇` (exact distances through the bridge, the
+polynomial in `u = ln(1+z)`). -/
+lemma matching (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 5)
     (a : ℝ → ℝ) (t₇ t₃ t₀ : ℝ) (h₇₃ : t₇ ≤ t₃) (h₃₀ : t₃ ≤ t₀)
     (hpos : ∀ s ∈ Set.Icc t₇ t₀, 0 < a s)
     (hdiff : ∀ s ∈ Set.Icc t₇ t₀, DifferentiableAt ℝ a s)
@@ -266,7 +273,13 @@ theorem cubic_separation (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 /
       ≤ 1 / 20)
     (hm₇ : |5 * Real.logb 10 (lumDistFlat a t₀ t₇ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₇)) - c|
       ≤ 1 / 20) :
-    (5 / 4) ^ 2 < (a₂ - lusA2 Ω) ^ 2 + (a₃ - lusA3 Ω) ^ 2 := by
+    0 < 2 * Real.log 2 + a₂ / Real.log 10 * (2 * Real.log 2) ^ 2
+        + a₃ / Real.log 10 ^ 2 * (2 * Real.log 2) ^ 3 ∧
+    2 * (∫ v in √(1 / (1 + 7) : ℝ)..1, gL Ω v) * (1 - 1 / 10 / 5 * (10 / 3 * 0.6931471808)) *
+        (2 * Real.log 2 + a₂ / Real.log 10 * (2 * Real.log 2) ^ 2
+          + a₃ / Real.log 10 ^ 2 * (2 * Real.log 2) ^ 3)
+      ≤ (∫ v in (1/2:ℝ)..1, gL Ω v) * (3 * Real.log 2 + a₂ / Real.log 10 * (3 * Real.log 2) ^ 2
+          + a₃ / Real.log 10 ^ 2 * (3 * Real.log 2) ^ 3) := by
   have hΩ₀ : 0 ≤ Ω := by linarith
   have hΩ1 : Ω ≤ 1 := by linarith
   have hsub : Set.Icc t₃ t₀ ⊆ Set.Icc t₇ t₀ := Set.Icc_subset_Icc_left h₇₃
@@ -327,6 +340,37 @@ theorem cubic_separation (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 /
     have hpos' : 0 < J3 * P7 := by positivity
     rw [div_mul_eq_mul_div, div_le_one hpos'] at hκ
     linarith
+  exact ⟨hP3, hmatch⟩
+
+/-- **B1 separation.** In every flat ΛCDM model with `Ω ∈ [0.2, 0.4]` (sources at `z = 3`, `z = 7`),
+any cubic log-polynomial (coefficients `a₂, a₃`, normalisation `H > 0`, positive at both
+redshifts) whose distance modulus agrees with the exact one up to a common offset `c` within
+0.05 mag at `z = 3` and at `z = 7` has `(a₂, a₃)` at Euclidean distance more than `5/4` from the
+ΛCDM-implied point `(lusA2 Ω, lusA3 Ω)`. -/
+theorem cubic_separation (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 5)
+    (a : ℝ → ℝ) (t₇ t₃ t₀ : ℝ) (h₇₃ : t₇ ≤ t₃) (h₃₀ : t₃ ≤ t₀)
+    (hpos : ∀ s ∈ Set.Icc t₇ t₀, 0 < a s)
+    (hdiff : ∀ s ∈ Set.Icc t₇ t₀, DifferentiableAt ℝ a s)
+    (hH₀ : 0 < hubble a t₀)
+    (hH : ∀ s ∈ Set.Icc t₇ t₀,
+      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
+    (hz₃ : redshift a t₀ t₃ = 3) (hz₇ : redshift a t₀ t₇ = 7)
+    (a₂ a₃ H c : ℝ) (hHp : 0 < H)
+    (hp₃ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃))
+    (hp₇ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₇))
+    (hm₃ : |5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c|
+      ≤ 1 / 20)
+    (hm₇ : |5 * Real.logb 10 (lumDistFlat a t₀ t₇ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₇)) - c|
+      ≤ 1 / 20) :
+    (5 / 4) ^ 2 < (a₂ - lusA2 Ω) ^ 2 + (a₃ - lusA3 Ω) ^ 2 := by
+  obtain ⟨hP3, hmatch⟩ := matching Ω hΩ₁ hΩ₂ a t₇ t₃ t₀ h₇₃ h₃₀ hpos hdiff hH₀ hH hz₃ hz₇
+    a₂ a₃ H c hHp hp₃ hp₇ hm₃ hm₇
+  set J3 := ∫ v in (1/2:ℝ)..1, gL Ω v with hJ3def
+  set J7 := ∫ v in √(1 / (1 + 7) : ℝ)..1, gL Ω v with hJ7def
+  have hJ3 : 0 < J3 := by
+    rcases le_total Ω (3 / 10) with hp | hp
+    · have := (J3_lower Ω hΩ₁ hΩ₂).1 hp; linarith
+    · have := (J3_lower Ω hΩ₁ hΩ₂).2 hp; linarith
   rcases le_total Ω (11/40 : ℝ) with h1 | h1
   · rcases le_total Ω (9/40 : ℝ) with h2 | h2
     · have ha : (1/5 : ℝ) ≤ Ω := by linarith
@@ -369,8 +413,80 @@ theorem cubic_separation (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 /
           ((J7_lower Ω hΩ₁ hΩ₂).2 (by linarith)) (J3_upper1 Ω (by linarith) (by linarith))
           (by norm_num) (lin6 Ω ha hb) (mq6 Ω ha hb) (by norm_num) dd6
 
+lemma dir_lin0 (Ω : ℝ) (ha : (1/5 : ℝ) ≤ Ω) (hb : Ω ≤ (3/10 : ℝ)) :
+    (5/2 : ℝ) * ((203715349 / 100000000 : ℝ) + (-91364007 / 50000000 : ℝ) * Ω) ≤
+      2 * ((141929311 / 50000000 : ℝ) - (284250829 / 100000000 : ℝ) * Ω) *
+        (1 - 1 / 10 / 5 * (10 / 3 * 0.6931471808)) := by
+  norm_num; linarith
+
+lemma dir_lin1 (Ω : ℝ) (ha : (3/10 : ℝ) ≤ Ω) (hb : Ω ≤ (2/5 : ℝ)) :
+    (5/2 : ℝ) * ((93266813 / 50000000 : ℝ) + (-62727941 / 50000000 : ℝ) * Ω) ≤
+      2 * ((998388 / 390625 : ℝ) - (47016993 / 25000000 : ℝ) * Ω) *
+        (1 - 1 / 10 / 5 * (10 / 3 * 0.6931471808)) := by
+  norm_num; linarith
+
+lemma dir_mq (Ω : ℝ) (ha : (1/5 : ℝ) ≤ Ω) (hb : Ω ≤ (2/5 : ℝ)) :
+    0 < (5/2 : ℝ) * Qc Ω (2 * 0.6931471803) - Qc Ω (3 * 0.6931471808) := by
+  unfold Qc; nlinarith [mul_nonneg (sub_nonneg.2 ha) (sub_nonneg.2 hb)]
+
+lemma dir_step (Ω a₂ a₃ J3 J7 L U : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 5)
+    (hP3 : 0 < 2 * Real.log 2 + a₂ / Real.log 10 * (2 * Real.log 2) ^ 2
+      + a₃ / Real.log 10 ^ 2 * (2 * Real.log 2) ^ 3)
+    (hmatch : 2 * J7 * (1 - 1 / 10 / 5 * (10 / 3 * 0.6931471808)) *
+        (2 * Real.log 2 + a₂ / Real.log 10 * (2 * Real.log 2) ^ 2
+          + a₃ / Real.log 10 ^ 2 * (2 * Real.log 2) ^ 3)
+      ≤ J3 * (3 * Real.log 2 + a₂ / Real.log 10 * (3 * Real.log 2) ^ 2
+          + a₃ / Real.log 10 ^ 2 * (3 * Real.log 2) ^ 3))
+    (hJ3 : 0 < J3) (hL : L ≤ J7) (hU : J3 ≤ U)
+    (hlin : (5/2 : ℝ) * U ≤ 2 * L * (1 - 1 / 10 / 5 * (10 / 3 * 0.6931471808)))
+    (hmq : 0 < (5/2 : ℝ) * Qc Ω (2 * 0.6931471803) - Qc Ω (3 * 0.6931471808)) :
+    a₂ - lusA2 Ω < 7 * Real.logb 10 2 * (a₃ - lusA3 Ω) := by
+  set l := Real.log 10 with hl
+  set ℓ := Real.log 2 with hℓ
+  have hl0 : 0 < l := Real.log_pos (by norm_num)
+  have hℓ0 : 0 < ℓ := Real.log_pos (by norm_num)
+  set P3 := 2 * ℓ + a₂ / l * (2 * ℓ) ^ 2 + a₃ / l ^ 2 * (2 * ℓ) ^ 3 with hP3def
+  set P7 := 3 * ℓ + a₂ / l * (3 * ℓ) ^ 2 + a₃ / l ^ 2 * (3 * ℓ) ^ 3 with hP7def
+  have hκ : 0 < 1 - 1 / 10 / 5 * (10 / 3 * (0.6931471808 : ℝ)) := by norm_num
+  have h1 : (5/2 : ℝ) * J3 * P3 ≤ J3 * P7 := by
+    have e1 : (5/2 : ℝ) * J3 * P3 ≤ (5/2) * U * P3 :=
+      mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hU (by norm_num)) hP3.le
+    have e2 : (5/2 : ℝ) * U * P3 ≤ 2 * L * (1 - 1 / 10 / 5 * (10 / 3 * 0.6931471808)) * P3 :=
+      mul_le_mul_of_nonneg_right hlin hP3.le
+    have e3 : 2 * L * (1 - 1 / 10 / 5 * (10 / 3 * 0.6931471808)) * P3
+        ≤ 2 * J7 * (1 - 1 / 10 / 5 * (10 / 3 * 0.6931471808)) * P3 := by
+      apply mul_le_mul_of_nonneg_right _ hP3.le
+      exact mul_le_mul_of_nonneg_right (by linarith) hκ.le
+    linarith
+  have h2 : (5/2 : ℝ) * P3 ≤ P7 := by
+    have : J3 * ((5/2) * P3) ≤ J3 * P7 := by linarith
+    exact le_of_mul_le_mul_left this hJ3
+  have hQ2 : Qc Ω (2 * 0.6931471803) ≤ Qc Ω (2 * ℓ) :=
+    Qc_mono Ω _ _ hΩ₁ hΩ₂ (by norm_num) (by linarith [Real.log_two_gt_d9])
+  have hQ3 : Qc Ω (3 * ℓ) ≤ Qc Ω (3 * 0.6931471808) :=
+    Qc_mono Ω _ _ hΩ₁ hΩ₂ (by positivity) (by linarith [Real.log_two_lt_d9])
+  set d₂ := a₂ / l - (3 / 2 - 3 / 4 * Ω) with hd₂
+  set d₃ := a₃ / l ^ 2 - (9 / 8 * Ω ^ 2 - 2 * Ω + 7 / 6) with hd₃
+  have hexp : P7 - (5/2) * P3 = Qc Ω (3 * ℓ) - (5/2) * Qc Ω (2 * ℓ)
+      + (d₂ * (-ℓ ^ 2) + d₃ * (7 * ℓ ^ 3)) := by
+    rw [hP7def, hP3def, hd₂, hd₃]; unfold Qc; ring
+  have hpos2 : 0 < d₂ * (-ℓ ^ 2) + d₃ * (7 * ℓ ^ 3) := by linarith
+  have e2 : d₂ = (a₂ - lusA2 Ω) / l := by rw [hd₂]; unfold lusA2; field_simp; ring
+  have e3 : d₃ = (a₃ - lusA3 Ω) / l ^ 2 := by rw [hd₃]; unfold lusA3; field_simp; ring
+  rw [e2, e3] at hpos2
+  have hlb : Real.logb 10 2 = ℓ / l := rfl
+  rw [hlb]
+  have key : (a₂ - lusA2 Ω) * (ℓ ^ 2 * l) < 7 * (ℓ / l) * (a₃ - lusA3 Ω) * (ℓ ^ 2 * l) := by
+    have e : 7 * (ℓ / l) * (a₃ - lusA3 Ω) * (ℓ ^ 2 * l) - (a₂ - lusA2 Ω) * (ℓ ^ 2 * l)
+        = l ^ 2 * ((a₂ - lusA2 Ω) / l * (-ℓ ^ 2) + (a₃ - lusA3 Ω) / l ^ 2 * (7 * ℓ ^ 3)) := by
+      field_simp; ring
+    have : 0 < l ^ 2 * ((a₂ - lusA2 Ω) / l * (-ℓ ^ 2) + (a₃ - lusA3 Ω) / l ^ 2 * (7 * ℓ ^ 3)) :=
+      mul_pos (by positivity) hpos2
+    linarith
+  exact lt_of_mul_lt_mul_right key (by positivity)
+
 /-- **B1 direction.** Same hypotheses as `cubic_separation`: every cubic log-polynomial that
-reproduces exact flat ΛCDM (`Ω ∈ [0.2, 0.4]`) within 0.05 mag at `z = 3` and `z = 7` up to a common
+agrees with exact flat ΛCDM (`Ω ∈ [0.2, 0.4]`) within 0.05 mag at `z = 3` and `z = 7` up to a common
 offset lies strictly on one side of a line through the ΛCDM-implied point:
 `a₂ − lusA2 Ω < 7 log₁₀2 · (a₃ − lusA3 Ω)` (slope `7 log₁₀ 2 ≈ 2.107`). Truncation can move a
 matching cubic only towards smaller `a₂` / larger `a₃` relative to that line.
@@ -393,6 +509,16 @@ theorem cubic_direction (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 
     (hm₇ : |5 * Real.logb 10 (lumDistFlat a t₀ t₇ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₇)) - c|
       ≤ 1 / 20) :
     a₂ - lusA2 Ω < 7 * Real.logb 10 2 * (a₃ - lusA3 Ω) := by
-  sorry
+  obtain ⟨hP3, hmatch⟩ := matching Ω hΩ₁ hΩ₂ a t₇ t₃ t₀ h₇₃ h₃₀ hpos hdiff hH₀ hH hz₃ hz₇
+    a₂ a₃ H c hHp hp₃ hp₇ hm₃ hm₇
+  have hJ3 : 0 < ∫ v in (1/2:ℝ)..1, gL Ω v := by
+    rcases le_total Ω (3 / 10) with hp | hp
+    · have := (J3_lower Ω hΩ₁ hΩ₂).1 hp; linarith
+    · have := (J3_lower Ω hΩ₁ hΩ₂).2 hp; linarith
+  rcases le_total Ω (3 / 10) with hp | hp
+  · exact dir_step Ω a₂ a₃ _ _ _ _ hΩ₁ hΩ₂ hP3 hmatch hJ3 ((J7_lower Ω hΩ₁ hΩ₂).1 hp)
+      (J3_upper0 Ω hΩ₁ hp) (dir_lin0 Ω hΩ₁ hp) (dir_mq Ω hΩ₁ hΩ₂)
+  · exact dir_step Ω a₂ a₃ _ _ _ _ hΩ₁ hΩ₂ hP3 hmatch hJ3 ((J7_lower Ω hΩ₁ hΩ₂).2 hp)
+      (J3_upper1 Ω hp hΩ₂) (dir_lin1 Ω hp hΩ₂) (dir_mq Ω hΩ₁ hΩ₂)
 
 end Work.Cosmography.B1Sep
