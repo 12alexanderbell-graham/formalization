@@ -196,7 +196,7 @@ Checked.Cosmography.Transverse.transverse c05433bef8967546-PHYSICS
 Checked.Cosmography.Transverse.transverse_expansion b6bf796b
 Checked.Cosmography.decel 4c03defe1f363306
 Checked.Cosmography.hubble 1ab5668255c359ae
-Checked.Cosmography.lookback_second_order fe5a9829
+Checked.Cosmography.lookback_second_order 8ab2d0b1
 Checked.Cosmography.lookback_second_order_bigO ccada1cf
 Checked.Cosmography.redshift d6c1d91179cb8340-PHYSICS
 Checked.Fidelity.AngDistSpec 25618f87-SPEC

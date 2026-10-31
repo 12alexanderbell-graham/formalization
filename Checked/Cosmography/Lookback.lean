@@ -87,7 +87,7 @@ noncomputable def redshift (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ := a t₀ / a 
 
 /-- **Milestone 1** (frozen in commit 6ef1003, audited in runs/2026-10-30T0028Z/audit.md). The lookback time `t₀ - t` of a source with redshift
 `z = z(t)` satisfies `t₀ - t = H₀⁻¹ (z - (1 + q₀/2) z²) + o(z²)` as `t → t₀`. -/
-theorem lookback_second_order (a : ℝ → ℝ) (t₀ : ℝ)
+theorem lookback_second_order_aux (a : ℝ → ℝ) (t₀ : ℝ)
     (ha : ∀ᶠ t in 𝓝 t₀, DifferentiableAt ℝ a t)
     (ha' : DifferentiableAt ℝ (deriv a) t₀)
     (ha0 : a t₀ ≠ 0) (hH : deriv a t₀ ≠ 0) :
@@ -174,5 +174,27 @@ theorem lookback_second_order (a : ℝ → ℝ) (t₀ : ℝ)
     rw [hzz] at this
     exact (isBigO_self_const_mul (neg_ne_zero.2 hH0) (fun t => t - t₀) (𝓝 t₀)).trans this
   exact hL_o.trans_isBigO (hzO.pow 2)
+
+/-- **Milestone 1, restated in big-O form.** The lookback time `t₀ - t` of a source with redshift
+`z = z(t)` is given to second order in `z` by the cosmographic series
+`t₀ - t = H₀⁻¹ (z - (1 ∓ q₀/2) z²) + O(z²)` as `t → t₀` (Peano remainder in `lookback_second_order_aux`). -/
+theorem lookback_second_order (a : ℝ → ℝ) (t₀ : ℝ)
+    (ha : ∀ᶠ t in 𝓝 t₀, DifferentiableAt ℝ a t)
+    (ha' : DifferentiableAt ℝ (deriv a) t₀)
+    (ha0 : a t₀ ≠ 0) (hH : deriv a t₀ ≠ 0) :
+    (fun t => (t₀ - t) - (redshift a t₀ t - (1 - decel a t₀ / 2) * redshift a t₀ t ^ 2)
+        / hubble a t₀)
+      =O[𝓝 t₀] (fun t => redshift a t₀ t ^ 2) := by
+  have h1 := (lookback_second_order_aux a t₀ ha ha' ha0 hH).isBigO
+  have h2 : (fun t => decel a t₀ / hubble a t₀ * redshift a t₀ t ^ 2)
+      =O[𝓝 t₀] (fun t => redshift a t₀ t ^ 2) :=
+    isBigO_const_mul_self (decel a t₀ / hubble a t₀) (fun t => redshift a t₀ t ^ 2) _
+  have e : (fun t => (t₀ - t) - (redshift a t₀ t - (1 - decel a t₀ / 2) * redshift a t₀ t ^ 2)
+        / hubble a t₀) = fun t =>
+      ((t₀ - t) - (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2)
+        / hubble a t₀) - decel a t₀ / hubble a t₀ * redshift a t₀ t ^ 2 := by
+    funext t; ring
+  rw [e]
+  exact h1.sub h2
 
 end Checked.Cosmography
