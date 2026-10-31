@@ -40,6 +40,8 @@ Environment: repo pre-cloned (add_repo not exposed, not needed); a chat session 
 
 **Totals:** checks as of 2228Z accepted **23 of 23** valid seeded wrong claims; the checks now on main accept **8 of 23** (A+B 6/15 under v2, C 2/8 under v3). CI: main 41156834643 green (first CI run of the frozen registry: fingerprints portable); control `control/frozen-weakened` (B02 relocked without LEDGER) run 41158182668: read next run, must FAIL at check_relock.
 
+**CORRECTION (02:20Z, from the control run):** the local judge builds only `Checked`; CI also builds `Work` (the `work` job and the axiom-audit step of the `checked` job). The control branch (B02 applied and relocked, no LEDGER) FAILED in CI 41158182668 *before* reaching check_relock, because `Work/Cosmography/LookbackAudit.lean` uses the old statement of `lookback_second_order`. So defects that change a statement used in a Work audit file are caught by CI even under the 2228Z checks: the "before" counts above are an **upper bound** (B02 at least was caught in CI). That catch is incidental (audit files happen to restate the old statement), but real. Next run: add `lake build Work` to the judge, re-judge all 23, and build a control that reaches check_relock.
+
 **WHAT COULD STILL BE WRONG:** the local judge replicates CI except axiom audit, leanchecker and nanoda (no defect targets the kernel); "caught" for the frozen registry means *disclosed*: an author who names the change in LEDGER passes; red teams are one model (Sonnet) and saw the check code (B, C) or not (A); 24 defects are a small sample, so the rate is a first point, not an estimate with error bars.
 
 **NEXT:** STATE "Exact next step".

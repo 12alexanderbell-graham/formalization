@@ -256,3 +256,4 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 
 ## 2026-10-31 · run 0028Z · evaluation of run 2228Z experiment (T2a non-vacuity)
 - Control failed for the right reason: yes (2228Z). Every new headline arrives with a witness: no new headline since; CI forces it. Next T2 step (hypothesis necessity): its level 0 is done this run (unused binders are a CI error; baseline clean). T5 shows the remaining statement-fidelity holes: an existential conclusion (A05), a hypothesis bundled in a conjunction and only partly used (C06), a statement that is weaker than the prose (A03). KEEP.
+- Correction (same run, 02:20Z): the local judge built only `Checked`; CI also builds `Work`. Control run 41158182668 (B02, relocked, no LEDGER) failed in CI at the Work build (axiom-audit step; `LookbackAudit.lean` uses the old statement), before check_relock. The before-counts (23/23) are upper bounds for CI; the judge must build Work too (next run).
