@@ -1,0 +1,20 @@
+defect: /home/claude/formalization/runs/2026-10-31T0228Z/t5/ports/Dd03  base: 283f8e9467d17bbc9623d4dfd136065f92e7e8a7
+03:17:26
+--- changed files
+ M FINDINGS.md
+--- build Checked Work
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (author relocks)
+trust: PASS
+map: PASS
+--- certified numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 25 certified [✓], 19 quoted [src], 10 inputs [in], 2 unchecked [unc]; 56 tagged
+::error::1.3×10⁻⁷[✓F8_sizes]: F8_sizes certifies ['0.000013', '0.56', '6.7'], not 1.3×10⁻⁷
+--- frozen registry + certified-number diff vs base
+frozen registry: 255 entries at 283f8e9467d17bbc9623d4dfd136065f92e7e8a7, none changed or removed
+certified-number diff vs 283f8e9467d17bbc9623d4dfd136065f92e7e8a7: 25 certified pairs before, 25 now, 1 removed or changed
+::error::certified number 1.3×10⁻⁵[✓F8_sizes] was changed, removed or downgraded without a LEDGER.md entry naming F8_sizes
+RESULT V5 REJECTED build=0 tokens=0 trust=0 map=0 numbers=1 relock=1
+03:18:57

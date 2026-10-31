@@ -1,0 +1,28 @@
+defect: /home/claude/formalization/runs/2026-10-31T0228Z/t5/redteamD/d08  base: 283f8e9467d17bbc9623d4dfd136065f92e7e8a7
+03:21:56
+--- changed files
+ M FINDINGS.md
+ M STATE.md
+--- build Checked Work
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (author relocks)
+trust: FAIL
+frozen.txt rewritten (255 entries)
+certified numbers: 25 RoundsTo literals in Checked.Records headlines
+Checked.Cosmography.AvilesWitness.printedL0_false_at
+Checked.Cosmography.AvilesWitness.printedM0_false_at
+Checked.Records.F2_error
+SUMMARY: 115 headlines; 115 rest on no unpinned physics definition; non-vacuity: 66/66 conditional headlines witnessed.
+scripts/trust/StatementDeps.lean:180:0: error: statement-dependency registry errors:
+STATE.md/FINDINGS.md cite `Checked.Cosmography.CVdQ.dQ_curved_third_order`: no such constant in Checked (namespace Checked.Cosmography.CVdQ exists)
+STATE.md/FINDINGS.md cite `Checked.Cosmography.CVdQ.dQ_curved_third_order`: no such constant in Checked (namespace Checked.Cosmography.CVdQ exists)
+map: PASS
+--- certified numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 19 quoted [src], 10 inputs [in], 2 unchecked [unc]; 57 tagged
+--- frozen registry + certified-number diff vs base
+frozen registry: 255 entries at 283f8e9467d17bbc9623d4dfd136065f92e7e8a7, none changed or removed
+certified-number diff vs 283f8e9467d17bbc9623d4dfd136065f92e7e8a7: 25 certified pairs before, 25 now, 0 removed or changed
+RESULT V5 REJECTED build=0 tokens=0 trust=1 map=0 numbers=0 relock=0
+03:23:27

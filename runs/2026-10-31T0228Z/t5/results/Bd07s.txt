@@ -1,0 +1,19 @@
+defect: /home/claude/formalization/runs/2026-10-31T0228Z/t5/ports/Bd07s  base: 283f8e9467d17bbc9623d4dfd136065f92e7e8a7
+03:26:30
+--- changed files
+ M FINDINGS.md
+--- build Checked Work
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (author relocks)
+trust: PASS
+map: PASS
+--- certified numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 25 certified [✓], 20 quoted [src], 10 inputs [in], 2 unchecked [unc]; 57 tagged
+--- frozen registry + certified-number diff vs base
+frozen registry: 255 entries at 283f8e9467d17bbc9623d4dfd136065f92e7e8a7, none changed or removed
+certified-number diff vs 283f8e9467d17bbc9623d4dfd136065f92e7e8a7: 25 certified pairs before, 24 now, 1 removed or changed
+::error::certified number -0.249[✓F10_eta] was changed, removed or downgraded without a LEDGER.md entry naming F10_eta
+RESULT V5 REJECTED build=0 tokens=0 trust=0 map=0 numbers=0 relock=1
+03:28:02

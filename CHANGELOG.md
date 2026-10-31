@@ -106,3 +106,11 @@
 - PROMPT notes: T5 harness and second worktree; frozen relock procedure. TARGETS T5 line. LEDGER: experiment T5, integrity event, evaluation of 2228Z experiment. Daily review 2026-10-31.
 - Message to Alexander (L.2: something seriously wrong, now measured): the trust pipeline accepted all seeded wrong claims before this run.
 - Correction: control 41158182668 failed at the Work build (not at check_relock): the local judge omitted `lake build Work`, so before-counts are upper bounds; re-judge next run.
+
+## 2026-10-31T0228Z (scheduled run)
+- Env: repo ok (pre-cloned); local Lean via elan ok; previous CI green; this run's CI ids in STATE (all main runs green).
+- **T4 started: certified numbers.** `Checked/Records/` (`RoundsTo`, 14 registered record headlines, 26 values, mostly stated for every flat ΛCDM/CPL model); every computed decimal in FINDINGS is tagged and checked by CI (`scripts/trust/check_numbers.py`), inputs bound to records, silent changes/demotions blocked. Found and fixed F11's −87 (correct −86).
+- Also blocking: invented dotted citations; conjunction hypotheses in headlines/pins (C06).
+- **T5:** judge v5 replicates CI exactly (Work build included); red team D (Sonnet, 8 defects vs the number check), two in-run hardenings; control `control/frozen-record` failed at check_relock in CI (41163600735) as required. Table `runs/2026-10-31T0228Z/t5/RESULTS.md`.
+- PROMPT notes: certified numbers, judge v5. TARGETS: T4 started. LEDGER: integrity events, records correction, experiment, evaluation of 0028Z.
+- No message to Alexander (no new finding; infrastructure progress; the corrected F11 number is a record slip in a reported aside, not a finding change).

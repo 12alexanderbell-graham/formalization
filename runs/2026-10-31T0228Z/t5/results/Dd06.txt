@@ -1,0 +1,22 @@
+defect: /home/claude/formalization/runs/2026-10-31T0228Z/t5/redteamD/d06  base: 283f8e9467d17bbc9623d4dfd136065f92e7e8a7
+03:18:57
+--- changed files
+ M FINDINGS.md
+--- build Checked Work
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (author relocks)
+trust: PASS
+map: PASS
+--- certified numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 19 quoted [src], 10 inputs [in], 2 unchecked [unc]; 57 tagged
+::error::untagged number 0.3: …- **Numbers:** flat ΛCDM, Ω_m = 0.3: the printed m…
+::error::untagged number −8.599: …d m₀ = 1 − (27/2)Ω_m² − 81Ω_m² − (81/2)Ω_m³ gives −8.599, the correct m…
+::error::untagged number −8.827: …ct m₀ = 1 − (27/2)Ω_m − 81Ω_m² − (81/4)Ω_m³ gives −8.827; they differ b…
+::error::untagged number 2.6: …81Ω_m² − (81/4)Ω_m³ gives −8.827; they differ by 2.6 %, so the m₀ m…
+--- frozen registry + certified-number diff vs base
+frozen registry: 255 entries at 283f8e9467d17bbc9623d4dfd136065f92e7e8a7, none changed or removed
+certified-number diff vs 283f8e9467d17bbc9623d4dfd136065f92e7e8a7: 25 certified pairs before, 25 now, 0 removed or changed
+RESULT V5 REJECTED build=0 tokens=0 trust=0 map=0 numbers=1 relock=0
+03:20:27

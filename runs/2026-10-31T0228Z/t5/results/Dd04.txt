@@ -1,0 +1,21 @@
+defect: /home/claude/formalization/runs/2026-10-31T0228Z/t5/redteamD/d04  base: 283f8e9467d17bbc9623d4dfd136065f92e7e8a7
+03:29:33
+--- changed files
+ M Checked/Records/Findings.lean
+ M FINDINGS.md
+ M TRUST_MAP.md
+ M scripts/trust/headlines.txt
+--- build Checked Work
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (author relocks)
+trust: PASS
+map: PASS
+--- certified numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 19 quoted [src], 12 inputs [in], 2 unchecked [unc]; 60 tagged
+--- frozen registry + certified-number diff vs base
+frozen registry: 255 entries at 283f8e9467d17bbc9623d4dfd136065f92e7e8a7, none changed or removed
+certified-number diff vs 283f8e9467d17bbc9623d4dfd136065f92e7e8a7: 25 certified pairs before, 26 now, 0 removed or changed
+RESULT V5 ACCEPTED
+03:31:11

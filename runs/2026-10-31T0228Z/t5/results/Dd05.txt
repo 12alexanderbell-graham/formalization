@@ -1,0 +1,31 @@
+defect: /home/claude/formalization/runs/2026-10-31T0228Z/t5/redteamD/d05  base: 283f8e9467d17bbc9623d4dfd136065f92e7e8a7
+03:31:11
+--- changed files
+ M Checked/Records/Findings.lean
+ M FINDINGS.md
+ M TRUST_MAP.md
+ M scripts/trust/headlines.txt
+--- build Checked Work
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (author relocks)
+trust: FAIL
+frozen.txt rewritten (256 entries)
+certified numbers: 25 RoundsTo literals in Checked.Records headlines
+Checked.Cosmography.AvilesWitness.printedL0_false_at
+Checked.Cosmography.AvilesWitness.printedM0_false_at
+Checked.Records.F2_error
+SUMMARY: 116 headlines; 116 rest on no unpinned physics definition; non-vacuity: 66/66 conditional headlines witnessed.
+scripts/trust/StatementDeps.lean:180:0: error: statement-dependency registry errors:
+Checked.Records.F4_D2y_check is in Checked.Records but asserts no RoundsTo
+Checked.Records.F4_D2y_check: a RoundsTo in a position the statement does not assert (under ¬, ∨, ↔ or in a hypothesis)
+map: PASS
+--- certified numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 19 quoted [src], 12 inputs [in], 2 unchecked [unc]; 59 tagged
+::error::[✓F4_D2y_check] after 2.610: no registered Checked.Records headline F4_D2y_check asserts a RoundsTo
+--- frozen registry + certified-number diff vs base
+frozen registry: 255 entries at 283f8e9467d17bbc9623d4dfd136065f92e7e8a7, none changed or removed
+certified-number diff vs 283f8e9467d17bbc9623d4dfd136065f92e7e8a7: 25 certified pairs before, 26 now, 0 removed or changed
+RESULT V5 REJECTED build=0 tokens=0 trust=1 map=0 numbers=1 relock=0
+03:32:50

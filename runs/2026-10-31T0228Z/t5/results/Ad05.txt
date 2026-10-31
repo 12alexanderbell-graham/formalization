@@ -1,0 +1,21 @@
+defect: /home/claude/formalization/runs/2026-10-31T0028Z/t5/redteamA/d05  base: 283f8e9467d17bbc9623d4dfd136065f92e7e8a7
+03:32:50
+--- changed files
+ M Checked.lean
+ M STATE.md
+ M scripts/trust/headlines.txt
+?? Checked/Cosmography/DemianskiCorrected.lean
+--- build Checked Work
+build: PASS
+--- forbidden tokens
+tokens: PASS
+--- trust step (author relocks)
+trust: PASS
+map: FAIL (committed TRUST_MAP.md is stale)
+--- certified numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 19 quoted [src], 10 inputs [in], 2 unchecked [unc]; 57 tagged
+--- frozen registry + certified-number diff vs base
+frozen registry: 255 entries at 283f8e9467d17bbc9623d4dfd136065f92e7e8a7, none changed or removed
+certified-number diff vs 283f8e9467d17bbc9623d4dfd136065f92e7e8a7: 25 certified pairs before, 25 now, 0 removed or changed
+RESULT V5 REJECTED build=0 tokens=0 trust=0 map=1 numbers=0 relock=0
+03:34:29

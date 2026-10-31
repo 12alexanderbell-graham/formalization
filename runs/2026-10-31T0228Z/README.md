@@ -1,0 +1,24 @@
+# Run 2026-10-31T0228Z (scheduled)
+
+Environment: repo pre-cloned (add_repo not exposed, not needed), fast-forwarded to 083ba66; no LOCK. Local Lean via elan + `lake exe cache get` (~2 min) + full `lake build Checked Work`. Previous run's CI all green (v4 41158289729, records 41159094092, 41159417139). Governance, PROMPT, STATE, CHANGELOG read.
+
+**THE RESULT:** part 1 (every link machine-checked) gains its first *numbers* link: every computed decimal in FINDINGS is now a Lean-certified value (T4 started); part 3 (measured trust) re-measured with a judge that replicates CI exactly (Work build included) and a fourth red team (D, Sonnet) aimed at the new check.
+
+**WHAT CAN A SCIENTIST NOW TRUST WITHOUT CHECKING IT THEMSELVES?** The numbers in our findings. Each computed decimal in FINDINGS.md (27 occurrences, 26 distinct values) (e.g. "l₀ = 3.115 in every flat ΛCDM model with Ω_m = 0.3", "η₂₀ = −0.249ε") is now the literal of a registered Lean theorem, mostly stated for *every model* through the pinned definitions, and CI fails if the prose shows any other digit, sign, power of ten or input value, or if a certified number is changed or demoted without a LEDGER line. The first pass found a wrong number in our own records (F11: −87, correct −86).
+
+**WEAKEST UNCHECKED STEP NOW:** what a certified number is *called* in prose (red team D: D01 swapped "true" and "printed" around two certified values; D04 certified a free formula with a misleading docstring), and new definitions whose physics is carried only by their name (A04, B04); scope prose (A03).
+
+**BOTTLENECK AND WHY:** T5 (0028Z) left 6 of 15 A+B defects accepted; two of them (A06, B07) were wrong numbers in FINDINGS, a class with a purely mechanical cure that is also THE RESULT part 1's missing "numbers" link (T4). Yes = a class of false acceptance closed and the T4 link started; no = the records stay prose. It was yes, with three hardening rounds against red team D within the run.
+
+**WHAT WE DID:**
+1. `Checked/Records/Basic.lean`: `RoundsTo x d k` (|x − d| ≤ ½·10⁻ᵏ), `exists_root_roundsTo` (IVT). `Checked/Records/Findings.lean`: 14 registered headlines certifying the 26 distinct computed numbers of F1–F3, F8–F11 (`F1_l0`, `F2_toy`, `F2_error`, `F3_D4_LCDM` quantify over every flat ΛCDM/CPL model via `flatLCDM_coeffs`, `flatCPL_coeffs`; non-vacuity witnesses added). CI green incl. nanoda.
+2. `StatementDeps.lean` extracts the *asserted* `RoundsTo` literals and the real numerals of each record; new `scripts/trust/check_numbers.py` (CI, blocking): every decimal or ≈-number in FINDINGS (outside "Candidates under verification") carries `[✓name]` (value must match the record exactly), `[in✓name]` (input must be a numeral of the record), `[src]`, `[in]` or `[unc]`; no bare `[in]/[src]/[unc]` in a sentence with a certified number; `--base`: a certified pair may not change or be demoted without a LEDGER line naming the record. Tally: 27 certified, 15 inputs, 13 quoted, 2 unchecked (F2 figure crossings 1.35, 1.07).
+3. Also blocking now: backticked names in an existing Checked namespace that name nothing (D08); conjunction hypotheses in headlines and pins (C06).
+4. Red team D (Sonnet, 8 defects, `t5/redteamD/`) attacked the first version within 10 minutes; hardened twice in-run (polarity, scope, dashes, powers of ten, invented citations, bound inputs).
+5. Judge v5 (`t5/judge_v5.sh`): CI exactly (Checked + Work build, author relocks, numbers, frozen and number diffs vs the base commit) in the worktree `../fz2`. Control on `control/frozen-record` (record restated, relocked, no LEDGER): CI 41163600735 FAILED at check_relock, everything else green: the frozen registry now proven to bite in CI.
+
+**RESULT (judge v5 = CI exactly; table `t5/RESULTS.md`):** at the end of the run the checks accept **6 of 20** distinct seeded defects judged (A03, A04, A05, B04 from 0028Z; D01, D04 from red team D), all of the kind "meaning carried by prose or names"; every wrong-number defect (A06, B07 and its tag-demotion variant, D02, D03, D07) is caught, as are C06 (bundled conjunction), D05, D06, D08. The control passes (no false rejection). On the 0028Z A+B set the accepted count goes from 6/15 (v2) to 4/15 (A03, A04, A05, B04). Red team D passed all 8 defects through the first version of the number check by its own replica; 2 of 8 survive the hardened version.
+
+**WHAT COULD STILL BE WRONG:** a certified number's *label* is prose (D01); a record may certify a free formula rather than a registered definition (D04); fractions (35/2, 113/40) and STATE numbers are not yet covered; `[src]` attributions are not checked against the typeset source; 0028Z defects not re-judged under v5 this run (C01, C03, C04, C07, C08, B01–B03, B06, B08, A02, A08r) were all caught by v3/v4 checks that v5 only extends.
+
+**NEXT:** STATE "Exact next step".
