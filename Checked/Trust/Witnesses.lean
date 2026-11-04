@@ -34,6 +34,7 @@ import Checked.Chemistry.Coexistence
 import Checked.Cosmography.B1SepWitness
 import Checked.Cosmography.B1FitWitness
 import Checked.Cosmography.B1FitRL19
+import Checked.Cosmography.B1L19
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -431,6 +432,32 @@ theorem rl19_box_unmatched : nonvacuity% Checked.Cosmography.B1FitRL19.rl19_box_
     hz5, h2, h3, hHp, hp1, hp3, hp5⟩ := Checked.Cosmography.B1FitRL19.hyps_satisfiable
   exact ⟨Ω, h0, h1, a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3, hz5, a₂, a₃,
     H, 0, h2.1, h2.2, h3.1, h3.2, hHp, hp1, hp3, hp5, trivial⟩
+
+/-! ### B1 fourth order (run 2026-11-04T1228Z): exact ΛCDM at `Ω = 1/5` reaching `1 + z = 2√2, 4√2`,
+`H = 1`, and (box theorems) the quartic `a₂ = 31/10, a₃ = 4, a₄ = −2`
+(`Checked.Cosmography.B1L19.hyps_satisfiable_central`, `hyps_satisfiable_box`). -/
+
+theorem l19_sq_central : nonvacuity% Checked.Cosmography.B1L19.l19_sq_central := by
+  obtain ⟨Ω, a, t₅, t₃, t₀, H, h0, h1, h53, h30, hpos, hdiff, hH0, hH, hz3, hz5, hHp⟩ :=
+    Checked.Cosmography.B1L19.hyps_satisfiable_central
+  exact ⟨Ω, h0, h1, a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH0, hH, hz3, hz5, H, hHp, trivial⟩
+
+theorem l19_sqg_central : nonvacuity% Checked.Cosmography.B1L19.l19_sqg_central := by
+  obtain ⟨Ω, a, t₅, t₃, t₀, H, h0, h1, h53, h30, hpos, hdiff, hH0, hH, hz3, hz5, hHp⟩ :=
+    Checked.Cosmography.B1L19.hyps_satisfiable_central
+  exact ⟨Ω, h0, h1, a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH0, hH, hz3, hz5, H, hHp, trivial⟩
+
+theorem l19_sq_box : nonvacuity% Checked.Cosmography.B1L19.l19_sq_box := by
+  obtain ⟨Ω, a, t₅, t₃, t₀, a₂, a₃, a₄, H, h0, h1, h53, h30, hpos, hdiff, hH0, hH, hz3, hz5, hHp,
+    h2, h3, h4, hp5⟩ := Checked.Cosmography.B1L19.hyps_satisfiable_box
+  exact ⟨Ω, h0, h1, a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH0, hH, hz3, hz5, a₂, a₃, a₄, H, hHp,
+    le_trans (by norm_num) h2, le_trans h3 (by norm_num), h4, hp5, trivial⟩
+
+theorem l19_sqg_box : nonvacuity% Checked.Cosmography.B1L19.l19_sqg_box := by
+  obtain ⟨Ω, a, t₅, t₃, t₀, a₂, a₃, a₄, H, h0, h1, h53, h30, hpos, hdiff, hH0, hH, hz3, hz5, hHp,
+    h2, h3, h4, hp5⟩ := Checked.Cosmography.B1L19.hyps_satisfiable_box
+  exact ⟨Ω, h0, h1, a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH0, hH, hz3, hz5, a₂, a₃, a₄, H, hHp,
+    h2, h3, le_trans h4 (by norm_num), hp5, trivial⟩
 
 /-! ### Rigorous simulation (run 2026-11-04T0628Z): the Duffing solution from
 `Checked.Sim.Duffing.duffing_solution_exists` (Picard–Lindelöf, clamped Hamiltonian field). -/

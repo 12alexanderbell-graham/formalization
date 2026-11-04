@@ -6,25 +6,26 @@
 
 ## Claim in plain words (the system's own text)
 
-**Refutation of the printed l₀ in Eq. (22)**, by an explicit flat CPL model
-(Ω = 0, w₀ = −1, wₐ = 2/3, a(t) = 1 − log(1 − t), t₀ = 0): true l₀ = 24, printed 160/9.
+Local existence of a smooth expanding scale factor for a smooth expansion law.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem clsL0Claim_false : ¬ CLSL0Claim := …
+theorem exists_local_model (E : ℝ → ℝ) (hE : ContDiffAt ℝ 5 E 1) :
+    ∃ a : ℝ → ℝ, a 0 = 1 ∧ ContDiffAt ℝ 5 a 0 ∧
+      ∀ᶠ t in 𝓝 (0 : ℝ), 0 < a t ∧ HasDerivAt a (a t * E (a t)) t := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.CPL.IsFlatCPL`, `Cosmography.CPL.CLSL0Claim`, `Cosmography.hubble`, `Cosmography.redshift`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, IsFlatCPL.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): CLSL0Claim.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Source file: `Checked/Cosmography/CPLCoefficients.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `exists_local_model`.
+- Source file: `Checked/Cosmography/CPLExistence.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 23

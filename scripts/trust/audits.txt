@@ -339,6 +339,14 @@ Work.Cosmography.B1FitAudit.blind_closed
 Work.Cosmography.B1FitAudit.dist_pos
 Work.Cosmography.B1FitAudit.fit_conv
 Work.Cosmography.B1FitRL19Audit.blind_closed
+Work.Cosmography.B1L19Audit.blind_sq_box_closed
+Work.Cosmography.B1L19Audit.blind_sq_central_closed
+Work.Cosmography.B1L19Audit.blind_sqg_box_closed
+Work.Cosmography.B1L19Audit.blind_sqg_central_closed
+Work.Cosmography.B1L19Audit.quartic_eq
+Work.Cosmography.B1L19Audit.quartic_pos5
+Work.Cosmography.B1L19Audit.radicand_pos
+Work.Cosmography.B1L19Audit.reduce
 Work.Cosmography.B1SepAudit.blind_closed
 Work.Cosmography.B1SepAudit.blind_direction_closed
 Work.Cosmography.B1SepAudit.blind_iff_program_conclusion

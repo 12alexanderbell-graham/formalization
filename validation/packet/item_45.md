@@ -6,29 +6,31 @@
 
 ## Claim in plain words (the system's own text)
 
-van der Waals fluid at T = 0.7 · 8a/(27Rb) (that is 0.7 T_c): every Maxwell coexistence state
-with liquid volume above the co-volume b has pressure 0.20046 · a/(27b²) (that is 0.20046 P_c) to
-five decimals (the saturation pressure is determined to that accuracy).
+van der Waals fluid at T = 0.7 · 8a/(27Rb) (that is 0.7 T_c): there is a Maxwell coexistence
+state (liquid volume above the co-volume b), and its pressure is 0.20046 · a/(27b²) (that is
+0.20046 P_c) to five decimals, so the acentric factor of the van der Waals fluid is −0.3020 to four
+decimals.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem vdW_coexistence_unique (R a b vl vg ps : ℝ) (hR : 0 < R) (ha : 0 < a) (hb : 0 < b)
-    (hl : b < vl)
-    (h : IsMaxwellCoexistence (cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b)))) vl vg ps) :
-    RoundsTo (ps / (a / (27 * b ^ 2))) 0.20046 5 := …
+theorem vdW_coexistence_exists (R a b : ℝ) (hR : 0 < R) (ha : 0 < a) (hb : 0 < b) :
+    ∃ vl vg ps, b < vl ∧
+      IsMaxwellCoexistence (cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b)))) vl vg ps ∧
+      RoundsTo (ps / (a / (27 * b ^ 2))) 0.20046 5 ∧
+      RoundsTo (acentric ps (a / (27 * b ^ 2))) (-0.3020) 4 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
+See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.Coexistence.acentric`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: IsMaxwellCoexistence.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `vdW_coexistence_unique`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `vdW_coexistence_exists`.
 - Source file: `Checked/Chemistry/Coexistence.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 45

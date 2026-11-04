@@ -33,6 +33,11 @@ Checked.Cosmography.B1.lusA2 37d0e0a185ad599d-PRINTED
 Checked.Cosmography.B1.lusA3 29255de2ffbc4f30-PRINTED
 Checked.Cosmography.B1Fit.fit_direction c75b5b83-doc6678170621305247766
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched ae1742ad-doc3185745054540232100
+Checked.Cosmography.B1L19.l19_sq_box 2b33d0f1-doc8305842349686319595
+Checked.Cosmography.B1L19.l19_sq_central 5c7bfa16-doc9166163942987868636
+Checked.Cosmography.B1L19.l19_sqg_box cebdfccd-doc16660869300542180352
+Checked.Cosmography.B1L19.l19_sqg_central ead834af-doc5968059819513235670
+Checked.Cosmography.B1L19.logPolyDL4 6532a318cbb6ddb7-PRINTED
 Checked.Cosmography.B1Sep.cubic_direction 5e2d4a4f-doc12400634352633091884
 Checked.Cosmography.B1Sep.cubic_separation c0443124-doc12910561167684407120
 Checked.Cosmography.BambaA.BambaDA3Claim c2c69fd78531bc13-CLAIM
@@ -352,6 +357,11 @@ doc:Checked.Cosmography.B1FitWitness.exists_model -doc974203247957780438
 doc:Checked.Cosmography.B1FitWitness.hyps_satisfiable -doc11578030164405886472
 doc:Checked.Cosmography.B1FitWitness.ratio_encl -doc15998774344077492608
 doc:Checked.Cosmography.B1FitWitness.t_bounds -doc4199422783937472524
+doc:Checked.Cosmography.B1L19.delta_ge -doc14764731807757966686
+doc:Checked.Cosmography.B1L19.hyps_satisfiable_box -doc2312123662753788261
+doc:Checked.Cosmography.B1L19.hyps_satisfiable_central -doc2602561831660620512
+doc:Checked.Cosmography.B1L19.logPolyDL4 -doc10108563114801359857
+doc:Checked.Cosmography.B1L19.quartic_pos5 -doc17451935616980152263
 doc:Checked.Cosmography.B1Sep.case_step -doc16841650270135357572
 doc:Checked.Cosmography.B1Sep.core -doc1821177763363763612
 doc:Checked.Cosmography.B1Sep.matching -doc17354609451666721403
@@ -982,6 +992,8 @@ moduledoc:Checked.Cosmography.B1FitRL19 -mdoc10767267510000138633
 moduledoc:Checked.Cosmography.B1FitTools -mdoc15374319093865975066
 moduledoc:Checked.Cosmography.B1FitWitness -mdoc12176836828041069612
 moduledoc:Checked.Cosmography.B1Fit -mdoc13353801365973156180
+moduledoc:Checked.Cosmography.B1L19Certs -mdoc15457634384901851559
+moduledoc:Checked.Cosmography.B1L19 -mdoc9262331416949313818
 moduledoc:Checked.Cosmography.B1SepWitness -mdoc4284073957072556850
 moduledoc:Checked.Cosmography.B1Separation -mdoc7971164061697546555
 moduledoc:Checked.Cosmography.B1Truncation -mdoc209515004932720362
@@ -1036,4 +1048,4 @@ moduledoc:Checked.Trust.SecondReading -mdoc9991141689122378563
 moduledoc:Checked.Trust.TranscriptionsB1 -mdoc572391514531888890
 moduledoc:Checked.Trust.TranscriptionsFR -mdoc11191104128708509847
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc6111074309399971471
+moduledoc:Checked.Trust.Witnesses -mdoc10237056581756393531

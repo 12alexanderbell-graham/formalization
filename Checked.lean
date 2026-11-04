@@ -41,6 +41,8 @@ import Checked.Cosmography.B1FitCerts
 import Checked.Cosmography.B1Fit
 import Checked.Cosmography.B1FitWitness
 import Checked.Cosmography.B1FitRL19
+import Checked.Cosmography.B1L19Certs
+import Checked.Cosmography.B1L19
 import Checked.Trust.SecondReadingB1
 import Checked.Trust.TranscriptionsB1
 import Checked.Chemistry.CubicEOS
