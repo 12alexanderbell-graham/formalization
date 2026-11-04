@@ -2,6 +2,10 @@
 # theorem, pinned and classified definition. Generated: TRUST_RELOCK=1 lake env lean
 # scripts/trust/StatementDeps.lean. Changing or removing a line needs a LEDGER.md entry
 # naming the constant in the same push (CI: scripts/trust/check_relock.py). Run 0028Z.
+Checked.Chemistry.Coexistence.IsMaxwellCoexistence c18d7b37644a0cf2-doc1484192888443065294-PHYSICS
+Checked.Chemistry.Coexistence.acentric 71ce1336b3432f3b-FORMULA
+Checked.Chemistry.Coexistence.vdW_coexistence_exists 32245ed6-doc7400633016167820518
+Checked.Chemistry.Coexistence.vdW_coexistence_unique d2af2a92-doc6423052648708843288
 Checked.Chemistry.CubicEOS.IsCriticalIsotherm 3fe72f789c73b8fb-doc7565455282113254985-PHYSICS
 Checked.Chemistry.CubicEOS.critCubic bcc66f496c822441-FORMULA
 Checked.Chemistry.CubicEOS.critCubic_existsUnique 6d7807f2-doc9305413767602753011
@@ -235,6 +239,8 @@ Checked.Fidelity.FriedmannLCDM 3e392875750cecb9-SPEC
 Checked.Fidelity.HubbleSpec 29997a50-SPEC
 Checked.Fidelity.LumDistSpec 25618f87-SPEC
 Checked.Fidelity.LumDistSpec2 25618f87-SPEC
+Checked.Fidelity.MaxwellSpec.MaxwellSpec 67e03735-SPEC
+Checked.Fidelity.MaxwellSpec.maxwellSpec_pins c662ed91
 Checked.Fidelity.Omega0Spec 9be681e2-SPEC
 Checked.Fidelity.RayOK 2765acff17c1fdc5-SPEC
 Checked.Fidelity.RedshiftSpecCore 577dbed6-SPEC

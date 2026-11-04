@@ -1,30 +1,35 @@
 # Item 03
 
-**Area:** T1 fidelity
+**Area:** Certified numbers of the findings
 
-**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
 
 ## Claim in plain words (the system's own text)
 
-The program's master equation is the blind `Ḣ` equation with `R = curv a`.
+The two factors of the hypothesis `(54Ω² − 29Ω − 2)(27Ω² + 24Ω − 32) ≠ 0` of `printedEta20_false_at`,
+`printedEta30_false_at` have roots: there is a root `Ω ≈ 0.599` of the first factor and a root
+`Ω ≈ 0.731` of the second (proved: existence of a root of the first and of the second, rounded to three decimals). In words, not proved here: these are their only roots in `(0, 1)`, and
+together with the root `Ω ≈ 0.176` of the printed denominator, where (11.42)–(11.43) are undefined
+(`F10_printed_pole`), they are the points of `(0, 1)` the two refutations do not cover.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem masterEq_iff_blind (Ω : ℝ) (a F : ℝ → ℝ) (t₀ t : ℝ) :
-    MasterEq Ω a F t₀ t ↔ FRSecondEq Ω a F t₀ t (curv a) := …
+theorem F10_exceptions :
+    (∃ r : ℝ, RoundsTo r 0.599 3 ∧ 54 * r ^ 2 - 29 * r - 2 = 0) ∧
+    (∃ r : ℝ, RoundsTo r 0.731 3 ∧ 27 * r ^ 2 + 24 * r - 32 = 0) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FRCosmo.MasterEq`, `Cosmography.FRCosmo.curv`, `Cosmography.FRCosmo.rhoM`, `Cosmography.hubble`, `Fidelity.DustDensity`, `Fidelity.FRSecondEq`
+See GLOSSARY.md: `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: MasterEq, curv.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `masterEq_iff_blind`.
-- Source file: `Checked/Fidelity/FRSpecs.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 03

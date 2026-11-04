@@ -1,30 +1,36 @@
 # Item 46
 
-**Area:** F1
+**Area:** F0
 
-**Source:** arXiv:1903.11433, Eq. (21): misprinted flat ΛCDM l₀ (printed as 1 + 3Ω_m − (27/2)Ω_m²)
+**Source:** textbook definition of lookback time and the cosmographic parameters (e.g. Visser 2004, Class. Quantum Grav. 21, 2603)
 
 ## Claim in plain words (the system's own text)
 
-**Refutation of the printed l₀ in Eq. (21).** On Einstein–de Sitter (Ω = 1) the printed
-formula gives `−19/2`, the true value is `35/2`.
+**Milestone 1** (frozen in commit 6ef1003, audited in runs/2026-10-30T0028Z/audit.md). The lookback time `t₀ - t` of a source with redshift
+`z = z(t)` satisfies `t₀ - t = H₀⁻¹ (z - (1 + q₀/2) z²) + o(z²)` as `t → t₀`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem avilesL0Claim_false : ¬ AvilesL0Claim := …
+theorem lookback_second_order (a : ℝ → ℝ) (t₀ : ℝ)
+    (ha : ∀ᶠ t in 𝓝 t₀, DifferentiableAt ℝ a t)
+    (ha' : DifferentiableAt ℝ (deriv a) t₀)
+    (ha0 : a t₀ ≠ 0) (hH : deriv a t₀ ≠ 0) :
+    (fun t => (t₀ - t) - (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2)
+        / hubble a t₀)
+      =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 2) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.Aviles.AvilesL0Claim`, `Cosmography.hubble`, `Cosmography.redshift`
+See GLOSSARY.md: `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): AvilesL0Claim.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Source file: `Checked/Cosmography/LCDMCoefficients.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: decel, hubble, redshift.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lookback_second_order`.
+- Source file: `Checked/Cosmography/Lookback.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 46

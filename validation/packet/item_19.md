@@ -1,31 +1,30 @@
 # Item 19
 
-**Area:** Certified numbers of the findings
+**Area:** T1 fidelity
 
-**Source:** Demianski, Piedipalumbo, Sawant, Amati, A&A 598, A113 (2017), arXiv:1609.09631 (v1, v2), p. 3: flat z-series D⁴_L has −105q₀⁴ (should be +105q₀⁴) and D⁴_A (Eq. (23)) has +137j₀ (should be −137j₀); the D⁴_L error is reprinted in Lusso et al., A&A 628, L4 (2019), arXiv:1907.07692 (v1–v4), the quasar+SN+GRB paper claiming > 4σ tension with flat ΛCDM
+**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
 
 ## Claim in plain words (the system's own text)
 
-At `q₀ = −0.80`: the shift `l₀ ↦ l₀ − 210q₀⁴` that absorbs the D⁴_L error is `−86`, and the
-error `(7/4)q₀⁴ z⁴` inside the bracket at `z = 1` is `0.72`.
+**Pinning:** any predicate obeying the blind first-principles law is `IsFlatCPL`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem F11_sizes :
-    RoundsTo (-210 * (-4 / 5) ^ 4) (-86) 0 ∧ RoundsTo (7 / 4 * (-4 / 5) ^ 4 * 1 ^ 4) 0.72 2 := …
+theorem flatCPL_pins (P : ℝ → ℝ → ℝ → (ℝ → ℝ) → ℝ → Prop)
+    (h : ∀ Ω w₀ wₐ a t₀, P Ω w₀ wₐ a t₀ ↔ FriedmannCPL Ω w₀ wₐ a t₀) : P = IsFlatCPL := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Records.RoundsTo`
+See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannCPL`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: IsFlatCPL.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `flatCPL_pins`.
+- Source file: `Checked/Fidelity/FriedmannCPL.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 19

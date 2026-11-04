@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 127. Resting on no unpinned physics definition: 127.
-Non-vacuity (trust track T2): 78 headlines have hypotheses; 78 of them have a
+Headlines: 129. Resting on no unpinned physics definition: 129.
+Non-vacuity (trust track T2): 80 headlines have hypotheses; 80 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -151,3 +151,5 @@ agreement with an independent blind second reading (`Checked/Trust/Transcription
 | `Chemistry.CubicEOS.vdW_constants` | IsCriticalIsotherm | — | — | `vdW_constants` |
 | `Chemistry.CubicEOS.rk_constants` | IsCriticalIsotherm | — | — | `rk_constants` |
 | `Chemistry.CubicEOS.pr_constants` | IsCriticalIsotherm | — | — | `pr_constants` |
+| `Chemistry.Coexistence.vdW_coexistence_exists` | IsMaxwellCoexistence | — | — | `vdW_coexistence_exists` |
+| `Chemistry.Coexistence.vdW_coexistence_unique` | IsMaxwellCoexistence | — | — | `vdW_coexistence_unique` |

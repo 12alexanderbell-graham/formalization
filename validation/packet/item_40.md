@@ -1,38 +1,29 @@
 # Item 40
 
-**Area:** T1 fidelity
+**Area:** F4
 
-**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421 (v1, v2, v3), Eq. (10.54): y-redshift luminosity-distance coefficient D²_{L,y} has the wrong overall sign
 
 ## Claim in plain words (the system's own text)
 
-`HubbleSpec` pins `hubble` for every positive scale factor differentiable at `t`
-(its `logDeriv` law `H = d ln a/dt` and uniqueness of derivatives).
+The past-only reading is false (flat de Sitter).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem hubbleSpec_pins (H : (ℝ → ℝ) → ℝ → ℝ) (h : HubbleSpec H) (a : ℝ → ℝ) (t : ℝ)
-    (ha : 0 < a t) (hd : DifferentiableAt ℝ a t) : H a t = hubble a t := …
-```
-
-Definitions specific to this item:
-
-```lean
-/-- The Hubble rate `H = ȧ/a`. (Used by this item in place of the glossary entry.) -/
-noncomputable def hubble (a : ℝ → ℝ) (t : ℝ) : ℝ := deriv a t / a t ^ 2
+theorem bambaD2yClaimPast_false : ¬ BambaD2yClaimPast := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.hubble`, `Fidelity.HubbleSpec`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaY.lumDistFlat`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.BambaY.BambaD2yClaimPast`, `Cosmography.BambaY.D1y`, `Cosmography.BambaY.printedD2y`, `Cosmography.BambaY.comoving`, `Cosmography.BambaY.remainderY`, `Cosmography.BambaY.seriesY`, `Cosmography.CCS.D2`, `Cosmography.redshift`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: hubble.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hubbleSpec_pins`.
-- Source file: `Checked/Fidelity/Pins.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, lumDistFlat, yred, decel, hubble.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): BambaD2yClaimPast, D1y², printedD2y².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Source file: `Checked/Cosmography/BambaDLy.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 40
