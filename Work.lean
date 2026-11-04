@@ -94,3 +94,10 @@ import Work.Sim.MMCerts
 import Work.Sim.MMEnclose
 import Work.Sim.MMAudit
 import Work.Data.FR13
+import Work.Data.FR13Tools
+import Work.Data.FR13Certs
+import Work.Data.FR13Val
+import Work.Data.FR13ValCerts
+import Work.Data.FR13Blind
+import Work.Data.FR13Table2
+import Work.Data.FR13Transcription

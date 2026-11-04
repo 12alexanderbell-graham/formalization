@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Data.FR13ValCerts
 
 /-!
 # A data claim, certified (THE RESULT part 1, "test suites for scientific claims"):
@@ -60,6 +61,43 @@ noncomputable def margChiSq {n : ℕ} (tbl : Fin n → ℝ × ℝ × ℝ) (Hbar 
   -2 * Real.log (∫ H₀ : ℝ, Real.exp (-chiSqHz tbl H₀ Ω / 2) *
     (Real.exp (-(H₀ - Hbar) ^ 2 / (2 * σ ^ 2)) / √(2 * Real.pi * σ ^ 2)))
 
+/-! ### Proof tools (not part of the frozen statements) -/
+
+open Work.Data.FR13Tools Work.Data.FR13Certs Work.Data.FR13Val Work.Data.FR13ValCerts in
+theorem margChiSq_eq (Hb σ Ω : ℝ) : margChiSq fr13Table Hb σ Ω = margChi tbl Hb σ Ω := rfl
+
+open Work.Data.FR13Tools Work.Data.FR13Certs Work.Data.FR13Val Work.Data.FR13ValCerts in
+theorem bestfit68_aux (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω') :
+    0.2875 < Ω ∧ Ω < 0.2881 := by
+  have hr := hmin 0.2878 ⟨by norm_num, by norm_num⟩
+  simp only [margChiSq_eq] at hr
+  constructor
+  · by_contra h; rw [not_lt] at h
+    have := low68 Ω hΩ₀ h; linarith
+  · by_contra h; rw [not_lt] at h
+    have := high68 Ω h hΩ₁; linarith
+
+open Work.Data.FR13Tools Work.Data.FR13Certs Work.Data.FR13Val Work.Data.FR13ValCerts in
+theorem bestfit738_aux (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1,
+      margChiSq fr13Table 73.8 2.4 Ω ≤ margChiSq fr13Table 73.8 2.4 Ω') :
+    0.2531 < Ω ∧ Ω < 0.2537 := by
+  have hr := hmin 0.2534 ⟨by norm_num, by norm_num⟩
+  simp only [margChiSq_eq] at hr
+  constructor
+  · by_contra h; rw [not_lt] at h
+    have := low73 Ω hΩ₀ h; linarith
+  · by_contra h; rw [not_lt] at h
+    have := high73 Ω h hΩ₁; linarith
+
+open Work.Data.FR13Tools Work.Data.FR13Certs Work.Data.FR13Val Work.Data.FR13ValCerts in
+theorem exists_aux (Hb σ : ℝ) (hσ : 0 < σ) : ∃ Ω ∈ Set.Icc (0 : ℝ) 1,
+    ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table Hb σ Ω ≤ margChiSq fr13Table Hb σ Ω' := by
+  obtain ⟨x, hx, hmin⟩ := isCompact_Icc.exists_isMinOn (Set.nonempty_Icc.2 zero_le_one)
+    (cont_margChi tbl Hb σ hσ).continuousOn
+  exact ⟨x, hx, fun y hy => hmin hy⟩
+
 /-! ### Frozen statements -/
 
 /-- With the prior 68 ± 2.8 on H₀, every Ω in [0, 1] at which the marginalised chi-square of
@@ -68,7 +106,7 @@ and 0.2881. -/
 theorem fr13_bestfit68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
     (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω') :
     0.2875 < Ω ∧ Ω < 0.2881 := by
-  sorry
+  exact bestfit68_aux Ω hΩ₀ hΩ₁ hmin
 
 /-- With the prior 73.8 ± 2.4 on H₀, every Ω in [0, 1] at which the marginalised chi-square of
 the Farooq–Ratra 2013 table is smallest among all Ω′ in [0, 1] lies strictly between 0.2531
@@ -77,27 +115,32 @@ theorem fr13_bestfit738 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
     (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1,
       margChiSq fr13Table 73.8 2.4 Ω ≤ margChiSq fr13Table 73.8 2.4 Ω') :
     0.2531 < Ω ∧ Ω < 0.2537 := by
-  sorry
+  exact bestfit738_aux Ω hΩ₀ hΩ₁ hmin
 
 /-- With the prior 68 ± 2.8, the marginalised chi-square of the Farooq–Ratra 2013 table attains
 its smallest value over Ω in [0, 1]: there is a minimiser. -/
 theorem fr13_exists68 : ∃ Ω ∈ Set.Icc (0 : ℝ) 1,
     ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω' := by
-  sorry
+  exact exists_aux 68 2.8 (by norm_num)
 
 /-- With the prior 73.8 ± 2.4, the marginalised chi-square of the Farooq–Ratra 2013 table
 attains its smallest value over Ω in [0, 1]: there is a minimiser. -/
 theorem fr13_exists738 : ∃ Ω ∈ Set.Icc (0 : ℝ) 1,
     ∀ Ω' ∈ Set.Icc (0 : ℝ) 1,
       margChiSq fr13Table 73.8 2.4 Ω ≤ margChiSq fr13Table 73.8 2.4 Ω' := by
-  sorry
+  exact exists_aux 73.8 2.4 (by norm_num)
 
 /-- With the prior 68 ± 2.8, the smallest value over Ω in [0, 1] of the marginalised
 chi-square of the Farooq–Ratra 2013 table lies strictly between 18.19 and 18.21. -/
 theorem fr13_minval68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
     (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω') :
     18.19 < margChiSq fr13Table 68 2.8 Ω ∧ margChiSq fr13Table 68 2.8 Ω < 18.21 := by
-  sorry
+  obtain ⟨h1, h2⟩ := bestfit68_aux Ω hΩ₀ hΩ₁ hmin
+  have hr := hmin 0.2878 ⟨by norm_num, by norm_num⟩
+  rw [margChiSq_eq, margChiSq_eq] at hr
+  rw [margChiSq_eq]
+  exact ⟨Work.Data.FR13ValCerts.minlo68 Ω h1.le h2.le,
+    lt_of_le_of_lt hr Work.Data.FR13ValCerts.minhi68⟩
 
 /-- With the prior 73.8 ± 2.4, the smallest value over Ω in [0, 1] of the marginalised
 chi-square of the Farooq–Ratra 2013 table lies strictly between 20.61 and 20.62. -/
@@ -105,7 +148,12 @@ theorem fr13_minval738 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
     (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1,
       margChiSq fr13Table 73.8 2.4 Ω ≤ margChiSq fr13Table 73.8 2.4 Ω') :
     20.61 < margChiSq fr13Table 73.8 2.4 Ω ∧ margChiSq fr13Table 73.8 2.4 Ω < 20.62 := by
-  sorry
+  obtain ⟨h1, h2⟩ := bestfit738_aux Ω hΩ₀ hΩ₁ hmin
+  have hr := hmin 0.2534 ⟨by norm_num, by norm_num⟩
+  rw [margChiSq_eq, margChiSq_eq] at hr
+  rw [margChiSq_eq]
+  exact ⟨Work.Data.FR13ValCerts.minlo73 Ω h1.le h2.le,
+    lt_of_le_of_lt hr Work.Data.FR13ValCerts.minhi73⟩
 
 /-- With the prior 68 ± 2.8, at every minimiser Ω over [0, 1] of the marginalised chi-square
 of the Farooq–Ratra 2013 table, the z > −1 solving Ω(1+z)³ = 2(1 − Ω) lies strictly between
@@ -114,7 +162,15 @@ theorem fr13_zda68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
     (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω')
     (z : ℝ) (hz : -1 < z) (hda : Ω * (1 + z) ^ 3 = 2 * (1 - Ω)) :
     0.703 < z ∧ z < 0.706 := by
-  sorry
+  obtain ⟨h1, h2⟩ := bestfit68_aux Ω hΩ₀ hΩ₁ hmin
+  have hu : 0 < 1 + z := by linarith
+  constructor
+  · by_contra h; rw [not_lt] at h
+    have hc : (1 + z) ^ 3 ≤ 1.703 ^ 3 := pow_le_pow_left₀ hu.le (by linarith) 3
+    nlinarith
+  · by_contra h; rw [not_lt] at h
+    have hc : (1.706 : ℝ) ^ 3 ≤ (1 + z) ^ 3 := pow_le_pow_left₀ (by norm_num) (by linarith) 3
+    nlinarith
 
 /-- With the prior 73.8 ± 2.4, at every minimiser Ω over [0, 1] of the marginalised chi-square
 of the Farooq–Ratra 2013 table, the z > −1 solving Ω(1+z)³ = 2(1 − Ω) lies strictly between
@@ -124,6 +180,14 @@ theorem fr13_zda738 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
       margChiSq fr13Table 73.8 2.4 Ω ≤ margChiSq fr13Table 73.8 2.4 Ω')
     (z : ℝ) (hz : -1 < z) (hda : Ω * (1 + z) ^ 3 = 2 * (1 - Ω)) :
     0.805 < z ∧ z < 0.808 := by
-  sorry
+  obtain ⟨h1, h2⟩ := bestfit738_aux Ω hΩ₀ hΩ₁ hmin
+  have hu : 0 < 1 + z := by linarith
+  constructor
+  · by_contra h; rw [not_lt] at h
+    have hc : (1 + z) ^ 3 ≤ 1.805 ^ 3 := pow_le_pow_left₀ hu.le (by linarith) 3
+    nlinarith
+  · by_contra h; rw [not_lt] at h
+    have hc : (1.808 : ℝ) ^ 3 ≤ (1 + z) ^ 3 := pow_le_pow_left₀ (by norm_num) (by linarith) 3
+    nlinarith
 
 end Work.Data.FR13
