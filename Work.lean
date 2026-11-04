@@ -83,3 +83,8 @@ import Work.Sim.DuffingExists
 import Work.Sim.DuffingAudit
 import Work.Sim.MichaelisMenten
 import Work.Sim.MMBlind
+import Work.Sim.Validated
+import Work.Sim.MMCell
+import Work.Sim.MMCerts
+import Work.Sim.MMEnclose
+import Work.Sim.MMAudit
