@@ -13,7 +13,7 @@
 
 Program definitions in this claim:
 
-- `RoundsTo x d k` — MATH, not pinned (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `RoundsTo x d k` — MATH, not pinned, so only the formula shown is checked, not its name (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 

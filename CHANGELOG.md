@@ -213,3 +213,8 @@
 - Env: repo ok (pre-cloned, stale local main reset); local Lean via elan ok; CI of run 1828Z promotion 41901099462 green on every job (RK acentric factor PROVED).
 - Part 2: B1 extended to closed ΛCDM. Frozen (68ec9c1), proved in Work (3b3c3d6), audited (049f2ac): for every Ω_m ∈ [1/10, 1] and Ω_k ∈ [−1/10, 0] the pinned curved d_L ratio between 1 + z = 2√2 and 4√2 is ≥ 27/10, so the Lusso et al. 2019 central fits miss by > 1/4 and > 3/20 mag. First two-parameter certificates (42 boxes). Blind restatement closed in Lean; referee STANDS-WITH-CORRECTIONS (answer in print qualitatively: Khadka & Ratra 2020/2021, Bargiacchi et al. 2022).
 - PROMPT working note: integral-binder precedence trap, two-parameter boxes, Mathlib `Real.sin_gt_sub_cube` (x − x³/6, any x > 0).
+
+## 2026-11-04T2228Z (scheduled run)
+- Env: repo ok (pre-cloned; add_repo not exposed); local Lean via elan ok. CI: B1 curvature promotion 41920856539 green (PROVED); LOCK run 41925589071 lost its checked job in nanoda (no log; watched).
+- Part 3: `CLAIMS.md`, every headline's claim generated from its Lean statement (`scripts/trust/Claims.lean`; phrases of pinned definitions in `scripts/trust/phrases.txt`, linted and change-guarded by `check_claims.py`); blocking in CI. Validation packet shows the generated claims.
+- Blind red team J (Sonnet) against the generated claims: 6/7 valid accepted, all misleading through names/choice/constants, none through false generated text; fixes after reading (slot renaming, choice objects, truncating arithmetic, decimal constants, lookalike names): 1 rejected, 2 correct, 2 disclosed, 1 open.

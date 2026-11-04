@@ -12,10 +12,10 @@
 
 Program definitions in this claim:
 
-- `Jfam Ω ε` — COMPOSITE, not pinned (for `Ω : ℝ`, `ε : ℝ`): is defined as `jL * (1 + ε) - qL Ω * (1 + ε) - 2`
-- `RoundsTo x d k` — MATH, not pinned (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `jL` — PRINTED, not pinned: is defined as `1`
-- `qL Ω` — PRINTED, not pinned (for `Ω : ℝ`): is defined as `3 / 2 * Ω - 1`
+- `Jfam Ω ε` — COMPOSITE, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`, `ε : ℝ`): is defined as `jL * (1 + ε) - qL Ω * (1 + ε) - 2`
+- `RoundsTo x d k` — MATH, not pinned, so only the formula shown is checked, not its name (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `jL` — PRINTED, not pinned, so only the formula shown is checked, not its name: is defined as `1`
+- `qL Ω` — PRINTED, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`): is defined as `3 / 2 * Ω - 1`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 

@@ -10,6 +10,7 @@
 ## Trust track T2 (statement fidelity), `Checked/Trust/`
 - `NonVacuity.lean` (obligation generator, `nonvacuity%`), `Witnesses.lean` (62 witnesses): **PROVED**-level checks in CI (blocking). Adversarial review `runs/2026-10-30T2228Z/nv_adversary.md`.
 - Next: hypothesis necessity (T2b).
+- Run 2026-11-04T2228Z: generated claims `scripts/trust/Claims.lean` → `CLAIMS.md` (151 headlines; phrases `scripts/trust/phrases.txt`, lint `scripts/trust/check_claims.py`), CI-blocking; red team J results `runs/2026-11-04T2228Z/t5/RESULTS.md`.
 
 ## Trust track T5 checks added run 2026-11-04T1028Z (after blind red team G, 8/8 accepted)
 - Number rule (rule 5 of `scripts/trust/check_prose.py`): blocking; units read; citations only from `scripts/trust/citations.txt`.

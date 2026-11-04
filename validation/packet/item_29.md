@@ -20,7 +20,7 @@
 
 Program definitions in this claim:
 
-- `critCubic u w x` — FORMULA, not pinned (for `u : ℝ`, `w : ℝ`, `x : ℝ`): is defined as `x ^ 3 - 3 * x ^ 2 - 3 * (u + w) * x - (u ^ 2 + u * w - w)`
+- `critCubic u w x` — FORMULA, not pinned, so only the formula shown is checked, not its name (for `u : ℝ`, `w : ℝ`, `x : ℝ`): is defined as `x ^ 3 - 3 * x ^ 2 - 3 * (u + w) * x - (u ^ 2 + u * w - w)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
