@@ -93,7 +93,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 
 
 ## Environment (this run)
-- Run 2026-11-04T0828Z: add_repo not exposed; repo pre-cloned; no LOCK; **local Lean available** (elan + Mathlib cache; Work/Sim and small Checked modules built locally). Previous CI 41795488679, 41797851293 green; this run: LOCK 41799836956, freeze 41800599930, audit inputs 41801757322 green; Work proof 41808145054 and branch `wip/mm-checked` runs: read next run.
+- Run 2026-11-04T0828Z: add_repo not exposed; repo pre-cloned; no LOCK; **local Lean available** (elan + Mathlib cache; Work/Sim and small Checked modules built locally). Previous CI 41795488679, 41797851293 green; this run: LOCK 41799836956, freeze 41800599930, audit inputs 41801757322 green; Work proof 41808145054 green; branch `wip/mm-checked` run 41808372008: work job and Checked build green (09:59Z, MM certificates included), nanoda and trust step still running at the close (packet job fails as expected until the author files are copied in); branch `wip/prose-numbers`: read next run.
 - Run 2026-11-04T0628Z: add_repo not exposed; repo pre-cloned; no LOCK; **local Lean available** (elan + Mathlib cache; only Work/Sim modules built locally). Previous CI 41777672804, 41781095697 green; this run's pushes: read next run.
 - Run 2026-11-04T0428Z: add_repo not exposed; repo pre-cloned; auditor role until run 0228Z removed its LOCK; **local Lean available** (elan; uncached program build ≈ 35 min). CI 41774575151 green (LOCK commit); 41777672804 (new checks, 924a9d6) and later ids: run README / next run.
 - add_repo not exposed; repo pre-cloned (shallow). No LOCK. **Local Lean available** (elan installer accepted this run; refused last run). Previous CI: 949b5e0 green (41757769996).
