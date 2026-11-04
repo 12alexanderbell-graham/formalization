@@ -11,6 +11,13 @@
 - `NonVacuity.lean` (obligation generator, `nonvacuity%`), `Witnesses.lean` (62 witnesses): **PROVED**-level checks in CI (blocking). Adversarial review `runs/2026-10-30T2228Z/nv_adversary.md`.
 - Next: hypothesis necessity (T2b).
 
+## Trust track T5 checks added run 2026-11-04T1028Z (after blind red team G, 8/8 accepted)
+- Number rule (rule 5 of `scripts/trust/check_prose.py`): blocking; units read; citations only from `scripts/trust/citations.txt`.
+- Frozen docstrings of every Checked declaration (`doc:` entries from `scripts/trust/StatementDeps.lean`).
+- `scripts/trust/check_trusted_defs.py --base`: every new or changed TRUSTED_DEFINITIONS.md line disclosed.
+- `scripts/trust/AuditClosed.lean` + `scripts/trust/audits.txt` (418 closed audit theorems) + `check_audits.py`: closed audits stay closed (CI work job).
+- Next node: parameter-level prose (G02/E08).
+
 ## B1 (THE RESULT part 2), `Checked/Cosmography/B1Truncation.lean`
 - Bridge `lumDistFlat_flatLCDM` (FTC, substitution v = (1+z)^{-1/2}): **PROVED** (AUDITED).
 - Certified enclosures of ∫ 2/√(Ω+(1−Ω)v⁶) (Riemann sums, tangent/secant bounds; `J_lower`, `J_upper`, tool lemmas `rsum_le_integral`, `integral_le_lsum`, `tangent_le`, `le_secant`): **PROVED** (helpers).
@@ -59,4 +66,5 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `Duffing.lean`: core theorem for one-sided solutions, `duffing_first_zero`, `duffing_exists`: PROVED (Work), frozen 3cf671f. `DuffingAudit.lean`: blind closed, spec met.
 - Promotion to Checked (run 0628Z): `Checked/Sim/`, `IsDuffingSolution` pinned; PROVED (CI 41795488679).
 - Run 2026-11-04T0828Z: `Validated.lean` (`tube_cell`: confinement by the enclosure, continuous induction, any normed space): PROVED (Work). `MMCell.lean` (reduced Michaelis–Menten field, `lip_box`, cell step for any field equal to it on the box, `lower_of`/`upper_of`), generated `MMCerts.lean` (57 steps) and `MMEnclose.lean` (chaining): PROVED (Work). `MichaelisMenten.lean`: `mm_half_conversion`, `mm_solution_exists` (clamped field + same enclosure): PROVED (Work), frozen f764635. `MMAudit.lean`: blind closed, spec met. Checked copies on branch `wip/mm-checked`.
-- Next node: Checked promotion of the Michaelis–Menten result; logarithmic-norm cell step (stiff/long horizon); generator for arbitrary polynomial fields (Lipschitz lemma generated too).
+- Michaelis–Menten promotion: PROVED (main CI 41813186514, read run 1028Z).
+- Next node: logarithmic-norm cell step (stiff/long horizon); generator for arbitrary polynomial fields (Lipschitz lemma generated too).

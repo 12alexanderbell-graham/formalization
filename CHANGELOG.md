@@ -181,3 +181,9 @@
 - Froze, proved (Work) and audited: full mass-action Michaelis–Menten mechanism (k = 1, [S]₀ = [E]₀ = 1): every solution has [P] < 1/2 on [0, 2.5665] and > 1/2 at 2.5666; a solution exists. Blind restatement equal to the program predicate, both blind claims closed; blind spec met; referee STANDS-WITH-CORRECTIONS (three numerical routes; QSSA off by 7–26%).
 - Promotion prepared on branch `wip/mm-checked` (pin, NV witness, glossary); relock via the CI author-files artifact next run.
 - Records: run README, STATE, LEDGER, BLUEPRINT, TARGETS parts 1 and 5, PROMPT note.
+
+## 2026-11-04, run 1028Z (scheduled)
+- Part 3 by part rotation. Local Lean available (elan). Michaelis–Menten promotion CI green: both headlines PROVED.
+- Number rule merged from branch and made blocking (citations exempt, negated literals read with their sign, old derived numbers baselined per number).
+- Second blind red team (G, Sonnet, 8 defects, ≥ 3 on the simulations) against ad62b38: 8/8 accepted by the CI-equivalent judge. Five strengthenings (LEDGER): units glued to numbers read, citation registry, every Checked docstring frozen, TRUSTED_DEFINITIONS.md lines disclosed, closed audits stay closed (new CI step in the work job). Same defects after: 1/8 (G02). `runs/2026-11-04T1028Z/t5/RESULTS.md`.
+- Records: run README, STATE, LEDGER, BLUEPRINT, TARGETS T5 line, PROMPT note.

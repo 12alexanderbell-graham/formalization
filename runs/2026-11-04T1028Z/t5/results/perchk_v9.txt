@@ -1,0 +1,20 @@
+trust rc=0
+== prose
+check_prose: 138 headlines, 127 definitions, 21 glossary terms; 2 new problems; 48 known gaps (prose_baseline.txt)
+  Checked.Sim.MichaelisMenten.mm_half_conversion_window: its docstring names the number 0.1, which is not a numeric literal of its statement (a derived number belongs in a registered record that certifies it; a citation 
+  Checked.Cosmography.Aviles.avilesL0Claim_refuted_table: its docstring cites (2.77), which is not a registered equation number (scripts/trust/citations.txt): a value written as a citation is not read by the number rule
+== numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+== trusted
+check_trusted_defs: 22 pins; 3 problems in TRUSTED_DEFINITIONS.md
+::error::line 10: new or changed since 7d4553b and not disclosed: a LEDGER.md addition must name `decel`, `DecelSpec`, `decelSpec_pins` (the prose of this file is what a scientist reads about each definition)
+::error::line 41: new or changed since 7d4553b and not disclosed: a LEDGER.md addition must name `mm_half_conversion`, `mm_solution_exists` (the prose of this file is what a scientist reads about each definition)
+::error::line 42: new or changed since 7d4553b and not disclosed: a LEDGER.md addition must name `duffing_first_zero_sol` (the prose of this file is what a scientist reads about each definition)
+== relock
+changed: doc:Checked.Chemistry.CoexistenceReduced.reduced_window  -- NOT named in a LEDGER.md addition
+changed: doc:Checked.Fidelity.CriticalSpec.criticalSpec_pins  -- NOT named in a LEDGER.md addition
+::error::2 frozen statement(s)/definition(s) changed or removed without a LEDGER.md entry naming them (annex XLIII: never weaken a statement and keep its name)
+== audits
+check_audits: 418 closed audit theorems; 0 removed since 7d4553b
+scripts/trust/AuditClosed.lean:17:0: error: closed audits reopened or removed:
+Work.Sim.DuffingAudit.blind_first_zero_mem_closed: depends on [sorryAx] (a closed audit was reopened)
