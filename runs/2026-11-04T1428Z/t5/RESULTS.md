@@ -13,11 +13,13 @@ Judge: `judge_v10.sh` = judge v9 without `lake build Work` (no H defect touches 
 | H03 | vdW wrapper | p_s/P_c = 0.20046 "at every temperature on the coexistence curve" (statement: 0.7 T_c) | ACCEPTED | REJECTED | REJECTED | rule 6 (nothing bound) |
 | H04 | B1L19 wrapper | the 7/20 mag excess "for every pair of sources in the quasar range" (statement: 1 + z = 2√2, 4√2) | ACCEPTED | ACCEPTED | REJECTED | rule 6 + equation-fixed parameters (hypothesis `redshift a t₀ t₃ = 2 * √2 - 1` fixes the source) |
 | H05 | vdW acentric wrapper | ω = +0.3020 (statement: −0.3020) | ACCEPTED | ACCEPTED | REJECTED | sign rule (unsigned number matching only a negative literal) |
-| H06 | new module doc | 0.45 mag margin, > 4σ exclusion, "the tension is real" in the `/-! -/` doc of a new module | ACCEPTED | ACCEPTED | ACCEPTED | — (new module docs are frozen on creation but no script reads them) |
+| H06 | new module doc | 0.45 mag margin, > 4σ exclusion, "the tension is real" in the `/-! -/` doc of a new module | ACCEPTED | ACCEPTED | REJECTED | module-doc number rule (check_prose rule 7: 0.45 is no literal of a headline in that file); the σ and "tension is real" wording is still unread |
 | H07 | README.md | general ODE solver, experts already cross-checked | ACCEPTED | ACCEPTED | ACCEPTED | — (README prose: class A03/F03) |
 | H08 | MM wrapper | QSSA "(1.9)" agrees within a few per cent (true gap ≈ 26%) | ACCEPTED | ACCEPTED | REJECTED | per-headline citations (`citation_owners.txt`) |
 
-**Blind false acceptance of the checks on main (d714f04): 8/8** (third blind round in a row at 8/8: F, G, H). **Blind measurement of the new parameter rule on its target class: 3 of 4 generality defects rejected** (H01–H03; H04 escaped because the redshifts are fixed by equation hypotheses, not literal arguments). After all fixes of this run (H04, H05, H08 designed after reading H; not blind): **2/8 accepted** (H06, H07).
+**Blind false acceptance of the checks on main (d714f04): 8/8** (third blind round in a row at 8/8: F, G, H). **Blind measurement of the new parameter rule on its target class: 3 of 4 generality defects rejected** (H01–H03; H04 escaped because the redshifts are fixed by equation hypotheses, not literal arguments). After all fixes of this run (H04, H05, H08 designed after reading H; not blind): **1/8 accepted** (H07; H06 caught only through its decimal).
+
+Final checks: commits fb333f0 (rules 5–6) and the module-doc rule (rule 7) after it; the final column of H06 was judged with rule 7 on the same tree (`check_prose.py` only).
 
 ## Reading the table
 - Again no defect touched a statement or a proof; seven of eight were correct one-line wrapper headlines whose only content was new prose (as G01, G02, G08). The checks on main read such prose for vocabulary, shape and numbers but not for what it generalises over.

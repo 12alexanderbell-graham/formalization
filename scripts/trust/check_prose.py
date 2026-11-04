@@ -29,6 +29,10 @@ what the prose may say against what the Lean statement actually contains, using 
    literal needs a sign or "minus"/"negative" just before it (d05), and a citation `(N.M)` passes only
    for the headlines registered with it in `scripts/trust/citation_owners.txt` (d08 wrote a value as
    "(1.9)", a number registered because another headline cites Eq. (1.9)).
+7. Module docs (run 2026-11-04T1428Z; red team H, d06): every decimal or fraction in the `/-! -/`
+   doc of a Checked file is a numeric literal of a headline stated in that file (or a citation
+   registered for one of them); the 499 numbers of the module docs at d714f04 are baselined per
+   number (frozen docs: a changed number fires again).
 6. Parameters (run 2026-11-04T1428Z; red team G, defect G02, class E08: a correct wrapper headline
    said its bracket holds "whatever the release amplitude" while the statement fixes x(0) = 1). After
    every generalising word (every, any, all, each, whatever, whichever, regardless of, irrespective
@@ -239,6 +243,10 @@ def param_rule(h, errs):
                              f"nothing it could refer to (bound: {sorted(bound) or 'nothing'}; nouns for bound roles: "
                              f"scripts/trust/param_nouns.txt)"))
 
+def oreg_all():
+    opath = ROOT / "scripts/trust/citation_owners.txt"
+    return {tuple(l.split()) for l in opath.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")} if opath.exists() else set()
+
 def main():
     report = "--report" in sys.argv
     load_nouns()
@@ -326,6 +334,32 @@ def main():
                     and len(p) >= 4:
                 errs.append((f"definition {r['name']}|name|{p}", f"definition {r['name']} ({r['kind']}) carries the pinned definition name '{p}' "
                             f"in its own name but is not that definition: rename it (names carry meaning to readers)"))
+    # rule 7 (run 2026-11-04T1428Z; red team H, d06: the `/-! -/` doc of a NEW module claimed a 0.45 mag
+    # margin next to an honest headline certifying 3/10): every decimal or fraction in the module doc of a
+    # Checked file is a numeric literal of a headline stated in that file, or a registered citation of one
+    # of them; old module-doc numbers are baselined per number (`<module>|moduledoc|<number>`)
+    decl = re.compile(r"(?m)^\s*(?:@\[[^\]]*\]\s*)?(?:private\s+)?(?:theorem|lemma)\s+([^\s:(]+)")
+    for f in sorted((ROOT / "Checked").rglob("*.lean")):
+        src = f.read_text(encoding="utf-8")
+        docs = re.findall(r"/-!(.*?)-/", src, re.S)
+        if not docs:
+            continue
+        mod = "Checked." + ".".join(f.relative_to(ROOT / "Checked").with_suffix("").parts)
+        names = set(decl.findall(src))
+        local = [h for h in heads.values() if short(h["name"]) in names]
+        signed = {Fraction(x) for h in local for x in h.get("nums", [])}
+        have = {abs(v) for v in signed}
+        cited = {n for o, n in oreg_all() if o in {h["name"] for h in local}}
+        text = strip_code_names("\n".join(docs))
+        text = CITE.sub(lambda m: m.group(0) if not all(n in cited for n in re.findall(r"[1-9]\d?\.\d{1,2}", m.group(0)))
+                        else " " * len(m.group(0)), text)
+        for m in NUM.finditer(text):
+            v = num_value(m.group(2))
+            ok = (-v in signed) if m.group(1) else (v in have)
+            if not ok:
+                tok = m.group(1) + m.group(2)
+                errs.append((f"{mod}|moduledoc|{tok}", f"{mod}: its module doc names the number {tok}, which is not a numeric "
+                             f"literal of a headline stated in this file (certify it in a registered record, or cite it as `(N.M)`)"))
     cpath = ROOT / "scripts/trust/citations.txt"
     creg = {l.strip() for l in cpath.read_text().splitlines() if l.strip() and not l.startswith("#")} if cpath.exists() else set()
     if "--write-citations" in sys.argv:
