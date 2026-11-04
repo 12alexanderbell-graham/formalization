@@ -96,12 +96,12 @@ lemma sqrt2_bounds : (141421356 / 100000000 : ℝ) ≤ √2 ∧ √2 ≤ 1414213
 /-- General form (sources anywhere in `[t₅, t₀]`, no order between `t₁` and `t₃` assumed); the
 frozen theorem below is its instance. -/
 theorem fit_direction_gen (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
-    (a : ℝ → ℝ) (t₅ t₃ t₁ t₀ : ℝ) (ht₁ : t₁ ∈ Set.Icc t₅ t₀) (ht₃ : t₃ ∈ Set.Icc t₅ t₀)
-    (h₅₀ : t₅ ≤ t₀)
-    (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
-    (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
+    (a : ℝ → ℝ) (T t₅ t₃ t₁ t₀ : ℝ) (ht₁ : t₁ ∈ Set.Icc T t₀) (ht₃ : t₃ ∈ Set.Icc T t₀)
+    (ht₅ : t₅ ∈ Set.Icc T t₀)
+    (hpos : ∀ s ∈ Set.Icc T t₀, 0 < a s)
+    (hdiff : ∀ s ∈ Set.Icc T t₀, DifferentiableAt ℝ a s)
     (hH₀ : 0 < hubble a t₀)
-    (hH : ∀ s ∈ Set.Icc t₅ t₀,
+    (hH : ∀ s ∈ Set.Icc T t₀,
       hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
     (hz₁ : redshift a t₀ t₁ = √2 - 1) (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1)
     (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
@@ -125,17 +125,20 @@ theorem fit_direction_gen (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
   -- sources and the bridge to the integral
   have h₁₀ : t₁ ≤ t₀ := ht₁.2
   have h₃₀ : t₃ ≤ t₀ := ht₃.2
-  have hsub1 : Set.Icc t₁ t₀ ⊆ Set.Icc t₅ t₀ := Set.Icc_subset_Icc_left ht₁.1
-  have hsub3 : Set.Icc t₃ t₀ ⊆ Set.Icc t₅ t₀ := Set.Icc_subset_Icc_left ht₃.1
+  have h₅₀ : t₅ ≤ t₀ := ht₅.2
+  have hsub1 : Set.Icc t₁ t₀ ⊆ Set.Icc T t₀ := Set.Icc_subset_Icc_left ht₁.1
+  have hsub3 : Set.Icc t₃ t₀ ⊆ Set.Icc T t₀ := Set.Icc_subset_Icc_left ht₃.1
+  have hsub5 : Set.Icc t₅ t₀ ⊆ Set.Icc T t₀ := Set.Icc_subset_Icc_left ht₅.1
   have hbr1 := lumDistFlat_flatLCDM Ω hΩ₀ hΩ₁ a t₁ t₀ h₁₀ (fun s hs => hpos s (hsub1 hs))
     (fun s hs => hdiff s (hsub1 hs)) hH₀ (fun s hs => hH s (hsub1 hs))
   have hbr3 := lumDistFlat_flatLCDM Ω hΩ₀ hΩ₁ a t₃ t₀ h₃₀ (fun s hs => hpos s (hsub3 hs))
     (fun s hs => hdiff s (hsub3 hs)) hH₀ (fun s hs => hH s (hsub3 hs))
-  have hbr5 := lumDistFlat_flatLCDM Ω hΩ₀ hΩ₁ a t₅ t₀ h₅₀ hpos hdiff hH₀ hH
-  have ha₀ : 0 < a t₀ := hpos t₀ ⟨h₅₀, le_rfl⟩
+  have hbr5 := lumDistFlat_flatLCDM Ω hΩ₀ hΩ₁ a t₅ t₀ h₅₀ (fun s hs => hpos s (hsub5 hs))
+    (fun s hs => hdiff s (hsub5 hs)) hH₀ (fun s hs => hH s (hsub5 hs))
+  have ha₀ : 0 < a t₀ := hpos t₀ ⟨le_trans ht₅.1 h₅₀, le_rfl⟩
   have ha1 : 0 < a t₁ := hpos t₁ ht₁
   have ha3 : 0 < a t₃ := hpos t₃ ht₃
-  have ha5 : 0 < a t₅ := hpos t₅ ⟨le_rfl, h₅₀⟩
+  have ha5 : 0 < a t₅ := hpos t₅ ht₅
   have es1 : (1:ℝ) + (√2 - 1) = √2 := by ring
   have es3 : (1:ℝ) + (2 * √2 - 1) = 2 * √2 := by ring
   have es5 : (1:ℝ) + (4 * √2 - 1) = 4 * √2 := by ring
@@ -253,8 +256,8 @@ theorem fit_direction (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
     (hm₅ : |5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c|
       ≤ 1 / 20) :
     a₂ - lusA2 Ω + 1 / 2 < 20 / 3 * Real.logb 10 2 * (a₃ - lusA3 Ω) := by
-  exact fit_direction_gen Ω hΩ₀ hΩ₁ a t₅ t₃ t₁ t₀ ⟨le_trans h₅₃ h₃₁, h₁₀⟩
-    ⟨h₅₃, le_trans h₃₁ h₁₀⟩ (le_trans h₅₃ (le_trans h₃₁ h₁₀)) hpos hdiff hH₀ hH hz₁ hz₃ hz₅
+  exact fit_direction_gen Ω hΩ₀ hΩ₁ a t₅ t₅ t₃ t₁ t₀ ⟨le_trans h₅₃ h₃₁, h₁₀⟩
+    ⟨h₅₃, le_trans h₃₁ h₁₀⟩ ⟨le_rfl, le_trans h₅₃ (le_trans h₃₁ h₁₀)⟩ hpos hdiff hH₀ hH hz₁ hz₃ hz₅
     a₂ a₃ H c hHp hp₁ hp₃ hp₅ hm₁ hm₃ hm₅
 
 end Work.Cosmography.B1Fit

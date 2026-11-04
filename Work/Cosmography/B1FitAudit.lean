@@ -82,7 +82,7 @@ theorem blind_closed (a : ℝ → ℝ) (t₀ H₀ Ω : ℝ) (hH₀ : 0 < H₀) (
   have hd2 := dist_pos Ω h0 h1 a t₂ t₀ _ ht₂.2 (fun s hs => hpos s (sub2 hs))
     (fun s hs => hdiff s (sub2 hs)) hHt0 (fun s hs => hHlaw s (sub2 hs)) hz₂ (by linarith)
   have hd3 := dist_pos Ω h0 h1 a t₃ t₀ _ ht₃ hpos hdiff hHt0 hHlaw hz₃ (by linarith)
-  refine fit_direction_gen Ω h0 h1 a t₃ t₂ t₁ t₀ ht₁ ht₂ ht₃ hpos hdiff hHt0 hHlaw hz₁' hz₂' hz₃'
+  refine fit_direction_gen Ω h0 h1 a t₃ t₃ t₂ t₁ t₀ ht₁ ht₂ ⟨le_rfl, ht₃⟩ hpos hdiff hHt0 hHlaw hz₁' hz₂' hz₃'
     a₂ a₃ H (-δ) hH ?_ ?_ ?_ ?_ ?_ ?_
   · rw [hz₁']; exact hpos₁
   · rw [hz₂']; exact hpos₂
