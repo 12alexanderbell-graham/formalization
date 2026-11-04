@@ -208,3 +208,8 @@
 - Env: add_repo not exposed; repo pre-cloned (stale local main reset); local Lean via elan ok. CI of run 1628Z promotion 41883514176 green (FR13 PROVED).
 - Part 5 (idle since 0828Z): acentric factor of the original Redlich–Kwong fluid. Froze (46d5200), proved in Work (2278758; θ-uniform generated certificates, existence by IVT), blind restatement closed in Lean (c1d077d), referee STANDS-WITH-CORRECTIONS (value 0.058 in print, 1983), promoted to Checked (`Checked/Chemistry/RK*.lean`).
 - Records: run README, STATE, LEDGER, BLUEPRINT, TARGETS part 5 status, PROMPT note.
+
+## 2026-11-04T2028Z (scheduled run)
+- Env: repo ok (pre-cloned, stale local main reset); local Lean via elan ok; CI of run 1828Z promotion 41901099462 green on every job (RK acentric factor PROVED).
+- Part 2: B1 extended to closed ΛCDM. Frozen (68ec9c1), proved in Work (3b3c3d6), audited (049f2ac): for every Ω_m ∈ [1/10, 1] and Ω_k ∈ [−1/10, 0] the pinned curved d_L ratio between 1 + z = 2√2 and 4√2 is ≥ 27/10, so the Lusso et al. 2019 central fits miss by > 1/4 and > 3/20 mag. First two-parameter certificates (42 boxes). Blind restatement closed in Lean; referee STANDS-WITH-CORRECTIONS (answer in print qualitatively: Khadka & Ratra 2020/2021, Bargiacchi et al. 2022).
+- PROMPT working note: integral-binder precedence trap, two-parameter boxes, Mathlib `Real.sin_gt_sub_cube` (x − x³/6, any x > 0).
