@@ -52,7 +52,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 - Not yet: other temperatures (a certified vdW coexistence curve), RK/PR coexistence and acentric factors, uniqueness without `hR`, `hb`, `hl` (referee item 4).
 
 ## Results (statuses, annex XXXVIII)
-- **PROVED** (B1 fit level + C27, run 2026-11-04T0228Z; promotion CI in Environment) `Checked.Cosmography.B1Fit.fit_direction`, `Checked.Cosmography.B1FitRL19.rl19_box_unmatched` (see B1 above).
+- **PROVED** (B1 fit level + C27, run 2026-11-04T0228Z; CI 41768896951, 41770389650 green) `Checked.Cosmography.B1Fit.fit_direction`, `Checked.Cosmography.B1FitRL19.rl19_box_unmatched` (see B1 above).
 - **PROVED** (chemistry, run 2026-11-04T0028Z) `Checked.Chemistry.Coexistence.vdW_coexistence_exists`, `vdW_coexistence_unique` (see Chemistry: coexistence above).
 - **PROVED** (B1, run 0828Z) `Checked.Cosmography.B1Sep.cubic_separation`, `cubic_direction` (see B1 above).
 - **PROVED** (chemistry, run 0628Z) `Checked.Chemistry.CubicEOS.isCritical_iff`, `critCubic_existsUnique`, `exists_unique_critical`, `vdW_constants`, `rk_constants`, `pr_constants` (see Chemistry above).
@@ -76,7 +76,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 
 ## Environment (this run)
 - add_repo not exposed; repo pre-cloned (shallow). No LOCK. **Local Lean available** (elan installer accepted this run; refused last run). Previous CI: 949b5e0 green (41757769996).
-- Promotion CI: see the run README and the CHANGELOG entry of run 2026-11-04T0228Z (read by run ID at the next run if not recorded there).
+- Promotion CI: d11565d (`fit_direction`) **CI 41768896951 green** (build, leanchecker, axiom audit, nanoda, trust step, prose, numbers, relock); 7e849af (`rl19_box_unmatched` + records) **CI 41770389650 green** on every job and step — both headlines PROVED. Intermediate Work pushes green (e.g. 41766562934, 41768856917). This closing commit (records only, LOCK removed): read next run.
 
 ## Daily review (53.3), 2026-11-04
 - 02:28Z run: part 2 got its fit-level certified result: over the quasar range and for every Ω_M ∈ [0, 1], every cubic that matches exact flat ΛCDM is displaced from the ΛCDM-implied point away from the RL19 contour centre, and no cubic at that centre matches any flat ΛCDM. Measure: AUDITED + PROVED headlines 129 → 131 (trust map 131/131 on pinned definitions); certified-quadrature accuracy per lemma improved ≈ 100× (second order); B1 Ω coverage [0.2, 0.4] → [0, 1].
