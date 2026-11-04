@@ -78,6 +78,8 @@ import Work.Fidelity.MaxwellMutantsReject
 import Work.Sim.Duffing
 import Work.Sim.DuffingBlind
 import Work.Fidelity.DuffingSpec
+import Work.Fidelity.MMSpec
 import Work.Sim.DuffingExists
 import Work.Sim.DuffingAudit
 import Work.Sim.MichaelisMenten
+import Work.Sim.MMBlind
