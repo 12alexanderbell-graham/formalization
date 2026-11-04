@@ -2,6 +2,7 @@ import Mathlib
 import Checked.Records.Basic
 import Checked.Chemistry.CubicEOS
 import Work.Chemistry.CoexistenceReduced
+import Work.Chemistry.CoexistenceExists
 
 /-!
 # Chemistry (THE RESULT parts 5 and 1): vapour–liquid coexistence of the van der Waals fluid,
@@ -50,7 +51,36 @@ theorem vdW_coexistence_exists (R a b : ℝ) (hR : 0 < R) (ha : 0 < a) (hb : 0 <
       IsMaxwellCoexistence (cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b)))) vl vg ps ∧
       RoundsTo (ps / (a / (27 * b ^ 2))) 0.20046 5 ∧
       RoundsTo (acentric ps (a / (27 * b ^ 2))) (-0.3020) 4 := by
-  sorry
+  -- Proof (run 2026-11-04T0028Z): `Work.Chemistry.CoexistenceReduced.reduced_exists` (equal maxima
+  -- of ψ on the liquid and gas windows by the intermediate value theorem), scaled back by
+  -- v = b x, p = P_c π; window and acentric factor from `reduced_window`, `acentric_window`.
+  open Work.Chemistry.CoexistenceReduced in
+  obtain ⟨x₁, x₂, p, h1, h12, hg1, hg2, hψ⟩ := reduced_exists
+  have hb0 : b ≠ 0 := hb.ne'
+  have hPc : 0 < a / (27 * b ^ 2) := by positivity
+  have hl : b < b * x₁ := by nlinarith
+  have hlg : b * x₁ < b * x₂ := mul_lt_mul_of_pos_left h12 hb
+  have hdiv : a / (27 * b ^ 2) * p / (a / (27 * b ^ 2)) = p := mul_div_cancel_left₀ p hPc.ne'
+  obtain ⟨lo, hi⟩ := reduced_window h1 h12 hg1 hg2 hψ
+  refine ⟨b * x₁, b * x₂, a / (27 * b ^ 2) * p, hl, ?_, ?_, ?_⟩
+  · unfold IsMaxwellCoexistence
+    refine ⟨hlg, ?_, ?_, ?_⟩
+    · rw [cubicP_eq_g R a b hR ha hb hl, mul_div_cancel_left₀ _ hb0, hg1]
+    · rw [cubicP_eq_g R a b hR ha hb (by linarith), mul_div_cancel_left₀ _ hb0, hg2]
+    · rw [integral_cubicP R a b hR ha hb hl hlg, mul_div_cancel_left₀ _ hb0,
+        mul_div_cancel_left₀ _ hb0]
+      have key : ψ 0 x₂ - ψ 0 x₁ = p * (x₂ - x₁) := by
+        unfold ψ at hψ ⊢
+        linear_combination -1 * hψ
+      rw [key]
+      ring
+  · rw [hdiv]
+    unfold RoundsTo
+    rw [abs_le]
+    constructor <;> norm_num <;> linarith
+  · unfold acentric
+    rw [hdiv]
+    exact acentric_window lo hi
 
 /-- van der Waals fluid at 0.7 of its critical temperature: every Maxwell coexistence state with
 liquid volume above the co-volume b has pressure 0.20046 P_c to five decimals (the saturation

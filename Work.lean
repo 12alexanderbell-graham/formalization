@@ -58,4 +58,5 @@ import Work.Chemistry.CubicEOSTemp
 import Work.Chemistry.CubicEOSTempBlind
 import Work.Chemistry.CubicEOSTempAudit
 import Work.Chemistry.CoexistenceReduced
+import Work.Chemistry.CoexistenceExists
 import Work.Chemistry.Coexistence
