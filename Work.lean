@@ -80,3 +80,4 @@ import Work.Sim.DuffingBlind
 import Work.Fidelity.DuffingSpec
 import Work.Sim.DuffingExists
 import Work.Sim.DuffingAudit
+import Work.Sim.MichaelisMenten
