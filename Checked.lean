@@ -45,6 +45,8 @@ import Checked.Cosmography.B1L19Certs
 import Checked.Cosmography.B1L19
 import Checked.Trust.SecondReadingB1
 import Checked.Trust.TranscriptionsB1
+import Checked.Trust.SecondReadingL19
+import Checked.Trust.TranscriptionsL19
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.CoexistenceReduced
 import Checked.Chemistry.CoexistenceExists

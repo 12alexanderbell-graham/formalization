@@ -12,7 +12,7 @@ Non-vacuity (trust track T2): 88 headlines have hypotheses; 88 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Transcriptions (trust track T3): 42 PRINTED definitions; 39 carry a machine-checked
+Transcriptions (trust track T3): 42 PRINTED definitions; 40 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
 
 ## Unpinned physics definitions, by number of headlines resting on them
@@ -147,10 +147,10 @@ agreement with an independent blind second reading (`Checked/Trust/Transcription
 | `B1Sep.cubic_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_direction` |
 | `B1Fit.fit_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `fit_direction` |
 | `B1FitRL19.rl19_box_unmatched` | lumDistFlat, hubble, redshift | — | logPolyDL3² | `rl19_box_unmatched` |
-| `B1L19.l19_sq_central` | lumDistFlat, hubble, redshift | — | logPolyDL4 | `l19_sq_central` |
-| `B1L19.l19_sqg_central` | lumDistFlat, hubble, redshift | — | logPolyDL4 | `l19_sqg_central` |
-| `B1L19.l19_sq_box` | lumDistFlat, hubble, redshift | — | logPolyDL4 | `l19_sq_box` |
-| `B1L19.l19_sqg_box` | lumDistFlat, hubble, redshift | — | logPolyDL4 | `l19_sqg_box` |
+| `B1L19.l19_sq_central` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sq_central` |
+| `B1L19.l19_sqg_central` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sqg_central` |
+| `B1L19.l19_sq_box` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sq_box` |
+| `B1L19.l19_sqg_box` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sqg_box` |
 | `Chemistry.CubicEOS.isCritical_iff` | IsCriticalIsotherm | — | — | `isCritical_iff` |
 | `Chemistry.CubicEOS.critCubic_existsUnique` | — | — | — | `critCubic_existsUnique` |
 | `Chemistry.CubicEOS.exists_unique_critical` | IsCriticalIsotherm | — | — | `exists_unique_critical` |

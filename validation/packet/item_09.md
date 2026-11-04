@@ -41,7 +41,7 @@ See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmog
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL4.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL4².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `l19_sqg_box`.
 - Source file: `Checked/Cosmography/B1L19.lean` (do not open it before submitting your answers).
 

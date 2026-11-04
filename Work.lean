@@ -63,6 +63,7 @@ import Work.Cosmography.B1L19Blind
 import Work.Cosmography.B1L19Audit
 import Work.Cosmography.B1SepWitness
 import Work.Trust.SecondReadingB1
+import Work.Trust.SecondReadingL19
 import Work.Chemistry.CubicEOS
 import Work.Chemistry.CubicEOSBlind
 import Work.Fidelity.CriticalSpec

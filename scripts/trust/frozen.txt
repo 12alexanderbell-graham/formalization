@@ -912,6 +912,7 @@ doc:Checked.Trust.SecondReading.DA3z -doc14056653763036551726
 doc:Checked.Trust.SecondReading.DL1z -doc16062645959537903126
 doc:Checked.Trust.SecondReading.DL2z -doc17516369755745289123
 doc:Checked.Trust.SecondReading.DL3z -doc5810720153660222500
+doc:Checked.Trust.SecondReading.L19.logPolyDL4 -doc14850247677582912258
 doc:Checked.Trust.SecondReading.P0 -doc10674264861367618580
 doc:Checked.Trust.SecondReading.P2 -doc13125935872684508753
 doc:Checked.Trust.SecondReading.P3 -doc18343230628886033611
@@ -958,6 +959,7 @@ doc:Checked.Trust.Transcriptions.agree_demDA4 -doc10247706876781554482
 doc:Checked.Trust.Transcriptions.agree_demDL4 -doc1902269468623693850
 doc:Checked.Trust.Transcriptions.agree_lL -doc4236028846802442350
 doc:Checked.Trust.Transcriptions.agree_logPolyDL3 -doc16324546098055250025
+doc:Checked.Trust.Transcriptions.agree_logPolyDL4 -doc685311371306720119
 doc:Checked.Trust.Transcriptions.agree_lusA2 -doc5282010724716862586
 doc:Checked.Trust.Transcriptions.agree_lusA3 -doc5673657323548927892
 doc:Checked.Trust.Transcriptions.agree_printed20 -doc7487919175454237598
@@ -1044,8 +1046,10 @@ moduledoc:Checked.Sim.Validated -mdoc12116895907345664841
 moduledoc:Checked.Trust.NonVacuity -mdoc9807403233452831406
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
 moduledoc:Checked.Trust.SecondReadingFR -mdoc1417811703977418368
+moduledoc:Checked.Trust.SecondReadingL19 -mdoc4633571653638402440
 moduledoc:Checked.Trust.SecondReading -mdoc9991141689122378563
 moduledoc:Checked.Trust.TranscriptionsB1 -mdoc572391514531888890
 moduledoc:Checked.Trust.TranscriptionsFR -mdoc11191104128708509847
+moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
 moduledoc:Checked.Trust.Witnesses -mdoc10237056581756393531
