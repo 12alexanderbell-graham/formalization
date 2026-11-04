@@ -48,6 +48,8 @@ import Work.Cosmography.B1Separation
 import Work.Cosmography.B1SepBlind
 import Work.Cosmography.B1DirBlind
 import Work.Cosmography.B1SepAudit
+import Work.Cosmography.B1FitTools
+import Work.Cosmography.B1FitCerts
 import Work.Cosmography.B1Fit
 import Work.Cosmography.B1FitBlind
 import Work.Cosmography.B1SepWitness
