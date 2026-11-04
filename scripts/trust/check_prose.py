@@ -20,8 +20,8 @@ what the prose may say against what the Lean statement actually contains, using 
 3. Shape: a headline whose conclusion is an existence statement says so in words; one that asserts
    only negations (refutations) says so; one with no universally bound data does not say "every",
    "any", "all", "general".
-5. Numbers (run 2026-11-04T0828Z, REPORT ONLY until a baseline is written from the first CI
-   report): every decimal (`2.5665`) or fraction (`13/5`) in a headline docstring is a numeric
+5. Numbers (run 2026-11-04T0828Z; blocking since run 2026-11-04T1028Z, old gaps baselined per number,
+   so a changed number fires again): every decimal (`2.5665`) or fraction (`13/5`) in a headline docstring is a numeric
    literal of the statement (numeral, decimal, or quotient of two), as `nums` in meaning.jsonl.
    A simulation or computation whose docstring names a time, bound or value the statement does
    not contain is a wrong claim no other check reads (part 3, "wrong simulation" class).
@@ -40,6 +40,16 @@ EXIST = re.compile(r"(?i)\b(exist\w*|there (is|are)|some|admits?|witness\w*|inst
 NEG = re.compile(r"(?i)\b(not|no|false|fails?|failure|wrong|refut\w*|misprint\w*|differs?|incorrect|never|miss(es)?|nonzero|non-zero|cannot|impossible|inconsistent)\b|≠|¬")
 NUM = re.compile(r"(?<![\w.^⁻/])((?:(?<![\d)])[-−])?)(\d+(?:\.\d+)?\s*[×x]\s*10[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+|\d+\.\d+|\d+/\d+)(?![\w/]|\.\d)")
 SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺", "0123456789-+")
+# citations are not values (run 2026-11-04T1028Z: 54 of the 81 first-report items were equation
+# numbers): `(10.54)`, `(10.56)–(10.57)`, `Eq. 10.54`, `Eqs. (11.42)–(11.43)`, `annex 40.1`, `Sec. 2.3`.
+# A parenthesised number counts as a citation only in equation-number shape (integer part 1–99, one or
+# two decimals) and only when no comparison or assignment sign precedes the parenthesis (`t ≈ (2.57)` is
+# a value). Residual hole, recorded in LEDGER: a two-decimal value written alone in parentheses.
+CITE = re.compile(r"(?:(?<![=≈<>≤≥±~∈]\s)(?<![=≈<>≤≥±~∈])\((?:[1-9]\d?\.\d{1,2})\)(?:\s*[–-]\s*\((?:[1-9]\d?\.\d{1,2})\))?)"
+                  r"|(?:\b(?:Eqs?\.|Equations?|annex|Annex|Sec\.|Section|Table|Fig\.)\s*\(?[1-9]\d?\.\d{1,2}\)?(?:\s*[–-]\s*\(?[1-9]\d?\.\d{1,2}\)?)?)")
+
+def strip_citations(doc):
+    return CITE.sub(lambda m: " " * len(m.group(0)), doc)
 
 def num_value(tok):
     """value of a docstring number token: decimal, fraction, or m×10ⁿ (adversary, run 0828Z)"""
@@ -89,7 +99,6 @@ def main():
     KNOWN.update(short(r["name"]) for r in rows)
     KNOWN.update(r["name"] for r in rows)
     errs = []
-    numgaps = []
 
     def vocab(owner, doc, reached):
         text = strip_code_names(doc)
@@ -118,15 +127,16 @@ def main():
         if "nums" in h:
             signed = {Fraction(x) for x in h["nums"]}
             have = {abs(v) for v in signed}
-            for m in NUM.finditer(strip_code_names(doc)):
+            for m in NUM.finditer(strip_citations(strip_code_names(doc))):
                 v = num_value(m.group(2))
                 # an explicit sign in the prose is compared signed (adversary: |·| hid sign errors);
                 # an unsigned number may match a literal of either sign (the statement may write -x)
                 ok = (-v in signed) if m.group(1) else (v in have)
                 if not ok:
                     tok = m.group(1) + m.group(2)
-                    numgaps.append((f"{h['name']}|number|{tok}", f"{h['name']}: its docstring names the number "
-                                    f"{tok}, which is not a numeric literal of its statement"))
+                    errs.append((f"{h['name']}|number|{tok}", f"{h['name']}: its docstring names the number "
+                                 f"{tok}, which is not a numeric literal of its statement (a derived number belongs in a "
+                                 f"registered record that certifies it; a citation is written `(N.M)` or `Eq. N.M`)"))
         if h["record"]:
             kinds = set(h["defs"].values())
             if (not h["pinned"] and not (kinds & {"PRINTED", "CLAIM"})) or h.get("free_conjuncts", 0) > 0:
@@ -166,10 +176,6 @@ def main():
         print(f"  baseline entries now fixed (remove them from prose_baseline.txt): {len(stale)}")
         for k in stale:
             print("    " + k)
-    if numgaps:
-        print(f"  number rule (report only, run 2026-11-04T0828Z; blocking once baselined): {len(numgaps)} docstring numbers not in their statements")
-        for _, m in numgaps:
-            print("    " + m)
     fail = bool(new) or bool(stale)
     if "--base" in sys.argv:
         import subprocess

@@ -230,7 +230,10 @@ partial def statementNums (e : Expr) (acc : Array String := #[]) : Array String 
           if m₂ == 0 then acc else acc.push s!"{sgn (n₁ != n₂)}{m₁ * 10 ^ d₂}/{m₂ * 10 ^ d₁}"
         | _, _ => acc
       else acc
-    if e.isAppOfArity ``OfNat.ofNat 3 || e.isAppOfArity ``OfScientific.ofScientific 5 then
+    -- a negated literal `-0.906` is recorded with its sign (run 2026-11-04T1028Z: without this case
+    -- the traversal reached only the inner `0.906`, so an honest signed docstring number was flagged)
+    let negLit := e.isAppOfArity ``Neg.neg 3 && (decLit? e).isSome
+    if negLit || e.isAppOfArity ``OfNat.ofNat 3 || e.isAppOfArity ``OfScientific.ofScientific 5 then
       -- a literal: record it; its instance arguments carry no further literals of the statement
       match decLit? e with
       | some (n, m, d) => acc.push s!"{sgn n}{m}/{10 ^ d}"
