@@ -6,15 +6,18 @@
 
 ## Claim in plain words (the system's own text)
 
-Milne (`a = t`, `K = −1`, `t₀ = 1`): the printed `D⁴_{A,y}` fails (standalone instance;
-the `D³_{A,y}` difference vanishes there since `q₀ = 0`).
+The printed `D⁴_{A,y}` (with corrected `D³_{A,y}`) fails, from the past, whenever
+`(Ω₀ − 1)[(Ω₀ − 1) + 10j₀ − 45q₀² + 20q₀] ≠ 0`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem milne_printedDA4_fails_past :
-    ¬ (fun t => remA correctDA3 printedDA4 (-1) (fun t => t) 1 t)
-      =o[𝓝[<] 1] (fun t => yred (fun t => t) 1 t ^ 5) := …
+theorem printedDA4_fails_past (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
+    (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0)
+    (hD : (omega0 K a t₀ - 1) * ((omega0 K a t₀ - 1) + 10 * cosmoCoeff 3 a t₀
+      - 45 * decel a t₀ ^ 2 + 20 * decel a t₀) ≠ 0) :
+    ¬ (fun t => remA correctDA3 printedDA4 K a t₀ t)
+      =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 5) := …
 ```
 
 ## Definitions it uses
@@ -26,7 +29,7 @@ See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaA.angDist`, 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: cosmoCoeff, angDist, omega0, yred, decel, hubble.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): DA1², DA2², printedDA3², printedDA4².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedDA4_fails_past`.
 - Source file: `Checked/Cosmography/BambaAngular.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 15

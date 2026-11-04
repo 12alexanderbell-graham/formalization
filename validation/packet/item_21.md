@@ -6,27 +6,25 @@
 
 ## Claim in plain words (the system's own text)
 
-No gap in `DecelSpec`: on every positive scale factor, twice differentiable at `t` with
-`ȧ(t) ≠ 0`, any `Q` meeting the spec equals `decel`.
+The program's master equation is the blind `Ḣ` equation with `R = curv a`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem decelSpec_pins (Q : (ℝ → ℝ) → ℝ → ℝ) (h : DecelSpec Q) (a a' : ℝ → ℝ) (a'' t : ℝ)
-    (h1 : ∀ᶠ s in 𝓝 t, HasDerivAt a (a' s) s) (h2 : HasDerivAt a' a'' t) (ha : 0 < a t)
-    (hd : a' t ≠ 0) : Q a t = decel a t := …
+theorem masterEq_iff_blind (Ω : ℝ) (a F : ℝ → ℝ) (t₀ t : ℝ) :
+    MasterEq Ω a F t₀ t ↔ FRSecondEq Ω a F t₀ t (curv a) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.decel`, `Cosmography.Aviles.eds`, `Fidelity.DecelSpec`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.FRCosmo.MasterEq`, `Cosmography.FRCosmo.curv`, `Cosmography.FRCosmo.rhoM`, `Cosmography.hubble`, `Fidelity.DustDensity`, `Fidelity.FRSecondEq`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: decel.
+- Definitions pinned by a machine-checked specification: MasterEq, curv.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `decelSpec_pins`.
-- Source file: `Checked/Fidelity/Pins.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `masterEq_iff_blind`.
+- Source file: `Checked/Fidelity/FRSpecs.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 21

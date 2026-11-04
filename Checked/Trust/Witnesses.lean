@@ -30,6 +30,7 @@ import Checked.Cosmography.B1Truncation
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
 import Checked.Cosmography.B1SepWitness
+import Checked.Cosmography.B1FitWitness
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -412,5 +413,14 @@ theorem cubic_direction : nonvacuity% Checked.Cosmography.B1Sep.cubic_direction 
     hp3, hp7, hm3, hm7⟩ := Checked.Cosmography.B1SepWitness.hyps_satisfiable
   exact ⟨Ω, h1, h2, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH0, hH, hz3, hz7, a₂, a₃, H, c, hHp,
     hp3, hp7, hm3, hm7, trivial⟩
+
+/-! ### B1 fit level (run 2026-11-04T0228Z): exact ΛCDM at `Ω = 1/5` reaching `1 + z = √2, 2√2, 4√2`
+and the cubic `a₂ = 7/4, a₃ = 25/4, H = 1` (`Checked.Cosmography.B1FitWitness.hyps_satisfiable`). -/
+
+theorem fit_direction : nonvacuity% Checked.Cosmography.B1Fit.fit_direction := by
+  obtain ⟨Ω, a, t₅, t₃, t₁, t₀, a₂, a₃, H, c, h0, h1, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3,
+    hz5, hHp, hp1, hp3, hp5, hm1, hm3, hm5⟩ := Checked.Cosmography.B1FitWitness.hyps_satisfiable
+  exact ⟨Ω, h0, h1, a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3, hz5, a₂, a₃,
+    H, c, hHp, hp1, hp3, hp5, hm1, hm3, hm5, trivial⟩
 
 end Checked.Trust.NV

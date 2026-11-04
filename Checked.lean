@@ -36,6 +36,10 @@ import Checked.Trust.TranscriptionsFR
 import Checked.Cosmography.B1Truncation
 import Checked.Cosmography.B1Separation
 import Checked.Cosmography.B1SepWitness
+import Checked.Cosmography.B1FitTools
+import Checked.Cosmography.B1FitCerts
+import Checked.Cosmography.B1Fit
+import Checked.Cosmography.B1FitWitness
 import Checked.Trust.SecondReadingB1
 import Checked.Trust.TranscriptionsB1
 import Checked.Chemistry.CubicEOS
