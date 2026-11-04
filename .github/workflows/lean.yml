@@ -82,3 +82,25 @@ jobs:
           python3 scripts/trust/check_numbers.py --base "$BASE"
           # the prose baseline may only shrink and the glossary only grow (run 2026-10-31T1028Z)
           python3 scripts/trust/check_prose.py --base "$BASE"
+      - name: Author files for runs without local Lean (generated output, not a check; run 2026-11-04T0028Z, see LEDGER)
+        # When the run environment refuses a local Lean install (run 2026-11-04T0028Z), the files a
+        # promotion must commit (TRUST_MAP.md, relocked frozen.txt, validation packet) can only be
+        # generated here. They are printed (base64 tarball between markers) and uploaded; the run
+        # still commits them itself, with the LEDGER line that check_relock.py requires.
+        if: always()
+        run: |
+          set +e
+          TRUST_RELOCK=1 lake env lean scripts/trust/StatementDeps.lean > /tmp/author-relock.log 2>&1
+          tail -n 20 /tmp/author-relock.log
+          python3 validation/make_packet.py > /dev/null 2>&1
+          tar czf /tmp/author-files.tgz TRUST_MAP.md scripts/trust/frozen.txt validation .lake/records_numbers.tsv .lake/records_params.tsv .lake/meaning.jsonl /tmp/author-relock.log 2>/dev/null
+          echo "AUTHOR-FILES-BEGIN"
+          base64 /tmp/author-files.tgz
+          echo "AUTHOR-FILES-END"
+          exit 0
+      - name: Upload author files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: author-files
+          path: /tmp/author-files.tgz

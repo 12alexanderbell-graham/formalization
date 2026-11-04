@@ -60,3 +60,7 @@ import Work.Chemistry.CubicEOSTempAudit
 import Work.Chemistry.CoexistenceReduced
 import Work.Chemistry.CoexistenceExists
 import Work.Chemistry.Coexistence
+import Work.Fidelity.MaxwellSpec
+import Work.Fidelity.MaxwellMutants
+import Work.Fidelity.MaxwellPin
+import Work.Fidelity.MaxwellMutantsReject
