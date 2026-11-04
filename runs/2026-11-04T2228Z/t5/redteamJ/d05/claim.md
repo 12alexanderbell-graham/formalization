@@ -1,0 +1,4 @@
+Category: wrong-statement
+Reader would wrongly believe: that for flat LCDM with dark-energy fraction ΩΛ the deceleration parameter is q0 = (3/2)ΩΛ − 1 (a wrong textbook formula; correct is q0 = 1/2 − (3/2)ΩΛ = (3/2)Ωm − 1).
+Why it is false: the binder is named ΩΛ but is passed in the matter slot of the pinned IsFlatLCDM predicate (H = H0 sqrt(Ω(1+z)^3 + 1 − Ω)); the theorem is flatLCDM_coeffs with a renamed variable. The pinned phrase is rendered correctly with `ΩΛ` substituted into the matter slot, but the name makes the conclusion read like a dark-energy formula.
+Expected: ACCEPTED. Sentence misread: conclusion "`decel a t₀ = 3 / 2 * ΩΛ - 1`" with assumption 1 "... H = H₀·√(`ΩΛ`·(1 + z)³ + 1 − `ΩΛ`)". Names are printed verbatim; no glossary term in name/docstring beyond deceleration parameter (decel is reached). Witness copied from flatLCDM_coeffs.

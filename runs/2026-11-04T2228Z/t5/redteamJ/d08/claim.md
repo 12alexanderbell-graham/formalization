@@ -1,0 +1,4 @@
+Category: wrong-statement
+Reader would wrongly believe: that the jerk of a flat w0-wa dark-energy model is j0 = 1 + (3/2)(1 − Ω)(3 wa (1 + wa) + w0), i.e. depends quadratically on the slope wa and linearly on w0 (roles of the CPL parameters swapped; correct: 1 + (3/2)(1−Ω)(3 w0 (1+w0) + wa)).
+Why it is false: the binders are named (Ω, wa, w0) but passed positionally to IsFlatCPL Ω w₀ wₐ, so `wa` is the true w₀ and `w0` the true wₐ. The generated phrase does substitute them correctly ("w₀ = `wa`, wₐ = `w0`") but the conclusion, which is flatCPL_coeffs renamed, then reads as a physically wrong formula.
+Expected: ACCEPTED. Sentence misread: conclusion "`cosmoCoeff 3 a t₀ = 1 + 3 / 2 * (1 - Ω) * (3 * wa * (1 + wa) + w0)`" vs assumption 1 listing "w₀ = `wa`, wₐ = `w0`". Witness copied from flatCPL_coeffs (exists_flatCPL (1/2) (-1) 1).

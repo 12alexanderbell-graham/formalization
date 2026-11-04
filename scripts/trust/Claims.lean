@@ -26,6 +26,14 @@ Rendering (deterministic, no model involved):
   theorem, all others with their kind and their full body (Prop-valued bodies rendered in words).
 The author's docstring is shown last, labelled as an unchecked paraphrase.
 
+After blind red team J (run 2026-11-04T2228Z, `runs/2026-11-04T2228Z/t5/RESULTS.md`; designed after
+reading it): leading data binders that fill slots of pinned definitions are renamed to the slot
+name (author's name shown) unless they are a decorated form of it (`t₀`, `vc`); omitted proofs are
+printed with their statement; objects defined by `Classical.choose` are explained by the property
+they are chosen to satisfy; terms with truncating ℕ/ℤ arithmetic are printed with numeral types and
+flagged; formula bodies with decimal constants are flagged; two reached definitions whose names are
+equal up to primes are a blocking error.
+
 Blocking errors: a headline that does not resolve; a pinned definition reached by a headline with
 no phrase; a phrase whose placeholder is not a binder name of its definition.
 
@@ -93,9 +101,25 @@ def oneLine (s : String) : String :=
 def tidy (ctx : Ctx) (s : String) : String :=
   ctx.short.foldl (fun s (f, sh) => s.replace f sh) s
 
+/-- Natural-number subtraction/division/modulo or integer division inside `e`: these truncate, and
+Lean prints them like real arithmetic (red team J, d01: `x ^ (1 / 2)` with a natural-number exponent
+`1 / 2 = 0` printed like a square root; d07: `10 ^ (k - 1)`). -/
+def truncates (e : Expr) : Bool :=
+  (e.find? fun s =>
+    ((s.isAppOfArity ``HDiv.hDiv 6 || s.isAppOfArity ``HSub.hSub 6 || s.isAppOfArity ``HMod.hMod 6) &&
+      s.getArg! 0 == mkConst ``Nat) ||
+    ((s.isAppOfArity ``HDiv.hDiv 6 || s.isAppOfArity ``HMod.hMod 6) && s.getArg! 0 == mkConst ``Int) ||
+    s.isConstOf ``Nat.sub || s.isConstOf ``Nat.div || s.isConstOf ``Int.ediv).isSome
+
+/-- Lean notation. Omitted proofs are shown with their statement (red team J, d02 hid the property
+of a `Classical.choose` behind `⋯`); terms with truncating arithmetic are printed with numeral types
+and flagged. -/
 def ppE (ctx : Ctx) (e : Expr) : MetaM String := do
-  let f ← withOptions (fun o => (o.setBool `pp.proofs false).set `format.width (100000 : Nat)) <| ppExpr e
-  return tidy ctx (oneLine (toString f))
+  let tr := truncates e
+  let f ← withOptions (fun o => ((((o.setBool `pp.proofs false).setBool `pp.proofs.withType true).setBool
+      `pp.numericTypes tr).set `format.width (100000 : Nat))) <| ppExpr e
+  let s := tidy ctx (oneLine (toString f))
+  return if tr then s ++ " ⚠ TRUNCATING ℕ/ℤ ARITHMETIC" else s
 
 def code (s : String) : String :=
   if s.contains '`' then "``" ++ s ++ "``" else "`" ++ s ++ "`"
@@ -157,20 +181,72 @@ partial def renderProp (ctx : Ctx) (e : Expr) : MetaM String := do
             return s!"{word} {code s!"x : {← ppE ctx ty}"} such that {← renderProp ctx (mkApp p x)}"
     atom ctx e
 
+/-- Slot names: for each free variable passed directly as an argument of a pinned definition with a
+phrase, the binder names of the slots it fills. -/
+partial def slots (ctx : Ctx) (e : Expr) (acc : Std.HashMap FVarId (Array String)) :
+    MetaM (Std.HashMap FVarId (Array String)) := do
+  let mut acc := acc
+  if e.isApp then
+    if let some c := e.getAppFn.constName? then
+      if ctx.pinned.contains c && ctx.phrases.contains c then
+        let names ← binderNames c
+        let args := e.getAppArgs
+        if args.size == names.size then
+          for (a, i) in args.zipIdx do
+            if a.isFVar then acc := acc.insert a.fvarId! (((acc.get? a.fvarId!).getD #[]).push names[i]!)
+  match e with
+  | .app f a => do let r ← slots ctx f acc; slots ctx a r
+  | .lam _ d b _ | .forallE _ d b _ => do let r ← slots ctx d acc; slots ctx b r
+  | .letE _ t v b _ => do let r ← slots ctx t acc; let r ← slots ctx v r; slots ctx b r
+  | .mdata _ b => slots ctx b acc
+  | _ => return acc
+
+/-- Names the generator chooses for the leading binders (red team J, d04/d05/d08: binder names are
+the author's, and `S E P C` or `ΩΛ` fed into pinned slots made a correct claim read wrongly). A data
+binder that fills slots of pinned definitions, all with the same slot name, is renamed to it unless
+another binder has or wants that name. Returns (index, new name, author's name). -/
+def chooseNames (ctx : Ctx) (ty : Expr) : MetaM (Array (Option Name)) :=
+  forallTelescope ty fun xs body => do
+    let mut acc : Std.HashMap FVarId (Array String) := {}
+    for x in xs do acc ← slots ctx (← inferType x) acc
+    acc ← slots ctx body acc
+    let orig ← xs.mapM fun x => return (← x.fvarId!.getUserName).eraseMacroScopes
+    let want : Array (Option Name) ← xs.mapM fun x => do
+      if ← isProp (← inferType x) then return none
+      match acc.get? x.fvarId! with
+      | some ns => if ns.all (· == ns[0]!) then return some (Name.mkSimple ns[0]!) else return none
+      | none => return none
+    let mut out : Array (Option Name) := #[]
+    for (w, i) in want.zipIdx do
+      match w with
+      | some n =>
+        let clash := (want.zipIdx.any fun (w', j) => j != i && w' == some n) ||
+          (orig.zipIdx.any fun (o, j) => j != i && o == n && want[j]!.isNone)
+        -- keep a decorated form of the slot name (`t₀` for slot `t`, `vc` for `v`): suffixes of
+        -- subscripts, digits or lowercase ASCII letters only (`ΩΛ` for slot `Ω` is renamed)
+        let o := orig[i]!.toString
+        let decorated := o.startsWith n.toString && ((o.drop n.toString.length).all fun c =>
+          c.isDigit || (c.isLower && c.toNat < 128) || ('₀' ≤ c && c ≤ '₉'))
+        out := out.push (if clash || decorated then none else some n)
+      | none => out := out.push none
+    return out
+
 /-- Leading binders: data binders, rendered assumptions, then the conclusion. -/
-partial def peel (ctx : Ctx) (ty : Expr) (data hyps : Array String) :
-    MetaM (Array String × Array String × Array String) := do
+partial def peel (ctx : Ctx) (ty : Expr) (data hyps : Array String) (names : Array (Option Name) := #[])
+    (i : Nat := 0) : MetaM (Array String × Array String × Array String) := do
   match (← instantiateMVars ty).consumeMData with
   | .forallE n d b bi =>
-    withLocalDecl n bi d fun x => do
+    let new := (names[i]?).getD none
+    withLocalDecl (new.getD n) bi d fun x => do
       let nm := (← x.fvarId!.getUserName).eraseMacroScopes
       let b' := b.instantiate1 x
       if bi.isInstImplicit then
-        peel ctx b' data (hyps.push s!"(instance) {code (← ppE ctx d)}")
+        peel ctx b' data (hyps.push s!"(instance) {code (← ppE ctx d)}") names (i + 1)
       else if (← isProp d) then
-        peel ctx b' data (hyps.push (← renderProp ctx d))
+        peel ctx b' data (hyps.push (← renderProp ctx d)) names (i + 1)
       else
-        peel ctx b' (data.push (code s!"{nm} : {← ppE ctx d}")) hyps
+        let note := if new.isSome then s!" (renamed by the generator after the pinned slot it fills; the statement calls it {code n.eraseMacroScopes.toString})" else ""
+        peel ctx b' (data.push (code s!"{nm} : {← ppE ctx d}" ++ note)) hyps names (i + 1)
   | c =>
     let cs ← (conjuncts c).mapM (renderProp ctx)
     return (data, hyps, cs)
@@ -195,10 +271,33 @@ def explain (ctx : Ctx) (d : Name) : MetaM String := do
         let head ← ppE ctx (mkAppN (.const d (ci.levelParams.map Level.param)) xs)
         let sig ← xs.mapM fun x => do return code s!"{(← x.fvarId!.getUserName).eraseMacroScopes} : {← ppE ctx (← inferType x)}"
         let sigTxt := if sig.isEmpty then "" else s!" (for {", ".intercalate sig.toList})"
+        -- objects picked by choice: say what they are known to satisfy (red team J, d02: a
+        -- `Classical.choose` of an auxiliary theorem showed only `Classical.choose name`)
+        let mut extra := ""
+        let mut seen : Array Expr := #[]
+        let mut todo : Array Expr := #[body]
+        while !todo.isEmpty do
+          let t := todo.back!
+          todo := todo.pop
+          if t.isAppOfArity ``Classical.choose 3 && !seen.contains t then
+            seen := seen.push t
+            let pf := t.getArg! 2
+            extra := extra ++ s!"; {code (← ppE ctx t)} is an object chosen without construction, known only to satisfy: {← renderProp ctx (← inferType pf)}"
+          match t with
+          | .app f a => todo := todo.push f |>.push a
+          | .lam _ d b _ | .forallE _ d b _ => todo := todo.push d |>.push b
+          | .mdata _ b => todo := todo.push b
+          | .letE _ ty v b _ => todo := todo.push ty |>.push v |>.push b
+          | .proj _ _ b => todo := todo.push b
+          | _ => pure ()
+        -- numeric constants in a formula are data nobody compared with a source (red team J, d03:
+        -- the gas constant with transposed digits inside a FORMULA)
+        if kind != "PRINTED" && (body.find? fun s => s.isAppOfArity ``OfScientific.ofScientific 5).isSome then
+          extra := extra ++ " ⚠ contains decimal constants that no check compares with a source"
         if ← isProp body then
-          return s!"- {code head} — {kind}, not pinned{sigTxt}: means {← renderProp ctx body}"
+          return s!"- {code head} — {kind}, not pinned, so only the formula shown is checked, not its name{sigTxt}: means {← renderProp ctx body}{extra}"
         else
-          return s!"- {code head} — {kind}, not pinned{sigTxt}: is defined as {code (← ppE ctx body)}"
+          return s!"- {code head} — {kind}, not pinned, so only the formula shown is checked, not its name{sigTxt}: is defined as {code (← ppE ctx body)}{extra}"
     | .inductInfo iv =>
       let cs ← iv.ctors.mapM fun k => do return code s!"{tidy ctx k.toString} : {← ppE ctx (← getConstInfo k).type}"
       return s!"- {code shortD} — {kind}, not pinned: inductive type with constructors {", ".intercalate cs}"
@@ -254,6 +353,13 @@ run_cmd do
   for hn in hs do
     for d in (deps env stop (env.find? hn).get!.type {}).toList do
       if reportable env d then reachedAll := reachedAll.insert d
+  -- lookalike names (red team J, d07: `RoundsTo'` with a looser tolerance read as `RoundsTo`): two
+  -- reached definitions whose last names agree after removing primes are an error
+  let strip := fun (n : Name) => n.componentsRev.head!.toString.replace "'" ""
+  for d in reachedAll.toList do
+    for e in reachedAll.toList do
+      if d.toString < e.toString && strip d == strip e && d.componentsRev.head! != e.componentsRev.head! then
+        errors := errors.push s!"lookalike definitions {d} and {e} (names equal up to primes): rename one"
   let shown := reachedAll.toList ++ hs.toList ++ pinned.toList.map (·.2)
   -- display name: the shortest dotted suffix that no other shown constant shares
   let suffix := fun (n : Name) (k : Nat) => ".".intercalate ((n.components.map toString).drop (n.components.length - k))
@@ -289,7 +395,9 @@ run_cmd do
     for d in reached do
       if pinned.contains d && !phrases.contains d then
         errors := errors.push s!"{hn} reaches the pinned {d}, which has no phrase in scripts/trust/phrases.txt"
-    let (data, hyps, concl) ← liftTermElabM <| peel ctx ci.type #[] #[]
+    let (data, hyps, concl) ← liftTermElabM do
+      let nms ← chooseNames ctx ci.type
+      peel ctx ci.type #[] #[] nms
     let defs ← liftTermElabM <| reached.mapM fun d => (explain ctx d : MetaM String)
     out := out.push s!"## {code (tidy ctx hn.toString)}"
     out := out.push ""
