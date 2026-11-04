@@ -196,5 +196,5 @@
 
 ## 2026-11-04T1428Z (scheduled run)
 - Env: add_repo not exposed; repo pre-cloned (stale local main reset); local Lean via elan ok. CI 41839154897, 41846160247 green.
-- Part 3: blind red team H (Sonnet, 8 defects vs d714f04): 8/8 accepted on main. New check_prose rule 6 (parameters; blind to H): 3 of 4 generality defects rejected. After reading H: equation-fixed parameters, sign rule, per-headline citations, module-doc numbers (rule 7), guarded unchecked-prose banner in README/STATE; 1/8 accepted. TRUST_MAP.md and the packet show the parameters each statement fixes (generated). `runs/2026-11-04T1428Z/t5/RESULTS.md`.
+- Part 3: blind red team H (Sonnet, 8 defects vs d714f04): 8/8 accepted on main; blind red team I against all the new checks (f73ba92): 8/8 accepted. New check_prose rule 6 (parameters; blind to H): 3 of 4 generality defects rejected. After reading H: equation-fixed parameters, sign rule, per-headline citations, module-doc numbers (rule 7), guarded unchecked-prose banner in README/STATE; 1/8 accepted. TRUST_MAP.md and the packet show the parameters each statement fixes (generated). `runs/2026-11-04T1428Z/t5/RESULTS.md`.
 - Records: run README, STATE, LEDGER (integrity event), BLUEPRINT, TARGETS T5 line, PROMPT note.

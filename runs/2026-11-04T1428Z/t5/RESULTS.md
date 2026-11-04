@@ -25,3 +25,22 @@ Final checks: commits fb333f0 (rules 5–6) and the module-doc rule (rule 7) aft
 - Again no defect touched a statement or a proof; seven of eight were correct one-line wrapper headlines whose only content was new prose (as G01, G02, G08). The checks on main read such prose for vocabulary, shape and numbers but not for what it generalises over.
 - Rule 6 is the first check in the T5 series that was measured blind on its own target class and caught most of it. It is a grammar of the prose, not semantics: generality written without a generalising word ("amplitude-independent", "isochronous") and unregistered synonyms after "and"/"or" still pass (rule 6 docstring, "Known limits").
 - H06 and H07 are the same old class (reader-facing prose that no script reads: module docs, README, STATE). A structural answer is needed there, not another pattern: for example generating the reader-facing summary of each module from its registered headlines, or marking hand-written prose as unchecked in the packet.
+
+# T5 red team I (blind, same run), against f73ba92 (all of this run's checks)
+
+Red team I: Sonnet, brief `briefI.md` (= briefH plus RESULTS.md of H to read; README/STATE prose excluded as known), snapshot of f73ba92, told to find wordings and constructions rule 6 does not catch. Judge `judge_v10_I.sh` (= v10 with base f73ba92), all 8 combined (`results/judge_I.txt`): `lake build Checked` green (every defect compiles, witnesses included), trust step, numbers, prose, trusted defs, packet, base diffs: **every check passed. Blind false acceptance at f73ba92: 8/8.**
+
+| Defect | Target | What it makes a reader believe (false) | Result | Why no check fired |
+|---|---|---|---|---|
+| I01 | Duffing wrapper | bracket holds for "the whole family of Duffing oscillators, hardening and softening alike" (k = β = 1) | ACCEPTED | no generalising word of rule 6 ("family", "alike") |
+| I02 | MM wrapper | bracket holds "whether the enzyme is scarce or abundant" (e₀ = s₀ = 1) | ACCEPTED | "whether … or" not read |
+| I03 | Duffing existence wrapper | "arbitrarily long times and arbitrarily large amplitudes" (T = 6/5, x₀ = 1) | ACCEPTED | `arbitrary\b` does not match "arbitrarily" |
+| I04 | vdW wrapper | the same reduced saturation pressure for RK, Soave and PR "alike" (vdW only) | ACCEPTED | model names not in the glossary; no generalising word |
+| I05 | B1L19 wrapper | 7/20 mag "throughout the quasar redshift range, wherever the two sources sit" | ACCEPTED | "throughout", "wherever" not read |
+| I06 | Duffing wrapper | period "shorter than 4¾" (4 × 1.192005 > 4.75) | ACCEPTED | the number rule does not read vulgar fractions (¾) |
+| I07 | CHANGELOG.md | F3 refutation "in every model, including q₀ = 0" | ACCEPTED | no script reads CHANGELOG.md (class A03) |
+| I08 | MM wrapper | a "universal half-conversion time, a constant of the mechanism, not of the rate constants" | ACCEPTED | independence stated by negation; "universal" outside rule 6 |
+
+## Reading round I
+- Rule 6 as a word grammar is beaten by any generalising construction outside its list (six of six attempts). The LEDGER experiment of this run predicted the outcome and its consequence: **reading prose for generalising words is not a check; the claim a scientist reads must be generated from the statement.** Readers already see, generated, the parameters each statement fixes (TRUST_MAP.md last column; packet line); I01–I05 and I08 contradict that line, so a reader who reads it is not misled, but the plain-words docstring still is.
+- Next structural step (part 3): a generated plain-words claim per headline (quantifiers, fixed parameters, conclusion shape, from `meaning.jsonl`) placed before the hand-written docstring in the packet and TRUST_MAP, with the hand-written text labelled as the author's paraphrase; then measure with a blind round whether a reader-facing defect still passes the generated layer.

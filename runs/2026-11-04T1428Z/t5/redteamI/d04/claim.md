@@ -1,0 +1,4 @@
+Category: weakened-statement
+Reader would wrongly believe: the reduced saturation pressure 0.20046 P_c at 0.7 T_c is certified as the same for the Redlich-Kwong, Soave and Peng-Robinson cubics, i.e. a universal corresponding-states law.
+Why it is false: the statement is about the van der Waals pressure cubicP R a b 0 0 only. RK/SRK/PR give different ps/Pc at 0.7 Tc (that is exactly why Pitzer's omega is nonzero for them: omega_vdW = -0.302 versus omega ~ 0 for simple fluids and positive for most real ones). The claim is false even as physics.
+Expected: ACCEPTED. No generalising word; glossary terms present (Maxwell construction, coexist) are backed; the EOS names are not in the glossary; the number 0.20046 and the 'five decimals' phrase are as in the original so check_numbers is satisfied.
