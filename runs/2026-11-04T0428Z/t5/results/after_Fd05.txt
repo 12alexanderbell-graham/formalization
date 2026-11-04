@@ -1,0 +1,11 @@
+defect: /home/claude/formalization/runs/2026-11-04T0428Z/t5/redteamF/d05  base: 924a9d6b52629e99ad31e771ea08878304c02c0b  judge: md-v7
+ M FINDINGS.md
+--- new dotted citations (StatementDeps citation check not re-run):
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+::error::untagged number 2.76: …ΛCDM with Ω_m = 3/10, q₀ = −11/20, j₀ = 1 it is  2.76 , and the prin…
+check_prose: 131 headlines, 127 definitions, 19 glossary terms; 0 new problems; 25 known gaps (prose_baseline.txt)
+check_trusted_defs: 20 pins; 0 false pin claims in TRUSTED_DEFINITIONS.md
+frozen registry: 463 entries at 924a9d6b52629e99ad31e771ea08878304c02c0b, none changed or removed
+certified-number diff vs 924a9d6b52629e99ad31e771ea08878304c02c0b: 38 certified pairs before, 38 now, 0 removed or changed
+check_prose: 131 headlines, 127 definitions, 19 glossary terms; 0 new problems; 25 known gaps (prose_baseline.txt)
+RESULT V7 REJECTED numbers=1 prose=0 packet=0 relock=0

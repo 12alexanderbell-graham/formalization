@@ -161,3 +161,9 @@
 - Froze, proved, audited and promoted `Checked.Cosmography.B1Fit.fit_direction` (fit-level direction over the quasar range, Ω ∈ [0, 1]) and `Checked.Cosmography.B1FitRL19.rl19_box_unmatched` (C27: the RL19 contour-centre box matches no flat ΛCDM). Referee STANDS-WITH-CORRECTIONS; blind restatements of both closed in Lean; NV witnesses; blind second reading of RL19 Fig. 3.
 - New tool: second-order certified quadrature (`Checked/Cosmography/B1FitTools.lean`), generators `runs/2026-11-04T0228Z/scripts/`.
 - Records: run README, STATE, LEDGER (relocks, quadrature experiment, evaluations, split box hypotheses), BLUEPRINT, TARGETS, FINDINGS C27, PROMPT note.
+
+## 2026-11-04, run 0428Z (scheduled)
+- Part 3 (T5) by part rotation. Auditor role until run 0228Z removed its LOCK (~04:31Z); local Lean available (elan).
+- First blind measurement of the current pipeline: red team F (Sonnet) seeded 8 wrong claims against 7221e29; the CI-equivalent judge accepted all 8 (control accepted).
+- Four strengthenings (LEDGER): independent second readings (StatementDeps), frozen docstrings of classified definitions, spec fields and Checked module docs (`doc:`/`moduledoc:` entries, 180 new), decimals in code spans checked (`check_numbers.py`), pin claims in TRUSTED_DEFINITIONS.md checked (`check_trusted_defs.py`, new CI step). Re-judged: `runs/2026-11-04T0428Z/t5/RESULTS.md`.
+- Records: run README, STATE, LEDGER, BLUEPRINT, TARGETS T5 line, PROMPT note (every reader-facing sentence checked or frozen).
