@@ -221,7 +221,9 @@ theorem reject_07 : ¬ MaxwellSpec mutant07 := by
     intro x hx
     rw [Set.uIcc_of_le (by norm_num)] at hx
     exact ne_of_gt (by linarith [hx.1] : (0:ℝ) < x)
-  have hint := ((cubicLoop_continuous 1 1 2 1 0).comp_continuousOn hc).intervalIntegrable
+  have hint : IntervalIntegrable (fun ρ : ℝ => cubicLoop 1 1 2 1 0 (1 / ρ)) MeasureTheory.volume
+      (1 / 3) 1 :=
+    ((cubicLoop_continuous 1 1 2 1 0).comp_continuousOn hc).intervalIntegrable
   rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hint] at hI
   have g1 : G07 1 = 3 / 2 := by norm_num [G07]
   have g3 : G07 (1 / 3) = 7 / 3 + 9 / 2 - 18 + 11 * Real.log 3 := by
