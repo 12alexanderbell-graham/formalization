@@ -1,0 +1,4 @@
+Category: mistranscription
+Reader would wrongly believe: the correct z^5 coefficient of the CCS 2008 lookback series is (7/4)q0^4 (printed 7/2, off by 7/4 q0^4); this heading text is also what the validation packet prints as the item's "Source" line for the F3 group.
+Why it is false: the Lean theorem CCS.lookback_fifth_order and the certified record F3_D4_LCDM (0.2153 vs 0.4555, excess 0.24 at q0 = -0.55) use 7/8 q0^4, and printed - true = 7/2 - 7/8 = 21/8. check_numbers.py only inspects decimals (and numbers after ≈); fractions and integers in the verified findings carry no tag and are compared with nothing. The remaining mentions of 21/8 deeper in the entry are left, so the entry becomes internally inconsistent but no check reads it.
+Expected: ACCEPTED (non-decimal numbers in FINDINGS.md are unchecked; heading text feeds the packet).

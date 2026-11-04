@@ -270,15 +270,29 @@ run_cmd do
     else acc
   -- transcriptions with a machine-checked independent second reading (trust track T3, run 2228Z):
   -- a theorem in `Checked.Trust.Transcriptions` stating `d = e` with `d` a program constant
-  let secondRead : NameSet := env.constants.map₁.fold (init := {}) fun acc n ci =>
-    if (`Checked.Trust.Transcriptions).isPrefixOf n then
+  -- Since run 2026-11-04T0428Z (red team F, defect F06: `agree_dQFlat : dQFlat = dQFlat := rfl`
+  -- earned dQFlat the ² mark with no second reading behind it) the right-hand side must be a
+  -- constant of a `Checked.Trust.SecondReading*` module whose statement and body do not reach the
+  -- left-hand side; any other theorem in the Transcriptions namespaces is a blocking error.
+  let srMod := fun (c : Name) => match env.getModuleIdxFor? c with
+    | some idx => ((env.header.moduleNames[idx.toNat]!).toString.startsWith "Checked.Trust.SecondReading")
+    | none => false
+  let (secondRead, badAgree) : NameSet × Array Name :=
+    env.constants.map₁.fold (init := ({}, #[])) fun (acc, bad) n ci =>
+    if (`Checked.Trust.Transcriptions).isPrefixOf n && !(privateToUserName n).isInternal then
       match ci with
       | .thmInfo t =>
         match t.type.eq? with
-        | some (_, lhs, _) => if lhs.isConst then acc.insert lhs.constName! else acc
-        | none => acc
-      | _ => acc
-    else acc
+        | some (_, lhs, rhs) =>
+          if lhs.isConst && rhs.isConst && lhs.constName! != rhs.constName! && srMod rhs.constName! &&
+              !(match env.find? rhs.constName! with
+                | some rc => (deps env {} (rc.value?.getD (.sort 0)) (deps env {} rc.type {})).contains lhs.constName!
+                | none => true) then
+            (acc.insert lhs.constName!, bad)
+          else (acc, bad.push n)
+        | none => (acc, bad.push n)
+      | _ => (acc, bad)
+    else (acc, bad)
   let mut nNeed := 0
   let mut nWit := 0
   let cands : Array Name := env.constants.map₁.fold (init := #[]) fun acc n _ =>
@@ -287,6 +301,8 @@ run_cmd do
   let pinLines ← readLines "scripts/trust/pins.txt"
   let kindLines ← readLines "scripts/trust/def_kinds.txt"
   let mut errors : Array String := #[]
+  for n in badAgree do
+    errors := errors.push s!"transcription agreement {n} is not `program constant = Checked.Trust.SecondReading* constant` with an independent right-hand side (a second reading must not reach the transcription it checks)"
   -- pins: definition ↦ pinning theorem, checked to mention the definition
   let mut pinned : NameMap Name := {}
   for l in pinLines do
@@ -356,8 +372,27 @@ run_cmd do
     -- the kind label is frozen too (red team C, defect C07 relabelled PRINTED as FORMULA)
     let d ← if pinned.contains dn then docFp dn else pure ""
     frozenNow := frozenNow.insert dn (fingerprint (env.find? dn).get! ++ d ++ "-" ++ k)
+    -- run 2026-11-04T0428Z (red team F: F01 rewrote the docstring of the FORMULA `critCubic` into a
+    -- false general claim, F02 the field docstrings of the SPEC `MaxwellSpec`; both are printed in
+    -- the validation packet and were not frozen): the docstring of every classified definition and
+    -- of each field of a classified structure is frozen as its own entry `doc:<name>` (so the
+    -- existing entries keep their fingerprints); a change needs relock + a LEDGER line naming it
+    unless pinned.contains dn do
+      let mut fd ← docFp dn
+      if isStructure env dn then
+        for f in getStructureFieldsFlattened env dn (includeSubobjectFields := false) do
+          fd := fd ++ (← docFp (dn ++ f))
+      frozenNow := frozenNow.insert (Name.mkSimple ("doc:" ++ dn.toString)) fd
+  -- module docstrings (`/-! … -/`) of every Checked module are frozen too, entry `moduledoc:<module>`
+  -- (red team F, defect F04: the module doc of `B1Fit` overstated the range of least-squares fits)
+  for m in env.header.moduleNames do
+    if m.getRoot == `Checked then
+      let docs := (getModuleDoc? env m).getD #[]
+      unless docs.isEmpty do
+        frozenNow := frozenNow.insert (Name.mkSimple ("moduledoc:" ++ m.toString))
+          s!"-mdoc{hash (String.intercalate "\n" (docs.toList.map (·.doc)))}"
   let frozenLines := (frozenNow.toList.toArray.qsort (fun a b => a.1.toString < b.1.toString)).map
-    fun (n, f) => s!"{n} {f}"
+    fun (n, f) => s!"{n.toString (escape := false)} {f}"
   if (← IO.getEnv "TRUST_RELOCK") == some "1" then
     IO.FS.writeFile "scripts/trust/frozen.txt" (String.intercalate "\n" ([
       "# Frozen fingerprints (statement; for definitions statement + body) of every headline, pin",
@@ -374,13 +409,13 @@ run_cmd do
       | [n, f] => locked := locked.insert n f
       | _ => errors := errors.push s!"bad frozen.txt line: {l}"
     for (n, f) in frozenNow.toList do
-      match locked.get? n.toString with
+      match locked.get? (n.toString (escape := false)) with
       | some f' =>
         if f != f' then
           errors := errors.push s!"FROZEN {n} changed (statement or definition body): if intended, relock (TRUST_RELOCK=1) and name it in a LEDGER.md entry"
       | none => errors := errors.push s!"{n} is not in scripts/trust/frozen.txt: relock (TRUST_RELOCK=1)"
     -- an entry that is no longer registered was removed without relocking (red team C)
-    let nowStr : Std.HashSet String := frozenNow.foldl (init := {}) fun s n _ => s.insert n.toString
+    let nowStr : Std.HashSet String := frozenNow.foldl (init := {}) fun s n _ => s.insert (n.toString (escape := false))
     for (n, _) in locked.toList do
       unless nowStr.contains n do
         errors := errors.push s!"FROZEN {n} is no longer registered (headline, pin or kind removed): relock and name it in a LEDGER.md entry"

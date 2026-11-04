@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: the transcription dQFlat (deceleration distance d_Q = d_L/(1+z)^{3/2}, behind F5/CVdQ headlines) has been independently re-read by a blind second reader and the two agree; TRUST_MAP.md and the validation packet show it as `dQFlat²`, and the summary counts 40 of 41 PRINTED definitions second-read.
+Why it is false: the "agreement" theorem states dQFlat = dQFlat (rfl); there is no second reading in Checked.Trust.SecondReading. StatementDeps only requires a theorem in Checked.Trust.Transcriptions whose left side is a program constant, never that the right side is an independent definition, so the ² mark (and the sentence "machine-checked agreement with a blind second reading" in each packet item) is unearned. A new theorem adds no frozen entry, so no LEDGER line is needed.
+Expected: ACCEPTED (marked ² is computed syntactically from the shape `constant = _`).

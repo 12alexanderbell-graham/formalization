@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: the critical cubic of the generalized cubic EOS has exactly one admissible root x > 1 for EVERY (u, w), so every member of the family (any alpha-function, any u, w) has a unique critical volume; the restriction u > -2, 1+u+w > 0 of the theorem looks unnecessary.
+Why it is false: critCubic u w x = x^3 - 3x^2 - 3(u+w)x - (u^2+uw-w); at u = 0, w = -1 it is (x-1)^3, which has no root x > 1; for u <= -2 the number of roots above 1 can be 0 or 3. Only the hypotheses of critCubic_existsUnique give exactly one. The overclaim sits in the docstring of the unpinned FORMULA definition critCubic (not part of the frozen fingerprint, which holds no doc for non-pinned kinds; avoids glossary terms), which the validation packet GLOSSARY prints verbatim.
+Expected: ACCEPTED (docstrings of classified non-pinned definitions are neither frozen nor checked beyond the glossary vocabulary regexes).

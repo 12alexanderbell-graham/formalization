@@ -1,0 +1,4 @@
+Category: wrong-number
+Reader would wrongly believe: the certified B1 results say the ΛCDM-implied RL19 cubic misses exact flat ΛCDM by more than 0.19 mag at z = 3, more than 0.5 mag at z = 7 and by a shape miss above 0.28 mag, for all Ω_m in [0.2, 0.4] (roughly double the proved separation).
+Why it is false: the headlines prove only > 0.09, > 0.3 and > 0.18; the referee's true minima over Ω_m in [0.2, 0.4] are 0.115, 0.368 and 0.245 mag (B1Truncation.lean module doc), so each new threshold is violated at some Ω_m in the range (e.g. 0.115 < 0.19, 0.368 < 0.5, 0.245 < 0.28). The numbers sit in the STATE.md results bullet; check_numbers.py reads only FINDINGS.md, the citation check reads only backticked names, and the thresholds in the Lean statements are untouched.
+Expected: ACCEPTED (no check compares numbers in STATE.md with the Lean statements; A03 concerns scope prose, this is a changed threshold).

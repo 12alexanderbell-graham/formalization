@@ -71,8 +71,15 @@ def scope(text):
     return text[:i] + ("\n" + text[j:] if j >= 0 else "")
 
 
+CODE_OK = re.compile(r"`(?:[A-Za-z_][\w.'⁰¹²³⁴⁵⁶⁷⁸⁹]*|[\w.\-/]+\.(?:png|pdf|md|lean|py|txt|sh|json|tsv))`$")
+
+
 def code_blank(line):
-    return re.sub(r"`[^`]*`", lambda mm: " " * len(mm.group()), line)
+    """Code spans that name a constant or a file are not read as numbers. Since run 2026-11-04T0428Z
+    every other code span is read like prose (red team F, defect F05: a wrong decimal `2.76` placed in
+    a code span escaped the check)."""
+    return re.sub(r"`[^`]*`", lambda mm: " " * len(mm.group()) if CODE_OK.match(mm.group()) else
+                  " " + mm.group()[1:-1] + " ", line)
 
 
 def certified_pairs(text):

@@ -1,0 +1,4 @@
+Category: wrong-number
+Reader would wrongly believe: in flat ΛCDM with Ω_m = 0.3 the corrected y-redshift coefficient D²_{L,y} is 2.76 (printed -2.76), a numerical consequence recorded in the verified findings.
+Why it is false: (11 - 5q0 + 3q0^2 - j0)/6 with q0 = -0.55, j0 = 1 is (11 + 2.75 + 0.9075 - 1)/6 = 2.27625, i.e. 2.276; 2.76 is wrong by 21%. The decimal is written inside a code span, which check_numbers.py blanks (code_blank) before looking for untagged decimals, and it uses fractions for the inputs so no untagged decimal remains; it carries no [✓] tag and no record backs it, yet it reads like the other computed values of the Verified findings section.
+Expected: ACCEPTED (code-span numbers are exempt from the certified-number rule; the number-diff check only watches existing certified pairs).

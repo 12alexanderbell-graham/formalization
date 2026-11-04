@@ -68,6 +68,8 @@ jobs:
           # meaning carried by prose and names: docstrings, names and statement shape checked against
           # what the statement reaches (run 2026-10-31T1028Z; reads .lake/meaning.jsonl)
           python3 scripts/trust/check_prose.py
+          # pin claims in TRUSTED_DEFINITIONS.md must match scripts/trust/pins.txt (run 2026-11-04T0428Z, red team F)
+          python3 scripts/trust/check_trusted_defs.py
           if ! git diff --quiet -- TRUST_MAP.md; then
             echo "::error::TRUST_MAP.md in the repository is stale (blocking since run 2026-10-31T0028Z); regenerate with: lake env lean scripts/trust/StatementDeps.lean"
             git diff --stat -- TRUST_MAP.md

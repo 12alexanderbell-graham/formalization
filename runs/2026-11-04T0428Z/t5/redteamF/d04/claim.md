@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: fit_direction covers least-squares fits of the cubic to exact flat ΛCDM over the whole quasar range for every Ω in [0, 1], so RL19's cubic-fit displacement is explained away (direction result) for all matter densities, including Ω near 0.
+Why it is false: the referee numbers in the same module doc (removed sentence) show the least-squares residual half-range at the three redshifts is 0.054 mag at Ω = 0.04 and 0.19 mag at Ω = 0, above the 0.05 mag hypothesis, so such fits do NOT satisfy the theorem's hypothesis for small Ω; the true statement holds for Ω >= 0.1 only. The theorem and its frozen docstring are untouched; the scope sentence lives in the unfrozen module docstring and in STATE.md.
+Expected: ACCEPTED (module docstrings and STATE.md prose are not tied to the headline's statement by any check).
