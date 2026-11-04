@@ -57,6 +57,7 @@ import Work.Cosmography.B1FitWitness
 import Work.Cosmography.B1FitRL19
 import Work.Cosmography.B1FitRL19Blind
 import Work.Cosmography.B1FitRL19Audit
+import Work.Cosmography.B1L19
 import Work.Cosmography.B1SepWitness
 import Work.Trust.SecondReadingB1
 import Work.Chemistry.CubicEOS
