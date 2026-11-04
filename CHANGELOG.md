@@ -193,3 +193,8 @@
 - Part 2: B1 fourth order. Froze, proved (generated certificates, 8 Ω-pieces), audited (blind restatement closed in Lean, referee STANDS-WITH-CORRECTIONS, Table 2 second-read blind in v1–v4) and promoted `Checked.Cosmography.B1L19.l19_sq_central`, `l19_sqg_central`, `l19_sq_box`, `l19_sqg_box`: the Lusso et al. 2019 quasar-driven fitted curves are not flat-ΛCDM shaped between 1 + z = 2√2 and 4√2 for any Ω ∈ [0, 1]. Trust map 139/139, NV 88/88.
 - FINDINGS candidates C28 (L19 "below 2%" sentence), C29 (this result).
 - PROMPT: two working notes (stale pre-cloned main; part 2 asks "is the answer already in print?" before freezing; LEDGER experiment).
+
+## 2026-11-04T1428Z (scheduled run)
+- Env: add_repo not exposed; repo pre-cloned (stale local main reset); local Lean via elan ok. CI 41839154897, 41846160247 green.
+- Part 3: blind red team H (Sonnet, 8 defects vs d714f04): 8/8 accepted on main. New check_prose rule 6 (parameters; blind to H): 3 of 4 generality defects rejected. After reading H: equation-fixed parameters, sign rule, per-headline citations, module-doc numbers (rule 7), guarded unchecked-prose banner in README/STATE; 1/8 accepted. TRUST_MAP.md and the packet show the parameters each statement fixes (generated). `runs/2026-11-04T1428Z/t5/RESULTS.md`.
+- Records: run README, STATE, LEDGER (integrity event), BLUEPRINT, TARGETS T5 line, PROMPT note.

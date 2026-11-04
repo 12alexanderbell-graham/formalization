@@ -33,6 +33,12 @@ need("PROMPT.md",
 need("TARGETS.md", "## THE RESULT")
 need("governance/02_OPERATIVE_CORE.md", "**The result (Alexander, 2026-10-31):**")
 need("STATE.md", "THE RESULT")
+# reader-facing hand-written records say that they are unchecked (run 2026-11-04T1428Z; red team H,
+# d07, put a false "general ODE solver, already cross-checked by experts" bullet into README.md, which no
+# script reads): the banner may not be removed
+UNCHECKED = "> **Unchecked prose.** This file is written by hand; no script checks what its sentences claim."
+need("README.md", UNCHECKED, head=6)
+need("STATE.md", UNCHECKED, head=6)
 
 for readme in sorted((root / "runs").glob("*/README.md")):
     run_id = readme.parent.name
