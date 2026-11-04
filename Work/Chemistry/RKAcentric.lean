@@ -2,6 +2,8 @@ import Mathlib
 import Checked.Records.Basic
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
+import Work.Chemistry.RKReduced
+import Work.Chemistry.RKExists
 
 /-!
 # Chemistry (THE RESULT part 5): the acentric factor of the Redlich–Kwong fluid, certified
@@ -47,7 +49,9 @@ theorem rk_coexistence_unique (R A b Tc vc vl vg ps : ℝ) (hR : 0 < R) (hA : 0 
       (cubicP R (A / Real.sqrt (7 / 10 * Tc)) b 1 0 (7 / 10 * Tc)) vl vg ps) :
     RoundsTo (ps / cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc) 0.087 3 ∧
       RoundsTo (acentric ps (cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc)) 0.058 3 := by
-  sorry
+  -- Proof (run 2026-11-04T1828Z): `Work.Chemistry.RKReduced.rk_unique_core` (reduced variables,
+  -- certified window of the reduced pressure, θ and P_c from the critical point, ω from logs).
+  exact Work.Chemistry.RKReduced.rk_unique_core R A b Tc vc vl vg ps hR hA hb hTc hvc hc hl h
 
 /-- Redlich–Kwong fluid (pressure RT/(v−b) − A/(√T v(v+b))): at any critical point (T_c > 0,
 v_c > b) there is a Maxwell coexistence state at T = 0.7 T_c with liquid volume above the
@@ -60,6 +64,8 @@ theorem rk_coexistence_exists (R A b Tc vc : ℝ) (hR : 0 < R) (hA : 0 < A) (hb 
       IsMaxwellCoexistence (cubicP R (A / Real.sqrt (7 / 10 * Tc)) b 1 0 (7 / 10 * Tc)) vl vg ps ∧
       RoundsTo (ps / cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc) 0.087 3 ∧
       RoundsTo (acentric ps (cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc)) 0.058 3 := by
-  sorry
+  -- Proof (run 2026-11-04T1828Z): `Work.Chemistry.RKExists.rk_exists_core` (equal maxima of ψ on
+  -- the liquid and gas windows by the intermediate value theorem, then the window theorem).
+  exact Work.Chemistry.RKExists.rk_exists_core R A b Tc vc hR hA hb hTc hvc hc
 
 end Work.Chemistry.RKAcentric

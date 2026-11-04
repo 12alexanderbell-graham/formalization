@@ -1,0 +1,55 @@
+lemma logR_lo : -1218458289 / 500000000 < Real.log ((4371501 / 50000000)) := by
+  have e : ((4371501 / 50000000) : ℝ) = (1 - (-2493 / 6250)) / (2:ℝ) ^ 4 * (4371501 / 4371500) := by norm_num
+  rw [e, Real.log_mul (by norm_num) (by norm_num), Real.log_div (by norm_num) (by norm_num), Real.log_pow]
+  have h := log_series' (-2493 / 6250) (by norm_num [abs_lt]) 28
+  rw [abs_le] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h
+  have u1 : Real.log (4371501 / 4371500 : ℝ) ≤ 4371501 / 4371500 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have u2 : 1 - (4371501 / 4371500 : ℝ)⁻¹ ≤ Real.log (4371501 / 4371500) := Real.one_sub_inv_le_log_of_pos (by norm_num)
+  have l2a := Real.log_two_gt_d9
+  have l2b := Real.log_two_lt_d9
+  push_cast
+  norm_num at h u1 u2 ⊢
+  linarith [h.1, h.2]
+
+lemma logR_hi : Real.log ((8745729 / 100000000)) < -2436604718023 / 1000000000000 := by
+  have e : ((8745729 / 100000000) : ℝ) = (1 - (-9983 / 25000)) / (2:ℝ) ^ 4 * (2915243 / 2915250) := by norm_num
+  rw [e, Real.log_mul (by norm_num) (by norm_num), Real.log_div (by norm_num) (by norm_num), Real.log_pow]
+  have h := log_series' (-9983 / 25000) (by norm_num [abs_lt]) 28
+  rw [abs_le] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h
+  have u1 : Real.log (2915243 / 2915250 : ℝ) ≤ 2915243 / 2915250 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have u2 : 1 - (2915243 / 2915250 : ℝ)⁻¹ ≤ Real.log (2915243 / 2915250) := Real.one_sub_inv_le_log_of_pos (by norm_num)
+  have l2a := Real.log_two_gt_d9
+  have l2b := Real.log_two_lt_d9
+  push_cast
+  norm_num at h u1 u2 ⊢
+  linarith [h.1, h.2]
+
+lemma log1000_lo : 55262042211 / 8000000000 < Real.log ((1000 : ℝ)) := by
+  have e : ((1000 : ℝ) : ℝ) = (2:ℝ) ^ 10 * (1 - (293 / 12500)) * (390625 / 390624) := by norm_num
+  rw [e, Real.log_mul (by norm_num) (by norm_num), Real.log_mul (by norm_num) (by norm_num), Real.log_pow]
+  have h := log_series' (293 / 12500) (by norm_num [abs_lt]) 6
+  rw [abs_le] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h
+  have u1 : Real.log (390625 / 390624 : ℝ) ≤ 390625 / 390624 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have u2 : 1 - (390625 / 390624 : ℝ)⁻¹ ≤ Real.log (390625 / 390624) := Real.one_sub_inv_le_log_of_pos (by norm_num)
+  have l2a := Real.log_two_gt_d9
+  have l2b := Real.log_two_lt_d9
+  push_cast
+  norm_num at h u1 u2 ⊢
+  linarith [h.1, h.2]
+
+lemma log1000_hi : Real.log ((1000 : ℝ)) < 6907755281391 / 1000000000000 := by
+  have e : ((1000 : ℝ) : ℝ) = (2:ℝ) ^ 10 * (1 - (293 / 12500)) * (390625 / 390624) := by norm_num
+  rw [e, Real.log_mul (by norm_num) (by norm_num), Real.log_mul (by norm_num) (by norm_num), Real.log_pow]
+  have h := log_series' (293 / 12500) (by norm_num [abs_lt]) 6
+  rw [abs_le] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h
+  have u1 : Real.log (390625 / 390624 : ℝ) ≤ 390625 / 390624 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have u2 : 1 - (390625 / 390624 : ℝ)⁻¹ ≤ Real.log (390625 / 390624) := Real.one_sub_inv_le_log_of_pos (by norm_num)
+  have l2a := Real.log_two_gt_d9
+  have l2b := Real.log_two_lt_d9
+  push_cast
+  norm_num at h u1 u2 ⊢
+  linarith [h.1, h.2]
