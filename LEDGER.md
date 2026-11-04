@@ -354,7 +354,7 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 - Evaluate (next run without local Lean, or the next promotion): was a promotion completed from the artifact alone, and did any generated file differ from a local regeneration?
 
 ## 2026-11-04 · run 0028Z · experiment (annex LIV) · iterate on Lean through CI branch pushes when local Lean is refused
-- The Work job of a branch push builds in ≈ 5 min (cache restored from main); the checked job ≈ 20 min. Job status in the Actions API lags; `get_job_logs` returns 404 until the job has finished, then the full log. This run's 5 Work iterations: 1 failure (one `ring` goal blocked by `id x`).
+- The Work job of a branch push builds in ≈ 5 min (cache restored from main); the checked job ≈ 20 min. Job status in the Actions API lags; `get_job_logs` returns 404 until the job has finished, then the full log. This run's 9 Work iterations on the branch: 3 failures, each a one-line fix (a `ring` goal blocked by `id x`; an `intervalIntegrable` missing its endpoints; a stuck measure metavariable); the promotion needed 1 branch run of the `checked` job plus the artifact; the main push then failed once on the STATE citation rule, which the branch run had not reached.
 - Evaluate: count CI iterations per proved headline next time local Lean is refused.
 
 ## 2026-11-04 · run 0028Z · new headlines and pin (relock, new entries only)
