@@ -36,7 +36,7 @@ theorem equalGibbs_iff_equalArea_closed (R a b T vl vg ps : ℝ) (hb : 0 < b)
     all_goals first
       | rfl
       | (funext y; simp)
-      | (unfold vdwP; field_simp; ring)
+      | (unfold vdwP; simp only [id_eq]; field_simp; ring)
   have hcont : ContinuousOn (fun v => vdwP R a b T v) (Set.uIcc vl vg) := by
     rw [Set.uIcc_of_le hlg.le]
     unfold vdwP
