@@ -78,54 +78,57 @@ theorem neg_cell (pv : List ℚ) (c : ℚ) (cs : List ℚ) (hp : pv = c :: cs) {
   rw [abs_le] at h1; linarith [h1.2]
 
 /-- A function with negative derivative on a closed interval is antitone there. -/
-theorem anti_of_neg {x v : ℝ → ℝ} {a b : ℝ} (hd : ∀ t ∈ Icc a b, HasDerivAt x (v t) t)
+theorem anti_of_neg {x v : ℝ → ℝ} {a b : ℝ}
+    (hd : ∀ t ∈ Icc a b, HasDerivWithinAt x (v t) (Icc a b) t)
     (hn : ∀ t ∈ Icc a b, v t < 0) : AntitoneOn x (Icc a b) := by
+  have hD : ∀ t ∈ Ioo a b, HasDerivAt x (v t) t := fun t ht =>
+    (hd t (Ioo_subset_Icc_self ht)).hasDerivAt (Icc_mem_nhds ht.1 ht.2)
   refine antitoneOn_of_deriv_nonpos (convex_Icc a b)
-    (fun t ht => (hd t ht).continuousAt.continuousWithinAt) ?_ ?_
+    (fun t ht => (hd t ht).continuousWithinAt) ?_ ?_
   · intro t ht
     rw [interior_Icc] at ht
-    exact (hd t (Ioo_subset_Icc_self ht)).differentiableAt.differentiableWithinAt
+    exact (hD t ht).differentiableAt.differentiableWithinAt
   · intro t ht
     rw [interior_Icc] at ht
-    rw [(hd t (Ioo_subset_Icc_self ht)).deriv]
+    rw [(hD t ht).deriv]
     exact (hn t (Ioo_subset_Icc_self ht)).le
 
-/-- First zero of the Duffing oscillator x'' + x + x³ = 0 released from rest at x = 1: every
-solution on [0, 6/5] is strictly positive for all times in [0, 1.192005] and strictly negative
-at time 1.192006, so its first zero (the quarter period) lies strictly between 1.192005 and
+/-- Core form of `duffing_first_zero` for solutions with derivatives taken within [0, 6/5]
+(one-sided at the endpoints; the weakest reading): positive on [0, 1.192005], negative at
 1.192006. -/
-theorem duffing_first_zero (x : ℝ → ℝ) (hx : IsDuffingIVP 1 1 1 0 (6 / 5) x) :
+theorem first_zero_within {x v : ℝ → ℝ} (hx0 : x 0 = 1) (hv0 : v 0 = 0)
+    (hd : ∀ t ∈ Icc (0 : ℝ) (6 / 5), HasDerivWithinAt x (v t) (Icc 0 (6 / 5)) t ∧
+      HasDerivWithinAt v (-1 * x t - 1 * x t ^ 3) (Icc 0 (6 / 5)) t) :
     (∀ t ∈ Icc (0 : ℝ) (1192005 / 1000000), 0 < x t) ∧ x (1192006 / 1000000) < 0 := by
-  obtain ⟨hx0, v, hv0, hd⟩ := hx
   have hbox := DuffingCell.in_box hx0 hv0 hd
   have sub : ∀ a b : ℝ, 0 ≤ a → b ≤ 6 / 5 → ∀ t ∈ Icc a b, t ∈ Icc (0 : ℝ) (6 / 5) :=
     fun a b ha hb t ht => ⟨ha.trans ht.1, ht.2.trans hb⟩
-  have s0 := DuffingCerts.step0 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) (by rw [hx0]; norm_num) (by rw [hv0]; norm_num)
-  have s1 := DuffingCerts.step1 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s0.2.1 s0.2.2
-  have s2 := DuffingCerts.step2 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s1.2.1 s1.2.2
-  have s3 := DuffingCerts.step3 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s2.2.1 s2.2.2
-  have s4 := DuffingCerts.step4 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s3.2.1 s3.2.2
-  have s5 := DuffingCerts.step5 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s4.2.1 s4.2.2
-  have s6 := DuffingCerts.step6 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s5.2.1 s5.2.2
-  have s7 := DuffingCerts.step7 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s6.2.1 s6.2.2
-  have s8 := DuffingCerts.step8 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s7.2.1 s7.2.2
-  have s9 := DuffingCerts.step9 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s8.2.1 s8.2.2
-  have s10 := DuffingCerts.step10 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s9.2.1 s9.2.2
-  have s11 := DuffingCerts.step11 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s10.2.1 s10.2.2
-  have s12 := DuffingCerts.step12 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s11.2.1 s11.2.2
-  have s13 := DuffingCerts.step13 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s12.2.1 s12.2.2
-  have s14 := DuffingCerts.step14 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s13.2.1 s13.2.2
-  have s15 := DuffingCerts.step15 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s14.2.1 s14.2.2
-  have s16 := DuffingCerts.step16 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s15.2.1 s15.2.2
-  have s17 := DuffingCerts.step17 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s16.2.1 s16.2.2
-  have s18 := DuffingCerts.step18 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s17.2.1 s17.2.2
-  have s19 := DuffingCerts.step19 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s18.2.1 s18.2.2
-  have s20 := DuffingCerts.step20 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s19.2.1 s19.2.2
-  have s21 := DuffingCerts.step21 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s20.2.1 s20.2.2
-  have s22 := DuffingCerts.step22 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s21.2.1 s21.2.2
-  have s23 := DuffingCerts.step23 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s22.2.1 s22.2.2
-  have hdl : ∀ t ∈ Icc (23/20 : ℝ) (6/5 : ℝ), HasDerivAt x (v t) t :=
-    fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1
+  have s0 := DuffingCerts.step0 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) (by rw [hx0]; norm_num) (by rw [hv0]; norm_num)
+  have s1 := DuffingCerts.step1 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s0.2.1 s0.2.2
+  have s2 := DuffingCerts.step2 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s1.2.1 s1.2.2
+  have s3 := DuffingCerts.step3 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s2.2.1 s2.2.2
+  have s4 := DuffingCerts.step4 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s3.2.1 s3.2.2
+  have s5 := DuffingCerts.step5 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s4.2.1 s4.2.2
+  have s6 := DuffingCerts.step6 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s5.2.1 s5.2.2
+  have s7 := DuffingCerts.step7 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s6.2.1 s6.2.2
+  have s8 := DuffingCerts.step8 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s7.2.1 s7.2.2
+  have s9 := DuffingCerts.step9 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s8.2.1 s8.2.2
+  have s10 := DuffingCerts.step10 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s9.2.1 s9.2.2
+  have s11 := DuffingCerts.step11 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s10.2.1 s10.2.2
+  have s12 := DuffingCerts.step12 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s11.2.1 s11.2.2
+  have s13 := DuffingCerts.step13 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s12.2.1 s12.2.2
+  have s14 := DuffingCerts.step14 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s13.2.1 s13.2.2
+  have s15 := DuffingCerts.step15 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s14.2.1 s14.2.2
+  have s16 := DuffingCerts.step16 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s15.2.1 s15.2.2
+  have s17 := DuffingCerts.step17 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s16.2.1 s16.2.2
+  have s18 := DuffingCerts.step18 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s17.2.1 s17.2.2
+  have s19 := DuffingCerts.step19 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s18.2.1 s18.2.2
+  have s20 := DuffingCerts.step20 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s19.2.1 s19.2.2
+  have s21 := DuffingCerts.step21 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s20.2.1 s20.2.2
+  have s22 := DuffingCerts.step22 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s21.2.1 s21.2.2
+  have s23 := DuffingCerts.step23 (x := x) (v := v) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).2.mono (Icc_subset_Icc (by norm_num) (by norm_num))) (fun t ht => hbox t (sub _ _ (by norm_num) (by norm_num) t ht)) s22.2.1 s22.2.2
+  have hdl : ∀ t ∈ Icc (23/20 : ℝ) (6/5 : ℝ), HasDerivWithinAt x (v t) (Icc (23/20 : ℝ) (6/5 : ℝ)) t :=
+    fun t ht => (hd t (sub _ _ (by norm_num) (by norm_num) t ht)).1.mono (Icc_subset_Icc (by norm_num) (by norm_num))
   have hneg := neg_cell DuffingCerts.pv23 _ _ rfl (fun t ht => (s23.1 t ht).2) (by norm_num [evalQ])
   have hanti := anti_of_neg hdl hneg
   have hPlo : evalQ DuffingCerts.px23 ((1192005 / 1000000 : ℝ) - (23/20 : ℝ)) = (24853262365612746735523978575311454605821/40000000000000000000000000000000000000000000000 : ℝ) := by
@@ -209,6 +212,16 @@ theorem duffing_first_zero (x : ℝ → ℝ) (hx : IsDuffingIVP 1 1 1 0 (6 / 5) 
   rcases le_total t (23/20 : ℝ) with h22 | h22
   · exact P22 t ⟨h21, h22⟩
   exact xlo.trans_le (hanti ⟨h22, by linarith [ht.2]⟩ ⟨by norm_num, by norm_num⟩ ht.2)
+
+/-- First zero of the Duffing oscillator x'' + x + x³ = 0 released from rest at x = 1: every
+solution on [0, 6/5] is strictly positive for all times in [0, 1.192005] and strictly negative
+at time 1.192006, so its first zero (the quarter period) lies strictly between 1.192005 and
+1.192006. -/
+theorem duffing_first_zero (x : ℝ → ℝ) (hx : IsDuffingIVP 1 1 1 0 (6 / 5) x) :
+    (∀ t ∈ Icc (0 : ℝ) (1192005 / 1000000), 0 < x t) ∧ x (1192006 / 1000000) < 0 := by
+  obtain ⟨hx0, v, hv0, hd⟩ := hx
+  exact first_zero_within hx0 hv0 fun t ht =>
+    ⟨(hd t ht).1.hasDerivWithinAt, (hd t ht).2.hasDerivWithinAt⟩
 
 /-- There is a solution of the Duffing initial value problem x'' + x + x³ = 0, x(0) = 1,
 x'(0) = 0 on the time interval [0, 6/5]. -/

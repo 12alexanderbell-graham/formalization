@@ -62,8 +62,8 @@ for c in cert['cells'][:NC]:
     x0, v0 = c['px'][0], c['pv'][0]
     L.append(f"""
 theorem step{i} {{x v : ℝ → ℝ}}
-    (hdx : ∀ t ∈ Icc {T(i)} {T(i+1)}, HasDerivAt x (v t) t)
-    (hdv : ∀ t ∈ Icc {T(i)} {T(i+1)}, HasDerivAt v (-1 * x t - 1 * x t ^ 3) t)
+    (hdx : ∀ t ∈ Icc {T(i)} {T(i+1)}, HasDerivWithinAt x (v t) (Icc {T(i)} {T(i+1)}) t)
+    (hdv : ∀ t ∈ Icc {T(i)} {T(i+1)}, HasDerivWithinAt v (-1 * x t - 1 * x t ^ 3) (Icc {T(i)} {T(i+1)}) t)
     (hbox : ∀ t ∈ Icc {T(i)} {T(i+1)}, (x t, v t) ∈ box)
     (h0 : |x {T(i)} - {r(x0)}| ≤ {r(c['delta'])}) (h0' : |v {T(i)} - {r(v0)}| ≤ {r(c['delta'])}) :
     (∀ t ∈ Icc {T(i)} {T(i+1)}, |x t - evalQ px{i} (t - {T(i)})| ≤ {r(c['B'])} ∧

@@ -41,12 +41,19 @@ theorem lip_box : LipschitzOnWith ⟨41 / 10, by norm_num⟩ duffF box := by
         mul_le_mul_of_nonneg_left hc1 (abs_nonneg _)
     _ ≤ 41 / 10 * max |p.1 - q.1| |p.2 - q.2| := by nlinarith [abs_nonneg (p.1 - q.1)]
 
-/-- Energy conservation: a solution released from rest at x = 1 stays in the box. -/
+/-- A derivative within [a, b] at a point of [a, b) is a right derivative. -/
+theorem right_of_Icc {f : ℝ → ℝ} {f' a b t : ℝ} (h : HasDerivWithinAt f f' (Icc a b) t)
+    (ht : t ∈ Ico a b) : HasDerivWithinAt f f' (Ici t) t :=
+  h.mono_of_mem_nhdsWithin (Icc_mem_nhdsGE_of_mem ht)
+
+/-- Energy conservation: a solution released from rest at x = 1 stays in the box
+(derivatives within [0, T], i.e. one-sided at the endpoints). -/
 theorem in_box {x v : ℝ → ℝ} {T : ℝ} (hx0 : x 0 = 1) (hv0 : v 0 = 0)
-    (hd : ∀ t ∈ Icc 0 T, HasDerivAt x (v t) t ∧ HasDerivAt v (-1 * x t - 1 * x t ^ 3) t) :
+    (hd : ∀ t ∈ Icc 0 T, HasDerivWithinAt x (v t) (Icc 0 T) t ∧
+      HasDerivWithinAt v (-1 * x t - 1 * x t ^ 3) (Icc 0 T) t) :
     ∀ t ∈ Icc 0 T, (x t, v t) ∈ box := by
   set Eg : ℝ → ℝ := fun t => v t ^ 2 / 2 + x t ^ 2 / 2 + x t ^ 4 / 4 with hEg
-  have hder : ∀ t ∈ Icc 0 T, HasDerivAt Eg 0 t := by
+  have hder : ∀ t ∈ Icc 0 T, HasDerivWithinAt Eg 0 (Icc 0 T) t := by
     intro t ht
     obtain ⟨h1, h2⟩ := hd t ht
     have := (((h2.pow 2).div_const 2).add ((h1.pow 2).div_const 2)).add ((h1.pow 4).div_const 4)
@@ -54,8 +61,8 @@ theorem in_box {x v : ℝ → ℝ} {T : ℝ} (hx0 : x 0 = 1) (hv0 : v 0 = 0)
     push_cast; ring
   have hc : ∀ t ∈ Icc 0 T, Eg t = Eg 0 :=
     constant_of_has_deriv_right_zero
-      (fun t ht => (hder t ht).continuousAt.continuousWithinAt)
-      (fun t ht => (hder t (Ico_subset_Icc_self ht)).hasDerivWithinAt)
+      (fun t ht => (hder t ht).continuousWithinAt)
+      (fun t ht => right_of_Icc (hder t (Ico_subset_Icc_self ht)) ht)
   intro t ht
   have h := hc t ht
   simp only [hEg, hx0, hv0] at h
@@ -71,8 +78,8 @@ stays in the box and has defect at most ε, and the true solution starts within 
 the true solution stays within B of it on the whole cell. -/
 theorem cell (px pv : List ℚ) {t0 h δ ε B : ℝ} {x v : ℝ → ℝ}
     (hh : 0 < h) (hKh : 41 / 10 * h < 1) (hδ : 0 ≤ δ) (hε : 0 ≤ ε)
-    (hdx : ∀ t ∈ Icc t0 (t0 + h), HasDerivAt x (v t) t)
-    (hdv : ∀ t ∈ Icc t0 (t0 + h), HasDerivAt v (-1 * x t - 1 * x t ^ 3) t)
+    (hdx : ∀ t ∈ Icc t0 (t0 + h), HasDerivWithinAt x (v t) (Icc t0 (t0 + h)) t)
+    (hdv : ∀ t ∈ Icc t0 (t0 + h), HasDerivWithinAt v (-1 * x t - 1 * x t ^ 3) (Icc t0 (t0 + h)) t)
     (hbox : ∀ t ∈ Icc t0 (t0 + h), (x t, v t) ∈ box)
     (hpx : ∀ s ∈ Icc 0 h, |evalQ px s| ≤ 101 / 100)
     (hpv : ∀ s ∈ Icc 0 h, |evalQ pv s| ≤ 13 / 10)
@@ -90,9 +97,9 @@ theorem cell (px pv : List ℚ) {t0 h δ ε B : ℝ} {x v : ℝ → ℝ}
     (g' := fun t => (dEvalQ px (t - t0), dEvalQ pv (t - t0))) (εg := ε) (δ := δ)
     (a := t0) (b := t0 + h)
     (fun _ _ => lip_box)
-    (fun t ht => ((hdx t ht).continuousAt.prodMk (hdv t ht).continuousAt).continuousWithinAt)
-    (fun t ht => ((hdx t (Ico_subset_Icc_self ht)).prodMk
-      (hdv t (Ico_subset_Icc_self ht))).hasDerivWithinAt)
+    (fun t ht => (hdx t ht).continuousWithinAt.prodMk (hdv t ht).continuousWithinAt)
+    (fun t ht => (right_of_Icc (hdx t (Ico_subset_Icc_self ht)) ht).prodMk
+      (right_of_Icc (hdv t (Ico_subset_Icc_self ht)) ht))
     (fun t _ => by simp [duffF])
     (fun t ht => hbox t (Ico_subset_Icc_self ht))
     (((continuous_evalQ px).comp (continuous_sub_right t0)).prodMk
