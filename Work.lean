@@ -76,3 +76,6 @@ import Work.Fidelity.MaxwellMutants
 import Work.Fidelity.MaxwellPin
 import Work.Fidelity.MaxwellMutantsReject
 import Work.Sim.Duffing
+import Work.Sim.DuffingBlind
+import Work.Fidelity.DuffingSpec
+import Work.Sim.DuffingExists
