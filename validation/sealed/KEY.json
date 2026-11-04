@@ -85,7 +85,7 @@
   },
   {
    "item": 8,
-   "headline": "Checked.Cosmography.BambaK.printedD3y_fails"
+   "headline": "Checked.Cosmography.BambaK.printedD3y_fails_past"
   },
   {
    "item": 9,
@@ -97,7 +97,7 @@
   },
   {
    "item": 11,
-   "headline": "Checked.Cosmography.CCS.ccsD4ClaimPast_false"
+   "headline": "Checked.Cosmography.CCS.printedD4_fails_past"
   },
   {
    "item": 13,
@@ -109,11 +109,11 @@
   },
   {
    "item": 15,
-   "headline": "Checked.Cosmography.BambaA.bambaDA3ClaimPast_false"
+   "headline": "Checked.Cosmography.BambaA.bambaDA4ClaimPast_false"
   },
   {
    "item": 16,
-   "headline": "Checked.Cosmography.Aviles.avilesM0Claim_false"
+   "headline": "Checked.Cosmography.Aviles.flatLCDM_coeffs"
   },
   {
    "item": 17,
@@ -137,7 +137,7 @@
   },
   {
    "item": 23,
-   "headline": "Checked.Cosmography.CPLExistence.exists_local_model"
+   "headline": "Checked.Cosmography.CPL.clsL0Claim_false"
   },
   {
    "item": 24,
@@ -149,7 +149,7 @@
   },
   {
    "item": 26,
-   "headline": "Checked.Cosmography.CVdQ.cvdQClaimPast_false"
+   "headline": "Checked.Cosmography.CVdQ.dQ_y_third_order"
   },
   {
    "item": 27,
@@ -165,7 +165,7 @@
   },
   {
    "item": 31,
-   "headline": "Checked.Cosmography.CVdQ.dQ_y_third_order"
+   "headline": "Checked.Cosmography.CVdQ.printedQ2_fails_past"
   },
   {
    "item": 32,
@@ -173,7 +173,7 @@
   },
   {
    "item": 33,
-   "headline": "Checked.Cosmography.BambaK.printedD3y_fails_past"
+   "headline": "Checked.Cosmography.BambaK.printedD4y_fails_past"
   },
   {
    "item": 35,
@@ -193,7 +193,7 @@
   },
   {
    "item": 40,
-   "headline": "Checked.Cosmography.BambaY.bambaD2yClaim_false"
+   "headline": "Checked.Cosmography.BambaY.bambaD2yClaimPast_false"
   },
   {
    "item": 42,
@@ -201,7 +201,7 @@
   },
   {
    "item": 44,
-   "headline": "Checked.Cosmography.BambaK.printedD4y_fails_past"
+   "headline": "Checked.Cosmography.BambaK.printedD3y_fails"
   },
   {
    "item": 45,
@@ -213,11 +213,11 @@
   },
   {
    "item": 47,
-   "headline": "Checked.Sim.Duffing.duffing_first_zero_sol"
+   "headline": "Checked.Sim.MichaelisMenten.mm_half_conversion"
   },
   {
    "item": 48,
-   "headline": "Checked.Cosmography.BambaA.printedDA4_fails_past"
+   "headline": "Checked.Cosmography.BambaA.bambaDA3ClaimPast_false"
   },
   {
    "item": 49,

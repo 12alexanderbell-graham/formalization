@@ -51,4 +51,7 @@ import Checked.Fidelity.MaxwellSpec
 import Checked.Fidelity.CriticalSpec
 import Checked.Sim.Duffing
 import Checked.Sim.DuffingPin
+import Checked.Sim.MichaelisMenten
+import Checked.Sim.MMPin
+import Checked.Fidelity.MMSpec
 import Checked.Fidelity.DuffingSpec

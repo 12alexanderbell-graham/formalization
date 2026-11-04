@@ -6,29 +6,30 @@
 
 ## Claim in plain words (the system's own text)
 
-The printed `D⁴_{L,y}` (with corrected `D²`, `D³`) fails, from the past, in every `C⁵` model
-with `a(t₀) ≠ 0`, `H₀ ≠ 0` and `(Ω₀ − 1)²/120 + 5 q₀ (Ω₀ − 1)/12 ≠ 0`.
+The printed `D³_{L,y}` (Eq. (10.55)), used with the corrected `D²_{L,y}`, fails in every FLRW model of
+curvature `K` whose scale factor is `C⁵` at `t₀` with `a(t₀) ≠ 0`, `H₀ ≠ 0` and `(Ω₀ − 1)(3q₀ − 2) ≠ 0`:
+the `d_L(y)` series is not `d_L + o(y⁴)` as `t → t₀` (two-sided; past-only: `printedD3y_fails_past`).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem printedD4y_fails_past (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
+theorem printedD3y_fails (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
     (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0)
-    (hD : (omega0 K a t₀ - 1) ^ 2 / 120 + 5 * decel a t₀ * (omega0 K a t₀ - 1) / 12 ≠ 0) :
-    ¬ (fun t => remK correctD2y correctD3y printedD4y K a t₀ t)
-      =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 5) := …
+    (hD : (omega0 K a t₀ - 1) * (3 * decel a t₀ - 2) ≠ 0) :
+    ¬ (fun t => remK correctD2y printedD3y (fun _ _ _ _ _ => 0) K a t₀ t)
+      =o[𝓝 t₀] (fun t => yred a t₀ t ^ 4) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaK.omega0`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.BambaK.printedD3y`, `Cosmography.BambaK.printedD4y`, `Cosmography.BambaY.D1y`, `Cosmography.BambaK.correctD3y`, `Cosmography.BambaK.remK`, `Cosmography.BambaK.seriesY4`, `Cosmography.BambaY.comoving`, `Cosmography.BambaY.correctD2y`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.Transverse.transverse`, `Cosmography.redshift`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaK.omega0`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.BambaK.printedD3y`, `Cosmography.BambaY.D1y`, `Cosmography.BambaK.remK`, `Cosmography.BambaK.seriesY4`, `Cosmography.BambaY.comoving`, `Cosmography.BambaY.correctD2y`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.Transverse.transverse`, `Cosmography.redshift`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: cosmoCoeff, lumDist, omega0, yred, decel, hubble.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): printedD3y², printedD4y², D1y².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedD4y_fails_past`.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): printedD3y², D1y².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedD3y_fails`.
 - Source file: `Checked/Cosmography/BambaCurved.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 44

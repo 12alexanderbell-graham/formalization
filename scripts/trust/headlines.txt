@@ -154,3 +154,6 @@ Checked.Chemistry.Coexistence.vdW_coexistence_unique
 # Rigorous simulation (run 2026-11-04T0628Z): Duffing oscillator, validated ODE enclosure of every solution + existence
 Checked.Sim.Duffing.duffing_first_zero_sol
 Checked.Sim.Duffing.duffing_solution_exists
+# Rigorous simulation of a reaction network (run 2026-11-04T0828Z): full Michaelis–Menten mechanism, half-conversion time of every solution + existence (generic tube-confined simulator)
+Checked.Sim.MichaelisMenten.mm_half_conversion
+Checked.Sim.MichaelisMenten.mm_solution_exists
