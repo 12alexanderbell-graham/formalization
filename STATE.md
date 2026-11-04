@@ -1,6 +1,6 @@
 # STATE
 
-> **Unchecked prose.** This file is written by hand; no script checks what its sentences claim. What is machine-checked: the Lean statements in `Checked/`, their docstrings as far as `scripts/trust/check_prose.py` reads them, `TRUST_MAP.md` (generated) and the certified numbers of `FINDINGS.md` (tagged ✓). When this file and those disagree, those win.
+> **Unchecked prose.** This file is written by hand; no script checks what its sentences claim. What is machine-checked: the Lean statements in `Checked/`, their docstrings as far as `scripts/trust/check_prose.py` reads them, `TRUST_MAP.md` (generated), `CLAIMS.md` (every headline's claim generated from its Lean statement: rely on it, not on docstrings) and the certified numbers of `FINDINGS.md` (tagged ✓). When this file and those disagree, those win.
 
 Last updated: 2026-11-04, run 2026-11-04T2028Z (scheduled; part 2: the B1 Lusso et al. 2019 result extended to closed ΛCDM, frozen → proved → audited in Work; promotion next run). Previous: run 1828Z (part 5: Redlich–Kwong acentric factor, PROVED, CI 41901099462 green).
 
