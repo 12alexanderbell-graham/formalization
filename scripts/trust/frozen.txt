@@ -15,6 +15,8 @@ Checked.Chemistry.CubicEOS.isCritical_iff bf82f2-doc2288175171464039066
 Checked.Chemistry.CubicEOS.pr_constants 94456501-doc8334637104054209009
 Checked.Chemistry.CubicEOS.rk_constants c770e048-doc7361139909543057701
 Checked.Chemistry.CubicEOS.vdW_constants 5d1bd947-doc17426659511392409525
+Checked.Chemistry.RKAcentric.rk_coexistence_exists f24626fc-doc557146406992015158
+Checked.Chemistry.RKAcentric.rk_coexistence_unique 81e298c0-doc9239692211929129705
 Checked.Cosmography.Aviles.AvilesL0Claim 718231ef8f06aaa1-CLAIM
 Checked.Cosmography.Aviles.AvilesM0Claim ce1651bf5fd1dd30-CLAIM
 Checked.Cosmography.Aviles.IsFlatLCDM 4c42ed3aaeef354-doc10676087278089017928
@@ -334,6 +336,15 @@ doc:Checked.Chemistry.CoexistenceReduced.ψ -doc12262588464734341673
 doc:Checked.Chemistry.CubicEOS.critCubic -doc5511859036565840082
 doc:Checked.Chemistry.CubicEOS.cubicP -doc17950823411409236420
 doc:Checked.Chemistry.CubicEOS.reduced -doc11329622150308594556
+doc:Checked.Chemistry.RKExists.Dgap -doc13597373057498563531
+doc:Checked.Chemistry.RKExists.reduced_exists -doc17056824082750450923
+doc:Checked.Chemistry.RKExists.rk_exists_core -doc12147829619663900566
+doc:Checked.Chemistry.RKExists.theta_bounds -doc12850067509888604625
+doc:Checked.Chemistry.RKExists.ψ_le_of_ge -doc17119349999001417842
+doc:Checked.Chemistry.RKExists.ψ_le_of_le -doc4823144001928869879
+doc:Checked.Chemistry.RKExists.ψc -doc13995510676006419071
+doc:Checked.Chemistry.RKReduced.rk_unique_core -doc536255798208993929
+doc:Checked.Chemistry.RKReduced.window_of_maxwell -doc16510249603299456406
 doc:Checked.Cosmography.Aviles.AvilesL0Claim -doc15128371223901094389
 doc:Checked.Cosmography.Aviles.AvilesM0Claim -doc9119376022287010415
 doc:Checked.Cosmography.Aviles.eds_isFlatLCDM -doc15490095456912881190
@@ -1013,6 +1024,9 @@ moduledoc:Checked.Chemistry.CoexistenceExists -mdoc7607638298652763440
 moduledoc:Checked.Chemistry.CoexistenceReduced -mdoc11346860679608370024
 moduledoc:Checked.Chemistry.Coexistence -mdoc6574424267462736464
 moduledoc:Checked.Chemistry.CubicEOS -mdoc14869872535434005995
+moduledoc:Checked.Chemistry.RKAcentric -mdoc16978900516971406692
+moduledoc:Checked.Chemistry.RKExists -mdoc13837604028158584914
+moduledoc:Checked.Chemistry.RKReduced -mdoc17799278113134051071
 moduledoc:Checked.Cosmography.B1FitCerts -mdoc15271504134962391150
 moduledoc:Checked.Cosmography.B1FitRL19 -mdoc10767267510000138633
 moduledoc:Checked.Cosmography.B1FitTools -mdoc15374319093865975066
@@ -1081,4 +1095,4 @@ moduledoc:Checked.Trust.TranscriptionsB1 -mdoc572391514531888890
 moduledoc:Checked.Trust.TranscriptionsFR -mdoc11191104128708509847
 moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc11713116315474491912
+moduledoc:Checked.Trust.Witnesses -mdoc4832042633105500366

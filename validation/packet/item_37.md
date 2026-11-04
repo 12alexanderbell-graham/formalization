@@ -1,34 +1,30 @@
 # Item 37
 
-**Area:** Chemistry
+**Area:** F3
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v2, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴
 
 ## Claim in plain words (the system's own text)
 
-Redlich–Kwong / Soave–Redlich–Kwong: at every critical point, Z_c = 1/3 exactly,
-Ω_b = 0.07780 and Ω_a = 0.42748 to five decimals.
+The printed claim is false (witness: de Sitter, `a = exp`, `t₀ = 0`).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem rk_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 1 0 T) v) :
-    cubicP R a b 1 0 T v * v / (R * T) = 1 / 3 ∧
-      RoundsTo (b * cubicP R a b 1 0 T v / (R * T)) 0.07780 5 ∧
-      RoundsTo (a * cubicP R a b 1 0 T v / (R * T) ^ 2) 0.42748 5 := …
+theorem ccsD4Claim_false : ¬ CCSD4Claim := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.CCS.CCSD4Claim`, `Cosmography.CCS.D1`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.CCS.printedD4`, `Chemistry.RKReduced.q`, `Cosmography.CCS.remainder`, `Cosmography.CCS.series`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rk_constants`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 1, w = 0; RoundsTo: d = 0.08664, k = 5, d = 0.42748.
-- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, decel, hubble, redshift.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): CCSD4Claim, D1², D2², D3², printedD4².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
+- Source file: `Checked/Cosmography/CCSLookback.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 37

@@ -1,30 +1,31 @@
 # Item 35
 
-**Area:** F3
+**Area:** F8
 
-**Source:** Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v2, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Eqs. (10.38)–(10.51), verbatim from Capozziello & Salzano 2009 (arXiv:0902.0088) Eqs. (31)–(52): z-redshift d_L and d_A fourth-order coefficients D⁴_L, D⁴_A miss the curvature-squared term
 
 ## Claim in plain words (the system's own text)
 
-The printed claim is false (witness: de Sitter, `a = exp`, `t₀ = 0`).
+The review's claim (10.45)–(10.51) is false even for past emission only (`t → t₀⁻`): see
+`bambaDAzClaim_false`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem ccsD4Claim_false : ¬ CCSD4Claim := …
+theorem bambaDAzClaimPast_false : ¬ BambaDAzClaimPast := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.CCS.CCSD4Claim`, `Cosmography.CCS.D1`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.CCS.printedD4`, `Cosmography.CCS.remainder`, `Cosmography.CCS.series`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaA.angDist`, `Cosmography.BambaZ.curvK`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.BambaZ.BambaDAzClaimPast`, `Cosmography.BambaZ.DA1z`, `Cosmography.BambaZ.DA2z`, `Cosmography.BambaZ.DA3z`, `Cosmography.BambaZ.printedDA4z`, `Chemistry.RKReduced.q`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaY.comoving`, `Cosmography.BambaZ.remAz`, `Cosmography.BambaZ.seriesZ`, `Cosmography.Transverse.transverse`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, decel, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): CCSD4Claim, D1², D2², D3², printedD4².
+- Definitions pinned by a machine-checked specification: cosmoCoeff, angDist, curvK, decel, hubble, redshift.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): BambaDAzClaimPast, DA1z², DA2z², DA3z², printedDA4z².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
-- Source file: `Checked/Cosmography/CCSLookback.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Cosmography/BambaZ.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 35

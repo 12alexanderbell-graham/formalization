@@ -1,32 +1,35 @@
 # Item 27
 
-**Area:** F10
+**Area:** F6
 
-**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421 (v1–v3), Eqs. (10.55)–(10.57), copied verbatim from Capozziello & Salzano, Adv. Astron. 2009, 217420, arXiv:0902.0088, Eqs. (56)–(58): curvature terms of the y-redshift d_L coefficients D³_{L,y}, D⁴_{L,y} wrong
 
 ## Claim in plain words (the system's own text)
 
-Printed (11.43) fails at the same parameter values.
+The printed `D³_{L,y}` (with the corrected `D²`) fails, from the past, in every `C⁵` model
+with `a(t₀) ≠ 0`, `H₀ ≠ 0`, `Ω₀ ≠ 1` and `q₀ ≠ 2/3`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem printedEta30_false_at {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) (hd : printedDen Ω ≠ 0)
-    (hne : (54 * Ω ^ 2 - 29 * Ω - 2) * (27 * Ω ^ 2 + 24 * Ω - 32) ≠ 0) :
-    ¬ HasDerivAt (eta30 Ω) (printed30 Ω) 0 := …
+theorem printedD3y_fails_past (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
+    (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0)
+    (hD : (omega0 K a t₀ - 1) * (3 * decel a t₀ - 2) ≠ 0) :
+    ¬ (fun t => remK correctD2y printedD3y (fun _ _ _ _ _ => 0) K a t₀ t)
+      =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 4) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FRCosmo.P0`, `Cosmography.FRCosmo.P3`, `Cosmography.FRCosmo.Q0`, `Cosmography.FRCosmo.Q3`, `Cosmography.FREta.jL`, `Cosmography.FREta.lL`, `Cosmography.FREta.printed30`, `Cosmography.FREta.printedDen`, `Cosmography.FREta.qL`, `Cosmography.FREta.sL`, `Cosmography.FREta.eta30`, `Cosmography.FREta.eta30Of`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaK.omega0`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.BambaK.printedD3y`, `Cosmography.BambaY.D1y`, `Chemistry.RKReduced.q`, `Cosmography.BambaK.remK`, `Cosmography.BambaK.seriesY4`, `Cosmography.BambaY.comoving`, `Cosmography.BambaY.correctD2y`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.Transverse.transverse`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): P0², P3², Q0², Q3², jL, lL², printed30², printedDen², qL², sL².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedEta30_false_at`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Cosmography/FREta.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, lumDist, omega0, yred, decel, hubble.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): printedD3y², D1y².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedD3y_fails_past`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
+- Source file: `Checked/Cosmography/BambaCurved.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 27

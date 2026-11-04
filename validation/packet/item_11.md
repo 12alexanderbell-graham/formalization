@@ -1,33 +1,32 @@
 # Item 11
 
-**Area:** F3
+**Area:** T1 fidelity
 
-**Source:** Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v2, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴
+**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
 
 ## Claim in plain words (the system's own text)
 
-**Lookback time to fifth order in redshift** (correct version of Eq. (A2)): for every
-scale factor that is `C⁵` at `t₀`, with `a(t₀) ≠ 0` and `H₀ ≠ 0`.
+**Pinning:** every `C` obeying the cosmographic Taylor law equals `cosmoCoeff` wherever
+`a > 0`, `a` is `Cⁿ` near `t₀` and `ȧ(t₀) ≠ 0`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem lookback_fifth_order (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
-    (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0) :
-    (fun t => remainder correctD4 a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5) := …
+theorem cosmoCoeffCore_pins (C : ℕ → (ℝ → ℝ) → ℝ → ℝ) (h : CosmoCoeffSpecCore C) (n : ℕ)
+    (a : ℝ → ℝ) (t₀ : ℝ) (hok : CoeffOK n a t₀) : C n a t₀ = cosmoCoeff n a t₀ := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.CCS.D1`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.CCS.correctD4`, `Cosmography.CCS.remainder`, `Cosmography.CCS.series`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Chemistry.RKReduced.q`, `Cosmography.CCS.D1`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.CCS.remainder`, `Cosmography.CCS.series`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.CoeffOK`, `Fidelity.CosmoCoeffSpecCore`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, decel, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): D1², D2², D3².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lookback_fifth_order`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
-- Source file: `Checked/Cosmography/CCSLookback.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `cosmoCoeffCore_pins`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Fidelity/RedshiftCoeffSpecs.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 11

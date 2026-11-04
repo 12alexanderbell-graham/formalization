@@ -1,37 +1,32 @@
 # Item 16
 
-**Area:** F1
+**Area:** F10
 
-**Source:** Aviles, Gruber, Luongo, Quevedo, PRD 86, 123516 (2012), arXiv:1204.2007 (v1 and v2), Eq. (15): misprinted ΛCDM l₀ and m₀
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
 
 ## Claim in plain words (the system's own text)
 
-**Cosmographic coefficients of flat ΛCDM** (correct version of Aviles et al. Eq. (15)).
-For any scale factor obeying `H = H₀ √(Ω(1+z)³ + 1 − Ω)` near `t₀` and six times continuously
-differentiable at `t₀`: `q₀ = 3Ω/2 − 1`, `j₀ = 1`, `s₀ = 1 − 9Ω/2`, `l₀ = 1 + 3Ω + 27Ω²/2`,
-`m₀ = 1 − 27Ω/2 − 81Ω² − 81Ω³/4`.
+The review's (11.43), read as the first-order statement `η₃₀(Ω, ε) = η₃₀(Ω, 0) + printed30(Ω)·ε + o(ε)`
+(derivative in `ε` at `0` on the family (11.41)) for every `0 < Ω < 1` where the printed denominator is
+nonzero, is false.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem flatLCDM_coeffs (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatLCDM Ω a t₀)
-    (hs : ContDiffAt ℝ 6 a t₀) :
-    decel a t₀ = 3 / 2 * Ω - 1 ∧ cosmoCoeff 3 a t₀ = 1 ∧ cosmoCoeff 4 a t₀ = 1 - 9 / 2 * Ω ∧
-    cosmoCoeff 5 a t₀ = 1 + 3 * Ω + 27 / 2 * Ω ^ 2 ∧
-    cosmoCoeff 6 a t₀ = 1 - 27 / 2 * Ω - 81 * Ω ^ 2 - 81 / 4 * Ω ^ 3 := …
+theorem printedEta30Claim_false : ¬ PrintedEta30Claim := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`
+See GLOSSARY.md: `Cosmography.FRCosmo.P0`, `Cosmography.FRCosmo.P3`, `Cosmography.FRCosmo.Q0`, `Cosmography.FRCosmo.Q3`, `Cosmography.FREta.PrintedEta30Claim`, `Cosmography.FREta.jL`, `Cosmography.FREta.lL`, `Cosmography.FREta.printed30`, `Cosmography.FREta.printedDen`, `Cosmography.FREta.qL`, `Cosmography.FREta.sL`, `Chemistry.RKReduced.q`, `Cosmography.FREta.eta30`, `Cosmography.FREta.eta30Of`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff, decel.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `flatLCDM_coeffs`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5, n = 6.
-- Source file: `Checked/Cosmography/LCDMCoefficients.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): P0², P3², Q0², Q3², PrintedEta30Claim, jL, lL², printed30², printedDen², qL², sL².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Cosmography/FREta.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 16

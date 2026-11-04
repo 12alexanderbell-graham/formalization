@@ -1,31 +1,40 @@
 # Item 10
 
-**Area:** F10
+**Area:** Chemistry
 
-**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
+**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim in plain words (the system's own text)
 
-**Correct (11.42)**: `η₂₀ = correct20(Ω)·ε` to first order.
+Redlich–Kwong fluid (pressure RT/(v−b) − A/(√T v(v+b))): at any critical point (T_c > 0,
+v_c > b) and at T = 0.7 T_c, every Maxwell coexistence state with liquid volume above the
+co-volume b has pressure 0.087 times the critical pressure (3 decimals) and acentric factor
+0.058 (3 decimals).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem eta20_hasDerivAt {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
-    eta20 Ω 0 = 0 ∧ HasDerivAt (eta20 Ω) (correct20 Ω) 0 := …
+theorem rk_coexistence_unique (R A b Tc vc vl vg ps : ℝ) (hR : 0 < R) (hA : 0 < A) (hb : 0 < b)
+    (hTc : 0 < Tc) (hvc : b < vc)
+    (hc : IsCriticalIsotherm (cubicP R (A / Real.sqrt Tc) b 1 0 Tc) vc)
+    (hl : b < vl)
+    (h : IsMaxwellCoexistence
+      (cubicP R (A / Real.sqrt (7 / 10 * Tc)) b 1 0 (7 / 10 * Tc)) vl vg ps) :
+    RoundsTo (ps / cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc) 0.087 3 ∧
+      RoundsTo (acentric ps (cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc)) 0.058 3 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FRCosmo.P0`, `Cosmography.FRCosmo.P2`, `Cosmography.FRCosmo.Q0`, `Cosmography.FRCosmo.Q2`, `Cosmography.FREta.jL`, `Cosmography.FREta.lL`, `Cosmography.FREta.qL`, `Cosmography.FREta.sL`, `Cosmography.FREta.correct20`, `Cosmography.FREta.eta20`, `Cosmography.FREta.eta20Of`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.Coexistence.acentric`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): P0², P2², Q0², Q2², jL, lL², qL², sL².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `eta20_hasDerivAt`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): eta20: ε = 0.
-- Source file: `Checked/Cosmography/FREta.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: IsMaxwellCoexistence, IsCriticalIsotherm.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rk_coexistence_unique`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 1, w = 0; RoundsTo: d = 0.087, k = 3, d = 0.058.
+- Source file: `Checked/Chemistry/RKAcentric.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 10

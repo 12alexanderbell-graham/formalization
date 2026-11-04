@@ -1,32 +1,37 @@
 # Item 17
 
-**Area:** F11
+**Area:** F1
 
-**Source:** Demianski, Piedipalumbo, Sawant, Amati, A&A 598, A113 (2017), arXiv:1609.09631 (v1, v2), p. 3: flat z-series D⁴_L has −105q₀⁴ (should be +105q₀⁴) and D⁴_A (Eq. (23)) has +137j₀ (should be −137j₀); the D⁴_L error is reprinted in Lusso et al., A&A 628, L4 (2019), arXiv:1907.07692 (v1–v4), the quasar+SN+GRB paper claiming > 4σ tension with flat ΛCDM
+**Source:** Aviles, Gruber, Luongo, Quevedo, PRD 86, 123516 (2012), arXiv:1204.2007 (v1 and v2), Eq. (15): misprinted ΛCDM l₀ and m₀
 
 ## Claim in plain words (the system's own text)
 
-The flat `d_L(z)` series printed by Demianski et al. 2017 (and Lusso et al. 2019), with its printed
-`D⁴_L`, is not `d_L + o(z⁵)` for every analytic, everywhere positive flat scale factor with `H₀ > 0`:
-the claim is false.
+**Cosmographic coefficients of flat ΛCDM** (correct version of Aviles et al. Eq. (15)).
+For any scale factor obeying `H = H₀ √(Ω(1+z)³ + 1 − Ω)` near `t₀` and six times continuously
+differentiable at `t₀`: `q₀ = 3Ω/2 − 1`, `j₀ = 1`, `s₀ = 1 − 9Ω/2`, `l₀ = 1 + 3Ω + 27Ω²/2`,
+`m₀ = 1 − 27Ω/2 − 81Ω² − 81Ω³/4`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem demDLzClaim_false : ¬ DemDLzClaim := …
+theorem flatLCDM_coeffs (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatLCDM Ω a t₀)
+    (hs : ContDiffAt ℝ 6 a t₀) :
+    decel a t₀ = 3 / 2 * Ω - 1 ∧ cosmoCoeff 3 a t₀ = 1 ∧ cosmoCoeff 4 a t₀ = 1 - 9 / 2 * Ω ∧
+    cosmoCoeff 5 a t₀ = 1 + 3 * Ω + 27 / 2 * Ω ^ 2 ∧
+    cosmoCoeff 6 a t₀ = 1 - 27 / 2 * Ω - 81 * Ω ^ 2 - 81 / 4 * Ω ^ 3 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaZ.curvK`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.BambaZ.DL1z`, `Cosmography.BambaZ.DL2z`, `Cosmography.BambaZ.DL3z`, `Cosmography.DemianskiZ.DemDLzClaim`, `Cosmography.DemianskiZ.demDL4`, `Cosmography.BambaY.comoving`, `Cosmography.BambaZ.remLz`, `Cosmography.BambaZ.seriesZ`, `Cosmography.Transverse.transverse`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, lumDist, curvK, decel, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): DL1z², DL2z², DL3z², DemDLzClaim, demDL4².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): lumDist: K = 0; cosmoCoeff: n = 3, n = 4, n = 5; curvK: K = 0.
-- Source file: `Checked/Cosmography/DemianskiZ.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff, decel.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `flatLCDM_coeffs`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5, n = 6.
+- Source file: `Checked/Cosmography/LCDMCoefficients.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 17

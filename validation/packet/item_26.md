@@ -1,34 +1,34 @@
 # Item 26
 
-**Area:** F5
+**Area:** Chemistry
 
-**Source:** Cattoën & Visser, Class. Quantum Grav. 24, 5985 (2007), arXiv:0710.1887v1, Eq. (59) (also gr-qc/0703122 v1–v3 and arXiv:0809.0537v1 Eq. (32)): deceleration-distance y² coefficient 1/12 should be 1/24
+**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim in plain words (the system's own text)
 
-The printed coefficient fails (past emission) in every flat `C³` model with
-`−1 − 2q₀ + 12q₀² − 4j₀ ≠ 0`.
+Peng–Robinson: at every critical point, Z_c = 0.3074 (four decimals), Ω_b = 0.07780 and
+Ω_a = 0.45724 (five decimals).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem printedQ2_fails_past (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 3 a t₀)
-    (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0)
-    (hD : -1 - 2 * decel a t₀ + 12 * decel a t₀ ^ 2 - 4 * cosmoCoeff 3 a t₀ ≠ 0) :
-    ¬ (fun t => remainderQ printedQ2 a t₀ t) =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 3) := …
+theorem pr_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 2 (-1) T) v) :
+    RoundsTo (cubicP R a b 2 (-1) T v * v / (R * T)) 0.3074 4 ∧
+      RoundsTo (b * cubicP R a b 2 (-1) T v / (R * T)) 0.07780 5 ∧
+      RoundsTo (a * cubicP R a b 2 (-1) T v / (R * T) ^ 2) 0.45724 5 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaY.lumDistFlat`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.CVdQ.dQFlat`, `Cosmography.CVdQ.printedQ2`, `Cosmography.BambaY.comoving`, `Cosmography.CCS.D2`, `Cosmography.CVdQ.remainderQ`, `Cosmography.CVdQ.seriesQ`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, lumDistFlat, yred, decel, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): dQFlat, printedQ2².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedQ2_fails_past`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3.
-- Source file: `Checked/Cosmography/CVdQ.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `pr_constants`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 2, w = -1; RoundsTo: d = 0.3074, k = 4, d = 0.07780, k = 5, d = 0.45724.
+- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 26

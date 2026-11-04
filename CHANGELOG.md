@@ -203,3 +203,8 @@
 - Env: add_repo not exposed; repo pre-cloned (stale local main reset); local Lean via elan ok. CI of run 1428Z green (41857826238, 41858026983, 41858972093, 41861547449).
 - Part 1, data claims (the link had no checker): Farooq & Ratra 2013 Table 1 (28 H(z) points), flat law, H₀ marginalised over the paper's Gaussian priors. Froze, proved (no floating point: closed-form Gaussian integral, AM–GM square-root bounds, generated certificates), audited (blind restatement closed in Lean incl. the H₀ > 0 integration range; blind second reading of the table agrees in Lean; referee STANDS-WITH-CORRECTIONS) and promoted eight headlines: best-fit Ω intervals, existence, minimum values, transition redshifts for both priors. The paper's printed best fits are grid-rounded minimisers; its transition redshifts are those of the grid values; its χ²_min = 18.24 is reproduced by no natural convention (parked: no conclusion changes).
 - Records: run README, STATE, LEDGER, BLUEPRINT, TARGETS part 1 status, PROMPT note.
+
+## 2026-11-04T1828Z (scheduled run)
+- Env: add_repo not exposed; repo pre-cloned (stale local main reset); local Lean via elan ok. CI of run 1628Z promotion 41883514176 green (FR13 PROVED).
+- Part 5 (idle since 0828Z): acentric factor of the original Redlich–Kwong fluid. Froze (46d5200), proved in Work (2278758; θ-uniform generated certificates, existence by IVT), blind restatement closed in Lean (c1d077d), referee STANDS-WITH-CORRECTIONS (value 0.058 in print, 1983), promoted to Checked (`Checked/Chemistry/RK*.lean`).
+- Records: run README, STATE, LEDGER, BLUEPRINT, TARGETS part 5 status, PROMPT note.

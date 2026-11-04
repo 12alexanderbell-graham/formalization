@@ -1,31 +1,31 @@
 # Item 34
 
-**Area:** Chemistry
+**Area:** F1
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** Aviles, Gruber, Luongo, Quevedo, PRD 86, 123516 (2012), arXiv:1204.2007 (v1 and v2), Eq. (15): misprinted ΛCDM l₀ and m₀
 
 ## Claim in plain words (the system's own text)
 
-The critical cubic has exactly one root above 1 (x = v_c/b > 1).
+**Refutation of the printed m₀ in Eq. (15).** On Einstein–de Sitter the printed formula
+gives `−134`, the true value is `−455/4`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem critCubic_existsUnique (u w : ℝ) (hu : -2 < u) (h1 : 0 < 1 + u + w) (h2 : u + w < -1) :
-    ∃! x : ℝ, 1 < x ∧ critCubic u w x = 0 := …
+theorem avilesM0Claim_false : ¬ AvilesM0Claim := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.CubicEOS.critCubic`
+See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.Aviles.AvilesM0Claim`, `Cosmography.hubble`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `critCubic_existsUnique`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): AvilesM0Claim.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 6.
+- Source file: `Checked/Cosmography/LCDMCoefficients.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 34

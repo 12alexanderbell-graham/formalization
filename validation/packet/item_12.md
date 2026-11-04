@@ -1,31 +1,33 @@
 # Item 12
 
-**Area:** F1
+**Area:** F3
 
-**Source:** arXiv:1903.11433, Eq. (21): misprinted flat ΛCDM l₀ (printed as 1 + 3Ω_m − (27/2)Ω_m²)
+**Source:** Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v2, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴
 
 ## Claim in plain words (the system's own text)
 
-**Refutation of the printed l₀ in Eq. (21).** On Einstein–de Sitter (Ω = 1) the printed
-formula gives `−19/2`, the true value is `35/2`.
+**Lookback time to fifth order in redshift** (correct version of Eq. (A2)): for every
+scale factor that is `C⁵` at `t₀`, with `a(t₀) ≠ 0` and `H₀ ≠ 0`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem avilesL0Claim_false : ¬ AvilesL0Claim := …
+theorem lookback_fifth_order (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
+    (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0) :
+    (fun t => remainder correctD4 a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.Aviles.AvilesL0Claim`, `Cosmography.hubble`, `Cosmography.redshift`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.CCS.D1`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Chemistry.RKReduced.q`, `Cosmography.CCS.correctD4`, `Cosmography.CCS.remainder`, `Cosmography.CCS.series`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): AvilesL0Claim.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 5.
-- Source file: `Checked/Cosmography/LCDMCoefficients.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, decel, hubble, redshift.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): D1², D2², D3².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lookback_fifth_order`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
+- Source file: `Checked/Cosmography/CCSLookback.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 12

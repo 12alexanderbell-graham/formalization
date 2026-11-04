@@ -6,14 +6,13 @@
 
 ## Claim in plain words (the system's own text)
 
-**The program's flat CPL predicate equals the blind first-principles formulation**, for
-every `Ω, w₀, wₐ`, every scale factor and every `t₀`.
+**Pinning:** any predicate obeying the blind first-principles law is `IsFlatCPL`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem isFlatCPL_iff_friedmannCPL (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) :
-    IsFlatCPL Ω w₀ wₐ a t₀ ↔ FriedmannCPL Ω w₀ wₐ a t₀ := …
+theorem flatCPL_pins (P : ℝ → ℝ → ℝ → (ℝ → ℝ) → ℝ → Prop)
+    (h : ∀ Ω w₀ wₐ a t₀, P Ω w₀ wₐ a t₀ ↔ FriedmannCPL Ω w₀ wₐ a t₀) : P = IsFlatCPL := …
 ```
 
 ## Definitions it uses
@@ -25,7 +24,7 @@ See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: IsFlatCPL.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `isFlatCPL_iff_friedmannCPL`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `flatCPL_pins`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Fidelity/FriedmannCPL.lean` (do not open it before submitting your answers).
 

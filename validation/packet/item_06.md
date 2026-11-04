@@ -1,31 +1,33 @@
 # Item 06
 
-**Area:** Certified numbers of the findings
+**Area:** F4
 
-**Source:** Aviles, Gruber, Luongo, Quevedo, PRD 86, 123516 (2012), arXiv:1204.2007 (v1 and v2), Eq. (15): misprinted ΛCDM l₀ and m₀
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421 (v1, v2, v3), Eq. (10.54): y-redshift luminosity-distance coefficient D²_{L,y} has the wrong overall sign
 
 ## Claim in plain words (the system's own text)
 
-In every flat ΛCDM model with `Ω_m = 0.3`, `l₀ = 3.115` (to 3 decimals).
+**Luminosity distance to third order in `y`** (FLRW of any spatial curvature `K`, correct `D²_{L,y}`): for every
+scale factor that is `C³` at `t₀`, with `a(t₀) ≠ 0` and `H₀ ≠ 0`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem F1_l0 (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatLCDM (3 / 10) a t₀)
-    (hs : ContDiffAt ℝ 6 a t₀) : RoundsTo (cosmoCoeff 5 a t₀) 3.115 3 := …
+theorem lumDist_y_third_order (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 3 a t₀)
+    (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0) :
+    (fun t => remainderY correctD2y a t₀ t) =o[𝓝 t₀] (fun t => yred a t₀ t ^ 3) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.hubble`, `Cosmography.redshift`, `Records.RoundsTo`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaY.lumDistFlat`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.BambaY.D1y`, `Chemistry.RKReduced.q`, `Cosmography.BambaY.comoving`, `Cosmography.BambaY.correctD2y`, `Cosmography.BambaY.remainderY`, `Cosmography.BambaY.seriesY`, `Cosmography.CCS.D2`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `F1_l0`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatLCDM: Ω = 3/10; RoundsTo: d = 3.115, k = 3; cosmoCoeff: n = 5.
-- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, lumDistFlat, yred, decel, hubble.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): D1y².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lumDist_y_third_order`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3.
+- Source file: `Checked/Cosmography/BambaDLy.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 06

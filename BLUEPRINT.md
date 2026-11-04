@@ -76,3 +76,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `FR13Tools.lean`: generic over any H(z) table: closed form of the H₀-marginalised χ² (Gaussian integral), √ bounds without certificates, log comparison, group lemma. `FR13Certs.lean`, `FR13ValCerts.lean`: generated (`runs/2026-11-04T1628Z/scripts/gen_fr13.py`). `FR13Val.lean`: continuity, value and log bounds. `FR13.lean`: the eight headlines. PROVED (Work 8a6faf3; Checked: STATE).
 - `Work/Data/FR13Audit.lean` (+ `FR13GapCerts.lean`, `gen_gap.py`): blind restatement closed. `Work/Data/FR13Transcription.lean`: second reading agrees.
 - Next node: bridge to pinned `hubble`/`redshift` (`IsFlatLCDM`); profile-likelihood intervals; a second, larger data set.
+
+## Chemistry: Redlich–Kwong coexistence, `Checked/Chemistry/RK*.lean` (run 2026-11-04T1828Z)
+- `RKReduced.lean`: reduced isotherm g θ x = θ/(x−1) − 1/(x²+x), primitive ψ, critical-point quartic q θ (linear in θ), `reduced_window` for every θ in a rational interval; generated certificates (`runs/2026-11-04T1828Z/scripts/gen_rk.py`); `rk_unique_core` (θ and P_c from the critical point via `CubicEOS.reduced`, √0.7 and x_c enclosed).
+- `RKExists.lean`: equal maxima on liquid [1.1, 1.5] and gas [60, 110] windows, IVT (`gen_rk_exists.py`). `RKAcentric.lean`: the two headlines.
+- `Work/Chemistry/RKAcentricAudit.lean`: blind restatement closed.
+- Next node: SRK/PR with Soave's κ(ω) on the same template (two α parameters enclosed instead of one).

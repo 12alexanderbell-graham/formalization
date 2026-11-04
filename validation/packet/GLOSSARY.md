@@ -11,6 +11,15 @@ def IsMaxwellCoexistence (p : ℝ → ℝ) (vl vg ps : ℝ) : Prop :=
   vl < vg ∧ p vl = ps ∧ p vg = ps ∧ ∫ v in vl..vg, p v = ps * (vg - vl)
 ```
 
+## `Chemistry.Coexistence.acentric`
+
+Pitzer's acentric factor from the saturation pressure `ps` at T = 0.7 T_c and the critical
+pressure `pc`: ω = −log₁₀(ps/pc) − 1.
+
+```lean
+noncomputable def acentric (ps pc : ℝ) : ℝ := -Real.logb 10 (ps / pc) - 1
+```
+
 ## `Chemistry.CubicEOS.IsCriticalIsotherm`
 
 Critical point of an isotherm `p` (pressure as a function of molar volume at fixed
@@ -35,6 +44,14 @@ volume `v`, `P = R T/(v − b) − a/(v² + u b v + w b²)`.
 
 ```lean
 noncomputable def cubicP (R a b u w T v : ℝ) : ℝ := R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)
+```
+
+## `Chemistry.RKReduced.q`
+
+
+
+```lean
+def q (θ x : ℝ) : ℝ := (2 * x + 1) * (x - 1) ^ 2 - θ * (x ^ 2 + x) ^ 2
 ```
 
 ## `Cosmography.Aviles.AvilesL0Claim`
@@ -146,14 +163,14 @@ algebra with `log₁₀ 2 ∈ [0.30101, 0.30105]`. -/
 open Checked.Cosmography.B1Fit
 ```
 
-## `Cosmography.BambaA.BambaDA4Claim`
+## `Cosmography.BambaA.BambaDA3ClaimPast`
 
-Claim (10.62)–(10.63), charitable: corrected `D³_{A,y}`, printed `D⁴_{A,y}`, `o(y⁵)`.
+Claim (10.61) as in `BambaDA3Claim`, past emission only (`t → t₀⁻`).
 
 ```lean
-def BambaDA4Claim : Prop :=
+def BambaDA3ClaimPast : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remA correctDA3 printedDA4 K a t₀ t) =o[𝓝 t₀] (fun t => yred a t₀ t ^ 5)
+    (fun t => remA printedDA3 (fun _ _ _ _ _ => 0) K a t₀ t) =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 4)
 ```
 
 ## `Cosmography.BambaA.BambaDA4ClaimPast`
@@ -237,15 +254,13 @@ noncomputable def remA (D3 : ℝ → ℝ → ℝ → ℝ → ℝ) (D4 : ℝ → 
           (omega0 K a t₀) * yred a t₀ t ^ 4)
 ```
 
-## `Cosmography.BambaK.BambaD3yClaimPast`
+## `Cosmography.BambaK.correctD3y`
 
-Claim (10.55) as in `BambaD3yClaim`, past emission only (`t → t₀⁻`).
+Proposed correction of (10.55): add `(Ω₀ − 1)(3q₀ − 2)/6` (zero when flat).
 
 ```lean
-def BambaD3yClaimPast : Prop :=
-  ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remK correctD2y printedD3y (fun _ _ _ _ _ => 0) K a t₀ t)
-      =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 4)
+noncomputable def correctD3y (q j s Ω : ℝ) : ℝ :=
+  printedD3y q j s Ω + (Ω - 1) * (3 * q - 2) / 6
 ```
 
 ## `Cosmography.BambaK.lumDist`
@@ -274,6 +289,17 @@ noncomputable def omega0 (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : ℝ :=
 ```lean
 noncomputable def printedD3y (q j s Ω : ℝ) : ℝ :=
   (1 / 24) * (52 - 20 * q + 21 * q ^ 2 - 15 * q ^ 3 - 7 * j + 10 * q * j + s - 2 * Ω * (1 + 3 * q))
+```
+
+## `Cosmography.BambaK.printedD4y`
+
+`D⁴_{L,y}` as printed (Eqs. (10.56)–(10.57)), verbatim (`j² = j₀²`).
+
+```lean
+noncomputable def printedD4y (q j s l Ω : ℝ) : ℝ :=
+  (1 / 120) * (359 - 184 * q + 186 * q ^ 2 - 135 * q ^ 3 + 105 * q ^ 4 + 90 * q * j
+    - 105 * q ^ 2 * j - 15 * q * s + -57 * j + 10 * j ^ 2 + 9 * s - l
+    - 5 * Ω * (17 - 6 * q + 9 * q ^ 2 - 2 * j))
 ```
 
 ## `Cosmography.BambaK.remK`
@@ -453,6 +479,22 @@ noncomputable def DL3z (q j s k : ℝ) : ℝ :=
   (1 / 24) * (2 - 2 * q - 15 * q ^ 2 - 15 * q ^ 3 + 5 * j + 10 * q * j + s + 2 * k * (1 + 3 * q))
 ```
 
+## `Cosmography.BambaZ.correctDA4z`
+
+Proposed correction of (10.50)–(10.51): add `k²/120`.
+
+```lean
+noncomputable def correctDA4z (q j s l k : ℝ) : ℝ := printedDA4z q j s l k + k ^ 2 / 120
+```
+
+## `Cosmography.BambaZ.correctDL4z`
+
+Proposed correction of (10.43)–(10.44): add `k²/120` (the `K²χ⁵/5!` term of `sin`/`sinh`).
+
+```lean
+noncomputable def correctDL4z (q j s l k : ℝ) : ℝ := printedDL4z q j s l k + k ^ 2 / 120
+```
+
 ## `Cosmography.BambaZ.curvK`
 
 `K c²/(H₀² a₀²)` (`c = 1`); the review's `Ω₀ = 1 + Kc²/(H₀²a₀²)` is `omega0`.
@@ -612,16 +654,12 @@ def IsFlatCPL (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : Prop :=
         Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))
 ```
 
-## `Cosmography.CVdQ.CVdQClaimPast`
+## `Cosmography.CVdQ.correctQ2`
 
-Same, past emission only.
+The same bracket over 24.
 
 ```lean
-def CVdQClaimPast : Prop :=
-  ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remainderQ printedQ2 a t₀ t) =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 3)
-
-/-! ### Helpers -/
+noncomputable def correctQ2 (q j Ω : ℝ) : ℝ := (1 / 24) * (3 - 2 * q + 12 * q ^ 2 - 4 * (j + Ω))
 ```
 
 ## `Cosmography.CVdQ.dQFlat`
@@ -631,14 +669,6 @@ Deceleration distance in a flat model: `d_Q = d_L/(1+z)^{3/2}` (real power).
 ```lean
 noncomputable def dQFlat (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   lumDistFlat a t₀ t / (1 + redshift a t₀ t) ^ ((3 : ℝ) / 2)
-```
-
-## `Cosmography.CVdQ.printedQ2`
-
-The y² coefficient as printed in Eq. (59).
-
-```lean
-noncomputable def printedQ2 (q j Ω : ℝ) : ℝ := (1 / 12) * (3 - 2 * q + 12 * q ^ 2 - 4 * (j + Ω))
 ```
 
 ## `Cosmography.CVdQ.remainderQ`
@@ -659,15 +689,27 @@ noncomputable def remainderQ (D2 : ℝ → ℝ → ℝ → ℝ) (a : ℝ → ℝ
 noncomputable def seriesQ (d2 q y : ℝ) : ℝ := y * (1 - q / 2 * y + d2 * y ^ 2)
 ```
 
-## `Cosmography.DemianskiZ.DemDLzClaim`
+## `Cosmography.DemianskiZ.DemDAzClaimPast`
 
-Printed `d_L(z)` series, flat, remainder `o(z⁵)`, every analytic positive scale factor.
+Printed `d_A(z)` series as in `DemDAzClaim`, past emission only (`t → t₀⁻`).
 
 ```lean
-def DemDLzClaim : Prop :=
+def DemDAzClaimPast : Prop :=
   ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remLz (fun q j s l _ => demDL4 q j s l) 0 a t₀ t)
-      =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5)
+    (fun t => remAz (fun q j s l _ => demDA4 q j s l) 0 a t₀ t)
+      =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5)
+
+/-! ### Headline statements (frozen) -/
+```
+
+## `Cosmography.DemianskiZ.demDA4`
+
+`D⁴_A` as printed (Demianski et al. 2017 (23)), verbatim.
+
+```lean
+noncomputable def demDA4 (q j s l : ℝ) : ℝ :=
+  (1 / 120) * (274 + 326 * q + 411 * q ^ 2 + 315 * q ^ 3 + 105 * q ^ 4 - 210 * q * j
+    - 105 * q ^ 2 * j - 15 * q * s + 137 * j + 10 * j ^ 2 - 21 * s - l)
 ```
 
 ## `Cosmography.DemianskiZ.demDL4`
@@ -732,20 +774,26 @@ def P0 (q j s l : ℝ) : ℝ :=
     - (3 * q ^ 4 + 25 * q ^ 3 + 96 * q ^ 2 + 72 * q + 20)
 ```
 
-## `Cosmography.FRCosmo.P2`
-
-`P₂` (11.27), verbatim.
-
-```lean
-def P2 (q j s : ℝ) : ℝ := 9 * s + 6 * j + 9 * q ^ 2 + 66 * q + 42
-```
-
 ## `Cosmography.FRCosmo.P3`
 
 `P₃` (11.29), verbatim.
 
 ```lean
 def P3 (q j s l : ℝ) : ℝ := 3 * l + 3 * s - 9 * (q + 4) * j - (45 * q ^ 2 + 78 * q + 12)
+```
+
+## `Cosmography.FRCosmo.PrintedF0Claim`
+
+Printed (11.21) with printed (11.31), as printed (division; `R ≠ 0` assumed).
+
+```lean
+def PrintedF0Claim : Prop :=
+  ∀ (Ω : ℝ) (a F : ℝ → ℝ) (t₀ : ℝ), IsFRCosmo Ω a F t₀ →
+    printedR (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) ≠ 0 →
+    F (curv a t₀) / (6 * hubble a t₀ ^ 2) =
+      -(P0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) * Ω
+          + Q0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀))
+        / printedR (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)
 ```
 
 ## `Cosmography.FRCosmo.Q0`
@@ -758,15 +806,6 @@ def Q0 (q j s l : ℝ) : ℝ :=
     + (3 * q * s + (4 * q + 6) * j + 6 * q ^ 3 + 44 * q ^ 2 + 22 * q - 12) * s
     + (2 * j ^ 2 + (3 * q ^ 2 + 10 * q - 6) * j + 17 * q ^ 3 + 52 * q ^ 2 + 54 * q + 36) * j
     + (3 * q ^ 5 + 28 * q ^ 4 + 118 * q ^ 3 + 72 * q ^ 2 - 76 * q - 64)
-```
-
-## `Cosmography.FRCosmo.Q2`
-
-`Q₂` (11.28), verbatim.
-
-```lean
-def Q2 (q j s : ℝ) : ℝ :=
-  -(6 * (q + 1) * s + (2 * j - 2 * (1 - q)) * j + 6 * q ^ 3 + 50 * q ^ 2 + 74 * q + 32)
 ```
 
 ## `Cosmography.FRCosmo.Q3`
@@ -808,31 +847,32 @@ noncomputable def rhoM (Ω : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   3 * hubble a t₀ ^ 2 * Ω * (a t₀ / a t) ^ 3
 ```
 
-## `Cosmography.FREta.correct20`
+## `Cosmography.FREta.Jfam`
 
-Derived coefficient of `ε` in `η₂₀` (`runs/2026-10-30T1628Z/scripts/gen_eta.py`).
+`j₀ − q₀ − 2` on the family.
 
 ```lean
-noncomputable def correct20 (Ω : ℝ) : ℝ :=
-  -2 * (27 * Ω ^ 2 + 24 * Ω - 32) / (27 * Ω * (Ω - 2) * (27 * Ω ^ 2 + 60 * Ω + 112))
+noncomputable def Jfam (Ω ε : ℝ) : ℝ := jL * (1 + ε) - qL Ω * (1 + ε) - 2
 ```
 
-## `Cosmography.FREta.eta20`
+## `Cosmography.FREta.PrintedEta30Claim`
 
-`η₂₀` on the common-`ε` family (11.41).
+Printed (11.43) as a first-order statement, for every `0 < Ω < 1` where it is defined.
 
 ```lean
-noncomputable def eta20 (Ω ε : ℝ) : ℝ :=
-  eta20Of Ω (qL Ω * (1 + ε)) (jL * (1 + ε)) (sL Ω * (1 + ε)) (lL Ω * (1 + ε))
+def PrintedEta30Claim : Prop :=
+  ∀ Ω : ℝ, 0 < Ω → Ω < 1 → printedDen Ω ≠ 0 → HasDerivAt (eta30 Ω) (printed30 Ω) 0
+
+/-! ## Proof tools (helpers; not part of the frozen statements) -/
 ```
 
-## `Cosmography.FREta.eta20Of`
+## `Cosmography.FREta.correct30`
 
-`F″(R₀)H₀⁴/F(R₀)` from (11.21), (11.23): `(P₂Ω + Q₂)/(36(P₀Ω + Q₀))` (`R` cancels).
+Derived coefficient of `ε` in `η₃₀`.
 
 ```lean
-noncomputable def eta20Of (Ω q j s l : ℝ) : ℝ :=
-  (P2 q j s * Ω + Q2 q j s) / (36 * (P0 q j s l * Ω + Q0 q j s l))
+noncomputable def correct30 (Ω : ℝ) : ℝ :=
+  -2 * (81 * Ω ^ 2 - 60 * Ω - 16) / (243 * Ω ^ 2 * (Ω - 2) * (27 * Ω ^ 2 + 60 * Ω + 112))
 ```
 
 ## `Cosmography.FREta.eta30`
@@ -990,6 +1030,66 @@ noncomputable def tbl : Fin 28 → ℝ × ℝ × ℝ :=
   ![(0.070, 69, 19.6), (0.100, 69, 12), (0.120, 68.6, 26.2), (0.170, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.200, 72.9, 29.6), (0.270, 77, 14), (0.280, 88.8, 36.6), (0.350, 76.3, 5.6), (0.352, 83, 14), (0.400, 95, 17), (0.440, 82.6, 7.8), (0.480, 97, 62), (0.593, 104, 13), (0.600, 87.9, 6.1), (0.680, 92, 8), (0.730, 97.3, 7.0), (0.781, 105, 12), (0.875, 125, 17), (0.880, 90, 40), (0.900, 117, 23), (1.037, 154, 20), (1.300, 168, 17), (1.430, 177, 18), (1.530, 140, 14), (1.750, 202, 40), (2.300, 224, 8)]
 ```
 
+## `Fidelity.CoeffOK`
+
+(Verbatim from the blind spec.) Physical hypotheses for the `n`-th cosmographic coefficient
+at `t`.
+
+```lean
+def CoeffOK (n : ℕ) (a : ℝ → ℝ) (t : ℝ) : Prop :=
+  0 < a t ∧ ContDiffAt ℝ n a t ∧ deriv a t ≠ 0
+```
+
+## `Fidelity.CosmoCoeffSpecCore`
+
+The fields of the blind `CosmoCoeffSpec` proved below (verbatim). Not yet proved for
+`cosmoCoeff` (omitted): `decel_hubble`, `recursion`, `time_scale`.
+
+```lean
+structure CosmoCoeffSpecCore (C : ℕ → (ℝ → ℝ) → ℝ → ℝ) : Prop where
+  /-- **Defining formula** `C n = a⁽ⁿ⁾ / (a Hⁿ)`, `H = ȧ/a`
+  [Visser eqs. (1)–(5); Aviles et al. §II]. -/
+  defining : ∀ (n : ℕ) (a : ℝ → ℝ) (t : ℝ), CoeffOK n a t →
+    C n a t = iteratedDeriv n a t / (a t * (deriv a t / a t) ^ n)
+  /-- **General (pinning) law: cosmographic Taylor series** of the scale factor,
+  `a(t₀+Δ)/a(t₀) = Σ_{k=0}^{n} C k · (H₀Δ)^k / k! + o(Δⁿ)`, valid when `a` is `C^n` near
+  `t₀` (Peano remainder) [Visser eq. (6); Aviles et al. eq. (2)]. -/
+  taylor_law : ∀ (n : ℕ) (a : ℝ → ℝ) (t₀ : ℝ), CoeffOK n a t₀ →
+    (fun Δ : ℝ => a (t₀ + Δ) / a t₀ -
+        ∑ k ∈ Finset.range (n + 1),
+          C k a t₀ * (deriv a t₀ / a t₀ * Δ) ^ k / (k.factorial : ℝ))
+      =o[nhds 0] (fun Δ : ℝ => Δ ^ n)
+  /-- `C 0 = 1` (normalization by `a`). -/
+  zero : ∀ (a : ℝ → ℝ) (t : ℝ), CoeffOK 0 a t → C 0 a t = 1
+  /-- `C 1 = ȧ/(aH) = 1`. -/
+  one : ∀ (a : ℝ → ℝ) (t : ℝ), CoeffOK 1 a t → C 1 a t = 1
+  /-- **Normalization invariance**: `a ↦ c·a` (`c > 0`) leaves every `C n` unchanged. -/
+  rescale_invariant : ∀ (n : ℕ) (a : ℝ → ℝ) (c t : ℝ), 0 < c → CoeffOK n a t →
+    C n (fun s => c * a s) t = C n a t
+  /-- **Time-translation covariance**. -/
+  time_translate : ∀ (n : ℕ) (a : ℝ → ℝ) (τ t : ℝ), CoeffOK n a (t + τ) →
+    C n (fun s => a (s + τ)) t = C n a (t + τ)
+  /-- **Anchor: de Sitter** `a = A e^{ht}`, `h ≠ 0`: `q = -1`, `j = s = … = 1`,
+  i.e. `C n = 1` for all `n` [Visser §3]. -/
+  de_sitter : ∀ (n : ℕ) (A h t : ℝ), 0 < A → h ≠ 0 →
+    C n (fun s => A * Real.exp (h * s)) t = 1
+  /-- **Anchor: power law** `a = t^p`, `t > 0`, `p ≠ 0`:
+  `C n = p(p-1)⋯(p-n+1)/pⁿ` (matter `p = 2/3`: `q = 1/2`, `j = 1`;
+  radiation `p = 1/2`: `q = 1`). -/
+  power_law : ∀ (n : ℕ) (p t : ℝ), 0 < t → p ≠ 0 →
+    C n (fun s => s ^ p) t = (∏ i ∈ Finset.range n, (p - (i : ℝ))) / p ^ n
+  /-- **Anchor: Milne** `a = t`: coasting, `q = j = s = … = 0` (`C n = 0` for `n ≥ 2`). -/
+  milne : ∀ (n : ℕ) (t : ℝ), 0 < t → 2 ≤ n → C n (fun s => s) t = 0
+  /-- **Anchor: matter domination** `a ∝ t^{2/3}`: deceleration `q = 1/2`, jerk `j = 1`. -/
+  matter_q : ∀ (t : ℝ), 0 < t → C 2 (fun s => s ^ (2 / 3 : ℝ)) t = -1 / 2
+  matter_j : ∀ (t : ℝ), 0 < t → C 3 (fun s => s ^ (2 / 3 : ℝ)) t = 1
+  /-- **Near-miss negative (sign)**: `C 2` is `-q`, not `q` (matter: `q = 1/2`). -/
+  not_q_sign : C 2 (fun s => s ^ (2 / 3 : ℝ)) 1 ≠ 1 / 2
+  /-- **Near-miss negative (normalization)**: `C 2` is not the unnormalized `ä/a`
+  (de Sitter `h = 2`: `ä/a = 4`, but `C 2 = 1`). -/
+  not_unnormalized : C 2 (fun s => Real.exp (2 * s)) 0 ≠ 4
+```
+
 ## `Fidelity.DustDensity`
 
 Matter (dust) density at time `t`, for dust whose present (`t = t₀`) density parameter is
@@ -1098,60 +1198,6 @@ structure HubbleSpec (H : (ℝ → ℝ) → ℝ → ℝ) : Prop where
     H (fun s => a (-s)) t = -H a (-t)
 ```
 
-## `Fidelity.Omega0Spec`
-
-Specification of `O K a t₀ = Ω₀ = ρ_total(t₀) / ρ_crit(t₀)` for an FLRW model with curvature
-constant `K`. From the Friedmann equation `H² = (8πG/3)ρ − K/a²` and `ρ_crit = 3H²/(8πG)`:
-`Ω₀ = 1 + K / (a₀ H₀)² = 1 + K / ȧ(t₀)²` [Wei08, eq. (1.5.19)–(1.5.21); Ryd16, eq. (4.34)].
-All fields demand values only when `a t₀ > 0`, `a` is differentiable at `t₀`, and `H₀ ≠ 0`.
-
-```lean
-structure Omega0Spec (O : ℝ → (ℝ → ℝ) → ℝ → ℝ) : Prop where
-  /-- Determining law: `Ω₀ = 1 + K/(a₀ H₀)²` [Ryd16, eq. (4.34): `1 − Ω₀ = −K/(a₀H₀)²`]. -/
-  law : ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 →
-    O K a t₀ = 1 + K / (a t₀ ^ 2 * (deriv a t₀ / a t₀) ^ 2)
-  /-- Defining law via the Friedmann equation: if the total density `ρ` satisfies
-  `H₀² = (8πG/3)ρ − K/a₀²` (for some `G > 0`), then `Ω₀ = ρ / ρ_crit = (8πG/3)ρ / H₀²`
-  [Wei08, §1.5; Dod03, §2.4]. -/
-  friedmann : ∀ (G ρ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < G → 0 < a t₀ →
-    DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 →
-    (deriv a t₀ / a t₀) ^ 2 = 8 * Real.pi * G / 3 * ρ - K / a t₀ ^ 2 →
-    O K a t₀ = ρ / (3 * (deriv a t₀ / a t₀) ^ 2 / (8 * Real.pi * G))
-  /-- Anchor: spatially flat (`K = 0`) ⇒ `Ω₀ = 1` [Ryd16, §4.4]. -/
-  flat : ∀ (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → O 0 a t₀ = 1
-  /-- Anchor: Milne (empty) universe `a = t`, `K = −1` ⇒ `Ω₀ = 0` [Ryd16, §5.2]. -/
-  milne : ∀ t₀ : ℝ, 0 < t₀ → O (-1) (fun s => s) t₀ = 0
-  /-- Anchor: closed de Sitter slicing `a = cosh t`, `K = 1` (`H² = 1 − 1/a²`, i.e. a pure
-  cosmological constant with `(8πG/3)ρ_Λ = 1`) ⇒ `Ω₀ = 1/H₀² = 1 + 1/sinh² t₀`. -/
-  closed_deSitter : ∀ t₀ : ℝ, t₀ ≠ 0 →
-    O 1 Real.cosh t₀ = 1 + 1 / Real.sinh t₀ ^ 2
-  /-- Anchor: closed model with `a = t`, `K = 1` (so `ȧ = 1`) ⇒ `Ω₀ = 2`. -/
-  closed_value : O 1 (fun s => s) 1 = 2
-  /-- Closed (`K > 0`) ⇔ `Ω₀ > 1` [Ryd16, §4.4]. -/
-  gt_one_iff : ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → (1 < O K a t₀ ↔ 0 < K)
-  /-- Open (`K < 0`) ⇔ `Ω₀ < 1` [Ryd16, §4.4]. -/
-  lt_one_iff : ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → (O K a t₀ < 1 ↔ K < 0)
-  /-- Rescaling law: `(K, a) ↦ (c² K, c · a)` describes the same spacetime, so `Ω₀` is
-  unchanged (`c > 0`). -/
-  rescale : ∀ (c K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < c → 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → O (c ^ 2 * K) (fun s => c * a s) t₀ = O K a t₀
-  /-- Invariance under time translation. -/
-  shift_inv : ∀ (τ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → O K (fun s => a (s + τ)) (t₀ - τ) = O K a t₀
-  /-- Locality: depends only on the germ of `a` at `t₀`. -/
-  local_germ : ∀ (K : ℝ) (a b : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → a =ᶠ[𝓝 t₀] b → O K a t₀ = O K b t₀
-  /-- Near miss (sign): `Ω₀ ≠ 1 − K/(a₀H₀)²` (closed `a = t`, `K = 1`, `t₀ = 1` would give 0). -/
-  not_sign_flip : O 1 (fun s => s) 1 ≠ 0
-  /-- Near miss: `Ω₀ ≠ 1 + K/H₀²` (missing `a₀²`): `a = 2t`, `K = 1`, `t₀ = 1` has
-  `H₀ = 1`, `a₀ = 2`, so `Ω₀ = 5/4`, not `2`. -/
-  not_missing_a0 : O 1 (fun s => 2 * s) 1 ≠ 2
-```
-
 ## `Records.RoundsTo`
 
 `x` rounds to `d` at `k` decimal places: `|x − d| ≤ ½·10⁻ᵏ`.
@@ -1206,12 +1252,4 @@ def IsMMSolution (k₁ km₁ k₂ s₀ e₀ c₀ p₀ T : ℝ) (s e c p : ℝ �
     HasDerivWithinAt e (-k₁ * e t * s t + (km₁ + k₂) * c t) (Icc 0 T) t ∧
     HasDerivWithinAt c (k₁ * e t * s t - (km₁ + k₂) * c t) (Icc 0 T) t ∧
     HasDerivWithinAt p (k₂ * c t) (Icc 0 T) t
-```
-
-## `changed;.Checked.Chemistry.CoexistenceReduced.q`
-
-Numerator of `g'`: `g' x = −2 q x / (5 x³ (x−1)²)`.
-
-```lean
-def q (x : ℝ) : ℝ := 14 * x ^ 3 - 135 * x ^ 2 + 270 * x - 135
 ```

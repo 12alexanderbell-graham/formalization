@@ -1,49 +1,35 @@
 # Item 20
 
-**Area:** B1 fourth order
+**Area:** Data claim
 
 **Source:** see the claim
 
 ## Claim in plain words (the system's own text)
 
-**Lusso et al. 2019, SNe + quasars, the whole 1σ range.** For every `Ω ∈ [0, 1]` and every scale
-factor obeying `H = H₀ √(Ω(1+z)³ + 1 − Ω)` (with `H₀ > 0`) on the whole interval back to the farther
-source, with sources at `1 + z = 2√2` and `1 + z = 4√2`, every quartic log-polynomial distance with
-`a₂ ≥ 2.906`, `a₃ ≤ 5.479`, `a₄ ≤ −1.794` (the printed Table 2 ends of the 1σ ranges on the side
-that brings the quartic's distance ratio closer to the exact one; the region contains the box of all three printed ±1σ ranges), normalisation `H > 0`
-and positive at the farther source has a residual distance modulus `5 log₁₀(d_L / D_L)` against
-the exact luminosity distance `d_L` (`lumDistFlat`) that is strictly larger at `1 + z = 4√2` than at
-`1 + z = 2√2`.
+With the prior 68 ± 2.8, at every minimiser Ω over [0, 1] of the marginalised chi-square
+of the Farooq–Ratra 2013 table, the z > −1 solving Ω(1+z)³ = 2(1 − Ω) lies strictly between
+0.703 and 0.706.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem l19_sq_box (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
-    (a : ℝ → ℝ) (t₅ t₃ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₀ : t₃ ≤ t₀)
-    (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
-    (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
-    (hH₀ : 0 < hubble a t₀)
-    (hH : ∀ s ∈ Set.Icc t₅ t₀,
-      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
-    (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1) (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
-    (a₂ a₃ a₄ H : ℝ) (hHp : 0 < H)
-    (ha₂ : 2.906 ≤ a₂) (ha₃ : a₃ ≤ 5.479) (ha₄ : a₄ ≤ -1.794)
-    (hp₅ : 0 < logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₅)) :
-    5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₃))
-      < 5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₅)) := …
+theorem fr13_zda68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω')
+    (z : ℝ) (hz : -1 < z) (hda : Ω * (1 + z) ^ 3 = 2 * (1 - Ω)) :
+    0.703 < z ∧ z < 0.706 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1L19.logPolyDL4`, `Cosmography.B1.gL`, `Cosmography.BambaY.comoving`
+See GLOSSARY.md: `Data.FR13.fr13Table`, `Data.FR13.chiSqHz`, `Data.FR13.margChiSq`, `Data.FR13Certs.tbl`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL4².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `l19_sq_box`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1.
-- Source file: `Checked/Cosmography/B1L19.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): fr13Table.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fr13_zda68`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): margChiSq: Hbar = 68, σ = 2.8.
+- Source file: `Checked/Data/FR13.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 20

@@ -156,6 +156,8 @@ Checked.Chemistry.CubicEOS.pr_constants
 # Chemistry (run 2026-11-04T0028Z): van der Waals vapour-liquid coexistence at 0.7 T_c (Maxwell construction), certified p_s/P_c and acentric factor
 Checked.Chemistry.Coexistence.vdW_coexistence_exists
 Checked.Chemistry.Coexistence.vdW_coexistence_unique
+Checked.Chemistry.RKAcentric.rk_coexistence_exists
+Checked.Chemistry.RKAcentric.rk_coexistence_unique
 # Rigorous simulation (run 2026-11-04T0628Z): Duffing oscillator, validated ODE enclosure of every solution + existence
 Checked.Sim.Duffing.duffing_first_zero_sol
 Checked.Sim.Duffing.duffing_solution_exists

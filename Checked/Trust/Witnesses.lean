@@ -36,6 +36,7 @@ import Checked.Cosmography.B1FitWitness
 import Checked.Cosmography.B1FitRL19
 import Checked.Cosmography.B1L19
 import Checked.Data.FR13
+import Checked.Chemistry.RKAcentric
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -513,5 +514,30 @@ theorem fr13_zda738 : nonvacuity% Checked.Data.FR13.fr13_zda738 := by
   have hp : 0 < Ω := by linarith [hb.1]
   obtain ⟨z, hz, hc⟩ := fr13_cube (2 * (1 - Ω) / Ω) (div_pos (by linarith [hb.2]) hp)
   exact ⟨Ω, hΩ.1, hΩ.2, h, z, hz, by rw [hc]; field_simp, trivial⟩
+
+/-! ### RK acentric factor (run 2026-11-04T1828Z): the Redlich–Kwong critical point of R = b = 1
+with constant attraction 1 (`Checked.Chemistry.CubicEOS.exists_unique_critical`, u = 1, w = 0),
+read as A = √T_c, so that A/√T_c = 1; the coexistence state of the uniqueness theorem is the one
+`rk_coexistence_exists` provides. -/
+
+theorem rk_crit_witness : ∃ Tc vc : ℝ, 0 < Tc ∧ 1 < vc ∧
+    Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+      (Checked.Chemistry.CubicEOS.cubicP 1 (Real.sqrt Tc / Real.sqrt Tc) 1 1 0 Tc) vc := by
+  obtain ⟨⟨Tc, vc⟩, ⟨hT, hv, hc⟩, -⟩ := Checked.Chemistry.CubicEOS.exists_unique_critical
+    1 1 1 1 0 one_pos one_pos one_pos (by norm_num) (by norm_num)
+  refine ⟨Tc, vc, hT, hv, ?_⟩
+  rw [div_self (Real.sqrt_pos.2 hT).ne']
+  exact hc
+
+theorem rk_coexistence_exists : nonvacuity% Checked.Chemistry.RKAcentric.rk_coexistence_exists := by
+  obtain ⟨Tc, vc, hT, hv, hc⟩ := rk_crit_witness
+  exact ⟨1, Real.sqrt Tc, 1, Tc, vc, one_pos, Real.sqrt_pos.2 hT, one_pos, hT, hv, hc, trivial⟩
+
+theorem rk_coexistence_unique : nonvacuity% Checked.Chemistry.RKAcentric.rk_coexistence_unique := by
+  obtain ⟨Tc, vc, hT, hv, hc⟩ := rk_crit_witness
+  obtain ⟨vl, vg, ps, hl, h, -⟩ := Checked.Chemistry.RKAcentric.rk_coexistence_exists
+    1 (Real.sqrt Tc) 1 Tc vc one_pos (Real.sqrt_pos.2 hT) one_pos hT hv hc
+  exact ⟨1, Real.sqrt Tc, 1, Tc, vc, vl, vg, ps, one_pos, Real.sqrt_pos.2 hT, one_pos, hT, hv, hc,
+    hl, h, trivial⟩
 
 end Checked.Trust.NV

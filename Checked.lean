@@ -51,6 +51,9 @@ import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.CoexistenceReduced
 import Checked.Chemistry.CoexistenceExists
 import Checked.Chemistry.Coexistence
+import Checked.Chemistry.RKReduced
+import Checked.Chemistry.RKExists
+import Checked.Chemistry.RKAcentric
 import Checked.Fidelity.MaxwellSpec
 import Checked.Fidelity.CriticalSpec
 import Checked.Sim.Duffing

@@ -1,37 +1,31 @@
 # Item 46
 
-**Area:** F0
+**Area:** F7
 
-**Source:** textbook definition of lookback time and the cosmographic parameters (e.g. Visser 2004, Class. Quantum Grav. 21, 2603)
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Eqs. (10.61)–(10.63), verbatim from Capozziello & Salzano 2009 Eqs. (62)–(64): curvature terms of the y-redshift angular-diameter-distance coefficients D³_{A,y}, D⁴_{A,y} wrong
 
 ## Claim in plain words (the system's own text)
 
-**Milestone 1** (frozen in commit 6ef1003, audited in runs/2026-10-30T0028Z/audit.md). The lookback time `t₀ - t` of a source with redshift
-`z = z(t)` satisfies `t₀ - t = H₀⁻¹ (z - (1 + q₀/2) z²) + o(z²)` as `t → t₀`.
+The review's claim (10.61) is false even for past emission only (`t → t₀⁻`): see
+`bambaDA3Claim_false`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem lookback_second_order (a : ℝ → ℝ) (t₀ : ℝ)
-    (ha : ∀ᶠ t in 𝓝 t₀, DifferentiableAt ℝ a t)
-    (ha' : DifferentiableAt ℝ (deriv a) t₀)
-    (ha0 : a t₀ ≠ 0) (hH : deriv a t₀ ≠ 0) :
-    (fun t => (t₀ - t) - (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2)
-        / hubble a t₀)
-      =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 2) := …
+theorem bambaDA3ClaimPast_false : ¬ BambaDA3ClaimPast := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaA.angDist`, `Cosmography.BambaK.omega0`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.BambaA.BambaDA3ClaimPast`, `Cosmography.BambaA.DA1`, `Cosmography.BambaA.DA2`, `Cosmography.BambaA.printedDA3`, `Chemistry.RKReduced.q`, `Cosmography.BambaA.remA`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaY.comoving`, `Cosmography.CCS.D3`, `Cosmography.Transverse.transverse`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: decel, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lookback_second_order`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Cosmography/Lookback.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, angDist, omega0, yred, decel, hubble.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): BambaDA3ClaimPast, DA1², DA2², printedDA3².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
+- Source file: `Checked/Cosmography/BambaAngular.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 46
