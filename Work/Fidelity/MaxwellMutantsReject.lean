@@ -72,7 +72,7 @@ theorem reject_06 : ¬ MaxwellSpec mutant06 := by
   have hm : mutant06 (cubicLoop 1 1 2 1 (-3 / 8)) 1 2 1 := by
     unfold mutant06
     refine ⟨by norm_num, by norm_num [cubicLoop], ?_⟩
-    rw [intervalIntegral.integral_sub (cubicLoop_continuous _ _ _ _ _).intervalIntegrable
+    rw [intervalIntegral.integral_sub ((cubicLoop_continuous _ _ _ _ _).intervalIntegrable _ _)
       intervalIntegrable_const, loop_integral, intervalIntegral.integral_const]
     norm_num [loopAnti, smul_eq_mul]
   obtain ⟨-, -, h3, -⟩ := (h.determining _ 1 2 1 hD).1 hm
