@@ -38,7 +38,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 EXIST = re.compile(r"(?i)\b(exist\w*|there (is|are)|some|admits?|witness\w*|instances?|examples?|exactly one|unique\w*|can be)\b")
 NEG = re.compile(r"(?i)\b(not|no|false|fails?|failure|wrong|refut\w*|misprint\w*|differs?|incorrect|never|miss(es)?|nonzero|non-zero|cannot|impossible|inconsistent)\b|≠|¬")
-NUM = re.compile(r"(?<![\w.^⁻/])(\d+\.\d+|\d+/\d+)(?![\w./])")
+NUM = re.compile(r"(?<![\w.^⁻/])((?:(?<![\d)])[-−])?)(\d+(?:\.\d+)?\s*[×x]\s*10[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+|\d+\.\d+|\d+/\d+)(?![\w/]|\.\d)")
+SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺", "0123456789-+")
+
+def num_value(tok):
+    """value of a docstring number token: decimal, fraction, or m×10ⁿ (adversary, run 0828Z)"""
+    m = re.match(r"(\d+(?:\.\d+)?)\s*[×x]\s*10([⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)$", tok)
+    if m:
+        return Fraction(m.group(1)) * Fraction(10) ** int(m.group(2).translate(SUP))
+    return Fraction(tok)
 UNIV = re.compile(r"(?i)\b(every|any|all|each|general(ly)?|whenever|always|universal(ly)?)\b")
 
 def short(n):
@@ -108,11 +116,17 @@ def main():
                 errs.append((f"{h['name']}|universal", f"{h['name']}: the docstring says '{m.group(0)}' but the statement binds no "
                             f"universally quantified data, even inside its claims (it is about fixed objects)"))
         if "nums" in h:
-            have = {abs(Fraction(x)) for x in h["nums"]}
+            signed = {Fraction(x) for x in h["nums"]}
+            have = {abs(v) for v in signed}
             for m in NUM.finditer(strip_code_names(doc)):
-                if abs(Fraction(m.group(1))) not in have:
-                    numgaps.append((f"{h['name']}|number|{m.group(1)}", f"{h['name']}: its docstring names the number "
-                                    f"{m.group(1)}, which is not a numeric literal of its statement"))
+                v = num_value(m.group(2))
+                # an explicit sign in the prose is compared signed (adversary: |·| hid sign errors);
+                # an unsigned number may match a literal of either sign (the statement may write -x)
+                ok = (-v in signed) if m.group(1) else (v in have)
+                if not ok:
+                    tok = m.group(1) + m.group(2)
+                    numgaps.append((f"{h['name']}|number|{tok}", f"{h['name']}: its docstring names the number "
+                                    f"{tok}, which is not a numeric literal of its statement"))
         if h["record"]:
             kinds = set(h["defs"].values())
             if (not h["pinned"] and not (kinds & {"PRINTED", "CLAIM"})) or h.get("free_conjuncts", 0) > 0:
