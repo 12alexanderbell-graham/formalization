@@ -20,6 +20,11 @@ what the prose may say against what the Lean statement actually contains, using 
 3. Shape: a headline whose conclusion is an existence statement says so in words; one that asserts
    only negations (refutations) says so; one with no universally bound data does not say "every",
    "any", "all", "general".
+5. Numbers (run 2026-11-04T0828Z, REPORT ONLY until a baseline is written from the first CI
+   report): every decimal (`2.5665`) or fraction (`13/5`) in a headline docstring is a numeric
+   literal of the statement (numeral, decimal, or quotient of two), as `nums` in meaning.jsonl.
+   A simulation or computation whose docstring names a time, bound or value the statement does
+   not contain is a wrong claim no other check reads (part 3, "wrong simulation" class).
 4. Records: a `Checked.Records` headline (a certified number) rests on at least one pinned or
    transcribed (PRINTED/CLAIM) definition: a number about a free formula certifies nothing about
    the physics (D04).
@@ -27,11 +32,13 @@ what the prose may say against what the Lean statement actually contains, using 
 Run after `lake env lean scripts/trust/StatementDeps.lean`. `--report` prints without failing.
 """
 import json, re, sys
+from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 EXIST = re.compile(r"(?i)\b(exist\w*|there (is|are)|some|admits?|witness\w*|instances?|examples?|exactly one|unique\w*|can be)\b")
 NEG = re.compile(r"(?i)\b(not|no|false|fails?|failure|wrong|refut\w*|misprint\w*|differs?|incorrect|never|miss(es)?|nonzero|non-zero|cannot|impossible|inconsistent)\b|≠|¬")
+NUM = re.compile(r"(?<![\w.^⁻/])(\d+\.\d+|\d+/\d+)(?![\w./])")
 UNIV = re.compile(r"(?i)\b(every|any|all|each|general(ly)?|whenever|always|universal(ly)?)\b")
 
 def short(n):
@@ -74,6 +81,7 @@ def main():
     KNOWN.update(short(r["name"]) for r in rows)
     KNOWN.update(r["name"] for r in rows)
     errs = []
+    numgaps = []
 
     def vocab(owner, doc, reached):
         text = strip_code_names(doc)
@@ -99,6 +107,12 @@ def main():
             if m:
                 errs.append((f"{h['name']}|universal", f"{h['name']}: the docstring says '{m.group(0)}' but the statement binds no "
                             f"universally quantified data, even inside its claims (it is about fixed objects)"))
+        if "nums" in h:
+            have = {abs(Fraction(x)) for x in h["nums"]}
+            for m in NUM.finditer(strip_code_names(doc)):
+                if abs(Fraction(m.group(1))) not in have:
+                    numgaps.append((f"{h['name']}|number|{m.group(1)}", f"{h['name']}: its docstring names the number "
+                                    f"{m.group(1)}, which is not a numeric literal of its statement"))
         if h["record"]:
             kinds = set(h["defs"].values())
             if (not h["pinned"] and not (kinds & {"PRINTED", "CLAIM"})) or h.get("free_conjuncts", 0) > 0:
@@ -138,6 +152,10 @@ def main():
         print(f"  baseline entries now fixed (remove them from prose_baseline.txt): {len(stale)}")
         for k in stale:
             print("    " + k)
+    if numgaps:
+        print(f"  number rule (report only, run 2026-11-04T0828Z; blocking once baselined): {len(numgaps)} docstring numbers not in their statements")
+        for _, m in numgaps:
+            print("    " + m)
     fail = bool(new) or bool(stale)
     if "--base" in sys.argv:
         import subprocess
