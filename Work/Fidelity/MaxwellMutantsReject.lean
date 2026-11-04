@@ -8,8 +8,9 @@ Mutants: `Work/Fidelity/MaxwellMutants.lean` (Sonnet red team, run 2026-10-31T14
 the spec; frozen copy). Spec: `Work/Fidelity/MaxwellSpec.lean` (blind, frozen copy).
 `reject_NN : ¬ MaxwellSpec mutantNN` — the spec catches the mutant.
 
-This run: 01, 02, 03, 04, 06, 08, 09 (cubic-loop anchors and near misses; the determining law on
-explicit polynomial isotherms). Open: 05, 07, 10 (absolute-value integrals; density variable).
+This run: 01, 02, 03, 04, 05, 06, 08, 09, 10 (cubic-loop anchors and near misses; the determining
+law on explicit polynomial isotherms, mirror symmetry for the unsigned-area mutants). Open: 07
+(equal areas in the density variable; needs a rational-function integral).
 -/
 
 namespace Work.Fidelity.MaxwellMutantsReject
@@ -106,6 +107,83 @@ theorem reject_02 : ¬ MaxwellSpec mutant02 := by
   obtain ⟨-, -, -, hI⟩ := (h.determining quart 1 3 0 hD).1 hm
   rw [intervalIntegral.integral_eq_sub_of_hasDerivAt (fun v _ => quart_hasDerivAt v)
     (quart_continuous.intervalIntegrable 1 3)] at hI
+  norm_num at hI
+
+/-- The parabola isotherm `(v−1)(v−3)`, symmetric about `v = 2`. -/
+noncomputable def quad (v : ℝ) : ℝ := (v - 1) * (v - 3)
+
+theorem quad_continuous : Continuous quad := by unfold quad; fun_prop
+
+theorem quad_hasDerivAt (v : ℝ) :
+    HasDerivAt (fun v : ℝ => (v - 2) ^ 3 / 3 - (v - 2)) (quad v) v := by
+  have hu : HasDerivAt (fun w : ℝ => w - 2) 1 v := (hasDerivAt_id v).sub_const 2
+  have h3 := (hu.pow 3).div_const 3
+  convert h3.sub hu using 1
+  simp [quad]
+  ring
+
+/-- 05 (equal unsigned half-areas about the midpoint) is caught by the determining law: the
+parabola `(v−1)(v−3)` is symmetric about 2, so its unsigned half-areas on `[1, 3]` agree, but
+`∫₁³ p = −4/3`. -/
+theorem reject_05 : ¬ MaxwellSpec mutant05 := by
+  intro h
+  have hD : PhysDomain quad 1 3 := physDomain_of_continuous quad_continuous one_pos (by norm_num)
+  have hm : mutant05 quad 1 3 0 := by
+    unfold mutant05
+    refine ⟨by norm_num, by norm_num [quad], by norm_num [quad], ?_⟩
+    have e : ((1:ℝ) + 3) / 2 = 2 := by norm_num
+    rw [e]
+    have hs := intervalIntegral.integral_comp_sub_left (f := fun v => |quad v - 0|)
+      (a := (1:ℝ)) (b := 2) 4
+    have e2 : (4:ℝ) - 2 = 2 := by norm_num
+    have e3 : (4:ℝ) - 1 = 3 := by norm_num
+    simp only [e2, e3] at hs
+    rw [← hs]
+    congr 1
+    funext v
+    unfold quad
+    ring_nf
+  obtain ⟨-, -, -, hI⟩ := (h.determining quad 1 3 0 hD).1 hm
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt (fun v _ => quad_hasDerivAt v)
+    (quad_continuous.intervalIntegrable 1 3)] at hI
+  norm_num at hI
+
+/-- The isotherm `(v−1)(v−3)(v−2)²`, symmetric about its double root 2. -/
+noncomputable def sext (v : ℝ) : ℝ := (v - 1) * (v - 3) * (v - 2) ^ 2
+
+theorem sext_continuous : Continuous sext := by unfold sext; fun_prop
+
+theorem sext_hasDerivAt (v : ℝ) :
+    HasDerivAt (fun v : ℝ => (v - 2) ^ 5 / 5 - (v - 2) ^ 3 / 3) (sext v) v := by
+  have hu : HasDerivAt (fun w : ℝ => w - 2) 1 v := (hasDerivAt_id v).sub_const 2
+  have h5 := (hu.pow 5).div_const 5
+  have h3 := (hu.pow 3).div_const 3
+  convert h5.sub h3 using 1
+  simp [sext]
+  ring
+
+/-- 10 (equal unsigned lobes about an interior root) is caught by the determining law: on
+`(v−1)(v−3)(v−2)²` the root 2 splits `[1, 3]` into mirror-image lobes, but `∫₁³ p = −4/15`. -/
+theorem reject_10 : ¬ MaxwellSpec mutant10 := by
+  intro h
+  have hD : PhysDomain sext 1 3 := physDomain_of_continuous sext_continuous one_pos (by norm_num)
+  have hm : mutant10 sext 1 3 0 := by
+    unfold mutant10
+    refine ⟨by norm_num, by norm_num [sext], by norm_num [sext], 2, by norm_num, by norm_num,
+      by norm_num [sext], ?_⟩
+    have hs := intervalIntegral.integral_comp_sub_left (f := fun v => |sext v - 0|)
+      (a := (1:ℝ)) (b := 2) 4
+    have e2 : (4:ℝ) - 2 = 2 := by norm_num
+    have e3 : (4:ℝ) - 1 = 3 := by norm_num
+    simp only [e2, e3] at hs
+    rw [← hs]
+    congr 1
+    funext v
+    unfold sext
+    ring_nf
+  obtain ⟨-, -, -, hI⟩ := (h.determining sext 1 3 0 hD).1 hm
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt (fun v _ => sext_hasDerivAt v)
+    (sext_continuous.intervalIntegrable 1 3)] at hI
   norm_num at hI
 
 end Work.Fidelity.MaxwellMutantsReject
