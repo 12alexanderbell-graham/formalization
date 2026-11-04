@@ -37,6 +37,7 @@ import Checked.Cosmography.B1FitRL19
 import Checked.Cosmography.B1L19
 import Checked.Data.FR13
 import Checked.Chemistry.RKAcentric
+import Checked.Cosmography.B1L19Curved
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -460,6 +461,40 @@ theorem l19_sqg_box : nonvacuity% Checked.Cosmography.B1L19.l19_sqg_box := by
     h2, h3, h4, hp5⟩ := Checked.Cosmography.B1L19.hyps_satisfiable_box
   exact ⟨Ω, h0, h1, a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH0, hH, hz3, hz5, a₂, a₃, a₄, H, hHp,
     h2, h3, le_trans h4 (by norm_num), hp5, trivial⟩
+
+/-! ### B1 with curvature (run 2026-11-04T2028Z): the flat member `K = 0` (`Ω₀ = 1`) of the closed/flat
+family, exact ΛCDM at `Ω = 1/5` (`Checked.Cosmography.B1FitWitness.exists_model`), `H = 1`. -/
+
+lemma l19_curved_witness : ∃ (a : ℝ → ℝ) (t₅ t₃ t₀ : ℝ), t₅ ≤ t₃ ∧ t₃ ≤ t₀ ∧
+    (∀ s ∈ Set.Icc t₅ t₀, 0 < a s) ∧ (∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s) ∧
+    0 < Checked.Cosmography.hubble a t₀ ∧
+    1 ≤ Checked.Cosmography.BambaK.omega0 0 a t₀ ∧ Checked.Cosmography.BambaK.omega0 0 a t₀ ≤ 11 / 10 ∧
+    (∀ s ∈ Set.Icc t₅ t₀,
+      Checked.Cosmography.hubble a s = Checked.Cosmography.hubble a t₀ *
+        √(1 / 5 * (1 + Checked.Cosmography.redshift a t₀ s) ^ 3
+        + (1 - Checked.Cosmography.BambaK.omega0 0 a t₀) * (1 + Checked.Cosmography.redshift a t₀ s) ^ 2
+        + Checked.Cosmography.BambaK.omega0 0 a t₀ - 1 / 5)) ∧
+    Checked.Cosmography.redshift a t₀ t₃ = 2 * √2 - 1 ∧
+    Checked.Cosmography.redshift a t₀ t₅ = 4 * √2 - 1 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, _, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  have hω : Checked.Cosmography.BambaK.omega0 0 a t₀ = 1 := by
+    simp [Checked.Cosmography.BambaK.omega0]
+  refine ⟨a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀, by rw [hω], by rw [hω]; norm_num,
+    fun s hs => ?_, hz₃, hz₅⟩
+  rw [hω, hH s hs]
+  congr 2
+  ring
+
+theorem l19_sq_curved : nonvacuity% Checked.Cosmography.B1L19Curved.l19_sq_curved := by
+  obtain ⟨a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH0, hK0, hK1, hH, hz3, hz5⟩ := l19_curved_witness
+  exact ⟨1 / 5, 0, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH0, hK0, hK1,
+    hH, hz3, hz5, 1, one_pos, trivial⟩
+
+theorem l19_sqg_curved : nonvacuity% Checked.Cosmography.B1L19Curved.l19_sqg_curved := by
+  obtain ⟨a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH0, hK0, hK1, hH, hz3, hz5⟩ := l19_curved_witness
+  exact ⟨1 / 5, 0, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH0, hK0, hK1,
+    hH, hz3, hz5, 1, one_pos, trivial⟩
 
 /-! ### Rigorous simulation (run 2026-11-04T0628Z): the Duffing solution from
 `Checked.Sim.Duffing.duffing_solution_exists` (Picard–Lindelöf, clamped Hamiltonian field). -/

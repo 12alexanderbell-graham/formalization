@@ -8,9 +8,10 @@ Exact rational arithmetic (fractions); Lean re-checks everything."""
 from fractions import Fraction as F
 import math, sys
 W5L=F(420449,10**6); W5U=F(420448,10**6); W3=F(594603,10**6)
-N=int(__import__("os").environ.get("NC","20")); SC=10**6
+N=int(__import__("os").environ.get("NC","20")); NL=N; NU5=int(__import__("os").environ.get("NU5",str(N))); SC=10**6
 def y(m,k,v): return m+k*v*v+(1-m-k)*v**6
-def tangent(w,m0,m1,k0,k1):
+def tangent(w,m0,m1,k0,k1,N=None):
+    N=N or NL
     h=(1-w)/N; mc=(m0+m1)/2; kc=(k0+k1)/2; cs=[]
     A=F(0);B=F(0);C=F(0)  # sum = A - B m - C k
     for i in range(N):
@@ -22,7 +23,8 @@ def tangent(w,m0,m1,k0,k1):
         B+=h*c**3 - c**3*d7
         C+=c**3*d3 - c**3*d7
     return cs,A,B,C
-def chord(w,m0,m1,k0,k1):
+def chord(w,m0,m1,k0,k1,N=None):
+    N=N or NL
     h=(1-w)/N; ps=[];qs=[];ds=[]
     A=F(0);B=F(0);C=F(0) # sum = A + B m + C k
     for i in range(N):
@@ -46,7 +48,7 @@ def rd(x,s=10**9): return F(math.floor(x*s),s)
 def ru(x,s=10**9): return F(math.ceil(x*s),s)
 def box(m0,m1,k0,k1):
     cs,A5,B5,C5=tangent(W5L,m0,m1,k0,k1)
-    p5,q5,d5,a5,b5,c5=chord(W5U,m0,m1,k0,k1)
+    p5,q5,d5,a5,b5,c5=chord(W5U,m0,m1,k0,k1,NU5)
     p3,q3,d3,A3,B3,C3=chord(W3,m0,m1,k0,k1)
     corners=[(m,k) for m in (m0,m1) for k in (k0,k1)]
     Ub=ru(max(a5+b5*m+c5*k for m,k in corners),10**6)

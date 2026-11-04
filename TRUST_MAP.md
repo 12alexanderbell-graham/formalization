@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 149. Resting on no unpinned physics definition: 149.
-Non-vacuity (trust track T2): 96 headlines have hypotheses; 96 of them have a
+Headlines: 151. Resting on no unpinned physics definition: 151.
+Non-vacuity (trust track T2): 98 headlines have hypotheses; 98 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -155,6 +155,8 @@ the docstring says; universally bound parameters are not listed.
 | `B1L19.l19_sqg_central` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sqg_central` | logPolyDL4: a₂ = 3.205, a₃ = 3.564, a₄ = -2.510; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
 | `B1L19.l19_sq_box` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sq_box` | redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
 | `B1L19.l19_sqg_box` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sqg_box` | redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
+| `B1L19Curved.l19_sq_curved` | lumDist, omega0, hubble, redshift | — | logPolyDL4² | `l19_sq_curved` | logPolyDL4: a₂ = 3.075, a₃ = 4.466, a₄ = -3.716; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
+| `B1L19Curved.l19_sqg_curved` | lumDist, omega0, hubble, redshift | — | logPolyDL4² | `l19_sqg_curved` | logPolyDL4: a₂ = 3.205, a₃ = 3.564, a₄ = -2.510; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
 | `Chemistry.CubicEOS.isCritical_iff` | IsCriticalIsotherm | — | — | `isCritical_iff` | — |
 | `Chemistry.CubicEOS.critCubic_existsUnique` | — | — | — | `critCubic_existsUnique` | — |
 | `Chemistry.CubicEOS.exists_unique_critical` | IsCriticalIsotherm | — | — | `exists_unique_critical` | — |

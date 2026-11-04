@@ -43,6 +43,13 @@ import Checked.Cosmography.B1FitWitness
 import Checked.Cosmography.B1FitRL19
 import Checked.Cosmography.B1L19Certs
 import Checked.Cosmography.B1L19
+import Checked.Cosmography.B1L19CurvedTools
+import Checked.Cosmography.B1L19CurvedCerts0
+import Checked.Cosmography.B1L19CurvedCerts1
+import Checked.Cosmography.B1L19CurvedCerts2
+import Checked.Cosmography.B1L19CurvedRatio
+import Checked.Cosmography.B1L19CurvedProof
+import Checked.Cosmography.B1L19Curved
 import Checked.Trust.SecondReadingB1
 import Checked.Trust.TranscriptionsB1
 import Checked.Trust.SecondReadingL19
