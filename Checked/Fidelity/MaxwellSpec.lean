@@ -37,7 +37,7 @@ Blind spec subagent, run 2026-10-31T1428Z; frozen in `Work/Fidelity/MaxwellSpec.
 satisfies every field) and `maxwellSpec_pins` (any predicate meeting the spec agrees with it on
 the physical domain; proof from the equal-chemical-potential law alone, not from the equal-area
 field). Mutants of the red team (Sonnet, blind to the spec): `Work/Fidelity/MaxwellMutants.lean`,
-refutations `Work/Fidelity/MaxwellMutantsReject.lean` (9 of 10; mutant 07 open).
+refutations `Work/Fidelity/MaxwellMutantsReject.lean` (all 10 refuted).
 -/
 
 set_option linter.dupNamespace false

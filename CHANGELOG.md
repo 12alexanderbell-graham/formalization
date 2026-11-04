@@ -152,6 +152,6 @@
 ## 2026-11-04T0028Z (scheduled run)
 - Env: add_repo not exposed; repo pre-cloned; LOCK of run 1428Z taken over (48.4). **Local Lean refused by the environment** (elan installer); all Lean checks by CI (branch pushes). Previous CI 41213570920 green.
 - **THE RESULT part 5 (and 1): first certified chemistry computation.** `vdW_coexistence_exists` proved (equal maxima of ψ on liquid and gas windows by continuity of compact suprema + IVT; maximizers interior hence on the isotherm), so with `vdW_coexistence_unique`: the vdW fluid at 0.7 T_c has a Maxwell coexistence state, every one has p_s/P_c = 0.20046 (5 d.p.), and ω = −0.3020 (4 d.p.), for every R, a, b > 0. Axioms standard.
-- Fidelity: blind Maxwell spec frozen; `maxwellSpec_pins` from the equal-chemical-potential law; 9 of 10 red-team mutants refuted in Lean (07, density variable, open); blind restatement (equal Gibbs energy form) closed in Lean.
+- Fidelity: blind Maxwell spec frozen; `maxwellSpec_pins` from the equal-chemical-potential law; all 10 red-team mutants refuted in Lean; blind restatement (equal Gibbs energy form) closed in Lean.
 - CI: author-files step (generated TRUST_MAP / relocked frozen.txt / packet as an artifact) so runs without local Lean can promote (LEDGER integrity event; control byte-identical).
 - Promotion to Checked: see run README.
