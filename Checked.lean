@@ -49,3 +49,6 @@ import Checked.Chemistry.CoexistenceExists
 import Checked.Chemistry.Coexistence
 import Checked.Fidelity.MaxwellSpec
 import Checked.Fidelity.CriticalSpec
+import Checked.Sim.Duffing
+import Checked.Sim.DuffingPin
+import Checked.Fidelity.DuffingSpec

@@ -6,25 +6,24 @@
 
 ## Claim in plain words (the system's own text)
 
-The review's claim (10.38)–(10.44) is false: it is not true that for every curvature `K` and every
-analytic, everywhere positive scale factor with `H₀ > 0` the `d_L(z)` series with the printed
-`D⁰…D⁴_L` equals `d_L + o(z⁵)` as `t → t₀`.
+The review's claim (10.38)–(10.44) is false even for past emission only (`t → t₀⁻`): see
+`bambaDLzClaim_false`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem bambaDLzClaim_false : ¬ BambaDLzClaim := …
+theorem bambaDLzClaimPast_false : ¬ BambaDLzClaimPast := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaZ.curvK`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.BambaZ.BambaDLzClaim`, `Cosmography.BambaZ.DL1z`, `Cosmography.BambaZ.DL2z`, `Cosmography.BambaZ.DL3z`, `Cosmography.BambaZ.printedDL4z`, `Cosmography.BambaY.comoving`, `Cosmography.BambaZ.remLz`, `Cosmography.BambaZ.seriesZ`, `Cosmography.Transverse.transverse`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaZ.curvK`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.BambaZ.BambaDLzClaimPast`, `Cosmography.BambaZ.DL1z`, `Cosmography.BambaZ.DL2z`, `Cosmography.BambaZ.DL3z`, `Cosmography.BambaZ.printedDL4z`, `Cosmography.BambaY.comoving`, `Cosmography.BambaZ.remLz`, `Cosmography.BambaZ.seriesZ`, `Cosmography.Transverse.transverse`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: cosmoCoeff, lumDist, curvK, decel, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): BambaDLzClaim, DL1z², DL2z², DL3z², printedDL4z².
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): BambaDLzClaimPast, DL1z², DL2z², DL3z², printedDL4z².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Source file: `Checked/Cosmography/BambaZ.lean` (do not open it before submitting your answers).
 

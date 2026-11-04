@@ -1,34 +1,34 @@
 # Item 47
 
-**Area:** Chemistry
+**Area:** Rigorous simulation
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** see the claim
 
 ## Claim in plain words (the system's own text)
 
-van der Waals fluid at T = 0.7 · 8a/(27Rb) (that is 0.7 T_c): every Maxwell coexistence state
-with liquid volume above the co-volume b has pressure 0.20046 · a/(27b²) (that is 0.20046 P_c) to
-five decimals (the saturation pressure is determined to that accuracy).
+Certified first zero of the Duffing oscillator x'' + x + x³ = 0 released from rest at
+x = 1: every solution on the time interval [0, 6/5] (derivatives within the interval) is strictly
+positive at all times in [0, 1.192005] and strictly negative at time 1.192006, so its earliest
+zero lies strictly between 1.192005 and 1.192006. Proved by a validated enclosure of every
+solution (rational Taylor cells, exact defect bounds, energy box, Grönwall).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem vdW_coexistence_unique (R a b vl vg ps : ℝ) (hR : 0 < R) (ha : 0 < a) (hb : 0 < b)
-    (hl : b < vl)
-    (h : IsMaxwellCoexistence (cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b)))) vl vg ps) :
-    RoundsTo (ps / (a / (27 * b ^ 2))) 0.20046 5 := …
+theorem duffing_first_zero_sol (x : ℝ → ℝ) (hx : IsDuffingSolution 1 1 1 0 (6 / 5) x) :
+    (∀ t ∈ Icc (0 : ℝ) (1192005 / 1000000), 0 < x t) ∧ x (1192006 / 1000000) < 0 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
+See GLOSSARY.md: `Sim.Duffing.IsDuffingSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsMaxwellCoexistence.
+- Definitions pinned by a machine-checked specification: IsDuffingSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `vdW_coexistence_unique`.
-- Source file: `Checked/Chemistry/Coexistence.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `duffing_first_zero_sol`.
+- Source file: `Checked/Sim/Duffing.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 47

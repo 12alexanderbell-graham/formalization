@@ -229,4 +229,29 @@ theorem duffing_exists : ∃ x : ℝ → ℝ, IsDuffingIVP 1 1 1 0 (6 / 5) x := 
   obtain ⟨x, v, hx0, hv0, hd⟩ := DuffingExists.exists_solution
   exact ⟨x, hx0, v, hv0, hd⟩
 
+/-- `x` solves the Duffing initial value problem x'' + k·x + β·x³ = 0, x(0) = x₀, x'(0) = v₀ on
+the time interval [0, T], with derivatives taken within [0, T] (one-sided at the endpoints, the
+weakest textbook reading): there is a velocity function `v` with x′ = v and
+v′ = −k·x − β·x³ at every time in [0, T], and x(0) = x₀, v(0) = v₀. -/
+def IsDuffingSolution (k β x₀ v₀ T : ℝ) (x : ℝ → ℝ) : Prop :=
+  x 0 = x₀ ∧ ∃ v : ℝ → ℝ, v 0 = v₀ ∧ ∀ t ∈ Icc 0 T,
+    HasDerivWithinAt x (v t) (Icc 0 T) t ∧ HasDerivWithinAt v (-k * x t - β * x t ^ 3) (Icc 0 T) t
+
+/-- Certified first zero of the Duffing oscillator x'' + x + x³ = 0 released from rest at
+x = 1: every solution on the time interval [0, 6/5] (derivatives within the interval) is strictly
+positive at all times in [0, 1.192005] and strictly negative at time 1.192006, so its earliest
+zero lies strictly between 1.192005 and 1.192006. Proved by a validated enclosure of every
+solution (rational Taylor cells, exact defect bounds, energy box, Grönwall). -/
+theorem duffing_first_zero_sol (x : ℝ → ℝ) (hx : IsDuffingSolution 1 1 1 0 (6 / 5) x) :
+    (∀ t ∈ Icc (0 : ℝ) (1192005 / 1000000), 0 < x t) ∧ x (1192006 / 1000000) < 0 := by
+  obtain ⟨hx0, v, hv0, hd⟩ := hx
+  exact first_zero_within hx0 hv0 hd
+
+/-- There is a solution of the Duffing initial value problem x'' + x + x³ = 0, x(0) = 1,
+x'(0) = 0 on the time interval [0, 6/5] (derivatives within the interval). -/
+theorem duffing_solution_exists : ∃ x : ℝ → ℝ, IsDuffingSolution 1 1 1 0 (6 / 5) x := by
+  obtain ⟨x, hx0, v, hv0, hd⟩ := duffing_exists
+  exact ⟨x, hx0, v, hv0, fun t ht =>
+    ⟨(hd t ht).1.hasDerivWithinAt, (hd t ht).2.hasDerivWithinAt⟩⟩
+
 end Checked.Sim.Duffing

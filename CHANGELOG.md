@@ -172,4 +172,5 @@
 - Part 1 by part rotation (the "simulations" link had no checker). Local Lean available (elan).
 - First rigorous simulator: validated ODE enclosure in Lean (rational Taylor cells, exact defect bounds, energy box, Mathlib Grönwall). Frozen, proved (Work), audited: every solution of the Duffing IVP x'' + x + x³ = 0, x(0) = 1, x'(0) = 0 is positive on [0, 1.192005] and negative at 1.192006 (earliest zero in between; closed form agrees); existence by Picard–Lindelöf for a clamped Hamiltonian field.
 - Blind restatement (stronger, one-sided) closed in Lean incl. first-zero corollary; blind spec (no sorry) met by the definition; referee STANDS-WITH-CORRECTIONS (docstrings corrected).
-- Records: run README, STATE, TARGETS part 1 status, BLUEPRINT, LEDGER, PROMPT note. Promotion to Checked: next run.
+- Records: run README, STATE, TARGETS part 1 status, BLUEPRINT, LEDGER, PROMPT note.
+- Promotion to Checked (same run): `Checked/Sim/*`, pin of the new `IsDuffingSolution` by the blind spec, two headlines (one-sided form; LEDGER), NV witness, glossary term, relock. CI: next run.

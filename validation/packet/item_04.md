@@ -6,25 +6,25 @@
 
 ## Claim in plain words (the system's own text)
 
-**Pinning:** any predicate obeying the blind first-principles law is `IsFlatCPL`.
+The program's master equation is the blind `Ḣ` equation with `R = curv a`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem flatCPL_pins (P : ℝ → ℝ → ℝ → (ℝ → ℝ) → ℝ → Prop)
-    (h : ∀ Ω w₀ wₐ a t₀, P Ω w₀ wₐ a t₀ ↔ FriedmannCPL Ω w₀ wₐ a t₀) : P = IsFlatCPL := …
+theorem masterEq_iff_blind (Ω : ℝ) (a F : ℝ → ℝ) (t₀ t : ℝ) :
+    MasterEq Ω a F t₀ t ↔ FRSecondEq Ω a F t₀ t (curv a) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannCPL`
+See GLOSSARY.md: `Cosmography.FRCosmo.MasterEq`, `Cosmography.FRCosmo.curv`, `Cosmography.FRCosmo.rhoM`, `Cosmography.hubble`, `Fidelity.DustDensity`, `Fidelity.FRSecondEq`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatCPL.
+- Definitions pinned by a machine-checked specification: MasterEq, curv.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `flatCPL_pins`.
-- Source file: `Checked/Fidelity/FriedmannCPL.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `masterEq_iff_blind`.
+- Source file: `Checked/Fidelity/FRSpecs.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 04

@@ -1,27 +1,43 @@
 # Item 09
 
-**Area:** B1
+**Area:** B1 fit level
 
-**Source:** Risaliti & Lusso, Nat. Astron. 3, 272 (2019); Lusso et al., A&A 628, L4 (2019), Eq. (8): third-order log-polynomial distance and its ΛCDM-implied coefficients
+**Source:** see the claim
 
 ## Claim in plain words (the system's own text)
 
-**B1, z = 7.** As `cubic_misses_z3`, at `z = 7`: more than 0.3 mag.
+**B1 at fit level (direction).** For every `Ω ∈ [0, 1]` and every scale factor obeying
+`H = H₀ √(Ω(1+z)³ + 1 − Ω)` (with `H₀ > 0`) on the whole interval back to the farthest source, with
+sources at `1 + z = √2, 2√2, 4√2` (`z ≈ 0.41, 1.83, 4.66`), every cubic log-polynomial distance
+(coefficients `a₂, a₃`, normalisation `H > 0`, positive at the three redshifts) whose distance
+modulus agrees with the exact one (`lumDistFlat`) up to a common offset `c` within 0.05 mag at all
+three redshifts satisfies `a₂ − lusA2 Ω + 1/2 < (20/3) log₁₀ 2 · (a₃ − lusA3 Ω)`: it lies beyond a
+line through the point `(lusA2 Ω, lusA3 Ω)` of Lusso et al. 2019 Eq. (8), towards smaller `a₂` and
+larger `a₃`, by a margin of 1/2 in `a₂`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem cubic_misses_z7 (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 5)
-    (a : ℝ → ℝ) (t t₀ : ℝ) (htt : t ≤ t₀)
-    (hpos : ∀ s ∈ Set.Icc t t₀, 0 < a s)
-    (hdiff : ∀ s ∈ Set.Icc t t₀, DifferentiableAt ℝ a s)
+theorem fit_direction (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (a : ℝ → ℝ) (t₅ t₃ t₁ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₁ : t₃ ≤ t₁) (h₁₀ : t₁ ≤ t₀)
+    (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
+    (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
     (hH₀ : 0 < hubble a t₀)
-    (hH : ∀ s ∈ Set.Icc t t₀,
+    (hH : ∀ s ∈ Set.Icc t₅ t₀,
       hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
-    (hz : redshift a t₀ t = 7) :
-    0 < logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t) ∧
-    3 / 10 < 5 * Real.logb 10
-      (lumDistFlat a t₀ t / logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t)) := …
+    (hz₁ : redshift a t₀ t₁ = √2 - 1) (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1)
+    (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
+    (a₂ a₃ H c : ℝ) (hHp : 0 < H)
+    (hp₁ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₁))
+    (hp₃ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃))
+    (hp₅ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₅))
+    (hm₁ : |5 * Real.logb 10 (lumDistFlat a t₀ t₁ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)) - c|
+      ≤ 1 / 20)
+    (hm₃ : |5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c|
+      ≤ 1 / 20)
+    (hm₅ : |5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c|
+      ≤ 1 / 20) :
+    a₂ - lusA2 Ω + 1 / 2 < 20 / 3 * Real.logb 10 2 * (a₃ - lusA3 Ω) := …
 ```
 
 ## Definitions it uses
@@ -33,7 +49,7 @@ See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmog
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL3², lusA2², lusA3².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `cubic_misses_z7`.
-- Source file: `Checked/Cosmography/B1Truncation.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fit_direction`.
+- Source file: `Checked/Cosmography/B1Fit.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 09

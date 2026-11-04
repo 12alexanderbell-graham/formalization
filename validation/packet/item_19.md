@@ -6,26 +6,27 @@
 
 ## Claim in plain words (the system's own text)
 
-**The program's flat CPL predicate equals the blind first-principles formulation**, for
-every `Ω, w₀, wₐ`, every scale factor and every `t₀`.
+**Pinning:** the specification determines the luminosity distance on the whole admissible
+domain.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem isFlatCPL_iff_friedmannCPL (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) :
-    IsFlatCPL Ω w₀ wₐ a t₀ ↔ FriedmannCPL Ω w₀ wₐ a t₀ := …
+theorem lumDistSpec2_pins (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) (h : LumDistSpec2 D) (K : ℝ)
+    (a : ℝ → ℝ) (t₀ t : ℝ) (htt : t ≤ t₀) (hpos : ∀ s ∈ Set.Icc t t₀, 0 < a s)
+    (hcont : ContinuousOn a (Set.Icc t t₀)) : D K a t₀ t = lumDist K a t₀ t := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannCPL`
+See GLOSSARY.md: `Cosmography.BambaK.lumDist`, `Cosmography.redshift`, `Cosmography.BambaY.comoving`, `Cosmography.Transverse.transverse`, `Fidelity.AngDistSpec`, `Fidelity.LumDistSpec`, `Fidelity.LumDistSpec2`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatCPL.
+- Definitions pinned by a machine-checked specification: lumDist, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `isFlatCPL_iff_friedmannCPL`.
-- Source file: `Checked/Fidelity/FriedmannCPL.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lumDistSpec2_pins`.
+- Source file: `Checked/Fidelity/Pins.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 19

@@ -1,4 +1,5 @@
 import Checked.Trust.NonVacuity
+import Checked.Sim.Duffing
 import Checked.Cosmography.Lookback
 import Checked.Cosmography.LookbackThird
 import Checked.Cosmography.LCDMCoefficients
@@ -429,5 +430,12 @@ theorem rl19_box_unmatched : nonvacuity% Checked.Cosmography.B1FitRL19.rl19_box_
     hz5, h2, h3, hHp, hp1, hp3, hp5⟩ := Checked.Cosmography.B1FitRL19.hyps_satisfiable
   exact ⟨Ω, h0, h1, a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3, hz5, a₂, a₃,
     H, 0, h2.1, h2.2, h3.1, h3.2, hHp, hp1, hp3, hp5, trivial⟩
+
+/-! ### Rigorous simulation (run 2026-11-04T0628Z): the Duffing solution from
+`Checked.Sim.Duffing.duffing_solution_exists` (Picard–Lindelöf, clamped Hamiltonian field). -/
+
+theorem duffing_first_zero_sol : nonvacuity% Checked.Sim.Duffing.duffing_first_zero_sol := by
+  obtain ⟨x, hx⟩ := Checked.Sim.Duffing.duffing_solution_exists
+  exact ⟨x, hx, 0, ⟨le_rfl, by norm_num⟩, trivial⟩
 
 end Checked.Trust.NV

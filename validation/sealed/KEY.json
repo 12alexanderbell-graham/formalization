@@ -61,75 +61,75 @@
  "genuine": [
   {
    "item": 1,
-   "headline": "Checked.Cosmography.FRCosmo.printedF0Claim_false"
+   "headline": "Checked.Cosmography.FRCosmo.printedF0_false_at"
   },
   {
    "item": 3,
-   "headline": "Checked.Cosmography.B1.cubic_shape_miss"
+   "headline": "Checked.Cosmography.B1FitRL19.rl19_box_unmatched"
   },
   {
    "item": 4,
-   "headline": "Checked.Fidelity.flatCPL_pins"
+   "headline": "Checked.Fidelity.masterEq_iff_blind"
   },
   {
    "item": 5,
-   "headline": "Checked.Cosmography.CPLExistence.exists_flatCPL"
+   "headline": "Checked.Cosmography.CPL.flatCPL_coeffs"
   },
   {
    "item": 6,
-   "headline": "Checked.Cosmography.DemianskiZ.demDLzClaimPast_false"
-  },
-  {
-   "item": 7,
-   "headline": "Checked.Cosmography.DemianskiZ.demDL4_fails_past"
-  },
-  {
-   "item": 8,
-   "headline": "Checked.Cosmography.Transverse.transverse_expansion"
-  },
-  {
-   "item": 9,
-   "headline": "Checked.Cosmography.B1.cubic_misses_z7"
-  },
-  {
-   "item": 10,
-   "headline": "Checked.Cosmography.BambaZ.bambaDAzClaimPast_false"
-  },
-  {
-   "item": 11,
-   "headline": "Checked.Cosmography.CCS.lookback_fifth_order"
-  },
-  {
-   "item": 13,
-   "headline": "Checked.Cosmography.FREta.eta_ratios"
-  },
-  {
-   "item": 14,
-   "headline": "Checked.Cosmography.BambaZ.bambaDLzClaim_false"
-  },
-  {
-   "item": 15,
-   "headline": "Checked.Cosmography.BambaA.printedDA3_fails"
-  },
-  {
-   "item": 16,
-   "headline": "Checked.Cosmography.AvilesWitness.printedL0_false_at"
-  },
-  {
-   "item": 17,
-   "headline": "Checked.Cosmography.FRCosmo.printedR3Claim_false"
-  },
-  {
-   "item": 18,
-   "headline": "Checked.Cosmography.FREta.printedEta30Claim_false"
-  },
-  {
-   "item": 19,
    "headline": "Checked.Fidelity.isFlatCPL_iff_friedmannCPL"
   },
   {
+   "item": 7,
+   "headline": "Checked.Fidelity.omega0Spec_pins"
+  },
+  {
+   "item": 8,
+   "headline": "Checked.Cosmography.BambaK.printedD3y_fails"
+  },
+  {
+   "item": 9,
+   "headline": "Checked.Cosmography.B1Fit.fit_direction"
+  },
+  {
+   "item": 10,
+   "headline": "Checked.Cosmography.BambaZ.bambaDAzClaim_false"
+  },
+  {
+   "item": 11,
+   "headline": "Checked.Cosmography.CCS.ccsD4ClaimPast_false"
+  },
+  {
+   "item": 13,
+   "headline": "Checked.Cosmography.DemianskiZ.demDLzClaim_false"
+  },
+  {
+   "item": 14,
+   "headline": "Checked.Cosmography.BambaZ.bambaDLzClaimPast_false"
+  },
+  {
+   "item": 15,
+   "headline": "Checked.Cosmography.BambaA.bambaDA3ClaimPast_false"
+  },
+  {
+   "item": 16,
+   "headline": "Checked.Cosmography.Aviles.avilesM0Claim_false"
+  },
+  {
+   "item": 17,
+   "headline": "Checked.Cosmography.FREta.eta20_hasDerivAt"
+  },
+  {
+   "item": 18,
+   "headline": "Checked.Cosmography.FREta.printedEta30_false_at"
+  },
+  {
+   "item": 19,
+   "headline": "Checked.Fidelity.lumDistSpec2_pins"
+  },
+  {
    "item": 20,
-   "headline": "Checked.Records.F1_l0"
+   "headline": "Checked.Cosmography.B1.cubic_shape_miss"
   },
   {
    "item": 21,
@@ -137,19 +137,19 @@
   },
   {
    "item": 23,
-   "headline": "Checked.Cosmography.CPLExistence.printedL0_false_at"
+   "headline": "Checked.Cosmography.CPLExistence.exists_local_model"
   },
   {
    "item": 24,
-   "headline": "Checked.Fidelity.omega0Spec_pins"
+   "headline": "Checked.Records.F9_values"
   },
   {
    "item": 25,
-   "headline": "Checked.Cosmography.B1Fit.fit_direction"
+   "headline": "Checked.Chemistry.CubicEOS.pr_constants"
   },
   {
    "item": 26,
-   "headline": "Checked.Cosmography.CVdQ.printedQ2_fails_past"
+   "headline": "Checked.Cosmography.CVdQ.cvdQClaimPast_false"
   },
   {
    "item": 27,
@@ -157,15 +157,15 @@
   },
   {
    "item": 29,
-   "headline": "Checked.Cosmography.FREta.eta30_hasDerivAt"
+   "headline": "Checked.Cosmography.DemianskiZ.demDL4_fails_past"
   },
   {
    "item": 30,
-   "headline": "Checked.Chemistry.CubicEOS.pr_constants"
+   "headline": "Checked.Sim.Duffing.duffing_solution_exists"
   },
   {
    "item": 31,
-   "headline": "Checked.Cosmography.CVdQ.cvdQClaimPast_false"
+   "headline": "Checked.Cosmography.CVdQ.dQ_y_third_order"
   },
   {
    "item": 32,
@@ -173,47 +173,47 @@
   },
   {
    "item": 33,
-   "headline": "Checked.Cosmography.BambaK.printedD3y_fails"
+   "headline": "Checked.Cosmography.BambaK.printedD3y_fails_past"
   },
   {
    "item": 35,
-   "headline": "Checked.Cosmography.CCS.ccsD4Claim_false"
+   "headline": "Checked.Cosmography.CCS.printedD4_fails"
   },
   {
    "item": 36,
-   "headline": "Checked.Records.F9_values"
+   "headline": "Checked.Cosmography.B1.cubic_misses_z7"
   },
   {
    "item": 38,
-   "headline": "Checked.Fidelity.masterEq_iff_blind"
+   "headline": "Checked.Records.F2_toy"
   },
   {
    "item": 39,
-   "headline": "Checked.Cosmography.BambaY.bambaD2yClaimPast_false"
+   "headline": "Checked.Cosmography.BambaY.printedD2y_fails_past"
   },
   {
    "item": 40,
-   "headline": "Checked.Cosmography.BambaY.printedD2y_fails"
+   "headline": "Checked.Cosmography.BambaY.bambaD2yClaim_false"
   },
   {
    "item": 42,
-   "headline": "Checked.Cosmography.BambaZ.bambaDAzClaim_false"
+   "headline": "Checked.Cosmography.BambaZ.bambaDAzClaimPast_false"
   },
   {
    "item": 44,
-   "headline": "Checked.Cosmography.BambaK.bambaD4yClaim_false"
+   "headline": "Checked.Cosmography.BambaK.printedD4y_fails_past"
   },
   {
    "item": 45,
-   "headline": "Checked.Cosmography.B1FitRL19.rl19_box_unmatched"
+   "headline": "Checked.Chemistry.Coexistence.vdW_coexistence_unique"
   },
   {
    "item": 46,
-   "headline": "Checked.Cosmography.lookback_second_order"
+   "headline": "Checked.Cosmography.lookback_second_order_bigO"
   },
   {
    "item": 47,
-   "headline": "Checked.Chemistry.Coexistence.vdW_coexistence_unique"
+   "headline": "Checked.Sim.Duffing.duffing_first_zero_sol"
   },
   {
    "item": 48,
@@ -221,7 +221,7 @@
   },
   {
    "item": 49,
-   "headline": "Checked.Cosmography.BambaA.printedDA3_fails_past"
+   "headline": "Checked.Cosmography.BambaA.bambaDA4Claim_false"
   }
  ]
 }

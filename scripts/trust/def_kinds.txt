@@ -161,3 +161,5 @@ Checked.Fidelity.CriticalSpec.CriticalSpec SPEC
 Checked.Chemistry.Coexistence.IsMaxwellCoexistence PHYSICS
 Checked.Chemistry.Coexistence.acentric FORMULA
 Checked.Fidelity.MaxwellSpec.MaxwellSpec SPEC
+Checked.Sim.Duffing.IsDuffingSolution PHYSICS
+Checked.Fidelity.DuffingSpec.DuffingSpec SPEC

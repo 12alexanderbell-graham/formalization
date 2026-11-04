@@ -21,3 +21,4 @@ FRCosmo.MasterEq Fidelity.masterEq_iff_blind
 Transverse.transverse Fidelity.transverseSpec_pins
 CubicEOS.IsCriticalIsotherm Fidelity.CriticalSpec.criticalSpec_pins
 Coexistence.IsMaxwellCoexistence Fidelity.MaxwellSpec.maxwellSpec_pins
+Duffing.IsDuffingSolution DuffingPin.duffingSpec_pins

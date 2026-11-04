@@ -231,6 +231,7 @@ Checked.Fidelity.CriticalSpec.CriticalSpec 421fe2bc-SPEC
 Checked.Fidelity.CriticalSpec.criticalSpec_pins 64311790
 Checked.Fidelity.CurvKSpec 9be681e2-SPEC
 Checked.Fidelity.DecelSpec 29997a50-SPEC
+Checked.Fidelity.DuffingSpec.DuffingSpec 4d20332f-SPEC
 Checked.Fidelity.DustDensity 274cc28b6e4a8f5b-SPEC
 Checked.Fidelity.FRFirstEq 47b487ae26f004b3-SPEC
 Checked.Fidelity.FRSecondEq 4b8e17bd66a9169-SPEC
@@ -285,6 +286,10 @@ Checked.Records.F8_sizes 7af2682d-doc2762880498692998171
 Checked.Records.F9_pole bbb3e2d3-doc16115897663067957623
 Checked.Records.F9_values 26204386-doc14443165463141132680
 Checked.Records.RoundsTo 6490dd4a817db795-MATH
+Checked.Sim.Duffing.IsDuffingSolution 9b62f53de9047025-doc13018569994916158289-PHYSICS
+Checked.Sim.Duffing.duffing_first_zero_sol 4c60f1ae-doc11947998396381678298
+Checked.Sim.Duffing.duffing_solution_exists 8984c4ba-doc12830420669646441606
+Checked.Sim.DuffingPin.duffingSpec_pins 4f684278
 doc:Checked.Chemistry.Coexistence.acentric -doc1348694856691534371
 doc:Checked.Chemistry.CubicEOS.critCubic -doc5511859036565840082
 doc:Checked.Chemistry.CubicEOS.cubicP -doc17950823411409236420
@@ -395,6 +400,7 @@ doc:Checked.Fidelity.CosmoCoeffSpecCore -doc5811909712758171680-doc6589044394126
 doc:Checked.Fidelity.CriticalSpec.CriticalSpec -doc701943131301896419-doc16592623473910687618-doc12899120408124854828-doc11067958948784091598-doc8256983632889463537-doc16520883082807132424-doc8483739850974548371-doc6166415389592239536-doc7050683666533330953-doc1210802978155364661-doc9391145125050534760-doc3525189956933257202-doc5042569988513001757-doc244701821671123972-doc17865480740427588899
 doc:Checked.Fidelity.CurvKSpec -doc1248856256267583740-doc17130063194796015296-doc15963556236596609873-doc7913495701348153231-doc12327317846112038381-doc18096606871578062362-doc1930855989283527646-doc16876515519520861033-doc9877294847684254529-doc14459866761057064550-doc16100179372541784768-doc8524662385227842285-doc1403421261262643555-doc9891534006753014234-doc17596382331057512943
 doc:Checked.Fidelity.DecelSpec -doc5425406452616348901-doc3646838641482077681-doc10470329372282139781-doc6443631381271685828-doc16736815936060028840-doc686292204505411497-doc13678193587035225778-doc14983315727057312112-doc11406493329902294481
+doc:Checked.Fidelity.DuffingSpec.DuffingSpec -doc6615375687704978749-doc15698412543112463186-doc15774897579165703890-doc7207118651120261353-doc15022504457706975308-doc7457001680739031107-doc10462846553214711371-doc17676956159115463060-doc16405407580534677375-doc10878224800519747993-doc1482498333269169104-doc15391619264241404621
 doc:Checked.Fidelity.DustDensity -doc5049444101378682362
 doc:Checked.Fidelity.FRFirstEq -doc11277122672643514020
 doc:Checked.Fidelity.FRSecondEq -doc2234747567999791328
@@ -444,6 +450,7 @@ moduledoc:Checked.Cosmography.LookbackThird -mdoc13216249788297061256
 moduledoc:Checked.Cosmography.Lookback -mdoc10223981355952033564
 moduledoc:Checked.Cosmography.Transverse -mdoc2859741122904203401
 moduledoc:Checked.Fidelity.CriticalSpec -mdoc7440715596430870242
+moduledoc:Checked.Fidelity.DuffingSpec -mdoc15630159284443887379
 moduledoc:Checked.Fidelity.FRSpecs -mdoc1744885112342587104
 moduledoc:Checked.Fidelity.FlatPins -mdoc7104672339567821340
 moduledoc:Checked.Fidelity.FriedmannCPL -mdoc1066414594972083158
@@ -457,6 +464,12 @@ moduledoc:Checked.Fidelity.TransverseSpec -mdoc9175865656986668219
 moduledoc:Checked.Fidelity.YOmegaKSpecs -mdoc11576697903666135261
 moduledoc:Checked.Records.Basic -mdoc17748666938352798359
 moduledoc:Checked.Records.Findings -mdoc12674245471988407188
+moduledoc:Checked.Sim.DuffingCell -mdoc7174413968324916952
+moduledoc:Checked.Sim.DuffingCerts -mdoc13886189729831538209
+moduledoc:Checked.Sim.DuffingExists -mdoc2767238559718502620
+moduledoc:Checked.Sim.DuffingPin -mdoc17597502977552847993
+moduledoc:Checked.Sim.Duffing -mdoc2794500108230421798
+moduledoc:Checked.Sim.ODETools -mdoc17718929161332532841
 moduledoc:Checked.Trust.NonVacuity -mdoc9807403233452831406
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
 moduledoc:Checked.Trust.SecondReadingFR -mdoc1417811703977418368
@@ -464,4 +477,4 @@ moduledoc:Checked.Trust.SecondReading -mdoc9991141689122378563
 moduledoc:Checked.Trust.TranscriptionsB1 -mdoc572391514531888890
 moduledoc:Checked.Trust.TranscriptionsFR -mdoc11191104128708509847
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc1943199230305898947
+moduledoc:Checked.Trust.Witnesses -mdoc5214615830673003428
