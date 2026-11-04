@@ -50,4 +50,42 @@ theorem isMM_eq_ref :
 theorem isMM_meets : Work.Fidelity.MMSpec.MMSpec Work.Sim.MichaelisMenten.IsMMSolution := by
   rw [isMM_eq_ref]; exact Work.Fidelity.MMSpec.refMM_meets
 
+/-- Corollary (referee correction 1, run 2026-11-04T0828Z): the product of every solution first
+reaches half conversion at a time strictly between 2.5665 and 2.5666 — there is τ in that interval
+with [P](τ) = 1/2 and [P] < 1/2 on [0, τ). -/
+theorem first_half_conversion {s e c p : ℝ → ℝ}
+    (h : Work.Sim.MichaelisMenten.IsMMSolution 1 1 1 1 1 0 0 (13 / 5) s e c p) :
+    ∃ τ ∈ Ioo (25665 / 10000 : ℝ) (25666 / 10000), p τ = 1 / 2 ∧
+      ∀ t ∈ Ico (0 : ℝ) τ, p t < 1 / 2 := by
+  have hsign := Work.Sim.MichaelisMenten.mm_half_conversion h
+  obtain ⟨-, -, -, -, hd⟩ := h
+  set lo : ℝ := 25665 / 10000
+  set hi : ℝ := 25666 / 10000
+  have hlo : lo < hi := by norm_num [lo, hi]
+  have hsub : Icc lo hi ⊆ Icc 0 (13 / 5) := Icc_subset_Icc (by norm_num [lo]) (by norm_num [hi])
+  have hcont : ContinuousOn p (Icc lo hi) := fun t ht =>
+    ((hd t (hsub ht)).2.2.2.continuousWithinAt).mono hsub
+  have hplo : p lo < 1 / 2 := hsign.1 lo ⟨by norm_num [lo], le_rfl⟩
+  set Z := {t ∈ Icc lo hi | p t = 1 / 2} with hZ
+  have hZc : IsClosed Z := hcont.preimage_isClosed_of_isClosed isClosed_Icc isClosed_singleton
+  have hZne : Z.Nonempty := by
+    obtain ⟨c, hc, hc0⟩ := intermediate_value_Icc hlo.le hcont ⟨hplo.le, hsign.2.le⟩
+    exact ⟨c, hc, hc0⟩
+  have hZb : BddBelow Z := ⟨lo, fun t ht => ht.1.1⟩
+  set τ := sInf Z
+  have hτ : τ ∈ Z := hZc.csInf_mem hZne hZb
+  have hτne_lo : τ ≠ lo := fun h => by have := hτ.2; rw [h] at this; linarith
+  have hτne_hi : τ ≠ hi := fun h => by have := hτ.2; rw [h] at this; linarith [hsign.2]
+  refine ⟨τ, ⟨lt_of_le_of_ne hτ.1.1 (Ne.symm hτne_lo), lt_of_le_of_ne hτ.1.2 hτne_hi⟩, hτ.2,
+    fun t ht => ?_⟩
+  rcases le_total t lo with h | h
+  · exact hsign.1 t ⟨ht.1, h⟩
+  · by_contra hneg
+    push Not at hneg
+    have hsub2 : Icc lo t ⊆ Icc lo hi := Icc_subset_Icc le_rfl (ht.2.le.trans hτ.1.2)
+    obtain ⟨c, hc, hc0⟩ := intermediate_value_Icc h (hcont.mono hsub2) ⟨hplo.le, hneg⟩
+    have hcZ : c ∈ Z := ⟨hsub2 hc, hc0⟩
+    have := csInf_le hZb hcZ
+    linarith [hc.2, ht.2]
+
 end Work.Sim.MMAudit
