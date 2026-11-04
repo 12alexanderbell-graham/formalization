@@ -24,13 +24,24 @@ redshifts — whose distance modulus agrees with the exact one up to the common 
 (slope `(20/3) log₁₀ 2 ≈ 2.007`): it lies strictly beyond a line through the ΛCDM-implied point,
 on the side of smaller `a₂` / larger `a₃`, by a definite margin.
 
-Why "fit level": a least-squares fit of the cubic to exact ΛCDM over `z ≤ 4.66` or `z ≤ 5.1`
-(uniform in z or in ln(1+z)) leaves residuals within ±0.036 mag of a common offset at these three
-redshifts for every Ω tried (floating-point exploration, `runs/2026-11-04T0228Z/scripts/lsfit.py`),
-so such fits satisfy the hypothesis; the Taylor point itself does not (its residual half-range at
-the three points is 0.11–0.23 mag). The hypothesis is weaker than agreement on the whole range,
-so the theorem also covers every minimax fit within 0.05 mag over any range containing the
-three redshifts. It is not a statement about fits to data with errors.
+Why "fit level": a least-squares fit of the cubic to exact ΛCDM over `z ≤ 5.1` (uniform in z or
+in ln(1+z)) leaves residuals within ±0.031 mag of a common offset at these three redshifts for every
+Ω ≥ 0.1 (referee `runs/2026-11-04T0228Z/referee_b1fit.md`; floating point; at Ω = 0.04 the
+half-range is 0.054 and at Ω = 0 it is 0.19, so near Ω = 0 such fits are not covered), so such fits
+satisfy the hypothesis; the Taylor point itself does not (its residual half-range at the three
+points is 0.11–0.23 mag for Ω ≥ 0.1, up to 0.81 at Ω = 0). The hypothesis is weaker than agreement
+on the whole range, so the theorem also covers every minimax fit within 0.05 mag over any range
+containing the three redshifts. It is not a statement about fits to data with errors; fits
+dominated by low-redshift supernovae sit near the edge of the 0.05 mag condition at Ω = 0.3
+(half-range 0.047–0.057, referee §3), and at 0.1 mag the conclusion fails (referee: minimum −3.97).
+
+What it says about RL19 (C27): the RL19 Fig. 3 contour centre, read once at `(3.45, 1.6)`, lies on
+the *other* side of the line for every Ω ∈ [0, 1] (`(20/3)log₁₀2·Δa₃ − Δa₂ ≤ −1.21`, referee and
+author numerics). This is a side-of-line statement: truncation does not move ΛCDM's cubic image
+toward the RL19 centre. It is not a statement that every matching cubic is farther from the RL19
+centre than the ΛCDM point is (the theorem alone gives only distance ≥ 0.76). Mechanism and the
+displacement by mocks: Yang et al. 2020, Banerjee et al. 2021; new here is the certified,
+Ω-uniform direction over the data range and its comparison with the RL19 offset.
 
 Positivity of the polynomial distance at the three redshifts is assumed (a negative distance has
 no distance modulus; `Real.logb` would silently take the absolute value).
@@ -82,14 +93,11 @@ lemma sqrt2_bounds : (141421356 / 100000000 : ℝ) ≤ √2 ∧ √2 ≤ 1414213
     exact Real.sqrt_le_sqrt (by norm_num)
 
 
-/-- **B1 at fit level (direction).** In every flat ΛCDM model with `Ω ∈ [0, 1]`, with sources at
-`1 + z = √2, 2√2, 4√2` (`z ≈ 0.41, 1.83, 4.66`), every cubic log-polynomial (coefficients
-`a₂, a₃`, normalisation `H > 0`, positive at the three redshifts) whose distance modulus agrees
-with the exact one up to a common offset `c` within 0.05 mag at all three redshifts satisfies
-`a₂ − lusA2 Ω + 1/2 < (20/3) log₁₀ 2 · (a₃ − lusA3 Ω)`: it lies beyond a line through the
-ΛCDM-implied point, towards smaller `a₂` and larger `a₃`, by a margin of 1/2 in `a₂`. -/
-theorem fit_direction (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
-    (a : ℝ → ℝ) (t₅ t₃ t₁ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₁ : t₃ ≤ t₁) (h₁₀ : t₁ ≤ t₀)
+/-- General form (sources anywhere in `[t₅, t₀]`, no order between `t₁` and `t₃` assumed); the
+frozen theorem below is its instance. -/
+theorem fit_direction_gen (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (a : ℝ → ℝ) (t₅ t₃ t₁ t₀ : ℝ) (ht₁ : t₁ ∈ Set.Icc t₅ t₀) (ht₃ : t₃ ∈ Set.Icc t₅ t₀)
+    (h₅₀ : t₅ ≤ t₀)
     (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
     (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
     (hH₀ : 0 < hubble a t₀)
@@ -115,18 +123,18 @@ theorem fit_direction (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
   obtain ⟨hq2l, hq2u⟩ := sqrt2_bounds
   have hq2 : 0 < √2 := by linarith
   -- sources and the bridge to the integral
-  have h₃₀ : t₃ ≤ t₀ := le_trans h₃₁ h₁₀
-  have h₅₀ : t₅ ≤ t₀ := le_trans h₅₃ h₃₀
-  have hsub1 : Set.Icc t₁ t₀ ⊆ Set.Icc t₅ t₀ := Set.Icc_subset_Icc_left (le_trans h₅₃ h₃₁)
-  have hsub3 : Set.Icc t₃ t₀ ⊆ Set.Icc t₅ t₀ := Set.Icc_subset_Icc_left h₅₃
+  have h₁₀ : t₁ ≤ t₀ := ht₁.2
+  have h₃₀ : t₃ ≤ t₀ := ht₃.2
+  have hsub1 : Set.Icc t₁ t₀ ⊆ Set.Icc t₅ t₀ := Set.Icc_subset_Icc_left ht₁.1
+  have hsub3 : Set.Icc t₃ t₀ ⊆ Set.Icc t₅ t₀ := Set.Icc_subset_Icc_left ht₃.1
   have hbr1 := lumDistFlat_flatLCDM Ω hΩ₀ hΩ₁ a t₁ t₀ h₁₀ (fun s hs => hpos s (hsub1 hs))
     (fun s hs => hdiff s (hsub1 hs)) hH₀ (fun s hs => hH s (hsub1 hs))
   have hbr3 := lumDistFlat_flatLCDM Ω hΩ₀ hΩ₁ a t₃ t₀ h₃₀ (fun s hs => hpos s (hsub3 hs))
     (fun s hs => hdiff s (hsub3 hs)) hH₀ (fun s hs => hH s (hsub3 hs))
   have hbr5 := lumDistFlat_flatLCDM Ω hΩ₀ hΩ₁ a t₅ t₀ h₅₀ hpos hdiff hH₀ hH
   have ha₀ : 0 < a t₀ := hpos t₀ ⟨h₅₀, le_rfl⟩
-  have ha1 : 0 < a t₁ := hpos t₁ ⟨le_trans h₅₃ h₃₁, h₁₀⟩
-  have ha3 : 0 < a t₃ := hpos t₃ ⟨h₅₃, h₃₀⟩
+  have ha1 : 0 < a t₁ := hpos t₁ ht₁
+  have ha3 : 0 < a t₃ := hpos t₃ ht₃
   have ha5 : 0 < a t₅ := hpos t₅ ⟨le_rfl, h₅₀⟩
   have es1 : (1:ℝ) + (√2 - 1) = √2 := by ring
   have es3 : (1:ℝ) + (2 * √2 - 1) = 2 * √2 := by ring
@@ -218,5 +226,35 @@ theorem fit_direction (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
   have hcore := core Ω e₂ e₃ P1 P3 P5 J1 J3 J5 hΩ₀ hΩ₁ hP1 hP3 hP5 hp1' hp3' hp5' r31 r35 r15
     hJ1l hJ1u hJ3u hJ5l
   exact conclude Ω a₂ a₃ e₂ e₃ he₂ he₃ hcore
+
+/-- **B1 at fit level (direction).** In every flat ΛCDM model with `Ω ∈ [0, 1]`, with sources at
+`1 + z = √2, 2√2, 4√2` (`z ≈ 0.41, 1.83, 4.66`), every cubic log-polynomial (coefficients
+`a₂, a₃`, normalisation `H > 0`, positive at the three redshifts) whose distance modulus agrees
+with the exact one up to a common offset `c` within 0.05 mag at all three redshifts satisfies
+`a₂ − lusA2 Ω + 1/2 < (20/3) log₁₀ 2 · (a₃ − lusA3 Ω)`: it lies beyond a line through the
+ΛCDM-implied point, towards smaller `a₂` and larger `a₃`, by a margin of 1/2 in `a₂`. -/
+theorem fit_direction (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (a : ℝ → ℝ) (t₅ t₃ t₁ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₁ : t₃ ≤ t₁) (h₁₀ : t₁ ≤ t₀)
+    (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
+    (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
+    (hH₀ : 0 < hubble a t₀)
+    (hH : ∀ s ∈ Set.Icc t₅ t₀,
+      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
+    (hz₁ : redshift a t₀ t₁ = √2 - 1) (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1)
+    (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
+    (a₂ a₃ H c : ℝ) (hHp : 0 < H)
+    (hp₁ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₁))
+    (hp₃ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃))
+    (hp₅ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₅))
+    (hm₁ : |5 * Real.logb 10 (lumDistFlat a t₀ t₁ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)) - c|
+      ≤ 1 / 20)
+    (hm₃ : |5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c|
+      ≤ 1 / 20)
+    (hm₅ : |5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c|
+      ≤ 1 / 20) :
+    a₂ - lusA2 Ω + 1 / 2 < 20 / 3 * Real.logb 10 2 * (a₃ - lusA3 Ω) := by
+  exact fit_direction_gen Ω hΩ₀ hΩ₁ a t₅ t₃ t₁ t₀ ⟨le_trans h₅₃ h₃₁, h₁₀⟩
+    ⟨h₅₃, le_trans h₃₁ h₁₀⟩ (le_trans h₅₃ (le_trans h₃₁ h₁₀)) hpos hdiff hH₀ hH hz₁ hz₃ hz₅
+    a₂ a₃ H c hHp hp₁ hp₃ hp₅ hm₁ hm₃ hm₅
 
 end Work.Cosmography.B1Fit
