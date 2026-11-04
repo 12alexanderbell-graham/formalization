@@ -4,7 +4,17 @@
 
 **Source:** see the claim
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**It holds that**
+
+- there is `s : ℝ → ℝ` such that there is `e : ℝ → ℝ` such that there is `c : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that the functions `s`, `e`, `c`, `p` (concentrations [S], [E], [C], [P]) solve the mass-action rate equations of E + S ⇌ C → E + P with rate constants k₁ = `1`, k₋₁ = `1`, k₂ = `1` on the time interval [0, `13 / 5`] (derivatives taken within [0, `13 / 5`]), with initial values [S] = `1`, [E] = `1`, [C] = `0`, [P] = `0` at time 0
+
+Program definitions in this claim:
+
+- `IsMMSolution k₁ km₁ k₂ s₀ e₀ c₀ p₀ T s e c p` — **PINNED** (pin theorem `mmSpec_pins`): the functions `s`, `e`, `c`, `p` (concentrations [S], [E], [C], [P]) solve the mass-action rate equations of E + S ⇌ C → E + P with rate constants k₁ = `k₁`, k₋₁ = `km₁`, k₂ = `k₂` on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values [S] = `s₀`, [E] = `e₀`, [C] = `c₀`, [P] = `p₀` at time 0
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 There is a solution of the mass-action rate equations of the Michaelis–Menten mechanism
 with k₁ = k₋₁ = k₂ = 1, [S]₀ = [E]₀ = 1, [C]₀ = [P]₀ = 0 on the time interval [0, 13/5]

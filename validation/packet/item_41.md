@@ -4,7 +4,34 @@
 
 **Source:** Cattoën & Visser, Class. Quantum Grav. 24, 5985 (2007), arXiv:0710.1887v1, Eq. (59) (also gr-qc/0703122 v1–v3 and arXiv:0809.0537v1 Eq. (32)): deceleration-distance y² coefficient 1/12 should be 1/24
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
+
+**assuming**
+
+1. `ContDiffAt ℝ 3 a t₀`
+2. `a t₀ ≠ 0`
+3. `hubble a t₀ ≠ 0`
+
+**then**
+
+- `(fun t => remainderQ correctQ2 a t₀ t) =o[nhds t₀] fun t => yred a t₀ t ^ 3`
+
+Program definitions in this claim:
+
+- `correctQ2 q j Ω` — FORMULA, not pinned (for `q : ℝ`, `j : ℝ`, `Ω : ℝ`): is defined as `1 / 24 * (3 - 2 * q + 12 * q ^ 2 - 4 * (j + Ω))`
+- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): the `n`-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor `a` at time `t` (n = `n`; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
+- `dQFlat a t₀ t` — PRINTED, not pinned (for `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`): is defined as `lumDistFlat a t₀ t / (1 + redshift a t₀ t) ^ (3 / 2)`
+- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): the deceleration parameter −a″(t)·a(t)/a′(t)² of the scale factor `a` at time `t`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
+- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+- `remainderQ D2 a t₀ t` — COMPOSITE, not pinned (for `D2 : ℝ → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`): is defined as `hubble a t₀ * dQFlat a t₀ t - seriesQ (D2 (decel a t₀) (cosmoCoeff 3 a t₀) 1) (decel a t₀) (yred a t₀ t)`
+- `seriesQ d2 q y` — FORMULA, not pinned (for `d2 : ℝ`, `q : ℝ`, `y : ℝ`): is defined as `y * (1 - q / 2 * y + d2 * y ^ 2)`
+- `yred a t₀ t` — **PINNED** (pin theorem `yRedSpec_pins`): the y-redshift z/(1 + z), observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 **Deceleration distance to third order in `y`** (flat FLRW, coefficient over 24).
 

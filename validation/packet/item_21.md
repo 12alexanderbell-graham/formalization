@@ -4,7 +4,29 @@
 
 **Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
+
+**assuming**
+
+1. `0 < a`
+2. `0 < b`
+3. `b < v`
+4. the molar volume `v` is a critical point of the isotherm `cubicP R a b 0 0 T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
+
+**then**
+
+1. `cubicP R a b 0 0 T v * v / (R * T) = 3 / 8`
+2. `b * cubicP R a b 0 0 T v / (R * T) = 1 / 8`
+3. `a * cubicP R a b 0 0 T v / (R * T) ^ 2 = 27 / 64`
+
+Program definitions in this claim:
+
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
+- `cubicP R a b u w T v` — FORMULA, not pinned (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 van der Waals: at every critical point, Z_c = 3/8, Ω_b = 1/8, Ω_a = 27/64 (exactly).
 

@@ -4,7 +4,20 @@
 
 **Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**It holds that**
+
+- there is `ε : ℝ` such that (`RoundsTo ε 32e-3 3`) and (`Jfam (41 / 1000) ε = 0`)
+
+Program definitions in this claim:
+
+- `Jfam Ω ε` — COMPOSITE, not pinned (for `Ω : ℝ`, `ε : ℝ`): is defined as `jL * (1 + ε) - qL Ω * (1 + ε) - 2`
+- `RoundsTo x d k` — MATH, not pinned (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `jL` — PRINTED, not pinned: is defined as `1`
+- `qL Ω` — PRINTED, not pinned (for `Ω : ℝ`): is defined as `3 / 2 * Ω - 1`
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 At `Ω = 0.041` there is an `ε ≈ 0.032` at which the ε-family (11.41) reaches `j₀ − q₀ − 2 = 0`.
 

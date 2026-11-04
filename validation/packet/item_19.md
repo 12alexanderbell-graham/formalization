@@ -4,7 +4,45 @@
 
 **Source:** see the claim
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₁ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `H : ℝ`, `c : ℝ`:
+
+**assuming**
+
+1. `0 ≤ Ω`
+2. `Ω ≤ 1`
+3. `t₅ ≤ t₃`
+4. `t₃ ≤ t₁`
+5. `t₁ ≤ t₀`
+6. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `0 < a s`
+7. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `DifferentiableAt ℝ a s`
+8. `0 < hubble a t₀`
+9. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
+10. `redshift a t₀ t₁ = √2 - 1`
+11. `redshift a t₀ t₃ = 2 * √2 - 1`
+12. `redshift a t₀ t₅ = 4 * √2 - 1`
+13. `343 / 100 ≤ a₂`
+14. `a₂ ≤ 349 / 100`
+15. `157 / 100 ≤ a₃`
+16. `a₃ ≤ 169 / 100`
+17. `0 < H`
+18. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)`
+19. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)`
+20. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)`
+
+**then**
+
+- it is false that ((`|5 * Real.logb 10 (lumDistFlat a t₀ t₁ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)) - c| ≤ 1 / 20`) and (`|5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c| ≤ 1 / 20`) and (`|5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c| ≤ 1 / 20`))
+
+Program definitions in this claim:
+
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
+- `logPolyDL3 a₂ a₃ H₀ z` — PRINTED, not pinned (for `a₂ : ℝ`, `a₃ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3)`
+- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 **C27 (fit level).** For every `Ω ∈ [0, 1]`, no cubic log-polynomial with `a₂ ∈ [3.43, 3.49]`,
 `a₃ ∈ [1.57, 1.69]` (the RL19 Fig. 3 contour centre with its reading uncertainty), normalisation

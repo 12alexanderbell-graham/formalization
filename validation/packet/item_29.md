@@ -4,7 +4,25 @@
 
 **Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**For every** `u : ℝ`, `w : ℝ`:
+
+**assuming**
+
+1. `-2 < u`
+2. `0 < 1 + u + w`
+3. `u + w < -1`
+
+**then**
+
+- there is exactly one `x : ℝ` such that (`1 < x`) and (`critCubic u w x = 0`)
+
+Program definitions in this claim:
+
+- `critCubic u w x` — FORMULA, not pinned (for `u : ℝ`, `w : ℝ`, `x : ℝ`): is defined as `x ^ 3 - 3 * x ^ 2 - 3 * (u + w) * x - (u ^ 2 + u * w - w)`
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 The critical cubic has exactly one root above 1 (x = v_c/b > 1).
 

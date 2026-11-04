@@ -156,6 +156,27 @@ def definition(lines, i):
         out.pop()
     return "\n".join(out)
 
+def claims_sections():
+    """Generated claims (CLAIMS.md, scripts/trust/Claims.lean; run 2026-11-04T2228Z): full name -> body
+    (binders, assumptions, conclusion, program definitions), without heading, full-name line and paraphrase."""
+    out, cur, buf = {}, None, []
+    for line in (ROOT / "CLAIMS.md").read_text(encoding="utf-8").splitlines():
+        m = re.match(r"^Full name `([^`]+)`\.$", line)
+        if m:
+            cur, buf = m.group(1), []
+            continue
+        if cur is None:
+            continue
+        if line.startswith("Author's paraphrase") or line.startswith("## "):
+            out[cur] = "\n".join(buf).strip("\n")
+            cur = None
+            continue
+        buf.append(line)
+    if cur is not None:
+        out[cur] = "\n".join(buf).strip("\n")
+    return out
+
+
 def trust_rows():
     rows = {}
     for l in (ROOT / "TRUST_MAP.md").read_text().splitlines():
@@ -273,6 +294,7 @@ def main():
             raise SystemExit(f"control base {c['base']} is not a registered headline")
     idx = index_decls()
     rows = trust_rows()
+    claims = claims_sections()
     sample = draw(groups, excluded, seed)
     rng = random.Random(seed + "positions")
     group_of = {h: g for g, hs in groups for h in hs}
@@ -287,7 +309,16 @@ def main():
         doc, stmt = docstring_before(lines, i), statement(lines, i)
         row = trust_row_for(rows, full) or ["—", "—", "—", "—", "—"]
         local_defs = ""
+        if full not in claims:
+            raise SystemExit(f"{full}: no generated claim in CLAIMS.md (regenerate: lake env lean scripts/trust/Claims.lean)")
+        claim = claims[full]
         if c is not None:
+            # planted controls carry the same planted change in their generated claim (else the
+            # generated text would give the control away)
+            for old, new in c.get("claim_replace", []):
+                if claim.count(old) != 1:
+                    raise SystemExit(f"control {h}: claim_replace '{old}' occurs {claim.count(old)} times in the generated claim (need exactly 1)")
+                claim = claim.replace(old, new)
             doc = c.get("doc", doc)
             for old, new in c.get("statement_replace", []):
                 if old not in stmt:
@@ -303,7 +334,8 @@ def main():
         src = (c or {}).get("source") or source_of(g, h)
         txt = [f"# Item {n:02d}", "",
                f"**Area:** {g}", "", f"**Source:** {src}", "",
-               "## Claim in plain words (the system's own text)", "", doc or "(no docstring)", "",
+               "## Claim generated from the Lean statement (machine-produced; this is what was proved)", "", claim, "",
+               "## Author's paraphrase (hand-written; checked only by prose rules)", "", doc or "(no docstring)", "",
                "## Formal statement (Lean 4)", "", "```lean", stmt, "```", ""]
         if local_defs:
             txt += ["Definitions specific to this item:", "", "```lean", local_defs, "```", ""]

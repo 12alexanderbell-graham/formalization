@@ -4,7 +4,18 @@
 
 **Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI ("testing F(R) gravity by cosmography"), Eq. (11.31), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583, PRD 78, 063504) Eq. (33): the common denominator R of the F(R₀), F″(R₀), F‴(R₀) formulas is wrong, so the printed F(R₀) formula (11.21) fails the paper's own ΛCDM check (11.40); also (11.13) d³R₀/dt³ has a sign error
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**It holds that**
+
+1. `RoundsTo (27 * (1 / 4) ^ 2 * (1 / 4 - 2) * (27 * (1 / 4) ^ 2 + 60 * (1 / 4) + 112) / (243 * (1 / 4) ^ 4 + 540 * (1 / 4) ^ 3 - 6264 * (1 / 4) ^ 2 + 9360 * (1 / 4) - 3328)) 0.277 3`
+2. `RoundsTo (3 * (1 / 4 - 2)) (-5.25) 2`
+
+Program definitions in this claim:
+
+- `RoundsTo x d k` — MATH, not pinned (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 At `Ω = 0.25` the printed (11.21) gives `F(R₀) = 0.277 H₀²`; the ΛCDM value `3H₀²(Ω − 2)` is
 `−5.25 H₀²` (`H₀ = 1`).

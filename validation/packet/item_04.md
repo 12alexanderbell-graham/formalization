@@ -4,7 +4,36 @@
 
 **Source:** see the claim
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `H : ℝ`:
+
+**assuming**
+
+1. `0 ≤ Ω`
+2. `Ω ≤ 1`
+3. `t₅ ≤ t₃`
+4. `t₃ ≤ t₀`
+5. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `0 < a s`
+6. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `DifferentiableAt ℝ a s`
+7. `0 < hubble a t₀`
+8. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
+9. `redshift a t₀ t₃ = 2 * √2 - 1`
+10. `redshift a t₀ t₅ = 4 * √2 - 1`
+11. `0 < H`
+
+**then**
+
+- `3 / 10 < 5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL4 3.205 3.564 (-2.510) H (redshift a t₀ t₅)) - 5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL4 3.205 3.564 (-2.510) H (redshift a t₀ t₃))`
+
+Program definitions in this claim:
+
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
+- `logPolyDL4 a₂ a₃ a₄ H₀ z` — PRINTED, not pinned (for `a₂ : ℝ`, `a₃ : ℝ`, `a₄ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3 + a₄ * Real.logb 10 (1 + z) ^ 4)`
+- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 **Lusso et al. 2019, SNe + quasars + GRBs, central fit.** For every `Ω ∈ [0, 1]` and every scale
 factor obeying `H = H₀ √(Ω(1+z)³ + 1 − Ω)` (with `H₀ > 0`) on the whole interval back to the farther

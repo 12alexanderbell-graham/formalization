@@ -4,7 +4,28 @@
 
 **Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`:
+
+**assuming**
+
+1. `0 < R`
+2. `0 < a`
+3. `0 < b`
+
+**then**
+
+- there is `vl : ℝ` such that there is `vg : ℝ` such that there is `ps : ℝ` such that (`b < vl`) and (the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b)))` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)) and (`RoundsTo (ps / (a / (27 * b ^ 2))) 0.20046 5`) and (`RoundsTo (acentric ps (a / (27 * b ^ 2))) (-0.3020) 4`)
+
+Program definitions in this claim:
+
+- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `p` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)
+- `RoundsTo x d k` — MATH, not pinned (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `acentric ps pc` — FORMULA, not pinned (for `ps : ℝ`, `pc : ℝ`): is defined as `-Real.logb 10 (ps / pc) - 1`
+- `cubicP R a b u w T v` — FORMULA, not pinned (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 van der Waals fluid at T = 0.7 · 8a/(27Rb) (that is 0.7 T_c): there is a Maxwell coexistence
 state (liquid volume above the co-volume b), and its pressure is 0.20046 · a/(27b²) (that is

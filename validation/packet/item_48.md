@@ -4,7 +4,28 @@
 
 **Source:** textbook definition of lookback time and the cosmographic parameters (e.g. Visser 2004, Class. Quantum Grav. 21, 2603)
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
+
+**assuming**
+
+1. `∀ᶠ (t : ℝ) in nhds t₀, DifferentiableAt ℝ a t`
+2. `DifferentiableAt ℝ (deriv a) t₀`
+3. `a t₀ ≠ 0`
+4. `deriv a t₀ ≠ 0`
+
+**then**
+
+- `(fun t => t₀ - t - (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2) / hubble a t₀) =o[nhds t₀] fun t => redshift a t₀ t ^ 2`
+
+Program definitions in this claim:
+
+- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): the deceleration parameter −a″(t)·a(t)/a′(t)² of the scale factor `a` at time `t`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 **Milestone 1** (frozen in commit 6ef1003, audited in runs/2026-10-30T0028Z/audit.md). The lookback time `t₀ - t` of a source with redshift
 `z = z(t)` satisfies `t₀ - t = H₀⁻¹ (z - (1 + q₀/2) z²) + o(z²)` as `t → t₀`.

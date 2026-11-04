@@ -4,7 +4,17 @@
 
 **Source:** see the claim
 
-## Claim in plain words (the system's own text)
+## Claim generated from the Lean statement (machine-produced; this is what was proved)
+
+**It holds that**
+
+- there is `x : ℝ → ℝ` such that the function `x` solves x″ + `1`·x + `1`·x³ = 0 with x(0) = `1`, x′(0) = `0` on the time interval [0, `6 / 5`] (derivatives taken within [0, `6 / 5`])
+
+Program definitions in this claim:
+
+- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): the function `x` solves x″ + `k`·x + `β`·x³ = 0 with x(0) = `x₀`, x′(0) = `v₀` on the time interval [0, `T`] (derivatives taken within [0, `T`])
+
+## Author's paraphrase (hand-written; checked only by prose rules)
 
 There is a solution of the Duffing initial value problem x'' + x + x³ = 0, x(0) = 1,
 x'(0) = 0 on the time interval [0, 6/5] (derivatives within the interval).
