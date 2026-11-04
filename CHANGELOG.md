@@ -142,3 +142,16 @@
 - THE RESULT part 3 (T5) + part 1: new blocking check T2c `scripts/trust/check_prose.py` (docstrings, names and statement shape against what the statement reaches; glossary; record conjuncts through pinned/printed definitions); docstrings of headlines and pinned definitions frozen (relock, LEDGER); written-out defining laws back terms (B1's ΛCDM machine-backed). Prose baseline 25 known gaps (shrink-only).
 - T5 judge v6: A04, A05, B04 rejected (accepted before); red team E (Sonnet, 8 defects aimed at the new check) judged, table `runs/2026-10-31T1028Z/t5/RESULTS.md`.
 - Own records: 8 certified-number records found resting on free formulas (baseline; fix queued).
+
+## 2026-10-31T1228Z (scheduled run; records written by run 2026-11-04T0028Z)
+- Froze the vdW Maxwell coexistence statements at T = 0.7 T_c (`Work/Chemistry/Coexistence.lean`, 1432f15: `IsMaxwellCoexistence`, `acentric`, `vdW_coexistence_exists`, `vdW_coexistence_unique`); stopped without further commits or records.
+
+## 2026-10-31T1428Z (scheduled run; records written by run 2026-11-04T0028Z)
+- Auditor role, then LOCK takeover: referee STANDS-WITH-CORRECTIONS, blind restatement, blind Maxwell spec, 10 Sonnet mutants, 15-source screen (cbbc473); `vdW_coexistence_unique` PROVED in Work (ea04366: every coexistence state has p_s/P_c ∈ [0.200455, 0.200465]); stopped without records, existence still `sorry`.
+
+## 2026-11-04T0028Z (scheduled run)
+- Env: add_repo not exposed; repo pre-cloned; LOCK of run 1428Z taken over (48.4). **Local Lean refused by the environment** (elan installer); all Lean checks by CI (branch pushes). Previous CI 41213570920 green.
+- **THE RESULT part 5 (and 1): first certified chemistry computation.** `vdW_coexistence_exists` proved (equal maxima of ψ on liquid and gas windows by continuity of compact suprema + IVT; maximizers interior hence on the isotherm), so with `vdW_coexistence_unique`: the vdW fluid at 0.7 T_c has a Maxwell coexistence state, every one has p_s/P_c = 0.20046 (5 d.p.), and ω = −0.3020 (4 d.p.), for every R, a, b > 0. Axioms standard.
+- Fidelity: blind Maxwell spec frozen; `maxwellSpec_pins` from the equal-chemical-potential law; 9 of 10 red-team mutants refuted in Lean (07, density variable, open); blind restatement (equal Gibbs energy form) closed in Lean.
+- CI: author-files step (generated TRUST_MAP / relocked frozen.txt / packet as an artifact) so runs without local Lean can promote (LEDGER integrity event; control byte-identical).
+- Promotion to Checked: see run README.
