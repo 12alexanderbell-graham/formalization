@@ -155,3 +155,9 @@
 - Fidelity: blind Maxwell spec frozen; `maxwellSpec_pins` from the equal-chemical-potential law; all 10 red-team mutants refuted in Lean; blind restatement (equal Gibbs energy form) closed in Lean.
 - CI: author-files step (generated TRUST_MAP / relocked frozen.txt / packet as an artifact) so runs without local Lean can promote (LEDGER integrity event; control byte-identical).
 - Promotion to Checked: see run README.
+
+## 2026-11-04, run 0228Z (scheduled)
+- Part 2 (B1) by part rotation. Local Lean available again (elan accepted).
+- Froze, proved, audited and promoted `Checked.Cosmography.B1Fit.fit_direction` (fit-level direction over the quasar range, Ω ∈ [0, 1]) and `Checked.Cosmography.B1FitRL19.rl19_box_unmatched` (C27: the RL19 contour-centre box matches no flat ΛCDM). Referee STANDS-WITH-CORRECTIONS; blind restatements of both closed in Lean; NV witnesses; blind second reading of RL19 Fig. 3.
+- New tool: second-order certified quadrature (`Checked/Cosmography/B1FitTools.lean`), generators `runs/2026-11-04T0228Z/scripts/`.
+- Records: run README, STATE, LEDGER (relocks, quadrature experiment, evaluations, split box hypotheses), BLUEPRINT, TARGETS, FINDINGS C27, PROMPT note.

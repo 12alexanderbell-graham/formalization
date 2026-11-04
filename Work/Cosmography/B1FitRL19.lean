@@ -70,8 +70,8 @@ theorem rl19_box_unmatched (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
       hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
     (hz₁ : redshift a t₀ t₁ = √2 - 1) (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1)
     (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
-    (a₂ a₃ H c : ℝ) (ha₂ : 343 / 100 ≤ a₂ ∧ a₂ ≤ 349 / 100)
-    (ha₃ : 157 / 100 ≤ a₃ ∧ a₃ ≤ 169 / 100) (hHp : 0 < H)
+    (a₂ a₃ H c : ℝ) (ha₂l : 343 / 100 ≤ a₂) (ha₂u : a₂ ≤ 349 / 100)
+    (ha₃l : 157 / 100 ≤ a₃) (ha₃u : a₃ ≤ 169 / 100) (hHp : 0 < H)
     (hp₁ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₁))
     (hp₃ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃))
     (hp₅ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) :
@@ -87,7 +87,7 @@ theorem rl19_box_unmatched (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
   obtain ⟨hL1, hL2⟩ := Work.Cosmography.B1FitWitness.t_bounds
   have hl1 := Work.Cosmography.B1Fit.log_ten_ge
   have hl2 := Work.Cosmography.B1FitWitness.log_ten_le
-  have hneg := box_neg Ω a₂ a₃ (Real.log 10) (Real.logb 10 2) hΩ₀ hΩ₁ ha₂ ha₃
+  have hneg := box_neg Ω a₂ a₃ (Real.log 10) (Real.logb 10 2) hΩ₀ hΩ₁ ⟨ha₂l, ha₂u⟩ ⟨ha₃l, ha₃u⟩
     (by norm_num at hl1 ⊢; linarith) (by norm_num at hl2 ⊢; linarith) hL1 hL2
   unfold lusA2 lusA3 at hf
   nlinarith

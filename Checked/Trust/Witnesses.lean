@@ -31,6 +31,7 @@ import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
 import Checked.Cosmography.B1SepWitness
 import Checked.Cosmography.B1FitWitness
+import Checked.Cosmography.B1FitRL19
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -422,5 +423,11 @@ theorem fit_direction : nonvacuity% Checked.Cosmography.B1Fit.fit_direction := b
     hz5, hHp, hp1, hp3, hp5, hm1, hm3, hm5⟩ := Checked.Cosmography.B1FitWitness.hyps_satisfiable
   exact ⟨Ω, h0, h1, a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3, hz5, a₂, a₃,
     H, c, hHp, hp1, hp3, hp5, hm1, hm3, hm5, trivial⟩
+
+theorem rl19_box_unmatched : nonvacuity% Checked.Cosmography.B1FitRL19.rl19_box_unmatched := by
+  obtain ⟨Ω, a, t₅, t₃, t₁, t₀, a₂, a₃, H, h0, h1, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3,
+    hz5, h2, h3, hHp, hp1, hp3, hp5⟩ := Checked.Cosmography.B1FitRL19.hyps_satisfiable
+  exact ⟨Ω, h0, h1, a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3, hz5, a₂, a₃,
+    H, 0, h2.1, h2.2, h3.1, h3.2, hHp, hp1, hp3, hp5, trivial⟩
 
 end Checked.Trust.NV

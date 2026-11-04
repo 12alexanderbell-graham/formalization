@@ -139,6 +139,8 @@ B1Sep.cubic_separation
 B1Sep.cubic_direction
 # B1 fit level (run 2026-11-04T0228Z): direction over the quasar range, Ω ∈ [0, 1], second-order certified enclosures
 B1Fit.fit_direction
+# C27 at fit level (run 2026-11-04T0228Z): the RL19 Fig. 3 contour-centre box matches no flat ΛCDM over the quasar range
+B1FitRL19.rl19_box_unmatched
 # Chemistry (run 2026-10-31T0628Z): critical point of the generalized cubic equation of state (vdW, RK/SRK, PR)
 Checked.Chemistry.CubicEOS.isCritical_iff
 Checked.Chemistry.CubicEOS.critCubic_existsUnique

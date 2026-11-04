@@ -6,26 +6,26 @@
 
 ## Claim in plain words (the system's own text)
 
-The review's claim (10.56)–(10.57) is false: it is not true that for every curvature `K` and every
-analytic, everywhere positive scale factor with `H₀ > 0` the `d_L(y)` series with the corrected `D²`,
-`D³` and the printed `D⁴_{L,y}` equals `d_L + o(y⁵)` as `t → t₀`.
+`S_K(χ) = χ − Kχ³/6 + K²χ⁵/120 + o(χ⁵)` for every `K`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem bambaD4yClaim_false : ¬ BambaD4yClaim := …
+theorem transverse_expansion (K : ℝ) :
+    (fun x => transverse K x - (x - K * x ^ 3 / 6 + K ^ 2 * x ^ 5 / 120)) =o[𝓝 0]
+      fun x => x ^ 5 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaK.omega0`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.BambaK.BambaD4yClaim`, `Cosmography.BambaK.printedD3y`, `Cosmography.BambaK.printedD4y`, `Cosmography.BambaY.D1y`, `Cosmography.BambaK.correctD3y`, `Cosmography.BambaK.remK`, `Cosmography.BambaK.seriesY4`, `Cosmography.BambaY.comoving`, `Cosmography.BambaY.correctD2y`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.Transverse.transverse`, `Cosmography.redshift`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.Transverse.transverse`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, lumDist, omega0, yred, decel, hubble.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): BambaD4yClaim, printedD3y², printedD4y², D1y².
+- Definitions pinned by a machine-checked specification: transverse.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Source file: `Checked/Cosmography/BambaCurved.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Cosmography/Transverse.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 08

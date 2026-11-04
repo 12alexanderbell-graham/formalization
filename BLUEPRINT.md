@@ -16,7 +16,8 @@
 - Certified enclosures of ∫ 2/√(Ω+(1−Ω)v⁶) (Riemann sums, tangent/secant bounds; `J_lower`, `J_upper`, tool lemmas `rsum_le_integral`, `integral_le_lsum`, `tangent_le`, `le_secant`): **PROVED** (helpers).
 - `cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss`: **PROVED** (AUDITED). Witness `exists_flatLCDM_on`: PROVED.
 - `Checked.Cosmography.B1Sep.cubic_separation` (any cubic agreeing with exact ΛCDM within 0.05 mag at z = 3, 7 up to an offset lies > 5/4 from the ΛCDM point) and `cubic_direction` (on the side a₂ − a₂^ΛCDM < 7 log₁₀2 (a₃ − a₃^ΛCDM)): **PROVED** (AUDITED, run 0828Z; frozen first; both blind restatements closed in Lean; referee STANDS-WITH-CORRECTIONS; NV witness `B1SepWitness.hyps_satisfiable`).
-- Next node: fit-level statement (least-squares or minimax cubic over z ≤ 5.1, Ω up to 1), then σ comparison (C27).
+- Run 2026-11-04T0228Z: second-order certified quadrature (`Checked/Cosmography/B1FitTools.lean`: `cell_lower`, `cell_upper`, `sum_lower`, `sum_upper`; certificates `B1FitCerts.lean`); `Checked.Cosmography.B1Fit.fit_direction` (fit level: three quasar-range redshifts, Ω ∈ [0, 1]) and `Checked.Cosmography.B1FitRL19.rl19_box_unmatched` (C27): **PROVED** (AUDITED; frozen first; blind restatements closed in Lean; referee STANDS-WITH-CORRECTIONS; NV witnesses `B1FitWitness.hyps_satisfiable`, `B1FitRL19.hyps_satisfiable`).
+- Next node: the least-squares/minimax fit as a Lean object with certified residuals; σ comparison needs the RL19 covariance (not printed).
 
 ## Trust track T3 (transcription fidelity), `Checked/Trust/`
 - `SecondReading.lean` (blind second transcription, 23 coefficients), `Transcriptions.lean` (23 agreement theorems). Next: remaining 15 PRINTED definitions.

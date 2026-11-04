@@ -6,25 +6,31 @@
 
 ## Claim in plain words (the system's own text)
 
-**Correct (11.43)**: `η₃₀ = correct30(Ω)·ε` to first order.
+The two ratios are the review's expressions in every model (no `≈`).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem eta30_hasDerivAt {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
-    eta30 Ω 0 = 0 ∧ HasDerivAt (eta30 Ω) (correct30 Ω) 0 := …
+theorem eta_ratios (Ω : ℝ) (a F : ℝ → ℝ) (t₀ : ℝ) (hM : IsFRCosmo Ω a F t₀)
+    (hF : F (curv a t₀) ≠ 0)
+    (hR : correctR (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) ≠ 0)
+    (hJ : cosmoCoeff 3 a t₀ - decel a t₀ - 2 ≠ 0) :
+    deriv^[2] F (curv a t₀) * hubble a t₀ ^ 4 / F (curv a t₀) =
+      eta20Of Ω (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) ∧
+    deriv^[3] F (curv a t₀) * hubble a t₀ ^ 6 / F (curv a t₀) =
+      eta30Of Ω (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FRCosmo.P0`, `Cosmography.FRCosmo.P3`, `Cosmography.FRCosmo.Q0`, `Cosmography.FRCosmo.Q3`, `Cosmography.FREta.jL`, `Cosmography.FREta.lL`, `Cosmography.FREta.qL`, `Cosmography.FREta.sL`, `Cosmography.FREta.correct30`, `Cosmography.FREta.eta30`, `Cosmography.FREta.eta30Of`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.FRCosmo.FriedmannEq`, `Cosmography.FRCosmo.MasterEq`, `Cosmography.FRCosmo.curv`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.FRCosmo.P0`, `Cosmography.FRCosmo.P2`, `Cosmography.FRCosmo.P3`, `Cosmography.FRCosmo.Q0`, `Cosmography.FRCosmo.Q2`, `Cosmography.FRCosmo.Q3`, `Cosmography.FRCosmo.IsFRCosmo`, `Cosmography.FRCosmo.correctR`, `Cosmography.FRCosmo.rhoM`, `Cosmography.FREta.eta20Of`, `Cosmography.FREta.eta30Of`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): P0², P3², Q0², Q3², jL, lL², qL², sL².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `eta30_hasDerivAt`.
+- Definitions pinned by a machine-checked specification: cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): P0², P2², P3², Q0², Q2², Q3².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `eta_ratios`.
 - Source file: `Checked/Cosmography/FREta.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 13

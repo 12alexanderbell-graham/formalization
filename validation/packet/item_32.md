@@ -1,36 +1,32 @@
 # Item 32
 
-**Area:** F0
+**Area:** F1
 
-**Source:** textbook definition of lookback time and the cosmographic parameters (e.g. Visser 2004, Class. Quantum Grav. 21, 2603)
+**Source:** Aviles, Gruber, Luongo, Quevedo, PRD 86, 123516 (2012), arXiv:1204.2007 (v1 and v2), Eq. (15): misprinted ΛCDM l₀ and m₀
 
 ## Claim in plain words (the system's own text)
 
-**Milestone 1** (frozen in commit 6ef1003, audited in runs/2026-10-30T0028Z/audit.md). The lookback time `t₀ - t` of a source with redshift
-`z = z(t)` satisfies `t₀ - t = H₀⁻¹ (z - (1 + q₀/2) z²) + o(z²)` as `t → t₀`.
+The printed m₀ of Eq. (15) is false at every Ω ∈ (0,1) where it differs from the true
+polynomial, i.e. every Ω ∈ (0,1) except the root (√7 − 1)/3 of 3Ω² + 2Ω − 2 = 0.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem lookback_second_order (a : ℝ → ℝ) (t₀ : ℝ)
-    (ha : ∀ᶠ t in 𝓝 t₀, DifferentiableAt ℝ a t)
-    (ha' : DifferentiableAt ℝ (deriv a) t₀)
-    (ha0 : a t₀ ≠ 0) (hH : deriv a t₀ ≠ 0) :
-    (fun t => (t₀ - t) - (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2)
-        / hubble a t₀)
-      =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 2) := …
+theorem printedM0_false_at {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) (hr : 3 * Ω ^ 2 + 2 * Ω - 2 ≠ 0) :
+    ¬ ∀ (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ → ContDiffAt ℝ 6 a t₀ →
+      cosmoCoeff 6 a t₀ = 1 - 27 / 2 * Ω ^ 2 - 81 * Ω ^ 2 - 81 / 2 * Ω ^ 3 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`
+See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.hubble`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: decel, hubble, redshift.
+- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lookback_second_order`.
-- Source file: `Checked/Cosmography/Lookback.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedM0_false_at`.
+- Source file: `Checked/Cosmography/LCDMWitness.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 32

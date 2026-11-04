@@ -32,6 +32,7 @@ Checked.Cosmography.B1.lumDistFlat_flatLCDM e42d16c7-doc4090693389596683798
 Checked.Cosmography.B1.lusA2 37d0e0a185ad599d-PRINTED
 Checked.Cosmography.B1.lusA3 29255de2ffbc4f30-PRINTED
 Checked.Cosmography.B1Fit.fit_direction c75b5b83-doc6678170621305247766
+Checked.Cosmography.B1FitRL19.rl19_box_unmatched ae1742ad-doc3185745054540232100
 Checked.Cosmography.B1Sep.cubic_direction 5e2d4a4f-doc12400634352633091884
 Checked.Cosmography.B1Sep.cubic_separation c0443124-doc12910561167684407120
 Checked.Cosmography.BambaA.BambaDA3Claim c2c69fd78531bc13-CLAIM

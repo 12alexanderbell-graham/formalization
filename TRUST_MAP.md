@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 130. Resting on no unpinned physics definition: 130.
-Non-vacuity (trust track T2): 81 headlines have hypotheses; 81 of them have a
+Headlines: 131. Resting on no unpinned physics definition: 131.
+Non-vacuity (trust track T2): 82 headlines have hypotheses; 82 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -146,6 +146,7 @@ agreement with an independent blind second reading (`Checked/Trust/Transcription
 | `B1Sep.cubic_separation` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_separation` |
 | `B1Sep.cubic_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_direction` |
 | `B1Fit.fit_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `fit_direction` |
+| `B1FitRL19.rl19_box_unmatched` | lumDistFlat, hubble, redshift | — | logPolyDL3² | `rl19_box_unmatched` |
 | `Chemistry.CubicEOS.isCritical_iff` | IsCriticalIsotherm | — | — | `isCritical_iff` |
 | `Chemistry.CubicEOS.critCubic_existsUnique` | — | — | — | `critCubic_existsUnique` |
 | `Chemistry.CubicEOS.exists_unique_critical` | IsCriticalIsotherm | — | — | `exists_unique_critical` |
