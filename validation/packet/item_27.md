@@ -6,26 +6,27 @@
 
 ## Claim in plain words (the system's own text)
 
-**Correct (11.42)**: `η₂₀ = correct20(Ω)·ε` to first order.
+Printed (11.43) fails at the same parameter values.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem eta20_hasDerivAt {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) :
-    eta20 Ω 0 = 0 ∧ HasDerivAt (eta20 Ω) (correct20 Ω) 0 := …
+theorem printedEta30_false_at {Ω : ℝ} (h0 : 0 < Ω) (h1 : Ω < 1) (hd : printedDen Ω ≠ 0)
+    (hne : (54 * Ω ^ 2 - 29 * Ω - 2) * (27 * Ω ^ 2 + 24 * Ω - 32) ≠ 0) :
+    ¬ HasDerivAt (eta30 Ω) (printed30 Ω) 0 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FRCosmo.P0`, `Cosmography.FRCosmo.P2`, `Cosmography.FRCosmo.Q0`, `Cosmography.FRCosmo.Q2`, `Cosmography.FREta.jL`, `Cosmography.FREta.lL`, `Cosmography.FREta.qL`, `Cosmography.FREta.sL`, `Cosmography.FREta.correct20`, `Cosmography.FREta.eta20`, `Cosmography.FREta.eta20Of`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
+See GLOSSARY.md: `Cosmography.FRCosmo.P0`, `Cosmography.FRCosmo.P3`, `Cosmography.FRCosmo.Q0`, `Cosmography.FRCosmo.Q3`, `Cosmography.FREta.jL`, `Cosmography.FREta.lL`, `Cosmography.FREta.printed30`, `Cosmography.FREta.printedDen`, `Cosmography.FREta.qL`, `Cosmography.FREta.sL`, `Cosmography.FREta.eta30`, `Cosmography.FREta.eta30Of`, `changed;.Checked.Chemistry.CoexistenceReduced.q`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): P0², P2², Q0², Q2², jL, lL², qL², sL².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `eta20_hasDerivAt`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): eta20: ε = 0.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): P0², P3², Q0², Q3², jL, lL², printed30², printedDen², qL², sL².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedEta30_false_at`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Cosmography/FREta.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 27

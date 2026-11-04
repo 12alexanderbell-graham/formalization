@@ -6,26 +6,26 @@
 
 ## Claim in plain words (the system's own text)
 
-**Refutation of the printed l₀ in Eq. (22)**, by an explicit flat CPL model
-(Ω = 0, w₀ = −1, wₐ = 2/3, a(t) = 1 − log(1 − t), t₀ = 0): true l₀ = 24, printed 160/9.
+**Flat matter + CPL models exist for every Ω, w₀, wₐ** (at `t₀ = 0`, `C⁵` there).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem clsL0Claim_false : ¬ CLSL0Claim := …
+theorem exists_flatCPL (Ω w₀ wₐ : ℝ) :
+    ∃ a : ℝ → ℝ, IsFlatCPL Ω w₀ wₐ a 0 ∧ ContDiffAt ℝ 5 a 0 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.CPL.IsFlatCPL`, `Cosmography.CPL.CLSL0Claim`, `Cosmography.hubble`, `Cosmography.redshift`
+See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, IsFlatCPL.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): CLSL0Claim.
+- Definitions pinned by a machine-checked specification: IsFlatCPL.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 5.
-- Source file: `Checked/Cosmography/CPLCoefficients.lean` (do not open it before submitting your answers).
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatCPL: t₀ = 0.
+- Source file: `Checked/Cosmography/CPLExistence.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 05

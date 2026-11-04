@@ -59,3 +59,4 @@ import Checked.Sim.MichaelisMenten
 import Checked.Sim.MMPin
 import Checked.Fidelity.MMSpec
 import Checked.Fidelity.DuffingSpec
+import Checked.Data.FR13

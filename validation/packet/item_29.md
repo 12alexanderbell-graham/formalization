@@ -6,27 +6,28 @@
 
 ## Claim in plain words (the system's own text)
 
-**The program's flat CPL predicate equals the blind first-principles formulation**, for
-every `Ω, w₀, wₐ`, every scale factor and every `t₀`.
+**Pinning:** any `O` meeting `Omega0Spec` is `omega0` wherever `a₀ > 0`, `a` is
+differentiable at `t₀` and `H₀ ≠ 0`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem isFlatCPL_iff_friedmannCPL (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) :
-    IsFlatCPL Ω w₀ wₐ a t₀ ↔ FriedmannCPL Ω w₀ wₐ a t₀ := …
+theorem omega0Spec_pins (O : ℝ → (ℝ → ℝ) → ℝ → ℝ) (h : Omega0Spec O) (K : ℝ) (a : ℝ → ℝ)
+    (t₀ : ℝ) (ha : 0 < a t₀) (hd : DifferentiableAt ℝ a t₀) (hH : deriv a t₀ / a t₀ ≠ 0) :
+    O K a t₀ = omega0 K a t₀ := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannCPL`, `Sim.DuffingExists.G`, `Sim.DuffingExists.cl`
+See GLOSSARY.md: `Cosmography.BambaK.omega0`, `Cosmography.hubble`, `Fidelity.Omega0Spec`, `Sim.DuffingExists.G`, `Sim.DuffingExists.cl`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatCPL.
+- Definitions pinned by a machine-checked specification: omega0.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `isFlatCPL_iff_friedmannCPL`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `omega0Spec_pins`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/FriedmannCPL.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Fidelity/YOmegaKSpecs.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 29

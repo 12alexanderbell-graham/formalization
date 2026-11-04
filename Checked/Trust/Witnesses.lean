@@ -35,6 +35,7 @@ import Checked.Cosmography.B1SepWitness
 import Checked.Cosmography.B1FitWitness
 import Checked.Cosmography.B1FitRL19
 import Checked.Cosmography.B1L19
+import Checked.Data.FR13
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -473,5 +474,44 @@ field; the enclosure keeps it in the box where the clamp is inactive). -/
 theorem mm_half_conversion : nonvacuity% Checked.Sim.MichaelisMenten.mm_half_conversion := by
   obtain ⟨s, e, c, p, h⟩ := Checked.Sim.MichaelisMenten.mm_solution_exists
   exact ⟨s, e, c, p, h, 0, ⟨le_rfl, by norm_num⟩, trivial⟩
+
+
+/-! ### Data claim FR13 (run 2026-11-04T1628Z): a minimiser exists (`fr13_exists68`, `fr13_exists738`);
+the transition equation has the solution z = (2(1 − Ω)/Ω)^(1/3) − 1 at it (Ω > 0 by the best-fit
+interval). -/
+
+theorem fr13_cube (x : ℝ) (hx : 0 < x) : ∃ z : ℝ, -1 < z ∧ (1 + z) ^ 3 = x := by
+  refine ⟨x ^ ((1 : ℝ) / 3) - 1, by have := Real.rpow_pos_of_pos hx ((1 : ℝ) / 3); linarith, ?_⟩
+  rw [add_sub_cancel, ← Real.rpow_natCast, ← Real.rpow_mul hx.le]; norm_num
+
+theorem fr13_bestfit68 : nonvacuity% Checked.Data.FR13.fr13_bestfit68 := by
+  obtain ⟨Ω, hΩ, h⟩ := Checked.Data.FR13.fr13_exists68
+  exact ⟨Ω, hΩ.1, hΩ.2, h, trivial⟩
+
+theorem fr13_bestfit738 : nonvacuity% Checked.Data.FR13.fr13_bestfit738 := by
+  obtain ⟨Ω, hΩ, h⟩ := Checked.Data.FR13.fr13_exists738
+  exact ⟨Ω, hΩ.1, hΩ.2, h, trivial⟩
+
+theorem fr13_minval68 : nonvacuity% Checked.Data.FR13.fr13_minval68 := by
+  obtain ⟨Ω, hΩ, h⟩ := Checked.Data.FR13.fr13_exists68
+  exact ⟨Ω, hΩ.1, hΩ.2, h, trivial⟩
+
+theorem fr13_minval738 : nonvacuity% Checked.Data.FR13.fr13_minval738 := by
+  obtain ⟨Ω, hΩ, h⟩ := Checked.Data.FR13.fr13_exists738
+  exact ⟨Ω, hΩ.1, hΩ.2, h, trivial⟩
+
+theorem fr13_zda68 : nonvacuity% Checked.Data.FR13.fr13_zda68 := by
+  obtain ⟨Ω, hΩ, h⟩ := Checked.Data.FR13.fr13_exists68
+  have hb := Checked.Data.FR13.fr13_bestfit68 Ω hΩ.1 hΩ.2 h
+  have hp : 0 < Ω := by linarith [hb.1]
+  obtain ⟨z, hz, hc⟩ := fr13_cube (2 * (1 - Ω) / Ω) (div_pos (by linarith [hb.2]) hp)
+  exact ⟨Ω, hΩ.1, hΩ.2, h, z, hz, by rw [hc]; field_simp, trivial⟩
+
+theorem fr13_zda738 : nonvacuity% Checked.Data.FR13.fr13_zda738 := by
+  obtain ⟨Ω, hΩ, h⟩ := Checked.Data.FR13.fr13_exists738
+  have hb := Checked.Data.FR13.fr13_bestfit738 Ω hΩ.1 hΩ.2 h
+  have hp : 0 < Ω := by linarith [hb.1]
+  obtain ⟨z, hz, hc⟩ := fr13_cube (2 * (1 - Ω) / Ω) (div_pos (by linarith [hb.2]) hp)
+  exact ⟨Ω, hΩ.1, hΩ.2, h, z, hz, by rw [hc]; field_simp, trivial⟩
 
 end Checked.Trust.NV

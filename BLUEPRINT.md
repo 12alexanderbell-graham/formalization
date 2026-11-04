@@ -71,3 +71,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - Run 2026-11-04T0828Z: `Validated.lean` (`tube_cell`: confinement by the enclosure, continuous induction, any normed space): PROVED (Work). `MMCell.lean` (reduced Michaelis–Menten field, `lip_box`, cell step for any field equal to it on the box, `lower_of`/`upper_of`), generated `MMCerts.lean` (57 steps) and `MMEnclose.lean` (chaining): PROVED (Work). `MichaelisMenten.lean`: `mm_half_conversion`, `mm_solution_exists` (clamped field + same enclosure): PROVED (Work), frozen f764635. `MMAudit.lean`: blind closed, spec met. Checked copies on branch `wip/mm-checked`.
 - Michaelis–Menten promotion: PROVED (main CI 41813186514, read run 1028Z).
 - Next node: logarithmic-norm cell step (stiff/long horizon); generator for arbitrary polynomial fields (Lipschitz lemma generated too).
+
+## Data claims (THE RESULT part 1, "test suites"), `Checked/Data/` (run 2026-11-04T1628Z)
+- `FR13Tools.lean`: generic over any H(z) table: closed form of the H₀-marginalised χ² (Gaussian integral), √ bounds without certificates, log comparison, group lemma. `FR13Certs.lean`, `FR13ValCerts.lean`: generated (`runs/2026-11-04T1628Z/scripts/gen_fr13.py`). `FR13Val.lean`: continuity, value and log bounds. `FR13.lean`: the eight headlines. PROVED (Work 8a6faf3; Checked: STATE).
+- `Work/Data/FR13Audit.lean` (+ `FR13GapCerts.lean`, `gen_gap.py`): blind restatement closed. `Work/Data/FR13Transcription.lean`: second reading agrees.
+- Next node: bridge to pinned `hubble`/`redshift` (`IsFlatLCDM`); profile-likelihood intervals; a second, larger data set.

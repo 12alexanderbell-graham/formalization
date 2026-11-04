@@ -166,3 +166,6 @@ Checked.Sim.Duffing.IsDuffingSolution PHYSICS
 Checked.Fidelity.DuffingSpec.DuffingSpec SPEC
 Checked.Sim.MichaelisMenten.IsMMSolution PHYSICS
 Checked.Fidelity.MMSpec.MMSpec SPEC
+Checked.Data.FR13.fr13Table PRINTED
+Checked.Data.FR13.chiSqHz FORMULA
+Checked.Data.FR13.margChiSq FORMULA

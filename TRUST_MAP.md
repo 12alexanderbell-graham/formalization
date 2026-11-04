@@ -7,12 +7,12 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 139. Resting on no unpinned physics definition: 139.
-Non-vacuity (trust track T2): 88 headlines have hypotheses; 88 of them have a
+Headlines: 147. Resting on no unpinned physics definition: 147.
+Non-vacuity (trust track T2): 94 headlines have hypotheses; 94 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Transcriptions (trust track T3): 42 PRINTED definitions; 40 carry a machine-checked
+Transcriptions (trust track T3): 43 PRINTED definitions; 40 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
 
 ## Unpinned physics definitions, by number of headlines resting on them
@@ -167,3 +167,11 @@ the docstring says; universally bound parameters are not listed.
 | `Sim.Duffing.duffing_solution_exists` | IsDuffingSolution | — | — | unconditional | IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5 |
 | `Sim.MichaelisMenten.mm_half_conversion` | IsMMSolution | — | — | `mm_half_conversion` | IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5 |
 | `Sim.MichaelisMenten.mm_solution_exists` | IsMMSolution | — | — | unconditional | IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5 |
+| `Data.FR13.fr13_bestfit68` | — | — | fr13Table | `fr13_bestfit68` | margChiSq: Hbar = 68, σ = 2.8 |
+| `Data.FR13.fr13_bestfit738` | — | — | fr13Table | `fr13_bestfit738` | margChiSq: Hbar = 73.8, σ = 2.4 |
+| `Data.FR13.fr13_exists68` | — | — | fr13Table | unconditional | margChiSq: Hbar = 68, σ = 2.8 |
+| `Data.FR13.fr13_exists738` | — | — | fr13Table | unconditional | margChiSq: Hbar = 73.8, σ = 2.4 |
+| `Data.FR13.fr13_minval68` | — | — | fr13Table | `fr13_minval68` | margChiSq: Hbar = 68, σ = 2.8 |
+| `Data.FR13.fr13_minval738` | — | — | fr13Table | `fr13_minval738` | margChiSq: Hbar = 73.8, σ = 2.4 |
+| `Data.FR13.fr13_zda68` | — | — | fr13Table | `fr13_zda68` | margChiSq: Hbar = 68, σ = 2.8 |
+| `Data.FR13.fr13_zda738` | — | — | fr13Table | `fr13_zda738` | margChiSq: Hbar = 73.8, σ = 2.4 |

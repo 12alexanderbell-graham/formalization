@@ -162,3 +162,12 @@ Checked.Sim.Duffing.duffing_solution_exists
 # Rigorous simulation of a reaction network (run 2026-11-04T0828Z): full Michaelis–Menten mechanism, half-conversion time of every solution + existence (generic tube-confined simulator)
 Checked.Sim.MichaelisMenten.mm_half_conversion
 Checked.Sim.MichaelisMenten.mm_solution_exists
+# Data claim (run 2026-11-04T1628Z, part 1 test suites): Farooq & Ratra 2013 Table 1 H(z) compilation, flat law, H0-marginalised chi-square: best fit, existence, minimum value, transition redshift, two priors
+Checked.Data.FR13.fr13_bestfit68
+Checked.Data.FR13.fr13_bestfit738
+Checked.Data.FR13.fr13_exists68
+Checked.Data.FR13.fr13_exists738
+Checked.Data.FR13.fr13_minval68
+Checked.Data.FR13.fr13_minval738
+Checked.Data.FR13.fr13_zda68
+Checked.Data.FR13.fr13_zda738
