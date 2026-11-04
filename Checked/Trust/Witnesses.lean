@@ -1,5 +1,6 @@
 import Checked.Trust.NonVacuity
 import Checked.Sim.Duffing
+import Checked.Sim.MichaelisMenten
 import Checked.Cosmography.Lookback
 import Checked.Cosmography.LookbackThird
 import Checked.Cosmography.LCDMCoefficients
@@ -437,5 +438,13 @@ theorem rl19_box_unmatched : nonvacuity% Checked.Cosmography.B1FitRL19.rl19_box_
 theorem duffing_first_zero_sol : nonvacuity% Checked.Sim.Duffing.duffing_first_zero_sol := by
   obtain ⟨x, hx⟩ := Checked.Sim.Duffing.duffing_solution_exists
   exact ⟨x, hx, 0, ⟨le_rfl, by norm_num⟩, trivial⟩
+
+/-! ### Rigorous simulation of a reaction network (run 2026-11-04T0828Z): the Michaelis–Menten
+solution from `Checked.Sim.MichaelisMenten.mm_solution_exists` (Picard–Lindelöf for the clamped
+field; the enclosure keeps it in the box where the clamp is inactive). -/
+
+theorem mm_half_conversion : nonvacuity% Checked.Sim.MichaelisMenten.mm_half_conversion := by
+  obtain ⟨s, e, c, p, h⟩ := Checked.Sim.MichaelisMenten.mm_solution_exists
+  exact ⟨s, e, c, p, h, 0, ⟨le_rfl, by norm_num⟩, trivial⟩
 
 end Checked.Trust.NV

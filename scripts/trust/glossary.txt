@@ -27,3 +27,4 @@
 (?i)lookback time => redshift
 (?i)\bMaxwell (construction|coexistence|equal[- ]area)|\bcoexist|saturation pressure|vapou?r pressure => IsMaxwellCoexistence
 (?i)\bDuffing\b|anharmonic oscillator => IsDuffingSolution
+(?i)Michaelis|mass[- ]action|half[- ]conversion => IsMMSolution

@@ -163,3 +163,5 @@ Checked.Chemistry.Coexistence.acentric FORMULA
 Checked.Fidelity.MaxwellSpec.MaxwellSpec SPEC
 Checked.Sim.Duffing.IsDuffingSolution PHYSICS
 Checked.Fidelity.DuffingSpec.DuffingSpec SPEC
+Checked.Sim.MichaelisMenten.IsMMSolution PHYSICS
+Checked.Fidelity.MMSpec.MMSpec SPEC
