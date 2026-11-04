@@ -1,0 +1,4 @@
+Category: weakened-statement
+Reader would wrongly believe: the certified quarter period 1.192005..1.192006 (in units of the linear period, amplitude 1) holds whatever the hardening coefficient, i.e. a universal property of the hardening Duffing oscillator.
+Why it is false: x'' + kx + beta x^3 = 0 rescales to x'' + x + (beta A^2/k) x^3 = 0; the dimensionless quarter period depends on beta A^2/k (it tends to pi/2 = 1.5708 as beta -> 0 and shrinks as beta grows). The theorem fixes k = beta = 1, x(0) = 1, i.e. beta A^2/k = 1.
+Expected: ACCEPTED. New headline (no frozen entry or LEDGER line is touched), same statement as the existing headline so the number rule is satisfied; the generality is only in the docstring ("whatever the hardening coefficient"), the universal-word rule is met by the bound function x, and no check compares a docstring's quantifier scope with the fixed parameters.

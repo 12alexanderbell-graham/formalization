@@ -27,6 +27,7 @@ See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.FRCosmo.Friedmann
 - Definitions pinned by a machine-checked specification: IsFlatLCDM, FriedmannEq, MasterEq, curv, hubble.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `exists_LCDM_model`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Cosmography/FRCosmo.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 10

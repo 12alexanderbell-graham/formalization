@@ -1,0 +1,4 @@
+Category: wrong-number
+Reader would wrongly believe: the Briggs-Haldane quasi-steady-state estimate of the half-conversion time (1.9) agrees with the certified 2.5665..2.5666 to within a few percent, so the QSSA is adequate for e0 = s0, K_M = 2.
+Why it is false: 1.9 vs 2.5666 is a 26% error (the MichaelisMenten.lean module docstring gives 1.886 or 2.744 depending on the product variable); e0/(s0 + K_M) = 1/3 is far outside the QSSA regime, which is the very reason the full simulation was done.
+Expected: ACCEPTED. The value is written in citation shape "(1.9)" and 1.9 is a registered equation number in scripts/trust/citations.txt, so check_prose blanks it before the number rule and the registry check passes; the statement is identical to `mm_half_conversion`; "agree to within a few percent" has no digit. Residual hole recorded in LEDGER (two-decimal... value in parentheses) is exactly this.

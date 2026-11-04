@@ -27,6 +27,7 @@ See GLOSSARY.md: `Sim.MichaelisMenten.IsMMSolution`
 - Definitions pinned by a machine-checked specification: IsMMSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5.
 - Source file: `Checked/Sim/MichaelisMenten.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 47

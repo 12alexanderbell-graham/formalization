@@ -25,13 +25,36 @@ what the prose may say against what the Lean statement actually contains, using 
    literal of the statement (numeral, decimal, or quotient of two), as `nums` in meaning.jsonl.
    A simulation or computation whose docstring names a time, bound or value the statement does
    not contain is a wrong claim no other check reads (part 3, "wrong simulation" class).
+   Since run 2026-11-04T1428Z (red team H, blind): an unsigned number that matches only a negative
+   literal needs a sign or "minus"/"negative" just before it (d05), and a citation `(N.M)` passes only
+   for the headlines registered with it in `scripts/trust/citation_owners.txt` (d08 wrote a value as
+   "(1.9)", a number registered because another headline cites Eq. (1.9)).
+6. Parameters (run 2026-11-04T1428Z; red team G, defect G02, class E08: a correct wrapper headline
+   said its bracket holds "whatever the release amplitude" while the statement fixes x(0) = 1). After
+   every generalising word (every, any, all, each, whatever, whichever, regardless of, irrespective
+   of, independent(ly) of, does not depend on, no matter, arbitrary, uniform(ly), for all) the
+   phrase that follows (up to `. ; :`, a dash, an unbracketed comma, or 8 words; split at `and`/`or`
+   into parts) must, in its first part, name something the statement universally binds (through `∀`,
+   `→`, `∧`, `↔`, inside `∃` bodies and under `¬`, not the `∃` variable itself): a bound variable by
+   its Lean name (subscripts read as digits, `Ω_M` as `Ω`; a one-letter English word such as `a`
+   only inside backticks or alone), or a noun registered in `scripts/trust/param_nouns.txt` for a
+   role a bound variable fills (`Def.binder`: the variable is passed as that explicit argument), a
+   bound variable's type (`type:`) or name (`name:`). A part whose first two words, or any later
+   part, or a first part naming nothing bound, contains a noun registered for a role the statement
+   fixes to a number is reported with that number. "all three …" (an enumeration) is skipped.
+   Known limits: later conjuncts are read only for registered fixed-parameter nouns (an
+   unregistered synonym after "and" passes); generality expressed without a generalising word
+   ("independent of the amplitude" is caught; "amplitude-independent" and "isochronous" are not). StatementDeps writes `bound`, `roles` and `fixed` to meaning.jsonl;
+   TRUST_MAP.md and the packet show the fixed parameters (generated). The noun registry may only
+   grow, each addition disclosed by a LEDGER.md addition naming the noun (`--base`). Parts with no
+   word of two or more letters (pure mathematics: `> 0`) pass.
 4. Records: a `Checked.Records` headline (a certified number) rests on at least one pinned or
    transcribed (PRINTED/CLAIM) definition: a number about a free formula certifies nothing about
    the physics (D04).
 
 Run after `lake env lean scripts/trust/StatementDeps.lean`. `--report` prints without failing.
 """
-import json, re, sys
+import fnmatch, json, re, sys
 from fractions import Fraction
 from pathlib import Path
 
@@ -58,7 +81,8 @@ def strip_citations(doc, owner=None):
     `(2.77)`); the registry may grow only with a LEDGER.md addition naming the new number (--base)"""
     def blank(m):
         for n in re.findall(r"[1-9]\d?\.\d{1,2}", m.group(0)):
-            CITED.append((owner, n))
+            if owner is not None:  # rule 6 re-reads docstrings without recording
+                CITED.append((owner, n))
         return " " * len(m.group(0))
     return CITE.sub(blank, doc)
 
@@ -69,6 +93,41 @@ def num_value(tok):
         return Fraction(m.group(1)) * Fraction(10) ** int(m.group(2).translate(SUP))
     return Fraction(tok)
 UNIV = re.compile(r"(?i)\b(every|any|all|each|general(ly)?|whenever|always|universal(ly)?)\b")
+# rule 6: words that generalise over what follows them
+GEN = re.compile(r"(?i)\b(every|any|all|each|whatever|whichever|regardless\s+of|irrespective\s+of|independent(?:ly)?\s+of|"
+                 r"(?:does|do|did)\s+not\s+depend\s+on|no\s+dependence\s+on|no\s+matter|arbitrary|uniform(?:ly)?(?:\s+(?:in|over|for))?|for\s+all)\b")
+SUBS = str.maketrans("₀₁₂₃₄₅₆₇₈₉", "0123456789")
+ENGLISH = {"a", "an", "as", "at", "be", "by", "in", "is", "it", "of", "on", "or", "to", "no", "I", "A"}
+
+def gen_phrases(doc):
+    """(trigger, parts) for every generalising word: the phrase after it up to `. ; :`, a dash, an
+    unbracketed comma or 8 words, split at `and`/`or` (rule 6)"""
+    out = []
+    for m in GEN.finditer(doc):
+        rest, depth, cut = doc[m.end():], 0, None
+        for i, ch in enumerate(rest):
+            if ch in "([{":
+                depth += 1
+            elif ch in ")]}":
+                if depth == 0:
+                    cut = i; break
+                depth -= 1
+            elif ch in ".;:—–" and depth == 0 and not (ch == "." and i + 1 < len(rest) and rest[i + 1].isdigit()):
+                cut = i; break
+            elif ch == "," and depth == 0:
+                cut = i; break
+            elif ch == "\n" and i + 1 < len(rest) and rest[i + 1] == "\n":
+                cut = i; break
+        phrase = rest[:cut] if cut is not None else rest
+        words = phrase.split()
+        phrase = " ".join(words[:8])
+        parts = [q.strip() for q in re.split(r"\s+(?:and|or)\s+|\s+and/or\s+", phrase) if q.strip()]
+        out.append((m.group(0), phrase, parts))
+    return out
+
+def norm_tok(s):
+    return s.translate(SUBS).replace("′", "'").rstrip("'")
+
 
 def short(n):
     return n.split(".")[-1]
@@ -91,8 +150,98 @@ def strip_code_names(doc):
         return "``" if (t in KNOWN or short(t) in KNOWN) else m.group(0)
     return re.sub(r"`([A-Za-z_][A-Za-z0-9_.']*)`", keep, doc)
 
+NOUNS = []  # (regex text, compiled, roles) from scripts/trust/param_nouns.txt
+
+def load_nouns():
+    path = ROOT / "scripts/trust/param_nouns.txt"
+    if not path.exists():
+        return
+    for l in path.read_text(encoding="utf-8").splitlines():
+        if not l.strip() or l.startswith("#"):
+            continue
+        rx, roles = l.split(" => ")
+        NOUNS.append((rx, re.compile(rx), set(roles.split())))
+
+FINITE = re.compile(r"(?i)^(two|three|four|five|six|seven|eight|nine|ten|both|\d+)\b")
+
+def role_hit(pats, have):
+    """does any role pattern (`Def.binder`, fnmatch wildcards) match a role in `have`"""
+    return any(fnmatch.fnmatchcase(r, pat) for pat in pats if not pat.startswith(("type:", "name:")) for r in have)
+
+def param_rule(h, errs):
+    """rule 6: every generalising phrase names something the statement universally binds"""
+    bound = {}
+    for b in h["bound"]:
+        n, _, ty = b.partition(" : ")
+        bound.setdefault(norm_tok(n), set()).add(ty.strip())
+    # a variable fixed by an equation hypothesis (`redshift a t₀ t₃ = 2 * √2 - 1`, role `=redshift=…`) does
+    # not generalise: its roles count as fixed to that value (red team H, d04, run 2026-11-04T1428Z)
+    eqfix = {}
+    for v, r in h.get("roles", []):
+        if r.startswith("="):
+            eqfix.setdefault(norm_tok(v), []).append(r[1:].replace("=", " = ", 1))
+    filled = {r for v, r in h.get("roles", []) if norm_tok(v) in bound and norm_tok(v) not in eqfix and not r.startswith("=")}
+    fixed = {}
+    for f in h.get("fixed", []):
+        fixed.setdefault(f"{f['def']}.{f['param']}", []).append(f["lit"])
+    for v, r in h.get("roles", []):
+        if norm_tok(v) in eqfix and not r.startswith("="):
+            fixed.setdefault(r, []).extend(e for e in eqfix[norm_tok(v)] if e not in fixed.get(r, []))
+    def noun_ok(pats):
+        if role_hit(pats, filled):
+            return True
+        for pat in pats:
+            if pat.startswith("type:") and any(fnmatch.fnmatchcase(ty, pat[5:]) for tys in bound.values() for ty in tys):
+                return True
+            if pat.startswith("name:") and any(fnmatch.fnmatchcase(n, pat[5:]) for n in bound):
+                return True
+        return False
+    def fixed_noun(part):
+        for rx, c, pats in NOUNS:
+            if c.search(part) and role_hit(pats, set(fixed)) and not noun_ok(pats):
+                return sorted(r for r in fixed if role_hit(pats, {r}))
+        return None
+    def bound_ref(part):
+        toks = re.findall(r"[\w′']+", part)
+        words = [w for w in toks if sum(c.isalpha() for c in w) >= 2]
+        if any(cand in bound and cand not in eqfix and (cand not in ENGLISH or len(words) == 0)
+               for w in toks for cand in (norm_tok(w), norm_tok(w).split("_")[0])):
+            return True
+        # inside backticks a one-letter English word is mathematics (`a > 0` names the scale factor a)
+        code = [w for s in re.findall(r"`([^`]+)`", part) for w in re.findall(r"[\w′']+", s)]
+        if any(cand in bound and cand not in eqfix for w in code for cand in (norm_tok(w), norm_tok(w).split("_")[0])):
+            return True
+        return any(c.search(part) and noun_ok(pats) for _, c, pats in NOUNS)
+    text = strip_citations(strip_code_names(h["doc"]))
+    for trig, phrase, parts in gen_phrases(text):
+        if trig.lower() == "all" and FINITE.match(phrase):
+            continue  # "at all three redshifts": an enumeration of listed items, not a generalisation
+        for i, part in enumerate(parts):
+            key = f"{h['name']}|param|{trig.split()[0].lower()} {' '.join(part.split()[:2])}"
+            # a fixed-parameter noun is reported when it leads the part, when the part names nothing bound,
+            # and in every later conjunct ("every solution and amplitude")
+            fx = fixed_noun(" ".join(part.split()[:2])) or fixed_noun(part)
+            lead = fixed_noun(" ".join(part.split()[:2]))
+            if fx and (lead or i > 0 or not bound_ref(part)):
+                errs.append((key, f"{h['name']}: its docstring generalises '{trig} {part}', but the statement fixes "
+                             + ", ".join(f"{r} = {'/'.join(fixed[r])}" for r in fx)
+                             + " (TRUST_MAP.md, last column): the claim is proved for that value only"))
+                continue
+            if i > 0 or GEN.match(part):
+                continue  # later conjuncts: only the fixed-parameter test (they may be clauses); a part that
+                          # starts with its own generalising word is checked under that word
+            toks = re.findall(r"[\w′']+", part)
+            words = [w for w in toks if sum(c.isalpha() for c in w) >= 2]
+            if not words and not any(norm_tok(w) in bound for w in toks):
+                continue  # pure mathematics (`> 0`)
+            if not bound_ref(part):
+                errs.append((key, f"{h['name']}: its docstring generalises over '{trig} {part}', but the statement binds "
+                             f"nothing it could refer to (bound: {sorted(bound) or 'nothing'}; nouns for bound roles: "
+                             f"scripts/trust/param_nouns.txt)"))
+
 def main():
     report = "--report" in sys.argv
+    load_nouns()
     rows = [json.loads(l) for l in (ROOT / ".lake/meaning.jsonl").read_text().splitlines() if l.strip()]
     gloss = []
     for l in (ROOT / "scripts/trust/glossary.txt").read_text().splitlines():
@@ -138,16 +287,26 @@ def main():
         if "nums" in h:
             signed = {Fraction(x) for x in h["nums"]}
             have = {abs(v) for v in signed}
-            for m in NUM.finditer(strip_citations(strip_code_names(doc), h["name"])):
+            text_n = strip_citations(strip_code_names(doc), h["name"])
+            for m in NUM.finditer(text_n):
                 v = num_value(m.group(2))
                 # an explicit sign in the prose is compared signed (adversary: |·| hid sign errors);
                 # an unsigned number may match a literal of either sign (the statement may write -x)
                 ok = (-v in signed) if m.group(1) else (v in have)
+                # an unsigned number that matches only a NEGATIVE literal must say so in words (red team H,
+                # d05, run 2026-11-04T1428Z: "the acentric factor is 0.3020" on a statement certifying −0.3020)
+                if ok and not m.group(1) and v not in signed and v != 0:
+                    before = text_n[max(0, m.start() - 30):m.start()]
+                    if not re.search(r"(?i)minus|negative|below zero|[−-]\s*$", before):
+                        errs.append((f"{h['name']}|number-sign|{m.group(2)}", f"{h['name']}: its docstring names {m.group(2)} "
+                                     f"without a sign, but the statement certifies only −{m.group(2)} (write the sign, or 'minus'/'negative')"))
                 if not ok:
                     tok = m.group(1) + m.group(2)
                     errs.append((f"{h['name']}|number|{tok}", f"{h['name']}: its docstring names the number "
                                  f"{tok}, which is not a numeric literal of its statement (a derived number belongs in a "
                                  f"registered record that certifies it; a citation is written `(N.M)` or `Eq. N.M`)"))
+        if "bound" in h:
+            param_rule(h, errs)
         if h["record"]:
             kinds = set(h["defs"].values())
             if (not h["pinned"] and not (kinds & {"PRINTED", "CLAIM"})) or h.get("free_conjuncts", 0) > 0:
@@ -176,7 +335,22 @@ def main():
                          + "".join(n + "\n" for n in sorted(creg | {n for _, n in CITED}, key=lambda x: tuple(map(int, x.split("."))))))
         print(f"citations written: {len({n for _, n in CITED})}")
         return
+    # citations are registered per headline (red team H, d08, run 2026-11-04T1428Z: a NEW headline wrote a
+    # value as "(1.9)", a number registered because another docstring cites Eq. (1.9)): a headline may cite
+    # (N.M) only if `<headline> N.M` is in citation_owners.txt; growth needs a LEDGER.md addition naming both
+    opath = ROOT / "scripts/trust/citation_owners.txt"
+    if "--write-citation-owners" in sys.argv:
+        opath.write_text("# Per-headline citations (check_prose rule 5, run 2026-11-04T1428Z): `<headline> <N.M>`. A headline docstring\n"
+                         "# may cite (N.M) only if its line is here. Generated from main at d714f04; may grow only with a LEDGER.md\n"
+                         "# addition naming the headline's short name and the number (--base).\n"
+                         + "".join(f"{o} {n}\n" for o, n in sorted(set(CITED))), encoding="utf-8")
+        print(f"citation owners written: {len(set(CITED))}")
+        return
+    oreg = {tuple(l.split()) for l in opath.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")} if opath.exists() else set()
     for owner, n in CITED:
+        if opath.exists() and owner in heads and (owner, n) not in oreg:
+            errs.append((f"{owner}|citation-owner|{n}", f"{owner}: its docstring cites ({n}), registered for other headlines but not for "
+                         f"this one (scripts/trust/citation_owners.txt): a value written as a citation is not read by the number rule"))
         if n not in creg:
             errs.append((f"{owner}|citation|{n}", f"{owner}: its docstring cites ({n}), which is not a registered equation number "
                          f"(scripts/trust/citations.txt): a value written as a citation is not read by the number rule"))
@@ -220,6 +394,17 @@ def main():
                     print(f"prose_baseline.txt grew against {b} without a LEDGER.md addition naming: {undisclosed} "
                           f"(the baseline may only shrink, except when a strengthened check finds old gaps; name them)")
                     fail = True
+        oo = old("scripts/trust/citation_owners.txt")
+        if oo is not None:
+            oold = {tuple(l.split()) for l in oo.splitlines() if l.strip() and not l.startswith("#")}
+            ogrown = oreg - oold
+            if ogrown:
+                r = subprocess.run(["git", "diff", b, "HEAD", "--", "LEDGER.md"], cwd=ROOT, capture_output=True, text=True)
+                added = "\n".join(l for l in r.stdout.splitlines() if l.startswith("+"))
+                undisclosed = sorted(f"{o} {n}" for o, n in ogrown if not (short(o) in added and n in added))
+                if undisclosed:
+                    print(f"citation_owners.txt grew against {b} without a LEDGER.md addition naming: {undisclosed}")
+                    fail = True
         oc = old("scripts/trust/citations.txt")
         if oc is not None:
             cgrown = creg - {l.strip() for l in oc.splitlines() if l.strip() and not l.startswith("#")}
@@ -229,6 +414,22 @@ def main():
                 undisclosed = sorted(n for n in cgrown if n not in added)
                 if undisclosed:
                     print(f"citations.txt grew against {b} without a LEDGER.md addition naming: {undisclosed}")
+                    fail = True
+        on = old("scripts/trust/param_nouns.txt")
+        if on is not None:
+            nnow = (ROOT / "scripts/trust/param_nouns.txt").read_text(encoding="utf-8").splitlines()
+            olds = [l for l in on.splitlines() if l and not l.startswith("#")]
+            lost = [l for l in olds if l not in nnow]
+            if lost:
+                print(f"param_nouns.txt lost or changed entries against {b}: {lost} (the noun registry may only grow)")
+                fail = True
+            added_n = [l for l in nnow if l and not l.startswith("#") and l not in olds]
+            if added_n:
+                r = subprocess.run(["git", "diff", b, "HEAD", "--", "LEDGER.md"], cwd=ROOT, capture_output=True, text=True)
+                ladd = "\n".join(l for l in r.stdout.splitlines() if l.startswith("+"))
+                undisclosed = [l for l in added_n if l.split(" => ")[0] not in ladd]
+                if undisclosed:
+                    print(f"param_nouns.txt grew against {b} without a LEDGER.md addition naming the noun regex: {undisclosed}")
                     fail = True
         if og is not None:
             gnow = set((ROOT / "scripts/trust/glossary.txt").read_text().splitlines())

@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: Lean certifies a 0.45 mag excess, a >4 sigma exclusion of flat LCDM (and of curved LCDM) over the quasar range, so the claimed tension is real.
+Why it is false: the headline certifies only 3/10 mag at the printed CENTRAL values, at two redshifts, for flat LCDM; nothing about uncertainties or significance (the real module docstring of B1L19.lean says the box result is ~1-1.5 sigma in the ratio and that closed LCDM models reproduce the central ratio). The module docstring's 0.45 mag is not 3/10.
+Expected: ACCEPTED. The lie lives only in the module docstring (`/-! ... -/`) of a NEW module: no number or vocabulary rule reads module docstrings (they are frozen only as new entries, which need no LEDGER line), and the headline's own docstring and statement are an honest copy of `l19_sqg_central`.

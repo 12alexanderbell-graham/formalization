@@ -159,7 +159,8 @@ def definition(lines, i):
 def trust_rows():
     rows = {}
     for l in (ROOT / "TRUST_MAP.md").read_text().splitlines():
-        m = re.match(r"^\| `([^`]+)` \| (.*) \| (.*) \| (.*) \| (.*) \|$", l)
+        # six columns since run 2026-11-04T1428Z (last: parameters the statement fixes, generated)
+        m = re.match(r"^\| `([^`]+)` \| (.*) \| (.*) \| (.*) \| (.*) \| ([^|]*) \|$", l)
         if m:
             rows[m.group(1)] = [c.strip() for c in m.groups()[1:]]
     return rows
@@ -284,7 +285,7 @@ def main():
         p, i, _ = idx[full]
         lines = p.read_text().splitlines()
         doc, stmt = docstring_before(lines, i), statement(lines, i)
-        row = trust_row_for(rows, full) or ["—", "—", "—", "—"]
+        row = trust_row_for(rows, full) or ["—", "—", "—", "—", "—"]
         local_defs = ""
         if c is not None:
             doc = c.get("doc", doc)
@@ -313,6 +314,7 @@ def main():
                 f"- Definitions pinned by a machine-checked specification: {row[0]}.",
                 f"- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): {row[2]}.",
                 f"- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): {row[3]}.",
+                f"- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): {row[4]}.",
                 f"- Source file: `{rel}` (do not open it before submitting your answers).", "",
                 "## Your answers: use ANSWER_FORM.md, item " + f"{n:02d}", ""]
         files[f"packet/item_{n:02d}.md"] = "\n".join(txt)

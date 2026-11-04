@@ -1,0 +1,4 @@
+Category: wrong-number
+Reader would wrongly believe: the acentric factor of the van der Waals fluid is +0.3020 (positive: a non-spherical, non-simple fluid), as printed in the plain-words claim shown in the validation packet.
+Why it is false: the statement certifies omega = -0.3020 (RoundsTo ... (-0.3020) 4): p_s(0.7 T_c)/P_c = 0.20046 > 0.1 gives omega = -log10(0.20046) - 1 = -0.302 < 0; a negative omega means a fluid even "simpler" than argon (He, H2, Ne-like). The sign is the physics content.
+Expected: ACCEPTED. check_prose rule 5 compares an UNSIGNED docstring number with the absolute values of the statement literals ("an unsigned number may match a literal of either sign"), so "0.3020" matches the literal -0.3020; only a signed prose number is compared signed. The qualitative sentence has no number. New headline, so no frozen/LEDGER check applies.

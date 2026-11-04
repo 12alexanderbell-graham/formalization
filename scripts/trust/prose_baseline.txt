@@ -5,15 +5,25 @@
 Checked.Cosmography.Aviles.avilesL0Claim_false|number|35/2
 Checked.Cosmography.Aviles.avilesL0Claim_false|number|−19/2
 Checked.Cosmography.Aviles.avilesM0Claim_false|number|−455/4
+Checked.Cosmography.B1.cubic_shape_miss|param|any magnitude zero
 Checked.Cosmography.B1Fit.fit_direction|number|0.41
 Checked.Cosmography.B1Fit.fit_direction|number|1.83
 Checked.Cosmography.B1Fit.fit_direction|number|4.66
 Checked.Cosmography.B1Sep.cubic_direction|number|2.107
+Checked.Cosmography.BambaA.bambaDA3Claim_false|param|every analytic
+Checked.Cosmography.BambaA.bambaDA4Claim_false|param|every analytic
+Checked.Cosmography.BambaK.bambaD3yClaim_false|param|every analytic
+Checked.Cosmography.BambaK.bambaD4yClaim_false|param|every analytic
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|universal
 Checked.Cosmography.BambaK.printedD3y_fails_past|number|2/3
+Checked.Cosmography.BambaZ.bambaDAzClaim_false|param|every analytic
+Checked.Cosmography.BambaZ.bambaDLzClaim_false|param|every analytic
 Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|universal
 Checked.Cosmography.CPL.clsL0Claim_false|number|160/9
 Checked.Cosmography.CPL.clsL0Claim_false|number|2/3
+Checked.Cosmography.DemianskiZ.demDAzClaim_false|param|every analytic
+Checked.Cosmography.DemianskiZ.demDLzClaim_false|param|every analytic
+Checked.Cosmography.FRCosmo.exists_LCDM_model|param|every hypothesis of
 Checked.Cosmography.FRCosmo.printedF0Claim_false|number|0.041
 Checked.Cosmography.FRCosmo.printedF0Claim_false|number|0.25
 Checked.Cosmography.FRCosmo.printedF0Claim_false|number|1/4

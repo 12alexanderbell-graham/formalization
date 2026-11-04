@@ -1,0 +1,17 @@
+== judge before 15:10:41
+trust: PASS
+--- numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+--- prose
+check_prose: 146 headlines, 128 definitions, 21 glossary terms; 0 new problems; 48 known gaps (prose_baseline.txt)
+--- trusted defs
+check_trusted_defs: 22 pins; 0 problems in TRUSTED_DEFINITIONS.md
+--- packet
+wrote 53 files, 49 items, seed 72c4d16f819f
+--- base diffs vs d714f04
+frozen registry: 1051 entries at d714f04, none changed or removed
+certified-number diff vs d714f04: 38 certified pairs before, 38 now, 0 removed or changed
+check_prose: 146 headlines, 128 definitions, 21 glossary terms; 0 new problems; 48 known gaps (prose_baseline.txt)
+check_trusted_defs: 22 pins; 0 problems in TRUSTED_DEFINITIONS.md
+check_audits: 426 closed audit theorems; 0 removed since d714f04
+== end 15:12:55

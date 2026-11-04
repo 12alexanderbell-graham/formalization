@@ -36,6 +36,7 @@ See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmog
 - Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL3², lusA2², lusA3².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `cubic_misses_z3`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Cosmography/B1Truncation.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 22

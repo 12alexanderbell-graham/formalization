@@ -29,6 +29,7 @@ See GLOSSARY.md: `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshif
 - Definitions pinned by a machine-checked specification: decel, hubble, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lookback_second_order_bigO`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Cosmography/LookbackThird.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 46

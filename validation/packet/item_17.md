@@ -28,6 +28,7 @@ See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, 
 - Definitions pinned by a machine-checked specification: cosmoCoeff, lumDist, curvK, decel, hubble, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): DL1z², DL2z², DL3z², demDL4².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `demDL4_fails_past`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): remLz: K = 0; lumDist: K = 0; cosmoCoeff: n = 3, n = 4, n = 5; curvK: K = 0.
 - Source file: `Checked/Cosmography/DemianskiZ.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 17

@@ -1,0 +1,32 @@
+== judge after2 15:22:55
+trust: PASS
+--- numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+--- prose
+check_prose: 146 headlines, 128 definitions, 21 glossary terms; 8 new problems; 58 known gaps (prose_baseline.txt)
+  Checked.Sim.DuffingNatural.duffing_quarter_period_natural: its docstring generalises over 'whatever the hardening coefficient β ≥ 0 of the', but the statement binds nothing it could refer to (bound: ['t', 'x']; nouns for bound roles: scripts/trust/param_nouns.txt)
+  Checked.Sim.MMNatural.mm_half_conversion_natural: its docstring generalises 'whatever the rate constants k₁', but the statement fixes IsMMSolution.km₁ = 1, IsMMSolution.k₁ = 1, IsMMSolution.k₂ = 1 (TRUST_MAP.md, last column): the claim is proved for that value only
+  Checked.Sim.MMNatural.mm_half_conversion_natural: its docstring generalises 'whatever the enzyme loading [E]₀/[S]₀', but the statement fixes IsMMSolution.e₀ = 1, IsMMSolution.s₀ = 1 (TRUST_MAP.md, last column): the claim is proved for that value only
+  Checked.Chemistry.CoexistenceCorresponding.vdW_saturation_corresponding: its docstring generalises over 'every temperature on the coexistence curve', but the statement binds nothing it could refer to (bound: ['R', 'a', 'b', 'ps', 'vg', 'vl']; nouns for bound roles: scripts/trust/param_nouns.txt)
+  Checked.Cosmography.B1L19Range.l19_sq_central_range: its docstring generalises 'every pair of sources inside the quasar range (here', but the statement fixes lumDistFlat.t = redshift = 4 * √2 - 1/redshift = 2 * √2 - 1, redshift.t = redshift = 2 * √2 - 1/redshift = 4 * √2 - 1 (TRUST_MAP.md, last column): the claim is proved for that value only
+  Checked.Cosmography.B1L19Range.l19_sq_central_range: its docstring generalises 'any redshift of the quasar sample', but the statement fixes lumDistFlat.t = redshift = 4 * √2 - 1/redshift = 2 * √2 - 1, redshift.t = redshift = 2 * √2 - 1/redshift = 4 * √2 - 1 (TRUST_MAP.md, last column): the claim is proved for that value only
+  Checked.Chemistry.AcentricValue.vdW_acentric_value: its docstring names 0.3020 without a sign, but the statement certifies only −0.3020 (write the sign, or 'minus'/'negative')
+  Checked.Sim.MMQSSA.mm_half_conversion_vs_qssa: its docstring cites (1.9), registered for other headlines but not for this one (scripts/trust/citation_owners.txt): a value written as a citation is not read by the number rule
+--- trusted defs
+check_trusted_defs: 22 pins; 0 problems in TRUSTED_DEFINITIONS.md
+--- packet
+wrote 53 files, 49 items, seed 72c4d16f819f
+--- base diffs vs d714f04
+frozen registry: 1051 entries at d714f04, none changed or removed
+certified-number diff vs d714f04: 38 certified pairs before, 38 now, 0 removed or changed
+  Checked.Sim.MMNatural.mm_half_conversion_natural: its docstring generalises 'whatever the rate constants k₁', but the statement fixes IsMMSolution.km₁ = 1, IsMMSolution.k₁ = 1, IsMMSolution.k₂ = 1 (TRUST_MAP.md, last column): the claim is proved for that value only
+  Checked.Sim.MMNatural.mm_half_conversion_natural: its docstring generalises 'whatever the enzyme loading [E]₀/[S]₀', but the statement fixes IsMMSolution.e₀ = 1, IsMMSolution.s₀ = 1 (TRUST_MAP.md, last column): the claim is proved for that value only
+  Checked.Chemistry.CoexistenceCorresponding.vdW_saturation_corresponding: its docstring generalises over 'every temperature on the coexistence curve', but the statement binds nothing it could refer to (bound: ['R', 'a', 'b', 'ps', 'vg', 'vl']; nouns for bound roles: scripts/trust/param_nouns.txt)
+  Checked.Cosmography.B1L19Range.l19_sq_central_range: its docstring generalises 'every pair of sources inside the quasar range (here', but the statement fixes lumDistFlat.t = redshift = 4 * √2 - 1/redshift = 2 * √2 - 1, redshift.t = redshift = 2 * √2 - 1/redshift = 4 * √2 - 1 (TRUST_MAP.md, last column): the claim is proved for that value only
+  Checked.Cosmography.B1L19Range.l19_sq_central_range: its docstring generalises 'any redshift of the quasar sample', but the statement fixes lumDistFlat.t = redshift = 4 * √2 - 1/redshift = 2 * √2 - 1, redshift.t = redshift = 2 * √2 - 1/redshift = 4 * √2 - 1 (TRUST_MAP.md, last column): the claim is proved for that value only
+  Checked.Chemistry.AcentricValue.vdW_acentric_value: its docstring names 0.3020 without a sign, but the statement certifies only −0.3020 (write the sign, or 'minus'/'negative')
+  Checked.Sim.MMQSSA.mm_half_conversion_vs_qssa: its docstring cites (1.9), registered for other headlines but not for this one (scripts/trust/citation_owners.txt): a value written as a citation is not read by the number rule
+prose_baseline.txt grew against d714f04 without a LEDGER.md addition naming: ['Checked.Cosmography.B1.cubic_shape_miss|param|any magnitude zero', 'Checked.Cosmography.BambaA.bambaDA3Claim_false|param|every analytic', 'Checked.Cosmography.BambaA.bambaDA4Claim_false|param|every analytic', 'Checked.Cosmography.BambaK.bambaD3yClaim_false|param|every analytic', 'Checked.Cosmography.BambaK.bambaD4yClaim_false|param|every analytic', 'Checked.Cosmography.BambaZ.bambaDAzClaim_false|param|every analytic', 'Checked.Cosmography.BambaZ.bambaDLzClaim_false|param|every analytic', 'Checked.Cosmography.DemianskiZ.demDAzClaim_false|param|every analytic', 'Checked.Cosmography.DemianskiZ.demDLzClaim_false|param|every analytic', 'Checked.Cosmography.FRCosmo.exists_LCDM_model|param|every hypothesis of'] (the baseline may only shrink, except when a strengthened check finds old gaps; name them)
+check_trusted_defs: 22 pins; 0 problems in TRUSTED_DEFINITIONS.md
+check_audits: 426 closed audit theorems; 0 removed since d714f04
+== end 15:25:58

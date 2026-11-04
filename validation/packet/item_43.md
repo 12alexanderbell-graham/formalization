@@ -34,6 +34,7 @@ See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff
 - Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff, decel.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): printedD4².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `F3_D4_LCDM`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatLCDM: Ω = 3/10; RoundsTo: d = 0.2153, k = 4, d = 0.4555, d = 0.24, k = 2, d = -0.55; cosmoCoeff: n = 3, n = 4, n = 5.
 - Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 43

@@ -25,6 +25,7 @@ See GLOSSARY.md: `Sim.Duffing.IsDuffingSolution`
 - Definitions pinned by a machine-checked specification: IsDuffingSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5.
 - Source file: `Checked/Sim/Duffing.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 30

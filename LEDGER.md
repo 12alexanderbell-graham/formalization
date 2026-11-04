@@ -439,3 +439,34 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 - Experiment (PROMPT working note "Part 2 needs questions whose answer is not already in print"): from the next part-2 run on, the prior-art question is asked before the freeze and the run record says whether the result is new as an answer or only as a certification. Evaluate after the next two part-2 runs: did at least one produce an answer the referee could not find in print?
 - PROMPT working note on the stale pre-cloned `main` (procedural; no evidence standard touched).
 - Changed frozen entry: `moduledoc:Checked.Trust.Witnesses` (a new section doc for the B1 fourth-order witnesses was inserted; no existing text changed). NV witnesses `Checked.Trust.NV.l19_sq_central`, `l19_sqg_central`, `l19_sq_box`, `l19_sqg_box`. Validation packet regenerated (not sent, so not frozen).
+
+## 2026-11-04 · run 1428Z · parameter rule, blind red team H (part 3) · integrity event (strengthening)
+- Blind red team H (Sonnet, 8 defects, written against d714f04; `runs/2026-11-04T1428Z/t5/RESULTS.md`): **8/8 accepted** by the checks on main (third blind 8/8 in a row). Seven were correct wrapper headlines with false prose.
+- New blocking rule 6 of `scripts/trust/check_prose.py` (parameters; designed from G02 alone, blind to H): after a generalising word (every, any, all, whatever, regardless of, independent of, does not depend on, no matter, arbitrary, uniformly, for all, …) the phrase must name something the statement universally binds (a bound variable, or a noun of the new registry `scripts/trust/param_nouns.txt` for a role a bound variable fills); a noun for a parameter the statement fixes is reported with its value. Blind result on its target class: H01, H02, H03 rejected, H04 accepted.
+- `scripts/trust/StatementDeps.lean` writes `bound`, `roles`, `fixed` per headline to `.lake/meaning.jsonl`; a hypothesis `f … v = c` (closed `c`) fixes `v` (role `=f=c`; after reading H04). TRUST_MAP.md gains a generated last column "Fixed by the statement"; `validation/make_packet.py` reads it and each packet item shows "Parameters the statement fixes" (packet regenerated; not sent, so not frozen).
+- New registry `scripts/trust/param_nouns.txt` (19 noun lines; may only grow, each addition disclosed by a LEDGER line naming its regex). Initial nouns, all named here: scale factors/models/expansion histories/cosmologies/FLRW/universes/spacetimes; solutions/trajectories; times/instants/moments; critical points/states/isotherms/temperatures/volumes; coexistence states/points/Maxwell; curvatures; normalisations; predicates; gas constants/fluids/substances/attraction parameters/co-volumes/van der Waals constants; temperatures; cubics/quartics/log-polynomials/fits/coefficients; offsets/zero points; redshifts/sources/emission times; matter density/density parameters/Ω_M; amplitudes/initial displacements/positions/values/conditions/data/concentrations/release/x(0)/starting points; rate constants/rates/kinetic constants; stiffness/nonlinearity/spring constants/cubic coefficients; horizons/time intervals/durations/integration times; enzyme/substrate concentrations/loadings/amounts/concentrations.
+- `prose_baseline.txt` grows by 10 keys found by rule 6 in frozen docstrings (phrase cut at a comma; none is an overstatement): `cubic_shape_miss` ("any magnitude zero point"), `bambaDA3Claim_false`, `bambaDA4Claim_false`, `bambaD3yClaim_false`, `bambaD4yClaim_false`, `bambaDAzClaim_false`, `bambaDLzClaim_false`, `demDAzClaim_false`, `demDLzClaim_false` ("every analytic, everywhere positive scale factor"), `exists_LCDM_model` ("every hypothesis of `IsFRCosmo`").
+- Rule 5 strengthened (after reading H): an unsigned docstring number that matches only a negative literal needs a sign or "minus"/"negative" (H05); citations are registered per headline, new file `scripts/trust/citation_owners.txt` (59 lines generated from main at d714f04; growth needs a LEDGER line naming the headline and the number) (H08).
+- No statement, proof, docstring or frozen entry changed; no relock.
+- Not fixed (recorded): H06 (false claims in the module doc of a new module), H07 (README.md prose); class A03/F03: reader-facing prose that no script reads.
+- Experiment: next blind red team (I) against these checks, with at least 3 generality defects in wordings rule 6 does not list; expected rule 6 still catches the majority. If it does not, replace the word grammar by generated parameter sentences.
+- Initial `param_nouns.txt` lines, regexes verbatim (for `check_prose.py --base`):
+  - `(?i)\bscale factors?\b|\bmodels?\b|\bexpansion histor(y|ies)\b|\bcosmolog(y|ies)\b|\bFLRW\b|\buniverses?\b|\bspacetimes?\b`
+  - `(?i)\bsolutions?\b|\btrajector(y|ies)\b`
+  - `(?i)\btimes?\b|\binstants?\b|\bmoments?\b`
+  - `(?i)\bcritical (points?|states?|isotherms?|temperatures?|volumes?)\b`
+  - `(?i)\bcoexistence (states?|points?)\b|\bMaxwell\b`
+  - `(?i)\bcurvatures?\b`
+  - `(?i)\bnormali[sz]ations?\b`
+  - `(?i)\bpredicates?\b`
+  - `(?i)\b(gas constants?|fluids?|substances?|attraction (parameters?|constants?)|co-?volumes?|van der Waals constants?)\b`
+  - `(?i)\btemperatures?\b`
+  - `(?i)\b(cubic|quartic)s?\b|\blog-?polynomials?\b|\bfits?\b|\bcoefficients?\b`
+  - `(?i)\b(offsets?|zero points?)\b`
+  - `(?i)\bredshifts?\b|\bsources?\b|\bemission times?\b`
+  - `(?i)\bmatter (density|densities|fractions?|contents?)\b|\bdensity parameters?\b|\bΩ_?[mM]\b`
+  - `(?i)\bamplitudes?\b|\binitial (displacements?|positions?|values?|conditions?|data|concentrations?)\b|\brelease\b|\bx\(0\)|\bstarting (points?|values?)\b`
+  - `(?i)\brate constants?\b|\brates?\b|\bkinetic (constants?|parameters?)\b`
+  - `(?i)\bstiffness(es)?\b|\bnonlinearit(y|ies)\b|\bspring constants?\b|\bcubic coefficients?\b`
+  - `(?i)\bhorizons?\b|\btime intervals?\b|\bdurations?\b|\bintegration (times?|intervals?)\b`
+  - `(?i)\b(enzyme|substrate) (concentrations?|loadings?|amounts?)\b|\bconcentrations?\b`

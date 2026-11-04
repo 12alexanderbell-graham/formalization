@@ -27,6 +27,7 @@ See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff
 - Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedM0_false_at`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 6.
 - Source file: `Checked/Cosmography/LCDMWitness.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 16

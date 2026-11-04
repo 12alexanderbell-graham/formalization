@@ -242,6 +242,92 @@ partial def statementNums (e : Expr) (acc : Array String := #[]) : Array String 
       e.getAppArgs.foldl (init := statementNums e.getAppFn acc) fun acc a => statementNums a acc
   | _ => acc
 
+/-- Closed numeric literal as written (`1`, `-0.5`, `6/5`), for the fixed-parameter report
+(rule 6 of `check_prose.py`, run 2026-11-04T1428Z). -/
+def numLitStr? (e : Expr) : Option String :=
+  let e := e.consumeMData
+  let one := fun (e : Expr) => (decLit? e).bind fun (n, m, d) => fmtDec n m d d
+  if e.isAppOfArity ``HDiv.hDiv 6 then
+    match one (e.getArg! 4), one (e.getArg! 5) with
+    | some a, some b => some s!"{a}/{b}"
+    | _, _ => none
+  else one e
+
+/-- Parameters of a statement (rule 6 of `check_prose.py`, run 2026-11-04T1428Z; red team G,
+defect G02: a correct wrapper headline whose docstring said the result holds "whatever the release
+amplitude" while the statement fixes x(0) = 1). Walks the expression with locals for binders and
+returns `(bound, roles, fixed)`: `name : type` of data (non-Prop) variables bound by `∀`; for every
+explicit argument of an application of a `Checked` constant, `(variable, Def.binder)` when the
+argument is a bound variable (its *role*), and `(Def, binder, literal)` when it is a closed numeric
+literal (a parameter the statement *fixes*). -/
+partial def paramWalk (env : Environment) (e : Expr) (univ : Bool)
+    (acc : Array String × Array (String × String) × Array (String × String × String)) :
+    MetaM (Array String × Array (String × String) × Array (String × String × String)) := do
+  let e := e.consumeMData
+  match e with
+  | .forallE n d b bi =>
+    let mut acc ← paramWalk env d false acc
+    -- a hypothesis `f … v = c` with `f` a program definition and `c` closed fixes the last bound
+    -- argument `v` (red team H, d04, run 2026-11-04T1428Z: `redshift a t₀ t₃ = 2 * √2 - 1` fixes the
+    -- source; a docstring said "every pair of sources in the quasar range"): recorded as the role
+    -- `=Def=c` of `v`, read by rule 6 as a parameter fixed to `c`
+    let d' := d.consumeMData
+    if d'.isAppOfArity ``Eq 3 && !(d'.getArg! 2).hasFVar && !(d'.getArg! 2).hasLooseBVars then
+      let lhs := (d'.getArg! 1).consumeMData
+      if let .const c _ := lhs.getAppFn then
+        if isCheckedConst env c then
+          let fv := lhs.getAppArgs.filter (·.consumeMData.isFVar)
+          if h : 0 < fv.size then
+            let ld ← fv[fv.size - 1].consumeMData.fvarId!.getDecl
+            let rhs := toString (← ppExpr (d'.getArg! 2))
+            let cs := (c.componentsRev.head!).toString (escape := false)
+            acc := (acc.1, acc.2.1.push (ld.userName.eraseMacroScopes.toString (escape := false), s!"={cs}={rhs}"), acc.2.2)
+    withLocalDecl n bi d fun x => do
+      let isP ← try isProp d catch _ => pure true
+      let acc ← if univ && !isP then do
+          let ty := toString (← ppExpr d)
+          pure (acc.1.push s!"{n.eraseMacroScopes.toString (escape := false)} : {ty}", acc.2)
+        else pure acc
+      paramWalk env (b.instantiate1 x) univ acc
+  | .lam n d b bi =>
+    let acc ← paramWalk env d false acc
+    -- the binder of a `fun` is not universal (under `∃` it is the witness); `∀` inside its body is
+    withLocalDecl n bi d fun x => paramWalk env (b.instantiate1 x) univ acc
+  | .letE _ _ v b _ => paramWalk env (b.instantiate1 v) univ (← paramWalk env v false acc)
+  | .app .. =>
+    let f := e.getAppFn
+    let args := e.getAppArgs
+    let mut acc := acc
+    if let .const c _ := f then
+      if isCheckedConst env c then
+        if let some ci := env.find? c then
+          let bis ← forallTelescopeReducing ci.type fun xs _ => xs.mapM fun x => do
+            let ld ← x.fvarId!.getDecl
+            return (ld.userName.eraseMacroScopes.toString (escape := false), ld.binderInfo.isExplicit)
+          let cs := (c.componentsRev.head!).toString (escape := false)
+          for i in [:args.size] do
+            if h : i < bis.size then
+              let (bn, ex) := bis[i]
+              if ex then
+                let a := args[i]!.consumeMData
+                if a.isFVar then
+                  let ld ← a.fvarId!.getDecl
+                  acc := (acc.1, acc.2.1.push (ld.userName.eraseMacroScopes.toString (escape := false), s!"{cs}.{bn}"), acc.2.2)
+                else if let some l := numLitStr? a then
+                  acc := (acc.1, acc.2.1, acc.2.2.push (cs, bn, l))
+    -- `∀` inside a conclusion counts through `∧`, `↔`, `→` (above) and inside `∃` bodies (the `∃`
+    -- variable itself is not universal) and `¬`; not under `∨` or inside other applications' arguments
+    let univArgs := univ && (e.isAppOfArity ``And 2 || e.isAppOfArity ``Iff 2 ||
+      e.isAppOf ``Exists || e.isAppOf ``ExistsUnique ||
+      -- a refutation `¬ ∀ …` (often a negated claim) generalises over the data of the refuted claim:
+      -- its docstring may say "the claim that … holds for every K is false"
+      e.isAppOfArity ``Not 1)
+    acc ← paramWalk env f false acc
+    for a in args do
+      acc ← paramWalk env a univArgs acc
+    return acc
+  | _ => return acc
+
 /-- The `RoundsTo` literals that a statement *asserts*: reached from the conclusion through
 `∀` (data binders), `→` (conclusion side only), `∧` and `∃`. A `RoundsTo` under `¬`, `∨`, `↔` or
 in a hypothesis is not asserted (red team D, defect D05 certified a number by `¬ RoundsTo`). -/
@@ -600,7 +686,17 @@ run_cmd do
       if gaps.isEmpty then nClean := nClean + 1
       let shortH := (hn.toString.replace "Checked.Cosmography." "").replace "Checked." ""
       let fmt (a : Array String) : String := if a.isEmpty then "—" else ", ".intercalate a.toList
-      rows := rows.push s!"| `{shortH}` | {fmt pins} | {fmt gaps} | {fmt transcr} | {nvCol} |"
+      -- parameters the statement fixes to numbers, generated (rule 6, run 2026-11-04T1428Z): a reader
+      -- sees what the statement does not generalise over, whatever the docstring says
+      let expTy0 ← liftCoreM <| Meta.deltaExpand ci.type fun n => isCheckedConst env n && !stop.contains n
+      let (_, _, fx) ← liftTermElabM do
+        let a ← paramWalk env ci.type true (#[], #[], #[])
+        paramWalk env expTy0 true a
+      let fx := fx.toList.eraseDups
+      let fdefs := (fx.map (·.1)).eraseDups
+      let fixedCol := if fx.isEmpty then "—" else "; ".intercalate (fdefs.map fun d =>
+        s!"{d}: " ++ ", ".intercalate ((fx.filter (·.1 == d)).map fun (_, b, l) => s!"{b} = {l}"))
+      rows := rows.push s!"| `{shortH}` | {fmt pins} | {fmt gaps} | {fmt transcr} | {nvCol} | {fixedCol} |"
       logInfo m!"{hn}\n{String.intercalate "\n" lines.toList}"
   -- meaning carried by prose (trust track T2c, run 2026-10-31T1028Z; red-team defects A04, B04,
   -- A05, D04 were accepted by every check because their meaning lived in names and docstrings):
@@ -623,6 +719,9 @@ run_cmd do
       -- (claims, formulas, composites): `¬ Claim` with `Claim := ∀ …` is about every model
       let expTy ← liftCoreM <| Meta.deltaExpand ci.type fun n => isCheckedConst env n && !stop.contains n
       let (univ, shapes) ← liftTermElabM <| stmtShape expTy
+      let (pBound, pRoles, pFixed) ← liftTermElabM do
+        let a ← paramWalk env expTy true (#[], #[], #[])
+        paramWalk env ci.type true a
       let reached := (deps env stop ci.type {}).toList
       let pinsR := reached.filter (stop.contains ·)
       let others := reached.filter fun d => !stop.contains d && reportable env d
@@ -635,6 +734,10 @@ run_cmd do
         ("laws", toJson (laws.map toString)),
         ("doc", doc), ("universal", univ), ("shapes", toJson shapes),
         ("nums", toJson (statementNums ci.type).toList.eraseDups),
+        ("bound", toJson pBound.toList.eraseDups),
+        ("roles", Json.arr (pRoles.toList.eraseDups.toArray.map fun (v, r) => Json.arr #[Json.str v, Json.str r])),
+        ("fixed", Json.arr (pFixed.toList.eraseDups.toArray.map fun (d, b, l) =>
+          Json.mkObj [("def", d), ("param", b), ("lit", l)])),
         ("record", (`Checked.Records).isPrefixOf hn),
         -- conjuncts that assert a certified number but reach no pinned or transcribed definition
         -- (red team E, defect E05 put a free formula next to a genuine pinned conjunct)
@@ -685,8 +788,12 @@ run_cmd do
     "",
     "## Per headline",
     "",
-    "| Headline | Pinned | Unpinned physics | Transcriptions | Non-vacuity witness |",
-    "|---|---|---|---|---|"] ++ rows.toList) ++ "\n"
+    "Last column (generated from the statement, run 2026-11-04T1428Z): the explicit arguments of program",
+    "definitions that the statement fixes to numbers. The result is proved for these values only, whatever",
+    "the docstring says; universally bound parameters are not listed.",
+    "",
+    "| Headline | Pinned | Unpinned physics | Transcriptions | Non-vacuity witness | Fixed by the statement |",
+    "|---|---|---|---|---|---|"] ++ rows.toList) ++ "\n"
   IO.FS.writeFile "TRUST_MAP.md" md
   logInfo m!"SUMMARY: {nHeads} headlines; {nClean} rest on no unpinned physics definition; \
     non-vacuity: {nWit}/{nNeed} conditional headlines witnessed.\n\

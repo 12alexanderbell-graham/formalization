@@ -1,0 +1,27 @@
+# Nouns that a headline docstring may generalise over (check_prose.py rule 6, run 2026-11-04T1428Z).
+# Line: <Python regex> => <role patterns>. A role is `Def.binder` (a bound variable of the statement is
+# passed as that explicit argument of that program definition; fnmatch wildcards allowed), `type:<glob>`
+# (a bound variable of that Lean type), or `name:<glob>` (a bound variable of that name, subscripts as
+# digits). After "every/any/all/whatever/independent of/…" the phrase must name a bound variable or
+# one of these nouns for a role that a bound variable fills; a noun whose roles the statement fixes to
+# a number is reported with the number. May only grow; each new line needs a LEDGER.md addition naming
+# its regex (check_prose.py --base).
+(?i)\bscale factors?\b|\bmodels?\b|\bexpansion histor(y|ies)\b|\bcosmolog(y|ies)\b|\bFLRW\b|\buniverses?\b|\bspacetimes?\b => hubble.a redshift.a lumDist*.a angDist.a IsFlatLCDM.a IsFlatCPL.a IsFRCosmo.a decel.a cosmoCoeff.a comoving.a transverse.a curv.a curvK.a yred.a omega0.a *Spec*.a Friedmann*.a FRFirstEq.a FRSecondEq.a MasterEq.a rem*.a eta*.a correct*.a printed*.a dem*.a RayOK.* CoeffOK.*
+(?i)\bsolutions?\b|\btrajector(y|ies)\b => IsDuffingSolution.x IsMMSolution.s IsMMSolution.e IsMMSolution.c IsMMSolution.p
+(?i)\btimes?\b|\binstants?\b|\bmoments?\b => name:t*
+(?i)\bcritical (points?|states?|isotherms?|temperatures?|volumes?)\b => IsCriticalIsotherm.*
+(?i)\bcoexistence (states?|points?)\b|\bMaxwell\b => IsMaxwellCoexistence.*
+(?i)\bcurvatures?\b => *.K name:K
+(?i)\bnormali[sz]ations?\b => logPolyDL3.H₀ logPolyDL4.H₀
+(?i)\bpredicates?\b => type:*Prop
+(?i)\b(gas constants?|fluids?|substances?|attraction (parameters?|constants?)|co-?volumes?|van der Waals constants?)\b => cubicP.R cubicP.a cubicP.b critCubic.*
+(?i)\btemperatures?\b => cubicP.T IsCriticalIsotherm.T IsMaxwellCoexistence.T
+(?i)\b(cubic|quartic)s?\b|\blog-?polynomials?\b|\bfits?\b|\bcoefficients?\b => logPolyDL3.* logPolyDL4.*
+(?i)\b(offsets?|zero points?)\b => name:c
+(?i)\bredshifts?\b|\bsources?\b|\bemission times?\b => redshift.t lumDistFlat.t lumDist.t angDist.t
+(?i)\bmatter (density|densities|fractions?|contents?)\b|\bdensity parameters?\b|\bΩ_?[mM]\b => *.Ω
+(?i)\bamplitudes?\b|\binitial (displacements?|positions?|values?|conditions?|data|concentrations?)\b|\brelease\b|\bx\(0\)|\bstarting (points?|values?)\b => IsDuffingSolution.x₀ IsDuffingSolution.v₀ IsMMSolution.s₀ IsMMSolution.e₀ IsMMSolution.c₀ IsMMSolution.p₀
+(?i)\brate constants?\b|\brates?\b|\bkinetic (constants?|parameters?)\b => IsMMSolution.k₁ IsMMSolution.km₁ IsMMSolution.k₂
+(?i)\bstiffness(es)?\b|\bnonlinearit(y|ies)\b|\bspring constants?\b|\bcubic coefficients?\b => IsDuffingSolution.k IsDuffingSolution.β
+(?i)\bhorizons?\b|\btime intervals?\b|\bdurations?\b|\bintegration (times?|intervals?)\b => IsDuffingSolution.T IsMMSolution.T
+(?i)\b(enzyme|substrate) (concentrations?|loadings?|amounts?)\b|\bconcentrations?\b => IsMMSolution.s₀ IsMMSolution.e₀

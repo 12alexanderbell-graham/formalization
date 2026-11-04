@@ -25,6 +25,7 @@ See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaA.angDist`, 
 - Definitions pinned by a machine-checked specification: cosmoCoeff, angDist, omega0, yred, decel, hubble.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): BambaDA4ClaimPast, DA1², DA2², printedDA3², printedDA4².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
 - Source file: `Checked/Cosmography/BambaAngular.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 48

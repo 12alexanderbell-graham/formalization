@@ -1,0 +1,4 @@
+Category: weakened-statement
+Reader would wrongly believe: p_s/P_c = 0.20046 holds at every temperature on the van der Waals coexistence curve (a temperature-independent constant of corresponding states).
+Why it is false: p_s/P_c is a function of T/T_c that rises from 0 at low temperature to 1 at T_c; 0.20046 is its value at T = 0.7 T_c only (that is how the acentric factor omega = -log10(p_s/P_c) - 1 = -0.302 is defined). Independence from a, b, R is true, independence from temperature is false.
+Expected: ACCEPTED. New headline with the statement of `vdW_coexistence_unique`; 0.20046 and 0.7 (7/10) are statement literals; the docstring mentions the 0.7 temperature itself as "one point of that curve", so no vocabulary or number rule fires ("saturation pressure"/"coexist" are backed by IsMaxwellCoexistence); generality of the temperature is prose-only.
