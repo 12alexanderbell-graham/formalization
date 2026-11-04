@@ -2,23 +2,25 @@ import Checked.Cosmography.B1Fit
 import Work.Cosmography.B1L19Certs
 
 /-!
-# B1, fourth order: the quasar-driven Lusso et al. 2019 log-polynomial fits are not the image of any flat ΛCDM model over the quasar range
+# B1, fourth order: between z ≈ 1.8 and z ≈ 4.7 the quasar-driven Lusso et al. 2019 fitted curves rise less than the exact distance of every flat ΛCDM model with Ω ∈ [0, 1]
 
 **Question (STATE "B1", "Not yet": the Lusso et al. 2019/2020 fourth-order fits).**
 Lusso et al. 2019 (A&A 628, L4; arXiv:1907.07692v4, Eq. (7)) fit
 `D_L = k ln(10)(c/H₀)(x + a₂x² + a₃x³ + a₄x⁴)`, `x = log₁₀(1+z)`, with a free normalisation `k`
-per sample, to supernovae, quasars and gamma-ray bursts, and report the best fits in their Table 2
+per sample, to supernovae, quasars and gamma-ray bursts, and report the fits in their Table 2
 (SNe + quasars + GRBs: `a₂ = 3.205`, `a₃ = 3.564`, `a₄ = −2.510`; SNe + quasars: `3.075`, `4.466`,
-`−3.716`; each with asymmetric 1σ ranges). They measure the tension with ΛCDM as the distance of
-these coefficients from the Taylor values of their Eq. (8). The critique (Yang et al. 2020,
-arXiv:1911.01681; Banerjee et al. 2021, arXiv:2009.04109) is that the truncated series represents
-exact ΛCDM badly at high redshift, so coefficient distances from the Taylor point are not evidence
-against ΛCDM.
+`−3.716`; each with asymmetric uncertainties; the caption states neither the confidence level nor
+whether the values are medians — "1σ" below is the natural reading, not printed; Table 2 is
+identical in arXiv v1–v4, blind second reading `runs/2026-11-04T1228Z/second_reading_l19.md`).
+They measure the tension with ΛCDM as the distance of these coefficients from the Taylor values of
+their Eq. (8). The critique (Yang et al. 2020, arXiv:1911.01681; Banerjee et al. 2021,
+arXiv:2009.04109) is that the truncated series represents exact ΛCDM badly at high redshift, so
+coefficient distances from the Taylor point are not evidence against ΛCDM.
 
 This file compares the fitted *curves* with the *exact* flat ΛCDM distance, not with the Taylor
-coefficients, so truncation cannot enter: the normalisation (`k`, `H₀`, any magnitude offset)
-cancels in the difference of distance moduli between two redshifts of the same sample. The two
-redshifts `1 + z = 2√2` and `1 + z = 4√2` (`z` between 1.8 and 4.7) lie inside the quasar range.
+coefficients, so truncation of the ΛCDM side cannot enter: the normalisation (`k`, `H₀`, any
+magnitude offset) cancels in the difference of distance moduli between two redshifts of the same
+sample. The two redshifts `1 + z = 2√2` and `1 + z = 4√2` lie inside the quasar range.
 
 **Statements (frozen before proof).**
 * `l19_sq_central`, `l19_sqg_central`: at the printed central coefficients, for every Ω ∈ [0, 1]
@@ -26,21 +28,33 @@ redshifts `1 + z = 2√2` and `1 + z = 4√2` (`z` between 1.8 and 4.7) lie insi
   distance modulus rises between the two redshifts by more than the fitted quartic's does, by more
   than 7/20 mag (SNe + quasars) and 3/10 mag (SNe + quasars + GRBs).
 * `l19_sq_box`, `l19_sqg_box`: the same with margin 0 for *every* quartic whose coefficients lie at
-  or beyond the printed 1σ ends in the direction that brings the curve closer to ΛCDM
-  (`a₂ ≥ 2.906`, `a₃ ≤ 5.479`, `a₄ ≤ −1.794` for SNe + quasars, the printed central value minus or
-  plus one printed σ; `a₂ ≥ 3.043`, `a₃ ≤ 4.480`, `a₄ ≤ −0.915` for SNe + quasars + GRBs). This
-  region contains the whole coordinate box of the printed ±1σ ranges; no covariance is printed, and
-  the statement needs none.
+  or beyond the printed 1σ ends in the direction that brings the curve's ratio closer to the exact
+  one (`a₂ ≥ 2.906`, `a₃ ≤ 5.479`, `a₄ ≤ −1.794` for SNe + quasars, the printed central value minus
+  or plus one printed σ; `a₂ ≥ 3.043`, `a₃ ≤ 4.480`, `a₄ ≤ −0.915` for SNe + quasars + GRBs). This
+  region contains the whole coordinate box of the printed ±1σ ranges, so the statement holds
+  whatever the (unprinted) covariance; but that box is not a 68% joint region (it contains only the
+  Δχ² = 1 ellipsoid, about 20% probability for three Gaussian parameters; referee §4.3).
+
+**What this does and does not say** (referee `runs/2026-11-04T1228Z/referee_l19.md`,
+STANDS-WITH-CORRECTIONS). It shows that the deviation of the central fitted curves from flat ΛCDM
+is not the Taylor-truncation artefact of the critique: the curves themselves are not flat-ΛCDM
+shaped between these redshifts. It is a two-redshift shape statement, not a statement about the
+data, their errors or significance (linearised, the box result corresponds to only ≈ 1–1.5σ in the
+ratio, far from the claimed 4σ), about quasar standardisation, or about curved models: closed ΛCDM
+models reproduce the central ratio (referee §4.3(iii)). Most of the margin comes from the z ≈ 1.8 →
+4.7 leg, where the quartic extrapolates over sparser data. The qualitative conclusion — the quasar
+Hubble diagram prefers flat models with Ω_m near or above 1 — is in Yang et al. 2020, Khadka & Ratra
+2020 and Bargiacchi et al. 2021; new here is the certified, Ω-uniform, normalisation-free form.
 
 Positivity of the polynomial distance at the farther redshift is assumed in the box statements (a
-negative distance has no distance modulus; `Real.logb` would silently take the absolute value); at
-the central values it is a consequence.
+negative distance has no distance modulus; `Real.logb` would silently take the absolute value);
+positivity at the nearer redshift follows, and at the central values both are consequences.
 
-Floating-point exploration (`runs/2026-11-04T1228Z/scripts/`): the exact ΛCDM ratio
-`d_L(4√2 − 1)/d_L(2√2 − 1)` decreases on a grid of Ω from 5.09 (Ω = 0) to 2.859 (Ω = 1); the central quartics
-give 2.401 (SNe + quasars) and 2.470 (+ GRBs), the box corners 2.821 and 2.829; the SNe + GRBs fit
-(no quasars; `a₂ = 3.304`, `a₃ = 2.069`, `a₄ = 2.571`) gives 3.044, matched by Ω ≈ 0.34. These floating-point numbers are not
-claims of the theorems.
+Floating-point exploration (`runs/2026-11-04T1228Z/scripts/`; referee §1): the exact ratio
+`d_L(4√2 − 1)/d_L(2√2 − 1)` decreases in Ω from 5.09 (Ω = 0) to 2.859 (Ω = 1, Einstein–de Sitter);
+the central quartics give 2.401 (SNe + quasars) and 2.470 (+ GRBs), the box corners 2.821 and 2.829;
+the SNe + GRBs fit (no quasars; `a₂ = 3.304`, `a₃ = 2.069`, `a₄ = 2.571`) gives 3.044, matched by
+Ω ≈ 0.354. These floating-point numbers are not claims of the theorems.
 
 Conventions: as `Checked.Cosmography.B1` (`c = 1`, `hubble a t = ȧ/a`,
 `redshift a t₀ t = a(t₀)/a(t) − 1`, `lumDistFlat`; distance-modulus difference `5 log₁₀(d/d')`).
