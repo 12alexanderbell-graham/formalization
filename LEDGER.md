@@ -400,3 +400,9 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 - Glossary (strengthening): `Duffing` / `anharmonic oscillator` must reach `IsDuffingSolution`.
 - NV witness `Checked.Trust.NV.duffing_first_zero_sol` (from the existence theorem).
 - Changed frozen entry: `moduledoc:Checked.Trust.Witnesses` (a new section doc for the Duffing witness was appended; no existing text changed). Validation packet regenerated (not yet sent, so not frozen): the new headlines enter the protocol draw.
+
+## 2026-11-04 · run 0828Z · part rotation (parts 1 and 5) · evaluation of the 0628Z simulation experiment
+- Decision: part 5 had not moved since 0028Z (3 runs); STATE next step 3 asked for simulator breadth. One step serves both: a reaction network through the simulator.
+- Evaluation (0628Z experiment "does the generator carry over to another polynomial system with only new certificates, target one run"): PARTLY. It needed one new generic lemma (the Duffing box argument used an energy invariant that reaction networks lack); with that lemma (`Work/Sim/Validated.lean`, confinement by continuous induction) the new system needed only a Lipschitz lemma and generated certificates, within one run. Promotion fit the trust map with no new check class (new PHYSICS definition pinned by a blind spec, as for Duffing). KEEP; the Lipschitz lemma is the remaining hand-written per-system piece.
+- Method change (experiment): certificate files are split — generated steps (`MMCerts.lean`, ≈ 10 min) and the chaining theorem (`MMEnclose.lean`, seconds) — after one 8.5-minute rebuild was spent on a one-word error in the chaining part. Evaluate: next generated simulation needs ≤ 1 full rebuild of its certificate module.
+- Freeze f764635: statements unchanged after proof (only `open` and the two `sorry` lines changed). Checked copy: module doc reworded per referee corrections 1–2 before registration (not yet frozen; no headline docstring changed).

@@ -57,4 +57,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `DuffingCell.lean` (`lip_box`, `in_box`, `right_of_Icc`, one-cell Grönwall step): PROVED (Work). `DuffingCerts.lean` (24 generated steps): PROVED (Work).
 - `DuffingExists.lean` (clamped Hamiltonian field, Picard–Lindelöf, exact invariant): PROVED (Work).
 - `Duffing.lean`: core theorem for one-sided solutions, `duffing_first_zero`, `duffing_exists`: PROVED (Work), frozen 3cf671f. `DuffingAudit.lean`: blind closed, spec met.
-- Next node: promotion to Checked with a pinnable IVP definition; then a generic polynomial-field generator.
+- Promotion to Checked (run 0628Z): `Checked/Sim/`, `IsDuffingSolution` pinned; PROVED (CI 41795488679).
+- Run 2026-11-04T0828Z: `Validated.lean` (`tube_cell`: confinement by the enclosure, continuous induction, any normed space): PROVED (Work). `MMCell.lean` (reduced Michaelis–Menten field, `lip_box`, cell step for any field equal to it on the box, `lower_of`/`upper_of`), generated `MMCerts.lean` (57 steps) and `MMEnclose.lean` (chaining): PROVED (Work). `MichaelisMenten.lean`: `mm_half_conversion`, `mm_solution_exists` (clamped field + same enclosure): PROVED (Work), frozen f764635. `MMAudit.lean`: blind closed, spec met. Checked copies on branch `wip/mm-checked`.
+- Next node: Checked promotion of the Michaelis–Menten result; logarithmic-norm cell step (stiff/long horizon); generator for arbitrary polynomial fields (Lipschitz lemma generated too).

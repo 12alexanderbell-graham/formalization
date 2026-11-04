@@ -174,3 +174,10 @@
 - Blind restatement (stronger, one-sided) closed in Lean incl. first-zero corollary; blind spec (no sorry) met by the definition; referee STANDS-WITH-CORRECTIONS (docstrings corrected).
 - Records: run README, STATE, TARGETS part 1 status, BLUEPRINT, LEDGER, PROMPT note.
 - Promotion to Checked (same run): `Checked/Sim/*`, pin of the new `IsDuffingSolution` by the blind spec, two headlines (one-sided form; LEDGER), NV witness, glossary term, relock. CI: next run.
+
+## 2026-11-04, run 0828Z (scheduled)
+- Parts 1 and 5 (rotation: part 5 idle since 0028Z). Local Lean available (elan). Duffing promotion CI green: both Duffing headlines PROVED.
+- Generic simulator piece: confinement to the Lipschitz region by the enclosure itself (`Work/Sim/Validated.lean`), so a new polynomial system needs only a Lipschitz lemma and generated certificates; existence for the clamped field by the same enclosure.
+- Froze, proved (Work) and audited: full mass-action Michaelis–Menten mechanism (k = 1, [S]₀ = [E]₀ = 1): every solution has [P] < 1/2 on [0, 2.5665] and > 1/2 at 2.5666; a solution exists. Blind restatement equal to the program predicate, both blind claims closed; blind spec met; referee STANDS-WITH-CORRECTIONS (three numerical routes; QSSA off by 7–26%).
+- Promotion prepared on branch `wip/mm-checked` (pin, NV witness, glossary); relock via the CI author-files artifact next run.
+- Records: run README, STATE, LEDGER, BLUEPRINT, TARGETS parts 1 and 5, PROMPT note.
