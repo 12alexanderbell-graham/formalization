@@ -213,6 +213,32 @@ partial def roundsToLits (e : Expr) (acc : Array (Option String) := #[]) : Array
     e.getAppArgs.foldl (init := roundsToLits e.getAppFn acc) fun acc a => roundsToLits a acc
   | _ => acc
 
+/-- Numeric literals of a statement, as `p/q` strings (unreduced; sign prefix `-`): numerals,
+decimal literals and quotients `a / b` of two of them (docstring-number rule of
+`check_prose.py`, run 2026-11-04T0828Z). -/
+partial def statementNums (e : Expr) (acc : Array String := #[]) : Array String :=
+  match e with
+  | .mdata _ b => statementNums b acc
+  | .forallE _ d b _ => statementNums b (statementNums d acc)
+  | .lam _ d b _ => statementNums b (statementNums d acc)
+  | .letE _ t v b _ => statementNums b (statementNums v (statementNums t acc))
+  | .app .. =>
+    let sgn := fun (n : Bool) => if n then "-" else ""
+    let acc := if e.isAppOfArity ``HDiv.hDiv 6 then
+        match decLit? (e.getArg! 4), decLit? (e.getArg! 5) with
+        | some (n₁, m₁, d₁), some (n₂, m₂, d₂) =>
+          if m₂ == 0 then acc else acc.push s!"{sgn (n₁ != n₂)}{m₁ * 10 ^ d₂}/{m₂ * 10 ^ d₁}"
+        | _, _ => acc
+      else acc
+    if e.isAppOfArity ``OfNat.ofNat 3 || e.isAppOfArity ``OfScientific.ofScientific 5 then
+      -- a literal: record it; its instance arguments carry no further literals of the statement
+      match decLit? e with
+      | some (n, m, d) => acc.push s!"{sgn n}{m}/{10 ^ d}"
+      | none => acc
+    else
+      e.getAppArgs.foldl (init := statementNums e.getAppFn acc) fun acc a => statementNums a acc
+  | _ => acc
+
 /-- The `RoundsTo` literals that a statement *asserts*: reached from the conclusion through
 `∀` (data binders), `→` (conclusion side only), `∧` and `∃`. A `RoundsTo` under `¬`, `∨`, `↔` or
 in a hypothesis is not asserted (red team D, defect D05 certified a number by `¬ RoundsTo`). -/
@@ -593,6 +619,7 @@ run_cmd do
       mlines := mlines.push (Json.mkObj [("type", "headline"), ("name", toString hn),
         ("laws", toJson (laws.map toString)),
         ("doc", doc), ("universal", univ), ("shapes", toJson shapes),
+        ("nums", toJson (statementNums ci.type).toList.eraseDups),
         ("record", (`Checked.Records).isPrefixOf hn),
         -- conjuncts that assert a certified number but reach no pinned or transcribed definition
         -- (red team E, defect E05 put a free formula next to a genuine pinned conjunct)
