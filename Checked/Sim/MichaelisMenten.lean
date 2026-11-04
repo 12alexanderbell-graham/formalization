@@ -13,9 +13,11 @@ import Checked.Sim.MMEnclose
 k₋₁ backward, k₂ catalytic) under mass-action kinetics is the basic model of enzyme catalysis.
 Its full (not quasi-steady-state) rate equations have no closed-form solution. With
 k₁ = k₋₁ = k₂ = 1 and initial concentrations [S]₀ = [E]₀ = 1, [C]₀ = [P]₀ = 0 (units: [S]₀ for
-concentrations, 1/k₂ for time) the enzyme is *not* in excess-substrate conditions, so the
-quasi-steady-state (Briggs–Haldane) approximation is not reliable; the half-conversion time
-of the product, t½ with [P](t½) = [S]₀/2, must be computed from the full equations.
+concentrations, 1/k₂ for time) the enzyme is not dilute: e₀/(s₀ + K_M) = 1/3 with
+K_M = (k₋₁ + k₂)/k₁ = 2, so the quasi-steady-state (Briggs–Haldane) approximation is not reliable
+(referee, run 2026-11-04T0828Z: its integrated rate law puts t½ at 1.886 with p = s₀ − s, or 2.744
+with p = s₀ − s − c, against the full value below); the half-conversion time of the product,
+t½ with [P](t½) = [S]₀/2, must be computed from the full equations.
 Floating-point integration (mpmath Taylor, 30 digits) gives t½ ≈ 2.566514530. This file states
 it as a theorem about *every* solution of the rate equations.
 
@@ -23,7 +25,8 @@ it as a theorem about *every* solution of the rate equations.
 1. `mm_half_conversion`: every solution of the mass-action rate equations on [0, 13/5]
    (derivatives within the interval) with these rate constants and initial values has
    [P](t) < 1/2 at every t ∈ [0, 2.5665] and [P](2.5666) > 1/2; hence (continuity and the
-   intermediate value theorem) the product first reaches half conversion between 2.5665
+   intermediate value theorem, a corollary not stated here) the product first reaches half
+   conversion between 2.5665
    and 2.5666.
 2. `mm_solution_exists`: such a solution exists (so 1. is not vacuous).
 
