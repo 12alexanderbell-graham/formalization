@@ -79,6 +79,8 @@ import Work.Chemistry.CoexistenceAudit
 import Work.Chemistry.RKReduced
 import Work.Chemistry.RKExists
 import Work.Chemistry.RKAcentric
+import Work.Chemistry.RKAcentricBlind
+import Work.Chemistry.RKAcentricAudit
 import Work.Fidelity.MaxwellSpec
 import Work.Fidelity.MaxwellMutants
 import Work.Fidelity.MaxwellPin
