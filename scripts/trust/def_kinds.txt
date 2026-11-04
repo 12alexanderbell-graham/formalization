@@ -158,3 +158,6 @@ Checked.Chemistry.CubicEOS.cubicP FORMULA
 Checked.Chemistry.CubicEOS.critCubic FORMULA
 Checked.Chemistry.CubicEOS.IsCriticalIsotherm PHYSICS
 Checked.Fidelity.CriticalSpec.CriticalSpec SPEC
+Checked.Chemistry.Coexistence.IsMaxwellCoexistence PHYSICS
+Checked.Chemistry.Coexistence.acentric FORMULA
+Checked.Fidelity.MaxwellSpec.MaxwellSpec SPEC

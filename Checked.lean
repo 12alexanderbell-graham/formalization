@@ -39,4 +39,8 @@ import Checked.Cosmography.B1SepWitness
 import Checked.Trust.SecondReadingB1
 import Checked.Trust.TranscriptionsB1
 import Checked.Chemistry.CubicEOS
+import Checked.Chemistry.CoexistenceReduced
+import Checked.Chemistry.CoexistenceExists
+import Checked.Chemistry.Coexistence
+import Checked.Fidelity.MaxwellSpec
 import Checked.Fidelity.CriticalSpec

@@ -144,3 +144,6 @@ Checked.Chemistry.CubicEOS.exists_unique_critical
 Checked.Chemistry.CubicEOS.vdW_constants
 Checked.Chemistry.CubicEOS.rk_constants
 Checked.Chemistry.CubicEOS.pr_constants
+# Chemistry (run 2026-11-04T0028Z): van der Waals vapour-liquid coexistence at 0.7 T_c (Maxwell construction), certified p_s/P_c and acentric factor
+Checked.Chemistry.Coexistence.vdW_coexistence_exists
+Checked.Chemistry.Coexistence.vdW_coexistence_unique

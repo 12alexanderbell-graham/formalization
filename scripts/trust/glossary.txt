@@ -25,3 +25,4 @@
 (?i)\bflux[- ]distance|bolometric[- ]distance|luminosity[- ]based distance => lumDist lumDistFlat
 (?i)proper[- ]motion distance|transverse comoving distance => transverse comoving
 (?i)lookback time => redshift
+(?i)\bMaxwell (construction|coexistence|equal[- ]area)|\bcoexist|saturation pressure|vapou?r pressure => IsMaxwellCoexistence

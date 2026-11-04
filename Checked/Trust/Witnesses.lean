@@ -28,6 +28,7 @@ import Checked.Fidelity.TransverseSpec
 import Checked.Records.Findings
 import Checked.Cosmography.B1Truncation
 import Checked.Chemistry.CubicEOS
+import Checked.Chemistry.Coexistence
 import Checked.Cosmography.B1SepWitness
 
 /-!
@@ -385,6 +386,17 @@ theorem pr_constants : nonvacuity% Checked.Chemistry.CubicEOS.pr_constants := by
   obtain ⟨⟨T, v⟩, ⟨_, hv, hc⟩, -⟩ := Checked.Chemistry.CubicEOS.exists_unique_critical 1 1 1 2 (-1)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
   exact ⟨1, 1, 1, T, v, by norm_num, by norm_num, hv, hc, trivial⟩
+
+/-! ### Chemistry (run 2026-11-04T0028Z): van der Waals coexistence at 0.7 T_c. `R = a = b = 1`;
+the coexistence state of the uniqueness theorem is the one `vdW_coexistence_exists` provides. -/
+
+theorem vdW_coexistence_exists : nonvacuity% Checked.Chemistry.Coexistence.vdW_coexistence_exists :=
+  ⟨1, 1, 1, one_pos, one_pos, one_pos, trivial⟩
+
+theorem vdW_coexistence_unique : nonvacuity% Checked.Chemistry.Coexistence.vdW_coexistence_unique := by
+  obtain ⟨vl, vg, ps, hl, h, -⟩ :=
+    Checked.Chemistry.Coexistence.vdW_coexistence_exists 1 1 1 one_pos one_pos one_pos
+  exact ⟨1, 1, 1, vl, vg, ps, one_pos, one_pos, one_pos, hl, h, trivial⟩
 
 /-! ### B1 separation/direction (run 2026-10-31T0828Z): exact ΛCDM at `Ω = 1/5` and the cubic
 `a₂ = 0, a₃ = 147/25, H = 1` (`Checked.Cosmography.B1SepWitness.hyps_satisfiable`). -/
