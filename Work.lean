@@ -68,6 +68,8 @@ import Work.Cosmography.B1L19CurvedCerts2
 import Work.Cosmography.B1L19CurvedRatio
 import Work.Cosmography.B1L19CurvedProof
 import Work.Cosmography.B1L19Curved
+import Work.Cosmography.B1L19CurvedBlind
+import Work.Cosmography.B1L19CurvedAudit
 import Work.Cosmography.B1SepWitness
 import Work.Trust.SecondReadingB1
 import Work.Trust.SecondReadingL19
