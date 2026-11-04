@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that the deceleration parameter q = -a'' a / a'^2 (decel) is pinned by the blind spec at every time including turnaround/bounce points where a' = 0, so that cosmographic statements through such points rest on a validated definition.
+Why it is false: decelSpec_pins needs a' != 0 (the original row says "a > 0, twice differentiable, a-dot != 0"). At a' = 0 the Lean definition divides by zero (x/0 = 0) and returns the junk value 0, whereas the physical q diverges there (unless a'' = 0); the spec does not pin it at such points.
+Expected: ACCEPTED (check_trusted_defs.py verifies that a "yes" row names a definition and a *_pins theorem listed in pins.txt, but never reads the domain conditions in the parenthesis; the pin names in the row are unchanged).

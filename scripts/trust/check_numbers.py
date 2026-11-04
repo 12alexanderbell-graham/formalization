@@ -43,6 +43,11 @@ SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹"
 NUM = r"[" + DASHES + r"]?\d+(?:\.\d+)?(?:×10[⁻⁺]?[" + SUP + r"]+)?"
 TAG = r"\[(✓[A-Za-z0-9_]+|in✓[A-Za-z0-9_]+|src|in|unc)\]"
 PARAMS = ".lake/records_params.tsv"
+try:
+    CITATIONS = {l.strip() for l in open(__import__("pathlib").Path(__file__).resolve().parent / "citations.txt", encoding="utf-8")
+                 if l.strip() and not l.startswith("#")}
+except FileNotFoundError:
+    CITATIONS = set()
 
 
 def norm(s):
@@ -180,10 +185,16 @@ def main():
             approx = s[:a].rstrip().endswith(("≈", "≃"))
             if not (is_dec or approx) or a in tagged_starts:
                 continue
-            if s[a - 1:a] == "(" and s[b:b + 1] == ")":
-                continue  # equation number
             if re.fullmatch(r"\d{4}\.\d{4,5}", num):
                 continue  # arXiv identifier
+            if s[a - 1:a] == "(" and s[b:b + 1] == ")":
+                # an equation number, but only a registered one (run 2026-11-04T1028Z, red team G d08: a wrong
+                # table value written "(2.77)" passed as a citation); registry shared with check_prose.py
+                if num in CITATIONS:
+                    continue
+                errors.append(f"number in parentheses {num} is not a registered equation number "
+                              f"(scripts/trust/citations.txt; tag it if it is a value): …{s[max(0, a - 50):b + 15].strip()}…")
+                continue
             errors.append(f"untagged number {num}: …{s[max(0, a - 50):b + 15].strip()}…")
     total = sum(counts.values())
     print(f"certified numbers (FINDINGS.md outside '{UNVERIFIED}'): {counts['✓']} certified [✓], "

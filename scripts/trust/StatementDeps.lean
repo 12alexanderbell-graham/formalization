@@ -420,6 +420,18 @@ run_cmd do
       unless docs.isEmpty do
         frozenNow := frozenNow.insert (Name.mkSimple ("moduledoc:" ++ m.toString))
           s!"-mdoc{hash (String.intercalate "\n" (docs.toList.map (·.doc)))}"
+  -- run 2026-11-04T1028Z (red team G: d05 rewrote the docstring of the pin theorem
+  -- `criticalSpec_pins` to drop its smoothness hypothesis, d06 transposed the digits of the proved
+  -- window in the docstring of the lemma `reduced_window`; neither docstring was frozen or read):
+  -- the docstring of EVERY Checked declaration is frozen, entry `doc:<name>` (the entries above win)
+  for (n, _) in env.constants.map₁.toList do
+    if let some idx := env.getModuleIdxFor? n then
+      if (env.header.moduleNames[idx.toNat]!).getRoot == `Checked && !n.isInternal then
+        let key := Name.mkSimple ("doc:" ++ n.toString)
+        let docIn := ((frozenNow.find? n).map fun f => decide ((f.splitOn "-doc").length > 1)).getD false
+        unless frozenNow.contains key || docIn do
+          if let some d ← findDocString? env n then
+            frozenNow := frozenNow.insert key s!"-doc{hash d}"
   let frozenLines := (frozenNow.toList.toArray.qsort (fun a b => a.1.toString < b.1.toString)).map
     fun (n, f) => s!"{n.toString (escape := false)} {f}"
   if (← IO.getEnv "TRUST_RELOCK") == some "1" then

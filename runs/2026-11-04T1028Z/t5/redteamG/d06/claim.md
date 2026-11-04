@@ -1,0 +1,4 @@
+Category: wrong-number
+Reader would wrongly believe: that the certified window for the van der Waals saturation pressure at 0.7 T_c, the heart of both coexistence headlines, is [0.200545, 0.200565] P_c (so p_s/P_c rounds to 0.20055 and the acentric factor is about -0.3023), not the proved [0.200455, 0.200465].
+Why it is false: the lemma's statement (unchanged) is 40091/200000 <= p <= 40093/200000, i.e. [0.200455, 0.200465]; the headlines certify 0.20046 (5 d.p.) and omega = -0.3020. The docstring digits are transposed and no longer match the proved window or the headlines.
+Expected: ACCEPTED (docstrings of non-headline theorems are neither frozen nor read by any check; the number rule reads only headline docstrings; the Lean statement and proof are unchanged so every kernel-level check is green). Rebuild cost: CoexistenceReduced and its dependents (the only heavy Checked edit of this set).

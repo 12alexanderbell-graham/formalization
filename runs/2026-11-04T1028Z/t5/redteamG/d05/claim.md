@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that IsCriticalIsotherm (deriv p v = 0 and deriv (deriv p) v = 0) is pinned by the blind critical-point spec on every isotherm and volume, with no smoothness assumption, so that "critical point" in the headlines (vdW/RK/PR Z_c, Omega_b, Omega_a) has been validated as the physical inflection-point condition in general.
+Why it is false: the pin theorem criticalSpec_pins needs hp : ContDiffAt R 2 p v. Without it Lean's junk value deriv = 0 at a kink or discontinuity makes IsCriticalIsotherm hold for a non-physical isotherm (a kinked or discontinuous p), where the spec law (Taylor flatness) does not; the definition is pinned only on C2 isotherms.
+Expected: ACCEPTED (pin theorems are frozen by statement fingerprint only, not by docstring; the docstring of a pin theorem is not a headline docstring, not a classified definition and not read by check_prose or the packet; the statement and proof are untouched).

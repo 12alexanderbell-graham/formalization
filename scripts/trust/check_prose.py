@@ -38,7 +38,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 EXIST = re.compile(r"(?i)\b(exist\w*|there (is|are)|some|admits?|witness\w*|instances?|examples?|exactly one|unique\w*|can be)\b")
 NEG = re.compile(r"(?i)\b(not|no|false|fails?|failure|wrong|refut\w*|misprint\w*|differs?|incorrect|never|miss(es)?|nonzero|non-zero|cannot|impossible|inconsistent)\b|≠|¬")
-NUM = re.compile(r"(?<![\w.^⁻/])((?:(?<![\d)])[-−])?)(\d+(?:\.\d+)?\s*[×x]\s*10[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+|\d+\.\d+|\d+/\d+)(?![\w/]|\.\d)")
+NUM = re.compile(r"(?<![\w.^⁻/])((?:(?<![\d)])[-−])?)(\d+(?:\.\d+)?\s*[×x]\s*10[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+|\d+\.\d+|\d+/\d+)(?![\d/]|\.\d)")
+# a unit glued to a number (`0.1mM`, `2.5665s`) does not hide it (red team G, d01, run 2026-11-04T1028Z):
+# the lookahead excludes only digits, `/` and a further decimal part, not letters
 SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺", "0123456789-+")
 # citations are not values (run 2026-11-04T1028Z: 54 of the 81 first-report items were equation
 # numbers): `(10.54)`, `(10.56)–(10.57)`, `Eq. 10.54`, `Eqs. (11.42)–(11.43)`, `annex 40.1`, `Sec. 2.3`.
@@ -48,8 +50,17 @@ SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺", "0123456789-+")
 CITE = re.compile(r"(?:(?<![=≈<>≤≥±~∈]\s)(?<![=≈<>≤≥±~∈])\((?:[1-9]\d?\.\d{1,2})\)(?:\s*[–-]\s*\((?:[1-9]\d?\.\d{1,2})\))?)"
                   r"|(?:\b(?:Eqs?\.|Equations?|annex|Annex|Sec\.|Section|Table|Fig\.)\s*\(?[1-9]\d?\.\d{1,2}\)?(?:\s*[–-]\s*\(?[1-9]\d?\.\d{1,2}\)?)?)")
 
-def strip_citations(doc):
-    return CITE.sub(lambda m: " " * len(m.group(0)), doc)
+CITED = []  # (owner, equation number) of every citation read (registry check in main)
+
+def strip_citations(doc, owner=None):
+    """blank citations; record their equation numbers: a citation passes only if its number is in
+    scripts/trust/citations.txt (red team G, d08, run 2026-11-04T1028Z, wrote a wrong table value as
+    `(2.77)`); the registry may grow only with a LEDGER.md addition naming the new number (--base)"""
+    def blank(m):
+        for n in re.findall(r"[1-9]\d?\.\d{1,2}", m.group(0)):
+            CITED.append((owner, n))
+        return " " * len(m.group(0))
+    return CITE.sub(blank, doc)
 
 def num_value(tok):
     """value of a docstring number token: decimal, fraction, or m×10ⁿ (adversary, run 0828Z)"""
@@ -127,7 +138,7 @@ def main():
         if "nums" in h:
             signed = {Fraction(x) for x in h["nums"]}
             have = {abs(v) for v in signed}
-            for m in NUM.finditer(strip_citations(strip_code_names(doc))):
+            for m in NUM.finditer(strip_citations(strip_code_names(doc), h["name"])):
                 v = num_value(m.group(2))
                 # an explicit sign in the prose is compared signed (adversary: |·| hid sign errors);
                 # an unsigned number may match a literal of either sign (the statement may write -x)
@@ -156,6 +167,19 @@ def main():
                     and len(p) >= 4:
                 errs.append((f"definition {r['name']}|name|{p}", f"definition {r['name']} ({r['kind']}) carries the pinned definition name '{p}' "
                             f"in its own name but is not that definition: rename it (names carry meaning to readers)"))
+    cpath = ROOT / "scripts/trust/citations.txt"
+    creg = {l.strip() for l in cpath.read_text().splitlines() if l.strip() and not l.startswith("#")} if cpath.exists() else set()
+    if "--write-citations" in sys.argv:
+        cpath.write_text("# Equation numbers that headline docstrings may cite as `(N.M)` / `Eq. N.M` (check_prose rule 5).\n"
+                         "# Generated at run 2026-11-04T1028Z from the headline docstrings and FINDINGS.md on main; may grow only with a LEDGER.md\n"
+                         "# addition naming the new number (--base). A number written as a citation is not read as a value.\n"
+                         + "".join(n + "\n" for n in sorted(creg | {n for _, n in CITED}, key=lambda x: tuple(map(int, x.split("."))))))
+        print(f"citations written: {len({n for _, n in CITED})}")
+        return
+    for owner, n in CITED:
+        if n not in creg:
+            errs.append((f"{owner}|citation|{n}", f"{owner}: its docstring cites ({n}), which is not a registered equation number "
+                         f"(scripts/trust/citations.txt): a value written as a citation is not read by the number rule"))
     # ratchet (run 2026-10-31T1028Z): problems present when the check was introduced are listed in
     # scripts/trust/prose_baseline.txt (known gaps, shown here); the baseline may only shrink and the
     # glossary may only grow (both checked against the base commit with --base)
@@ -195,6 +219,16 @@ def main():
                 if undisclosed:
                     print(f"prose_baseline.txt grew against {b} without a LEDGER.md addition naming: {undisclosed} "
                           f"(the baseline may only shrink, except when a strengthened check finds old gaps; name them)")
+                    fail = True
+        oc = old("scripts/trust/citations.txt")
+        if oc is not None:
+            cgrown = creg - {l.strip() for l in oc.splitlines() if l.strip() and not l.startswith("#")}
+            if cgrown:
+                r = subprocess.run(["git", "diff", b, "HEAD", "--", "LEDGER.md"], cwd=ROOT, capture_output=True, text=True)
+                added = "\n".join(l for l in r.stdout.splitlines() if l.startswith("+"))
+                undisclosed = sorted(n for n in cgrown if n not in added)
+                if undisclosed:
+                    print(f"citations.txt grew against {b} without a LEDGER.md addition naming: {undisclosed}")
                     fail = True
         if og is not None:
             gnow = set((ROOT / "scripts/trust/glossary.txt").read_text().splitlines())

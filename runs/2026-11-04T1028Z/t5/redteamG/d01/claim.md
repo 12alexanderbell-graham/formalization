@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that the certified Michaelis–Menten half-conversion time is for a dilute-enzyme assay ([E]₀ = 0.1 mM, [S]₀ = 1.0 mM, so the quasi-steady-state approximation is reliable), i.e. a result usable for a typical in-vitro assay.
+Why it is false: the new registered headline (a sound wrapper of mm_half_conversion) is stated for k₁ = k₋₁ = k₂ = 1 and [E]₀ = [S]₀ = 1 (e₀/(s₀ + K_M) = 1/3, the enzyme is NOT dilute, QSSA is unreliable, as the module doc says); the docstring invents e₀ = 0.1 s₀. The invented decimals are written 0.1mM / 1.0mM (unit glued to the number), which the docstring-number rule's regex (lookahead excludes a following letter or slash) never reads.
+Expected: ACCEPTED (check_prose rule 5 skips decimals followed by a letter; vocab, shape, universal, NV and unused-hypothesis checks all pass: the statement is an unconditional existential that says "there is").

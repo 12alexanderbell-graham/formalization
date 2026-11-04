@@ -1,0 +1,4 @@
+Category: weakened-statement
+Reader would wrongly believe: that the certified first zero 1.192005 to 1.192006 of the Duffing oscillator x'' + x + x³ = 0 holds for every release amplitude (the quarter period is amplitude independent, an isochronous oscillator).
+Why it is false: the new headline only says that SOME solution (amplitude x(0) = 1, k = beta = 1, horizon 6/5) has its first zero in the bracket. The hardening Duffing period depends strongly on the amplitude (T = 4K(m)/sqrt(1+A^2) with m = A^2/(2(1+A^2)), Rand section 2.2, cited in the module doc): the bracket is wrong for every A other than 1.
+Expected: ACCEPTED (the existence-shape rule only requires one word such as "there is" in the docstring; the "every"/"any" rule is satisfied because the statement has an inner universal quantifier; the numbers are literals of the statement; no check reads the claim about the amplitude).

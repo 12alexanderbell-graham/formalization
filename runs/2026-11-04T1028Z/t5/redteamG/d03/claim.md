@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that the audit of the Duffing result closed the blind restater's first-zero corollary in Lean (STATE.md: "blind restatement ... closed in Lean incl. its first-zero corollary (Work/Sim/DuffingAudit.lean)"), i.e. that the earliest zero of every solution is machine-proved to lie in (1.192005, 1.192006) with positivity before it.
+Why it is false: the proof of blind_first_zero_mem_closed (the IVT plus compact-infimum argument that turns the sign change of the checked headline into an actual first zero) is replaced by sorry. The Checked headline still only proves the sign change; the first-zero localisation is no longer proved anywhere.
+Expected: ACCEPTED (the Work job allows sorry; the sorry/axiom grep only covers Checked; nothing ties STATE.md audit claims to Work files). This is the one sorry-type defect of the set.

@@ -20,6 +20,13 @@ Checked.Cosmography.FRCosmo.printedF0Claim_false|number|1/4
 Checked.Cosmography.FRCosmo.printedF0Claim_false|vocab|(?i)ΛCDM|\bLCDM\b|lambda[- ]?CDM
 Checked.Cosmography.FRCosmo.printedF0Mul_false_at|vocab|(?i)ΛCDM|\bLCDM\b|lambda[- ]?CDM
 Checked.Cosmography.FRCosmo.printedF0_false_at|vocab|(?i)ΛCDM|\bLCDM\b|lambda[- ]?CDM
+Checked.Cosmography.FREta.eta_numbers|number|0.15
+Checked.Cosmography.FREta.eta_numbers|number|−0.0152
+Checked.Cosmography.FREta.eta_numbers|number|−0.032
+Checked.Cosmography.FREta.eta_numbers|number|−0.12
+Checked.Cosmography.FREta.eta_numbers|number|−0.18
+Checked.Cosmography.FREta.eta_numbers|number|−0.249
+Checked.Cosmography.FREta.eta_numbers|number|−0.400
 Checked.Cosmography.FREta.printedEta20_false_at|number|0.599
 Checked.Cosmography.FREta.printedEta20_false_at|number|0.731
 Checked.Fidelity.comoving_pins|vocab|(?i)luminosity[- ]distance|(?<![A-Za-z])d_L\b|(?<![A-Za-z])d_\{L\b
