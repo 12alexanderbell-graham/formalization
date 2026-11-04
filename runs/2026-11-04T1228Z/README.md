@@ -18,7 +18,7 @@ Environment: add_repo not exposed; repo pre-cloned (detached HEAD, stale local `
 5. Promotion to Checked (`Checked/Cosmography/B1L19.lean`, `B1L19Certs.lean`): headlines registered, `logPolyDL4` PRINTED, NV witnesses (`Checked.Trust.NV.l19_*`), relock, trust map, packet; FINDINGS candidates C28 (L19's "below 2%" sentence false except in narrow Ω windows; prior art Yang et al. 2020 Fig. 1) and C29 (this result).
 6. Two PROMPT working notes (stale pre-cloned `main`; part 2 should ask "is the answer already in print?" before freezing; LEDGER experiment).
 
-**RESULT:** 4 new AUDITED headlines, PROVED once the main CI of the promotion commit is green (STATE).
+**RESULT:** 4 new headlines **PROVED + AUDITED** (promotion fa17702, CI 41836943693 green on every job: build, nanoda, trust step, relock); trust map 139/139 on pinned definitions, NV 88/88; T3 second readings 40/42 (`logPolyDL4²`).
 
 **WHAT COULD STILL BE WRONG:** the qualitative conclusion (the quasar Hubble diagram prefers flat models with Ω_m near 1) is already in print (Yang et al. 2020, Khadka & Ratra 2020, Bargiacchi et al. 2021); what is new is the certified, Ω-uniform, normalisation-free form. The z ≈ 4.66 point reads the quartic where the data are sparse. Table 2's confidence level and "central value" meaning are not stated by the paper.
 
