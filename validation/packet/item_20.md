@@ -50,7 +50,7 @@ See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmog
 - Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL3², lusA2², lusA3².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fit_direction`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): redshift(t₁) = √2 - 1; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1.
 - Source file: `Checked/Cosmography/B1Fit.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 20

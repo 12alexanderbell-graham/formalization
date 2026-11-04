@@ -43,7 +43,7 @@ See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmog
 - Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL4².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `l19_sqg_central`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): logPolyDL4: a₂ = 3.205, a₃ = 3.564, a₄ = -2.510.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): logPolyDL4: a₂ = 3.205, a₃ = 3.564, a₄ = -2.510; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1.
 - Source file: `Checked/Cosmography/B1L19.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 03

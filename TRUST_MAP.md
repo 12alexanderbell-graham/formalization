@@ -23,7 +23,7 @@ agreement with an independent blind second reading (`Checked/Trust/Transcription
 ## Per headline
 
 Last column (generated from the statement, run 2026-11-04T1428Z): the explicit arguments of program
-definitions that the statement fixes to numbers. The result is proved for these values only, whatever
+definitions that the statement fixes to numbers, and variables a hypothesis `f(v) = c` fixes. The result is proved for these values only, whatever
 the docstring says; universally bound parameters are not listed.
 
 | Headline | Pinned | Unpinned physics | Transcriptions | Non-vacuity witness | Fixed by the statement |
@@ -144,17 +144,17 @@ the docstring says; universally bound parameters are not listed.
 | `Records.F10_family_pole` | — | — | jL, qL² | unconditional | RoundsTo: d = 0.032, k = 3; Jfam: Ω = 41/1000 |
 | `Records.F11_sizes` | — | — | — | unconditional | RoundsTo: d = -86, k = 0, d = 0.72, k = 2 |
 | `B1.lumDistFlat_flatLCDM` | lumDistFlat, hubble, redshift | — | — | `lumDistFlat_flatLCDM` | — |
-| `B1.cubic_misses_z3` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z3` | — |
-| `B1.cubic_misses_z7` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z7` | — |
-| `B1.cubic_shape_miss` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_shape_miss` | — |
-| `B1Sep.cubic_separation` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_separation` | — |
-| `B1Sep.cubic_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_direction` | — |
-| `B1Fit.fit_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `fit_direction` | — |
-| `B1FitRL19.rl19_box_unmatched` | lumDistFlat, hubble, redshift | — | logPolyDL3² | `rl19_box_unmatched` | — |
-| `B1L19.l19_sq_central` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sq_central` | logPolyDL4: a₂ = 3.075, a₃ = 4.466, a₄ = -3.716 |
-| `B1L19.l19_sqg_central` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sqg_central` | logPolyDL4: a₂ = 3.205, a₃ = 3.564, a₄ = -2.510 |
-| `B1L19.l19_sq_box` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sq_box` | — |
-| `B1L19.l19_sqg_box` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sqg_box` | — |
+| `B1.cubic_misses_z3` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z3` | redshift(t) = 3 |
+| `B1.cubic_misses_z7` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z7` | redshift(t) = 7 |
+| `B1.cubic_shape_miss` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_shape_miss` | redshift(t₃) = 3; redshift(t₇) = 7 |
+| `B1Sep.cubic_separation` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_separation` | redshift(t₃) = 3; redshift(t₇) = 7 |
+| `B1Sep.cubic_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_direction` | redshift(t₃) = 3; redshift(t₇) = 7 |
+| `B1Fit.fit_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `fit_direction` | redshift(t₁) = √2 - 1; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
+| `B1FitRL19.rl19_box_unmatched` | lumDistFlat, hubble, redshift | — | logPolyDL3² | `rl19_box_unmatched` | redshift(t₁) = √2 - 1; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
+| `B1L19.l19_sq_central` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sq_central` | logPolyDL4: a₂ = 3.075, a₃ = 4.466, a₄ = -3.716; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
+| `B1L19.l19_sqg_central` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sqg_central` | logPolyDL4: a₂ = 3.205, a₃ = 3.564, a₄ = -2.510; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
+| `B1L19.l19_sq_box` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sq_box` | redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
+| `B1L19.l19_sqg_box` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sqg_box` | redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
 | `Chemistry.CubicEOS.isCritical_iff` | IsCriticalIsotherm | — | — | `isCritical_iff` | — |
 | `Chemistry.CubicEOS.critCubic_existsUnique` | — | — | — | `critCubic_existsUnique` | — |
 | `Chemistry.CubicEOS.exists_unique_critical` | IsCriticalIsotherm | — | — | `exists_unique_critical` | — |

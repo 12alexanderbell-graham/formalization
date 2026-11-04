@@ -689,13 +689,19 @@ run_cmd do
       -- parameters the statement fixes to numbers, generated (rule 6, run 2026-11-04T1428Z): a reader
       -- sees what the statement does not generalise over, whatever the docstring says
       let expTy0 ← liftCoreM <| Meta.deltaExpand ci.type fun n => isCheckedConst env n && !stop.contains n
-      let (_, _, fx) ← liftTermElabM do
+      let (_, rl, fx) ← liftTermElabM do
         let a ← paramWalk env ci.type true (#[], #[], #[])
         paramWalk env expTy0 true a
       let fx := fx.toList.eraseDups
       let fdefs := (fx.map (·.1)).eraseDups
-      let fixedCol := if fx.isEmpty then "—" else "; ".intercalate (fdefs.map fun d =>
-        s!"{d}: " ++ ", ".intercalate ((fx.filter (·.1 == d)).map fun (_, b, l) => s!"{b} = {l}"))
+      -- variables fixed by an equation hypothesis `f … v = c` (role `=f=c`), shown as `f(v) = c`
+      let eqs := (rl.toList.filter (·.2.startsWith "=")).eraseDups.map fun (v, r) =>
+        match (r.drop 1).toString.splitOn "=" with
+        | f :: rest => s!"{f}({v}) = {"=".intercalate rest}"
+        | [] => r
+      let parts := (fdefs.map fun d =>
+        s!"{d}: " ++ ", ".intercalate ((fx.filter (·.1 == d)).map fun (_, b, l) => s!"{b} = {l}")) ++ eqs
+      let fixedCol := if parts.isEmpty then "—" else "; ".intercalate parts
       rows := rows.push s!"| `{shortH}` | {fmt pins} | {fmt gaps} | {fmt transcr} | {nvCol} | {fixedCol} |"
       logInfo m!"{hn}\n{String.intercalate "\n" lines.toList}"
   -- meaning carried by prose (trust track T2c, run 2026-10-31T1028Z; red-team defects A04, B04,
@@ -789,7 +795,7 @@ run_cmd do
     "## Per headline",
     "",
     "Last column (generated from the statement, run 2026-11-04T1428Z): the explicit arguments of program",
-    "definitions that the statement fixes to numbers. The result is proved for these values only, whatever",
+    "definitions that the statement fixes to numbers, and variables a hypothesis `f(v) = c` fixes. The result is proved for these values only, whatever",
     "the docstring says; universally bound parameters are not listed.",
     "",
     "| Headline | Pinned | Unpinned physics | Transcriptions | Non-vacuity witness | Fixed by the statement |",
