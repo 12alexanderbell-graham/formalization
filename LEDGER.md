@@ -387,3 +387,9 @@ Claims and status changes, failed approaches with root causes, corrections, inte
 - Change 4 (new `scripts/trust/check_trusted_defs.py`, blocking in CI): a "yes"/"is pinned" claim in TRUSTED_DEFINITIONS.md must name a definition and pin theorem that `scripts/trust/pins.txt` lists (F08).
 - Not addressed (open, recorded): F03, F04's STATE half (numbers and scope prose in STATE.md; class A03), F07 (a fraction in a FINDINGS heading: fractions are not certified; T4 "not covered yet").
 - Evaluate (next red team, G): do the four changes hold against defects aimed at them, and is the frozen-docstring rule a cost for honest promotions (count LEDGER lines it forces)?
+
+## 2026-11-04 · run 0628Z · part rotation (part 1) · new method: rigorous simulation (experiment)
+- Decision: part 1's "simulations" link had no checker; this run built one instead of extending parts 2/3/5. Two strikes rule not triggered (no approach failed).
+- Method (experiment): ODE results are proved as enclosures of *every* solution — per-cell rational Taylor polynomial, defect bounded by Σ|cₖ|hᵏ of an exact defect polynomial, a box every solution stays in (energy), Grönwall per cell (Mathlib `dist_le_of_approx_trajectories_ODE_of_mem`), plus an existence theorem so the statement is not vacuous. Generators in `runs/2026-11-04T0628Z/scripts/` (no hand transcription).
+- Freeze 3cf671f; statements unchanged after proof. Core theorem `first_zero_within` (one-sided derivatives) added because the blind restater chose the weaker hypothesis; the frozen theorem is its corollary.
+- Evaluate (next runs): does the generator carry over to another polynomial system with only new certificates (target: one run), and does promotion fit the trust map without a new check class (the IVP predicate needs a pin)?
