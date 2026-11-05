@@ -3,6 +3,7 @@ import Checked.Records.Basic
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
 import Work.Chemistry.PRCore
+import Work.Chemistry.PRExists
 
 /-!
 # Chemistry (THE RESULT part 5): does Peng–Robinson reproduce its own acentric factor? (run 2026-11-05T1228Z)
@@ -71,6 +72,8 @@ theorem pr_omega1_exists (R ac b Tc vc : ℝ) (hac : 0 < ac) (hb : 0 < b) (hvc :
           b 2 (-1) (7 / 10 * Tc)) vl vg ps ∧
       RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 0.0114 4 ∧
       RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 0.942 3 := by
-  sorry
+  -- Proof (run 2026-11-05T1228Z): `Work.Chemistry.PRExists.pr_exists_core` (equal maxima of ψ on
+  -- the liquid and gas windows by the intermediate value theorem, then the window theorem).
+  exact Work.Chemistry.PRExists.pr_exists_core R ac b Tc vc hac hb hvc hc
 
 end Work.Chemistry.PRAcentric

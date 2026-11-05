@@ -92,8 +92,10 @@ import Work.Chemistry.RKAcentricBlind
 import Work.Chemistry.RKAcentricAudit
 import Work.Chemistry.PRReduced
 import Work.Chemistry.PRCore
+import Work.Chemistry.PRExists
 import Work.Chemistry.PRAcentric
 import Work.Chemistry.PRAcentricBlind
+import Work.Chemistry.PRAcentricAudit
 import Work.Fidelity.MaxwellSpec
 import Work.Fidelity.MaxwellMutants
 import Work.Fidelity.MaxwellPin
