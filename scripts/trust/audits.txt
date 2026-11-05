@@ -421,6 +421,8 @@ Work.Data.Moresco16BlindClosed.table4_second_reading
 Work.Data.Moresco16BlindClosed.table5_inconsistent
 Work.Data.Moresco16MinBlindClosed.claimA
 Work.Data.Moresco16MinBlindClosed.claimB
+Work.Data.Moresco16MinNearMiss.aic_reading_attainable
+Work.Data.Moresco16MinNearMiss.near_miss_bound
 Work.Math.LaneEmdenAudit.blind_closed
 Work.Math.LaneEmdenAudit.nonvacuous
 Work.Math.LaneEmdenNearMiss.mutant_n1
