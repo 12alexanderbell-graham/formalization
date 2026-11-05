@@ -269,3 +269,8 @@
 - Part 2 (with part 5): **PR with the revised (1978) κ(ω) at ω = 1 has acentric factor 1.000** (p_s/P_c = 0.0100), every critical point and coexistence state, existence — frozen 7bcfeb8, proved by regenerated certificates 529cd99, blind restatement closed, referee STANDS-WITH-CORRECTIONS, promoted to `Checked/Chemistry/PR78Acentric.lean` (CI: next run).
 - Candidate C31: Cantera's coded coefficients of the same correlation differ in two digits and give 0.998 (`Work/Chemistry/PRCanteraAcentric.lean`, PROVED in Work); the consensus coefficients are self-consistent to 10⁻⁴ over ω ∈ [0.6, 1.5] (floating point).
 - PROMPT working note: sibling claims by parametrised generators.
+
+## 2026-11-05T2028Z (scheduled run)
+- Env: no LOCK; checkout reset to origin/main; local Lean via elan + cache (full Checked build ≈ 44 min). CI: run 1828Z's promotion 414e080 42098722467 green on every job — `pr78_omega1_unique`, `pr78_omega1_exists` PROVED.
+- Part 1: `claim_baseline.txt` 28 → 0 and `formula_baseline.txt` 11 → 0. Blind Sonnet second readings (typeset only) of every grandfathered CLAIM's inline data (incl. the formulas behind F1, F2, F9) and of `dQFlat`, `jL`; blind second formulations of the seven remaining formulas (the F9 correction of (11.31) re-derived from the field equations) and of `margChiSq` for every σ. All agree (`Checked/Trust/TranscriptionsClaims.lean`, `Formulations{D,E}.lean`). CLAIMS.md marks CLAIMs read twice. 48 closed audit theorems registered in `audits.txt`.
+- PROMPT working note: empty a baseline while a build runs.

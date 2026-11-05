@@ -125,3 +125,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Peng–Robinson with the revised (1978) κ at ω = 1, `Checked/Chemistry/PR78{Reduced,Core,Exists,Acentric}.lean` (run 2026-11-05T1828Z)
 - Same route as the 1228Z PR modules, regenerated for κ(1) = 1716915/10⁶ by `runs/2026-11-05T1828Z/scripts/` (gen_pr78.py, emit_pr78*.py); promoted by `promote_pr78.py`.
 - `PR78Acentric`: headlines `pr78_omega1_unique`, `pr78_omega1_exists`. Audit `Work/Chemistry/PR78AcentricAudit.lean`. Work-only sibling `Work/Chemistry/PRCantera{Reduced,Core,Exists,Acentric}.lean` (Cantera coded κ; candidate C31).
+
+## Second readings of source claims and the last baselined formulas, `Checked/Trust/` (run 2026-11-05T2028Z)
+- `SecondReadingClaims{A,B,C}.lean`: blind readers' data (verbatim from `runs/2026-11-05T2028Z/second_reading_claims/`); `SecondReadingClaims.lean`: the 28 grandfathered CLAIMs and `dQFlat` with those data substituted (generated, `runs/2026-11-05T2028Z/scripts/gen_claim_readings.py`); `TranscriptionsClaims.lean`: 30 agreements.
+- `SecondFormulation{D,E}.lean` (blind, briefs `runs/2026-11-05T2028Z/blind_formulation/brief{D,E}.md`); `Formulations{D,E}.lean`: `agree_{RoundsTo,coshBounce,eta20Of,eta30Of,Jfam,remA,correctR,margChiSq}`.
+- `scripts/trust/claim_baseline.txt`, `formula_baseline.txt`: empty (headers only).

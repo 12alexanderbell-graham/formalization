@@ -12,4 +12,26 @@
 - Bottleneck: part 1 by rotation. Candidates in STATE (FR13 bridge to `IsFlatLCDM`, stiff Robertson network, Moresco four-decimal minimum) against the trust map's own list of links without evidence (`claim_baseline.txt` 28, `formula_baseline.txt` 11). Chosen: the baselines — they are links the system itself declares unchecked, three of them under verified findings already reported to Alexander; a yes empties both lists, a disagreement would be a transcription error inside a reported finding.
 
 ## Work
-(filled at the end)
+1. **Inventory** (`claim_baseline.txt`, `formula_baseline.txt`): of the 28 CLAIMs, 4 carry genuine inline formulas (Aviles l₀, m₀; CLS l₀; Bamba (11.13)), 2 the normalisation of (11.21), 22 only the order of a printed series (the exponent of the remainder and zero placeholders); of the 11 baselined definitions, 2 PRINTED (`dQFlat`, `jL`), 9 FORMULA/MATH/WITNESS.
+2. **Blind second readings** in one message (Sonnet; `second_reading_claims/BRIEF_COMMON.md` + `BRIEF_A.md`, `BRIEF_B.md`, later `BRIEF_C.md`): readers saw only typeset crops and their own renders of arxiv.org/pdf (all versions). They report raw printed data (formula; power of the prefactor; last printed power), not the program's reading. Each took 2–3 min. Side observations, unprompted: reader A found the printed Aviles l₀, m₀ inconsistent with Einstein–de Sitter (F1); reader B found the printed (11.13) nonzero in de Sitter (F9/C11) and that the d_L(y), d_A(y) series are printed only as coefficients (the Underspecified reading recorded for C5).
+3. **Generated claims** `scripts/gen_claim_readings.py`: each program claim's text with each source-dependent datum replaced by the reader's constant (every replacement matched once; truncations below the last printed order written `Last − k`). Agreements: 28 by `rfl`, the two (11.21) claims by `simp only [… , neg_one_mul]`. Mutation check: `cvdQ59Last := 3` or `bambaF0Norm := 3` breaks four agreements.
+4. **Blind second formulations** (`blind_formulation/briefD.md`, `briefE.md`): D wrote seven definitions in ≈ 3 min, deriving `correctR` from the F(R) field equations with sympy (it equals the program's proposed correction of (11.31) term by term: an independent derivation of F9's correction by a different model); E wrote `margChiSq` with prior s.d. |σ|, which agrees for every σ (the 0828Z formulation only for σ > 0).
+5. **Integration**: modules in `Checked/Trust/`, baselines emptied, `scripts/trust/Claims.lean` extended (CLAIMs with a second reading say so), relock (104 new entries, none changed), TRUST_MAP, CLAIMS.md, packet. Commit 48c7e7d.
+6. **Audits registered**: the 48 theorems of `Work/Data/FR13Audit.lean`, `Work/Chemistry/RKAcentricAudit.lean`, `Work/Cosmography/B1L19CurvedAudit.lean` added to `scripts/trust/audits.txt` (STATE next step 5 of run 1828Z).
+
+## CI
+- Read: 1828Z commits 529cd99, ecf67d2, db8d795, 85ab963 green; **promotion 414e080 42098722467 green on every job** (build 17 min, nanoda 19 min, trust step 7 min): `pr78_omega1_unique`, `pr78_omega1_exists` PROVED.
+- bb14609 (1828Z records), da1be87 (LOCK), 48c7e7d (baselines) and the records commit: in progress at the close, read next run.
+
+## Measurement
+| | before | after |
+|---|---|---|
+| grandfathered links without independent evidence (claim + formula baselines) | 39 | 0 |
+| PRINTED definitions with a blind second reading | 42/44 | 44/44 |
+| FORMULA/MATH/WITNESS definitions with a blind second formulation | 23/31 | 31/31 |
+| CLAIMs whose inline data were read twice | 0/28 | 28/28 |
+| disagreements found | — | 0 |
+| registered closed audit theorems | 463 | 511 |
+
+## Next step
+See STATE.md "Exact next step".
