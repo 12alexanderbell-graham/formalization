@@ -2,6 +2,8 @@ import Mathlib
 import Checked.Records.Basic
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
+import Work.Chemistry.PR78Core
+import Work.Chemistry.PR78Exists
 
 /-!
 # Chemistry: does the Robinson–Peng 1978 revision of κ(ω) make Peng–Robinson reproduce its own acentric factor? (run 2026-11-05T1828Z)
@@ -49,7 +51,10 @@ theorem pr78_omega1_unique (R ac b Tc vc vl vg ps : ℝ) (hac : 0 < ac) (hb : 0 
         (1 - Real.sqrt (7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)) vl vg ps) :
     RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 0.0100 4 ∧
       RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 1.000 3 := by
-  sorry
+  -- Proof (run 2026-11-05T1828Z): `Work.Chemistry.PR78Core.pr78_unique_core` (the route of
+  -- `Checked.Chemistry.PRCore.pr_unique_core` with certificates regenerated for the 1978 κ by
+  -- `runs/2026-11-05T1828Z/scripts/gen_pr78.py`).
+  exact Work.Chemistry.PR78Core.pr78_unique_core R ac b Tc vc vl vg ps hac hb hvc hc hl h
 
 /-- Peng–Robinson fluid with Soave's temperature function and the Robinson–Peng 1978 κ(ω) at
 ω = 1: at any critical point (v_c > b) there is a Maxwell coexistence state at T = 0.7 T_c with
@@ -63,6 +68,8 @@ theorem pr78_omega1_exists (R ac b Tc vc : ℝ) (hac : 0 < ac) (hb : 0 < b) (hvc
           (1 - Real.sqrt (7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)) vl vg ps ∧
       RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 0.0100 4 ∧
       RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 1.000 3 := by
-  sorry
+  -- Proof (run 2026-11-05T1828Z): `Work.Chemistry.PR78Exists.pr78_exists_core` (equal maxima of ψ
+  -- on the liquid and gas windows by the intermediate value theorem, then the window theorem).
+  exact Work.Chemistry.PR78Exists.pr78_exists_core R ac b Tc vc hac hb hvc hc
 
 end Work.Chemistry.PR78Acentric

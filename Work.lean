@@ -94,7 +94,12 @@ import Work.Chemistry.PRReduced
 import Work.Chemistry.PRCore
 import Work.Chemistry.PRExists
 import Work.Chemistry.PRAcentric
+import Work.Chemistry.PR78Reduced
+import Work.Chemistry.PR78Core
+import Work.Chemistry.PR78Exists
 import Work.Chemistry.PR78Acentric
+import Work.Chemistry.PR78AcentricBlind
+import Work.Chemistry.PR78AcentricAudit
 import Work.Chemistry.PRAcentricBlind
 import Work.Chemistry.PRAcentricAudit
 import Work.Fidelity.MaxwellSpec
