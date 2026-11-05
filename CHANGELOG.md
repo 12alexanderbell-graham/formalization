@@ -244,3 +244,8 @@
 ## 2026-11-05T0828Z (scheduled run)
 - Env: repo ok (detached HEAD reset to origin/main); local Lean via elan + cache (full Checked build ≈ 50 min). CI of run 0628Z's later commits: in progress at start (STATE).
 - Part 3: definition labels machine-checked (red team J follow-up). FORMULA/MATH/WITNESS/PRINTED definitions behind headlines need a blind second formulation/reading proved equal in Lean or a line in the shrink-only `scripts/trust/formula_baseline.txt`; COMPOSITE/CLAIM bodies only listed definitions; SPEC must pin; unknown labels fail. Blind second formulations (Sonnet, sympy) for 21 definitions, 20 agree, `margChiSq` only for σ > 0. CLAIMS.md shows the agreement per formula.
+
+## 2026-11-05T1028Z (scheduled run)
+- Env: LOCK of run 0828Z → auditor role until 10:39Z (probe read: `decide +kernel` passes the checked job once relocked). Local Lean via elan + cache.
+- Parts 1, 2: Moresco et al. 2016 data claims and the certified χ² minimum promoted to Checked (`Checked/Data/Moresco16*.lean`, 10 headlines; cover by `decide +kernel`); `m16Table` second reading, blind second formulations of `e2OL`, `chiSqOL`, `chiSqLine` (all agree); NV witnesses; relock; CLAIMS.md; packet. Audit `Work/Data/Moresco16PromotionAudit.lean`.
+- Claims.lean: PRINTED definitions with an independent second reading say so in CLAIMS.md.

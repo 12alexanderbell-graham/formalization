@@ -110,3 +110,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `SecondFormulation.lean` (blind, chemistry/data), `SecondFormulationCosmo.lean` (blind, sympy-derived series coefficients; uses `SecondReading.D1…`, `P0…Q3`): copied verbatim from `runs/2026-11-05T0828Z/blind/`.
 - `Formulations.lean`: `agree_<name> : @program = @SecondFormulation.<name>` for 20 definitions (generated, `runs/2026-11-05T0828Z/scripts/gen_formulations.py`); `FormulationsCond.agree_margChiSq_pos` (σ > 0 only).
 - Rules in `scripts/trust/StatementDeps.lean` (labels FORMULA/MATH/WITNESS/PRINTED need agreements or baseline; COMPOSITE/CLAIM structural; SPEC used by a pin; label whitelist), baseline guard `scripts/trust/check_formulas.py`, baseline `scripts/trust/formula_baseline.txt`; CLAIMS.md wording in `scripts/trust/Claims.lean` (`explain`).
+
+## Moresco 2016 in Checked, `Checked/Data/Moresco16*.lean`, `Checked/Trust/*M16.lean` (run 2026-11-05T1028Z)
+- `Moresco16Certs`, `Moresco16`, `Moresco16Lower`, `Moresco16MinTools`, `Moresco16MinCerts0–3`, `Moresco16MinCover`, `Moresco16Min`: the Work modules of runs 0428Z/0628Z, copied by `runs/2026-11-05T1028Z/scripts/promote_m16.py` (namespace Checked.Data, specific imports), module docs by `moddocs_m16.py`.
+- `SecondReadingM16` (blind restater's table), `TranscriptionsM16.agree_m16Table`; `SecondFormulationM16` (blind, brief `runs/2026-11-05T1028Z/blind/briefM.md`), `FormulationsM16.agree_{e2OL,chiSqOL,chiSqLine}`.
+- `Work/Data/Moresco16PromotionAudit.lean`: Work = Checked definitions (rfl); blind claims from the Checked headline.
