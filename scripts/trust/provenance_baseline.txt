@@ -1,0 +1,11 @@
+# Second readings/formulations in Checked/Trust with no copy under runs/ whose code is identical
+# (scripts/trust/check_provenance.py, rule 4; run 2026-11-05T2228Z). All six predate the rule: their
+# readers wrote into Work/ (namespace Work...) and the program copied them with a namespace change, or
+# wrote them under another file name. Shrink-only (check_provenance.py --base): a module listed here
+# that changes must get its runs/ copy and leave this list.
+Checked/Trust/SecondReading.lean       # reader copy: Work/Trust/SecondReading.lean (namespace differs)
+Checked/Trust/SecondReadingB1.lean     # reader copy: Work/Trust/SecondReadingB1.lean
+Checked/Trust/SecondReadingFR.lean     # reader copy: Work/Trust/SecondReadingFR.lean
+Checked/Trust/SecondReadingFR13.lean   # reader copy: runs/2026-11-04T1628Z/second_reading/FR13Table2.lean (renamed)
+Checked/Trust/SecondReadingL19.lean    # reader copy: Work/Trust/SecondReadingL19.lean (code identical, under Work/)
+Checked/Trust/SecondReadingM16.lean    # reader copy: the blind restater's transcription in Work/Data (renamed)

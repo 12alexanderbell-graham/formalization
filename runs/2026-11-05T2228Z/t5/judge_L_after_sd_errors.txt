@@ -1,0 +1,4 @@
+scripts/trust/StatementDeps.lean:520:0: error: statement-dependency registry errors:
+transcription agreement Checked.Trust.Transcriptions.agree_AvilesL0DropClaim is not `program constant = Checked.Trust.SecondReading* constant` with an independent right-hand side (a second reading must not reach the transcription it checks; an agreement of two propositions must be proved without program theorems: two false claims are equal by propext)
+CLAIM Checked.Cosmography.AvilesL0Drop.AvilesL0DropClaim writes its formula inline (numerals) with no machine-checked blind second reading of the source (Checked/Trust/Transcriptions*.lean): an inline formula attributed to a source is a transcription
+CLAIM Checked.Cosmography.AvilesJ0.AvilesJ0Claim writes its formula inline (numerals) with no machine-checked blind second reading of the source (Checked/Trust/Transcriptions*.lean): an inline formula attributed to a source is a transcription

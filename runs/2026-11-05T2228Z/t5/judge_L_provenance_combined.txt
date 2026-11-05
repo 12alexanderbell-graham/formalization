@@ -1,0 +1,16 @@
+rule 2: Checked/Trust/TranscriptionsClaimsD.lean agree_AvilesS0Claim: the CLAIM Checked.Cosmography.AvilesS0.AvilesS0Claim is compared with a hand-written module (['Checked.Trust.SecondReading.AvilesS0Claim']); claim readings must go through scripts/trust/gen_claim_readings.py
+rule 2: Checked/Trust/TranscriptionsClaimsDrop.lean agree_AvilesL0DropClaim compares with the generated module; only TranscriptionsClaims.lean may
+rule 2: Checked.Trust.SecondReading.AvilesL0Claim is not Checked.Cosmography.AvilesL0Drop.AvilesL0DropClaim with reader data substituted: changed tokens 'def AvilesL0DropClaim' -> 'def AvilesL0Claim' without a reader constant
+rule 2: Checked/Trust/TranscriptionsClaimsRoot.lean agree_AvilesM0RootClaim: the CLAIM Checked.Cosmography.AvilesM0Root.AvilesM0RootClaim is compared with a hand-written module (['Checked.Trust.SecondReading.AvilesM0RootClaim']); claim readings must go through scripts/trust/gen_claim_readings.py
+rule 3: Checked/Trust/SecondFormulationG.lean mentions the program constant Checked.Chemistry.BoyleTemperature.vdwInversionTemp (label none); a second version may use only pinned, SPEC or independently evidenced program definitions
+rule 3: Checked/Trust/SecondFormulationG.lean: Checked.Trust.SecondFormulationG.boyleTemperature is an alias of the program constant Checked.Chemistry.BoyleTemperature.vdwInversionTemp (a second version must be written out, not renamed)
+rule 3: Checked/Trust/SecondReadingCVdQJournal.lean: Checked.Trust.SecondReading.printedQ2Journal is an alias of the program constant Checked.Cosmography.CVdQ.correctQ2 (a second version must be written out, not renamed)
+rule 4: Checked/Trust/SecondFormulationG.lean has no copy under runs/ with identical code (the reader's own output, next to its brief)
+rule 4: Checked/Trust/SecondReadingCVdQJournal.lean has no copy under runs/ with identical code (the reader's own output, next to its brief)
+rule 4: Checked/Trust/SecondReadingClaimsD.lean has no copy under runs/ with identical code (the reader's own output, next to its brief)
+rule 4: Checked/Trust/SecondReadingClaimsRoot.lean has no copy under runs/ with identical code (the reader's own output, next to its brief)
+rule 4: Checked/Trust/SecondFormulationG.lean added or changed against efad54c with no copy under runs/ with identical code
+rule 4: Checked/Trust/SecondReadingCVdQJournal.lean added or changed against efad54c with no copy under runs/ with identical code
+rule 4: Checked/Trust/SecondReadingClaimsD.lean added or changed against efad54c with no copy under runs/ with identical code
+rule 4: Checked/Trust/SecondReadingClaimsRoot.lean added or changed against efad54c with no copy under runs/ with identical code
+check_provenance: 19 second-version modules, 6 baselined; FAIL

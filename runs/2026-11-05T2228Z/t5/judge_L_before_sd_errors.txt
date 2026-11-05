@@ -1,0 +1,2 @@
+scripts/trust/StatementDeps.lean:483:0: error: statement-dependency registry errors:
+CLAIM Checked.Cosmography.AvilesJ0.AvilesJ0Claim writes its formula inline (numerals) with no machine-checked blind second reading of the source (Checked/Trust/Transcriptions*.lean): an inline formula attributed to a source is a transcription
