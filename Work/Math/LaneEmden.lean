@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.LEChain
 
 /-!
 # Mathematics (THE RESULT part 5): the constants of the Lane–Emden polytrope of index 3,
@@ -44,6 +45,41 @@ theorem laneEmden3_constants (θ φ : ℝ → ℝ)
       2.018235945 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.018235955 ∧
       54.1824805 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
       ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 54.1824815 := by
-  sorry
+  obtain ⟨hneg, hlo, hhi, hom⟩ := Work.Math.LECerts.chain hθ hφ0 hφ h0
+  have hcont : ContinuousOn θ (Icc 0 7) := fun x hx => (hθ x hx).continuousWithinAt
+  have hanti : StrictAntiOn θ (Icc 0 (55174789 / 8000000 : ℝ)) := by
+    apply strictAntiOn_of_deriv_neg (convex_Icc 0 _)
+      (hcont.mono (Icc_subset_Icc le_rfl (by norm_num)))
+    intro x hx
+    rw [interior_Icc] at hx
+    have hx7 : x ∈ Ioo (0 : ℝ) 7 := ⟨hx.1, by linarith [hx.2]⟩
+    have hd : HasDerivAt θ (φ x) x :=
+      (hθ x (Ioo_subset_Icc_self hx7)).hasDerivAt (Icc_mem_nhds hx7.1 hx7.2)
+    rw [hd.deriv]
+    exact hneg x ⟨hx.1, hx.2.le⟩
+  obtain ⟨ξ₁, hξ₁, hz⟩ : ∃ ξ₁ ∈ Icc (1379369723 / 200000000 : ℝ) (55174789 / 8000000),
+      θ ξ₁ = 0 := by
+    have := intermediate_value_Icc' (show (1379369723 / 200000000 : ℝ) ≤ 55174789 / 8000000
+      by norm_num) (hcont.mono (Icc_subset_Icc (by norm_num) (by norm_num)))
+    exact this ⟨hhi.le, hlo.le⟩
+  obtain ⟨ho1, ho2⟩ := hom ξ₁ hξ₁
+  have ha : (6.896848615 : ℝ) ≤ ξ₁ := by norm_num at hξ₁ ⊢; linarith [hξ₁.1]
+  have hb : ξ₁ ≤ (6.896848625 : ℝ) := by norm_num at hξ₁ ⊢; linarith [hξ₁.2]
+  have hω1 : (2.018235945 : ℝ) ≤ -(ξ₁ ^ 2 * φ ξ₁) := by norm_num at ho1 ⊢; linarith
+  have hω2 : -(ξ₁ ^ 2 * φ ξ₁) ≤ (2.018235955 : ℝ) := by norm_num at ho2 ⊢; linarith
+  have hξ0 : 0 ≤ ξ₁ := by linarith
+  have hωpos : 0 < 3 * -(ξ₁ ^ 2 * φ ξ₁) := by linarith
+  refine ⟨ξ₁, ha, hb, hz, fun ξ hξ => ?_, hω1, hω2, ?_, ?_⟩
+  · have hlt := hanti ⟨hξ.1, le_trans hξ.2.le hξ₁.2⟩ ⟨by linarith [hξ₁.1], hξ₁.2⟩ hξ.2
+    rw [hz] at hlt
+    exact hlt
+  · rw [le_div_iff₀ hωpos]
+    have h3 : (6.896848615 : ℝ) ^ 3 ≤ ξ₁ ^ 3 := pow_le_pow_left₀ (by norm_num) ha 3
+    have n : (54.1824805 : ℝ) * (3 * 2.018235955) ≤ 6.896848615 ^ 3 := by norm_num
+    linarith
+  · rw [div_le_iff₀ hωpos]
+    have h3 : ξ₁ ^ 3 ≤ (6.896848625 : ℝ) ^ 3 := pow_le_pow_left₀ hξ0 hb 3
+    have n : (6.896848625 : ℝ) ^ 3 ≤ 54.1824815 * (3 * 2.018235945) := by norm_num
+    linarith
 
 end Work.Math.LaneEmden
