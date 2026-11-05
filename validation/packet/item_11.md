@@ -37,7 +37,7 @@ theorem cosmoCoeffCore_pins (C : ℕ → (ℝ → ℝ) → ℝ → ℝ) (h : Cos
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Chemistry.RKReduced.q`, `Cosmography.CCS.D1`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.CCS.remainder`, `Cosmography.CCS.series`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.CoeffOK`, `Fidelity.CosmoCoeffSpecCore`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.hubble`, `Fidelity.CoeffOK`, `Fidelity.CosmoCoeffSpecCore`
 
 ## What the system checked mechanically
 

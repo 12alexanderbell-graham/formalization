@@ -1,58 +1,52 @@
 # Item 47
 
-**Area:** Chemistry
+**Area:** Rigorous simulation
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`:
+**For every** `x : ℝ → ℝ`:
 
 **assuming**
 
-1. `0 < R`
-2. `0 < a`
-3. `0 < b`
+1. the function `x` solves x″ + `1`·x + `1`·x³ = 0 with x(0) = `1`, x′(0) = `0` on the time interval [0, `6 / 5`] (derivatives taken within [0, `6 / 5`])
 
 **then**
 
-- there is `vl : ℝ` such that there is `vg : ℝ` such that there is `ps : ℝ` such that (`b < vl`) and (the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b)))` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)) and (`RoundsTo (ps / (a / (27 * b ^ 2))) 0.20046 5`) and (`RoundsTo (acentric ps (a / (27 * b ^ 2))) (-0.3020) 4`)
+1. for every `t : ℝ`, if `t ∈ Set.Icc 0 (1192005 / 1000000)`, then `0 < x t`
+2. `x (1192006 / 1000000) < 0`
 
 Program definitions in this claim:
 
-- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `p` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)
-- `RoundsTo x d k` — MATH, not pinned, so only the formula shown is checked, not its name (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `acentric ps pc` — FORMULA, not pinned, so only the formula shown is checked, not its name (for `ps : ℝ`, `pc : ℝ`): is defined as `-Real.logb 10 (ps / pc) - 1`
-- `cubicP R a b u w T v` — FORMULA, not pinned, so only the formula shown is checked, not its name (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
+- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): the function `x` solves x″ + `k`·x + `β`·x³ = 0 with x(0) = `x₀`, x′(0) = `v₀` on the time interval [0, `T`] (derivatives taken within [0, `T`])
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-van der Waals fluid at T = 0.7 · 8a/(27Rb) (that is 0.7 T_c): there is a Maxwell coexistence
-state (liquid volume above the co-volume b), and its pressure is 0.20046 · a/(27b²) (that is
-0.20046 P_c) to five decimals, so the acentric factor of the van der Waals fluid is −0.3020 to four
-decimals.
+Certified first zero of the Duffing oscillator x'' + x + x³ = 0 released from rest at
+x = 1: every solution on the time interval [0, 6/5] (derivatives within the interval) is strictly
+positive at all times in [0, 1.192005] and strictly negative at time 1.192006, so its earliest
+zero lies strictly between 1.192005 and 1.192006. Proved by a validated enclosure of every
+solution (rational Taylor cells, exact defect bounds, energy box, Grönwall).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem vdW_coexistence_exists (R a b : ℝ) (hR : 0 < R) (ha : 0 < a) (hb : 0 < b) :
-    ∃ vl vg ps, b < vl ∧
-      IsMaxwellCoexistence (cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b)))) vl vg ps ∧
-      RoundsTo (ps / (a / (27 * b ^ 2))) 0.20046 5 ∧
-      RoundsTo (acentric ps (a / (27 * b ^ 2))) (-0.3020) 4 := …
+theorem duffing_first_zero_sol (x : ℝ → ℝ) (hx : IsDuffingSolution 1 1 1 0 (6 / 5) x) :
+    (∀ t ∈ Icc (0 : ℝ) (1192005 / 1000000), 0 < x t) ∧ x (1192006 / 1000000) < 0 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.Coexistence.acentric`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
+See GLOSSARY.md: `Sim.Duffing.IsDuffingSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsMaxwellCoexistence.
+- Definitions pinned by a machine-checked specification: IsDuffingSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `vdW_coexistence_exists`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 0, w = 0; RoundsTo: d = 0.20046, k = 5, d = -0.3020, k = 4.
-- Source file: `Checked/Chemistry/Coexistence.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `duffing_first_zero_sol`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5.
+- Source file: `Checked/Sim/Duffing.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 47

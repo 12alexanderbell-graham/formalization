@@ -38,9 +38,10 @@ theorem glue {fL fR d : ℝ → ℝ} {x : ℝ} (hx : x ∈ Icc (0 : ℝ) 7) (heq
   · refine (hR' h.le).mono_of_mem_nhdsWithin
       (mem_nhdsWithin.2 ⟨Ioi (1 / 2), isOpen_Ioi, h, fun y hy => ⟨le_of_lt hy.1, hy.2.2⟩⟩)
 
-/-- Existence: a θ, φ on [0, 7] satisfying every hypothesis of
-`Work.Math.LaneEmden.laneEmden3_constants` (θ' = φ within [0, 7], φ continuous at 0,
-φ' = −(2/ξ)φ − θ³ on (0, 7], θ(0) = 1). -/
+/-- There exist θ, φ with θ differentiable within [0, 7] with derivative φ, φ continuous at 0,
+φ' = −(2/ξ)φ − θ³ on (0, 7] and θ(0) = 1: the hypotheses of the Lane–Emden headline
+`Work.Math.LaneEmden.laneEmden3_constants` are satisfied together (a solution regular at the centre
+exists). -/
 theorem exists_solution : ∃ θ φ : ℝ → ℝ,
     (∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ) ∧
     ContinuousWithinAt φ (Icc 0 7) 0 ∧

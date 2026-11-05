@@ -46,14 +46,6 @@ volume `v`, `P = R T/(v − b) − a/(v² + u b v + w b²)`.
 noncomputable def cubicP (R a b u w T v : ℝ) : ℝ := R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)
 ```
 
-## `Chemistry.RKReduced.q`
-
-
-
-```lean
-def q (θ x : ℝ) : ℝ := (2 * x + 1) * (x - 1) ^ 2 - θ * (x ^ 2 + x) ^ 2
-```
-
 ## `Cosmography.Aviles.AvilesL0Claim`
 
 The printed claim for `l₀` (frozen verbatim from Eq. (15)).
@@ -95,14 +87,6 @@ def IsFlatLCDM (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : Prop :=
 ```lean
 noncomputable def cosmoCoeff (n : ℕ) (a : ℝ → ℝ) (t : ℝ) : ℝ :=
   iteratedDeriv n a t / (a t * hubble a t ^ n)
-```
-
-## `Cosmography.B1.gL`
-
-
-
-```lean
-noncomputable def gL (Ω v : ℝ) : ℝ := 2 / √(Ω + (1 - Ω) * v ^ 6)
 ```
 
 ## `Cosmography.B1.logPolyDL3`
@@ -847,14 +831,6 @@ noncomputable def rhoM (Ω : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   3 * hubble a t₀ ^ 2 * Ω * (a t₀ / a t) ^ 3
 ```
 
-## `Cosmography.FREta.Jfam`
-
-`j₀ − q₀ − 2` on the family.
-
-```lean
-noncomputable def Jfam (Ω ε : ℝ) : ℝ := jL * (1 + ε) - qL Ω * (1 + ε) - 2
-```
-
 ## `Cosmography.FREta.PrintedEta30Claim`
 
 Printed (11.43) as a first-order statement, for every `0 < Ω < 1` where it is defined.
@@ -1217,23 +1193,6 @@ v′ = −k·x − β·x³ at every time in [0, T], and x(0) = x₀, v(0) = v₀
 def IsDuffingSolution (k β x₀ v₀ T : ℝ) (x : ℝ → ℝ) : Prop :=
   x 0 = x₀ ∧ ∃ v : ℝ → ℝ, v 0 = v₀ ∧ ∀ t ∈ Icc 0 T,
     HasDerivWithinAt x (v t) (Icc 0 T) t ∧ HasDerivWithinAt v (-k * x t - β * x t ^ 3) (Icc 0 T) t
-```
-
-## `Sim.DuffingExists.G`
-
-Clamped Duffing field.
-
-```lean
-noncomputable def G (p : ℝ × ℝ) : ℝ × ℝ :=
-  (cl (13 / 10) p.2, -(cl (11 / 10) p.1 + cl (11 / 10) p.1 ^ 3))
-```
-
-## `Sim.DuffingExists.cl`
-
-Clamp of `y` to [−c, c].
-
-```lean
-noncomputable def cl (c y : ℝ) : ℝ := max (-c) (min c y)
 ```
 
 ## `Sim.MichaelisMenten.IsMMSolution`

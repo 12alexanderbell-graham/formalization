@@ -175,3 +175,6 @@ Checked.Data.FR13.fr13_minval68
 Checked.Data.FR13.fr13_minval738
 Checked.Data.FR13.fr13_zda68
 Checked.Data.FR13.fr13_zda738
+# Mathematics: Lane–Emden polytrope of index 3 (run 2026-11-05T0228Z)
+Checked.Math.LaneEmden.laneEmden3_constants
+Checked.Math.LEExists.exists_solution

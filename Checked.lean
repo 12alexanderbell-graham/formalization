@@ -70,3 +70,14 @@ import Checked.Sim.MMPin
 import Checked.Fidelity.MMSpec
 import Checked.Fidelity.DuffingSpec
 import Checked.Data.FR13
+import Checked.Math.LEStart
+import Checked.Math.LECell
+import Checked.Math.LECerts
+import Checked.Math.LECerts1
+import Checked.Math.LECerts2
+import Checked.Math.LECerts3
+import Checked.Math.LEChain
+import Checked.Math.LaneEmden
+import Checked.Math.LEExistsRight
+import Checked.Math.LEExistsLeft
+import Checked.Math.LEExists

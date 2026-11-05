@@ -38,6 +38,8 @@ import Checked.Cosmography.B1L19
 import Checked.Data.FR13
 import Checked.Chemistry.RKAcentric
 import Checked.Cosmography.B1L19Curved
+import Checked.Math.LaneEmden
+import Checked.Math.LEExists
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -574,5 +576,13 @@ theorem rk_coexistence_unique : nonvacuity% Checked.Chemistry.RKAcentric.rk_coex
     1 (Real.sqrt Tc) 1 Tc vc one_pos (Real.sqrt_pos.2 hT) one_pos hT hv hc
   exact ⟨1, Real.sqrt Tc, 1, Tc, vc, vl, vg, ps, one_pos, Real.sqrt_pos.2 hT, one_pos, hT, hv, hc,
     hl, h, trivial⟩
+
+/-! ### Lane–Emden index three (run 2026-11-05T0228Z): the solution regular at the centre
+constructed in `Checked.Math.LEExists.exists_solution` (Banach fixed point of the Volterra map at
+the centre, Picard–Lindelöf after, glued). -/
+
+theorem laneEmden3_constants : nonvacuity% Checked.Math.LaneEmden.laneEmden3_constants := by
+  obtain ⟨θ, φ, hθ, hφ0, hφ, h0⟩ := Checked.Math.LEExists.exists_solution
+  exact ⟨θ, φ, hθ, hφ0, hφ, h0, trivial⟩
 
 end Checked.Trust.NV

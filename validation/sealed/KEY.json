@@ -69,15 +69,15 @@
   },
   {
    "item": 3,
-   "headline": "Checked.Cosmography.B1Fit.fit_direction"
+   "headline": "Checked.Cosmography.B1FitRL19.rl19_box_unmatched"
   },
   {
    "item": 4,
-   "headline": "Checked.Cosmography.B1L19.l19_sqg_central"
+   "headline": "Checked.Chemistry.CubicEOS.exists_unique_critical"
   },
   {
    "item": 5,
-   "headline": "Checked.Sim.Duffing.duffing_solution_exists"
+   "headline": "Checked.Sim.MichaelisMenten.mm_solution_exists"
   },
   {
    "item": 7,
@@ -89,7 +89,7 @@
   },
   {
    "item": 10,
-   "headline": "Checked.Chemistry.RKAcentric.rk_coexistence_unique"
+   "headline": "Checked.Chemistry.Coexistence.vdW_coexistence_unique"
   },
   {
    "item": 11,
@@ -105,7 +105,7 @@
   },
   {
    "item": 14,
-   "headline": "Checked.Records.F10_family_pole"
+   "headline": "Checked.Cosmography.B1.cubic_shape_miss"
   },
   {
    "item": 16,
@@ -121,19 +121,19 @@
   },
   {
    "item": 19,
-   "headline": "Checked.Cosmography.B1FitRL19.rl19_box_unmatched"
+   "headline": "Checked.Cosmography.B1L19.l19_sq_box"
   },
   {
    "item": 20,
-   "headline": "Checked.Data.FR13.fr13_zda68"
+   "headline": "Checked.Data.FR13.fr13_exists738"
   },
   {
    "item": 21,
-   "headline": "Checked.Chemistry.CubicEOS.vdW_constants"
+   "headline": "Checked.Chemistry.RKAcentric.rk_coexistence_unique"
   },
   {
    "item": 22,
-   "headline": "Checked.Chemistry.Coexistence.vdW_coexistence_unique"
+   "headline": "Checked.Chemistry.RKAcentric.rk_coexistence_exists"
   },
   {
    "item": 24,
@@ -157,7 +157,7 @@
   },
   {
    "item": 30,
-   "headline": "Checked.Cosmography.B1Sep.cubic_separation"
+   "headline": "Checked.Cosmography.B1Fit.fit_direction"
   },
   {
    "item": 31,
@@ -181,7 +181,7 @@
   },
   {
    "item": 36,
-   "headline": "Checked.Data.FR13.fr13_zda738"
+   "headline": "Checked.Math.LEExists.exists_solution"
   },
   {
    "item": 37,
@@ -189,11 +189,11 @@
   },
   {
    "item": 38,
-   "headline": "Checked.Chemistry.CubicEOS.exists_unique_critical"
+   "headline": "Checked.Chemistry.CubicEOS.vdW_constants"
   },
   {
    "item": 40,
-   "headline": "Checked.Cosmography.B1L19.l19_sq_box"
+   "headline": "Checked.Cosmography.B1L19Curved.l19_sqg_curved"
   },
   {
    "item": 41,
@@ -213,7 +213,7 @@
   },
   {
    "item": 47,
-   "headline": "Checked.Chemistry.Coexistence.vdW_coexistence_exists"
+   "headline": "Checked.Sim.Duffing.duffing_first_zero_sol"
   },
   {
    "item": 48,
@@ -221,7 +221,7 @@
   },
   {
    "item": 49,
-   "headline": "Checked.Sim.MichaelisMenten.mm_solution_exists"
+   "headline": "Checked.Data.FR13.fr13_zda68"
   },
   {
    "item": 50,

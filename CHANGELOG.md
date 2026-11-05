@@ -224,3 +224,9 @@
 - Part 5, first mathematics result: Lane–Emden n = 3 constants (ξ₁, ω₃, ρ_c/ρ̄) for every solution, `Work/Math/LaneEmden.lean`, PROVED in Work (local build, standard axioms); singular start `LEStart.lean`, time-dependent tube cell `LECell.lean`, 90 generated cells; blind restatement closed (`LEBlindBridge.lean`); referee STANDS (`runs/2026-11-05T0028Z/referee_le3.md`). Existence and Checked promotion next.
 - Process fix: run README stub with the THE RESULT line in the first commit of a run (goal guard had failed on intermediate commits of run 2228Z).
 
+
+## 2026-11-05T0228Z (scheduled run)
+- Env: repo ok (detached HEAD reset to origin/main); local Lean via elan + cache; CI of run 0028Z green on all three commits.
+- Part 5: existence of a Lane–Emden n = 3 solution regular at the centre (`Work/Math/LEExists*.lean`: Banach fixed point of the scaled Volterra map near the centre, Picard–Lindelöf with a dissipative clamped energy after, glued), CI 41957394569 green.
+- Promotion to `Checked/Math/` (eleven modules, `runs/2026-11-05T0228Z/scripts/promote_le.py`): headlines `Checked.Math.LaneEmden.laneEmden3_constants` and `Checked.Math.LEExists.exists_solution`, NV witness, relock, CLAIMS.md and packet regenerated; audit `Work/Math/LaneEmdenAudit.lean` registered. Local: full Checked build, trust step 153/153, NV 99/99.
+- PROMPT working notes: existence at a regular singular point; promotion by script (min_imports trap, module-doc and docstring rules).

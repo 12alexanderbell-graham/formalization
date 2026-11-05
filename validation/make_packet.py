@@ -65,6 +65,28 @@ def index_decls():
                 idx.setdefault(full, (p, i, m.group(1)))
     return idx
 
+_IMPORTS = {}
+
+def visible_files(path):
+    """the Checked files a Lean file can see: itself and its transitive `import Checked.…` closure
+    (run 2026-11-05T0228Z: a short name in a statement or definition body may only resolve to a
+    definition Lean could see there; before, binder names such as `A`, `g`, `G` resolved to unrelated
+    definitions of modules the headline does not import, e.g. the Duffing field in item 18)"""
+    path = Path(path)
+    if path in _IMPORTS:
+        return _IMPORTS[path]
+    seen, todo = {path}, [path]
+    while todo:
+        q = todo.pop()
+        for l in q.read_text().splitlines():
+            m = re.match(r"^import\s+(Checked\.\S+)", l)
+            if m:
+                f = ROOT / (m.group(1).replace(".", "/") + ".lean")
+                if f.exists() and f not in seen:
+                    seen.add(f); todo.append(f)
+    _IMPORTS[path] = seen
+    return seen
+
 def resolve(idx, name, kinds):
     cands = [f for f, v in idx.items() if v[2] in kinds and (f == name or f.endswith("." + name))
              and "Checked.Trust" not in f and not f.startswith("Trust.")]
@@ -76,8 +98,9 @@ def resolve(idx, name, kinds):
 def resolve_rel(idx, name, kinds, ctx):
     """resolve a short definition name seen in the statement of headline `ctx`: among the
     candidates, the one whose namespace shares the longest prefix with ctx"""
+    vis = visible_files(idx[ctx][0])
     cands = [f for f, v in idx.items() if v[2] in kinds and (f == name or f.endswith("." + name))
-             and not f.startswith("Checked.Trust.")]
+             and not f.startswith("Checked.Trust.") and v[0] in vis]
     if not cands:
         raise SystemExit(f"cannot resolve {name}")
     def common(f):
@@ -103,12 +126,18 @@ DEF_KINDS = {"def", "abbrev", "structure", "inductive"}
 def def_closure(idx, text, ctx, seen=None):
     """program definitions mentioned in `text` (a statement or a definition body), transitively"""
     seen = set() if seen is None else seen
+    # comments are not code (run 2026-11-05T0228Z): the comment "8πG/3 = 1" in the body of
+    # `Checked.Fidelity.FriedmannCPL` made the token `G` pull the unrelated Duffing field
+    # `Checked.Sim.DuffingExists.G` (and its `cl`) into item 18's glossary
+    text = re.sub(r"/-.*?-/", " ", text, flags=re.S)
+    text = re.sub(r"--[^\n]*", " ", text)
     for tok in set(TOKEN.findall(text)):
         tok = tok.strip(".")
         if not tok or tok[0].isdigit():
             continue
+        vis = visible_files(idx[ctx][0])
         if not any(v[2] in DEF_KINDS and (f == tok or f.endswith("." + tok)) and not f.startswith("Checked.Trust.")
-                   for f, v in idx.items()):
+                   and v[0] in vis for f, v in idx.items()):
             continue
         full = resolve_rel(idx, tok, DEF_KINDS, ctx)
         if full in seen:

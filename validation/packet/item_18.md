@@ -34,7 +34,7 @@ theorem flatCPL_pins (P : ℝ → ℝ → ℝ → (ℝ → ℝ) → ℝ → Prop
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannCPL`, `Sim.DuffingExists.G`, `Sim.DuffingExists.cl`
+See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannCPL`
 
 ## What the system checked mechanically
 

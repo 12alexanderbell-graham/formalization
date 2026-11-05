@@ -415,6 +415,8 @@ Work.CosmographyAudit.hubble_sq
 Work.CosmographyAudit.lookback_deSitter
 Work.CosmographyAudit.nearMiss_static
 Work.CosmographyAudit.nearMiss_wrong_coefficient
+Work.Math.LaneEmdenAudit.blind_closed
+Work.Math.LaneEmdenAudit.nonvacuous
 Work.Sim.DuffingAudit.blind_exists_closed
 Work.Sim.DuffingAudit.blind_first_zero_mem_closed
 Work.Sim.DuffingAudit.blind_pos_then_neg_closed

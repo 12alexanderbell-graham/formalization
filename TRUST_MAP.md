@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 151. Resting on no unpinned physics definition: 151.
-Non-vacuity (trust track T2): 98 headlines have hypotheses; 98 of them have a
+Headlines: 153. Resting on no unpinned physics definition: 153.
+Non-vacuity (trust track T2): 99 headlines have hypotheses; 99 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -179,3 +179,5 @@ the docstring says; universally bound parameters are not listed.
 | `Data.FR13.fr13_minval738` | — | — | fr13Table | `fr13_minval738` | margChiSq: Hbar = 73.8, σ = 2.4 |
 | `Data.FR13.fr13_zda68` | — | — | fr13Table | `fr13_zda68` | margChiSq: Hbar = 68, σ = 2.8 |
 | `Data.FR13.fr13_zda738` | — | — | fr13Table | `fr13_zda738` | margChiSq: Hbar = 73.8, σ = 2.4 |
+| `Math.LaneEmden.laneEmden3_constants` | — | — | — | `laneEmden3_constants` | — |
+| `Math.LEExists.exists_solution` | — | — | — | unconditional | — |

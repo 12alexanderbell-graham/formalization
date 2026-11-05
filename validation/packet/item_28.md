@@ -37,7 +37,7 @@ theorem flat_corrections (q j s l : ℝ) :
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaZ.printedDA4z`, `Cosmography.BambaZ.printedDL4z`, `Cosmography.DemianskiZ.demDA4`, `Cosmography.DemianskiZ.demDL4`, `Chemistry.RKReduced.q`, `Cosmography.BambaZ.correctDA4z`, `Cosmography.BambaZ.correctDL4z`
+See GLOSSARY.md: `Cosmography.BambaZ.printedDA4z`, `Cosmography.BambaZ.printedDL4z`, `Cosmography.DemianskiZ.demDA4`, `Cosmography.DemianskiZ.demDL4`, `Cosmography.BambaZ.correctDA4z`, `Cosmography.BambaZ.correctDL4z`
 
 ## What the system checked mechanically
 
