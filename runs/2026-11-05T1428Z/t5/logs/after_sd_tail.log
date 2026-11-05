@@ -1,0 +1,65 @@
+argChiSq
+Checked.Data.FR13.fr13_zda68
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Data.FR13.fr13_zda738
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Math.LaneEmden.laneEmden3_constants
+Checked.Math.LEExists.exists_solution
+Checked.Data.Moresco16.table5_oL_inconsistent
+Checked.Data.Moresco16.table5_pw_inconsistent
+Checked.Data.Moresco16.table5_line_inconsistent
+Checked.Data.Moresco16.oL_bic_exceeds
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16.line_bic_exceeds
+    FORMULA Checked.Data.Moresco16.chiSqLine
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.chiSqOL_ge
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.chiSqOL_lt
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.chiSqOL_glb_prior
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.chiSqOL_glb_wide
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.table5_oL_aicc_unattainable
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Chemistry.VdWTemperatures.boyle_scaling
+    FORMULA Checked.Chemistry.VdWTemperatures.boyleTemp
+    FORMULA Checked.Chemistry.VdWTemperatures.vdwTc
+Checked.Chemistry.PRKappa.printedKappa_at_one
+    PRINTED Checked.Chemistry.PRKappa.printedKappa
+Checked.Cosmography.SchwarzschildScales.isco_in_schwarzschild_radii
+    COMPOSITE Checked.Cosmography.SchwarzschildScales.iscoRadius
+    COMPOSITE Checked.Cosmography.SchwarzschildScales.schwarzschildRadius
+Checked.Cosmography.BigBangRedshift.redshift_minus_one_at_zero_scale
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.PantheonFlatLCDM.flatLCDM_fits_pantheon_SN
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+Checked.Cosmography.DunajskiGibbonsL0.dunajskiGibbonsL0Claim_false
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.DunajskiGibbonsL0.DunajskiGibbonsL0Claim
+meaning: 334 entries written to .lake/meaning.jsonl
+SUMMARY: 171 headlines; 171 rest on no unpinned physics definition; non-vacuity: 107/107 conditional headlines witnessed.
+scripts/trust/StatementDeps.lean:455:0: error: statement-dependency registry errors:
+COMPOSITE Checked.Cosmography.SchwarzschildScales.iscoRadius builds a numeric constant by arithmetic on numerals (such as 1 + 1) or passes a numeric constant to a helper: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE
+COMPOSITE Checked.Cosmography.SchwarzschildScales.iscoRadius uses no listed program definition: a formula in its own variables is a FORMULA (needs a blind second formulation), not a COMPOSITE
+COMPOSITE Checked.Cosmography.SchwarzschildScales.schwarzschildRadius uses no listed program definition: a formula in its own variables is a FORMULA (needs a blind second formulation), not a COMPOSITE
+CLAIM Checked.Cosmography.DunajskiGibbonsL0.DunajskiGibbonsL0Claim writes its formula inline (numerals) with no machine-checked blind second reading of the source (Checked/Trust/Transcriptions*.lean): an inline formula attributed to a source is a transcription
+Checked.Cosmography.BigBangRedshift.redshift_minus_one_at_zero_scale assumes [_uniq.230013 _uniq.230015] = 0 and divides by it: its conclusion is about Lean's junk value x / 0 = 0, outside the domain of every pinned meaning (red team K, d04)

@@ -1,0 +1,4 @@
+Category: vacuous-or-trivial-statement
+Reader would wrongly believe: that light emitted at the Big Bang (scale factor zero) has redshift -1 (i.e. it is blueshifted to a(t0)/a(t) - 1 = -1); CLAIMS.md prints the PINNED phrase "the redshift a(t0)/a(t) - 1 ..." next to `redshift a t₀ t = -1` under the assumption `a t = 0`.
+Why it is false: z = a(t0)/a(t) - 1 diverges to +infinity as a(t) -> 0; it is -1 in Lean only because x / 0 = 0 (junk value), a case outside the domain (a > 0, C^1 on the ray) of the pin `redshiftCore_pins`. Nothing checks that a headline uses a pinned definition inside the domain of its pin.
+Expected: ACCEPTED (pinned definition at an argument where the pin says nothing; the hypothesis is used by the proof and has a machine-checked witness; docstring uses only the pinned word 'redshift').

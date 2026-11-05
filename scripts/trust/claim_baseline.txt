@@ -1,0 +1,34 @@
+# CLAIM definitions (scripts/trust/def_kinds.txt) that write their formula inline (numerals) and have
+# no machine-checked blind second reading (Checked/Trust/Transcriptions*.lean). Introduced run
+# 2026-11-05T1428Z (blind red team K, d06: an invented formula attributed to a real paper passed as a
+# CLAIM with nothing comparing it with the source). Grandfathered entries only: this file may only
+# shrink (scripts/trust/check_formulas.py --base); StatementDeps.lean rejects an entry once its
+# second reading exists.
+Checked.Cosmography.Aviles.AvilesL0Claim
+Checked.Cosmography.Aviles.AvilesM0Claim
+Checked.Cosmography.BambaA.BambaDA3Claim
+Checked.Cosmography.BambaA.BambaDA3ClaimPast
+Checked.Cosmography.BambaA.BambaDA4Claim
+Checked.Cosmography.BambaA.BambaDA4ClaimPast
+Checked.Cosmography.BambaK.BambaD3yClaim
+Checked.Cosmography.BambaK.BambaD3yClaimPast
+Checked.Cosmography.BambaK.BambaD4yClaim
+Checked.Cosmography.BambaK.BambaD4yClaimPast
+Checked.Cosmography.BambaY.BambaD2yClaim
+Checked.Cosmography.BambaY.BambaD2yClaimPast
+Checked.Cosmography.BambaZ.BambaDAzClaim
+Checked.Cosmography.BambaZ.BambaDAzClaimPast
+Checked.Cosmography.BambaZ.BambaDLzClaim
+Checked.Cosmography.BambaZ.BambaDLzClaimPast
+Checked.Cosmography.CCS.CCSD4Claim
+Checked.Cosmography.CCS.CCSD4ClaimPast
+Checked.Cosmography.CPL.CLSL0Claim
+Checked.Cosmography.CVdQ.CVdQClaim
+Checked.Cosmography.CVdQ.CVdQClaimPast
+Checked.Cosmography.DemianskiZ.DemDAzClaim
+Checked.Cosmography.DemianskiZ.DemDAzClaimPast
+Checked.Cosmography.DemianskiZ.DemDLzClaim
+Checked.Cosmography.DemianskiZ.DemDLzClaimPast
+Checked.Cosmography.FRCosmo.PrintedF0Claim
+Checked.Cosmography.FRCosmo.PrintedF0ClaimMul
+Checked.Cosmography.FRCosmo.PrintedR3Claim

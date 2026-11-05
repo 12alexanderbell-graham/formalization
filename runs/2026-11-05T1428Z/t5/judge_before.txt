@@ -1,0 +1,17 @@
+== judge before 16:16:54
+trust (relock): PASS
+Claims.lean: PASS
+CLAIMS/TRUST_MAP fresh: PASS
+check_numbers.py: PASS
+check_prose.py: PASS
+check_trusted_defs.py: PASS
+check_claims.py: PASS
+packet --check: PASS
+check_relock.py --base: PASS
+check_numbers.py --base: PASS
+check_prose.py --base: PASS
+check_trusted_defs.py --base: PASS
+check_claims.py --base: PASS
+check_formulas.py --base: PASS
+goal guard: PASS
+== end 16:35:49

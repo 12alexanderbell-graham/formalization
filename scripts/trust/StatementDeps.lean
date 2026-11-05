@@ -75,6 +75,63 @@ partial def arithNumeral (env : Environment) (e : Expr) : Option Nat :=
     | .mdata _ b | .proj _ _ b => arithNumeral env b
     | _ => none
 
+/-- A numeric constant built by arithmetic from numerals alone (run 2026-11-05T1428Z, blind red team
+K, d02: `(1 + 1 + 1 + 1 + 1 + 1) * r` spelt the constant 6 without any numeral greater than 1, so the
+COMPOSITE numeral rule passed a free formula). True for a numeral, and for `+ − * / ^` and negation
+whose operands are all such constants. -/
+partial def closedNum (e : Expr) : Bool :=
+  if e.isAppOfArity ``OfNat.ofNat 3 || e.isRawNatLit || e.isAppOfArity ``OfScientific.ofScientific 5 then true
+  else if e.isAppOfArity ``Neg.neg 3 then closedNum e.appArg!
+  else if [``HAdd.hAdd, ``HSub.hSub, ``HMul.hMul, ``HDiv.hDiv, ``HPow.hPow].any (e.isAppOfArity · 6) then
+    closedNum (e.getArg! 4) && closedNum (e.getArg! 5)
+  else false
+
+/-- Some subterm of `e` is an arithmetic operation whose operands are all numerals (`1 + 1`, `2 / 3`,
+`-1 * 1`): a constant written as a formula. Arguments given directly to a program constant (indices
+such as the `3` of `cosmoCoeff 3`) are numerals, not operations, and are not affected. -/
+partial def closedArith (e : Expr) : Bool :=
+  let isOp := e.isAppOfArity ``Neg.neg 3 ||
+    [``HAdd.hAdd, ``HSub.hSub, ``HMul.hMul, ``HDiv.hDiv, ``HPow.hPow].any (e.isAppOfArity · 6)
+  if isOp && closedNum e then true
+  else match e with
+    | .app f a => closedArith f || closedArith a
+    | .lam _ d b _ | .forallE _ d b _ => closedArith d || closedArith b
+    | .letE _ t v b _ => closedArith t || closedArith v || closedArith b
+    | .mdata _ b | .proj _ _ b => closedArith b
+    | _ => false
+
+/-- A non-natural numeral greater than 1, or a decimal, anywhere in `e`, including as a direct argument
+of a program constant (adversary of run 2026-11-05T1428Z: `scaleBy 36 r` with a listed generic helper
+`scaleBy k x := k * x` hid the 36 from `arithNumeral`, which skips arguments of program constants so
+that indices such as the `3` of `cosmoCoeff 3` stay allowed; indices are natural numbers). -/
+partial def realNumeral (e : Expr) : Bool :=
+  let hit := (e.isAppOfArity ``OfNat.ofNat 3 && !(e.getArg! 0).isConstOf ``Nat &&
+      (match (e.getArg! 1).rawNatLit? with | some m => m > 1 | none => false)) ||
+    e.isAppOfArity ``OfScientific.ofScientific 5
+  if hit then true
+  else match e with
+    | .app f a => realNumeral f || realNumeral a
+    | .lam _ d b _ | .forallE _ d b _ => realNumeral d || realNumeral b
+    | .letE _ t v b _ => realNumeral t || realNumeral v || realNumeral b
+    | .mdata _ b | .proj _ _ b => realNumeral b
+    | _ => false
+
+/-- Denominators of `e`: the right operands of `/`, the arguments of `⁻¹` and of `Real.log` (junk-value rule, run
+2026-11-05T1428Z). -/
+partial def denominators (e : Expr) (acc : Array Expr := #[]) : Array Expr :=
+  let acc := if e.isAppOfArity ``HDiv.hDiv 6 then acc.push (e.getArg! 5)
+    else if e.isAppOfArity ``Inv.inv 3 then acc.push (e.getArg! 2)
+    else if e.isAppOfArity `Real.log 1 then acc.push (e.getArg! 0) else acc
+  match e with
+  | .app f a => denominators a (denominators f acc)
+  | .lam _ d b _ | .forallE _ d b _ => denominators b (denominators d acc)
+  | .letE _ t v b _ => denominators b (denominators v (denominators t acc))
+  | .mdata _ b | .proj _ _ b => denominators b acc
+  | _ => acc
+
+def isZeroLit (e : Expr) : Bool :=
+  (e.isAppOfArity ``OfNat.ofNat 3 && (e.getArg! 1).rawNatLit? == some 0) || e.isAppOfArity ``Zero.zero 2
+
 /-- Definitions worth reporting: user-facing `def`s and inductive types, not auxiliary
 constants (proof terms, matchers, projections, constructors). -/
 def reportable (env : Environment) (n : Name) : Bool :=
@@ -504,6 +561,18 @@ run_cmd do
         errors := errors.push s!"formula_baseline.txt lists {dn}, which now has a blind second formulation: remove the line"
       else formulaBase := formulaBase.insert dn
     | .error e => errors := errors.push s!"formula_baseline.txt: {e}"
+  -- grandfathered CLAIMs with inline formulas and no second reading (run 2026-11-05T1428Z)
+  let claimBaseLines ← readLines "scripts/trust/claim_baseline.txt"
+  let mut claimBase : NameSet := {}
+  for l in claimBaseLines do
+    match resolve cands l with
+    | .ok dn =>
+      if (kinds.find? dn) != some "CLAIM" then
+        errors := errors.push s!"claim_baseline.txt lists {dn}, which is not of kind CLAIM"
+      else if secondRead.contains dn then
+        errors := errors.push s!"claim_baseline.txt lists {dn}, which now has a blind second reading: remove the line"
+      else claimBase := claimBase.insert dn
+    | .error e => errors := errors.push s!"claim_baseline.txt: {e}"
   -- COMPOSITE is "built only from other listed definitions" (run 2026-11-05T0828Z): until now
   -- nothing checked the label, so a free formula labelled COMPOSITE escaped the FORMULA rule above.
   -- A COMPOSITE definition's body may use only program constants that are classified or pinned
@@ -518,6 +587,15 @@ run_cmd do
           errors := errors.push s!"COMPOSITE {dn} uses unlisted program definitions {bad.toList}: classify them or reclassify {dn}"
         if let some l := arithNumeral env d.value then
           errors := errors.push s!"COMPOSITE {dn} contains the numeral {l}: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE"
+        if closedArith d.value || realNumeral d.value then
+          errors := errors.push s!"COMPOSITE {dn} builds a numeric constant by arithmetic on numerals (such as 1 + 1) or passes a numeric constant to a helper: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE"
+        -- a COMPOSITE combines listed definitions (red team K, d02: `schwarzschildRadius := G * M / (c * c)`,
+        -- a free formula with no program definition in it, passed as COMPOSITE and so needed no second
+        -- formulation; its name carried a false factor 2)
+        let listed := d.value.getUsedConstants.filter fun c =>
+          isCheckedConst env c && reportable env c && c != dn && ((kinds.find? c).isSome || pinned.contains c)
+        if listed.isEmpty then
+          errors := errors.push s!"COMPOSITE {dn} uses no listed program definition: a formula in its own variables is a FORMULA (needs a blind second formulation), not a COMPOSITE"
   -- the kind label must be one of the documented kinds (run 2026-11-05T0828Z: an unknown label such
   -- as `FOO` was silently treated as checked); a SPEC must be the spec of at least one pin (else
   -- the label hides a free formula); a CLAIM's body may use only classified or pinned program
@@ -541,6 +619,14 @@ run_cmd do
           isCheckedConst env c && reportable env c && c != dn && (kinds.find? c).isNone && !pinned.contains c
         unless bad.isEmpty do
           errors := errors.push s!"CLAIM {dn} uses unlisted program definitions {bad.toList}: classify them"
+        -- a CLAIM that writes its formula inline (numerals, constants built from numerals) is a
+        -- transcription of the source like a PRINTED definition (run 2026-11-05T1428Z, blind red team K,
+        -- d06: an invented "l₀ = 1 + 3Ω + 27Ω²" attributed to a real paper passed as CLAIM with no second
+        -- reading): it needs a machine-checked blind second reading (Checked/Trust/Transcriptions*.lean)
+        -- or a line of scripts/trust/claim_baseline.txt (grandfathered; shrink-only, check_formulas.py)
+        if ((arithNumeral env d.value).isSome || closedArith d.value || realNumeral d.value) && !secondRead.contains dn &&
+            !claimBase.contains dn then
+          errors := errors.push s!"CLAIM {dn} writes its formula inline (numerals) with no machine-checked blind second reading of the source (Checked/Trust/Transcriptions*.lean): an inline formula attributed to a source is a transcription"
   let mut formulaReached : NameSet := {}
   let stop : NameSet := pinned.foldl (init := {}) fun s n _ => s.insert n
   -- pin shape (run 0028Z; red-team defect B03 "pinned" a definition by restating it): the pin
@@ -844,10 +930,29 @@ run_cmd do
       let others := reached.filter fun d => !stop.contains d && reportable env d
       for d in others do
         defUsers := defUsers.insert d (((defUsers.find? d).getD #[]).push hn)
+      -- junk values (run 2026-11-05T1428Z; blind red team K, d04: `a t = 0 → redshift a t₀ t = -1`, true
+      -- only because Lean sets x/0 = 0, read as "light from the Big Bang has z = −1" under the pinned
+      -- phrase of `redshift`): a headline may not assume a quantity is zero and divide by it (after
+      -- unfolding every program definition, pinned ones included)
+      let fullTy ← liftCoreM <| Meta.deltaExpand ci.type fun n => isCheckedConst env n
+      let junk ← liftTermElabM <| forallTelescope fullTy fun xs body => do
+        let mut zeros : Array Expr := #[]
+        for x in xs do
+          let t ← inferType x
+          if let some (_, l, r) := t.eq? then
+            if isZeroLit r then zeros := zeros.push l
+            if isZeroLit l then zeros := zeros.push r
+        let dens := denominators body
+        (zeros.filter fun z => dens.contains z).mapM fun z => return toString (← ppExpr z)
+      unless junk.isEmpty do
+        errors := errors.push s!"{hn} assumes {junk.toList} = 0 and divides by it: its conclusion is about Lean's junk value x / 0 = 0, outside the domain of every pinned meaning (red team K, d04)"
       let doc := (← findDocString? env hn).getD ""
       let sks := (collectEqs expTy).map eqSkeleton
       let laws := (lawSk.filter fun (_, k) => sks.contains k).map (·.1) |>.toList.eraseDups
-      mlines := mlines.push (Json.mkObj [("type", "headline"), ("name", toString hn),
+      let modName := match env.getModuleIdxFor? hn with
+        | some idx => toString (env.header.moduleNames[idx.toNat]!)
+        | none => ""
+      mlines := mlines.push (Json.mkObj [("type", "headline"), ("name", toString hn), ("module", modName),
         ("laws", toJson (laws.map toString)),
         ("doc", doc), ("universal", univ), ("shapes", toJson shapes),
         ("nums", toJson (statementNums ci.type).toList.eraseDups),

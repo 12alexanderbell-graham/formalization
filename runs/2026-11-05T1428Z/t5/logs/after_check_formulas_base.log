@@ -1,0 +1,2 @@
+second formulations/readings added or changed against 01b0c8c not disclosed in a LEDGER.md addition naming them (declarations and changed modules) and their blind brief: ['boyleTempBlind', 'kappaPolynomial', 'vdwTcBlind', 'FormulationsVdW.lean', 'SecondFormulationVdW.lean', 'SecondReadingPRKappa.lean', 'TranscriptionsPRKappa.lean']
+check_formulas: 10 baselined FORMULA definitions; FAIL

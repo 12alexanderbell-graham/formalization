@@ -190,6 +190,7 @@ Checked.Cosmography.CPL.clsL0Claim_false|number|2/3
 Checked.Cosmography.CPLCoefficients|moduledoc|1104.3096
 Checked.Cosmography.CPLCoefficients|moduledoc|2/3
 Checked.Cosmography.CPLCoefficients|moduledoc|40.1
+Checked.Cosmography.CPLExistence.exists_local_model|name-vocab|(?i)\bCPL\b|Chevallier|Linder
 Checked.Cosmography.CVdQ|moduledoc|0710.1887
 Checked.Cosmography.CVdQ|moduledoc|0809.0537
 Checked.Cosmography.CVdQ|moduledoc|1/12
@@ -258,6 +259,9 @@ Checked.Cosmography.LCDMCoefficients|moduledoc|1204.2007
 Checked.Cosmography.LCDMCoefficients|moduledoc|2/3
 Checked.Cosmography.LCDMCoefficients|moduledoc|81/2
 Checked.Cosmography.LCDMWitness|moduledoc|2/3
+Checked.Data.Moresco16.table5_line_inconsistent|data|name or module
+Checked.Data.Moresco16.table5_oL_inconsistent|data|name or module
+Checked.Data.Moresco16.table5_pw_inconsistent|data|name or module
 Checked.Fidelity.FRSpecs|moduledoc|11.1
 Checked.Fidelity.FRSpecs|moduledoc|11.2
 Checked.Fidelity.FRSpecs|moduledoc|11.5

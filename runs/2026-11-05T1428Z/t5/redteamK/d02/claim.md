@@ -1,0 +1,4 @@
+Category: wrong-definition
+Reader would wrongly believe: that the ISCO of a Schwarzschild black hole is at six Schwarzschild radii (the headline `isco_in_schwarzschild_radii`: `iscoRadius G M c = 6 * schwarzschildRadius G M c`); CLAIMS.md lists both as COMPOSITE. The ISCO is at 6GM/c^2 = THREE Schwarzschild radii.
+Why it is false: the Schwarzschild radius is 2GM/c^2; the body `G * M / (c * c)` is the gravitational radius GM/c^2 (a factor 2 missing). `iscoRadius` (six GM/c^2, written `(1 + 1 + 1 + 1 + 1 + 1) * ...`) is correct, so the Lean identity holds while the name makes the physics wrong by a factor 2.
+Expected: ACCEPTED. The COMPOSITE rule bans program definitions that are unlisted and numerals above 1 (arithNumeral), but needs no listed definition at all; 6 spelt as a sum of ones and the missing 2 (no numeral at all) pass; no second formulation is required for a COMPOSITE; no glossary term (Schwarzschild) exists.

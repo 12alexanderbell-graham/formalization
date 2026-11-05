@@ -77,6 +77,15 @@ def main():
                 print(f"{BASELINE} grew against {b}: {grown} (the baseline may only shrink; "
                       f"write a blind second formulation instead)")
                 fail = True
+        # claim_baseline.txt (run 2026-11-05T1428Z): CLAIMs with inline formulas and no second reading;
+        # shrink-only like the formula baseline (the commit that introduces the file may fill it)
+        ocb = old(b, "scripts/trust/claim_baseline.txt")
+        if ocb is not None:
+            cgrown = sorted(set(entries((ROOT / "scripts/trust/claim_baseline.txt").read_text())) - set(entries(ocb)))
+            if cgrown:
+                print(f"scripts/trust/claim_baseline.txt grew against {b}: {cgrown} (the baseline may only shrink; "
+                      f"get a blind second reading of the source instead)")
+                fail = True
         # (the commit that introduces the baseline may list relabelled grandfathered definitions)
         ok = old(b, KINDS) if ob is not None else None
         kinds_old = kinds_of(ok) if ok is not None else None
@@ -88,21 +97,51 @@ def main():
             fail = True
     if "--base" in sys.argv:
         b = sys.argv[sys.argv.index("--base") + 1]
-        DEF = re.compile(r"^(?:noncomputable\s+)?def\s+([^\s({:]+)", re.M)
+        # Disclosure of independent evidence (run 2026-11-05T0828Z; widened run 2026-11-05T1428Z after
+        # blind red team K: d01 declared its self-written "second formulation" as `noncomputable abbrev`,
+        # which the old `def`-only pattern did not see; d03 wrote its own "second reading", and second
+        # readings had no disclosure rule at all). Every declaration of ANY keyword added to a
+        # `Checked/Trust/SecondFormulation*.lean` or `Checked/Trust/SecondReading*.lean` module, and
+        # every such module that changed at all, must be named in a LEDGER.md addition together with
+        # the word "brief" (who wrote the independent version, and from what, is not machine-checkable).
+        DECL = re.compile(r"^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:(?:private|protected|noncomputable|partial|unsafe|"
+                          r"nonrec|scoped|local)[ \t]+)*(?:def|abbrev|theorem|lemma|instance|opaque|structure|class|"
+                          r"inductive|irreducible_def|notation|macro|syntax|axiom|example|elab|macro_rules)\b[ \t]*"
+                          r"(?:\([^)]*\)[ \t]*)?([^\s({:\[]*)", re.M)
         new_defs = set()
-        for f in sorted((ROOT / "Checked/Trust").glob("SecondFormulation*.lean")):
-            rel = str(f.relative_to(ROOT))
-            now = set(DEF.findall(f.read_text()))
+        changed_files = set()
+        # every module whose path under Checked/Trust starts with SecondFormulation, SecondReading,
+        # Formulations or Transcriptions (at any depth: StatementDeps recognises second formulations and
+        # readings by module-name prefix, so `Checked/Trust/SecondReading/X.lean` counts too — adversary
+        # of run 1428Z), including modules deleted against the base; the agreements (Formulations*,
+        # Transcriptions*) decide which definitions get the mark, so their changes are disclosed too
+        PREF = ("SecondFormulation", "SecondReading", "Formulations", "Transcriptions")
+        def watched(rel):
+            parts = rel.split("/")
+            return rel.endswith(".lean") and len(parts) > 2 and parts[0] == "Checked" and parts[1] == "Trust" \
+                and parts[2].startswith(PREF)
+        r = subprocess.run(["git", "ls-tree", "-r", "--name-only", b, "Checked/Trust"], cwd=ROOT, capture_output=True, text=True)
+        rels = {x for x in r.stdout.split() if watched(x)}
+        rels |= {str(f.relative_to(ROOT)) for f in (ROOT / "Checked/Trust").rglob("*.lean") if watched(str(f.relative_to(ROOT)))}
+        for rel in sorted(rels):
+            f = ROOT / rel
+            cur = f.read_text() if f.exists() else None
             was = old(b, rel)
-            new_defs |= now - (set(DEF.findall(was)) if was is not None else set())
-        if new_defs:
+            if was != cur:
+                changed_files.add(f.name)
+            if cur is not None and f.name.startswith(("SecondFormulation", "SecondReading")) or "/Second" in rel:
+                now = {d.split(".")[-1] for d in DECL.findall(cur or "") if d}
+                prev = {d.split(".")[-1] for d in DECL.findall(was)} if was is not None else set()
+                new_defs |= now - prev
+        if new_defs or changed_files:
             lo = old(b, "LEDGER.md") or ""
             added = set((ROOT / "LEDGER.md").read_text().splitlines()) - set(lo.splitlines())
             text = "\n".join(added)
             missing = sorted(d for d in new_defs if not re.search(r"(?<![\w.])" + re.escape(d) + r"(?![\w'])", text))
-            if missing or "brief" not in text:
-                print(f"second formulations added against {b} not disclosed in a LEDGER.md addition naming them "
-                      f"and their blind brief: {missing or sorted(new_defs)}")
+            missing += sorted(f for f in changed_files if f not in text and f[:-5] not in text)
+            if missing or not re.search(r"\bbrief\b", text):
+                print(f"second formulations/readings added or changed against {b} not disclosed in a LEDGER.md addition "
+                      f"naming them (declarations and changed modules) and their blind brief: {missing or sorted(new_defs | changed_files)}")
                 fail = True
     print(f"check_formulas: {len(base_now)} baselined FORMULA definitions; {'FAIL' if fail else 'ok'}")
     return 1 if fail else 0

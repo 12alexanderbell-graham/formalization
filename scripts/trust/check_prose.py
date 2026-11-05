@@ -247,6 +247,15 @@ def oreg_all():
     opath = ROOT / "scripts/trust/citation_owners.txt"
     return {tuple(l.split()) for l in opath.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")} if opath.exists() else set()
 
+# data words (rule 8, run 2026-11-05T1428Z): a docstring or name that uses one claims something about
+# data or a fit, which only a statement reaching a transcribed (PRINTED) table or source can carry
+DATA = re.compile(r"(?i)\bfit(s|ted|ting)?\b|best[- ]?fit|\bdata(set)?\b|supernova|\bSNe?\b|\bSNe? ?Ia\b|"
+                  r"Pantheon|\bUnion ?\d|\bJLA\b|\bPlanck\b|\bBAO\b|chronometer|\bquasars?\b|\bGRBs?\b|"
+                  r"χ²|chi[- ]?squared?|\bchi ?Sq|\bchi2\b|likelihood|\bmeasure(d|ments?)\b|\bsurvey\b|"
+                  r"\bcatalog(ue)?\b|\bobservations\b|\bCMB\b|\bWMAP\b|\bDESI\b|\bSDSS\b|\bSH0ES\b|"
+                  r"Hubble diagram|\bposterior\b|\bMCMC\b")
+
+
 def main():
     report = "--report" in sys.argv
     load_nouns()
@@ -278,9 +287,33 @@ def main():
                             f"the pinned definitions {sorted(backs)} that give that term its meaning "
                             f"(reaches: {sorted(have) or 'no pinned definition'})"))
 
+    def name_words(n):
+        # `flatLCDM_fits_pantheon_SN` -> "flat LCDM fits pantheon SN"
+        return " ".join(re.findall(r"[A-Z]+(?![a-z])|[A-Z]?[a-z]+|\d+", n.replace("Checked.", "", 1)))
+
     for h in heads.values():
         doc = h["doc"]
         vocab(h["name"], doc, h["pinned"] + h.get("laws", []))
+        # rule 8 (run 2026-11-05T1428Z; blind red team K, d05: a headline proving only that a flat ΛCDM
+        # scale factor EXISTS was named `flatLCDM_fits_pantheon_SN` in a module `PantheonFlatLCDM` with the
+        # docstring "the value that fits the Pantheon supernovae"; no check read names, and no rule tied
+        # data words to data): (a) the glossary applies to the headline's name and module name too;
+        # (b) data words (fit, data, supernova, χ², likelihood, survey names, ...) in its docstring, name or
+        # module name need a statement that reaches a PRINTED definition (a transcribed table or source)
+        nm = name_words(h["name"] + " " + h.get("module", ""))
+        own = name_words(h["name"])
+        for rx, c, backs in gloss:
+            m = c.search(own)
+            if m and not (backs & {short(p) for p in h["pinned"] + h.get("laws", [])}):
+                errs.append((f"{h['name']}|name-vocab|{rx}", f"{h['name']}: its name says '{m.group(0)}' but the statement "
+                            f"reaches none of the pinned definitions {sorted(backs)} that give that term its meaning"))
+        kinds_h = set(h.get("defs", {}).values())
+        for where, text in (("docstring", strip_code_names(doc)), ("name or module", nm)):
+            m = DATA.search(text)
+            if m and "PRINTED" not in kinds_h:
+                errs.append((f"{h['name']}|data|{where}", f"{h['name']}: its {where} says '{m.group(0)}' (a claim about data or a "
+                            f"fit) but the statement reaches no PRINTED definition (no transcribed table or source): a data "
+                            f"claim needs the data in the statement"))
         shapes = h["shapes"]
         if "EXISTS" in shapes and not EXIST.search(doc):
             errs.append((f"{h['name']}|exists", f"{h['name']}: the statement asserts existence (∃) but the docstring does not say so "
