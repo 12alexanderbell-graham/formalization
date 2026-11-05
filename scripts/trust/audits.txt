@@ -327,6 +327,13 @@ Work.Chemistry.CubicEOSAudit.vdW_eq
 Work.Chemistry.CubicEOSTempAudit.crit_eq
 Work.Chemistry.CubicEOSTempAudit.cubic_existsUnique_critical
 Work.Chemistry.CubicEOSTempAudit.rk_existsUnique_critical
+Work.Chemistry.PRAcentricAudit.closed_exists
+Work.Chemistry.PRAcentricAudit.closed_numbers
+Work.Chemistry.PRAcentricAudit.closed_pr_acentric
+Work.Chemistry.PRAcentricAudit.coex
+Work.Chemistry.PRAcentricAudit.crit
+Work.Chemistry.PRAcentricAudit.iso_7
+Work.Chemistry.PRAcentricAudit.iso_c
 Work.Cosmography.AvilesAudit.deSitter_isFlatLCDM
 Work.Cosmography.B1Audit.blind_diff
 Work.Cosmography.B1Audit.blind_lumDist

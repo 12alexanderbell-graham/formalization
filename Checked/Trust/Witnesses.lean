@@ -37,6 +37,7 @@ import Checked.Cosmography.B1FitRL19
 import Checked.Cosmography.B1L19
 import Checked.Data.FR13
 import Checked.Chemistry.RKAcentric
+import Checked.Chemistry.PRAcentric
 import Checked.Cosmography.B1L19Curved
 import Checked.Math.LaneEmden
 import Checked.Math.LEExists
@@ -577,6 +578,27 @@ theorem rk_coexistence_unique : nonvacuity% Checked.Chemistry.RKAcentric.rk_coex
     1 (Real.sqrt Tc) 1 Tc vc one_pos (Real.sqrt_pos.2 hT) one_pos hT hv hc
   exact ⟨1, Real.sqrt Tc, 1, Tc, vc, vl, vg, ps, one_pos, Real.sqrt_pos.2 hT, one_pos, hT, hv, hc,
     hl, h, trivial⟩
+
+/-! ### Peng–Robinson at ω = 1 (run 2026-11-05T1228Z): the PR critical point of R = b = 1 with
+attraction 1 at T_c (`Checked.Chemistry.CubicEOS.exists_unique_critical`, u = 2, w = −1); the
+coexistence state of the uniqueness theorem is the one `pr_omega1_exists` provides. -/
+
+theorem pr_crit_witness : ∃ Tc vc : ℝ, 0 < Tc ∧ 1 < vc ∧
+    Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+      (Checked.Chemistry.CubicEOS.cubicP 1 1 1 2 (-1) Tc) vc := by
+  obtain ⟨⟨Tc, vc⟩, ⟨hT, hv, hc⟩, -⟩ := Checked.Chemistry.CubicEOS.exists_unique_critical
+    1 1 1 2 (-1) one_pos one_pos one_pos (by norm_num) (by norm_num)
+  exact ⟨Tc, vc, hT, hv, hc⟩
+
+theorem pr_omega1_exists : nonvacuity% Checked.Chemistry.PRAcentric.pr_omega1_exists := by
+  obtain ⟨Tc, vc, -, hv, hc⟩ := pr_crit_witness
+  exact ⟨1, 1, 1, Tc, vc, one_pos, one_pos, hv, hc, trivial⟩
+
+theorem pr_omega1_unique : nonvacuity% Checked.Chemistry.PRAcentric.pr_omega1_unique := by
+  obtain ⟨Tc, vc, -, hv, hc⟩ := pr_crit_witness
+  obtain ⟨vl, vg, ps, hl, h, -⟩ := Checked.Chemistry.PRAcentric.pr_omega1_exists
+    1 1 1 Tc vc one_pos one_pos hv hc
+  exact ⟨1, 1, 1, Tc, vc, vl, vg, ps, one_pos, one_pos, hv, hc, hl, h, trivial⟩
 
 /-! ### Lane–Emden index three (run 2026-11-05T0228Z): the solution regular at the centre
 constructed in `Checked.Math.LEExists.exists_solution` (Banach fixed point of the Volterra map at

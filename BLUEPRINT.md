@@ -115,3 +115,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `Moresco16Certs`, `Moresco16`, `Moresco16Lower`, `Moresco16MinTools`, `Moresco16MinCerts0–3`, `Moresco16MinCover`, `Moresco16Min`: the Work modules of runs 0428Z/0628Z, copied by `runs/2026-11-05T1028Z/scripts/promote_m16.py` (namespace Checked.Data, specific imports), module docs by `moddocs_m16.py`.
 - `SecondReadingM16` (blind restater's table), `TranscriptionsM16.agree_m16Table`; `SecondFormulationM16` (blind, brief `runs/2026-11-05T1028Z/blind/briefM.md`), `FormulationsM16.agree_{e2OL,chiSqOL,chiSqLine}`.
 - `Work/Data/Moresco16PromotionAudit.lean`: Work = Checked definitions (rfl); blind claims from the Checked headline.
+
+## Peng–Robinson at ω = 1, `Checked/Chemistry/PR{Reduced,Core,Exists,Acentric}.lean` (run 2026-11-05T1228Z)
+- `PRReduced`: reduced isotherm g θ x = θ/(x−1) − 1/(x²+2x−1), primitive ψ with (√2/4)(log(x+1+√2) − log(x+1−√2)), sign polynomial q; generated from `RKReduced` by `runs/2026-11-05T1228Z/scripts/emit_pr.py` (certificates `gen_pr.py`); `window_of_maxwell`.
+- `PRCore`: θ_c = (x−1)²(2x+2)/(x²+2x−1)², Soave factor, p_s/P_c = π_s·α·(x²+2x−1)²/(x²−2x−1), certified logs; `pr_unique_core`.
+- `PRExists`: from `RKExists` (`emit_pr_exists.py`); `theta_bounds`, `pr_exists_core`.
+- `PRAcentric`: headlines `pr_omega1_unique`, `pr_omega1_exists`. Audit `Work/Chemistry/PRAcentricAudit.lean`.

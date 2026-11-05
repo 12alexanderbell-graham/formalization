@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 163. Resting on no unpinned physics definition: 163.
-Non-vacuity (trust track T2): 104 headlines have hypotheses; 104 of them have a
+Headlines: 165. Resting on no unpinned physics definition: 165.
+Non-vacuity (trust track T2): 106 headlines have hypotheses; 106 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -172,6 +172,8 @@ the docstring says; universally bound parameters are not listed.
 | `Chemistry.Coexistence.vdW_coexistence_unique` | IsMaxwellCoexistence | — | — | `vdW_coexistence_unique` | cubicP: u = 0, w = 0; RoundsTo: d = 0.20046, k = 5 |
 | `Chemistry.RKAcentric.rk_coexistence_exists` | IsMaxwellCoexistence, IsCriticalIsotherm | — | — | `rk_coexistence_exists` | cubicP: u = 1, w = 0; RoundsTo: d = 0.087, k = 3, d = 0.058 |
 | `Chemistry.RKAcentric.rk_coexistence_unique` | IsMaxwellCoexistence, IsCriticalIsotherm | — | — | `rk_coexistence_unique` | cubicP: u = 1, w = 0; RoundsTo: d = 0.087, k = 3, d = 0.058 |
+| `Chemistry.PRAcentric.pr_omega1_exists` | IsMaxwellCoexistence, IsCriticalIsotherm | — | — | `pr_omega1_exists` | cubicP: u = 2, w = -1; RoundsTo: d = 0.0114, k = 4, d = 0.942, k = 3 |
+| `Chemistry.PRAcentric.pr_omega1_unique` | IsMaxwellCoexistence, IsCriticalIsotherm | — | — | `pr_omega1_unique` | cubicP: u = 2, w = -1; RoundsTo: d = 0.0114, k = 4, d = 0.942, k = 3 |
 | `Sim.Duffing.duffing_first_zero_sol` | IsDuffingSolution | — | — | `duffing_first_zero_sol` | IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5 |
 | `Sim.Duffing.duffing_solution_exists` | IsDuffingSolution | — | — | unconditional | IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5 |
 | `Sim.MichaelisMenten.mm_half_conversion` | IsMMSolution | — | — | `mm_half_conversion` | IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5 |

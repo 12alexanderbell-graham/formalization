@@ -61,6 +61,10 @@ import Checked.Chemistry.Coexistence
 import Checked.Chemistry.RKReduced
 import Checked.Chemistry.RKExists
 import Checked.Chemistry.RKAcentric
+import Checked.Chemistry.PRReduced
+import Checked.Chemistry.PRCore
+import Checked.Chemistry.PRExists
+import Checked.Chemistry.PRAcentric
 import Checked.Fidelity.MaxwellSpec
 import Checked.Fidelity.CriticalSpec
 import Checked.Sim.Duffing
