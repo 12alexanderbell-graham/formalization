@@ -21,5 +21,9 @@
 6. **Near misses** (`Work/Data/Moresco16MinNearMiss.lean`, registered as a closed audit): raising the bound of `chiSqOL_ge` to 14.9675 is false; under the plain AIC of Eq. 5.3 (the referee's alternative reading) the printed 21.41 is attained exactly at a prior-region point (IVT in H₀) — so claim 4 rests on the AICc reading, now machine-checked rather than only stated. `AuditClosed.lean` extended to `*BlindClosed*`/`*NearMiss*` modules (LEDGER).
 7. **Probe** (branch `probe/kernel-decide`, b5f32d5, not merged): one box decided by `decide +kernel` in a Checked module, to learn whether nanoda and the trust step accept kernel evaluation before any promotion uses it.
 
+## CI
+- 09b58c7 41986985219: work job green (44 min; the cover adds ≈ 11 min in CI). Freeze 1daa626 41981530528: work job green.
+- Probe 41987045654: Checked build, axiom audit and **nanoda green on a `decide +kernel` certificate**; the source grep failed on the word "axiom" in the probe's doc (fixed on the branch, 618f165), so the trust step was not reached.
+
 ## Next
-Read CI of 09b58c7 (work job builds the cover, ≈ 20 min) and of the probe branch (checked job: nanoda on `decide +kernel`). Then promote Moresco16 + Moresco16Min to Checked (m16Table PRINTED with the second reading moved to `Checked/Trust/`, `e2OL`/`chiSqOL` FORMULA or pinned, register headlines, relock, CLAIMS.md, packet), or regenerate the certificates with `norm_num` if nanoda refuses the kernel evaluation.
+Read the probe's trust step (618f165). Then promote Moresco16 + Moresco16Min to Checked (m16Table PRINTED with the second reading moved to `Checked/Trust/`, `e2OL`/`chiSqOL` FORMULA or pinned, register headlines, relock, CLAIMS.md, packet), or regenerate the certificates with `norm_num` if nanoda refuses the kernel evaluation.
