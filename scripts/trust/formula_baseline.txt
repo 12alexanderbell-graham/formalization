@@ -3,29 +3,8 @@
 # 2026-11-05T0828Z (red team J, d03/d06: a FORMULA's name, docstring and constants were checked by
 # nothing). Grandfathered entries only: this file may only shrink (scripts/trust/check_formulas.py
 # --base); StatementDeps.lean rejects an entry once its second formulation exists.
-# correctR: the R of (11.21); a second formulation needs the F(R) field equations (not attempted this run).
-Checked.Cosmography.FRCosmo.correctR
-# margChiSq: blind second formulation exists but agrees only for σ > 0 (prior normaliser √(2πσ²)
-# vs σ√(2π)); Checked.Trust.FormulationsCond.agree_margChiSq_pos. Headlines use σ = 2.8, 2.4.
-Checked.Data.FR13.margChiSq
-# MATH and WITNESS definitions fall under the same rule (run 2026-11-05T0828Z: a free formula
-# labelled MATH or WITNESS escaped it). Grandfathered: the rounding predicate of the certified
-# records (its body is printed in CLAIMS.md's legend) and the bouncing ΛCDM witness.
-Checked.Records.RoundsTo
-Checked.Fidelity.coshBounce
-# Relabelled COMPOSITE → FORMULA at introduction (their bodies carry the numerals 36, 216, 2, which
-# the COMPOSITE rule now rejects); their meaning F″(R₀)H₀⁴/F(R₀), F‴(R₀)H₀⁶/F(R₀) is proved by the
-# headline `Checked.Cosmography.FREta.eta_ratios` in every model of the F(R) equations, but no
-# blind second formulation exists yet.
-Checked.Cosmography.FREta.eta20Of
-Checked.Cosmography.FREta.eta30Of
-Checked.Cosmography.FREta.Jfam
-# remA writes the y-series template inline (powers y², y³, y⁴), so it is a FORMULA by the new rule;
-# its meaning (remainder of H₀ d_A after the printed series) is what the C7 headlines are about.
-Checked.Cosmography.BambaA.remA
-# PRINTED definitions fall under the same rule since run 2026-11-05T0828Z (second reading required;
-# before, a PRINTED label without one was only shown without the ² mark). Grandfathered:
-# dQFlat (open since run 2028Z), jL (the ΛCDM jerk 1). (fr13Table removed run 2026-11-05T1028Z:
-# Checked/Trust/TranscriptionsFR13.lean.)
-Checked.Cosmography.CVdQ.dQFlat
-Checked.Cosmography.FREta.jL
+# Run 2026-11-05T2028Z removed all eleven entries: correctR, RoundsTo, coshBounce, eta20Of, eta30Of, Jfam,
+# remA (blind second formulation, Checked/Trust/FormulationsD.lean; correctR derived by the blind
+# formulator from the F(R) field equations) and the PRINTED dQFlat, jL (blind second reading,
+# Checked/Trust/TranscriptionsClaims.lean), and margChiSq (blind second formulation E with prior
+# standard deviation |σ|, Checked/Trust/FormulationsE.lean; before, agreement only for σ > 0).

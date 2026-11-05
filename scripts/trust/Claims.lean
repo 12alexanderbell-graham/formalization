@@ -308,12 +308,14 @@ def explain (ctx : Ctx) (d : Name) : MetaM String := do
         -- a PRINTED transcription with an independent second reading (trust track T3,
         -- `Checked/Trust/Transcriptions*.lean`; run 2026-11-05T1028Z: CLAIMS.md did not say so)
         let readN := (`Checked.Trust.Transcriptions).str ("agree_" ++ d.componentsRev.head!.toString)
-        let sr : Bool := kind == "PRINTED" && match (← getEnv).find? readN with
+        -- run 2026-11-05T2028Z: CLAIMs too (their inline formula or series order, read a second time)
+        let sr : Bool := (kind == "PRINTED" || kind == "CLAIM") && match (← getEnv).find? readN with
           | some ai => match ai.type.eq? with
             | some (_, l, _) => l.isConstOf d
             | none => false
           | none => false
         let status := if sf then s!"not pinned; name and body agree with a blind second formulation ({code (tidy ctx agreeN.toString)})"
+          else if sr && kind == "CLAIM" then s!"not pinned; the source-dependent data written inline (printed formula, order of the printed series) agree with an independent blind second reading of the source ({code (tidy ctx readN.toString)}); the quantifiers and hypotheses are the program's formalisation"
           else if sr then s!"not pinned; an independent blind second reading of the source agrees with this transcription ({code (tidy ctx readN.toString)}); its name is not checked"
           else "not pinned, so only the formula shown is checked, not its name"
         if ← isProp body then

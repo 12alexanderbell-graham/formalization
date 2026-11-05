@@ -101,3 +101,12 @@ import Checked.Trust.SecondFormulationM16
 import Checked.Trust.FormulationsM16
 import Checked.Trust.SecondReadingFR13
 import Checked.Trust.TranscriptionsFR13
+import Checked.Trust.SecondReadingClaimsA
+import Checked.Trust.SecondReadingClaimsB
+import Checked.Trust.SecondReadingClaimsC
+import Checked.Trust.SecondReadingClaims
+import Checked.Trust.TranscriptionsClaims
+import Checked.Trust.SecondFormulationD
+import Checked.Trust.FormulationsD
+import Checked.Trust.SecondFormulationE
+import Checked.Trust.FormulationsE
