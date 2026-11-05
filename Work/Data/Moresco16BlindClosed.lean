@@ -93,8 +93,15 @@ theorem linear_bic_below_printed (N : ℕ) (hN : N = 30 ∨ N = 31) :
   push_cast
   linarith
 
+/-- Second reading of Table 4: the blind restater's independent transcription (from the paper's
+text, `Work.Data.Moresco16Blind.table4`) agrees entry by entry with the program's `m16Table`. -/
+theorem table4_second_reading : Work.Data.Moresco16.m16Table = table4 := by
+  funext i
+  fin_cases i <;> norm_num [Work.Data.Moresco16.m16Table, table4]
+
 end Work.Data.Moresco16BlindClosed
 
 #print axioms Work.Data.Moresco16BlindClosed.table5_inconsistent
 #print axioms Work.Data.Moresco16BlindClosed.oLCDM_bic_below_printed
 #print axioms Work.Data.Moresco16BlindClosed.linear_bic_below_printed
+#print axioms Work.Data.Moresco16BlindClosed.table4_second_reading
