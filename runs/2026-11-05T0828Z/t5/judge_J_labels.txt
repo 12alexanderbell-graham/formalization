@@ -1,0 +1,7 @@
+rc=1 labels tempScale=FORMULA boyleT=COMPOSITE tcScale=SPEC
+  COMPOSITE Checked.Chemistry.BoyleScale.boyleT contains the numeral 2: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE
+  SPEC Checked.Chemistry.BoyleScale.tcScale is used by no pinning theorem (pins.txt): a SPEC label is earned by pinning a definition
+rc=1 labels tempScale=MATH boyleT=PRINTED tcScale=FOO
+  def_kinds.txt: Checked.Chemistry.BoyleScale.tcScale has the unknown kind FOO
+rc=1 labels tempScale=WITNESS boyleT=CLAIM tcScale=COMPOSITE
+  COMPOSITE Checked.Chemistry.BoyleScale.tcScale contains the numeral 8: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE

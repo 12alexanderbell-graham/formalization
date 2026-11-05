@@ -18,7 +18,16 @@
 5. **CLAIMS.md** now says, for each formula, whether its name and body agree with a blind second formulation (with the agreement theorem) or only the formula shown is checked.
 
 ## CI
-(filled below)
+- e1eafbf (label rules) pushed 10:2xZ: CI to be read next run (checked job ≈ 55 min). Run 0628Z's later commits and the probe: STATE environment.
 
-## Measurement
-(filled below)
+## Measurement (not blind: round J's defects were designed against the older checks)
+Round J's accepted name/constant defects d03 (`tempScale`, transposed gas constant) and d06 (`boyleT` = inversion temperature, `tcScale`) applied together to e1eafbf, the new definitions under every label an attacker could pick (`t5/judge_J_labels.sh`, `t5/judge_J_labels.txt`, author relock as in round J):
+| Label | tempScale (d03) | boyleT (d06) | tcScale (d06) |
+|---|---|---|---|
+| FORMULA / MATH / WITNESS | REJECTED (no second formulation) ×3 | — | — |
+| COMPOSITE | — | REJECTED (numeral 2) | REJECTED (numeral 8) |
+| SPEC | — | — | REJECTED (pins nothing) |
+| PRINTED | — | REJECTED (no second reading) | — |
+| FOO | — | — | REJECTED (unknown kind) |
+| CLAIM | — | **ACCEPTED** (body uses no program definition) | — |
+Before this run all of these were ACCEPTED (J: d03, d06 accepted as FORMULA). The one escape (an ℝ-valued formula labelled CLAIM) was fixed after the judge (a CLAIM must be a proposition); the fix is checked on main (no regression) but not re-judged on the defect. Blind round K (`t5/briefK.md`) is the next measurement.

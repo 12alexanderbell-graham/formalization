@@ -531,6 +531,11 @@ run_cmd do
     if k == "SPEC" && !pinSpecs.contains dn then
       errors := errors.push s!"SPEC {dn} is used by no pinning theorem (pins.txt): a SPEC label is earned by pinning a definition"
     if k == "CLAIM" then
+      -- a claim is a proposition (run 2026-11-05T0828Z judge: `boyleT := 2a/(Rb)` labelled CLAIM
+      -- passed the body rule, having no program definition in its body)
+      let isPropTy ← liftTermElabM <| forallTelescope (env.find? dn).get!.type fun _ b => return b.isProp
+      unless isPropTy do
+        errors := errors.push s!"CLAIM {dn} is not a proposition: a CLAIM states a source's claim (Prop); a formula is a FORMULA"
       if let some (.defnInfo d) := env.find? dn then
         let bad := d.value.getUsedConstants.filter fun c =>
           isCheckedConst env c && reportable env c && c != dn && (kinds.find? c).isNone && !pinned.contains c
