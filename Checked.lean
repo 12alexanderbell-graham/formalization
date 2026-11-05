@@ -70,6 +70,8 @@ import Checked.Sim.MMPin
 import Checked.Fidelity.MMSpec
 import Checked.Fidelity.DuffingSpec
 import Checked.Data.FR13
+import Checked.Data.Moresco16
+import Checked.Data.Moresco16Min
 import Checked.Math.LEStart
 import Checked.Math.LECell
 import Checked.Math.LECerts
@@ -85,3 +87,7 @@ import Checked.Trust.SecondFormulation
 import Checked.Trust.SecondFormulationCosmo
 import Checked.Trust.Formulations
 import Checked.Trust.FormulationsCond
+import Checked.Trust.SecondReadingM16
+import Checked.Trust.TranscriptionsM16
+import Checked.Trust.SecondFormulationM16
+import Checked.Trust.FormulationsM16

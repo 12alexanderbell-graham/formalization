@@ -7,14 +7,14 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 153. Resting on no unpinned physics definition: 153.
-Non-vacuity (trust track T2): 99 headlines have hypotheses; 99 of them have a
+Headlines: 163. Resting on no unpinned physics definition: 163.
+Non-vacuity (trust track T2): 104 headlines have hypotheses; 104 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Transcriptions (trust track T3): 43 PRINTED definitions; 40 carry a machine-checked
+Transcriptions (trust track T3): 44 PRINTED definitions; 41 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
-FORMULA, MATH and WITNESS definitions with a blind second formulation: 20/28 (run 2026-11-05T0828Z;
+FORMULA, MATH and WITNESS definitions with a blind second formulation: 23/31 (run 2026-11-05T0828Z;
 ² on a FORMULA means a machine-checked agreement with a blind second formulation in
 `Checked/Trust/Formulations*.lean`, written from the definition's name, argument roles and conventions
 without its body; a headline may rest on such a definition without one only if it is listed in
@@ -186,6 +186,16 @@ the docstring says; universally bound parameters are not listed.
 | `Data.FR13.fr13_zda738` | — | — | fr13Table | `fr13_zda738` | margChiSq: Hbar = 73.8, σ = 2.4 |
 | `Math.LaneEmden.laneEmden3_constants` | — | — | — | `laneEmden3_constants` | — |
 | `Math.LEExists.exists_solution` | — | — | — | unconditional | — |
+| `Data.Moresco16.table5_oL_inconsistent` | — | — | — | `table5_oL_inconsistent` | — |
+| `Data.Moresco16.table5_pw_inconsistent` | — | — | — | `table5_pw_inconsistent` | — |
+| `Data.Moresco16.table5_line_inconsistent` | — | — | — | `table5_line_inconsistent` | — |
+| `Data.Moresco16.oL_bic_exceeds` | — | — | m16Table² | unconditional | — |
+| `Data.Moresco16.line_bic_exceeds` | — | — | m16Table² | unconditional | — |
+| `Data.Moresco16Min.chiSqOL_ge` | — | — | m16Table² | `chiSqOL_ge` | — |
+| `Data.Moresco16Min.chiSqOL_lt` | — | — | m16Table² | unconditional | — |
+| `Data.Moresco16Min.chiSqOL_glb_prior` | — | — | m16Table² | unconditional | — |
+| `Data.Moresco16Min.chiSqOL_glb_wide` | — | — | m16Table² | unconditional | — |
+| `Data.Moresco16Min.table5_oL_aicc_unattainable` | — | — | m16Table² | `table5_oL_aicc_unattainable` | — |
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 
@@ -217,5 +227,8 @@ the docstring says; universally bound parameters are not listed.
 | `Checked.Cosmography.FREta.eta30Of` | baselined (no second formulation yet) | yes |
 | `Checked.Data.FR13.chiSqHz` | ² | yes |
 | `Checked.Data.FR13.margChiSq` | baselined (no second formulation yet) | yes |
+| `Checked.Data.Moresco16.chiSqLine` | ² | yes |
+| `Checked.Data.Moresco16.chiSqOL` | ² | yes |
+| `Checked.Data.Moresco16.e2OL` | ² | yes |
 | `Checked.Fidelity.coshBounce` | baselined (no second formulation yet) | yes |
 | `Checked.Records.RoundsTo` | baselined (no second formulation yet) | yes |

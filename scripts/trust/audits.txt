@@ -423,6 +423,16 @@ Work.Data.Moresco16MinBlindClosed.claimA
 Work.Data.Moresco16MinBlindClosed.claimB
 Work.Data.Moresco16MinNearMiss.aic_reading_attainable
 Work.Data.Moresco16MinNearMiss.near_miss_bound
+Work.Data.Moresco16PromotionAudit.chi2_eq
+Work.Data.Moresco16PromotionAudit.chi2_ge
+Work.Data.Moresco16PromotionAudit.claimA
+Work.Data.Moresco16PromotionAudit.claimB
+Work.Data.Moresco16PromotionAudit.data
+Work.Data.Moresco16PromotionAudit.valid_wide
+Work.Data.Moresco16PromotionAudit.work_eq_chiSqLine
+Work.Data.Moresco16PromotionAudit.work_eq_chiSqOL
+Work.Data.Moresco16PromotionAudit.work_eq_e2OL
+Work.Data.Moresco16PromotionAudit.work_eq_m16Table
 Work.Math.LaneEmdenAudit.blind_closed
 Work.Math.LaneEmdenAudit.nonvacuous
 Work.Math.LaneEmdenNearMiss.mutant_n1

@@ -1,63 +1,52 @@
 # Item 09
 
-**Area:** B1
+**Area:** Rigorous simulation
 
-**Source:** Risaliti & Lusso, Nat. Astron. 3, 272 (2019); Lusso et al., A&A 628, L4 (2019), Eq. (8): third-order log-polynomial distance and its ΛCDM-implied coefficients
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t : ℝ`, `t₀ : ℝ`:
+**For every** `x : ℝ → ℝ`:
 
 **assuming**
 
-1. `0 ≤ Ω`
-2. `Ω ≤ 1`
-3. `t ≤ t₀`
-4. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `0 < a s`
-5. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `DifferentiableAt ℝ a s`
-6. `0 < hubble a t₀`
-7. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
+1. the function `x` solves x″ + `1`·x + `1`·x³ = 0 with x(0) = `1`, x′(0) = `0` on the time interval [0, `6 / 5`] (derivatives taken within [0, `6 / 5`])
 
 **then**
 
-- `lumDistFlat a t₀ t = (1 + redshift a t₀ t) / hubble a t₀ * ∫ (v : ℝ) in √(a t / a t₀)..1, 2 / √(Ω + (1 - Ω) * v ^ 6)`
+1. for every `t : ℝ`, if `t ∈ Set.Icc 0 (1192005 / 1000000)`, then `0 < x t`
+2. `x (1192006 / 1000000) < 0`
 
 Program definitions in this claim:
 
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
-- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
-- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): the function `x` solves x″ + `k`·x + `β`·x³ = 0 with x(0) = `x₀`, x′(0) = `v₀` on the time interval [0, `T`] (derivatives taken within [0, `T`])
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Bridge.** In a flat ΛCDM model on `[t, t₀]` the luminosity distance is
-`(1+z)/H₀ · ∫_{√(a(t)/a(t₀))}^{1} 2/√(Ω + (1−Ω)v⁶) dv`.
+Certified first zero of the Duffing oscillator x'' + x + x³ = 0 released from rest at
+x = 1: every solution on the time interval [0, 6/5] (derivatives within the interval) is strictly
+positive at all times in [0, 1.192005] and strictly negative at time 1.192006, so its earliest
+zero lies strictly between 1.192005 and 1.192006. Proved by a validated enclosure of every
+solution (rational Taylor cells, exact defect bounds, energy box, Grönwall).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem lumDistFlat_flatLCDM (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
-    (a : ℝ → ℝ) (t t₀ : ℝ) (htt : t ≤ t₀)
-    (hpos : ∀ s ∈ Set.Icc t t₀, 0 < a s)
-    (hdiff : ∀ s ∈ Set.Icc t t₀, DifferentiableAt ℝ a s)
-    (hH₀ : 0 < hubble a t₀)
-    (hH : ∀ s ∈ Set.Icc t t₀,
-      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)) :
-    lumDistFlat a t₀ t = (1 + redshift a t₀ t) / hubble a t₀ *
-      ∫ v in √(a t / a t₀)..1, 2 / √(Ω + (1 - Ω) * v ^ 6) := …
+theorem duffing_first_zero_sol (x : ℝ → ℝ) (hx : IsDuffingSolution 1 1 1 0 (6 / 5) x) :
+    (∀ t ∈ Icc (0 : ℝ) (1192005 / 1000000), 0 < x t) ∧ x (1192006 / 1000000) < 0 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.BambaY.comoving`
+See GLOSSARY.md: `Sim.Duffing.IsDuffingSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
+- Definitions pinned by a machine-checked specification: IsDuffingSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lumDistFlat_flatLCDM`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Cosmography/B1Truncation.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `duffing_first_zero_sol`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5.
+- Source file: `Checked/Sim/Duffing.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 09

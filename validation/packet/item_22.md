@@ -1,64 +1,71 @@
 # Item 22
 
-**Area:** Chemistry
+**Area:** B1
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** Risaliti & Lusso, Nat. Astron. 3, 272 (2019); Lusso et al., A&A 628, L4 (2019), Eq. (8): third-order log-polynomial distance and its ΛCDM-implied coefficients
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `A : ℝ`, `b : ℝ`, `Tc : ℝ`, `vc : ℝ`:
+**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t : ℝ`, `t₀ : ℝ`:
 
 **assuming**
 
-1. `0 < R`
-2. `0 < A`
-3. `0 < b`
-4. `0 < Tc`
-5. `b < vc`
-6. the molar volume `vc` is a critical point of the isotherm `cubicP R (A / √Tc) b 1 0 Tc` (pressure as a function of molar volume at fixed temperature): p′(`vc`) = 0 and p″(`vc`) = 0
+1. `1 / 5 ≤ Ω`
+2. `Ω ≤ 2 / 5`
+3. `t ≤ t₀`
+4. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `0 < a s`
+5. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `DifferentiableAt ℝ a s`
+6. `0 < hubble a t₀`
+7. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
+8. `redshift a t₀ t = 3`
 
 **then**
 
-- there is `vl : ℝ` such that there is `vg : ℝ` such that there is `ps : ℝ` such that (`b < vl`) and (the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `cubicP R (A / √(7 / 10 * Tc)) b 1 0 (7 / 10 * Tc)` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)) and (`RoundsTo (ps / cubicP R (A / √Tc) b 1 0 Tc vc) 87e-3 3`) and (`RoundsTo (acentric ps (cubicP R (A / √Tc) b 1 0 Tc vc)) 58e-3 3`)
+1. `0 < logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t)`
+2. `9 / 10 < 5 * Real.logb 10 (lumDistFlat a t₀ t / logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t))`
 
 Program definitions in this claim:
 
-- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
-- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `p` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)
-- `RoundsTo x d k` — MATH, not pinned, so only the formula shown is checked, not its name (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `acentric ps pc` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_acentric`) (for `ps : ℝ`, `pc : ℝ`): is defined as `-Real.logb 10 (ps / pc) - 1`
-- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
+- `logPolyDL3 a₂ a₃ H₀ z` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_logPolyDL3`); its name is not checked (for `a₂ : ℝ`, `a₃ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3)`
+- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
+- `lusA2 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA2`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 * (3 / 2 - 3 / 4 * Ω)`
+- `lusA3 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA3`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 ^ 2 * (9 / 8 * Ω ^ 2 - 2 * Ω + 7 / 6)`
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Redlich–Kwong fluid (pressure RT/(v−b) − A/(√T v(v+b))): at any critical point (T_c > 0,
-v_c > b) there is a Maxwell coexistence state at T = 0.7 T_c with liquid volume above the
-co-volume b, and its pressure is 0.087 times the critical pressure (3 decimals) and its
-acentric factor 0.058 (3 decimals).
+**B1, z = 3.** For every flat ΛCDM model with `Ω ∈ [0.2, 0.4]`, the third-order
+log-polynomial at the ΛCDM-implied coefficients (same `H₀`) is positive at `z = 3` and
+underestimates the exact distance modulus there by more than 0.9 mag.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem rk_coexistence_exists (R A b Tc vc : ℝ) (hR : 0 < R) (hA : 0 < A) (hb : 0 < b)
-    (hTc : 0 < Tc) (hvc : b < vc)
-    (hc : IsCriticalIsotherm (cubicP R (A / Real.sqrt Tc) b 1 0 Tc) vc) :
-    ∃ vl vg ps, b < vl ∧
-      IsMaxwellCoexistence (cubicP R (A / Real.sqrt (7 / 10 * Tc)) b 1 0 (7 / 10 * Tc)) vl vg ps ∧
-      RoundsTo (ps / cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc) 0.087 3 ∧
-      RoundsTo (acentric ps (cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc)) 0.058 3 := …
+theorem cubic_misses_z3 (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 5)
+    (a : ℝ → ℝ) (t t₀ : ℝ) (htt : t ≤ t₀)
+    (hpos : ∀ s ∈ Set.Icc t t₀, 0 < a s)
+    (hdiff : ∀ s ∈ Set.Icc t t₀, DifferentiableAt ℝ a s)
+    (hH₀ : 0 < hubble a t₀)
+    (hH : ∀ s ∈ Set.Icc t t₀,
+      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
+    (hz : redshift a t₀ t = 3) :
+    0 < logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t) ∧
+    9 / 10 < 5 * Real.logb 10
+      (lumDistFlat a t₀ t / logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t)) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.Coexistence.acentric`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
+See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1.logPolyDL3`, `Cosmography.B1.lusA2`, `Cosmography.B1.lusA3`, `Cosmography.BambaY.comoving`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsMaxwellCoexistence, IsCriticalIsotherm.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rk_coexistence_exists`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 1, w = 0; RoundsTo: d = 0.087, k = 3, d = 0.058.
-- Source file: `Checked/Chemistry/RKAcentric.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL3², lusA2², lusA3².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `cubic_misses_z3`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): redshift(t) = 3.
+- Source file: `Checked/Cosmography/B1Truncation.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 22

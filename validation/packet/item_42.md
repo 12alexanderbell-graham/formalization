@@ -1,49 +1,58 @@
 # Item 42
 
-**Area:** F4
+**Area:** T1 fidelity
 
-**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421 (v1, v2, v3), Eq. (10.54): y-redshift luminosity-distance coefficient D²_{L,y} has the wrong overall sign
+**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `H : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `t : ℝ`:
 
-- it is false that (`BambaD2yClaim`)
+**assuming**
+
+1. `HubbleSpec H`
+2. `0 < a t`
+3. `DifferentiableAt ℝ a t`
+
+**then**
+
+- `H a t = hubble a t`
 
 Program definitions in this claim:
 
-- `BambaD2yClaim` — CLAIM, not pinned, so only the formula shown is checked, not its name: means for every `a : ℝ → ℝ`, for every `t₀ : ℝ`, if `ContDiff ℝ ⊤ a`, then if for every `t : ℝ`, `0 < a t`, then if `0 < hubble a t₀`, then `(fun t => remainderY printedD2y a t₀ t) =o[nhds t₀] fun t => yred a t₀ t ^ 3`
-- `D1y q` — PRINTED, not pinned, so only the formula shown is checked, not its name (for `q : ℝ`): is defined as `-(1 / 2) * (-3 + q)`
-- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): the `n`-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor `a` at time `t` (n = `n`; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
-- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): the deceleration parameter −a″(t)·a(t)/a′(t)² of the scale factor `a` at time `t`
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
-- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
-- `printedD2y q j Ω` — PRINTED, not pinned, so only the formula shown is checked, not its name (for `q : ℝ`, `j : ℝ`, `Ω : ℝ`): is defined as `-(1 / 6) * (12 - 5 * q + 3 * q ^ 2 - j - Ω)`
-- `remainderY D2 a t₀ t` — COMPOSITE, not pinned, so only the formula shown is checked, not its name (for `D2 : ℝ → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`): is defined as `hubble a t₀ * lumDistFlat a t₀ t - seriesY (D2 (decel a t₀) (cosmoCoeff 3 a t₀) 1) (decel a t₀) (yred a t₀ t)`
-- `seriesY d2 q y` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_seriesY`) (for `d2 : ℝ`, `q : ℝ`, `y : ℝ`): is defined as `y * (1 + D1y q * y + d2 * y ^ 2)`
-- `yred a t₀ t` — **PINNED** (pin theorem `yRedSpec_pins`): the y-redshift z/(1 + z), observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+- `HubbleSpec` — SPEC, not pinned: inductive type with constructors `HubbleSpec.mk : ∀ {H : (ℝ → ℝ) → ℝ → ℝ}, (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → HasDerivAt (fun s => Real.log (a s)) (H a t) t) → (∀ (h t : ℝ), H (fun s => Real.exp (h * s)) t = h) → (∀ (n t : ℝ), 0 < t → H (fun s => s ^ n) t = n / t) → (∀ (R t : ℝ), 0 < R → H (fun x => R) t = 0) → (∀ (c : ℝ), 0 < c → ∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → H (fun s => c * a s) t = H a t) → (∀ (τ : ℝ) (a : ℝ → ℝ) (t : ℝ), 0 < a (t + τ) → DifferentiableAt ℝ a (t + τ) → H (fun s => a (s + τ)) t = H a (t + τ)) → (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a (-t) → DifferentiableAt ℝ a (-t) → H (fun s => a (-s)) t = -H a (-t)) → HubbleSpec H`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t)² of the scale factor `a` at time `t`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The printed claim is false (witness: flat de Sitter, `a = exp`, `t₀ = 0`).
+`HubbleSpec` pins `hubble` for every positive scale factor differentiable at `t`
+(its `logDeriv` law `H = d ln a/dt` and uniqueness of derivatives).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem bambaD2yClaim_false : ¬ BambaD2yClaim := …
+theorem hubbleSpec_pins (H : (ℝ → ℝ) → ℝ → ℝ) (h : HubbleSpec H) (a : ℝ → ℝ) (t : ℝ)
+    (ha : 0 < a t) (hd : DifferentiableAt ℝ a t) : H a t = hubble a t := …
+```
+
+Definitions specific to this item:
+
+```lean
+/-- The Hubble rate `H = ȧ/a`. (Used by this item in place of the glossary entry.) -/
+noncomputable def hubble (a : ℝ → ℝ) (t : ℝ) : ℝ := deriv a t / a t ^ 2
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaY.lumDistFlat`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.BambaY.BambaD2yClaim`, `Cosmography.BambaY.D1y`, `Cosmography.BambaY.printedD2y`, `Cosmography.BambaY.comoving`, `Cosmography.BambaY.remainderY`, `Cosmography.BambaY.seriesY`, `Cosmography.CCS.D2`, `Cosmography.redshift`
+See GLOSSARY.md: `Cosmography.hubble`, `Fidelity.HubbleSpec`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, lumDistFlat, yred, decel, hubble.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): BambaD2yClaim, D1y², printedD2y².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3.
-- Source file: `Checked/Cosmography/BambaDLy.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: hubble.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hubbleSpec_pins`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Fidelity/Pins.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 42

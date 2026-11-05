@@ -13,13 +13,13 @@
 1. `0 < a`
 2. `0 < b`
 3. `b < v`
-4. the molar volume `v` is a critical point of the isotherm `cubicP R a b 1 0 T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
+4. the molar volume `v` is a critical point of the isotherm `cubicP R a b 2 (-1) T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
 
 **then**
 
-1. `cubicP R a b 1 0 T v * v / (R * T) = 1 / 3`
-2. `RoundsTo (b * cubicP R a b 1 0 T v / (R * T)) 7780e-5 5`
-3. `RoundsTo (a * cubicP R a b 1 0 T v / (R * T) ^ 2) 0.42748 5`
+1. `RoundsTo (cubicP R a b 2 (-1) T v * v / (R * T)) 0.3074 4`
+2. `RoundsTo (b * cubicP R a b 2 (-1) T v / (R * T)) 7780e-5 5`
+3. `RoundsTo (a * cubicP R a b 2 (-1) T v / (R * T) ^ 2) 0.45724 5`
 
 Program definitions in this claim:
 
@@ -29,16 +29,16 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Redlich–Kwong / Soave–Redlich–Kwong: at every critical point, Z_c = 1/3 exactly,
-Ω_b = 0.07780 and Ω_a = 0.42748 to five decimals.
+Peng–Robinson: at every critical point, Z_c = 0.3074 (four decimals), Ω_b = 0.07780 and
+Ω_a = 0.45724 (five decimals).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem rk_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 1 0 T) v) :
-    cubicP R a b 1 0 T v * v / (R * T) = 1 / 3 ∧
-      RoundsTo (b * cubicP R a b 1 0 T v / (R * T)) 0.07780 5 ∧
-      RoundsTo (a * cubicP R a b 1 0 T v / (R * T) ^ 2) 0.42748 5 := …
+theorem pr_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 2 (-1) T) v) :
+    RoundsTo (cubicP R a b 2 (-1) T v * v / (R * T)) 0.3074 4 ∧
+      RoundsTo (b * cubicP R a b 2 (-1) T v / (R * T)) 0.07780 5 ∧
+      RoundsTo (a * cubicP R a b 2 (-1) T v / (R * T) ^ 2) 0.45724 5 := …
 ```
 
 ## Definitions it uses
@@ -50,8 +50,8 @@ See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cu
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rk_constants`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 1, w = 0; RoundsTo: d = 0.08664, k = 5, d = 0.42748.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `pr_constants`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 2, w = -1; RoundsTo: d = 0.3074, k = 4, d = 0.07780, k = 5, d = 0.45724.
 - Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 39

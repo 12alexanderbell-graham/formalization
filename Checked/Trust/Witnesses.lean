@@ -40,6 +40,7 @@ import Checked.Chemistry.RKAcentric
 import Checked.Cosmography.B1L19Curved
 import Checked.Math.LaneEmden
 import Checked.Math.LEExists
+import Checked.Data.Moresco16Min
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -584,5 +585,30 @@ the centre, Picard–Lindelöf after, glued). -/
 theorem laneEmden3_constants : nonvacuity% Checked.Math.LaneEmden.laneEmden3_constants := by
   obtain ⟨θ, φ, hθ, hφ0, hφ, h0⟩ := Checked.Math.LEExists.exists_solution
   exact ⟨θ, φ, hθ, hφ0, hφ, h0, trivial⟩
+
+/-! ### Data claims of Moresco et al. 2016 (runs 2026-11-05T0428Z, 0628Z; promoted 1028Z): the
+printed AICc rows are attained by the value c of −2 ln L_max that makes them exact at N = 31; the
+point of `Checked.Data.Moresco16Min.chiSqOL_lt` lies in the region of the lower bound. -/
+
+theorem table5_oL_inconsistent : nonvacuity% Checked.Data.Moresco16.table5_oL_inconsistent :=
+  ⟨31, 21.41 - 2 * 3 - 2 * 3 * (3 + 1) / (31 - 3 - 1), by norm_num, le_refl _, by norm_num,
+    trivial⟩
+
+theorem table5_pw_inconsistent : nonvacuity% Checked.Data.Moresco16.table5_pw_inconsistent :=
+  ⟨31, 23.99 - 2 * 4 - 2 * 4 * (4 + 1) / (31 - 4 - 1), by norm_num, le_refl _, by norm_num,
+    trivial⟩
+
+theorem table5_line_inconsistent : nonvacuity% Checked.Data.Moresco16.table5_line_inconsistent :=
+  ⟨31, 32.42 - 2 * 2 - 2 * 2 * (2 + 1) / (31 - 2 - 1), by norm_num, le_refl _, by norm_num,
+    trivial⟩
+
+theorem chiSqOL_ge : nonvacuity% Checked.Data.Moresco16Min.chiSqOL_ge := by
+  obtain ⟨H, m, l, a1, a2, a3, -, a5, -⟩ := Checked.Data.Moresco16Min.chiSqOL_lt
+  exact ⟨H, m, l, a2, by linarith, fun i => (a5 i).le, trivial⟩
+
+theorem table5_oL_aicc_unattainable :
+    nonvacuity% Checked.Data.Moresco16Min.table5_oL_aicc_unattainable := by
+  obtain ⟨H, m, l, a1, a2, a3, a4, a5, -⟩ := Checked.Data.Moresco16Min.chiSqOL_lt
+  exact ⟨31, H, m, l, by norm_num, le_refl _, a2, by linarith, fun i => (a5 i).le, trivial⟩
 
 end Checked.Trust.NV

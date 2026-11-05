@@ -173,3 +173,7 @@ Checked.Fidelity.MMSpec.MMSpec SPEC
 Checked.Data.FR13.fr13Table PRINTED
 Checked.Data.FR13.chiSqHz FORMULA
 Checked.Data.FR13.margChiSq FORMULA
+Checked.Data.Moresco16.m16Table PRINTED
+Checked.Data.Moresco16.e2OL FORMULA
+Checked.Data.Moresco16.chiSqOL FORMULA
+Checked.Data.Moresco16.chiSqLine FORMULA

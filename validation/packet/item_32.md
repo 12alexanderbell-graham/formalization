@@ -1,52 +1,53 @@
 # Item 32
 
-**Area:** F9
+**Area:** T1 fidelity
 
-**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI ("testing F(R) gravity by cosmography"), Eq. (11.31), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583, PRD 78, 063504) Eq. (33): the common denominator R of the F(R₀), F″(R₀), F‴(R₀) formulas is wrong, so the printed F(R₀) formula (11.21) fails the paper's own ΛCDM check (11.40); also (11.13) d³R₀/dt³ has a sign error
+**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `O : ℝ → (ℝ → ℝ) → ℝ → ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
-- it is false that (`PrintedF0Claim`)
+**assuming**
+
+1. `Omega0Spec O`
+2. `0 < a t₀`
+3. `DifferentiableAt ℝ a t₀`
+4. `deriv a t₀ / a t₀ ≠ 0`
+
+**then**
+
+- `O K a t₀ = omega0 K a t₀`
 
 Program definitions in this claim:
 
-- `FriedmannEq Ω a F t₀ t` — **PINNED** (pin theorem `friedmannEq_iff_blind`): the expansion-rate (Friedmann) equation of metric F(R) gravity with dust, Bamba et al. 2012 Eqs. (11.1)–(11.2) multiplied by 3F′(R), holds at time `t` for the scale factor `a`, the function F = `F` and dust density parameter `Ω` referred to time `t₀`
-- `IsFRCosmo` — COMPOSITE, not pinned: inductive type with constructors `IsFRCosmo.mk : ∀ {Ω : ℝ} {a F : ℝ → ℝ} {t₀ : ℝ}, 0 < a t₀ → 0 < hubble a t₀ → ContDiffAt ℝ 5 a t₀ → ContDiff ℝ 4 F → FriedmannEq Ω a F t₀ t₀ → (∀ᶠ (t : ℝ) in nhds t₀, MasterEq Ω a F t₀ t) → deriv F (curv a t₀) = 1 → deriv^[4] F (curv a t₀) = 0 → IsFRCosmo Ω a F t₀`
-- `MasterEq Ω a F t₀ t` — **PINNED** (pin theorem `masterEq_iff_blind`): the second field equation of metric F(R) gravity with dust, Bamba et al. 2012 Eq. (11.5) multiplied by −2F′(R), holds at time `t` for the scale factor `a`, the function F = `F` and dust density parameter `Ω` referred to time `t₀`
-- `P0 q j s l` — PRINTED, not pinned, so only the formula shown is checked, not its name (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `(j - q - 2) * l - (3 * s + 7 * j + 6 * q ^ 2 + 41 * q + 22) * s - ((3 * q + 16) * j + 20 * q ^ 2 + 64 * q + 12) * j - (3 * q ^ 4 + 25 * q ^ 3 + 96 * q ^ 2 + 72 * q + 20)`
-- `PrintedF0Claim` — CLAIM, not pinned, so only the formula shown is checked, not its name: means for every `Ω : ℝ`, for every `a : ℝ → ℝ`, for every `F : ℝ → ℝ`, for every `t₀ : ℝ`, if `IsFRCosmo Ω a F t₀`, then if `printedR (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) ≠ 0`, then `F (curv a t₀) / (6 * hubble a t₀ ^ 2) = -(P0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) * Ω + Q0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)) / printedR (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)`
-- `Q0 q j s l` — PRINTED, not pinned, so only the formula shown is checked, not its name (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `(q ^ 2 - j * q + 2 * q) * l + (3 * q * s + (4 * q + 6) * j + 6 * q ^ 3 + 44 * q ^ 2 + 22 * q - 12) * s + (2 * j ^ 2 + (3 * q ^ 2 + 10 * q - 6) * j + 17 * q ^ 3 + 52 * q ^ 2 + 54 * q + 36) * j + (3 * q ^ 5 + 28 * q ^ 4 + 118 * q ^ 3 + 72 * q ^ 2 - 76 * q - 64)`
-- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): the `n`-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor `a` at time `t` (n = `n`; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
-- `curv a t` — **PINNED** (pin theorem `ricciSpec_pins`): the Ricci scalar R = −6(Ḣ + 2H²) of spatially flat FLRW with scale factor `a` at time `t` (sign convention of Bamba et al. 2012, Eq. (11.6))
-- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): the deceleration parameter −a″(t)·a(t)/a′(t)² of the scale factor `a` at time `t`
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
-- `printedR q j s l` — PRINTED, not pinned, so only the formula shown is checked, not its name (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `(j - q - 2) * l - (3 * s - 2 * j + 6 * q ^ 2 + 50 * q + 40) * s + ((3 * q + 10) * j + 11 * q ^ 2 + 4 * q + 18) * j - (3 * q ^ 4 + 34 * q ^ 3 + 246 * q + 104)`
+- `Omega0Spec` — SPEC, not pinned: inductive type with constructors `Omega0Spec.mk : ∀ {O : ℝ → (ℝ → ℝ) → ℝ → ℝ}, (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → O K a t₀ = 1 + K / (a t₀ ^ 2 * (deriv a t₀ / a t₀) ^ 2)) → (∀ (G ρ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < G → 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → (deriv a t₀ / a t₀) ^ 2 = 8 * Real.pi * G / 3 * ρ - K / a t₀ ^ 2 → O K a t₀ = ρ / (3 * (deriv a t₀ / a t₀) ^ 2 / (8 * Real.pi * G))) → (∀ (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → O 0 a t₀ = 1) → (∀ (t₀ : ℝ), 0 < t₀ → O (-1) (fun s => s) t₀ = 0) → (∀ (t₀ : ℝ), t₀ ≠ 0 → O 1 Real.cosh t₀ = 1 + 1 / Real.sinh t₀ ^ 2) → O 1 (fun s => s) 1 = 2 → (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → (1 < O K a t₀ ↔ 0 < K)) → (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → (O K a t₀ < 1 ↔ K < 0)) → (∀ (c K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < c → 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → O (c ^ 2 * K) (fun s => c * a s) t₀ = O K a t₀) → (∀ (τ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → O K (fun s => a (s + τ)) (t₀ - τ) = O K a t₀) → (∀ (K : ℝ) (a b : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → a =ᶠ[nhds t₀] b → O K a t₀ = O K b t₀) → O 1 (fun s => s) 1 ≠ 0 → O 1 (fun s => 2 * s) 1 ≠ 2 → Omega0Spec O`
+- `omega0 K a t₀` — **PINNED** (pin theorem `omega0Spec_pins`): the total density parameter Ω₀ = 1 + K/(H₀²·a₀²) at time `t₀` for curvature constant `K` and scale factor `a` (c = 1; H₀, a₀ the Hubble rate and scale factor at `t₀`; Ω_k = 1 − Ω₀)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The printed relation (division form) fails in ΛCDM at the review's concordance value
-`Ω = 1/4` (Sec. XI uses `Ω_M = 0.25` and `0.041`; both are covered by the `Ω ∈ (0,1)` statement
-below whenever the printed `R` is nonzero there).
+**Pinning:** any `O` meeting `Omega0Spec` is `omega0` wherever `a₀ > 0`, `a` is
+differentiable at `t₀` and `H₀ ≠ 0`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem printedF0Claim_false : ¬ PrintedF0Claim := …
+theorem omega0Spec_pins (O : ℝ → (ℝ → ℝ) → ℝ → ℝ) (h : Omega0Spec O) (K : ℝ) (a : ℝ → ℝ)
+    (t₀ : ℝ) (ha : 0 < a t₀) (hd : DifferentiableAt ℝ a t₀) (hH : deriv a t₀ / a t₀ ≠ 0) :
+    O K a t₀ = omega0 K a t₀ := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.FRCosmo.FriedmannEq`, `Cosmography.FRCosmo.MasterEq`, `Cosmography.FRCosmo.curv`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.FRCosmo.P0`, `Cosmography.FRCosmo.PrintedF0Claim`, `Cosmography.FRCosmo.Q0`, `Cosmography.FRCosmo.printedR`, `Cosmography.FRCosmo.IsFRCosmo`, `Cosmography.FRCosmo.rhoM`
+See GLOSSARY.md: `Cosmography.BambaK.omega0`, `Cosmography.hubble`, `Fidelity.Omega0Spec`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, FriedmannEq, MasterEq, curv, decel, hubble.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): P0², PrintedF0Claim, Q0², printedR².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 5, n = 4.
-- Source file: `Checked/Cosmography/FRCosmo.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: omega0.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `omega0Spec_pins`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Fidelity/YOmegaKSpecs.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 32

@@ -1,51 +1,62 @@
 # Item 11
 
-**Area:** T1 fidelity
+**Area:** F4
 
-**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421 (v1, v2, v3), Eq. (10.54): y-redshift luminosity-distance coefficient D²_{L,y} has the wrong overall sign
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `C : ℕ → (ℝ → ℝ) → ℝ → ℝ`, `n : ℕ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
+**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
 
-1. `CosmoCoeffSpecCore C`
-2. `CoeffOK n a t₀`
+1. `ContDiffAt ℝ 3 a t₀`
+2. `a t₀ ≠ 0`
+3. `hubble a t₀ ≠ 0`
+4. `11 - 5 * decel a t₀ + 3 * decel a t₀ ^ 2 - cosmoCoeff 3 a t₀ ≠ 0`
 
 **then**
 
-- `C n a t₀ = cosmoCoeff n a t₀`
+- it is false that (`(fun t => remainderY printedD2y a t₀ t) =o[nhds t₀] fun t => yred a t₀ t ^ 3`)
 
 Program definitions in this claim:
 
-- `CoeffOK n a t` — SPEC, not pinned, so only the formula shown is checked, not its name (for `n : ℕ`, `a : ℝ → ℝ`, `t : ℝ`): means (`0 < a t`) and (`ContDiffAt ℝ (↑n) a t`) and (`deriv a t ≠ 0`)
-- `CosmoCoeffSpecCore` — SPEC, not pinned: inductive type with constructors `CosmoCoeffSpecCore.mk : ∀ {C : ℕ → (ℝ → ℝ) → ℝ → ℝ}, (∀ (n : ℕ) (a : ℝ → ℝ) (t : ℝ), CoeffOK n a t → C n a t = iteratedDeriv n a t / (a t * (deriv a t / a t) ^ n)) → (∀ (n : ℕ) (a : ℝ → ℝ) (t₀ : ℝ), CoeffOK n a t₀ → (fun Δ => a (t₀ + Δ) / a t₀ - ∑ k ∈ Finset.range (n + 1), C k a t₀ * (deriv a t₀ / a t₀ * Δ) ^ k / ↑k.factorial) =o[nhds 0] fun Δ => Δ ^ n) → (∀ (a : ℝ → ℝ) (t : ℝ), CoeffOK 0 a t → C 0 a t = 1) → (∀ (a : ℝ → ℝ) (t : ℝ), CoeffOK 1 a t → C 1 a t = 1) → (∀ (n : ℕ) (a : ℝ → ℝ) (c t : ℝ), 0 < c → CoeffOK n a t → C n (fun s => c * a s) t = C n a t) → (∀ (n : ℕ) (a : ℝ → ℝ) (τ t : ℝ), CoeffOK n a (t + τ) → C n (fun s => a (s + τ)) t = C n a (t + τ)) → (∀ (n : ℕ) (A h t : ℝ), 0 < A → h ≠ 0 → C n (fun s => A * Real.exp (h * s)) t = 1) → (∀ (n : ℕ) (p t : ℝ), 0 < t → p ≠ 0 → C n (fun s => s ^ p) t = (∏ i ∈ Finset.range n, (p - ↑i)) / p ^ n) → (∀ (n : ℕ) (t : ℝ), 0 < t → 2 ≤ n → C n (fun s => s) t = 0) → (∀ (t : ℝ), 0 < t → C 2 (fun s => s ^ (2 / 3)) t = -1 / 2) → (∀ (t : ℝ), 0 < t → C 3 (fun s => s ^ (2 / 3)) t = 1) → C 2 (fun s => s ^ (2 / 3)) 1 ≠ 1 / 2 → C 2 (fun s => Real.exp (2 * s)) 0 ≠ 4 → CosmoCoeffSpecCore C`
+- `D1y q` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_D1y`); its name is not checked (for `q : ℝ`): is defined as `-(1 / 2) * (-3 + q)`
 - `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): the `n`-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor `a` at time `t` (n = `n`; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
+- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): the deceleration parameter −a″(t)·a(t)/a′(t)² of the scale factor `a` at time `t`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
+- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
+- `printedD2y q j Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedD2y`); its name is not checked (for `q : ℝ`, `j : ℝ`, `Ω : ℝ`): is defined as `-(1 / 6) * (12 - 5 * q + 3 * q ^ 2 - j - Ω)`
+- `remainderY D2 a t₀ t` — COMPOSITE, not pinned, so only the formula shown is checked, not its name (for `D2 : ℝ → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`): is defined as `hubble a t₀ * lumDistFlat a t₀ t - seriesY (D2 (decel a t₀) (cosmoCoeff 3 a t₀) 1) (decel a t₀) (yred a t₀ t)`
+- `seriesY d2 q y` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_seriesY`) (for `d2 : ℝ`, `q : ℝ`, `y : ℝ`): is defined as `y * (1 + D1y q * y + d2 * y ^ 2)`
+- `yred a t₀ t` — **PINNED** (pin theorem `yRedSpec_pins`): the y-redshift z/(1 + z), observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** every `C` obeying the cosmographic Taylor law equals `cosmoCoeff` wherever
-`a > 0`, `a` is `Cⁿ` near `t₀` and `ȧ(t₀) ≠ 0`.
+The printed `D²_{L,y}` (Bamba et al. 2012, Eq. (10.54)) fails in every flat model, scale factor `C³`
+at `t₀` with `a(t₀) ≠ 0`, `H₀ ≠ 0` and `11 − 5q₀ + 3q₀² − j₀ ≠ 0`: the flat `d_L(y)` series with it is
+not `d_L + o(y³)` as `t → t₀` (two-sided limit; past-only version: `printedD2y_fails_past`).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem cosmoCoeffCore_pins (C : ℕ → (ℝ → ℝ) → ℝ → ℝ) (h : CosmoCoeffSpecCore C) (n : ℕ)
-    (a : ℝ → ℝ) (t₀ : ℝ) (hok : CoeffOK n a t₀) : C n a t₀ = cosmoCoeff n a t₀ := …
+theorem printedD2y_fails (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 3 a t₀)
+    (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0)
+    (hD : 11 - 5 * decel a t₀ + 3 * decel a t₀ ^ 2 - cosmoCoeff 3 a t₀ ≠ 0) :
+    ¬ (fun t => remainderY printedD2y a t₀ t) =o[𝓝 t₀] (fun t => yred a t₀ t ^ 3) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.hubble`, `Fidelity.CoeffOK`, `Fidelity.CosmoCoeffSpecCore`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaY.lumDistFlat`, `Cosmography.BambaY.yred`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.BambaY.D1y`, `Cosmography.BambaY.printedD2y`, `Cosmography.BambaY.comoving`, `Cosmography.BambaY.remainderY`, `Cosmography.BambaY.seriesY`, `Cosmography.CCS.D2`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `cosmoCoeffCore_pins`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/RedshiftCoeffSpecs.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, lumDistFlat, yred, decel, hubble.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): D1y², printedD2y².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedD2y_fails`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3.
+- Source file: `Checked/Cosmography/BambaDLy.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 11

@@ -302,7 +302,16 @@ def explain (ctx : Ctx) (d : Name) : MetaM String := do
             | some (_, l, _) => l.isConstOf d
             | none => false
           | none => false
+        -- a PRINTED transcription with an independent second reading (trust track T3,
+        -- `Checked/Trust/Transcriptions*.lean`; run 2026-11-05T1028Z: CLAIMS.md did not say so)
+        let readN := (`Checked.Trust.Transcriptions).str ("agree_" ++ d.componentsRev.head!.toString)
+        let sr : Bool := kind == "PRINTED" && match (← getEnv).find? readN with
+          | some ai => match ai.type.eq? with
+            | some (_, l, _) => l.isConstOf d
+            | none => false
+          | none => false
         let status := if sf then s!"not pinned; name and body agree with a blind second formulation ({code (tidy ctx agreeN.toString)})"
+          else if sr then s!"not pinned; an independent blind second reading of the source agrees with this transcription ({code (tidy ctx readN.toString)}); its name is not checked"
           else "not pinned, so only the formula shown is checked, not its name"
         if ← isProp body then
           return s!"- {code head} — {kind}, {status}{sigTxt}: means {← renderProp ctx body}{extra}"

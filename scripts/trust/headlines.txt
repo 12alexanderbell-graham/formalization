@@ -178,3 +178,14 @@ Checked.Data.FR13.fr13_zda738
 # Mathematics: Lane–Emden polytrope of index 3 (run 2026-11-05T0228Z)
 Checked.Math.LaneEmden.laneEmden3_constants
 Checked.Math.LEExists.exists_solution
+# Data claims: Moresco et al. 2016 Table 5 (run 2026-11-05T0428Z) and the certified minimum of its open-universe χ² (run 2026-11-05T0628Z); promoted run 2026-11-05T1028Z
+Checked.Data.Moresco16.table5_oL_inconsistent
+Checked.Data.Moresco16.table5_pw_inconsistent
+Checked.Data.Moresco16.table5_line_inconsistent
+Checked.Data.Moresco16.oL_bic_exceeds
+Checked.Data.Moresco16.line_bic_exceeds
+Checked.Data.Moresco16Min.chiSqOL_ge
+Checked.Data.Moresco16Min.chiSqOL_lt
+Checked.Data.Moresco16Min.chiSqOL_glb_prior
+Checked.Data.Moresco16Min.chiSqOL_glb_wide
+Checked.Data.Moresco16Min.table5_oL_aicc_unattainable

@@ -142,6 +142,7 @@ import Work.Data.Moresco16Min
 import Work.Data.Moresco16MinBlind
 import Work.Data.Moresco16MinBlindClosed
 import Work.Data.Moresco16MinNearMiss
+import Work.Data.Moresco16PromotionAudit
 import Work.Math.LEExistsRight
 import Work.Math.LEExistsLeft
 import Work.Math.LEExists

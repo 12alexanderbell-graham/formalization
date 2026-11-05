@@ -1,90 +1,58 @@
 # Item 03
 
-**Area:** C27 at fit level
+**Area:** Data claim
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₁ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `H : ℝ`, `c : ℝ`:
+**For every** `Ω : ℝ`, `z : ℝ`:
 
 **assuming**
 
 1. `0 ≤ Ω`
 2. `Ω ≤ 1`
-3. `t₅ ≤ t₃`
-4. `t₃ ≤ t₁`
-5. `t₁ ≤ t₀`
-6. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `0 < a s`
-7. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `DifferentiableAt ℝ a s`
-8. `0 < hubble a t₀`
-9. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
-10. `redshift a t₀ t₁ = √2 - 1`
-11. `redshift a t₀ t₃ = 2 * √2 - 1`
-12. `redshift a t₀ t₅ = 4 * √2 - 1`
-13. `343 / 100 ≤ a₂`
-14. `a₂ ≤ 349 / 100`
-15. `157 / 100 ≤ a₃`
-16. `a₃ ≤ 169 / 100`
-17. `0 < H`
-18. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)`
-19. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)`
-20. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)`
+3. for every `Ω' : ℝ`, if `Ω' ∈ Set.Icc 0 1`, then `margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω'`
+4. `-1 < z`
+5. `Ω * (1 + z) ^ 3 = 2 * (1 - Ω)`
 
 **then**
 
-- it is false that ((`|5 * Real.logb 10 (lumDistFlat a t₀ t₁ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)) - c| ≤ 1 / 20`) and (`|5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c| ≤ 1 / 20`) and (`|5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c| ≤ 1 / 20`))
+1. `0.703 < z`
+2. `z < 0.706`
 
 Program definitions in this claim:
 
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
-- `logPolyDL3 a₂ a₃ H₀ z` — PRINTED, not pinned, so only the formula shown is checked, not its name (for `a₂ : ℝ`, `a₃ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3)`
-- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
-- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+- `chiSqHz tbl H₀ Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_chiSqHz`) (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `H₀ : ℝ`, `Ω : ℝ`): is defined as `∑ i, ((H₀ * √(Ω * (1 + (tbl i).1) ^ 3 + 1 - Ω) - (tbl i).2.1) / (tbl i).2.2) ^ 2`
+- `fr13Table` — PRINTED, not pinned, so only the formula shown is checked, not its name: is defined as `![(70e-3, 69, 19.6), (0.100, 69, 12), (0.120, 68.6, 26.2), (0.170, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.200, 72.9, 29.6), (0.270, 77, 14), (0.280, 88.8, 36.6), (0.350, 76.3, 5.6), (0.352, 83, 14), (0.400, 95, 17), (0.440, 82.6, 7.8), (0.480, 97, 62), (0.593, 104, 13), (0.600, 87.9, 6.1), (0.680, 92, 8), (0.730, 97.3, 7.0), (0.781, 105, 12), (0.875, 125, 17), (0.880, 90, 40), (0.900, 117, 23), (1.037, 154, 20), (1.300, 168, 17), (1.430, 177, 18), (1.530, 140, 14), (1.750, 202, 40), (2.300, 224, 8)]`
+- `margChiSq tbl Hbar σ Ω` — FORMULA, not pinned, so only the formula shown is checked, not its name (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `Hbar : ℝ`, `σ : ℝ`, `Ω : ℝ`): is defined as `-2 * Real.log (∫ (H₀ : ℝ), Real.exp (-chiSqHz tbl H₀ Ω / 2) * (Real.exp (-(H₀ - Hbar) ^ 2 / (2 * σ ^ 2)) / √(2 * Real.pi * σ ^ 2)))`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**C27 (fit level).** For every `Ω ∈ [0, 1]`, no cubic log-polynomial with `a₂ ∈ [3.43, 3.49]`,
-`a₃ ∈ [1.57, 1.69]` (the RL19 Fig. 3 contour centre with its reading uncertainty), normalisation
-`H > 0`, positive at `1 + z = √2, 2√2, 4√2`, agrees with the exact distance modulus of a model
-obeying `H = H₀√(Ω(1+z)³ + 1 − Ω)` within 0.05 mag up to a common offset at all three redshifts.
+With the prior 68 ± 2.8, at every minimiser Ω over [0, 1] of the marginalised chi-square
+of the Farooq–Ratra 2013 table, the z > −1 solving Ω(1+z)³ = 2(1 − Ω) lies strictly between
+0.703 and 0.706.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem rl19_box_unmatched (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
-    (a : ℝ → ℝ) (t₅ t₃ t₁ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₁ : t₃ ≤ t₁) (h₁₀ : t₁ ≤ t₀)
-    (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
-    (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
-    (hH₀ : 0 < hubble a t₀)
-    (hH : ∀ s ∈ Set.Icc t₅ t₀,
-      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
-    (hz₁ : redshift a t₀ t₁ = √2 - 1) (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1)
-    (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
-    (a₂ a₃ H c : ℝ) (ha₂l : 343 / 100 ≤ a₂) (ha₂u : a₂ ≤ 349 / 100)
-    (ha₃l : 157 / 100 ≤ a₃) (ha₃u : a₃ ≤ 169 / 100) (hHp : 0 < H)
-    (hp₁ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₁))
-    (hp₃ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃))
-    (hp₅ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) :
-    ¬ (|5 * Real.logb 10 (lumDistFlat a t₀ t₁ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)) - c|
-          ≤ 1 / 20 ∧
-        |5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c|
-          ≤ 1 / 20 ∧
-        |5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c|
-          ≤ 1 / 20) := …
+theorem fr13_zda68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω')
+    (z : ℝ) (hz : -1 < z) (hda : Ω * (1 + z) ^ 3 = 2 * (1 - Ω)) :
+    0.703 < z ∧ z < 0.706 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1.logPolyDL3`, `Cosmography.BambaY.comoving`
+See GLOSSARY.md: `Data.FR13.fr13Table`, `Data.FR13.chiSqHz`, `Data.FR13.margChiSq`, `Data.FR13Certs.tbl`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL3².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rl19_box_unmatched`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): redshift(t₁) = √2 - 1; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1.
-- Source file: `Checked/Cosmography/B1FitRL19.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): fr13Table.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fr13_zda68`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): margChiSq: Hbar = 68, σ = 2.8.
+- Source file: `Checked/Data/FR13.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 03
