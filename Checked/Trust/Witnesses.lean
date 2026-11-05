@@ -38,6 +38,7 @@ import Checked.Cosmography.B1L19
 import Checked.Data.FR13
 import Checked.Chemistry.RKAcentric
 import Checked.Chemistry.PRAcentric
+import Checked.Chemistry.PR78Acentric
 import Checked.Cosmography.B1L19Curved
 import Checked.Math.LaneEmden
 import Checked.Math.LEExists
@@ -597,6 +598,20 @@ theorem pr_omega1_exists : nonvacuity% Checked.Chemistry.PRAcentric.pr_omega1_ex
 theorem pr_omega1_unique : nonvacuity% Checked.Chemistry.PRAcentric.pr_omega1_unique := by
   obtain ⟨Tc, vc, -, hv, hc⟩ := pr_crit_witness
   obtain ⟨vl, vg, ps, hl, h, -⟩ := Checked.Chemistry.PRAcentric.pr_omega1_exists
+    1 1 1 Tc vc one_pos one_pos hv hc
+  exact ⟨1, 1, 1, Tc, vc, vl, vg, ps, one_pos, one_pos, hv, hc, hl, h, trivial⟩
+
+-- Peng–Robinson with the revised (1978) κ at ω = 1 (run 2026-11-05T1828Z): the same critical
+-- point `pr_crit_witness`; the coexistence state of the uniqueness theorem is the one
+-- `pr78_omega1_exists` provides.
+
+theorem pr78_omega1_exists : nonvacuity% Checked.Chemistry.PR78Acentric.pr78_omega1_exists := by
+  obtain ⟨Tc, vc, -, hv, hc⟩ := pr_crit_witness
+  exact ⟨1, 1, 1, Tc, vc, one_pos, one_pos, hv, hc, trivial⟩
+
+theorem pr78_omega1_unique : nonvacuity% Checked.Chemistry.PR78Acentric.pr78_omega1_unique := by
+  obtain ⟨Tc, vc, -, hv, hc⟩ := pr_crit_witness
+  obtain ⟨vl, vg, ps, hl, h, -⟩ := Checked.Chemistry.PR78Acentric.pr78_omega1_exists
     1 1 1 Tc vc one_pos one_pos hv hc
   exact ⟨1, 1, 1, Tc, vc, vl, vg, ps, one_pos, one_pos, hv, hc, hl, h, trivial⟩
 

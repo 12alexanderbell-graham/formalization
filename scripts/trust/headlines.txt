@@ -162,6 +162,8 @@ Checked.Chemistry.RKAcentric.rk_coexistence_exists
 Checked.Chemistry.RKAcentric.rk_coexistence_unique
 Checked.Chemistry.PRAcentric.pr_omega1_exists
 Checked.Chemistry.PRAcentric.pr_omega1_unique
+Checked.Chemistry.PR78Acentric.pr78_omega1_exists
+Checked.Chemistry.PR78Acentric.pr78_omega1_unique
 # Rigorous simulation (run 2026-11-04T0628Z): Duffing oscillator, validated ODE enclosure of every solution + existence
 Checked.Sim.Duffing.duffing_first_zero_sol
 Checked.Sim.Duffing.duffing_solution_exists

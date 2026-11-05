@@ -65,6 +65,10 @@ import Checked.Chemistry.PRReduced
 import Checked.Chemistry.PRCore
 import Checked.Chemistry.PRExists
 import Checked.Chemistry.PRAcentric
+import Checked.Chemistry.PR78Reduced
+import Checked.Chemistry.PR78Core
+import Checked.Chemistry.PR78Exists
+import Checked.Chemistry.PR78Acentric
 import Checked.Fidelity.MaxwellSpec
 import Checked.Fidelity.CriticalSpec
 import Checked.Sim.Duffing
