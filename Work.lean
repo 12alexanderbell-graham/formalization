@@ -132,7 +132,15 @@ import Work.Data.Moresco16Blind
 import Work.Data.Moresco16Certs
 import Work.Data.Moresco16BlindClosed
 import Work.Data.Moresco16Lower
+import Work.Data.Moresco16MinTools
+import Work.Data.Moresco16MinCerts0
+import Work.Data.Moresco16MinCerts1
+import Work.Data.Moresco16MinCerts2
+import Work.Data.Moresco16MinCerts3
+import Work.Data.Moresco16MinCover
 import Work.Data.Moresco16Min
+import Work.Data.Moresco16MinBlind
+import Work.Data.Moresco16MinBlindClosed
 import Work.Math.LEExistsRight
 import Work.Math.LEExistsLeft
 import Work.Math.LEExists
