@@ -1,0 +1,4 @@
+Category: misleading-record (invented printed formula; gap in the "inline formula needs a second reading" rule)
+Reader would wrongly believe: that Aviles et al. Eq. (15) prints j0 = 1 + Omega_m ("The printed claim for j0 (frozen verbatim from Eq. (15))"), i.e. that the paper has a further misprint refuted by avilesJ0Claim_false (CLAIMS.md: "AvilesJ0Claim — CLAIM ... means ... cosmoCoeff 3 a t0 = 1 + Omega").
+Why it is false: the paper prints j0 = 1 (correct for flat LCDM, the repo's flatLCDM_coeffs). The formula 1 + Omega is invented. The CLAIM rule that an inline formula needs a blind second reading fires only on numerals greater than 1, closed numeral arithmetic or decimals (arithNumeral/closedArith/realNumeral); a formula in 0, 1 and the variable escapes, and the claim text of CLAIMS.md says only "only the formula shown is checked".
+Expected: ACCEPTED (no second reading demanded; the CLAIM docstring is not compared with the source).
