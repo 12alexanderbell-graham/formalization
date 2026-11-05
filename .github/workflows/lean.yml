@@ -51,6 +51,16 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+      # Repair, run 2026-11-05T1628Z (annex LIV, see LEDGER): three checked jobs were lost without a log
+      # (ff010a6 and 70d33e3 in nanoda, 01b0c8c in the build) on trees that passed elsewhere — the
+      # signature of the runner VM dying on memory or disk. Free unused toolchains and add swap; no
+      # check changes. The resource report is printed again after nanoda.
+      - name: Free disk and add swap (robustness; no check changes)
+        run: |
+          df -h / ; free -h
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          sudo fallocate -l 8G /extra-swap && sudo chmod 600 /extra-swap && sudo mkswap /extra-swap && sudo swapon /extra-swap || echo "swap not added"
+          df -h / ; free -h
       - uses: leanprover/lean-action@v1.7.0
         env:
           LEAN_NUM_THREADS: "1"
@@ -63,7 +73,10 @@ jobs:
           leanchecker: "true"
           leanchecker-args: "Checked"
       - name: Independent type check of Checked with nanoda (blocking; repaired run 2026-10-30T0220Z, see LEDGER)
-        run: scripts/nanoda_checked.sh
+        run: |
+          df -h / ; free -h
+          scripts/nanoda_checked.sh
+          df -h / ; free -h
       - name: No sorry / axiom / native_decide in Checked sources (belt and braces)
         run: |
           if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
