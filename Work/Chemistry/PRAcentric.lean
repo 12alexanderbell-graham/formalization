@@ -2,6 +2,7 @@ import Mathlib
 import Checked.Records.Basic
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
+import Work.Chemistry.PRCore
 
 /-!
 # Chemistry (THE RESULT part 5): does Peng–Robinson reproduce its own acentric factor? (run 2026-11-05T1228Z)
@@ -53,7 +54,10 @@ theorem pr_omega1_unique (R ac b Tc vc vl vg ps : ℝ) (hac : 0 < ac) (hb : 0 < 
         b 2 (-1) (7 / 10 * Tc)) vl vg ps) :
     RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 0.0114 4 ∧
       RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 0.942 3 := by
-  sorry
+  -- Proof (run 2026-11-05T1228Z): `Work.Chemistry.PRCore.pr_unique_core` (reduced variables,
+  -- certified window of the reduced pressure `Work.Chemistry.PRReduced.window_of_maxwell`,
+  -- θ and P_c from the critical point, ω from certified logarithms).
+  exact Work.Chemistry.PRCore.pr_unique_core R ac b Tc vc vl vg ps hac hb hvc hc hl h
 
 /-- Peng–Robinson fluid with Soave's temperature function and the published κ(ω) at ω = 1: at
 any critical point (v_c > b) there is a Maxwell coexistence state at T = 0.7 T_c with liquid
