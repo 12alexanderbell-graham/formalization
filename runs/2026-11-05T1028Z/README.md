@@ -21,7 +21,8 @@
 6. **Generator repair** (LIV): CLAIMS.md did not mention second readings of PRINTED definitions; now it does (270/289).
 
 ## CI
-- Promotion 1783fe6: see below (in progress at the time of writing).
+- Promotion 1783fe6, CI 42022359372: **every blocking step green** — work job 47 min (incl. closed audits with `Moresco16PromotionAudit`), checked job: build + leanchecker + axiom audit 78 min (was 60 at e1eafbf), **nanoda 19.6 min** (was 13.5: the 905 `decide +kernel` boxes cost ≈ 6 min of independent replay), trust step 5.7 min, frozen registry green. The ten Moresco headlines are **PROVED** (read at 13:37Z, after the lock passed to run 1228Z; STATE's Results line "PROVED once CI is green" is now satisfied — for run 1228Z or later to update).
+- Records 70d33e3 and baseline shrink 9927362: read next run.
 
 ## Measurement
 | | before | after |
