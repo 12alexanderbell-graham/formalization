@@ -31,28 +31,26 @@ Only Mathlib definitions occur in the statement (no program definition to pin).
 namespace Work.Math.LaneEmden
 open Set
 
-/-- Lane–Emden equation of index 3: for every solution θ of θ'' + (2/ξ)θ' + θ³ = 0 on (0, 7] with
-θ(0) = 1, θ differentiable on [0, 7] with derivative φ, and φ continuous at 0, the first zero
-ξ₁ of θ satisfies 6.896848615 ≤ ξ₁ ≤ 6.896848625, the Chandrasekhar-mass constant
-−ξ₁² θ'(ξ₁) lies between 2.018235945 and 2.018235955, and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between
-54.1824805 and 54.1824815. -/
-theorem laneEmden3_constants (θ φ : ℝ → ℝ)
-    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 7) 0)
-    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ)
+/-- The program's argument on [0, 69/10] (helper; the headline below and the closed blind
+restatement both use it). -/
+theorem core (θ φ : ℝ → ℝ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) (69 / 10), HasDerivWithinAt θ (φ ξ) (Icc 0 (69 / 10)) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 (69 / 10)) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) (69 / 10),
+      HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 (69 / 10)) ξ)
     (h0 : θ 0 = 1) :
     ∃ ξ₁ : ℝ, 6.896848615 ≤ ξ₁ ∧ ξ₁ ≤ 6.896848625 ∧ θ ξ₁ = 0 ∧ (∀ ξ ∈ Ico 0 ξ₁, 0 < θ ξ) ∧
       2.018235945 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.018235955 ∧
       54.1824805 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
       ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 54.1824815 := by
   obtain ⟨hneg, hlo, hhi, hom⟩ := Work.Math.LECerts.chain hθ hφ0 hφ h0
-  have hcont : ContinuousOn θ (Icc 0 7) := fun x hx => (hθ x hx).continuousWithinAt
+  have hcont : ContinuousOn θ (Icc 0 (69 / 10)) := fun x hx => (hθ x hx).continuousWithinAt
   have hanti : StrictAntiOn θ (Icc 0 (55174789 / 8000000 : ℝ)) := by
     apply strictAntiOn_of_deriv_neg (convex_Icc 0 _)
       (hcont.mono (Icc_subset_Icc le_rfl (by norm_num)))
     intro x hx
     rw [interior_Icc] at hx
-    have hx7 : x ∈ Ioo (0 : ℝ) 7 := ⟨hx.1, by linarith [hx.2]⟩
+    have hx7 : x ∈ Ioo (0 : ℝ) (69 / 10) := ⟨hx.1, by linarith [hx.2]⟩
     have hd : HasDerivAt θ (φ x) x :=
       (hθ x (Ioo_subset_Icc_self hx7)).hasDerivAt (Icc_mem_nhds hx7.1 hx7.2)
     rw [hd.deriv]
@@ -81,5 +79,23 @@ theorem laneEmden3_constants (θ φ : ℝ → ℝ)
     have h3 : ξ₁ ^ 3 ≤ (6.896848625 : ℝ) ^ 3 := pow_le_pow_left₀ hξ0 hb 3
     have n : (6.896848625 : ℝ) ^ 3 ≤ 54.1824815 * (3 * 2.018235945) := by norm_num
     linarith
+
+/-- Lane–Emden equation of index 3: for every solution θ of θ'' + (2/ξ)θ' + θ³ = 0 on (0, 7] with
+θ(0) = 1, θ differentiable on [0, 7] with derivative φ, and φ continuous at 0, the first zero
+ξ₁ of θ satisfies 6.896848615 ≤ ξ₁ ≤ 6.896848625, the Chandrasekhar-mass constant
+−ξ₁² θ'(ξ₁) lies between 2.018235945 and 2.018235955, and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between
+54.1824805 and 54.1824815. -/
+theorem laneEmden3_constants (θ φ : ℝ → ℝ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 7) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ)
+    (h0 : θ 0 = 1) :
+    ∃ ξ₁ : ℝ, 6.896848615 ≤ ξ₁ ∧ ξ₁ ≤ 6.896848625 ∧ θ ξ₁ = 0 ∧ (∀ ξ ∈ Ico 0 ξ₁, 0 < θ ξ) ∧
+      2.018235945 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.018235955 ∧
+      54.1824805 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
+      ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 54.1824815 := by
+  have hsub : Icc (0 : ℝ) (69 / 10) ⊆ Icc 0 7 := Icc_subset_Icc le_rfl (by norm_num)
+  exact core θ φ (fun ξ hξ => (hθ ξ (hsub hξ)).mono hsub) (hφ0.mono hsub)
+    (fun ξ hξ => (hφ ξ ⟨hξ.1, by linarith [hξ.2]⟩).mono hsub) h0
 
 end Work.Math.LaneEmden

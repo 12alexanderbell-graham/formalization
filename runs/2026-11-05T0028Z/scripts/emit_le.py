@@ -72,9 +72,9 @@ open Set Work.Sim Work.Math.LECell
 o.append(lst('P', P) + lst('Pd', Pd) + lst('Pdt', Pdt) + lst('W', W) + lst('rho', rho))
 o.append(f"""
 theorem startI {{θ φ : ℝ → ℝ}}
-    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 7) 0)
-    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) (69 / 10), HasDerivWithinAt θ (φ ξ) (Icc 0 (69 / 10)) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 (69 / 10)) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) (69 / 10), HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 (69 / 10)) ξ)
     (h0 : θ 0 = 1) :
     (∀ t ∈ Ioc (0 : ℝ) (1 / 2), φ t < 0) ∧ |θ (1 / 2) - {r(th0)}| ≤ {r(d0)} ∧
       |φ (1 / 2) - {r(ph0)}| ≤ {r(d0)} := by
@@ -94,7 +94,7 @@ theorem startI {{θ φ : ℝ → ℝ}}
       (by norm_num [rho, evalQ])) (sq_nonneg t)
   have hpM : ∀ t ∈ Icc (0 : ℝ) (1 / 2), |evalQ P t| ≤ {r(Mp)} := fun t ht =>
     (abs_evalQ_le P ht.1 ht.2).trans (by norm_num [P, evalQ])
-  have hs := Work.Math.LEStart.start θ φ (evalQ P) (evalQ Pd) (evalQ W) (X := 7) (ξ0 := 1 / 2)
+  have hs := Work.Math.LEStart.start θ φ (evalQ P) (evalQ Pd) (evalQ W) (X := 69 / 10) (ξ0 := 1 / 2)
     (η := {r(eta)}) (R := {r(R)}) (L := {r(L)}) (Mp := {r(Mp)})
     (by norm_num) (by norm_num) hθ hφ0 hφ h0 hp (by simp [P, evalQ]) hq hres hpM
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
@@ -144,12 +144,12 @@ def step(c, last=False):
                   f"|φ t - evalQ pp{i} (t - {r(t0)})| ≤ {r(B)})")
     s.append(f"""
 theorem step{i} {{θ φ : ℝ → ℝ}}
-    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ)
-    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) (69 / 10), HasDerivWithinAt θ (φ ξ) (Icc 0 (69 / 10)) ξ)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) (69 / 10), HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 (69 / 10)) ξ)
     (hprev : ∀ t ∈ Ioc (0 : ℝ) {r(t0)}, φ t < 0)
     (h0 : |θ {r(t0)} - {r(pt[0])}| ≤ {r(delta)}) (h0' : |φ {r(t0)} - {r(pp[0])}| ≤ {r(delta)}) :
     {concl} := by
-  have hc := cell pt{i} pp{i} (θ := θ) (φ := φ) (T := 7) (t0 := {r(t0)}) (h := {r(h)})
+  have hc := cell pt{i} pp{i} (θ := θ) (φ := φ) (T := 69 / 10) (t0 := {r(t0)}) (h := {r(h)})
     (δ := {r(delta)}) (ε := {r(eps)}) (B := {r(B)}) (TH := {r(TH)}) (K := {r(K)})
     (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num)
@@ -264,9 +264,9 @@ theorem lastFacts {{θ φ : ℝ → ℝ}}
 @@SPLIT Work.Math.LEChain@@
 /-- Chaining of the start and all cells. -/
 theorem chain {{θ φ : ℝ → ℝ}}
-    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 7) 0)
-    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) (69 / 10), HasDerivWithinAt θ (φ ξ) (Icc 0 (69 / 10)) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 (69 / 10)) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) (69 / 10), HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 (69 / 10)) ξ)
     (h0 : θ 0 = 1) :
     (∀ t ∈ Ioc (0 : ℝ) {r(A_HI)}, φ t < 0) ∧ 0 < θ {r(A_LO)} ∧ θ {r(A_HI)} < 0 ∧
       ∀ t ∈ Icc {r(A_LO)} {r(A_HI)}, {r(OL)} ≤ -(t ^ 2 * φ t) ∧ -(t ^ 2 * φ t) ≤ {r(OH)} := by

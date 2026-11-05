@@ -10,9 +10,9 @@ open Set Work.Sim Work.Math.LECell
 
 /-- Chaining of the start and all cells. -/
 theorem chain {θ φ : ℝ → ℝ}
-    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 7) 0)
-    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) (69 / 10), HasDerivWithinAt θ (φ ξ) (Icc 0 (69 / 10)) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 (69 / 10)) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) (69 / 10), HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 (69 / 10)) ξ)
     (h0 : θ 0 = 1) :
     (∀ t ∈ Ioc (0 : ℝ) (55174789/8000000 : ℝ), φ t < 0) ∧ 0 < θ (1379369723/200000000 : ℝ) ∧ θ (55174789/8000000 : ℝ) < 0 ∧
       ∀ t ∈ Icc (1379369723/200000000 : ℝ) (55174789/8000000 : ℝ), (403647189/200000000 : ℝ) ≤ -(t ^ 2 * φ t) ∧ -(t ^ 2 * φ t) ≤ (403647191/200000000 : ℝ) := by

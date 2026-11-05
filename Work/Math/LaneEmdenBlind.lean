@@ -1,4 +1,6 @@
 import Mathlib
+import Work.Math.LaneEmden
+import Work.Math.LEBlindBridge
 
 /-!
 # Lane–Emden n = 3, blind restatement
@@ -29,6 +31,11 @@ theorem blind_laneEmden3 (θ : ℝ → ℝ)
       ξ₁ ∈ Set.Icc (6.896848615 : ℝ) 6.896848625 ∧
       (-(ξ₁ ^ 2 * deriv θ ξ₁)) ∈ Set.Icc (2.018235945 : ℝ) 2.018235955 ∧
       (ξ₁ ^ 3 / (3 * (-(ξ₁ ^ 2 * deriv θ ξ₁)))) ∈ Set.Icc (54.1824805 : ℝ) 54.1824815 := by
-  sorry
+  obtain ⟨hθ, hφ0, hφ⟩ := Work.Math.LEBlindBridge.bridge θ hcont hd0 hode
+  obtain ⟨ξ₁, ha, hb, hz, hpos, hω1, hω2, hc1, hc2⟩ :=
+    Work.Math.LaneEmden.core θ _ hθ hφ0 hφ h0
+  have hne : ξ₁ ≠ 0 := by intro h; rw [h] at ha; norm_num at ha
+  simp only [hne, ite_false] at hω1 hω2 hc1 hc2
+  exact ⟨ξ₁, ⟨by linarith, by linarith⟩, hz, hpos, ⟨ha, hb⟩, ⟨hω1, hω2⟩, ⟨hc1, hc2⟩⟩
 
 end Work.Math.LaneEmdenBlind

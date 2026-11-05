@@ -114,6 +114,7 @@ import Work.Math.LECerts2
 import Work.Math.LECerts3
 import Work.Math.LEChain
 import Work.Math.LaneEmden
+import Work.Math.LEBlindBridge
 import Work.Math.LaneEmdenBlind
 import Work.Sim.MMAudit
 import Work.Data.FR13
