@@ -415,8 +415,17 @@ Work.CosmographyAudit.hubble_sq
 Work.CosmographyAudit.lookback_deSitter
 Work.CosmographyAudit.nearMiss_static
 Work.CosmographyAudit.nearMiss_wrong_coefficient
+Work.Data.Moresco16BlindClosed.linear_bic_below_printed
+Work.Data.Moresco16BlindClosed.oLCDM_bic_below_printed
+Work.Data.Moresco16BlindClosed.table4_second_reading
+Work.Data.Moresco16BlindClosed.table5_inconsistent
+Work.Data.Moresco16MinBlindClosed.claimA
+Work.Data.Moresco16MinBlindClosed.claimB
 Work.Math.LaneEmdenAudit.blind_closed
 Work.Math.LaneEmdenAudit.nonvacuous
+Work.Math.LaneEmdenNearMiss.mutant_n1
+Work.Math.LaneEmdenNearMiss.mutant_n5
+Work.Math.LaneEmdenNearMiss.near_miss_initial
 Work.Sim.DuffingAudit.blind_exists_closed
 Work.Sim.DuffingAudit.blind_first_zero_mem_closed
 Work.Sim.DuffingAudit.blind_pos_then_neg_closed

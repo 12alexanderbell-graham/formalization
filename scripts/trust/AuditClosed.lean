@@ -6,13 +6,19 @@ The records (STATE, run READMEs, the validation packet) say that blind restateme
 Lean" in `Work/**/*Audit*.lean`. The `work` CI job allows `sorry` (blind restatements are drafts), so a
 closed audit theorem could silently be reopened with `sorry` and every check stayed green (d03).
 
-`scripts/trust/audits.txt` lists every theorem of a `Work` module whose name contains `Audit` that
+`scripts/trust/audits.txt` lists every theorem of a `Work` module whose name contains `Audit` (or, since
+run 2026-11-05T0628Z, `BlindClosed` or `NearMiss`) that
 was closed (no `sorryAx` among its axioms) when the list was written. This script fails if a listed
 theorem is missing or now depends on `sorryAx` or on any axiom outside the standard three.
 `check_audits.py --base` makes the list shrink-only (a removal needs a LEDGER.md line naming it).
 `AUDIT_WRITE=1 lake env lean scripts/trust/AuditClosed.lean` rewrites the list (growth is free).
 -/
 open Lean Elab Command
+
+/-- Audit modules: names containing `Audit`, `BlindClosed` (closed blind restatements) or `NearMiss`
+(near-miss refutations of a frozen headline); the last two added run 2026-11-05T0628Z. -/
+def isAuditModule (m : String) : Bool :=
+  ["Audit", "BlindClosed", "NearMiss"].any fun k => (m.splitOn k).length > 1
 
 run_cmd do
   let env ← getEnv
@@ -25,7 +31,7 @@ run_cmd do
       if let .thmInfo _ := ci then
         if let some idx := env.getModuleIdxFor? n then
           let m := mods[idx.toNat]!
-          if (`Work).isPrefixOf m && ((toString m).splitOn "Audit").length > 1 && !n.isInternal then
+          if (`Work).isPrefixOf m && isAuditModule (toString m) && !n.isInternal then
             let ax ← collectAxioms n
             if ax.all (std.contains ·) then names := names.push (toString n)
     let sorted := names.qsort (· < ·)
