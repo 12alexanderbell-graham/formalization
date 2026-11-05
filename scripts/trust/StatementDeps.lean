@@ -141,6 +141,34 @@ def reportable (env : Environment) (n : Name) : Bool :=
   | some (.inductInfo _) => true
   | _ => false
 
+/-- What a label's body rules read: the value of a `def`, or (red team K of run 2026-11-05T1628Z,
+d05: a Prop `structure IsBoyleTemperature` with the field `b - 2 * a / (R * T) = 0`, labelled
+COMPOSITE, escaped every body rule, which read only `def` bodies) the constructor types of a
+`structure`/`inductive`, combined into one expression; `none` for other constants. Smoothness and
+derivative ORDERS (`ContDiffAt ℝ 5`, `deriv^[4]`, `iteratedDeriv 3`) are erased first: they are not
+arithmetic (the COMPOSITE model bundle `IsFRCosmo` has both). -/
+def bodyOf (env : Environment) (n : Name) : Option Expr :=
+  let orders := [``ContDiff, ``ContDiffAt, ``ContDiffOn, ``ContDiffWithinAt, ``iteratedDeriv,
+    ``iteratedDerivWithin, ``Nat.iterate]
+  let closed (a : Expr) : Bool := !a.hasLooseBVars && !a.hasFVar &&
+    a.getUsedConstants.all (fun k => match env.getModuleIdxFor? k with
+      | some idx => (env.header.moduleNames[idx.toNat]!).getRoot != `Checked
+      | none => true)
+  let erase (e : Expr) : Expr := e.replace fun t =>
+    match t.getAppFn with
+    | .const c _ =>
+      if orders.contains c then
+        some (mkAppN t.getAppFn (t.getAppArgs.map fun a => if closed a then .sort 0 else a))
+      else none
+    | _ => none
+  match env.find? n with
+  | some (.defnInfo d) => some (erase d.value)
+  | some (.inductInfo i) => some <| erase <| i.ctors.foldl (init := (.sort 0 : Expr)) fun acc k =>
+      match env.find? k with
+      | some ci => mkApp acc ci.type
+      | none => acc
+  | _ => none
+
 /-- Hypotheses (`Prop` binders) of a theorem statement `ty` that its proof term `v` never uses
 (trust track T2b, run 2026-10-31T0028Z). An unused hypothesis means the statement claims less
 than was proved and silently excludes cases (red-team defects A08, B06, B08). Walks binders and
@@ -579,23 +607,32 @@ run_cmd do
   -- (no unlisted helper) and no numeral other than 0 and 1 (arithmetic with constants is a FORMULA).
   for (dn, k) in kinds.toList do
     if k == "COMPOSITE" then
-      if let some (.defnInfo d) := env.find? dn then
-        let bad := d.value.getUsedConstants.filter fun c =>
+      if let some body := bodyOf env dn then
+        let bad := body.getUsedConstants.filter fun c =>
           isCheckedConst env c && reportable env c && c != dn && (kinds.find? c).isNone &&
             !pinned.contains c
         unless bad.isEmpty do
           errors := errors.push s!"COMPOSITE {dn} uses unlisted program definitions {bad.toList}: classify them or reclassify {dn}"
-        if let some l := arithNumeral env d.value then
+        if let some l := arithNumeral env body then
           errors := errors.push s!"COMPOSITE {dn} contains the numeral {l}: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE"
-        if closedArith d.value || realNumeral d.value then
+        if closedArith body || realNumeral body then
           errors := errors.push s!"COMPOSITE {dn} builds a numeric constant by arithmetic on numerals (such as 1 + 1) or passes a numeric constant to a helper: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE"
         -- a COMPOSITE combines listed definitions (red team K, d02: `schwarzschildRadius := G * M / (c * c)`,
         -- a free formula with no program definition in it, passed as COMPOSITE and so needed no second
         -- formulation; its name carried a false factor 2)
-        let listed := d.value.getUsedConstants.filter fun c =>
+        let listed := body.getUsedConstants.filter fun c =>
           isCheckedConst env c && reportable env c && c != dn && ((kinds.find? c).isSome || pinned.contains c)
         if listed.isEmpty then
           errors := errors.push s!"COMPOSITE {dn} uses no listed program definition: a formula in its own variables is a FORMULA (needs a blind second formulation), not a COMPOSITE"
+        -- an alias (body: one program definition applied to its arguments and literals) adds a name
+        -- and nothing else (red team K of run 2026-11-05T1628Z, d03: `qNought a t := cosmoCoeff 2 a t`,
+        -- documented as the deceleration parameter, is minus it; adversary of run 1428Z: an alias
+        -- named as physics): state the definition directly
+        if let some (.defnInfo d) := env.find? dn then
+          let core := d.value.getLambdaBody
+          if let .const c _ := core.getAppFn then
+            if c != dn && isCheckedConst env c && core.getAppArgs.all (fun a => a.isBVar || a.isAppOfArity ``OfNat.ofNat 3 || a.isRawNatLit) then
+              errors := errors.push s!"COMPOSITE {dn} is an alias of {c} (its body only applies {c} to its arguments and literals): use {c} in the statement; an alias's name and docstring are read by no check"
   -- the kind label must be one of the documented kinds (run 2026-11-05T0828Z: an unknown label such
   -- as `FOO` was silently treated as checked); a SPEC must be the spec of at least one pin (else
   -- the label hides a free formula); a CLAIM's body may use only classified or pinned program
@@ -614,8 +651,8 @@ run_cmd do
       let isPropTy ← liftTermElabM <| forallTelescope (env.find? dn).get!.type fun _ b => return b.isProp
       unless isPropTy do
         errors := errors.push s!"CLAIM {dn} is not a proposition: a CLAIM states a source's claim (Prop); a formula is a FORMULA"
-      if let some (.defnInfo d) := env.find? dn then
-        let bad := d.value.getUsedConstants.filter fun c =>
+      if let some body := bodyOf env dn then
+        let bad := body.getUsedConstants.filter fun c =>
           isCheckedConst env c && reportable env c && c != dn && (kinds.find? c).isNone && !pinned.contains c
         unless bad.isEmpty do
           errors := errors.push s!"CLAIM {dn} uses unlisted program definitions {bad.toList}: classify them"
@@ -624,7 +661,7 @@ run_cmd do
         -- d06: an invented "l₀ = 1 + 3Ω + 27Ω²" attributed to a real paper passed as CLAIM with no second
         -- reading): it needs a machine-checked blind second reading (Checked/Trust/Transcriptions*.lean)
         -- or a line of scripts/trust/claim_baseline.txt (grandfathered; shrink-only, check_formulas.py)
-        if ((arithNumeral env d.value).isSome || closedArith d.value || realNumeral d.value) && !secondRead.contains dn &&
+        if ((arithNumeral env body).isSome || closedArith body || realNumeral body) && !secondRead.contains dn &&
             !claimBase.contains dn then
           errors := errors.push s!"CLAIM {dn} writes its formula inline (numerals) with no machine-checked blind second reading of the source (Checked/Trust/Transcriptions*.lean): an inline formula attributed to a source is a transcription"
   let mut formulaReached : NameSet := {}
@@ -1039,5 +1076,34 @@ run_cmd do
     {String.intercalate "\n" (summary.toList.map fun (n, k) => s!"  {k}  {n}")}"
   unless unclassified.isEmpty do
     logInfo m!"UNCLASSIFIED (add to scripts/trust/def_kinds.txt): {unclassified.toList}"
+  -- Checked must not change how statements are displayed (red team K, d01, run 2026-11-05T1628Z:
+  -- a global `@[app_unexpander LE.le]` in a new Checked module printed every `≤` of CLAIMS.md and
+  -- TRUST_MAP as `<`; the kernel statements were unchanged, so no other check saw it). Blocking:
+  -- (1) any unexpander or delaborator that a Checked module makes active for importers
+  -- (`notation`/`infix` declared globally or `scoped` and opened, `@[app_unexpander]`, `@[delab]`;
+  -- `local notation` is not exported and is allowed), and (2) any Checked constant whose type is
+  -- meta-level code (`Lean.*`, `IO`: initializers, macros, elaborators, parsers), which could
+  -- change the printer at import time, outside the module that defines `nonvacuity%`.
+  let metaOk : Name := `Checked.Trust.NonVacuity
+  let modOf := fun (c : Name) => match env.getModuleIdxFor? c with
+    | some idx => env.header.moduleNames[idx.toNat]!
+    | none => .anonymous
+  let unexp := (Lean.PrettyPrinter.Delaborator.appUnexpanderAttribute.ext.getState env).table.toList
+  let delab := (Lean.PrettyPrinter.Delaborator.delabAttribute.ext.getState env).table.toList
+  let unexpN : List (Name × List Name) := unexp.map fun (k, l) =>
+    (k, l.map fun (e : KeyedDeclsAttribute.AttributeEntry Lean.PrettyPrinter.Unexpander) => e.declName)
+  let delabN : List (Name × List Name) := delab.map fun (k, l) =>
+    (k, l.map fun (e : KeyedDeclsAttribute.AttributeEntry Lean.PrettyPrinter.Delaborator.Delab) => e.declName)
+  for (key, es) in unexpN ++ delabN do
+    for dn in es do
+      if isCheckedConst env dn then
+        errors := errors.push s!"{dn} (module {modOf dn}) changes how `{key}` is printed in every generated claim (unexpander/delaborator active for importers; red team K, d01): Checked may not change the printer"
+  -- (private meta-level constants are what `local notation` generates; they cannot reach importers,
+  -- so only their IO-typed ones, initializers, count)
+  for (n, ci) in env.constants.map₁.toList do
+    if isCheckedConst env n && modOf n != metaOk then
+      let roots : List Name := if isPrivateName n then [`IO, `EIO, `BaseIO] else [`Lean, `IO, `EIO, `BaseIO]
+      if ci.type.getUsedConstants.any (fun c => roots.contains c.getRoot) then
+        errors := errors.push s!"{n} (module {modOf n}) is meta-level code (type {ci.type.getUsedConstants.toList.filter (fun c => [`Lean, `IO, `EIO, `BaseIO].contains c.getRoot)}): Checked modules other than {metaOk} may not define macros, elaborators, parsers, printers or initializers (red team K, d01)"
   unless errors.isEmpty do
     throwError m!"statement-dependency registry errors:\n{String.intercalate "\n" errors.toList}"

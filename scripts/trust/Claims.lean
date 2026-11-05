@@ -28,7 +28,7 @@ The author's docstring is shown last, labelled as an unchecked paraphrase.
 
 After blind red team J (run 2026-11-04T2228Z, `runs/2026-11-04T2228Z/t5/RESULTS.md`; designed after
 reading it): leading data binders that fill slots of pinned definitions are renamed to the slot
-name (author's name shown) unless they are a decorated form of it (`t₀`, `vc`); omitted proofs are
+name (author's name shown) unless they are a decorated form of it (`t₀`, `v₁`, `v'`); omitted proofs are
 printed with their statement; objects defined by `Classical.choose` are explained by the property
 they are chosen to satisfy; terms with truncating ℕ/ℤ arithmetic are printed with numeral types and
 flagged; formula bodies with decimal constants are flagged; two reached definitions whose names are
@@ -222,11 +222,14 @@ def chooseNames (ctx : Ctx) (ty : Expr) : MetaM (Array (Option Name)) :=
       | some n =>
         let clash := (want.zipIdx.any fun (w', j) => j != i && w' == some n) ||
           (orig.zipIdx.any fun (o, j) => j != i && o == n && want[j]!.isNone)
-        -- keep a decorated form of the slot name (`t₀` for slot `t`, `vc` for `v`): suffixes of
-        -- subscripts, digits or lowercase ASCII letters only (`ΩΛ` for slot `Ω` is renamed)
+        -- keep a decorated form of the slot name (`t₀` for slot `t`, `v₁` for `v`): suffixes of
+        -- subscripts, digits or primes only (`ΩΛ` for slot `Ω` is renamed). Red team K, d04 (run
+        -- 2026-11-05T1628Z): lowercase-letter suffixes were also kept (for `vc`), and `Ωde` filling
+        -- the matter-fraction slot of `IsFlatLCDM` read as a dark-energy fraction; letters now count
+        -- as a new name (the author's name is still shown next to the generated one)
         let o := orig[i]!.toString
         let decorated := o.startsWith n.toString && ((o.drop n.toString.length).all fun c =>
-          c.isDigit || (c.isLower && c.toNat < 128) || ('₀' ≤ c && c ≤ '₉'))
+          c.isDigit || c == '\'' || ('₀' ≤ c && c ≤ '₉'))
         out := out.push (if clash || decorated then none else some n)
       | none => out := out.push none
     return out

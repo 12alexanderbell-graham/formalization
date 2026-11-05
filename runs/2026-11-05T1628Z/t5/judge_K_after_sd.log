@@ -1,0 +1,9 @@
+scripts/trust/StatementDeps.lean:483:0: error: statement-dependency registry errors:
+COMPOSITE Checked.Cosmography.QNought.qNought is an alias of Checked.Cosmography.Aviles.cosmoCoeff (its body only applies Checked.Cosmography.Aviles.cosmoCoeff to its arguments and literals): use Checked.Cosmography.Aviles.cosmoCoeff in the statement; an alias's name and docstring are read by no check
+COMPOSITE Checked.Chemistry.BoyleTemperature.IsBoyleTemperature contains the numeral 2: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE
+COMPOSITE Checked.Chemistry.BoyleTemperature.IsBoyleTemperature builds a numeric constant by arithmetic on numerals (such as 1 + 1) or passes a numeric constant to a helper: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE
+COMPOSITE Checked.Chemistry.BoyleTemperature.IsBoyleTemperature uses no listed program definition: a formula in its own variables is a FORMULA (needs a blind second formulation), not a COMPOSITE
+CLAIM Checked.Cosmography.AvilesS0.AvilesS0Claim writes its formula inline (numerals) with no machine-checked blind second reading of the source (Checked/Trust/Transcriptions*.lean): an inline formula attributed to a source is a transcription
+Checked.Cosmography.LCDMDecelBand.unexpandLEShort (module Checked.Cosmography.LCDMDecelBand) changes how `LE.le` is printed in every generated claim (unexpander/delaborator active for importers; red team K, d01): Checked may not change the printer
+Checked.Cosmography.LCDMDecelBand.unexpandLEShort (module Checked.Cosmography.LCDMDecelBand) is meta-level code (type [Lean.PrettyPrinter.Unexpander]): Checked modules other than Checked.Trust.NonVacuity may not define macros, elaborators, parsers, printers or initializers (red team K, d01)
+EXIT 1

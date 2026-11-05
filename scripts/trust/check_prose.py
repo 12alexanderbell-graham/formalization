@@ -56,6 +56,11 @@ what the prose may say against what the Lean statement actually contains, using 
    transcribed (PRINTED/CLAIM) definition: a number about a free formula certifies nothing about
    the physics (D04).
 
+9. Sources (run 2026-11-05T1628Z, blind red team K of that run, d06): a source named in a headline's
+   docstring or name (capitalised name + year, or a year glued to a name such as `planck2018`) must be
+   the source of a PRINTED or CLAIM definition the statement reaches (that definition's docstring or
+   name contains the same author name).
+
 Run after `lake env lean scripts/trust/StatementDeps.lean`. `--report` prints without failing.
 """
 import fnmatch, json, re, sys
@@ -78,6 +83,13 @@ CITE = re.compile(r"(?:(?<![=≈<>≤≥±~∈]\s)(?<![=≈<>≤≥±~∈])\((?:
                   r"|(?:\b(?:Eqs?\.|Equations?|annex|Annex|Sec\.|Section|Table|Fig\.)\s*\(?[1-9]\d?\.\d{1,2}\)?(?:\s*[–-]\s*\(?[1-9]\d?\.\d{1,2}\)?)?)")
 
 CITED = []  # (owner, equation number) of every citation read (registry check in main)
+
+# sources (rule 9, run 2026-11-05T1628Z): "Planck 2018", "Bamba et al. 2012", "Peng & Robinson (1976)";
+# glued in names: "planck2018", "Planck2018Flat"
+SRC = re.compile(r"\b([A-Z][a-zà-ÿ]+(?:[-–][A-Z][a-zà-ÿ]+)?)(?:\s+et\s+al\.?|\s+(?:and|&)\s+[A-Z][a-zà-ÿ]+)?,?\s+\(?((?:18|19|20)\d\d)\)?(?![\d-])")
+SRC_GLUED = re.compile(r"(?i)(?<![a-z])([a-z]{3,})((?:18|19|20)\d\d)(?!\d)")
+SRC_STOP = {"In", "Since", "Until", "Before", "After", "From", "The", "By", "Run", "Commit", "Of", "On", "At", "To", "As", "And", "Or"}
+
 
 def strip_citations(doc, owner=None):
     """blank citations; record their equation numbers: a citation passes only if its number is in
@@ -273,6 +285,7 @@ def main():
             if b not in pinned:
                 sys.exit(f"glossary backs a term by {b}, which is not a pinned definition")
     heads = {r["name"]: r for r in rows if r["type"] == "headline"}
+    defdocs = {r["name"]: r.get("doc", "") for r in rows if r["type"] == "def"}
     KNOWN.update(short(r["name"]) for r in rows)
     KNOWN.update(r["name"] for r in rows)
     errs = []
@@ -346,6 +359,23 @@ def main():
                     errs.append((f"{h['name']}|number|{tok}", f"{h['name']}: its docstring names the number "
                                  f"{tok}, which is not a numeric literal of its statement (a derived number belongs in a "
                                  f"registered record that certifies it; a citation is written `(N.M)` or `Eq. N.M`)"))
+        # rule 9 (run 2026-11-05T1628Z; its own blind red team K, d06: a true existence theorem about Ω = 0.265 was
+        # named `planck2018_…` in a module `Planck2018Flat` and its docstring called 0.265 "the Planck 2018
+        # matter fraction"; Planck 2018 reports 0.315, and nothing tied a source to a number; rule 8's data words accept any PRINTED definition, so a
+        # wrong source next to an unrelated transcription passed it). A source
+        # named in a headline's docstring, name or module (a capitalised name with a year, `Planck 2018`,
+        # `Bamba et al. 2012`, `Peng & Robinson (1976)`, or a year glued to a name, `planck2018`) must be
+        # the source of a transcription the statement reaches: a PRINTED or CLAIM definition whose own
+        # docstring names the same author.
+        srcs = {re.split(r"[-–]", m.group(1))[0] for m in SRC.finditer(strip_code_names(doc)) if m.group(1) not in SRC_STOP}
+        srcs |= {m.group(1).capitalize() for m in SRC_GLUED.finditer(h["name"])}
+        for s_ in sorted(srcs):
+            backed = any(k in ("PRINTED", "CLAIM") and (s_.lower() in defdocs.get(d, "").lower() or s_.lower() in d.lower())
+                         for d, k in h["defs"].items())
+            if not backed:
+                errs.append((f"{h['name']}|source|{s_}", f"{h['name']}: its docstring or name attributes the claim to the source "
+                             f"'{s_}', but the statement reaches no PRINTED or CLAIM definition from that source (a source's "
+                             f"value or claim is a transcription: put it in a PRINTED/CLAIM definition with a second reading)"))
         if "bound" in h:
             param_rule(h, errs)
         if h["record"]:

@@ -6,21 +6,21 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `vc : ℝ`, `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
+**For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
 
 **assuming**
 
 1. `0 < ac`
 2. `0 < b`
-3. `b < vc`
-4. the molar volume `vc` is a critical point of the isotherm `cubicP R ac b 2 (-1) Tc` (pressure as a function of molar volume at fixed temperature): p′(`vc`) = 0 and p″(`vc`) = 0
+3. `b < v`
+4. the molar volume `v` is a critical point of the isotherm `cubicP R ac b 2 (-1) Tc` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
 5. `b < vl`
 6. the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `cubicP R (ac * (1 + (0.37464 + 1.54226 * 1 - 0.26992 * 1 ^ 2) * (1 - √(7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)
 
 **then**
 
-1. `RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 114e-4 4`
-2. `RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 0.942 3`
+1. `RoundsTo (ps / cubicP R ac b 2 (-1) Tc v) 114e-4 4`
+2. `RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc v)) 0.942 3`
 
 Program definitions in this claim:
 

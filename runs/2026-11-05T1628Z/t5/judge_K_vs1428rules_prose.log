@@ -1,0 +1,3 @@
+check_prose: 171 headlines, 138 definitions, 21 glossary terms; 2 new problems; 354 known gaps (prose_baseline.txt)
+  Checked.Cosmography.Planck2018Flat.planck2018_flat_lcdm_accelerates: its docstring says 'Planck' (a claim about data or a fit) but the statement reaches no PRINTED definition (no transcribed table or source): a data claim needs the data in the statement
+  Checked.Cosmography.Planck2018Flat.planck2018_flat_lcdm_accelerates: its name or module says 'Planck' (a claim about data or a fit) but the statement reaches no PRINTED definition (no transcribed table or source): a data claim needs the data in the statement

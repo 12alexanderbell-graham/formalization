@@ -17,6 +17,10 @@
 # need a blind second formulation (Checked/Trust/Formulations*.lean) or a line in the shrink-only
 # formula_baseline.txt; COMPOSITE and CLAIM bodies may use only listed or pinned definitions, and a
 # COMPOSITE no numeral other than 0 and 1; a SPEC must be used by a pin; no other label is accepted.
+# Since run 2026-11-05T1628Z (its own blind red team K): the COMPOSITE and CLAIM body rules read the
+# constructor types of structures and inductives too; a COMPOSITE may not be an alias (one
+# definition applied to its arguments and literals); smoothness/derivative orders (`ContDiffAt ℝ 5`,
+# `deriv^[4]`) are not numerals for these rules.
 # Format: <full name> <KIND>. Unlisted definitions are reported as UNCLASSIFIED.
 Checked.Cosmography.Aviles.AvilesL0Claim CLAIM
 Checked.Cosmography.Aviles.AvilesM0Claim CLAIM

@@ -1,0 +1,42 @@
+applied d01
+applied d02
+applied d03
+applied d04
+applied d05
+applied d06
+== new files compile one by one 17:23:18
+  ok Checked/Chemistry/BoyleTemperature.lean
+  ok Checked/Cosmography/AvilesS0.lean
+  ok Checked/Cosmography/DarkEnergyDecel.lean
+  ok Checked/Cosmography/LCDMDecelBand.lean
+  ok Checked/Cosmography/Planck2018Flat.lean
+  ok Checked/Cosmography/QNought.lean
+== build 17:23:37
+build: PASS
+grep: FAIL
+== trust 17:23:48
+trust: PASS
+runs/2026-11-05T1628Z/t5/judge_K.sh: line 24: /trust/check_numbers.py: No such file or directory
+--- prose
+check_prose: 171 headlines, 138 definitions, 21 glossary terms; 0 new problems; 350 known gaps (prose_baseline.txt)
+--- trusted defs
+check_trusted_defs: 22 pins; 0 problems in TRUSTED_DEFINITIONS.md
+--- claims 17:26:33
+CLAIMS.md: 171 generated claims
+phrases: 22 checked, 0 problems
+--- packet
+wrote 53 files, 49 items, seed 72c4d16f819f
+--- base diffs vs 85619a0
+  [check_relock.py 85619a0]
+    frozen registry: 1290 entries at 85619a0, none changed or removed
+  [check_numbers.py --base 85619a0]
+    certified-number diff vs 85619a0: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base 85619a0]
+    check_prose: 171 headlines, 138 definitions, 21 glossary terms; 0 new problems; 350 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base 85619a0]
+    check_trusted_defs: 22 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base 85619a0]
+    phrases: 22 at 85619a0, none changed or removed
+  [check_formulas.py --base 85619a0]
+    check_formulas: 10 baselined FORMULA definitions; ok
+== end 17:28:45

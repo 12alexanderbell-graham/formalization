@@ -1,0 +1,1229 @@
+scripts/trust/StatementDeps.lean:234:28: warning: `List.asString` has been deprecated: Use `String.ofList` instead
+
+Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.asString` to `String.ofList x`).
+frozen.txt rewritten (1309 entries)
+records: 168 theorem citations in STATE.md and FINDINGS.md checked against headlines.txt
+certified numbers: 26 RoundsTo literals in Checked.Records headlines
+Checked.Cosmography.lookback_second_order
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.lookback_second_order_bigO
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.Aviles.flatLCDM_coeffs
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.decel
+Checked.Cosmography.Aviles.avilesL0Claim_false
+    CLAIM Checked.Cosmography.Aviles.AvilesL0Claim
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+Checked.Cosmography.Aviles.avilesM0Claim_false
+    CLAIM Checked.Cosmography.Aviles.AvilesM0Claim
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+Checked.Cosmography.AvilesWitness.printedL0_false_at
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+Checked.Cosmography.AvilesWitness.printedM0_false_at
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+Checked.Cosmography.CPL.flatCPL_coeffs
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.CPL.IsFlatCPL
+    PINNED Checked.Cosmography.decel
+Checked.Cosmography.CPL.printedL0_ne
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.CPL.IsFlatCPL
+Checked.Cosmography.CPL.clsL0Claim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.CPL.CLSL0Claim
+    PINNED Checked.Cosmography.CPL.IsFlatCPL
+Checked.Cosmography.CPLExistence.exists_flatCPL
+    PINNED Checked.Cosmography.CPL.IsFlatCPL
+Checked.Cosmography.CPLExistence.printedL0_false_at
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.CPL.IsFlatCPL
+Checked.Cosmography.CPLExistence.exists_local_model
+Checked.Cosmography.CCS.lookback_fifth_order
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.CCS.D1
+    PRINTED Checked.Cosmography.CCS.D2
+    PRINTED Checked.Cosmography.CCS.D3
+    FORMULA Checked.Cosmography.CCS.correctD4
+    COMPOSITE Checked.Cosmography.CCS.remainder
+    FORMULA Checked.Cosmography.CCS.series
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.CCS.printedD4_fails
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.CCS.D1
+    PRINTED Checked.Cosmography.CCS.D2
+    PRINTED Checked.Cosmography.CCS.D3
+    PRINTED Checked.Cosmography.CCS.printedD4
+    COMPOSITE Checked.Cosmography.CCS.remainder
+    FORMULA Checked.Cosmography.CCS.series
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.CCS.printedD4_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.CCS.D1
+    PRINTED Checked.Cosmography.CCS.D2
+    PRINTED Checked.Cosmography.CCS.D3
+    PRINTED Checked.Cosmography.CCS.printedD4
+    COMPOSITE Checked.Cosmography.CCS.remainder
+    FORMULA Checked.Cosmography.CCS.series
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.CCS.ccsD4Claim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.CCS.CCSD4Claim
+    PRINTED Checked.Cosmography.CCS.D1
+    PRINTED Checked.Cosmography.CCS.D2
+    PRINTED Checked.Cosmography.CCS.D3
+    PRINTED Checked.Cosmography.CCS.printedD4
+    COMPOSITE Checked.Cosmography.CCS.remainder
+    FORMULA Checked.Cosmography.CCS.series
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.CCS.ccsD4ClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.CCS.CCSD4ClaimPast
+    PRINTED Checked.Cosmography.CCS.D1
+    PRINTED Checked.Cosmography.CCS.D2
+    PRINTED Checked.Cosmography.CCS.D3
+    PRINTED Checked.Cosmography.CCS.printedD4
+    COMPOSITE Checked.Cosmography.CCS.remainder
+    FORMULA Checked.Cosmography.CCS.series
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaY.lumDist_y_third_order
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    COMPOSITE Checked.Cosmography.BambaY.remainderY
+    FORMULA Checked.Cosmography.BambaY.seriesY
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaY.printedD2y_fails
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.BambaY.D1y
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PRINTED Checked.Cosmography.BambaY.printedD2y
+    COMPOSITE Checked.Cosmography.BambaY.remainderY
+    FORMULA Checked.Cosmography.BambaY.seriesY
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaY.printedD2y_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.BambaY.D1y
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PRINTED Checked.Cosmography.BambaY.printedD2y
+    COMPOSITE Checked.Cosmography.BambaY.remainderY
+    FORMULA Checked.Cosmography.BambaY.seriesY
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaY.bambaD2yClaim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaY.BambaD2yClaim
+    PRINTED Checked.Cosmography.BambaY.D1y
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PRINTED Checked.Cosmography.BambaY.printedD2y
+    COMPOSITE Checked.Cosmography.BambaY.remainderY
+    FORMULA Checked.Cosmography.BambaY.seriesY
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaY.bambaD2yClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaY.BambaD2yClaimPast
+    PRINTED Checked.Cosmography.BambaY.D1y
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PRINTED Checked.Cosmography.BambaY.printedD2y
+    COMPOSITE Checked.Cosmography.BambaY.remainderY
+    FORMULA Checked.Cosmography.BambaY.seriesY
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.CVdQ.dQ_y_third_order
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.BambaY.yred
+    FORMULA Checked.Cosmography.CVdQ.correctQ2
+    PRINTED Checked.Cosmography.CVdQ.dQFlat
+    COMPOSITE Checked.Cosmography.CVdQ.remainderQ
+    FORMULA Checked.Cosmography.CVdQ.seriesQ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.CVdQ.printedQ2_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.BambaY.yred
+    PRINTED Checked.Cosmography.CVdQ.dQFlat
+    PRINTED Checked.Cosmography.CVdQ.printedQ2
+    COMPOSITE Checked.Cosmography.CVdQ.remainderQ
+    FORMULA Checked.Cosmography.CVdQ.seriesQ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.CVdQ.cvdQClaim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.BambaY.yred
+    CLAIM Checked.Cosmography.CVdQ.CVdQClaim
+    PRINTED Checked.Cosmography.CVdQ.dQFlat
+    PRINTED Checked.Cosmography.CVdQ.printedQ2
+    COMPOSITE Checked.Cosmography.CVdQ.remainderQ
+    FORMULA Checked.Cosmography.CVdQ.seriesQ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.CVdQ.cvdQClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.BambaY.yred
+    CLAIM Checked.Cosmography.CVdQ.CVdQClaimPast
+    PRINTED Checked.Cosmography.CVdQ.dQFlat
+    PRINTED Checked.Cosmography.CVdQ.printedQ2
+    COMPOSITE Checked.Cosmography.CVdQ.remainderQ
+    FORMULA Checked.Cosmography.CVdQ.seriesQ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaK.lumDist_y_fifth_order
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    FORMULA Checked.Cosmography.BambaK.correctD3y
+    FORMULA Checked.Cosmography.BambaK.correctD4y
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    PRINTED Checked.Cosmography.BambaK.printedD4y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.printedD3y_fails
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.printedD3y_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.printedD4y_fails
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    FORMULA Checked.Cosmography.BambaK.correctD3y
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    PRINTED Checked.Cosmography.BambaK.printedD4y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.printedD4y_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    FORMULA Checked.Cosmography.BambaK.correctD3y
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    PRINTED Checked.Cosmography.BambaK.printedD4y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.bambaD3yClaim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaK.BambaD3yClaim
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.bambaD3yClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaK.BambaD3yClaimPast
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.bambaD4yClaim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaK.BambaD4yClaim
+    FORMULA Checked.Cosmography.BambaK.correctD3y
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    PRINTED Checked.Cosmography.BambaK.printedD4y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.bambaD4yClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaK.BambaD4yClaimPast
+    FORMULA Checked.Cosmography.BambaK.correctD3y
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    PRINTED Checked.Cosmography.BambaK.printedD4y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.milne_printedD3y_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaK.milne_printedD4y_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    FORMULA Checked.Cosmography.BambaK.correctD3y
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PRINTED Checked.Cosmography.BambaK.printedD3y
+    PRINTED Checked.Cosmography.BambaK.printedD4y
+    COMPOSITE Checked.Cosmography.BambaK.remK
+    FORMULA Checked.Cosmography.BambaK.seriesY4
+    PRINTED Checked.Cosmography.BambaY.D1y
+    FORMULA Checked.Cosmography.BambaY.correctD2y
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.Transverse.transverse_expansion
+    PINNED Checked.Cosmography.Transverse.transverse
+Checked.Cosmography.BambaA.angDist_y_fifth_order
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    FORMULA Checked.Cosmography.BambaA.correctDA3
+    FORMULA Checked.Cosmography.BambaA.correctDA4
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA4
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaA.printedDA3_fails
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaA.printedDA3_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaA.printedDA4_fails
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    FORMULA Checked.Cosmography.BambaA.correctDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA4
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaA.printedDA4_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    FORMULA Checked.Cosmography.BambaA.correctDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA4
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaA.bambaDA3Claim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaA.BambaDA3Claim
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaA.bambaDA3ClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaA.BambaDA3ClaimPast
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaA.bambaDA4Claim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaA.BambaDA4Claim
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    FORMULA Checked.Cosmography.BambaA.correctDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA4
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaA.bambaDA4ClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.BambaA.BambaDA4ClaimPast
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    FORMULA Checked.Cosmography.BambaA.correctDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA4
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaA.milne_printedDA4_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PRINTED Checked.Cosmography.BambaA.DA1
+    PRINTED Checked.Cosmography.BambaA.DA2
+    PINNED Checked.Cosmography.BambaA.angDist
+    FORMULA Checked.Cosmography.BambaA.correctDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA3
+    PRINTED Checked.Cosmography.BambaA.printedDA4
+    FORMULA Checked.Cosmography.BambaA.remA
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.BambaY.yred
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.BambaZ.lumDist_z_fifth_order
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PRINTED Checked.Cosmography.BambaZ.DL1z
+    PRINTED Checked.Cosmography.BambaZ.DL2z
+    PRINTED Checked.Cosmography.BambaZ.DL3z
+    FORMULA Checked.Cosmography.BambaZ.correctDL4z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    PRINTED Checked.Cosmography.BambaZ.printedDL4z
+    COMPOSITE Checked.Cosmography.BambaZ.remLz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaZ.angDist_z_fifth_order
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaA.angDist
+    PRINTED Checked.Cosmography.BambaZ.DA1z
+    PRINTED Checked.Cosmography.BambaZ.DA2z
+    PRINTED Checked.Cosmography.BambaZ.DA3z
+    FORMULA Checked.Cosmography.BambaZ.correctDA4z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    PRINTED Checked.Cosmography.BambaZ.printedDA4z
+    COMPOSITE Checked.Cosmography.BambaZ.remAz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaZ.printedDL4z_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PRINTED Checked.Cosmography.BambaZ.DL1z
+    PRINTED Checked.Cosmography.BambaZ.DL2z
+    PRINTED Checked.Cosmography.BambaZ.DL3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    PRINTED Checked.Cosmography.BambaZ.printedDL4z
+    COMPOSITE Checked.Cosmography.BambaZ.remLz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaZ.printedDA4z_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaA.angDist
+    PRINTED Checked.Cosmography.BambaZ.DA1z
+    PRINTED Checked.Cosmography.BambaZ.DA2z
+    PRINTED Checked.Cosmography.BambaZ.DA3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    PRINTED Checked.Cosmography.BambaZ.printedDA4z
+    COMPOSITE Checked.Cosmography.BambaZ.remAz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaZ.bambaDLzClaim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    CLAIM Checked.Cosmography.BambaZ.BambaDLzClaim
+    PRINTED Checked.Cosmography.BambaZ.DL1z
+    PRINTED Checked.Cosmography.BambaZ.DL2z
+    PRINTED Checked.Cosmography.BambaZ.DL3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    PRINTED Checked.Cosmography.BambaZ.printedDL4z
+    COMPOSITE Checked.Cosmography.BambaZ.remLz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaZ.bambaDLzClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    CLAIM Checked.Cosmography.BambaZ.BambaDLzClaimPast
+    PRINTED Checked.Cosmography.BambaZ.DL1z
+    PRINTED Checked.Cosmography.BambaZ.DL2z
+    PRINTED Checked.Cosmography.BambaZ.DL3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    PRINTED Checked.Cosmography.BambaZ.printedDL4z
+    COMPOSITE Checked.Cosmography.BambaZ.remLz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaZ.bambaDAzClaim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaA.angDist
+    CLAIM Checked.Cosmography.BambaZ.BambaDAzClaim
+    PRINTED Checked.Cosmography.BambaZ.DA1z
+    PRINTED Checked.Cosmography.BambaZ.DA2z
+    PRINTED Checked.Cosmography.BambaZ.DA3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    PRINTED Checked.Cosmography.BambaZ.printedDA4z
+    COMPOSITE Checked.Cosmography.BambaZ.remAz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaZ.bambaDAzClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaA.angDist
+    CLAIM Checked.Cosmography.BambaZ.BambaDAzClaimPast
+    PRINTED Checked.Cosmography.BambaZ.DA1z
+    PRINTED Checked.Cosmography.BambaZ.DA2z
+    PRINTED Checked.Cosmography.BambaZ.DA3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    PRINTED Checked.Cosmography.BambaZ.printedDA4z
+    COMPOSITE Checked.Cosmography.BambaZ.remAz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PRINTED Checked.Cosmography.BambaZ.DL1z
+    PRINTED Checked.Cosmography.BambaZ.DL2z
+    PRINTED Checked.Cosmography.BambaZ.DL3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    PRINTED Checked.Cosmography.BambaZ.printedDL4z
+    COMPOSITE Checked.Cosmography.BambaZ.remLz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.BambaZ.printed_flat_eq
+    FORMULA Checked.Cosmography.BambaZ.correctDA4z
+    FORMULA Checked.Cosmography.BambaZ.correctDL4z
+    PRINTED Checked.Cosmography.BambaZ.printedDA4z
+    PRINTED Checked.Cosmography.BambaZ.printedDL4z
+Checked.Cosmography.FRCosmo.fR_values
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.FRCosmo.FriedmannEq
+    COMPOSITE Checked.Cosmography.FRCosmo.IsFRCosmo
+    PINNED Checked.Cosmography.FRCosmo.MasterEq
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.P2
+    PRINTED Checked.Cosmography.FRCosmo.P3
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PRINTED Checked.Cosmography.FRCosmo.Q2
+    PRINTED Checked.Cosmography.FRCosmo.Q3
+    FORMULA Checked.Cosmography.FRCosmo.correctR
+    PINNED Checked.Cosmography.FRCosmo.curv
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.FRCosmo.curv_derivs
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.FRCosmo.curv
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.FRCosmo.exists_LCDM_model
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.FRCosmo.FriedmannEq
+    COMPOSITE Checked.Cosmography.FRCosmo.IsFRCosmo
+    PINNED Checked.Cosmography.FRCosmo.MasterEq
+    PINNED Checked.Cosmography.FRCosmo.curv
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.FRCosmo.printedR3Claim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.FRCosmo.PrintedR3Claim
+    PINNED Checked.Cosmography.FRCosmo.curv
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.FRCosmo.printedF0Mul_false_at
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.FRCosmo.FriedmannEq
+    COMPOSITE Checked.Cosmography.FRCosmo.IsFRCosmo
+    PINNED Checked.Cosmography.FRCosmo.MasterEq
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PINNED Checked.Cosmography.FRCosmo.curv
+    PRINTED Checked.Cosmography.FRCosmo.printedR
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.FRCosmo.printedF0ClaimMul_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.FRCosmo.FriedmannEq
+    COMPOSITE Checked.Cosmography.FRCosmo.IsFRCosmo
+    PINNED Checked.Cosmography.FRCosmo.MasterEq
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    CLAIM Checked.Cosmography.FRCosmo.PrintedF0ClaimMul
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PINNED Checked.Cosmography.FRCosmo.curv
+    PRINTED Checked.Cosmography.FRCosmo.printedR
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.FRCosmo.printedF0_false_at
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.FRCosmo.FriedmannEq
+    COMPOSITE Checked.Cosmography.FRCosmo.IsFRCosmo
+    PINNED Checked.Cosmography.FRCosmo.MasterEq
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PINNED Checked.Cosmography.FRCosmo.curv
+    PRINTED Checked.Cosmography.FRCosmo.printedR
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.FRCosmo.printedF0Claim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.FRCosmo.FriedmannEq
+    COMPOSITE Checked.Cosmography.FRCosmo.IsFRCosmo
+    PINNED Checked.Cosmography.FRCosmo.MasterEq
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    CLAIM Checked.Cosmography.FRCosmo.PrintedF0Claim
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PINNED Checked.Cosmography.FRCosmo.curv
+    PRINTED Checked.Cosmography.FRCosmo.printedR
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.FREta.eta_ratios
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.FRCosmo.FriedmannEq
+    COMPOSITE Checked.Cosmography.FRCosmo.IsFRCosmo
+    PINNED Checked.Cosmography.FRCosmo.MasterEq
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.P2
+    PRINTED Checked.Cosmography.FRCosmo.P3
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PRINTED Checked.Cosmography.FRCosmo.Q2
+    PRINTED Checked.Cosmography.FRCosmo.Q3
+    FORMULA Checked.Cosmography.FRCosmo.correctR
+    PINNED Checked.Cosmography.FRCosmo.curv
+    FORMULA Checked.Cosmography.FREta.eta20Of
+    FORMULA Checked.Cosmography.FREta.eta30Of
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+Checked.Cosmography.FREta.eta20_hasDerivAt
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.P2
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PRINTED Checked.Cosmography.FRCosmo.Q2
+    FORMULA Checked.Cosmography.FREta.correct20
+    COMPOSITE Checked.Cosmography.FREta.eta20
+    FORMULA Checked.Cosmography.FREta.eta20Of
+    PRINTED Checked.Cosmography.FREta.jL
+    PRINTED Checked.Cosmography.FREta.lL
+    PRINTED Checked.Cosmography.FREta.qL
+    PRINTED Checked.Cosmography.FREta.sL
+Checked.Cosmography.FREta.eta30_hasDerivAt
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.P3
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PRINTED Checked.Cosmography.FRCosmo.Q3
+    FORMULA Checked.Cosmography.FREta.correct30
+    COMPOSITE Checked.Cosmography.FREta.eta30
+    FORMULA Checked.Cosmography.FREta.eta30Of
+    PRINTED Checked.Cosmography.FREta.jL
+    PRINTED Checked.Cosmography.FREta.lL
+    PRINTED Checked.Cosmography.FREta.qL
+    PRINTED Checked.Cosmography.FREta.sL
+Checked.Cosmography.FREta.printedEta20_false_at
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.P2
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PRINTED Checked.Cosmography.FRCosmo.Q2
+    COMPOSITE Checked.Cosmography.FREta.eta20
+    FORMULA Checked.Cosmography.FREta.eta20Of
+    PRINTED Checked.Cosmography.FREta.jL
+    PRINTED Checked.Cosmography.FREta.lL
+    PRINTED Checked.Cosmography.FREta.printed20
+    PRINTED Checked.Cosmography.FREta.printedDen
+    PRINTED Checked.Cosmography.FREta.qL
+    PRINTED Checked.Cosmography.FREta.sL
+Checked.Cosmography.FREta.printedEta30_false_at
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.P3
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PRINTED Checked.Cosmography.FRCosmo.Q3
+    COMPOSITE Checked.Cosmography.FREta.eta30
+    FORMULA Checked.Cosmography.FREta.eta30Of
+    PRINTED Checked.Cosmography.FREta.jL
+    PRINTED Checked.Cosmography.FREta.lL
+    PRINTED Checked.Cosmography.FREta.printed30
+    PRINTED Checked.Cosmography.FREta.printedDen
+    PRINTED Checked.Cosmography.FREta.qL
+    PRINTED Checked.Cosmography.FREta.sL
+Checked.Cosmography.FREta.printedEta20Claim_false
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.P2
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PRINTED Checked.Cosmography.FRCosmo.Q2
+    CLAIM Checked.Cosmography.FREta.PrintedEta20Claim
+    COMPOSITE Checked.Cosmography.FREta.eta20
+    FORMULA Checked.Cosmography.FREta.eta20Of
+    PRINTED Checked.Cosmography.FREta.jL
+    PRINTED Checked.Cosmography.FREta.lL
+    PRINTED Checked.Cosmography.FREta.printed20
+    PRINTED Checked.Cosmography.FREta.printedDen
+    PRINTED Checked.Cosmography.FREta.qL
+    PRINTED Checked.Cosmography.FREta.sL
+Checked.Cosmography.FREta.printedEta30Claim_false
+    PRINTED Checked.Cosmography.FRCosmo.P0
+    PRINTED Checked.Cosmography.FRCosmo.P3
+    PRINTED Checked.Cosmography.FRCosmo.Q0
+    PRINTED Checked.Cosmography.FRCosmo.Q3
+    CLAIM Checked.Cosmography.FREta.PrintedEta30Claim
+    COMPOSITE Checked.Cosmography.FREta.eta30
+    FORMULA Checked.Cosmography.FREta.eta30Of
+    PRINTED Checked.Cosmography.FREta.jL
+    PRINTED Checked.Cosmography.FREta.lL
+    PRINTED Checked.Cosmography.FREta.printed30
+    PRINTED Checked.Cosmography.FREta.printedDen
+    PRINTED Checked.Cosmography.FREta.qL
+    PRINTED Checked.Cosmography.FREta.sL
+Checked.Cosmography.FREta.eta_numbers
+    FORMULA Checked.Cosmography.FREta.correct20
+    FORMULA Checked.Cosmography.FREta.correct30
+Checked.Cosmography.DemianskiZ.flat_corrections
+    FORMULA Checked.Cosmography.BambaZ.correctDA4z
+    FORMULA Checked.Cosmography.BambaZ.correctDL4z
+    PRINTED Checked.Cosmography.BambaZ.printedDA4z
+    PRINTED Checked.Cosmography.BambaZ.printedDL4z
+    PRINTED Checked.Cosmography.DemianskiZ.demDA4
+    PRINTED Checked.Cosmography.DemianskiZ.demDL4
+Checked.Cosmography.DemianskiZ.demDL4_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PRINTED Checked.Cosmography.BambaZ.DL1z
+    PRINTED Checked.Cosmography.BambaZ.DL2z
+    PRINTED Checked.Cosmography.BambaZ.DL3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    COMPOSITE Checked.Cosmography.BambaZ.remLz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PRINTED Checked.Cosmography.DemianskiZ.demDL4
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.DemianskiZ.demDA4_fails_past
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaA.angDist
+    PRINTED Checked.Cosmography.BambaZ.DA1z
+    PRINTED Checked.Cosmography.BambaZ.DA2z
+    PRINTED Checked.Cosmography.BambaZ.DA3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    COMPOSITE Checked.Cosmography.BambaZ.remAz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    PRINTED Checked.Cosmography.DemianskiZ.demDA4
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.DemianskiZ.demDLzClaim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PRINTED Checked.Cosmography.BambaZ.DL1z
+    PRINTED Checked.Cosmography.BambaZ.DL2z
+    PRINTED Checked.Cosmography.BambaZ.DL3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    COMPOSITE Checked.Cosmography.BambaZ.remLz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    CLAIM Checked.Cosmography.DemianskiZ.DemDLzClaim
+    PRINTED Checked.Cosmography.DemianskiZ.demDL4
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.DemianskiZ.demDLzClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PRINTED Checked.Cosmography.BambaZ.DL1z
+    PRINTED Checked.Cosmography.BambaZ.DL2z
+    PRINTED Checked.Cosmography.BambaZ.DL3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    COMPOSITE Checked.Cosmography.BambaZ.remLz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    CLAIM Checked.Cosmography.DemianskiZ.DemDLzClaimPast
+    PRINTED Checked.Cosmography.DemianskiZ.demDL4
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.DemianskiZ.demDAzClaim_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaA.angDist
+    PRINTED Checked.Cosmography.BambaZ.DA1z
+    PRINTED Checked.Cosmography.BambaZ.DA2z
+    PRINTED Checked.Cosmography.BambaZ.DA3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    COMPOSITE Checked.Cosmography.BambaZ.remAz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    CLAIM Checked.Cosmography.DemianskiZ.DemDAzClaim
+    PRINTED Checked.Cosmography.DemianskiZ.demDA4
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.DemianskiZ.demDAzClaimPast_false
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.BambaA.angDist
+    PRINTED Checked.Cosmography.BambaZ.DA1z
+    PRINTED Checked.Cosmography.BambaZ.DA2z
+    PRINTED Checked.Cosmography.BambaZ.DA3z
+    PINNED Checked.Cosmography.BambaZ.curvK
+    COMPOSITE Checked.Cosmography.BambaZ.remAz
+    FORMULA Checked.Cosmography.BambaZ.seriesZ
+    CLAIM Checked.Cosmography.DemianskiZ.DemDAzClaimPast
+    PRINTED Checked.Cosmography.DemianskiZ.demDA4
+    PINNED Checked.Cosmography.decel
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Fidelity.lumDistSpec2_pins
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.redshift
+    SPEC Checked.Fidelity.AngDistSpec
+    SPEC Checked.Fidelity.LumDistSpec
+    SPEC Checked.Fidelity.LumDistSpec2
+Checked.Fidelity.hubbleSpec_pins
+    PINNED Checked.Cosmography.hubble
+    SPEC Checked.Fidelity.HubbleSpec
+Checked.Fidelity.decelSpec_pins
+    PINNED Checked.Cosmography.decel
+    SPEC Checked.Fidelity.DecelSpec
+Checked.Fidelity.angDistSpec_pins
+    PINNED Checked.Cosmography.BambaA.angDist
+    SPEC Checked.Fidelity.AngDistSpec
+Checked.Fidelity.flatLCDMSpec2_pins
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    SPEC Checked.Fidelity.FlatLCDMSpec
+    SPEC Checked.Fidelity.FlatLCDMSpec2
+    SPEC Checked.Fidelity.FriedmannLCDM
+    WITNESS Checked.Fidelity.coshBounce
+Checked.Fidelity.isFlatLCDM_iff_friedmann
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    SPEC Checked.Fidelity.FriedmannLCDM
+Checked.Fidelity.redshiftCore_pins
+    PINNED Checked.Cosmography.redshift
+    SPEC Checked.Fidelity.RayOK
+    SPEC Checked.Fidelity.RedshiftSpecCore
+Checked.Fidelity.cosmoCoeffCore_pins
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    SPEC Checked.Fidelity.CoeffOK
+    SPEC Checked.Fidelity.CosmoCoeffSpecCore
+Checked.Fidelity.yRedSpec_pins
+    PINNED Checked.Cosmography.BambaY.yred
+    SPEC Checked.Fidelity.YRedSpec
+Checked.Fidelity.omega0Spec_pins
+    PINNED Checked.Cosmography.BambaK.omega0
+    SPEC Checked.Fidelity.Omega0Spec
+Checked.Fidelity.curvKSpec_pins
+    PINNED Checked.Cosmography.BambaZ.curvK
+    SPEC Checked.Fidelity.CurvKSpec
+Checked.Fidelity.lumDistFlat_pins
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.redshift
+    SPEC Checked.Fidelity.AngDistSpec
+    SPEC Checked.Fidelity.LumDistSpec
+    SPEC Checked.Fidelity.LumDistSpec2
+Checked.Fidelity.comoving_pins
+    PINNED Checked.Cosmography.BambaY.comoving
+    PINNED Checked.Cosmography.redshift
+    SPEC Checked.Fidelity.AngDistSpec
+    SPEC Checked.Fidelity.LumDistSpec
+    SPEC Checked.Fidelity.LumDistSpec2
+Checked.Fidelity.flatCPL_pins
+    PINNED Checked.Cosmography.CPL.IsFlatCPL
+    SPEC Checked.Fidelity.FriedmannCPL
+Checked.Fidelity.isFlatCPL_iff_friedmannCPL
+    PINNED Checked.Cosmography.CPL.IsFlatCPL
+    SPEC Checked.Fidelity.FriedmannCPL
+Checked.Fidelity.ricciSpec_pins
+    PINNED Checked.Cosmography.FRCosmo.curv
+    SPEC Checked.Fidelity.RicciFlatFLRWSpec
+Checked.Fidelity.friedmannEq_iff_blind
+    PINNED Checked.Cosmography.FRCosmo.FriedmannEq
+    PINNED Checked.Cosmography.FRCosmo.curv
+    SPEC Checked.Fidelity.DustDensity
+    SPEC Checked.Fidelity.FRFirstEq
+Checked.Fidelity.masterEq_iff_blind
+    PINNED Checked.Cosmography.FRCosmo.MasterEq
+    PINNED Checked.Cosmography.FRCosmo.curv
+    SPEC Checked.Fidelity.DustDensity
+    SPEC Checked.Fidelity.FRSecondEq
+Checked.Fidelity.transverseSpec_pins
+    PINNED Checked.Cosmography.Transverse.transverse
+    SPEC Checked.Fidelity.TransverseSpec
+Checked.Records.F1_l0
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    MATH Checked.Records.RoundsTo
+Checked.Records.F1_printedL0
+    MATH Checked.Records.RoundsTo
+Checked.Records.F1_m0_agrees
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    MATH Checked.Records.RoundsTo
+Checked.Records.F2_toy
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.CPL.IsFlatCPL
+    MATH Checked.Records.RoundsTo
+Checked.Records.F2_error
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    PINNED Checked.Cosmography.CPL.IsFlatCPL
+    MATH Checked.Records.RoundsTo
+Checked.Records.F3_D4_LCDM
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    FORMULA Checked.Cosmography.CCS.correctD4
+    PRINTED Checked.Cosmography.CCS.printedD4
+    PINNED Checked.Cosmography.decel
+    MATH Checked.Records.RoundsTo
+Checked.Records.F8_sizes
+    MATH Checked.Records.RoundsTo
+Checked.Records.F9_values
+    MATH Checked.Records.RoundsTo
+Checked.Records.F9_pole
+    MATH Checked.Records.RoundsTo
+Checked.Records.F10_eta
+    FORMULA Checked.Cosmography.FREta.correct20
+    FORMULA Checked.Cosmography.FREta.correct30
+    MATH Checked.Records.RoundsTo
+Checked.Records.F10_printed_pole
+    PRINTED Checked.Cosmography.FREta.printedDen
+    MATH Checked.Records.RoundsTo
+Checked.Records.F10_exceptions
+    MATH Checked.Records.RoundsTo
+Checked.Records.F10_family_pole
+    FORMULA Checked.Cosmography.FREta.Jfam
+    PRINTED Checked.Cosmography.FREta.jL
+    PRINTED Checked.Cosmography.FREta.qL
+    MATH Checked.Records.RoundsTo
+Checked.Records.F11_sizes
+    MATH Checked.Records.RoundsTo
+Checked.Cosmography.B1.lumDistFlat_flatLCDM
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1.cubic_misses_z3
+    PRINTED Checked.Cosmography.B1.logPolyDL3
+    PRINTED Checked.Cosmography.B1.lusA2
+    PRINTED Checked.Cosmography.B1.lusA3
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1.cubic_misses_z7
+    PRINTED Checked.Cosmography.B1.logPolyDL3
+    PRINTED Checked.Cosmography.B1.lusA2
+    PRINTED Checked.Cosmography.B1.lusA3
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1.cubic_shape_miss
+    PRINTED Checked.Cosmography.B1.logPolyDL3
+    PRINTED Checked.Cosmography.B1.lusA2
+    PRINTED Checked.Cosmography.B1.lusA3
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1Sep.cubic_separation
+    PRINTED Checked.Cosmography.B1.logPolyDL3
+    PRINTED Checked.Cosmography.B1.lusA2
+    PRINTED Checked.Cosmography.B1.lusA3
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1Sep.cubic_direction
+    PRINTED Checked.Cosmography.B1.logPolyDL3
+    PRINTED Checked.Cosmography.B1.lusA2
+    PRINTED Checked.Cosmography.B1.lusA3
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1Fit.fit_direction
+    PRINTED Checked.Cosmography.B1.logPolyDL3
+    PRINTED Checked.Cosmography.B1.lusA2
+    PRINTED Checked.Cosmography.B1.lusA3
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1FitRL19.rl19_box_unmatched
+    PRINTED Checked.Cosmography.B1.logPolyDL3
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1L19.l19_sq_central
+    PRINTED Checked.Cosmography.B1L19.logPolyDL4
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1L19.l19_sqg_central
+    PRINTED Checked.Cosmography.B1L19.logPolyDL4
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1L19.l19_sq_box
+    PRINTED Checked.Cosmography.B1L19.logPolyDL4
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1L19.l19_sqg_box
+    PRINTED Checked.Cosmography.B1L19.logPolyDL4
+    PINNED Checked.Cosmography.BambaY.lumDistFlat
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1L19Curved.l19_sq_curved
+    PRINTED Checked.Cosmography.B1L19.logPolyDL4
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Cosmography.B1L19Curved.l19_sqg_curved
+    PRINTED Checked.Cosmography.B1L19.logPolyDL4
+    PINNED Checked.Cosmography.BambaK.lumDist
+    PINNED Checked.Cosmography.BambaK.omega0
+    PINNED Checked.Cosmography.hubble
+    PINNED Checked.Cosmography.redshift
+Checked.Chemistry.CubicEOS.isCritical_iff
+    PINNED Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+Checked.Chemistry.CubicEOS.critCubic_existsUnique
+    FORMULA Checked.Chemistry.CubicEOS.critCubic
+Checked.Chemistry.CubicEOS.exists_unique_critical
+    PINNED Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+Checked.Chemistry.CubicEOS.vdW_constants
+    PINNED Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+Checked.Chemistry.CubicEOS.rk_constants
+    PINNED Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+    MATH Checked.Records.RoundsTo
+Checked.Chemistry.CubicEOS.pr_constants
+    PINNED Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+    MATH Checked.Records.RoundsTo
+Checked.Chemistry.Coexistence.vdW_coexistence_exists
+    PINNED Checked.Chemistry.Coexistence.IsMaxwellCoexistence
+    FORMULA Checked.Chemistry.Coexistence.acentric
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+    MATH Checked.Records.RoundsTo
+Checked.Chemistry.Coexistence.vdW_coexistence_unique
+    PINNED Checked.Chemistry.Coexistence.IsMaxwellCoexistence
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+    MATH Checked.Records.RoundsTo
+Checked.Chemistry.RKAcentric.rk_coexistence_exists
+    PINNED Checked.Chemistry.Coexistence.IsMaxwellCoexistence
+    FORMULA Checked.Chemistry.Coexistence.acentric
+    PINNED Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+    MATH Checked.Records.RoundsTo
+Checked.Chemistry.RKAcentric.rk_coexistence_unique
+    PINNED Checked.Chemistry.Coexistence.IsMaxwellCoexistence
+    FORMULA Checked.Chemistry.Coexistence.acentric
+    PINNED Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+    MATH Checked.Records.RoundsTo
+Checked.Chemistry.PRAcentric.pr_omega1_exists
+    PINNED Checked.Chemistry.Coexistence.IsMaxwellCoexistence
+    FORMULA Checked.Chemistry.Coexistence.acentric
+    PINNED Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+    MATH Checked.Records.RoundsTo
+Checked.Chemistry.PRAcentric.pr_omega1_unique
+    PINNED Checked.Chemistry.Coexistence.IsMaxwellCoexistence
+    FORMULA Checked.Chemistry.Coexistence.acentric
+    PINNED Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+    FORMULA Checked.Chemistry.CubicEOS.cubicP
+    MATH Checked.Records.RoundsTo
+Checked.Sim.Duffing.duffing_first_zero_sol
+    PINNED Checked.Sim.Duffing.IsDuffingSolution
+Checked.Sim.Duffing.duffing_solution_exists
+    PINNED Checked.Sim.Duffing.IsDuffingSolution
+Checked.Sim.MichaelisMenten.mm_half_conversion
+    PINNED Checked.Sim.MichaelisMenten.IsMMSolution
+Checked.Sim.MichaelisMenten.mm_solution_exists
+    PINNED Checked.Sim.MichaelisMenten.IsMMSolution
+Checked.Data.FR13.fr13_bestfit68
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Data.FR13.fr13_bestfit738
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Data.FR13.fr13_exists68
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Data.FR13.fr13_exists738
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Data.FR13.fr13_minval68
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Data.FR13.fr13_minval738
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Data.FR13.fr13_zda68
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Data.FR13.fr13_zda738
+    FORMULA Checked.Data.FR13.chiSqHz
+    PRINTED Checked.Data.FR13.fr13Table
+    FORMULA Checked.Data.FR13.margChiSq
+Checked.Math.LaneEmden.laneEmden3_constants
+Checked.Math.LEExists.exists_solution
+Checked.Data.Moresco16.table5_oL_inconsistent
+Checked.Data.Moresco16.table5_pw_inconsistent
+Checked.Data.Moresco16.table5_line_inconsistent
+Checked.Data.Moresco16.oL_bic_exceeds
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16.line_bic_exceeds
+    FORMULA Checked.Data.Moresco16.chiSqLine
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.chiSqOL_ge
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.chiSqOL_lt
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.chiSqOL_glb_prior
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.chiSqOL_glb_wide
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Data.Moresco16Min.table5_oL_aicc_unattainable
+    FORMULA Checked.Data.Moresco16.chiSqOL
+    FORMULA Checked.Data.Moresco16.e2OL
+    PRINTED Checked.Data.Moresco16.m16Table
+Checked.Cosmography.LCDMDecelBand.lcdm_decel_band
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.decel
+Checked.Cosmography.AvilesS0.avilesS0Claim_false
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    CLAIM Checked.Cosmography.AvilesS0.AvilesS0Claim
+Checked.Cosmography.QNought.qNought_pos_of_lt
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.Aviles.cosmoCoeff
+    COMPOSITE Checked.Cosmography.QNought.qNought
+Checked.Cosmography.DarkEnergyDecel.lcdm_decel_darkEnergy
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.decel
+Checked.Chemistry.BoyleTemperature.vdW_boyle_temperature
+    COMPOSITE Checked.Chemistry.BoyleTemperature.IsBoyleTemperature
+Checked.Cosmography.Planck2018Flat.planck2018_flat_lcdm_accelerates
+    PINNED Checked.Cosmography.Aviles.IsFlatLCDM
+    PINNED Checked.Cosmography.decel
+meaning: 331 entries written to .lake/meaning.jsonl
+SUMMARY: 171 headlines; 171 rest on no unpinned physics definition; non-vacuity: 110/110 conditional headlines witnessed.
+scripts/trust/StatementDeps.lean:455:0: error: statement-dependency registry errors:
+CLAIM Checked.Cosmography.AvilesS0.AvilesS0Claim writes its formula inline (numerals) with no machine-checked blind second reading of the source (Checked/Trust/Transcriptions*.lean): an inline formula attributed to a source is a transcription
+EXIT 1
