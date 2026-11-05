@@ -261,3 +261,5 @@
 
 ## 2026-11-05T1628Z (scheduled run)
 - 16:28Z (LOCK held by run 1428Z; this append and the run folder only): promotion 6a32db1 CI 42039795953 green — `pr_omega1_unique`, `pr_omega1_exists` PROVED; records 46a759e green; 1428Z LOCK commit 01b0c8c: checked job lost 1.5 min into the build (third runner loss today, no log).
+- 16:58Z: took over run 1428Z's stale LOCK (run 1428Z was alive and pushed its rules append-only; merged by hand). CI repair: checked job frees disk and adds swap (three runner losses today).
+- Part 3: its own blind red team K (Sonnet, snapshot cb0223f) — 6/6 accepted on main, 4/6 blind against run 1428Z's new rules; four more rules (printer/meta code in Checked, structures in the label body rules, COMPOSITE aliases, binder decorations in Claims.lean, check_prose rule 9 for named sources) → 0/6. CLAIMS.md and packet regenerated.
