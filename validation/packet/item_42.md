@@ -20,7 +20,7 @@ Program definitions in this claim:
 - `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
 - `printedD2y q j Ω` — PRINTED, not pinned, so only the formula shown is checked, not its name (for `q : ℝ`, `j : ℝ`, `Ω : ℝ`): is defined as `-(1 / 6) * (12 - 5 * q + 3 * q ^ 2 - j - Ω)`
 - `remainderY D2 a t₀ t` — COMPOSITE, not pinned, so only the formula shown is checked, not its name (for `D2 : ℝ → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`): is defined as `hubble a t₀ * lumDistFlat a t₀ t - seriesY (D2 (decel a t₀) (cosmoCoeff 3 a t₀) 1) (decel a t₀) (yred a t₀ t)`
-- `seriesY d2 q y` — FORMULA, not pinned, so only the formula shown is checked, not its name (for `d2 : ℝ`, `q : ℝ`, `y : ℝ`): is defined as `y * (1 + D1y q * y + d2 * y ^ 2)`
+- `seriesY d2 q y` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_seriesY`) (for `d2 : ℝ`, `q : ℝ`, `y : ℝ`): is defined as `y * (1 + D1y q * y + d2 * y ^ 2)`
 - `yred a t₀ t` — **PINNED** (pin theorem `yRedSpec_pins`): the y-redshift z/(1 + z), observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)

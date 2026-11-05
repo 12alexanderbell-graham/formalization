@@ -53,6 +53,28 @@ partial def deps (env : Environment) (stop : NameSet) (e : Expr) (acc : NameSet)
     | some ci => deps env stop ci.type acc
     | none => acc
 
+/-- A numeral greater than 1 in `e` used as arithmetic (run 2026-11-05T0828Z, COMPOSITE rule):
+numerals given directly as arguments to a program (`Checked`) constant — such as the index `3` in
+`cosmoCoeff 3 a t₀` — select a listed definition and are skipped; any other raw natural literal
+greater than 1 (the `36` in `x / (36 * y)`) is returned. -/
+partial def arithNumeral (env : Environment) (e : Expr) : Option Nat :=
+  let isNum (a : Expr) : Bool := a.isAppOfArity ``OfNat.ofNat 3 || a.isRawNatLit
+  match e.getAppFn with
+  | .const c _ =>
+    if isCheckedConst env c then
+      e.getAppArgs.foldl (init := none) fun acc a => acc.orElse fun _ =>
+        if isNum a then none else arithNumeral env a
+    else match e with
+      | .app f a => (arithNumeral env f).orElse fun _ => arithNumeral env a
+      | _ => none
+  | _ => match e with
+    | .lit (.natVal m) => if m > 1 then some m else none
+    | .app f a => (arithNumeral env f).orElse fun _ => arithNumeral env a
+    | .lam _ d b _ | .forallE _ d b _ => (arithNumeral env d).orElse fun _ => arithNumeral env b
+    | .letE _ t v b _ => ((arithNumeral env t).orElse fun _ => arithNumeral env v).orElse fun _ => arithNumeral env b
+    | .mdata _ b | .proj _ _ b => arithNumeral env b
+    | _ => none
+
 /-- Definitions worth reporting: user-facing `def`s and inductive types, not auxiliary
 constants (proof terms, matchers, projections, constructors). -/
 def reportable (env : Environment) (n : Name) : Bool :=
@@ -408,6 +430,34 @@ run_cmd do
         | none => (acc, bad.push n)
       | _ => (acc, bad)
     else (acc, bad)
+  -- FORMULA definitions with a machine-checked blind second formulation (run 2026-11-05T0828Z;
+  -- red team J: d03 put a wrong decimal constant in a FORMULA body, d06 named the JT inversion
+  -- temperature `boyleT`; both were accepted because nothing checked a FORMULA's name or docstring
+  -- against its body). Same shape as the second readings: a theorem in
+  -- `Checked.Trust.Formulations` stating `d = e` with `d` a program constant and `e` a constant of
+  -- a `Checked.Trust.SecondFormulation*` module (written blind, from the name, argument roles and
+  -- conventions only) whose statement and body do not reach `d`; any other theorem there is a
+  -- blocking error.
+  let sfMod := fun (c : Name) => match env.getModuleIdxFor? c with
+    | some idx => ((env.header.moduleNames[idx.toNat]!).toString.startsWith "Checked.Trust.SecondFormulation")
+    | none => false
+  let (secondForm, badForm) : NameSet × Array Name :=
+    env.constants.map₁.fold (init := ({}, #[])) fun (acc, bad) n ci =>
+    if (`Checked.Trust.Formulations).isPrefixOf n && !(privateToUserName n).isInternal then
+      match ci with
+      | .thmInfo t =>
+        match t.type.eq? with
+        | some (_, lhs, rhs) =>
+          if lhs.isConst && rhs.isConst && lhs.constName! != rhs.constName! && sfMod rhs.constName! &&
+              !sfMod lhs.constName! &&
+              !(match env.find? rhs.constName! with
+                | some rc => (deps env {} (rc.value?.getD (.sort 0)) (deps env {} rc.type {})).contains lhs.constName!
+                | none => true) then
+            (acc.insert lhs.constName!, bad)
+          else (acc, bad.push n)
+        | none => (acc, bad.push n)
+      | _ => (acc, bad)
+    else (acc, bad)
   let mut nNeed := 0
   let mut nWit := 0
   let cands : Array Name := env.constants.map₁.fold (init := #[]) fun acc n _ =>
@@ -418,6 +468,11 @@ run_cmd do
   let mut errors : Array String := #[]
   for n in badAgree do
     errors := errors.push s!"transcription agreement {n} is not `program constant = Checked.Trust.SecondReading* constant` with an independent right-hand side (a second reading must not reach the transcription it checks)"
+  for n in badForm do
+    errors := errors.push s!"formulation agreement {n} is not `program constant = Checked.Trust.SecondFormulation* constant` with an independent right-hand side (a second formulation must not reach the definition it checks)"
+  -- FORMULA definitions still without a second formulation (run 2026-11-05T0828Z); the file may
+  -- only shrink (scripts/trust/check_formulas.py --base)
+  let formulaBaseLines ← readLines "scripts/trust/formula_baseline.txt"
   -- pins: definition ↦ pinning theorem, checked to mention the definition
   let mut pinned : NameMap Name := {}
   for l in pinLines do
@@ -439,6 +494,49 @@ run_cmd do
       | .ok dn => kinds := kinds.insert dn k
       | .error e => errors := errors.push e
     | _ => errors := errors.push s!"bad def_kinds line: {l}"
+  let mut formulaBase : NameSet := {}
+  for l in formulaBaseLines do
+    match resolve cands l with
+    | .ok dn =>
+      if !(["FORMULA", "MATH", "WITNESS", "PRINTED"].contains ((kinds.find? dn).getD "")) then
+        errors := errors.push s!"formula_baseline.txt lists {dn}, which is not of kind FORMULA, MATH, WITNESS or PRINTED"
+      else if secondForm.contains dn || secondRead.contains dn then
+        errors := errors.push s!"formula_baseline.txt lists {dn}, which now has a blind second formulation: remove the line"
+      else formulaBase := formulaBase.insert dn
+    | .error e => errors := errors.push s!"formula_baseline.txt: {e}"
+  -- COMPOSITE is "built only from other listed definitions" (run 2026-11-05T0828Z): until now
+  -- nothing checked the label, so a free formula labelled COMPOSITE escaped the FORMULA rule above.
+  -- A COMPOSITE definition's body may use only program constants that are classified or pinned
+  -- (no unlisted helper) and no numeral other than 0 and 1 (arithmetic with constants is a FORMULA).
+  for (dn, k) in kinds.toList do
+    if k == "COMPOSITE" then
+      if let some (.defnInfo d) := env.find? dn then
+        let bad := d.value.getUsedConstants.filter fun c =>
+          isCheckedConst env c && reportable env c && c != dn && (kinds.find? c).isNone &&
+            !pinned.contains c
+        unless bad.isEmpty do
+          errors := errors.push s!"COMPOSITE {dn} uses unlisted program definitions {bad.toList}: classify them or reclassify {dn}"
+        if let some l := arithNumeral env d.value then
+          errors := errors.push s!"COMPOSITE {dn} contains the numeral {l}: a body with constants is a FORMULA (needs a blind second formulation), not a COMPOSITE"
+  -- the kind label must be one of the documented kinds (run 2026-11-05T0828Z: an unknown label such
+  -- as `FOO` was silently treated as checked); a SPEC must be the spec of at least one pin (else
+  -- the label hides a free formula); a CLAIM's body may use only classified or pinned program
+  -- definitions.
+  let pinSpecs : NameSet := pinned.foldl (init := {}) fun acc _ tn =>
+    (deps env {} (env.find? tn).get!.type {}).foldl (init := acc) fun a c =>
+      if kinds.find? c == some "SPEC" then a.insert c else a
+  for (dn, k) in kinds.toList do
+    unless ["PHYSICS", "PRINTED", "CLAIM", "FORMULA", "COMPOSITE", "SPEC", "WITNESS", "MATH"].contains k do
+      errors := errors.push s!"def_kinds.txt: {dn} has the unknown kind {k}"
+    if k == "SPEC" && !pinSpecs.contains dn then
+      errors := errors.push s!"SPEC {dn} is used by no pinning theorem (pins.txt): a SPEC label is earned by pinning a definition"
+    if k == "CLAIM" then
+      if let some (.defnInfo d) := env.find? dn then
+        let bad := d.value.getUsedConstants.filter fun c =>
+          isCheckedConst env c && reportable env c && c != dn && (kinds.find? c).isNone && !pinned.contains c
+        unless bad.isEmpty do
+          errors := errors.push s!"CLAIM {dn} uses unlisted program definitions {bad.toList}: classify them"
+  let mut formulaReached : NameSet := {}
   let stop : NameSet := pinned.foldl (init := {}) fun s n _ => s.insert n
   -- pin shape (run 0028Z; red-team defect B03 "pinned" a definition by restating it): the pin
   -- theorem's statement must use a SPEC-kind definition whose own type and body do not mention
@@ -683,6 +781,14 @@ run_cmd do
           if k == "UNCLASSIFIED" then unclassified := unclassified.insert d
         else if k == "PRINTED" || k == "CLAIM" then
           transcr := transcr.push (if secondRead.contains d then short ++ "²" else short)
+          -- a PRINTED label without a second reading hid a free formula (run 2026-11-05T0828Z): the
+          -- second reading is now required like the second formulation (baseline: same file)
+          if k == "PRINTED" && !secondRead.contains d && !formulaBase.contains d then
+            errors := errors.push s!"{hn} rests on the PRINTED definition {d} with no machine-checked blind second reading (Checked/Trust/Transcriptions*.lean)"
+        else if ["FORMULA", "MATH", "WITNESS"].contains k then
+          formulaReached := formulaReached.insert d
+          unless secondForm.contains d || formulaBase.contains d do
+            errors := errors.push s!"{hn} rests on the {k} definition {d} with no machine-checked blind second formulation (Checked/Trust/Formulations*.lean): its name and docstring are unchecked (red team J, d03/d06)"
       if gaps.isEmpty then nClean := nClean + 1
       let shortH := (hn.toString.replace "Checked.Cosmography." "").replace "Checked." ""
       let fmt (a : Array String) : String := if a.isEmpty then "—" else ", ".intercalate a.toList
@@ -769,6 +875,13 @@ run_cmd do
   let printedDefs := kinds.toList.filter (fun (_, k) => k == "PRINTED")
   let nPrinted := printedDefs.length
   let nSecond := (printedDefs.filter fun (d, _) => secondRead.contains d).length
+  let formulaDefs := kinds.toList.filter (fun (_, k) => ["FORMULA", "MATH", "WITNESS"].contains k)
+  let nFormula := formulaDefs.length
+  let nFormSecond := (formulaDefs.filter fun (d, _) => secondForm.contains d).length
+  let formulaLines := (formulaDefs.map (·.1)).toArray.qsort (·.toString < ·.toString) |>.toList.map fun d =>
+    let st := if secondForm.contains d then "²" else if formulaBase.contains d then "baselined (no second formulation yet)" else "—"
+    let used := if formulaReached.contains d then "yes" else "no"
+    s!"| `{d}` | {st} | {used} |"
   let md := String.intercalate "\n" ([
     "# TRUST MAP (generated by `scripts/trust/StatementDeps.lean`; do not edit by hand)",
     "",
@@ -786,6 +899,11 @@ run_cmd do
     "unconditional (binders are plain data only).",
     s!"Transcriptions (trust track T3): {nPrinted} PRINTED definitions; {nSecond} carry a machine-checked",
     "agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).",
+    s!"FORMULA, MATH and WITNESS definitions with a blind second formulation: {nFormSecond}/{nFormula} (run 2026-11-05T0828Z;",
+    "² on a FORMULA means a machine-checked agreement with a blind second formulation in",
+    "`Checked/Trust/Formulations*.lean`, written from the definition's name, argument roles and conventions",
+    "without its body; a headline may rest on such a definition without one only if it is listed in",
+    "`scripts/trust/formula_baseline.txt`, which may only shrink).",
     "",
     "## Unpinned physics definitions, by number of headlines resting on them",
     "",
@@ -799,7 +917,12 @@ run_cmd do
     "the docstring says; universally bound parameters are not listed.",
     "",
     "| Headline | Pinned | Unpinned physics | Transcriptions | Non-vacuity witness | Fixed by the statement |",
-    "|---|---|---|---|---|---|"] ++ rows.toList) ++ "\n"
+    "|---|---|---|---|---|---|"] ++ rows.toList ++ [
+    "",
+    "## FORMULA, MATH and WITNESS definitions (second formulation)",
+    "",
+    "| Definition | Second formulation | Reached by a headline |",
+    "|---|---|---|"] ++ formulaLines) ++ "\n"
   IO.FS.writeFile "TRUST_MAP.md" md
   logInfo m!"SUMMARY: {nHeads} headlines; {nClean} rest on no unpinned physics definition; \
     non-vacuity: {nWit}/{nNeed} conditional headlines witnessed.\n\

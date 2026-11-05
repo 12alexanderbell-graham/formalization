@@ -22,7 +22,7 @@ Program definitions in this claim:
 - `printedD4 q j s l` — PRINTED, not pinned, so only the formula shown is checked, not its name (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `1 + 2 * q + 3 * q ^ 2 + 5 / 2 * q ^ 3 + 7 / 2 * q ^ 4 - 5 / 3 * q * j - 7 / 8 * q ^ 2 * j - j + j ^ 2 / 12 - 1 / 8 * q * s - s / 6 - l / 120`
 - `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
 - `remainder D4 a t₀ t` — COMPOSITE, not pinned, so only the formula shown is checked, not its name (for `D4 : ℝ → ℝ → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`): is defined as `hubble a t₀ * (t₀ - t) - series (D4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)) (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (redshift a t₀ t)`
-- `series d4 q j s z` — FORMULA, not pinned, so only the formula shown is checked, not its name (for `d4 : ℝ`, `q : ℝ`, `j : ℝ`, `s : ℝ`, `z : ℝ`): is defined as `z * (1 + D1 q * z + D2 q j * z ^ 2 + D3 q j s * z ^ 3 + d4 * z ^ 4)`
+- `series d4 q j s z` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_series`) (for `d4 : ℝ`, `q : ℝ`, `j : ℝ`, `s : ℝ`, `z : ℝ`): is defined as `z * (1 + D1 q * z + D2 q j * z ^ 2 + D3 q j s * z ^ 3 + d4 * z ^ 4)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 

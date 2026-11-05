@@ -107,6 +107,8 @@ jobs:
           python3 scripts/trust/check_trusted_defs.py --base "$BASE"
           # phrases of pinned definitions (the hand-written words of CLAIMS.md) change only with a LEDGER line (run 2026-11-04T2228Z)
           python3 scripts/trust/check_claims.py --base "$BASE"
+          # FORMULA second-formulation baseline may only shrink (run 2026-11-05T0828Z, red team J d03/d06)
+          python3 scripts/trust/check_formulas.py --base "$BASE"
       - name: Author files for runs without local Lean (generated output, not a check; run 2026-11-04T0028Z, see LEDGER)
         # When the run environment refuses a local Lean install (run 2026-11-04T0028Z), the files a
         # promotion must commit (TRUST_MAP.md, relocked frozen.txt, validation packet) can only be

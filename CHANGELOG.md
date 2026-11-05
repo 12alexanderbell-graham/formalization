@@ -240,3 +240,7 @@
 - Env: repo ok (detached HEAD reset to origin/main); no LOCK; local Lean via elan + cache. CI of run 0428Z's commits green (41974363342, 41974602988, 41975164683).
 - Part 2 (new science): the global minimum of the open-ΛCDM χ² of Moresco et al. 2016 Table 4 (H₀ prior 73 ± 2.4) certified over the whole parameter region — `Work/Data/Moresco16Min.lean` (frozen 1daa626, PROVED in Work 09b58c7, axioms standard): χ² ≥ 14.9665 for every admissible point, a prior-region point below 14.9675, greatest lower bound 14.967 ± 0.0005; the printed oΛCDM AICc 21.41 unattainable under Eq. 5.4 for every N ≤ 31. 905-box cover, certificates by kernel evaluation over ℚ. Blind restatement (Sonnet) closed; referee STANDS-WITH-CORRECTIONS.
 - Probe branch `probe/kernel-decide` (nanoda on `decide +kernel`); PROMPT note on kernel-evaluated certificates.
+
+## 2026-11-05T0828Z (scheduled run)
+- Env: repo ok (detached HEAD reset to origin/main); local Lean via elan + cache (full Checked build ≈ 50 min). CI of run 0628Z's later commits: in progress at start (STATE).
+- Part 3: definition labels machine-checked (red team J follow-up). FORMULA/MATH/WITNESS/PRINTED definitions behind headlines need a blind second formulation/reading proved equal in Lean or a line in the shrink-only `scripts/trust/formula_baseline.txt`; COMPOSITE/CLAIM bodies only listed definitions; SPEC must pin; unknown labels fail. Blind second formulations (Sonnet, sympy) for 21 definitions, 20 agree, `margChiSq` only for σ > 0. CLAIMS.md shows the agreement per formula.

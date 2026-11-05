@@ -81,3 +81,7 @@ import Checked.Math.LaneEmden
 import Checked.Math.LEExistsRight
 import Checked.Math.LEExistsLeft
 import Checked.Math.LEExists
+import Checked.Trust.SecondFormulation
+import Checked.Trust.SecondFormulationCosmo
+import Checked.Trust.Formulations
+import Checked.Trust.FormulationsCond

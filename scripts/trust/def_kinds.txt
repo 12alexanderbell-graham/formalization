@@ -13,6 +13,10 @@
 #   SPEC      a machine-checked specification (refereed textbook laws)
 #   WITNESS   a concrete example function
 #   MATH      a pure-mathematics predicate (no physical meaning; e.g. `RoundsTo`: rounding of a number)
+# Since run 2026-11-05T0828Z the labels are checked (StatementDeps.lean): FORMULA, MATH and WITNESS
+# need a blind second formulation (Checked/Trust/Formulations*.lean) or a line in the shrink-only
+# formula_baseline.txt; COMPOSITE and CLAIM bodies may use only listed or pinned definitions, and a
+# COMPOSITE no numeral other than 0 and 1; a SPEC must be used by a pin; no other label is accepted.
 # Format: <full name> <KIND>. Unlisted definitions are reported as UNCLASSIFIED.
 Checked.Cosmography.Aviles.AvilesL0Claim CLAIM
 Checked.Cosmography.Aviles.AvilesM0Claim CLAIM
@@ -27,7 +31,7 @@ Checked.Cosmography.BambaA.correctDA3 FORMULA
 Checked.Cosmography.BambaA.correctDA4 FORMULA
 Checked.Cosmography.BambaA.printedDA3 PRINTED
 Checked.Cosmography.BambaA.printedDA4 PRINTED
-Checked.Cosmography.BambaA.remA COMPOSITE
+Checked.Cosmography.BambaA.remA FORMULA
 Checked.Cosmography.BambaK.BambaD3yClaim CLAIM
 Checked.Cosmography.BambaK.BambaD3yClaimPast CLAIM
 Checked.Cosmography.BambaK.BambaD4yClaim CLAIM
@@ -115,9 +119,9 @@ Checked.Cosmography.FREta.PrintedEta30Claim CLAIM
 Checked.Cosmography.FREta.correct20 FORMULA
 Checked.Cosmography.FREta.correct30 FORMULA
 Checked.Cosmography.FREta.eta20 COMPOSITE
-Checked.Cosmography.FREta.eta20Of COMPOSITE
+Checked.Cosmography.FREta.eta20Of FORMULA
 Checked.Cosmography.FREta.eta30 COMPOSITE
-Checked.Cosmography.FREta.eta30Of COMPOSITE
+Checked.Cosmography.FREta.eta30Of FORMULA
 Checked.Cosmography.FREta.jL PRINTED
 Checked.Cosmography.FREta.lL PRINTED
 Checked.Cosmography.FREta.printed20 PRINTED
@@ -150,7 +154,7 @@ Checked.Fidelity.FRFirstEq SPEC
 Checked.Fidelity.FRSecondEq SPEC
 Checked.Fidelity.TransverseSpec SPEC
 Checked.Records.RoundsTo MATH
-Checked.Cosmography.FREta.Jfam COMPOSITE
+Checked.Cosmography.FREta.Jfam FORMULA
 Checked.Cosmography.B1.lusA2 PRINTED
 Checked.Cosmography.B1.lusA3 PRINTED
 Checked.Cosmography.B1.logPolyDL3 PRINTED

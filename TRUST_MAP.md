@@ -14,6 +14,11 @@ obligation computed from the statement by `Checked.Trust.nvObligation`); the oth
 unconditional (binders are plain data only).
 Transcriptions (trust track T3): 43 PRINTED definitions; 40 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
+FORMULA, MATH and WITNESS definitions with a blind second formulation: 20/28 (run 2026-11-05T0828Z;
+² on a FORMULA means a machine-checked agreement with a blind second formulation in
+`Checked/Trust/Formulations*.lean`, written from the definition's name, argument roles and conventions
+without its body; a headline may rest on such a definition without one only if it is listed in
+`scripts/trust/formula_baseline.txt`, which may only shrink).
 
 ## Unpinned physics definitions, by number of headlines resting on them
 
@@ -181,3 +186,36 @@ the docstring says; universally bound parameters are not listed.
 | `Data.FR13.fr13_zda738` | — | — | fr13Table | `fr13_zda738` | margChiSq: Hbar = 73.8, σ = 2.4 |
 | `Math.LaneEmden.laneEmden3_constants` | — | — | — | `laneEmden3_constants` | — |
 | `Math.LEExists.exists_solution` | — | — | — | unconditional | — |
+
+## FORMULA, MATH and WITNESS definitions (second formulation)
+
+| Definition | Second formulation | Reached by a headline |
+|---|---|---|
+| `Checked.Chemistry.Coexistence.acentric` | ² | yes |
+| `Checked.Chemistry.CubicEOS.critCubic` | ² | yes |
+| `Checked.Chemistry.CubicEOS.cubicP` | ² | yes |
+| `Checked.Cosmography.BambaA.correctDA3` | ² | yes |
+| `Checked.Cosmography.BambaA.correctDA4` | ² | yes |
+| `Checked.Cosmography.BambaA.remA` | baselined (no second formulation yet) | yes |
+| `Checked.Cosmography.BambaK.correctD3y` | ² | yes |
+| `Checked.Cosmography.BambaK.correctD4y` | ² | yes |
+| `Checked.Cosmography.BambaK.seriesY4` | ² | yes |
+| `Checked.Cosmography.BambaY.correctD2y` | ² | yes |
+| `Checked.Cosmography.BambaY.seriesY` | ² | yes |
+| `Checked.Cosmography.BambaZ.correctDA4z` | ² | yes |
+| `Checked.Cosmography.BambaZ.correctDL4z` | ² | yes |
+| `Checked.Cosmography.BambaZ.seriesZ` | ² | yes |
+| `Checked.Cosmography.CCS.correctD4` | ² | yes |
+| `Checked.Cosmography.CCS.series` | ² | yes |
+| `Checked.Cosmography.CVdQ.correctQ2` | ² | yes |
+| `Checked.Cosmography.CVdQ.seriesQ` | ² | yes |
+| `Checked.Cosmography.FRCosmo.correctR` | baselined (no second formulation yet) | yes |
+| `Checked.Cosmography.FREta.Jfam` | baselined (no second formulation yet) | yes |
+| `Checked.Cosmography.FREta.correct20` | ² | yes |
+| `Checked.Cosmography.FREta.correct30` | ² | yes |
+| `Checked.Cosmography.FREta.eta20Of` | baselined (no second formulation yet) | yes |
+| `Checked.Cosmography.FREta.eta30Of` | baselined (no second formulation yet) | yes |
+| `Checked.Data.FR13.chiSqHz` | ² | yes |
+| `Checked.Data.FR13.margChiSq` | baselined (no second formulation yet) | yes |
+| `Checked.Fidelity.coshBounce` | baselined (no second formulation yet) | yes |
+| `Checked.Records.RoundsTo` | baselined (no second formulation yet) | yes |

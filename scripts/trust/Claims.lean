@@ -294,10 +294,20 @@ def explain (ctx : Ctx) (d : Name) : MetaM String := do
         -- the gas constant with transposed digits inside a FORMULA)
         if kind != "PRINTED" && (body.find? fun s => s.isAppOfArity ``OfScientific.ofScientific 5).isSome then
           extra := extra ++ " ⚠ contains decimal constants that no check compares with a source"
+        -- a blind second formulation (run 2026-11-05T0828Z, `Checked/Trust/Formulations.lean`)
+        -- checks the name against the body: say so, with the agreement theorem's name
+        let agreeN := (`Checked.Trust.Formulations).str ("agree_" ++ d.componentsRev.head!.toString)
+        let sf : Bool := match (← getEnv).find? agreeN with
+          | some ai => match ai.type.eq? with
+            | some (_, l, _) => l.isConstOf d
+            | none => false
+          | none => false
+        let status := if sf then s!"not pinned; name and body agree with a blind second formulation ({code (tidy ctx agreeN.toString)})"
+          else "not pinned, so only the formula shown is checked, not its name"
         if ← isProp body then
-          return s!"- {code head} — {kind}, not pinned, so only the formula shown is checked, not its name{sigTxt}: means {← renderProp ctx body}{extra}"
+          return s!"- {code head} — {kind}, {status}{sigTxt}: means {← renderProp ctx body}{extra}"
         else
-          return s!"- {code head} — {kind}, not pinned, so only the formula shown is checked, not its name{sigTxt}: is defined as {code (← ppE ctx body)}{extra}"
+          return s!"- {code head} — {kind}, {status}{sigTxt}: is defined as {code (← ppE ctx body)}{extra}"
     | .inductInfo iv =>
       let cs ← iv.ctors.mapM fun k => do return code s!"{tidy ctx k.toString} : {← ppE ctx (← getConstInfo k).type}"
       return s!"- {code shortD} — {kind}, not pinned: inductive type with constructors {", ".intercalate cs}"
