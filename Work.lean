@@ -106,6 +106,7 @@ import Work.Sim.Validated
 import Work.Sim.MMCell
 import Work.Sim.MMCerts
 import Work.Sim.MMEnclose
+import Work.Math.LaneEmden
 import Work.Sim.MMAudit
 import Work.Data.FR13
 import Work.Data.FR13Tools
