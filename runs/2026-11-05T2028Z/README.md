@@ -21,7 +21,9 @@
 
 ## CI
 - Read: 1828Z commits 529cd99, ecf67d2, db8d795, 85ab963 green; **promotion 414e080 42098722467 green on every job** (build 17 min, nanoda 19 min, trust step 7 min): `pr78_omega1_unique`, `pr78_omega1_exists` PROVED.
-- bb14609 (1828Z records), da1be87 (LOCK), 48c7e7d (baselines) and the records commit: in progress at the close, read next run.
+- bb14609 (1828Z records) 42098780580 green; da1be87 (LOCK) 42103639109 green.
+- **48c7e7d (baselines) 42112512656: every blocking step green** (checked: build 15 min, nanoda 18 min, trust step 4 min incl. StatementDeps with both baselines empty, frozen registry; work, packet, goal guard). The 30 claim agreements and 8 formulation agreements are thereby machine-checked in CI.
+- dd055a6 (records) 42113143146: **work job green, incl. AuditClosed with the 48 new audit theorems**; checked job in progress at the close. Final commit (LOCK removed): read next run.
 
 ## Measurement
 | | before | after |
@@ -32,6 +34,8 @@
 | CLAIMs whose inline data were read twice | 0/28 | 28/28 |
 | disagreements found | — | 0 |
 | registered closed audit theorems | 463 | 511 |
+
+- Prepared for part 3: `briefL_addendum.md` (aim round L at this run's evidence route).
 
 ## Next step
 See STATE.md "Exact next step".
