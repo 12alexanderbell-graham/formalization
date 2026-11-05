@@ -121,3 +121,7 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `PRCore`: θ_c = (x−1)²(2x+2)/(x²+2x−1)², Soave factor, p_s/P_c = π_s·α·(x²+2x−1)²/(x²−2x−1), certified logs; `pr_unique_core`.
 - `PRExists`: from `RKExists` (`emit_pr_exists.py`); `theta_bounds`, `pr_exists_core`.
 - `PRAcentric`: headlines `pr_omega1_unique`, `pr_omega1_exists`. Audit `Work/Chemistry/PRAcentricAudit.lean`.
+
+## Peng–Robinson with the revised (1978) κ at ω = 1, `Checked/Chemistry/PR78{Reduced,Core,Exists,Acentric}.lean` (run 2026-11-05T1828Z)
+- Same route as the 1228Z PR modules, regenerated for κ(1) = 1716915/10⁶ by `runs/2026-11-05T1828Z/scripts/` (gen_pr78.py, emit_pr78*.py); promoted by `promote_pr78.py`.
+- `PR78Acentric`: headlines `pr78_omega1_unique`, `pr78_omega1_exists`. Audit `Work/Chemistry/PR78AcentricAudit.lean`. Work-only sibling `Work/Chemistry/PRCantera{Reduced,Core,Exists,Acentric}.lean` (Cantera coded κ; candidate C31).
