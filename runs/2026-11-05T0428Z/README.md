@@ -20,3 +20,4 @@
 
 ## Next
 Lower bound over the whole prior region (χ²_min > 14.96: two-parameter certificates, `B1L19Curved` pattern) would certify that the printed AICc is also off under Eq. 5.4; promotion of `Moresco16` to Checked (m16Table PRINTED with machine second reading, `chiSqOL`/`chiSqLine` FORMULA; NV witnesses are the existentials themselves).
+- Tools for the oΛCDM lower bound (part 1/2 bridge, next run): `Work/Data/Moresco16Lower.lean` (discriminant bound, tangent √ bound, box convexity, χ² as a quadratic in H₀) and the float feasibility script `runs/2026-11-05T0428Z/scripts/feas_m16_lower.py` (267 boxes for c = 14.6).

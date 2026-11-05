@@ -131,6 +131,7 @@ import Work.Data.Moresco16
 import Work.Data.Moresco16Blind
 import Work.Data.Moresco16Certs
 import Work.Data.Moresco16BlindClosed
+import Work.Data.Moresco16Lower
 import Work.Math.LEExistsRight
 import Work.Math.LEExistsLeft
 import Work.Math.LEExists
