@@ -218,3 +218,9 @@
 - Env: repo ok (pre-cloned; add_repo not exposed); local Lean via elan ok. CI: B1 curvature promotion 41920856539 green (PROVED); LOCK run 41925589071 lost its checked job in nanoda (no log; watched).
 - Part 3: `CLAIMS.md`, every headline's claim generated from its Lean statement (`scripts/trust/Claims.lean`; phrases of pinned definitions in `scripts/trust/phrases.txt`, linted and change-guarded by `check_claims.py`); blocking in CI. Validation packet shows the generated claims.
 - Blind red team J (Sonnet) against the generated claims: 6/7 valid accepted, all misleading through names/choice/constants, none through false generated text; fixes after reading (slot renaming, choice objects, truncating arithmetic, decimal constants, lookalike names): 1 rejected, 2 correct, 2 disclosed, 1 open.
+
+## 2026-11-05T0028Z (scheduled run)
+- Env: repo ok (detached HEAD reset to origin/main); local Lean via elan + cache; CI of run 2228Z green at its final commits; freeze CI 41943224752 green.
+- Part 5, first mathematics result: Lane–Emden n = 3 constants (ξ₁, ω₃, ρ_c/ρ̄) for every solution, `Work/Math/LaneEmden.lean`, PROVED in Work (local build, standard axioms); singular start `LEStart.lean`, time-dependent tube cell `LECell.lean`, 90 generated cells; blind restatement closed (`LEBlindBridge.lean`); referee STANDS (`runs/2026-11-05T0028Z/referee_le3.md`). Existence and Checked promotion next.
+- Process fix: run README stub with the THE RESULT line in the first commit of a run (goal guard had failed on intermediate commits of run 2228Z).
+
