@@ -2,6 +2,8 @@ import Mathlib
 import Checked.Records.Basic
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
+import Work.Chemistry.PRCanteraCore
+import Work.Chemistry.PRCanteraExists
 
 /-!
 # Chemistry: the revised (1978) Peng–Robinson κ(ω) as coded in the Cantera library, at ω = 1 (run 2026-11-05T1828Z)
@@ -45,7 +47,9 @@ theorem prCantera_omega1_unique (R ac b Tc vc vl vg ps : ℝ) (hac : 0 < ac) (hb
         (1 - Real.sqrt (7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)) vl vg ps) :
     RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 0.010 3 ∧
       RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 0.998 3 := by
-  sorry
+  -- Proof (run 2026-11-05T1828Z): `Work.Chemistry.PRCanteraCore.prCantera_unique_core` (route of
+  -- `Work.Chemistry.PR78Core`, certificates `runs/2026-11-05T1828Z/scripts/cantera/gen_prc.py`).
+  exact Work.Chemistry.PRCanteraCore.prCantera_unique_core R ac b Tc vc vl vg ps hac hb hvc hc hl h
 
 /-- Same fluid (Cantera's coded coefficients): at any critical point (v_c > b) there is a Maxwell
 coexistence state at T = 0.7 T_c with liquid volume above the co-volume b, and its pressure is
@@ -58,6 +62,7 @@ theorem prCantera_omega1_exists (R ac b Tc vc : ℝ) (hac : 0 < ac) (hb : 0 < b)
           (1 - Real.sqrt (7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)) vl vg ps ∧
       RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 0.010 3 ∧
       RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 0.998 3 := by
-  sorry
+  -- Proof (run 2026-11-05T1828Z): `Work.Chemistry.PRCanteraExists.prCantera_exists_core`.
+  exact Work.Chemistry.PRCanteraExists.prCantera_exists_core R ac b Tc vc hac hb hvc hc
 
 end Work.Chemistry.PRCanteraAcentric
