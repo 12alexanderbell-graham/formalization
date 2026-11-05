@@ -255,5 +255,9 @@
 - Env: no LOCK; local Lean via elan + cache. CI: 1783fe6 (Moresco promotion) build 78 min, nanoda 19.6 min green; 70d33e3 checked job lost in nanoda (runner loss).
 - Part 5: Peng–Robinson with the 1976 κ(ω) at ω = 1 — p_s/P_c = 0.0114, ω = 0.942 at every critical point and every Maxwell state, existence too; frozen, proved in Work, blind restatement closed, referee STANDS-WITH-CORRECTIONS, promoted to Checked (`Checked/Chemistry/PR*.lean`). The RK generator pattern carried over to PR (√2 logarithms) in one run.
 
+## 2026-11-05T1428Z (scheduled run)
+- Env: no LOCK; local Lean via elan + cache (full Checked build ≈ 90 min). CI: PR promotion 6a32db1 42039795953 green (PROVED); LOCK commit 01b0c8c checked job lost (runner loss).
+- Part 3: blind red team K (Sonnet, six new headlines vs 01b0c8c) — 6/6 accepted by every check; five new blocking rules (module-level disclosure of second formulations/readings and agreements; COMPOSITE and CLAIM constant rules, `scripts/trust/claim_baseline.txt`; junk-value rule; check_prose rule 8 for names and data words) reject all six; adversary on the new rules, cheapest bypasses closed (`runs/2026-11-05T1428Z/t5/`).
+
 ## 2026-11-05T1628Z (scheduled run)
 - 16:28Z (LOCK held by run 1428Z; this append and the run folder only): promotion 6a32db1 CI 42039795953 green — `pr_omega1_unique`, `pr_omega1_exists` PROVED; records 46a759e green; 1428Z LOCK commit 01b0c8c: checked job lost 1.5 min into the build (third runner loss today, no log).
