@@ -127,3 +127,6 @@ import Work.Data.FR13Table2
 import Work.Data.FR13Transcription
 import Work.Data.FR13GapCerts
 import Work.Data.FR13Audit
+import Work.Math.LEExistsRight
+import Work.Math.LEExistsLeft
+import Work.Math.LEExists
