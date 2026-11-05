@@ -1095,6 +1095,7 @@ doc:Checked.Trust.SecondReading.Q2 -doc3627235151727589907
 doc:Checked.Trust.SecondReading.Q3 -doc6837567394327879275
 doc:Checked.Trust.SecondReading.demDA4 -doc2259977283994676259
 doc:Checked.Trust.SecondReading.demDL4 -doc13209254269752908774
+doc:Checked.Trust.SecondReading.fr13Table -doc13377963916444384042
 doc:Checked.Trust.SecondReading.lL -doc13154814157870165598
 doc:Checked.Trust.SecondReading.m16Table -doc3526299814205098175
 doc:Checked.Trust.SecondReading.printed20 -doc2912949343609095420
@@ -1132,6 +1133,7 @@ doc:Checked.Trust.Transcriptions.agree_Q2 -doc1278703991956589543
 doc:Checked.Trust.Transcriptions.agree_Q3 -doc15289847951185315326
 doc:Checked.Trust.Transcriptions.agree_demDA4 -doc10247706876781554482
 doc:Checked.Trust.Transcriptions.agree_demDL4 -doc1902269468623693850
+doc:Checked.Trust.Transcriptions.agree_fr13Table -doc4056287666917707349
 doc:Checked.Trust.Transcriptions.agree_lL -doc4236028846802442350
 doc:Checked.Trust.Transcriptions.agree_logPolyDL3 -doc16324546098055250025
 doc:Checked.Trust.Transcriptions.agree_logPolyDL4 -doc685311371306720119
@@ -1263,11 +1265,13 @@ moduledoc:Checked.Trust.SecondFormulationCosmo -mdoc14861710477027291596
 moduledoc:Checked.Trust.SecondFormulationM16 -mdoc8057426027505603843
 moduledoc:Checked.Trust.SecondFormulation -mdoc10887534755347747998
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
+moduledoc:Checked.Trust.SecondReadingFR13 -mdoc15889175085118273039
 moduledoc:Checked.Trust.SecondReadingFR -mdoc1417811703977418368
 moduledoc:Checked.Trust.SecondReadingL19 -mdoc4633571653638402440
 moduledoc:Checked.Trust.SecondReadingM16 -mdoc8660990947761835154
 moduledoc:Checked.Trust.SecondReading -mdoc9991141689122378563
 moduledoc:Checked.Trust.TranscriptionsB1 -mdoc572391514531888890
+moduledoc:Checked.Trust.TranscriptionsFR13 -mdoc12203395201808648388
 moduledoc:Checked.Trust.TranscriptionsFR -mdoc11191104128708509847
 moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793

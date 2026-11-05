@@ -25,8 +25,7 @@ Checked.Cosmography.FREta.Jfam
 Checked.Cosmography.BambaA.remA
 # PRINTED definitions fall under the same rule since run 2026-11-05T0828Z (second reading required;
 # before, a PRINTED label without one was only shown without the ² mark). Grandfathered:
-# dQFlat (open since run 2028Z), fr13Table (read twice; the second reading is a Work theorem, not a
-# Transcriptions agreement), jL (the ΛCDM jerk 1).
+# dQFlat (open since run 2028Z), jL (the ΛCDM jerk 1). (fr13Table removed run 2026-11-05T1028Z:
+# Checked/Trust/TranscriptionsFR13.lean.)
 Checked.Cosmography.CVdQ.dQFlat
-Checked.Data.FR13.fr13Table
 Checked.Cosmography.FREta.jL

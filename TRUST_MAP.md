@@ -12,7 +12,7 @@ Non-vacuity (trust track T2): 104 headlines have hypotheses; 104 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Transcriptions (trust track T3): 44 PRINTED definitions; 41 carry a machine-checked
+Transcriptions (trust track T3): 44 PRINTED definitions; 42 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
 FORMULA, MATH and WITNESS definitions with a blind second formulation: 23/31 (run 2026-11-05T0828Z;
 ² on a FORMULA means a machine-checked agreement with a blind second formulation in
@@ -176,14 +176,14 @@ the docstring says; universally bound parameters are not listed.
 | `Sim.Duffing.duffing_solution_exists` | IsDuffingSolution | — | — | unconditional | IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5 |
 | `Sim.MichaelisMenten.mm_half_conversion` | IsMMSolution | — | — | `mm_half_conversion` | IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5 |
 | `Sim.MichaelisMenten.mm_solution_exists` | IsMMSolution | — | — | unconditional | IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5 |
-| `Data.FR13.fr13_bestfit68` | — | — | fr13Table | `fr13_bestfit68` | margChiSq: Hbar = 68, σ = 2.8 |
-| `Data.FR13.fr13_bestfit738` | — | — | fr13Table | `fr13_bestfit738` | margChiSq: Hbar = 73.8, σ = 2.4 |
-| `Data.FR13.fr13_exists68` | — | — | fr13Table | unconditional | margChiSq: Hbar = 68, σ = 2.8 |
-| `Data.FR13.fr13_exists738` | — | — | fr13Table | unconditional | margChiSq: Hbar = 73.8, σ = 2.4 |
-| `Data.FR13.fr13_minval68` | — | — | fr13Table | `fr13_minval68` | margChiSq: Hbar = 68, σ = 2.8 |
-| `Data.FR13.fr13_minval738` | — | — | fr13Table | `fr13_minval738` | margChiSq: Hbar = 73.8, σ = 2.4 |
-| `Data.FR13.fr13_zda68` | — | — | fr13Table | `fr13_zda68` | margChiSq: Hbar = 68, σ = 2.8 |
-| `Data.FR13.fr13_zda738` | — | — | fr13Table | `fr13_zda738` | margChiSq: Hbar = 73.8, σ = 2.4 |
+| `Data.FR13.fr13_bestfit68` | — | — | fr13Table² | `fr13_bestfit68` | margChiSq: Hbar = 68, σ = 2.8 |
+| `Data.FR13.fr13_bestfit738` | — | — | fr13Table² | `fr13_bestfit738` | margChiSq: Hbar = 73.8, σ = 2.4 |
+| `Data.FR13.fr13_exists68` | — | — | fr13Table² | unconditional | margChiSq: Hbar = 68, σ = 2.8 |
+| `Data.FR13.fr13_exists738` | — | — | fr13Table² | unconditional | margChiSq: Hbar = 73.8, σ = 2.4 |
+| `Data.FR13.fr13_minval68` | — | — | fr13Table² | `fr13_minval68` | margChiSq: Hbar = 68, σ = 2.8 |
+| `Data.FR13.fr13_minval738` | — | — | fr13Table² | `fr13_minval738` | margChiSq: Hbar = 73.8, σ = 2.4 |
+| `Data.FR13.fr13_zda68` | — | — | fr13Table² | `fr13_zda68` | margChiSq: Hbar = 68, σ = 2.8 |
+| `Data.FR13.fr13_zda738` | — | — | fr13Table² | `fr13_zda738` | margChiSq: Hbar = 73.8, σ = 2.4 |
 | `Math.LaneEmden.laneEmden3_constants` | — | — | — | `laneEmden3_constants` | — |
 | `Math.LEExists.exists_solution` | — | — | — | unconditional | — |
 | `Data.Moresco16.table5_oL_inconsistent` | — | — | — | `table5_oL_inconsistent` | — |

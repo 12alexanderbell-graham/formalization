@@ -91,3 +91,5 @@ import Checked.Trust.SecondReadingM16
 import Checked.Trust.TranscriptionsM16
 import Checked.Trust.SecondFormulationM16
 import Checked.Trust.FormulationsM16
+import Checked.Trust.SecondReadingFR13
+import Checked.Trust.TranscriptionsFR13

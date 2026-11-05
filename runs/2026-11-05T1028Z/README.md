@@ -2,7 +2,7 @@
 
 **THE RESULT:** part 1 (every link machine-checked; data claims) and part 2 (certified new science): the Moresco et al. 2016 data claims and the certified minimum of their open-universe χ² — the first certified number in this program that nobody had computed — moved from Work to Checked, on a table read twice independently and on fit statistics whose names a blind second formulation confirms.
 
-**What can a scientist now trust without checking it themselves, that they could not before?** That the smallest χ² any parameter values give for the Moresco et al. 2016 open-universe fit (thirty cosmic-chronometer points, with their H₀ prior) is 14.967 to three decimals — proved over the whole parameter region in `Checked/Data/Moresco16Min.lean`, so that the printed oΛCDM AICc 21.41 is unattainable under the corrected-AIC reading — and that the table and χ² it is about are the paper's: the table agrees entry by entry with an independent second reading, and `e2OL`, `chiSqOL`, `chiSqLine` equal the definitions a blind subagent wrote from their names and the paper's conventions alone. Also, across the whole repository, CLAIMS.md now tells the reader when a printed transcription has been independently read twice (270 of 289 mentions).
+**What can a scientist now trust without checking it themselves, that they could not before?** That the smallest χ² any parameter values give for the Moresco et al. 2016 open-universe fit (thirty cosmic-chronometer points, with their H₀ prior) is 14.967 to three decimals — proved over the whole parameter region in `Checked/Data/Moresco16Min.lean`, so that the printed oΛCDM AICc 21.41 is unattainable under the corrected-AIC reading — and that the table and χ² it is about are the paper's: the table agrees entry by entry with an independent second reading, and `e2OL`, `chiSqOL`, `chiSqLine` equal the definitions a blind subagent wrote from their names and the paper's conventions alone. Also, across the whole repository, CLAIMS.md now tells the reader when a printed transcription has been independently read twice (278 of 289 mentions).
 
 **Weakest unchecked step:** the provenance of the second reading of Table 4 (the blind restater of run 0428Z read the paper's pdftotext output; who read what is disclosed in LEDGER, not machine-checked), and the decimal constants 73 and 2.4 of the H₀ prior, which both formulations took from the brief (CLAIMS.md flags them). CI of the promotion was still running at the end of the run.
 
@@ -29,4 +29,5 @@
 | headlines | 153 | 163 |
 | conditional headlines witnessed | 99/99 | 104/104 |
 | FORMULA/MATH/WITNESS with blind second formulation | 20/28 | 23/31 |
-| PRINTED mentions in CLAIMS.md that disclose a second reading | 0/… | 270/289 |
+| PRINTED mentions in CLAIMS.md that disclose a second reading | 0/… | 278/289 |
+| formula baseline (shrink-only) | 11 | 10 (`fr13Table` second reading moved to Checked, after the records commit) |
