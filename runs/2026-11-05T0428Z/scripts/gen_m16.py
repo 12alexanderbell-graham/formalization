@@ -12,6 +12,9 @@ T = [(0.07, 69.0, 19.6), (0.09, 69, 12), (0.12, 68.6, 26.2), (0.17, 83, 8), (0.1
  (1.363, 160, 33.6), (1.43, 177, 18), (1.53, 140, 14), (1.75, 202, 40), (1.965, 186.5, 50.4)]
 T = [(F(str(z)), F(str(h)), F(str(s))) for z, h, s in T]
 H0, Om, OL = F('72.2865'), F('0.43617'), F('0.98144')
+import os
+if os.environ.get('M16_ZT'):  # blind parametrisation: OL = Om (1 + zt)^3 / 2
+    OL = Om * (1 + F(os.environ['M16_ZT']))**3 / 2
 EPS = F(1, 10**9)
 def E2(z): return Om*(1+z)**3 + (1-Om-OL)*(1+z)**2 + OL
 tot = F(0); rows = []
@@ -35,3 +38,11 @@ chil = sum(((a + b*z) - h/(1+z))**2 / (s/(1+z))**2 for z, h, s in T) + (a-73)**2
 print('line chi2 at point', float(chil))
 import json, sys
 json.dump({'rows': [[str(x) for x in r] for r in rows]}, open(sys.argv[1], 'w') if len(sys.argv) > 1 else sys.stdout)
+
+# --- emit Lean (run with argument 'lean'): per-row data s_i, A_i, U_i as Fin 30 vectors
+def lean_vec(name, xs):
+    return f"noncomputable def {name} : Fin 30 → ℝ :=\n  ![" + ",\n    ".join(str(x) if x.denominator == 1 else f"({x.numerator} / {x.denominator} : ℝ)" for x in xs) + "]\n"
+if len(sys.argv) > 2 and sys.argv[2] == 'lean':
+    sfx = os.environ.get('M16_SFX', '')
+    out = lean_vec('cS' + sfx, [r[0] for r in rows]) + lean_vec('cA' + sfx, [r[1] for r in rows]) + lean_vec('cU' + sfx, [r[2] for r in rows])
+    open(sys.argv[3], 'w').write(out)

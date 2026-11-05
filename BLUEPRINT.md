@@ -93,3 +93,10 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - Promoted (run 2026-11-05T0228Z) to `Checked/Math/` (same module names, namespace `Checked.Math`), by `runs/2026-11-05T0228Z/scripts/promote_le.py`.
 - Next node: uniqueness (Grönwall on the Volterra form); n = 3/2, Bonnor–Ebert on the same machinery.
 
+## Data claims: Moresco et al. 2016 Table 5, `Work/Data/` (run 2026-11-05T0428Z)
+- `Moresco16.lean`: `m16Table` (Table 4, PRINTED), `e2OL`, `chiSqOL`, `chiSqLine`; helpers `term_bound`, `log31_lt`, `log35_lt`; frozen `table5_{oL,pw,line}_inconsistent`, `oL_bic_exceeds`, `line_bic_exceeds`.
+- `Moresco16Certs.lean`: generic step `term_le` (√y within ε of s ⇒ bound on (c√y − d)²/σ²) and certificate vectors (`runs/2026-11-05T0428Z/scripts/gen_m16.py`). `Moresco16Blind.lean` (Sonnet) + `Moresco16BlindClosed.lean`: blind restatement closed.
+
+## Mathematics audit: `Work/Math/LaneEmdenNearMiss.lean` (run 2026-11-05T0428Z)
+- `near_miss_initial` (scaling symmetry of the n = 3 equation applied to `Checked.Math.LEExists.exists_solution`), `mutant_n5` (θ5 = (1 + ξ²/3)^(−1/2)), `mutant_n1` (sinc; right derivative at 0 from `sin_lt`, `sin_gt_sub_cube`; φ continuity from `sin_bound`, `cos_bound`).
+

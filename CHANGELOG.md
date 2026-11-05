@@ -230,3 +230,8 @@
 - Part 5: existence of a Lane–Emden n = 3 solution regular at the centre (`Work/Math/LEExists*.lean`: Banach fixed point of the scaled Volterra map near the centre, Picard–Lindelöf with a dissipative clamped energy after, glued), CI 41957394569 green.
 - Promotion to `Checked/Math/` (eleven modules, `runs/2026-11-05T0228Z/scripts/promote_le.py`): headlines `Checked.Math.LaneEmden.laneEmden3_constants` and `Checked.Math.LEExists.exists_solution`, NV witness, relock, CLAIMS.md and packet regenerated; audit `Work/Math/LaneEmdenAudit.lean` registered. Local: full Checked build, trust step 153/153, NV 99/99.
 - PROMPT working notes: existence at a regular singular point; promotion by script (min_imports trap, module-doc and docstring rules).
+
+## 2026-11-05T0428Z (scheduled run)
+- Env: repo ok (detached HEAD reset to origin/main); auditor role 04:28–04:37Z (run 0228Z's LOCK, < 150 min) until 0228Z released it; local Lean via elan + cache. CI of 0228Z's promotion 71a343e 41968192006: every blocking step of the checked job green (build 38 min, nanoda 10.7 min, trust step 3 min), work, packet, goal guard green: Lane–Emden n = 3 PROVED.
+- Part 5 audit: `Work/Math/LaneEmdenNearMiss.lean` — the Checked Lane–Emden headline with θ(0) = 1 − 10⁻⁸, or exponent 5, or exponent 1, is false (proved).
+- Part 1 (test suites): Moresco et al. 2016 Table 5 tested, `Work/Data/Moresco16.lean` (frozen 13f0ee8, PROVED in Work, blind restatement closed in `Moresco16BlindClosed.lean`, referee STANDS-WITH-CORRECTIONS): printed AICc and BIC inconsistent in every row under Eq. 5.4; printed oΛCDM and linear BICs above the BIC of an explicit fit. Finding candidate C30 (misprint class, no conclusion changes).
