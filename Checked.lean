@@ -81,3 +81,4 @@ import Checked.Math.LaneEmden
 import Checked.Math.LEExistsRight
 import Checked.Math.LEExistsLeft
 import Checked.Math.LEExists
+import Checked.Probe.KernelDecide
