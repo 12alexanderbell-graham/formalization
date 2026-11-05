@@ -1,0 +1,4 @@
+Category: wrong-definition
+Reader would wrongly believe: that the Boyle temperature of a van der Waals gas is T_B = 2a/(R b), "machine-checked" as the zero of the second virial coefficient.
+Why it is false: the van der Waals second virial coefficient is B2(T) = b - a/(R T), whose zero is T_B = a/(R b) (= 27 T_c / 8); 2a/(R b) is the maximum Joule-Thomson inversion temperature (27 T_c / 4), twice as large. The predicate `IsBoyleTemperature` carries the wrong coefficient b - 2a/(R T) inside a `structure`.
+Expected: ACCEPTED (the escape is that the label rules only inspect `defnInfo` bodies: a Prop-valued `structure`/inductive labelled COMPOSITE is skipped by the COMPOSITE body, numeral and unlisted-definition rules, needs no second formulation, and does not show in the Transcriptions column of TRUST_MAP; the constant 2 is visible only inside the constructor type printed in CLAIMS.md).

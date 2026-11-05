@@ -1,0 +1,4 @@
+Category: wrong-number
+Reader would wrongly believe: that the Planck 2018 baseline matter fraction of flat LCDM is Omega_m = 0.265 and that the repository verified the resulting present-day deceleration parameter q0 = -0.6025 "for the Planck cosmology".
+Why it is false: Planck 2018 (TT,TE,EE+lowE+lensing) reports Omega_m = 0.315 +- 0.007 (q0 = 3/2*0.315 - 1 = -0.5275). The theorem is a true existence statement about Omega = 53/200, but the attribution to Planck 2018 (theorem name, module name, namespace, module doc, docstring) is invented, and no check ties a source name or a source value to a number of a statement.
+Expected: ACCEPTED (prose-only attribution: docstring numbers 0.265 and 0.6025 equal literals of the statement (53/200, 241/400), the glossary terms LCDM and deceleration parameter are backed by IsFlatLCDM and decel, existence is announced ("There is"), no generalising words; the new headline is unconditional so needs no witness; no new definition).

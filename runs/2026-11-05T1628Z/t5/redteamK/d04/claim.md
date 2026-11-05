@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that in flat LCDM the deceleration parameter is q0 = (3/2) Omega_DE - 1 in terms of the DARK-ENERGY fraction (e.g. Omega_DE = 0.7 gives q0 = 0.05, a marginally decelerating universe).
+Why it is false: the argument of IsFlatLCDM is the MATTER fraction (H = H0 sqrt(Omega (1+z)^3 + 1 - Omega)); the theorem is correct with that reading, but the binder is named `Omega_de`, so the statement and docstring present it as dark energy. With Omega_DE = 1 - Omega_m the true value is q0 = 1/2 - (3/2) Omega_DE (= -0.55 for Omega_DE = 0.7, accelerating).
+Expected: ACCEPTED (Claims.lean renames a binder after the pinned slot it fills only unless it is a "decorated form" of the slot name; `Omega_de` = slot name + lowercase ASCII letters is exempt, so CLAIMS.md prints the misleading name; no definition, no label, no pin involved).
