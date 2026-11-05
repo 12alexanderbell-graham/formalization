@@ -128,6 +128,7 @@ import Work.Data.FR13Transcription
 import Work.Data.FR13GapCerts
 import Work.Data.FR13Audit
 import Work.Data.Moresco16
+import Work.Data.Moresco16Blind
 import Work.Math.LEExistsRight
 import Work.Math.LEExistsLeft
 import Work.Math.LEExists
