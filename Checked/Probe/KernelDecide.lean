@@ -6,7 +6,7 @@ import Mathlib.Data.Fin.VecNotation
 # Probe (run 2026-11-05T0628Z, branch `probe/kernel-decide`, not for main)
 
 Does a certificate decided by kernel evaluation over ℚ (`decide +kernel`) pass every blocking
-step of the checked job (axiom audit, nanoda replay, trust step)? One box of the Moresco 2016 χ²
+step of the checked job (kernel replay by nanoda, trust step)? One box of the Moresco 2016 χ²
 cover (`Work/Data/Moresco16MinCerts1.lean`) as a test case.
 -/
 
