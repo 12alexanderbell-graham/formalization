@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.TFExAssemble
 
 /-!
 # Thomas–Fermi equation: existence of the neutral-atom solution
@@ -21,6 +22,7 @@ theorem tf_exists : ∃ y φ : ℝ → ℝ,
     (∀ x, 0 < x → HasDerivAt φ (y x ^ ((3 : ℝ) / 2) / Real.sqrt x) x) ∧
     ContinuousWithinAt φ (Ici 0) 0 ∧ y 0 = 1 ∧ (∀ x, 0 ≤ x → 0 < y x) ∧
     Tendsto y atTop (𝓝 0) := by
-  sorry
+  obtain ⟨U, P, hU, hP, h0, hpos, hlim⟩ := Work.Math.TFExAssemble.main
+  exact Work.Math.TFExConvert.convert U P hU hP h0 hpos hlim
 
 end Work.Math.ThomasFermiExists
