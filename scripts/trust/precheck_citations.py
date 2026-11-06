@@ -8,6 +8,7 @@ Usage: python3 scripts/trust/precheck_citations.py  (exit 1 on a suspected viola
 import re, glob, sys
 
 thms = set()
+decls = set()
 for f in glob.glob('Checked/**/*.lean', recursive=True):
     ns = []
     for line in open(f, encoding='utf-8'):
@@ -15,6 +16,10 @@ for f in glob.glob('Checked/**/*.lean', recursive=True):
         if m: ns.append(m.group(1)); continue
         m = re.match(r'\s*end\s+(\S+)', line)
         if m and ns and ns[-1] == m.group(1): ns.pop(); continue
+        md = re.match(r'\s*(?:@\[[^\]]*\]\s*)?(?:private\s+|protected\s+)?(?:noncomputable\s+)?(?:theorem|lemma|def|abbrev|structure|inductive|class|instance|opaque)\s+([^\s:({\[]+)', line)
+        if md:
+            nm = md.group(1)
+            decls.add(nm if nm.startswith('Checked.') else '.'.join(ns + [nm]))
         m = re.match(r'\s*(?:private\s+)?(?:theorem|lemma)\s+(\S+)', line)
         if m:
             nm = m.group(1)
@@ -37,6 +42,14 @@ for t in toks:
             n = hits[0]
             if not any(n == h or n.endswith('.' + h) for h in heads):
                 bad.add(n)
+# The Lean check also rejects a backticked `Checked.…` token that names no constant (a module or
+# namespace name such as `Checked.Sim.MMCerts`; run 2026-11-06T1828Z: the 1428Z records commit cited
+# a module this way and the trust step on main was red from 04feda9 until the repair).
+for t in toks:
+    if t.startswith('Checked.') and '/' not in t and not re.search(r'[\[\]]', t):
+        tt = t.rstrip('.,;:')
+        if tt not in decls and not any(d.endswith('.' + tt) for d in decls):
+            bad.add(tt + ' (no such constant: module or namespace name?)')
 # pure-mathematics lemmas (no program definition in the statement): exempt in the Lean check too
 PURE = {'Checked.Cosmography.BambaY.littleO_of_hasDerivAt', 'Checked.Math.LECell.tube_cell_t',
         'Checked.Sim.OneSided.onesided_cell'}
