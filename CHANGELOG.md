@@ -279,3 +279,9 @@
 - Env: no LOCK; checkout reset to origin/main; local Lean via elan + cache (full Checked build ≈ 52 min). CI: dd055a6 42113143146 and 862bb00 42119105514 green.
 - Part 3, blind round L (Sonnet red team on a read-only snapshot, aimed at run 2028Z's evidence route): 5 of 6 valid defects accepted by the checks on main. New blocking `scripts/trust/check_provenance.py`, written blind in parallel by a fork: rejects 5/5. Two StatementDeps rules after reading L (agreements of propositions; inline arithmetic in CLAIMs). Main unchanged under the new rules (167/167, NV 108/108).
 - PROMPT working note: forged evidence needs provenance checks, not disclosure.
+
+## 2026-11-06T0028Z (scheduled run)
+- Env: repo ok; **local Lean refused** (elan installer denied; CI judge only); previous run's CI green (a8c9e61 42133539198, 9fb02b6 42134383430).
+- Part 5 with part 2: **Soave–Redlich–Kwong with Soave's κ(ω) at ω = 1 returns acentric factor 0.992** (p_s/P_c = 0.0102) at every critical point and coexistence state, existence too: frozen, proved by modules emitted from the RK route (first CI attempt), blind restatement closed, referee STANDS-WITH-CORRECTIONS, promoted to `Checked/Chemistry/SRKAcentric.lean` (author files from CI).
+- Graboski–Daubert refit: 0.994 (frozen; Work proof on `wip/srkgd`), emitted by the new parametric `variant.py`.
+- PROMPT working notes: the no-local-Lean route through the cached work job; digit-bounded constant substitution; sibling SRK claims from one config.

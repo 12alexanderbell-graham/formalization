@@ -126,6 +126,12 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - Same route as the 1228Z PR modules, regenerated for κ(1) = 1716915/10⁶ by `runs/2026-11-05T1828Z/scripts/` (gen_pr78.py, emit_pr78*.py); promoted by `promote_pr78.py`.
 - `PR78Acentric`: headlines `pr78_omega1_unique`, `pr78_omega1_exists`. Audit `Work/Chemistry/PR78AcentricAudit.lean`. Work-only sibling `Work/Chemistry/PRCantera{Reduced,Core,Exists,Acentric}.lean` (Cantera coded κ; candidate C31).
 
+## Soave–Redlich–Kwong with Soave's κ at ω = 1, `Checked/Chemistry/SRK{Reduced,Exists,Acentric}.lean` (run 2026-11-06T0028Z)
+- `SRKReduced`: the RK isotherm and route (`RKReduced`) with certificates regenerated for θ = 0.7(3x − 9 − 9/x)/α, α = (1 + κ(1)(1 − √0.7))², κ(1) = 939/500 (`runs/2026-11-06T0028Z/scripts/gen_srk.py`, `emit_srk.py`); spinodal windows [7/5, 17/10], [19, 25]; `window_of_maxwell`; Soave-α core `srk_unique_core` (no sign of R or T_c assumed; `srk_core.lean.txt`).
+- `SRKExists`: from `RKExists` (`emit_srk_exists.py`; windows [1.1, 1.4], [400, 1200]); `theta_bounds`, `srk_exists_core`.
+- `SRKAcentric`: headlines `srk_omega1_unique`, `srk_omega1_exists`; promoted by `promote_srk.py`. Audit `Work/Chemistry/SRKAcentricAudit.lean`.
+- Work-only sibling `Work/Chemistry/SRKGD{Reduced,Exists,Acentric}.lean` (Graboski–Daubert κ; 0.994), emitted by `variant.py variant_srkgd.json` from the SRK modules: any κ(1) whose spinodal windows and enclosures match SRK's is one config file.
+
 ## Second readings of source claims and the last baselined formulas, `Checked/Trust/` (run 2026-11-05T2028Z)
 - `SecondReadingClaims{A,B,C}.lean`: blind readers' data (verbatim from `runs/2026-11-05T2028Z/second_reading_claims/`); `SecondReadingClaims.lean`: the 28 grandfathered CLAIMs and `dQFlat` with those data substituted (generated, `runs/2026-11-05T2028Z/scripts/gen_claim_readings.py`); `TranscriptionsClaims.lean`: 30 agreements.
 - `SecondFormulation{D,E}.lean` (blind, briefs `runs/2026-11-05T2028Z/blind_formulation/brief{D,E}.md`); `Formulations{D,E}.lean`: `agree_{RoundsTo,coshBounce,eta20Of,eta30Of,Jfam,remA,correctR,margChiSq}`.

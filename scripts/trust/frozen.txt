@@ -21,6 +21,8 @@ Checked.Chemistry.PRAcentric.pr_omega1_exists 9e713641-doc14525154602185200110
 Checked.Chemistry.PRAcentric.pr_omega1_unique 58d5b5ce-doc2526865403548573784
 Checked.Chemistry.RKAcentric.rk_coexistence_exists f24626fc-doc557146406992015158
 Checked.Chemistry.RKAcentric.rk_coexistence_unique 81e298c0-doc9239692211929129705
+Checked.Chemistry.SRKAcentric.srk_omega1_exists 8b7e0dbb-doc8393799193321055658
+Checked.Chemistry.SRKAcentric.srk_omega1_unique ede3958-doc8006570102563803899
 Checked.Cosmography.Aviles.AvilesL0Claim 718231ef8f06aaa1-CLAIM
 Checked.Cosmography.Aviles.AvilesM0Claim ce1651bf5fd1dd30-CLAIM
 Checked.Cosmography.Aviles.IsFlatLCDM 4c42ed3aaeef354-doc10676087278089017928
@@ -385,6 +387,15 @@ doc:Checked.Chemistry.RKExists.ψ_le_of_le -doc4823144001928869879
 doc:Checked.Chemistry.RKExists.ψc -doc13995510676006419071
 doc:Checked.Chemistry.RKReduced.rk_unique_core -doc536255798208993929
 doc:Checked.Chemistry.RKReduced.window_of_maxwell -doc16510249603299456406
+doc:Checked.Chemistry.SRKExists.Dgap -doc13597373057498563531
+doc:Checked.Chemistry.SRKExists.reduced_exists -doc17056824082750450923
+doc:Checked.Chemistry.SRKExists.srk_exists_core -doc6402655207995506379
+doc:Checked.Chemistry.SRKExists.theta_bounds -doc16264373853628153893
+doc:Checked.Chemistry.SRKExists.ψ_le_of_ge -doc17119349999001417842
+doc:Checked.Chemistry.SRKExists.ψ_le_of_le -doc4823144001928869879
+doc:Checked.Chemistry.SRKExists.ψc -doc13995510676006419071
+doc:Checked.Chemistry.SRKReduced.srk_unique_core -doc306306342406071806
+doc:Checked.Chemistry.SRKReduced.window_of_maxwell -doc11865192780515481187
 doc:Checked.Cosmography.Aviles.AvilesL0Claim -doc15128371223901094389
 doc:Checked.Cosmography.Aviles.AvilesM0Claim -doc9119376022287010415
 doc:Checked.Cosmography.Aviles.eds_isFlatLCDM -doc15490095456912881190
@@ -1300,6 +1311,9 @@ moduledoc:Checked.Chemistry.PRReduced -mdoc6522914760099261
 moduledoc:Checked.Chemistry.RKAcentric -mdoc16978900516971406692
 moduledoc:Checked.Chemistry.RKExists -mdoc13837604028158584914
 moduledoc:Checked.Chemistry.RKReduced -mdoc17799278113134051071
+moduledoc:Checked.Chemistry.SRKAcentric -mdoc10014022841654797209
+moduledoc:Checked.Chemistry.SRKExists -mdoc3884952771135478019
+moduledoc:Checked.Chemistry.SRKReduced -mdoc9042682352091611011
 moduledoc:Checked.Cosmography.B1FitCerts -mdoc15271504134962391150
 moduledoc:Checked.Cosmography.B1FitRL19 -mdoc10767267510000138633
 moduledoc:Checked.Cosmography.B1FitTools -mdoc15374319093865975066
@@ -1410,4 +1424,4 @@ moduledoc:Checked.Trust.TranscriptionsFR -mdoc11191104128708509847
 moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc16047702938915399266
+moduledoc:Checked.Trust.Witnesses -mdoc6843447944301607410
