@@ -326,3 +326,8 @@
 - Checks: check_literals (a5) domain lengths (adversary-tested); new `check_claim_words.py` (W1 inference, W2 names, W3 two-sided words, W4 persistence, W5 grades) and check_blind_route B5 (no side file next to a brief), wired into lean.yml.
 - T5 round O (blind, against the round-N scripts): 6/6 accepted; after the new rules 1/6 (not blind). `runs/2026-11-06T1428Z/t5/RESULTS.md`.
 - PROMPT working notes: domain lengths are not data (reader template with placeholders); full build OOM (heavy modules first, poll ≤ 5 min).
+## 2026-11-06T1628Z (scheduled run; part 5)
+- Env: local Lean via elan + cache. LOCK held by live run 1428Z at start (48.4): worked in `runs/2026-11-06T1628Z/lean/` only until its release, then took the LOCK (16:58Z).
+- Mathematics: **Gelfand problem as a PDE with Mathlib's Laplacian — radial classical solutions in the unit ball of ℝ³ have λ ≤ 3.321992119: PROVED in Work + AUDITED** (`Work.Math.GelfandPDE.gelfand_pde_radial_bound`; freeze 194b723, proof 1757139; blind restatement closed; referee STANDS).
+- New tools: radial Laplacian in any dimension (`Work/Math/RadialLaplacian.lean`); continuation of the radial Gelfand ODE from any a > 0 (`GContFrom.lean`); `glue_at`, `ode_bound` (`GelfandODEBound.lean`).
+- PROMPT working notes: a live LOCK is not idle time; radial PDE ↔ ODE pattern.

@@ -148,3 +148,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `ChebBound`: `chebMono` (Clenshaw on ℚ lists), `scaleL`, `cheb_bound`, `cheb_range`, `bound_of_eq`, `range_of_eq` (kernel-checked list equalities via `decide +kernel`).
 - `RobShear`: `Al`, `Be`, `Ga`, `Φ`, `CornerOK`, `Corners`, `shear_onesided`, `cellS`, `stepS`, `shear_switch`, `start_shear`, `shear_comp`, `exp_le_inv`.
 - `RobLCerts{0..7}` (generated, 77 cells `stepL0`…`stepL76`), `RobLChain` (`chainL`, `finalL`), `RobExistsLong` (`exists_clamped_long`), `RobLong` (headlines `rob_state1e11`, `rob_printed_y3_low`, `rob_exists_1e11`), `RobLongBlind` + `RobLongAudit` (blind closure).
+
+## Gelfand problem as a PDE, `Work/Math/{RadialLaplacian,GContFrom,GelfandODEBound,GelfandPDE,GelfandPDEBlind,GelfandPDEBlindClosed}.lean` (run 2026-11-06T1628Z)
+- `RadialLaplacian`: `hasFDerivAt_norm` (x ≠ 0), `laplacian_radial` (Δ(f∘‖·‖)(x) = f'' + (finrank − 1)/‖x‖·f', any finite-dimensional real inner product space).
+- `GContFrom`: `lipF'`, `normF'`, `contF'`, `exists_from` (Picard–Lindelöf for (w, s²φ) from any a > 0, clamps inactive by monotonicity).
+- `GelfandODEBound`: `glue_at` (one-sided derivatives glued at any c), `ode_bound` (radial ODE on (0, 1) with f'(0) = 0, f(1) = 0 ⇒ λ ≤ 3.321992119 via `Checked.Math.Gelfand.gelfand_ball_critical`).
+- `GelfandPDE`: headline `gelfand_pde_radial_bound`; `GelfandPDEBlindClosed`: `blind_closed`, `nonvacuous_zero`.
