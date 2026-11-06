@@ -1,6 +1,7 @@
 import Checked.Trust.NonVacuity
 import Checked.Sim.Duffing
 import Checked.Sim.MichaelisMenten
+import Checked.Sim.Robertson
 import Checked.Cosmography.Lookback
 import Checked.Cosmography.LookbackThird
 import Checked.Cosmography.LCDMCoefficients
@@ -516,6 +517,14 @@ field; the enclosure keeps it in the box where the clamp is inactive). -/
 theorem mm_half_conversion : nonvacuity% Checked.Sim.MichaelisMenten.mm_half_conversion := by
   obtain ⟨s, e, c, p, h⟩ := Checked.Sim.MichaelisMenten.mm_solution_exists
   exact ⟨s, e, c, p, h, 0, ⟨le_rfl, by norm_num⟩, trivial⟩
+
+/-! ### Rigorous simulation of a stiff network (run 2026-11-06T0428Z, promoted 0628Z): the Robertson
+solution from `Checked.Sim.Robertson.rob_exists` (Picard–Lindelöf for the clamped field; the one-sided
+enclosure keeps it in the box where the clamp is inactive). -/
+
+theorem rob_state40 : nonvacuity% Checked.Sim.Robertson.rob_state40 := by
+  obtain ⟨y₁, y₂, y₃, h⟩ := Checked.Sim.Robertson.rob_exists
+  exact ⟨y₁, y₂, y₃, h, trivial⟩
 
 
 /-! ### Data claim FR13 (run 2026-11-04T1628Z): a minimiser exists (`fr13_exists68`, `fr13_exists738`);

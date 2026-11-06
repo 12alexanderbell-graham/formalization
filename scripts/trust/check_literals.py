@@ -33,7 +33,12 @@ Every numeric literal (numeral, decimal, `(n : ℝ)`) written in the statement o
      the statement) and numerals compared by exact value (`0.48` = `0.480`), must occur as a contiguous
      token span of the statement; every literal inside a matched span is covered. Operators, signs,
      exponents and parenthesisation are thereby compared too, not just values. Each registered constant
-     must match at least once (a stale registration fails). A registered `source=` name must occur in a
+     must match at least once (a stale registration fails). Value mode (run 2026-11-06T0628Z): a reader
+     constant without binders whose body is a closed arithmetic expression (numerals, `+ - * / ^`,
+     parentheses; no division by zero), or a tuple `(e1, ..., en)` of such, also covers statement
+     *atoms* of exactly the same value — an atom is a numeral or a parenthesised closed arithmetic group that
+     is not an operand of a neighbouring operator — a tuple a run of n consecutive atoms with the values in
+     order (`robInit := (1, 0, 0)` covers the arguments `1 0 0`; `robK1 := 4 / 100` covers `(1 / 25)`). A registered `source=` name must occur in a
      brief (`*brief*.md`) of the run folder of the reader module's `runs/` copy; or
  (c) listed for that headline in the shrink-only `scripts/trust/literal_baseline.txt`
      (`<headline> | <uncovered literals in statement order> | <reason>`), populated from the tree at
@@ -319,6 +324,120 @@ def match_at(stoks, i, pat, binders):
     return j
 
 
+OPS = {"+", "-", "*", "/", "^", "−", "·"}
+
+
+def eval_closed(toks):
+    """exact value of a closed arithmetic expression (numerals, + - * / ^, parentheses), else None"""
+    pos = [0]
+
+    def peek():
+        return toks[pos[0]] if pos[0] < len(toks) else None
+
+    def take():
+        pos[0] += 1
+        return toks[pos[0] - 1]
+
+    def atom():
+        t = peek()
+        if t is None:
+            raise ValueError
+        if t in ("-", "−"):
+            take()
+            return -power()
+        if t == "(":
+            take()
+            v = expr()
+            if take() != ")":
+                raise ValueError
+            return v
+        if is_num(t):
+            take()
+            return value(t)
+        raise ValueError
+
+    def power():
+        b = atom()
+        if peek() == "^":
+            take()
+            e = power()
+            if e.denominator != 1 or abs(e) > 64:
+                raise ValueError
+            if b == 0 and e < 0:
+                raise ValueError
+            return b ** int(e)
+        return b
+
+    def term():
+        v = power()
+        while peek() in ("*", "/", "·"):
+            op = take()
+            w = power()
+            if op == "/":
+                if w == 0:
+                    raise ValueError  # x / 0 = 0 in Lean: never a reading
+                v = v / w
+            else:
+                v = v * w
+        return v
+
+    def expr():
+        v = term()
+        while peek() in ("+", "-", "−"):
+            op = take()
+            w = term()
+            v = v + w if op == "+" else v - w
+        return v
+
+    if not toks or any(not (is_num(t) or t in ARITH) for t in toks):
+        return None
+    try:
+        v = expr()
+    except (ValueError, ZeroDivisionError, IndexError):
+        return None
+    return v if pos[0] == len(toks) else None
+
+
+def closed_values(body):
+    """(v,) for a closed arithmetic body, (v1, ..., vn) for a tuple `(e1, ..., en)` of them, else None"""
+    v = eval_closed(body)
+    if v is not None:
+        return (v,)
+    if len(body) >= 2 and body[0] == "(" and group_end(body, 0) == len(body):
+        parts = split_top(body, 1, len(body) - 1, {","})
+        if len(parts) >= 2:
+            vals = tuple(eval_closed(body[a:b]) for a, b in parts)
+            if all(x is not None for x in vals):
+                return vals
+    return None
+
+
+def statement_atoms(stoks):
+    """[(start, end, exact value)] of the statement's numeric atoms: a numeral, or a parenthesised closed
+    arithmetic group, not itself an operand of a neighbouring operator (a maximal arithmetic span)"""
+    out, i = [], 0
+    while i < len(stoks):
+        t = stoks[i]
+        e = None
+        if is_num(t):
+            e = i + 1
+        elif t == "(":
+            g = group_end(stoks, i)
+            if eval_closed(stoks[i + 1:g - 1]) is not None:
+                e = g
+        if e is not None:
+            before = stoks[i - 1] if i > 0 else None
+            after = stoks[e] if e < len(stoks) else None
+            if before not in OPS and after not in OPS:
+                v = eval_closed(stoks[i:e])
+                if v is not None:
+                    out.append((i, e, v))
+                    i = e
+                    continue
+        i += 1
+    return out
+
+
 def covered_spans(stoks, const):
     binders, body, _ = const
     spans = []
@@ -328,6 +447,20 @@ def covered_spans(stoks, const):
         e = match_at(stoks, i, body, set(binders))
         if e is not None:
             spans.append((i, e))
+    # Value mode (run 2026-11-06T0628Z): a reader constant without binders whose body is a closed arithmetic
+    # expression (or a tuple of them) also covers statement atoms of exactly the same value (a run of
+    # consecutive atoms, in order, for a tuple). `4 / 100` reads the `(1 / 25)` of a statement; a closed
+    # constant has no operator structure beyond its value, so exact value equality is the whole comparison.
+    if not binders:
+        vals = closed_values(body)
+        if vals is not None:
+            atoms = statement_atoms(stoks)
+            n = len(vals)
+            for k in range(len(atoms) - n + 1):
+                run = atoms[k:k + n]
+                if all(run[m][1] == run[m + 1][0] for m in range(n - 1)) and \
+                        tuple(a[2] for a in run) == vals:
+                    spans.append((run[0][0], run[-1][1]))
     return spans
 
 

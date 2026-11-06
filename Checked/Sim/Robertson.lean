@@ -18,7 +18,7 @@ equations for the concentrations y₁ = [A], y₂ = [B], y₃ = [C]:
 y₁′ = −k₁ y₁ + k₂ y₂ y₃, y₂′ = k₁ y₁ − k₂ y₂ y₃ − k₃ y₂², y₃′ = k₃ y₂².
 The standard stiff test problem takes k₁ = 0.04, k₂ = 10⁴, k₃ = 3·10⁷ and y(0) = (1, 0, 0).
 The Jacobian has a stiff eigenvalue of size ≈ 2–3·10³ for most of [0, 40] (referee of run
-2026-11-06T0428Z; ≈ −3.4·10³ at t = 40) against a slow one of size ≲ 1, so a classical Grönwall
+2026-11-06T0428Z) against a slow one of size ≲ 1, so a classical Grönwall
 enclosure (growth e^{Lt} with the full Lipschitz constant) is useless; the proof uses the
 one-sided (logarithmic-norm) cell step `Checked.Sim.OneSided.onesided_cell` in the weighted norm
 4900·e₂² + e₃², in which the network is almost non-expanding.
@@ -256,7 +256,7 @@ theorem Φc_eq (a b : ℝ) (h1 : -1 / 1000 ≤ a) (h2 : a ≤ 1 / 1000) (h3 : -1
 
 /-- Certified state of Robertson's stiff network at t = 40: for k₁ = 1/25, k₂ = 10⁴,
 k₃ = 3·10⁷ and initial concentrations (1, 0, 0), every solution of the rate equations on
-[0, 40] has 0.7158270 < y₁(40) < 0.7158271, 9.1855·10⁻⁶ < y₂(40) < 9.1856·10⁻⁶ and
+[0, 40] has 0.7158270 < y₁(40) < 0.7158271, 0.0000091855 < y₂(40) < 0.0000091856 and
 0.2841637 < y₃(40) < 0.2841638. -/
 theorem rob_state40 {y₁ y₂ y₃ : ℝ → ℝ}
     (h : IsRobSolution (1 / 25) 10000 30000000 1 0 0 40 y₁ y₂ y₃) :
@@ -271,8 +271,8 @@ theorem rob_state40 {y₁ y₂ y₃ : ℝ → ℝ}
   have e1 := hy1 40 ⟨by norm_num, le_rfl⟩
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> norm_num at a2 a3 ⊢ <;> linarith [a2.1, a2.2, a3.1, a3.2]
 
-/-- Robertson's network with k₁ = 1/25, k₂ = 10⁴, k₃ = 3·10⁷ and initial concentrations
-(1, 0, 0) has a solution of the rate equations on [0, 40]. -/
+/-- There is a solution of the rate equations of Robertson's network on [0, 40] with k₁ = 1/25,
+k₂ = 10⁴, k₃ = 3·10⁷ and initial concentrations (1, 0, 0). -/
 theorem rob_exists : ∃ y₁ y₂ y₃ : ℝ → ℝ,
     IsRobSolution (1 / 25) 10000 30000000 1 0 0 40 y₁ y₂ y₃ := by
   obtain ⟨α, h0, hα⟩ := Checked.Sim.RobExists.exists_clamped

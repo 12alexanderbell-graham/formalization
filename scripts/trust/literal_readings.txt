@@ -12,3 +12,5 @@ Checked.Chemistry.PR78Acentric.pr78_omega1_exists Checked.Trust.SecondReading.ka
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique Checked.Trust.SecondReading.kappaPR78
 Checked.Chemistry.SRKAcentric.srk_omega1_exists source=Soave Checked.Trust.SecondReading.kappaSoave
 Checked.Chemistry.SRKAcentric.srk_omega1_unique source=Soave Checked.Trust.SecondReading.kappaSoave
+Checked.Sim.Robertson.rob_state40 source=Robertson Checked.Trust.SecondReading.robK1 Checked.Trust.SecondReading.robK2 Checked.Trust.SecondReading.robK3 Checked.Trust.SecondReading.robInit Checked.Trust.SecondReading.robT
+Checked.Sim.Robertson.rob_exists source=Robertson Checked.Trust.SecondReading.robK1 Checked.Trust.SecondReading.robK2 Checked.Trust.SecondReading.robK3 Checked.Trust.SecondReading.robInit Checked.Trust.SecondReading.robT

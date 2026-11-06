@@ -11,8 +11,8 @@ import Mathlib.Tactic.Bound
 /-!
 # Robertson's network: existence for the clamped reduced field
 
-The reduced Robertson field (y₁ = 1 − y₂ − y₃ eliminated) with its arguments clamped to the box
-|y₂| ≤ 1/1000, −1/10 ≤ y₃ ≤ 11/10 is globally Lipschitz and bounded on ℝ × ℝ (sup norm), so
+The reduced Robertson field (y₁ = 1 − y₂ − y₃ eliminated) with its arguments clamped to a fixed
+box containing the trajectory (the bounds of `Checked.Sim.Robertson.chain`) is globally Lipschitz and bounded on ℝ × ℝ (sup norm), so
 Picard–Lindelöf gives a solution on [0, 40] from (0, 0). On the box the clamped field equals
 the true one; the certified enclosure shows that the solution never leaves the box.
 -/

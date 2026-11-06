@@ -25,3 +25,4 @@
 (?i)\bstiffness(es)?\b|\bnonlinearit(y|ies)\b|\bspring constants?\b|\bcubic coefficients?\b => IsDuffingSolution.k IsDuffingSolution.β
 (?i)\bhorizons?\b|\btime intervals?\b|\bdurations?\b|\bintegration (times?|intervals?)\b => IsDuffingSolution.T IsMMSolution.T
 (?i)\b(enzyme|substrate) (concentrations?|loadings?|amounts?)\b|\bconcentrations?\b => IsMMSolution.s₀ IsMMSolution.e₀
+(?i)\bsolutions?\b|\btrajector(y|ies)\b => IsRobSolution.y₁ IsRobSolution.y₂ IsRobSolution.y₃

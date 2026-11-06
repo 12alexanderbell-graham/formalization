@@ -4470,6 +4470,53 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > with k₁ = k₋₁ = k₂ = 1, [S]₀ = [E]₀ = 1, [C]₀ = [P]₀ = 0 on the time interval [0, 13/5]
 > (derivatives within the interval).
 
+## `rob_state40`
+
+Full name `Checked.Sim.Robertson.rob_state40`.
+
+**For every** `y₁ : ℝ → ℝ`, `y₂ : ℝ → ℝ`, `y₃ : ℝ → ℝ`:
+
+**assuming**
+
+1. the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`1 / 25`·`y₁` + `10000`·`y₂`·`y₃`, `y₂`′ = `1 / 25`·`y₁` − `10000`·`y₂`·`y₃` − `30000000`·`y₂`², `y₃`′ = `30000000`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `40`] (derivatives taken within [0, `40`]), with initial values `y₁`(0) = `1`, `y₂`(0) = `0`, `y₃`(0) = `0`
+
+**then**
+
+1. `7158270 / 10000000 < y₁ 40`
+2. `y₁ 40 < 7158271 / 10000000`
+3. `91855 / 10000000000 < y₂ 40`
+4. `y₂ 40 < 91856 / 10000000000`
+5. `2841637 / 10000000 < y₃ 40`
+6. `y₃ 40 < 2841638 / 10000000`
+
+Program definitions in this claim:
+
+- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`k₁`·`y₁` + `k₂`·`y₂`·`y₃`, `y₂`′ = `k₁`·`y₁` − `k₂`·`y₂`·`y₃` − `k₃`·`y₂`², `y₃`′ = `k₃`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `y₁`(0) = `a₀`, `y₂`(0) = `b₀`, `y₃`(0) = `c₀`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Certified state of Robertson's stiff network at t = 40: for k₁ = 1/25, k₂ = 10⁴,
+> k₃ = 3·10⁷ and initial concentrations (1, 0, 0), every solution of the rate equations on
+> [0, 40] has 0.7158270 < y₁(40) < 0.7158271, 0.0000091855 < y₂(40) < 0.0000091856 and
+> 0.2841637 < y₃(40) < 0.2841638.
+
+## `rob_exists`
+
+Full name `Checked.Sim.Robertson.rob_exists`.
+
+**It holds that**
+
+- there is `y₁ : ℝ → ℝ` such that there is `y₂ : ℝ → ℝ` such that there is `y₃ : ℝ → ℝ` such that the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`1 / 25`·`y₁` + `10000`·`y₂`·`y₃`, `y₂`′ = `1 / 25`·`y₁` − `10000`·`y₂`·`y₃` − `30000000`·`y₂`², `y₃`′ = `30000000`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `40`] (derivatives taken within [0, `40`]), with initial values `y₁`(0) = `1`, `y₂`(0) = `0`, `y₃`(0) = `0`
+
+Program definitions in this claim:
+
+- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`k₁`·`y₁` + `k₂`·`y₂`·`y₃`, `y₂`′ = `k₁`·`y₁` − `k₂`·`y₂`·`y₃` − `k₃`·`y₂`², `y₃`′ = `k₃`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `y₁`(0) = `a₀`, `y₂`(0) = `b₀`, `y₃`(0) = `c₀`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> There is a solution of the rate equations of Robertson's network on [0, 40] with k₁ = 1/25,
+> k₂ = 10⁴, k₃ = 3·10⁷ and initial concentrations (1, 0, 0).
+
 ## `fr13_bestfit68`
 
 Full name `Checked.Data.FR13.fr13_bestfit68`.

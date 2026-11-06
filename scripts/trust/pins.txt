@@ -23,3 +23,4 @@ CubicEOS.IsCriticalIsotherm Fidelity.CriticalSpec.criticalSpec_pins
 Coexistence.IsMaxwellCoexistence Fidelity.MaxwellSpec.maxwellSpec_pins
 Duffing.IsDuffingSolution DuffingPin.duffingSpec_pins
 MichaelisMenten.IsMMSolution MMPin.mmSpec_pins
+Robertson.IsRobSolution RobPin.robSpec_pins
