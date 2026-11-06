@@ -143,3 +143,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `check_provenance.py` (blocking): generated claim readings reproducible by `gen_claim_readings.py`; data-only substitution (token diff); no borrowed or aliased program constants in second versions; reader copy under `runs/` with a brief, committed first; `provenance_baseline.txt` (6, shrink-only).
 - `StatementDeps.lean`: agreements of propositions without program theorems; CLAIMs with any inline arithmetic need a second reading.
 - Part 3: blind round L, `runs/2026-11-05T2228Z/t5/RESULTS.md` (5/6 accepted before; 0/5 after, blind).
+
+## Robertson at long horizons, `Work/Sim/{ChebBound,RobShear,RobLCerts*,RobLChain,RobExistsLong,RobLong,RobLongAudit}.lean` (run 2026-11-06T0828Z)
+- `ChebBound`: `chebMono` (Clenshaw on ℚ lists), `scaleL`, `cheb_bound`, `cheb_range`, `bound_of_eq`, `range_of_eq` (kernel-checked list equalities via `decide +kernel`).
+- `RobShear`: `Al`, `Be`, `Ga`, `Φ`, `CornerOK`, `Corners`, `shear_onesided`, `cellS`, `stepS`, `shear_switch`, `start_shear`, `shear_comp`, `exp_le_inv`.
+- `RobLCerts{0..7}` (generated, 77 cells `stepL0`…`stepL76`), `RobLChain` (`chainL`, `finalL`), `RobExistsLong` (`exists_clamped_long`), `RobLong` (headlines `rob_state1e11`, `rob_printed_y3_low`, `rob_exists_1e11`), `RobLongBlind` + `RobLongAudit` (blind closure).

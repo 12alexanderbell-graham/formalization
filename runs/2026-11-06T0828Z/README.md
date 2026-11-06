@@ -1,5 +1,25 @@
 # Run 2026-11-06T0828Z (scheduled)
 
-**THE RESULT:** part 2 (new science, a certified answer not in print), with part 1 (rigorous simulators): Robertson's stiff network at long horizons — the sheared-weight contracting cell step, toward a certified state at t = 10¹¹ (the Bari test-set reference values are floating point, none certified).
+**THE RESULT:** part 2 (new science, a certified answer not in print), with part 1 (rigorous simulators): Robertson's stiff network certified at its standard end time t = 10¹¹ — every solution, existence, blind restatement closed — and the standard floating-point reference value of y₃ shown to be more than 10⁻¹⁴ off.
 
-(Front page written at the end of the run.)
+**What can a scientist now trust without checking it themselves, that they could not before?** The state of the standard stiff chemistry benchmark (Robertson / ROBER, k = (0.04, 10⁴, 3·10⁷), y(0) = (1, 0, 0)) at t = 10¹¹: for every solution of the rate equations on [0, 10¹¹], 2.0833401494·10⁻⁸ < y₁ < 2.08334015·10⁻⁸, 8.3333·10⁻¹⁴ < y₂ < 8.3334·10⁻¹⁴, 0.99999997916651 < y₃ < 0.99999997916652, and a solution exists (`Work.Sim.RobLong`, PROVED in Work by local build, axioms standard; CI next run). Until now this horizon had only floating-point reference values; the most used one (Bari IVP test set 2.4, Table II.10.3) prints y₃ = 0.9999999791665050, which every solution exceeds by more than 10⁻¹⁴ (`rob_printed_y3_low`).
+
+**Measure:** longest certified horizon of a stiff system 40 → 10¹¹ (Work); certified answers not in print +1; published reference values refuted by certificate +1 (FINDINGS candidate C-ROBER, two routes: certificate + referee's 60-digit Radau IIA). Cells 77 (sheared, contracting), compiled first time after one emitter fix (import), ≈ 16 min serial.
+
+**Weakest unchecked step:** the generic soundness pieces are machine-checked, but the result is not yet in `Checked` (no nanoda replay, no registered literal reading of the printed value, no NV witness or generated claim); and `decide +kernel` (used for the Chebyshev and range checks) has never been replayed by nanoda.
+
+## Start
+- 08:28Z: no LOCK; pre-cloned checkout detached; `git checkout -B main origin/main` = d4dbe09. add_repo not exposed. Local Lean: elan installer + Mathlib cache.
+- CI: promotion 2d83dad **42182848426 green on every job** (Checked build 20 min, nanoda 20 min, trust step): Robertson t = 40 PROVED.
+
+## Work
+1. **Bottleneck:** the long-horizon route of run 0628Z (sheared weights) existed only as float feasibility. A yes (certified state at 10¹¹) gives the first rigorous enclosure of ROBER at its standard end time and tests the published reference; a no would show where the one-sided method stops.
+2. **Generator** (`scripts/gen_robL.py`): mpmath Newton collocation per cell (degree 12, 8 cells/decade, 40 digits), exact rational residuals, sheared weight d = 10 with c optimised per cell, μ from an 8-corner PSD certificate, contracting propagation. Two root causes fixed on the way: (a) monomial defect bounds Σ|aₖ|rᵏ overestimated by 10⁴–10⁹ and made ε·t grow the ball until μ > 0 at t ≈ 10⁵ → **Chebyshev-basis bounds**; (b) a fixed initial condition for y₂ forced a fast boundary layer the polynomial cannot represent (residual floor 4·10⁻¹⁷ at every degree) → **y₂ collocated at n+1 points with no initial condition** (on the slow manifold; mismatch charged to δ). After both: residuals 10⁻²³ (degree 14) to 10⁻³¹ (degree 20) at t = 40; final sheared radius 1.4·10⁻¹⁸ (77 cells) or 7.6·10⁻²¹ (113 cells).
+3. **Lean, generic:** `Work/Sim/ChebBound.lean` (Clenshaw on ℚ coefficient lists, `chebMono b = a` by `decide +kernel`, |Σ bₖTₖ| ≤ Σ|bₖ| from Mathlib's `abs_eval_T_real_le_one`; range and rescaling forms); `Work/Sim/RobShear.lean` (`shear_onesided` by corner PSD + affine interpolation; `cellS`, `stepS` via `onesided_cell_neg` in sheared coordinates with change of shear; `start_shear`, `shear_comp`). Both compiled after 3 small fixes.
+4. **Freeze** 0be34d7 (`Work/Sim/RobLong.lean`), then in one message: blind restater (Sonnet) → `runs/2026-11-06T0828Z/blind/RobLongBlind.lean`; referee → `referee_robL.md` (STANDS-WITH-CORRECTIONS; independent 50–60-digit Radau IIA inside every interval); fork for existence on [0, 10¹¹] (`Work/Sim/RobExistsLong.lean`). Earlier, blind reader of the printed values (`reader_rober.md`, typeset crops) and prior-art screen (none found).
+5. **Referee correction before proof:** `rob_printed_y3_false` (y₃ ≠ printed) says nothing the correctly rounded value would not also satisfy; replaced by `rob_printed_y3_low` (printed + 10⁻¹⁴ < y₃); docstrings say "first ten digits"; module doc says all three printed components carry ~10⁻¹⁴ relative error.
+6. **Proof:** `emit_robL.py` checks every `stepS` hypothesis in exact arithmetic, emits `RobLCerts{0..7}.lean` (≈ 2 min each), `RobLChain.lean` (t = 40 ball → sheared norm, 77 steps, `finalL`); `RobLong.lean` proofs; blind closure `RobLongAudit.lean`. `lake build Work.Sim.RobLongAudit` green; frozen `rob_state1e11`, `rob_exists_1e11` byte-identical to 0be34d7.
+
+## End
+- Records: STATE (new section, results, environment, daily review, exact next step: promotion), FINDINGS candidate C-ROBER, LEDGER, CHANGELOG, TARGETS part 2, BLUEPRINT, PROMPT working note; LOCK removed.
+- CI of 0fe8f0d (work job with the 77 cells) and of the records commit: read next run.

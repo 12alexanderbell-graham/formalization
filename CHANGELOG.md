@@ -302,3 +302,9 @@
 - check_literals.py value mode (repair): closed reader constants cover statement atoms of the same exact value (the reading `4 / 100` vs the statement's `(1 / 25)`).
 - Long horizons: float feasibility (diagonal weights: no contraction; sheared weights: μ ≈ −2/t) and the per-cell-weight step `Work/Sim/RobCellD.lean`.
 - PROMPT working notes: literal readings by value; sheared weights for stiff slow manifolds.
+
+## 2026-11-06T0828Z (scheduled run)
+- Env: repo ok; local Lean (elan + Mathlib cache); previous run's promotion CI 42182848426 green on every job (Robertson t = 40 PROVED).
+- Parts 2 and 1: **Robertson's stiff network certified at t = 10¹¹** (every solution; existence; blind restatement closed; referee STANDS-WITH-CORRECTIONS), PROVED in Work by local build: 77 generated contracting cells with sheared weights. The Bari test-set reference y₃ = 0.9999999791665050 is more than 10⁻¹⁴ below every solution's y₃(10¹¹) (FINDINGS candidate C-ROBER).
+- New generic tools: certified Chebyshev bounds (`Work/Sim/ChebBound.lean`, kernel-checked Clenshaw), sheared-weight contracting cell step with corner PSD certificate (`Work/Sim/RobShear.lean`).
+- PROMPT working note: long horizons of stiff systems (Chebyshev bounds, slow-manifold collocation, sheared weights).
