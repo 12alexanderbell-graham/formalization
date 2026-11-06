@@ -143,6 +143,11 @@ import Work.Math.LaneEmdenBlind
 import Work.Sim.MMAudit
 import Work.Sim.OneSided
 import Work.Sim.RobCell
+import Work.Sim.RobCerts4
+import Work.Sim.RobCerts3
+import Work.Sim.RobCerts2
+import Work.Sim.RobCerts1
+import Work.Sim.RobCerts0
 import Work.Sim.Robertson
 import Work.Data.FR13
 import Work.Data.FR13Tools
