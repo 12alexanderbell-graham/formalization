@@ -228,3 +228,4 @@ import Work.Math.LEExistsLeft
 import Work.Math.LEExists
 import Work.Math.LaneEmdenAudit
 import Work.Math.LaneEmdenNearMiss
+import Work.Math.ThomasFermi
