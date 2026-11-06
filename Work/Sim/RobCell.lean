@@ -273,14 +273,27 @@ theorem step (p2 p3 : List ℚ) {P Q : ℝ → ℝ → ℝ}
     (hδ : Δ + 70 * |c2 - evalQ p2 (-(h / 2))| + |c3 - evalQ p3 (-(h / 2))| ≤ δ)
     (hBb : (δ + ε * h) * (1 + μ * h + (μ * h) ^ 2) ≤ B)
     (hn : B + 70 * |evalQ p2 (h / 2) - n2| + |evalQ p3 (h / 2) - n3| ≤ Δ') :
+    (∀ t ∈ Icc t0 (t0 + h), -1 / 1000 ≤ y2 t ∧ y2 t ≤ 1 / 1000 ∧ -1 / 10 ≤ y3 t ∧ y3 t ≤ 11 / 10) ∧
     4900 * (y2 (t0 + h) - n2) ^ 2 + (y3 (t0 + h) - n3) ^ 2 ≤ Δ' ^ 2 := by
-  have hc := cell p2 p3 hP ht0 hT hh hd2 hd3 hL2 hU2 hL3 hU3 hdf2 hdf3 hε0 hε hμ hμh hA hC1 hC2
-    hcond hbox hΔ hstart hδ0 hδ hBb (t0 + h) ⟨by linarith, le_rfl⟩
-  rw [show t0 + h - (t0 + h / 2) = h / 2 by ring] at hc
+  have hall := cell p2 p3 hP ht0 hT hh hd2 hd3 hL2 hU2 hL3 hU3 hdf2 hdf3 hε0 hε hμ hμh hA hC1 hC2
+    hcond hbox hΔ hstart hδ0 hδ hBb
   have hB0 : 0 ≤ B := by
     have : 0 < (δ + ε * h) * (1 + μ * h + (μ * h) ^ 2) := by positivity
     linarith
+  refine ⟨fun t ht => ?_, ?_⟩
+  · have hu : |t - (t0 + h / 2)| ≤ h / 2 := by
+      rw [abs_le]; constructor <;> linarith [ht.1, ht.2]
+    obtain ⟨b2, b3⟩ := ball_comp hB0 (hall t ht)
+    have l2 := hL2 _ hu
+    have u2 := hU2 _ hu
+    have l3 := hL3 _ hu
+    have u3 := hU3 _ hu
+    rw [abs_le] at b2 b3
+    obtain ⟨x1, x2, x3, x4⟩ := hbox
+    exact ⟨by linarith [b2.1], by linarith [b2.2], by linarith [b3.1], by linarith [b3.2]⟩
+  have hc := hall (t0 + h) ⟨by linarith, le_rfl⟩
+  rw [show t0 + h - (t0 + h / 2) = h / 2 by ring] at hc
   have hm := mink (c2 := n2) (c3 := n3) (d := 70) (by norm_num) (by norm_num) hB0 hc
-  refine hm.trans (pow_le_pow_left₀ (by positivity) hn 2)
+  exact hm.trans (pow_le_pow_left₀ (by positivity) hn 2)
 
 end Work.Sim.RobCell

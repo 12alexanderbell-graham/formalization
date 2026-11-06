@@ -98,6 +98,7 @@ theorem step{i} {{P Q : ℝ → ℝ → ℝ}}
     (hd2 : ∀ t ∈ Icc (0 : ℝ) 40, HasDerivWithinAt y2 (P (y2 t) (y3 t)) (Icc 0 40) t)
     (hd3 : ∀ t ∈ Icc (0 : ℝ) 40, HasDerivWithinAt y3 (Q (y2 t) (y3 t)) (Icc 0 40) t)
     (h0 : 4900 * (y2 {lit(c['t0'])} - {lit(c['c2'])}) ^ 2 + (y3 {lit(c['t0'])} - {lit(c['c3'])}) ^ 2 ≤ {lit(c['Delta'])} ^ 2) :
+    (∀ t ∈ Icc {lit(c['t0'])} {lit(c['t1'])}, -1 / 1000 ≤ y2 t ∧ y2 t ≤ 1 / 1000 ∧ -1 / 10 ≤ y3 t ∧ y3 t ≤ 11 / 10) ∧
     4900 * (y2 {lit(c['t1'])} - {lit(c['n2'])}) ^ 2 + (y3 {lit(c['t1'])} - {lit(c['n3'])}) ^ 2 ≤ {lit(c['Dn'])} ^ 2 := by
   have k := step p2c{i} p3c{i} hP (T := 40) (t0 := {lit(c['t0'])}) (h := {lit(c['h'])}) (Δ := {lit(c['Delta'])})
     (δ := {lit(c['delta'])}) (ε := {lit(c['eps'])}) (μ := {lit(c['mu'])}) (B := {lit(c['B'])})

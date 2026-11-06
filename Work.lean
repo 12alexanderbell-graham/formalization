@@ -149,6 +149,9 @@ import Work.Sim.RobCerts2
 import Work.Sim.RobCerts1
 import Work.Sim.RobCerts0
 import Work.Sim.Robertson
+import Work.Sim.RobExists
+import Work.Sim.RobBlind
+import Work.Sim.RobAudit
 import Work.Data.FR13
 import Work.Data.FR13Tools
 import Work.Data.FR13Certs
