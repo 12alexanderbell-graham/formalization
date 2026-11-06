@@ -21,10 +21,12 @@
 
 6. **Existence direction** (17:05–17:44Z): `Work/Math/RadialC2.lean` (radial function C² at the origin from one-sided profile data; ≈ 12 compiles, mostly an instance trap on `E →L[ℝ] E →L[ℝ] ℝ`: no `ContinuousAdd` by search, algebraic rewrites fail to unify; bound norms with `opNorm_le_bound` on vectors instead), `GProfile.lean` (centre bounds by monotonicity, 2 compiles), `laplacian_radial_zero`; freeze 674cdc4; blind + referee in one message (referee **STANDS**, λ* = 3.32199211833982, margin 3.4·10⁻¹⁰); proof 03bbb04 (assembly compiled at the 4th attempt), blind closure and `bound_sharp` (the bound's hypotheses met at λ = 3.321992118).
 
+7. **Promotion prep** (17:45–17:48Z): the seven PDE modules now import specific Mathlib modules (one shared header: Laplacian, InnerProductSpace.Calculus, PiL2, Sqrt, ExpDeriv, ContDiff.Deriv, Deriv.{Inv,MeanValue}, MeanValue, Asymptotics.Lemmas, BoundedLinearMaps, IntermediateValue, ODE.PicardLindelof, tactics); everything rebuilt green with the closures.
+
 ## Notes
 - The existence proof file was on disk (uncommitted) while its referee ran; the referee reports reading only the statement and the first proof line.
 - The proof existed before the freeze (written in this folder while the LOCK was held); the statement was written first and not changed after the proof compiled. The freeze commit says so.
 - Referee nit on the frozen module doc ("solutions with k < 41/10 that the ODE statement does not see"): it means solutions defined only up to k; the Checked theorem covers them once continued, which is what `GContFrom` does. Left as frozen.
 
 ## End
-- Records: STATE (Gelfand section, results, environment, daily review, exact next step: promote the PDE pair), LEDGER, BLUEPRINT, CHANGELOG, PROMPT working note; LOCK removed.
+- Records: STATE (Gelfand section, results, environment, daily review, exact next step: promote the PDE pair), LEDGER, BLUEPRINT, CHANGELOG, PROMPT working note; LOCK removed. CI of fb999b2 (Gelfand promotion) still in nanoda at 17:45Z: read next run.
