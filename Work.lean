@@ -152,6 +152,8 @@ import Work.Sim.Robertson
 import Work.Sim.RobExists
 import Work.Sim.RobBlind
 import Work.Sim.RobAudit
+import Work.Fidelity.RobSpec
+import Work.Sim.RobPin
 import Work.Data.FR13
 import Work.Data.FR13Tools
 import Work.Data.FR13Certs
