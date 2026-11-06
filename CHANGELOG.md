@@ -308,3 +308,9 @@
 - Parts 2 and 1: **Robertson's stiff network certified at t = 10¹¹** (every solution; existence; blind restatement closed; referee STANDS-WITH-CORRECTIONS), PROVED in Work by local build: 77 generated contracting cells with sheared weights. The Bari test-set reference y₃ = 0.9999999791665050 is more than 10⁻¹⁴ below every solution's y₃(10¹¹) (FINDINGS candidate C-ROBER).
 - New generic tools: certified Chebyshev bounds (`Work/Sim/ChebBound.lean`, kernel-checked Clenshaw), sheared-weight contracting cell step with corner PSD certificate (`Work/Sim/RobShear.lean`).
 - PROMPT working note: long horizons of stiff systems (Chebyshev bounds, slow-manifold collocation, sheared weights).
+
+## 2026-11-06T1028Z (scheduled run; parts 1/2 and 3)
+- Env: local Lean via elan + cache; full `lake build Checked` ≈ 57 min. CI: 8a64b6d 42200080559 green on every job.
+- Robertson at t = 10¹¹ promoted to Checked (14 modules by script; `rob_state1e11`, `rob_printed_y3_low`, `rob_exists_1e11` registered; NV; new blind literal reading of the Bari end time and printed y₃ via brief → reading → copy; relock, TRUST_MAP, CLAIMS 174, packet). PROVED once its CI is green.
+- check_blind_route B3 false positive on the brief's file template repaired (template lines exempt).
+- T5 round N: blind Sonnet red team, 4/6 accepted by the round-M checks; six new blocking checks (literal targets with slots and `+eval`, frozen reader modules, brief leaks, source-name variants, generalising words, grading words): 0/6 after, not blind.
