@@ -295,3 +295,10 @@
 - Env: repo ok; local Lean available (elan + Mathlib cache); previous run's CI green (1b584f7 42158536757).
 - Part 1: **the certified simulator handles stiff systems.** One-sided (logarithmic-norm) cell step in a weighted norm (`Work/Sim/OneSided.lean`); Robertson's network (0.04, 10⁴, 3·10⁷) certified at t = 40 for every solution, existence too, 49 generated cells (`Work/Sim/Robertson.lean`, PROVED in Work); blind restatement closed, referee STANDS-WITH-CORRECTIONS, blind spec + pin, blind literal reading.
 - PROMPT working note: stiff systems by one-sided bounds; centred polynomials for defect bounds.
+
+## 2026-11-06T0628Z (scheduled run)
+- Env: repo ok; local Lean available (elan + Mathlib cache; full `lake build Checked` 57 min); previous run's CI green on main (e8ed35e 42169826483); branch wip/rob-checked: Checked build + nanoda green.
+- Part 1: **Robertson promoted to Checked** (`rob_state40`, `rob_exists`): pin, blind literal reading registered, source name, NV witness, relock, TRUST_MAP, CLAIMS, packet; local trust step and every script green; CI 42182848426 pending at the records commit.
+- check_literals.py value mode (repair): closed reader constants cover statement atoms of the same exact value (the reading `4 / 100` vs the statement's `(1 / 25)`).
+- Long horizons: float feasibility (diagonal weights: no contraction; sheared weights: μ ≈ −2/t) and the per-cell-weight step `Work/Sim/RobCellD.lean`.
+- PROMPT working notes: literal readings by value; sheared weights for stiff slow manifolds.

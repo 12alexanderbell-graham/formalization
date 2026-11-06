@@ -1,5 +1,25 @@
 # Run 2026-11-06T0628Z (scheduled)
 
-**THE RESULT:** part 1 (every link machine-checked: rigorous simulators): promote Robertson's stiff network at t = 40 (PROVED in Work last run) to Checked with pin, literal registration, NV witness and trust step.
+**THE RESULT:** part 1 (every link machine-checked: rigorous simulators): Robertson's stiff network at t = 40, PROVED in Work last run, promoted to Checked with every evidence link the checks demand (pin, blind literal reading, source name, non-vacuity witness, relock, generated claim); then the first two steps toward long horizons.
 
-(Front page written at the end of the run.)
+**What can a scientist now trust without checking it themselves, that they could not before?** The certified state of Robertson's stiff reaction network at t = 40 (y₁ ∈ (0.7158270, 0.7158271), y₂ ∈ (0.0000091855, 0.0000091856), y₃ ∈ (0.2841637, 0.2841638) for every solution; a solution exists) now sits in `Checked` with its constants read twice (blind reader, value-checked against the statement by a script) and its predicate pinned by a blind spec, so its claim in `CLAIMS.md` is generated from the Lean statement and every link behind it is machine-checked — PROVED once CI 42182848426 is green (local: full build, trust step, all scripts green).
+
+**Measure:** Checked headlines 169 → 171; certified simulation results in Checked 2 → 3 (Duffing, Michaelis–Menten, Robertson); stiff systems in Checked 0 → 1; T1 171/171 headlines on pinned definitions, NV 111/111; literal readings registered 6 → 8 headlines.
+
+**Weakest unchecked step:** the source of the rate constants — the blind reader saw a secondary description (Bari IVP test set, ROBER), not Robertson's 1966 paper; and whether the literal reader was blind is recorded (brief → reading → copy commits), not checkable.
+
+## Start
+- 06:27Z: no LOCK; pre-cloned checkout detached; `git checkout main` + pull = e8ed35e. add_repo not exposed (as in every run since 11-04).
+- CI read: every push of run 0428Z green on main (42168466017 ed93e6e, 42168723000, 42168725522, 42168851528, 42169051248, 42169826483 e8ed35e). Branch `wip/rob-checked` 8d72e6b (42169797774): Checked build and nanoda **green** on the Robertson copies, trust step failed as expected (headlines not yet registered).
+- 06:28Z: elan installer worked (local Lean 4.35.0); Mathlib cache fetched.
+
+## Work
+1. **Promotion** (cherry-pick of 8d72e6b): registration in headlines.txt, def_kinds.txt (`IsRobSolution` PHYSICS, `RobSpec` SPEC), pins.txt (`robSpec_pins`), phrases.txt (the rate equations written out, not "mass-action": that glossary word belongs to `IsMMSolution`), NV witness from `rob_exists`, `Checked/Trust/SecondReadingRob.lean` (code verbatim from the blind reader's file; module doc rewritten without numbers), literal_readings.txt (`robK1`, `robK2`, `robK3`, `robInit`, `robT`, source=Robertson), source_names.txt (`robertson`), param_nouns.txt (solutions of `IsRobSolution`). Docstring fixes before the first relock: y₂ bounds as decimals (rule 5), "There is …" for `rob_exists` (rule 3), module docs without unlisted numbers (rule 7).
+2. **check_literals.py value mode** (repair): the token match rejected the blind reading `4 / 100` against the statement's `(1 / 25)` (same value, different notation; the reader's brief prescribed the notation). A reader constant without binders whose body is a closed arithmetic expression (or a tuple of them) now covers statement atoms of exactly that value; formulas with binders keep the token match. Negative tests: `10001`, `(1, 0, 1)`, `1 / 0` cover nothing.
+3. **Local verification**: full `lake build Checked` 06:30–07:27Z (57 min, green); rebuilds green; StatementDeps with relock 171 headlines, all on pinned definitions, NV 111/111; Claims.lean 171 claims; check_numbers, check_prose, check_literals, check_source_names, check_templates, check_trusted_defs, check_claims and every `--base` check green against 59e9d71; packet regenerated; goal guard ok. Pushed 2d83dad (CI 42182848426).
+4. **Long horizons, feasibility** (`scripts/rob_feas_long.py` → `rob_feas_long.out`; `scripts/rob_feas_matrix.py` → `rob_feas_matrix.out`): reference values at t = 10¹¹ reproduce the Bari test set's (y₁ ≈ 2.0833·10⁻⁸, y₂ ≈ 8.3334·10⁻¹⁴). With a diagonal weight per cell (weights only decrease, so changing them is free) the amplification over [40, 10¹¹] is ≈ 1 (119 cells) — but μ ≥ 0, so the t = 40 radius never shrinks and y₂ ~ 10⁻¹³ is unresolvable (|e₂| ≤ r/d with d ≈ 0.01). **A full 2×2 weight (a shear y₃ + c·y₂ of the coordinates) reaches the slow eigenvalue: μ ≈ −2/t** (−2.1·10⁻² at t = 40, −5·10⁻¹¹ at 4·10¹⁰), a contraction of ≈ e⁻⁴³ over [40, 10¹¹]. Even at t = 40 the diagonal weight wasted this.
+5. **`Work/Sim/RobCellD.lean`** (green, axioms standard): `cellD`, `stepD` (the cell step for any weight d > 0) and `weight_down`. Next: the shear version (`onesided_cell` applied to (y₂, y₃ + c·y₂) with field (P, Q + c·P); only the algebra of `rob_onesided` changes).
+
+## End
+- Records: LEDGER, STATE (Robertson section, results, exact next step), CHANGELOG, TARGETS part 1, PROMPT working notes (value mode; shear weights for stiff slow manifolds).
+- CI of 2d83dad (promotion) and later pushes: read next run (or at the end of this run, see STATE).
