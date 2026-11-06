@@ -244,4 +244,7 @@ import Work.Math.TFChain
 import Work.Math.ThomasFermiBlind
 import Work.Math.ThomasFermiBlindClosed
 import Work.Math.TFExBase
+import Work.Math.TFExFlow
+import Work.Math.TFExEvents
+import Work.Math.TFExConvert
 import Work.Math.ThomasFermiExists
