@@ -6,20 +6,17 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`:
 
 **assuming**
 
 1. `0 < a`
-2. `0 < b`
-3. `b < v`
-4. the molar volume `v` is a critical point of the isotherm `cubicP R a b 0 0 T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
+2. `b < v`
+3. `0 < v ^ 2 + u * b * v + w * b ^ 2`
 
 **then**
 
-1. `cubicP R a b 0 0 T v * v / (R * T) = 3 / 8`
-2. `b * cubicP R a b 0 0 T v / (R * T) = 1 / 8`
-3. `a * cubicP R a b 0 0 T v / (R * T) ^ 2 = 27 / 64`
+- (the molar volume `v` is a critical point of the isotherm `cubicP R a b u w T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0) if and only if ((`v ^ 3 - 3 * b * v ^ 2 - 3 * (u + w) * b ^ 2 * v - (u ^ 2 + u * w - w) * b ^ 3 = 0`) and (`R * T * (v ^ 2 + u * b * v + w * b ^ 2) ^ 2 = a * (v - b) ^ 2 * (2 * v + u * b)`))
 
 Program definitions in this claim:
 
@@ -28,14 +25,15 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-van der Waals: at every critical point, Z_c = 3/8, Ω_b = 1/8, Ω_a = 27/64 (exactly).
+Critical-point conditions of the generalized cubic EOS, in closed form.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem vdW_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 0 0 T) v) :
-    cubicP R a b 0 0 T v * v / (R * T) = 3 / 8 ∧ b * cubicP R a b 0 0 T v / (R * T) = 1 / 8 ∧
-      a * cubicP R a b 0 0 T v / (R * T) ^ 2 = 27 / 64 := …
+theorem isCritical_iff (R a b u w T v : ℝ) (ha : 0 < a) (hv : b < v) (hD : 0 < v ^ 2 + u * b * v + w * b ^ 2) :
+    IsCriticalIsotherm (cubicP R a b u w T) v ↔
+      (v ^ 3 - 3 * b * v ^ 2 - 3 * (u + w) * b ^ 2 * v - (u ^ 2 + u * w - w) * b ^ 3 = 0 ∧
+        R * T * (v ^ 2 + u * b * v + w * b ^ 2) ^ 2 = a * (v - b) ^ 2 * (2 * v + u * b)) := …
 ```
 
 ## Definitions it uses
@@ -47,8 +45,8 @@ See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cu
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `vdW_constants`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 0, w = 0.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `isCritical_iff`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 30

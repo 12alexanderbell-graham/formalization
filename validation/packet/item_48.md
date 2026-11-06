@@ -16,8 +16,8 @@
 
 **then**
 
-1. `0.2875 < Ω`
-2. `Ω < 0.2881`
+1. `18.19 < margChiSq fr13Table 68 2.8 Ω`
+2. `margChiSq fr13Table 68 2.8 Ω < 18.21`
 
 Program definitions in this claim:
 
@@ -27,16 +27,15 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-With the prior 68 ± 2.8 on H₀, every Ω in [0, 1] at which the marginalised chi-square of
-the Farooq–Ratra 2013 table is smallest among all Ω′ in [0, 1] lies strictly between 0.2875
-and 0.2881.
+With the prior 68 ± 2.8, the smallest value over Ω in [0, 1] of the marginalised
+chi-square of the Farooq–Ratra 2013 table lies strictly between 18.19 and 18.21.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fr13_bestfit68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+theorem fr13_minval68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
     (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω') :
-    0.2875 < Ω ∧ Ω < 0.2881 := …
+    18.19 < margChiSq fr13Table 68 2.8 Ω ∧ margChiSq fr13Table 68 2.8 Ω < 18.21 := …
 ```
 
 ## Definitions it uses
@@ -48,7 +47,7 @@ See GLOSSARY.md: `Data.FR13.fr13Table`, `Data.FR13.chiSqHz`, `Data.FR13.margChiS
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): fr13Table².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fr13_bestfit68`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fr13_minval68`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): margChiSq: Hbar = 68, σ = 2.8.
 - Source file: `Checked/Data/FR13.lean` (do not open it before submitting your answers).
 

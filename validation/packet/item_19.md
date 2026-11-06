@@ -6,38 +6,39 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`:
+**For every** `E : ℝ → ℝ`:
+
+**assuming**
+
+1. `ContDiffAt ℝ 5 E 1`
 
 **then**
 
-- there is `a : ℝ → ℝ` such that (the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `Ω`, w₀ = `w₀`, wₐ = `wₐ`, on some neighbourhood of the time `0`, where H₀ = H(`0`) > 0 and a is positive and differentiable on that neighbourhood) and (`ContDiffAt ℝ 5 a 0`)
-
-Program definitions in this claim:
-
-- `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `Ω`, w₀ = `w₀`, wₐ = `wₐ`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood
+- there is `a : ℝ → ℝ` such that (`a 0 = 1`) and (`ContDiffAt ℝ 5 a 0`) and (`∀ᶠ (t : ℝ) in nhds 0, 0 < a t ∧ HasDerivAt a (a t * E (a t)) t`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Flat matter + CPL models exist for every Ω, w₀, wₐ** (at `t₀ = 0`, `C⁵` there).
+Local existence of a smooth expanding scale factor for a smooth expansion law.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem exists_flatCPL (Ω w₀ wₐ : ℝ) :
-    ∃ a : ℝ → ℝ, IsFlatCPL Ω w₀ wₐ a 0 ∧ ContDiffAt ℝ 5 a 0 := …
+theorem exists_local_model (E : ℝ → ℝ) (hE : ContDiffAt ℝ 5 E 1) :
+    ∃ a : ℝ → ℝ, a 0 = 1 ∧ ContDiffAt ℝ 5 a 0 ∧
+      ∀ᶠ t in 𝓝 (0 : ℝ), 0 < a t ∧ HasDerivAt a (a t * E (a t)) t := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatCPL.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatCPL: t₀ = 0.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `exists_local_model`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Cosmography/CPLExistence.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 19

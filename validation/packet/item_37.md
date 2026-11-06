@@ -10,26 +10,26 @@
 
 **assuming**
 
-1. `3 < N`
+1. `4 < N`
 2. `N ≤ 31`
-3. `|c + 2 * 2 + 2 * 2 * (2 + 1) / (N - 2 - 1) - 32.42| ≤ 5e-3`
+3. `|c + 2 * 3 + 2 * 3 * (3 + 1) / (N - 3 - 1) - 21.41| ≤ 5e-3`
 
 **then**
 
-- `5e-3 < |c + 2 * Real.log N - 35.29|`
+- `5e-3 < |c + 3 * Real.log N - 25.71|`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Table 5, linear row (k = 2): for every N with 3 < N ≤ 31 and every value c of −2 ln L_max,
-if c + 4 + 12/(N − 3) is within 0.005 of the printed AICc 32.42, then c + 2 ln N differs from
-the printed BIC 35.29 by more than 0.005.
+Table 5, row oLCDM (k = 3): for every N with 4 < N ≤ 31 and every value c of −2 ln L_max,
+if c + 6 + 24/(N − 4) is within 0.005 of the printed AICc 21.41, then c + 3 ln N differs from
+the printed BIC 25.71 by more than 0.005.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem table5_line_inconsistent (N c : ℝ) (hN : 3 < N) (hN31 : N ≤ 31)
-    (hA : |c + 2 * 2 + 2 * 2 * (2 + 1) / (N - 2 - 1) - 32.42| ≤ 0.005) :
-    0.005 < |c + 2 * Real.log N - 35.29| := …
+theorem table5_oL_inconsistent (N c : ℝ) (hN : 4 < N) (hN31 : N ≤ 31)
+    (hA : |c + 2 * 3 + 2 * 3 * (3 + 1) / (N - 3 - 1) - 21.41| ≤ 0.005) :
+    0.005 < |c + 3 * Real.log N - 25.71| := …
 ```
 
 ## Definitions it uses
@@ -41,7 +41,7 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `table5_line_inconsistent`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `table5_oL_inconsistent`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Data/Moresco16.lean` (do not open it before submitting your answers).
 

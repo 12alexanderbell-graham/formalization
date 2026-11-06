@@ -24,7 +24,7 @@ import Mathlib.Tactic.FieldSimp
 import Mathlib.Tactic.Positivity
 import Mathlib.Tactic.IntervalCases
 
-/-! Thomas–Fermi, `TFExBase`: the clamped field of the regular system u' = 2tΦ, Φ' = 2u^{3/2} in t = √x. Promoted from `Work/Math/TFExBase.lean`. -/
+/-! Thomas–Fermi, `TFExBase`: the clamped field of the regular system of u = y(t²) and Φ = y'(t²) in t = √x (the power of u extended by zero below zero). Promoted from `Work/Math/TFExBase.lean`. -/
 
 namespace Checked.Math.TFExBase
 open Set

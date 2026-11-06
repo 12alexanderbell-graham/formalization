@@ -6,17 +6,16 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
+**For every** `w₀ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
 
-1. the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `245 / 1000`, w₀ = `-93 / 100`, wₐ = `-41 / 100`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood
+1. the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `3 / 10`, w₀ = `w₀`, wₐ = `-1 / 2`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood
 2. `ContDiffAt ℝ 5 a t₀`
 
 **then**
 
-1. `RoundsTo (cosmoCoeff 5 a t₀) 0.809 3`
-2. `RoundsTo (35 / 2 + (1 - 245 / 1000) / 4 * (213 + (7 - 245 / 1000) * (-41 / 100)) * (-41 / 100) + (1 - 245 / 1000) / 4 * (489 + 9 * (82 - 21 * (245 / 1000)) * (-41 / 100)) * (-93 / 100) + 9 / 2 * (1 - 245 / 1000) * (67 - 21 * (245 / 1000) + 3 / 2 * (23 - 11 * (245 / 1000)) * (-41 / 100)) * (-93 / 100) ^ 2 + 27 / 4 * (1 - 245 / 1000) * (47 - 24 * (245 / 1000)) * (-93 / 100) ^ 3 + 81 / 2 * (1 - 245 / 1000) * (3 - 2 * (245 / 1000)) * (-93 / 100) ^ 4) (-0.906) 3`
+- `RoundsTo (cosmoCoeff 5 a t₀ - (35 / 2 + (1 - 3 / 10) / 4 * (213 + (7 - 3 / 10) * (-1 / 2)) * (-1 / 2) + (1 - 3 / 10) / 4 * (489 + 9 * (82 - 21 * (3 / 10)) * (-1 / 2)) * w₀ + 9 / 2 * (1 - 3 / 10) * (67 - 21 * (3 / 10) + 3 / 2 * (23 - 11 * (3 / 10)) * (-1 / 2)) * w₀ ^ 2 + 27 / 4 * (1 - 3 / 10) * (47 - 24 * (3 / 10)) * w₀ ^ 3 + 81 / 2 * (1 - 3 / 10) * (3 - 2 * (3 / 10)) * w₀ ^ 4)) 2.345 3`
 
 Program definitions in this claim:
 
@@ -26,17 +25,15 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The paper's toy model `(Ω, w₀, wₐ) = (0.245, −0.93, −0.41)`: in every flat matter + CPL model
-with these parameters `l₀ = 0.809`, while the printed formula gives `−0.906`.
+At `Ω = 0.3`, `wₐ = −0.5` and every `w₀`, every flat CPL model has `l₀` exceeding the printed
+formula by `2.345`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem F2_toy (a : ℝ → ℝ) (t₀ : ℝ)
-    (hL : CPL.IsFlatCPL (245 / 1000) (-93 / 100) (-41 / 100) a t₀)
+theorem F2_error (w₀ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hL : CPL.IsFlatCPL (3 / 10) w₀ (-1 / 2) a t₀)
     (hs : ContDiffAt ℝ 5 a t₀) :
-    RoundsTo (cosmoCoeff 5 a t₀) 0.809 3 ∧
-      RoundsTo (printedCPLl0 (245 / 1000 : ℝ) (-93 / 100 : ℝ) (-41 / 100 : ℝ)) (-0.906) 3 := …
+    RoundsTo (cosmoCoeff 5 a t₀ - printedCPLl0 (3 / 10 : ℝ) w₀ (-1 / 2 : ℝ)) 2.345 3 := …
 ```
 
 ## Definitions it uses
@@ -48,8 +45,8 @@ See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.CPL.IsFlatCPL`, `
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: cosmoCoeff, IsFlatCPL.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `F2_toy`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatCPL: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100; RoundsTo: d = 0.809, k = 3, d = -0.906; cosmoCoeff: n = 5.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `F2_error`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatCPL: Ω = 3/10, wₐ = -1/2; RoundsTo: d = 2.345, k = 3; cosmoCoeff: n = 5.
 - Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 31

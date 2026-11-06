@@ -28,7 +28,7 @@ DOCS = {
     "TFCell": "Kamke first-touch barriers: one cell of a strict polynomial super- or sub-solution of the cooperative system",
     "TFChain": "chaining the generated barrier cells over the whole interval for both shooting directions",
     "ThomasFermi": "the initial slope of the neutral-atom Thomas–Fermi function; bounds as printed in the statement of `tf_initial_slope`",
-    "TFExBase": "the clamped field of the regular system u' = 2tΦ, Φ' = 2u^{3/2} in t = √x",
+    "TFExBase": "the clamped field of the regular system of u = y(t²) and Φ = y'(t²) in t = √x (the power of u extended by zero below zero)",
     "TFExFlow": "Picard–Lindelöf flow of the clamped field, continuous in the initial slope; consistency of flows and backward uniqueness",
     "TFExEvents": "the two shooting events of the clamped system: u negative and Φ positive exclude each other",
     "TFExConvert": "from a positive decaying solution in t = √x back to the Thomas–Fermi equation in x",

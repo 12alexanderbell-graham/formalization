@@ -6,51 +6,40 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
-
-**assuming**
-
-1. `LumDistSpec2 D`
-2. `t ≤ t₀`
-3. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `0 < a s`
-4. `ContinuousOn a (Set.Icc t t₀)`
+**For every** `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **then**
 
-- `D K a t₀ t = lumDist K a t₀ t`
+- (the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `Ω`, w₀ = `w₀`, wₐ = `wₐ`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood) if and only if (`FriedmannCPL Ω w₀ wₐ a t₀`)
 
 Program definitions in this claim:
 
-- `AngDistSpec` — SPEC, not pinned: inductive type with constructors `AngDistSpec.mk : ∀ {D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ}, (∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) → ContinuousOn a (Set.Icc t t₀) → D 0 a t₀ t = a t * ∫ (s : ℝ) in t..t₀, 1 / a s) → (∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) → ContinuousOn a (Set.Icc t t₀) → D 1 a t₀ t = a t * Real.sin (∫ (s : ℝ) in t..t₀, 1 / a s)) → (∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) → ContinuousOn a (Set.Icc t t₀) → D (-1) a t₀ t = a t * Real.sinh (∫ (s : ℝ) in t..t₀, 1 / a s)) → (∀ (c : ℝ), 0 < c → ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ), D (c ^ 2 * K) (fun s => c * a s) t₀ t = D K a t₀ t) → (∀ (τ K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ), D K (fun s => a (s + τ)) (t₀ - τ) (t - τ) = D K a t₀ t) → (∀ t ≤ 0, D 0 Real.exp 0 t = 1 - Real.exp t) → (∀ t ≤ 0, D 0 (fun s => Real.exp (-s)) 0 t = Real.exp (-t) - 1) → (∀ (t : ℝ), 0 < t → t ≤ 1 → D (-1) id 1 t = (1 - t ^ 2) / 2) → (∀ (R : ℝ), 0 < R → ∀ (t₀ t : ℝ), t ≤ t₀ → D 1 (fun x => R) t₀ t = R * Real.sin ((t₀ - t) / R)) → (∀ (R : ℝ), 0 < R → ∀ (t₀ t : ℝ), t ≤ t₀ → D 0 (fun x => R) t₀ t = t₀ - t) → AngDistSpec D`
-- `LumDistSpec` — SPEC, not pinned: inductive type with constructors `LumDistSpec.mk : ∀ {D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ}, (∀ t ≤ 0, D 0 Real.exp 0 t = (Real.exp (-t) - 1) * Real.exp (-t)) → (∀ (t : ℝ), 0 < t → t ≤ 1 → D (-1) id 1 t = ((1 / t) ^ 2 - 1) / 2) → (∀ (t₀ t : ℝ), t ≤ t₀ → D 1 (fun x => 1) t₀ t = Real.sin (t₀ - t)) → (∀ (c : ℝ), 0 < c → ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ), D (c ^ 2 * K) (fun s => c * a s) t₀ t = D K a t₀ t) → LumDistSpec D`
-- `LumDistSpec2` — SPEC, not pinned: inductive type with constructors `LumDistSpec2.mk : ∀ {D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ}, LumDistSpec D → (∃ DA, AngDistSpec DA ∧ ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) → ContinuousOn a (Set.Icc t t₀) → D K a t₀ t = (1 + redshift a t₀ t) ^ 2 * DA K a t₀ t) → LumDistSpec2 D`
-- `lumDist K a t₀ t` — **PINNED** (pin theorem `lumDistSpec2_pins`): the luminosity distance a(t₀)·(1 + z)·S_K(χ), at observation time `t₀`, of a source emitting at time `t`, in the FLRW model with scale factor `a` and curvature constant `K` (c = 1; z the redshift, χ the comoving radial distance, S_K the transverse factor)
-- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+- `FriedmannCPL Ω w₀ wₐ a t₀` — SPEC, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`): means there is `ρm : ℝ → ℝ` such that there is `ρde : ℝ → ℝ` such that (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ (deriv a t / a t) ^ 2 = ρm t + ρde t ∧ ρm t * a t ^ 3 = ρm t₀ * a t₀ ^ 3 ∧ HasDerivAt ρde (-(3 * (deriv a t / a t) * (1 + (w₀ + wₐ * (1 - a t / a t₀))) * ρde t)) t`) and (`0 < deriv a t₀`) and (`Ω = ρm t₀ / (deriv a t₀ / a t₀) ^ 2`)
+- `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `Ω`, w₀ = `w₀`, wₐ = `wₐ`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** the specification determines the luminosity distance on the whole admissible
-domain.
+**The program's flat CPL predicate equals the blind first-principles formulation**, for
+every `Ω, w₀, wₐ`, every scale factor and every `t₀`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem lumDistSpec2_pins (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) (h : LumDistSpec2 D) (K : ℝ)
-    (a : ℝ → ℝ) (t₀ t : ℝ) (htt : t ≤ t₀) (hpos : ∀ s ∈ Set.Icc t t₀, 0 < a s)
-    (hcont : ContinuousOn a (Set.Icc t t₀)) : D K a t₀ t = lumDist K a t₀ t := …
+theorem isFlatCPL_iff_friedmannCPL (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) :
+    IsFlatCPL Ω w₀ wₐ a t₀ ↔ FriedmannCPL Ω w₀ wₐ a t₀ := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaK.lumDist`, `Cosmography.redshift`, `Cosmography.BambaY.comoving`, `Cosmography.Transverse.transverse`, `Fidelity.AngDistSpec`, `Fidelity.LumDistSpec`, `Fidelity.LumDistSpec2`
+See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannCPL`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: lumDist, redshift.
+- Definitions pinned by a machine-checked specification: IsFlatCPL.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lumDistSpec2_pins`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `isFlatCPL_iff_friedmannCPL`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/Pins.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Fidelity/FriedmannCPL.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 45

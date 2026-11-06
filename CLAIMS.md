@@ -4890,6 +4890,45 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > continuous at 0, φ' = −(2/s)φ − e^w on (0, S] and w(0) = 0: the hypotheses of the Gelfand
 > headline are satisfied together.
 
+## `tf_initial_slope`
+
+Full name `Checked.Math.ThomasFermi.tf_initial_slope`.
+
+**For every** `y : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `x : ℝ`, if `0 ≤ x`, then `HasDerivWithinAt y (φ x) (Set.Ici 0) x`
+2. for every `x : ℝ`, if `0 < x`, then `HasDerivAt φ (y x ^ (3 / 2) / √x) x`
+3. `ContinuousWithinAt φ (Set.Ici 0) 0`
+4. `y 0 = 1`
+5. for every `x : ℝ`, if `0 ≤ x`, then `0 < y x`
+6. `Filter.Tendsto y Filter.atTop (nhds 0)`
+
+**then**
+
+1. `-1.58807103 ≤ φ 0`
+2. `φ 0 ≤ -1.58807102`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Every solution y of the Thomas–Fermi equation y'' = y^{3/2}/√x on (0, ∞) with y' = φ on
+> [0, ∞), φ continuous at 0 from the right, y(0) = 1, y > 0 on [0, ∞) and y(x) → 0 as x → ∞ has
+> initial slope −1.58807103 ≤ φ(0) ≤ −1.58807102.
+
+## `tf_exists`
+
+Full name `Checked.Math.ThomasFermiExists.tf_exists`.
+
+**It holds that**
+
+- there is `y : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `x : ℝ`, if `0 ≤ x`, then `HasDerivWithinAt y (φ x) (Set.Ici 0) x`) and (for every `x : ℝ`, if `0 < x`, then `HasDerivAt φ (y x ^ (3 / 2) / √x) x`) and (`ContinuousWithinAt φ (Set.Ici 0) 0`) and (`y 0 = 1`) and (for every `x : ℝ`, if `0 ≤ x`, then `0 < y x`) and (`Filter.Tendsto y Filter.atTop (nhds 0)`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> There is a solution y of the Thomas–Fermi equation y'' = y^{3/2}/√x on (0, ∞) with y' = φ on
+> [0, ∞), φ continuous at 0 from the right, y(0) = 1, y > 0 on [0, ∞) and y(x) → 0 as x → ∞.
+
 ## `table5_oL_inconsistent`
 
 Full name `Checked.Data.Moresco16.table5_oL_inconsistent`.
