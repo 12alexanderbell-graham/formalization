@@ -105,6 +105,8 @@ import Work.Chemistry.SRKExists
 import Work.Chemistry.SRKAcentric
 import Work.Chemistry.SRKAcentricBlind
 import Work.Chemistry.SRKAcentricAudit
+import Work.Chemistry.SRKGDReduced
+import Work.Chemistry.SRKGDExists
 import Work.Chemistry.SRKGDAcentric
 import Work.Chemistry.PRCanteraReduced
 import Work.Chemistry.PRCanteraCore
