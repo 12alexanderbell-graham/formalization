@@ -140,6 +140,7 @@ import Work.Math.LEChain
 import Work.Math.LaneEmden
 import Work.Math.LEBlindBridge
 import Work.Math.LaneEmdenBlind
+import Work.Math.Gelfand
 import Work.Sim.MMAudit
 import Work.Sim.OneSided
 import Work.Sim.RobCell
