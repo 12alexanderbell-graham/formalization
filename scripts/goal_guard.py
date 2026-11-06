@@ -55,7 +55,9 @@ try:
 except OSError:
     head_msg = ""
 head_msg = re.sub(r'"[^"\n]*"|“[^”\n]*”', "", head_msg)  # quoted mentions are not claims
-if re.search(r"(?i)\bremov(?:e|es|ed|ing)\s+(?:the\s+)?LOCK\b", head_msg) and (root / "LOCK").exists():
+# only the records-commit idiom counts: "remove LOCK" as an item of the message (start, or after ; , : or "and"),
+# not a sentence about LOCK removal (the commit introducing this rule said "removes the LOCK" and failed it)
+if re.search(r"(?im)(?:^|[;,:]\s*|\band\s+)(?:remove|removed)\s+(?:the\s+)?LOCK\b", head_msg) and (root / "LOCK").exists():
     errors.append("LOCK: the HEAD commit message says it removes the LOCK, but LOCK is still in the tree "
                   "(stage the deletion: git rm LOCK)")
 

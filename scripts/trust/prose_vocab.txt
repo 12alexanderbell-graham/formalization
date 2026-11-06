@@ -1,0 +1,1 @@
+# check_claim_vocab.py: domain vocabulary a headline paraphrase may use beyond its generated claim (run 2026-11-06T2228Z). One word per line, lower case. Each addition needs a LEDGER line mentioning prose_vocab.txt that names the word in backticks (V4); no inference, generality, persistence, two-sided, grading or strength word (V2).

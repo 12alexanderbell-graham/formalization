@@ -124,6 +124,11 @@ jobs:
             git diff --stat -- TRUST_MAP.md
             exit 1
           fi
+          # headline paraphrases use only the generated claim's words, function words and a disclosed vocabulary; no
+          # conclusion certifies a Mathlib junk value; bare PROVED status lines in STATE.md name a Checked headline
+          # (run 2026-11-06T2228Z, after blind red team P: deny-lists were routed around every round)
+          python3 scripts/trust/check_claim_vocab.py
+          python3 scripts/trust/check_status_lines.py
       - name: Frozen statements and definitions change only with a LEDGER entry naming them (run 2026-10-31T0028Z)
         env:
           BASE: ${{ github.event.before || github.event.pull_request.base.sha }}
@@ -158,6 +163,7 @@ jobs:
           python3 scripts/trust/check_brief_leak.py --base "$BASE"
           python3 scripts/trust/check_prose_eval.py --base "$BASE"
           python3 scripts/trust/check_claim_words.py --base "$BASE"
+          python3 scripts/trust/check_claim_vocab.py --base "$BASE"
       - name: Author files for runs without local Lean (generated output, not a check; run 2026-11-04T0028Z, see LEDGER)
         # When the run environment refuses a local Lean install (run 2026-11-04T0028Z), the files a
         # promotion must commit (TRUST_MAP.md, relocked frozen.txt, validation packet) can only be

@@ -18,7 +18,7 @@ W1 (inference): a headline docstring contains no inference connective — so (no
    "so far"), hence, therefore, thus, consequently, which means, it follows, this means, this shows,
    showing that, implying. A docstring says what the statement proves; what follows from it is a further
    claim that needs its own headline.
-W2 (name generality): the headline's last name component, read as words (`_` → space), is checked with
+W2 (name generality): the headline's name after `Checked.<Area>.` (namespaces too, since run 2026-11-06T2228Z), read as words (`_` → space), is checked with
    check_prose_gen's words (DOMAIN: always, at all times, throughout, everywhere, …; CASES: globally, in
    general, …) plus stays/remains/forever/global/uniform/any/every/all: a DOMAIN or stays-word needs a
    universally bound non-function variable in the statement (a time, a point, a parameter); a CASES word or
@@ -64,7 +64,12 @@ GRADE = re.compile(r"(?i)\bsafe(?:ly)?\b|\busab(?:le|ility)\b|\bcan\s+be\s+used\
 
 
 def name_words(name):
-    last = name.split(".")[-1]
+    # every component after `Checked.<Area>.` is read (run 2026-11-06T2228Z, blind red team P d03: generality
+    # carried by a namespace, `Checked.Sim.RobertsonAllTimes.rob_exists_1e11`, whose heading in CLAIMS.md is
+    # `RobertsonAllTimes.rob_exists_1e11`; W2 read only the last component)
+    parts = name.split(".")
+    parts = parts[2:] if len(parts) > 2 and parts[0] in ("Checked", "Work") else parts[-1:]
+    last = " ".join(parts)
     last = re.sub(r"([a-z])([A-Z])", r"\1 \2", last)
     return " ".join(w for w in re.split(r"[_\s]+", last) if w)
 
