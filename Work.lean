@@ -159,6 +159,8 @@ import Work.Math.RadialLaplacian
 import Work.Math.GContFrom
 import Work.Math.GelfandODEBound
 import Work.Math.GelfandPDE
+import Work.Math.GelfandPDEBlind
+import Work.Math.GelfandPDEBlindClosed
 import Work.Sim.MMAudit
 import Work.Sim.OneSided
 import Work.Sim.RobCell
