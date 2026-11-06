@@ -47,6 +47,8 @@ import Checked.Math.LaneEmden
 import Checked.Math.LEExists
 import Checked.Math.Gelfand
 import Checked.Math.GelfandExists
+import Checked.Math.ThomasFermi
+import Checked.Math.ThomasFermiExists
 import Checked.Data.Moresco16Min
 
 /-!
@@ -679,6 +681,14 @@ theorem gelfand_ball_critical : nonvacuity% Checked.Math.Gelfand.gelfand_ball_cr
 
 theorem gelfand_exists_solution : nonvacuity% Checked.Math.GelfandExists.exists_solution :=
   ⟨1 / 2, le_rfl, trivial⟩
+
+/-! Thomas–Fermi equation of the neutral atom (run 2026-11-06T1828Z, existence and promotion
+2028Z): the solution constructed in `Checked.Math.ThomasFermiExists.tf_exists` (shooting in t = √x
+with the supremum of the slopes whose solution goes negative). -/
+
+theorem tf_initial_slope : nonvacuity% Checked.Math.ThomasFermi.tf_initial_slope := by
+  obtain ⟨y, φ, hy, hφ, hφ0, h0, hpos, hlim⟩ := Checked.Math.ThomasFermiExists.tf_exists
+  exact ⟨y, φ, hy, hφ, hφ0, h0, hpos, hlim, trivial⟩
 
 /-! ### Data claims of Moresco et al. 2016 (runs 2026-11-05T0428Z, 0628Z; promoted 1028Z): the
 printed AICc rows are attained by the value c of −2 ln L_max that makes them exact at N = 31; the
