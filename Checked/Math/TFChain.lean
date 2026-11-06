@@ -1,0 +1,177 @@
+import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
+import Mathlib.Analysis.SpecialFunctions.Sqrt
+import Mathlib.Analysis.SpecialFunctions.Pow.Continuity
+import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.Analysis.Calculus.Deriv.MeanValue
+import Mathlib.Analysis.Calculus.Deriv.Pow
+import Mathlib.Analysis.Calculus.Deriv.Prod
+import Mathlib.Analysis.Calculus.Deriv.Inv
+import Mathlib.Analysis.Calculus.Deriv.Mul
+import Mathlib.Analysis.Calculus.LocalExtr.Basic
+import Mathlib.Analysis.Calculus.FDeriv.Prod
+import Mathlib.Analysis.ODE.Gronwall
+import Mathlib.Analysis.ODE.PicardLindelof
+import Mathlib.Analysis.ODE.ExistUnique
+import Mathlib.Topology.Order.IntermediateValue
+import Mathlib.Topology.Algebra.Order.LiminfLimsup
+import Mathlib.Order.Filter.AtTopBot.Basic
+import Mathlib.Algebra.Order.Star.Real
+import Mathlib.Topology.Order.ProjIcc
+import Mathlib.Tactic.NormNum
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Positivity
+import Mathlib.Tactic.IntervalCases
+import Checked.Sim.ODETools
+import Checked.Math.LECell
+import Checked.Math.TFCell
+import Checked.Math.TFCertsSup1
+import Checked.Math.TFCertsSup2
+import Checked.Math.TFCertsSup3
+import Checked.Math.TFCertsSup4
+import Checked.Math.TFCertsSub1
+import Checked.Math.TFCertsSub2
+import Checked.Math.TFCertsSub3
+import Checked.Math.TFCertsSub4
+import Checked.Math.TFCertsSub5
+
+/-! Thomas–Fermi, `TFChain`: chaining the generated barrier cells over the whole interval for both shooting directions. Promoted from `Work/Math/TFChain.lean`. -/
+
+set_option maxHeartbeats 8000000
+set_option maxRecDepth 100000
+
+namespace Checked.Math.TFCerts
+open Set Checked.Sim Checked.Math.LECell Checked.Math.TFCell
+
+theorem sup_chain {W P : ℝ → ℝ} (hcW : ContinuousOn W (Icc 0 (27/4 : ℝ))) (hcP : ContinuousOn P (Icc 0 (27/4 : ℝ)))
+    (hW : ∀ t ∈ Ioc (0:ℝ) (27/4 : ℝ), HasDerivAt W (t * P t / W t) t)
+    (hP : ∀ t ∈ Ioc (0:ℝ) (27/4 : ℝ), HasDerivAt P (2 * W t ^ 3) t)
+    (hpos : ∀ t ∈ Ioc (0:ℝ) (27/4 : ℝ), 0 < W t)
+    (h0 : W 0 = 1) (hp0 : P 0 < -158807103/100000000) : W (27/4 : ℝ) < (13/625 : ℝ) ∧ P (27/4 : ℝ) < -(771/10000000 : ℝ) := by
+  have c0 := sup0 hcW hcP hW hP hpos (by rw [h0]; norm_num) (by linarith [hp0])
+  have c1 := sup1 hcW hcP hW hP hpos c0.1 c0.2
+  have c2 := sup2 hcW hcP hW hP hpos c1.1 c1.2
+  have c3 := sup3 hcW hcP hW hP hpos c2.1 c2.2
+  have c4 := sup4 hcW hcP hW hP hpos c3.1 c3.2
+  have c5 := sup5 hcW hcP hW hP hpos c4.1 c4.2
+  have c6 := sup6 hcW hcP hW hP hpos c5.1 c5.2
+  have c7 := sup7 hcW hcP hW hP hpos c6.1 c6.2
+  have c8 := sup8 hcW hcP hW hP hpos c7.1 c7.2
+  have c9 := sup9 hcW hcP hW hP hpos c8.1 c8.2
+  have c10 := sup10 hcW hcP hW hP hpos c9.1 c9.2
+  have c11 := sup11 hcW hcP hW hP hpos c10.1 c10.2
+  have c12 := sup12 hcW hcP hW hP hpos c11.1 c11.2
+  have c13 := sup13 hcW hcP hW hP hpos c12.1 c12.2
+  have c14 := sup14 hcW hcP hW hP hpos c13.1 c13.2
+  have c15 := sup15 hcW hcP hW hP hpos c14.1 c14.2
+  have c16 := sup16 hcW hcP hW hP hpos c15.1 c15.2
+  have c17 := sup17 hcW hcP hW hP hpos c16.1 c16.2
+  have c18 := sup18 hcW hcP hW hP hpos c17.1 c17.2
+  have c19 := sup19 hcW hcP hW hP hpos c18.1 c18.2
+  have c20 := sup20 hcW hcP hW hP hpos c19.1 c19.2
+  have c21 := sup21 hcW hcP hW hP hpos c20.1 c20.2
+  have c22 := sup22 hcW hcP hW hP hpos c21.1 c21.2
+  have c23 := sup23 hcW hcP hW hP hpos c22.1 c22.2
+  have c24 := sup24 hcW hcP hW hP hpos c23.1 c23.2
+  have c25 := sup25 hcW hcP hW hP hpos c24.1 c24.2
+  have c26 := sup26 hcW hcP hW hP hpos c25.1 c25.2
+  have c27 := sup27 hcW hcP hW hP hpos c26.1 c26.2
+  have c28 := sup28 hcW hcP hW hP hpos c27.1 c27.2
+  have c29 := sup29 hcW hcP hW hP hpos c28.1 c28.2
+  have c30 := sup30 hcW hcP hW hP hpos c29.1 c29.2
+  have c31 := sup31 hcW hcP hW hP hpos c30.1 c30.2
+  have c32 := sup32 hcW hcP hW hP hpos c31.1 c31.2
+  have c33 := sup33 hcW hcP hW hP hpos c32.1 c32.2
+  have c34 := sup34 hcW hcP hW hP hpos c33.1 c33.2
+  have c35 := sup35 hcW hcP hW hP hpos c34.1 c34.2
+  have c36 := sup36 hcW hcP hW hP hpos c35.1 c35.2
+  have c37 := sup37 hcW hcP hW hP hpos c36.1 c36.2
+  have c38 := sup38 hcW hcP hW hP hpos c37.1 c37.2
+  have c39 := sup39 hcW hcP hW hP hpos c38.1 c38.2
+  have c40 := sup40 hcW hcP hW hP hpos c39.1 c39.2
+  have c41 := sup41 hcW hcP hW hP hpos c40.1 c40.2
+  have c42 := sup42 hcW hcP hW hP hpos c41.1 c41.2
+  have c43 := sup43 hcW hcP hW hP hpos c42.1 c42.2
+  have c44 := sup44 hcW hcP hW hP hpos c43.1 c43.2
+  have c45 := sup45 hcW hcP hW hP hpos c44.1 c44.2
+  have c46 := sup46 hcW hcP hW hP hpos c45.1 c45.2
+  have c47 := sup47 hcW hcP hW hP hpos c46.1 c46.2
+  have c48 := sup48 hcW hcP hW hP hpos c47.1 c47.2
+  have c49 := sup49 hcW hcP hW hP hpos c48.1 c48.2
+  have c50 := sup50 hcW hcP hW hP hpos c49.1 c49.2
+  have c51 := sup51 hcW hcP hW hP hpos c50.1 c50.2
+  have c52 := sup52 hcW hcP hW hP hpos c51.1 c51.2
+  have c53 := sup53 hcW hcP hW hP hpos c52.1 c52.2
+  exact ⟨lt_of_lt_of_le c53.1 (by norm_num), lt_of_lt_of_le c53.2 (by norm_num)⟩
+
+theorem sup_event : 4 * (13/625 : ℝ) ^ 5 < (27/4 : ℝ) * (771/10000000 : ℝ) ^ 2 := by norm_num
+
+theorem sub_chain {W P : ℝ → ℝ} (hcW : ContinuousOn W (Icc 0 (15/2 : ℝ))) (hcP : ContinuousOn P (Icc 0 (15/2 : ℝ)))
+    (hW : ∀ t ∈ Ioc (0:ℝ) (15/2 : ℝ), HasDerivAt W (t * P t / W t) t)
+    (hP : ∀ t ∈ Ioc (0:ℝ) (15/2 : ℝ), HasDerivAt P (2 * W t ^ 3) t)
+    (hpos : ∀ t ∈ Ioc (0:ℝ) (15/2 : ℝ), 0 < W t)
+    (h0 : W 0 = 1) (hp0 : -158807102/100000000 < P 0) : 0 < P (15/2 : ℝ) := by
+  have c0 := sub0 hcW hcP hW hP hpos (by rw [h0]; norm_num) (by linarith [hp0])
+  have c1 := sub1 hcW hcP hW hP hpos c0.1 c0.2
+  have c2 := sub2 hcW hcP hW hP hpos c1.1 c1.2
+  have c3 := sub3 hcW hcP hW hP hpos c2.1 c2.2
+  have c4 := sub4 hcW hcP hW hP hpos c3.1 c3.2
+  have c5 := sub5 hcW hcP hW hP hpos c4.1 c4.2
+  have c6 := sub6 hcW hcP hW hP hpos c5.1 c5.2
+  have c7 := sub7 hcW hcP hW hP hpos c6.1 c6.2
+  have c8 := sub8 hcW hcP hW hP hpos c7.1 c7.2
+  have c9 := sub9 hcW hcP hW hP hpos c8.1 c8.2
+  have c10 := sub10 hcW hcP hW hP hpos c9.1 c9.2
+  have c11 := sub11 hcW hcP hW hP hpos c10.1 c10.2
+  have c12 := sub12 hcW hcP hW hP hpos c11.1 c11.2
+  have c13 := sub13 hcW hcP hW hP hpos c12.1 c12.2
+  have c14 := sub14 hcW hcP hW hP hpos c13.1 c13.2
+  have c15 := sub15 hcW hcP hW hP hpos c14.1 c14.2
+  have c16 := sub16 hcW hcP hW hP hpos c15.1 c15.2
+  have c17 := sub17 hcW hcP hW hP hpos c16.1 c16.2
+  have c18 := sub18 hcW hcP hW hP hpos c17.1 c17.2
+  have c19 := sub19 hcW hcP hW hP hpos c18.1 c18.2
+  have c20 := sub20 hcW hcP hW hP hpos c19.1 c19.2
+  have c21 := sub21 hcW hcP hW hP hpos c20.1 c20.2
+  have c22 := sub22 hcW hcP hW hP hpos c21.1 c21.2
+  have c23 := sub23 hcW hcP hW hP hpos c22.1 c22.2
+  have c24 := sub24 hcW hcP hW hP hpos c23.1 c23.2
+  have c25 := sub25 hcW hcP hW hP hpos c24.1 c24.2
+  have c26 := sub26 hcW hcP hW hP hpos c25.1 c25.2
+  have c27 := sub27 hcW hcP hW hP hpos c26.1 c26.2
+  have c28 := sub28 hcW hcP hW hP hpos c27.1 c27.2
+  have c29 := sub29 hcW hcP hW hP hpos c28.1 c28.2
+  have c30 := sub30 hcW hcP hW hP hpos c29.1 c29.2
+  have c31 := sub31 hcW hcP hW hP hpos c30.1 c30.2
+  have c32 := sub32 hcW hcP hW hP hpos c31.1 c31.2
+  have c33 := sub33 hcW hcP hW hP hpos c32.1 c32.2
+  have c34 := sub34 hcW hcP hW hP hpos c33.1 c33.2
+  have c35 := sub35 hcW hcP hW hP hpos c34.1 c34.2
+  have c36 := sub36 hcW hcP hW hP hpos c35.1 c35.2
+  have c37 := sub37 hcW hcP hW hP hpos c36.1 c36.2
+  have c38 := sub38 hcW hcP hW hP hpos c37.1 c37.2
+  have c39 := sub39 hcW hcP hW hP hpos c38.1 c38.2
+  have c40 := sub40 hcW hcP hW hP hpos c39.1 c39.2
+  have c41 := sub41 hcW hcP hW hP hpos c40.1 c40.2
+  have c42 := sub42 hcW hcP hW hP hpos c41.1 c41.2
+  have c43 := sub43 hcW hcP hW hP hpos c42.1 c42.2
+  have c44 := sub44 hcW hcP hW hP hpos c43.1 c43.2
+  have c45 := sub45 hcW hcP hW hP hpos c44.1 c44.2
+  have c46 := sub46 hcW hcP hW hP hpos c45.1 c45.2
+  have c47 := sub47 hcW hcP hW hP hpos c46.1 c46.2
+  have c48 := sub48 hcW hcP hW hP hpos c47.1 c47.2
+  have c49 := sub49 hcW hcP hW hP hpos c48.1 c48.2
+  have c50 := sub50 hcW hcP hW hP hpos c49.1 c49.2
+  have c51 := sub51 hcW hcP hW hP hpos c50.1 c50.2
+  have c52 := sub52 hcW hcP hW hP hpos c51.1 c51.2
+  have c53 := sub53 hcW hcP hW hP hpos c52.1 c52.2
+  have c54 := sub54 hcW hcP hW hP hpos c53.1 c53.2
+  have c55 := sub55 hcW hcP hW hP hpos c54.1 c54.2
+  have c56 := sub56 hcW hcP hW hP hpos c55.1 c55.2
+  have c57 := sub57 hcW hcP hW hP hpos c56.1 c56.2
+  have c58 := sub58 hcW hcP hW hP hpos c57.1 c57.2
+  have c59 := sub59 hcW hcP hW hP hpos c58.1 c58.2
+  exact lt_of_le_of_lt (by norm_num) c59.2
+
+end Checked.Math.TFCerts
