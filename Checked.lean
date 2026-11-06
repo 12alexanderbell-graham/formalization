@@ -136,6 +136,7 @@ import Checked.Trust.SecondReadingClaims
 import Checked.Trust.SecondReadingKappa
 import Checked.Trust.SecondReadingRob
 import Checked.Trust.SecondReadingRobLong
+import Checked.Trust.SecondReadingGelfand
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
 import Checked.Trust.FormulationsD
