@@ -6,7 +6,7 @@
 
 **Measure:** longest certified horizon of a stiff system 40 → 10¹¹ (Work); certified answers not in print +1; published reference values refuted by certificate +1 (FINDINGS candidate C-ROBER, two routes: certificate + referee's 60-digit Radau IIA). Cells 77 (sheared, contracting), compiled first time after one emitter fix (import), ≈ 16 min serial.
 
-**Weakest unchecked step:** the generic soundness pieces are machine-checked, but the result is not yet in `Checked` (no nanoda replay, no registered literal reading of the printed value, no NV witness or generated claim); and `decide +kernel` (used for the Chebyshev and range checks) has never been replayed by nanoda.
+**Weakest unchecked step:** the generic soundness pieces are machine-checked, but the result is not yet in `Checked` (no nanoda replay, no registered literal reading of the printed value, no NV witness or generated claim); and `decide +kernel` (used for the Chebyshev and range checks) has passed nanoda only on a one-box probe branch (run 2026-11-05T0628Z), not at this size.
 
 ## Start
 - 08:28Z: no LOCK; pre-cloned checkout detached; `git checkout -B main origin/main` = d4dbe09. add_repo not exposed. Local Lean: elan installer + Mathlib cache.
