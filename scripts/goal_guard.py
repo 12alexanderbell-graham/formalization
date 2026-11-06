@@ -46,6 +46,19 @@ for readme in sorted((root / "runs").glob("*/README.md")):
         if "**THE RESULT:**" not in readme.read_text(encoding="utf-8"):
             errors.append(f"runs/{run_id}/README.md: no '**THE RESULT:**' front-page line")
 
+# a commit that says it removes the LOCK must remove it (run 2026-11-06T2228Z: records commit 1414e21 of run
+# 2026-11-06T2028Z said "remove LOCK" but never staged the deletion, so the next run found a lock < 150 min old
+# naming a finished run and had to judge from the commit message whether 48.4 applied)
+import subprocess
+try:
+    head_msg = subprocess.run(["git", "log", "-1", "--format=%B"], cwd=root, capture_output=True, text=True).stdout
+except OSError:
+    head_msg = ""
+head_msg = re.sub(r'"[^"\n]*"|“[^”\n]*”', "", head_msg)  # quoted mentions are not claims
+if re.search(r"(?i)\bremov(?:e|es|ed|ing)\s+(?:the\s+)?LOCK\b", head_msg) and (root / "LOCK").exists():
+    errors.append("LOCK: the HEAD commit message says it removes the LOCK, but LOCK is still in the tree "
+                  "(stage the deletion: git rm LOCK)")
+
 if errors:
     print("GOAL GUARD FAILED:\n" + "\n".join("  " + e for e in errors))
     sys.exit(1)
