@@ -144,6 +144,7 @@ import Work.Math.GStart
 import Work.Math.GCell
 import Work.Math.GFinal
 import Work.Math.Gelfand
+import Work.Math.GelfandExists
 import Work.Sim.MMAudit
 import Work.Sim.OneSided
 import Work.Sim.RobCell
