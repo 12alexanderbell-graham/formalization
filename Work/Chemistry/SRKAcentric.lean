@@ -2,6 +2,7 @@ import Mathlib
 import Checked.Records.Basic
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
+import Work.Chemistry.SRKReduced
 
 /-!
 # Chemistry: does Soave's κ(ω) make Soave–Redlich–Kwong reproduce its own acentric factor? (run 2026-11-06T0028Z)
@@ -47,7 +48,10 @@ theorem srk_omega1_unique (R ac b Tc vc vl vg ps : ℝ) (hac : 0 < ac) (hb : 0 <
         (1 - Real.sqrt (7 / 10))) ^ 2) b 1 0 (7 / 10 * Tc)) vl vg ps) :
     RoundsTo (ps / cubicP R ac b 1 0 Tc vc) 0.0102 4 ∧
       RoundsTo (acentric ps (cubicP R ac b 1 0 Tc vc)) 0.992 3 := by
-  sorry
+  -- Proof (run 2026-11-06T0028Z): `Work.Chemistry.SRKReduced.srk_unique_core` (the route of
+  -- `Checked.Chemistry.RKReduced` with certificates regenerated for Soave's α by
+  -- `runs/2026-11-06T0028Z/scripts/gen_srk.py`, module emitted by `emit_srk.py`).
+  exact Work.Chemistry.SRKReduced.srk_unique_core R ac b Tc vc vl vg ps hac hb hvc hc hl h
 
 /-- Soave–Redlich–Kwong fluid with Soave's 1972 κ(ω) at ω = 1: at any critical point (v_c > b)
 there is a Maxwell coexistence state at T = 0.7 T_c with liquid volume above the co-volume b, and

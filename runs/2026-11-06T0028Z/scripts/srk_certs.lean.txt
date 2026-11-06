@@ -1,0 +1,165 @@
+lemma logA_lo : 8143876001061 / 1000000000000 < Real.log (((1955529 / 2500) - 1) / ((1226949 / 1000000) - 1)) := by
+  have e : (((1955529 / 2500) - 1) / ((1226949 / 1000000) - 1) : ℝ) = (2:ℝ) ^ 12 * (1 - (15961 / 100000)) * (152580390625 / 152580536088) := by norm_num
+  rw [e, Real.log_mul (by norm_num) (by norm_num), Real.log_mul (by norm_num) (by norm_num), Real.log_pow]
+  have h := log_series' (15961 / 100000) (by norm_num [abs_lt]) 13
+  rw [abs_le] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h
+  have u1 : Real.log (152580390625 / 152580536088 : ℝ) ≤ 152580390625 / 152580536088 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have u2 : 1 - (152580390625 / 152580536088 : ℝ)⁻¹ ≤ Real.log (152580390625 / 152580536088) := Real.one_sub_inv_le_log_of_pos (by norm_num)
+  have l2a := Real.log_two_gt_d9
+  have l2b := Real.log_two_lt_d9
+  push_cast
+  norm_num at h u1 u2 ⊢
+  linarith [h.1, h.2]
+
+lemma logB_lo : -594824277459 / 1000000000000 < Real.log ((((1955529 / 2500) + 1) / (1955529 / 2500)) / (((1226949 / 1000000) + 1) / (1226949 / 1000000))) := by
+  have e : ((((1955529 / 2500) + 1) / (1955529 / 2500)) / (((1226949 / 1000000) + 1) / (1226949 / 1000000)) : ℝ) = (1 - (-2583 / 25000)) / (2:ℝ) ^ 1 * (40040028725350000 / 40040065270404081) := by norm_num
+  rw [e, Real.log_mul (by norm_num) (by norm_num), Real.log_div (by norm_num) (by norm_num), Real.log_pow]
+  have h := log_series' (-2583 / 25000) (by norm_num [abs_lt]) 11
+  rw [abs_le] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h
+  have u1 : Real.log (40040028725350000 / 40040065270404081 : ℝ) ≤ 40040028725350000 / 40040065270404081 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have u2 : 1 - (40040028725350000 / 40040065270404081 : ℝ)⁻¹ ≤ Real.log (40040028725350000 / 40040065270404081) := Real.one_sub_inv_le_log_of_pos (by norm_num)
+  have l2a := Real.log_two_gt_d9
+  have l2b := Real.log_two_lt_d9
+  push_cast
+  norm_num at h u1 u2 ⊢
+  linarith [h.1, h.2]
+
+lemma logC_hi : Real.log (((7819391 / 10000) - 1) / ((12269489 / 10000000) - 1)) < 203588189243 / 25000000000 := by
+  have e : (((7819391 / 10000) - 1) / ((12269489 / 10000000) - 1) : ℝ) = (2:ℝ) ^ 12 * (1 - (1599 / 10000)) * (610108671875 / 610111266848) := by norm_num
+  rw [e, Real.log_mul (by norm_num) (by norm_num), Real.log_mul (by norm_num) (by norm_num), Real.log_pow]
+  have h := log_series' (1599 / 10000) (by norm_num [abs_lt]) 13
+  rw [abs_le] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h
+  have u1 : Real.log (610108671875 / 610111266848 : ℝ) ≤ 610108671875 / 610111266848 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have u2 : 1 - (610108671875 / 610111266848 : ℝ)⁻¹ ≤ Real.log (610108671875 / 610111266848) := Real.one_sub_inv_le_log_of_pos (by norm_num)
+  have l2a := Real.log_two_gt_d9
+  have l2b := Real.log_two_lt_d9
+  push_cast
+  norm_num at h u1 u2 ⊢
+  linarith [h.1, h.2]
+
+lemma logD_hi : Real.log ((((7819391 / 10000) + 1) / (7819391 / 10000)) / (((12269489 / 10000000) + 1) / (12269489 / 10000000))) < -2974119343 / 5000000000 := by
+  have e : ((((7819391 / 10000) + 1) / (7819391 / 10000)) / (((12269489 / 10000000) + 1) / (12269489 / 10000000)) : ℝ) = (1 - (-2583 / 25000)) / (2:ℝ) ^ 1 * (1601043779186650000 / 1601044586685817339) := by norm_num
+  rw [e, Real.log_mul (by norm_num) (by norm_num), Real.log_div (by norm_num) (by norm_num), Real.log_pow]
+  have h := log_series' (-2583 / 25000) (by norm_num [abs_lt]) 11
+  rw [abs_le] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h
+  have u1 : Real.log (1601043779186650000 / 1601044586685817339 : ℝ) ≤ 1601043779186650000 / 1601044586685817339 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have u2 : 1 - (1601043779186650000 / 1601044586685817339 : ℝ)⁻¹ ≤ Real.log (1601043779186650000 / 1601044586685817339) := Real.one_sub_inv_le_log_of_pos (by norm_num)
+  have l2a := Real.log_two_gt_d9
+  have l2b := Real.log_two_lt_d9
+  push_cast
+  norm_num at h u1 u2 ⊢
+  linarith [h.1, h.2]
+
+lemma q_neg_L {θ x : ℝ} (hθ0 : (830836419 / 10000000000) ≤ θ) (hθ1 : θ ≤ (83083657 / 1000000000)) (h1 : (1) < x) (h2 : x ≤ (7 / 5)) :
+    q θ x < 0 := by
+  rcases le_or_gt x ((11 / 10)) with c1 | c1
+  · exact q_neg_piece hθ0 hθ1 (a := (1)) (b := (11 / 10)) (by norm_num) (by linarith) c1 (by norm_num)
+  rcases le_or_gt x ((6 / 5)) with c2 | c2
+  · exact q_neg_piece hθ0 hθ1 (a := (11 / 10)) (b := (6 / 5)) (by norm_num) (by linarith) c2 (by norm_num)
+  rcases le_or_gt x ((13 / 10)) with c3 | c3
+  · exact q_neg_piece hθ0 hθ1 (a := (6 / 5)) (b := (13 / 10)) (by norm_num) (by linarith) c3 (by norm_num)
+  exact q_neg_piece hθ0 hθ1 (a := (13 / 10)) (b := (7 / 5)) (by norm_num) (by linarith) h2 (by norm_num)
+
+lemma dq_pos_W1 {θ x : ℝ} (hθ0 : (830836419 / 10000000000) ≤ θ) (hθ1 : θ ≤ (83083657 / 1000000000)) (h1 : (7 / 5) ≤ x) (h2 : x ≤ (17 / 10)) :
+    0 < dq θ x := by
+  rcases le_or_gt x ((29 / 20)) with c1 | c1
+  · exact dq_pos_piece hθ0 hθ1 (a := (7 / 5)) (b := (29 / 20)) (by norm_num) (by linarith) c1 (by norm_num)
+  rcases le_or_gt x ((3 / 2)) with c2 | c2
+  · exact dq_pos_piece hθ0 hθ1 (a := (29 / 20)) (b := (3 / 2)) (by norm_num) (by linarith) c2 (by norm_num)
+  rcases le_or_gt x ((31 / 20)) with c3 | c3
+  · exact dq_pos_piece hθ0 hθ1 (a := (3 / 2)) (b := (31 / 20)) (by norm_num) (by linarith) c3 (by norm_num)
+  rcases le_or_gt x ((8 / 5)) with c4 | c4
+  · exact dq_pos_piece hθ0 hθ1 (a := (31 / 20)) (b := (8 / 5)) (by norm_num) (by linarith) c4 (by norm_num)
+  rcases le_or_gt x ((33 / 20)) with c5 | c5
+  · exact dq_pos_piece hθ0 hθ1 (a := (8 / 5)) (b := (33 / 20)) (by norm_num) (by linarith) c5 (by norm_num)
+  exact dq_pos_piece hθ0 hθ1 (a := (33 / 20)) (b := (17 / 10)) (by norm_num) (by linarith) h2 (by norm_num)
+
+lemma q_pos_M {θ x : ℝ} (hθ0 : (830836419 / 10000000000) ≤ θ) (hθ1 : θ ≤ (83083657 / 1000000000)) (h1 : (17 / 10) ≤ x) (h2 : x ≤ (19)) :
+    0 < q θ x := by
+  rcases le_or_gt x ((141 / 80)) with c1 | c1
+  · exact q_pos_piece hθ0 hθ1 (a := (17 / 10)) (b := (141 / 80)) (by norm_num) (by linarith) c1 (by norm_num)
+  rcases le_or_gt x ((151 / 80)) with c2 | c2
+  · exact q_pos_piece hθ0 hθ1 (a := (141 / 80)) (b := (151 / 80)) (by norm_num) (by linarith) c2 (by norm_num)
+  rcases le_or_gt x ((171 / 80)) with c3 | c3
+  · exact q_pos_piece hθ0 hθ1 (a := (151 / 80)) (b := (171 / 80)) (by norm_num) (by linarith) c3 (by norm_num)
+  rcases le_or_gt x ((191 / 80)) with c4 | c4
+  · exact q_pos_piece hθ0 hθ1 (a := (171 / 80)) (b := (191 / 80)) (by norm_num) (by linarith) c4 (by norm_num)
+  rcases le_or_gt x ((231 / 80)) with c5 | c5
+  · exact q_pos_piece hθ0 hθ1 (a := (191 / 80)) (b := (231 / 80)) (by norm_num) (by linarith) c5 (by norm_num)
+  rcases le_or_gt x ((271 / 80)) with c6 | c6
+  · exact q_pos_piece hθ0 hθ1 (a := (231 / 80)) (b := (271 / 80)) (by norm_num) (by linarith) c6 (by norm_num)
+  rcases le_or_gt x ((311 / 80)) with c7 | c7
+  · exact q_pos_piece hθ0 hθ1 (a := (271 / 80)) (b := (311 / 80)) (by norm_num) (by linarith) c7 (by norm_num)
+  rcases le_or_gt x ((391 / 80)) with c8 | c8
+  · exact q_pos_piece hθ0 hθ1 (a := (311 / 80)) (b := (391 / 80)) (by norm_num) (by linarith) c8 (by norm_num)
+  rcases le_or_gt x ((471 / 80)) with c9 | c9
+  · exact q_pos_piece hθ0 hθ1 (a := (391 / 80)) (b := (471 / 80)) (by norm_num) (by linarith) c9 (by norm_num)
+  rcases le_or_gt x ((551 / 80)) with c10 | c10
+  · exact q_pos_piece hθ0 hθ1 (a := (471 / 80)) (b := (551 / 80)) (by norm_num) (by linarith) c10 (by norm_num)
+  rcases le_or_gt x ((631 / 80)) with c11 | c11
+  · exact q_pos_piece hθ0 hθ1 (a := (551 / 80)) (b := (631 / 80)) (by norm_num) (by linarith) c11 (by norm_num)
+  rcases le_or_gt x ((711 / 80)) with c12 | c12
+  · exact q_pos_piece hθ0 hθ1 (a := (631 / 80)) (b := (711 / 80)) (by norm_num) (by linarith) c12 (by norm_num)
+  rcases le_or_gt x ((791 / 80)) with c13 | c13
+  · exact q_pos_piece hθ0 hθ1 (a := (711 / 80)) (b := (791 / 80)) (by norm_num) (by linarith) c13 (by norm_num)
+  rcases le_or_gt x ((871 / 80)) with c14 | c14
+  · exact q_pos_piece hθ0 hθ1 (a := (791 / 80)) (b := (871 / 80)) (by norm_num) (by linarith) c14 (by norm_num)
+  rcases le_or_gt x ((951 / 80)) with c15 | c15
+  · exact q_pos_piece hθ0 hθ1 (a := (871 / 80)) (b := (951 / 80)) (by norm_num) (by linarith) c15 (by norm_num)
+  rcases le_or_gt x ((1031 / 80)) with c16 | c16
+  · exact q_pos_piece hθ0 hθ1 (a := (951 / 80)) (b := (1031 / 80)) (by norm_num) (by linarith) c16 (by norm_num)
+  rcases le_or_gt x ((1111 / 80)) with c17 | c17
+  · exact q_pos_piece hθ0 hθ1 (a := (1031 / 80)) (b := (1111 / 80)) (by norm_num) (by linarith) c17 (by norm_num)
+  rcases le_or_gt x ((1191 / 80)) with c18 | c18
+  · exact q_pos_piece hθ0 hθ1 (a := (1111 / 80)) (b := (1191 / 80)) (by norm_num) (by linarith) c18 (by norm_num)
+  rcases le_or_gt x ((1231 / 80)) with c19 | c19
+  · exact q_pos_piece hθ0 hθ1 (a := (1191 / 80)) (b := (1231 / 80)) (by norm_num) (by linarith) c19 (by norm_num)
+  rcases le_or_gt x ((1271 / 80)) with c20 | c20
+  · exact q_pos_piece hθ0 hθ1 (a := (1231 / 80)) (b := (1271 / 80)) (by norm_num) (by linarith) c20 (by norm_num)
+  rcases le_or_gt x ((1311 / 80)) with c21 | c21
+  · exact q_pos_piece hθ0 hθ1 (a := (1271 / 80)) (b := (1311 / 80)) (by norm_num) (by linarith) c21 (by norm_num)
+  rcases le_or_gt x ((1351 / 80)) with c22 | c22
+  · exact q_pos_piece hθ0 hθ1 (a := (1311 / 80)) (b := (1351 / 80)) (by norm_num) (by linarith) c22 (by norm_num)
+  rcases le_or_gt x ((1391 / 80)) with c23 | c23
+  · exact q_pos_piece hθ0 hθ1 (a := (1351 / 80)) (b := (1391 / 80)) (by norm_num) (by linarith) c23 (by norm_num)
+  rcases le_or_gt x ((1431 / 80)) with c24 | c24
+  · exact q_pos_piece hθ0 hθ1 (a := (1391 / 80)) (b := (1431 / 80)) (by norm_num) (by linarith) c24 (by norm_num)
+  rcases le_or_gt x ((1451 / 80)) with c25 | c25
+  · exact q_pos_piece hθ0 hθ1 (a := (1431 / 80)) (b := (1451 / 80)) (by norm_num) (by linarith) c25 (by norm_num)
+  rcases le_or_gt x ((1471 / 80)) with c26 | c26
+  · exact q_pos_piece hθ0 hθ1 (a := (1451 / 80)) (b := (1471 / 80)) (by norm_num) (by linarith) c26 (by norm_num)
+  rcases le_or_gt x ((1491 / 80)) with c27 | c27
+  · exact q_pos_piece hθ0 hθ1 (a := (1471 / 80)) (b := (1491 / 80)) (by norm_num) (by linarith) c27 (by norm_num)
+  rcases le_or_gt x ((1511 / 80)) with c28 | c28
+  · exact q_pos_piece hθ0 hθ1 (a := (1491 / 80)) (b := (1511 / 80)) (by norm_num) (by linarith) c28 (by norm_num)
+  exact q_pos_piece hθ0 hθ1 (a := (1511 / 80)) (b := (19)) (by norm_num) (by linarith) h2 (by norm_num)
+
+lemma dq_neg_W2 {θ x : ℝ} (hθ0 : (830836419 / 10000000000) ≤ θ) (hθ1 : θ ≤ (83083657 / 1000000000)) (h1 : (19) ≤ x) (h2 : x ≤ (25)) :
+    dq θ x < 0 := by
+  rcases le_or_gt x ((20)) with c1 | c1
+  · exact dq_neg_piece hθ0 hθ1 (a := (19)) (b := (20)) (by norm_num) (by linarith) c1 (by norm_num)
+  rcases le_or_gt x ((21)) with c2 | c2
+  · exact dq_neg_piece hθ0 hθ1 (a := (20)) (b := (21)) (by norm_num) (by linarith) c2 (by norm_num)
+  rcases le_or_gt x ((22)) with c3 | c3
+  · exact dq_neg_piece hθ0 hθ1 (a := (21)) (b := (22)) (by norm_num) (by linarith) c3 (by norm_num)
+  rcases le_or_gt x ((23)) with c4 | c4
+  · exact dq_neg_piece hθ0 hθ1 (a := (22)) (b := (23)) (by norm_num) (by linarith) c4 (by norm_num)
+  rcases le_or_gt x ((24)) with c5 | c5
+  · exact dq_neg_piece hθ0 hθ1 (a := (23)) (b := (24)) (by norm_num) (by linarith) c5 (by norm_num)
+  exact dq_neg_piece hθ0 hθ1 (a := (24)) (b := (25)) (by norm_num) (by linarith) h2 (by norm_num)
+
+lemma q_neg_R {θ x : ℝ} (hθ0 : (830836419 / 10000000000) ≤ θ) (hθ1 : θ ≤ (83083657 / 1000000000)) (h1 : (25) ≤ x) (h2 : x ≤ (30)) :
+    q θ x < 0 := by
+  rcases le_or_gt x ((26)) with c1 | c1
+  · exact q_neg_piece hθ0 hθ1 (a := (25)) (b := (26)) (by norm_num) (by linarith) c1 (by norm_num)
+  rcases le_or_gt x ((27)) with c2 | c2
+  · exact q_neg_piece hθ0 hθ1 (a := (26)) (b := (27)) (by norm_num) (by linarith) c2 (by norm_num)
+  rcases le_or_gt x ((28)) with c3 | c3
+  · exact q_neg_piece hθ0 hθ1 (a := (27)) (b := (28)) (by norm_num) (by linarith) c3 (by norm_num)
+  rcases le_or_gt x ((29)) with c4 | c4
+  · exact q_neg_piece hθ0 hθ1 (a := (28)) (b := (29)) (by norm_num) (by linarith) c4 (by norm_num)
+  exact q_neg_piece hθ0 hθ1 (a := (29)) (b := (30)) (by norm_num) (by linarith) h2 (by norm_num)
