@@ -1,0 +1,34 @@
+# Frozen claim templates (scripts/trust/check_templates.py, run 2026-11-06T0228Z): `<program CLAIM> <sha256[:16] of
+# its template>`. The template is the claim's text after `:=` with every region a blind reader's data replace (in the
+# output of scripts/trust/gen_claim_readings.py) masked as one `□`: quantifiers, hypotheses, filters, remainder
+# templates and relation are frozen. `python3 scripts/trust/check_templates.py --show <claim>` prints one. A new line
+# with a hash already present (a new instance of a frozen template) passes; any other added, changed or removed line
+# needs a LEDGER.md addition naming the claim and the word "template" (--base). Populated from the tree at 94b40e7.
+Checked.Cosmography.Aviles.AvilesL0Claim 09a7bd6f045d3177
+Checked.Cosmography.Aviles.AvilesM0Claim 2d638ada68a85576
+Checked.Cosmography.BambaA.BambaDA3Claim 7dd928a9d7014f0e
+Checked.Cosmography.BambaA.BambaDA3ClaimPast 122a9a40d7f38a1e
+Checked.Cosmography.BambaA.BambaDA4Claim a353520ec99a249d
+Checked.Cosmography.BambaA.BambaDA4ClaimPast 76a2240fee28f18a
+Checked.Cosmography.BambaK.BambaD3yClaim def47e1d85750822
+Checked.Cosmography.BambaK.BambaD3yClaimPast 168fa8c4e6547b7f
+Checked.Cosmography.BambaK.BambaD4yClaim 5faf32f9a545a7bc
+Checked.Cosmography.BambaK.BambaD4yClaimPast 99eb11329faaf21b
+Checked.Cosmography.BambaY.BambaD2yClaim c81e8a46230c939b
+Checked.Cosmography.BambaY.BambaD2yClaimPast 6002a6ee84c99a49
+Checked.Cosmography.BambaZ.BambaDAzClaim 9726346b44ada85b
+Checked.Cosmography.BambaZ.BambaDAzClaimPast 67dc05b512f8edc1
+Checked.Cosmography.BambaZ.BambaDLzClaim 73cb815c28d8d4a1
+Checked.Cosmography.BambaZ.BambaDLzClaimPast bc62a08a5c8c1fa7
+Checked.Cosmography.CCS.CCSD4Claim 50be6a2c8437da5c
+Checked.Cosmography.CCS.CCSD4ClaimPast 67b4ee37b36b8e0d
+Checked.Cosmography.CPL.CLSL0Claim 897e9e5b0e652f0f
+Checked.Cosmography.CVdQ.CVdQClaim 02c67fdec7ce2da9
+Checked.Cosmography.CVdQ.CVdQClaimPast afb060e883aa05a4
+Checked.Cosmography.DemianskiZ.DemDAzClaim 4fbf6b22c2f6a9fb
+Checked.Cosmography.DemianskiZ.DemDAzClaimPast 9f8f8022cbb435fe
+Checked.Cosmography.DemianskiZ.DemDLzClaim bd1678439e644066
+Checked.Cosmography.DemianskiZ.DemDLzClaimPast cd930c66f39b0940
+Checked.Cosmography.FRCosmo.PrintedF0Claim e467e85a6e2d7e27
+Checked.Cosmography.FRCosmo.PrintedF0ClaimMul 46ca4d40dd570f5c
+Checked.Cosmography.FRCosmo.PrintedR3Claim 68acf97a3f5b7d47

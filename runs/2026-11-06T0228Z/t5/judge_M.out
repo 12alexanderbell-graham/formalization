@@ -1,0 +1,96 @@
+applied d03 stage 1
+applied d01
+applied d02
+applied d03 stage 2
+applied d04
+applied d05
+applied d06
+== new files compile one by one 03:25:12
+  ok Checked/Chemistry/PRRestated.lean
+  ok Checked/Chemistry/SoaveRK.lean
+  ok Checked/Cosmography/AvilesBranch.lean
+  ok Checked/Cosmography/AvilesJ0.lean
+  ok Checked/Cosmography/AvilesS0.lean
+  ok Checked/Cosmography/JerkLCDM.lean
+  ok Checked/Trust/SecondReadingJ0.lean
+  FAIL Checked/Trust/TranscriptionsJ0.lean
+Checked/Trust/TranscriptionsJ0.lean:1:0: error: object file '/home/claude/fz2/.lake/build/lib/lean/Checked/Trust/SecondReadingJ0.olean' of module Checked.Trust.SecondReadingJ0 does not exist
+== build 03:25:41
+build: PASS
+grep: PASS
+== trust 03:26:07
+trust: PASS
+--- numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+--- prose
+check_prose: 177 headlines, 137 definitions, 21 glossary terms; 0 new problems; 354 known gaps (prose_baseline.txt)
+--- trusted defs
+check_trusted_defs: 22 pins; 0 problems in TRUSTED_DEFINITIONS.md
+--- formulas
+check_formulas: 0 baselined FORMULA definitions; ok
+--- provenance
+check_provenance: 16 second-version modules, 6 baselined; ok
+--- claims 03:30:10
+CLAIMS.md: 177 generated claims
+phrases: 22 checked, 0 problems
+--- packet
+wrote 57 files, 53 items, seed 72c4d16f819f
+--- base diffs vs S (= 8971901 + new scripts)
+  [check_relock.py dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    frozen registry: 1423 entries at dea09ec8542a85a33e01ca47d80a13440c8e5e15, none changed or removed
+  [check_numbers.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    certified-number diff vs dea09ec8542a85a33e01ca47d80a13440c8e5e15: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    check_prose: 177 headlines, 137 definitions, 21 glossary terms; 0 new problems; 354 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    check_trusted_defs: 22 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    phrases: 22 at dea09ec8542a85a33e01ca47d80a13440c8e5e15, none changed or removed
+  [check_formulas.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    check_provenance: 16 second-version modules, 6 baselined; ok
+== AFTER: new scripts 03:32:29
+  [check_literals.py]
+    rule 1: Checked.Chemistry.PRRestated.pr_restated_omega1_exists: statement literals ['2', '1', '1', '0.37464', '1.64226', '1', '0.36992', '1', '2', '1', '7', '10', '2', '2', '1', '7', '10', '2', '1', '2', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Chemistry.PRRestated.pr_restated_omega1_unique: statement literals ['2', '1', '1', '0.37464', '1.64226', '1', '0.36992', '1', '2', '1', '7', '10', '2', '2', '1', '7', '10', '2', '1', '2', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Chemistry.SoaveRK.srk_coexistence_exists: statement literals ['1', '0', '7', '10', '1', '0', '7', '10', '1', '0', '1', '0'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Chemistry.SoaveRK.srk_coexistence_unique: statement literals ['1', '0', '7', '10', '1', '0', '7', '10', '1', '0', '1', '0'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Cosmography.AvilesJ0.printedJ0_false_at: statement literals ['6'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Cosmography.AvilesS0.printedS0_false_at: statement literals ['6', '1', '9'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Cosmography.JerkLCDM.jerk_eq_one: statement literals ['6'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 177 headlines, 128 with uncovered literals (121 baselined), 0 registered readings; FAIL
+  [check_source_names.py]
+    Checked.Cosmography.AvilesS0.printedS0_false_at: 'printed' (printed) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line printed)
+    Checked.Cosmography.AvilesS0.printedS0_false_at: 'Eq. (1' (equation-number) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line equation-number)
+    Checked.Chemistry.PRRestated.pr_restated_omega1_exists: 'Soave' (soave) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line soave)
+    Checked.Chemistry.PRRestated.pr_restated_omega1_unique: 'Soave' (soave) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line soave)
+    Checked.Chemistry.SoaveRK.srk_coexistence_unique: 'Soave' (soave) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line soave)
+    Checked.Chemistry.SoaveRK.srk_coexistence_exists: 'Soave' (soave) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line soave)
+    check_source_names: 21 names, 41 unbacked matches (35 baselined); FAIL
+  [check_templates.py]
+    rule 1: Checked.Cosmography.AvilesBranch.AvilesM0ClaimQ has a generated reading but no frozen template in scripts/trust/claim_templates.txt (template 21023c99c2abe65f; see --show; rule 2 decides whether it may be added)
+    check_templates: 29 claims with generated readings, 28 frozen templates (28 distinct); FAIL
+  [check_literals.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    rule 1: Checked.Chemistry.PRRestated.pr_restated_omega1_exists: statement literals ['2', '1', '1', '0.37464', '1.64226', '1', '0.36992', '1', '2', '1', '7', '10', '2', '2', '1', '7', '10', '2', '1', '2', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Chemistry.PRRestated.pr_restated_omega1_unique: statement literals ['2', '1', '1', '0.37464', '1.64226', '1', '0.36992', '1', '2', '1', '7', '10', '2', '2', '1', '7', '10', '2', '1', '2', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Chemistry.SoaveRK.srk_coexistence_exists: statement literals ['1', '0', '7', '10', '1', '0', '7', '10', '1', '0', '1', '0'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Chemistry.SoaveRK.srk_coexistence_unique: statement literals ['1', '0', '7', '10', '1', '0', '7', '10', '1', '0', '1', '0'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Cosmography.AvilesJ0.printedJ0_false_at: statement literals ['6'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Cosmography.AvilesS0.printedS0_false_at: statement literals ['6', '1', '9'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Cosmography.JerkLCDM.jerk_eq_one: statement literals ['6'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 177 headlines, 128 with uncovered literals (121 baselined), 0 registered readings; FAIL
+  [check_source_names.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    Checked.Cosmography.AvilesS0.printedS0_false_at: 'printed' (printed) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line printed)
+    Checked.Cosmography.AvilesS0.printedS0_false_at: 'Eq. (1' (equation-number) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line equation-number)
+    Checked.Chemistry.PRRestated.pr_restated_omega1_exists: 'Soave' (soave) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line soave)
+    Checked.Chemistry.PRRestated.pr_restated_omega1_unique: 'Soave' (soave) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line soave)
+    Checked.Chemistry.SoaveRK.srk_coexistence_unique: 'Soave' (soave) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line soave)
+    Checked.Chemistry.SoaveRK.srk_coexistence_exists: 'Soave' (soave) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line soave)
+    check_source_names: 21 names, 41 unbacked matches (35 baselined); FAIL
+  [check_templates.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    rule 1: Checked.Cosmography.AvilesBranch.AvilesM0ClaimQ has a generated reading but no frozen template in scripts/trust/claim_templates.txt (template 21023c99c2abe65f; see --show; rule 2 decides whether it may be added)
+    check_templates: 29 claims with generated readings, 28 frozen templates (28 distinct); FAIL
+  [check_blind_route.py --base dea09ec8542a85a33e01ca47d80a13440c8e5e15]
+    check_blind_route: 1 second versions added or changed since dea09ec8542a; ok
+== end 03:33:01

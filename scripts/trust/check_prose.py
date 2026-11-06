@@ -61,6 +61,11 @@ what the prose may say against what the Lean statement actually contains, using 
    the source of a PRINTED or CLAIM definition the statement reaches (that definition's docstring or
    name contains the same author name).
 
+10. Restrictions (run 2026-11-06T0228Z, after blind red team M d06): a docstring that generalises (rule 6's
+   words) over data the statement restricts by a pinned model predicate (`Is…`: `IsFlatLCDM`, `IsFlatCPL`,
+   `IsCriticalIsotherm`, `IsMaxwellCoexistence`, …, filled by a bound variable) must contain a glossary term
+   backed by that predicate ("in every model j₀ = 1" for a statement assuming flat ΛCDM fails).
+
 Run after `lake env lean scripts/trust/StatementDeps.lean`. `--report` prints without failing.
 """
 import fnmatch, json, re, sys
@@ -378,6 +383,22 @@ def main():
                              f"value or claim is a transcription: put it in a PRINTED/CLAIM definition with a second reading)"))
         if "bound" in h:
             param_rule(h, errs)
+            # rule 10 (run 2026-11-06T0228Z, after blind round M d06): a docstring that generalises ("every
+            # model", "whatever Ω") over data the statement restricts by a pinned model predicate (`Is…`: flat
+            # ΛCDM, CPL, critical isotherm, Maxwell coexistence, …) must name that restriction: some glossary
+            # term backed by the predicate occurs in the docstring. Else "in every model j₀ = 1" passes for a
+            # statement that assumes `IsFlatLCDM Ω a t₀`.
+            text10 = strip_citations(strip_code_names(h.get("doc", "")))
+            if GEN.search(text10):
+                bnames = {norm_tok(b.partition(" : ")[0]) for b in h["bound"]}
+                restr = sorted({r.split(".")[0] for v, r in h.get("roles", [])
+                                if norm_tok(v) in bnames and not r.startswith("=") and r.split(".")[0].startswith("Is")})
+                for d in restr:
+                    terms = [c for _, c, backs in gloss if d in backs]
+                    if terms and not any(c.search(text10) for c in terms):
+                        errs.append((f"{h['name']}|restrict|{d}", f"{h['name']}: its docstring generalises "
+                                     f"('{GEN.search(text10).group(0)}') but never names the restriction `{d}` the "
+                                     f"statement puts on its data (rule 10: say which model, e.g. a glossary term backed by {d})"))
         if h["record"]:
             kinds = set(h["defs"].values())
             if (not h["pinned"] and not (kinds & {"PRINTED", "CLAIM"})) or h.get("free_conjuncts", 0) > 0:

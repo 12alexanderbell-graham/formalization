@@ -1,0 +1,14 @@
+# Literal readings of headline statements (scripts/trust/check_literals.py rule 1 (b), run 2026-11-06T0228Z).
+# Format: `<headline, unique suffix> [source=<Name>[,<Name>]] <reader constant> [<reader constant> ...]`.
+# A reader constant is a def of a non-generated Checked/Trust/SecondReading*.lean module (a blind reader's file,
+# copied from runs/<run>/ next to its brief and committed first: check_provenance.py rule 4, check_blind_route.py).
+# Its body, binders as wildcards and numerals by value, must occur in the headline's statement; the literals it
+# matches are covered. A `source=` name must occur in a brief of the reader copy's run folder; it backs that name in
+# the headline's docstring and name (check_source_names.py). Adding or changing a line needs a LEDGER.md addition
+# naming the headline (--base). Empty at creation: no statement literal has been read twice yet.
+Checked.Chemistry.PRAcentric.pr_omega1_exists Checked.Trust.SecondReading.kappaPR76
+Checked.Chemistry.PRAcentric.pr_omega1_unique Checked.Trust.SecondReading.kappaPR76
+Checked.Chemistry.PR78Acentric.pr78_omega1_exists Checked.Trust.SecondReading.kappaPR78
+Checked.Chemistry.PR78Acentric.pr78_omega1_unique Checked.Trust.SecondReading.kappaPR78
+Checked.Chemistry.SRKAcentric.srk_omega1_exists source=Soave Checked.Trust.SecondReading.kappaSoave
+Checked.Chemistry.SRKAcentric.srk_omega1_unique source=Soave Checked.Trust.SecondReading.kappaSoave

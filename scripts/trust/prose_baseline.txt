@@ -356,3 +356,5 @@ definition Checked.Cosmography.FREta.sL (PRINTED)|vocab|(?i)ΛCDM|\bLCDM\b|lambd
 definition Checked.Fidelity.FRFirstEq (SPEC)|vocab|(?i)ΛCDM|\bLCDM\b|lambda[- ]?CDM
 definition Checked.Fidelity.LumDistSpec2 (SPEC)|vocab|(?i)angular[- ]diameter[- ]distance|(?<![A-Za-z])d_A\b|(?<![A-Za-z])d_\{A\b
 definition Checked.Fidelity.Omega0Spec (SPEC)|vocab|(?i)\bFriedmann\b
+Checked.Cosmography.AvilesWitness.printedL0_false_at|restrict|IsFlatLCDM
+Checked.Cosmography.AvilesWitness.printedM0_false_at|restrict|IsFlatLCDM

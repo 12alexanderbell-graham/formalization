@@ -1,0 +1,129 @@
+# Grandfathered statement literals (scripts/trust/check_literals.py rule 1, run 2026-11-06T0228Z). Shrink-only
+# (check_literals.py --base): no line may be added or changed. Format: `<headline> | <uncovered literals in statement
+# order> | <reason>`; the literal list must equal the headline's uncovered literals exactly, so a changed statement fires
+# again and a new sibling headline has no line. `hidden:` lines grandfather rule 2 (numbers of the elaborated statement
+# not written in its source: `local notation printedCPLl0` in Checked/Records/Findings.lean). Populated from the tree at
+# 94b40e7 by the check writer of run 2026-11-06T0228Z (blind to red team M). Every line predates the rule.
+Checked.Chemistry.Coexistence.vdW_coexistence_exists | 0 0 7 10 8 27 27 2 27 2 0.3020 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.Coexistence.vdW_coexistence_unique | 0 0 7 10 8 27 27 2 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.CubicEOS.critCubic_existsUnique | 2 1 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.CubicEOS.exists_unique_critical | 2 1 1 2 1 2 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.CubicEOS.isCritical_iff | 2 2 3 3 2 3 2 2 3 2 2 2 2 2 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.CubicEOS.pr_constants | 2 1 2 1 2 1 2 1 2 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.CubicEOS.rk_constants | 1 0 1 0 1 0 1 0 2 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.CubicEOS.vdW_constants | 0 0 0 0 0 0 0 0 2 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.PR78Acentric.pr78_omega1_exists | 2 1 1 1 7 10 2 2 1 7 10 2 1 2 1 | (u, w) of the cubic, T_r = 7/10 and exponents as statement literals, not read twice; the kappa(omega) coefficients are covered by the blind reading Checked.Trust.SecondReading.kappa* (run 2026-11-06T0228Z, literal_readings.txt)
+Checked.Chemistry.PR78Acentric.pr78_omega1_unique | 2 1 1 1 7 10 2 2 1 7 10 2 1 2 1 | (u, w) of the cubic, T_r = 7/10 and exponents as statement literals, not read twice; the kappa(omega) coefficients are covered by the blind reading Checked.Trust.SecondReading.kappa* (run 2026-11-06T0228Z, literal_readings.txt)
+Checked.Chemistry.PRAcentric.pr_omega1_exists | 2 1 1 1 7 10 2 2 1 7 10 2 1 2 1 | (u, w) of the cubic, T_r = 7/10 and exponents as statement literals, not read twice; the kappa(omega) coefficients are covered by the blind reading Checked.Trust.SecondReading.kappa* (run 2026-11-06T0228Z, literal_readings.txt)
+Checked.Chemistry.PRAcentric.pr_omega1_unique | 2 1 1 1 7 10 2 2 1 7 10 2 1 2 1 | (u, w) of the cubic, T_r = 7/10 and exponents as statement literals, not read twice; the kappa(omega) coefficients are covered by the blind reading Checked.Trust.SecondReading.kappa* (run 2026-11-06T0228Z, literal_readings.txt)
+Checked.Chemistry.RKAcentric.rk_coexistence_exists | 1 0 7 10 1 0 7 10 1 0 1 0 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.RKAcentric.rk_coexistence_unique | 1 0 7 10 1 0 7 10 1 0 1 0 | model identity (u, w) of the cubic, T_r = 7/10, exponents as statement literals; not read twice
+Checked.Chemistry.SRKAcentric.srk_omega1_exists | 1 0 1 1 7 10 2 1 0 7 10 1 0 1 0 | (u, w) of the cubic, T_r = 7/10 and exponents as statement literals, not read twice; the kappa(omega) coefficients are covered by the blind reading Checked.Trust.SecondReading.kappa* (run 2026-11-06T0228Z, literal_readings.txt)
+Checked.Chemistry.SRKAcentric.srk_omega1_unique | 1 0 1 1 7 10 2 1 0 7 10 1 0 1 0 | (u, w) of the cubic, T_r = 7/10 and exponents as statement literals, not read twice; the kappa(omega) coefficients are covered by the blind reading Checked.Trust.SecondReading.kappa* (run 2026-11-06T0228Z, literal_readings.txt)
+Checked.Cosmography.Aviles.flatLCDM_coeffs | 6 3 2 1 1 9 2 1 3 27 2 2 1 27 2 81 2 81 4 3 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.AvilesWitness.printedL0_false_at | 6 1 3 27 2 2 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.AvilesWitness.printedM0_false_at | 3 2 2 2 6 1 27 2 2 81 2 81 2 3 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1.cubic_misses_z3 | 1 5 2 5 1 3 1 3 5 10 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1.cubic_misses_z7 | 1 5 2 5 1 3 1 7 5 10 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1.cubic_shape_miss | 1 5 2 5 1 3 1 3 7 5 10 5 10 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1.lumDistFlat_flatLCDM | 1 3 1 1 1 2 1 6 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1Fit.fit_direction | 1 3 1 2 1 2 2 1 4 2 1 5 10 1 20 5 10 1 20 5 10 1 20 1 2 20 3 10 2 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1FitRL19.rl19_box_unmatched | 1 3 1 2 1 2 2 1 4 2 1 343 100 349 100 157 100 169 100 5 10 1 20 5 10 1 20 5 10 1 20 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1L19.l19_sq_box | 1 3 1 2 2 1 4 2 1 2.906 5.479 1.794 5 10 5 10 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1L19.l19_sq_central | 1 3 1 2 2 1 4 2 1 5 10 3.075 4.466 3.716 5 10 3.075 4.466 3.716 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1L19.l19_sqg_box | 1 3 1 2 2 1 4 2 1 3.043 4.480 0.915 5 10 5 10 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1L19.l19_sqg_central | 1 3 1 2 2 1 4 2 1 5 10 3.205 3.564 2.510 5 10 3.205 3.564 2.510 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1L19Curved.l19_sq_curved | 1 10 11 10 1 3 1 1 2 2 2 1 4 2 1 5 10 3.075 4.466 3.716 5 10 3.075 4.466 3.716 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1L19Curved.l19_sqg_curved | 1 10 11 10 1 3 1 1 2 2 2 1 4 2 1 5 10 3.205 3.564 2.510 5 10 3.205 3.564 2.510 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1Sep.cubic_direction | 1 5 2 5 1 3 1 3 7 5 10 1 20 5 10 1 20 7 10 2 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.B1Sep.cubic_separation | 1 5 2 5 1 3 1 3 7 5 10 1 20 5 10 1 20 2 2 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaA.angDist_y_fifth_order | 5 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaA.milne_printedDA4_fails_past | 1 1 1 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaA.printedDA3_fails | 5 1 4 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaA.printedDA3_fails_past | 5 1 4 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaA.printedDA4_fails | 5 1 1 10 45 2 20 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaA.printedDA4_fails_past | 5 1 1 10 45 2 20 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaK.lumDist_y_fifth_order | 5 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaK.milne_printedD3y_fails_past | 1 1 1 4 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaK.milne_printedD4y_fails_past | 1 1 1 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaK.printedD3y_fails | 5 1 3 2 4 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaK.printedD3y_fails_past | 5 1 3 2 4 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaK.printedD4y_fails | 5 1 2 120 5 1 12 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaK.printedD4y_fails_past | 5 1 2 120 5 1 12 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaY.lumDist_y_third_order | 3 3 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaY.printedD2y_fails | 3 11 5 3 2 3 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaY.printedD2y_fails_past | 3 11 5 3 2 3 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaZ.angDist_z_fifth_order | 5 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaZ.lumDist_z_fifth_order | 5 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past | 1 1 1 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaZ.printedDA4z_fails_past | 5 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaZ.printedDL4z_fails_past | 5 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.BambaZ.printed_flat_eq | 0 0 0 0 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CCS.lookback_fifth_order | 5 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CCS.printedD4_fails | 5 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CCS.printedD4_fails_past | 5 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CPL.flatCPL_coeffs | 5 1 2 3 2 1 1 3 2 1 3 1 7 2 33 4 1 9 4 1 9 7 9 4 1 16 3 2 27 4 1 3 3 35 2 1 4 213 9 7 1 4 489 9 82 21 9 2 1 67 21 3 2 23 11 2 27 4 1 47 24 3 81 2 1 3 2 4 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CPL.printedL0_ne | 5 1 7 35 2 1 4 213 7 1 4 489 9 82 21 9 2 1 67 21 3 2 23 11 2 27 4 1 47 24 3 81 2 1 3 2 4 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CPLExistence.exists_flatCPL | 5 0 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CPLExistence.exists_local_model | 5 1 0 5 0 0 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CPLExistence.printedL0_false_at | 1 7 5 0 35 2 1 4 213 7 1 4 489 9 82 21 9 2 1 67 21 3 2 23 11 2 27 4 1 47 24 3 81 2 1 3 2 4 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CVdQ.dQ_y_third_order | 3 3 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.CVdQ.printedQ2_fails_past | 3 1 2 12 2 4 3 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.DemianskiZ.demDA4_fails_past | 5 0 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.DemianskiZ.demDL4_fails_past | 5 0 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.DemianskiZ.flat_corrections | 0 7 4 4 0 137 60 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FRCosmo.curv_derivs | 5 6 2 1 6 3 2 2 6 4 2 8 6 3 6 5 2 4 6 3 8 24 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FRCosmo.exists_LCDM_model | 6 2 1 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FRCosmo.fR_values | 6 2 6 2 2 2 6 2 2 3 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FRCosmo.printedF0Mul_false_at | 6 2 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FRCosmo.printedF0_false_at | 243 4 540 3 6264 2 9360 3328 6 2 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FREta.eta20_hasDerivAt | 0 0 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FREta.eta30_hasDerivAt | 0 0 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FREta.eta_numbers | 41 1000 1 4 41 1000 1 4 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FREta.eta_ratios | 2 2 4 3 6 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FREta.printedEta20_false_at | 54 2 29 2 27 2 24 32 0 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.FREta.printedEta30_false_at | 54 2 29 2 27 2 24 32 0 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.Transverse.transverse_expansion | 3 6 2 5 120 0 5 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.lookback_second_order | 1 2 2 2 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Cosmography.lookback_second_order_bigO | 3 1 2 2 3 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Data.FR13.fr13_bestfit68 | 0 1 68 2.8 68 2.8 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.FR13.fr13_bestfit738 | 0 1 73.8 2.4 73.8 2.4 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.FR13.fr13_exists68 | 0 1 0 1 68 2.8 68 2.8 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.FR13.fr13_exists738 | 0 1 0 1 73.8 2.4 73.8 2.4 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.FR13.fr13_minval68 | 0 1 68 2.8 68 2.8 68 2.8 68 2.8 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.FR13.fr13_minval738 | 0 1 73.8 2.4 73.8 2.4 73.8 2.4 73.8 2.4 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.FR13.fr13_zda68 | 0 1 68 2.8 68 2.8 1 1 3 2 1 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.FR13.fr13_zda738 | 0 1 73.8 2.4 73.8 2.4 1 1 3 2 1 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16.line_bic_exceeds | 27.972 35 2 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16.oL_bic_exceeds | 2 2 15.625 1 14.975 35 3 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16.table5_line_inconsistent | 3 31 2 2 2 2 2 1 2 1 32.42 0.005 2 35.29 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16.table5_oL_inconsistent | 4 31 2 3 2 3 3 1 3 1 21.41 0.005 3 25.71 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16.table5_pw_inconsistent | 5 31 2 4 2 4 4 1 4 1 23.99 0.005 4 28.72 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16Min.chiSqOL_ge | 1 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16Min.chiSqOL_glb_prior | 2 2 15.625 1 14.967 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16Min.chiSqOL_glb_wide | 1 14.967 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16Min.chiSqOL_lt | 2 2 15.625 1 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Data.Moresco16Min.table5_oL_aicc_unattainable | 4 31 1 2 3 2 3 3 1 3 1 | prior centre/width, parameter ranges and table-derived values of the source's fit as literals; not read twice
+Checked.Fidelity.comoving_pins | 0 1 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Fidelity.lumDistFlat_pins | 0 | orders of o()/O() and smoothness, exponents, evaluation points and inline printed/derived coefficients; not read twice
+Checked.Math.LEExists.exists_solution | 0 7 0 7 0 7 0 0 7 2 3 0 7 0 | initial data and parameters of the simulated/mathematical system as literals; not read twice
+Checked.Math.LaneEmden.laneEmden3_constants | 0 7 0 7 0 7 0 0 7 2 3 0 7 0 0 2 2 3 3 2 3 3 2 | initial data and parameters of the simulated/mathematical system as literals; not read twice
+Checked.Records.F10_eta | 41 1000 0.249 1 4 0.032 41 1000 0.400 1 4 0.0152 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F10_exceptions | 54 2 29 2 27 2 24 32 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F10_family_pole | 41 1000 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F11_sizes | 210 4 5 4 86 7 4 4 5 4 1 4 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F1_l0 | 3 10 6 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F1_m0_agrees | 0.549 3 6 1 27 2 2 81 2 81 2 3 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F1_printedL0 | 1 3 3 10 27 2 3 10 2 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F2_error | 3 10 1 2 5 3 10 1 2 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F2_toy | 245 1000 93 100 41 100 5 245 1000 93 100 41 100 0.906 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F3_D4_LCDM | 3 10 6 0.55 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F8_sizes | 1 100 2 2 4 120 100 1 5 120 1 1 2 2 100 2 5 120 2 2 2 2 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F9_pole | 243 4 540 3 6264 2 9360 3328 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F9_values | 27 1 4 2 1 4 2 27 1 4 2 60 1 4 112 243 1 4 4 540 1 4 3 6264 1 4 2 9360 1 4 3328 3 1 4 2 5.25 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Sim.Duffing.duffing_first_zero_sol | 6 5 0 1192005 1000000 1192006 1000000 | initial data and parameters of the simulated/mathematical system as literals; not read twice
+Checked.Sim.Duffing.duffing_solution_exists | 6 5 | initial data and parameters of the simulated/mathematical system as literals; not read twice
+Checked.Sim.MichaelisMenten.mm_half_conversion | 13 5 0 25665 10000 25666 10000 | initial data and parameters of the simulated/mathematical system as literals; not read twice
+Checked.Sim.MichaelisMenten.mm_solution_exists | 13 5 | initial data and parameters of the simulated/mathematical system as literals; not read twice
+Checked.Records.F2_error | hidden: 27 81/2 47 82 213 489 | local notation printedCPLl0 (the CLS printed l0 formula) in Checked/Records/Findings.lean; its coefficients are read twice in Checked/Trust/SecondReadingClaims*.lean only through CLSL0Claim
+Checked.Records.F2_toy | hidden: 27 81/2 47 82 213 489 | local notation printedCPLl0 (the CLS printed l0 formula) in Checked/Records/Findings.lean; its coefficients are read twice in Checked/Trust/SecondReadingClaims*.lean only through CLSL0Claim

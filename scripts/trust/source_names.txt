@@ -1,0 +1,26 @@
+# Model and source names in headline docstrings and names (scripts/trust/check_source_names.py, run 2026-11-06T0228Z).
+# Format: `<key> | <python regex> | <backing> [|| <backing> ...]`, parts of one backing joined by `+`:
+#   fixed:<def>.<param>=<lit>   reach:<definition short name>   kind:<KIND>   source   reading
+# (see the script's docstring). May only grow (--base): a removed or changed line weakens a blocking check.
+# Cubic equations of state are identified by the literals (u, w) the statement passes to cubicP.
+peng-robinson | (?i)peng[-–‑ ]robinson|\bPR(?:78)?\b|\bpr(?:78)?\b | fixed:cubicP.u=2+fixed:cubicP.w=-1
+redlich-kwong | (?i)redlich[-–‑ ]kwong|\bs?rk\b | fixed:cubicP.u=1+fixed:cubicP.w=0
+van-der-waals | (?i)van der waals|\bvdw\b | fixed:cubicP.u=0+fixed:cubicP.w=0
+soave | (?i)\bsoave\b | source
+graboski-daubert | (?i)\bgraboski\b|\bdaubert\b | source
+pitzer | (?i)\bpitzer\b | reach:acentric
+printed | (?i)\bprinted\b|\bmisprint\w*|\btypo\w*|\bas published\b|\bin print\b | kind:PRINTED || kind:CLAIM || reading
+equation-number | \bEqs?\.\s*\(?\d|\bEquations?\s*\(?\d|\(\d{1,2}\.\d{1,2}\)|\([A-Z]\d{1,2}\) | kind:PRINTED || kind:CLAIM || reading
+aviles | (?i)\baviles\b | source
+bamba | (?i)\bbamba\b | source
+cattoen-visser | (?i)\bcatto[eë]n\b|\bvisser\b | source
+demianski | (?i)\bdemianski\b | source
+capozziello | (?i)\bcapozziello\b | source
+cunha | (?i)\bcunha\b | source
+moresco | (?i)\bmoresco\b | source
+farooq-ratra | (?i)\bfarooq\b|\bratra\b | source
+riess | (?i)\briess\b | source
+planck | (?i)\bplanck\b | source
+chevallier-linder | (?i)\bchevallier\b|\blinder\b | reach:IsFlatCPL || source
+weinberg | (?i)\bweinberg\b | source
+visser-generic | (?i)\bkolb\b|\bturner\b|\bpeebles\b|\bhogg\b|\bwright\b | source
