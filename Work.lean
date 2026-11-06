@@ -229,3 +229,15 @@ import Work.Math.LEExists
 import Work.Math.LaneEmdenAudit
 import Work.Math.LaneEmdenNearMiss
 import Work.Math.ThomasFermi
+import Work.Math.TFCell
+import Work.Math.TFReduce
+import Work.Math.TFCertsSup1
+import Work.Math.TFCertsSup2
+import Work.Math.TFCertsSup3
+import Work.Math.TFCertsSup4
+import Work.Math.TFCertsSub1
+import Work.Math.TFCertsSub2
+import Work.Math.TFCertsSub3
+import Work.Math.TFCertsSub4
+import Work.Math.TFCertsSub5
+import Work.Math.TFChain

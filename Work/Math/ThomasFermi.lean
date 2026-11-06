@@ -1,4 +1,6 @@
 import Mathlib
+import Work.Math.TFReduce
+import Work.Math.TFChain
 
 /-!
 # Thomas–Fermi equation: initial slope of the neutral-atom solution
@@ -28,6 +30,31 @@ theorem tf_initial_slope (y φ : ℝ → ℝ)
     (h0 : y 0 = 1) (hpos : ∀ x, 0 ≤ x → 0 < y x)
     (hlim : Tendsto y atTop (𝓝 0)) :
     -1.58807103 ≤ φ 0 ∧ φ 0 ≤ -1.58807102 := by
-  sorry
+  set W : ℝ → ℝ := fun t => Real.sqrt (y (t ^ 2)) with hWdef
+  set P : ℝ → ℝ := fun t => φ (t ^ 2) with hPdef
+  have hW : ∀ T : ℝ, ∀ t ∈ Ioc (0 : ℝ) T, HasDerivAt W (t * P t / W t) t :=
+    fun T t ht => Work.Math.TFReduce.deriv_W y φ hy hpos t ht.1
+  have hP : ∀ T : ℝ, ∀ t ∈ Ioc (0 : ℝ) T, HasDerivAt P (2 * W t ^ 3) t :=
+    fun T t ht => Work.Math.TFReduce.deriv_P y φ hφ hpos t ht.1
+  have hWp : ∀ T : ℝ, ∀ t ∈ Ioc (0 : ℝ) T, 0 < W t :=
+    fun T t _ => Work.Math.TFReduce.W_pos y hpos t
+  have hW0 : W 0 = 1 := Work.Math.TFReduce.W_zero y h0
+  have hP0 : P 0 = φ 0 := Work.Math.TFReduce.P_zero φ
+  constructor
+  · by_contra hlt
+    push Not at hlt
+    have hc := Work.Math.TFCerts.sup_chain (W := W) (P := P)
+      (Work.Math.TFReduce.cont_W y φ hy _) (Work.Math.TFReduce.cont_P y φ hφ hφ0 _)
+      (hW _) (hP _) (hWp _) hW0 (by rw [hP0]; norm_num at hlt ⊢; linarith)
+    exact Work.Math.TFReduce.zero_event y φ hy hφ hφ0 hpos hlim (27 / 4) (13 / 625)
+      (771 / 10000000) (by norm_num) (by norm_num) (by norm_num) Work.Math.TFCerts.sup_event
+      hc.1.le hc.2.le
+  · by_contra hlt
+    push Not at hlt
+    have hc := Work.Math.TFCerts.sub_chain (W := W) (P := P)
+      (Work.Math.TFReduce.cont_W y φ hy _) (Work.Math.TFReduce.cont_P y φ hφ hφ0 _)
+      (hW _) (hP _) (hWp _) hW0 (by rw [hP0]; norm_num at hlt ⊢; linarith)
+    exact absurd hc (not_lt.2 (Work.Math.TFReduce.phi_neg y φ hy hφ hφ0 hpos hlim _
+      (sq_nonneg _)).le)
 
 end Work.Math.ThomasFermi
