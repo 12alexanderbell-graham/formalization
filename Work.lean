@@ -100,6 +100,7 @@ import Work.Chemistry.PR78Exists
 import Work.Chemistry.PR78Acentric
 import Work.Chemistry.PR78AcentricBlind
 import Work.Chemistry.PR78AcentricAudit
+import Work.Chemistry.SRKAcentric
 import Work.Chemistry.PRCanteraReduced
 import Work.Chemistry.PRCanteraCore
 import Work.Chemistry.PRCanteraExists
