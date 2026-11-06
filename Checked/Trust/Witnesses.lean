@@ -2,6 +2,7 @@ import Checked.Trust.NonVacuity
 import Checked.Sim.Duffing
 import Checked.Sim.MichaelisMenten
 import Checked.Sim.Robertson
+import Checked.Sim.RobLong
 import Checked.Cosmography.Lookback
 import Checked.Cosmography.LookbackThird
 import Checked.Cosmography.LCDMCoefficients
@@ -524,6 +525,17 @@ enclosure keeps it in the box where the clamp is inactive). -/
 
 theorem rob_state40 : nonvacuity% Checked.Sim.Robertson.rob_state40 := by
   obtain ⟨y₁, y₂, y₃, h⟩ := Checked.Sim.Robertson.rob_exists
+  exact ⟨y₁, y₂, y₃, h, trivial⟩
+
+/-! Robertson at t = 10¹¹ (run 2026-11-06T0828Z, promoted 1028Z): the solution from
+`Checked.Sim.RobLong.rob_exists_1e11`. -/
+
+theorem rob_state1e11 : nonvacuity% Checked.Sim.RobLong.rob_state1e11 := by
+  obtain ⟨y₁, y₂, y₃, h⟩ := Checked.Sim.RobLong.rob_exists_1e11
+  exact ⟨y₁, y₂, y₃, h, trivial⟩
+
+theorem rob_printed_y3_low : nonvacuity% Checked.Sim.RobLong.rob_printed_y3_low := by
+  obtain ⟨y₁, y₂, y₃, h⟩ := Checked.Sim.RobLong.rob_exists_1e11
   exact ⟨y₁, y₂, y₃, h, trivial⟩
 
 

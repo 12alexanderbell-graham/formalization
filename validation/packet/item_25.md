@@ -8,11 +8,10 @@
 
 **It holds that**
 
-- it is false that (`BambaDLzClaimPast`)
+- it is false that (`(fun t => remLz printedDL4z (-1) (fun t => t) 1 t) =o[nhdsWithin 1 (Set.Iio 1)] fun t => redshift (fun t => t) 1 t ^ 5`)
 
 Program definitions in this claim:
 
-- `BambaDLzClaimPast` — CLAIM, not pinned; the source-dependent data written inline (printed formula, order of the printed series) agree with an independent blind second reading of the source (`Checked.Trust.Transcriptions.agree_BambaDLzClaimPast`); the quantifiers and hypotheses are the program's formalisation: means for every `K : ℝ`, for every `a : ℝ → ℝ`, for every `t₀ : ℝ`, if `ContDiff ℝ ⊤ a`, then if for every `t : ℝ`, `0 < a t`, then if `0 < hubble a t₀`, then `(fun t => remLz printedDL4z K a t₀ t) =o[nhdsWithin t₀ (Set.Iio t₀)] fun t => redshift a t₀ t ^ 5`
 - `DL1z q` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_DL1z`); its name is not checked (for `q : ℝ`): is defined as `-(1 / 2) * (-1 + q)`
 - `DL2z q j k` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_DL2z`); its name is not checked (for `q : ℝ`, `j : ℝ`, `k : ℝ`): is defined as `-(1 / 6) * (1 - q - 3 * q ^ 2 + j + k)`
 - `DL3z q j s k` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_DL3z`); its name is not checked (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `k : ℝ`): is defined as `1 / 24 * (2 - 2 * q - 15 * q ^ 2 - 15 * q ^ 3 + 5 * j + 10 * q * j + s + 2 * k * (1 + 3 * q))`
@@ -28,26 +27,28 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The review's claim (10.38)–(10.44) is false even for past emission only (`t → t₀⁻`): see
-`bambaDLzClaim_false`.
+Milne universe (`a = t`, `K = −1`, `t₀ = 1`; exact `H₀d_L = z + z²/2`): the printed `D⁴_L`
+fails from the past (standalone instance; Milne is not positive for all `t`).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem bambaDLzClaimPast_false : ¬ BambaDLzClaimPast := …
+theorem milne_printedDL4z_fails_past :
+    ¬ (fun t => remLz printedDL4z (-1) (fun t => t) 1 t)
+      =o[𝓝[<] 1] (fun t => redshift (fun t => t) 1 t ^ 5) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaZ.curvK`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.BambaZ.BambaDLzClaimPast`, `Cosmography.BambaZ.DL1z`, `Cosmography.BambaZ.DL2z`, `Cosmography.BambaZ.DL3z`, `Cosmography.BambaZ.printedDL4z`, `Cosmography.BambaY.comoving`, `Cosmography.BambaZ.remLz`, `Cosmography.BambaZ.seriesZ`, `Cosmography.Transverse.transverse`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, `Cosmography.BambaZ.curvK`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.BambaZ.DL1z`, `Cosmography.BambaZ.DL2z`, `Cosmography.BambaZ.DL3z`, `Cosmography.BambaZ.printedDL4z`, `Cosmography.BambaY.comoving`, `Cosmography.BambaZ.remLz`, `Cosmography.BambaZ.seriesZ`, `Cosmography.Transverse.transverse`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: cosmoCoeff, lumDist, curvK, decel, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): BambaDLzClaimPast², DL1z², DL2z², DL3z², printedDL4z².
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): DL1z², DL2z², DL3z², printedDL4z².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): remLz: K = -1, t₀ = 1; redshift: t₀ = 1; hubble: t = 1; lumDist: K = -1, t₀ = 1; decel: t = 1; cosmoCoeff: n = 3, t = 1, n = 4, n = 5; curvK: K = -1, t₀ = 1.
 - Source file: `Checked/Cosmography/BambaZ.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 25

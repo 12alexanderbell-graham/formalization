@@ -17,7 +17,7 @@
 
 **then**
 
-- it is false that (`(fun t => remainder printedD4 a t₀ t) =o[nhdsWithin t₀ (Set.Iio t₀)] fun t => redshift a t₀ t ^ 5`)
+- it is false that (`(fun t => remainder printedD4 a t₀ t) =o[nhds t₀] fun t => redshift a t₀ t ^ 5`)
 
 Program definitions in this claim:
 
@@ -34,14 +34,14 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The printed `D⁴` fails for past emission in every `C⁵` model with `H₀ ≠ 0`, `q₀ ≠ 0`.
+The printed `D⁴` fails for every `C⁵` scale factor with `a(t₀) ≠ 0`, `H₀ ≠ 0`, `q₀ ≠ 0`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem printedD4_fails_past (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
+theorem printedD4_fails (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
     (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0) (hq : decel a t₀ ≠ 0) :
-    ¬ (fun t => remainder printedD4 a t₀ t) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5) := …
+    ¬ (fun t => remainder printedD4 a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5) := …
 ```
 
 ## Definitions it uses
@@ -53,7 +53,7 @@ See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.decel`, `Cosmogra
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: cosmoCoeff, decel, hubble, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): D1², D2², D3², printedD4².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedD4_fails_past`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedD4_fails`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
 - Source file: `Checked/Cosmography/CCSLookback.lean` (do not open it before submitting your answers).
 

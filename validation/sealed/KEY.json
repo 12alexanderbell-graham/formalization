@@ -61,15 +61,15 @@
  "genuine": [
   {
    "item": 1,
-   "headline": "Checked.Cosmography.CCS.printedD4_fails_past"
+   "headline": "Checked.Cosmography.CCS.printedD4_fails"
   },
   {
    "item": 2,
-   "headline": "Checked.Cosmography.FRCosmo.printedF0_false_at"
+   "headline": "Checked.Cosmography.FRCosmo.printedF0ClaimMul_false"
   },
   {
    "item": 3,
-   "headline": "Checked.Chemistry.CubicEOS.pr_constants"
+   "headline": "Checked.Chemistry.CubicEOS.exists_unique_critical"
   },
   {
    "item": 4,
@@ -81,7 +81,7 @@
   },
   {
    "item": 7,
-   "headline": "Checked.Cosmography.B1Fit.fit_direction"
+   "headline": "Checked.Cosmography.B1FitRL19.rl19_box_unmatched"
   },
   {
    "item": 9,
@@ -89,7 +89,7 @@
   },
   {
    "item": 10,
-   "headline": "Checked.Sim.MichaelisMenten.mm_solution_exists"
+   "headline": "Checked.Sim.Robertson.rob_exists"
   },
   {
    "item": 11,
@@ -97,7 +97,7 @@
   },
   {
    "item": 12,
-   "headline": "Checked.Cosmography.BambaK.printedD4y_fails_past"
+   "headline": "Checked.Cosmography.BambaK.bambaD4yClaimPast_false"
   },
   {
    "item": 13,
@@ -105,7 +105,7 @@
   },
   {
    "item": 14,
-   "headline": "Checked.Cosmography.B1FitRL19.rl19_box_unmatched"
+   "headline": "Checked.Cosmography.B1L19.l19_sqg_central"
   },
   {
    "item": 16,
@@ -121,7 +121,7 @@
   },
   {
    "item": 19,
-   "headline": "Checked.Chemistry.CubicEOS.exists_unique_critical"
+   "headline": "Checked.Chemistry.CubicEOS.pr_constants"
   },
   {
    "item": 20,
@@ -129,19 +129,19 @@
   },
   {
    "item": 21,
-   "headline": "Checked.Sim.Duffing.duffing_solution_exists"
+   "headline": "Checked.Sim.MichaelisMenten.mm_solution_exists"
   },
   {
    "item": 22,
-   "headline": "Checked.Sim.Robertson.rob_exists"
+   "headline": "Checked.Sim.RobLong.rob_printed_y3_low"
   },
   {
    "item": 24,
-   "headline": "Checked.Cosmography.BambaY.printedD2y_fails"
+   "headline": "Checked.Cosmography.BambaY.bambaD2yClaim_false"
   },
   {
    "item": 25,
-   "headline": "Checked.Cosmography.BambaZ.bambaDLzClaimPast_false"
+   "headline": "Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past"
   },
   {
    "item": 26,
@@ -157,11 +157,11 @@
   },
   {
    "item": 30,
-   "headline": "Checked.Cosmography.B1L19.l19_sq_box"
+   "headline": "Checked.Chemistry.CubicEOS.vdW_constants"
   },
   {
    "item": 31,
-   "headline": "Checked.Cosmography.B1.cubic_shape_miss"
+   "headline": "Checked.Cosmography.B1Fit.fit_direction"
   },
   {
    "item": 32,
@@ -173,11 +173,11 @@
   },
   {
    "item": 34,
-   "headline": "Checked.Cosmography.AvilesWitness.printedM0_false_at"
+   "headline": "Checked.Cosmography.AvilesWitness.printedL0_false_at"
   },
   {
    "item": 35,
-   "headline": "Checked.Cosmography.FRCosmo.exists_LCDM_model"
+   "headline": "Checked.Cosmography.FRCosmo.printedF0_false_at"
   },
   {
    "item": 36,
@@ -185,23 +185,23 @@
   },
   {
    "item": 37,
-   "headline": "Checked.Cosmography.CVdQ.printedQ2_fails_past"
+   "headline": "Checked.Cosmography.CVdQ.cvdQClaimPast_false"
   },
   {
    "item": 38,
-   "headline": "Checked.Chemistry.PRAcentric.pr_omega1_exists"
+   "headline": "Checked.Sim.Duffing.duffing_solution_exists"
   },
   {
    "item": 40,
-   "headline": "Checked.Chemistry.CubicEOS.vdW_constants"
+   "headline": "Checked.Chemistry.PR78Acentric.pr78_omega1_unique"
   },
   {
    "item": 41,
-   "headline": "Checked.Cosmography.BambaA.bambaDA4ClaimPast_false"
+   "headline": "Checked.Cosmography.BambaA.bambaDA3Claim_false"
   },
   {
    "item": 42,
-   "headline": "Checked.Cosmography.BambaK.bambaD3yClaimPast_false"
+   "headline": "Checked.Cosmography.BambaK.bambaD4yClaim_false"
   },
   {
    "item": 44,
@@ -209,7 +209,7 @@
   },
   {
    "item": 46,
-   "headline": "Checked.Cosmography.BambaZ.bambaDAzClaimPast_false"
+   "headline": "Checked.Cosmography.BambaZ.bambaDAzClaim_false"
   },
   {
    "item": 47,
@@ -217,7 +217,7 @@
   },
   {
    "item": 48,
-   "headline": "Checked.Cosmography.lookback_second_order_bigO"
+   "headline": "Checked.Cosmography.lookback_second_order"
   },
   {
    "item": 49,

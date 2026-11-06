@@ -135,6 +135,17 @@ algebra with `log₁₀ 2 ∈ [0.30101, 0.30105]`. -/
 open Checked.Cosmography.B1Fit
 ```
 
+## `Cosmography.BambaA.BambaDA3Claim`
+
+Claim (10.61): printed `D⁰…D³_{A,y}`, remainder `o(y⁴)`, every `K`, every analytic, everywhere
+positive scale factor with `H₀ > 0`.
+
+```lean
+def BambaDA3Claim : Prop :=
+  ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
+    (fun t => remA printedDA3 (fun _ _ _ _ _ => 0) K a t₀ t) =o[𝓝 t₀] (fun t => yred a t₀ t ^ 4)
+```
+
 ## `Cosmography.BambaA.BambaDA4Claim`
 
 Claim (10.62)–(10.63), charitable: corrected `D³_{A,y}`, printed `D⁴_{A,y}`, `o(y⁵)`.
@@ -143,19 +154,6 @@ Claim (10.62)–(10.63), charitable: corrected `D³_{A,y}`, printed `D⁴_{A,y}`
 def BambaDA4Claim : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
     (fun t => remA correctDA3 printedDA4 K a t₀ t) =o[𝓝 t₀] (fun t => yred a t₀ t ^ 5)
-```
-
-## `Cosmography.BambaA.BambaDA4ClaimPast`
-
-Claim (10.62)–(10.63) as in `BambaDA4Claim`, past emission only (`t → t₀⁻`).
-
-```lean
-def BambaDA4ClaimPast : Prop :=
-  ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remA correctDA3 printedDA4 K a t₀ t) =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 5)
-
-
-/-! ### Proofs -/
 ```
 
 ## `Cosmography.BambaA.DA1`
@@ -226,15 +224,26 @@ noncomputable def remA (D3 : ℝ → ℝ → ℝ → ℝ → ℝ) (D4 : ℝ → 
           (omega0 K a t₀) * yred a t₀ t ^ 4)
 ```
 
-## `Cosmography.BambaK.BambaD3yClaimPast`
+## `Cosmography.BambaK.BambaD4yClaim`
 
-Claim (10.55) as in `BambaD3yClaim`, past emission only (`t → t₀⁻`).
+Claim (10.56)–(10.57), charitable: corrected `D²`, `D³`, printed `D⁴`, remainder `o(y⁵)`.
 
 ```lean
-def BambaD3yClaimPast : Prop :=
+def BambaD4yClaim : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remK correctD2y printedD3y (fun _ _ _ _ _ => 0) K a t₀ t)
-      =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 4)
+    (fun t => remK correctD2y correctD3y printedD4y K a t₀ t)
+      =o[𝓝 t₀] (fun t => yred a t₀ t ^ 5)
+```
+
+## `Cosmography.BambaK.BambaD4yClaimPast`
+
+Claim (10.56)–(10.57) as in `BambaD4yClaim`, past emission only (`t → t₀⁻`).
+
+```lean
+def BambaD4yClaimPast : Prop :=
+  ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
+    (fun t => remK correctD2y correctD3y printedD4y K a t₀ t)
+      =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 5)
 ```
 
 ## `Cosmography.BambaK.correctD3y`
@@ -310,6 +319,17 @@ noncomputable def seriesY4 (q d2 d3 d4 y : ℝ) : ℝ :=
   y * (1 + D1y q * y + d2 * y ^ 2 + d3 * y ^ 3 + d4 * y ^ 4)
 ```
 
+## `Cosmography.BambaY.BambaD2yClaim`
+
+The printed claim, flat instance, weakest reading (`o(y³)`), strongest hypotheses (analytic,
+everywhere positive scale factor, `H₀ > 0`).
+
+```lean
+def BambaD2yClaim : Prop :=
+  ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
+    (fun t => remainderY printedD2y a t₀ t) =o[𝓝 t₀] (fun t => yred a t₀ t ^ 3)
+```
+
 ## `Cosmography.BambaY.D1y`
 
 `D¹_{L,y}` as printed (Eq. (10.53)).
@@ -380,24 +400,14 @@ noncomputable def yred (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   redshift a t₀ t / (1 + redshift a t₀ t)
 ```
 
-## `Cosmography.BambaZ.BambaDAzClaimPast`
+## `Cosmography.BambaZ.BambaDAzClaim`
 
-Claim (10.45)–(10.51) as in `BambaDAzClaim`, past emission only (`t → t₀⁻`).
-
-```lean
-def BambaDAzClaimPast : Prop :=
-  ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remAz printedDA4z K a t₀ t) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5)
-```
-
-## `Cosmography.BambaZ.BambaDLzClaimPast`
-
-Claim (10.38)–(10.44) as in `BambaDLzClaim`, past emission only (`t → t₀⁻`).
+Claim (10.45)–(10.51): printed `D⁰…D⁴_A`, remainder `o(z⁵)`.
 
 ```lean
-def BambaDLzClaimPast : Prop :=
+def BambaDAzClaim : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remLz printedDL4z K a t₀ t) =o[𝓝[<] t₀] (fun t => redshift a t₀ t ^ 5)
+    (fun t => remAz printedDA4z K a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5)
 ```
 
 ## `Cosmography.BambaZ.DA1z`
@@ -597,6 +607,18 @@ def IsFlatCPL (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : Prop :=
         Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))
 ```
 
+## `Cosmography.CVdQ.CVdQClaimPast`
+
+Same, past emission only.
+
+```lean
+def CVdQClaimPast : Prop :=
+  ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
+    (fun t => remainderQ printedQ2 a t₀ t) =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 3)
+
+/-! ### Helpers -/
+```
+
 ## `Cosmography.CVdQ.dQFlat`
 
 Deceleration distance in a flat model: `d_Q = d_L/(1+z)^{3/2}` (real power).
@@ -719,6 +741,22 @@ def P2 (q j s : ℝ) : ℝ := 9 * s + 6 * j + 9 * q ^ 2 + 66 * q + 42
 
 ```lean
 def P3 (q j s l : ℝ) : ℝ := 3 * l + 3 * s - 9 * (q + 4) * j - (45 * q ^ 2 + 78 * q + 12)
+```
+
+## `Cosmography.FRCosmo.PrintedF0ClaimMul`
+
+Printed (11.21) with printed (11.31), multiplied out (no division).
+
+```lean
+def PrintedF0ClaimMul : Prop :=
+  ∀ (Ω : ℝ) (a F : ℝ → ℝ) (t₀ : ℝ), IsFRCosmo Ω a F t₀ →
+    printedR (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)
+        * F (curv a t₀) =
+      -6 * hubble a t₀ ^ 2 *
+        (P0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) * Ω
+          + Q0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀))
+
+/-! ## Proof tools (helpers; not part of the frozen statements) -/
 ```
 
 ## `Cosmography.FRCosmo.Q0`

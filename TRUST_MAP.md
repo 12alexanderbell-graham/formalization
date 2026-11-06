@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 171. Resting on no unpinned physics definition: 171.
-Non-vacuity (trust track T2): 111 headlines have hypotheses; 111 of them have a
+Headlines: 174. Resting on no unpinned physics definition: 174.
+Non-vacuity (trust track T2): 113 headlines have hypotheses; 113 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -184,6 +184,9 @@ the docstring says; universally bound parameters are not listed.
 | `Sim.MichaelisMenten.mm_solution_exists` | IsMMSolution | — | — | unconditional | IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5 |
 | `Sim.Robertson.rob_state40` | IsRobSolution | — | — | `rob_state40` | IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 40 |
 | `Sim.Robertson.rob_exists` | IsRobSolution | — | — | unconditional | IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 40 |
+| `Sim.RobLong.rob_state1e11` | IsRobSolution | — | — | `rob_state1e11` | IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 100000000000 |
+| `Sim.RobLong.rob_printed_y3_low` | IsRobSolution | — | — | `rob_printed_y3_low` | IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 100000000000 |
+| `Sim.RobLong.rob_exists_1e11` | IsRobSolution | — | — | unconditional | IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 100000000000 |
 | `Data.FR13.fr13_bestfit68` | — | — | fr13Table² | `fr13_bestfit68` | margChiSq: Hbar = 68, σ = 2.8 |
 | `Data.FR13.fr13_bestfit738` | — | — | fr13Table² | `fr13_bestfit738` | margChiSq: Hbar = 73.8, σ = 2.4 |
 | `Data.FR13.fr13_exists68` | — | — | fr13Table² | unconditional | margChiSq: Hbar = 68, σ = 2.8 |
