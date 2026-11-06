@@ -331,3 +331,8 @@
 - Mathematics: **Gelfand problem as a PDE with Mathlib's Laplacian, both directions — radial classical solutions in the unit ball of ℝ³ exist for 0 < λ ≤ 3.321992118 and not for λ > 3.321992119: PROVED in Work + AUDITED** (`Work.Math.GelfandPDE.gelfand_pde_radial_bound`, freeze 194b723, proof 1757139; `Work.Math.GelfandPDEExists.gelfand_pde_radial_exists`, freeze 674cdc4, proof 03bbb04; blind restatements closed; referees STAND).
 - New tools: radial functions C² at the origin from profile data and Δ at 0 (`Work/Math/RadialC2.lean`); centre bounds of Gelfand solutions (`GProfile.lean`); radial Laplacian in any dimension (`Work/Math/RadialLaplacian.lean`); continuation of the radial Gelfand ODE from any a > 0 (`GContFrom.lean`); `glue_at`, `ode_bound` (`GelfandODEBound.lean`).
 - PROMPT working notes: a live LOCK is not idle time; radial PDE ↔ ODE pattern (both directions); instance trap on `E →L[ℝ] E →L[ℝ] ℝ`.
+## 2026-11-06T1828Z (scheduled run; parts 2 and 1)
+- Env: local Lean via elan + cache. CI: fb999b2 green on every job (Gelfand λ* PROVED); trust step red on main from 04feda9 (a module name cited as a constant in STATE) — repaired 3147cbb, `precheck_citations.py` now catches it.
+- **Thomas–Fermi initial slope certified: −1.58807103 ≤ y'(0) ≤ −1.58807102 for every neutral-atom solution, PROVED in Work + AUDITED** (`Work.Math.ThomasFermi.tf_initial_slope`, freeze 67f4410, proof 7c25ba6; blind closure; referee STANDS). Digits in print are floating point.
+- New generic method: Kamke barriers for cooperative systems (`Work/Math/TFCell.lean`), reduction t = √x, w = √y (`TFReduce.lean`), 114 generated cells (`runs/2026-11-06T1828Z/scripts/gen_tf.py`, `emit_tf.py`).
+- PROMPT working notes: barriers for shooting problems; reading CI logs.
