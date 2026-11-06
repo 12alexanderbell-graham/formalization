@@ -108,6 +108,7 @@ import Checked.Trust.SecondReadingClaimsA
 import Checked.Trust.SecondReadingClaimsB
 import Checked.Trust.SecondReadingClaimsC
 import Checked.Trust.SecondReadingClaims
+import Checked.Trust.SecondReadingKappa
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
 import Checked.Trust.FormulationsD

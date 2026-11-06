@@ -285,3 +285,8 @@
 - Part 5 with part 2: **Soave–Redlich–Kwong with Soave's κ(ω) at ω = 1 returns acentric factor 0.992** (p_s/P_c = 0.0102) at every critical point and coexistence state, existence too: frozen, proved by modules emitted from the RK route (first CI attempt), blind restatement closed, referee STANDS-WITH-CORRECTIONS, promoted to `Checked/Chemistry/SRKAcentric.lean` (author files from CI).
 - Graboski–Daubert refit: 0.994 (frozen; Work proof on `wip/srkgd`), emitted by the new parametric `variant.py`.
 - PROMPT working notes: the no-local-Lean route through the cached work job; digit-bounded constant substitution; sibling SRK claims from one config.
+
+## 2026-11-06T0228Z (scheduled run)
+- Env: repo ok; **local Lean available again** (elan + Mathlib cache; `lake build Checked` ≈ 37 min); previous run's CI green (8971901 42145695264: SRK promotion PROVED).
+- Part 3, blind round M judged: the checks on main accepted 6 of 6 valid defects (invented "printed" formulas as statement literals, shifted PR coefficients in a sibling, forged reading with its brief, narrowed claim template, RK result under the SRK name, paraphrase dropping the ΛCDM hypothesis). Four new blocking scripts written blind to M (`check_literals`, `check_source_names`, `check_templates`, `check_blind_route`): 0 of 6 accepted, 4 of 6 on the merits.
+- First literal readings: the PR 1976, PR 1978 and Soave κ(ω) coefficients of the ω = 1 headlines read by a blind reader and matched token by token (`Checked/Trust/SecondReadingKappa.lean`).
