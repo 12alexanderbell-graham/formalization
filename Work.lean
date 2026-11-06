@@ -147,6 +147,7 @@ import Work.Sim.RobCellD
 import Work.Sim.OneSidedNeg
 import Work.Sim.ChebBound
 import Work.Sim.RobShear
+import Work.Sim.RobLong
 import Work.Sim.RobCerts4
 import Work.Sim.RobCerts3
 import Work.Sim.RobCerts2
