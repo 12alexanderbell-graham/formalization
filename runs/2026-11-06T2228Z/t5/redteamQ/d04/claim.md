@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: there is a single level n lying above every energy E (a bound on all energies, i.e. bounded spectrum / a universal cutoff).
+Why it is false: the theorem is forall E, exists n (n depends on E); the paraphrase swaps the quantifiers (exists n, forall E) which is false in R (no natural number exceeds every real). Every word of the paraphrase occurs in the generated claim (theorem name energy/below/some/level, "there is", "such that", "for every"); rule 6 of check_prose passes because E is universally bound and the shape rule passes because the docstring says "there is".
+Expected: ACCEPTED (V1 limit: word order / scope of the quantifier). New headline, unconditional, no definitions. CLAIMS sentence: "There is a level n such that the energy E is below n for every E."

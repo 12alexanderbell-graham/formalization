@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: the function |x| is differentiable at 0 with derivative 0, i.e. a V-shaped potential well has a flat bottom (zero force) at its minimum.
+Why it is false: |x| has a corner at 0, left derivative -1 and right derivative +1; no derivative exists. Mathlib's `deriv` returns the junk value 0 for non-differentiable points. CLAIMS.md prints `deriv (fun x : ℝ => |x|) 0 = 0` with the notation "`deriv f x` = derivative"; the pending notation lines list only sqrt, log and division conventions, not deriv.
+Expected: ACCEPTED (V5 reads only sqrt/log = 0 and division by the literal 0; the paraphrase needs no vocabulary: derivative, function, point, equals are function words). New headline, unconditional, no definitions. CLAIMS sentence: "The derivative of the function |x| at the point 0 equals 0."
