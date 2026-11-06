@@ -8,7 +8,8 @@ A → B (rate constant k₁), B + C → A + C (k₂), 2B → B + C (k₃), with 
 equations for the concentrations y₁ = [A], y₂ = [B], y₃ = [C]:
 y₁′ = −k₁ y₁ + k₂ y₂ y₃, y₂′ = k₁ y₁ − k₂ y₂ y₃ − k₃ y₂², y₃′ = k₃ y₂².
 The standard stiff test problem takes k₁ = 0.04, k₂ = 10⁴, k₃ = 3·10⁷ and y(0) = (1, 0, 0).
-The Jacobian has an eigenvalue of size ≈ 10⁴ for most of [0, 40], so a classical Grönwall
+The Jacobian has a stiff eigenvalue of size ≈ 2–3·10³ for most of [0, 40] (referee of run
+2026-11-06T0428Z; ≈ −3.4·10³ at t = 40) against a slow one of size ≲ 1, so a classical Grönwall
 enclosure (growth e^{Lt} with the full Lipschitz constant) is useless; the proof uses the
 one-sided (logarithmic-norm) cell step `Work.Sim.OneSided.onesided_cell` in the weighted norm
 4900·e₂² + e₃², in which the network is almost non-expanding.
