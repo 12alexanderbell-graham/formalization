@@ -155,6 +155,10 @@ import Work.Math.GExistsRight
 import Work.Math.GelfandExists
 import Work.Math.GelfandBlind
 import Work.Math.GelfandBlindClosed
+import Work.Math.RadialLaplacian
+import Work.Math.GContFrom
+import Work.Math.GelfandODEBound
+import Work.Math.GelfandPDE
 import Work.Sim.MMAudit
 import Work.Sim.OneSided
 import Work.Sim.RobCell
