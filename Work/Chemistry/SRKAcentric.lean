@@ -3,6 +3,7 @@ import Checked.Records.Basic
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
 import Work.Chemistry.SRKReduced
+import Work.Chemistry.SRKExists
 
 /-!
 # Chemistry: does Soave's κ(ω) make Soave–Redlich–Kwong reproduce its own acentric factor? (run 2026-11-06T0028Z)
@@ -65,6 +66,8 @@ theorem srk_omega1_exists (R ac b Tc vc : ℝ) (hac : 0 < ac) (hb : 0 < b) (hvc 
           (1 - Real.sqrt (7 / 10))) ^ 2) b 1 0 (7 / 10 * Tc)) vl vg ps ∧
       RoundsTo (ps / cubicP R ac b 1 0 Tc vc) 0.0102 4 ∧
       RoundsTo (acentric ps (cubicP R ac b 1 0 Tc vc)) 0.992 3 := by
-  sorry
+  -- Proof (run 2026-11-06T0028Z): `Work.Chemistry.SRKExists.srk_exists_core` (equal maxima of ψ
+  -- on the liquid and gas windows by the intermediate value theorem, then the window theorem).
+  exact Work.Chemistry.SRKExists.srk_exists_core R ac b Tc vc hac hb hvc hc
 
 end Work.Chemistry.SRKAcentric

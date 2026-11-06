@@ -20,7 +20,8 @@ def sub(txt):
     pat = re.compile('|'.join(re.escape(k) for k in keys))
     return pat.sub(lambda mm: RKC[mm.group(0)], txt)
 def windows(txt):
-    txt = txt.replace('8 / 5', C['W1a']).replace('21 / 10', C['W1b'])
+    txt = re.sub(r'(?<![\d.])8 / 5(?![\d.])', C['W1a'], txt)
+    txt = re.sub(r'(?<![\d.])21 / 10(?![\d.])', C['W1b'], txt)
     return re.sub(r'\b(11|15|18)\b', lambda mm: {'11': C['W2a'], '15': C['W2b'], '18': C['XF']}[mm.group(1)], txt)
 head = '''import Mathlib
 import Checked.Records.Basic

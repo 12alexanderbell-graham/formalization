@@ -1,0 +1,130 @@
+/-! ## Back to molar volumes -/
+
+open Checked.Records Checked.Chemistry.CubicEOS Checked.Chemistry.Coexistence
+
+set_option maxHeartbeats 4000000 in
+/-- The reduced temperature `θ = R (0.7 T_c) b / a(0.7 T_c)` of the SRK fluid with Soave's α at
+ω = 1 lies in the certified interval (from the critical point; same steps as
+`Work.Chemistry.SRKReduced.srk_unique_core`). -/
+lemma theta_bounds (R ac b Tc vc : ℝ) (hac : 0 < ac) (hb : 0 < b) (hvc : b < vc)
+    (hc : IsCriticalIsotherm (cubicP R ac b 1 0 Tc) vc) :
+    830836419 / 10000000000 ≤ R * (7 / 10 * Tc) * b / (ac * (1 + 939 / 500 * (1 - Real.sqrt (7 / 10))) ^ 2) ∧
+      R * (7 / 10 * Tc) * b / (ac * (1 + 939 / 500 * (1 - Real.sqrt (7 / 10))) ^ 2) ≤ 83083657 / 1000000000 := by
+  have hD : 0 < vc ^ 2 + 1 * b * vc + 0 * b ^ 2 := by nlinarith
+  obtain ⟨hf, hx1, -, h2, h3⟩ := reduced R ac b 1 0 Tc vc hac hb (by norm_num) hvc hD hc
+  set Pc := cubicP R ac b 1 0 Tc vc with hPc
+  set x := vc / b with hx
+  unfold critCubic at hf
+  have hx1' : 0 < x - 1 := by linarith
+  have hs2 : 0 < 2 * x + 1 := by linarith
+  obtain ⟨lo, hi⟩ := root_bounds 1 x (38473221 / 10000000) (384732211 / 100000000) hx1
+    (by linear_combination hf) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+  have hx0 : 0 < x := by linarith
+  have e2 : ((x - 1) * (2 * x + 1) - (x ^ 2 + 1 * x + 0)) / ((x - 1) ^ 2 * (2 * x + 1))
+      = x ^ 2 / 3 - x - 1 := by
+    rw [div_eq_iff (by positivity)]; linear_combination (-2 * x ^ 2 / 3 + x) * hf
+  have e3 : (x ^ 2 + 1 * x + 0) ^ 2 * ((x - 1) * (2 * x + 1) - (x ^ 2 + 1 * x + 0)) /
+      ((x - 1) ^ 4 * (2 * x + 1) ^ 2) = x / 9 := by
+    rw [div_eq_iff (by positivity)]
+    linear_combination (-4 * x ^ 4 / 9 + x ^ 3 + 2 * x ^ 2 / 3 + x / 9) * hf
+  rw [e2] at h2
+  rw [e3] at h3
+  have hOb0 : 0 < x ^ 2 / 3 - x - 1 := by nlinarith
+  have hRT : R * Tc ≠ 0 := by
+    intro h0
+    rw [h0, div_zero] at h2
+    linarith
+  have hR0 : R ≠ 0 := left_ne_zero_of_mul hRT
+  have hTc0 : Tc ≠ 0 := right_ne_zero_of_mul hRT
+  have hPc0 : 0 < Pc := by
+    have : 0 < ac * Pc / (R * Tc) ^ 2 := by rw [h3]; exact div_pos hx0 (by norm_num)
+    have hsq : 0 < (R * Tc) ^ 2 := by positivity
+    have := (div_pos_iff_of_pos_right hsq).1 this
+    exact pos_of_mul_pos_right this hac.le
+  have hPcne : Pc ≠ 0 := hPc0.ne'
+  have hK : R * Tc * b / ac = 9 * (x ^ 2 / 3 - x - 1) / x := by
+    have e : R * Tc * b / ac = (b * Pc / (R * Tc)) / (ac * Pc / (R * Tc) ^ 2) := by
+      field_simp
+    rw [e, h2, h3]; field_simp
+  have hKe : 9 * (x ^ 2 / 3 - x - 1) / x = 3 * x - 9 - 9 / x := by
+    field_simp; ring
+  have hK0 : 3 * (38473221 / 10000000) - 9 - 9 / (38473221 / 10000000) ≤ 3 * x - 9 - 9 / x := by
+    have : 9 / x ≤ 9 / (38473221 / 10000000) :=
+      div_le_div_of_nonneg_left (by norm_num) (by norm_num) lo.le
+    linarith
+  have hK1 : 3 * x - 9 - 9 / x ≤ 3 * (384732211 / 100000000) - 9 - 9 / (384732211 / 100000000) := by
+    have : 9 / (384732211 / 100000000) ≤ 9 / x :=
+      div_le_div_of_nonneg_left (by norm_num) (by linarith) hi.le
+    linarith
+  have hKpos : 0 ≤ 3 * x - 9 - 9 / x := by
+    have : (0 : ℝ) ≤ 3 * (38473221 / 10000000) - 9 - 9 / (38473221 / 10000000) := by norm_num
+    linarith
+  have hS0 : (418330013 / 500000000 : ℝ) < Real.sqrt (7 / 10) :=
+    (Real.lt_sqrt (by norm_num)).2 (by norm_num)
+  have hS1 : Real.sqrt (7 / 10) < (836660027 / 1000000000 : ℝ) :=
+    (Real.sqrt_lt' (by norm_num)).2 (by norm_num)
+  set s := Real.sqrt (7 / 10) with hs
+  set α := (1 + 939 / 500 * (1 - s)) ^ 2 with hα
+  have hα0 : (1 + 939 / 500 * (1 - (836660027 / 1000000000))) ^ 2 ≤ α :=
+    pow_le_pow_left₀ (by norm_num) (by linarith) 2
+  have hα1 : α ≤ (1 + 939 / 500 * (1 - (418330013 / 500000000))) ^ 2 :=
+    pow_le_pow_left₀ (by linarith) (by linarith) 2
+  have hαpos : 0 < α := lt_of_lt_of_le (by norm_num) hα0
+  have hθ : R * (7 / 10 * Tc) * b / (ac * α) = 7 / 10 * (3 * x - 9 - 9 / x) / α := by
+    rw [← hKe, ← hK]; field_simp
+  constructor
+  · rw [hθ]
+    have m := div_le_div₀ (by positivity : (0 : ℝ) ≤ 7 / 10 * (3 * x - 9 - 9 / x))
+      (mul_le_mul_of_nonneg_left hK0 (by norm_num : (0:ℝ) ≤ 7 / 10)) hαpos hα1
+    have : (830836419 / 10000000000 : ℝ) ≤ 7 / 10 * (3 * (38473221 / 10000000) - 9 - 9 / (38473221 / 10000000)) /
+        (1 + 939 / 500 * (1 - (418330013 / 500000000))) ^ 2 := by norm_num
+    linarith
+  · rw [hθ]
+    have m := div_le_div₀ (by norm_num)
+      (mul_le_mul_of_nonneg_left hK1 (by norm_num : (0:ℝ) ≤ 7 / 10)) (by norm_num) hα0
+    have : 7 / 10 * (3 * (384732211 / 100000000) - 9 - 9 / (384732211 / 100000000)) /
+        (1 + 939 / 500 * (1 - (836660027 / 1000000000))) ^ 2 ≤ (83083657 / 1000000000 : ℝ) := by norm_num
+    linarith
+
+/-- Core of `Work.Chemistry.SRKAcentric.srk_omega1_exists` (same statement). -/
+theorem srk_exists_core (R ac b Tc vc : ℝ) (hac : 0 < ac) (hb : 0 < b) (hvc : b < vc)
+    (hc : IsCriticalIsotherm (cubicP R ac b 1 0 Tc) vc) :
+    ∃ vl vg ps, b < vl ∧
+      IsMaxwellCoexistence
+        (cubicP R (ac * (1 + (0.480 + 1.574 * 1 - 0.176 * 1 ^ 2) *
+          (1 - Real.sqrt (7 / 10))) ^ 2) b 1 0 (7 / 10 * Tc)) vl vg ps ∧
+      RoundsTo (ps / cubicP R ac b 1 0 Tc vc) 0.0102 4 ∧
+      RoundsTo (acentric ps (cubicP R ac b 1 0 Tc vc)) 0.992 3 := by
+  have hk : (0.480 + 1.574 * 1 - 0.176 * 1 ^ 2 : ℝ) = 939 / 500 := by norm_num
+  obtain ⟨t0, t1⟩ := theta_bounds R ac b Tc vc hac hb hvc hc
+  have hS1 : Real.sqrt (7 / 10) < (836660027 / 1000000000 : ℝ) :=
+    (Real.sqrt_lt' (by norm_num)).2 (by norm_num)
+  have hbase : 0 < 1 + 939 / 500 * (1 - Real.sqrt (7 / 10)) := by linarith
+  have ha0 : 0 < ac * (1 + 939 / 500 * (1 - Real.sqrt (7 / 10))) ^ 2 := mul_pos hac (pow_pos hbase 2)
+  set a := ac * (1 + 939 / 500 * (1 - Real.sqrt (7 / 10))) ^ 2 with ha
+  set T := 7 / 10 * Tc with hT
+  obtain ⟨x₁, x₂, p, h1, h12, hg1, hg2, hψ⟩ := reduced_exists (θ := R * T * b / a) t0 t1
+  have hb0 : b ≠ 0 := hb.ne'
+  have hK : 0 < a / b ^ 2 := by positivity
+  have hl : b < b * x₁ := by nlinarith
+  have hlg : b * x₁ < b * x₂ := mul_lt_mul_of_pos_left h12 hb
+  have hM : IsMaxwellCoexistence (cubicP R a b 1 0 T) (b * x₁) (b * x₂) (a / b ^ 2 * p) := by
+    refine ⟨hlg, ?_, ?_, ?_⟩
+    · rw [cubicP_eq_g R a b T ha0 hb hl, mul_div_cancel_left₀ _ hb0, hg1]
+    · rw [cubicP_eq_g R a b T ha0 hb (by linarith), mul_div_cancel_left₀ _ hb0, hg2]
+    · rw [integral_cubicP R a b T ha0 hb hl hlg, mul_div_cancel_left₀ _ hb0,
+        mul_div_cancel_left₀ _ hb0]
+      have key : ψ (R * T * b / a) 0 x₂ - ψ (R * T * b / a) 0 x₁ = p * (x₂ - x₁) := by
+        unfold ψ at hψ ⊢
+        linear_combination -1 * hψ
+      rw [key]
+      ring
+  have hM' : IsMaxwellCoexistence
+      (cubicP R (ac * (1 + (0.480 + 1.574 * 1 - 0.176 * 1 ^ 2) *
+        (1 - Real.sqrt (7 / 10))) ^ 2) b 1 0 (7 / 10 * Tc)) (b * x₁) (b * x₂) (a / b ^ 2 * p) := by
+    rw [hk]; exact hM
+  obtain ⟨r1, r2⟩ := srk_unique_core R ac b Tc vc (b * x₁) (b * x₂) (a / b ^ 2 * p)
+    hac hb hvc hc hl hM'
+  exact ⟨b * x₁, b * x₂, a / b ^ 2 * p, hl, hM', r1, r2⟩
+
+end Work.Chemistry.SRKExists
