@@ -215,4 +215,74 @@ theorem contDiffAt_zero_radial {F F1 F2 : ℝ → ℝ} {L C R : ℝ} (hR : 0 < R
   refine ⟨g', ⟨_, hball, d2⟩, ?_⟩
   exact contDiffAt_zero.2 ⟨_, hball, cg⟩
 
+omit [FiniteDimensional ℝ E] in
+/-- The first derivative near 0 and the second derivative at 0 of the radial function, under the
+hypotheses of `contDiffAt_zero_radial`. -/
+theorem hasFDerivAt_radial_zero {F F1 F2 : ℝ → ℝ} {L C R : ℝ} (hR : 0 < R)
+    (hF1 : ∀ ρ ∈ Ioo 0 R, HasDerivAt F (F1 ρ) ρ)
+    (hF2 : ∀ ρ ∈ Ioo 0 R, HasDerivAt F1 (F2 ρ) ρ)
+    (hM : ∀ ρ ∈ Ioo 0 R, |F1 ρ / ρ - L| ≤ C * ρ)
+    (hquad : ∀ ρ ∈ Ico 0 R, |F ρ - F 0| ≤ C * ρ ^ 2) :
+    (∀ y ∈ Metric.ball (0 : E) R,
+      HasFDerivAt (fun y : E => F ‖y‖) (Mq F1 L ‖y‖ • IL y) y) ∧
+    HasFDerivAt (fun y : E => Mq F1 L ‖y‖ • IL y) (L • IL) 0 := by
+  set M := Mq F1 L with hMdef
+  set f' : E → E →L[ℝ] ℝ := fun y => M ‖y‖ • IL y with hf'
+  have hball : Metric.ball (0 : E) R ∈ 𝓝 (0 : E) := Metric.ball_mem_nhds 0 hR
+  have Mpos : ∀ ρ, ρ ≠ 0 → M ρ = F1 ρ / ρ := fun ρ h => by simp [hMdef, Mq, h]
+  refine ⟨fun y hy => ?_, ?_⟩
+  · rw [mem_ball_zero_iff] at hy
+    by_cases hy0 : y = 0
+    · subst hy0
+      have e : M ‖(0 : E)‖ • IL (0 : E) = 0 := by simp
+      rw [e]
+      refine hasFDerivAt_zero_of_sq C ?_
+      filter_upwards [hball] with z hz
+      rw [mem_ball_zero_iff] at hz
+      simpa [Real.norm_eq_abs] using hquad ‖z‖ ⟨norm_nonneg z, hz⟩
+    · have hr : ‖y‖ ∈ Ioo 0 R := ⟨norm_pos_iff.2 hy0, hy⟩
+      have h := (hF1 ‖y‖ hr).comp_hasFDerivAt y (hasFDerivAt_norm' hy0)
+      rw [Function.comp_def] at h
+      convert h using 1
+      simp only [Mpos _ hr.1.ne', smul_smul, IL_apply]
+      congr 1
+  · refine hasFDerivAt_zero_of_sq C ?_
+    filter_upwards [hball] with z hz
+    rw [mem_ball_zero_iff] at hz
+    have f0 : f' 0 = 0 := by simp [hf']
+    show ‖f' z - f' 0 - (L • IL) z‖ ≤ C * ‖z‖ ^ 2
+    rw [f0, sub_zero]
+    by_cases hz0 : z = 0
+    · subst hz0; simp [hf']
+    have hr : ‖z‖ ∈ Ioo 0 R := ⟨norm_pos_iff.2 hz0, hz⟩
+    have e2 : f' z - (L • IL) z = (F1 ‖z‖ / ‖z‖ - L) • IL z := by
+      simp only [hf', Mpos _ hr.1.ne', ContinuousLinearMap.smul_apply]
+      exact (sub_smul _ _ _).symm
+    rw [e2, norm_smul, norm_IL_apply, Real.norm_eq_abs]
+    have := hM _ hr
+    calc |F1 ‖z‖ / ‖z‖ - L| * ‖z‖ ≤ C * ‖z‖ * ‖z‖ :=
+          mul_le_mul_of_nonneg_right this (norm_nonneg z)
+      _ = C * ‖z‖ ^ 2 := by ring
+
+open InnerProductSpace Laplacian in
+/-- The Laplacian at the origin of the radial function is `n · L`, `n` the dimension. -/
+theorem laplacian_radial_zero {F F1 F2 : ℝ → ℝ} {L C R : ℝ} (hR : 0 < R)
+    (hF1 : ∀ ρ ∈ Ioo 0 R, HasDerivAt F (F1 ρ) ρ)
+    (hF2 : ∀ ρ ∈ Ioo 0 R, HasDerivAt F1 (F2 ρ) ρ)
+    (hM : ∀ ρ ∈ Ioo 0 R, |F1 ρ / ρ - L| ≤ C * ρ)
+    (hquad : ∀ ρ ∈ Ico 0 R, |F ρ - F 0| ≤ C * ρ ^ 2) :
+    Δ (fun y : E => F ‖y‖) 0 = (Module.finrank ℝ E : ℝ) * L := by
+  obtain ⟨d1, d2⟩ := hasFDerivAt_radial_zero (E := E) hR hF1 hF2 hM hquad
+  have hev : fderiv ℝ (fun y : E => F ‖y‖) =ᶠ[𝓝 0] fun y => Mq F1 L ‖y‖ • IL y := by
+    filter_upwards [Metric.ball_mem_nhds (0 : E) hR] with y hy using (d1 y hy).fderiv
+  have hH : fderiv ℝ (fderiv ℝ (fun y : E => F ‖y‖)) 0 = L • IL := by
+    rw [hev.fderiv_eq, d2.fderiv]
+  rw [laplacian_eq_iteratedFDeriv_stdOrthonormalBasis]
+  simp only [iteratedFDeriv_two_apply, Matrix.cons_val_zero, Matrix.cons_val_one, hH]
+  set b := stdOrthonormalBasis ℝ E
+  have hvv : ∀ i, ((L • IL : E →L[ℝ] E →L[ℝ] ℝ) (b i)) (b i) = L := fun i => by
+    simp only [ContinuousLinearMap.smul_apply, IL_apply, innerSL_apply_apply, smul_eq_mul]
+    rw [real_inner_self_eq_norm_sq, b.orthonormal.1 i]; norm_num
+  simp only [hvv, Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+
 end Work.Math.RadialC2
