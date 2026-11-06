@@ -2,12 +2,23 @@
 
 **THE RESULT:** part 1 (every link machine-checked: rigorous simulators) by rotation (part 1 idle three runs): the simulator cannot handle stiff systems — its Grönwall bound grows like e^{Lt} with the full Lipschitz constant L, which for a stiff chemical network (Robertson: rate constants 0.04, 10⁴, 3·10⁷) is ≈ 10⁴ and makes every certified step microscopic. Step this run: a one-sided-Lipschitz (logarithmic-norm) enclosure theorem in Lean, so the error bound grows only with the largest *expansion* rate, plus the feasibility numbers for Robertson.
 
-**What can a scientist now trust without checking it themselves, that they could not before?** (filled at the end)
+**What can a scientist now trust without checking it themselves, that they could not before?** The state at t = 40 of Robertson's stiff reaction network, the standard stiff test problem of chemical kinetics (rate constants 0.04, 10⁴, 3·10⁷): for every solution of the rate equations, y₁(40) ∈ (0.7158270, 0.7158271), y₂(40) ∈ (9.1855, 9.1856)·10⁻⁶, y₃(40) ∈ (0.2841637, 0.2841638), and a solution exists — a Lean theorem (Work), not a floating-point run; to the referee's knowledge no validated or formally proved enclosure at t = 40 is published (Zhang & Yap, arXiv:2602.00162, validated interval enclosures of the same system at T = 1, not formal). The method behind it is general: the certified simulator now handles stiff systems.
 
-**Measure:** (filled at the end)
+**Measure:** stiff systems the certified simulator can integrate 0 → 1 (the classical Grönwall route would need ≈ e^{10⁴·40} amplification; the one-sided route's total amplification over [0, 40] is ≈ 1); certified simulation results 2 → 3 (Work); generated cells 49, final enclosure radius 1.83·10⁻⁹ in the weighted norm; stiffness ratio handled ≈ 3·10³.
 
-**Weakest unchecked step:** (filled at the end)
+**Weakest unchecked step:** the source of the rate constants — the blind literal reader saw only a text extraction of a secondary source (Bari IVP test set, ROBER), not Robertson's 1966 paper; and the result is in Work (Checked promotion with pin, literal registration, NV witness and trust step is next run's).
 
 ## Start
 - 04:27Z: no LOCK; pre-cloned checkout detached; `git checkout -B main origin/main` = 1b584f7 (CI 42158536757 green; 42155130561, 42150630881 green: all pushes of run 0228Z green).
 - 04:30Z: elan installer worked (local Lean 4.35.0); Mathlib cache fetched.
+
+## Work
+1. **One-sided (logarithmic-norm) cell step** (`Work/Sim/OneSided.lean`, fork): `onesided_cell` — for a 2-D system with weighted norm w·e₂² + e₃², error ≤ (δ + ε(t−a))·e^{μ(t−a)} where μ bounds ⟨F(y) − F(g), y − g⟩_w only on the ball of radius B around the approximation (touching-point comparison `image_le_of_deriv_right_lt_deriv_boundary'`; no continuous induction, no Lipschitz constant). `rob_onesided`: a rational per-cell condition for the reduced Robertson field. Feasibility (`scripts/rob_feas.py`): in the weight d = 70 the log norm is ≈ 0 along the trajectory (it is exactly 0 for the pointwise optimal weight d² = 2k₃y₂/(k₁ + k₂y₂)).
+2. **Freeze** 5a85227 (`Work/Sim/Robertson.lean`: `IsRobSolution`, `rob_state40`, `rob_exists`), then blind restater (Sonnet), referee (Opus) and the cell-theorem fork in one message.
+3. **Certificates** (`scripts/gen_rob.py`, `scripts/emit_rob.py`): Radau reference (rtol 10⁻¹³), degree-12 collocation polynomials in u = t − (cell midpoint) (Newton in float64), coefficients rounded to rationals, exact defect polynomials bounded by Σ|cₖ|(h/2)ᵏ (centring cut the bound's overestimate from ≈ 10⁸ to ≈ 10³), μ from the PSD condition Cm² ≤ 4μ(wA − K₀B + wμ). 49 cells, first of length 10⁻⁵ (transient), growing ×1.5 to 2; μ from 24 (first cell) to 10⁻⁵. `Work/Sim/RobCerts{0..4}.lean` compiled first time (65–90 s per 10-cell module).
+4. **Existence**: Picard–Lindelöf for the clamped field (`Work/Sim/RobExists.lean`, fork); the same chain, stated for any field equal to the Robertson field on the box, keeps the clamped solution in the box.
+5. **Audit**: blind restatement (continuity + two-sided derivatives on (0, 40) only) closed in Lean (`Work/Sim/RobAudit.lean`); referee STANDS-WITH-CORRECTIONS (`referee_rob.md`: equations, constants, intervals correct with margins 6.9·10⁻⁸/3.1·10⁻⁸, 3.5·10⁻¹¹/6.5·10⁻¹¹, 4.6·10⁻⁸/5.4·10⁻⁸ against an independent 40-digit Gauss–Legendre solve; corrections: prove existence (done), eigenvalue size in the module doc (fixed), cite Zhang & Yap 2026 and say floating-point values at t = 40 are in print, none certified). Blind spec of `IsRobSolution` (`Work/Fidelity/RobSpec.lean`, law + conservation + anchor + two stoichiometry near misses) and pin (`Work/Sim/RobPin.lean`); blind literal reader (brief cedc72c alone, reading 7c8b65c alone; Bari test set ROBER) agrees with every headline constant (`literals_agree`).
+6. Kind of result (PROMPT note on part 2): the values are in print from floating-point solvers; new is the certified enclosure and the stiff method.
+
+## End
+- Local: every new Work module built (`lake build Work.Sim.RobAudit Work.Sim.RobPin`), axioms standard. CI of the pushes: see STATE "Environment" / next run.

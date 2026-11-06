@@ -290,3 +290,8 @@
 - Env: repo ok; **local Lean available again** (elan + Mathlib cache; `lake build Checked` ≈ 37 min); previous run's CI green (8971901 42145695264: SRK promotion PROVED).
 - Part 3, blind round M judged: the checks on main accepted 6 of 6 valid defects (invented "printed" formulas as statement literals, shifted PR coefficients in a sibling, forged reading with its brief, narrowed claim template, RK result under the SRK name, paraphrase dropping the ΛCDM hypothesis). Four new blocking scripts written blind to M (`check_literals`, `check_source_names`, `check_templates`, `check_blind_route`): 0 of 6 accepted, 4 of 6 on the merits.
 - First literal readings: the PR 1976, PR 1978 and Soave κ(ω) coefficients of the ω = 1 headlines read by a blind reader and matched token by token (`Checked/Trust/SecondReadingKappa.lean`).
+
+## 2026-11-06T0428Z (scheduled run)
+- Env: repo ok; local Lean available (elan + Mathlib cache); previous run's CI green (1b584f7 42158536757).
+- Part 1: **the certified simulator handles stiff systems.** One-sided (logarithmic-norm) cell step in a weighted norm (`Work/Sim/OneSided.lean`); Robertson's network (0.04, 10⁴, 3·10⁷) certified at t = 40 for every solution, existence too, 49 generated cells (`Work/Sim/Robertson.lean`, PROVED in Work); blind restatement closed, referee STANDS-WITH-CORRECTIONS, blind spec + pin, blind literal reading.
+- PROMPT working note: stiff systems by one-sided bounds; centred polynomials for defect bounds.
