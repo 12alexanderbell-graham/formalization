@@ -141,6 +141,7 @@ import Work.Math.LaneEmden
 import Work.Math.LEBlindBridge
 import Work.Math.LaneEmdenBlind
 import Work.Sim.MMAudit
+import Work.Sim.OneSided
 import Work.Data.FR13
 import Work.Data.FR13Tools
 import Work.Data.FR13Certs
