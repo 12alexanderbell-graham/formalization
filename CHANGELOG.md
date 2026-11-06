@@ -274,3 +274,8 @@
 - Env: no LOCK; checkout reset to origin/main; local Lean via elan + cache (full Checked build ≈ 44 min). CI: run 1828Z's promotion 414e080 42098722467 green on every job — `pr78_omega1_unique`, `pr78_omega1_exists` PROVED.
 - Part 1: `claim_baseline.txt` 28 → 0 and `formula_baseline.txt` 11 → 0. Blind Sonnet second readings (typeset only) of every grandfathered CLAIM's inline data (incl. the formulas behind F1, F2, F9) and of `dQFlat`, `jL`; blind second formulations of the seven remaining formulas (the F9 correction of (11.31) re-derived from the field equations) and of `margChiSq` for every σ. All agree (`Checked/Trust/TranscriptionsClaims.lean`, `Formulations{D,E}.lean`). CLAIMS.md marks CLAIMs read twice. 48 closed audit theorems registered in `audits.txt`.
 - PROMPT working note: empty a baseline while a build runs.
+
+## 2026-11-05T2228Z (scheduled run)
+- Env: no LOCK; checkout reset to origin/main; local Lean via elan + cache (full Checked build ≈ 52 min). CI: dd055a6 42113143146 and 862bb00 42119105514 green.
+- Part 3, blind round L (Sonnet red team on a read-only snapshot, aimed at run 2028Z's evidence route): 5 of 6 valid defects accepted by the checks on main. New blocking `scripts/trust/check_provenance.py`, written blind in parallel by a fork: rejects 5/5. Two StatementDeps rules after reading L (agreements of propositions; inline arithmetic in CLAIMs). Main unchanged under the new rules (167/167, NV 108/108).
+- PROMPT working note: forged evidence needs provenance checks, not disclosure.

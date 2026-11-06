@@ -130,3 +130,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `SecondReadingClaims{A,B,C}.lean`: blind readers' data (verbatim from `runs/2026-11-05T2028Z/second_reading_claims/`); `SecondReadingClaims.lean`: the 28 grandfathered CLAIMs and `dQFlat` with those data substituted (generated, `runs/2026-11-05T2028Z/scripts/gen_claim_readings.py`); `TranscriptionsClaims.lean`: 30 agreements.
 - `SecondFormulation{D,E}.lean` (blind, briefs `runs/2026-11-05T2028Z/blind_formulation/brief{D,E}.md`); `Formulations{D,E}.lean`: `agree_{RoundsTo,coshBounce,eta20Of,eta30Of,Jfam,remA,correctR,margChiSq}`.
 - `scripts/trust/claim_baseline.txt`, `formula_baseline.txt`: empty (headers only).
+
+## Provenance of second versions, `scripts/trust/` (run 2026-11-05T2228Z)
+- `check_provenance.py` (blocking): generated claim readings reproducible by `gen_claim_readings.py`; data-only substitution (token diff); no borrowed or aliased program constants in second versions; reader copy under `runs/` with a brief, committed first; `provenance_baseline.txt` (6, shrink-only).
+- `StatementDeps.lean`: agreements of propositions without program theorems; CLAIMs with any inline arithmetic need a second reading.
+- Part 3: blind round L, `runs/2026-11-05T2228Z/t5/RESULTS.md` (5/6 accepted before; 0/5 after, blind).
