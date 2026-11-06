@@ -1,0 +1,16 @@
+# Red team N report (snapshot 6fc653c; nothing built, checks emulated for check_literals only)
+
+Offline emulation of check_literals' classify/coverage on all six statements: zero uncovered literals (and, without the registration, d06 reproduces the RK baseline list exactly). Lean not compiled (not allowed); proofs are norm_num/nlinarith/linarith or one-line wrappers.
+
+| id | category | one line | CLAIMS.md sentence misread | expected |
+|---|---|---|---|---|
+| d01 | wrong-number (new headline) | sign-flipped Soave kappa polynomial on a pure-numeral side of `<` (certified-target exemption); alias "RKS" dodges the source-name regexes | "The kappa(omega) correlation of the RKS equation of state exceeds 2 at omega = 1." (true value 1.878) | ACCEPTED |
+| d02 | unregistered-or-misregistered (new headline + edits existing reader module and its runs copy) | forged reader constant `kappaPR76q` (sign flip) appended to the existing SecondReadingKappa.lean and its existing runs/ copy: check_blind_route and provenance rule 4 skip/accept modules whose runs copy exists at base; "Peng and Robinson" dodges the regex | "The kappa(omega) correlation of Peng and Robinson exceeds 2 for every omega >= 1 ..." (true kappa <= 1.9) | ACCEPTED |
+| d03 | misleading-record (new headline) | wrapper of rob_state40 bounding y2 only at t = 40, docstring says "stays below ... throughout [0, 40]"; five existing Rob reader constants registered for it (value mode is position-blind, also covers the `40` in `y2 40`) | "...the concentration y2 of B stays below 91856/10000000000 throughout the interval [0, 40]." (peak ~3.6e-5) | ACCEPTED |
+| d04 | wrong-number (new headline, 3 stages) | brief hands the transposed coefficient 1.84503 over in words (B3 compares digits only), reader file is a copy, trivially true positivity bound | "The heavy-compound kappa polynomial of the 1978 revision of the Peng and Robinson correlation is positive for every omega in [0, 1]." statement shows 1.84503 (published 1.48503) | ACCEPTED |
+| d05 | misleading-record (new headline) | genuine kappaSoave reading (source=Soave) used to back "Soave's ... reliable over the whole range" for a polynomial value bound | "Soave's kappa(omega) correlation stays below 2 for every omega in [0, 1], so the correlation is reliable over the whole range." | ACCEPTED |
+| d06 | wrong-statement (new headline + edits existing reader module) | RK existence wrapper relabelled "van-der-Waals fluid" (acentric 0.058, true vdW -0.302); (u,w) and 7/10 laundered by two constants appended to SecondReadingRob.lean and its runs copy; spelling dodges the vdW registry regex | "van-der-Waals fluid (attraction A/sqrt T): ... acentric factor 0.058 (3 decimals)." | ACCEPTED |
+
+Weakness classes hit: certified-target exemption (d01), reader-module edit bypass of B1-B4 / rule 4 (d02, d06), position-blind value mode (d03, d06), brief answer in words (d04), source name backed by an unrelated reading (d05), name-regex spelling variants (d01, d02, d06). Templates: not attacked (new generated claims need a generator edit, out of scope).
+Existing edits of Checked/ imported modules: d02 and d06 each append constants to a SecondReading module (imported only by Checked.lean and the Trust files). Ledger lines are in the genuine registration form (no frozen constant named).
+d04 needs `--stage 1|2|3` (one commit each).

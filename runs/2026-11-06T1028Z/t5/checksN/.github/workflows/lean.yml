@@ -1,0 +1,176 @@
+# The external judge (annex XXXIX). Changing this file is an integrity event (annex 39.5):
+# log it in LEDGER.md, and never weaken a check without Alexander's explicit approval.
+name: Lean judge
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  goal-guard:
+    name: goal guard (the goal and the no-narrowing instruction must not be lost; 2026-10-31, see LEDGER)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: python3 scripts/goal_guard.py
+
+  validation-packet:
+    name: expert-validation packet is current, or frozen once sent (THE RESULT part 4; run 2026-10-31T0828Z, see LEDGER)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - run: python3 validation/make_packet.py --check
+
+  work:
+    name: work (drafts, sorry allowed)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: leanprover/lean-action@v1.7.0
+        with:
+          use-mathlib-cache: "true"
+          build-args: "Work"
+      - name: Closed audits stay closed (blocking; run 2026-11-04T1028Z, red team G, see LEDGER)
+        env:
+          BASE: ${{ github.event.before || github.event.pull_request.base.sha }}
+        run: |
+          # every theorem listed in scripts/trust/audits.txt (closed audit theorems of Work/**/*Audit*.lean)
+          # still exists and uses only the standard axioms (no sorryAx); the list may only shrink with a LEDGER line
+          lake env lean scripts/trust/AuditClosed.lean
+          python3 scripts/trust/check_audits.py "$BASE"
+
+  checked:
+    name: checked (strict)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      # Repair, run 2026-11-05T1628Z (annex LIV, see LEDGER): three checked jobs were lost without a log
+      # (ff010a6 and 70d33e3 in nanoda, 01b0c8c in the build) on trees that passed elsewhere — the
+      # signature of the runner VM dying on memory or disk. Free unused toolchains and add swap; no
+      # check changes. The resource report is printed again after nanoda.
+      - name: Free disk and add swap (robustness; no check changes)
+        run: |
+          df -h / ; free -h
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          sudo fallocate -l 8G /extra-swap && sudo chmod 600 /extra-swap && sudo mkswap /extra-swap && sudo swapon /extra-swap || echo "swap not added"
+          df -h / ; free -h
+      - uses: leanprover/lean-action@v1.7.0
+        env:
+          LEAN_NUM_THREADS: "1"
+        with:
+          use-mathlib-cache: "true"
+          build-args: "Checked"
+          axiom-audit: "true"
+          axiom-audit-allow: "propext,Classical.choice,Quot.sound"
+          axiom-audit-root: "Checked"
+          leanchecker: "true"
+          leanchecker-args: "Checked"
+      - name: Independent type check of Checked with nanoda (blocking; repaired run 2026-10-30T0220Z, see LEDGER)
+        run: |
+          df -h / ; free -h
+          scripts/nanoda_checked.sh
+          df -h / ; free -h
+      - name: No sorry / axiom / native_decide in Checked sources (belt and braces)
+        run: |
+          if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
+            echo "Forbidden token found in Checked"; exit 1
+          fi
+      - name: Statement dependencies, trust map, non-vacuity witnesses, pin shape, frozen registry, unused hypotheses, records, certified numbers, prose/meaning (all blocking; runs 2028Z, 2228Z, 2026-10-31T0028Z, 0228Z, 1028Z, see LEDGER)
+        run: |
+          set -o pipefail
+          lake env lean scripts/trust/StatementDeps.lean | tail -n 40
+          # certified numbers in FINDINGS.md (run 2026-10-31T0228Z; reads .lake/records_numbers.tsv)
+          python3 scripts/trust/check_numbers.py
+          # meaning carried by prose and names: docstrings, names and statement shape checked against
+          # what the statement reaches (run 2026-10-31T1028Z; reads .lake/meaning.jsonl)
+          python3 scripts/trust/check_prose.py
+          # statement literals are certified targets, read twice (literal_readings.txt) or grandfathered (shrink-only
+          # literal_baseline.txt); model/source names backed by what the statement reaches; claim templates of
+          # generated readings frozen (run 2026-11-06T0228Z, written blind to red team M; reads .lake/meaning.jsonl)
+          python3 scripts/trust/check_literals.py
+          python3 scripts/trust/check_source_names.py
+          python3 scripts/trust/check_templates.py
+          # certified targets hold one number and value-mode readings count only at registered slots
+          # (literal_slots.txt); source/model names in any spelling, backed by what the reader itself named; more
+          # generalising words need universally bound data (run 2026-11-06T1028Z, written blind to red team N)
+          python3 scripts/trust/check_literal_targets.py
+          python3 scripts/trust/check_source_variants.py
+          python3 scripts/trust/check_prose_gen.py
+          # pin claims in TRUSTED_DEFINITIONS.md must match scripts/trust/pins.txt (run 2026-11-04T0428Z, red team F)
+          python3 scripts/trust/check_trusted_defs.py
+          # generated claims (run 2026-11-04T2228Z, LEDGER): CLAIMS.md is produced from the Lean
+          # statements; the phrases of pinned definitions are its only hand-written words
+          lake env lean scripts/trust/Claims.lean | tail -n 5
+          python3 scripts/trust/check_claims.py
+          if ! git diff --quiet -- CLAIMS.md; then
+            echo "::error::CLAIMS.md in the repository is stale (blocking since run 2026-11-04T2228Z); regenerate with: lake env lean scripts/trust/Claims.lean"
+            git diff --stat -- CLAIMS.md
+            exit 1
+          fi
+          if ! git diff --quiet -- TRUST_MAP.md; then
+            echo "::error::TRUST_MAP.md in the repository is stale (blocking since run 2026-10-31T0028Z); regenerate with: lake env lean scripts/trust/StatementDeps.lean"
+            git diff --stat -- TRUST_MAP.md
+            exit 1
+          fi
+      - name: Frozen statements and definitions change only with a LEDGER entry naming them (run 2026-10-31T0028Z)
+        env:
+          BASE: ${{ github.event.before || github.event.pull_request.base.sha }}
+        run: |
+          python3 scripts/trust/check_relock.py "$BASE"
+          # certified numbers of FINDINGS.md may not be changed or downgraded silently (run 2026-10-31T0228Z)
+          python3 scripts/trust/check_numbers.py --base "$BASE"
+          # the prose baseline may only shrink and the glossary only grow (run 2026-10-31T1028Z)
+          python3 scripts/trust/check_prose.py --base "$BASE"
+          # added or changed lines of TRUSTED_DEFINITIONS.md are disclosed in LEDGER (run 2026-11-04T1028Z, red team G)
+          python3 scripts/trust/check_trusted_defs.py --base "$BASE"
+          # phrases of pinned definitions (the hand-written words of CLAIMS.md) change only with a LEDGER line (run 2026-11-04T2228Z)
+          python3 scripts/trust/check_claims.py --base "$BASE"
+          # FORMULA second-formulation baseline may only shrink (run 2026-11-05T0828Z, red team J d03/d06)
+          python3 scripts/trust/check_formulas.py --base "$BASE"
+          # second readings/formulations: generated module reproducible, data-only substitution, no borrowed
+          # program constants, reader's copy under runs/ next to its brief and committed first (run 2026-11-05T2228Z, round L)
+          python3 scripts/trust/check_provenance.py --base "$BASE"
+          # literal/source-name baselines only shrink, readings and templates change only with a LEDGER line; a new
+          # reader file: brief, reading, Checked copy in three ordered commits, brief without the answer (run 2026-11-06T0228Z)
+          python3 scripts/trust/check_literals.py --base "$BASE"
+          python3 scripts/trust/check_source_names.py --base "$BASE"
+          python3 scripts/trust/check_templates.py --base "$BASE"
+          python3 scripts/trust/check_blind_route.py --base "$BASE"
+          # baselines of the round-N rules only shrink, slot/alias registries change only with a LEDGER line or grow;
+          # existing reader modules and runs/ reader files are frozen (a new reading needs a new reader file);
+          # briefs may not hand over the answer as words, split digits, notation or digit fragments (run 2026-11-06T1028Z)
+          python3 scripts/trust/check_literal_targets.py --base "$BASE"
+          python3 scripts/trust/check_source_variants.py --base "$BASE"
+          python3 scripts/trust/check_prose_gen.py --base "$BASE"
+          python3 scripts/trust/check_reader_frozen.py --base "$BASE"
+          python3 scripts/trust/check_brief_leak.py --base "$BASE"
+      - name: Author files for runs without local Lean (generated output, not a check; run 2026-11-04T0028Z, see LEDGER)
+        # When the run environment refuses a local Lean install (run 2026-11-04T0028Z), the files a
+        # promotion must commit (TRUST_MAP.md, relocked frozen.txt, validation packet) can only be
+        # generated here. They are printed (base64 tarball between markers) and uploaded; the run
+        # still commits them itself, with the LEDGER line that check_relock.py requires.
+        if: always()
+        run: |
+          set +e
+          TRUST_RELOCK=1 lake env lean scripts/trust/StatementDeps.lean > /tmp/author-relock.log 2>&1
+          tail -n 20 /tmp/author-relock.log
+          lake env lean scripts/trust/Claims.lean > /tmp/author-claims.log 2>&1
+          python3 validation/make_packet.py > /dev/null 2>&1
+          tar czf /tmp/author-files.tgz CLAIMS.md TRUST_MAP.md scripts/trust/frozen.txt validation .lake/records_numbers.tsv .lake/records_params.tsv .lake/meaning.jsonl /tmp/author-relock.log 2>/dev/null
+          echo "AUTHOR-FILES-BEGIN"
+          base64 /tmp/author-files.tgz
+          echo "AUTHOR-FILES-END"
+          exit 0
+      - name: Upload author files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: author-files
+          path: /tmp/author-files.tgz

@@ -1,0 +1,4 @@
+# Grandfathered unbacked names found only by scripts/trust/check_source_variants.py (normalised spellings, strict
+# `source`/`reading` backing; run 2026-11-06T1028Z, written blind to red team N). Shrink-only (--base).
+# Format: `<headline> <key>  # matched text: reason`. Pairs already in source_names_baseline.txt pass without a line here.
+# Empty at creation: on the tree at 6fc653c every match the stricter rules find is backed or already grandfathered there.

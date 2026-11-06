@@ -1,0 +1,6 @@
+# Grandfathered extra literals of check_literal_targets.py (rules T1/T2, run 2026-11-06T1028Z). Shrink-only (--base):
+# no line may be added; a line may only lose literals (keeping the order of the rest). Format:
+# `<headline> | <extra literals in statement order> | <reason>`. Populated from the tree at 6fc653c by the check writer
+# of run 2026-11-06T1028Z (blind to red team N); both lines predate the rule.
+Checked.Data.Moresco16Min.table5_oL_aicc_unattainable | 21.41 0.005 | T1: the target side `21.41 + 0.005` is the printed Table 5 AICc (21.41) plus half its last printed digit; the printed value was exempt as a "target" under check_literals (a2) and has never been read twice — a blind literal reading registered with slot `target` empties this line
+Checked.Sim.Robertson.rob_state40 | 40 40 40 40 40 40 | T2: the six evaluation times `y₁ 40` … `y₃ 40` of the conclusion were covered by robT (end time, registered for IsRobSolution.T) by value only; they are the same time by the statement's construction, but no reading registered for that position — a slot for the evaluation time (or a statement through T) empties this line

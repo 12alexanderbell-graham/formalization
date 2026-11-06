@@ -23,7 +23,8 @@ B2 (brief frozen): the brief is not modified after the commit that adds the read
 B3 (brief does not contain the answer): no decimal literal (`0.480`), fraction `a / b` with an operand of
    two or more digits, or integer of three or more digits from the reader file's code occurs in the brief
    (numbers compared by value; a brief that hands over the data is not a blind reading); and no line of
-   the reader file's code of 25 or more non-space characters occurs in the brief.
+   the reader file's code of 25 or more non-space characters occurs in the brief (template lines exempt since run
+   2026-11-06T1028Z: imports, namespace/end/open, doc and comment lines without `:=`).
 B4 (isolation): the commit adding the reader file changes nothing outside `runs/<run>/`, and the commit
    adding the brief adds no `.lean` file and changes nothing under `Checked/`, `Work/` or `scripts/`.
 
@@ -141,6 +142,12 @@ def check_module(rel, base, order, errors):
             flat = re.sub(r"\s+", "", text)
             for line in code.splitlines():
                 ln = re.sub(r"\s+", "", line)
+                # template lines a brief must hand over (run 2026-11-06T1028Z: the brief's file template
+                # tripped this rule on `import Mathlib.Data.Real.Basic`): imports, namespace/end/open and
+                # doc/comment lines without `:=` carry no reading; their numbers are still compared above
+                if line.strip().startswith(("import ", "namespace ", "end ", "open ", "/--", "/-!", "--")) \
+                        and ":=" not in line:
+                    continue
                 if len(ln) >= 25 and ln in flat:
                     p.append(f"B3: brief {good_brief} contains the reader's code line {line.strip()[:60]!r}")
                     break

@@ -1,0 +1,37 @@
+# Spelling variants of model and source names (scripts/trust/check_source_variants.py, run 2026-11-06T1028Z).
+# Format: `<key> | <alias>[, <alias> ...] | <backing>`; aliases are written normalised (lower case, words separated by
+# one space: hyphens, dashes, "and", "&", "+", "/", apostrophes and diacritics are removed from the prose before
+# matching, camelCase and `_` of headline names split into words). <backing> is `=` (the backing of the same key in
+# scripts/trust/source_names.txt) or a backing in that file's syntax for a key that only exists here.
+# May only grow (--base): a removed or changed line weakens a blocking check.
+peng-robinson | peng robinson, robinson peng, peng, robinson, pr, pr76, pr78, pr 76, pr 78, pr1976, pr1978 | =
+redlich-kwong | redlich kwong, redlich, kwong, rk, srk, rks, soave redlich kwong, redlich kwong soave, rk soave | =
+van-der-waals | van der waals, vanderwaals, van der waal, vdw, waals | =
+soave | soave | =
+graboski-daubert | graboski, daubert | =
+pitzer | pitzer | =
+aviles | aviles | =
+bamba | bamba | =
+cattoen-visser | cattoen, visser | =
+demianski | demianski | =
+capozziello | capozziello | =
+cunha | cunha | =
+moresco | moresco | =
+farooq-ratra | farooq, ratra | =
+riess | riess | =
+planck | planck | =
+chevallier-linder | chevallier, linder, cpl | =
+weinberg | weinberg | =
+visser-generic | kolb, turner, peebles, hogg, wright | =
+robertson | robertson, rober | =
+stryjek-vera | stryjek, prsv | source
+patel-teja | patel teja, patel, teja | source
+twu | twu | source
+mathias-copeman | mathias, copeman | source
+carnahan-starling | carnahan, starling | source
+berthelot | berthelot | source
+dieterici | dieterici | source
+lee-kesler | lee kesler, kesler | source
+benedict-webb-rubin | benedict webb rubin, bwr | source
+bari-test-set | mazzia, magherini, bari | source
+hairer-wanner | hairer, wanner | source
