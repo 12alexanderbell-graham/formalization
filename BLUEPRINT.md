@@ -154,3 +154,4 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `GContFrom`: `lipF'`, `normF'`, `contF'`, `exists_from` (Picard–Lindelöf for (w, s²φ) from any a > 0, clamps inactive by monotonicity).
 - `GelfandODEBound`: `glue_at` (one-sided derivatives glued at any c), `ode_bound` (radial ODE on (0, 1) with f'(0) = 0, f(1) = 0 ⇒ λ ≤ 3.321992119 via `Checked.Math.Gelfand.gelfand_ball_critical`).
 - `GelfandPDE`: headline `gelfand_pde_radial_bound`; `GelfandPDEBlindClosed`: `blind_closed`, `nonvacuous_zero`.
+- `RadialC2`: `hasFDerivAt_zero_of_sq`, `IL`, `contDiffAt_zero_radial` (radial function C² at 0), `hasFDerivAt_radial_zero`, `laplacian_radial_zero` (Δ at 0 = n·L); `GProfile`: `profile_bounds` (centre bounds of any Gelfand solution); `GelfandPDEExists`: `contDiffOn_two_of_derivs`, headline `gelfand_pde_radial_exists`; `GelfandPDEExistsBlindClosed`: `blind_closed`, `bound_sharp`.
