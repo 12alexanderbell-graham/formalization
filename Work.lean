@@ -243,3 +243,5 @@ import Work.Math.TFCertsSub5
 import Work.Math.TFChain
 import Work.Math.ThomasFermiBlind
 import Work.Math.ThomasFermiBlindClosed
+import Work.Math.TFExBase
+import Work.Math.ThomasFermiExists
