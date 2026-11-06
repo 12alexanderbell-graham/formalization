@@ -122,6 +122,13 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
 
 ## Candidates under verification (UNVERIFIED, not findings)
 
+### C-ROBER (run 2026-11-06T0828Z; PROVED in Work, not yet Checked): the Bari IVP test-set reference value of ROBER's y₃ at t = 10¹¹ is about 1.0·10⁻¹⁴ too small
+- **Printed:** Mazzia & Magherini, Test Set for IVP Solvers, release 2.4 (2008), Problem ROBER, Table II.10.3 (reference solution at t = 10¹¹, RADAU, double precision): y₁ = 0.2083340149701255·10⁻⁷, y₂ = 0.8333360770334713·10⁻¹³, y₃ = 0.9999999791665050; the same digits in `rober.f` revisions 1.1 (2003) and 1.2 (2006). Read blind from the rendered PDF (`runs/2026-11-06T0828Z/typeset/`, `reader_rober.md`).
+- **Lean evidence (Work, local build):** `Work.Sim.RobLong.rob_state1e11` (every solution on [0, 10¹¹] has y₃(10¹¹) between 0.99999997916651 and 0.99999997916652, y₁ and y₂ in narrow intervals) and `rob_printed_y3_low` (printed y₃ + 10⁻¹⁴ < y₃(10¹¹)); existence `rob_exists_1e11`; blind restatement closed (`Work.Sim.RobLongAudit`).
+- **Second route:** referee's own 50–60-digit Radau IIA (`runs/2026-11-06T0828Z/referee_robL.md`): y₃ = 0.99999997916651516937…, printed y₃ off by 1.017·10⁻¹⁴; the printed triple violates y₁ + y₂ + y₃ = 1 by the same amount.
+- **Scope (referee):** all three printed components have relative errors of order 10⁻¹⁴ (y₁ −1.9·10⁻¹⁴, y₂ −8.4·10⁻¹⁵); the reference is good to about 14 digits and prints 16. It changes no published conclusion we know of; it matters for accuracy measurements (significant correct digits) at tolerances near 10⁻¹⁴. No publication documenting it was found (prior-art screen).
+- **Remaining:** promotion to Checked (pin route exists: `IsRobSolution` is pinned), literal reading registration of the printed value, then FINDINGS proper with certified tags.
+
 From the literature screen of run 2026-10-30T0028Z (`runs/2026-10-30T0028Z/screen/SCREEN_REPORT.md`). Protocol before any of these becomes a finding (original XXVIII.1, XXIX; annex 47.2):
 1. Confirm the printed formula from the typeset paper text (not a summariser): arXiv source or PDF text extraction, journal version if reachable.
 2. Rule out convention differences (sign of k / Ω_k, a₀, c/H₀, definitions of j, s, l, m).
