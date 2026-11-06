@@ -79,6 +79,17 @@ import Checked.Sim.DuffingPin
 import Checked.Sim.MichaelisMenten
 import Checked.Sim.MMPin
 import Checked.Fidelity.MMSpec
+import Checked.Sim.OneSided
+import Checked.Sim.RobCell
+import Checked.Sim.RobCerts0
+import Checked.Sim.RobCerts1
+import Checked.Sim.RobCerts2
+import Checked.Sim.RobCerts3
+import Checked.Sim.RobCerts4
+import Checked.Sim.RobExists
+import Checked.Sim.Robertson
+import Checked.Fidelity.RobSpec
+import Checked.Sim.RobPin
 import Checked.Fidelity.DuffingSpec
 import Checked.Data.FR13
 import Checked.Data.Moresco16
