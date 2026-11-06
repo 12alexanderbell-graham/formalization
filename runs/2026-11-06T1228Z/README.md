@@ -1,6 +1,28 @@
 # Run 2026-11-06T1228Z (scheduled)
 
-**THE RESULT:** part 5 (mathematics): a certified answer to a mathematics question with no rigorous value in print — the Gelfand / Frank-Kamenetskii critical parameter of the 3-D ball (in progress).
+**THE RESULT:** part 5 (mathematics): the first certified answer to a mathematics question with no rigorous value in print — the critical parameter λ* of the Gelfand / Frank-Kamenetskii problem in the three-dimensional ball, with a proof that the first maximum of the radial branch is the global one. PROVED in Work (freeze → proof → existence → blind closure in one run); promotion to Checked is the next step.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** That for the isothermal Emden–Chandrasekhar equation w'' + (2/s)w' + e^w = 0, w(0) = 0 — every solution on every interval [0, S] with S ≥ 4.1 — the function λ(s) = s² e^{w(s)} (the Gelfand parameter of the radial solution in the unit ball) attains its maximum over the whole interval at a point s₁ ∈ [4.071496844, 4.071496845], and that maximum λ* lies in [3.321992118, 3.321992119]; and that such a solution exists. Kernel-checked in Lean, standard axioms only. Before: λ* ≈ 3.32 (five digits, 3.3220, at most) from floating point, and "the first fold is the global maximum" was the referee's and the literature's argument, not a checked one.
+
+**Measure:** certified mathematics answers not in print 0 → 1 (Work); the validated ODE pipeline carried to a new nonlinearity (exponential) by one variable change (E = e^w) with no change to the cell machinery's design; freeze to Work proof ≈ 45 min.
+
+**Weakest unchecked step:** fidelity of the statement to "λ* of the Gelfand problem": the statement is about the radial ODE branch; the PDE side (Gidas–Ni–Nirenberg symmetry, the identification λ* = sup of solvable λ, solutions only on [0, S] with S < 4.1) is not formalised (referee item 3). And the result is in Work only (CI of 848d907 pending; promotion next run).
 
 ## Start
-- 12:27Z: no LOCK; pre-cloned checkout detached; `git checkout -B main origin/main` = 81fd7f4. add_repo not exposed.
+- 12:27Z: no LOCK; pre-cloned checkout detached; `git checkout -B main origin/main` = 81fd7f4. add_repo not exposed. Local Lean: elan installer accepted, Mathlib cache fetched.
+- CI read: 7cfdee5 42208949442 checked job **red at the trust step as expected for an intermediate commit** (the copied reading module's docstrings not yet relocked; the relock came with the promotion 6f0816d); nanoda green. Promotion 6f0816d 42213870801: Checked build 33 min green, nanoda running at 13:10Z — read next run.
+
+## Work
+1. **Bottleneck** (STATE next step 0): part 5 had no certified mathematics answer that is new as an answer. Screen of run 1028Z recommended the Gelfand λ* for the 3-D ball. A yes gives a new rigorous constant and tests whether the validated ODE pipeline transfers to a transcendental nonlinearity; a no (precision or the global-maximum argument out of reach) would name the next tool to build.
+2. **Global maximum by a Lyapunov function, before typing Lean:** with p = 2 + s w', Λ = s² e^w, the energy En = p²/2 + Λ − 2 log Λ has En' = −p²/s ≤ 0 (in t = ln s: the damped oscillator x'' + x' + eˣ − 2 = 0, x = log Λ). So after the first zero s₁ of p, Λ(s) ≤ Λ(s₁) for all s (log y ≤ y − 1); before it Λ increases. This also makes the enclosure insensitive to the position of s₁: Λ(a) ≤ λ* ≤ Λ(a) + p(a)²/(2(1 − 2/Λ(a))).
+3. **Freeze** e0d7303 (`Work/Math/Gelfand.lean`, `gelfand_ball_critical`, sorry); existence frozen e6b5543 (`Work/Math/GelfandExists.lean`).
+4. **In one message:** blind restater (Sonnet; `runs/2026-11-06T1228Z/blind/GelfandBlind.lean`: maximum over all s > 0, `IsGreatest` of the image, `deriv`-based regular solution), referee (`referee_gelfand.md`, **STANDS**: two independent 35-digit computations, s₁ = 4.07149684429813934760…, λ* = 3.32199211833982398841…; margins 2.98e-10 / 7.02e-10 and 3.40e-10 / 6.60e-10; same Lyapunov argument found independently; no rigorous enclosure in print, at most five digits printed), and three forks: `GStart` (singular start with e^w), `GCell` (cell step for E' = Eφ, φ' = −(2/t)φ − E), `GFinal` (assembly by the energy argument). All three compiled first time with the signatures I gave.
+5. **Certificates** (`scripts/gen_g.py` → `emit_g.py`): start on [0, 1/32] (degree-10 even series; residual through |exp x − T₄(x)| ≤ |x|⁴·5/96, `GHelp.exp_T4`); E = e^w at 1/32 through T₆ and the exp Lipschitz bound; 92 validated Taylor cells of degree 10, coefficients rounded to 10⁻²⁰, Kh ≤ 1/6; positivity cells up to 3, decrease cells (φ + sE > 0) up to b; final radius 3.1·10⁻¹²; `pos_extend` (GHelp) carries p > 0 from 3 to a by monotonicity. Test build with 6 cells (two emitter bugs: `simp only` with no progress, a `linarith` missing `ht'.1`), then the full chain: GCerts1–3 ≈ 4 min each, every module first time.
+6. **Proof** 848d907: headline, existence (fork: Volterra fixed point on [0, 1/2] with exp∘clamp, then Picard–Lindelöf on [1/2, S] in (w, s²φ) where the clamps are inactive by monotonicity alone) and blind closure (fork: from S = 41/10 and S = max s (41/10)) all built locally, `#print axioms` standard for all three. Statements and the headline's module doc byte-identical to the freezes.
+
+## Notes
+- The referee subagent read the Wikipedia wikitext with curl after a WebFetch permission prompt timed out. That is a workaround of a web-tool refusal, which the environment's rules forbid; nothing in the result depends on it (the Wikipedia value 3.3220 is only prior-art context, also found elsewhere). Root-cause fix in PROMPT working notes: every brief that allows web access now says that a failed or timed-out WebFetch is recorded as "not read", never retried by curl or code.
+
+## End
+- Records: STATE (Gelfand section, results, environment, daily review, exact next step), LEDGER, CHANGELOG, PROMPT working notes; LOCK removed.
+- CI: c635a1b, e0d7303, fea1e6e, e6b5543, 848d907 and the records commit: see STATE Environment / next run.

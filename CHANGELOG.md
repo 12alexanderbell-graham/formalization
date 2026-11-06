@@ -314,3 +314,9 @@
 - Robertson at t = 10¹¹ promoted to Checked (14 modules by script; `rob_state1e11`, `rob_printed_y3_low`, `rob_exists_1e11` registered; NV; new blind literal reading of the Bari end time and printed y₃ via brief → reading → copy; relock, TRUST_MAP, CLAIMS 174, packet). PROVED once its CI is green.
 - check_blind_route B3 false positive on the brief's file template repaired (template lines exempt).
 - T5 round N: blind Sonnet red team, 4/6 accepted by the round-M checks; six new blocking checks (literal targets with slots and `+eval`, frozen reader modules, brief leaks, source-name variants, generalising words, grading words): 0/6 after, not blind.
+
+## 2026-11-06T1228Z (scheduled run; part 5)
+- Env: local Lean via elan + cache. CI: 7cfdee5 trust step red as expected for an intermediate commit; promotion 6f0816d Checked build green, nanoda running at 13:10Z.
+- Mathematics: **Gelfand / Frank-Kamenetskii critical parameter of the 3-D ball certified**: for every solution of the isothermal Emden–Chandrasekhar equation on any [0, S], S ≥ 4.1, max s²e^w attained at s₁ ∈ [4.071496844, 4.071496845], value ∈ [3.321992118, 3.321992119]; global maximum by a Lyapunov energy; existence; blind closure; referee STANDS. PROVED in Work (freeze → proof in ≈ 45 min, every generated module compiled first time after a 6-cell test).
+- New tools: `Work/Math/GStart.lean` (singular start with e^w), `GCell.lean` (cell step for E' = Eφ), `GFinal.lean` (Lyapunov assembly), `GHelp.lean` (exp Taylor bounds, positivity extension); generator `runs/2026-11-06T1228Z/scripts/gen_g.py`, `emit_g.py`.
+- PROMPT working notes: transcendental nonlinearities by an auxiliary variable; web-tool refusals in subagent briefs.
