@@ -1,0 +1,14 @@
+# Slots of value-mode literal readings (scripts/trust/check_literal_targets.py rule T2, run 2026-11-06T1028Z).
+# Format: `<reader constant> <slot> [<slot> ...]`; a slot is `<Def>.<param>` (the explicit argument <param> of a
+# call of the program definition <Def> the statement reaches, value also recorded in meaning.jsonl `fixed`) or
+# `target` (an additive term of a certified target side). A tuple constant lists one slot per component.
+# A binder-free closed reader constant covers statement literals ONLY at these slots. Adding or changing a line
+# needs a LEDGER.md addition naming the constant (--base). Initial lines: the Robertson reading of run
+# 2026-11-06T0428Z, as its brief described each constant (rate constants k1-k3, initial concentrations, end time T).
+Checked.Trust.SecondReading.robK1 IsRobSolution.k₁
+Checked.Trust.SecondReading.robK2 IsRobSolution.k₂
+Checked.Trust.SecondReading.robK3 IsRobSolution.k₃
+Checked.Trust.SecondReading.robInit IsRobSolution.a₀ IsRobSolution.b₀ IsRobSolution.c₀
+Checked.Trust.SecondReading.robT IsRobSolution.T+eval
+Checked.Trust.SecondReading.robTEnd IsRobSolution.T+eval
+Checked.Trust.SecondReading.robY3Ref target

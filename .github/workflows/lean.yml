@@ -97,6 +97,14 @@ jobs:
           python3 scripts/trust/check_literals.py
           python3 scripts/trust/check_source_names.py
           python3 scripts/trust/check_templates.py
+          # certified targets hold one number and value-mode readings count only at registered slots
+          # (literal_slots.txt); source/model names in any spelling, backed by what the reader itself named; more
+          # generalising words need universally bound data (run 2026-11-06T1028Z, check-writer blind to red team N's files, brief written after its report)
+          python3 scripts/trust/check_literal_targets.py
+          python3 scripts/trust/check_source_variants.py
+          python3 scripts/trust/check_prose_gen.py
+          # headline docstrings may not grade a model or source (reliable, accurate, agrees with experiment, ...; run 2026-11-06T1028Z, after round N)
+          python3 scripts/trust/check_prose_eval.py
           # pin claims in TRUSTED_DEFINITIONS.md must match scripts/trust/pins.txt (run 2026-11-04T0428Z, red team F)
           python3 scripts/trust/check_trusted_defs.py
           # generated claims (run 2026-11-04T2228Z, LEDGER): CLAIMS.md is produced from the Lean
@@ -137,6 +145,15 @@ jobs:
           python3 scripts/trust/check_source_names.py --base "$BASE"
           python3 scripts/trust/check_templates.py --base "$BASE"
           python3 scripts/trust/check_blind_route.py --base "$BASE"
+          # baselines of the round-N rules only shrink, slot/alias registries change only with a LEDGER line or grow;
+          # existing reader modules and runs/ reader files are frozen (a new reading needs a new reader file);
+          # briefs may not hand over the answer as words, split digits, notation or digit fragments (run 2026-11-06T1028Z)
+          python3 scripts/trust/check_literal_targets.py --base "$BASE"
+          python3 scripts/trust/check_source_variants.py --base "$BASE"
+          python3 scripts/trust/check_prose_gen.py --base "$BASE"
+          python3 scripts/trust/check_reader_frozen.py --base "$BASE"
+          python3 scripts/trust/check_brief_leak.py --base "$BASE"
+          python3 scripts/trust/check_prose_eval.py --base "$BASE"
       - name: Author files for runs without local Lean (generated output, not a check; run 2026-11-04T0028Z, see LEDGER)
         # When the run environment refuses a local Lean install (run 2026-11-04T0028Z), the files a
         # promotion must commit (TRUST_MAP.md, relocked frozen.txt, validation packet) can only be

@@ -1,0 +1,13 @@
+# Grandfathered findings of scripts/trust/check_prose_gen.py (run 2026-11-06T1028Z, check-writer blind to red team N's files, brief written after its report).
+# Shrink-only (--base): no key may be added; a key that no longer fires must be removed. One key per line, `# reason`.
+# Populated from the tree at 6fc653c; every line predates the rule. All seven: "on the whole interval back to the
+# farther/farthest source" describes the hypothesis domain (the expansion law assumed for every s in [t₇, t₀], which
+# the statement binds universally), while the param-noun registry reads "interval"/"source" as the fixed redshift
+# roles; probably a false positive of the fixed-noun test, kept visible rather than exempted.
+Checked.Cosmography.B1Fit.fit_direction|G1|on interval back  # hypothesis domain [t₇, t₀] described as "the whole interval"; endpoints fixed by the redshift hypotheses
+Checked.Cosmography.B1L19.l19_sq_central|G1|on interval back  # hypothesis domain [t₇, t₀] described as "the whole interval"; endpoints fixed by the redshift hypotheses
+Checked.Cosmography.B1L19.l19_sqg_central|G1|on interval back  # hypothesis domain [t₇, t₀] described as "the whole interval"; endpoints fixed by the redshift hypotheses
+Checked.Cosmography.B1L19.l19_sq_box|G1|on interval back  # hypothesis domain [t₇, t₀] described as "the whole interval"; endpoints fixed by the redshift hypotheses
+Checked.Cosmography.B1L19.l19_sqg_box|G1|on interval back  # hypothesis domain [t₇, t₀] described as "the whole interval"; endpoints fixed by the redshift hypotheses
+Checked.Cosmography.B1L19Curved.l19_sq_curved|G1|on interval back  # hypothesis domain [t₇, t₀] described as "the whole interval"; endpoints fixed by the redshift hypotheses
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|G1|on interval back  # hypothesis domain [t₇, t₀] described as "the whole interval"; endpoints fixed by the redshift hypotheses

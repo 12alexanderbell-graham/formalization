@@ -1,0 +1,1 @@
+# Grandfathered findings of scripts/trust/check_prose_eval.py (run 2026-11-06T1028Z). Shrink-only (--base). Empty: no headline docstring graded a model when the rule was written.

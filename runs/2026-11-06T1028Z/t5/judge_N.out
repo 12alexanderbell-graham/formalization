@@ -1,0 +1,128 @@
+applied d04 stage 1
+applied d04 stage 2
+applied d01
+applied d02
+applied d03
+applied d04 stage 3
+applied d05
+applied d06
+== new files compile one by one 11:56:44
+  ok Checked/Chemistry/KappaHeavy.lean
+  ok Checked/Chemistry/KappaPRBeyond.lean
+  ok Checked/Chemistry/RKSKappa.lean
+  ok Checked/Chemistry/SoaveRange.lean
+  ok Checked/Chemistry/WaalsFluid.lean
+  ok Checked/Sim/RobBelow.lean
+  ok Checked/Trust/SecondReadingKappaB.lean
+== build 11:57:04
+build: PASS
+grep: PASS
+== trust 11:57:20
+trust: FAIL
+frozen.txt rewritten (1499 entries)
+Checked.Cosmography.Aviles.avilesL0Claim_false
+Checked.Cosmography.Aviles.avilesM0Claim_false
+Checked.Cosmography.AvilesWitness.printedL0_false_at
+Checked.Cosmography.AvilesWitness.printedM0_false_at
+Checked.Cosmography.CPL.clsL0Claim_false
+Checked.Cosmography.CCS.printedD4_fails
+Checked.Cosmography.CCS.printedD4_fails_past
+Checked.Cosmography.CCS.ccsD4Claim_false
+Checked.Cosmography.CCS.ccsD4ClaimPast_false
+Checked.Cosmography.BambaY.printedD2y_fails
+Checked.Cosmography.BambaY.printedD2y_fails_past
+Checked.Cosmography.BambaY.bambaD2yClaim_false
+Checked.Cosmography.BambaY.bambaD2yClaimPast_false
+Checked.Cosmography.CVdQ.printedQ2_fails_past
+Checked.Cosmography.CVdQ.cvdQClaim_false
+Checked.Cosmography.CVdQ.cvdQClaimPast_false
+Checked.Cosmography.BambaK.printedD3y_fails
+Checked.Cosmography.BambaK.printedD3y_fails_past
+Checked.Cosmography.BambaK.printedD4y_fails
+--- numbers
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+--- prose
+check_prose: 177 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+--- trusted defs
+check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+--- formulas
+check_formulas: 0 baselined FORMULA definitions; ok
+--- provenance
+check_provenance: 19 second-version modules, 6 baselined; ok
+--- claims 12:00:50
+CLAIMS.md: 177 generated claims
+phrases: 23 checked, 0 problems
+--- packet
+wrote 55 files, 51 items, seed 72c4d16f819f
+--- base diffs vs S (= 6fc653c + new scripts)
+  [check_relock.py 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    frozen registry: 1479 entries at 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989, none changed or removed
+  [check_numbers.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    certified-number diff vs 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    check_prose: 177 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    phrases: 23 at 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989, none changed or removed
+  [check_formulas.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    second formulations/readings added or changed against 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989 not disclosed in a LEDGER.md addition naming them (declarations and changed modules) and their blind brief: ['cubicUW', 'kappaHeavyB', 'kappaPR76q']
+    check_formulas: 0 baselined FORMULA definitions; FAIL
+  [check_provenance.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    check_provenance: 19 second-version modules, 6 baselined; ok
+== BEFORE: round-M scripts 12:02:48
+  [check_literals.py]
+    check_literals: 177 headlines, 121 with uncovered literals (121 baselined), 26 registered readings; ok
+  [check_source_names.py]
+    Checked.Chemistry.KappaPRBeyond.kappa_pr_exceeds_two: 'pr' (peng-robinson) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line peng-robinson)
+    check_source_names: 22 names, 34 unbacked matches (33 baselined); FAIL
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literals.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    check_literals: 177 headlines, 121 with uncovered literals (121 baselined), 26 registered readings; ok
+  [check_source_names.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    Checked.Chemistry.KappaPRBeyond.kappa_pr_exceeds_two: 'pr' (peng-robinson) in its docstring or name is not backed by what the statement reaches (needs one of the backings of scripts/trust/source_names.txt line peng-robinson)
+    check_source_names: 22 names, 34 unbacked matches (33 baselined); FAIL
+  [check_templates.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    check_blind_route: 3 second versions added or changed since 313ad5fec384; ok
+== AFTER: round-N scripts 12:03:18
+  [check_literal_targets.py]
+    T1/T2: Checked.Chemistry.RKSKappa.rks_kappa_one_gt_two: literals ['0.480', '1.574', '1', '0.176', '1', '2'] pass check_literals.py only as an arithmetic 'target' side or through a value-mode reading outside its registered slot (scripts/trust/literal_slots.txt) — a target side holds one number; register the reader constant's slot or read the data
+    T1/T2: Checked.Chemistry.WaalsFluid.waals_fluid_exists: literals ['1', '0', '1', '0', '1', '0', '1', '0'] pass check_literals.py only as an arithmetic 'target' side or through a value-mode reading outside its registered slot (scripts/trust/literal_slots.txt) — a target side holds one number; register the reader constant's slot or read the data
+    T1/T2: Checked.Sim.RobBelow.rob_b_below: literals ['40'] pass check_literals.py only as an arithmetic 'target' side or through a value-mode reading outside its registered slot (scripts/trust/literal_slots.txt) — a target side holds one number; register the reader constant's slot or read the data
+    check_literal_targets: 177 headlines, 5 with extra literals (2 baselined), 5 slot registrations; FAIL
+  [check_source_variants.py]
+    Checked.Chemistry.RKSKappa.rks_kappa_one_gt_two: 'rks' (redlich-kwong) in its docstring or name is not backed (V1-V3): name the source through a reached PRINTED/CLAIM definition or a reading registered for this headline whose reader names it
+    Checked.Chemistry.KappaPRBeyond.kappa_pr_exceeds_two: 'peng robinson' (peng-robinson) in its docstring or name is not backed (V1-V3): name the source through a reached PRINTED/CLAIM definition or a reading registered for this headline whose reader names it
+    Checked.Chemistry.KappaHeavy.kappa_heavy_branch_pos: 'peng robinson' (peng-robinson) in its docstring or name is not backed (V1-V3): name the source through a reached PRINTED/CLAIM definition or a reading registered for this headline whose reader names it
+    Checked.Chemistry.WaalsFluid.waals_fluid_exists: 'van der waals' (van-der-waals) in its docstring or name is not backed (V1-V3): name the source through a reached PRINTED/CLAIM definition or a reading registered for this headline whose reader names it
+    check_source_variants: 31 alias lines, 37 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); FAIL
+  [check_prose_gen.py]
+      Checked.Sim.RobBelow.rob_b_below: its docstring says 'throughout' (over time, space or a whole range), but the statement universally binds no time, point or parameter (bound: ['y₁ : ℝ → ℝ', 'y₂ : ℝ → ℝ', 'y₃ : ℝ → ℝ']): it is proved at fixed values only [check_prose_gen G1]
+    check_prose_gen: 177 headlines, 8 findings (7 baselined); FAIL
+  [check_literal_targets.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    T1/T2: Checked.Chemistry.RKSKappa.rks_kappa_one_gt_two: literals ['0.480', '1.574', '1', '0.176', '1', '2'] pass check_literals.py only as an arithmetic 'target' side or through a value-mode reading outside its registered slot (scripts/trust/literal_slots.txt) — a target side holds one number; register the reader constant's slot or read the data
+    T1/T2: Checked.Chemistry.WaalsFluid.waals_fluid_exists: literals ['1', '0', '1', '0', '1', '0', '1', '0'] pass check_literals.py only as an arithmetic 'target' side or through a value-mode reading outside its registered slot (scripts/trust/literal_slots.txt) — a target side holds one number; register the reader constant's slot or read the data
+    T1/T2: Checked.Sim.RobBelow.rob_b_below: literals ['40'] pass check_literals.py only as an arithmetic 'target' side or through a value-mode reading outside its registered slot (scripts/trust/literal_slots.txt) — a target side holds one number; register the reader constant's slot or read the data
+    check_literal_targets: 177 headlines, 5 with extra literals (2 baselined), 5 slot registrations; FAIL
+  [check_source_variants.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    Checked.Chemistry.RKSKappa.rks_kappa_one_gt_two: 'rks' (redlich-kwong) in its docstring or name is not backed (V1-V3): name the source through a reached PRINTED/CLAIM definition or a reading registered for this headline whose reader names it
+    Checked.Chemistry.KappaPRBeyond.kappa_pr_exceeds_two: 'peng robinson' (peng-robinson) in its docstring or name is not backed (V1-V3): name the source through a reached PRINTED/CLAIM definition or a reading registered for this headline whose reader names it
+    Checked.Chemistry.KappaHeavy.kappa_heavy_branch_pos: 'peng robinson' (peng-robinson) in its docstring or name is not backed (V1-V3): name the source through a reached PRINTED/CLAIM definition or a reading registered for this headline whose reader names it
+    Checked.Chemistry.WaalsFluid.waals_fluid_exists: 'van der waals' (van-der-waals) in its docstring or name is not backed (V1-V3): name the source through a reached PRINTED/CLAIM definition or a reading registered for this headline whose reader names it
+    check_source_variants: 31 alias lines, 37 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); FAIL
+  [check_prose_gen.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+      Checked.Sim.RobBelow.rob_b_below: its docstring says 'throughout' (over time, space or a whole range), but the statement universally binds no time, point or parameter (bound: ['y₁ : ℝ → ℝ', 'y₂ : ℝ → ℝ', 'y₃ : ℝ → ℝ']): it is proved at fixed values only [check_prose_gen G1]
+    check_prose_gen: 177 headlines, 8 findings (7 baselined); FAIL
+  [check_reader_frozen.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    F1: Checked/Trust/SecondReadingKappa.lean existed at 313ad5fec384 and changed outside its module doc (added ['Checked.Trust.SecondReading.kappaPR76q']): existing reader modules are frozen — put a new reading in a new reader file with its own brief (check_blind_route.py)
+    F1: Checked/Trust/SecondReadingRob.lean existed at 313ad5fec384 and changed outside its module doc (added ['Checked.Trust.SecondReading.cubicUW', 'Checked.Trust.SecondReading.satTemp']): existing reader modules are frozen — put a new reading in a new reader file with its own brief (check_blind_route.py)
+    F2: reader file runs/2026-11-06T0228Z/kappa_reader/SecondReadingKappa.lean existed at 313ad5fec384 and was modified: a reader's file is a record of what the blind reader wrote — write a new reading in a new folder with its own brief
+    F2: reader file runs/2026-11-06T0428Z/rob_reader/SecondReadingRob.lean existed at 313ad5fec384 and was modified: a reader's file is a record of what the blind reader wrote — write a new reading in a new folder with its own brief
+    check_reader_frozen: 17 reader modules and 11 runs/ reader files at 313ad5fec384 checked; FAIL
+  [check_brief_leak.py --base 313ad5fec384ada0c6ea5bce5ffa0ab2ca70b989]
+    Checked/Trust/SecondReadingKappaB.lean: brief runs/2026-11-06T1028Z/kappa_reader_b/brief_kappa_b.md hands over the reader's answer: digits '164423' inside '164423'; digits '16666' inside '16666'; digits '184503' inside '184503'; digits '379642' inside '379642'; value 184503/100000 (1.84503)
+    check_brief_leak: 1 briefs of reader files new since 313ad5fec384; FAIL
+== end 12:03:22
