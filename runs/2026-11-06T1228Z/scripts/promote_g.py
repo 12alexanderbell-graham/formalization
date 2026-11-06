@@ -23,7 +23,7 @@ COMMON = ["Mathlib.Analysis.SpecialFunctions.ExpDeriv", "Mathlib.Analysis.Specia
           "Mathlib.Algebra.Order.Star.Real", "Mathlib.Analysis.LocallyConvex.AbsConvexOpen",
           "Mathlib.Analysis.InnerProductSpace.Basic", "Mathlib.Topology.Algebra.Module.ModuleTopology",
           "Mathlib.Topology.Order.ProjIcc"] + TACTICS
-LEFT = ["Mathlib.Topology.ContinuousMap.Bounded.Basic", "Mathlib.Topology.MetricSpace.Contracting",
+LEFT = ["Mathlib.Analysis.Complex.ExponentialBounds", "Mathlib.Topology.ContinuousMap.Bounded.Basic", "Mathlib.Topology.MetricSpace.Contracting",
         "Mathlib.MeasureTheory.Integral.DominatedConvergence",
         "Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus",
         "Mathlib.Analysis.SpecialFunctions.Integrals.Basic"]
