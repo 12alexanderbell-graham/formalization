@@ -4,7 +4,8 @@ reduced variables x = v/b, theta = RTb/a(T), pi = p b^2/a(T). Prints theta, pi_s
 from mpmath import mp, mpf, sqrt, cbrt, log, log10, polyroots, findroot
 mp.dps = 40
 c = cbrt(mpf(2)); xc = c*c + c + 1                 # root of x^3 - 3x^2 - 3x - 1 (RK critical point)
-s = sqrt(mpf(7)/10); kap = mpf('0.480') + mpf('1.574') - mpf('0.176')
+import sys
+s = sqrt(mpf(7)/10); kap = mpf(sys.argv[1]) if len(sys.argv) > 1 else mpf('0.480') + mpf('1.574') - mpf('0.176')
 al = (1 + kap*(1 - s))**2
 K = 3*xc - 9 - 9/xc                                 # R Tc b / a_c
 th = mpf(7)/10*K/al

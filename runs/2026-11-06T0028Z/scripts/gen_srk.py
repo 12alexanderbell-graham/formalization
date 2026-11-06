@@ -16,7 +16,10 @@ assert S0*S0 < F(7,10) < S1*S1
 # K = R Tc b / a_c = 3x - 9 - 9/x increasing in x
 K = lambda x: 3*x - 9 - 9/x
 K0, K1 = K(X0), K(X1)
-KAP = F(1878,1000)
+import json as _json
+VAR = _json.load(open(sys.argv[3])) if len(sys.argv) > 3 else {'tag': 'srk', 'kappa': [1878, 1000], 'ratio': [1020, 100000], 'ratio_k': 4, 'omega': [992, 1000], 'omega_k': 3}
+TAG = VAR['tag']
+KAP = F(*VAR['kappa'])
 AL0 = (1 + KAP*(1 - S1))**2; AL1 = (1 + KAP*(1 - S0))**2
 TH0 = F(7,10)*K0/AL1; TH1 = F(7,10)*K1/AL0
 def rnd(fr, d, up):
@@ -26,7 +29,7 @@ def rnd(fr, d, up):
     return F(n, 10**d)
 T0 = rnd(TH0, 10, False); T1 = rnd(TH1, 10, True)
 print('theta in', float(T0), float(T1), float(T1-T0))
-th = mpf(7)/10*(3*xc-9-9/xc)/(1 + mpf('1.878')*(1 - sqrt(mpf(7)/10)))**2
+th = mpf(7)/10*(3*xc-9-9/xc)/(1 + mpf(KAP.numerator)/KAP.denominator*(1 - sqrt(mpf(7)/10)))**2
 assert mpf(T0.numerator)/T0.denominator < th < mpf(T1.numerator)/T1.denominator
 # q pieces
 def qplus(x): return (2*x+1)*(x-1)**2
@@ -184,13 +187,14 @@ out.append(emit_cover('dq_pos_W1', P_d1, 'dq_pos_piece', False, '0 < dq θ x'))
 out.append(emit_cover('q_pos_M', P_qpos, 'q_pos_piece', False, '0 < q θ x'))
 out.append(emit_cover('dq_neg_W2', P_d2, 'dq_neg_piece', False, 'dq θ x < 0'))
 out.append(emit_cover('q_neg_R', P_qneg2, 'q_neg_piece', False, 'q θ x < 0'))
-open('srk_certs.lean.txt','w').write("\n".join(out))
+open(f'{TAG}_certs.lean.txt','w').write("\n".join(out))
 
 # ---------- ratio and acentric ----------
 Ob = lambda x: x*x/3 - x - 1
 RLO = PLO*AL0*(X0/9)/(Ob(X1)**2); RHI = PHI*AL1*(X1/9)/(Ob(X0)**2)
 print('ratio', float(RLO), float(RHI))
-assert F(1015,10**5) < RLO and RHI < F(1025,10**5)
+RT = F(*VAR['ratio']); HW = F(1, 2*10**VAR['ratio_k'])
+assert RT - HW < RLO and RHI < RT + HW
 RLOr = F(math.floor(RLO*10**8), 10**8); RHIr = F(math.ceil(RHI*10**8), 10**8)
 print('RLOr RHIr', lit(RLOr), lit(RHIr))
 tE, lE = emit_log('logR_lo', f"{L(RLOr)}", RLOr, 'lo')
@@ -198,9 +202,11 @@ tF, uF = emit_log('logR_hi', f"{L(RHIr)}", RHIr, 'hi')
 tG, lG = emit_log('log1000_lo', "(1000 : ℝ)", F(1000), 'lo')
 tH, uH = emit_log('log1000_hi', "(1000 : ℝ)", F(1000), 'hi')
 L10lo, L10hi = lG/3, uH/3
-assert lE >= -F(19925,10**4)*L10lo and uF <= -F(19915,10**4)*L10hi
-print('acentric margins', float(lE + F(19925,10**4)*L10lo), float(-F(19915,10**4)*L10hi - uF))
-open('srk_certs2.lean.txt','w').write("\n".join([tE,tF,tG,tH]))
+WT = F(*VAR['omega']); WH = F(1, 2*10**VAR['omega_k'])
+ALO, AHI = -(1 + WT + WH), -(1 + WT - WH)
+assert lE >= ALO*L10lo and uF <= AHI*L10hi
+print('acentric margins', float(lE - ALO*L10lo), float(AHI*L10hi - uF))
+open(f'{TAG}_certs2.lean.txt','w').write("\n".join([tE,tF,tG,tH]))
 print('T0 check', float(F(7,10)*K0/AL1 - T0), float(T1 - F(7,10)*K1/AL0))
 import json
-json.dump({k: lit(v) for k, v in dict(T0=T0,T1=T1,PLO=PLO,PHI=PHI,A1=A1,B1=B1,A3=A3,B1h=B1h,A3h=A3h,B3h=B3h,lA=lA,lB=lB,uC=uC,uD=uD,X0=X0,X1=X1,S0=S0,S1=S1,RLOr=RLOr,RHIr=RHIr,W1a=W1a,W1b=W1b,W2a=W2a,W2b=W2b,XF=XF).items()}, open('srk_consts.json','w'), indent=1)
+json.dump({k: lit(v) for k, v in dict(T0=T0,T1=T1,PLO=PLO,PHI=PHI,A1=A1,B1=B1,A3=A3,B1h=B1h,A3h=A3h,B3h=B3h,lA=lA,lB=lB,uC=uC,uD=uD,X0=X0,X1=X1,S0=S0,S1=S1,RLOr=RLOr,RHIr=RHIr,W1a=W1a,W1b=W1b,W2a=W2a,W2b=W2b,XF=XF).items()}, open(f'{TAG}_consts.json','w'), indent=1)

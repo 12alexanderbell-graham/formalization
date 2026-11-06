@@ -1,7 +1,8 @@
 """Brackets for the SRK existence proof (run 2026-11-06T0028Z), exact rationals."""
 import json
 from fractions import Fraction as F
-C = json.load(open('srk_consts.json'))
+import sys
+C = json.load(open(f"{sys.argv[1] if len(sys.argv) > 1 else 'srk'}_consts.json"))
 fr = lambda s: F(*[int(t) for t in s.replace(' ', '').split('/')]) if '/' in s else F(int(s))
 T0, T1, PLO, PHI = fr(C['T0']), fr(C['T1']), fr(C['PLO']), fr(C['PHI'])
 g = lambda t, x: t/(x-1) - 1/(x*x+x)
