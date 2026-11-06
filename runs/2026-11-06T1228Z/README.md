@@ -6,7 +6,7 @@
 
 **Measure:** certified mathematics answers not in print 0 → 1 (Work); the validated ODE pipeline carried to a new nonlinearity (exponential) by one variable change (E = e^w) with no change to the cell machinery's design; freeze to Work proof ≈ 45 min.
 
-**Weakest unchecked step:** fidelity of the statement to "λ* of the Gelfand problem": the statement is about the radial ODE branch; the PDE side (Gidas–Ni–Nirenberg symmetry, the identification λ* = sup of solvable λ, solutions only on [0, S] with S < 4.1) is not formalised (referee item 3). And the result is in Work only (CI of 848d907 pending; promotion next run).
+**Weakest unchecked step:** fidelity of the statement to "λ* of the Gelfand problem": the statement is about the radial ODE branch; the PDE side (Gidas–Ni–Nirenberg symmetry, the identification λ* = sup of solvable λ, solutions only on [0, S] with S < 4.1) is not formalised (referee item 3). And the result is in Work only (CI work job of 848d907 green; promotion next run, module copies ready on `wip/gelfand-checked`).
 
 ## Start
 - 12:27Z: no LOCK; pre-cloned checkout detached; `git checkout -B main origin/main` = 81fd7f4. add_repo not exposed. Local Lean: elan installer accepted, Mathlib cache fetched.
@@ -28,4 +28,4 @@
 
 ## End
 - Records: STATE (Gelfand section, results, environment, daily review, exact next step), LEDGER, CHANGELOG, PROMPT working notes; LOCK removed.
-- CI: c635a1b, e0d7303, fea1e6e, e6b5543, 848d907 and the records commit: see STATE Environment / next run.
+- CI: **848d907 42224469202 work job green** (the Gelfand proof, existence and blind closure compile in CI); checked jobs of this run's commits, the Robertson promotion 6f0816d (nanoda) and `wip/gelfand-checked` b95b075: read next run.
