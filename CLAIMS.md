@@ -4829,7 +4829,7 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > constant −ξ₁² θ'(ξ₁) lies between 2.018235945 and 2.018235955 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies
 > between 54.1824805 and 54.1824815.
 
-## `exists_solution`
+## `LEExists.exists_solution`
 
 Full name `Checked.Math.LEExists.exists_solution`.
 
@@ -4843,6 +4843,52 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > φ' = −(2/ξ)φ − θ³ on (0, 7] and θ(0) = 1: the hypotheses of the Lane–Emden headline
 > `Checked.Math.LaneEmden.laneEmden3_constants` are satisfied together (a solution regular at the centre
 > exists).
+
+## `gelfand_ball_critical`
+
+Full name `Checked.Math.Gelfand.gelfand_ball_critical`.
+
+**For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. `41 / 10 ≤ S`
+2. for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `HasDerivWithinAt w (φ s) (Set.Icc 0 S) s`
+3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
+4. for every `s : ℝ`, if `s ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Icc 0 S) s`
+5. `w 0 = 0`
+
+**then**
+
+- there is `s₁ : ℝ` such that (`4.071496844 ≤ s₁`) and (`s₁ ≤ 4.071496845`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `s ^ 2 * Real.exp (w s) ≤ s₁ ^ 2 * Real.exp (w s₁)`) and (`3.321992118 ≤ s₁ ^ 2 * Real.exp (w s₁)`) and (`s₁ ^ 2 * Real.exp (w s₁) ≤ 3.321992119`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Gelfand problem in the three-dimensional ball, radial branch: for every S ≥ 41/10 and every
+> solution w of w'' + (2/s)w' + e^w = 0 on (0, S] with w(0) = 0, w differentiable on [0, S] with
+> derivative φ and φ continuous at 0, there is a point s₁ between 4.071496844 and 4.071496845 at which
+> s² e^{w(s)} attains its maximum over [0, S], and that maximum lies between 3.321992118 and
+> 3.321992119.
+
+## `GelfandExists.exists_solution`
+
+Full name `Checked.Math.GelfandExists.exists_solution`.
+
+**For every** `S : ℝ`:
+
+**assuming**
+
+1. `1 / 2 ≤ S`
+
+**then**
+
+- there is `w : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `HasDerivWithinAt w (φ s) (Set.Icc 0 S) s`) and (`ContinuousWithinAt φ (Set.Icc 0 S) 0`) and (for every `s : ℝ`, if `s ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Icc 0 S) s`) and (`w 0 = 0`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> For every S ≥ 1/2 there exist w, φ with w differentiable within [0, S] with derivative φ, φ
+> continuous at 0, φ' = −(2/s)φ − e^w on (0, S] and w(0) = 0: the hypotheses of the Gelfand
+> headline are satisfied together.
 
 ## `table5_oL_inconsistent`
 

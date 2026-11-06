@@ -20,3 +20,5 @@ Checked.Sim.RobLong.rob_printed_y3_low source=Robertson Checked.Trust.SecondRead
 Checked.Sim.RobLong.rob_printed_y3_low source=Bari Checked.Trust.SecondReading.robTEnd Checked.Trust.SecondReading.robY3Ref
 Checked.Sim.RobLong.rob_exists_1e11 source=Robertson Checked.Trust.SecondReading.robK1 Checked.Trust.SecondReading.robK2 Checked.Trust.SecondReading.robK3 Checked.Trust.SecondReading.robInit
 Checked.Sim.RobLong.rob_exists_1e11 source=Bari Checked.Trust.SecondReading.robTEnd
+Checked.Math.Gelfand.gelfand_ball_critical Checked.Trust.SecondReading.gelfandRhs Checked.Trust.SecondReading.gelfandLambda Checked.Trust.SecondReading.gelfandCentre Checked.Trust.SecondReading.gelfandRegular Checked.Trust.SecondReading.gelfandDomain Checked.Trust.SecondReading.gelfandPunctured
+Checked.Math.GelfandExists.exists_solution Checked.Trust.SecondReading.gelfandRhs Checked.Trust.SecondReading.gelfandCentre Checked.Trust.SecondReading.gelfandRegular Checked.Trust.SecondReading.gelfandDomain Checked.Trust.SecondReading.gelfandPunctured

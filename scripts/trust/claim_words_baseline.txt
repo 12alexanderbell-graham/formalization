@@ -1,0 +1,10 @@
+# Grandfathered findings of scripts/trust/check_claim_words.py (run 2026-11-06T1428Z), populated from the tree when the rule was written
+# (main + this run's Gelfand promotion). Shrink-only (--base). Format: <headline>|<rule>|<word>  # reason
+Checked.Cosmography.BambaK.milne_printedD3y_fails_past|W1|so  # the consequence restates the conclusion (first zero / half-conversion / failure) in words; predates the rule
+Checked.Cosmography.BambaK.milne_printedD4y_fails_past|W1|so  # the consequence restates the conclusion (first zero / half-conversion / failure) in words; predates the rule
+Checked.Cosmography.B1Sep.cubic_separation|W3|agrees with  # "agrees with … within 0.05 mag" describes a hypothesis (a fit tolerance), not the conclusion; predates the rule
+Checked.Cosmography.B1Sep.cubic_direction|W3|agrees with  # "agrees with … within 0.05 mag" describes a hypothesis (a fit tolerance), not the conclusion; predates the rule
+Checked.Cosmography.B1Fit.fit_direction|W3|agrees with  # "agrees with … within 0.05 mag" describes a hypothesis (a fit tolerance), not the conclusion; predates the rule
+Checked.Chemistry.Coexistence.vdW_coexistence_exists|W1|so  # the consequence restates the conclusion (first zero / half-conversion / failure) in words; predates the rule
+Checked.Sim.Duffing.duffing_first_zero_sol|W1|so  # the consequence restates the conclusion (first zero / half-conversion / failure) in words; predates the rule
+Checked.Sim.MichaelisMenten.mm_half_conversion|W1|so  # the consequence restates the conclusion (first zero / half-conversion / failure) in words; predates the rule

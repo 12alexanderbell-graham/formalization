@@ -22,6 +22,14 @@ Every numeric literal (numeral, decimal, `(n : ℝ)`) written in the statement o
      proof certifies (not for `=` whose other side is a bare variable: `∃ k, k = 0.480 + … ∧ …` defines k); or
  (a3) the numeral `0` or `1` standing alone as one side of a comparison (`0 < b`, `x ≠ 0`, `1 ≤ n`): domain
      hypotheses, not data; or
+ (a5) (run 2026-11-06T1428Z) the one number `c` (numeral or quotient of two numerals) of a top-level
+     hypothesis `(h : c ≤ S)`, S a top-level `ℝ` binder whose every other occurrence is the right end of an
+     interval used only as a domain (`∀ x ∈ Icc a S, …`, `HasDerivWithinAt f f' (Icc a S) x`; not compared,
+     measured or spelled otherwise) and that no other binder bounds: a domain length the proof certifies, not
+     data (every instance of the theorem is free of c; see `domain_ends`). Recorded limit (adversary, run
+     1428Z): a source end time T written as such a c with a wrong value moves the ray of covered instances
+     (the claim then does not cover T); CLAIMS.md shows the ray, and an end time that is also an evaluation
+     point (`y T`) is never exempt; or
  (a4) a numeral argument of a PINNED definition whose value is recorded in `fixed` of meaning.jsonl for that
      definition (`cosmoCoeff 4`: the meaning of the slot is the pinned definition's frozen phrase); or
  (b) covered by a literal reading registered for the headline in `scripts/trust/literal_readings.txt`
@@ -189,7 +197,101 @@ def classify(toks):
         i += 1
     zero_one_sides(toks, 0, n, ok)
     positive(toks, i, n, ok)
+    domain_ends(toks, i, ok)
     return ok
+
+
+def _one_num(seg):
+    """a numeral, or a quotient `a / b` of two numerals (b not zero)"""
+    if len(seg) == 1:
+        return is_num(seg[0])
+    return len(seg) == 3 and is_num(seg[0]) and seg[1] == "/" and is_num(seg[2]) and value(seg[2]) != 0
+
+
+WITHIN = {"HasDerivWithinAt", "ContinuousWithinAt", "ContinuousOn", "DifferentiableOn", "HasDerivWithinAt",
+          "DifferentiableWithinAt", "derivWithin", "MonotoneOn", "AntitoneOn", "StrictMonoOn", "StrictAntiOn"}
+
+
+def _domain_use(toks, q, m):
+    """the interval `toks[q] a S` (S at m) is used only as a domain: the set of a membership binder
+    `∈ Icc a S` followed by `,` / `)` / `→`, or a parenthesised set argument `(Icc a S)` of a
+    within-/on-predicate (`HasDerivWithinAt f f' (Icc 0 S) x`). Not an operand of `=`, `⊆`, `sSup`, … (an
+    interval compared or measured pins S; adversary, run 1428Z)."""
+    nxt = toks[m + 1] if m + 1 < len(toks) else None
+    if q > 0 and toks[q - 1] == "∈":
+        return nxt in (",", ")", "→")
+    if q == 0 or toks[q - 1] != "(" or nxt != ")":
+        return False
+    j, steps = q - 2, 0
+    while j >= 0 and steps < 8:
+        t = toks[j]
+        if t in WITHIN or t.split(".")[-1] in WITHIN:
+            return True
+        if t in CLOSE:  # skip a bracketed argument backwards
+            d = 0
+            while j >= 0:
+                if toks[j] in CLOSE:
+                    d += 1
+                elif toks[j] in OPEN:
+                    d -= 1
+                    if d == 0:
+                        break
+                j -= 1
+        elif t in OPEN or t in RELS or t in ("≠", ",", "∧", "→", "↔", "∨", ":", "+", "-", "*", "/", "^", "⊆", "=") \
+                or is_num(t):
+            return False
+        j -= 1
+        steps += 1
+    return False
+
+
+def domain_ends(toks, hi, ok):
+    """(a5), run 2026-11-06T1428Z: `c` in a top-level hypothesis binder `(h : c ≤ S)` is a number the proof
+    certifies, not data it assumes, when S is a top-level explicit binder `(… S … : ℝ)` and every other
+    occurrence of S in the statement is the right end of an interval (`Icc a S`, `Ioc a S`, `Ico a S`,
+    `Ioo a S`, `Set.…`), and this is the only binder group that bounds S. Then every instance of the theorem
+    (one S) is a statement that does not contain c; c only selects the ray of instances [c, ∞) that the proof
+    covers. A source number placed there cannot change what any instance says (contrast a coefficient, or an
+    end time also used as an evaluation point `y 40`, which stay uncovered). c must be one number."""
+    groups, j = [], 0
+    while j < hi and toks[j] in OPEN:
+        e = group_end(toks, j)
+        groups.append((j, e))
+        j = e
+    real_binders = set()
+    for a, b in groups:
+        inner = toks[a + 1:b - 1]
+        if toks[a] == "(" and ":" in inner and inner[inner.index(":") + 1:] == ["ℝ"]:
+            real_binders.update(x for x in inner[:inner.index(":")])
+    for a, b in groups:
+        inner = toks[a + 1:b - 1]
+        if toks[a] != "(" or len(inner) < 5 or inner[1] != ":" or "≤" not in inner:
+            continue
+        k = inner.index("≤")
+        lhs, rhs = inner[2:k], inner[k + 1:]
+        if len(rhs) != 1 or rhs[0] not in real_binders or not _one_num(lhs):
+            continue
+        S = rhs[0]
+        pos = a + 1 + k + 1  # index of S in this binder
+        fine = True
+        for m, tok in enumerate(toks):
+            bare = tok.replace("«", "").replace("»", "")
+            if m == pos or not (bare == S or bare.startswith(S + ".") or bare.endswith("." + S)):
+                continue
+            if tok != S:  # `«S»`, `S.toNNReal`, `x.S`: another spelling of S (adversary, run 1428Z)
+                fine = False
+                break
+            if any(x <= m < y for x, y in groups if (x, y) != (a, b) and toks[x] == "(" and ":" in toks[x + 1:y - 1]
+                   and toks[x + 1:y - 1][toks[x + 1:y - 1].index(":") + 1:] == ["ℝ"] and m < x + 1 + toks[x + 1:y - 1].index(":")):
+                continue  # S's own declaration `(S : ℝ)`
+            if not any(toks[q] in SETS and group_end(toks, q + 1) == m and _domain_use(toks, q, m)
+                       for q in range(max(0, m - 12), m - 1)):
+                fine = False
+                break
+        if fine:
+            for q in range(a + 1 + 2, a + 1 + k):
+                if is_num(toks[q]):
+                    ok[q] = "a5"
 
 
 def zero_one_sides(toks, lo, hi, ok):

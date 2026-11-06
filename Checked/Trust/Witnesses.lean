@@ -45,6 +45,8 @@ import Checked.Chemistry.SRKAcentric
 import Checked.Cosmography.B1L19Curved
 import Checked.Math.LaneEmden
 import Checked.Math.LEExists
+import Checked.Math.Gelfand
+import Checked.Math.GelfandExists
 import Checked.Data.Moresco16Min
 
 /-!
@@ -666,6 +668,17 @@ the centre, Picard–Lindelöf after, glued). -/
 theorem laneEmden3_constants : nonvacuity% Checked.Math.LaneEmden.laneEmden3_constants := by
   obtain ⟨θ, φ, hθ, hφ0, hφ, h0⟩ := Checked.Math.LEExists.exists_solution
   exact ⟨θ, φ, hθ, hφ0, hφ, h0, trivial⟩
+
+/-! Gelfand problem in the three-dimensional ball (run 2026-11-06T1228Z, promoted 1428Z): the radial
+solution on [0, S] with S = 41/10 constructed in `Checked.Math.GelfandExists.exists_solution`; the
+existence headline itself at S = 1/2. -/
+
+theorem gelfand_ball_critical : nonvacuity% Checked.Math.Gelfand.gelfand_ball_critical := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.GelfandExists.exists_solution (41 / 10) (by norm_num)
+  exact ⟨41 / 10, le_rfl, w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+theorem gelfand_exists_solution : nonvacuity% Checked.Math.GelfandExists.exists_solution :=
+  ⟨1 / 2, le_rfl, trivial⟩
 
 /-! ### Data claims of Moresco et al. 2016 (runs 2026-11-05T0428Z, 0628Z; promoted 1028Z): the
 printed AICc rows are attained by the value c of −2 ln L_max that makes them exact at N = 31; the

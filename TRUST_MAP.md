@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 174. Resting on no unpinned physics definition: 174.
-Non-vacuity (trust track T2): 113 headlines have hypotheses; 113 of them have a
+Headlines: 176. Resting on no unpinned physics definition: 176.
+Non-vacuity (trust track T2): 115 headlines have hypotheses; 115 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -197,6 +197,8 @@ the docstring says; universally bound parameters are not listed.
 | `Data.FR13.fr13_zda738` | — | — | fr13Table² | `fr13_zda738` | margChiSq: Hbar = 73.8, σ = 2.4 |
 | `Math.LaneEmden.laneEmden3_constants` | — | — | — | `laneEmden3_constants` | — |
 | `Math.LEExists.exists_solution` | — | — | — | unconditional | — |
+| `Math.Gelfand.gelfand_ball_critical` | — | — | — | `gelfand_ball_critical` | — |
+| `Math.GelfandExists.exists_solution` | — | — | — | `gelfand_exists_solution` | — |
 | `Data.Moresco16.table5_oL_inconsistent` | — | — | — | `table5_oL_inconsistent` | — |
 | `Data.Moresco16.table5_pw_inconsistent` | — | — | — | `table5_pw_inconsistent` | — |
 | `Data.Moresco16.table5_line_inconsistent` | — | — | — | `table5_line_inconsistent` | — |

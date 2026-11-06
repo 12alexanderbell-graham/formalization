@@ -1,53 +1,62 @@
 # Item 13
 
-**Area:** T1 fidelity
+**Area:** Robertson at t = 1e11
 
-**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `O : ℝ → (ℝ → ℝ) → ℝ → ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
+**For every** `y₁ : ℝ → ℝ`, `y₂ : ℝ → ℝ`, `y₃ : ℝ → ℝ`:
 
 **assuming**
 
-1. `Omega0Spec O`
-2. `0 < a t₀`
-3. `DifferentiableAt ℝ a t₀`
-4. `deriv a t₀ / a t₀ ≠ 0`
+1. the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`1 / 25`·`y₁` + `10000`·`y₂`·`y₃`, `y₂`′ = `1 / 25`·`y₁` − `10000`·`y₂`·`y₃` − `30000000`·`y₂`², `y₃`′ = `30000000`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `100000000000`] (derivatives taken within [0, `100000000000`]), with initial values `y₁`(0) = `1`, `y₂`(0) = `0`, `y₃`(0) = `0`
 
 **then**
 
-- `O K a t₀ = omega0 K a t₀`
+1. `20833401494 / 1000000000000000000 < y₁ 100000000000`
+2. `y₁ 100000000000 < 20833401500 / 1000000000000000000`
+3. `83333 / 1000000000000000000 < y₂ 100000000000`
+4. `y₂ 100000000000 < 83334 / 1000000000000000000`
+5. `99999997916651 / 100000000000000 < y₃ 100000000000`
+6. `y₃ 100000000000 < 99999997916652 / 100000000000000`
 
 Program definitions in this claim:
 
-- `Omega0Spec` — SPEC, not pinned: inductive type with constructors `Omega0Spec.mk : ∀ {O : ℝ → (ℝ → ℝ) → ℝ → ℝ}, (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → O K a t₀ = 1 + K / (a t₀ ^ 2 * (deriv a t₀ / a t₀) ^ 2)) → (∀ (G ρ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < G → 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → (deriv a t₀ / a t₀) ^ 2 = 8 * Real.pi * G / 3 * ρ - K / a t₀ ^ 2 → O K a t₀ = ρ / (3 * (deriv a t₀ / a t₀) ^ 2 / (8 * Real.pi * G))) → (∀ (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → O 0 a t₀ = 1) → (∀ (t₀ : ℝ), 0 < t₀ → O (-1) (fun s => s) t₀ = 0) → (∀ (t₀ : ℝ), t₀ ≠ 0 → O 1 Real.cosh t₀ = 1 + 1 / Real.sinh t₀ ^ 2) → O 1 (fun s => s) 1 = 2 → (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → (1 < O K a t₀ ↔ 0 < K)) → (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → (O K a t₀ < 1 ↔ K < 0)) → (∀ (c K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < c → 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → O (c ^ 2 * K) (fun s => c * a s) t₀ = O K a t₀) → (∀ (τ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → O K (fun s => a (s + τ)) (t₀ - τ) = O K a t₀) → (∀ (K : ℝ) (a b : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → a =ᶠ[nhds t₀] b → O K a t₀ = O K b t₀) → O 1 (fun s => s) 1 ≠ 0 → O 1 (fun s => 2 * s) 1 ≠ 2 → Omega0Spec O`
-- `omega0 K a t₀` — **PINNED** (pin theorem `omega0Spec_pins`): the total density parameter Ω₀ = 1 + K/(H₀²·a₀²) at time `t₀` for curvature constant `K` and scale factor `a` (c = 1; H₀, a₀ the Hubble rate and scale factor at `t₀`; Ω_k = 1 − Ω₀)
+- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`k₁`·`y₁` + `k₂`·`y₂`·`y₃`, `y₂`′ = `k₁`·`y₁` − `k₂`·`y₂`·`y₃` − `k₃`·`y₂`², `y₃`′ = `k₃`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `y₁`(0) = `a₀`, `y₂`(0) = `b₀`, `y₃`(0) = `c₀`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** any `O` meeting `Omega0Spec` is `omega0` wherever `a₀ > 0`, `a` is
-differentiable at `t₀` and `H₀ ≠ 0`.
+Certified state of Robertson's stiff network at t = 10¹¹: for k₁ = 1/25, k₂ = 10⁴,
+k₃ = 3·10⁷ and initial concentrations (1, 0, 0), every solution of the rate equations on
+[0, 10¹¹] has 0.000000020833401494 < y₁(10¹¹) < 0.0000000208334015,
+0.000000000000083333 < y₂(10¹¹) < 0.000000000000083334 and
+0.99999997916651 < y₃(10¹¹) < 0.99999997916652.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem omega0Spec_pins (O : ℝ → (ℝ → ℝ) → ℝ → ℝ) (h : Omega0Spec O) (K : ℝ) (a : ℝ → ℝ)
-    (t₀ : ℝ) (ha : 0 < a t₀) (hd : DifferentiableAt ℝ a t₀) (hH : deriv a t₀ / a t₀ ≠ 0) :
-    O K a t₀ = omega0 K a t₀ := …
+theorem rob_state1e11 {y₁ y₂ y₃ : ℝ → ℝ}
+    (h : Checked.Sim.Robertson.IsRobSolution (1 / 25) 10000 30000000 1 0 0 100000000000 y₁ y₂ y₃) :
+    20833401494 / 1000000000000000000 < y₁ 100000000000 ∧
+    y₁ 100000000000 < 20833401500 / 1000000000000000000 ∧
+    83333 / 1000000000000000000 < y₂ 100000000000 ∧
+    y₂ 100000000000 < 83334 / 1000000000000000000 ∧
+    99999997916651 / 100000000000000 < y₃ 100000000000 ∧
+    y₃ 100000000000 < 99999997916652 / 100000000000000 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaK.omega0`, `Cosmography.hubble`, `Fidelity.Omega0Spec`
+See GLOSSARY.md: `Sim.Robertson.IsRobSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: omega0.
+- Definitions pinned by a machine-checked specification: IsRobSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `omega0Spec_pins`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/YOmegaKSpecs.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rob_state1e11`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 100000000000.
+- Source file: `Checked/Sim/RobLong.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 13

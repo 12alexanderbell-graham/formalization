@@ -1,95 +1,55 @@
 # Item 31
 
-**Area:** B1 fit level
+**Area:** Certified numbers of the findings
 
-**Source:** see the claim
+**Source:** Capozziello, Lazkoz, Salzano, PRD 84, 124061 (2011), arXiv:1104.3096 (v1 and v2), Eq. (22): flat matter + CPL l₀, w_a² term missing a factor 9
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₁ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `H : ℝ`, `c : ℝ`:
+**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
 
-1. `0 ≤ Ω`
-2. `Ω ≤ 1`
-3. `t₅ ≤ t₃`
-4. `t₃ ≤ t₁`
-5. `t₁ ≤ t₀`
-6. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `0 < a s`
-7. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `DifferentiableAt ℝ a s`
-8. `0 < hubble a t₀`
-9. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
-10. `redshift a t₀ t₁ = √2 - 1`
-11. `redshift a t₀ t₃ = 2 * √2 - 1`
-12. `redshift a t₀ t₅ = 4 * √2 - 1`
-13. `0 < H`
-14. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)`
-15. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)`
-16. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)`
-17. `|5 * Real.logb 10 (lumDistFlat a t₀ t₁ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)) - c| ≤ 1 / 20`
-18. `|5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c| ≤ 1 / 20`
-19. `|5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c| ≤ 1 / 20`
+1. the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `245 / 1000`, w₀ = `-93 / 100`, wₐ = `-41 / 100`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood
+2. `ContDiffAt ℝ 5 a t₀`
 
 **then**
 
-- `a₂ - lusA2 Ω + 1 / 2 < 20 / 3 * Real.logb 10 2 * (a₃ - lusA3 Ω)`
+1. `RoundsTo (cosmoCoeff 5 a t₀) 0.809 3`
+2. `RoundsTo (35 / 2 + (1 - 245 / 1000) / 4 * (213 + (7 - 245 / 1000) * (-41 / 100)) * (-41 / 100) + (1 - 245 / 1000) / 4 * (489 + 9 * (82 - 21 * (245 / 1000)) * (-41 / 100)) * (-93 / 100) + 9 / 2 * (1 - 245 / 1000) * (67 - 21 * (245 / 1000) + 3 / 2 * (23 - 11 * (245 / 1000)) * (-41 / 100)) * (-93 / 100) ^ 2 + 27 / 4 * (1 - 245 / 1000) * (47 - 24 * (245 / 1000)) * (-93 / 100) ^ 3 + 81 / 2 * (1 - 245 / 1000) * (3 - 2 * (245 / 1000)) * (-93 / 100) ^ 4) (-0.906) 3`
 
 Program definitions in this claim:
 
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
-- `logPolyDL3 a₂ a₃ H₀ z` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_logPolyDL3`); its name is not checked (for `a₂ : ℝ`, `a₃ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3)`
-- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
-- `lusA2 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA2`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 * (3 / 2 - 3 / 4 * Ω)`
-- `lusA3 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA3`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 ^ 2 * (9 / 8 * Ω ^ 2 - 2 * Ω + 7 / 6)`
-- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+- `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `Ω`, w₀ = `w₀`, wₐ = `wₐ`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): the `n`-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor `a` at time `t` (n = `n`; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**B1 at fit level (direction).** For every `Ω ∈ [0, 1]` and every scale factor obeying
-`H = H₀ √(Ω(1+z)³ + 1 − Ω)` (with `H₀ > 0`) on the whole interval back to the farthest source, with
-sources at `1 + z = √2, 2√2, 4√2` (`z ≈ 0.41, 1.83, 4.66`), every cubic log-polynomial distance
-(coefficients `a₂, a₃`, normalisation `H > 0`, positive at the three redshifts) whose distance
-modulus agrees with the exact one (`lumDistFlat`) up to a common offset `c` within 0.05 mag at all
-three redshifts satisfies `a₂ − lusA2 Ω + 1/2 < (20/3) log₁₀ 2 · (a₃ − lusA3 Ω)`: it lies beyond a
-line through the point `(lusA2 Ω, lusA3 Ω)` of Lusso et al. 2019 Eq. (8), towards smaller `a₂` and
-larger `a₃`, by a margin of 1/2 in `a₂`.
+The paper's toy model `(Ω, w₀, wₐ) = (0.245, −0.93, −0.41)`: in every flat matter + CPL model
+with these parameters `l₀ = 0.809`, while the printed formula gives `−0.906`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fit_direction (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
-    (a : ℝ → ℝ) (t₅ t₃ t₁ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₁ : t₃ ≤ t₁) (h₁₀ : t₁ ≤ t₀)
-    (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
-    (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
-    (hH₀ : 0 < hubble a t₀)
-    (hH : ∀ s ∈ Set.Icc t₅ t₀,
-      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
-    (hz₁ : redshift a t₀ t₁ = √2 - 1) (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1)
-    (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
-    (a₂ a₃ H c : ℝ) (hHp : 0 < H)
-    (hp₁ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₁))
-    (hp₃ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃))
-    (hp₅ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₅))
-    (hm₁ : |5 * Real.logb 10 (lumDistFlat a t₀ t₁ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)) - c|
-      ≤ 1 / 20)
-    (hm₃ : |5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c|
-      ≤ 1 / 20)
-    (hm₅ : |5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c|
-      ≤ 1 / 20) :
-    a₂ - lusA2 Ω + 1 / 2 < 20 / 3 * Real.logb 10 2 * (a₃ - lusA3 Ω) := …
+theorem F2_toy (a : ℝ → ℝ) (t₀ : ℝ)
+    (hL : CPL.IsFlatCPL (245 / 1000) (-93 / 100) (-41 / 100) a t₀)
+    (hs : ContDiffAt ℝ 5 a t₀) :
+    RoundsTo (cosmoCoeff 5 a t₀) 0.809 3 ∧
+      RoundsTo (printedCPLl0 (245 / 1000 : ℝ) (-93 / 100 : ℝ) (-41 / 100 : ℝ)) (-0.906) 3 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1.logPolyDL3`, `Cosmography.B1.lusA2`, `Cosmography.B1.lusA3`, `Cosmography.BambaY.comoving`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL3², lusA2², lusA3².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fit_direction`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): redshift(t₁) = √2 - 1; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1.
-- Source file: `Checked/Cosmography/B1Fit.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, IsFlatCPL.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `F2_toy`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatCPL: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100; RoundsTo: d = 0.809, k = 3, d = -0.906; cosmoCoeff: n = 5.
+- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 31

@@ -28,6 +28,10 @@ B3 (brief does not contain the answer): no decimal literal (`0.480`), fraction `
 B4 (isolation): the commit adding the reader file changes nothing outside `runs/<run>/`, and the commit
    adding the brief adds no `.lean` file and changes nothing under `Checked/`, `Work/` or `scripts/`.
 
+B5 (run 2026-11-06T1428Z, red team O d02): every other file in the reader file's directory (not a brief, not
+   the reader file) is reader output: added in the reading commit or later, never before it (a "sheet" next
+   to the brief handed the answer over by reference; only `*brief*.md` files are read for leaks).
+
 What remains uncheckable (recorded): that the reader was a different agent, that it did not see the program
 text or the source answer by another channel, and that the brief describes the source honestly. An author
 who writes a brief without the answer, commits it, writes a forged reading in a separate commit touching only
@@ -157,6 +161,21 @@ def check_module(rel, base, order, errors):
                     if f.endswith(".lean") and l.startswith("A") or f.startswith(("Checked/", "Work/", "scripts/")):
                         p.append(f"B4: the commit adding brief {good_brief} also changes {f}")
                         break
+        # B5 (run 2026-11-06T1428Z, red team O d02: the brief said "see the sheet in this folder", and the
+        # sheet, not a *brief* file, handed over the wrong coefficient unread by B3/check_brief_leak): every
+        # other file in the reader's directory is reader output — added in the reading commit or later, never
+        # before it
+        rdir = "/".join(c.split("/")[:-1])
+        for f in sorted((ROOT / rdir).iterdir()):
+            fr = str(f.relative_to(ROOT))
+            if not f.is_file() or fr == c or fr in bs:
+                continue
+            fadd = first_commit(base, fr, "A")
+            at_base = P.git("cat-file", "-e", f"{base}:{fr}") is not None
+            if at_base or (fadd is not None and order.index(fadd) < order.index(added)):
+                p.append(f"B5: {fr} sits next to the reader file and was committed before the reading "
+                         f"(only the brief may be handed to a reader; anything else is read by no leak check)")
+                break
         for l in changed_files(added):
             f = l.split("\t")[-1]
             if not f.startswith(run_root):
