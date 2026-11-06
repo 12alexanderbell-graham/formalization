@@ -1,0 +1,93 @@
+applied d02 stage 1
+applied d02 stage 2
+applied d01
+applied d02 stage 3
+applied d03
+applied d04
+applied d05
+applied d06
+== new files compile one by one 16:17:48
+  ok Checked/Chemistry/SoaveOne.lean
+  ok Checked/Chemistry/SoaveWindow.lean
+  ok Checked/Sim/RobBelow.lean
+  ok Checked/Sim/RobNear.lean
+  ok Checked/Sim/RobProduct.lean
+  ok Checked/Trust/SecondReadingKappaO.lean
+  FAIL Work/Math/GelfandNoSolution.lean
+Work/Math/GelfandNoSolution.lean:1:0: error: unknown module prefix 'Work'
+== build 16:18:09
+build: PASS
+work Work.Math.GelfandNoSolution: PASS
+grep: PASS
+== trust 16:32:21
+trust: PASS
+--- claims 16:37:01
+CLAIMS.md: 179 generated claims
+wrote 55 files, 51 items, seed 72c4d16f819f
+== python checks, each separately 16:39:31
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 179 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 19 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    check_literals: 179 headlines, 121 with uncovered literals (121 baselined), 50 registered readings; ok
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 179 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 179 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 337 meaning rows, 0 grading words (0 baselined); ok
+  [check_relock.py 14d4452]
+    frozen registry: 1528 entries at 14d4452, none changed or removed
+  [check_numbers.py --base 14d4452]
+    certified-number diff vs 14d4452: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base 14d4452]
+    check_prose: 179 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base 14d4452]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base 14d4452]
+    phrases: 23 at 14d4452, none changed or removed
+  [check_formulas.py --base 14d4452]
+    second formulations/readings added or changed against 14d4452 not disclosed in a LEDGER.md addition naming them (declarations and changed modules) and their blind brief: ['kappaSoaveO']
+    check_formulas: 0 baselined FORMULA definitions; FAIL
+  [check_provenance.py --base 14d4452]
+    check_provenance: 19 second-version modules, 6 baselined; ok
+  [check_literals.py --base 14d4452]
+    check_literals: 179 headlines, 121 with uncovered literals (121 baselined), 50 registered readings; ok
+  [check_source_names.py --base 14d4452]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base 14d4452]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base 14d4452]
+    check_blind_route: 1 second versions added or changed since 14d4452; ok
+  [check_literal_targets.py --base 14d4452]
+    check_literal_targets: 179 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base 14d4452]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base 14d4452]
+    check_prose_gen: 179 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base 14d4452]
+    check_reader_frozen: 17 reader modules and 11 runs/ reader files at 14d4452 checked; ok
+  [check_brief_leak.py --base 14d4452]
+    check_brief_leak: 1 briefs of reader files new since 14d4452; ok
+  [check_prose_eval.py --base 14d4452]
+    check_prose_eval: 337 meaning rows, 0 grading words (0 baselined); ok
+--- make_packet --check
+validation packet up to date (51 items)
+--- goal guard
+goal guard: ok
+== end 16:40:20

@@ -320,3 +320,9 @@
 - Mathematics: **Gelfand / Frank-Kamenetskii critical parameter of the 3-D ball certified**: for every solution of the isothermal Emden–Chandrasekhar equation on any [0, S], S ≥ 4.1, max s²e^w attained at s₁ ∈ [4.071496844, 4.071496845], value ∈ [3.321992118, 3.321992119]; global maximum by a Lyapunov energy; existence; blind closure; referee STANDS. PROVED in Work (freeze → proof in ≈ 45 min, every generated module compiled first time after a 6-cell test).
 - New tools: `Work/Math/GStart.lean` (singular start with e^w), `GCell.lean` (cell step for E' = Eφ), `GFinal.lean` (Lyapunov assembly), `GHelp.lean` (exp Taylor bounds, positivity extension); generator `runs/2026-11-06T1228Z/scripts/gen_g.py`, `emit_g.py`.
 - PROMPT working notes: transcendental nonlinearities by an auxiliary variable; web-tool refusals in subagent briefs.
+## 2026-11-06T1428Z (scheduled run; parts 5 and 3)
+- Env: local Lean via elan + cache; first full Checked build OOM-killed, rerun ≈ 60 min. CI: 6f0816d green on every job (Robertson t = 10¹¹ PROVED).
+- Mathematics: **Gelfand critical parameter of the 3-D ball promoted to Checked** (fb999b2): `gelfand_ball_critical`, `exists_solution` registered, NV witnesses, blind literal reading of the radial problem (`Checked/Trust/SecondReadingGelfand.lean`), relock, CLAIMS, packet. PROVED once CI is green.
+- Checks: check_literals (a5) domain lengths (adversary-tested); new `check_claim_words.py` (W1 inference, W2 names, W3 two-sided words, W4 persistence, W5 grades) and check_blind_route B5 (no side file next to a brief), wired into lean.yml.
+- T5 round O (blind, against the round-N scripts): 6/6 accepted; after the new rules 1/6 (not blind). `runs/2026-11-06T1428Z/t5/RESULTS.md`.
+- PROMPT working notes: domain lengths are not data (reader template with placeholders); full build OOM (heavy modules first, poll ≤ 5 min).
