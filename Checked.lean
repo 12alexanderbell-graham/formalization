@@ -138,6 +138,7 @@ import Checked.Trust.SecondReadingRob
 import Checked.Trust.SecondReadingRobLong
 import Checked.Trust.SecondReadingGelfand
 import Checked.Trust.SecondReadingTF
+import Checked.Trust.SecondReadingTF3
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
 import Checked.Trust.FormulationsD
