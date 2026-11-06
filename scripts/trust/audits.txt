@@ -334,6 +334,13 @@ Work.Chemistry.PR78AcentricAudit.iso_7
 Work.Chemistry.PR78AcentricAudit.iso_c
 Work.Chemistry.PR78AcentricAudit.maxwell
 Work.Chemistry.PR78AcentricAudit.pc_eq
+Work.Chemistry.SRKAcentricAudit.closed_srk_acentric
+Work.Chemistry.SRKAcentricAudit.closed_srk_exists
+Work.Chemistry.SRKAcentricAudit.crit
+Work.Chemistry.SRKAcentricAudit.iso_7
+Work.Chemistry.SRKAcentricAudit.iso_c
+Work.Chemistry.SRKAcentricAudit.maxwell
+Work.Chemistry.SRKAcentricAudit.pc_eq
 Work.Chemistry.PRAcentricAudit.closed_exists
 Work.Chemistry.PRAcentricAudit.closed_numbers
 Work.Chemistry.PRAcentricAudit.closed_pr_acentric

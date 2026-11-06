@@ -10,11 +10,16 @@ import Work.Chemistry.SRKExists
 
 **Question.** Soave (1972) gave the Redlich–Kwong equation P = RT/(v − b) − a(T)/(v² + bv) the
 temperature function a(T) = a_c (1 + κ (1 − √(T/T_c)))² with κ(ω) = 0.480 + 1.574 ω − 0.176 ω²,
-fitted to vapour pressures at T_r = 0.7, where the acentric factor is defined. Fed back into the
-equation, does κ(ω) return the ω it was given? Run 2026-11-05T1228Z certified that the analogous
+fitted to vapour pressures at T_r = 0.7, where the acentric factor is defined, at eleven values
+of ω from 0 to 0.5 (Piña-Martinez et al., Fluid Phase Equilib. 485 (2019) 264); ω = 1 is an
+extrapolation. Fed back into the equation, does κ(ω) return the ω it was given? Inside the fitted
+range it does to within 2·10⁻⁴ (referee table, `runs/2026-11-06T0028Z/referee_srk.md`). Run 2026-11-05T1228Z certified that the analogous
 Peng–Robinson 1976 correlation does not at ω = 1 (0.942). Floating point
 (`runs/2026-11-06T0028Z/scripts/srk_float.py`, and the independent route of
-`runs/2026-11-04T1828Z/scripts/soave_selfconsistency.py`) gives 0.99203 for SRK at ω = 1.
+`runs/2026-11-04T1828Z/scripts/soave_selfconsistency.py`) gives 0.99203 for SRK at ω = 1. Status of the answer: qualitatively in print (the fit stops at
+ω = 0.5; the original correlation is known to do worse for heavy compounds); the value 0.992 was
+not located in print. The coefficients are Soave's original ones (thermo, CoolProp, pychemqt); the
+Graboski–Daubert (1978) variant 0.48508 + 1.55171 ω − 0.15613 ω² gives 0.994 instead.
 
 **What is stated here** (program definitions only: `cubicP R a b 1 0 T` is the
 Redlich–Kwong form RT/(v−b) − a/(v² + bv); `IsCriticalIsotherm` (pinned),

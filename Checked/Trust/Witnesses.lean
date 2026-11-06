@@ -39,6 +39,7 @@ import Checked.Data.FR13
 import Checked.Chemistry.RKAcentric
 import Checked.Chemistry.PRAcentric
 import Checked.Chemistry.PR78Acentric
+import Checked.Chemistry.SRKAcentric
 import Checked.Cosmography.B1L19Curved
 import Checked.Math.LaneEmden
 import Checked.Math.LEExists
@@ -612,6 +613,28 @@ theorem pr78_omega1_exists : nonvacuity% Checked.Chemistry.PR78Acentric.pr78_ome
 theorem pr78_omega1_unique : nonvacuity% Checked.Chemistry.PR78Acentric.pr78_omega1_unique := by
   obtain ⟨Tc, vc, -, hv, hc⟩ := pr_crit_witness
   obtain ⟨vl, vg, ps, hl, h, -⟩ := Checked.Chemistry.PR78Acentric.pr78_omega1_exists
+    1 1 1 Tc vc one_pos one_pos hv hc
+  exact ⟨1, 1, 1, Tc, vc, vl, vg, ps, one_pos, one_pos, hv, hc, hl, h, trivial⟩
+
+/-! ### Soave–Redlich–Kwong with Soave's κ at ω = 1 (run 2026-11-06T0028Z): the Redlich–Kwong critical
+point of R = b = 1 with attraction 1 at T_c (`Checked.Chemistry.CubicEOS.exists_unique_critical`,
+u = 1, w = 0); the coexistence state of the uniqueness theorem is the one `srk_omega1_exists`
+provides. -/
+
+theorem srk_crit_witness : ∃ Tc vc : ℝ, 0 < Tc ∧ 1 < vc ∧
+    Checked.Chemistry.CubicEOS.IsCriticalIsotherm
+      (Checked.Chemistry.CubicEOS.cubicP 1 1 1 1 0 Tc) vc := by
+  obtain ⟨⟨Tc, vc⟩, ⟨hT, hv, hc⟩, -⟩ := Checked.Chemistry.CubicEOS.exists_unique_critical
+    1 1 1 1 0 one_pos one_pos one_pos (by norm_num) (by norm_num)
+  exact ⟨Tc, vc, hT, hv, hc⟩
+
+theorem srk_omega1_exists : nonvacuity% Checked.Chemistry.SRKAcentric.srk_omega1_exists := by
+  obtain ⟨Tc, vc, -, hv, hc⟩ := srk_crit_witness
+  exact ⟨1, 1, 1, Tc, vc, one_pos, one_pos, hv, hc, trivial⟩
+
+theorem srk_omega1_unique : nonvacuity% Checked.Chemistry.SRKAcentric.srk_omega1_unique := by
+  obtain ⟨Tc, vc, -, hv, hc⟩ := srk_crit_witness
+  obtain ⟨vl, vg, ps, hl, h, -⟩ := Checked.Chemistry.SRKAcentric.srk_omega1_exists
     1 1 1 Tc vc one_pos one_pos hv hc
   exact ⟨1, 1, 1, Tc, vc, vl, vg, ps, one_pos, one_pos, hv, hc, hl, h, trivial⟩
 
