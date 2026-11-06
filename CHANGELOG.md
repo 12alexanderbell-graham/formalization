@@ -336,3 +336,10 @@
 - **Thomas–Fermi initial slope certified: −1.58807103 ≤ y'(0) ≤ −1.58807102 for every neutral-atom solution, PROVED in Work + AUDITED** (`Work.Math.ThomasFermi.tf_initial_slope`, freeze 67f4410, proof 7c25ba6; blind closure; referee STANDS). Digits in print are floating point.
 - New generic method: Kamke barriers for cooperative systems (`Work/Math/TFCell.lean`), reduction t = √x, w = √y (`TFReduce.lean`), 114 generated cells (`runs/2026-11-06T1828Z/scripts/gen_tf.py`, `emit_tf.py`).
 - PROMPT working notes: barriers for shooting problems; reading CI logs.
+## 2026-11-06T2028Z (scheduled run; parts 2/1, 5 and 3)
+- Env: local Lean via elan + cache. CI: 3147cbb work job green (Thomas–Fermi Work proofs in CI); checked job running at 21:20Z.
+- **Thomas–Fermi existence PROVED in Work** (`Work.Math.ThomasFermiExists.tf_exists`, freeze a68afbb, proof 9da31b2): a solution meeting every hypothesis of the slope headline exists — the enclosure −1.58807103 ≤ y'(0) ≤ −1.58807102 is unconditional. Shooting with Mathlib's Picard–Lindelöf flow (`Work/Math/TFEx*.lean`).
+- Promotion of both to Checked: **promoted to Checked** (run 2026-11-06T2028Z: `Checked/Math/ThomasFermi.lean`, `Checked/Math/ThomasFermiExists.lean` and 17 supporting modules, statements identical to the Work freezes up to the namespace; registered headlines, NV witness from the existence theorem, blind literal readings of the equation, the nucleus condition, the limit at infinity and the regularity at 0; local full `lake build Checked`, relock 178 headlines on pinned definitions, NV 116/116, every trust script green; PROVED once its CI is green — read next run)
+- Prior art: `runs/2026-11-06T2028Z/prior_art_tf.md` (Iacono 2008 unreadable; no rigorous enclosure < 10⁻⁶ found).
+- Part 3: blind red team P (6 defects, not judged) in `runs/2026-11-06T2028Z/t5/redteamP/`.
+- PROMPT working notes: existence for shooting problems; test-compile reader templates.
