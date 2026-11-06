@@ -21,5 +21,6 @@
 6. **Proof:** `emit_robL.py` checks every `stepS` hypothesis in exact arithmetic, emits `RobLCerts{0..7}.lean` (≈ 2 min each), `RobLChain.lean` (t = 40 ball → sheared norm, 77 steps, `finalL`); `RobLong.lean` proofs; blind closure `RobLongAudit.lean`. `lake build Work.Sim.RobLongAudit` green; frozen `rob_state1e11`, `rob_exists_1e11` byte-identical to 0be34d7.
 
 ## End
+- **CI repair:** the LOCK commit's checked job (42187978298) failed the trust step on STATE.md citations written by run 0628Z (pin theorem and NV witness cited by name, not registered headlines); fixed in 7d91ccb, with a pure-Python pre-check `scripts/trust/precheck_citations.py` (reproduces both errors on d4dbe09) and a PROMPT note.
 - Records: STATE (new section, results, environment, daily review, exact next step: promotion), FINDINGS candidate C-ROBER, LEDGER, CHANGELOG, TARGETS part 2, BLUEPRINT, PROMPT working note; LOCK removed.
 - CI of 0fe8f0d (work job with the 77 cells) and of the records commit: read next run.
