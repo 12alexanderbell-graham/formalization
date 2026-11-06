@@ -164,6 +164,8 @@ import Work.Math.GelfandPDEBlindClosed
 import Work.Math.RadialC2
 import Work.Math.GProfile
 import Work.Math.GelfandPDEExists
+import Work.Math.GelfandPDEExistsBlind
+import Work.Math.GelfandPDEExistsBlindClosed
 import Work.Sim.MMAudit
 import Work.Sim.OneSided
 import Work.Sim.RobCell
