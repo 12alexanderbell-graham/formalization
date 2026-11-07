@@ -377,3 +377,8 @@
 - **check_literals strict wildcard rule** (30daeda, LEDGER): numbers inside a group matched by a reader's binder are no longer counted as read (new headlines; six baselined κ(ω) headlines grandfathered, known gap).
 - **Townes trio promotion prepared** on `wip/townes-checked` (21ba411, 2e29c8f): Checked copies, blind literal reading (9b0daf9 → ec5663a → copy), registrations, NV witnesses, promotion audit. Author files, relock and main fast-forward next run.
 - PROMPT working notes: certificates by kernel evaluation; a reader's binder wildcard reads nothing.
+
+## Run 2026-11-07T1028Z (scheduled; parts 1 and 3)
+- Auditor role under 48.4 until run 0828Z released the LOCK (10:55Z); the work was staged in `runs/2026-11-07T1028Z/lean/` (5cb27d7, c2c0cb5, db0c9e1) and installed after the LOCK was taken.
+- **Thomas–Fermi, Lane–Emden and Gelfand chains re-certified by kernel evaluation** (statements unchanged): new `Checked/Math/{TFCellQ,TFQData,LECellQ,LEQData,LELast,GCellQ,GQData}.lean`, rewritten `TFChain`, `LEChain`, `GChain`; 15 generated `ring`-certificate modules moved to `_archive/Checked/Math/`. TF data 15.8 MB olean (old ≈ 1.1 GB), whole TF chain +38.7 k export lines.
+- PROMPT working note: porting a `ring`-certified chain to kernel evaluation.
