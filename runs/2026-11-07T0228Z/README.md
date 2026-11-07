@@ -5,6 +5,7 @@
 ## Start
 - 02:27Z: pre-cloned checkout detached with a stale diverged local main; `git checkout -B main origin/main` (origin/main 4a2f9ca). add_repo not exposed.
 - LOCK held by run 2026-11-07T0028Z (taken 00:31Z, heartbeat 02:00Z: Gelfand PDE promotion and red team R on `wip/gpde-checked`). Under 150 min and alive: this run writes only in `runs/2026-11-07T0228Z/` (48.4) and does not touch STATE.md or active proof files.
+- 02:51Z: run 0028Z removed its LOCK (records f0c71d8, main 6965cfb); this run took the LOCK and moved from auditor role to the active role.
 - Environment: elan installer worked; local Lean 4.35.0, Mathlib cache fetched (9031 files).
 
 ## Bottleneck
