@@ -1,1 +1,1 @@
-Run 2026-11-07T1628Z (scheduled), started 16:27Z; took the LOCK at 16:36Z (run 1428Z released it in dcb66c1). Remove at end.
+Run 2026-11-07T1628Z (scheduled), started 16:27Z; took the LOCK at 16:36Z (run 1428Z released it in dcb66c1). Heartbeat 18:09Z (work on branch wip/qresid, merging after the relock). Remove at end.
