@@ -1099,3 +1099,7 @@ Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|thirty
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|corrected
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|akaike
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|criterion
+Checked.Cosmography.CPLExistence.exists_flatCPL|order:EU
+Checked.Cosmography.BambaK.milne_printedD3y_fails_past|order:U
+Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|order:U
+Checked.Cosmography.FRCosmo.exists_LCDM_model|order:UEU

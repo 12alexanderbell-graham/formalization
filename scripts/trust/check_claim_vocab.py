@@ -33,6 +33,14 @@ V5 (junk values): no conclusion of a generated claim (its "then"/"It holds that"
    conventions, and a headline about them certifies the convention, not mathematics (P d05: `√(k / m) = 0` for
    k < 0, "an inverted potential has a vanishing natural frequency"). CLAIMS.md's notation block states the
    conventions since this run.
+V7 (quantifier order; run 2026-11-07T0028Z, after blind red team Q d04 — not blind): the sequence of quantifier
+   phrases of a paraphrase (universal: every/all/any/each/whenever, existential: there is/are/exists, exist(s), some;
+   adjacent phrases of one kind merged; code spans removed; "there is no" not counted) must be a subsequence of the
+   same sequence read from the generated claim (its statement part, then the program definitions it lists). Q d04 wrote ∀E ∃n as
+   "there is a level n such that … for every E" with the claim's own words: E-then-U is not a subsequence of U-then-E.
+   Postpositive universals ("models exist for every Ω") are rejected too: say "for every Ω there is …".
+   Limits: nesting beyond the order (which existential an "every" sits under), quantifiers expressed without these
+   words ("a level above each energy" counts; "a level above the energies" does not).
 V4 (--base): each word added to prose_vocab.txt is named in backticks on a LEDGER.md line added since the base
    that mentions prose_vocab.txt.
 
@@ -199,6 +207,7 @@ def findings(vocab):
         out += junk(full, gen)
         if not para.strip():
             continue
+        out += order(full, gen, para)
         gv = gen_vocab(gen)
         seen = set()
         for w in words(para):
@@ -227,6 +236,38 @@ def findings(vocab):
                 out.append((f"{full}|num:{n}", f"V6: {full}: its paraphrase names the number {n}, which the generated claim "
                             f"does not contain (a number a reader takes from the paraphrase must be the statement's)"))
     return out
+
+
+QU = r"(?:every|all|any|each|whenever)"
+QE = r"(?:there\s+(?:is|are|exists?)(?!\s+no\b)|exists?|some)"
+QTOK = re.compile(rf"(?i)\b(?:(?P<u>{QU})|(?P<e>{QE}))\b")
+
+
+def quant_seq(text):
+    """merged sequence of quantifier kinds ('U' universal, 'E' existential) of a text, code spans removed (V7)"""
+    text = re.sub(r"`[^`]*`", " ", text)
+    out = []
+    for m in QTOK.finditer(text):
+        k = "U" if m.group("u") else "E"
+        if not out or out[-1] != k:
+            out.append(k)
+    return out
+
+
+def order(full, gen, para):
+    """V7: the paraphrase's quantifier order is a subsequence of the generated claim's"""
+    lines = gen.split("\n")
+    body = "\n".join(l for i, l in enumerate(lines) if i > 0 and not l.startswith("Full name"))
+    # the claim's own order first, then the order inside the program definitions it names (a refutation
+    # `¬ printedClaim` carries its quantifiers in the definition body)
+    claim, _, defs = body.partition("Program definitions in this claim")
+    g, p = quant_seq(claim) + quant_seq(defs), quant_seq(para)
+    it = iter(g)
+    if all(x in it for x in p):
+        return []
+    return [(f"{full}|order:{''.join(p)}", f"V7: {full}: its paraphrase quantifies in the order {'-'.join(p) or '-'} "
+             f"(U = every/all/any/each, E = there is/exists/some), which the generated claim's order "
+             f"{'-'.join(g) or '(none)'} does not contain: write the quantifiers in the claim's order")]
 
 
 JUNK = re.compile(r"(?:√|Real\.sqrt|Real\.logb?\b)[^=≠]*=\s*0(?![.\d])|=\s*0\s*$.*|/\s*0(?![.\d])")
