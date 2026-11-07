@@ -7,12 +7,13 @@ on:
   pull_request:
   workflow_dispatch:
 
-# Run 2026-11-07T0428Z (annex LIV, integrity event 39.5, see LEDGER): at most one running and one queued run per ref.
-# A running run is never cancelled; a newer push replaces an older run that has not started. Nothing goes unchecked:
+# Run 2026-11-07T0428Z (annex LIV, integrity event 39.5, see LEDGER): at most one running and one queued job per ref.
+# A running job is never cancelled; a newer push replaces an older job that has not started. Nothing goes unchecked:
 # the base-diff checks diff against the newest green ancestor (changes job), which covers every replaced commit.
-concurrency:
-  group: lean-judge-${{ github.ref }}
-  cancel-in-progress: false
+# Run 2026-11-07T0628Z (39.5, see LEDGER): the coalescing moved from the whole run to each heavy job (work, checked,
+# each nanoda shard), so a nanoda shard of hours no longer holds back the work and checked jobs of later commits
+# (run 42343274596: shards 0 and 3 still running after 2 h kept 77803a1's successors queued). A run is green only
+# when every job of it is green, as before.
 
 permissions:
   contents: read
@@ -60,6 +61,9 @@ jobs:
 
   work:
     name: work (drafts, sorry allowed)
+    concurrency:
+      group: lean-judge-work-${{ github.ref }}
+      cancel-in-progress: false
     needs: changes
     if: needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest
@@ -82,6 +86,9 @@ jobs:
 
   checked:
     name: checked (strict)
+    concurrency:
+      group: lean-judge-checked-${{ github.ref }}
+      cancel-in-progress: false
     needs: changes
     if: needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest
@@ -232,6 +239,9 @@ jobs:
     # lean-toolchain, the nanoda scripts and this workflow (scripts/ci_changes.py) plus the shard index; a later run on
     # identical input prints the run that passed and does not re-check. Any change to those files changes the key.
     name: nanoda shard ${{ matrix.shard }} of 4 (independent type check of Checked; memoised on the exact input hash)
+    concurrency:
+      group: lean-judge-nanoda-${{ matrix.shard }}-${{ github.ref }}
+      cancel-in-progress: false
     needs: changes
     if: needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest

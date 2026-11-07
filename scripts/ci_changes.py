@@ -2,8 +2,8 @@
 """CI helper (part of the judge, annex 39.5; run 2026-11-07T0428Z, see LEDGER).
 
 Why: CI was saturated (every push started a checked job of hours, 20+ runs queued). The workflow now
-coalesces queued runs per ref (concurrency group, cancel-in-progress false: a running job always
-finishes, a newer push replaces an older *queued* run). The base-diff checks (check_relock, check_audits,
+coalesces queued work per ref (concurrency groups, cancel-in-progress false: a running job always
+finishes, a newer push replaces an older *queued* one; per heavy job since run 2026-11-07T0628Z). The base-diff checks (check_relock, check_audits,
 check_blind_route, ...) used `github.event.before`, so a coalesced commit's diff would have gone
 unchecked. They now diff against BASE = the newest ancestor of HEAD whose whole workflow run concluded
 `success` (from the Actions API; durable run records, not caches). Every change since the last fully
