@@ -15,3 +15,5 @@ undershoot
 overshoot
 existence
 sided
+friedmann
+ray

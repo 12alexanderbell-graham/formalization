@@ -14,7 +14,15 @@ S1: a bullet of STATE.md whose leading bold status says PROVED, checked, promote
     (`scripts/trust/headlines.txt`, entries are unique suffixes), and cites no backticked `Work.…` name before its
     first `Checked.…` name.
 
-Limits: words outside the bold status (a bullet can still say "CI green" falsely: the CI run ID it cites is the
+S2 (run 2026-11-07T1428Z, after judging blind red team R d05 on main — not blind): such a bullet (status claiming a
+    check, not "in Work") may not use a count, scope, optimality or finality word (`NARROW` below: unique, exactly,
+    only, none, settled, solved, regardless, "or not", sharp, optimal, global, …) outside code spans unless the
+    generated claim (CLAIMS.md) of a headline the bullet cites — by full name or by a backticked unique suffix —
+    contains that word. R d05 rewrote the Gelfand PDE bullet as **PROVED** with both registered headlines and added
+    "has exactly one classical solution … and none at all …, radial or not, … settled": S1 passed because the
+    citations were genuine.
+
+Limits: a deny-list (a claim-changing word outside NARROW still passes); words outside the bold status (a bullet can still say "CI green" falsely: the CI run ID it cites is the
 evidence a reader can follow), other files (README.md, run records), statuses other than PROVED.
 """
 import re
@@ -22,6 +30,23 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+NARROW = re.compile(r"(?i)^(?:unique\w*|exactly|only|sole\w*|none|nothing|settle\w*|solved|resolved|regardless|"
+                    r"whatever|whichever|irrespective\w*|or-not|sharp\w*|optimal\w*|best|tight\w*|global\w*|"
+                    r"universal\w*)$")
+
+
+def s2_words(line, heads):
+    """S2: NARROW words of a status bullet that none of its cited headlines' generated claims contains"""
+    import check_claim_vocab as V
+    secs = {full: gen for full, gen, _ in V.sections()}
+    cited = set(re.findall(r"`((?:Checked\.)?[A-Za-z0-9_.']+)`", line))
+    gens = " ".join(g for f, g in secs.items()
+                    if any(c == f or (len(c) > 3 and f.endswith("." + c.split("Checked.", 1)[-1])) for c in cited))
+    gv = V.gen_vocab(gens) | set(V.words(gens))
+    text = re.sub(r"\bor not\b", "or-not", re.sub(r"`[^`]*`", " ", line))
+    return sorted({w for w in re.findall(r"[A-Za-z][\w-]*", text) if NARROW.match(w) and not (V.forms(w.lower()) & gv)})
 
 
 def main():
@@ -49,6 +74,11 @@ def main():
             errors.append(f"S1: STATE.md:{i}: status '{status}' cites {names[0]} before any Checked headline or module")
         if checked and not paths and not any(n == h or n.endswith("." + h) for n in checked for h in heads):
             errors.append(f"S1: STATE.md:{i}: status '{status}': none of {', '.join(checked)} is a registered headline")
+        bad = s2_words(line, heads)
+        if bad:
+            errors.append(f"S2: STATE.md:{i}: status '{status}' says {', '.join(repr(b) for b in bad)}, which the generated "
+                          f"claims of the headlines it cites do not contain (CLAIMS.md): a status line may not claim more "
+                          f"than its headlines")
     for e in errors:
         print("  " + e)
     print(f"check_status_lines: {'FAIL' if errors else 'ok'}")

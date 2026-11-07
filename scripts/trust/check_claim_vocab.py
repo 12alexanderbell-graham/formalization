@@ -43,6 +43,14 @@ V7 (quantifier order; run 2026-11-07T0028Z, after blind red team Q d04 — not b
    words ("a level above each energy" counts; "a level above the energies" does not).
 V8 (names; run 2026-11-07T0028Z, after blind red team R d02 — not blind): a STRENGTH word in the headline's name
    (unique, exact, sharp, optimal, …) must occur in its generated claim.
+V10 (bound numerals; run 2026-11-07T1428Z, after judging blind red team R d04 — not blind): a numeral next to a
+   disclosed-vocabulary word ("dimension 2", "two-dimensional") needs that word's Lean shape with that numeral in the
+   generated claim (`BIND`: `Fin n` for dimension, `ContDiff ℝ n` for "n times continuously"); V6 now also reads
+   numerals inside code spans and the number words two…ten.
+V9 (unpinned names; run 2026-11-07T1428Z, after judging blind red team R d03 — not blind): identifiers of program
+   definitions the section lists as not pinned contribute no words to the generated vocabulary of V1/V8: CLAIMS.md
+   says only their formula is checked, not their name (R d03: COMPOSITE `IsDecelerating a t := decel a t < 0`, true
+   of de Sitter, paraphrased "is decelerating").
 V4 (--base): each word added to prose_vocab.txt is named in backticks on a LEDGER.md line added since the base
    that mentions prose_vocab.txt.
 
@@ -161,10 +169,23 @@ def split_ident(ident):
     return {norm(p) for p in re.split(r"[_\s.\d']+", ident) if p}
 
 
+def unpinned_names(gen):
+    """V9 (run 2026-11-07T1428Z, after judging blind red team R d03 on main — not blind): the names of the program
+    definitions the section lists as not pinned (`- `Name args` — KIND, not pinned …`). CLAIMS.md itself says that
+    only such a definition's formula is checked, not its name, so its name is the author's prose like the
+    headline's own name and binders (R d03: COMPOSITE `IsDecelerating a t := decel a t < 0`, true of de Sitter,
+    paraphrased "the scale factor is decelerating": 'decelerating' came only from the unpinned name)."""
+    names = set()
+    for m in re.finditer(r"(?m)^- `([A-Za-z_][A-Za-z0-9_'.]*)[^`]*` — (?!\*\*PINNED)", gen):
+        names.add(m.group(1))
+        names.add(m.group(1).split(".")[-1])
+    return names
+
+
 def gen_vocab(gen):
     lines = gen.split("\n")
     body = "\n".join(l for i, l in enumerate(lines) if i > 0 and not l.startswith("Full name"))
-    own = author_names(gen)
+    own = author_names(gen) | unpinned_names(gen)
     v = set(words(re.sub(r"`[^`]*`", " ", body)))
     # identifiers inside code spans contribute their words too (camelCase / snake_case parts), except the
     # headline's own name and its binder names
@@ -213,6 +234,7 @@ def findings(vocab):
         if not para.strip():
             continue
         out += order(full, gen, para)
+        out += bound_numerals(full, gen, para, vocab)
         gv = gen_vocab(gen)
         seen = set()
         for w in words(para):
@@ -227,7 +249,11 @@ def findings(vocab):
         # V6 (run 2026-11-06T2228Z, blind red team Q d06: "equals 2.718 to 6 decimal places" over `RoundsTo … 2.718 3`):
         # every numeral of the paraphrase is a numeral of the generated claim
         gn = gen_numbers(gen)
-        para_n = re.sub(r"`[^`]*`", " ", para)
+        # since run 2026-11-07T1428Z (not blind, R d04 judged): numerals inside the paraphrase's code spans and the
+        # cardinal number words two…ten are read too (before, "dimension `2`" or "two-dimensional" escaped V6)
+        para_n = re.sub(r"`([^`]*)`", lambda m: " " + m.group(1) + " ", para)
+        para_n = re.sub(r"(?i)\b(" + "|".join(k for k in NUMWORD if k != "twice") + r")\b",
+                        lambda m: " " + str(NUMWORD[m.group(1).lower()]) + " ", para_n)
         para_n = re.sub(r"\[[^\]]*\]", " ", para_n)
         para_n = W.C.CITE.sub(" ", para_n)  # equation citations `(N.M)`, `Eq. N.M` (check_prose registers them)
         para_n = re.sub(r"\b(?:19|20)\d\d(?:-\d\d(?:-\d\d)?)?(?:T\d{4}Z)?\b", " ", para_n)  # years and dates (check_prose rule 9 reads sources)
@@ -240,6 +266,47 @@ def findings(vocab):
             if abs(pn[n]) not in gn and not (n in skip or n.lstrip("-") in skip):
                 out.append((f"{full}|num:{n}", f"V6: {full}: its paraphrase names the number {n}, which the generated claim "
                             f"does not contain (a number a reader takes from the paraphrase must be the statement's)"))
+    return out
+
+
+NUMWORD = {"two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+           "twice": 2}
+NUMTOK = r"(?:\d+(?:\.\d+)?|" + "|".join(NUMWORD) + r")"
+# V10 bindings: a numeral attached to one of these vocabulary words is licensed only if the generated claim contains
+# the numeral in the named Lean shape (the word's meaning, written as the statement must say it)
+BIND = [
+    (re.compile(r"(?i)^(?:dimension|dimensional|dimensions|d)$"), lambda n: rf"\bFin\s+{n}\b"),
+    (re.compile(r"(?i)^(?:continuously|differentiable|times)$"), lambda n: rf"\bContDiff(?:On|At|WithinAt)?\s+ℝ\s+{n}\b"),
+]
+
+
+def numval(t):
+    t = t.lower()
+    return str(NUMWORD[t]) if t in NUMWORD else t
+
+
+def bound_numerals(full, gen, para, vocab):
+    """V10 (run 2026-11-07T1428Z, after judging blind red team R d04 on main — not blind): a numeral (digits or a
+    number word two…ten, twice) written next to a word of the disclosed vocabulary (`dimension 2`, `two-dimensional`,
+    `twice continuously`) — a word the generated claim does not use — states what the number counts. V6 compared
+    numerals as a set: R d04 wrote "In dimension 2" over a statement on `EuclideanSpace ℝ (Fin 3)` whose 2 is the
+    differentiability order. Such a numeral is licensed only by BIND (the word's Lean shape with that numeral occurs
+    in the generated claim, e.g. `Fin 3` for "three-dimensional"); otherwise the finding fires (baseline for older
+    paraphrases)."""
+    gv = gen_vocab(gen)
+    text = re.sub(r"`[^`]*`", " ", para)
+    out = []
+    for m in re.finditer(rf"(?i)\b({NUMTOK})[\s-]+([A-Za-z]+)|\b([A-Za-z]+)[\s-]+({NUMTOK})\b", text):
+        num, w = (m.group(1), m.group(2)) if m.group(1) else (m.group(4), m.group(3))
+        f = forms(norm(w))
+        if not (f & vocab) or (f & gv):
+            continue
+        n = numval(num)
+        if any(rx.match(w) and re.search(shape(n), gen) for rx, shape in BIND):
+            continue
+        out.append((f"{full}|bind:{norm(w)}:{n}", f"V10: {full}: its paraphrase attaches the number {num} to '{w}', a "
+                    f"vocabulary word the generated claim does not use, and the claim does not state that number in "
+                    f"that role (a disclosed word may name things, not count them)"))
     return out
 
 
