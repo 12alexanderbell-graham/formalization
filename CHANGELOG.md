@@ -395,3 +395,8 @@
 - **Controls** (`scripts/trust/controls/prose_rule_controls.py`): 15 cases; both scripts run them first, so a dead rule fails CI.
 - **Blasius pair promoted to Checked** (e1cf192): `Checked/Blasius/`, `Checked/Trust/SecondReadingBlasius.lean` (blind literal reading: σ computed by the reader), headlines `blasius_wall_shear`, `blasius_exists`, NV witness; relock, TRUST_MAP, CLAIMS, packet.
 - PROMPT working notes: judge trees from one build; controls with every rule; the blind reader computes, not transcribes.
+
+## Run 2026-11-07T1628Z (scheduled; part 1)
+- **Defect identities by kernel evaluation** in the Duffing, Michaelis–Menten and both Robertson chains (`Checked/Sim/QResid.lean`, `QResidRob.lean`; converter `runs/2026-11-07T1628Z/scripts/conv_ring.py`; 469 identities, statements unchanged): olean MMCerts 236.6 → 87.8 MB, export 8.4 M → 3.9 M lines (with dependencies).
+- **Weighted one-sided cells** (`Checked/Sim/OneSided3.lean`, `Checked/Blasius/BCellW.lean`, `BWData.lean`): the Blasius chain re-certified with error growth e^2.94 instead of ≈ 10¹⁷ — 36 cells, 19 digits, 9.8 MB olean instead of 288 cells, 40 digits, 65 MB; same statements; `BQData` archived.
+- PROMPT working note: weighted one-sided cells before more digits; any `ring` over generated data → computed residual + `decide +kernel`.

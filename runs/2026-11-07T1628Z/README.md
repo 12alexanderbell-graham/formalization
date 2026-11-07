@@ -1,8 +1,29 @@
 # Run 2026-11-07T1628Z (scheduled)
 
-**THE RESULT:** part 1 (planned: remaining `ring`-certified simulation chains to kernel evaluation) — in progress.
+**THE RESULT:** part 1 (rigorous simulators and the judge's cost) — the last four `ring`-certified simulator chains in Checked (Duffing, Michaelis–Menten, Robertson at t = 40 and at t = 10¹¹) now have their defect identities decided by kernel evaluation, and the Blasius chain was re-certified in a weighted norm with a one-sided bound: the simulator can now exploit damping (error growth e^2.94 instead of ≈ 10¹⁷ over [0, 9]), so the same certified end state needs 36 cells of 19 digits instead of 288 cells of 40 digits. Every statement unchanged.
 
-**What can a scientist now trust without checking it themselves, that they could not before?** (in progress)
+**What can a scientist now trust without checking it themselves, that they could not before?** Nothing new is claimed; the same claims (the Blasius wall-shear constant, the Robertson, Michaelis–Menten and Duffing enclosures) now rest on certificates the independent checker replays at a fraction of the cost, and the Blasius certificate no longer depends on a 10¹⁷-fold error amplification: its error bound tracks the true sensitivity of the system (≈ 14).
+
+**Measure:** olean of the certificate modules (old → new): BQData → BWData 65 → 9.8 MB (source 1.24 MB → 123 KB, build ≈ 6 min → < 1 min), MMCerts 236.6 → 87.8 MB, DuffingCerts 55.2 → 23.4 MB, RobLCerts0 55.7 → 17.9 MB, RobCerts0 47.7 → 18.2 MB. lean4export lines of a module's own constants with all dependencies: MMCerts 8.40 M → 3.88 M, DuffingCerts 3.23 M → 2.28 M, RobLCerts0 3.48 M → 2.38 M, RobCerts0 3.18 M → 2.29 M (dependency floor ≈ 1.7 M). `ring` proofs of generated polynomial identities left in Checked simulator chains: 469 → 0.
+
+**Weakest unchecked step:** unchanged from run 1428Z for the claims themselves (prose outside CLAIMS.md and STATE status bullets is read by no check; the post-S prose rules are unmeasured blind). For this run's change: the export/nanoda cost of BWData on CI has not been read yet (branch run of b1e79d0).
 
 ## Start
-- 16:27Z: pre-cloned checkout detached with a stale diverged local main; `git checkout -B main origin/main` (7c3be5b, then 805ac0c after run 1428Z released the LOCK at 16:28Z). add_repo not exposed. Elan installer worked; Mathlib cache fetch started.
+- 16:27Z: pre-cloned checkout detached with a stale diverged local main; `git checkout -B main origin/main` (7c3be5b, then 805ac0c after run 1428Z released the LOCK at 16:28Z). add_repo not exposed. LOCK taken 16:36Z (0f467d7).
+- Environment: elan installer worked; Mathlib cache ≈ 5 min; lean4export v4.35.0 built in the scratchpad with a per-module driver (`ModMain.lean`: constants of one module plus dependencies) for measurements. CI at start: main run 42391174435 (e1cf192, Blasius promotion): work job green, nanoda shards 1 and 2 green (17 and 24 min), shard 0 (contains BQData) running since 16:34Z, checked job and shard 3 cancelled by coalescing.
+
+## Bottleneck
+STATE next step 0: part 1 by rotation (not moved since 1028Z); step 3 named the remaining `ring` chains and a contracting norm for Blasius. Yes → every simulator certificate in Checked is replayed by computation, and the most expensive one shrinks by an order of magnitude; no → each new simulator result keeps paying 10¹⁷-fold amplification in digits and the checker's time.
+
+## Work
+1. **`ring` → kernel evaluation** (4c3ae98, branch `wip/qresid`): `Checked/Sim/QResid.lean`, `QResidRob.lean` (one lemma per identity pattern: the residual computed over ℚ minus the generated defect polynomial is the zero list, `decide +kernel`; a rescaling `qscale` for the long-horizon Robertson cells); `runs/2026-11-07T1628Z/scripts/conv_ring.py` rewrote 469 identities in 15 modules (asserts unchanged theorem headers, no `ring` left). All 15 modules compiled first time (37–335 s each). Old modules rebuilt in a side worktree for the comparison above.
+2. **Weighted one-sided cells for Blasius** (b1e79d0): float study (`scripts/bl_study.py`): variational growth over [0, 9] ≈ 14, sup-norm Lipschitz bound 2·10¹⁸, best constant diagonal weight diag(1/10, 1, 1) ≈ 13. A fork wrote `Work/Sim/OneSided3.lean` (three-component logarithmic-norm step, Sylvester/LDL criterion, weighted triangle inequality) from exact statements in 2.5 min; `Work/Blasius/BCellW.lean` (cell, link, chain, end; the per-cell μ certified by Sylvester's criterion at both ends of the q-range) compiled after two small fixes; generator `gen_blasius_w.py` (Fractions, every condition) and emitter `emit_blasius_w.py`: 36 cells, h = 1/4, degree 24, 19 digits, final radius 6.5·10⁻¹⁸, same `FG`, `FP`, `FQ`, `R` as before, so `Blasius.lean` changed only its import. Work and Checked builds green, axioms propext, Classical.choice, Quot.sound. Promoted by `promote_bw.py`; `BQData` archived.
+3. **Relock without a second local build:** the branch run's author files (42396217426, artifact 13585661156) carry the relocked `frozen.txt` (43 new entries for the new modules; `BQData.FG`, `BQData.chain`, module `BQData` removed, named in LEDGER); CLAIMS.md, TRUST_MAP.md and the validation packet came back unchanged (no headline changed). Every Python trust check of the workflow run locally against base 805ac0c: green except `check_claims.py`, which needs `.lake/phrases.jsonl` from a local Claims run (CI regenerated CLAIMS.md identical). A local full `lake build Checked` (started 17:31Z) was still finishing the Moresco certificate modules at 18:30Z.
+
+## CI (read)
+- 42393876058 (4c3ae98): work green; checked Lean step green (36.5 min); trust step red only at the expected relock; nanoda shard 3 (contains converted DuffingCerts, RobLCerts0/4, RobCerts0/4) green, 18 min.
+- 42396217426 (b1e79d0): work green (Blasius on `BWData`), checked Lean step green (35 min), trust step red only at the relock (author files taken from it); nanoda shard 1 green (10 min); shards 0, 2, 3 running at 18:30Z.
+- Main 42391174435 (e1cf192): nanoda shard 0 (old `BQData`) still running at 18:05Z (started 16:34Z). Read next run: shard 0 on the merged main (BWData) against it.
+
+## Handover
+Run 1828Z started at 18:28Z in auditor role (722f1c0); this run merges `wip/qresid` into main and removes the LOCK in its last commit.

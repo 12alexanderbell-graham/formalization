@@ -206,3 +206,12 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Trust checks: controls (run 2026-11-07T1428Z)
 - `scripts/trust/controls/prose_rule_controls.py`: `section`, `run_vocab`, `CASES` (V1, V6–V11 positive and clean controls), S2 controls; called first by `check_claim_vocab.main` and `check_status_lines.main`.
 - `check_claim_vocab.py`: `unpinned_names` (V9), `bound_numerals`/`BIND`/`NUMWORD` (V10), `quoted_spans` (V11), `name_strength` (V8, heading excluded). `check_status_lines.py`: `NARROW`, `s2_words` (S2).
+
+## Defect identities by kernel evaluation, `Checked/Sim/{QResid,QResidRob}.lean` (run 2026-11-07T1628Z)
+- `QResid`: `allZero`, `evalQ_of_allZero`, `evalQ_eq_of_allZero`, `qscale`, `evalQ_qscale`; oscillator cells `dufA`, `dufB`, `duf_a`, `duf_b`; enzyme-kinetics cells `mmA`, `mmB`, `mm_a`, `mm_b`, `mm_sum`. `QResidRob`: `robA`, `robB`, `evalQ_robA`, `evalQ_robB`, `rob_a`, `rob_b`, `rob_a_s`, `rob_b_s` (rescaled variable u/R).
+- Used by `Checked/Sim/{DuffingCerts,MMCerts,RobCerts0–4,RobLCerts0–7}.lean` (converter `runs/2026-11-07T1628Z/scripts/conv_ring.py`; statements unchanged).
+
+## Weighted one-sided cells, `Work/Sim/OneSided3.lean`, `Work/Blasius/{BCellW,BWData}.lean` → `Checked/…` (run 2026-11-07T1628Z)
+- `OneSided3`: `onesided3_cell` (three-component logarithmic-norm cell step in the norm w1·e1² + w2·e2² + e3²), `quad3_nonneg` (Sylvester/LDL for a symmetric 3×3 form), `wnorm_add` (weighted triangle inequality).
+- `BCellW`: `Cell` (t0, h, δ, ε, B, μ, w1, w2, r1, pg, pp, pq), `defect3`, `det3`, `psdOK`, `mlo`, `qlo`, `qhi`, `CellProp`, `cellOK`, `cellOK_basic`, `defect3_eval`, `Sol`, `Sol.mono`, `V`, `InBox`, `AtEnd`, `exp_le_inv'`, `comp_le`, `os_blasius` (one-sided bound of the Blasius field from two Sylvester checks), `quad_of_psd`, `cell_w`, `Vq`, `linkOK`, `chainTo`, `link_box`, `chain_gen`, `seg_q`, `endOK`, `abs_link`, `end_q`, `chainTo_head`, `seg_q0`, `end_q0`.
+- `BWData`: `c0–c35`, `seg0–5_ok`, `FG`, `FP`, `FQ`, `R` (same values as the archived `BQData`), `chain` (same statement). Generator `runs/2026-11-07T1628Z/scripts/gen_blasius_w.py` (args `9 4 24 19 1 10`), emitter `emit_blasius_w.py`, promotion `promote_bw.py`, float study `bl_study.py`; old `Checked/Blasius/BQData.lean` in `_archive/Checked/Blasius/`.
