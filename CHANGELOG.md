@@ -356,3 +356,9 @@
 - Part 5: Gelfand PDE pair promoted to Checked (`gelfand_pde_radial_bound`, `gelfand_pde_radial_exists`): blind literal reading (dimension, ball, C²; range end = the reader's own 30-digit λ*), NV witnesses, 11 vocabulary words, relock, CLAIMS/TRUST_MAP/packet regenerated; local checks green; PROVED once CI is green.
 - Part 3: check_claim_vocab V7 (quantifier order; after Q d04), blind red team R (6 defects, not judged), then V7 binder scope, V8 (strength words in names), optimality words barred (after reading R, not blind).
 - Screen for the next part-2 target (Townes, Hastings–McLeod, Blasius).
+
+## Run 2026-11-07T0228Z (scheduled)
+- Auditor role 02:27–02:51Z under run 0028Z's LOCK (scratch in `runs/2026-11-07T0228Z/`); LOCK taken after its release.
+- **Townes soliton shooting bracket** (parts 2/5): `Work.Townes.Shooting.townes_under` / `townes_over` (θ(0) = 2.2062008646 undershoots, 2.2062008647 overshoots, by r = 68/5), frozen 0599a4c, proved 2359ee4 with a singular start + 2 × 123 validated cells (`Work/Townes/`); blind restatement closed (`Work.Townes.BlindClosed`), referee STANDS.
+- CI saturation measured and diagnosed (STATE next step 1); no CI result of this run read.
+- PROMPT working note: shooting at a regular singular point by the LE/Gelfand cell route; CI queue.
