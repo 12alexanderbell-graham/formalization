@@ -6,7 +6,7 @@
 
 **Measure:** Work headlines with a closed blind restatement +1 (`townes_exists`); freeze → Work proof 62 min (four forks, 7–8 min each); judge latency for a Work proof on main: pending behind a nanoda shard of > 2 h → started within a minute (run 42352165146).
 
-**Weakest unchecked step:** the work job of d6d6079 (CI 42352165146) had not finished when these records were written; locally, `TownesExists` itself was type-checked against stubs of the two shooting statements, because the certificate chain it imports is too heavy to build here (every other new module compiled locally with standard axioms).
+**Weakest unchecked step:** uniqueness of the ground state (Kwong 1989) is not formalised, so the theorem names *a* ground state in the window; and the Townes trio is in Work, not Checked (no nanoda, no literal readings yet). **CI:** work job of d6d6079 (run 42352165146) **green** at 07:57Z — it built `TownesExists` on the real shooting chain, `TownesExistsBlindClosed`, and the closed-audit check (no `sorry` warning outside the two blind statement files).
 
 ## Start
 - 06:28Z: pre-cloned checkout detached with a stale diverged local main; `git checkout -B main origin/main` (109ac0d). add_repo not exposed. No LOCK on main (run 0428Z released it at 06:18Z); this run took it (6a19a3b).
