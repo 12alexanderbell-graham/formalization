@@ -1,57 +1,43 @@
 # Item 40
 
-**Area:** Chemistry
+**Area:** Rigorous simulation of a reaction network
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `0 < a`
-2. `0 < b`
-3. `b < v`
-4. the molar volume `v` is a critical point of the isotherm `cubicP R a b 1 0 T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
-
-**then**
-
-1. `cubicP R a b 1 0 T v * v / (R * T) = 1 / 3`
-2. `RoundsTo (b * cubicP R a b 1 0 T v / (R * T)) 7780e-5 5`
-3. `RoundsTo (a * cubicP R a b 1 0 T v / (R * T) ^ 2) 0.42748 5`
+- there is `s : ℝ → ℝ` such that there is `e : ℝ → ℝ` such that there is `c : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that the functions `s`, `e`, `c`, `p` (concentrations [S], [E], [C], [P]) solve the mass-action rate equations of E + S ⇌ C → E + P with rate constants k₁ = `1`, k₋₁ = `1`, k₂ = `1` on the time interval [0, `13 / 5`] (derivatives taken within [0, `13 / 5`]), with initial values [S] = `1`, [E] = `1`, [C] = `0`, [P] = `0` at time 0
 
 Program definitions in this claim:
 
-- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
-- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
+- `IsMMSolution k₁ km₁ k₂ s₀ e₀ c₀ p₀ T s e c p` — **PINNED** (pin theorem `mmSpec_pins`): the functions `s`, `e`, `c`, `p` (concentrations [S], [E], [C], [P]) solve the mass-action rate equations of E + S ⇌ C → E + P with rate constants k₁ = `k₁`, k₋₁ = `km₁`, k₂ = `k₂` on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values [S] = `s₀`, [E] = `e₀`, [C] = `c₀`, [P] = `p₀` at time 0
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Redlich–Kwong / Soave–Redlich–Kwong: at every critical point, Z_c = 1/3 exactly,
-Ω_b = 0.07780 and Ω_a = 0.42748 to five decimals.
+There is a solution of the mass-action rate equations of the Michaelis–Menten mechanism
+with k₁ = k₋₁ = k₂ = 1, [S]₀ = [E]₀ = 1, [C]₀ = [P]₀ = 0 on the time interval [0, 13/5]
+(derivatives within the interval).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem rk_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 1 0 T) v) :
-    cubicP R a b 1 0 T v * v / (R * T) = 1 / 3 ∧
-      RoundsTo (b * cubicP R a b 1 0 T v / (R * T)) 0.07780 5 ∧
-      RoundsTo (a * cubicP R a b 1 0 T v / (R * T) ^ 2) 0.42748 5 := …
+theorem mm_solution_exists :
+    ∃ s e c p : ℝ → ℝ, IsMMSolution 1 1 1 1 1 0 0 (13 / 5) s e c p := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
+See GLOSSARY.md: `Sim.MichaelisMenten.IsMMSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
+- Definitions pinned by a machine-checked specification: IsMMSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rk_constants`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 1, w = 0; RoundsTo: d = 0.08664, k = 5, d = 0.42748.
-- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5.
+- Source file: `Checked/Sim/MichaelisMenten.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 40

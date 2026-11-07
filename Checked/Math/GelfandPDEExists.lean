@@ -42,10 +42,10 @@ theorem contDiffOn_two_of_derivs {f f1 f2 : ℝ → ℝ} {U : Set ℝ} (hU : IsO
   exact (contDiffOn_zero.2 h3).congr hd2
 
 
-/-- Gelfand problem in the unit ball of ℝ³, radial solutions exist: for every λ with
-0 < λ ≤ 3.321992118 there is a function u, twice continuously differentiable on the open unit ball,
-continuous on the closed unit ball, zero on the unit sphere and a function of ‖x‖ alone on the
-closed ball, with Δu + λ eᵘ = 0 at every point of the open ball (Δ is Mathlib's Laplacian). -/
+/-- Gelfand problem in the unit ball of three-dimensional space, radial solutions: if 0 < λ ≤ 3.321992118,
+there is a function u, twice continuously differentiable on the open unit ball, continuous on the closed unit
+ball, zero on the unit sphere and a function of ‖x‖ on the closed ball, with Δu + λ eᵘ = 0 on the open ball
+(Δ is Mathlib's Laplacian). -/
 theorem gelfand_pde_radial_exists (lam : ℝ) (hpos : 0 < lam) (hle : lam ≤ 3.321992118) :
     ∃ u : EuclideanSpace ℝ (Fin 3) → ℝ,
       ContDiffOn ℝ 2 u (ball 0 1) ∧

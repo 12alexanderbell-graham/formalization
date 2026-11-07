@@ -23,10 +23,10 @@ import Checked.Math.GelfandODEBound
 namespace Checked.Math.GelfandPDE
 open Set Filter Topology InnerProductSpace Laplacian Metric
 
-/-- Gelfand problem in the unit ball of ℝ³, radial solutions: if u is twice continuously
-differentiable on the open unit ball, continuous on the closed unit ball, zero on the unit sphere,
-a function of ‖x‖ alone on the closed ball, and Δu + λ eᵘ = 0 holds at every point of the open ball
-(Δ is Mathlib's Laplacian), then λ ≤ 3.321992119. -/
+/-- Gelfand problem in the unit ball of three-dimensional space, radial solutions: if u is twice
+continuously differentiable on the open unit ball, continuous on the closed unit ball, zero on the unit sphere
+and a function of ‖x‖ on the closed ball, and Δu + λ eᵘ = 0 on the open ball (Δ is Mathlib's Laplacian),
+then λ ≤ 3.321992119. -/
 theorem gelfand_pde_radial_bound (lam : ℝ) (u : EuclideanSpace ℝ (Fin 3) → ℝ)
     (hu : ContDiffOn ℝ 2 u (ball 0 1))
     (hc : ContinuousOn u (closedBall 0 1))

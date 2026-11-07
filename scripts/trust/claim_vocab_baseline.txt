@@ -30,7 +30,6 @@ Checked.Cosmography.Aviles.flatLCDM_coeffs|al
 Checked.Cosmography.Aviles.flatLCDM_coeffs|eq
 Checked.Cosmography.Aviles.flatLCDM_coeffs|any
 Checked.Cosmography.Aviles.flatLCDM_coeffs|near
-Checked.Cosmography.Aviles.flatLCDM_coeffs|continuously
 Checked.Cosmography.Aviles.flatLCDM_coeffs|num:15
 Checked.Cosmography.Aviles.avilesL0Claim_false|refutation
 Checked.Cosmography.Aviles.avilesL0Claim_false|eq
@@ -375,7 +374,6 @@ Checked.Fidelity.lumDistSpec2_pins|domain
 Checked.Fidelity.hubbleSpec_pins|law
 Checked.Fidelity.hubbleSpec_pins|uniqueness
 Checked.Fidelity.decelSpec_pins|gap
-Checked.Fidelity.decelSpec_pins|twice
 Checked.Fidelity.decelSpec_pins|any
 Checked.Fidelity.angDistSpec_pins|gap
 Checked.Fidelity.angDistSpec_pins|any
@@ -427,7 +425,6 @@ Checked.Fidelity.isFlatCPL_iff_friedmannCPL|formulation
 Checked.Fidelity.ricciSpec_pins|pinning
 Checked.Fidelity.ricciSpec_pins|any
 Checked.Fidelity.ricciSpec_pins|wherever
-Checked.Fidelity.ricciSpec_pins|twice
 Checked.Fidelity.friedmannEq_iff_blind|blind
 Checked.Fidelity.friedmannEq_iff_blind|num:00
 Checked.Fidelity.masterEq_iff_blind|blind
@@ -899,7 +896,6 @@ Checked.Sim.Duffing.duffing_first_zero_sol|grönwall
 Checked.Sim.Duffing.duffing_first_zero_sol|num:1.192005
 Checked.Sim.Duffing.duffing_first_zero_sol|num:1.192006
 Checked.Sim.Duffing.duffing_solution_exists|initial
-Checked.Sim.Duffing.duffing_solution_exists|problem
 Checked.Sim.MichaelisMenten.mm_half_conversion|certified
 Checked.Sim.MichaelisMenten.mm_half_conversion|half
 Checked.Sim.MichaelisMenten.mm_half_conversion|conversion
@@ -1017,16 +1013,11 @@ Checked.Math.LEExists.exists_solution|together
 Checked.Math.LEExists.exists_solution|regular
 Checked.Math.LEExists.exists_solution|centre
 Checked.Math.LEExists.exists_solution|exists
-Checked.Math.Gelfand.gelfand_ball_critical|gelfand
-Checked.Math.Gelfand.gelfand_ball_critical|problem
-Checked.Math.Gelfand.gelfand_ball_critical|dimensional
 Checked.Math.Gelfand.gelfand_ball_critical|ball
-Checked.Math.Gelfand.gelfand_ball_critical|radial
 Checked.Math.Gelfand.gelfand_ball_critical|branch
 Checked.Math.Gelfand.gelfand_ball_critical|attains
 Checked.Math.Gelfand.gelfand_ball_critical|maximum
 Checked.Math.GelfandExists.exists_solution|exist
-Checked.Math.GelfandExists.exists_solution|gelfand
 Checked.Math.GelfandExists.exists_solution|headline
 Checked.Math.GelfandExists.exists_solution|together
 Checked.Math.ThomasFermi.tf_initial_slope|thomas

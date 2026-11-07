@@ -1,82 +1,57 @@
 # Item 20
 
-**Area:** B1 fourth order
+**Area:** Chemistry
 
-**Source:** see the claim
+**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `a₄ : ℝ`, `H : ℝ`:
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
 
 **assuming**
 
-1. `0 ≤ Ω`
-2. `Ω ≤ 1`
-3. `t₅ ≤ t₃`
-4. `t₃ ≤ t₀`
-5. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `0 < a s`
-6. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `DifferentiableAt ℝ a s`
-7. `0 < hubble a t₀`
-8. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
-9. `redshift a t₀ t₃ = 2 * √2 - 1`
-10. `redshift a t₀ t₅ = 4 * √2 - 1`
-11. `0 < H`
-12. `3.043 ≤ a₂`
-13. `a₃ ≤ 4.480`
-14. `a₄ ≤ -0.915`
-15. `0 < logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₅)`
+1. `0 < a`
+2. `0 < b`
+3. `b < v`
+4. the molar volume `v` is a critical point of the isotherm `cubicP R a b 2 (-1) T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
 
 **then**
 
-- `5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₃)) < 5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₅))`
+1. `RoundsTo (cubicP R a b 2 (-1) T v * v / (R * T)) 0.3074 4`
+2. `RoundsTo (b * cubicP R a b 2 (-1) T v / (R * T)) 7780e-5 5`
+3. `RoundsTo (a * cubicP R a b 2 (-1) T v / (R * T) ^ 2) 0.45724 5`
 
 Program definitions in this claim:
 
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
-- `logPolyDL4 a₂ a₃ a₄ H₀ z` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_logPolyDL4`); its name is not checked (for `a₂ : ℝ`, `a₃ : ℝ`, `a₄ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3 + a₄ * Real.logb 10 (1 + z) ^ 4)`
-- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
-- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Lusso et al. 2019, SNe + quasars + GRBs, the whole 1σ range.** For every `Ω ∈ [0, 1]` and
-every scale factor obeying `H = H₀ √(Ω(1+z)³ + 1 − Ω)` (with `H₀ > 0`) on the whole interval back to
-the farther source, with sources at `1 + z = 2√2` and `1 + z = 4√2`, every quartic log-polynomial
-distance with `a₂ ≥ 3.043`, `a₃ ≤ 4.480`, `a₄ ≤ −0.915` (the printed Table 2 ends of the 1σ ranges
-on the side that brings the quartic's distance ratio closer to the exact one; the region contains the box of all three printed ±1σ ranges),
-normalisation `H > 0` and positive at the farther source has a residual distance modulus
-`5 log₁₀(d_L / D_L)` against the exact luminosity distance `d_L` (`lumDistFlat`) that is strictly
-larger at `1 + z = 4√2` than at `1 + z = 2√2`.
+Peng–Robinson: at every critical point, Z_c = 0.3074 (four decimals), Ω_b = 0.07780 and
+Ω_a = 0.45724 (five decimals).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem l19_sqg_box (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
-    (a : ℝ → ℝ) (t₅ t₃ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₀ : t₃ ≤ t₀)
-    (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
-    (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
-    (hH₀ : 0 < hubble a t₀)
-    (hH : ∀ s ∈ Set.Icc t₅ t₀,
-      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
-    (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1) (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
-    (a₂ a₃ a₄ H : ℝ) (hHp : 0 < H)
-    (ha₂ : 3.043 ≤ a₂) (ha₃ : a₃ ≤ 4.480) (ha₄ : a₄ ≤ -0.915)
-    (hp₅ : 0 < logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₅)) :
-    5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₃))
-      < 5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₅)) := …
+theorem pr_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 2 (-1) T) v) :
+    RoundsTo (cubicP R a b 2 (-1) T v * v / (R * T)) 0.3074 4 ∧
+      RoundsTo (b * cubicP R a b 2 (-1) T v / (R * T)) 0.07780 5 ∧
+      RoundsTo (a * cubicP R a b 2 (-1) T v / (R * T) ^ 2) 0.45724 5 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1L19.logPolyDL4`, `Cosmography.BambaY.comoving`
+See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL4².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `l19_sqg_box`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1.
-- Source file: `Checked/Cosmography/B1L19.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `pr_constants`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 2, w = -1; RoundsTo: d = 0.3074, k = 4, d = 0.07780, k = 5, d = 0.45724.
+- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 20

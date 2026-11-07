@@ -4934,6 +4934,53 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > There is a solution y of the Thomas–Fermi equation y'' = y^{3/2}/√x on (0, ∞) with y' = φ on
 > [0, ∞), φ continuous at 0 from the right, y(0) = 1, y > 0 on [0, ∞) and y(x) → 0 as x → ∞.
 
+## `gelfand_pde_radial_bound`
+
+Full name `Checked.Math.GelfandPDE.gelfand_pde_radial_bound`.
+
+**For every** `lam : ℝ`, `u : EuclideanSpace ℝ (Fin 3) → ℝ`:
+
+**assuming**
+
+1. `ContDiffOn ℝ 2 u (Metric.ball 0 1)`
+2. `ContinuousOn u (Metric.closedBall 0 1)`
+3. for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u x = 0`
+4. there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u x = g ‖x‖`
+5. for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian u x + lam * Real.exp (u x) = 0`
+
+**then**
+
+- `lam ≤ 3.321992119`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Gelfand problem in the unit ball of three-dimensional space, radial solutions: if u is twice
+> continuously differentiable on the open unit ball, continuous on the closed unit ball, zero on the unit sphere
+> and a function of ‖x‖ on the closed ball, and Δu + λ eᵘ = 0 on the open ball (Δ is Mathlib's Laplacian),
+> then λ ≤ 3.321992119.
+
+## `gelfand_pde_radial_exists`
+
+Full name `Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists`.
+
+**For every** `lam : ℝ`:
+
+**assuming**
+
+1. `0 < lam`
+2. `lam ≤ 3.321992118`
+
+**then**
+
+- there is `u : EuclideanSpace ℝ (Fin 3) → ℝ` such that (`ContDiffOn ℝ 2 u (Metric.ball 0 1)`) and (`ContinuousOn u (Metric.closedBall 0 1)`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u x = 0`) and (there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u x = g ‖x‖`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian u x + lam * Real.exp (u x) = 0`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Gelfand problem in the unit ball of three-dimensional space, radial solutions: if 0 < λ ≤ 3.321992118,
+> there is a function u, twice continuously differentiable on the open unit ball, continuous on the closed unit
+> ball, zero on the unit sphere and a function of ‖x‖ on the closed ball, with Δu + λ eᵘ = 0 on the open ball
+> (Δ is Mathlib's Laplacian).
+
 ## `table5_oL_inconsistent`
 
 Full name `Checked.Data.Moresco16.table5_oL_inconsistent`.

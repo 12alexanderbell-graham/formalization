@@ -1,62 +1,46 @@
 # Item 23
 
-**Area:** Robertson at t = 1e11
+**Area:** Data claims
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `y₁ : ℝ → ℝ`, `y₂ : ℝ → ℝ`, `y₃ : ℝ → ℝ`:
+**It holds that**
 
-**assuming**
-
-1. the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`1 / 25`·`y₁` + `10000`·`y₂`·`y₃`, `y₂`′ = `1 / 25`·`y₁` − `10000`·`y₂`·`y₃` − `30000000`·`y₂`², `y₃`′ = `30000000`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `100000000000`] (derivatives taken within [0, `100000000000`]), with initial values `y₁`(0) = `1`, `y₂`(0) = `0`, `y₃`(0) = `0`
-
-**then**
-
-1. `20833401494 / 1000000000000000000 < y₁ 100000000000`
-2. `y₁ 100000000000 < 20833401500 / 1000000000000000000`
-3. `83333 / 1000000000000000000 < y₂ 100000000000`
-4. `y₂ 100000000000 < 83334 / 1000000000000000000`
-5. `99999997916651 / 100000000000000 < y₃ 100000000000`
-6. `y₃ 100000000000 < 99999997916652 / 100000000000000`
+- there is `m : ℝ` such that (`IsGLB {x | ∃ H0 Ωm ΩΛ, Ωm ≤ 1 ∧ 0 ≤ ΩΛ ∧ (∀ (i : Fin 30), 0 ≤ e2OL Ωm ΩΛ (m16Table i).1) ∧ x = chiSqOL H0 Ωm ΩΛ} m`) and (`|m - 14.967| ≤ 5e-4`)
 
 Program definitions in this claim:
 
-- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`k₁`·`y₁` + `k₂`·`y₂`·`y₃`, `y₂`′ = `k₁`·`y₁` − `k₂`·`y₂`·`y₃` − `k₃`·`y₂`², `y₃`′ = `k₃`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `y₁`(0) = `a₀`, `y₂`(0) = `b₀`, `y₃`(0) = `c₀`
+- `chiSqOL H0 Ωm ΩΛ` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_chiSqOL`) (for `H0 : ℝ`, `Ωm : ℝ`, `ΩΛ : ℝ`): is defined as `∑ i, (H0 * √(e2OL Ωm ΩΛ (m16Table i).1) - (m16Table i).2.1) ^ 2 / (m16Table i).2.2 ^ 2 + (H0 - 73) ^ 2 / 2.4 ^ 2` ⚠ contains decimal constants that no check compares with a source
+- `e2OL Ωm ΩΛ z` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_e2OL`) (for `Ωm : ℝ`, `ΩΛ : ℝ`, `z : ℝ`): is defined as `Ωm * (1 + z) ^ 3 + (1 - Ωm - ΩΛ) * (1 + z) ^ 2 + ΩΛ`
+- `m16Table` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_m16Table`); its name is not checked: is defined as `![(7e-2, 69.0, 19.6), (9e-2, 69, 12), (0.12, 68.6, 26.2), (0.17, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.20, 72.9, 29.6), (0.27, 77, 14), (0.28, 88.8, 36.6), (0.352, 83, 14), (0.3802, 83, 13.5), (0.4, 95, 17), (0.4004, 77, 10.2), (0.4247, 87.1, 11.2), (0.44497, 92.8, 12.9), (0.4783, 80.9, 9), (0.48, 97, 62), (0.593, 104, 13), (0.68, 92, 8), (0.781, 105, 12), (0.875, 125, 17), (0.88, 90, 40), (0.9, 117, 23), (1.037, 154, 20), (1.3, 168, 17), (1.363, 160, 33.6), (1.43, 177, 18), (1.53, 140, 14), (1.75, 202, 40), (1.965, 186.5, 50.4)]`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Certified state of Robertson's stiff network at t = 10¹¹: for k₁ = 1/25, k₂ = 10⁴,
-k₃ = 3·10⁷ and initial concentrations (1, 0, 0), every solution of the rate equations on
-[0, 10¹¹] has 0.000000020833401494 < y₁(10¹¹) < 0.0000000208334015,
-0.000000000000083333 < y₂(10¹¹) < 0.000000000000083334 and
-0.99999997916651 < y₃(10¹¹) < 0.99999997916652.
+The greatest lower bound of the χ² `chiSqOL` over the points (H₀, Ωm, ΩΛ) with Ωm ≤ 1,
+ΩΛ ≥ 0 and E² nonnegative at the thirty z values of Table 4 exists and is within 0.0005 of 14.967.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem rob_state1e11 {y₁ y₂ y₃ : ℝ → ℝ}
-    (h : Checked.Sim.Robertson.IsRobSolution (1 / 25) 10000 30000000 1 0 0 100000000000 y₁ y₂ y₃) :
-    20833401494 / 1000000000000000000 < y₁ 100000000000 ∧
-    y₁ 100000000000 < 20833401500 / 1000000000000000000 ∧
-    83333 / 1000000000000000000 < y₂ 100000000000 ∧
-    y₂ 100000000000 < 83334 / 1000000000000000000 ∧
-    99999997916651 / 100000000000000 < y₃ 100000000000 ∧
-    y₃ 100000000000 < 99999997916652 / 100000000000000 := …
+theorem chiSqOL_glb_wide : ∃ m : ℝ,
+    IsGLB {x | ∃ H0 Ωm ΩΛ : ℝ, Ωm ≤ 1 ∧ 0 ≤ ΩΛ ∧
+      (∀ i, 0 ≤ e2OL Ωm ΩΛ (m16Table i).1) ∧ x = chiSqOL H0 Ωm ΩΛ} m ∧
+    |m - 14.967| ≤ 0.0005 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Sim.Robertson.IsRobSolution`
+See GLOSSARY.md: `Data.Moresco16.m16Table`, `Data.Moresco16.chiSqOL`, `Data.Moresco16.e2OL`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsRobSolution.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rob_state1e11`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 100000000000.
-- Source file: `Checked/Sim/RobLong.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): m16Table².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Data/Moresco16Min.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 23
