@@ -1,6 +1,6 @@
 import Mathlib
 import Work.Blasius.BTail
-import Work.Blasius.BQData
+import Work.Blasius.BWData
 
 /-!
 # Fluid mechanics (THE RESULT parts 2 and 5): the wall shear constant of the Blasius boundary
@@ -50,10 +50,10 @@ theorem blasius_wall_shear (f p q : ℝ → ℝ)
   have hP0 : P 0 = 0 := by simp [hP, hp0]
   have hQ0 : Q 0 = 1 := by simp only [hQ, zero_div]; rw [hc3]; exact div_self hs.ne'
   have hsub : Icc (0 : ℝ) 9 ⊆ Ici 0 := Icc_subset_Ici_self
-  obtain ⟨eg, ep, eq⟩ := BQData.chain (g := G) (p := P) (q := Q)
+  obtain ⟨eg, ep, eq⟩ := BWData.chain (g := G) (p := P) (q := Q)
     (fun t ht => (S'.hf t ht.1).mono hsub) (fun t ht => (S'.hp t ht.1).mono hsub)
     (fun t ht => (S'.hq t ht.1).mono hsub) hG0 hP0 hQ0
-  simp only [BQData.FG, BQData.FP, BQData.FQ, BQData.R] at eg ep eq
+  simp only [BWData.FG, BWData.FP, BWData.FQ, BWData.R] at eg ep eq
   push_cast at eg ep eq
   rw [abs_le] at eg ep eq
   have hQpos := BTail.q_pos S' (by rw [hQ0]; norm_num)

@@ -196,7 +196,9 @@ import Checked.Townes.TownesSolutions
 import Checked.Blasius.BTail
 import Checked.Blasius.BCell
 import Checked.Blasius.BCellQ
-import Checked.Blasius.BQData
+import Checked.Sim.OneSided3
+import Checked.Blasius.BCellW
+import Checked.Blasius.BWData
 import Checked.Blasius.Blasius
 import Checked.Blasius.BExBase
 import Checked.Blasius.BExFlow

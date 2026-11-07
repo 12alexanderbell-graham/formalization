@@ -257,6 +257,10 @@ import Work.Townes.TQDataA
 import Work.Townes.TQDataB
 import Work.Townes.TownesShooting
 import Work.Blasius.Blasius
+import Work.Blasius.BQData
+import Work.Blasius.BCellW
+import Work.Blasius.BWData
+import Work.Sim.OneSided3
 import Work.Blasius.BlasiusExists
 import Work.Blasius.BExBase
 import Work.Blasius.BExFlow
