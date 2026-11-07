@@ -140,6 +140,7 @@ import Checked.Trust.SecondReadingGelfand
 import Checked.Trust.SecondReadingTF
 import Checked.Trust.SecondReadingTF3
 import Checked.Trust.SecondReadingGelfandPDE
+import Checked.Trust.SecondReadingTownes
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
 import Checked.Trust.FormulationsD
@@ -184,3 +185,16 @@ import Checked.Math.GelfandPDE
 import Checked.Math.RadialC2
 import Checked.Math.GProfile
 import Checked.Math.GelfandPDEExists
+import Checked.Sim.QPoly
+import Checked.Townes.TCell
+import Checked.Townes.TStart
+import Checked.Townes.TCellQ
+import Checked.Townes.TQDataA
+import Checked.Townes.TQDataB
+import Checked.Townes.TownesShooting
+import Checked.Townes.TExLeft
+import Checked.Townes.TExFlow
+import Checked.Townes.TExLimit
+import Checked.Townes.TExAssemble
+import Checked.Townes.TownesExists
+import Checked.Townes.TownesSolutions

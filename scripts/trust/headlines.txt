@@ -200,6 +200,10 @@ Checked.Math.ThomasFermiExists.tf_exists
 # Mathematics: Gelfand problem in the unit ball of three-dimensional space as a PDE (run 2026-11-06T1628Z, promoted 2026-11-07T0028Z): no radial classical solution above the certified bound, existence up to the certified lower end
 Checked.Math.GelfandPDE.gelfand_pde_radial_bound
 Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists
+# Mathematics: Townes soliton (2-D cubic NLS ground state), runs 2026-11-07T0228Z/0628Z, promoted 0828Z: the two shooting events and existence of a ground state with central value in the bracket
+Checked.Townes.Shooting.townes_under
+Checked.Townes.Shooting.townes_over
+Checked.Townes.Exists.townes_exists
 # Data claims: Moresco et al. 2016 Table 5 (run 2026-11-05T0428Z) and the certified minimum of its open-universe χ² (run 2026-11-05T0628Z); promoted run 2026-11-05T1028Z
 Checked.Data.Moresco16.table5_oL_inconsistent
 Checked.Data.Moresco16.table5_pw_inconsistent

@@ -293,7 +293,7 @@ theorem seg_q {T : ℚ} {pos neg : Bool} (d : Cell) (l : List Cell) (c : Cell)
 
 end Work.Townes.TCellQ
 
-/-! ## The singular start at r = 0, checked by kernel evaluation -/
+/-! ## The singular start at the centre, checked by kernel evaluation -/
 
 namespace Work.Townes.TCellQ
 open Set Work.Sim Work.Sim.QPoly Work.Townes.TCell

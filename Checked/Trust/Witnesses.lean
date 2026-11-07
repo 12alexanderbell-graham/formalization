@@ -51,6 +51,8 @@ import Checked.Math.ThomasFermi
 import Checked.Math.ThomasFermiExists
 import Checked.Math.GelfandPDE
 import Checked.Math.GelfandPDEExists
+import Checked.Townes.TownesShooting
+import Checked.Townes.TownesSolutions
 import Checked.Data.Moresco16Min
 
 /-!
@@ -704,6 +706,20 @@ theorem gelfand_pde_radial_bound : nonvacuity% Checked.Math.GelfandPDE.gelfand_p
 
 theorem gelfand_pde_radial_exists : nonvacuity% Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists :=
   ⟨1, by norm_num, by norm_num, trivial⟩
+
+/-! Townes radial equation (runs 2026-11-07T0228Z and 0628Z, promoted 2026-11-07T0828Z): a solution of the
+initial-value problem at the singular point from `Checked.Townes.Solutions.ivp_exists`, at the central value
+each shooting headline names, on [0, 68/5]. -/
+
+theorem townes_under : nonvacuity% Checked.Townes.Shooting.townes_under := by
+  obtain ⟨θ, φ, hθ, hφ0, hφ, h0⟩ := Checked.Townes.Solutions.ivp_exists 2.2062008646
+    ⟨by norm_num, by norm_num⟩ (68 / 5) (by norm_num)
+  exact ⟨68 / 5, le_rfl, θ, φ, hθ, hφ0, hφ, h0, trivial⟩
+
+theorem townes_over : nonvacuity% Checked.Townes.Shooting.townes_over := by
+  obtain ⟨θ, φ, hθ, hφ0, hφ, h0⟩ := Checked.Townes.Solutions.ivp_exists 2.2062008647
+    ⟨by norm_num, by norm_num⟩ (68 / 5) (by norm_num)
+  exact ⟨68 / 5, le_rfl, θ, φ, hθ, hφ0, hφ, h0, trivial⟩
 
 /-! ### Data claims of Moresco et al. 2016 (runs 2026-11-05T0428Z, 0628Z; promoted 1028Z): the
 printed AICc rows are attained by the value c of −2 ln L_max that makes them exact at N = 31; the
