@@ -360,7 +360,7 @@ None.
 
 ## Exact next step
 0. **Read PROMPT instruction 10 and `TARGETS.md` "THE RESULT" first.** Part rotation: 1/3 at 1028Z, 1 and 2/5 at 0828Z, 2/5 at 0628Z. Next: part 2/5 or 3 (new science or a blind measurement), unless CI needs repair.
-1. **Read CI by run ID:** main's run of this run's install commit (every job, the four nanoda shards with their wall times: compare with branch run 42360369090, shards 0/3 > 70 min) and the Townes trio's first fully green main run → Townes trio PROVED (STATE Results line of run 0828Z). If a shard fails, read its log zip first.
+1. **Read CI by run ID:** main run **42371257613** (962b677; the install is 2e0cdd3 on main, a linear copy of branch commit f16a9d5) — every job, the four nanoda shards with their wall times: compare with branch run 42360369090, shards 0/3 > 70 min) and the Townes trio's first fully green main run → Townes trio PROVED (STATE Results line of run 0828Z). If a shard fails, read its log zip first.
 2. **Remaining `ring` chains** (parts 1/3): Robertson (`RobCerts0–4`, `RobLCerts0–7`: one-sided/sheared-weight cells with Chebyshev bounds), Michaelis–Menten (`MMCerts`), Duffing (`DuffingCerts`). Pattern: PROMPT note "Porting a `ring`-certified chain to kernel evaluation" (`runs/2026-11-07T1028Z/scripts/conv_*.py`, `install_tf.py`); each needs its own `CellProp`. Measure olean size and export lines before/after; drop the Work copies of TF/LE/Gelfand chains only if CI cost demands it.
 3. **Judge round R** with `runs/2026-11-07T0028Z/t5/judge_R.sh` (≈ 30 min, worktree at 94d9099); include a defect aimed at the strict literal rule.
 4. Gidas–Ni–Nirenberg for the Gelfand PDE bound (removes `hrad`): large; plan first. Kwong uniqueness for Townes: large; plan first.
