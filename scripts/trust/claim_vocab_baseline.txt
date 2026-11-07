@@ -1328,3 +1328,10 @@ Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:a₄ = −2.510
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:1 + z = 4√2
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:1 + z = 2√2
 Checked.Math.Gelfand.gelfand_ball_critical|bind:dimensional:3
+Checked.Cosmography.CPLExistence.printedL0_false_at|name:false
+Checked.Cosmography.DemianskiZ.flat_corrections|name:corrections
+Checked.Chemistry.Coexistence.vdW_coexistence_unique|name:unique
+Checked.Chemistry.RKAcentric.rk_coexistence_unique|name:unique
+Checked.Chemistry.PRAcentric.pr_omega1_unique|name:unique
+Checked.Chemistry.PR78Acentric.pr78_omega1_unique|name:unique
+Checked.Chemistry.SRKAcentric.srk_omega1_unique|name:unique

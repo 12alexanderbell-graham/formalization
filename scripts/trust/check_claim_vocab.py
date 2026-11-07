@@ -377,11 +377,15 @@ def name_strength(full, gen):
     name (every component after `Checked.<Area>.`: unique, exact, sharp, optimal, …, the STRENGTH list) must be a
     word of the generated claim. R d02 registered the existence statement as `gelfand_pde_radial_unique_solution`:
     V1 no longer counts names as claim words, so nothing read the name's 'unique' against the statement."""
-    gv = gen_vocab(gen) | set(words(gen))
+    lines = gen.split("\n")
+    body = "\n".join(l for i, l in enumerate(lines) if i > 0 and not l.startswith("Full name"))
+    # the heading and the Full name line are the name itself: before run 2026-11-07T1428Z they were read as claim
+    # words, so V8 never fired (judge of R d02 on main: `…_unique_solution` over ∃ accepted)
+    gv = gen_vocab(gen) | set(words(body))
     out = []
     for w in W.name_words(full).split():
         w = norm(w)
-        if w.startswith("unique") and re.search(r"\bexactly one\b", gen):
+        if w.startswith("unique") and re.search(r"\bexactly one\b", body):
             continue  # Claims.lean prints ∃! as "there is exactly one"
         if STRENGTH.match(w) and not (forms(w) & gv):
             out.append((f"{full}|name:{w}", f"V8: {full}: its name says '{w}', a claim-strength word the generated "
