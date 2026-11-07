@@ -8,7 +8,8 @@ import Work.Hiemenz.Hiemenz
 The blind restater's `Blind.Hiemenz.blind_under` and `blind_over` (run 2026-11-07T2028Z: a quadruple
 f, f1, f2, f3 with derivatives within [0, 7.5] and the equation f3 + f f2 + 1 − f1² = 0 pointwise)
 follow from the program's frozen `Work.Hiemenz.hiemenz_under` and `hiemenz_over` with S = 7.5.
-The blind `blind_exists` is closed once `Work.Hiemenz.hiemenz_exists` is proved.
+The blind `blind_exists` (a quadruple on [0, ∞) with the equation pointwise) follows from
+`Work.Hiemenz.hiemenz_exists` with f3 := −f f2 − 1 + f1².
 -/
 
 namespace Work.Hiemenz.BlindClosed
@@ -31,5 +32,13 @@ theorem over_closed (f f1 f2 f3 : ℝ → ℝ)
   obtain ⟨η, hη, k1, k2⟩ := Work.Hiemenz.hiemenz_over 7.5 (by norm_num) f f1 f2 hf hp
     (fun t ht => (hq t ht).congr_deriv (by linear_combination he t ht)) h0 h1 h2
   exact ⟨η, hη.1, by linarith [hη.2], k1, k2⟩
+
+theorem exists_closed :
+    ∃ f f1 f2 f3 : ℝ → ℝ, Blind.Hiemenz.HiemenzODE (Ici 0) f f1 f2 f3 ∧
+      f 0 = 0 ∧ f1 0 = 0 ∧ Tendsto f1 atTop (𝓝 1) ∧
+      (1.2325876568 : ℝ) < f2 0 ∧ f2 0 < 1.2325876569 := by
+  obtain ⟨f, p, q, hf, hp, hq, h0, h1, hl, hlo, hhi⟩ := Work.Hiemenz.hiemenz_exists
+  exact ⟨f, p, q, fun t => -(f t * q t) - 1 + p t ^ 2, ⟨hf, hp, hq, fun t _ => by ring⟩,
+    h0, h1, hl, hlo, hhi⟩
 
 end Work.Hiemenz.BlindClosed

@@ -1,6 +1,7 @@
 import Mathlib
 import Work.Hiemenz.HUData
 import Work.Hiemenz.HOData
+import Work.Hiemenz.HExAssemble
 
 /-!
 # Fluid mechanics (THE RESULT parts 2 and 5): the Hiemenz stagnation-point flow — two shooting
@@ -74,7 +75,7 @@ theorem hiemenz_exists : ∃ f p q : ℝ → ℝ,
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Ici 0) η) ∧
     f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-    1.2325876568 < q 0 ∧ q 0 < 1.2325876569 := by
-  sorry
+    1.2325876568 < q 0 ∧ q 0 < 1.2325876569 :=
+  Work.Hiemenz.HExAssemble.exists_bvp
 
 end Work.Hiemenz

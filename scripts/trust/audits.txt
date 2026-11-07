@@ -523,3 +523,4 @@ Work.Townes.PromotionAudit.blind_over
 Work.Townes.PromotionAudit.blind_exists
 Work.Hiemenz.BlindClosed.under_closed
 Work.Hiemenz.BlindClosed.over_closed
+Work.Hiemenz.BlindClosed.exists_closed
