@@ -27,7 +27,7 @@ DEN = 10 ** 20
 SDEN = 10 ** 20
 M = F(1, 100)
 XI0 = F(3, 10)
-KSER = 22          # start polynomial P = sum_{k <= KSER} a_k xi^(2k)
+KSER = 20
 PDEN = 10 ** 26
 
 
