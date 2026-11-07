@@ -371,3 +371,9 @@
 - **Townes ground state existence proved in Work + AUDITED** (`Work.Townes.Exists.townes_exists`, freeze 78498eb, proof 14f7a24): a positive, decreasing solution of the 2-D radial equation decaying to 0 with θ(0) ∈ (2.2062008646, 2.2062008647). Four forks with exact interface statements (singular start with parameter, clamped flow, limit lemma, blind closure) + assembly: freeze → proof in 62 min. Blind restatement closed; referee STANDS.
 - CI change 3 (39.5, LEDGER): coalescing per heavy job, not per run — a nanoda shard of > 2 h no longer holds the work job of later commits.
 - PROMPT working notes: parametrised shooting existence by interface forks; stub imported statements instead of building a certificate chain locally; job-level CI groups.
+
+## Run 2026-11-07T0828Z (scheduled; part 1, parts 2/5, part 3)
+- **Kernel-evaluated validated cells** (08f4bd4): `Work/Sim/QPoly.lean`, `Work/Townes/TCellQ.lean`, `Work/Townes/TQData{A,B}.lean`; Townes chains re-certified with computed defect polynomials (statements unchanged); old certificate modules archived. Build ≈ 2 min (was ≈ 40), oleans 26 MB (was 1.4 GB), export +40 k lines per chain, nanoda 95 s.
+- **check_literals strict wildcard rule** (30daeda, LEDGER): numbers inside a group matched by a reader's binder are no longer counted as read (new headlines; six baselined κ(ω) headlines grandfathered, known gap).
+- **Townes trio promotion prepared** on `wip/townes-checked` (21ba411, 2e29c8f): Checked copies, blind literal reading (9b0daf9 → ec5663a → copy), registrations, NV witnesses, promotion audit. Author files, relock and main fast-forward next run.
+- PROMPT working notes: certificates by kernel evaluation; a reader's binder wildcard reads nothing.
