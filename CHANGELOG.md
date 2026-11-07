@@ -350,3 +350,9 @@
 - Part 3: blind red team Q (Sonnet, 6 defects against the first version e72d899) in `runs/2026-11-06T2228Z/t5/redteamQ/`; rules tightened after reading it (not blind). Judging of P and Q after the LOCK release: `runs/2026-11-06T2228Z/t5/RESULTS.md`.
 - PROMPT working note: allow-lists, not deny-lists, for reader-facing prose.
 - Correction (run 2026-11-06T2228Z, after its records): commit f881708 says "no LOCK present at the time of the edit"; that is wrong — run 2026-11-07T0028Z had taken the LOCK (028f3ae) before f881708 was rebased onto it. f881708 changed only this run's own lines in STATE.md (trust-track bullet, daily-review measure, next-step item 1: the judged P/Q results) and its run README; nothing of run 0028Z was touched. Under 48.4 it should have gone to the run folder only; the holder may revert those STATE lines.
+
+## 2026-11-07T0028Z (scheduled run)
+- Env: add_repo not exposed; stale local main reset to origin/main; local Lean via elan (full Checked build ≈ 100 min). CI: 1414e21 Lean step green after 2 h 34 min, nanoda running (read next run). Main's trust step red from 5ec9b9a (STATE.md backticked the word deriv): repaired 4a2f9ca, precheck_citations.py now reads Prop-structure fields.
+- Part 5: Gelfand PDE pair promoted to Checked (`gelfand_pde_radial_bound`, `gelfand_pde_radial_exists`): blind literal reading (dimension, ball, C²; range end = the reader's own 30-digit λ*), NV witnesses, 11 vocabulary words, relock, CLAIMS/TRUST_MAP/packet regenerated; local checks green; PROVED once CI is green.
+- Part 3: check_claim_vocab V7 (quantifier order; after Q d04), blind red team R (6 defects, not judged), then V7 binder scope, V8 (strength words in names), optimality words barred (after reading R, not blind).
+- Screen for the next part-2 target (Townes, Hastings–McLeod, Blasius).
