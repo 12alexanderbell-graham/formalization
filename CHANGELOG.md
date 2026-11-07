@@ -382,3 +382,9 @@
 - Auditor role under 48.4 until run 0828Z released the LOCK (10:55Z); the work was staged in `runs/2026-11-07T1028Z/lean/` (5cb27d7, c2c0cb5, db0c9e1) and installed after the LOCK was taken.
 - **Thomas–Fermi, Lane–Emden and Gelfand chains re-certified by kernel evaluation** (statements unchanged): new `Checked/Math/{TFCellQ,TFQData,LECellQ,LEQData,LELast,GCellQ,GQData}.lean`, rewritten `TFChain`, `LEChain`, `GChain`; 15 generated `ring`-certificate modules moved to `_archive/Checked/Math/`. TF data 15.8 MB olean (old ≈ 1.1 GB), whole TF chain +38.7 k export lines.
 - PROMPT working note: porting a `ring`-certified chain to kernel evaluation.
+
+## Run 2026-11-07T1228Z (scheduled; parts 2/5)
+- **Blasius boundary layer, wall shear, proved in Work + AUDITED** (`Work/Blasius/`): every solution of f''' + f f''/2 = 0, f(0) = f'(0) = 0, f' → 1 has f''(0) ∈ [0.33205733621519, 0.33205733621520] (`Work.Blasius.blasius_wall_shear`), and a solution exists (`Work.Blasius.blasius_exists`); freeze 4db71de, proofs f892958, 56ce5fc; blind restatement closed, referee STANDS. First fluid-mechanics result; ≈ 5 rigorous digits in print before.
+- Validated simulator on a third-order system: 3-D Grönwall cell (`BCell`), kernel-evaluated cells (`BCellQ`), analytic tail and scaling (`BTail`); existence by a clamped global flow (forks).
+- T5 round R judge prepared for main (`runs/2026-11-07T1228Z/t5/`), not run.
+- PROMPT working note: certified constants of boundary-value problems on [0, ∞) by scaling + validated cells + a monotone tail functional.

@@ -194,3 +194,10 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `LECellQ`: the Townes `TCellQ` chain layer for `LECell.cell` (`Cell`, `defect2`, `CellProp`, `cell_q`, `cell_facts`, `linkOK`, `chainTo`, `chain_gen`, `chain_q`, `seg_q`, `icc_glue`, `ioc_glue`). `LEQData`: `c0–c89`, `seg0–5_ok`, `c0_t0 …`, `c89_t0 …`. `LELast`: `step89`, `lastFacts` (verbatim). `LEChain.chain` (statement as before).
 - `GCellQ`: `Cell` (with EH, PH), `defect1`, `defect2`, `invA`, `invB`, `CellProp`, `InvProp`, `Inv`, `cellOK`, `cell_q`, `cell_facts`, `linkOK`, `chainTo`, `endOK`, `chain_gen`, `seg_q`, `end_q`, `icc_glue`, `ioc_glue`. `GQData`: `c0–c91`, `seg0–6_ok`, `last_ok`. `GChain.chain` (statement as before).
 - Converters `runs/2026-11-07T1028Z/scripts/conv_{tf,le,g}.py`, installer `install_tf.py`; old modules in `_archive/Checked/Math/`.
+
+## Blasius boundary layer, `Work/Blasius/` (run 2026-11-07T1228Z)
+- `Blasius.lean`: `blasius_wall_shear` (frozen 4db71de). `BlasiusExists.lean`: `blasius_exists` (frozen 4db71de). `BlasiusBlind.lean` (verbatim blind file), `BlasiusBlindClosed.lean`: `wall_shear_bounds`; `BlasiusExistsBlindClosed.lean`: `exists_blasius_solution`.
+- `BTail.lean`: `IsSol`, `at_pos`, `contOn`, `lip_lin`, `bound_on`, `zero_back`, `zero_fwd`, `q_pos`, `q_neg`, `shear_pos`, `scale`, `tail`.
+- `BCell.lean`: `blF`, `slab`, `lip_slab`, `cell` (3-D `tube_cell_t` step). `BCellQ.lean`: `Cell`, `defect3`, `CellProp`, `cellOK`, `cell_q`, `Sol`, `InBox`, `AtEnd`, `linkOK`, `chainTo`, `link_box`, `chain_gen`, `seg_q`, `endOK`, `end_q`, `chainTo_head`, `seg_q0`, `end_q0`. `BQData.lean` (generated): `c0–c287`, `seg0–47_ok`, `FG`, `FP`, `FQ`, `R`, `chain`.
+- `BExBase.lean`: `cl`, `vF`, `cl_of_abs_le`. `BExFlow.lean`: `exists_flow` (Picard–Lindelöf on [0, n], glued). `BExBounds.lean`: `inactive` (clamps inactive, true system, monotone limit).
+- Generator `runs/2026-11-07T1228Z/scripts/gen_blasius.py`, emitter `emit_blasius.py`, float study `blasius_float.py`.

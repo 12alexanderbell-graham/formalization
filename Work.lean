@@ -263,6 +263,7 @@ import Work.Blasius.BExFlow
 import Work.Blasius.BExBounds
 import Work.Blasius.BlasiusBlind
 import Work.Blasius.BlasiusBlindClosed
+import Work.Blasius.BlasiusExistsBlindClosed
 import Work.Townes.TownesBlind
 import Work.Townes.TownesBlindClosed
 import Work.Townes.TownesExists
