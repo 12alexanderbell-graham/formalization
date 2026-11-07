@@ -394,4 +394,4 @@ None.
 3. **Part 3, structural (from rounds F–T):** generate instead of filtering — (a) FINDINGS certified numbers carry the record's quantity and arguments; (b) STATE results lines generated from CLAIMS.md (T d01, d04). Then blind round U.
 4. **Part 2 next:** Falkner–Skan at other β with the same tools (`gen_hiemenz_w.py` has β = 1 hard-coded in the Taylor recursion and `defect3`), notably the separation value β* ≈ −0.1988 where f''(0) = 0 (a parameter, not a start value, is shot: screen the literature first); Homann axisymmetric stagnation flow (f''' + 2 f f'' + 1 − f'² = 0).
 5. Earlier items: remaining certificate cost (MMCerts `norm_num` side conditions), Gidas–Ni–Nirenberg (Gelfand), Kwong (Townes), Coppel uniqueness (Hiemenz), Iacono 2008 unread, rule-10 docstring gaps.
-Blocking: nothing. Part 4 waits only on Alexander sending the packet (`validation/packet/`, unsent).
+Blocking: nothing. Part 4: **round 2** built 2026-11-07 (`validation/ROUND2.md`; round 1 retired unsent because its key is public); the reviewer packet and the sealed bundle were handed to Alexander in chat; waits on him sending it (then commit `validation/SENT2.md`).
