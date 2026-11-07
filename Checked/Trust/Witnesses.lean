@@ -49,6 +49,8 @@ import Checked.Math.Gelfand
 import Checked.Math.GelfandExists
 import Checked.Math.ThomasFermi
 import Checked.Math.ThomasFermiExists
+import Checked.Math.GelfandPDE
+import Checked.Math.GelfandPDEExists
 import Checked.Data.Moresco16Min
 
 /-!
@@ -689,6 +691,19 @@ with the supremum of the slopes whose solution goes negative). -/
 theorem tf_initial_slope : nonvacuity% Checked.Math.ThomasFermi.tf_initial_slope := by
   obtain ⟨y, φ, hy, hφ, hφ0, h0, hpos, hlim⟩ := Checked.Math.ThomasFermiExists.tf_exists
   exact ⟨y, φ, hy, hφ, hφ0, h0, hpos, hlim, trivial⟩
+
+/-! Gelfand problem in the unit ball of three-dimensional space as a PDE (run 2026-11-06T1628Z, promoted
+2026-11-07T0028Z): the radial classical solution constructed in
+`Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists`, taken at the largest parameter that
+theorem covers, so the hypotheses of the bound hold just below the bound itself. -/
+
+theorem gelfand_pde_radial_bound : nonvacuity% Checked.Math.GelfandPDE.gelfand_pde_radial_bound := by
+  obtain ⟨u, hu, hc, hb, hrad, hpde⟩ :=
+    Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists 3.321992118 (by norm_num) le_rfl
+  exact ⟨3.321992118, u, hu, hc, hb, hrad, hpde, trivial⟩
+
+theorem gelfand_pde_radial_exists : nonvacuity% Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists :=
+  ⟨1, by norm_num, by norm_num, trivial⟩
 
 /-! ### Data claims of Moresco et al. 2016 (runs 2026-11-05T0428Z, 0628Z; promoted 1028Z): the
 printed AICc rows are attained by the value c of −2 ln L_max that makes them exact at N = 31; the

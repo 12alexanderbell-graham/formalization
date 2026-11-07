@@ -177,3 +177,10 @@ import Checked.Math.TFExEvents
 import Checked.Math.TFExConvert
 import Checked.Math.TFExAssemble
 import Checked.Math.ThomasFermiExists
+import Checked.Math.RadialLaplacian
+import Checked.Math.GContFrom
+import Checked.Math.GelfandODEBound
+import Checked.Math.GelfandPDE
+import Checked.Math.RadialC2
+import Checked.Math.GProfile
+import Checked.Math.GelfandPDEExists

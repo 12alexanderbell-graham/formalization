@@ -197,6 +197,9 @@ Checked.Math.GelfandExists.exists_solution
 # Mathematics/physics: Thomas–Fermi equation of the neutral atom (run 2026-11-06T1828Z; existence and promotion 2028Z): initial slope, existence
 Checked.Math.ThomasFermi.tf_initial_slope
 Checked.Math.ThomasFermiExists.tf_exists
+# Mathematics: Gelfand problem in the unit ball of three-dimensional space as a PDE (run 2026-11-06T1628Z, promoted 2026-11-07T0028Z): no radial classical solution above the certified bound, existence up to the certified lower end
+Checked.Math.GelfandPDE.gelfand_pde_radial_bound
+Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists
 # Data claims: Moresco et al. 2016 Table 5 (run 2026-11-05T0428Z) and the certified minimum of its open-universe χ² (run 2026-11-05T0628Z); promoted run 2026-11-05T1028Z
 Checked.Data.Moresco16.table5_oL_inconsistent
 Checked.Data.Moresco16.table5_pw_inconsistent
