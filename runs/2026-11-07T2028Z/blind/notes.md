@@ -1,0 +1,7 @@
+- Solutions given as quadruple f, f1, f2, f3 : R -> R with HasDerivWithinAt chain (f'=f1, f1'=f2, f2'=f3); no separate smoothness assumed (C^3 follows).
+- Derivatives taken within the domain S (one-sided at endpoints), no values outside S matter.
+- Domain for IVP claims: Icc 0 7.5 only (weakest: solution need only exist there). For BVP: Ici 0.
+- ODE required pointwise on S, including endpoints.
+- Under: conclusion eta in (0,7.5], f2 eta < 0, f1 < 1 on Icc 0 eta. Over: 1 < f1 eta, f2 > 0 on Icc 0 eta.
+- Existence: f1 -> 1 at atTop, f2 0 strictly in the open interval.
+- Decimals as real literals in R.

@@ -1,4 +1,6 @@
 import Mathlib
+import Work.Hiemenz.HUData
+import Work.Hiemenz.HOData
 
 /-!
 # Fluid mechanics (THE RESULT parts 2 and 5): the Hiemenz stagnation-point flow — two shooting
@@ -21,8 +23,9 @@ ends):
 * `hiemenz_exists`: there is a solution on [0, ∞) of the boundary-value problem with
   1.2325876568 < f''(0) < 1.2325876569.
 
-Uniqueness of the solution of the boundary-value problem (Coppel 1960, for 0 ≤ β) is not
-formalised here; without it the two events say that the shooting values 1.2325876568 and
+Uniqueness of the solution of the boundary-value problem (for 0 ≤ β ≤ 1 with no restriction
+on f': Coppel 1960, Craven–Peletier 1972, as reported by the referee of run 2026-11-07T2028Z from
+secondary surveys) is not formalised here; without it the two events say that the shooting values 1.2325876568 and
 1.2325876569 do not give solutions with p ≤ 1 and q ≥ 0, and the existence theorem places a
 solution between them.
 -/
@@ -40,7 +43,11 @@ theorem hiemenz_under (S : ℝ) (hS : 15 / 2 ≤ S) (f p q : ℝ → ℝ)
     (hq : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Icc 0 S) η)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 1.2325876568) :
     ∃ η ∈ Ioc (0 : ℝ) (15 / 2), q η < 0 ∧ ∀ s ∈ Icc 0 η, p s < 1 := by
-  sorry
+  have hsub : Icc (0 : ℝ) (15 / 2) ⊆ Icc 0 S := Icc_subset_Icc le_rfl hS
+  obtain ⟨hq', hp'⟩ := Work.Hiemenz.HUData.chain (g := f) (p := p) (q := q)
+    (fun t ht => (hf t (hsub ht)).mono hsub) (fun t ht => (hp t (hsub ht)).mono hsub)
+    (fun t ht => (hq t (hsub ht)).mono hsub) hf0 hp0 hq0
+  exact ⟨15 / 2, ⟨by norm_num, le_rfl⟩, hq', hp'⟩
 
 /-- Hiemenz stagnation-point flow, overshoot: for every S ≥ 15/2 and every solution of
 f''' + f f'' + 1 − f'² = 0 on [0, S] (f has derivative p, p has derivative q, q has derivative
@@ -52,7 +59,11 @@ theorem hiemenz_over (S : ℝ) (hS : 15 / 2 ≤ S) (f p q : ℝ → ℝ)
     (hq : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Icc 0 S) η)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 1.2325876569) :
     ∃ η ∈ Ioc (0 : ℝ) (15 / 2), 1 < p η ∧ ∀ s ∈ Icc 0 η, 0 < q s := by
-  sorry
+  have hsub : Icc (0 : ℝ) (15 / 2) ⊆ Icc 0 S := Icc_subset_Icc le_rfl hS
+  obtain ⟨hp', hq'⟩ := Work.Hiemenz.HOData.chain (g := f) (p := p) (q := q)
+    (fun t ht => (hf t (hsub ht)).mono hsub) (fun t ht => (hp t (hsub ht)).mono hsub)
+    (fun t ht => (hq t (hsub ht)).mono hsub) hf0 hp0 hq0
+  exact ⟨15 / 2, ⟨by norm_num, le_rfl⟩, hp', hq'⟩
 
 /-- Hiemenz stagnation-point flow, existence: there is a solution of f''' + f f'' + 1 − f'² = 0
 on [0, ∞) (f has derivative p, p has derivative q, q has derivative −f q − 1 + p², one-sided
