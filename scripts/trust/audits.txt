@@ -521,3 +521,5 @@ Work.Sim.MMAudit.isMM_meets
 Work.Townes.PromotionAudit.blind_under
 Work.Townes.PromotionAudit.blind_over
 Work.Townes.PromotionAudit.blind_exists
+Work.Hiemenz.BlindClosed.under_closed
+Work.Hiemenz.BlindClosed.over_closed
