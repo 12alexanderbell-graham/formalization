@@ -513,6 +513,13 @@ def git(*args):
 def main():
     base = sys.argv[sys.argv.index("--base") + 1] if "--base" in sys.argv else None
     report = "--report" in sys.argv
+    # positive and negative controls first (run 2026-11-07T1428Z: V8 shipped dead and nothing noticed): every rule
+    # must reject its own control defect and accept the clean twin (scripts/trust/controls/prose_rule_controls.py)
+    sys.path.insert(0, str(Path(__file__).resolve().parent / "controls"))
+    import prose_rule_controls  # noqa: E402
+    if prose_rule_controls.main() != 0:
+        print("check_claim_vocab: FAIL (a rule failed its control; see above)")
+        return 1
     vocab = load_set(VOCAB)
     found = findings(vocab)
     keys = {k for k, _ in found}

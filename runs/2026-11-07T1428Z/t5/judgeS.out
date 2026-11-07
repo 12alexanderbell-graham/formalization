@@ -1,0 +1,181 @@
+== new files compile one by one 16:08:11
+  ok Checked/Math/GelfandPDERegular.lean
+  ok Checked/Sim/RobArbitrary.lean
+  ok Checked/Sim/RobConcentrations.lean
+  ok Checked/Townes/TownesProfile.lean
+== build 16:08:31
+build: PASS
+grep: PASS
+== trust 16:08:43
+trust: PASS
+--- claims 16:14:01
+CLAIMS.md: 187 generated claims
+wrote 58 files, 54 items, seed 72c4d16f819f
+== column MAIN (scripts/trust/*.py of 7199d13) 16:16:40
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 187 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 109 registered readings; ok
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 345 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+    check_claim_vocab: 187 sections, 1127 findings (1127 baselined), vocabulary 18; ok
+  [check_status_lines.py]
+    check_status_lines: ok
+  [check_relock.py 7199d13]
+    frozen registry: 1795 entries at 7199d13, none changed or removed
+  [check_numbers.py --base 7199d13]
+    certified-number diff vs 7199d13: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base 7199d13]
+    check_prose: 187 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base 7199d13]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base 7199d13]
+    phrases: 23 at 7199d13, none changed or removed
+  [check_formulas.py --base 7199d13]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base 7199d13]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_literals.py --base 7199d13]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 109 registered readings; ok
+  [check_source_names.py --base 7199d13]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base 7199d13]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base 7199d13]
+    check_blind_route: 0 second versions added or changed since 7199d13; ok
+  [check_literal_targets.py --base 7199d13]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base 7199d13]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base 7199d13]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base 7199d13]
+    check_reader_frozen: 22 reader modules and 18 runs/ reader files at 7199d13 checked; ok
+  [check_brief_leak.py --base 7199d13]
+    check_brief_leak: 0 briefs of reader files new since 7199d13; ok
+  [check_prose_eval.py --base 7199d13]
+    check_prose_eval: 345 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base 7199d13]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base 7199d13]
+    check_claim_vocab: 187 sections, 1127 findings (1127 baselined), vocabulary 18; ok
+--- make_packet --check
+validation packet up to date (54 items)
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== column AFTER (scripts/trust/*.py of 39a114d) 16:17:37
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 187 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 109 registered readings; ok
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 345 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+      V10: Checked.Math.GelfandPDERegular.gelfand_pde_radial_regular_exists: its paraphrase attaches the number three to 'times', a vocabulary word the generated claim does not use, and the claim does not state that number in that role (a disclosed word may name things, not count them)
+      V11: Checked.Math.GelfandPDERegular.gelfand_pde_radial_regular_exists: its paraphrase writes `Δ u x + lam * Real.exp (u x) = 0` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V10: Checked.Townes.Profile.townes_profile_exists: its paraphrase attaches the number 3 to 'dimensional', a vocabulary word the generated claim does not use, and the claim does not state that number in that role (a disclosed word may name things, not count them)
+      V11: Checked.Sim.RobConcentrations.rob_concentrations_1e11: its paraphrase writes `99999997916651 / 100000000000000 < y₁ 100000000000` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V11: Checked.Sim.RobConcentrations.rob_concentrations_1e11: its paraphrase writes `y₁ 100000000000 < 99999997916652 / 100000000000000` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V11: Checked.Sim.RobConcentrations.rob_concentrations_1e11: its paraphrase writes `20833401494 / 1000000000000000000 < y₃ 100000000000` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V11: Checked.Sim.RobConcentrations.rob_concentrations_1e11: its paraphrase writes `y₃ 100000000000 < 20833401500 / 1000000000000000000` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+    check_claim_vocab: 187 sections, 1337 findings (1127 baselined), vocabulary 18; FAIL
+  [check_status_lines.py]
+      S2: STATE.md:203: status 'Promoted to Checked + AUDITED; PROVED once CI is green' says 'non-radial', 'precisely', which the generated claims of the headlines it cites do not contain (CLAIMS.md): a status line may not claim more than its headlines
+    check_status_lines: FAIL
+  [check_relock.py 7199d13]
+    frozen registry: 1795 entries at 7199d13, none changed or removed
+  [check_numbers.py --base 7199d13]
+    certified-number diff vs 7199d13: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base 7199d13]
+    check_prose: 187 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base 7199d13]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base 7199d13]
+    phrases: 23 at 7199d13, none changed or removed
+  [check_formulas.py --base 7199d13]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base 7199d13]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_literals.py --base 7199d13]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 109 registered readings; ok
+  [check_source_names.py --base 7199d13]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base 7199d13]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base 7199d13]
+    check_blind_route: 0 second versions added or changed since 7199d13; ok
+  [check_literal_targets.py --base 7199d13]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base 7199d13]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base 7199d13]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base 7199d13]
+    check_reader_frozen: 22 reader modules and 18 runs/ reader files at 7199d13 checked; ok
+  [check_brief_leak.py --base 7199d13]
+    check_brief_leak: 0 briefs of reader files new since 7199d13; ok
+  [check_prose_eval.py --base 7199d13]
+    check_prose_eval: 345 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base 7199d13]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base 7199d13]
+      V10: Checked.Math.GelfandPDERegular.gelfand_pde_radial_regular_exists: its paraphrase attaches the number three to 'times', a vocabulary word the generated claim does not use, and the claim does not state that number in that role (a disclosed word may name things, not count them)
+      V11: Checked.Math.GelfandPDERegular.gelfand_pde_radial_regular_exists: its paraphrase writes `Δ u x + lam * Real.exp (u x) = 0` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V10: Checked.Townes.Profile.townes_profile_exists: its paraphrase attaches the number 3 to 'dimensional', a vocabulary word the generated claim does not use, and the claim does not state that number in that role (a disclosed word may name things, not count them)
+      V11: Checked.Sim.RobConcentrations.rob_concentrations_1e11: its paraphrase writes `99999997916651 / 100000000000000 < y₁ 100000000000` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V11: Checked.Sim.RobConcentrations.rob_concentrations_1e11: its paraphrase writes `y₁ 100000000000 < 99999997916652 / 100000000000000` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V11: Checked.Sim.RobConcentrations.rob_concentrations_1e11: its paraphrase writes `20833401494 / 1000000000000000000 < y₃ 100000000000` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V11: Checked.Sim.RobConcentrations.rob_concentrations_1e11: its paraphrase writes `y₃ 100000000000 < 20833401500 / 1000000000000000000` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+    check_claim_vocab: 187 sections, 1337 findings (1127 baselined), vocabulary 18; FAIL
+--- make_packet --check
+validation packet up to date (54 items)
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== end 16:18:37

@@ -1,0 +1,266 @@
+== new files compile one by one 15:55:48
+  ok Checked/Cosmography/DeSitterDeceleration.lean
+  ok Checked/Math/GelfandPDEBound.lean
+  ok Checked/Math/GelfandPDERange.lean
+  ok Checked/Math/GelfandPDEUnique.lean
+== build 15:56:04
+build: PASS
+grep: PASS
+== trust 15:56:10
+trust: PASS
+--- claims 16:02:03
+CLAIMS.md: 187 generated claims
+wrote 58 files, 54 items, seed 72c4d16f819f
+== column BEFORE (scripts/trust/*.py of 94d9099) 16:05:07
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 187 headlines, 136 definitions, 21 glossary terms; 1 new problems; 356 known gaps (prose_baseline.txt)
+      Checked.Math.GelfandPDEBound.gelfand_pde_radial_parameter_bound: its docstring generalises over 'each `x` in the open ball', but the statement binds nothing it could refer to (bound: ['lam', 'u']; nouns for bound roles: scripts/trust/param_nouns.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 102 registered readings; ok
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+    check_claim_vocab: 187 sections, 1086 findings (1086 baselined), vocabulary 19; ok
+  [check_status_lines.py]
+    check_status_lines: ok
+  [check_relock.py a321f75]
+    frozen registry: 1795 entries at a321f75, none changed or removed
+  [check_numbers.py --base a321f75]
+    certified-number diff vs a321f75: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base a321f75]
+    check_prose: 187 headlines, 136 definitions, 21 glossary terms; 1 new problems; 356 known gaps (prose_baseline.txt)
+      Checked.Math.GelfandPDEBound.gelfand_pde_radial_parameter_bound: its docstring generalises over 'each `x` in the open ball', but the statement binds nothing it could refer to (bound: ['lam', 'u']; nouns for bound roles: scripts/trust/param_nouns.txt)
+  [check_trusted_defs.py --base a321f75]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base a321f75]
+    phrases: 23 at a321f75, none changed or removed
+  [check_formulas.py --base a321f75]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base a321f75]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_literals.py --base a321f75]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 102 registered readings; ok
+  [check_source_names.py --base a321f75]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base a321f75]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base a321f75]
+    check_blind_route: 0 second versions added or changed since a321f75; ok
+  [check_literal_targets.py --base a321f75]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base a321f75]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base a321f75]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base a321f75]
+    check_reader_frozen: 22 reader modules and 18 runs/ reader files at a321f75 checked; ok
+  [check_brief_leak.py --base a321f75]
+    check_brief_leak: 0 briefs of reader files new since a321f75; ok
+  [check_prose_eval.py --base a321f75]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base a321f75]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base a321f75]
+    check_claim_vocab: 187 sections, 1086 findings (1086 baselined), vocabulary 19; ok
+--- make_packet --check
+validation packet up to date (54 items)
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== column MAIN (scripts/trust/*.py of a321f75) 16:06:11
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 187 headlines, 136 definitions, 21 glossary terms; 1 new problems; 356 known gaps (prose_baseline.txt)
+      Checked.Math.GelfandPDEBound.gelfand_pde_radial_parameter_bound: its docstring generalises over 'each `x` in the open ball', but the statement binds nothing it could refer to (bound: ['lam', 'u']; nouns for bound roles: scripts/trust/param_nouns.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 102 registered readings; ok
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+      V2: scripts/trust/prose_vocab.txt: 'sharp' is an inference, generality, persistence, two-sided, grading or strength word; it may reach a paraphrase only through the generated claim
+    check_claim_vocab: 187 sections, 1086 findings (1086 baselined), vocabulary 19; FAIL
+  [check_status_lines.py]
+    check_status_lines: ok
+  [check_relock.py a321f75]
+    frozen registry: 1795 entries at a321f75, none changed or removed
+  [check_numbers.py --base a321f75]
+    certified-number diff vs a321f75: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base a321f75]
+    check_prose: 187 headlines, 136 definitions, 21 glossary terms; 1 new problems; 356 known gaps (prose_baseline.txt)
+      Checked.Math.GelfandPDEBound.gelfand_pde_radial_parameter_bound: its docstring generalises over 'each `x` in the open ball', but the statement binds nothing it could refer to (bound: ['lam', 'u']; nouns for bound roles: scripts/trust/param_nouns.txt)
+  [check_trusted_defs.py --base a321f75]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base a321f75]
+    phrases: 23 at a321f75, none changed or removed
+  [check_formulas.py --base a321f75]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base a321f75]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_literals.py --base a321f75]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 102 registered readings; ok
+  [check_source_names.py --base a321f75]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base a321f75]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base a321f75]
+    check_blind_route: 0 second versions added or changed since a321f75; ok
+  [check_literal_targets.py --base a321f75]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base a321f75]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base a321f75]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base a321f75]
+    check_reader_frozen: 22 reader modules and 18 runs/ reader files at a321f75 checked; ok
+  [check_brief_leak.py --base a321f75]
+    check_brief_leak: 0 briefs of reader files new since a321f75; ok
+  [check_prose_eval.py --base a321f75]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base a321f75]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base a321f75]
+      V2: scripts/trust/prose_vocab.txt: 'sharp' is an inference, generality, persistence, two-sided, grading or strength word; it may reach a paraphrase only through the generated claim
+    check_claim_vocab: 187 sections, 1086 findings (1086 baselined), vocabulary 19; FAIL
+--- make_packet --check
+validation packet up to date (54 items)
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== column AFTER (scripts/trust/*.py of 39a114d) 16:07:12
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 187 headlines, 136 definitions, 21 glossary terms; 1 new problems; 356 known gaps (prose_baseline.txt)
+      Checked.Math.GelfandPDEBound.gelfand_pde_radial_parameter_bound: its docstring generalises over 'each `x` in the open ball', but the statement binds nothing it could refer to (bound: ['lam', 'u']; nouns for bound roles: scripts/trust/param_nouns.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 102 registered readings; ok
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+      V10: Checked.Math.Gelfand.gelfand_ball_critical: its paraphrase attaches the number three to 'dimensional', a vocabulary word the generated claim does not use, and the claim does not state that number in that role (a disclosed word may name things, not count them)
+      V11: Checked.Math.GelfandPDEUnique.gelfand_pde_radial_unique_solution: its paraphrase writes `Δ u x + lam * Real.exp (u x) = 0` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V1: Checked.Cosmography.DeSitter.exp_scale_factor_decelerating: its paraphrase says 'decelerating', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V10: Checked.Math.GelfandPDERange.gelfand_pde_radial_range_exists: its paraphrase attaches the number 2 to 'dimension', a vocabulary word the generated claim does not use, and the claim does not state that number in that role (a disclosed word may name things, not count them)
+      V11: Checked.Math.GelfandPDERange.gelfand_pde_radial_range_exists: its paraphrase writes `Δ u x + lam * Real.exp (u x) = 0` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V11: Checked.Math.GelfandPDEBound.gelfand_pde_radial_parameter_bound: its paraphrase writes `Δ u x + lam * Real.exp (u x) = 0` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V2: scripts/trust/prose_vocab.txt: 'sharp' is an inference, generality, persistence, two-sided, grading or strength word; it may reach a paraphrase only through the generated claim
+    check_claim_vocab: 187 sections, 1336 findings (1086 baselined), vocabulary 19; FAIL
+  [check_status_lines.py]
+      S2: STATE.md:54: status 'Run 2026-11-04T1228Z, fourth order (Checked, `Checked/Cosmography/B1L19.lean`, certificates `B1L19Certs.lean`; frozen first 6dd5bc8, statements unchanged):' says 'only', which the generated claims of the headlines it cites do not contain (CLAIMS.md): a status line may not claim more than its headlines
+      S2: STATE.md:203: status 'PROVED' says 'exactly', 'none', 'or-not', 'settled', which the generated claims of the headlines it cites do not contain (CLAIMS.md): a status line may not claim more than its headlines
+    check_status_lines: FAIL
+  [check_relock.py a321f75]
+    frozen registry: 1795 entries at a321f75, none changed or removed
+  [check_numbers.py --base a321f75]
+    certified-number diff vs a321f75: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base a321f75]
+    check_prose: 187 headlines, 136 definitions, 21 glossary terms; 1 new problems; 356 known gaps (prose_baseline.txt)
+      Checked.Math.GelfandPDEBound.gelfand_pde_radial_parameter_bound: its docstring generalises over 'each `x` in the open ball', but the statement binds nothing it could refer to (bound: ['lam', 'u']; nouns for bound roles: scripts/trust/param_nouns.txt)
+  [check_trusted_defs.py --base a321f75]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base a321f75]
+    phrases: 23 at a321f75, none changed or removed
+  [check_formulas.py --base a321f75]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base a321f75]
+    check_provenance: 23 second-version modules, 6 baselined; ok
+  [check_literals.py --base a321f75]
+    check_literals: 187 headlines, 121 with uncovered literals (121 baselined), 102 registered readings; ok
+  [check_source_names.py --base a321f75]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base a321f75]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base a321f75]
+    check_blind_route: 0 second versions added or changed since a321f75; ok
+  [check_literal_targets.py --base a321f75]
+    check_literal_targets: 187 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base a321f75]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base a321f75]
+    check_prose_gen: 187 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base a321f75]
+    check_reader_frozen: 22 reader modules and 18 runs/ reader files at a321f75 checked; ok
+  [check_brief_leak.py --base a321f75]
+    check_brief_leak: 0 briefs of reader files new since a321f75; ok
+  [check_prose_eval.py --base a321f75]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base a321f75]
+    check_claim_words: 187 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base a321f75]
+      V10: Checked.Math.Gelfand.gelfand_ball_critical: its paraphrase attaches the number three to 'dimensional', a vocabulary word the generated claim does not use, and the claim does not state that number in that role (a disclosed word may name things, not count them)
+      V11: Checked.Math.GelfandPDEUnique.gelfand_pde_radial_unique_solution: its paraphrase writes `Δ u x + lam * Real.exp (u x) = 0` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V1: Checked.Cosmography.DeSitter.exp_scale_factor_decelerating: its paraphrase says 'decelerating', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V10: Checked.Math.GelfandPDERange.gelfand_pde_radial_range_exists: its paraphrase attaches the number 2 to 'dimension', a vocabulary word the generated claim does not use, and the claim does not state that number in that role (a disclosed word may name things, not count them)
+      V11: Checked.Math.GelfandPDERange.gelfand_pde_radial_range_exists: its paraphrase writes `Δ u x + lam * Real.exp (u x) = 0` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V11: Checked.Math.GelfandPDEBound.gelfand_pde_radial_parameter_bound: its paraphrase writes `Δ u x + lam * Real.exp (u x) = 0` as code, a relation that does not occur in the generated claim: quote the statement or say it in words
+      V2: scripts/trust/prose_vocab.txt: 'sharp' is an inference, generality, persistence, two-sided, grading or strength word; it may reach a paraphrase only through the generated claim
+    check_claim_vocab: 187 sections, 1336 findings (1086 baselined), vocabulary 19; FAIL
+--- make_packet --check
+validation packet up to date (54 items)
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== end 16:08:11

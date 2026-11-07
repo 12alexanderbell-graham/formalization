@@ -51,6 +51,12 @@ def s2_words(line, heads):
 
 
 def main():
+    # controls of S2 and the CLAIMS.md rules (run 2026-11-07T1428Z): a rule that rejects nothing fails here
+    sys.path.insert(0, str(ROOT / "scripts/trust/controls"))
+    import prose_rule_controls  # noqa: E402
+    if prose_rule_controls.main() != 0:
+        print("check_status_lines: FAIL (a rule failed its control; see above)")
+        return 1
     heads = {l.strip() for l in (ROOT / "scripts/trust/headlines.txt").read_text(encoding="utf-8").splitlines()
              if l.strip() and not l.startswith("#")}
     errors = []
