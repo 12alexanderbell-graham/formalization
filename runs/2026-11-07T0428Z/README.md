@@ -1,6 +1,27 @@
 # Run 2026-11-07T0428Z (scheduled)
 
-**THE RESULT:** in progress (part 3 infrastructure: CI split so the judge keeps pace; then part 2/5: Townes existence). Updated at the end of the run.
+**THE RESULT:** part 3 (the trust system's judge itself): the external judge had stopped being able to judge — since the Thomas–Fermi promotion every checked job ran past GitHub's 6-hour limit (the last one, 336fca2, passed every check step and was still cancelled), and 25+ runs queued behind each other. Root cause measured and repaired without weakening any check: the time was lean4export (135 M lines, 5 h 06 min), not nanoda (16.5 min); nanoda now runs as four memoised shards that partition exactly the constants the single export covered, queued runs coalesce per branch, and every base-diff check now diffs against the newest fully green ancestor so a replaced run leaves nothing unchecked. Parts 1, 2, 4, 5: no step this run.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** Nothing new in Lean. What changed is that the program's results can be judged again: the Thomas–Fermi, Gelfand PDE and Townes commits had no CI run that could finish, so none of them could reach PROVED. (The CI runs of this run's commits had not finished when this record was written; see STATE.)
+
+**Measure:** checked-job wall time on Checked with Thomas–Fermi: > 6 h (cancelled) → expected ≈ 1 h per shard in parallel (to be measured on eaa5149's run); runs started per heartbeat push: 4 Lean jobs → 0 (LOCK-only, once main is green); duplicate nanoda executions on identical input: 9 concurrent on 0f801bfb → 0 (memoised).
+
+**Weakest unchecked step:** the sharded nanoda has not yet run on the runner (run 42343050387 pending at 05:31Z); the shard partition was tested locally on `Checked.Math.TFCell` with k = 2 (143557 + 131030 = 274587 constants, both shards clean), not on all of Checked. Second: positive control for the changed workflow (run 42343066122, branch `control/sorry-axiom-2026-11-07`) not yet read.
 
 ## Start
-- 04:27Z: pre-cloned checkout detached with a stale diverged local main; `git checkout -B main origin/main` (origin/main af52619). add_repo not exposed. No LOCK on main (run 0228Z released it at 03:27Z); this run takes it.
+- 04:27Z: pre-cloned checkout detached with a stale diverged local main; `git checkout -B main origin/main` (origin/main af52619). add_repo not exposed. No LOCK on main (run 0228Z released it at 03:27Z); this run took it (eb787c4).
+- Environment: elan installer worked; local Lean 4.35.0 + Mathlib cache (9031 files). lean4export v4.35.0 and nanoda_lib 8de7e0c built locally (cargo works here this time).
+
+## Bottleneck
+STATE next step 1: CI saturated. A yes (judge restored) makes every result since the TF promotion promotable to PROVED; a no leaves the program producing Work and Checked code no judge can certify.
+
+## Work
+1. **Diagnosis (read, not guessed).** Run 42306265048 (336fca2, Checked tree 0f801bfb = Thomas–Fermi, before the Gelfand PDE): every step success — Lean step 24 min, nanoda step 23:31→04:55Z, trust steps, frozen step, author files — but the job ended 05:06:37Z, two minutes past the 6-hour limit, so the run is *cancelled*. Its log: lean4export 23:32→04:38Z for **135 277 544 lines**, nanoda 16.5 min on **424 389 declarations**. Pre-TF a4c4b03 (run 42301739637): 104 822 408 lines in 67 min, nanoda 17 min. So 29 % more export lines cost 4.6× the time (the 9 TF certificate modules are 1.1 GB of oleans); nanoda's own cost is small. The nine running main runs on the same Checked tree, and run 433, were in the same step; wip/tf-checked runs were cancelled by the limit.
+2. **Local measurements** (2 cores, 7 GB): `Checked.Math.TFCell` export 37.4 M lines 118 s, nanoda 292 s serial; with one TF certificate module (`TFCertsSub5`) 38.5 M lines, nanoda 310 s serial, 155 s with `num_threads = 2`, peak 2.4 GB. Shard test (k = 2) above.
+3. **Workflow, commit 509b011** (LEDGER): concurrency group per ref without cancelling running runs; `changes` job (`scripts/ci_changes.py`, self-test in CI) gives the base of every base-diff check = newest ancestor with a fully green run (fail-closed); LOCK-only trees skip the Lean jobs; nanoda in its own memoised job. Base-diff scripts run locally over a4c4b03..HEAD: all pass (the ones needing `.lake/meaning.jsonl` need the Lean build and run in CI).
+4. **Workflow, commit eaa5149** (LEDGER): nanoda sharded, `scripts/nanoda/ShardMain.lean` + `scripts/nanoda_shard.sh`, 4-shard matrix, memoised per shard.
+5. **Cancelled runs** (old workflow, commits all ancestors of main's head or merged into it; their diffs lie in the next run's checked range): queued 42319377224, 42322371328, 42322375015, 42322425720, 42324366440, 42324497316, 42327031954, 42328988449, 42330119016, 42330702804, 42330716426, 42330718662, 42331129865, 42331329172, 42332375465, 42333903688, 42334096225, 42338611606; running with Checked tree 0f801bfb or on the merged wip/gpde-checked: 42312513239, 42315630059, 42318443862, 42318459969, 42318474884, 42318492128, 42319082685, 42319415978, 42319489546, 42319876523; and 42342059644 (this run's 509b011, single-export nanoda that would hit the same limit). 42306265048 and 42307146254 had already ended (cancelled by the limit).
+6. **Positive control** (39.6): branch `control/sorry-axiom-2026-11-07` (580cb94) adds a `sorry` theorem and a custom axiom to Checked; run 42343066122 must fail. Not read in this run.
+
+## Not done
+Townes existence (STATE next step 2) — this run spent its time on the judge.

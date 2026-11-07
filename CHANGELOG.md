@@ -362,3 +362,7 @@
 - **Townes soliton shooting bracket** (parts 2/5): `Work.Townes.Shooting.townes_under` / `townes_over` (θ(0) = 2.2062008646 undershoots, 2.2062008647 overshoots, by r = 68/5), frozen 0599a4c, proved 2359ee4 with a singular start + 2 × 123 validated cells (`Work/Townes/`); blind restatement closed (`Work.Townes.BlindClosed`), referee STANDS.
 - CI saturation measured and diagnosed (STATE next step 1); no CI result of this run read.
 - PROMPT working note: shooting at a regular singular point by the LE/Gelfand cell route; CI queue.
+
+## Run 2026-11-07T0428Z (scheduled)
+- Part 3, the judge: CI could no longer finish a checked job (336fca2: every step success, cancelled at the 6-hour limit; lean4export 135 M lines in 5 h 06 min, nanoda 16.5 min). Workflow repaired in two commits (509b011, eaa5149; LEDGER): per-branch run coalescing, base-diff checks against the newest fully green ancestor (`scripts/ci_changes.py`, fail-closed), LOCK-only heartbeats skip the Lean jobs, nanoda in four memoised shards that partition the constants of the single export (`scripts/nanoda_shard.sh`, `scripts/nanoda/ShardMain.lean`; local partition test on TFCell). 30 superseded runs cancelled (IDs in the run README). Positive control branch `control/sorry-axiom-2026-11-07` pushed; CI of this run not yet read.
+- PROMPT working note: the judge's own wall time (diagnosis route, new CI mechanics, certificate size as export cost).
