@@ -18,7 +18,7 @@
 - Records: STATE (Hiemenz section, environment, daily review, exact next step: promotion), BLUEPRINT, CHANGELOG, TARGETS part 2, PROMPT working note (shooting constants without a symmetry).
 
 ## CI
-- 41967e1 42411760912, f22426b 42413535202, 4d99d89 42414951219 and the records commit: not finished at the close; read next run.
+- Freeze 41967e1 (42411760912): work job **green** (20:44–21:33Z, full Work rebuild 49 min; Hiemenz.lean with `sorry`, closed audits). 98f2211, f22426b, 4d99d89: replaced while pending by later pushes (job-level coalescing). Records b0ee28e (42415096502) and this note: judge the Hiemenz proofs; read next run.
 
 ## Start
 - 20:28Z: pre-cloned shallow checkout detached with a stale local main; `git checkout -B main origin/main` = f995f92. add_repo not exposed. No LOCK; taken in b622fa0.
