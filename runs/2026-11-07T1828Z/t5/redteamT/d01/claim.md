@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: FINDINGS.md F8 (Scope): for the Milne universe the omitted z⁵/120 term of the printed D⁴ series is 6.7 % of H₀d_L at z = 1 and 0.56 % at z = 2, i.e. the error of the printed series is large at low redshift and shrinks with z, and that these numbers are certified.
+Why it is false: Milne has exactly H₀d_L = z + z²/2, so the omitted term relative to H₀d_L is (z⁵/120)/(z + z²/2): 0.56 % at z = 1 and 6.7 % at z = 2 (the error grows with z). The record F8_sizes certifies the pair (0.56, 2 decimals) and (6.7, 1 decimal) but not which z each belongs to; the edit swaps the two z values, both integers (untagged), and keeps both [✓F8_sizes] tags.
+Expected: ACCEPTED (check_numbers: both certified pairs still present and unchanged in count, so the --base diff sees nothing lost; z = 1 and z = 2 are integers and need no tag; no other check reads FINDINGS prose). Single edit, no staging needed.
