@@ -172,6 +172,9 @@ def author_names(gen):
 
 def split_ident(ident):
     ident = re.sub(r"([a-z])([A-Z])", r"\1 \2", ident)
+    # an acronym before a capitalised word is its own word (run 2026-11-07T1828Z: `GelfandPDEThreshold` was read as
+    # 'gelfand', 'pdethreshold', judge of T d06)
+    ident = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1 \2", ident)
     return {norm(p) for p in re.split(r"[_\s.\d']+", ident) if p}
 
 
@@ -388,11 +391,12 @@ def name_vocab(full, gen, vocab):
         gv |= {"exist", "exists", "existence"}
     if re.search(r"\bnot\b|¬", body):
         gv |= {"fail", "fails", "false"}
-    out = []
+    out, seen = [], set()
     for comp in W.name_words(full).split():
         for w in sorted(split_ident(comp)):
-            if len(w) <= 1 or STRENGTH.match(w):  # strength words: V8
+            if len(w) <= 1 or STRENGTH.match(w) or w in seen:  # strength words: V8
                 continue
+            seen.add(w)
             if forms(w) & (gv | FUNCTION | vocab):
                 continue
             out.append((f"{full}|nameword:{w}", f"V13: {full}: its name says '{w}', a word that is neither in the "

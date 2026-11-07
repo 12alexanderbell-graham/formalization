@@ -400,3 +400,8 @@
 - **Defect identities by kernel evaluation** in the Duffing, Michaelis–Menten and both Robertson chains (`Checked/Sim/QResid.lean`, `QResidRob.lean`; converter `runs/2026-11-07T1628Z/scripts/conv_ring.py`; 469 identities, statements unchanged): olean MMCerts 236.6 → 87.8 MB, export 8.4 M → 3.9 M lines (with dependencies).
 - **Weighted one-sided cells** (`Checked/Sim/OneSided3.lean`, `Checked/Blasius/BCellW.lean`, `BWData.lean`): the Blasius chain re-certified with error growth e^2.94 instead of ≈ 10¹⁷ — 36 cells, 19 digits, 9.8 MB olean instead of 288 cells, 40 digits, 65 MB; same statements; `BQData` archived.
 - PROMPT working note: weighted one-sided cells before more digits; any `ring` over generated data → computed residual + `decide +kernel`.
+
+## Run 2026-11-07T1828Z (scheduled; part 3)
+- **Blind round T** (Sonnet, brief 722f1c0 committed first, snapshot 4986002): six defects, all valid; **6/6 accepted** by every check of the snapshot (`runs/2026-11-07T1828Z/t5/RESULTS.md`, `judge_T.sh`, `judgeT.out`).
+- **Rules from T (not blind):** `check_claim_vocab.py` V12 (formula code spans are quotations), V13 (name words are claim or disclosed words), V14 (the word a numeral counts), D1 (no two headlines with the same generated claim); acronym split in names; `check_audits.py` R1 (closed run records stay closed). Controls 15 → 23 (+ R1's scratch-repository control). Baseline +535 keys on main. After: 2/6.
+- PROMPT working note: the blind rate has not moved in eleven rounds — generate reader-facing text instead of filtering it.

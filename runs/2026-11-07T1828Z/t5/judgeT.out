@@ -1,0 +1,189 @@
+== new files compile one by one 19:41:39
+  ok Checked/Math/GelfandPDESolutions.lean
+  ok Checked/Math/GelfandPDEThreshold.lean
+  ok Checked/Townes/TownesProfile.lean
+== build 19:41:48
+build: PASS
+grep: PASS
+== trust 19:41:57
+trust: PASS
+--- claims 19:46:12
+CLAIMS.md: 188 generated claims
+wrote 58 files, 54 items, seed 72c4d16f819f
+== column BLIND (scripts/trust/*.py of 4986002) 19:48:38
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 188 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 24 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    check_literals: 188 headlines, 121 with uncovered literals (121 baselined), 115 registered readings; ok
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 188 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 188 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 188 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+    prose_rule_controls: 15 controls; ok
+    check_claim_vocab: 188 sections, 1336 findings (1316 baselined), vocabulary 23; ok
+  [check_status_lines.py]
+    prose_rule_controls: 15 controls; ok
+    check_status_lines: ok
+  [check_audits.py 4986002]
+    check_audits: 521 closed audit theorems; 0 removed since 4986002
+  [check_relock.py 4986002]
+    frozen registry: 1846 entries at 4986002, none changed or removed
+  [check_numbers.py --base 4986002]
+    certified-number diff vs 4986002: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base 4986002]
+    check_prose: 188 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base 4986002]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base 4986002]
+    phrases: 23 at 4986002, none changed or removed
+  [check_formulas.py --base 4986002]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base 4986002]
+    check_provenance: 24 second-version modules, 6 baselined; ok
+  [check_literals.py --base 4986002]
+    check_literals: 188 headlines, 121 with uncovered literals (121 baselined), 115 registered readings; ok
+  [check_source_names.py --base 4986002]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base 4986002]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base 4986002]
+    check_blind_route: 0 second versions added or changed since 4986002; ok
+  [check_literal_targets.py --base 4986002]
+    check_literal_targets: 188 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base 4986002]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base 4986002]
+    check_prose_gen: 188 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base 4986002]
+    check_reader_frozen: 23 reader modules and 18 runs/ reader files at 4986002 checked; ok
+  [check_brief_leak.py --base 4986002]
+    check_brief_leak: 0 briefs of reader files new since 4986002; ok
+  [check_prose_eval.py --base 4986002]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base 4986002]
+    check_claim_words: 188 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base 4986002]
+    prose_rule_controls: 15 controls; ok
+    check_claim_vocab: 188 sections, 1336 findings (1316 baselined), vocabulary 23; ok
+--- make_packet --check
+validation packet up to date (54 items)
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== column AFTER (scripts/trust/*.py of 9091d4a) 19:49:43
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 188 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 24 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    check_literals: 188 headlines, 121 with uncovered literals (121 baselined), 115 registered readings; ok
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 188 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 188 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 188 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+      D1: Checked.Townes.Profile.townes_profile_exists: its generated claim is identical to that of Checked.Townes.Exists.townes_exists: a second name for the same statement adds only prose
+      V12: Checked.Townes.Profile.townes_profile_exists: its paraphrase writes `-(1 / r * φ r) + θ r + θ r ^ 3` as code, a formula that does not occur in the generated claim (a code span is read as a quotation of the statement: quote it exactly or write it as prose)
+      V13: Checked.Math.GelfandPDEThreshold.gelfand_pde_radial_solvability_threshold: its name says 'pdethreshold', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V13: Checked.Math.GelfandPDEThreshold.gelfand_pde_radial_solvability_threshold: its name says 'pde', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V13: Checked.Math.GelfandPDEThreshold.gelfand_pde_radial_solvability_threshold: its name says 'solvability', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V13: Checked.Math.GelfandPDEThreshold.gelfand_pde_radial_solvability_threshold: its name says 'threshold', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      D1: Checked.Math.GelfandPDEThreshold.gelfand_pde_radial_solvability_threshold: its generated claim is identical to that of Checked.Math.GelfandPDE.gelfand_pde_radial_bound: a second name for the same statement adds only prose
+    check_claim_vocab: 188 sections, 1907 findings (1859 baselined), vocabulary 23; FAIL
+  [check_status_lines.py]
+    prose_rule_controls: 23 controls; ok
+    check_status_lines: ok
+  [check_audits.py 4986002]
+    check_audits: 521 closed audit theorems; 0 removed since 4986002
+    check_audits: 1 closed run records changed without a LEDGER.md addition naming them
+    closed run records (runs/<id>/ older than 6 h before the newest run) changed: ['M runs/2026-10-30T0828Z/audit.md (4c1f003)']
+  [check_relock.py 4986002]
+    frozen registry: 1846 entries at 4986002, none changed or removed
+  [check_numbers.py --base 4986002]
+    certified-number diff vs 4986002: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base 4986002]
+    check_prose: 188 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base 4986002]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base 4986002]
+    phrases: 23 at 4986002, none changed or removed
+  [check_formulas.py --base 4986002]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base 4986002]
+    check_provenance: 24 second-version modules, 6 baselined; ok
+  [check_literals.py --base 4986002]
+    check_literals: 188 headlines, 121 with uncovered literals (121 baselined), 115 registered readings; ok
+  [check_source_names.py --base 4986002]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base 4986002]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base 4986002]
+    check_blind_route: 0 second versions added or changed since 4986002; ok
+  [check_literal_targets.py --base 4986002]
+    check_literal_targets: 188 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base 4986002]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base 4986002]
+    check_prose_gen: 188 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base 4986002]
+    check_reader_frozen: 23 reader modules and 18 runs/ reader files at 4986002 checked; ok
+  [check_brief_leak.py --base 4986002]
+    check_brief_leak: 0 briefs of reader files new since 4986002; ok
+  [check_prose_eval.py --base 4986002]
+    check_prose_eval: 346 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base 4986002]
+    check_claim_words: 188 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base 4986002]
+      V3: scripts/trust/claim_vocab_baseline.txt grew against 4986002: checked.sim.roblong.rob_printed_y3_low|nameword:long (it may only shrink)
+      V3: scripts/trust/claim_vocab_baseline.txt grew against 4986002: checked.sim.roblong.rob_printed_y3_low|nameword:low (it may only shrink)
+      V3: scripts/trust/claim_vocab_baseline.txt grew against 4986002: checked.sim.roblong.rob_printed_y3_low|nameword:printed (it may only shrink)
+      V3: scripts/trust/claim_vocab_baseline.txt grew against 4986002: checked.sim.roblong.rob_state1e11|nameword:long (it may only shrink)
+      V3: scripts/trust/claim_vocab_baseline.txt grew against 4986002: checked.sim.roblong.rob_state1e11|nameword:state (it may only shrink)
+      V3: scripts/trust/claim_vocab_baseline.txt grew against 4986002: checked.townes.shooting.townes_over|nameword:shooting (it may only shrink)
+      V3: scripts/trust/claim_vocab_baseline.txt grew against 4986002: checked.townes.shooting.townes_under|nameword:shooting (it may only shrink)
+    check_claim_vocab: 188 sections, 1907 findings (1859 baselined), vocabulary 23; FAIL
+--- make_packet --check
+validation packet up to date (54 items)
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== end 19:50:43

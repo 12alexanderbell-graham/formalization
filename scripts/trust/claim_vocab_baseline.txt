@@ -1372,33 +1372,27 @@ checked.chemistry.pr78acentric.pr78_omega1_unique|numctx:3:decimals
 checked.chemistry.pr78acentric.pr78_omega1_unique|numctx:4:decimals
 checked.chemistry.pracentric.pr_omega1_exists|nameword:omega
 checked.chemistry.pracentric.pr_omega1_exists|nameword:pr
-checked.chemistry.pracentric.pr_omega1_exists|nameword:pracentric
 checked.chemistry.pracentric.pr_omega1_exists|numctx:0.0114:times
 checked.chemistry.pracentric.pr_omega1_exists|numctx:3:decimals
 checked.chemistry.pracentric.pr_omega1_exists|numctx:4:decimals
 checked.chemistry.pracentric.pr_omega1_unique|nameword:omega
 checked.chemistry.pracentric.pr_omega1_unique|nameword:pr
-checked.chemistry.pracentric.pr_omega1_unique|nameword:pracentric
 checked.chemistry.pracentric.pr_omega1_unique|numctx:0.0114:times
 checked.chemistry.pracentric.pr_omega1_unique|numctx:3:decimals
 checked.chemistry.pracentric.pr_omega1_unique|numctx:4:decimals
 checked.chemistry.rkacentric.rk_coexistence_exists|nameword:rk
-checked.chemistry.rkacentric.rk_coexistence_exists|nameword:rkacentric
 checked.chemistry.rkacentric.rk_coexistence_exists|numctx:0.087:times
 checked.chemistry.rkacentric.rk_coexistence_exists|numctx:3:decimals
 checked.chemistry.rkacentric.rk_coexistence_unique|nameword:rk
-checked.chemistry.rkacentric.rk_coexistence_unique|nameword:rkacentric
 checked.chemistry.rkacentric.rk_coexistence_unique|numctx:0.087:times
 checked.chemistry.rkacentric.rk_coexistence_unique|numctx:3:decimals
 checked.chemistry.srkacentric.srk_omega1_exists|nameword:omega
 checked.chemistry.srkacentric.srk_omega1_exists|nameword:srk
-checked.chemistry.srkacentric.srk_omega1_exists|nameword:srkacentric
 checked.chemistry.srkacentric.srk_omega1_exists|numctx:0.0102:times
 checked.chemistry.srkacentric.srk_omega1_exists|numctx:3:decimals
 checked.chemistry.srkacentric.srk_omega1_exists|numctx:4:decimals
 checked.chemistry.srkacentric.srk_omega1_unique|nameword:omega
 checked.chemistry.srkacentric.srk_omega1_unique|nameword:srk
-checked.chemistry.srkacentric.srk_omega1_unique|nameword:srkacentric
 checked.chemistry.srkacentric.srk_omega1_unique|numctx:0.0102:times
 checked.chemistry.srkacentric.srk_omega1_unique|numctx:3:decimals
 checked.chemistry.srkacentric.srk_omega1_unique|numctx:4:decimals
@@ -1659,17 +1653,17 @@ checked.cosmography.cpl.flatcpl_coeffs|fspan:9 (7 − ω)
 checked.cosmography.cpl.printedl0_ne|fspan:(1 − ω)(7 − ω) wₐ ≠ 0
 checked.cosmography.cpl.printedl0_ne|nameword:ne
 checked.cosmography.cpl.printedl0_ne|nameword:printed
-checked.cosmography.cplexistence.exists_flatcpl|nameword:cplexistence
-checked.cosmography.cplexistence.exists_local_model|nameword:cplexistence
+checked.cosmography.cplexistence.exists_local_model|nameword:cpl
 checked.cosmography.cplexistence.exists_local_model|nameword:local
 checked.cosmography.cplexistence.exists_local_model|nameword:model
 checked.cosmography.cplexistence.printedl0_false_at|fspan:(1 − ω)(7 − ω) wₐ ≠ 0
-checked.cosmography.cplexistence.printedl0_false_at|nameword:cplexistence
 checked.cosmography.cplexistence.printedl0_false_at|nameword:printed
-checked.cosmography.cvdq.dq_y_third_order|nameword:cvd
+checked.cosmography.cvdq.cvdqclaim_false|nameword:cvd
+checked.cosmography.cvdq.cvdqclaimpast_false|nameword:cvd
+checked.cosmography.cvdq.dq_y_third_order|nameword:vd
 checked.cosmography.cvdq.printedq2_fails_past|fspan:−1 − 2q₀ + 12q₀² − 4j₀ ≠ 0
-checked.cosmography.cvdq.printedq2_fails_past|nameword:cvd
 checked.cosmography.cvdq.printedq2_fails_past|nameword:past
+checked.cosmography.cvdq.printedq2_fails_past|nameword:vd
 checked.cosmography.demianskiz.demda4_fails_past|fspan:a(t₀) ≠ 0
 checked.cosmography.demianskiz.demda4_fails_past|fspan:h₀ ≠ 0
 checked.cosmography.demianskiz.demda4_fails_past|fspan:j₀ ≠ 0
@@ -1701,36 +1695,37 @@ checked.cosmography.demianskiz.flat_corrections|fspan:−137j₀
 checked.cosmography.demianskiz.flat_corrections|nameword:demianski
 checked.cosmography.demianskiz.flat_corrections|nameword:flat
 checked.cosmography.frcosmo.curv_derivs|fspan:+2(q₀ + 4)j₀
-checked.cosmography.frcosmo.curv_derivs|nameword:frcosmo
+checked.cosmography.frcosmo.curv_derivs|nameword:fr
 checked.cosmography.frcosmo.curv_derivs|numctx:3:time
-checked.cosmography.frcosmo.exists_lcdm_model|nameword:frcosmo
+checked.cosmography.frcosmo.exists_lcdm_model|nameword:cosmo
+checked.cosmography.frcosmo.exists_lcdm_model|nameword:fr
 checked.cosmography.frcosmo.exists_lcdm_model|nameword:model
-checked.cosmography.frcosmo.fr_values|nameword:frcosmo
+checked.cosmography.frcosmo.fr_values|nameword:fr
 checked.cosmography.frcosmo.printedf0_false_at|fspan:−(243ω⁴ + 540ω³ − 6264ω² + 9360ω − 3328)/16
-checked.cosmography.frcosmo.printedf0_false_at|nameword:frcosmo
-checked.cosmography.frcosmo.printedf0claim_false|nameword:frcosmo
-checked.cosmography.frcosmo.printedf0claimmul_false|nameword:frcosmo
-checked.cosmography.frcosmo.printedf0mul_false_at|nameword:frcosmo
+checked.cosmography.frcosmo.printedf0_false_at|nameword:fr
+checked.cosmography.frcosmo.printedf0claim_false|nameword:fr
+checked.cosmography.frcosmo.printedf0claimmul_false|nameword:fr
+checked.cosmography.frcosmo.printedf0mul_false_at|nameword:fr
 checked.cosmography.frcosmo.printedf0mul_false_at|nameword:mul
 checked.cosmography.frcosmo.printedr3claim_false|fspan:−2(q₀ + 4)j₀
-checked.cosmography.frcosmo.printedr3claim_false|nameword:frcosmo
-checked.cosmography.freta.eta20_hasderivat|nameword:freta
-checked.cosmography.freta.eta30_hasderivat|nameword:freta
+checked.cosmography.frcosmo.printedr3claim_false|nameword:fr
+checked.cosmography.freta.eta20_hasderivat|nameword:fr
+checked.cosmography.freta.eta30_hasderivat|nameword:fr
 checked.cosmography.freta.eta_numbers|fspan:0.15ε, −0.12ε
 checked.cosmography.freta.eta_numbers|fspan:4ε, −0.18ε
 checked.cosmography.freta.eta_numbers|fspan:η₂₀ ≈ −0.249ε, −0.032ε
 checked.cosmography.freta.eta_numbers|fspan:η₃₀ ≈ −0.400ε, −0.0152ε
 checked.cosmography.freta.eta_numbers|nameword:eta
-checked.cosmography.freta.eta_numbers|nameword:freta
+checked.cosmography.freta.eta_numbers|nameword:fr
 checked.cosmography.freta.eta_ratios|fspan:≈
-checked.cosmography.freta.eta_ratios|nameword:freta
+checked.cosmography.freta.eta_ratios|nameword:fr
 checked.cosmography.freta.eta_ratios|numctx:2:ratios
 checked.cosmography.freta.printedeta20_false_at|fspan:(54ω² − 29ω − 2)(27ω² + 24ω − 32)
-checked.cosmography.freta.printedeta20_false_at|nameword:freta
+checked.cosmography.freta.printedeta20_false_at|nameword:fr
 checked.cosmography.freta.printedeta20_false_at|numctx:2:roots
-checked.cosmography.freta.printedeta20claim_false|nameword:freta
-checked.cosmography.freta.printedeta30_false_at|nameword:freta
-checked.cosmography.freta.printedeta30claim_false|nameword:freta
+checked.cosmography.freta.printedeta20claim_false|nameword:fr
+checked.cosmography.freta.printedeta30_false_at|nameword:fr
+checked.cosmography.freta.printedeta30claim_false|nameword:fr
 checked.cosmography.lookback_second_order_bigo|fspan:t → t₀
 checked.cosmography.lookback_second_order_bigo|nameword:big
 checked.cosmography.lookback_second_order_bigo|nameword:lookback
@@ -1791,9 +1786,7 @@ checked.fidelity.comoving_pins|fspan:a₀ (1 + z)
 checked.fidelity.cosmocoeffcore_pins|fspan:ȧ(t₀) ≠ 0
 checked.fidelity.cosmocoeffcore_pins|nameword:core
 checked.fidelity.curvkspec_pins|fspan:h₀ ≠ 0
-checked.fidelity.curvkspec_pins|nameword:kspec
 checked.fidelity.decelspec_pins|fspan:ȧ(t) ≠ 0
-checked.fidelity.flatlcdmspec2_pins|nameword:lcdmspec
 checked.fidelity.friedmanneq_iff_blind|nameword:blind
 checked.fidelity.friedmanneq_iff_blind|nameword:iff
 checked.fidelity.friedmanneq_iff_blind|numctx:00:equation
@@ -1809,12 +1802,11 @@ checked.math.gelfand.gelfand_ball_critical|nameword:ball
 checked.math.gelfand.gelfand_ball_critical|nameword:critical
 checked.math.gelfandpde.gelfand_pde_radial_bound|nameword:pde
 checked.math.gelfandpdeexists.gelfand_pde_radial_exists|nameword:pde
-checked.math.gelfandpdeexists.gelfand_pde_radial_exists|nameword:pdeexists
 checked.math.laneemden.laneemden3_constants|nameword:constants
 checked.math.laneemden.laneemden3_constants|nameword:emden
 checked.math.laneemden.laneemden3_constants|nameword:lane
 checked.math.laneemden.laneemden3_constants|numctx:0:before
-checked.math.leexists.exists_solution|nameword:leexists
+checked.math.leexists.exists_solution|nameword:le
 checked.math.thomasfermi.tf_initial_slope|nameword:fermi
 checked.math.thomasfermi.tf_initial_slope|nameword:initial
 checked.math.thomasfermi.tf_initial_slope|nameword:slope
