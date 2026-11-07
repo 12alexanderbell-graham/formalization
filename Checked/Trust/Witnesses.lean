@@ -55,6 +55,8 @@ import Checked.Townes.TownesShooting
 import Checked.Townes.TownesSolutions
 import Checked.Blasius.Blasius
 import Checked.Blasius.BlasiusExists
+import Checked.Hiemenz.Hiemenz
+import Checked.Hiemenz.HIVP
 import Checked.Data.Moresco16Min
 
 /-!
@@ -729,6 +731,18 @@ problem from `Checked.Blasius.blasius_exists`. -/
 theorem blasius_wall_shear : nonvacuity% Checked.Blasius.blasius_wall_shear := by
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim⟩ := Checked.Blasius.blasius_exists
   exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, trivial⟩
+
+/-! Hiemenz stagnation-point flow (run 2026-11-07T2028Z, promoted 2026-11-07T2228Z): the clamped flow from the
+wall at the value each shooting headline names, on [0, 15/2], where the certified cells keep every clamp
+inactive (`Checked/Hiemenz/HIVP.lean`). -/
+
+theorem hiemenz_under : nonvacuity% Checked.Hiemenz.hiemenz_under := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hq0⟩ := Checked.Hiemenz.HIVP.ivp_lo
+  exact ⟨15 / 2, le_rfl, f, p, q, hf, hp, hq, hf0, hp0, hq0, trivial⟩
+
+theorem hiemenz_over : nonvacuity% Checked.Hiemenz.hiemenz_over := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hq0⟩ := Checked.Hiemenz.HIVP.ivp_hi
+  exact ⟨15 / 2, le_rfl, f, p, q, hf, hp, hq, hf0, hp0, hq0, trivial⟩
 
 /-! ### Data claims of Moresco et al. 2016 (runs 2026-11-05T0428Z, 0628Z; promoted 1028Z): the
 printed AICc rows are attained by the value c of −2 ln L_max that makes them exact at N = 31; the

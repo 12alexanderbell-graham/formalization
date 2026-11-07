@@ -22,3 +22,6 @@ boundary
 layer
 wall
 shear
+hiemenz
+stagnation
+flow

@@ -1,47 +1,53 @@
 # Item 13
 
-**Area:** Certified numbers of the findings
+**Area:** Chemistry
 
-**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Eqs. (10.38)–(10.51), verbatim from Capozziello & Salzano 2009 (arXiv:0902.0088) Eqs. (31)–(52): z-redshift d_L and d_A fourth-order coefficients D⁴_L, D⁴_A miss the curvature-squared term
+**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`:
 
-1. `RoundsTo ((1 / 100) ^ 2 * 2 ^ 4 / 120) 13e-6 6`
-2. `RoundsTo (100 * (1 ^ 5 / 120) / (1 + 1 ^ 2 / 2)) 0.56 2`
-3. `RoundsTo (100 * (2 ^ 5 / 120) / (2 + 2 ^ 2 / 2)) 6.7 1`
+**assuming**
+
+1. `0 < R`
+2. `0 < a`
+3. `0 < b`
+4. `-2 < u`
+5. `0 < 1 + u + w`
+
+**then**
+
+- there is exactly one `p : ℝ × ℝ` such that (`0 < p.1`) and (`b < p.2`) and (the molar volume `p.2` is a critical point of the isotherm `cubicP R a b u w p.1` (pressure as a function of molar volume at fixed temperature): p′(`p.2`) = 0 and p″(`p.2`) = 0)
 
 Program definitions in this claim:
 
-- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
+- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Size of the omitted `k²z⁴/120`: for `|k| = 0.01` at `z = 2` it is `1.3 × 10⁻⁵`. In Milne
-(`H₀d_L = z + z²/2` exactly) the omitted `z⁵/120` relative to `H₀d_L` is `0.56 %` at `z = 1` and
-`6.7 %` at `z = 2`.
+Existence and uniqueness of the critical point (T, v) of the generalized cubic EOS.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem F8_sizes :
-    RoundsTo ((1 / 100) ^ 2 * 2 ^ 4 / 120) 0.000013 6 ∧
-    RoundsTo (100 * ((1 : ℝ) ^ 5 / 120) / (1 + 1 ^ 2 / 2)) 0.56 2 ∧
-    RoundsTo (100 * ((2 : ℝ) ^ 5 / 120) / (2 + 2 ^ 2 / 2)) 6.7 1 := …
+theorem exists_unique_critical (R a b u w : ℝ) (hR : 0 < R) (ha : 0 < a) (hb : 0 < b)
+    (hu : -2 < u) (h1 : 0 < 1 + u + w) :
+    ∃! p : ℝ × ℝ, 0 < p.1 ∧ b < p.2 ∧ IsCriticalIsotherm (cubicP R a b u w p.1) p.2 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Records.RoundsTo`
+See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = 0.000013, k = 6, d = 0.56, k = 2, d = 6.7, k = 1.
-- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `exists_unique_critical`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 13

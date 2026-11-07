@@ -1,56 +1,55 @@
 # Item 52
 
-**Area:** Mathematics/physics
+**Area:** F0
 
-**Source:** see the claim
+**Source:** textbook definition of lookback time and the cosmographic parameters (e.g. Visser 2004, Class. Quantum Grav. 21, 2603)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `y : ℝ → ℝ`, `φ : ℝ → ℝ`:
+**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
 
-1. for every `x : ℝ`, if `0 ≤ x`, then `HasDerivWithinAt y (φ x) (Set.Ici 0) x`
-2. for every `x : ℝ`, if `0 < x`, then `HasDerivAt φ (y x ^ (3 / 2) / √x) x`
-3. `ContinuousWithinAt φ (Set.Ici 0) 0`
-4. `y 0 = 1`
-5. for every `x : ℝ`, if `0 ≤ x`, then `0 < y x`
-6. `Filter.Tendsto y Filter.atTop (nhds 0)`
+1. `ContDiffAt ℝ 3 a t₀`
+2. `a t₀ ≠ 0`
+3. `deriv a t₀ ≠ 0`
 
 **then**
 
-1. `-1.58807103 ≤ φ 0`
-2. `φ 0 ≤ -1.58807102`
+- `(fun t => t₀ - t - (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2) / hubble a t₀) =O[nhds t₀] fun t => redshift a t₀ t ^ 3`
+
+Program definitions in this claim:
+
+- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): the deceleration parameter −a″(t)·a(t)/a′(t)² of the scale factor `a` at time `t`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Every solution y of the Thomas–Fermi equation y'' = y^{3/2}/√x on (0, ∞) with y' = φ on
-[0, ∞), φ continuous at 0 from the right, y(0) = 1, y > 0 on [0, ∞) and y(x) → 0 as x → ∞ has
-initial slope −1.58807103 ≤ φ(0) ≤ −1.58807102.
+**Milestone 1b** (frozen in commit e5b5372, audited in runs/2026-10-30T0028Z/audit.md). If `a` is `C³` near `t₀`, the lookback time satisfies
+`t₀ - t = H₀⁻¹ (z - (1 + q₀/2) z²) + O(z³)` as `t → t₀`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem tf_initial_slope (y φ : ℝ → ℝ)
-    (hy : ∀ x, 0 ≤ x → HasDerivWithinAt y (φ x) (Ici 0) x)
-    (hφ : ∀ x, 0 < x → HasDerivAt φ (y x ^ ((3 : ℝ) / 2) / Real.sqrt x) x)
-    (hφ0 : ContinuousWithinAt φ (Ici 0) 0)
-    (h0 : y 0 = 1) (hpos : ∀ x, 0 ≤ x → 0 < y x)
-    (hlim : Tendsto y atTop (𝓝 0)) :
-    -1.58807103 ≤ φ 0 ∧ φ 0 ≤ -1.58807102 := …
+theorem lookback_second_order_bigO (a : ℝ → ℝ) (t₀ : ℝ)
+    (ha : ContDiffAt ℝ 3 a t₀) (ha0 : a t₀ ≠ 0) (hH : deriv a t₀ ≠ 0) :
+    (fun t => (t₀ - t) - (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2)
+        / hubble a t₀)
+      =O[𝓝 t₀] (fun t => redshift a t₀ t ^ 3) := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: decel, hubble, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `tf_initial_slope`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lookback_second_order_bigO`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/ThomasFermi.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Cosmography/LookbackThird.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 52

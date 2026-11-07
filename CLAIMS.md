@@ -5087,6 +5087,75 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > derivative p, p has derivative q and q has derivative −f q/2 on [0, ∞) (one-sided at 0), with
 > f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞.
 
+## `hiemenz_under`
+
+Full name `Checked.Hiemenz.hiemenz_under`.
+
+**For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. `15 / 2 ≤ S`
+2. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt f (p η) (Set.Icc 0 S) η`
+3. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt p (q η) (Set.Icc 0 S) η`
+4. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Icc 0 S) η`
+5. `f 0 = 0`
+6. `p 0 = 0`
+7. `q 0 = 1.2325876568`
+
+**then**
+
+- there is `η : ℝ` such that (`η ∈ Set.Ioc 0 (15 / 2)`) and (`q η < 0`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 η`, then `p s < 1`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Hiemenz stagnation-point flow, undershoot: for every S ≥ 15/2 and every solution of
+> f''' + f f'' + 1 − f'² = 0 on [0, S] (f has derivative p, p has derivative q, q has derivative
+> −f q − 1 + p², within [0, S]) with f(0) = 0, p(0) = 0 and q(0) = 1.2325876568, there is
+> η in (0, 15/2] with q(η) < 0 and p < 1 on [0, η].
+
+## `hiemenz_over`
+
+Full name `Checked.Hiemenz.hiemenz_over`.
+
+**For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. `15 / 2 ≤ S`
+2. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt f (p η) (Set.Icc 0 S) η`
+3. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt p (q η) (Set.Icc 0 S) η`
+4. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Icc 0 S) η`
+5. `f 0 = 0`
+6. `p 0 = 0`
+7. `q 0 = 1.2325876569`
+
+**then**
+
+- there is `η : ℝ` such that (`η ∈ Set.Ioc 0 (15 / 2)`) and (`1 < p η`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 η`, then `0 < q s`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Hiemenz stagnation-point flow, overshoot: for every S ≥ 15/2 and every solution of
+> f''' + f f'' + 1 − f'² = 0 on [0, S] (f has derivative p, p has derivative q, q has derivative
+> −f q − 1 + p², within [0, S]) with f(0) = 0, p(0) = 0 and q(0) = 1.2325876569, there is
+> η in (0, 15/2] with p(η) > 1 and q > 0 on [0, η].
+
+## `hiemenz_exists`
+
+Full name `Checked.Hiemenz.hiemenz_exists`.
+
+**It holds that**
+
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`1.2325876568 < q 0`) and (`q 0 < 1.2325876569`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Hiemenz stagnation-point flow, existence: there is a solution of f''' + f f'' + 1 − f'² = 0
+> on [0, ∞) (f has derivative p, p has derivative q, q has derivative −f q − 1 + p², one-sided
+> at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value q(0) = f''(0) lies
+> strictly between 1.2325876568 and 1.2325876569.
+
 ## `table5_oL_inconsistent`
 
 Full name `Checked.Data.Moresco16.table5_oL_inconsistent`.

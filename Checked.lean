@@ -142,6 +142,7 @@ import Checked.Trust.SecondReadingTF3
 import Checked.Trust.SecondReadingGelfandPDE
 import Checked.Trust.SecondReadingTownes
 import Checked.Trust.SecondReadingBlasius
+import Checked.Trust.SecondReadingHiemenz
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
 import Checked.Trust.FormulationsD
@@ -204,3 +205,15 @@ import Checked.Blasius.BExBase
 import Checked.Blasius.BExFlow
 import Checked.Blasius.BExBounds
 import Checked.Blasius.BlasiusExists
+import Checked.Hiemenz.HExBase
+import Checked.Hiemenz.HCellW
+import Checked.Hiemenz.HCellWC
+import Checked.Hiemenz.HUData
+import Checked.Hiemenz.HOData
+import Checked.Hiemenz.HUDataC
+import Checked.Hiemenz.HODataC
+import Checked.Hiemenz.HExFlow
+import Checked.Hiemenz.HExLimit
+import Checked.Hiemenz.HExAssemble
+import Checked.Hiemenz.Hiemenz
+import Checked.Hiemenz.HIVP
