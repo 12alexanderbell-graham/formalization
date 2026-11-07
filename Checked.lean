@@ -179,6 +179,8 @@ import Checked.Math.RadialC2
 import Checked.Math.GProfile
 import Checked.Math.GelfandPDEExists
 import Checked.Sim.QPoly
+import Checked.Sim.QResid
+import Checked.Sim.QResidRob
 import Checked.Townes.TCell
 import Checked.Townes.TStart
 import Checked.Townes.TCellQ
