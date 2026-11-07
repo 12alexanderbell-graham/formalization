@@ -5,7 +5,9 @@ Thomas–Fermi: TFCellQ, TFQData, TFChain (statements, namespace and module doc 
 the nine `ring`-certificate modules TFCerts{Sup1-4,Sub1-5} move to _archive/Checked/Math/.
 Lane–Emden: LECellQ, LEQData, LELast (step89 and lastFacts copied verbatim from LECerts3), LEChain
 (statement and module doc unchanged); LECerts1-3 move to _archive/Checked/Math/ (LECerts, the start,
-stays). 48.3: never delete. Needs Checked/Sim/QPoly.lean (the Townes promotion). Afterwards: relock
+stays).
+Gelfand: GCellQ, GQData, GChain (statement and module doc unchanged); GCerts1-3 move to _archive (GCerts, the
+singular start, stays). 48.3: never delete. Needs Checked/Sim/QPoly.lean (the Townes promotion). Afterwards: relock
 (module docs of the archived modules leave frozen.txt, the new ones enter it) and a LEDGER line naming them.
 
 usage: install_tf.py <repo root>
@@ -17,8 +19,8 @@ from pathlib import Path
 root = Path(sys.argv[1])
 src = root / "runs/2026-11-07T1028Z/lean"
 assert (root / "Checked/Sim/QPoly.lean").exists(), "Checked/Sim/QPoly.lean missing: merge the Townes promotion first"
-NEW = {"TFChain": ["TFCellQ", "TFQData"], "LEChain": ["LECellQ", "LEQData", "LELast"]}
-OLD = [f"TFCertsSup{i}" for i in range(1, 5)] + [f"TFCertsSub{i}" for i in range(1, 6)] + [f"LECerts{i}" for i in (1, 2, 3)]
+NEW = {"TFChain": ["TFCellQ", "TFQData"], "LEChain": ["LECellQ", "LEQData", "LELast"], "GChain": ["GCellQ", "GQData"]}
+OLD = [f"TFCertsSup{i}" for i in range(1, 5)] + [f"TFCertsSub{i}" for i in range(1, 6)] + [f"LECerts{i}" for i in (1, 2, 3)] + [f"GCerts{i}" for i in (1, 2, 3)]
 for chain, mods in NEW.items():
     for m in mods + [chain]:
         shutil.copy(src / f"{m}.lean", root / "Checked/Math" / f"{m}.lean")
