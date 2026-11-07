@@ -258,6 +258,9 @@ import Work.Townes.TQDataB
 import Work.Townes.TownesShooting
 import Work.Blasius.Blasius
 import Work.Blasius.BlasiusExists
+import Work.Blasius.BExBase
+import Work.Blasius.BExFlow
+import Work.Blasius.BExBounds
 import Work.Blasius.BlasiusBlind
 import Work.Blasius.BlasiusBlindClosed
 import Work.Townes.TownesBlind
