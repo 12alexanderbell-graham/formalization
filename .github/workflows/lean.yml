@@ -223,27 +223,34 @@ jobs:
 
   nanoda:
     # Run 2026-11-07T0428Z (annex LIV, integrity event 39.5, see LEDGER): nanoda moved out of the checked job into
-    # its own job (own 6-hour limit; the trust steps no longer wait for it). Its result is memoised on the exact
-    # input: the SHA-256 over every tracked file of Checked/, Checked.lean, lakefile.toml, lake-manifest.json,
-    # lean-toolchain and scripts/nanoda_checked.sh (scripts/ci_changes.py). A marker is saved to the Actions cache
-    # only after nanoda passes, under a key containing that hash; a later run on identical input restores the
-    # marker, prints the run that verified it and does not re-check. Any change to those files changes the key.
-    name: nanoda (independent type check of Checked; memoised on the exact input hash)
+    # its own jobs (own 6-hour limits; the trust steps no longer wait for it) and sharded: one lean4export of all of
+    # Checked reached 135 M lines and 5 h 06 min (run 42306265048). Shard i of 4 exports the constants of the default
+    # export whose module hashes to i (scripts/nanoda/ShardMain.lean), with all their dependencies; the four shards
+    # partition the default constant list, so four green shards check every constant the single export checked.
+    # Each shard's pass is memoised on the exact input: a marker is saved to the Actions cache only after nanoda
+    # passes, keyed by the SHA-256 of every tracked file of Checked/, Checked.lean, lakefile.toml, lake-manifest.json,
+    # lean-toolchain, the nanoda scripts and this workflow (scripts/ci_changes.py) plus the shard index; a later run on
+    # identical input prints the run that passed and does not re-check. Any change to those files changes the key.
+    name: nanoda shard ${{ matrix.shard }} of 4 (independent type check of Checked; memoised on the exact input hash)
     needs: changes
     if: needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
     steps:
       - uses: actions/checkout@v5
-      - name: Look up a nanoda pass on this exact input
+      - name: Look up a nanoda pass of this shard on this exact input
         id: memo
         uses: actions/cache/restore@v4
         with:
           path: nanoda-pass.txt
-          key: nanoda-pass-v1-${{ needs.changes.outputs.checked_hash }}
+          key: nanoda-pass-v2-${{ needs.changes.outputs.checked_hash }}-${{ matrix.shard }}of4
       - name: Report memoised pass
         if: steps.memo.outputs.cache-hit == 'true'
         run: |
-          echo "nanoda already passed on input hash ${{ needs.changes.outputs.checked_hash }}:"
+          echo "nanoda shard ${{ matrix.shard }} of 4 already passed on input hash ${{ needs.changes.outputs.checked_hash }}:"
           cat nanoda-pass.txt
       - name: Free disk and add swap (robustness; no check changes)
         if: steps.memo.outputs.cache-hit != 'true'
@@ -258,16 +265,16 @@ jobs:
         with:
           use-mathlib-cache: "true"
           build-args: "Checked"
-      - name: Independent type check of Checked with nanoda (blocking; repaired run 2026-10-30T0220Z, see LEDGER)
+      - name: Independent type check of Checked with nanoda, one shard (blocking; repaired run 2026-10-30T0220Z, sharded run 2026-11-07T0428Z, see LEDGER)
         if: steps.memo.outputs.cache-hit != 'true'
         run: |
           df -h / ; free -h
-          scripts/nanoda_checked.sh
+          scripts/nanoda_shard.sh ${{ matrix.shard }} 4
           df -h / ; free -h
           echo "run ${{ github.run_id }} (commit ${{ github.sha }}, ref ${{ github.ref }}) at $(date -u +%FT%TZ)" > nanoda-pass.txt
-      - name: Record the pass for this exact input
+      - name: Record the pass of this shard for this exact input
         if: steps.memo.outputs.cache-hit != 'true' && success()
         uses: actions/cache/save@v4
         with:
           path: nanoda-pass.txt
-          key: nanoda-pass-v1-${{ needs.changes.outputs.checked_hash }}
+          key: nanoda-pass-v2-${{ needs.changes.outputs.checked_hash }}-${{ matrix.shard }}of4
