@@ -26,3 +26,7 @@ STATE next step 0: part 3 (judge round R) was due by rotation; the Blasius promo
 
 ## Not done
 CI read of the promotion (next run); export/nanoda cost of BQData; S d06 (FINDINGS prose); a blind round against the post-S rules.
+
+## CI read at the end (16:28Z)
+- 42385004260 (39a114d: V9–V11, S2, baseline +243): goal guard, packet, changes, work, **checked green** (build 28 min, trust step 8 min incl. the new rules, frozen, author files), nanoda shards 0–2 green; shard 3 running (Checked tree identical to abceca0, i.e. with the Townes trio): if it ends green, that run is green on every job and the Townes trio is PROVED — read next run.
+- e1cf192 (Blasius promotion) and 6e03b91 in progress; 7c3be5b, dcb66c1 queued: read next run by run ID.
