@@ -7,7 +7,41 @@ on:
   pull_request:
   workflow_dispatch:
 
+# Run 2026-11-07T0428Z (annex LIV, integrity event 39.5, see LEDGER): at most one running and one queued run per ref.
+# A running run is never cancelled; a newer push replaces an older run that has not started. Nothing goes unchecked:
+# the base-diff checks diff against the newest green ancestor (changes job), which covers every replaced commit.
+concurrency:
+  group: lean-judge-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
 jobs:
+  changes:
+    # Run 2026-11-07T0428Z (annex LIV, integrity event 39.5, see LEDGER): CI saturation. Queued runs are coalesced
+    # per ref (workflow-level concurrency), so the base of every base-diff check is no longer github.event.before but the
+    # newest ancestor whose whole run was green (scripts/ci_changes.py; fail-closed). A push whose tree differs
+    # from that green ancestor only in LOCK (a heartbeat) skips the Lean jobs (shown as skipped, never green).
+    name: changes (diff base = newest green ancestor; LOCK-only heartbeats skip the Lean jobs)
+    runs-on: ubuntu-latest
+    outputs:
+      base: ${{ steps.d.outputs.base }}
+      lock_only: ${{ steps.d.outputs.lock_only }}
+      checked_hash: ${{ steps.d.outputs.checked_hash }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - id: d
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/ci_changes.py --selftest
+          python3 scripts/ci_changes.py >> "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
+
   goal-guard:
     name: goal guard (the goal and the no-narrowing instruction must not be lost; 2026-10-31, see LEDGER)
     runs-on: ubuntu-latest
@@ -26,6 +60,8 @@ jobs:
 
   work:
     name: work (drafts, sorry allowed)
+    needs: changes
+    if: needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -37,7 +73,7 @@ jobs:
           build-args: "Work"
       - name: Closed audits stay closed (blocking; run 2026-11-04T1028Z, red team G, see LEDGER)
         env:
-          BASE: ${{ github.event.before || github.event.pull_request.base.sha }}
+          BASE: ${{ needs.changes.outputs.base }}
         run: |
           # every theorem listed in scripts/trust/audits.txt (closed audit theorems of Work/**/*Audit*.lean)
           # still exists and uses only the standard axioms (no sorryAx); the list may only shrink with a LEDGER line
@@ -46,6 +82,8 @@ jobs:
 
   checked:
     name: checked (strict)
+    needs: changes
+    if: needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -72,11 +110,6 @@ jobs:
           axiom-audit-root: "Checked"
           leanchecker: "true"
           leanchecker-args: "Checked"
-      - name: Independent type check of Checked with nanoda (blocking; repaired run 2026-10-30T0220Z, see LEDGER)
-        run: |
-          df -h / ; free -h
-          scripts/nanoda_checked.sh
-          df -h / ; free -h
       - name: No sorry / axiom / native_decide in Checked sources (belt and braces)
         run: |
           if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
@@ -131,7 +164,7 @@ jobs:
           python3 scripts/trust/check_status_lines.py
       - name: Frozen statements and definitions change only with a LEDGER entry naming them (run 2026-10-31T0028Z)
         env:
-          BASE: ${{ github.event.before || github.event.pull_request.base.sha }}
+          BASE: ${{ needs.changes.outputs.base }}
         run: |
           python3 scripts/trust/check_relock.py "$BASE"
           # certified numbers of FINDINGS.md may not be changed or downgraded silently (run 2026-10-31T0228Z)
@@ -187,3 +220,54 @@ jobs:
         with:
           name: author-files
           path: /tmp/author-files.tgz
+
+  nanoda:
+    # Run 2026-11-07T0428Z (annex LIV, integrity event 39.5, see LEDGER): nanoda moved out of the checked job into
+    # its own job (own 6-hour limit; the trust steps no longer wait for it). Its result is memoised on the exact
+    # input: the SHA-256 over every tracked file of Checked/, Checked.lean, lakefile.toml, lake-manifest.json,
+    # lean-toolchain and scripts/nanoda_checked.sh (scripts/ci_changes.py). A marker is saved to the Actions cache
+    # only after nanoda passes, under a key containing that hash; a later run on identical input restores the
+    # marker, prints the run that verified it and does not re-check. Any change to those files changes the key.
+    name: nanoda (independent type check of Checked; memoised on the exact input hash)
+    needs: changes
+    if: needs.changes.outputs.lock_only != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Look up a nanoda pass on this exact input
+        id: memo
+        uses: actions/cache/restore@v4
+        with:
+          path: nanoda-pass.txt
+          key: nanoda-pass-v1-${{ needs.changes.outputs.checked_hash }}
+      - name: Report memoised pass
+        if: steps.memo.outputs.cache-hit == 'true'
+        run: |
+          echo "nanoda already passed on input hash ${{ needs.changes.outputs.checked_hash }}:"
+          cat nanoda-pass.txt
+      - name: Free disk and add swap (robustness; no check changes)
+        if: steps.memo.outputs.cache-hit != 'true'
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          sudo fallocate -l 8G /extra-swap && sudo chmod 600 /extra-swap && sudo mkswap /extra-swap && sudo swapon /extra-swap || echo "swap not added"
+          df -h / ; free -h
+      - uses: leanprover/lean-action@v1.7.0
+        if: steps.memo.outputs.cache-hit != 'true'
+        env:
+          LEAN_NUM_THREADS: "1"
+        with:
+          use-mathlib-cache: "true"
+          build-args: "Checked"
+      - name: Independent type check of Checked with nanoda (blocking; repaired run 2026-10-30T0220Z, see LEDGER)
+        if: steps.memo.outputs.cache-hit != 'true'
+        run: |
+          df -h / ; free -h
+          scripts/nanoda_checked.sh
+          df -h / ; free -h
+          echo "run ${{ github.run_id }} (commit ${{ github.sha }}, ref ${{ github.ref }}) at $(date -u +%FT%TZ)" > nanoda-pass.txt
+      - name: Record the pass for this exact input
+        if: steps.memo.outputs.cache-hit != 'true' && success()
+        uses: actions/cache/save@v4
+        with:
+          path: nanoda-pass.txt
+          key: nanoda-pass-v1-${{ needs.changes.outputs.checked_hash }}
