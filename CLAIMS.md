@@ -5046,6 +5046,47 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > φ(0) = 0 and φ continuous at 0, θ positive on [0, ∞), φ negative on (0, ∞) and θ(r) → 0 as
 > r → ∞.
 
+## `blasius_wall_shear`
+
+Full name `Checked.Blasius.blasius_wall_shear`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η / 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+
+**then**
+
+1. `0.33205733621519 ≤ q 0`
+2. `q 0 ≤ 0.33205733621520`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Blasius boundary layer, wall shear: for every solution f of f''' + f f''/2 = 0 on [0, ∞)
+> (f has derivative p, p has derivative q, q has derivative −f q/2, one-sided at 0) with
+> f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞, the wall value q(0) = f''(0) lies between
+> 0.33205733621519 and 0.33205733621520.
+
+## `blasius_exists`
+
+Full name `Checked.Blasius.blasius_exists`.
+
+**It holds that**
+
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η / 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Blasius boundary layer, existence: there are functions f, p, q on the reals such that f has
+> derivative p, p has derivative q and q has derivative −f q/2 on [0, ∞) (one-sided at 0), with
+> f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞.
+
 ## `table5_oL_inconsistent`
 
 Full name `Checked.Data.Moresco16.table5_oL_inconsistent`.

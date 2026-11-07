@@ -17,3 +17,8 @@ existence
 sided
 friedmann
 ray
+blasius
+boundary
+layer
+wall
+shear

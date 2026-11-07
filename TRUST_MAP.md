@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 183. Resting on no unpinned physics definition: 183.
-Non-vacuity (trust track T2): 120 headlines have hypotheses; 120 of them have a
+Headlines: 185. Resting on no unpinned physics definition: 185.
+Non-vacuity (trust track T2): 121 headlines have hypotheses; 121 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -206,6 +206,8 @@ the docstring says; universally bound parameters are not listed.
 | `Townes.Shooting.townes_under` | — | — | — | `townes_under` | — |
 | `Townes.Shooting.townes_over` | — | — | — | `townes_over` | — |
 | `Townes.Exists.townes_exists` | — | — | — | unconditional | — |
+| `Blasius.blasius_wall_shear` | — | — | — | `blasius_wall_shear` | — |
+| `Blasius.blasius_exists` | — | — | — | unconditional | — |
 | `Data.Moresco16.table5_oL_inconsistent` | — | — | — | `table5_oL_inconsistent` | — |
 | `Data.Moresco16.table5_pw_inconsistent` | — | — | — | `table5_pw_inconsistent` | — |
 | `Data.Moresco16.table5_line_inconsistent` | — | — | — | `table5_line_inconsistent` | — |

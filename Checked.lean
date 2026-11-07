@@ -141,6 +141,7 @@ import Checked.Trust.SecondReadingTF
 import Checked.Trust.SecondReadingTF3
 import Checked.Trust.SecondReadingGelfandPDE
 import Checked.Trust.SecondReadingTownes
+import Checked.Trust.SecondReadingBlasius
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
 import Checked.Trust.FormulationsD
@@ -190,3 +191,12 @@ import Checked.Townes.TExLimit
 import Checked.Townes.TExAssemble
 import Checked.Townes.TownesExists
 import Checked.Townes.TownesSolutions
+import Checked.Blasius.BTail
+import Checked.Blasius.BCell
+import Checked.Blasius.BCellQ
+import Checked.Blasius.BQData
+import Checked.Blasius.Blasius
+import Checked.Blasius.BExBase
+import Checked.Blasius.BExFlow
+import Checked.Blasius.BExBounds
+import Checked.Blasius.BlasiusExists

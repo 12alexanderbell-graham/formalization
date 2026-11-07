@@ -2,6 +2,8 @@
 # theorem, pinned and classified definition. Generated: TRUST_RELOCK=1 lake env lean
 # scripts/trust/StatementDeps.lean. Changing or removing a line needs a LEDGER.md entry
 # naming the constant in the same push (CI: scripts/trust/check_relock.py). Run 0028Z.
+Checked.Blasius.blasius_exists 52b588d2-doc12447839802132266977
+Checked.Blasius.blasius_wall_shear 7bf06276-doc12401480432051366992
 Checked.Chemistry.Coexistence.IsMaxwellCoexistence c18d7b37644a0cf2-doc1484192888443065294-PHYSICS
 Checked.Chemistry.Coexistence.acentric 71ce1336b3432f3b-FORMULA
 Checked.Chemistry.Coexistence.vdW_coexistence_exists 32245ed6-doc7400633016167820518
@@ -355,6 +357,39 @@ Checked.Townes.Exists.townes_exists a22721ec-doc10308239710426910729
 Checked.Townes.Shooting.townes_over 41325682-doc8547136644519495763
 Checked.Townes.Shooting.townes_under f419fbd4-doc10757029805123205111
 doc:Checked.Trust.«termNonvacuity%_» -doc11357486495264345341
+doc:Checked.Blasius.BCell.blF -doc397143388293800345
+doc:Checked.Blasius.BCell.cell -doc10848265893504415518
+doc:Checked.Blasius.BCell.slab -doc14811427102068995089
+doc:Checked.Blasius.BCellQ.AtEnd -doc199622389585354553
+doc:Checked.Blasius.BCellQ.CellProp -doc7963676893962536750
+doc:Checked.Blasius.BCellQ.Cell -doc8981095377780623491
+doc:Checked.Blasius.BCellQ.InBox -doc5913762815816144416
+doc:Checked.Blasius.BCellQ.Sol -doc3780974874054712051
+doc:Checked.Blasius.BCellQ.cellOK -doc15209860946399326993
+doc:Checked.Blasius.BCellQ.cell_q -doc11362785940121706132
+doc:Checked.Blasius.BCellQ.chainTo -doc13719372044717358092
+doc:Checked.Blasius.BCellQ.chain_gen -doc11348343271443214005
+doc:Checked.Blasius.BCellQ.defect3 -doc10994963784075184177
+doc:Checked.Blasius.BCellQ.endOK -doc12864787902567814325
+doc:Checked.Blasius.BCellQ.end_q0 -doc17026520770525726163
+doc:Checked.Blasius.BCellQ.end_q -doc13079088674631334913
+doc:Checked.Blasius.BCellQ.linkOK -doc10898215005322858578
+doc:Checked.Blasius.BCellQ.seg_q0 -doc6069398527780809778
+doc:Checked.Blasius.BCellQ.seg_q -doc9587920050519643582
+doc:Checked.Blasius.BExBase.cl -doc12993736257588561935
+doc:Checked.Blasius.BExBase.vF -doc14218946940373983890
+doc:Checked.Blasius.BExBounds.pbound -doc10839289173749184220
+doc:Checked.Blasius.BExFlow.local_sol -doc1122822952567526549
+doc:Checked.Blasius.BQData.FG -doc15029552698802431858
+doc:Checked.Blasius.BQData.chain -doc17316747436771761946
+doc:Checked.Blasius.BTail.IsSol -doc17545929064370972707
+doc:Checked.Blasius.BTail.q_neg -doc16216330501556368384
+doc:Checked.Blasius.BTail.q_pos -doc1397570891923883930
+doc:Checked.Blasius.BTail.scale -doc447188328206715582
+doc:Checked.Blasius.BTail.shear_pos -doc12006412352231245585
+doc:Checked.Blasius.BTail.tail -doc11309937948061927428
+doc:Checked.Blasius.BTail.zero_back -doc12306213512891209701
+doc:Checked.Blasius.BTail.zero_fwd -doc13811243721716406944
 doc:Checked.Chemistry.Coexistence.acentric -doc1348694856691534371
 doc:Checked.Chemistry.CoexistenceReduced.Dgap -doc15841984481982196710
 doc:Checked.Chemistry.CoexistenceReduced.S -doc4243403510561570042
@@ -1438,6 +1473,12 @@ doc:Checked.Trust.SecondReading.bambaF0Norm -doc826340502239970354
 doc:Checked.Trust.SecondReading.bambaF0Sign -doc16309106037127375957
 doc:Checked.Trust.SecondReading.bambaJLCDM -doc6357448113160589362
 doc:Checked.Trust.SecondReading.bambaR3 -doc12218058858658860492
+doc:Checked.Trust.SecondReading.blasiusEdge -doc4842813862602201423
+doc:Checked.Trust.SecondReading.blasiusHalfLineTyped -doc14410342809527929474
+doc:Checked.Trust.SecondReading.blasiusHalfLine -doc5073422301478383058
+doc:Checked.Trust.SecondReading.blasiusRhs -doc16864738765130714484
+doc:Checked.Trust.SecondReading.blasiusShear -doc16099940894625079141
+doc:Checked.Trust.SecondReading.blasiusWall -doc6916850364569596861
 doc:Checked.Trust.SecondReading.ccsA2Last -doc17593427542118108249
 doc:Checked.Trust.SecondReading.ccsA2Prefactor -doc9283065735077364731
 doc:Checked.Trust.SecondReading.clsL0 -doc3036665444936664704
@@ -1591,6 +1632,15 @@ doc:Checked.Trust.plainType -doc14645447197378540522
 doc:Checked.Trust.trivialOb -doc5427477132949267602
 doc:Checked.Trust.unfoldHead -doc11594683962886020944
 moduledoc:Checked.Basic -mdoc3103473468629583785
+moduledoc:Checked.Blasius.BCellQ -mdoc12531369164556530918
+moduledoc:Checked.Blasius.BCell -mdoc5506872954027218539
+moduledoc:Checked.Blasius.BExBase -mdoc8367126544796897082
+moduledoc:Checked.Blasius.BExBounds -mdoc18152140137867868765
+moduledoc:Checked.Blasius.BExFlow -mdoc13050187274132919173
+moduledoc:Checked.Blasius.BQData -mdoc3697273889695360771
+moduledoc:Checked.Blasius.BTail -mdoc1943829919661448929
+moduledoc:Checked.Blasius.BlasiusExists -mdoc17426711097578836437
+moduledoc:Checked.Blasius.Blasius -mdoc7258360928725526611
 moduledoc:Checked.Chemistry.CoexistenceExists -mdoc7607638298652763440
 moduledoc:Checked.Chemistry.CoexistenceReduced -mdoc11346860679608370024
 moduledoc:Checked.Chemistry.Coexistence -mdoc6574424267462736464
@@ -1775,6 +1825,7 @@ moduledoc:Checked.Trust.SecondFormulationCosmo -mdoc14861710477027291596
 moduledoc:Checked.Trust.SecondFormulationM16 -mdoc8057426027505603843
 moduledoc:Checked.Trust.SecondFormulation -mdoc10887534755347747998
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
+moduledoc:Checked.Trust.SecondReadingBlasius -mdoc10558104316128241795
 moduledoc:Checked.Trust.SecondReadingClaims -mdoc11105787854413030724
 moduledoc:Checked.Trust.SecondReadingFR13 -mdoc15889175085118273039
 moduledoc:Checked.Trust.SecondReadingFR -mdoc1417811703977418368
@@ -1796,4 +1847,4 @@ moduledoc:Checked.Trust.TranscriptionsFR -mdoc11191104128708509847
 moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc3470810735840358228
+moduledoc:Checked.Trust.Witnesses -mdoc11496614830717754252

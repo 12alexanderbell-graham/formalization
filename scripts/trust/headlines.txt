@@ -204,6 +204,9 @@ Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists
 Checked.Townes.Shooting.townes_under
 Checked.Townes.Shooting.townes_over
 Checked.Townes.Exists.townes_exists
+# Fluid mechanics: Blasius boundary layer (run 2026-11-07T1228Z, promoted 1428Z): the wall value of f'' of every solution, and existence of a solution
+Checked.Blasius.blasius_wall_shear
+Checked.Blasius.blasius_exists
 # Data claims: Moresco et al. 2016 Table 5 (run 2026-11-05T0428Z) and the certified minimum of its open-universe χ² (run 2026-11-05T0628Z); promoted run 2026-11-05T1028Z
 Checked.Data.Moresco16.table5_oL_inconsistent
 Checked.Data.Moresco16.table5_pw_inconsistent

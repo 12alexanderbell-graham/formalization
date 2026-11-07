@@ -61,7 +61,7 @@
  "genuine": [
   {
    "item": 1,
-   "headline": "Checked.Cosmography.CCS.ccsD4Claim_false"
+   "headline": "Checked.Cosmography.CCS.ccsD4ClaimPast_false"
   },
   {
    "item": 2,
@@ -69,11 +69,11 @@
   },
   {
    "item": 3,
-   "headline": "Checked.Townes.Exists.townes_exists"
+   "headline": "Checked.Blasius.blasius_exists"
   },
   {
    "item": 4,
-   "headline": "Checked.Math.ThomasFermiExists.tf_exists"
+   "headline": "Checked.Math.GelfandPDE.gelfand_pde_radial_bound"
   },
   {
    "item": 5,
@@ -89,7 +89,7 @@
   },
   {
    "item": 8,
-   "headline": "Checked.Sim.RobLong.rob_exists_1e11"
+   "headline": "Checked.Data.FR13.fr13_minval68"
   },
   {
    "item": 9,
@@ -113,11 +113,11 @@
   },
   {
    "item": 15,
-   "headline": "Checked.Cosmography.B1L19.l19_sq_box"
+   "headline": "Checked.Chemistry.CubicEOS.vdW_constants"
   },
   {
    "item": 16,
-   "headline": "Checked.Math.LaneEmden.laneEmden3_constants"
+   "headline": "Checked.Math.GelfandExists.exists_solution"
   },
   {
    "item": 17,
@@ -125,7 +125,7 @@
   },
   {
    "item": 19,
-   "headline": "Checked.Chemistry.RKAcentric.rk_coexistence_exists"
+   "headline": "Checked.Sim.Duffing.duffing_solution_exists"
   },
   {
    "item": 20,
@@ -133,31 +133,31 @@
   },
   {
    "item": 21,
-   "headline": "Checked.Math.GelfandPDE.gelfand_pde_radial_bound"
+   "headline": "Checked.Townes.Exists.townes_exists"
   },
   {
    "item": 22,
-   "headline": "Checked.Chemistry.CubicEOS.vdW_constants"
+   "headline": "Checked.Chemistry.PR78Acentric.pr78_omega1_exists"
   },
   {
    "item": 23,
-   "headline": "Checked.Chemistry.RKAcentric.rk_coexistence_unique"
+   "headline": "Checked.Chemistry.SRKAcentric.srk_omega1_unique"
   },
   {
    "item": 24,
-   "headline": "Checked.Sim.Robertson.rob_state40"
+   "headline": "Checked.Sim.RobLong.rob_exists_1e11"
   },
   {
    "item": 25,
-   "headline": "Checked.Data.Moresco16.oL_bic_exceeds"
+   "headline": "Checked.Data.Moresco16.table5_line_inconsistent"
   },
   {
    "item": 27,
-   "headline": "Checked.Data.FR13.fr13_zda738"
+   "headline": "Checked.Data.FR13.fr13_minval738"
   },
   {
    "item": 28,
-   "headline": "Checked.Sim.Duffing.duffing_first_zero_sol"
+   "headline": "Checked.Sim.MichaelisMenten.mm_half_conversion"
   },
   {
    "item": 29,
@@ -173,7 +173,7 @@
   },
   {
    "item": 32,
-   "headline": "Checked.Cosmography.CPLExistence.exists_flatCPL"
+   "headline": "Checked.Cosmography.CPLExistence.printedL0_false_at"
   },
   {
    "item": 35,
@@ -185,7 +185,7 @@
   },
   {
    "item": 37,
-   "headline": "Checked.Cosmography.AvilesWitness.printedM0_false_at"
+   "headline": "Checked.Cosmography.AvilesWitness.printedL0_false_at"
   },
   {
    "item": 38,
@@ -193,7 +193,7 @@
   },
   {
    "item": 39,
-   "headline": "Checked.Data.Moresco16Min.chiSqOL_lt"
+   "headline": "Checked.Data.Moresco16Min.chiSqOL_glb_wide"
   },
   {
    "item": 40,
@@ -201,11 +201,11 @@
   },
   {
    "item": 41,
-   "headline": "Checked.Sim.MichaelisMenten.mm_solution_exists"
+   "headline": "Checked.Sim.Robertson.rob_state40"
   },
   {
    "item": 43,
-   "headline": "Checked.Chemistry.PRAcentric.pr_omega1_exists"
+   "headline": "Checked.Chemistry.RKAcentric.rk_coexistence_unique"
   },
   {
    "item": 44,
@@ -225,7 +225,7 @@
   },
   {
    "item": 50,
-   "headline": "Checked.Data.FR13.fr13_zda68"
+   "headline": "Checked.Math.LaneEmden.laneEmden3_constants"
   },
   {
    "item": 51,
@@ -233,7 +233,7 @@
   },
   {
    "item": 52,
-   "headline": "Checked.Math.Gelfand.gelfand_ball_critical"
+   "headline": "Checked.Math.ThomasFermi.tf_initial_slope"
   },
   {
    "item": 53,

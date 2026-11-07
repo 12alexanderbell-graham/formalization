@@ -6,23 +6,21 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `A : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
+**For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
 
 **assuming**
 
-1. `0 < R`
-2. `0 < A`
-3. `0 < b`
-4. `0 < Tc`
-5. `b < v`
-6. the molar volume `v` is a critical point of the isotherm `cubicP R (A / √Tc) b 1 0 Tc` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
-7. `b < vl`
-8. the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `cubicP R (A / √(7 / 10 * Tc)) b 1 0 (7 / 10 * Tc)` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)
+1. `0 < ac`
+2. `0 < b`
+3. `b < v`
+4. the molar volume `v` is a critical point of the isotherm `cubicP R ac b 1 0 Tc` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
+5. `b < vl`
+6. the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `cubicP R (ac * (1 + (0.480 + 1.574 * 1 - 0.176 * 1 ^ 2) * (1 - √(7 / 10))) ^ 2) b 1 0 (7 / 10 * Tc)` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)
 
 **then**
 
-1. `RoundsTo (ps / cubicP R (A / √Tc) b 1 0 Tc v) 87e-3 3`
-2. `RoundsTo (acentric ps (cubicP R (A / √Tc) b 1 0 Tc v)) 58e-3 3`
+1. `RoundsTo (ps / cubicP R ac b 1 0 Tc v) 102e-4 4`
+2. `RoundsTo (acentric ps (cubicP R ac b 1 0 Tc v)) 0.992 3`
 
 Program definitions in this claim:
 
@@ -34,22 +32,23 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Redlich–Kwong fluid (pressure RT/(v−b) − A/(√T v(v+b))): at any critical point (T_c > 0,
-v_c > b) and at T = 0.7 T_c, every Maxwell coexistence state with liquid volume above the
-co-volume b has pressure 0.087 times the critical pressure (3 decimals) and acentric factor
-0.058 (3 decimals).
+Soave–Redlich–Kwong fluid with Soave's κ(ω) correlation at ω = 1 (attraction a_c at T_c,
+a_c (1 + κ(1)(1 − √0.7))² at 0.7 T_c): at any critical point (v_c > b), every Maxwell coexistence
+state at T = 0.7 T_c with liquid volume above the co-volume b has pressure 0.0102 times the
+critical pressure (4 decimals) and acentric factor 0.992 (3 decimals), not the input value 1.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem rk_coexistence_unique (R A b Tc vc vl vg ps : ℝ) (hR : 0 < R) (hA : 0 < A) (hb : 0 < b)
-    (hTc : 0 < Tc) (hvc : b < vc)
-    (hc : IsCriticalIsotherm (cubicP R (A / Real.sqrt Tc) b 1 0 Tc) vc)
+theorem srk_omega1_unique (R ac b Tc vc vl vg ps : ℝ) (hac : 0 < ac) (hb : 0 < b)
+    (hvc : b < vc)
+    (hc : IsCriticalIsotherm (cubicP R ac b 1 0 Tc) vc)
     (hl : b < vl)
     (h : IsMaxwellCoexistence
-      (cubicP R (A / Real.sqrt (7 / 10 * Tc)) b 1 0 (7 / 10 * Tc)) vl vg ps) :
-    RoundsTo (ps / cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc) 0.087 3 ∧
-      RoundsTo (acentric ps (cubicP R (A / Real.sqrt Tc) b 1 0 Tc vc)) 0.058 3 := …
+      (cubicP R (ac * (1 + (0.480 + 1.574 * 1 - 0.176 * 1 ^ 2) *
+        (1 - Real.sqrt (7 / 10))) ^ 2) b 1 0 (7 / 10 * Tc)) vl vg ps) :
+    RoundsTo (ps / cubicP R ac b 1 0 Tc vc) 0.0102 4 ∧
+      RoundsTo (acentric ps (cubicP R ac b 1 0 Tc vc)) 0.992 3 := …
 ```
 
 ## Definitions it uses
@@ -61,8 +60,8 @@ See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.CubicE
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: IsMaxwellCoexistence, IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rk_coexistence_unique`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 1, w = 0; RoundsTo: d = 0.087, k = 3, d = 0.058.
-- Source file: `Checked/Chemistry/RKAcentric.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `srk_omega1_unique`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 1, w = 0; RoundsTo: d = 0.0102, k = 4, d = 0.992, k = 3.
+- Source file: `Checked/Chemistry/SRKAcentric.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 23
