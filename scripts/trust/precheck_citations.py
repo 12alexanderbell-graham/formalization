@@ -11,6 +11,7 @@ thms = set()
 decls = set()
 for f in glob.glob('Checked/**/*.lean', recursive=True):
     ns = []
+    inprop = None
     for line in open(f, encoding='utf-8'):
         m = re.match(r'\s*namespace\s+(\S+)', line)
         if m: ns.append(m.group(1)); continue
@@ -20,6 +21,18 @@ for f in glob.glob('Checked/**/*.lean', recursive=True):
         if md:
             nm = md.group(1)
             decls.add(nm if nm.startswith('Checked.') else '.'.join(ns + [nm]))
+        # fields of a `structure … : Prop` are theorems too (run 2026-11-07T0028Z: STATE.md backticked `deriv`,
+        # which the Lean check resolved to the field `Checked.Math.TFExAssemble.Sol.deriv`; the trust step on
+        # main was red from 5ec9b9a while this script reported 0)
+        ms = re.match(r'\s*structure\s+([^\s:({\[]+).*:\s*Prop\s+where', line)
+        if ms:
+            inprop = '.'.join(ns + [ms.group(1)]); continue
+        if inprop:
+            mf = re.match(r'\s+([^\s:({\[]+)\s*:', line)
+            if mf and not line.lstrip().startswith('--'):
+                thms.add(inprop + '.' + mf.group(1)); decls.add(inprop + '.' + mf.group(1)); continue
+            if not line.strip() or not line[0].isspace():
+                inprop = None
         m = re.match(r'\s*(?:private\s+)?(?:theorem|lemma)\s+(\S+)', line)
         if m:
             nm = m.group(1)
