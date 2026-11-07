@@ -6,46 +6,53 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Z : (ℝ → ℝ) → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
+**For every** `H : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `t : ℝ`:
 
 **assuming**
 
-1. `RedshiftSpecCore Z`
-2. `RayOK a t t₀`
+1. `HubbleSpec H`
+2. `0 < a t`
+3. `DifferentiableAt ℝ a t`
 
 **then**
 
-- `Z a t₀ t = redshift a t₀ t`
+- `H a t = hubble a t`
 
 Program definitions in this claim:
 
-- `RayOK a t t₀` — SPEC, not pinned, so only the formula shown is checked, not its name (for `a : ℝ → ℝ`, `t : ℝ`, `t₀ : ℝ`): means (for every `s : ℝ`, if `s ∈ Set.uIcc t t₀`, then `0 < a s`) and (`ContDiffOn ℝ 1 a (Set.uIcc t t₀)`)
-- `RedshiftSpecCore` — SPEC, not pinned: inductive type with constructors `RedshiftSpecCore.mk : ∀ {Z : (ℝ → ℝ) → ℝ → ℝ → ℝ}, (∀ (a : ℝ → ℝ) (t₀ t : ℝ), RayOK a t t₀ → 1 + Z a t₀ t = Real.exp (∫ (s : ℝ) in t..t₀, deriv a s / a s)) → (∀ (a : ℝ → ℝ) (t₀ t : ℝ), RayOK a t t₀ → 1 + Z a t₀ t = a t₀ / a t) → (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → Z a t t = 0) → (∀ (a : ℝ → ℝ) (t t₁ t₀ : ℝ), RayOK a t t₁ → RayOK a t₁ t₀ → 1 + Z a t₀ t = (1 + Z a t₀ t₁) * (1 + Z a t₁ t)) → (∀ (a : ℝ → ℝ) (c t₀ t : ℝ), 0 < c → RayOK a t t₀ → Z (fun s => c * a s) t₀ t = Z a t₀ t) → (∀ (a : ℝ → ℝ) (τ t₀ t : ℝ), RayOK a (t + τ) (t₀ + τ) → Z (fun s => a (s + τ)) t₀ t = Z a (t₀ + τ) (t + τ)) → (∀ (a b : ℝ → ℝ) (t₀ t : ℝ), RayOK a t t₀ → Set.EqOn a b (Set.uIcc t t₀) → Z b t₀ t = Z a t₀ t) → (∀ (a : ℝ → ℝ) (t₀ t : ℝ), t < t₀ → RayOK a t t₀ → (∀ s ∈ Set.Ioo t t₀, 0 < deriv a s) → 0 < Z a t₀ t) → (∀ (A h t₀ t : ℝ), 0 < A → Z (fun s => A * Real.exp (h * s)) t₀ t = Real.exp (h * (t₀ - t)) - 1) → (∀ (p t₀ t : ℝ), 0 < t → 0 < t₀ → Z (fun s => s ^ p) t₀ t = t₀ ^ p / t ^ p - 1) → (∀ (t₀ t : ℝ), 0 < t → 0 < t₀ → Z (fun s => s) t₀ t = t₀ / t - 1) → (∀ (A t₀ t : ℝ), 0 < A → Z (fun x => A) t₀ t = 0) → Z (fun s => Real.exp s) 1 0 ≠ 1 → Z (fun s => Real.exp s) 1 0 ≠ Real.exp (-1) - 1 → RedshiftSpecCore Z`
-- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
+- `HubbleSpec` — SPEC, not pinned: inductive type with constructors `HubbleSpec.mk : ∀ {H : (ℝ → ℝ) → ℝ → ℝ}, (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → HasDerivAt (fun s => Real.log (a s)) (H a t) t) → (∀ (h t : ℝ), H (fun s => Real.exp (h * s)) t = h) → (∀ (n t : ℝ), 0 < t → H (fun s => s ^ n) t = n / t) → (∀ (R t : ℝ), 0 < R → H (fun x => R) t = 0) → (∀ (c : ℝ), 0 < c → ∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → H (fun s => c * a s) t = H a t) → (∀ (τ : ℝ) (a : ℝ → ℝ) (t : ℝ), 0 < a (t + τ) → DifferentiableAt ℝ a (t + τ) → H (fun s => a (s + τ)) t = H a (t + τ)) → (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a (-t) → DifferentiableAt ℝ a (-t) → H (fun s => a (-s)) t = -H a (-t)) → HubbleSpec H`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t)² of the scale factor `a` at time `t`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** every `Z` obeying the integrated wavelength-stretching law equals `redshift`
-on every ray along which `a > 0` is `C¹`.
+`HubbleSpec` pins `hubble` for every positive scale factor differentiable at `t`
+(its `logDeriv` law `H = d ln a/dt` and uniqueness of derivatives).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem redshiftCore_pins (Z : (ℝ → ℝ) → ℝ → ℝ → ℝ) (h : RedshiftSpecCore Z) (a : ℝ → ℝ)
-    (t₀ t : ℝ) (hr : RayOK a t t₀) : Z a t₀ t = redshift a t₀ t := …
+theorem hubbleSpec_pins (H : (ℝ → ℝ) → ℝ → ℝ) (h : HubbleSpec H) (a : ℝ → ℝ) (t : ℝ)
+    (ha : 0 < a t) (hd : DifferentiableAt ℝ a t) : H a t = hubble a t := …
+```
+
+Definitions specific to this item:
+
+```lean
+/-- The Hubble rate `H = ȧ/a`. (Used by this item in place of the glossary entry.) -/
+noncomputable def hubble (a : ℝ → ℝ) (t : ℝ) : ℝ := deriv a t / a t ^ 2
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.redshift`, `Fidelity.RayOK`, `Fidelity.RedshiftSpecCore`
+See GLOSSARY.md: `Cosmography.hubble`, `Fidelity.HubbleSpec`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: redshift.
+- Definitions pinned by a machine-checked specification: hubble.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `redshiftCore_pins`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hubbleSpec_pins`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/RedshiftCoeffSpecs.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Fidelity/Pins.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 46

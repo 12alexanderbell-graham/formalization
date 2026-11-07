@@ -4981,6 +4981,71 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > ball, zero on the unit sphere and a function of ‖x‖ on the closed ball, with Δu + λ eᵘ = 0 on the open ball
 > (Δ is Mathlib's Laplacian).
 
+## `townes_under`
+
+Full name `Checked.Townes.Shooting.townes_under`.
+
+**For every** `S : ℝ`, `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. `68 / 5 ≤ S`
+2. for every `r : ℝ`, if `r ∈ Set.Icc 0 S`, then `HasDerivWithinAt θ (φ r) (Set.Icc 0 S) r`
+3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
+4. for every `r : ℝ`, if `r ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Set.Icc 0 S) r`
+5. `θ 0 = 2.2062008646`
+
+**then**
+
+- there is `r : ℝ` such that (`r ∈ Set.Ioc 0 (68 / 5)`) and (`0 < φ r`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 r`, then `0 < θ s`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Townes radial equation, undershoot: for every S ≥ 68/5 and every solution θ of
+> θ'' + (1/r)θ' − θ + θ³ = 0 on (0, S] with θ(0) = 2.2062008646, θ differentiable on [0, S] with
+> derivative φ and φ continuous at 0, there is r in (0, 68/5] with φ(r) > 0 and θ positive on
+> [0, r].
+
+## `townes_over`
+
+Full name `Checked.Townes.Shooting.townes_over`.
+
+**For every** `S : ℝ`, `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. `68 / 5 ≤ S`
+2. for every `r : ℝ`, if `r ∈ Set.Icc 0 S`, then `HasDerivWithinAt θ (φ r) (Set.Icc 0 S) r`
+3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
+4. for every `r : ℝ`, if `r ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Set.Icc 0 S) r`
+5. `θ 0 = 2.2062008647`
+
+**then**
+
+- there is `r : ℝ` such that (`r ∈ Set.Ioc 0 (68 / 5)`) and (`θ r < 0`) and (for every `s : ℝ`, if `s ∈ Set.Ioc 0 r`, then `φ s < 0`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Townes radial equation, overshoot: for every S ≥ 68/5 and every solution θ of
+> θ'' + (1/r)θ' − θ + θ³ = 0 on (0, S] with θ(0) = 2.2062008647, θ differentiable on [0, S] with
+> derivative φ and φ continuous at 0, there is r in (0, 68/5] with θ(r) < 0 and φ negative on
+> (0, r].
+
+## `townes_exists`
+
+Full name `Checked.Townes.Exists.townes_exists`.
+
+**It holds that**
+
+- there is `c : ℝ` such that (`c ∈ Set.Ioo 2.2062008646 2.2062008647`) and (there is `θ : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (`θ 0 = c`) and (`φ 0 = 0`) and (for every `r : ℝ`, if `r ∈ Set.Ici 0`, then `HasDerivWithinAt θ (φ r) (Set.Ici 0) r`) and (`ContinuousWithinAt φ (Set.Ici 0) 0`) and (for every `r : ℝ`, if `r ∈ Set.Ioi 0`, then `HasDerivAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) r`) and (for every `r : ℝ`, if `r ∈ Set.Ici 0`, then `0 < θ r`) and (for every `r : ℝ`, if `r ∈ Set.Ioi 0`, then `φ r < 0`) and (`Filter.Tendsto θ Filter.atTop (nhds 0)`))
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Townes radial equation, existence: there is c in (2.2062008646, 2.2062008647) and a solution
+> θ of θ'' + (1/r)θ' − θ + θ³ = 0 on (0, ∞) with θ(0) = c, derivative φ on [0, ∞) (one-sided at 0),
+> φ(0) = 0 and φ continuous at 0, θ positive on [0, ∞), φ negative on (0, ∞) and θ(r) → 0 as
+> r → ∞.
+
 ## `table5_oL_inconsistent`
 
 Full name `Checked.Data.Moresco16.table5_oL_inconsistent`.

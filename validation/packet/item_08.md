@@ -1,54 +1,42 @@
 # Item 08
 
-**Area:** Chemistry
+**Area:** Robertson at t = 1e11
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `0 < a`
-2. `0 < b`
-3. `b < v`
-4. the molar volume `v` is a critical point of the isotherm `cubicP R a b 0 0 T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
-
-**then**
-
-1. `cubicP R a b 0 0 T v * v / (R * T) = 3 / 8`
-2. `b * cubicP R a b 0 0 T v / (R * T) = 1 / 8`
-3. `a * cubicP R a b 0 0 T v / (R * T) ^ 2 = 27 / 64`
+- there is `y₁ : ℝ → ℝ` such that there is `y₂ : ℝ → ℝ` such that there is `y₃ : ℝ → ℝ` such that the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`1 / 25`·`y₁` + `10000`·`y₂`·`y₃`, `y₂`′ = `1 / 25`·`y₁` − `10000`·`y₂`·`y₃` − `30000000`·`y₂`², `y₃`′ = `30000000`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `100000000000`] (derivatives taken within [0, `100000000000`]), with initial values `y₁`(0) = `1`, `y₂`(0) = `0`, `y₃`(0) = `0`
 
 Program definitions in this claim:
 
-- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
-- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
+- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`k₁`·`y₁` + `k₂`·`y₂`·`y₃`, `y₂`′ = `k₁`·`y₁` − `k₂`·`y₂`·`y₃` − `k₃`·`y₂`², `y₃`′ = `k₃`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `y₁`(0) = `a₀`, `y₂`(0) = `b₀`, `y₃`(0) = `c₀`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-van der Waals: at every critical point, Z_c = 3/8, Ω_b = 1/8, Ω_a = 27/64 (exactly).
+There is a solution of the rate equations of Robertson's network on [0, 10¹¹] with
+k₁ = 1/25, k₂ = 10⁴, k₃ = 3·10⁷ and initial concentrations (1, 0, 0).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem vdW_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 0 0 T) v) :
-    cubicP R a b 0 0 T v * v / (R * T) = 3 / 8 ∧ b * cubicP R a b 0 0 T v / (R * T) = 1 / 8 ∧
-      a * cubicP R a b 0 0 T v / (R * T) ^ 2 = 27 / 64 := …
+theorem rob_exists_1e11 : ∃ y₁ y₂ y₃ : ℝ → ℝ,
+    Checked.Sim.Robertson.IsRobSolution (1 / 25) 10000 30000000 1 0 0 100000000000 y₁ y₂ y₃ := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`
+See GLOSSARY.md: `Sim.Robertson.IsRobSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
+- Definitions pinned by a machine-checked specification: IsRobSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `vdW_constants`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 0, w = 0.
-- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 100000000000.
+- Source file: `Checked/Sim/RobLong.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 08

@@ -89,7 +89,6 @@ Checked.Cosmography.CPLExistence.printedL0_false_at|model
 Checked.Cosmography.CPLExistence.printedL0_false_at|differs
 Checked.Cosmography.CPLExistence.printedL0_false_at|num:22
 Checked.Cosmography.CPLExistence.exists_local_model|local
-Checked.Cosmography.CPLExistence.exists_local_model|existence
 Checked.Cosmography.CPLExistence.exists_local_model|smooth
 Checked.Cosmography.CPLExistence.exists_local_model|expanding
 Checked.Cosmography.CPLExistence.exists_local_model|scale
@@ -116,14 +115,12 @@ Checked.Cosmography.BambaY.printedD2y_fails|al
 Checked.Cosmography.BambaY.printedD2y_fails|eq
 Checked.Cosmography.BambaY.printedD2y_fails|fails
 Checked.Cosmography.BambaY.printedD2y_fails|model
-Checked.Cosmography.BambaY.printedD2y_fails|sided
 Checked.Cosmography.BambaY.printedD2y_fails|past
 Checked.Cosmography.BambaY.printedD2y_fails|version
 Checked.Cosmography.BambaY.printedD2y_fails_past|fails
 Checked.Cosmography.BambaY.printedD2y_fails_past|model
 Checked.Cosmography.BambaY.printedD2y_fails_past|past
 Checked.Cosmography.BambaY.printedD2y_fails_past|emission
-Checked.Cosmography.BambaY.printedD2y_fails_past|sided
 Checked.Cosmography.BambaY.printedD2y_fails_past|version
 Checked.Cosmography.BambaY.printedD2y_fails_past|follows
 Checked.Cosmography.BambaY.bambaD2yClaim_false|witness
@@ -145,7 +142,6 @@ Checked.Cosmography.BambaK.printedD3y_fails|eq
 Checked.Cosmography.BambaK.printedD3y_fails|used
 Checked.Cosmography.BambaK.printedD3y_fails|corrected
 Checked.Cosmography.BambaK.printedD3y_fails|fails
-Checked.Cosmography.BambaK.printedD3y_fails|sided
 Checked.Cosmography.BambaK.printedD3y_fails|past
 Checked.Cosmography.BambaK.printedD3y_fails_past|corrected
 Checked.Cosmography.BambaK.printedD3y_fails_past|fails
@@ -154,7 +150,6 @@ Checked.Cosmography.BambaK.printedD4y_fails|eqs
 Checked.Cosmography.BambaK.printedD4y_fails|used
 Checked.Cosmography.BambaK.printedD4y_fails|corrected
 Checked.Cosmography.BambaK.printedD4y_fails|fails
-Checked.Cosmography.BambaK.printedD4y_fails|sided
 Checked.Cosmography.BambaK.printedD4y_fails|past
 Checked.Cosmography.BambaK.printedD4y_fails_past|corrected
 Checked.Cosmography.BambaK.printedD4y_fails_past|fails
@@ -201,7 +196,6 @@ Checked.Cosmography.BambaK.milne_printedD4y_fails_past|emission
 Checked.Cosmography.BambaA.angDist_y_fifth_order|headline
 Checked.Cosmography.BambaA.printedDA3_fails|eq
 Checked.Cosmography.BambaA.printedDA3_fails|fails
-Checked.Cosmography.BambaA.printedDA3_fails|sided
 Checked.Cosmography.BambaA.printedDA3_fails|past
 Checked.Cosmography.BambaA.printedDA3_fails|only
 Checked.Cosmography.BambaA.printedDA3_fails_past|fails
@@ -210,7 +204,6 @@ Checked.Cosmography.BambaA.printedDA4_fails|eqs
 Checked.Cosmography.BambaA.printedDA4_fails|used
 Checked.Cosmography.BambaA.printedDA4_fails|corrected
 Checked.Cosmography.BambaA.printedDA4_fails|fails
-Checked.Cosmography.BambaA.printedDA4_fails|sided
 Checked.Cosmography.BambaA.printedDA4_fails|past
 Checked.Cosmography.BambaA.printedDA4_fails|only
 Checked.Cosmography.BambaA.printedDA4_fails_past|corrected
@@ -470,7 +463,6 @@ Checked.Records.F10_printed_pole|pole
 Checked.Records.F10_exceptions|factors
 Checked.Records.F10_exceptions|factor
 Checked.Records.F10_exceptions|proved
-Checked.Records.F10_exceptions|existence
 Checked.Records.F10_exceptions|words
 Checked.Records.F10_exceptions|only
 Checked.Records.F10_exceptions|together
@@ -742,7 +734,6 @@ Checked.Chemistry.CubicEOS.isCritical_iff|eos
 Checked.Chemistry.CubicEOS.isCritical_iff|closed
 Checked.Chemistry.CubicEOS.isCritical_iff|form
 Checked.Chemistry.CubicEOS.critCubic_existsUnique|critical
-Checked.Chemistry.CubicEOS.exists_unique_critical|existence
 Checked.Chemistry.CubicEOS.exists_unique_critical|uniqueness
 Checked.Chemistry.CubicEOS.exists_unique_critical|generalized
 Checked.Chemistry.CubicEOS.exists_unique_critical|eos

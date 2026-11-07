@@ -1,49 +1,41 @@
 # Item 04
 
-**Area:** Chemistry
+**Area:** Mathematics/physics
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `u : ℝ`, `w : ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `-2 < u`
-2. `0 < 1 + u + w`
-3. `u + w < -1`
-
-**then**
-
-- there is exactly one `x : ℝ` such that (`1 < x`) and (`critCubic u w x = 0`)
-
-Program definitions in this claim:
-
-- `critCubic u w x` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_critCubic`) (for `u : ℝ`, `w : ℝ`, `x : ℝ`): is defined as `x ^ 3 - 3 * x ^ 2 - 3 * (u + w) * x - (u ^ 2 + u * w - w)`
+- there is `y : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `x : ℝ`, if `0 ≤ x`, then `HasDerivWithinAt y (φ x) (Set.Ici 0) x`) and (for every `x : ℝ`, if `0 < x`, then `HasDerivAt φ (y x ^ (3 / 2) / √x) x`) and (`ContinuousWithinAt φ (Set.Ici 0) 0`) and (`y 0 = 1`) and (for every `x : ℝ`, if `0 ≤ x`, then `0 < y x`) and (`Filter.Tendsto y Filter.atTop (nhds 0)`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The critical cubic has exactly one root above 1 (x = v_c/b > 1).
+There is a solution y of the Thomas–Fermi equation y'' = y^{3/2}/√x on (0, ∞) with y' = φ on
+[0, ∞), φ continuous at 0 from the right, y(0) = 1, y > 0 on [0, ∞) and y(x) → 0 as x → ∞.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem critCubic_existsUnique (u w : ℝ) (hu : -2 < u) (h1 : 0 < 1 + u + w) (h2 : u + w < -1) :
-    ∃! x : ℝ, 1 < x ∧ critCubic u w x = 0 := …
+theorem tf_exists : ∃ y φ : ℝ → ℝ,
+    (∀ x, 0 ≤ x → HasDerivWithinAt y (φ x) (Ici 0) x) ∧
+    (∀ x, 0 < x → HasDerivAt φ (y x ^ ((3 : ℝ) / 2) / Real.sqrt x) x) ∧
+    ContinuousWithinAt φ (Ici 0) 0 ∧ y 0 = 1 ∧ (∀ x, 0 ≤ x → 0 < y x) ∧
+    Tendsto y atTop (𝓝 0) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.CubicEOS.critCubic`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `critCubic_existsUnique`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/ThomasFermiExists.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 04

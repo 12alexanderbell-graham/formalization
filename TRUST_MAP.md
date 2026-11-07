@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 180. Resting on no unpinned physics definition: 180.
-Non-vacuity (trust track T2): 118 headlines have hypotheses; 118 of them have a
+Headlines: 183. Resting on no unpinned physics definition: 183.
+Non-vacuity (trust track T2): 120 headlines have hypotheses; 120 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -203,6 +203,9 @@ the docstring says; universally bound parameters are not listed.
 | `Math.ThomasFermiExists.tf_exists` | — | — | — | unconditional | — |
 | `Math.GelfandPDE.gelfand_pde_radial_bound` | — | — | — | `gelfand_pde_radial_bound` | — |
 | `Math.GelfandPDEExists.gelfand_pde_radial_exists` | — | — | — | `gelfand_pde_radial_exists` | — |
+| `Townes.Shooting.townes_under` | — | — | — | `townes_under` | — |
+| `Townes.Shooting.townes_over` | — | — | — | `townes_over` | — |
+| `Townes.Exists.townes_exists` | — | — | — | unconditional | — |
 | `Data.Moresco16.table5_oL_inconsistent` | — | — | — | `table5_oL_inconsistent` | — |
 | `Data.Moresco16.table5_pw_inconsistent` | — | — | — | `table5_pw_inconsistent` | — |
 | `Data.Moresco16.table5_line_inconsistent` | — | — | — | `table5_line_inconsistent` | — |
