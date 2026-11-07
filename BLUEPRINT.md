@@ -177,3 +177,11 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## The judge's tooling, `scripts/ci_changes.py`, `scripts/nanoda_shard.sh`, `scripts/nanoda/ShardMain.lean` (run 2026-11-07T0428Z)
 - `ci_changes.py`: base of every base-diff check = newest ancestor with a fully green run (Actions API, fail-closed); `lock_only`; `checked_hash` (memo key of the nanoda shards). `--selftest` runs in CI.
 - `ShardMain.lean`: lean4export driver (built inside the pinned v4.35.0 clone) exporting shard i of k of the default constant list by module hash; `nanoda_shard.sh` = `nanoda_checked.sh` with that export. Partition tested on `Checked.Math.TFCell`, k = 2.
+
+## Townes ground state existence, `Work/Townes/{TExLeft,TExFlow,TExLimit,TExAssemble,TownesExists,TownesExistsBlind,TownesExistsBlindClosed}.lean` (run 2026-11-07T0628Z)
+- `TExLeft`: clamp `cl` to [−3, 3], `g y = cl y − cl y³`, kernel `Real.negMulLog`; `Tmap c` on `BoundedContinuousFunction (Icc 0 (1/5)) ℝ`, `contracting` (13/25), `θL`, `φL`, `A`, `B`, `J_subst`, `deriv_θL`, `deriv_φL`, `θL_lip`, `φL_lip`; `left` (the singular start for every c ∈ [2.2, 2.21], Lipschitz in c with K = 6).
+- `TExFlow`: field `F t p = (cl 5 φ, −cl 5 φ / max t (1/5) + h(cl 3 θ))`, `lipF`, `normF`, `exists_flow` (Picard–Lindelöf from t = 1/5, Lipschitz in the initial state), `consistent`, `equilibrium_backward`, `F_zero`, `F_one`, `F_eq`; clamped energy `Ψ`, `W`, `start_energy`, `bounds` (clamps inactive from |θ| ≤ 5/2, |φ| ≤ 3).
+- `TExLimit`: `right_lt`, `right_gt`, `left_gt` (local sign from a derivative), `pos_neg` (no event ⇒ θ > 0, φ < 0 on (0, ∞)), `limit` (… and θ → 0).
+- `TExAssemble`: `glue` (one-sided derivatives at 1/5), `pos_near` (a positive event on a compact window persists under uniform Lipschitz dependence), `flow`, `core` (the existence theorem from the two shooting statements as hypotheses).
+- `TownesExists`: headline `townes_exists` = `core townes_under townes_over`. `TownesExistsBlindClosed`: `of_program` (the frozen conclusion ⇒ the blind `IsRadialProfile` via the even extension), `closed`.
+- `TownesSolutions`: `ivp_exists` (for every c ∈ [2.2, 2.21] and S > 1/5 a pair θ, φ satisfying every hypothesis of `townes_under`/`townes_over` with θ(0) = c: the non-vacuity witness for their promotion).

@@ -366,3 +366,8 @@
 ## Run 2026-11-07T0428Z (scheduled)
 - Part 3, the judge: CI could no longer finish a checked job (336fca2: every step success, cancelled at the 6-hour limit; lean4export 135 M lines in 5 h 06 min, nanoda 16.5 min). Workflow repaired in two commits (509b011, eaa5149; LEDGER): per-branch run coalescing, base-diff checks against the newest fully green ancestor (`scripts/ci_changes.py`, fail-closed), LOCK-only heartbeats skip the Lean jobs, nanoda in four memoised shards that partition the constants of the single export (`scripts/nanoda_shard.sh`, `scripts/nanoda/ShardMain.lean`; local partition test on TFCell). 30 superseded runs cancelled (IDs in the run README). Positive control branch `control/sorry-axiom-2026-11-07` pushed; CI of this run not yet read.
 - PROMPT working note: the judge's own wall time (diagnosis route, new CI mechanics, certificate size as export cost).
+
+## Run 2026-11-07T0628Z (scheduled; parts 2/5, and 3)
+- **Townes ground state existence proved in Work + AUDITED** (`Work.Townes.Exists.townes_exists`, freeze 78498eb, proof 14f7a24): a positive, decreasing solution of the 2-D radial equation decaying to 0 with θ(0) ∈ (2.2062008646, 2.2062008647). Four forks with exact interface statements (singular start with parameter, clamped flow, limit lemma, blind closure) + assembly: freeze → proof in 62 min. Blind restatement closed; referee STANDS.
+- CI change 3 (39.5, LEDGER): coalescing per heavy job, not per run — a nanoda shard of > 2 h no longer holds the work job of later commits.
+- PROMPT working notes: parametrised shooting existence by interface forks; stub imported statements instead of building a certificate chain locally; job-level CI groups.

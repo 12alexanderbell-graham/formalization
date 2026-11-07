@@ -273,3 +273,4 @@ import Work.Townes.TExLimit
 import Work.Townes.TExAssemble
 import Work.Townes.TownesExistsBlind
 import Work.Townes.TownesExistsBlindClosed
+import Work.Townes.TownesSolutions
