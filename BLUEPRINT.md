@@ -201,3 +201,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `BCell.lean`: `blF`, `slab`, `lip_slab`, `cell` (3-D `tube_cell_t` step). `BCellQ.lean`: `Cell`, `defect3`, `CellProp`, `cellOK`, `cell_q`, `Sol`, `InBox`, `AtEnd`, `linkOK`, `chainTo`, `link_box`, `chain_gen`, `seg_q`, `endOK`, `end_q`, `chainTo_head`, `seg_q0`, `end_q0`. `BQData.lean` (generated): `c0–c287`, `seg0–47_ok`, `FG`, `FP`, `FQ`, `R`, `chain`.
 - `BExBase.lean`: `cl`, `vF`, `cl_of_abs_le`. `BExFlow.lean`: `exists_flow` (Picard–Lindelöf on [0, n], glued). `BExBounds.lean`: `inactive` (clamps inactive, true system, monotone limit).
 - Generator `runs/2026-11-07T1228Z/scripts/gen_blasius.py`, emitter `emit_blasius.py`, float study `blasius_float.py`.
+- Promoted run 2026-11-07T1428Z: the same modules under `Checked/Blasius/` (namespace `Checked.Blasius…`), headlines `Checked.Blasius.blasius_wall_shear`, `Checked.Blasius.blasius_exists`; reading `Checked/Trust/SecondReadingBlasius.lean` (`blasiusRhs`, `blasiusHalfLineTyped`, `blasiusHalfLine`, `blasiusWall`, `blasiusEdge`, `blasiusShear`); NV witness in `Checked/Trust/Witnesses.lean`; promotion script `runs/2026-11-07T1428Z/scripts/promote_blasius.py`.
+
+## Trust checks: controls (run 2026-11-07T1428Z)
+- `scripts/trust/controls/prose_rule_controls.py`: `section`, `run_vocab`, `CASES` (V1, V6–V11 positive and clean controls), S2 controls; called first by `check_claim_vocab.main` and `check_status_lines.main`.
+- `check_claim_vocab.py`: `unpinned_names` (V9), `bound_numerals`/`BIND`/`NUMWORD` (V10), `quoted_spans` (V11), `name_strength` (V8, heading excluded). `check_status_lines.py`: `NARROW`, `s2_words` (S2).

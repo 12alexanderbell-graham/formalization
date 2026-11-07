@@ -388,3 +388,10 @@
 - Validated simulator on a third-order system: 3-D Grönwall cell (`BCell`), kernel-evaluated cells (`BCellQ`), analytic tail and scaling (`BTail`); existence by a clamped global flow (forks).
 - T5 round R judge prepared for main (`runs/2026-11-07T1228Z/t5/`), not run.
 - PROMPT working note: certified constants of boundary-value problems on [0, ∞) by scaling + validated cells + a monotone tail functional.
+
+## Run 2026-11-07T1428Z (scheduled; part 3, parts 2/5)
+- **T5 rounds R and S judged** (`runs/2026-11-07T1428Z/t5/RESULTS.md`): R blind 4/5 valid defects accepted, main 4/5 (V8 dead); S (this run) blind 6/6; after this run's rules R 0/5, S 1/6 (not blind).
+- **Prose rules** (`scripts/trust/check_claim_vocab.py`, `check_status_lines.py`): V8 repaired; V9 unpinned names; V10 bound numerals (dimension, derivative count, glued D); V11 paraphrase relations are quotations of the generated claim; V6 on code spans and number words; S2 status-line count/scope/finality words. Baseline +250 keys on older paraphrases (LEDGER).
+- **Controls** (`scripts/trust/controls/prose_rule_controls.py`): 15 cases; both scripts run them first, so a dead rule fails CI.
+- **Blasius pair promoted to Checked** (e1cf192): `Checked/Blasius/`, `Checked/Trust/SecondReadingBlasius.lean` (blind literal reading: σ computed by the reader), headlines `blasius_wall_shear`, `blasius_exists`, NV witness; relock, TRUST_MAP, CLAIMS, packet.
+- PROMPT working notes: judge trees from one build; controls with every rule; the blind reader computes, not transcribes.
