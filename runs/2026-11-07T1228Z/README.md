@@ -6,7 +6,7 @@
 
 **Measure:** certified answers not in print as rigorous values +1 (rigorous digits of the Blasius constant: ≈ 5 in print → 14); the validated simulator handles a third-order system for the first time (288 kernel-evaluated cells of degree 18 on [0, 9], enclosure radius 1.6·10⁻¹⁵, analytic tail bound 1.4·10⁻¹⁵). Freeze to both proofs in Work: 4db71de (12:38Z) → f892958 (13:24Z, bound) → 56ce5fc (13:37Z, existence).
 
-**Weakest unchecked step:** the CI judge has not yet read the Work proofs (work job of 56ce5fc running when the run closed; local builds green with standard axioms); T5 round R is still not judged (the local full Checked build for it was stopped to free the machine for the Blasius certificate).
+**Weakest unchecked step:** the CI work job judged the bound and existence green (42377821298, 56ce5fc, 13:47Z); the blind existence closure (69c8c8c) is green locally only; T5 round R is still not judged (the local full Checked build for it was stopped to free the machine for the Blasius certificate).
 
 ## Start
 - 12:28Z: pre-cloned checkout detached; `git checkout -B main origin/main` (2e18495). add_repo not exposed. No LOCK (released by run 1028Z in 962b677); LOCK taken 12:31Z (5339bf0), heartbeat 13:17Z (cf13b32).
