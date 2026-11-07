@@ -757,10 +757,8 @@ Checked.Chemistry.CubicEOS.rk_constants|redlich
 Checked.Chemistry.CubicEOS.rk_constants|kwong
 Checked.Chemistry.CubicEOS.rk_constants|soave
 Checked.Chemistry.CubicEOS.rk_constants|exactly
-Checked.Chemistry.CubicEOS.rk_constants|num:0.08664
 Checked.Chemistry.CubicEOS.pr_constants|peng
 Checked.Chemistry.CubicEOS.pr_constants|robinson
-Checked.Chemistry.CubicEOS.pr_constants|num:0.07780
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|van
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|der
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|waals
@@ -795,8 +793,6 @@ Checked.Chemistry.RKAcentric.rk_coexistence_exists|state
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|liquid
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|co
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|factor
-Checked.Chemistry.RKAcentric.rk_coexistence_exists|num:0.058
-Checked.Chemistry.RKAcentric.rk_coexistence_exists|num:0.087
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|num:0.7
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|redlich
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|kwong
@@ -807,8 +803,6 @@ Checked.Chemistry.RKAcentric.rk_coexistence_unique|state
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|liquid
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|co
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|factor
-Checked.Chemistry.RKAcentric.rk_coexistence_unique|num:0.058
-Checked.Chemistry.RKAcentric.rk_coexistence_unique|num:0.087
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|num:0.7
 Checked.Chemistry.PRAcentric.pr_omega1_exists|peng
 Checked.Chemistry.PRAcentric.pr_omega1_exists|robinson
@@ -820,7 +814,6 @@ Checked.Chemistry.PRAcentric.pr_omega1_exists|state
 Checked.Chemistry.PRAcentric.pr_omega1_exists|liquid
 Checked.Chemistry.PRAcentric.pr_omega1_exists|co
 Checked.Chemistry.PRAcentric.pr_omega1_exists|factor
-Checked.Chemistry.PRAcentric.pr_omega1_exists|num:0.0114
 Checked.Chemistry.PRAcentric.pr_omega1_exists|num:0.7
 Checked.Chemistry.PRAcentric.pr_omega1_unique|peng
 Checked.Chemistry.PRAcentric.pr_omega1_unique|robinson
@@ -834,7 +827,6 @@ Checked.Chemistry.PRAcentric.pr_omega1_unique|liquid
 Checked.Chemistry.PRAcentric.pr_omega1_unique|co
 Checked.Chemistry.PRAcentric.pr_omega1_unique|factor
 Checked.Chemistry.PRAcentric.pr_omega1_unique|input
-Checked.Chemistry.PRAcentric.pr_omega1_unique|num:0.0114
 Checked.Chemistry.PRAcentric.pr_omega1_unique|num:0.7
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|peng
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|robinson
@@ -847,7 +839,6 @@ Checked.Chemistry.PR78Acentric.pr78_omega1_exists|state
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|liquid
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|co
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|factor
-Checked.Chemistry.PR78Acentric.pr78_omega1_exists|num:0.0100
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|num:0.7
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|peng
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|robinson
@@ -862,7 +853,6 @@ Checked.Chemistry.PR78Acentric.pr78_omega1_unique|liquid
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|co
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|factor
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|input
-Checked.Chemistry.PR78Acentric.pr78_omega1_unique|num:0.0100
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|num:0.7
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|soave
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|redlich
@@ -874,7 +864,6 @@ Checked.Chemistry.SRKAcentric.srk_omega1_exists|state
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|liquid
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|co
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|factor
-Checked.Chemistry.SRKAcentric.srk_omega1_exists|num:0.0102
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|num:0.7
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|soave
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|redlich
@@ -888,7 +877,6 @@ Checked.Chemistry.SRKAcentric.srk_omega1_unique|liquid
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|co
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|factor
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|input
-Checked.Chemistry.SRKAcentric.srk_omega1_unique|num:0.0102
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|num:0.7
 Checked.Sim.Duffing.duffing_first_zero_sol|certified
 Checked.Sim.Duffing.duffing_first_zero_sol|oscillator
@@ -939,12 +927,7 @@ Checked.Sim.Robertson.rob_state40|num:0.2841637
 Checked.Sim.Robertson.rob_state40|num:0.2841638
 Checked.Sim.Robertson.rob_state40|num:0.7158270
 Checked.Sim.Robertson.rob_state40|num:0.7158271
-Checked.Sim.Robertson.rob_state40|num:104
-Checked.Sim.Robertson.rob_state40|num:107
 Checked.Sim.Robertson.rob_exists|robertson
-Checked.Sim.Robertson.rob_exists|num:104
-Checked.Sim.Robertson.rob_exists|num:107
-Checked.Sim.Robertson.rob_exists|num:3
 Checked.Sim.RobLong.rob_state1e11|certified
 Checked.Sim.RobLong.rob_state1e11|state
 Checked.Sim.RobLong.rob_state1e11|robertson
@@ -955,9 +938,6 @@ Checked.Sim.RobLong.rob_state1e11|num:0.000000020833401494
 Checked.Sim.RobLong.rob_state1e11|num:0.0000000208334015
 Checked.Sim.RobLong.rob_state1e11|num:0.99999997916651
 Checked.Sim.RobLong.rob_state1e11|num:0.99999997916652
-Checked.Sim.RobLong.rob_state1e11|num:1011
-Checked.Sim.RobLong.rob_state1e11|num:104
-Checked.Sim.RobLong.rob_state1e11|num:107
 Checked.Sim.RobLong.rob_printed_y3_low|printed
 Checked.Sim.RobLong.rob_printed_y3_low|reference
 Checked.Sim.RobLong.rob_printed_y3_low|bari
@@ -969,16 +949,9 @@ Checked.Sim.RobLong.rob_printed_y3_low|robertson
 Checked.Sim.RobLong.rob_printed_y3_low|too
 Checked.Sim.RobLong.rob_printed_y3_low|small
 Checked.Sim.RobLong.rob_printed_y3_low|num:0.9999999791665050
-Checked.Sim.RobLong.rob_printed_y3_low|num:10
-Checked.Sim.RobLong.rob_printed_y3_low|num:1011
-Checked.Sim.RobLong.rob_printed_y3_low|num:104
-Checked.Sim.RobLong.rob_printed_y3_low|num:107
+Checked.Sim.RobLong.rob_printed_y3_low|num:10^-14
 Checked.Sim.RobLong.rob_printed_y3_low|num:14
-Checked.Sim.RobLong.rob_printed_y3_low|num:3
 Checked.Sim.RobLong.rob_exists_1e11|robertson
-Checked.Sim.RobLong.rob_exists_1e11|num:104
-Checked.Sim.RobLong.rob_exists_1e11|num:107
-Checked.Sim.RobLong.rob_exists_1e11|num:3
 Checked.Data.FR13.fr13_bestfit68|prior
 Checked.Data.FR13.fr13_bestfit68|marginalised
 Checked.Data.FR13.fr13_bestfit68|farooq
@@ -1071,7 +1044,6 @@ Checked.Data.Moresco16.table5_oL_inconsistent|printed
 Checked.Data.Moresco16.table5_oL_inconsistent|aicc
 Checked.Data.Moresco16.table5_oL_inconsistent|differs
 Checked.Data.Moresco16.table5_oL_inconsistent|bic
-Checked.Data.Moresco16.table5_oL_inconsistent|num:0.005
 Checked.Data.Moresco16.table5_oL_inconsistent|num:24
 Checked.Data.Moresco16.table5_oL_inconsistent|num:6
 Checked.Data.Moresco16.table5_pw_inconsistent|table
@@ -1084,7 +1056,6 @@ Checked.Data.Moresco16.table5_pw_inconsistent|printed
 Checked.Data.Moresco16.table5_pw_inconsistent|aicc
 Checked.Data.Moresco16.table5_pw_inconsistent|differs
 Checked.Data.Moresco16.table5_pw_inconsistent|bic
-Checked.Data.Moresco16.table5_pw_inconsistent|num:0.005
 Checked.Data.Moresco16.table5_pw_inconsistent|num:40
 Checked.Data.Moresco16.table5_pw_inconsistent|num:8
 Checked.Data.Moresco16.table5_line_inconsistent|table
@@ -1096,7 +1067,6 @@ Checked.Data.Moresco16.table5_line_inconsistent|printed
 Checked.Data.Moresco16.table5_line_inconsistent|aicc
 Checked.Data.Moresco16.table5_line_inconsistent|differs
 Checked.Data.Moresco16.table5_line_inconsistent|bic
-Checked.Data.Moresco16.table5_line_inconsistent|num:0.005
 Checked.Data.Moresco16.table5_line_inconsistent|num:12
 Checked.Data.Moresco16.table5_line_inconsistent|num:4
 Checked.Data.Moresco16.oL_bic_exceeds|paper
@@ -1120,15 +1090,12 @@ Checked.Data.Moresco16Min.chiSqOL_glb_prior|region
 Checked.Data.Moresco16Min.chiSqOL_glb_prior|thirty
 Checked.Data.Moresco16Min.chiSqOL_glb_prior|free
 Checked.Data.Moresco16Min.chiSqOL_glb_prior|exists
-Checked.Data.Moresco16Min.chiSqOL_glb_prior|num:0.0005
 Checked.Data.Moresco16Min.chiSqOL_glb_wide|greatest
 Checked.Data.Moresco16Min.chiSqOL_glb_wide|thirty
 Checked.Data.Moresco16Min.chiSqOL_glb_wide|exists
-Checked.Data.Moresco16Min.chiSqOL_glb_wide|num:0.0005
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|row
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|olcdm
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|thirty
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|corrected
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|akaike
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|criterion
-Checked.Data.Moresco16Min.table5_oL_aicc_unattainable|num:0.005

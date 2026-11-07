@@ -164,15 +164,26 @@ def gen_vocab(gen):
 
 
 def numbers(text):
-    """numerals in a text, superscripts read as digits (10⁻¹² → 10, -12)"""
-    return set(re.findall(r"(?:(?<![\w.])-)?\d+(?:\.\d+)?", text.translate(SUP).replace("−", "-")))
+    """numerals of a text as {string: value}; a superscript run is an exponent (10⁴ → 10^4 → 10000, judge P AFTER);
+    `a ^ b` and `aeb` also contribute their value"""
+    from fractions import Fraction
+    text = re.sub(r"[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+", lambda m: "^" + m.group(0).translate(SUP), text).replace("−", "-")
+    out = {}
+    for m in re.finditer(r"(?:(?<![\w.^])-)?\d+(?:\.\d+)?", text):
+        out[m.group(0)] = Fraction(m.group(0))
+    for m in re.finditer(r"(\d+(?:\.\d+)?)\s*\^\s*\(?\s*(-?\d+)", text):
+        out[m.group(0).replace(" ", "")] = Fraction(m.group(1)) ** int(m.group(2))
+    for m in re.finditer(r"(\d+(?:\.\d+)?)\s*[·×*]\s*10\s*\^\s*\(?\s*(-?\d+)", text):
+        out[m.group(0).replace(" ", "")] = Fraction(m.group(1)) * Fraction(10) ** int(m.group(2))
+    for m in re.finditer(r"(\d+(?:\.\d+)?)e(-?\d+)", text):
+        out[m.group(0)] = Fraction(m.group(1)) * Fraction(10) ** int(m.group(2))
+    return out
 
 
 def gen_numbers(gen):
     lines = gen.split("\n")
     body = "\n".join(l for i, l in enumerate(lines) if i > 0 and not l.startswith("Full name"))
-    ns = numbers(body)
-    return ns | {n.lstrip("-") for n in ns} | {"-" + n for n in ns}
+    return {abs(v) for v in numbers(body).values()}
 
 
 def load_set(rel, text=None):
@@ -206,8 +217,13 @@ def findings(vocab):
         para_n = re.sub(r"\[[^\]]*\]", " ", para_n)
         para_n = W.C.CITE.sub(" ", para_n)  # equation citations `(N.M)`, `Eq. N.M` (check_prose registers them)
         para_n = re.sub(r"\b(?:19|20)\d\d(?:-\d\d(?:-\d\d)?)?(?:T\d{4}Z)?\b", " ", para_n)  # years and dates (check_prose rule 9 reads sources)
-        for n in sorted(numbers(para_n)):
-            if n not in gn and n.lstrip("-") not in gn:
+        pn = numbers(para_n)
+        # an exponent's base and exponent alone are not read when the power itself is a claim value
+        powers = [k for k in pn if "^" in k and abs(pn[k]) in gn]
+        skip = {x for k in powers for x in re.findall(r"-?\d+(?:\.\d+)?", k)}
+        skip |= {k2 for k in powers for k2 in pn if "^" in k2 and k2 in k}
+        for n in sorted(pn):
+            if abs(pn[n]) not in gn and not (n in skip or n.lstrip("-") in skip):
                 out.append((f"{full}|num:{n}", f"V6: {full}: its paraphrase names the number {n}, which the generated claim "
                             f"does not contain (a number a reader takes from the paraphrase must be the statement's)"))
     return out

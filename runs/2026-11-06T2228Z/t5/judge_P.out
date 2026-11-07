@@ -1,0 +1,91 @@
+applied d01
+applied d02
+applied d03
+applied d04
+applied d05
+applied d06
+== new files compile one by one 00:14:51
+  ok Checked/Math/GelfandBracket.lean
+  ok Checked/Math/GelfandPeak.lean
+  ok Checked/Math/InvertedOscillator.lean
+  ok Checked/Sim/RobertsonAllTimes.lean
+  ok Checked/Sim/RobertsonBound.lean
+== build 00:15:16
+build: PASS
+grep: PASS
+== trust 00:15:33
+trust: PASS
+--- claims 00:20:02
+CLAIMS.md: 181 generated claims
+wrote 56 files, 52 items, seed 72c4d16f819f
+== python checks, each separately 00:22:38
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 181 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 19 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    check_literals: 181 headlines, 121 with uncovered literals (121 baselined), 65 registered readings; ok
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 181 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 181 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 339 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 181 headlines, 8 findings (8 baselined); ok
+  [check_relock.py f0b329f]
+    frozen registry: 1578 entries at f0b329f, none changed or removed
+  [check_numbers.py --base f0b329f]
+    certified-number diff vs f0b329f: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base f0b329f]
+    check_prose: 181 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base f0b329f]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base f0b329f]
+    phrases: 23 at f0b329f, none changed or removed
+  [check_formulas.py --base f0b329f]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base f0b329f]
+    check_provenance: 19 second-version modules, 6 baselined; ok
+  [check_literals.py --base f0b329f]
+    check_literals: 181 headlines, 121 with uncovered literals (121 baselined), 65 registered readings; ok
+  [check_source_names.py --base f0b329f]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base f0b329f]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base f0b329f]
+    check_blind_route: 0 second versions added or changed since f0b329f; ok
+  [check_literal_targets.py --base f0b329f]
+    check_literal_targets: 181 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base f0b329f]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base f0b329f]
+    check_prose_gen: 181 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base f0b329f]
+    check_reader_frozen: 18 reader modules and 12 runs/ reader files at f0b329f checked; ok
+  [check_brief_leak.py --base f0b329f]
+    check_brief_leak: 0 briefs of reader files new since f0b329f; ok
+  [check_prose_eval.py --base f0b329f]
+    check_prose_eval: 339 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base f0b329f]
+    check_claim_words: 181 headlines, 8 findings (8 baselined); ok
+--- make_packet --check
+validation packet up to date (52 items)
+--- goal guard
+goal guard: ok
+== end 00:23:32
+P BEFORE DONE 00:23:32

@@ -1,0 +1,121 @@
+applied d01
+applied d02
+applied d03
+applied d04
+applied d05
+applied d06
+== new files compile one by one 00:01:12
+  ok Checked/Math/AbsKink.lean
+  ok Checked/Math/EnergyLevels.lean
+  ok Checked/Math/EulerNumber.lean
+  ok Checked/Math/Relaxation.lean
+  ok Checked/Math/ZeroMass.lean
+== build 00:01:36
+build: PASS
+grep: PASS
+== trust 00:01:48
+trust: FAIL
+frozen.txt rewritten (1634 entries)
+Checked.Cosmography.Aviles.avilesL0Claim_false
+Checked.Cosmography.Aviles.avilesM0Claim_false
+Checked.Cosmography.AvilesWitness.printedL0_false_at
+Checked.Cosmography.AvilesWitness.printedM0_false_at
+Checked.Cosmography.CPL.clsL0Claim_false
+Checked.Cosmography.CCS.printedD4_fails
+Checked.Cosmography.CCS.printedD4_fails_past
+Checked.Cosmography.CCS.ccsD4Claim_false
+Checked.Cosmography.CCS.ccsD4ClaimPast_false
+Checked.Cosmography.BambaY.printedD2y_fails
+Checked.Cosmography.BambaY.printedD2y_fails_past
+Checked.Cosmography.BambaY.bambaD2yClaim_false
+Checked.Cosmography.BambaY.bambaD2yClaimPast_false
+Checked.Cosmography.CVdQ.printedQ2_fails_past
+Checked.Cosmography.CVdQ.cvdQClaim_false
+Checked.Cosmography.CVdQ.cvdQClaimPast_false
+Checked.Cosmography.BambaK.printedD3y_fails
+Checked.Cosmography.BambaK.printedD3y_fails_past
+Checked.Cosmography.BambaK.printedD4y_fails
+--- claims 00:06:18
+CLAIMS.md: 183 generated claims
+wrote 56 files, 52 items, seed 72c4d16f819f
+== python checks, each separately 00:08:43
+  [check_numbers.py]
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 15 inputs [in], 2 unchecked [unc]; 57 tagged
+  [check_prose.py]
+    check_prose: 183 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 21 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 23 checked, 0 problems
+  [check_literals.py]
+    rule 1: Checked.Math.AbsKink.deriv_abs_at_zero: statement literals ['0'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Math.EulerNumber.exp_one_rounds: statement literals ['1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 183 headlines, 123 with uncovered literals (121 baselined), 54 registered readings; FAIL
+  [check_source_names.py]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 183 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 183 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 341 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 183 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+    check_claim_vocab: 183 sections, 985 findings (985 baselined), vocabulary 3; ok
+  [check_status_lines.py]
+    check_status_lines: ok
+  [check_relock.py e72d899]
+    frozen registry: 1624 entries at e72d899, none changed or removed
+  [check_numbers.py --base e72d899]
+    certified-number diff vs e72d899: 38 certified pairs before, 38 now, 0 removed or changed
+  [check_prose.py --base e72d899]
+    check_prose: 183 headlines, 135 definitions, 21 glossary terms; 0 new problems; 356 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base e72d899]
+    check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base e72d899]
+    phrases: 23 at e72d899, none changed or removed
+  [check_formulas.py --base e72d899]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base e72d899]
+    check_provenance: 21 second-version modules, 6 baselined; ok
+  [check_literals.py --base e72d899]
+    rule 1: Checked.Math.AbsKink.deriv_abs_at_zero: statement literals ['0'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    rule 1: Checked.Math.EulerNumber.exp_one_rounds: statement literals ['1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 183 headlines, 123 with uncovered literals (121 baselined), 54 registered readings; FAIL
+  [check_source_names.py --base e72d899]
+    check_source_names: 23 names, 33 unbacked matches (33 baselined); ok
+  [check_templates.py --base e72d899]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base e72d899]
+    check_blind_route: 0 second versions added or changed since e72d899; ok
+  [check_literal_targets.py --base e72d899]
+    check_literal_targets: 183 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base e72d899]
+    check_source_variants: 31 alias lines, 33 unbacked matches (33 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base e72d899]
+    check_prose_gen: 183 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base e72d899]
+    check_reader_frozen: 20 reader modules and 15 runs/ reader files at e72d899 checked; ok
+  [check_brief_leak.py --base e72d899]
+    check_brief_leak: 0 briefs of reader files new since e72d899; ok
+  [check_prose_eval.py --base e72d899]
+    check_prose_eval: 341 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base e72d899]
+    check_claim_words: 183 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base e72d899]
+    check_claim_vocab: 183 sections, 985 findings (985 baselined), vocabulary 3; ok
+--- make_packet --check
+validation packet up to date (52 items)
+--- goal guard
+goal guard: ok
+== end 00:09:36
+Q DONE 00:09:36

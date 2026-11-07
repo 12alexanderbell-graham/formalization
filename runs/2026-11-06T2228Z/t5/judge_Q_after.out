@@ -1,0 +1,16 @@
+== AFTER (this run's final rules, not blind) 00:14:32
+  [check_claim_vocab.py]
+      V5: Checked.Math.ZeroMass.acceleration_of_zero_mass: a hypothesis sets mass = 0 and the conclusion divides by, inverts, logs or square-roots mass: Mathlib's x/0 = 0 is a convention
+      V1: Checked.Math.ZeroMass.acceleration_of_zero_mass: its paraphrase says 'acceleration', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V5: Checked.Math.AbsKink.deriv_abs_at_zero: its conclusion uses a derivative (`deriv`) but the claim nowhere asserts differentiability: Mathlib's derivative is 0 where none exists
+      V1: Checked.Math.EnergyLevels.energy_below_some_level: its paraphrase says 'level', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V1: Checked.Math.EnergyLevels.energy_below_some_level: its paraphrase says 'energy', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V1: Checked.Math.Relaxation.deviation_below_half: its paraphrase says 'deviation', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V6: Checked.Math.EulerNumber.exp_one_rounds: its paraphrase names the number 6, which the generated claim does not contain (a number a reader takes from the paraphrase must be the statement's)
+      V2: scripts/trust/prose_vocab.txt: 'settled' is an inference, generality, persistence, two-sided, grading or strength word; it may reach a paraphrase only through the generated claim
+    check_claim_vocab: 183 sections, 1140 findings (1133 baselined), vocabulary 3; FAIL
+  [check_status_lines.py]
+      S1: STATE.md:177: status 'Machine-checked, promoted to Checked and AUDITED' (PROVED means a Checked headline with green CI) cites no `Checked.…` headline or `Checked/…` module; it cites Work.Math.GelfandPDE.gelfand_pde_radial_bound
+    check_status_lines: FAIL
+  [check_claim_words.py]
+    check_claim_words: 183 headlines, 8 findings (8 baselined); ok
