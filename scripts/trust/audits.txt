@@ -518,3 +518,6 @@ Work.Sim.MMAudit.blind_iff
 Work.Sim.MMAudit.first_half_conversion
 Work.Sim.MMAudit.isMM_eq_ref
 Work.Sim.MMAudit.isMM_meets
+Work.Townes.PromotionAudit.blind_under
+Work.Townes.PromotionAudit.blind_over
+Work.Townes.PromotionAudit.blind_exists
