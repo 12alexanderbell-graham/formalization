@@ -22,10 +22,14 @@ V1 (closed vocabulary): every word of a headline's paraphrase in CLAIMS.md (code
 V2 (the vocabulary carries no claim): no entry of prose_vocab.txt is an inference, generality, persistence,
    two-sided, grading or strength word (the deny-lists of check_claim_words, check_prose_gen, check_prose_eval
    and STRENGTH below) — those words reach a paraphrase only when the generated claim itself uses them.
-V3 (--base): `scripts/trust/claim_vocab_baseline.txt` (keys `<full name>|<word>`, populated from the tree when
-   the rule was written) may only shrink.
+V3 (--base): `scripts/trust/claim_vocab_baseline.txt` (keys `<full name>|<word>` and `<full name>|num:<number>`,
+   populated from the tree when the rule was written) may only shrink, except in a commit that changes this script
+   and adds a LEDGER line mentioning the baseline file (a stricter rule regenerates it).
+V6 (numbers): every numeral of a paraphrase (digits, decimals, superscript powers) is a numeral of the generated
+   claim.
 V5 (junk values): no conclusion of a generated claim (its "then"/"It holds that" part) equates a square root or a
-   logarithm to 0 or divides by the literal 0: Mathlib's √x = 0 for x < 0, log 0 = 0 and x / 0 = 0 are
+   logarithm to 0 or divides by the literal 0, divides by (inverts, logs, roots) a variable a hypothesis sets to 0,
+   or uses `deriv` when the claim nowhere asserts differentiability (the last two since Q d02, d03): Mathlib's √x = 0 for x < 0, log 0 = 0 and x / 0 = 0 are
    conventions, and a headline about them certifies the convention, not mathematics (P d05: `√(k / m) = 0` for
    k < 0, "an inverted potential has a vanishing natural frequency"). CLAIMS.md's notation block states the
    conventions since this run.
@@ -71,7 +75,9 @@ STRENGTH = re.compile(r"(?i)^(?:unique|uniquely|uniqueness|exactly|only|sole|sol
                       r"certif\w*|verif\w*|rigorous\w*|exact|exactness|precise\w*|accura\w*|correct\w*|true|false|"
                       r"full|fully|entire|entirely|whole|complete\w*|total|totally|never|forever|permanent\w*|"
                       r"stable|stability|unstable|instability|duration|lifetime|throughout|everywhere|always|"
-                      r"all|every|any|each|whenever|wherever|general|generally|universal\w*|global\w*)$")
+                      r"all|every|any|each|whenever|wherever|general|generally|universal\w*|global\w*|"
+                      # long-time behaviour (since Q d05 "the system has settled at equilibrium" over exp(−t) < 1/2)
+                      r"settle\w*|converg\w*|asymptot\w*|final|finally|eventual\w*|ultimate\w*)$")
 
 WORD = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]+(?:['’][A-Za-z]+)?")
 
@@ -120,14 +126,53 @@ def sections(path=None):
     return out
 
 
-def gen_vocab(gen):
-    v = set(words(gen))
-    # identifiers inside code spans contribute their words too (camelCase / snake_case parts)
+SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹⁻", "0123456789-")
+
+
+def author_names(gen):
+    """the identifiers the author chose freely: the headline's own name (heading and Full name line) and the
+    names of its bound variables (`x : T` in the generated text). Since run 2026-11-06T2228Z (blind red team Q,
+    d02 `acceleration_of_zero_mass` with binders `force`, `mass`; d04 `energy_below_some_level`) they are not
+    claim words: a name is the author's prose, not something the statement establishes."""
+    names = set()
+    lines = gen.split("\n")
+    for l in lines[:1] + [l for l in lines if l.startswith("Full name")]:
+        for ident in re.findall(r"[A-Za-z][A-Za-z0-9_'.]*", l.split("`")[1] if "`" in l else l):
+            names.update(ident.split("."))
     for span in re.findall(r"`([^`]*)`", gen):
+        names.update(m.group(1) for m in re.finditer(r"(?:^|[(\s])([A-Za-z][A-Za-z0-9_']*)\s*:\s", span))
+    return names
+
+
+def split_ident(ident):
+    ident = re.sub(r"([a-z])([A-Z])", r"\1 \2", ident)
+    return {norm(p) for p in re.split(r"[_\s.\d']+", ident) if p}
+
+
+def gen_vocab(gen):
+    lines = gen.split("\n")
+    body = "\n".join(l for i, l in enumerate(lines) if i > 0 and not l.startswith("Full name"))
+    own = author_names(gen)
+    v = set(words(re.sub(r"`[^`]*`", " ", body)))
+    # identifiers inside code spans contribute their words too (camelCase / snake_case parts), except the
+    # headline's own name and its binder names
+    for span in re.findall(r"`([^`]*)`", body):
         for ident in re.findall(r"[A-Za-z][A-Za-z0-9_']*", span):
-            ident = re.sub(r"([a-z])([A-Z])", r"\1 \2", ident)
-            v.update(norm(p) for p in re.split(r"[_\s.\d']+", ident) if p)
+            if ident not in own:
+                v |= split_ident(ident)
     return v
+
+
+def numbers(text):
+    """numerals in a text, superscripts read as digits (10⁻¹² → 10, -12)"""
+    return set(re.findall(r"(?:(?<![\w.])-)?\d+(?:\.\d+)?", text.translate(SUP).replace("−", "-")))
+
+
+def gen_numbers(gen):
+    lines = gen.split("\n")
+    body = "\n".join(l for i, l in enumerate(lines) if i > 0 and not l.startswith("Full name"))
+    ns = numbers(body)
+    return ns | {n.lstrip("-") for n in ns} | {"-" + n for n in ns}
 
 
 def load_set(rel, text=None):
@@ -154,6 +199,17 @@ def findings(vocab):
                 continue
             out.append((f"{full}|{w}", f"V1: {full}: its paraphrase says '{w}', a word the generated claim does not use "
                         f"(add it to {VOCAB} with a LEDGER line if it names something, or say what the statement proves)"))
+        # V6 (run 2026-11-06T2228Z, blind red team Q d06: "equals 2.718 to 6 decimal places" over `RoundsTo … 2.718 3`):
+        # every numeral of the paraphrase is a numeral of the generated claim
+        gn = gen_numbers(gen)
+        para_n = re.sub(r"`[^`]*`", " ", para)
+        para_n = re.sub(r"\[[^\]]*\]", " ", para_n)
+        para_n = W.C.CITE.sub(" ", para_n)  # equation citations `(N.M)`, `Eq. N.M` (check_prose registers them)
+        para_n = re.sub(r"\b(?:19|20)\d\d(?:-\d\d(?:-\d\d)?)?(?:T\d{4}Z)?\b", " ", para_n)  # years and dates (check_prose rule 9 reads sources)
+        for n in sorted(numbers(para_n)):
+            if n not in gn and n.lstrip("-") not in gn:
+                out.append((f"{full}|num:{n}", f"V6: {full}: its paraphrase names the number {n}, which the generated claim "
+                            f"does not contain (a number a reader takes from the paraphrase must be the statement's)"))
     return out
 
 
@@ -169,7 +225,28 @@ def junk(full, gen):
         if re.search(r"√|Real\.sqrt|Real\.logb?\b", span) and re.search(r"=\s*0(?![.\d])", span) or re.search(r"/\s*0(?![.\d])", span):
             out.append((f"{full}|junk", f"V5: {full}: its conclusion `{span[:80]}` equates a square root or logarithm to 0 "
                         f"or divides by 0 (Mathlib junk-value conventions): a headline may not certify a convention"))
-    return out[:1]
+    # (run 2026-11-06T2228Z, blind red team Q d03: `deriv (fun x => |x|) 0 = 0`, Mathlib's derivative where none
+    # exists) a conclusion about `deriv`/`iteratedDeriv` needs differentiability somewhere in the claim
+    concl = " ".join(re.findall(r"`([^`]*)`", m.group(1)))
+    if re.search(r"\b(?:deriv|iteratedDeriv|derivWithin|fderiv)\b", concl) and not re.search(
+            r"HasDerivAt|HasDerivWithinAt|HasFDerivAt|Differentiable|ContDiff|HasStrictDerivAt", gen):
+        out.append((f"{full}|junk-deriv", f"V5: {full}: its conclusion uses a derivative (`deriv`) but the claim nowhere "
+                    f"asserts differentiability: Mathlib's derivative is 0 where none exists"))
+    # (Q d02: `force / mass = 0` under `mass = 0`) a variable a hypothesis sets to 0 is not divided by, inverted,
+    # logged or square-rooted in the conclusion
+    hyp = re.search(r"\*\*assuming\*\*(.*?)\*\*then\*\*", gen, re.S)
+    zero = set()
+    if hyp:
+        for span in re.findall(r"`([^`]*)`", hyp.group(1)):
+            z = re.fullmatch(r"\s*([A-Za-z_][A-Za-z0-9_']*)\s*=\s*0\s*|\s*0\s*=\s*([A-Za-z_][A-Za-z0-9_']*)\s*", span)
+            if z:
+                zero.add(z.group(1) or z.group(2))
+    for v in sorted(zero):
+        if re.search(r"/\s*\(?\s*" + re.escape(v) + r"\b|\b" + re.escape(v) + r"\s*⁻¹|(?:Real\.logb?|√|Real\.sqrt)\s*\(?\s*"
+                     + re.escape(v) + r"\b", concl):
+            out.append((f"{full}|junk-zero|{v}", f"V5: {full}: a hypothesis sets {v} = 0 and the conclusion divides by, "
+                        f"inverts, logs or square-roots {v}: Mathlib's x/0 = 0 is a convention"))
+    return out[:3]
 
 
 def deny(w):
@@ -202,7 +279,13 @@ def main():
     if base:
         old = git("show", f"{base}:{BASELINE}")
         if old is not None:
-            errors += [f"V3: {BASELINE} grew against {base}: {k} (it may only shrink)" for k in sorted(bl - load_set(BASELINE, old))]
+            grown = sorted(bl - load_set(BASELINE, old))
+            # growth only when this script itself changed (a stricter rule regenerates the baseline) and an added
+            # LEDGER line mentions the baseline file
+            ledger_added = [l for l in (git("diff", base, "--", "LEDGER.md") or "").splitlines()
+                            if l.startswith("+") and "claim_vocab_baseline" in l]
+            if grown and not (git("diff", "--quiet", base, "--", "scripts/trust/check_claim_vocab.py") is None and ledger_added):
+                errors += [f"V3: {BASELINE} grew against {base}: {k} (it may only shrink)" for k in grown]
         oldv = git("show", f"{base}:{VOCAB}")
         added = sorted(vocab - (load_set(VOCAB, oldv) if oldv is not None else set()))
         if added:

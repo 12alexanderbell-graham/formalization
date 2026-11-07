@@ -409,7 +409,11 @@ run_cmd do
     "a to b; `∀ᶠ t in 𝓝 t₀, P t` = P holds on some neighbourhood of t₀; `f =o[𝓝 x] g` = f is little-o",
     "of g as the argument tends to x; `RoundsTo x d k` = x rounds to the decimal d at k places;",
     "`ContDiffAt ℝ n f x` = f is n times continuously differentiable at x; `87e-3` = 87·10⁻³ = 0.087;",
-    "`nhds x` = `𝓝 x`; `deriv^[n] f` = n-th derivative of f.", ""]
+    "`nhds x` = `𝓝 x`; `deriv^[n] f` = n-th derivative of f.", "",
+    "Mathlib's functions are total (run 2026-11-06T2228Z, blind red team P d05): `√x` = 0 for x < 0;",
+    "`x / 0` = 0 and `0⁻¹` = 0; `Real.log x` = log |x| for x ≠ 0 and `Real.log 0` = 0; `deriv f x` = 0",
+    "where f is not differentiable; an integral of a non-integrable function is 0. A claim that holds only",
+    "because of one of these conventions says nothing about the mathematics outside the usual domain.", ""]
   let mut nDone := 0
   for hn in hs do
     let ci := (env.find? hn).get!

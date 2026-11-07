@@ -1,1 +1,0 @@
-Run 2026-11-06T2228Z (scheduled), started 2026-11-06 22:28Z; took the LOCK at 22:33Z (the LOCK file of run 2026-11-06T2028Z was still tracked at origin/main 1414e21, whose records commit declares "remove LOCK": the deletion was not staged; that run's records are complete). Heartbeat 23:32Z (full lake build Checked running; red team Q written). Remove at end.

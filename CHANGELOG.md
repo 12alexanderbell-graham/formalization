@@ -343,3 +343,9 @@
 - Prior art: `runs/2026-11-06T2028Z/prior_art_tf.md` (Iacono 2008 unreadable; no rigorous enclosure < 10⁻⁶ found).
 - Part 3: blind red team P (6 defects, not judged) in `runs/2026-11-06T2028Z/t5/redteamP/`.
 - PROMPT working notes: existence for shooting problems; test-compile reader templates.
+
+## 2026-11-06T2228Z (scheduled run; part 3)
+- LOCK: 1414e21 said "remove LOCK" but left it tracked; taken as released (records complete). `scripts/goal_guard.py` now fails a commit whose message has the "remove LOCK" idiom while LOCK is in the tree.
+- **Closed-vocabulary paraphrases** (`scripts/trust/check_claim_vocab.py`, blocking): headline paraphrases in CLAIMS.md use only the generated claim's words (not the author's names or binders), function words and the disclosed `scripts/trust/prose_vocab.txt`; numbers only the claim's; no junk-value conclusions (√/log = 0, x/0, `deriv` without differentiability). Baseline 1133 existing keys, shrink-only. `scripts/trust/check_status_lines.py`: a STATE.md status claiming PROVED/checked/promoted names a Checked headline or module. W2 of check_claim_words reads namespaces. CLAIMS.md notation states Mathlib's total-function conventions.
+- Part 3: blind red team Q (Sonnet, 6 defects against the first version e72d899) in `runs/2026-11-06T2228Z/t5/redteamQ/`; rules tightened after reading it (not blind). Judging of P and Q after the LOCK release: `runs/2026-11-06T2228Z/t5/RESULTS.md`.
+- PROMPT working note: allow-lists, not deny-lists, for reader-facing prose.
