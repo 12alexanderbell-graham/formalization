@@ -41,6 +41,8 @@ V7 (quantifier order; run 2026-11-07T0028Z, after blind red team Q d04 — not b
    Postpositive universals ("models exist for every Ω") are rejected too: say "for every Ω there is …".
    Limits: nesting beyond the order (which existential an "every" sits under), quantifiers expressed without these
    words ("a level above each energy" counts; "a level above the energies" does not).
+V8 (names; run 2026-11-07T0028Z, after blind red team R d02 — not blind): a STRENGTH word in the headline's name
+   (unique, exact, sharp, optimal, …) must occur in its generated claim.
 V4 (--base): each word added to prose_vocab.txt is named in backticks on a LEDGER.md line added since the base
    that mentions prose_vocab.txt.
 
@@ -85,7 +87,9 @@ STRENGTH = re.compile(r"(?i)^(?:unique|uniquely|uniqueness|exactly|only|sole|sol
                       r"stable|stability|unstable|instability|duration|lifetime|throughout|everywhere|always|"
                       r"all|every|any|each|whenever|wherever|general|generally|universal\w*|global\w*|"
                       # long-time behaviour (since Q d05 "the system has settled at equilibrium" over exp(−t) < 1/2)
-                      r"settle\w*|converg\w*|asymptot\w*|final|finally|eventual\w*|ultimate\w*)$")
+                      r"settle\w*|converg\w*|asymptot\w*|final|finally|eventual\w*|ultimate\w*|"
+                      # optimality (since R d06 "and this bound is sharp" over `lam ≤ 4`, `sharp` disclosed)
+                      r"sharp\w*|tight\w*|optimal\w*|optimum|best|improv\w*|unimprov\w*|attain\w*|achiev\w*)$")
 
 WORD = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]+(?:['’][A-Za-z]+)?")
 
@@ -205,6 +209,7 @@ def findings(vocab):
     out = []
     for full, gen, para in sections():
         out += junk(full, gen)
+        out += name_strength(full, gen)
         if not para.strip():
             continue
         out += order(full, gen, para)
@@ -254,6 +259,23 @@ def quant_seq(text):
     return out
 
 
+def name_strength(full, gen):
+    """V8 (run 2026-11-07T0028Z, after blind red team R d02 — not blind): a claim-strength word in the headline's
+    name (every component after `Checked.<Area>.`: unique, exact, sharp, optimal, …, the STRENGTH list) must be a
+    word of the generated claim. R d02 registered the existence statement as `gelfand_pde_radial_unique_solution`:
+    V1 no longer counts names as claim words, so nothing read the name's 'unique' against the statement."""
+    gv = gen_vocab(gen) | set(words(gen))
+    out = []
+    for w in W.name_words(full).split():
+        w = norm(w)
+        if w.startswith("unique") and re.search(r"\bexactly one\b", gen):
+            continue  # Claims.lean prints ∃! as "there is exactly one"
+        if STRENGTH.match(w) and not (forms(w) & gv):
+            out.append((f"{full}|name:{w}", f"V8: {full}: its name says '{w}', a claim-strength word the generated "
+                        f"claim does not contain: the name may not claim more than the statement"))
+    return out[:1]
+
+
 def order(full, gen, para):
     """V7: the paraphrase's quantifier order is a subsequence of the generated claim's"""
     lines = gen.split("\n")
@@ -264,10 +286,64 @@ def order(full, gen, para):
     g, p = quant_seq(claim) + quant_seq(defs), quant_seq(para)
     it = iter(g)
     if all(x in it for x in p):
-        return []
+        return scope(full, claim + defs, para)
     return [(f"{full}|order:{''.join(p)}", f"V7: {full}: its paraphrase quantifies in the order {'-'.join(p) or '-'} "
              f"(U = every/all/any/each, E = there is/exists/some), which the generated claim's order "
              f"{'-'.join(g) or '(none)'} does not contain: write the quantifiers in the claim's order")]
+
+
+BINDER = re.compile(r"`([^`:]+?)\s*:\s*[^`]*`")
+GQ = re.compile(r"(?i)(\*\*for every\*\*|for every|there is|there exists?)")
+
+
+def claim_binders(text):
+    """(kind, name) of every binder of the generated claim, in order: the code spans `x : T` that follow a
+    quantifier phrase (comma-separated runs)"""
+    out = []
+    for m in GQ.finditer(text):
+        kind = "E" if m.group(1).lower().startswith("there") else "U"
+        rest = text[m.end():]
+        while True:
+            b = re.match(r"\s*,?\s*(?:and\s+)?" + BINDER.pattern, rest)
+            if not b:
+                break
+            for v in b.group(1).split():
+                out.append((kind, v))
+            rest = rest[b.end():]
+    return out
+
+
+def scope(full, gen_text, para):
+    """V7, second part (run 2026-11-07T0028Z, after blind red team R d01 — not blind): a universal and an
+    existential the paraphrase attaches to named binders of the claim keep the claim's relative order. R d01
+    wrote ∀ε ∀x ∃N ∀n as "for every ε there is N such that, for every x …": kind order U-E-U is a subsequence,
+    but x moved behind N (a uniform N)."""
+    binders = claim_binders(gen_text)
+    pos = {}
+    for i, (k, v) in enumerate(binders):
+        pos.setdefault(v, (i, k))
+    if not pos:
+        return []
+    text = re.sub(r"`([^`]*)`", lambda m: " " + " ".join(re.findall(r"[^\W\d_][\w'₀-₉]*", m.group(1))) + " ", para)
+    ms = list(QTOK.finditer(text))
+    att = []
+    for j, m in enumerate(ms):
+        end = ms[j + 1].start() if j + 1 < len(ms) else len(text)
+        window = text[m.end():min(end, m.end() + 40)]
+        window = re.split(r"[,;:.]|\bsuch that\b|\bwith\b|\bif\b", window)[0]
+        kind = "U" if m.group("u") else "E"
+        for t in re.findall(r"[^\W\d_][\w'₀-₉]*", window):
+            if t in pos and pos[t][1] == kind:
+                att.append((kind, t))
+                break
+    for a in range(len(att)):
+        for b in range(a + 1, len(att)):
+            (k1, v1), (k2, v2) = att[a], att[b]
+            if k1 != k2 and pos[v1][0] > pos[v2][0]:
+                return [(f"{full}|scope:{v1}-{v2}", f"V7: {full}: its paraphrase quantifies {v1} ({k1}) before {v2} ({k2}), "
+                         f"but the generated claim binds {v2} before {v1}: the order of a universal and an existential "
+                         f"changes what is claimed")]
+    return []
 
 
 JUNK = re.compile(r"(?:√|Real\.sqrt|Real\.logb?\b)[^=≠]*=\s*0(?![.\d])|=\s*0\s*$.*|/\s*0(?![.\d])")
