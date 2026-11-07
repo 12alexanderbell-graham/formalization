@@ -256,6 +256,8 @@ import Work.Townes.TCellQ
 import Work.Townes.TQDataA
 import Work.Townes.TQDataB
 import Work.Townes.TownesShooting
+import Work.Blasius.Blasius
+import Work.Blasius.BlasiusExists
 import Work.Townes.TownesBlind
 import Work.Townes.TownesBlindClosed
 import Work.Townes.TownesExists
