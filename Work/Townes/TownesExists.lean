@@ -1,4 +1,6 @@
 import Mathlib
+import Work.Townes.TownesShooting
+import Work.Townes.TExAssemble
 
 /-!
 # Mathematics (THE RESULT parts 5 and 2): existence of the Townes ground state with central
@@ -36,7 +38,7 @@ theorem townes_exists : ∃ c ∈ Ioo (2.2062008646 : ℝ) 2.2062008647, ∃ θ 
     ContinuousWithinAt φ (Ici 0) 0 ∧
     (∀ r ∈ Ioi (0 : ℝ), HasDerivAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) r) ∧
     (∀ r ∈ Ici (0 : ℝ), 0 < θ r) ∧ (∀ r ∈ Ioi (0 : ℝ), φ r < 0) ∧
-    Tendsto θ atTop (𝓝 0) := by
-  sorry
+    Tendsto θ atTop (𝓝 0) :=
+  Work.Townes.TExAssemble.core Work.Townes.Shooting.townes_under Work.Townes.Shooting.townes_over
 
 end Work.Townes.Exists

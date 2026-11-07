@@ -267,3 +267,9 @@ import Work.Townes.TownesShooting
 import Work.Townes.TownesBlind
 import Work.Townes.TownesBlindClosed
 import Work.Townes.TownesExists
+import Work.Townes.TExLeft
+import Work.Townes.TExFlow
+import Work.Townes.TExLimit
+import Work.Townes.TExAssemble
+import Work.Townes.TownesExistsBlind
+import Work.Townes.TownesExistsBlindClosed
