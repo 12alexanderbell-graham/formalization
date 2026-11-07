@@ -345,7 +345,7 @@ def load_slots(errors):
 
 
 # ------------------------------------------------------------------ comparison with check_literals
-def classify_both(row, consts, readings, slots, errors):
+def classify_both(row, consts, readings, slots, errors, strict=True):
     """(statement tokens, old exempt/covered indices, strict indices, slot usage)"""
     s = L.statement_text(row["module"], row["name"])
     if s is None:
@@ -361,13 +361,13 @@ def classify_both(row, consts, readings, slots, errors):
             continue
         binders, body, _ = const
         vals = L.closed_values(body) if not binders else None
-        for a, b in L.covered_spans(toks, const):
-            for j in range(a, b):
+        for span in L.covered_spans(toks, const, strict):
+            for j in span:
                 if L.is_num(toks[j]):
                     old.setdefault(j, "b")
         if vals is None:
-            for a, b in L.covered_spans(toks, const):
-                for j in range(a, b):
+            for span in L.covered_spans(toks, const, strict):
+                for j in span:
                     if L.is_num(toks[j]):
                         new.setdefault(j, "b")
             continue
@@ -433,8 +433,9 @@ def main():
             continue
         bl[h] = ps[1].split()
     n_extra = 0
+    lit_bl = L.load_baseline(heads, [])  # headlines grandfathered in check_literals' baseline: old span rule
     for name in sorted(heads):
-        res = classify_both(heads[name], consts, readings, slots, errors)
+        res = classify_both(heads[name], consts, readings, slots, errors, strict=name not in lit_bl)
         if res is None:
             continue
         toks, old, new = res

@@ -39,7 +39,8 @@ Every numeric literal (numeral, decimal, `(n : ℝ)`) written in the statement o
      check_blind_route.py apply: a blind reader's file under `runs/` next to its brief, committed first).
      Its body, with its explicit binders as wildcards (each matches one token or one bracketed group of
      the statement) and numerals compared by exact value (`0.48` = `0.480`), must occur as a contiguous
-     token span of the statement; every literal inside a matched span is covered. Operators, signs,
+     token span of the statement; every literal matched by a numeral of the body is covered (since run
+     2026-11-07T0828Z not a literal inside a group a binder wildcard matched: nobody read that one). Operators, signs,
      exponents and parenthesisation are thereby compared too, not just values. Each registered constant
      must match at least once (a stale registration fails). Value mode (run 2026-11-06T0628Z): a reader
      constant without binders whose body is a closed arithmetic expression (numerals, `+ - * / ^`,
@@ -407,8 +408,9 @@ def reader_constants():
     return out
 
 
-def match_at(stoks, i, pat, binders):
-    """end index if pat matches stoks starting at i, else None"""
+def match_at(stoks, i, pat, binders, lit=None):
+    """end index if pat matches stoks starting at i, else None. If `lit` is a list, the statement positions
+    matched by a token of the pattern itself (not by a binder wildcard) are appended to it."""
     j = i
     for t in pat:
         if j >= len(stoks):
@@ -416,6 +418,8 @@ def match_at(stoks, i, pat, binders):
         if t in binders:
             j = group_end(stoks, j)
             continue
+        if lit is not None:
+            lit.append(j)
         s = stoks[j]
         if is_num(t) and is_num(s):
             if value(t) != value(s):
@@ -540,15 +544,22 @@ def statement_atoms(stoks):
     return out
 
 
-def covered_spans(stoks, const):
+def covered_spans(stoks, const, strict=True):
+    """statement positions a reader constant covers, one list per occurrence. strict=False (headlines with a
+    line in the grandfathered baseline only): every position of the matched span, as before run
+    2026-11-07T0828Z."""
     binders, body, _ = const
     spans = []
     if not body:
         return spans
     for i in range(len(stoks)):
-        e = match_at(stoks, i, body, set(binders))
+        lit = []
+        e = match_at(stoks, i, body, set(binders), lit)
         if e is not None:
-            spans.append((i, e))
+            # Only the positions the reader's own tokens matched are covered (run 2026-11-07T0828Z): a literal
+            # inside a group matched by a binder wildcard was not read by anyone (`Ioc 0 S` matched
+            # `Ioc (0 : ℝ) (68 / 5)` and covered 68 / 5).
+            spans.append(lit if strict else list(range(i, e)))
     # Value mode (run 2026-11-06T0628Z): a reader constant without binders whose body is a closed arithmetic
     # expression (or a tuple of them) also covers statement atoms of exactly the same value (a run of
     # consecutive atoms, in order, for a tuple). `4 / 100` reads the `(1 / 25)` of a statement; a closed
@@ -562,7 +573,7 @@ def covered_spans(stoks, const):
                 run = atoms[k:k + n]
                 if all(run[m][1] == run[m + 1][0] for m in range(n - 1)) and \
                         tuple(a[2] for a in run) == vals:
-                    spans.append((run[0][0], run[-1][1]))
+                    spans.append(list(range(run[0][0], run[-1][1])))
     return spans
 
 
@@ -618,7 +629,7 @@ def load_baseline(heads, errors):
 HIDDEN_BL = {}
 
 
-def analyse(row, consts, readings, errors):
+def analyse(row, consts, readings, errors, strict=True):
     """(uncovered literal tokens in order, all literal values, statement tokens)"""
     s = statement_text(row["module"], row["name"])
     if s is None:
@@ -636,12 +647,12 @@ def analyse(row, consts, readings, errors):
         if not any(is_num(t) for t in const[1]):
             errors.append(f"rule 3: {READINGS}: {c} has no numeral in its body (it reads no literal)")
             continue
-        spans = covered_spans(toks, const)
+        spans = covered_spans(toks, const, strict)
         if not spans:
             errors.append(f"rule 1: {row['name']}: the registered reading {c} does not occur in the statement "
                           f"(body with binders as wildcards, numerals by value)")
-        for a, b in spans:
-            for j in range(a, b):
+        for span in spans:
+            for j in span:
                 if is_num(toks[j]):
                     ok.setdefault(j, "b")
     unc = [t for j, t in enumerate(toks) if is_num(t) and j not in ok]
@@ -730,7 +741,7 @@ def main():
     n_unc = 0
     for name in sorted(heads):
         row = heads[name]
-        unc, vals = analyse(row, consts, readings, errors)
+        unc, vals = analyse(row, consts, readings, errors, strict=row["name"] not in baseline)
         if unc is None:
             continue
         vals |= def_literal_values(statement_text(row["module"], row["name"]) or "")
