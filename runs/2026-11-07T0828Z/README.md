@@ -1,7 +1,26 @@
 # Run 2026-11-07T0828Z (scheduled)
 
-**THE RESULT:** part 1 (rigorous simulators): in progress — making validated-simulation certificates cheap enough for the judge (kernel-evaluated rational cell checks), the step that blocks promoting the Townes trio. Never narrowed: the result is the goal in full (PROMPT instruction 10).
+**THE RESULT:** part 1 (rigorous simulators) — validated-simulation certificates are now decided by kernel evaluation: the checker computes every defect polynomial over ℚ instead of a generator handing `ring` a precomputed one, which made the Townes shooting chains ≈ 100× cheaper to build and to export for the independent checker; parts 2/5 — with that, the Townes trio (two shooting events and existence of the ground state with θ(0) in a 10⁻¹⁰ window) was copied to Checked with a blind literal reading of every number in its statements, on branch `wip/townes-checked` pending its CI author files; part 3 — a hole in the literal-reading check (a reader's binder wildcard counted as reading the numbers it swallowed) closed. Never narrowed: the result is the goal in full (PROMPT instruction 10).
+
+**What can a scientist now trust without checking it themselves, that they could not before?** That every number in the statements of the Townes results (the equation's coefficients, the centre and slope conditions, the limit, both ten-decimal roundings of Q(0) and the horizon 68/5) agrees with an independent blind computation (a different model's own 45-digit shooting: Q(0) = 2.20620086465074, event radii 13.521 and 13.499) — and that no new headline can any more have a number "covered" by a reading that never wrote it.
+
+**Measure:** Townes certificate chains: build 2 min 20 s (both, parallel) vs ≈ 40 min serial; oleans 26 MB vs 1.4 GB; export +40 k lines per 123-cell chain (generic lemmas alone 2.03 M); nanoda on the chain 95 s (local). New Checked headlines prepared: 3 (townes_under, townes_over, townes_exists), 14 literal-reading constants, 0 uncovered literals under the strict rule (locally, synthetic meaning rows). Literal-check hole: 6 grandfathered headlines found relying on it (κ(ω) at ω = 1).
+
+**Weakest unchecked step:** the Townes trio is not PROVED yet: its Checked copies, NV witnesses and readings are on `wip/townes-checked` and need the branch run's author files (relock, TRUST_MAP, CLAIMS, packet; prose rules on the docstrings) and then a green main run. Uniqueness of the ground state (Kwong 1989) is still not formalised, so the theorem names *a* ground state in the window.
 
 ## Start
-- 08:28Z: pre-cloned checkout detached with a stale diverged local main (its commits are on `wip/*` branches); `git checkout -B main origin/main` (416e7a4). add_repo not exposed. No LOCK on main; this run took it.
-- Environment: elan installed (local Lean); Mathlib cache fetching. CI run 42352165146 (d6d6079): work, checked (incl. trust steps, author files), nanoda shards 1, 2 green; shards 0, 3 running at 08:28Z.
+- 08:28Z: pre-cloned checkout detached with a stale diverged local main (its commits are on `wip/*` branches); `git checkout -B main origin/main` (416e7a4). add_repo not exposed. No LOCK on main; this run took it (51533cd).
+- Environment: elan installer worked (local Lean + Mathlib cache); lean4export v4.35.0 and nanoda_lib 8de7e0c built in the scratchpad. CI run 42352165146 (d6d6079): changes, work, **checked green** (trust steps, author files), nanoda shards 1 and 2 green (24 and 22 min); shards 0 and 3 running since 07:46Z.
+
+## Bottleneck
+STATE next step 2: the Townes certificates (1.4 GB of oleans, ≈ 40 min serial build, OOM in parallel) were too expensive to promote — the judge's export already exceeded the 6-hour job limit once with the TF chain. Yes (a much cheaper certificate) → the trio can be promoted and every later simulator chain costs minutes; no → the Townes result stays in Work.
+
+## Work
+1. **Kernel-evaluated cells** (08f4bd4): `Work/Sim/QPoly.lean` (ℚ coefficient-list arithmetic: `qadd`, `qmul`, `qderiv`, `qeval`, `qabs`, cast lemmas to `evalQ`/`dEvalQ`), `Work/Townes/TCellQ.lean` (`CellProp` = all side conditions of `TCell.cell` with both defect polynomials computed; `chain_gen`, `chain_q`, `seg_q`; `StartProp`/`start_q` for the singular start with the degree-40 series cubed in the kernel; `shoot_q`; `icc_glue`). Data `Work/Townes/TQData{A,B}.lean` by `scripts/conv_townes.py` from run 0228Z's generated modules (all conditions re-checked in Fractions); one `decide +kernel` per 25-cell segment (a single decision over 123 cells was OOM-killed). `TownesShooting` now uses them (statements unchanged); the twelve old modules moved to `_archive/Work/Townes/`. Whole Townes tree rebuilt, axioms standard.
+2. **Measurements** (local, LEDGER): build, olean size, lean4export lines and nanoda time as in the measure line.
+3. **check_literals strengthened** (30daeda, LEDGER): only literals matched by the reader's own tokens are covered.
+4. **Blind literal reading** (brief 9b0daf9 → reading ec5663a, Sonnet; brief template compiled with dummy numerals first): all 14 constants agree with the frozen statements; the reader's first attempt found a spurious value with a too-short integration horizon and corrected it itself.
+5. **Promotion** (branch `wip/townes-checked`, 21ba411, 2e29c8f): `scripts/promote_townes.py` → `Checked/Sim/QPoly.lean`, `Checked/Townes/*.lean` (13 modules, `#min_imports` per module bottom-up, all built locally), `Checked/Trust/SecondReadingTownes.lean`, headlines, readings, NV witnesses (compiled in a scratch file); promotion audit `Work/Townes/TownesPromotionAudit.lean` (the blind restatements closed from the CHECKED headlines; registered in audits.txt).
+
+## Not done
+Author files of the branch run, relock, TRUST_MAP/CLAIMS/packet, prose fixes, fast-forward of main (next run, STATE next step 1).
