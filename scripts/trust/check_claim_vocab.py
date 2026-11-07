@@ -234,13 +234,17 @@ def load_set(rel, text=None):
 
 def findings(vocab):
     out = []
+    claims_seen = {}
     for full, gen, para in sections():
         out += junk(full, gen)
         out += name_strength(full, gen)
+        out += name_vocab(full, gen, vocab)
+        out += duplicate(full, gen, claims_seen)
         if not para.strip():
             continue
         out += order(full, gen, para)
         out += bound_numerals(full, gen, para, vocab)
+        out += numeral_context(full, gen, para)
         out += quoted_spans(full, gen, para)
         gv = gen_vocab(gen)
         seen = set()
@@ -295,6 +299,17 @@ def quoted_spans(full, gen, para):
     g = re.sub(r"\s+", "", gen)
     out = []
     for sp in re.findall(r"`([^`]*)`", para):
+        # V12 (run 2026-11-07T1828Z, after reading blind red team T d03 — not blind): a span that states no relation
+        # but is a formula (anything but one identifier or one numeral) is a quotation too. T d03 wrote the Townes
+        # equation's right-hand side `-(1 / r * φ r) + θ r + θ r ^ 3` with the sign of θ³ flipped (the claim has
+        # `- θ r ^ 3`): no relation symbol, so V11 did not read it, and V6 compares numerals as a set.
+        if (not re.search(r"[<≤=≥>∈]", sp) and not re.fullmatch(r"\s*[\w.'′₀-₉⁰-⁹]+\s*", sp)
+                and re.sub(r"\s+", "", sp) not in g):
+            out.append((f"{full}|fspan:{re.sub(r'[|#]', ' ', sp.strip())[:80]}",
+                        f"V12: {full}: its paraphrase writes `{sp.strip()[:80]}` as code, a formula that does not occur "
+                        f"in the generated claim (a code span is read as a quotation of the statement: quote it exactly "
+                        f"or write it as prose)"))
+            continue
         if re.search(r"[<≤=≥>∈]", sp) and re.sub(r"\s+", "", sp) not in g:
             out.append((f"{full}|span:{re.sub(r'[|#]', ' ', sp.strip())[:80]}",
                         f"V11: {full}: its paraphrase writes `{sp.strip()[:80]}` as code, a relation that does not occur in "
@@ -355,6 +370,97 @@ def bound_numerals(full, gen, para, vocab):
                     f"that role (a disclosed word may name things, not count them)"))
     return out
 
+
+
+def name_vocab(full, gen, vocab):
+    """V13 (run 2026-11-07T1828Z, after reading blind red team T d06 — not blind): every word of a headline's name
+    (all components after `Checked.<Area>.`, camelCase and snake_case split) is a word of its generated claim, a
+    FUNCTION word or a disclosed vocabulary word (prose_vocab.txt, which V2 keeps free of strength and inference
+    words) — the allow-list V1 applies to paraphrases, applied to names. V8 read names against a deny-list (STRENGTH)
+    and was routed around within one round: T d06 registered the one-sided bound `lam ≤ 3.321992119` (for every
+    radial solution) as `GelfandPDEThreshold.gelfand_pde_radial_solvability_threshold`, a name that promises the
+    two-sided statement. 'exists'/'exist' are claim words when the claim says "there is"; 'fails'/'false' when it
+    says "not". Older names are baselined."""
+    lines = gen.split("\n")
+    body = "\n".join(l for i, l in enumerate(lines) if i > 0 and not l.startswith("Full name"))
+    gv = gen_vocab(gen) | set(words(body))
+    if re.search(r"\bthere (?:is|are|exists?)\b", body):
+        gv |= {"exist", "exists", "existence"}
+    if re.search(r"\bnot\b|¬", body):
+        gv |= {"fail", "fails", "false"}
+    out = []
+    for comp in W.name_words(full).split():
+        for w in sorted(split_ident(comp)):
+            if len(w) <= 1 or STRENGTH.match(w):  # strength words: V8
+                continue
+            if forms(w) & (gv | FUNCTION | vocab):
+                continue
+            out.append((f"{full}|nameword:{w}", f"V13: {full}: its name says '{w}', a word that is neither in the "
+                        f"generated claim nor in {VOCAB} (a name may only use the claim's words or disclosed "
+                        f"vocabulary; add a naming word there with a LEDGER line)"))
+    return out
+
+
+def duplicate(full, gen, seen):
+    """D1 (run 2026-11-07T1828Z, after reading blind red team T d02, d03, d06 — not blind): a headline whose generated
+    claim (everything but its heading and Full name line) is identical to an earlier section's adds no mathematics,
+    only a new name and a new paraphrase — exactly the reader-facing surface the red teams attack (T d02 "there are
+    two functions u", d03 a sign-flipped code span, d06 a 'threshold' name, each over a byte-identical copy of a
+    registered headline proved by that headline). Rejected; restate the paraphrase of the existing headline instead."""
+    lines = gen.split("\n")
+    body = re.sub(r"\s+", " ", "\n".join(l for i, l in enumerate(lines) if i > 0 and not l.startswith("Full name"))).strip()
+    if not body:
+        return []
+    if body in seen:
+        return [(f"{full}|dup", f"D1: {full}: its generated claim is identical to that of {seen[body]}: a second name "
+                 f"for the same statement adds only prose")]
+    seen[body] = full
+    return []
+
+
+# the grammatical part of FUNCTION (articles, prepositions, connectives, pronouns): V14 reads the word after a numeral
+# unless it is one of these
+GRAMMAR = set("""
+a an the of to in on at for from by with and or as is are be been being was were has have had its it itself
+their they them this that these those which whose where when what than then if such some both each not no nor also
+into onto over under below above between within out up down per via while whereas but here there
+""".split())
+
+
+def numeral_context(full, gen, para):
+    """V14 (run 2026-11-07T1828Z, after reading blind red team T d02 — not blind): a numeral of a paraphrase (digits or
+    a number word two…ten) that is directly followed by a content word ("two functions", "3 contours") states what it
+    counts; that word (or a form of it) must occur within four tokens of the same numeral in the generated claim. V6
+    compares numerals as a set and V10 binds only dimension and differentiability words: T d02 wrote "there are two
+    functions u" over `∃ u` whose only 2 is the order in `ContDiffOn ℝ 2`. Years are skipped (check_prose rule 9 reads
+    sources); older paraphrases are baselined."""
+    lines = gen.split("\n")
+    body = "\n".join(l for i, l in enumerate(lines) if i > 0 and not l.startswith("Full name"))
+    p = re.sub(r"`[^`]*`", " , ", para)
+    p = re.sub(r"\[[^\]]*\]", " ", p)
+    toks = re.findall(r"\d+(?:\.\d+)?|[A-Za-zÀ-ÖØ-öø-ÿ]+(?:-[A-Za-z]+)*|[^\sA-Za-z\d]", p)
+    gtoks = [t.lower() for t in re.findall(r"\d+(?:\.\d+)?|[A-Za-zÀ-ÖØ-öø-ÿ]+", body)]
+    out = []
+    for i, t in enumerate(toks):
+        tl = t.lower()
+        if tl == "twice" or not (re.fullmatch(r"\d+(?:\.\d+)?", t) or tl in NUMWORD):
+            continue
+        if re.fullmatch(r"(?:19|20)\d\d", t):
+            continue
+        val = t if t[0].isdigit() else str(NUMWORD[tl])
+        nxt = toks[i + 1] if i + 1 < len(toks) else ""
+        if not re.fullmatch(r"[A-Za-zÀ-ÖØ-öø-ÿ-]{2,}", nxt):
+            continue
+        w = norm(nxt.split("-")[0])
+        if forms(w) & GRAMMAR:  # grammatical words only: the nouns of FUNCTION (solutions, decimals, order) count
+            continue
+        if any(g == val and any(forms(norm(x)) & forms(w) for x in gtoks[max(0, j - 4):j + 5])
+               for j, g in enumerate(gtoks)):
+            continue
+        out.append((f"{full}|numctx:{val}:{w}", f"V14: {full}: its paraphrase writes '{t} {nxt}', but the generated "
+                    f"claim does not use '{nxt}' next to {val}: a numeral may not count or measure something the "
+                    f"statement's numeral does not"))
+    return out
 
 QU = r"(?:every|all|any|each|whenever)"
 QE = r"(?:there\s+(?:is|are|exists?)(?!\s+no\b)|exists?|some)"

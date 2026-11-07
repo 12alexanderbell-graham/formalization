@@ -1335,3 +1335,547 @@ Checked.Chemistry.RKAcentric.rk_coexistence_unique|name:unique
 Checked.Chemistry.PRAcentric.pr_omega1_unique|name:unique
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|name:unique
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|name:unique
+# run 2026-11-07T1828Z: V12 (formula spans), V13 (name words), V14 (numeral context) on the paraphrases and names of main 0b9051c
+checked.chemistry.coexistence.vdw_coexistence_exists|nameword:vd
+checked.chemistry.coexistence.vdw_coexistence_exists|numctx:27:rb
+checked.chemistry.coexistence.vdw_coexistence_exists|numctx:4:decimals
+checked.chemistry.coexistence.vdw_coexistence_exists|numctx:5:decimals
+checked.chemistry.coexistence.vdw_coexistence_unique|nameword:vd
+checked.chemistry.coexistence.vdw_coexistence_unique|numctx:27:rb
+checked.chemistry.coexistence.vdw_coexistence_unique|numctx:5:decimals
+checked.chemistry.cubiceos.critcubic_existsunique|nameword:eos
+checked.chemistry.cubiceos.exists_unique_critical|nameword:eos
+checked.chemistry.cubiceos.iscritical_iff|nameword:eos
+checked.chemistry.cubiceos.iscritical_iff|nameword:iff
+checked.chemistry.cubiceos.pr_constants|nameword:constants
+checked.chemistry.cubiceos.pr_constants|nameword:eos
+checked.chemistry.cubiceos.pr_constants|nameword:pr
+checked.chemistry.cubiceos.pr_constants|numctx:4:decimals
+checked.chemistry.cubiceos.pr_constants|numctx:5:decimals
+checked.chemistry.cubiceos.rk_constants|nameword:constants
+checked.chemistry.cubiceos.rk_constants|nameword:eos
+checked.chemistry.cubiceos.rk_constants|nameword:rk
+checked.chemistry.cubiceos.rk_constants|numctx:3:exactly
+checked.chemistry.cubiceos.rk_constants|numctx:5:decimals
+checked.chemistry.cubiceos.vdw_constants|nameword:constants
+checked.chemistry.cubiceos.vdw_constants|nameword:eos
+checked.chemistry.cubiceos.vdw_constants|nameword:vd
+checked.chemistry.pr78acentric.pr78_omega1_exists|nameword:omega
+checked.chemistry.pr78acentric.pr78_omega1_exists|nameword:pr
+checked.chemistry.pr78acentric.pr78_omega1_exists|numctx:0.0100:times
+checked.chemistry.pr78acentric.pr78_omega1_exists|numctx:3:decimals
+checked.chemistry.pr78acentric.pr78_omega1_exists|numctx:4:decimals
+checked.chemistry.pr78acentric.pr78_omega1_unique|nameword:omega
+checked.chemistry.pr78acentric.pr78_omega1_unique|nameword:pr
+checked.chemistry.pr78acentric.pr78_omega1_unique|numctx:0.0100:times
+checked.chemistry.pr78acentric.pr78_omega1_unique|numctx:3:decimals
+checked.chemistry.pr78acentric.pr78_omega1_unique|numctx:4:decimals
+checked.chemistry.pracentric.pr_omega1_exists|nameword:omega
+checked.chemistry.pracentric.pr_omega1_exists|nameword:pr
+checked.chemistry.pracentric.pr_omega1_exists|nameword:pracentric
+checked.chemistry.pracentric.pr_omega1_exists|numctx:0.0114:times
+checked.chemistry.pracentric.pr_omega1_exists|numctx:3:decimals
+checked.chemistry.pracentric.pr_omega1_exists|numctx:4:decimals
+checked.chemistry.pracentric.pr_omega1_unique|nameword:omega
+checked.chemistry.pracentric.pr_omega1_unique|nameword:pr
+checked.chemistry.pracentric.pr_omega1_unique|nameword:pracentric
+checked.chemistry.pracentric.pr_omega1_unique|numctx:0.0114:times
+checked.chemistry.pracentric.pr_omega1_unique|numctx:3:decimals
+checked.chemistry.pracentric.pr_omega1_unique|numctx:4:decimals
+checked.chemistry.rkacentric.rk_coexistence_exists|nameword:rk
+checked.chemistry.rkacentric.rk_coexistence_exists|nameword:rkacentric
+checked.chemistry.rkacentric.rk_coexistence_exists|numctx:0.087:times
+checked.chemistry.rkacentric.rk_coexistence_exists|numctx:3:decimals
+checked.chemistry.rkacentric.rk_coexistence_unique|nameword:rk
+checked.chemistry.rkacentric.rk_coexistence_unique|nameword:rkacentric
+checked.chemistry.rkacentric.rk_coexistence_unique|numctx:0.087:times
+checked.chemistry.rkacentric.rk_coexistence_unique|numctx:3:decimals
+checked.chemistry.srkacentric.srk_omega1_exists|nameword:omega
+checked.chemistry.srkacentric.srk_omega1_exists|nameword:srk
+checked.chemistry.srkacentric.srk_omega1_exists|nameword:srkacentric
+checked.chemistry.srkacentric.srk_omega1_exists|numctx:0.0102:times
+checked.chemistry.srkacentric.srk_omega1_exists|numctx:3:decimals
+checked.chemistry.srkacentric.srk_omega1_exists|numctx:4:decimals
+checked.chemistry.srkacentric.srk_omega1_unique|nameword:omega
+checked.chemistry.srkacentric.srk_omega1_unique|nameword:srk
+checked.chemistry.srkacentric.srk_omega1_unique|nameword:srkacentric
+checked.chemistry.srkacentric.srk_omega1_unique|numctx:0.0102:times
+checked.chemistry.srkacentric.srk_omega1_unique|numctx:3:decimals
+checked.chemistry.srkacentric.srk_omega1_unique|numctx:4:decimals
+checked.cosmography.aviles.avilesl0claim_false|fspan:35/2
+checked.cosmography.aviles.avilesl0claim_false|fspan:−19/2
+checked.cosmography.aviles.avilesm0claim_false|fspan:−134
+checked.cosmography.aviles.avilesm0claim_false|fspan:−455/4
+checked.cosmography.aviles.flatlcdm_coeffs|nameword:aviles
+checked.cosmography.aviles.flatlcdm_coeffs|numctx:6:times
+checked.cosmography.avileswitness.printedl0_false_at|nameword:aviles
+checked.cosmography.avileswitness.printedl0_false_at|nameword:printed
+checked.cosmography.avileswitness.printedl0_false_at|nameword:witness
+checked.cosmography.avileswitness.printedm0_false_at|nameword:aviles
+checked.cosmography.avileswitness.printedm0_false_at|nameword:printed
+checked.cosmography.avileswitness.printedm0_false_at|nameword:witness
+checked.cosmography.b1.cubic_misses_z3|nameword:cubic
+checked.cosmography.b1.cubic_misses_z3|nameword:misses
+checked.cosmography.b1.cubic_misses_z3|numctx:0.09:mag
+checked.cosmography.b1.cubic_misses_z7|nameword:cubic
+checked.cosmography.b1.cubic_misses_z7|nameword:misses
+checked.cosmography.b1.cubic_misses_z7|numctx:0.3:mag
+checked.cosmography.b1.cubic_shape_miss|nameword:cubic
+checked.cosmography.b1.cubic_shape_miss|nameword:miss
+checked.cosmography.b1.cubic_shape_miss|nameword:shape
+checked.cosmography.b1.cubic_shape_miss|numctx:0.18:mag
+checked.cosmography.b1.lumdistflat_flatlcdm|fspan:(1+z)/h₀ · ∫_{√(a(t)/a(t₀))}^{1} 2/√(ω + (1−ω)v⁶) dv
+checked.cosmography.b1.lumdistflat_flatlcdm|fspan:[t, t₀]
+checked.cosmography.b1.lumdistflat_flatlcdm|nameword:lcdm
+checked.cosmography.b1fit.fit_direction|fspan:(lusa2 ω, lusa3 ω)
+checked.cosmography.b1fit.fit_direction|fspan:a₂, a₃
+checked.cosmography.b1fit.fit_direction|fspan:z ≈ 0.41, 1.83, 4.66
+checked.cosmography.b1fit.fit_direction|nameword:direction
+checked.cosmography.b1fit.fit_direction|nameword:fit
+checked.cosmography.b1fit.fit_direction|numctx:0.05:mag
+checked.cosmography.b1fitrl19.rl19_box_unmatched|nameword:box
+checked.cosmography.b1fitrl19.rl19_box_unmatched|nameword:fit
+checked.cosmography.b1fitrl19.rl19_box_unmatched|nameword:rl
+checked.cosmography.b1fitrl19.rl19_box_unmatched|nameword:unmatched
+checked.cosmography.b1fitrl19.rl19_box_unmatched|numctx:0.05:mag
+checked.cosmography.b1fitrl19.rl19_box_unmatched|numctx:19:fig
+checked.cosmography.b1fitrl19.rl19_box_unmatched|numctx:3:contour
+checked.cosmography.b1l19.l19_sq_box|fspan:5 log₁₀(d_l / d_l)
+checked.cosmography.b1l19.l19_sq_box|nameword:box
+checked.cosmography.b1l19.l19_sq_box|nameword:sq
+checked.cosmography.b1l19.l19_sq_box|numctx:2:ends
+checked.cosmography.b1l19.l19_sq_box|numctx:3:printed
+checked.cosmography.b1l19.l19_sq_central|fspan:5 log₁₀(d_l / d_l)
+checked.cosmography.b1l19.l19_sq_central|nameword:central
+checked.cosmography.b1l19.l19_sq_central|nameword:sq
+checked.cosmography.b1l19.l19_sq_central|numctx:20:mag
+checked.cosmography.b1l19.l19_sqg_box|fspan:5 log₁₀(d_l / d_l)
+checked.cosmography.b1l19.l19_sqg_box|nameword:box
+checked.cosmography.b1l19.l19_sqg_box|nameword:sqg
+checked.cosmography.b1l19.l19_sqg_box|numctx:2:ends
+checked.cosmography.b1l19.l19_sqg_box|numctx:3:printed
+checked.cosmography.b1l19.l19_sqg_central|fspan:5 log₁₀(d_l / d_l)
+checked.cosmography.b1l19.l19_sqg_central|nameword:central
+checked.cosmography.b1l19.l19_sqg_central|nameword:sqg
+checked.cosmography.b1l19.l19_sqg_central|numctx:10:mag
+checked.cosmography.b1l19curved.l19_sq_curved|fspan:5 log₁₀(d_l / d_l)
+checked.cosmography.b1l19curved.l19_sq_curved|fspan:[1, 11/10]
+checked.cosmography.b1l19curved.l19_sq_curved|nameword:curved
+checked.cosmography.b1l19curved.l19_sq_curved|nameword:sq
+checked.cosmography.b1l19curved.l19_sq_curved|numctx:4:mag
+checked.cosmography.b1l19curved.l19_sqg_curved|fspan:5 log₁₀(d_l / d_l)
+checked.cosmography.b1l19curved.l19_sqg_curved|fspan:[1, 11/10]
+checked.cosmography.b1l19curved.l19_sqg_curved|nameword:curved
+checked.cosmography.b1l19curved.l19_sqg_curved|nameword:sqg
+checked.cosmography.b1l19curved.l19_sqg_curved|numctx:20:mag
+checked.cosmography.b1sep.cubic_direction|fspan:7 log₁₀ 2 ≈ 2.107
+checked.cosmography.b1sep.cubic_direction|fspan:runs/2026-10-31t0828z/referee_b1sep.md
+checked.cosmography.b1sep.cubic_direction|nameword:cubic
+checked.cosmography.b1sep.cubic_direction|nameword:direction
+checked.cosmography.b1sep.cubic_direction|nameword:sep
+checked.cosmography.b1sep.cubic_direction|numctx:0.05:mag
+checked.cosmography.b1sep.cubic_direction|numctx:1:direction
+checked.cosmography.b1sep.cubic_separation|fspan:(a₂, a₃)
+checked.cosmography.b1sep.cubic_separation|fspan:(lusa2 ω, lusa3 ω)
+checked.cosmography.b1sep.cubic_separation|fspan:a₂, a₃
+checked.cosmography.b1sep.cubic_separation|nameword:cubic
+checked.cosmography.b1sep.cubic_separation|nameword:sep
+checked.cosmography.b1sep.cubic_separation|nameword:separation
+checked.cosmography.b1sep.cubic_separation|numctx:0.05:mag
+checked.cosmography.b1sep.cubic_separation|numctx:1:separation
+checked.cosmography.bambaa.angdist_y_fifth_order|fspan:a(t₀) ≠ 0
+checked.cosmography.bambaa.angdist_y_fifth_order|fspan:h₀ ≠ 0
+checked.cosmography.bambaa.angdist_y_fifth_order|nameword:bamba
+checked.cosmography.bambaa.bambada3claim_false|fspan:d_a + o(y⁴)
+checked.cosmography.bambaa.bambada3claim_false|fspan:d_a(y)
+checked.cosmography.bambaa.bambada3claim_false|fspan:d⁰…d³_{a,y}
+checked.cosmography.bambaa.bambada3claim_false|fspan:t → t₀
+checked.cosmography.bambaa.bambada3claimpast_false|fspan:t → t₀⁻
+checked.cosmography.bambaa.bambada4claim_false|fspan:d_a + o(y⁵)
+checked.cosmography.bambaa.bambada4claim_false|fspan:d_a(y)
+checked.cosmography.bambaa.bambada4claim_false|fspan:d³_{a,y}
+checked.cosmography.bambaa.bambada4claim_false|fspan:d⁴_{a,y}
+checked.cosmography.bambaa.bambada4claim_false|fspan:t → t₀
+checked.cosmography.bambaa.bambada4claimpast_false|fspan:t → t₀⁻
+checked.cosmography.bambaa.milne_printedda4_fails_past|fspan:d³_{a,y}
+checked.cosmography.bambaa.milne_printedda4_fails_past|fspan:d⁴_{a,y}
+checked.cosmography.bambaa.milne_printedda4_fails_past|nameword:bamba
+checked.cosmography.bambaa.milne_printedda4_fails_past|nameword:milne
+checked.cosmography.bambaa.milne_printedda4_fails_past|nameword:past
+checked.cosmography.bambaa.printedda3_fails_past|fspan:a(t₀) ≠ 0
+checked.cosmography.bambaa.printedda3_fails_past|fspan:d³_{a,y}
+checked.cosmography.bambaa.printedda3_fails_past|fspan:h₀ ≠ 0
+checked.cosmography.bambaa.printedda3_fails_past|fspan:q₀ ≠ 0
+checked.cosmography.bambaa.printedda3_fails_past|fspan:ω₀ ≠ 1
+checked.cosmography.bambaa.printedda3_fails_past|nameword:bamba
+checked.cosmography.bambaa.printedda3_fails_past|nameword:past
+checked.cosmography.bambaa.printedda3_fails|fspan:a(t₀) ≠ 0
+checked.cosmography.bambaa.printedda3_fails|fspan:d_a + o(y⁴)
+checked.cosmography.bambaa.printedda3_fails|fspan:d_a(y)
+checked.cosmography.bambaa.printedda3_fails|fspan:d³_{a,y}
+checked.cosmography.bambaa.printedda3_fails|fspan:h₀ ≠ 0
+checked.cosmography.bambaa.printedda3_fails|fspan:q₀ ≠ 0
+checked.cosmography.bambaa.printedda3_fails|fspan:t → t₀
+checked.cosmography.bambaa.printedda3_fails|fspan:ω₀ ≠ 1
+checked.cosmography.bambaa.printedda3_fails|nameword:bamba
+checked.cosmography.bambaa.printedda4_fails_past|fspan:(ω₀ − 1)[(ω₀ − 1) + 10j₀ − 45q₀² + 20q₀] ≠ 0
+checked.cosmography.bambaa.printedda4_fails_past|fspan:d³_{a,y}
+checked.cosmography.bambaa.printedda4_fails_past|fspan:d⁴_{a,y}
+checked.cosmography.bambaa.printedda4_fails_past|nameword:bamba
+checked.cosmography.bambaa.printedda4_fails_past|nameword:past
+checked.cosmography.bambaa.printedda4_fails|fspan:(ω₀ − 1)[(ω₀ − 1) + 10j₀ − 45q₀² + 20q₀] ≠ 0
+checked.cosmography.bambaa.printedda4_fails|fspan:a(t₀) ≠ 0
+checked.cosmography.bambaa.printedda4_fails|fspan:d_a + o(y⁵)
+checked.cosmography.bambaa.printedda4_fails|fspan:d_a(y)
+checked.cosmography.bambaa.printedda4_fails|fspan:d³_{a,y}
+checked.cosmography.bambaa.printedda4_fails|fspan:d⁴_{a,y}
+checked.cosmography.bambaa.printedda4_fails|fspan:h₀ ≠ 0
+checked.cosmography.bambaa.printedda4_fails|fspan:t → t₀
+checked.cosmography.bambaa.printedda4_fails|nameword:bamba
+checked.cosmography.bambak.bambad3yclaim_false|fspan:d_l + o(y⁴)
+checked.cosmography.bambak.bambad3yclaim_false|fspan:d_l(y)
+checked.cosmography.bambak.bambad3yclaim_false|fspan:d²_{l,y}
+checked.cosmography.bambak.bambad3yclaim_false|fspan:d³_{l,y}
+checked.cosmography.bambak.bambad3yclaim_false|fspan:t → t₀
+checked.cosmography.bambak.bambad3yclaimpast_false|fspan:t → t₀⁻
+checked.cosmography.bambak.bambad4yclaim_false|fspan:d_l + o(y⁵)
+checked.cosmography.bambak.bambad4yclaim_false|fspan:d_l(y)
+checked.cosmography.bambak.bambad4yclaim_false|fspan:d⁴_{l,y}
+checked.cosmography.bambak.bambad4yclaim_false|fspan:t → t₀
+checked.cosmography.bambak.bambad4yclaimpast_false|fspan:t → t₀⁻
+checked.cosmography.bambak.lumdist_y_fifth_order|fspan:a(t₀) ≠ 0
+checked.cosmography.bambak.lumdist_y_fifth_order|fspan:h₀ ≠ 0
+checked.cosmography.bambak.lumdist_y_fifth_order|nameword:bamba
+checked.cosmography.bambak.milne_printedd3y_fails_past|fspan:(ω₀ − 1)²/120
+checked.cosmography.bambak.milne_printedd3y_fails_past|fspan:k²χ⁵/120
+checked.cosmography.bambak.milne_printedd3y_fails_past|nameword:bamba
+checked.cosmography.bambak.milne_printedd3y_fails_past|nameword:milne
+checked.cosmography.bambak.milne_printedd3y_fails_past|nameword:past
+checked.cosmography.bambak.milne_printedd4y_fails_past|fspan:d_l + o(y⁵)
+checked.cosmography.bambak.milne_printedd4y_fails_past|fspan:d_l(y)
+checked.cosmography.bambak.milne_printedd4y_fails_past|fspan:d⁴_{l,y}
+checked.cosmography.bambak.milne_printedd4y_fails_past|fspan:t → 1⁻
+checked.cosmography.bambak.milne_printedd4y_fails_past|nameword:bamba
+checked.cosmography.bambak.milne_printedd4y_fails_past|nameword:milne
+checked.cosmography.bambak.milne_printedd4y_fails_past|nameword:past
+checked.cosmography.bambak.printedd3y_fails_past|fspan:a(t₀) ≠ 0
+checked.cosmography.bambak.printedd3y_fails_past|fspan:d³_{l,y}
+checked.cosmography.bambak.printedd3y_fails_past|fspan:h₀ ≠ 0
+checked.cosmography.bambak.printedd3y_fails_past|fspan:q₀ ≠ 2/3
+checked.cosmography.bambak.printedd3y_fails_past|fspan:ω₀ ≠ 1
+checked.cosmography.bambak.printedd3y_fails_past|nameword:bamba
+checked.cosmography.bambak.printedd3y_fails_past|nameword:past
+checked.cosmography.bambak.printedd3y_fails|fspan:(ω₀ − 1)(3q₀ − 2) ≠ 0
+checked.cosmography.bambak.printedd3y_fails|fspan:a(t₀) ≠ 0
+checked.cosmography.bambak.printedd3y_fails|fspan:d_l + o(y⁴)
+checked.cosmography.bambak.printedd3y_fails|fspan:d_l(y)
+checked.cosmography.bambak.printedd3y_fails|fspan:d²_{l,y}
+checked.cosmography.bambak.printedd3y_fails|fspan:d³_{l,y}
+checked.cosmography.bambak.printedd3y_fails|fspan:h₀ ≠ 0
+checked.cosmography.bambak.printedd3y_fails|fspan:t → t₀
+checked.cosmography.bambak.printedd3y_fails|nameword:bamba
+checked.cosmography.bambak.printedd4y_fails_past|fspan:(ω₀ − 1)²/120 + 5 q₀ (ω₀ − 1)/12 ≠ 0
+checked.cosmography.bambak.printedd4y_fails_past|fspan:a(t₀) ≠ 0
+checked.cosmography.bambak.printedd4y_fails_past|fspan:d⁴_{l,y}
+checked.cosmography.bambak.printedd4y_fails_past|fspan:h₀ ≠ 0
+checked.cosmography.bambak.printedd4y_fails_past|nameword:bamba
+checked.cosmography.bambak.printedd4y_fails_past|nameword:past
+checked.cosmography.bambak.printedd4y_fails|fspan:(ω₀ − 1)²/120 + 5q₀(ω₀ − 1)/12 ≠ 0
+checked.cosmography.bambak.printedd4y_fails|fspan:a(t₀) ≠ 0
+checked.cosmography.bambak.printedd4y_fails|fspan:d_l + o(y⁵)
+checked.cosmography.bambak.printedd4y_fails|fspan:d_l(y)
+checked.cosmography.bambak.printedd4y_fails|fspan:d⁴_{l,y}
+checked.cosmography.bambak.printedd4y_fails|fspan:h₀ ≠ 0
+checked.cosmography.bambak.printedd4y_fails|fspan:t → t₀
+checked.cosmography.bambak.printedd4y_fails|nameword:bamba
+checked.cosmography.bambay.lumdist_y_third_order|fspan:a(t₀) ≠ 0
+checked.cosmography.bambay.lumdist_y_third_order|fspan:d²_{l,y}
+checked.cosmography.bambay.lumdist_y_third_order|fspan:h₀ ≠ 0
+checked.cosmography.bambay.lumdist_y_third_order|nameword:bamba
+checked.cosmography.bambay.printedd2y_fails_past|fspan:11 − 5q₀ + 3q₀² − j₀ ≠ 0
+checked.cosmography.bambay.printedd2y_fails_past|fspan:a(t₀) ≠ 0
+checked.cosmography.bambay.printedd2y_fails_past|fspan:d²_{l,y}
+checked.cosmography.bambay.printedd2y_fails_past|fspan:h₀ ≠ 0
+checked.cosmography.bambay.printedd2y_fails_past|nameword:bamba
+checked.cosmography.bambay.printedd2y_fails_past|nameword:past
+checked.cosmography.bambay.printedd2y_fails|fspan:11 − 5q₀ + 3q₀² − j₀ ≠ 0
+checked.cosmography.bambay.printedd2y_fails|fspan:a(t₀) ≠ 0
+checked.cosmography.bambay.printedd2y_fails|fspan:d_l + o(y³)
+checked.cosmography.bambay.printedd2y_fails|fspan:d_l(y)
+checked.cosmography.bambay.printedd2y_fails|fspan:d²_{l,y}
+checked.cosmography.bambay.printedd2y_fails|fspan:h₀ ≠ 0
+checked.cosmography.bambay.printedd2y_fails|fspan:t → t₀
+checked.cosmography.bambay.printedd2y_fails|nameword:bamba
+checked.cosmography.bambaz.angdist_z_fifth_order|fspan:+k²/120
+checked.cosmography.bambaz.angdist_z_fifth_order|fspan:a(t₀) ≠ 0
+checked.cosmography.bambaz.angdist_z_fifth_order|fspan:d⁰…d³_a
+checked.cosmography.bambaz.angdist_z_fifth_order|fspan:h₀ ≠ 0
+checked.cosmography.bambaz.angdist_z_fifth_order|nameword:bamba
+checked.cosmography.bambaz.bambadazclaim_false|fspan:d_a + o(z⁵)
+checked.cosmography.bambaz.bambadazclaim_false|fspan:d_a(z)
+checked.cosmography.bambaz.bambadazclaim_false|fspan:d⁰…d⁴_a
+checked.cosmography.bambaz.bambadazclaim_false|fspan:t → t₀
+checked.cosmography.bambaz.bambadazclaimpast_false|fspan:t → t₀⁻
+checked.cosmography.bambaz.bambadlzclaim_false|fspan:d_l + o(z⁵)
+checked.cosmography.bambaz.bambadlzclaim_false|fspan:d_l(z)
+checked.cosmography.bambaz.bambadlzclaim_false|fspan:d⁰…d⁴_l
+checked.cosmography.bambaz.bambadlzclaim_false|fspan:t → t₀
+checked.cosmography.bambaz.bambadlzclaimpast_false|fspan:t → t₀⁻
+checked.cosmography.bambaz.lumdist_z_fifth_order|fspan:a(t₀) ≠ 0
+checked.cosmography.bambaz.lumdist_z_fifth_order|fspan:d⁰…d³_l
+checked.cosmography.bambaz.lumdist_z_fifth_order|fspan:h₀ ≠ 0
+checked.cosmography.bambaz.lumdist_z_fifth_order|nameword:bamba
+checked.cosmography.bambaz.milne_printeddl4z_fails_past|nameword:bamba
+checked.cosmography.bambaz.milne_printeddl4z_fails_past|nameword:milne
+checked.cosmography.bambaz.milne_printeddl4z_fails_past|nameword:past
+checked.cosmography.bambaz.printed_flat_eq|nameword:bamba
+checked.cosmography.bambaz.printed_flat_eq|nameword:eq
+checked.cosmography.bambaz.printed_flat_eq|nameword:flat
+checked.cosmography.bambaz.printedda4z_fails_past|fspan:a(t₀) ≠ 0
+checked.cosmography.bambaz.printedda4z_fails_past|fspan:h₀ ≠ 0
+checked.cosmography.bambaz.printedda4z_fails_past|nameword:bamba
+checked.cosmography.bambaz.printedda4z_fails_past|nameword:past
+checked.cosmography.bambaz.printeddl4z_fails_past|fspan:a(t₀) ≠ 0
+checked.cosmography.bambaz.printeddl4z_fails_past|fspan:h₀ ≠ 0
+checked.cosmography.bambaz.printeddl4z_fails_past|nameword:bamba
+checked.cosmography.bambaz.printeddl4z_fails_past|nameword:past
+checked.cosmography.ccs.ccsd4claim_false|nameword:ccs
+checked.cosmography.ccs.ccsd4claimpast_false|nameword:ccs
+checked.cosmography.ccs.lookback_fifth_order|fspan:a(t₀) ≠ 0
+checked.cosmography.ccs.lookback_fifth_order|fspan:h₀ ≠ 0
+checked.cosmography.ccs.lookback_fifth_order|nameword:ccs
+checked.cosmography.ccs.lookback_fifth_order|nameword:lookback
+checked.cosmography.ccs.printedd4_fails_past|fspan:h₀ ≠ 0
+checked.cosmography.ccs.printedd4_fails_past|fspan:q₀ ≠ 0
+checked.cosmography.ccs.printedd4_fails_past|nameword:ccs
+checked.cosmography.ccs.printedd4_fails_past|nameword:past
+checked.cosmography.ccs.printedd4_fails|fspan:a(t₀) ≠ 0
+checked.cosmography.ccs.printedd4_fails|fspan:h₀ ≠ 0
+checked.cosmography.ccs.printedd4_fails|fspan:q₀ ≠ 0
+checked.cosmography.ccs.printedd4_fails|nameword:ccs
+checked.cosmography.cpl.clsl0claim_false|nameword:cls
+checked.cosmography.cpl.flatcpl_coeffs|fspan:(7 − ω)
+checked.cosmography.cpl.flatcpl_coeffs|fspan:9 (7 − ω)
+checked.cosmography.cpl.printedl0_ne|fspan:(1 − ω)(7 − ω) wₐ ≠ 0
+checked.cosmography.cpl.printedl0_ne|nameword:ne
+checked.cosmography.cpl.printedl0_ne|nameword:printed
+checked.cosmography.cplexistence.exists_flatcpl|nameword:cplexistence
+checked.cosmography.cplexistence.exists_local_model|nameword:cplexistence
+checked.cosmography.cplexistence.exists_local_model|nameword:local
+checked.cosmography.cplexistence.exists_local_model|nameword:model
+checked.cosmography.cplexistence.printedl0_false_at|fspan:(1 − ω)(7 − ω) wₐ ≠ 0
+checked.cosmography.cplexistence.printedl0_false_at|nameword:cplexistence
+checked.cosmography.cplexistence.printedl0_false_at|nameword:printed
+checked.cosmography.cvdq.dq_y_third_order|nameword:cvd
+checked.cosmography.cvdq.printedq2_fails_past|fspan:−1 − 2q₀ + 12q₀² − 4j₀ ≠ 0
+checked.cosmography.cvdq.printedq2_fails_past|nameword:cvd
+checked.cosmography.cvdq.printedq2_fails_past|nameword:past
+checked.cosmography.demianskiz.demda4_fails_past|fspan:a(t₀) ≠ 0
+checked.cosmography.demianskiz.demda4_fails_past|fspan:h₀ ≠ 0
+checked.cosmography.demianskiz.demda4_fails_past|fspan:j₀ ≠ 0
+checked.cosmography.demianskiz.demda4_fails_past|nameword:demianski
+checked.cosmography.demianskiz.demda4_fails_past|nameword:past
+checked.cosmography.demianskiz.demdazclaim_false|fspan:d_a + o(z⁵)
+checked.cosmography.demianskiz.demdazclaim_false|fspan:d_a(z)
+checked.cosmography.demianskiz.demdazclaim_false|nameword:demianski
+checked.cosmography.demianskiz.demdazclaimpast_false|fspan:d_a(z)
+checked.cosmography.demianskiz.demdazclaimpast_false|fspan:t → t₀⁻
+checked.cosmography.demianskiz.demdazclaimpast_false|nameword:demianski
+checked.cosmography.demianskiz.demdl4_fails_past|fspan:a(t₀) ≠ 0
+checked.cosmography.demianskiz.demdl4_fails_past|fspan:h₀ ≠ 0
+checked.cosmography.demianskiz.demdl4_fails_past|fspan:q₀ ≠ 0
+checked.cosmography.demianskiz.demdl4_fails_past|nameword:demianski
+checked.cosmography.demianskiz.demdl4_fails_past|nameword:past
+checked.cosmography.demianskiz.demdlzclaim_false|fspan:d_l + o(z⁵)
+checked.cosmography.demianskiz.demdlzclaim_false|fspan:d_l(z)
+checked.cosmography.demianskiz.demdlzclaim_false|nameword:demianski
+checked.cosmography.demianskiz.demdlzclaimpast_false|fspan:d_l(z)
+checked.cosmography.demianskiz.demdlzclaimpast_false|fspan:t → t₀⁻
+checked.cosmography.demianskiz.demdlzclaimpast_false|nameword:demianski
+checked.cosmography.demianskiz.flat_corrections|fspan:+(137/60)j₀
+checked.cosmography.demianskiz.flat_corrections|fspan:+(7/4)q₀⁴
+checked.cosmography.demianskiz.flat_corrections|fspan:+105q₀⁴
+checked.cosmography.demianskiz.flat_corrections|fspan:+137j₀
+checked.cosmography.demianskiz.flat_corrections|fspan:−105q₀⁴
+checked.cosmography.demianskiz.flat_corrections|fspan:−137j₀
+checked.cosmography.demianskiz.flat_corrections|nameword:demianski
+checked.cosmography.demianskiz.flat_corrections|nameword:flat
+checked.cosmography.frcosmo.curv_derivs|fspan:+2(q₀ + 4)j₀
+checked.cosmography.frcosmo.curv_derivs|nameword:frcosmo
+checked.cosmography.frcosmo.curv_derivs|numctx:3:time
+checked.cosmography.frcosmo.exists_lcdm_model|nameword:frcosmo
+checked.cosmography.frcosmo.exists_lcdm_model|nameword:model
+checked.cosmography.frcosmo.fr_values|nameword:frcosmo
+checked.cosmography.frcosmo.printedf0_false_at|fspan:−(243ω⁴ + 540ω³ − 6264ω² + 9360ω − 3328)/16
+checked.cosmography.frcosmo.printedf0_false_at|nameword:frcosmo
+checked.cosmography.frcosmo.printedf0claim_false|nameword:frcosmo
+checked.cosmography.frcosmo.printedf0claimmul_false|nameword:frcosmo
+checked.cosmography.frcosmo.printedf0mul_false_at|nameword:frcosmo
+checked.cosmography.frcosmo.printedf0mul_false_at|nameword:mul
+checked.cosmography.frcosmo.printedr3claim_false|fspan:−2(q₀ + 4)j₀
+checked.cosmography.frcosmo.printedr3claim_false|nameword:frcosmo
+checked.cosmography.freta.eta20_hasderivat|nameword:freta
+checked.cosmography.freta.eta30_hasderivat|nameword:freta
+checked.cosmography.freta.eta_numbers|fspan:0.15ε, −0.12ε
+checked.cosmography.freta.eta_numbers|fspan:4ε, −0.18ε
+checked.cosmography.freta.eta_numbers|fspan:η₂₀ ≈ −0.249ε, −0.032ε
+checked.cosmography.freta.eta_numbers|fspan:η₃₀ ≈ −0.400ε, −0.0152ε
+checked.cosmography.freta.eta_numbers|nameword:eta
+checked.cosmography.freta.eta_numbers|nameword:freta
+checked.cosmography.freta.eta_ratios|fspan:≈
+checked.cosmography.freta.eta_ratios|nameword:freta
+checked.cosmography.freta.eta_ratios|numctx:2:ratios
+checked.cosmography.freta.printedeta20_false_at|fspan:(54ω² − 29ω − 2)(27ω² + 24ω − 32)
+checked.cosmography.freta.printedeta20_false_at|nameword:freta
+checked.cosmography.freta.printedeta20_false_at|numctx:2:roots
+checked.cosmography.freta.printedeta20claim_false|nameword:freta
+checked.cosmography.freta.printedeta30_false_at|nameword:freta
+checked.cosmography.freta.printedeta30claim_false|nameword:freta
+checked.cosmography.lookback_second_order_bigo|fspan:t → t₀
+checked.cosmography.lookback_second_order_bigo|nameword:big
+checked.cosmography.lookback_second_order_bigo|nameword:lookback
+checked.cosmography.lookback_second_order|fspan:t → t₀
+checked.cosmography.lookback_second_order|nameword:lookback
+checked.cosmography.lookback_second_order|numctx:6:ef
+checked.cosmography.transverse.transverse_expansion|nameword:expansion
+checked.data.fr13.fr13_bestfit68|nameword:bestfit
+checked.data.fr13.fr13_bestfit738|nameword:bestfit
+checked.data.fr13.fr13_minval68|nameword:minval
+checked.data.fr13.fr13_minval738|nameword:minval
+checked.data.fr13.fr13_zda68|nameword:zda
+checked.data.fr13.fr13_zda68|numctx:1:solving
+checked.data.fr13.fr13_zda738|nameword:zda
+checked.data.fr13.fr13_zda738|numctx:1:solving
+checked.data.moresco16.line_bic_exceeds|nameword:bic
+checked.data.moresco16.line_bic_exceeds|nameword:moresco
+checked.data.moresco16.line_bic_exceeds|numctx:2:ln
+checked.data.moresco16.ol_bic_exceeds|nameword:bic
+checked.data.moresco16.ol_bic_exceeds|nameword:moresco
+checked.data.moresco16.ol_bic_exceeds|numctx:3:ln
+checked.data.moresco16.table5_line_inconsistent|nameword:inconsistent
+checked.data.moresco16.table5_line_inconsistent|nameword:line
+checked.data.moresco16.table5_line_inconsistent|nameword:moresco
+checked.data.moresco16.table5_line_inconsistent|nameword:table
+checked.data.moresco16.table5_line_inconsistent|numctx:2:ln
+checked.data.moresco16.table5_ol_inconsistent|nameword:inconsistent
+checked.data.moresco16.table5_ol_inconsistent|nameword:moresco
+checked.data.moresco16.table5_ol_inconsistent|nameword:table
+checked.data.moresco16.table5_ol_inconsistent|numctx:2:ln
+checked.data.moresco16.table5_ol_inconsistent|numctx:3:ln
+checked.data.moresco16.table5_pw_inconsistent|nameword:inconsistent
+checked.data.moresco16.table5_pw_inconsistent|nameword:moresco
+checked.data.moresco16.table5_pw_inconsistent|nameword:pw
+checked.data.moresco16.table5_pw_inconsistent|nameword:table
+checked.data.moresco16.table5_pw_inconsistent|numctx:2:ln
+checked.data.moresco16.table5_pw_inconsistent|numctx:4:ln
+checked.data.moresco16min.chisqol_ge|nameword:ge
+checked.data.moresco16min.chisqol_ge|nameword:min
+checked.data.moresco16min.chisqol_ge|nameword:moresco
+checked.data.moresco16min.chisqol_glb_prior|nameword:min
+checked.data.moresco16min.chisqol_glb_prior|nameword:moresco
+checked.data.moresco16min.chisqol_glb_prior|nameword:prior
+checked.data.moresco16min.chisqol_glb_wide|nameword:min
+checked.data.moresco16min.chisqol_glb_wide|nameword:moresco
+checked.data.moresco16min.chisqol_glb_wide|nameword:wide
+checked.data.moresco16min.chisqol_glb_wide|numctx:4:exists
+checked.data.moresco16min.chisqol_lt|nameword:lt
+checked.data.moresco16min.chisqol_lt|nameword:min
+checked.data.moresco16min.chisqol_lt|nameword:moresco
+checked.data.moresco16min.table5_ol_aicc_unattainable|nameword:aicc
+checked.data.moresco16min.table5_ol_aicc_unattainable|nameword:min
+checked.data.moresco16min.table5_ol_aicc_unattainable|nameword:moresco
+checked.data.moresco16min.table5_ol_aicc_unattainable|nameword:unattainable
+checked.data.moresco16min.table5_ol_aicc_unattainable|numctx:3:exceeds
+checked.fidelity.angdistspec_pins|fspan:[t, t₀]
+checked.fidelity.comoving_pins|fspan:a₀ (1 + z)
+checked.fidelity.cosmocoeffcore_pins|fspan:ȧ(t₀) ≠ 0
+checked.fidelity.cosmocoeffcore_pins|nameword:core
+checked.fidelity.curvkspec_pins|fspan:h₀ ≠ 0
+checked.fidelity.curvkspec_pins|nameword:kspec
+checked.fidelity.decelspec_pins|fspan:ȧ(t) ≠ 0
+checked.fidelity.flatlcdmspec2_pins|nameword:lcdmspec
+checked.fidelity.friedmanneq_iff_blind|nameword:blind
+checked.fidelity.friedmanneq_iff_blind|nameword:iff
+checked.fidelity.friedmanneq_iff_blind|numctx:00:equation
+checked.fidelity.isflatcpl_iff_friedmanncpl|fspan:ω, w₀, wₐ
+checked.fidelity.isflatcpl_iff_friedmanncpl|nameword:iff
+checked.fidelity.isflatlcdm_iff_friedmann|nameword:iff
+checked.fidelity.mastereq_iff_blind|nameword:blind
+checked.fidelity.mastereq_iff_blind|nameword:iff
+checked.fidelity.omega0spec_pins|fspan:h₀ ≠ 0
+checked.fidelity.redshiftcore_pins|nameword:core
+checked.fidelity.yredspec_pins|nameword:red
+checked.math.gelfand.gelfand_ball_critical|nameword:ball
+checked.math.gelfand.gelfand_ball_critical|nameword:critical
+checked.math.gelfandpde.gelfand_pde_radial_bound|nameword:pde
+checked.math.gelfandpdeexists.gelfand_pde_radial_exists|nameword:pde
+checked.math.gelfandpdeexists.gelfand_pde_radial_exists|nameword:pdeexists
+checked.math.laneemden.laneemden3_constants|nameword:constants
+checked.math.laneemden.laneemden3_constants|nameword:emden
+checked.math.laneemden.laneemden3_constants|nameword:lane
+checked.math.laneemden.laneemden3_constants|numctx:0:before
+checked.math.leexists.exists_solution|nameword:leexists
+checked.math.thomasfermi.tf_initial_slope|nameword:fermi
+checked.math.thomasfermi.tf_initial_slope|nameword:initial
+checked.math.thomasfermi.tf_initial_slope|nameword:slope
+checked.math.thomasfermi.tf_initial_slope|nameword:tf
+checked.math.thomasfermi.tf_initial_slope|nameword:thomas
+checked.math.thomasfermiexists.tf_exists|nameword:fermi
+checked.math.thomasfermiexists.tf_exists|nameword:tf
+checked.math.thomasfermiexists.tf_exists|nameword:thomas
+checked.records.f10_eta|nameword:eta
+checked.records.f10_exceptions|fspan:(0, 1)
+checked.records.f10_exceptions|fspan:(54ω² − 29ω − 2)(27ω² + 24ω − 32) ≠ 0
+checked.records.f10_exceptions|fspan:ω ≈ 0.176
+checked.records.f10_exceptions|fspan:ω ≈ 0.599
+checked.records.f10_exceptions|fspan:ω ≈ 0.731
+checked.records.f10_exceptions|nameword:exceptions
+checked.records.f10_exceptions|numctx:2:factors
+checked.records.f10_exceptions|numctx:2:refutations
+checked.records.f10_exceptions|numctx:3:decimals
+checked.records.f10_family_pole|fspan:ε ≈ 0.032
+checked.records.f10_family_pole|nameword:family
+checked.records.f10_family_pole|nameword:pole
+checked.records.f10_printed_pole|fspan:ω ≈ 0.176
+checked.records.f10_printed_pole|nameword:pole
+checked.records.f11_sizes|fspan:(7/4)q₀⁴ z⁴
+checked.records.f11_sizes|fspan:l₀ ↦ l₀ − 210q₀⁴
+checked.records.f11_sizes|fspan:−86
+checked.records.f11_sizes|nameword:sizes
+checked.records.f1_l0|numctx:3:decimals
+checked.records.f1_m0_agrees|fspan:(0, 1)
+checked.records.f1_m0_agrees|fspan:ω ≈ 0.549
+checked.records.f1_printedl0|nameword:printed
+checked.records.f2_error|nameword:error
+checked.records.f2_toy|fspan:−0.906
+checked.records.f2_toy|nameword:toy
+checked.records.f3_d4_lcdm|fspan:printed − correct
+checked.records.f8_sizes|fspan:0.56 %
+checked.records.f8_sizes|fspan:1.3 × 10⁻⁵
+checked.records.f8_sizes|fspan:6.7 %
+checked.records.f8_sizes|fspan:k²z⁴/120
+checked.records.f8_sizes|fspan:z⁵/120
+checked.records.f8_sizes|nameword:sizes
+checked.records.f9_pole|fspan:ω ≈ 0.538
+checked.records.f9_pole|nameword:pole
+checked.records.f9_values|fspan:3h₀²(ω − 2)
+checked.records.f9_values|fspan:−5.25 h₀²
+checked.sim.duffing.duffing_first_zero_sol|nameword:sol
+checked.sim.duffing.duffing_first_zero_sol|numctx:0:released
+checked.sim.michaelismenten.mm_half_conversion|nameword:conversion
+checked.sim.michaelismenten.mm_half_conversion|nameword:half
+checked.sim.michaelismenten.mm_half_conversion|nameword:menten
+checked.sim.michaelismenten.mm_half_conversion|nameword:michaelis
+checked.sim.michaelismenten.mm_solution_exists|nameword:menten
+checked.sim.michaelismenten.mm_solution_exists|nameword:michaelis
+checked.sim.robertson.rob_exists|nameword:robertson
+checked.sim.robertson.rob_state40|nameword:robertson
+checked.sim.robertson.rob_state40|nameword:state
+checked.sim.roblong.rob_exists_1e11|nameword:long
+checked.sim.roblong.rob_printed_y3_low|nameword:long
+checked.sim.roblong.rob_printed_y3_low|nameword:low
+checked.sim.roblong.rob_printed_y3_low|nameword:printed
+checked.sim.roblong.rob_state1e11|nameword:long
+checked.sim.roblong.rob_state1e11|nameword:state
+checked.townes.shooting.townes_over|nameword:shooting
+checked.townes.shooting.townes_under|nameword:shooting

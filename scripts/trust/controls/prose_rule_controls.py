@@ -36,11 +36,13 @@ def section(name, gen_body, para, defs=""):
     return f"Checked.Ctl.{name}", "\n".join(g), " ".join(p)
 
 
-def run_vocab(full, gen, para, vocab=frozenset()):
+def run_vocab(full, gen, para, vocab=frozenset(), extra=()):
+    # 'ctl' and 'ok' are the controls' own naming words (V13 reads names); extra sections precede the control (D1)
     old = V.sections
-    V.sections = lambda path=None: [(full, gen, para)]
+    V.sections = lambda path=None: list(extra) + [(full, gen, para)]
+    vocab = set(vocab) | {"ctl", "ok"}
     try:
-        return [k for k, _ in V.findings(set(vocab))]
+        return [k for k, _ in V.findings(set(vocab)) if not any(k.startswith(e[0] + "|") for e in extra)]
     finally:
         V.sections = old
 
@@ -56,7 +58,7 @@ CASES = [
     ("V6 numeral", True, ("ctl_v6", GELFAND, "For every `lam` there is a function `u` with 7 derivatives."), set()),
     ("V7 order", True, ("ctl_v7", GELFAND, "There is a function `u` for every `lam`."), set()),
     ("V8 name", True, ("ctl_unique_solution", GELFAND, "For every `lam` there is a function `u`."), set()),
-    ("V8 clean name", False, ("ctl_solution", GELFAND, "For every `lam` there is a function `u`."), set()),
+    ("V8 clean name", False, ("ctl_solution", GELFAND, "For every `lam` there is a function `u`."), {"solution"}),
     ("V9 unpinned name", True, ("ctl_v9", "**For every** `t : ℝ`:\n\n**then**\n\n- `IsDecelerating Real.exp t`",
                                 "For every `t` the scale factor is decelerating.",
                                 "- `IsDecelerating a t` — COMPOSITE, not pinned, so only the formula shown is checked, not its name (for `a : ℝ → ℝ`, `t : ℝ`): means `decel a t < 0`"), {"scale", "factor"}),
@@ -66,6 +68,13 @@ CASES = [
     ("V10 clean", False, ("ctl_v10ok", GELFAND, "In dimension 3, for every `lam` there is a function `u`, twice continuously differentiable."), {"dimension", "continuously", "twice"}),
     ("V11 span", True, ("ctl_v11", ROB, "For every `y₁`, `y₃`: `1 / 10 < y₃ 40` and `y₁ 40 < 2 / 10`."), set()),
     ("V11 clean", False, ("ctl_v11ok", ROB, "For every `y₁`, `y₃`: `1 / 10 < y₁ 40` and `y₃ 40 < 2 / 10`."), set()),
+    # run 2026-11-07T1828Z (after blind red team T, not blind): V12 formula spans, V13 name words, V14 numeral context
+    ("V12 formula span", True, ("ctl_v12", GELFAND, "For every `lam` there is a function `u` in `Metric.ball 0 2`."), set()),
+    ("V12 clean", False, ("ctl_v12ok", GELFAND, "For every `lam` there is a function `u` in `Metric.ball 0 1`."), set()),
+    ("V13 name word", True, ("ctl_threshold", GELFAND, "For every `lam` there is a function `u`."), set()),
+    ("V13 clean", False, ("ctl_exists", GELFAND, "For every `lam` there is a function `u`."), set()),
+    ("V14 count", True, ("ctl_v14", GELFAND, "For every `lam` there are two functions `u`."), set()),
+    ("V14 clean", False, ("ctl_v14ok", GELFAND, "For every `lam` there is a function `u` indexed by 3 Fin."), {"indexed"}),
 ]
 
 
@@ -91,9 +100,17 @@ def main():
             bad.append(f"S2: check_status_lines rejected the clean control: {S.s2_words(line_ok, set())}")
     finally:
         V.sections = oldsec
+    # D1 (run 2026-11-07T1828Z): a second headline with the same generated claim is rejected; a different claim is not
+    first = section("ctl_first", GELFAND, "For every `lam` there is a function `u`.")
+    dup = section("ctl_second", GELFAND, "For every `lam` there is a function `u`.")
+    other = section("ctl_second", ROB, "For every `y₁`, `y₃`: `1 / 10 < y₁ 40` and `y₃ 40 < 2 / 10`.")
+    if not any(k.endswith("|dup") for k in run_vocab(*dup, {"first", "second"}, extra=[first])):
+        bad.append("D1: check_claim_vocab accepted its control defect (the rule is dead)")
+    if any(k.endswith("|dup") for k in run_vocab(*other, {"first", "second"}, extra=[first])):
+        bad.append("D1: check_claim_vocab rejected the clean control")
     for b in bad:
         print("  " + b)
-    print(f"prose_rule_controls: {len(CASES) + 2} controls; {'FAIL' if bad else 'ok'}")
+    print(f"prose_rule_controls: {len(CASES) + 4} controls; {'FAIL' if bad else 'ok'}")
     return 1 if bad else 0
 
 
