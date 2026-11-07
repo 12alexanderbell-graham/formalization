@@ -1126,3 +1126,205 @@ Checked.Cosmography.B1Sep.cubic_direction|num:2.107
 Checked.Cosmography.B1Fit.fit_direction|num:0.41
 Checked.Cosmography.B1Fit.fit_direction|num:1.83
 Checked.Cosmography.B1Fit.fit_direction|num:4.66
+Checked.Cosmography.lookback_second_order|span:z = z(t)
+Checked.Cosmography.lookback_second_order|span:t₀ - t = H₀⁻¹ (z - (1 + q₀/2) z²) + o(z²)
+Checked.Cosmography.lookback_second_order_bigO|span:t₀ - t = H₀⁻¹ (z - (1 + q₀/2) z²) + O(z³)
+Checked.Cosmography.Aviles.flatLCDM_coeffs|span:H = H₀ √(Ω(1+z)³ + 1 − Ω)
+Checked.Cosmography.Aviles.flatLCDM_coeffs|span:q₀ = 3Ω/2 − 1
+Checked.Cosmography.Aviles.flatLCDM_coeffs|span:j₀ = 1
+Checked.Cosmography.Aviles.flatLCDM_coeffs|span:s₀ = 1 − 9Ω/2
+Checked.Cosmography.Aviles.flatLCDM_coeffs|span:l₀ = 1 + 3Ω + 27Ω²/2
+Checked.Cosmography.Aviles.flatLCDM_coeffs|span:m₀ = 1 − 27Ω/2 − 81Ω² − 81Ω³/4
+Checked.Cosmography.CPLExistence.exists_flatCPL|span:t₀ = 0
+Checked.Cosmography.CCS.ccsD4Claim_false|span:a = exp
+Checked.Cosmography.CCS.ccsD4Claim_false|span:t₀ = 0
+Checked.Cosmography.BambaY.bambaD2yClaim_false|span:a = exp
+Checked.Cosmography.BambaY.bambaD2yClaim_false|span:t₀ = 0
+Checked.Cosmography.BambaK.bambaD3yClaim_false|span:H₀ > 0
+Checked.Cosmography.BambaK.bambaD4yClaim_false|span:H₀ > 0
+Checked.Cosmography.BambaK.milne_printedD3y_fails_past|span:a = t
+Checked.Cosmography.BambaK.milne_printedD3y_fails_past|span:q₀ = 0
+Checked.Cosmography.BambaK.milne_printedD4y_fails_past|span:a = t
+Checked.Cosmography.BambaK.milne_printedD4y_fails_past|span:K = −1
+Checked.Cosmography.BambaK.milne_printedD4y_fails_past|span:t₀ = 1
+Checked.Cosmography.BambaK.milne_printedD4y_fails_past|span:Ω₀ = 0
+Checked.Cosmography.BambaK.milne_printedD4y_fails_past|span:q₀ = 0
+Checked.Cosmography.Transverse.transverse_expansion|span:S_K(χ) = χ − Kχ³/6 + K²χ⁵/120 + o(χ⁵)
+Checked.Cosmography.BambaA.bambaDA3Claim_false|span:H₀ > 0
+Checked.Cosmography.BambaA.bambaDA4Claim_false|span:H₀ > 0
+Checked.Cosmography.BambaA.milne_printedDA4_fails_past|span:a = t
+Checked.Cosmography.BambaA.milne_printedDA4_fails_past|span:K = −1
+Checked.Cosmography.BambaA.milne_printedDA4_fails_past|span:t₀ = 1
+Checked.Cosmography.BambaA.milne_printedDA4_fails_past|span:q₀ = 0
+Checked.Cosmography.BambaZ.bambaDLzClaim_false|span:H₀ > 0
+Checked.Cosmography.BambaZ.bambaDAzClaim_false|span:H₀ > 0
+Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|span:a = t
+Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|span:K = −1
+Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|span:t₀ = 1
+Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|span:H₀d_L = z + z²/2
+Checked.Cosmography.BambaZ.printed_flat_eq|span:K = 0
+Checked.Cosmography.FRCosmo.curv_derivs|span:a(t₀) > 0
+Checked.Cosmography.FRCosmo.curv_derivs|span:H₀ > 0
+Checked.Cosmography.FRCosmo.curv_derivs|span:R₀ = −6H₀²(1 − q₀)
+Checked.Cosmography.FRCosmo.curv_derivs|span:Ṙ₀ = −6H₀³(j₀ − q₀ − 2)
+Checked.Cosmography.FRCosmo.curv_derivs|span:R̈₀ = −6H₀⁴(s₀ + q₀² + 8q₀ + 6)
+Checked.Cosmography.FRCosmo.curv_derivs|span:R⃛₀ = −6H₀⁵[l₀ − s₀ − 2(q₀ + 4)j₀ − 6(3q₀ + 8)q₀ − 24]
+Checked.Cosmography.FRCosmo.exists_LCDM_model|span:Ω ∈ (0,1)
+Checked.Cosmography.FRCosmo.exists_LCDM_model|span:F(R) = R + 2Λ
+Checked.Cosmography.FRCosmo.exists_LCDM_model|span:Λ = 3H₀²(1 − Ω)
+Checked.Cosmography.FRCosmo.printedR3Claim_false|span:d³R₀/dt³ = −6H₀⁵[l₀ − s₀ + 2(q₀ + 4)j₀ − 6(3q₀ + 8)q₀ − 24]
+Checked.Cosmography.FRCosmo.printedR3Claim_false|span:a(t₀) > 0
+Checked.Cosmography.FRCosmo.printedR3Claim_false|span:H₀ > 0
+Checked.Cosmography.FRCosmo.printedF0Mul_false_at|span:Ω ∈ (0,1)
+Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|span:R·F(R₀) = −6H₀²(P₀Ω + Q₀)
+Checked.Cosmography.FRCosmo.printedF0_false_at|span:Ω ∈ (0,1)
+Checked.Cosmography.FRCosmo.printedF0Claim_false|span:Ω = 1/4
+Checked.Cosmography.FRCosmo.printedF0Claim_false|span:Ω_M = 0.25
+Checked.Cosmography.FRCosmo.printedF0Claim_false|span:Ω ∈ (0,1)
+Checked.Cosmography.FREta.eta20_hasDerivAt|span:η₂₀ = correct20(Ω)·ε
+Checked.Cosmography.FREta.eta30_hasDerivAt|span:η₃₀ = correct30(Ω)·ε
+Checked.Cosmography.FREta.printedEta20_false_at|span:Ω ∈ (0,1)
+Checked.Cosmography.FREta.printedEta20Claim_false|span:η₂₀(Ω, ε) = η₂₀(Ω, 0) + printed20(Ω)·ε + o(ε)
+Checked.Cosmography.FREta.printedEta20Claim_false|span:0 < Ω < 1
+Checked.Cosmography.FREta.printedEta30Claim_false|span:η₃₀(Ω, ε) = η₃₀(Ω, 0) + printed30(Ω)·ε + o(ε)
+Checked.Cosmography.FREta.printedEta30Claim_false|span:0 < Ω < 1
+Checked.Cosmography.DemianskiZ.demDLzClaim_false|span:H₀ > 0
+Checked.Cosmography.DemianskiZ.demDAzClaim_false|span:H₀ > 0
+Checked.Fidelity.hubbleSpec_pins|span:H = d ln a/dt
+Checked.Fidelity.decelSpec_pins|bind:differentiable:2
+Checked.Fidelity.decelSpec_pins|bind:times:2
+Checked.Fidelity.angDistSpec_pins|span:K ∈ {0, ±1}
+Checked.Fidelity.redshiftCore_pins|span:a > 0
+Checked.Fidelity.cosmoCoeffCore_pins|span:a > 0
+Checked.Fidelity.yRedSpec_pins|span:a t₀, a t > 0
+Checked.Fidelity.omega0Spec_pins|span:a₀ > 0
+Checked.Fidelity.curvKSpec_pins|span:a₀ > 0
+Checked.Fidelity.lumDistFlat_pins|span:K = 0
+Checked.Fidelity.ricciSpec_pins|bind:times:2
+Checked.Fidelity.ricciSpec_pins|span:a > 0
+Checked.Fidelity.friedmannEq_iff_blind|span:R = curv a
+Checked.Fidelity.masterEq_iff_blind|span:R = curv a
+Checked.Records.F1_l0|span:Ω_m = 0.3
+Checked.Records.F1_l0|span:l₀ = 3.115
+Checked.Records.F1_printedL0|span:l₀ = 1 + 3Ω − (27/2)Ω²
+Checked.Records.F1_printedL0|span:Ω = 0.3
+Checked.Records.F1_m0_agrees|span:Ω = (√7 − 1)/3
+Checked.Records.F2_toy|span:(Ω, w₀, wₐ) = (0.245, −0.93, −0.41)
+Checked.Records.F2_toy|span:l₀ = 0.809
+Checked.Records.F2_error|span:Ω = 0.3
+Checked.Records.F2_error|span:wₐ = −0.5
+Checked.Records.F3_D4_LCDM|span:Ω_m = 0.3
+Checked.Records.F3_D4_LCDM|span:q₀ = −0.55
+Checked.Records.F8_sizes|span: k  = 0.01
+Checked.Records.F8_sizes|span:z = 2
+Checked.Records.F8_sizes|span:H₀d_L = z + z²/2
+Checked.Records.F8_sizes|span:z = 1
+Checked.Records.F8_sizes|span:z = 2
+Checked.Records.F9_values|span:Ω = 0.25
+Checked.Records.F9_values|span:F(R₀) = 0.277 H₀²
+Checked.Records.F9_values|span:H₀ = 1
+Checked.Records.F10_eta|span:Ω = 0.041, 0.25
+Checked.Records.F10_family_pole|span:Ω = 0.041
+Checked.Records.F10_family_pole|span:j₀ − q₀ − 2 = 0
+Checked.Records.F11_sizes|span:q₀ = −0.80
+Checked.Records.F11_sizes|span:z = 1
+Checked.Cosmography.B1.cubic_misses_z3|span:Ω ∈ [0.2, 0.4]
+Checked.Cosmography.B1.cubic_misses_z3|span:z = 3
+Checked.Cosmography.B1.cubic_misses_z7|span:z = 7
+Checked.Cosmography.B1.cubic_shape_miss|span:Ω ∈ [0.2, 0.4]
+Checked.Cosmography.B1.cubic_shape_miss|span:z = 3
+Checked.Cosmography.B1.cubic_shape_miss|span:z = 7
+Checked.Cosmography.B1.cubic_shape_miss|span:z = 7
+Checked.Cosmography.B1.cubic_shape_miss|span:z = 3
+Checked.Cosmography.B1Sep.cubic_separation|span:Ω ∈ [0.2, 0.4]
+Checked.Cosmography.B1Sep.cubic_separation|span:z = 3
+Checked.Cosmography.B1Sep.cubic_separation|span:z = 7
+Checked.Cosmography.B1Sep.cubic_separation|span:H > 0
+Checked.Cosmography.B1Sep.cubic_separation|span:z = 3
+Checked.Cosmography.B1Sep.cubic_separation|span:z = 7
+Checked.Cosmography.B1Sep.cubic_direction|span:Ω ∈ [0.2, 0.4]
+Checked.Cosmography.B1Sep.cubic_direction|span:z = 3
+Checked.Cosmography.B1Sep.cubic_direction|span:z = 7
+Checked.Cosmography.B1Sep.cubic_direction|span:Ω ∈ [0.2, 0.4]
+Checked.Cosmography.B1Sep.cubic_direction|span:z = 3
+Checked.Cosmography.B1Sep.cubic_direction|span:z = 7
+Checked.Cosmography.B1Sep.cubic_direction|span:a₂ − lusA2 Ω < 7 log₁₀2 · (a₃ − lusA3 Ω)
+Checked.Cosmography.B1Fit.fit_direction|span:Ω ∈ [0, 1]
+Checked.Cosmography.B1Fit.fit_direction|span:H = H₀ √(Ω(1+z)³ + 1 − Ω)
+Checked.Cosmography.B1Fit.fit_direction|span:H₀ > 0
+Checked.Cosmography.B1Fit.fit_direction|span:1 + z = √2, 2√2, 4√2
+Checked.Cosmography.B1Fit.fit_direction|span:H > 0
+Checked.Cosmography.B1Fit.fit_direction|span:a₂ − lusA2 Ω + 1/2 < (20/3) log₁₀ 2 · (a₃ − lusA3 Ω)
+Checked.Cosmography.B1FitRL19.rl19_box_unmatched|span:Ω ∈ [0, 1]
+Checked.Cosmography.B1FitRL19.rl19_box_unmatched|span:a₂ ∈ [3.43, 3.49]
+Checked.Cosmography.B1FitRL19.rl19_box_unmatched|span:a₃ ∈ [1.57, 1.69]
+Checked.Cosmography.B1FitRL19.rl19_box_unmatched|span:H > 0
+Checked.Cosmography.B1FitRL19.rl19_box_unmatched|span:1 + z = √2, 2√2, 4√2
+Checked.Cosmography.B1FitRL19.rl19_box_unmatched|span:H = H₀√(Ω(1+z)³ + 1 − Ω)
+Checked.Cosmography.B1L19.l19_sq_central|span:Ω ∈ [0, 1]
+Checked.Cosmography.B1L19.l19_sq_central|span:H = H₀ √(Ω(1+z)³ + 1 − Ω)
+Checked.Cosmography.B1L19.l19_sq_central|span:H₀ > 0
+Checked.Cosmography.B1L19.l19_sq_central|span:1 + z = 2√2
+Checked.Cosmography.B1L19.l19_sq_central|span:1 + z = 4√2
+Checked.Cosmography.B1L19.l19_sq_central|span:H > 0
+Checked.Cosmography.B1L19.l19_sq_central|span:a₂ = 3.075
+Checked.Cosmography.B1L19.l19_sq_central|span:a₃ = 4.466
+Checked.Cosmography.B1L19.l19_sq_central|span:a₄ = −3.716
+Checked.Cosmography.B1L19.l19_sq_central|span:1 + z = 4√2
+Checked.Cosmography.B1L19.l19_sq_central|span:1 + z = 2√2
+Checked.Cosmography.B1L19.l19_sqg_central|span:Ω ∈ [0, 1]
+Checked.Cosmography.B1L19.l19_sqg_central|span:H = H₀ √(Ω(1+z)³ + 1 − Ω)
+Checked.Cosmography.B1L19.l19_sqg_central|span:H₀ > 0
+Checked.Cosmography.B1L19.l19_sqg_central|span:1 + z = 2√2
+Checked.Cosmography.B1L19.l19_sqg_central|span:1 + z = 4√2
+Checked.Cosmography.B1L19.l19_sqg_central|span:H > 0
+Checked.Cosmography.B1L19.l19_sqg_central|span:a₂ = 3.205
+Checked.Cosmography.B1L19.l19_sqg_central|span:a₃ = 3.564
+Checked.Cosmography.B1L19.l19_sqg_central|span:a₄ = −2.510
+Checked.Cosmography.B1L19.l19_sqg_central|span:1 + z = 4√2
+Checked.Cosmography.B1L19.l19_sqg_central|span:1 + z = 2√2
+Checked.Cosmography.B1L19.l19_sq_box|span:Ω ∈ [0, 1]
+Checked.Cosmography.B1L19.l19_sq_box|span:H = H₀ √(Ω(1+z)³ + 1 − Ω)
+Checked.Cosmography.B1L19.l19_sq_box|span:H₀ > 0
+Checked.Cosmography.B1L19.l19_sq_box|span:1 + z = 2√2
+Checked.Cosmography.B1L19.l19_sq_box|span:1 + z = 4√2
+Checked.Cosmography.B1L19.l19_sq_box|span:a₂ ≥ 2.906
+Checked.Cosmography.B1L19.l19_sq_box|span:a₄ ≤ −1.794
+Checked.Cosmography.B1L19.l19_sq_box|span:H > 0
+Checked.Cosmography.B1L19.l19_sq_box|span:1 + z = 4√2
+Checked.Cosmography.B1L19.l19_sq_box|span:1 + z = 2√2
+Checked.Cosmography.B1L19.l19_sqg_box|span:Ω ∈ [0, 1]
+Checked.Cosmography.B1L19.l19_sqg_box|span:H = H₀ √(Ω(1+z)³ + 1 − Ω)
+Checked.Cosmography.B1L19.l19_sqg_box|span:H₀ > 0
+Checked.Cosmography.B1L19.l19_sqg_box|span:1 + z = 2√2
+Checked.Cosmography.B1L19.l19_sqg_box|span:1 + z = 4√2
+Checked.Cosmography.B1L19.l19_sqg_box|span:a₂ ≥ 3.043
+Checked.Cosmography.B1L19.l19_sqg_box|span:a₄ ≤ −0.915
+Checked.Cosmography.B1L19.l19_sqg_box|span:H > 0
+Checked.Cosmography.B1L19.l19_sqg_box|span:1 + z = 4√2
+Checked.Cosmography.B1L19.l19_sqg_box|span:1 + z = 2√2
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:Ω ∈ [1/10, 1]
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:Ω₀ = 1 + K/(H₀²a₀²)
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:H = H₀ √(Ω(1+z)³ + (1 − Ω₀)(1+z)² + Ω₀ − Ω)
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:H₀ > 0
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:1 + z = 2√2
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:1 + z = 4√2
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:H > 0
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:a₂ = 3.075
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:a₃ = 4.466
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:a₄ = −3.716
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:1 + z = 4√2
+Checked.Cosmography.B1L19Curved.l19_sq_curved|span:1 + z = 2√2
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:Ω ∈ [1/10, 1]
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:Ω₀ = 1 + K/(H₀²a₀²)
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:H = H₀ √(Ω(1+z)³ + (1 − Ω₀)(1+z)² + Ω₀ − Ω)
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:H₀ > 0
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:1 + z = 2√2
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:1 + z = 4√2
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:H > 0
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:a₂ = 3.205
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:a₃ = 3.564
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:a₄ = −2.510
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:1 + z = 4√2
+Checked.Cosmography.B1L19Curved.l19_sqg_curved|span:1 + z = 2√2
+Checked.Math.Gelfand.gelfand_ball_critical|bind:dimensional:3

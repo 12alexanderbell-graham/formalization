@@ -20,7 +20,8 @@ S2 (run 2026-11-07T1428Z, after judging blind red team R d05 on main — not bli
     generated claim (CLAIMS.md) of a headline the bullet cites — by full name or by a backticked unique suffix —
     contains that word. R d05 rewrote the Gelfand PDE bullet as **PROVED** with both registered headlines and added
     "has exactly one classical solution … and none at all …, radial or not, … settled": S1 passed because the
-    citations were genuine.
+    citations were genuine. Since blind red team S d04 (read, not blind): also precise…, non-… ("radial or
+    non-radial"), arbitrary, generic, independent.
 
 Limits: a deny-list (a claim-changing word outside NARROW still passes); words outside the bold status (a bullet can still say "CI green" falsely: the CI run ID it cites is the
 evidence a reader can follow), other files (README.md, run records), statuses other than PROVED.
@@ -34,7 +35,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 NARROW = re.compile(r"(?i)^(?:unique\w*|exactly|only|sole\w*|none|nothing|settle\w*|solved|resolved|regardless|"
                     r"whatever|whichever|irrespective\w*|or-not|sharp\w*|optimal\w*|best|tight\w*|global\w*|"
-                    r"universal\w*)$")
+                    r"universal\w*|precise\w*|non-(?!vacuity|vacuous|increasing|decreasing|negative|positive|zero|empty)\w+|arbitrar\w*|generic\w*|independen\w*)$")
 
 
 def s2_words(line, heads):

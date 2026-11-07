@@ -43,6 +43,10 @@ V7 (quantifier order; run 2026-11-07T0028Z, after blind red team Q d04 — not b
    words ("a level above each energy" counts; "a level above the energies" does not).
 V8 (names; run 2026-11-07T0028Z, after blind red team R d02 — not blind): a STRENGTH word in the headline's name
    (unique, exact, sharp, optimal, …) must occur in its generated claim.
+V11 (quoted relations; run 2026-11-07T1428Z, after reading blind red team S — not blind): a paraphrase code span
+   that states a relation must occur verbatim (whitespace ignored) in the generated claim. Also since S: V10 reads
+   BIND words within three words of a numeral and numerals glued to D ("3D"); STRENGTH (so V2 and V8) includes
+   arbitrary/generic/independent/regardless/irrespective.
 V10 (bound numerals; run 2026-11-07T1428Z, after judging blind red team R d04 — not blind): a numeral next to a
    disclosed-vocabulary word ("dimension 2", "two-dimensional") needs that word's Lean shape with that numeral in the
    generated claim (`BIND`: `Fin n` for dimension, `ContDiff ℝ n` for "n times continuously"); V6 now also reads
@@ -97,7 +101,9 @@ STRENGTH = re.compile(r"(?i)^(?:unique|uniquely|uniqueness|exactly|only|sole|sol
                       # long-time behaviour (since Q d05 "the system has settled at equilibrium" over exp(−t) < 1/2)
                       r"settle\w*|converg\w*|asymptot\w*|final|finally|eventual\w*|ultimate\w*|"
                       # optimality (since R d06 "and this bound is sharp" over `lam ≤ 4`, `sharp` disclosed)
-                      r"sharp\w*|tight\w*|optimal\w*|optimum|best|improv\w*|unimprov\w*|attain\w*|achiev\w*)$")
+                      r"sharp\w*|tight\w*|optimal\w*|optimum|best|improv\w*|unimprov\w*|attain\w*|achiev\w*|"
+                      # arbitrary data (since S d03 `rob_state40_arbitrary_rates` over fixed rate constants; not blind)
+                      r"arbitrar\w*|generic\w*|independen\w*|regardless|irrespective\w*)$")
 
 WORD = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]+(?:['’][A-Za-z]+)?")
 
@@ -235,6 +241,7 @@ def findings(vocab):
             continue
         out += order(full, gen, para)
         out += bound_numerals(full, gen, para, vocab)
+        out += quoted_spans(full, gen, para)
         gv = gen_vocab(gen)
         seen = set()
         for w in words(para):
@@ -280,6 +287,21 @@ BIND = [
 ]
 
 
+def quoted_spans(full, gen, para):
+    """V11 (run 2026-11-07T1428Z, after reading blind red team S d05 — not blind): a code span of a paraphrase that
+    states a relation (<, ≤, =, ≥, >, ∈) is a quotation of the statement: it must occur in the generated claim
+    (whitespace ignored). S d05 swapped the bounds of y₁ and y₃ inside code spans built from the claim's own
+    numerals and names; V6 compares numerals as a set. Older paraphrases' informal formulas are baselined."""
+    g = re.sub(r"\s+", "", gen)
+    out = []
+    for sp in re.findall(r"`([^`]*)`", para):
+        if re.search(r"[<≤=≥>∈]", sp) and re.sub(r"\s+", "", sp) not in g:
+            out.append((f"{full}|span:{re.sub(r'[|#]', ' ', sp.strip())[:80]}",
+                        f"V11: {full}: its paraphrase writes `{sp.strip()[:80]}` as code, a relation that does not occur in "
+                        f"the generated claim: quote the statement or say it in words"))
+    return out
+
+
 def numval(t):
     t = t.lower()
     return str(NUMWORD[t]) if t in NUMWORD else t
@@ -295,14 +317,38 @@ def bound_numerals(full, gen, para, vocab):
     paraphrases)."""
     gv = gen_vocab(gen)
     text = re.sub(r"`[^`]*`", " ", para)
+    # a numeral glued to a dimension letter ("3D", "2-D", "3d") is a dimension (since S d02 "in 3D"; not blind)
+    text = re.sub(r"(?i)\b(\d+)[\s-]?d\b", r"\1 dimensional", text)
     out = []
+    pairs = []
     for m in re.finditer(rf"(?i)\b({NUMTOK})[\s-]+([A-Za-z]+)|\b([A-Za-z]+)[\s-]+({NUMTOK})\b", text):
         num, w = (m.group(1), m.group(2)) if m.group(1) else (m.group(4), m.group(3))
+        pairs.append((num, w))
+    # BIND families are read in a window of three words on each side of a numeral, whether or not the word is in
+    # the disclosed vocabulary (since S d01 "three times continuously differentiable": the word next to the
+    # numeral was 'times', not a vocabulary word; not blind)
+    toks = re.findall(rf"(?i){NUMTOK}|[A-Za-z]+", text)
+    for i, t in enumerate(toks):
+        if not re.fullmatch(rf"(?i){NUMTOK}", t):
+            continue
+        near = toks[max(0, i - 2):i] + toks[i + 1:i + 3]
+        for w in near:
+            if BIND[0][0].match(w) and (t, w) not in pairs:
+                pairs.append((t, w))
+        # "n times … differentiable / continuously" (and "twice …"): the count of derivatives
+        after = toks[i + 1:i + 5]
+        if (t.lower() == "twice" or (after[:1] and after[0].lower() == "times")) and any(
+                re.fullmatch(r"(?i)differentiable|continuously|smooth", w) for w in after):
+            pairs.append((t, "times"))
+    for num, w in pairs:
         f = forms(norm(w))
-        if not (f & vocab) or (f & gv):
+        bound = [shape for rx, shape in BIND if rx.match(w)]
+        if not bound and (not (f & vocab) or (f & gv)):
             continue
         n = numval(num)
-        if any(rx.match(w) and re.search(shape(n), gen) for rx, shape in BIND):
+        if bound and any(re.search(shape(n), gen) for shape in bound):
+            continue
+        if not bound and any(rx.match(w) and re.search(shape(n), gen) for rx, shape in BIND):
             continue
         out.append((f"{full}|bind:{norm(w)}:{n}", f"V10: {full}: its paraphrase attaches the number {num} to '{w}', a "
                     f"vocabulary word the generated claim does not use, and the claim does not state that number in "
