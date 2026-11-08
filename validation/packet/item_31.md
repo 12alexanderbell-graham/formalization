@@ -6,26 +6,38 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
-- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (`1.2325876568 < q 0`) and (`q 0 < 1.2325876569`)
+**assuming**
+
+1. `15 / 2 ≤ S`
+2. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt f (p η) (Set.Icc 0 S) η`
+3. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt p (q η) (Set.Icc 0 S) η`
+4. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Icc 0 S) η`
+5. `f 0 = 0`
+6. `p 0 = 0`
+7. `q 0 = 1.2325876568`
+
+**then**
+
+- there is `η : ℝ` such that (`η ∈ Set.Ioc 0 (15 / 2)`) and (`q η < 0`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 η`, then `p s < 1`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Hiemenz stagnation-point flow: there is a solution of f''' + f f'' + 1 − f'² = 0 on [0, ∞)
-(f has derivative p, p has derivative q, q has derivative −f q − 1 + p², one-sided at 0) with
-f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞, q > 0 on [0, ∞), and wall shear q(0) = f''(0) strictly
-between 1.2325876568 and 1.2325876569.
+Hiemenz stagnation-point flow, undershoot: for every S ≥ 15/2 and every solution of
+f''' + f f'' + 1 − f'² = 0 on [0, S] (f has derivative p, p has derivative q, q has derivative
+−f q − 1 + p², within [0, S]) with f(0) = 0, p(0) = 0 and q(0) = 1.2325876568, there is
+η in (0, 15/2] with q(η) < 0 and p < 1 on [0, η].
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem hiemenz_exists_monotone : ∃ f p q : ℝ → ℝ,
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Ici 0) η) ∧
-    f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧ (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
-    1.2325876568 < q 0 ∧ q 0 < 1.2325876569 := …
+theorem hiemenz_under (S : ℝ) (hS : 15 / 2 ≤ S) (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt f (p η) (Icc 0 S) η)
+    (hp : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt p (q η) (Icc 0 S) η)
+    (hq : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Icc 0 S) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 1.2325876568) :
+    ∃ η ∈ Ioc (0 : ℝ) (15 / 2), q η < 0 ∧ ∀ s ∈ Icc 0 η, p s < 1 := …
 ```
 
 ## Definitions it uses
@@ -37,8 +49,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hiemenz_under`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/MonotoneExists.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Hiemenz/Hiemenz.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 31

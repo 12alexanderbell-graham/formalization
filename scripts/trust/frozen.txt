@@ -272,6 +272,9 @@ Checked.FalknerSkan.Bounded.hiemenz_exists_bounded eff1b1a2-doc75168425955516142
 Checked.FalknerSkan.Bounded.homann_bounded_equal 7823317-doc15031305066158606356
 Checked.FalknerSkan.Bounded.homann_bounded_window 404461a6-doc8679184108264927823
 Checked.FalknerSkan.Bounded.homann_exists_bounded b880fa31-doc12797413680508519035
+Checked.FalknerSkan.HalfBounded.fs_half_bounded_equal 8672017-doc17476068647071115534
+Checked.FalknerSkan.HalfBounded.fs_half_bounded_window a90925d4-doc3013611644069239904
+Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded 2634fa21-doc13178334518109507211
 Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone 88d2dd0e-doc7650516872405001050
 Checked.FalknerSkan.MonotoneExists.homann_exists_monotone 20cb52c4-doc8367086458688938965
 Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window 78a54082-doc12104196721363992899
@@ -2087,6 +2090,7 @@ moduledoc:Checked.FalknerSkan.CroccoMap -mdoc6176723414911369388
 moduledoc:Checked.FalknerSkan.CroccoWindow -mdoc1764999034406625581
 moduledoc:Checked.FalknerSkan.FSScale -mdoc7137273582316677182
 moduledoc:Checked.FalknerSkan.FalknerSkan -mdoc349848568453626590
+moduledoc:Checked.FalknerSkan.HalfBounded -mdoc3132353104485929659
 moduledoc:Checked.FalknerSkan.MonotoneExists -mdoc12682757103394502662
 moduledoc:Checked.FalknerSkan.MonotoneWindow -mdoc5585761144945174777
 moduledoc:Checked.Fidelity.CriticalSpec -mdoc7440715596430870242
@@ -2277,4 +2281,4 @@ moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc11552357440305928661
+moduledoc:Checked.Trust.Witnesses -mdoc12601694744998103796

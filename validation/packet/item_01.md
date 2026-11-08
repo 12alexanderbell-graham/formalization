@@ -6,63 +6,52 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
 
 **assuming**
 
-1. `0 < ac`
+1. `0 < a`
 2. `0 < b`
 3. `b < v`
-4. the molar volume `v` is a critical point of the isotherm `cubicP R ac b 2 (-1) Tc` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
-5. `b < vl`
-6. the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `cubicP R (ac * (1 + (0.379642 + 1.48503 * 1 - 0.164423 * 1 ^ 2 + 16666e-6 * 1 ^ 3) * (1 - √(7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)
+4. the molar volume `v` is a critical point of the isotherm `cubicP R a b 1 0 T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
 
 **then**
 
-1. `RoundsTo (ps / cubicP R ac b 2 (-1) Tc v) 100e-4 4`
-2. `RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc v)) 1.000 3`
+1. `cubicP R a b 1 0 T v * v / (R * T) = 1 / 3`
+2. `RoundsTo (b * cubicP R a b 1 0 T v / (R * T)) 7780e-5 5`
+3. `RoundsTo (a * cubicP R a b 1 0 T v / (R * T) ^ 2) 0.42748 5`
 
 Program definitions in this claim:
 
 - `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
-- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `p` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)
 - `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `acentric ps pc` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_acentric`) (for `ps : ℝ`, `pc : ℝ`): is defined as `-Real.logb 10 (ps / pc) - 1`
 - `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Peng–Robinson fluid with Soave's temperature function and the revised (1978) κ(ω) correlation at
-ω = 1 (attraction a_c at T_c, a_c (1 + κ(1)(1 − √0.7))² at 0.7 T_c): at any critical point
-(v_c > b), every Maxwell coexistence state at T = 0.7 T_c with liquid volume above the co-volume
-b has pressure 0.0100 times the critical pressure (4 decimals) and acentric factor 1.000
-(3 decimals), the input value.
+Redlich–Kwong / Soave–Redlich–Kwong: at every critical point, Z_c = 1/3 exactly,
+Ω_b = 0.07780 and Ω_a = 0.42748 to five decimals.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem pr78_omega1_unique (R ac b Tc vc vl vg ps : ℝ) (hac : 0 < ac) (hb : 0 < b)
-    (hvc : b < vc)
-    (hc : IsCriticalIsotherm (cubicP R ac b 2 (-1) Tc) vc)
-    (hl : b < vl)
-    (h : IsMaxwellCoexistence
-      (cubicP R (ac * (1 + (0.379642 + 1.48503 * 1 - 0.164423 * 1 ^ 2 + 0.016666 * 1 ^ 3) *
-        (1 - Real.sqrt (7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)) vl vg ps) :
-    RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 0.0100 4 ∧
-      RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 1.000 3 := …
+theorem rk_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 1 0 T) v) :
+    cubicP R a b 1 0 T v * v / (R * T) = 1 / 3 ∧
+      RoundsTo (b * cubicP R a b 1 0 T v / (R * T)) 0.07780 5 ∧
+      RoundsTo (a * cubicP R a b 1 0 T v / (R * T) ^ 2) 0.42748 5 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.Coexistence.acentric`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
+See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsMaxwellCoexistence, IsCriticalIsotherm.
+- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `pr78_omega1_unique`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 2, w = -1; RoundsTo: d = 0.0100, k = 4, d = 1.000, k = 3.
-- Source file: `Checked/Chemistry/PR78Acentric.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rk_constants`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 1, w = 0; RoundsTo: d = 0.08664, k = 5, d = 0.42748.
+- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 01

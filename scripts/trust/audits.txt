@@ -544,3 +544,7 @@ Blind.Bounded.hiemenz_U
 Blind.Bounded.homann_U
 Blind.Bounded.hiemenz_E
 Blind.Bounded.homann_E
+Blind.FSHalf.toSys
+Blind.FSHalf.fs_W
+Blind.FSHalf.fs_U
+Blind.FSHalf.fs_E

@@ -1,55 +1,50 @@
 # Item 11
 
-**Area:** Mathematics
+**Area:** Certified numbers of the findings
 
-**Source:** see the claim
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `lam : ℝ`, `u : EuclideanSpace ℝ (Fin 3) → ℝ`:
+**It holds that**
 
-**assuming**
+1. `RoundsTo (correct20 (41 / 1000)) (-0.249) 3`
+2. `RoundsTo (correct20 (1 / 4)) (-32e-3) 3`
+3. `RoundsTo (correct30 (41 / 1000)) (-0.400) 3`
+4. `RoundsTo (correct30 (1 / 4)) (-152e-4) 4`
 
-1. `ContDiffOn ℝ 2 u (Metric.ball 0 1)`
-2. `ContinuousOn u (Metric.closedBall 0 1)`
-3. for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u x = 0`
-4. there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u x = g ‖x‖`
-5. for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian u x + lam * Real.exp (u x) = 0`
+Program definitions in this claim:
 
-**then**
-
-- `lam ≤ 3.321992119`
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `correct20 Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_correct20`) (for `Ω : ℝ`): is defined as `-2 * (27 * Ω ^ 2 + 24 * Ω - 32) / (27 * Ω * (Ω - 2) * (27 * Ω ^ 2 + 60 * Ω + 112))`
+- `correct30 Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_correct30`) (for `Ω : ℝ`): is defined as `-2 * (81 * Ω ^ 2 - 60 * Ω - 16) / (243 * Ω ^ 2 * (Ω - 2) * (27 * Ω ^ 2 + 60 * Ω + 112))`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Gelfand problem in the unit ball of three-dimensional space, radial solutions: if u is twice
-continuously differentiable on the open unit ball, continuous on the closed unit ball, zero on the unit sphere
-and a function of ‖x‖ on the closed ball, and Δu + λ eᵘ = 0 on the open ball (Δ is Mathlib's Laplacian),
-then λ ≤ 3.321992119.
+The correct first-order coefficients (`FREta.correct20`, `correct30`, the `ε`-derivatives of
+η₂₀, η₃₀ by `FREta.eta20_hasDerivAt`, `eta30_hasDerivAt`) at the paper's `Ω = 0.041, 0.25`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem gelfand_pde_radial_bound (lam : ℝ) (u : EuclideanSpace ℝ (Fin 3) → ℝ)
-    (hu : ContDiffOn ℝ 2 u (ball 0 1))
-    (hc : ContinuousOn u (closedBall 0 1))
-    (hb : ∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u x = 0)
-    (hrad : ∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u x = g ‖x‖)
-    (hpde : ∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + lam * Real.exp (u x) = 0) :
-    lam ≤ 3.321992119 := …
+theorem F10_eta :
+    RoundsTo (FREta.correct20 (41 / 1000)) (-0.249) 3 ∧
+    RoundsTo (FREta.correct20 (1 / 4)) (-0.032) 3 ∧
+    RoundsTo (FREta.correct30 (41 / 1000)) (-0.400) 3 ∧
+    RoundsTo (FREta.correct30 (1 / 4)) (-0.0152) 4 := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Cosmography.FREta.correct20`, `Cosmography.FREta.correct30`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `gelfand_pde_radial_bound`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/GelfandPDE.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = -0.249, k = 3, d = -0.032, d = -0.400, d = -0.0152, k = 4; correct20: Ω = 41/1000, Ω = 1/4; correct30: Ω = 41/1000, Ω = 1/4.
+- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 11
