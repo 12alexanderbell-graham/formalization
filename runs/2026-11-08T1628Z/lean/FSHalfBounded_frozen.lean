@@ -1,8 +1,8 @@
 import Checked.FalknerSkan.Bounded
 import Checked.FalknerSkan.FSScale
-/-! Falkner–Skan β = 1/2 in the class −1 ≤ f' ≤ 1: every solution of the boundary-value problem whose velocity profile is bounded by one in absolute value on the closed half-line has its wall shear inside the window of the statement, any two such solutions are equal on the closed half-line, and a solution with velocity profile in the half-open unit interval exists. Obtained from the Homann theorems of `Checked.FalknerSkan.Bounded` by the similarity scaling of `Checked.FalknerSkan.FSScale` with c the reciprocal of the square root of two. -/
+/-! Falkner–Skan β = 1/2 in the class −1 ≤ f' ≤ 1: every solution of the boundary-value problem whose velocity profile is bounded by one in absolute value on the closed half-line has its wall shear inside the window of the statement, any two such solutions are equal on the closed half-line, and a solution with velocity profile in the half-open unit interval exists. Obtained from the Homann theorems of `Checked.FalknerSkan.Bounded` by the similarity scaling of `Checked.FalknerSkan.FSScale`: with c the reciprocal of the square root of two for the window and the equality, with c the square root of two for the existence. -/
 
-namespace Checked.FalknerSkan.HalfBounded
+namespace Work.FalknerSkan.HalfBounded
 open Set Filter Topology
 
 /-- Falkner–Skan β = 1/2: every solution of f''' + f f'' + (1 − f'²)/2 = 0 on [0, ∞) (f has
@@ -48,4 +48,4 @@ theorem fs_half_exists_bounded : ∃ f p q : ℝ → ℝ,
     0.927680039 < q 0 ∧ q 0 < 0.927680040 := by
   sorry
 
-end Checked.FalknerSkan.HalfBounded
+end Work.FalknerSkan.HalfBounded
