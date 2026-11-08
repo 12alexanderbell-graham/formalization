@@ -1,71 +1,43 @@
 # Item 09
 
-**Area:** Fluid mechanics
+**Area:** F1
 
-**Source:** see the claim
+**Source:** arXiv:1903.11433, Eq. (21): misprinted flat ΛCDM l₀ (printed as 1 + 3Ω_m − (27/2)Ω_m²)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
+**It holds that**
 
-**assuming**
+- it is false that (`AvilesL0Claim`)
 
-1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
-2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
-3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`
-4. `f 0 = 0`
-5. `p 0 = 0`
-6. `Filter.Tendsto p Filter.atTop (nhds 1)`
-7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)
-8. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₂ (p₂ η) (Set.Ici 0) η`
-9. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₂ (q₂ η) (Set.Ici 0) η`
-10. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - 1 + p₂ η ^ 2) (Set.Ici 0) η`
-11. `f₂ 0 = 0`
-12. `p₂ 0 = 0`
-13. `Filter.Tendsto p₂ Filter.atTop (nhds 1)`
-14. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p₂ η`) and (`p₂ η ≤ 1`)
-15. `η ∈ Set.Ici 0`
+Program definitions in this claim:
 
-**then**
-
-1. `f η = f₂ η`
-2. `p η = p₂ η`
-3. `q η = q₂ η`
+- `AvilesL0Claim` — CLAIM, not pinned; the source-dependent data written inline (printed formula, order of the printed series) agree with an independent blind second reading of the source (`Checked.Trust.Transcriptions.agree_AvilesL0Claim`); the quantifiers and hypotheses are the program's formalisation: means for every `Ω : ℝ`, for every `a : ℝ → ℝ`, for every `t₀ : ℝ`, if the scale factor `a` obeys the flat ΛCDM expansion law with matter fraction `Ω` on some neighbourhood of the time `t₀`, with a positive Hubble rate at `t₀` and a positive, differentiable scale factor on that neighbourhood, then if `ContDiffAt ℝ 6 a t₀`, then `cosmoCoeff 5 a t₀ = 1 + 3 * Ω - 27 / 2 * Ω ^ 2`
+- `IsFlatLCDM Ω a t₀` — **PINNED** (pin theorem `flatLCDMSpec2_pins`): phrase (hand-written, linted): the scale factor `a` obeys the flat ΛCDM expansion law with matter fraction `Ω` on some neighbourhood of the time `t₀`, with a positive Hubble rate at `t₀` and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`)
+- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): phrase (hand-written, linted): the `n`-th cosmographic coefficient of the scale factor `a` at time `t` (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Hiemenz stagnation-point flow: for every solution (f, p, q) and every solution (f₂, p₂, q₂) of f''' + f f'' + 1 − f'² = 0
-on [0, ∞) (derivatives one-sided at 0), both with f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and
-−1 ≤ p ≤ 1 on [0, ∞): f η = f₂ η, p η = p₂ η and q η = q₂ η for every η ≥ 0.
+**Refutation of the printed l₀ in Eq. (21).** On Einstein–de Sitter (Ω = 1) the printed
+formula gives `−19/2`, the true value is `35/2`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem hiemenz_bounded_equal (f p q f₂ p₂ q₂ : ℝ → ℝ)
-    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
-    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
-    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Ici 0) η)
-    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
-    (hb : ∀ η ∈ Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1)
-    (hf₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f₂ (p₂ η) (Ici 0) η)
-    (hp₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p₂ (q₂ η) (Ici 0) η)
-    (hq₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - 1 + p₂ η ^ 2) (Ici 0) η)
-    (hf₂0 : f₂ 0 = 0) (hp₂0 : p₂ 0 = 0) (hlim₂ : Tendsto p₂ atTop (𝓝 1))
-    (hb₂ : ∀ η ∈ Ici (0 : ℝ), -1 ≤ p₂ η ∧ p₂ η ≤ 1) :
-    ∀ η ∈ Ici (0 : ℝ), f η = f₂ η ∧ p η = p₂ η ∧ q η = q₂ η := …
+theorem avilesL0Claim_false : ¬ AvilesL0Claim := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.Aviles.AvilesL0Claim`, `Cosmography.hubble`, `Cosmography.redshift`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hiemenz_bounded_equal`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/Bounded.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): AvilesL0Claim².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 5.
+- Source file: `Checked/Cosmography/LCDMCoefficients.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 09

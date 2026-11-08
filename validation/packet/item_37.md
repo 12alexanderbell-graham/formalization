@@ -1,52 +1,42 @@
 # Item 37
 
-**Area:** Rigorous simulation
+**Area:** Rigorous simulation of a stiff network
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `x : ℝ → ℝ`:
+**It holds that**
 
-**assuming**
-
-1. the function `x` solves the Duffing equation with stiffness `k := 1` and cubic coefficient `β := 1`, initial position `x₀ := 1` and initial velocity `v₀ := 0` on the time interval [0, `T := 6 / 5`] (derivatives taken within [0, `T := 6 / 5`])
-
-**then**
-
-1. for every `t : ℝ`, if `t ∈ Set.Icc 0 (1192005 / 1000000)`, then `0 < x t`
-2. `x (1192006 / 1000000) < 0`
+- there is `y₁ : ℝ → ℝ` such that there is `y₂ : ℝ → ℝ` such that there is `y₃ : ℝ → ℝ` such that the functions `y₁`, `y₂`, `y₃` (concentrations of A, B, C) solve the rate equations of the reaction network in which A turns into B with rate constant `k₁ := 1 / 25`, B and C turn into A and C with rate constant `k₂ := 10000`, and two B turn into B and C with rate constant `k₃ := 30000000`, on the time interval [0, `T := 40`] (derivatives taken within [0, `T := 40`]), with initial values `a₀ := 1`, `b₀ := 0`, `c₀ := 0` at time 0
 
 Program definitions in this claim:
 
-- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): phrase (hand-written, linted): the function `x` solves the Duffing equation with stiffness `k` and cubic coefficient `β`, initial position `x₀` and initial velocity `v₀` on the time interval [0, `T`] (derivatives taken within [0, `T`]); by definition, means (`x 0 = x₀`) and (there is `v : ℝ → ℝ` such that (`v 0 = v₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt x (v t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt v (-k * x t - β * x t ^ 3) (Set.Icc 0 T) t`)))
+- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): phrase (hand-written, linted): the functions `y₁`, `y₂`, `y₃` (concentrations of A, B, C) solve the rate equations of the reaction network in which A turns into B with rate constant `k₁`, B and C turn into A and C with rate constant `k₂`, and two B turn into B and C with rate constant `k₃`, on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `a₀`, `b₀`, `c₀` at time 0; by definition, means (`y₁ 0 = a₀`) and (`y₂ 0 = b₀`) and (`y₃ 0 = c₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt y₁ (-k₁ * y₁ t + k₂ * y₂ t * y₃ t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₂ (k₁ * y₁ t - k₂ * y₂ t * y₃ t - k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₃ (k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`))
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Certified first zero of the Duffing oscillator x'' + x + x³ = 0 released from rest at
-x = 1: every solution on the time interval [0, 6/5] (derivatives within the interval) is strictly
-positive at all times in [0, 1.192005] and strictly negative at time 1.192006, so its earliest
-zero lies strictly between 1.192005 and 1.192006. Proved by a validated enclosure of every
-solution (rational Taylor cells, exact defect bounds, energy box, Grönwall).
+There is a solution of the rate equations of Robertson's network on [0, 40] with k₁ = 1/25,
+k₂ = 10⁴, k₃ = 3·10⁷ and initial concentrations (1, 0, 0).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem duffing_first_zero_sol (x : ℝ → ℝ) (hx : IsDuffingSolution 1 1 1 0 (6 / 5) x) :
-    (∀ t ∈ Icc (0 : ℝ) (1192005 / 1000000), 0 < x t) ∧ x (1192006 / 1000000) < 0 := …
+theorem rob_exists : ∃ y₁ y₂ y₃ : ℝ → ℝ,
+    IsRobSolution (1 / 25) 10000 30000000 1 0 0 40 y₁ y₂ y₃ := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Sim.Duffing.IsDuffingSolution`
+See GLOSSARY.md: `Sim.Robertson.IsRobSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsDuffingSolution.
+- Definitions pinned by a machine-checked specification: IsRobSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `duffing_first_zero_sol`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5.
-- Source file: `Checked/Sim/Duffing.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 40.
+- Source file: `Checked/Sim/Robertson.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 37

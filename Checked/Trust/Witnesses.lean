@@ -66,6 +66,7 @@ import Checked.FalknerSkan.MonotoneWindow
 import Checked.FalknerSkan.MonotoneExists
 import Checked.FalknerSkan.Bounded
 import Checked.FalknerSkan.HalfBounded
+import Checked.FalknerSkan.FifthBounded
 import Checked.Data.Moresco16Min
 
 /-!
@@ -868,6 +869,23 @@ theorem fs_half_bounded_window : nonvacuity% Checked.FalknerSkan.HalfBounded.fs_
 theorem fs_half_bounded_equal : nonvacuity% Checked.FalknerSkan.HalfBounded.fs_half_bounded_equal := by
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hb, -⟩ :=
     Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded
+  have hb' : ∀ η ∈ Set.Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1 :=
+    fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩
+  exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hb', hf, hp, hq, hf0, hp0, hlim, hb', 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+/-! Falkner–Skan β = 1/5 bounded class (run 2026-11-08T2028Z): the solution of
+`Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded`, whose velocity profile lies in the
+half-open unit interval, hence between minus one and one; used twice for the equality theorem. -/
+
+theorem fs_fifth_bounded_window : nonvacuity% Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hb, -⟩ :=
+    Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim,
+    fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩, trivial⟩
+
+theorem fs_fifth_bounded_equal : nonvacuity% Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hb, -⟩ :=
+    Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded
   have hb' : ∀ η ∈ Set.Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1 :=
     fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩
   exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hb', hf, hp, hq, hf0, hp0, hlim, hb', 0, Set.mem_Ici.2 le_rfl, trivial⟩

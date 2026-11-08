@@ -932,28 +932,6 @@ set_option maxHeartbeats 8000000 in
 open Checked.Data.Moresco16Certs in
 ```
 
-## `Data.Moresco16.chiSqOL`
-
-χ² of the law H₀ √E² (E² = `e2OL`) against the thirty measurements of Table 4, plus the
-Gaussian prior term (H₀ − 73)²/2.4² (Moresco et al. 2016, Sec. 5.2).
-
-```lean
-noncomputable def chiSqOL (H0 Ωm ΩΛ : ℝ) : ℝ :=
-  (∑ i, (H0 * Real.sqrt (e2OL Ωm ΩΛ (m16Table i).1) - (m16Table i).2.1) ^ 2 /
-    (m16Table i).2.2 ^ 2) + (H0 - 73) ^ 2 / 2.4 ^ 2
-```
-
-## `Data.Moresco16.e2OL`
-
-The squared dimensionless expansion rate E² at z of Eq. 5.1 (matter fraction Ω_m,
-cosmological-constant fraction Ω_Λ, remainder 1 − Ω_m − Ω_Λ):
-Ω_m (1+z)³ + (1 − Ω_m − Ω_Λ)(1+z)² + Ω_Λ (Moresco et al. 2016, Eq. 5.1).
-
-```lean
-noncomputable def e2OL (Ωm ΩΛ z : ℝ) : ℝ :=
-  Ωm * (1 + z) ^ 3 + (1 - Ωm - ΩΛ) * (1 + z) ^ 2 + ΩΛ
-```
-
 ## `Data.Moresco16.m16Table`
 
 Table 4 of Moresco et al. 2016 (arXiv:1601.01701v2): the thirty (z, H(z), σ_H) cosmic
@@ -1075,6 +1053,22 @@ structure RicciFlatFLRWSpec (Rc : (ℝ → ℝ) → ℝ → ℝ) : Prop where
   time_translation : ∀ (a a' a'' : ℝ → ℝ) (τ t : ℝ), 0 < a (t + τ) →
     (∀ᶠ s in 𝓝 (t + τ), HasDerivAt a (a' s) s) → HasDerivAt a' (a'' (t + τ)) (t + τ) →
     Rc (fun s => a (s + τ)) t = Rc a (t + τ)
+```
+
+## `Math.GExistsLeft.g`
+
+Clamped exponential.
+
+```lean
+noncomputable def g (y : ℝ) : ℝ := Real.exp (cl 1 y)
+```
+
+## `Math.GExistsRight.cl`
+
+Clamp of `y` to [−c, c].
+
+```lean
+noncomputable def cl (c y : ℝ) : ℝ := max (-c) (min c y)
 ```
 
 ## `Records.RoundsTo`

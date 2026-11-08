@@ -16,11 +16,11 @@
    "why_it_is_wrong": "H = ȧ/a; with this body the pin H a t = hubble a t contradicts the spec's law H = d ln a/dt for any a with a(t) ≠ 1 and ȧ ≠ 0."
   },
   {
-   "item": 13,
-   "base": "Checked.Cosmography.CPL.printedL0_ne",
-   "defect_class": "formal statement contradicts claim (negated hypothesis)",
-   "what_is_wrong": "Hypothesis reads (1 − Ω)(7 − Ω)wₐ = 0 instead of ≠ 0.",
-   "why_it_is_wrong": "printed − true l₀ = −2(1−Ω)(7−Ω)wₐ² (FINDINGS F2), which is 0 under the hypothesis; with wₐ = 0 such models exist (exists_flatCPL), so the statement is false and does not say what the claim says."
+   "item": 9,
+   "base": "Checked.Cosmography.Aviles.avilesL0Claim_false",
+   "defect_class": "provenance / transcription",
+   "what_is_wrong": "The source line attributes the misprinted l₀ to arXiv:1903.11433 Eq. (21); that paper prints the correct formula. The misprint is in Aviles et al., PRD 86, 123516 (2012), arXiv:1204.2007, Eq. (15).",
+   "why_it_is_wrong": "FINDINGS.md F1 'Propagation' (F1 referee reading): arXiv:1903.11433 Eq. (21) prints the correct l₀; the item's own glossary entry AvilesL0Claim cites Aviles et al. Eq. (15)."
   },
   {
    "item": 16,
@@ -30,18 +30,18 @@
    "why_it_is_wrong": "The exact miss at z = 3 is 0.115 to 0.175 mag over Ω ∈ [0.2, 0.4] (mpmath quadrature, run 0828Z), below 0.9 for every Ω; the statement is false."
   },
   {
-   "item": 22,
-   "base": "Checked.Cosmography.Aviles.avilesL0Claim_false",
-   "defect_class": "provenance / transcription",
-   "what_is_wrong": "The source line attributes the misprinted l₀ to arXiv:1903.11433 Eq. (21); that paper prints the correct formula. The misprint is in Aviles et al., PRD 86, 123516 (2012), arXiv:1204.2007, Eq. (15).",
-   "why_it_is_wrong": "FINDINGS.md F1 'Propagation' (F1 referee reading): arXiv:1903.11433 Eq. (21) prints the correct l₀; the item's own glossary entry AvilesL0Claim cites Aviles et al. Eq. (15)."
-  },
-  {
    "item": 24,
    "base": "Checked.Cosmography.BambaY.lumDist_y_third_order",
    "defect_class": "overstated scope",
    "what_is_wrong": "The claim says 'any spatial curvature K'; the statement is about the flat luminosity distance only.",
    "why_it_is_wrong": "In a curved FLRW model the y³ coefficient of d_L contains Ω₀ = 1 + K/(a₀H₀)² (Cattoën–Visser 2007; the program's curved theorem BambaK.lumDist_y_fifth_order), so the flat series is wrong at this order when K ≠ 0."
+  },
+  {
+   "item": 43,
+   "base": "Checked.Cosmography.CPL.printedL0_ne",
+   "defect_class": "formal statement contradicts claim (negated hypothesis)",
+   "what_is_wrong": "Hypothesis reads (1 − Ω)(7 − Ω)wₐ = 0 instead of ≠ 0.",
+   "why_it_is_wrong": "printed − true l₀ = −2(1−Ω)(7−Ω)wₐ² (FINDINGS F2), which is 0 under the hypothesis; with wₐ = 0 such models exist (exists_flatCPL), so the statement is false and does not say what the claim says."
   },
   {
    "item": 48,
@@ -51,7 +51,7 @@
    "why_it_is_wrong": "h1 and h2 are jointly unsatisfiable."
   },
   {
-   "item": 65,
+   "item": 64,
    "base": "Checked.Records.F3_D4_LCDM",
    "defect_class": "number relabelled",
    "what_is_wrong": "The plain words swap the correct (0.2153) and printed (0.4555) values; they are also inconsistent with 'printed − correct = 0.24'.",
@@ -65,7 +65,7 @@
   },
   {
    "item": 4,
-   "headline": "Checked.Chemistry.CubicEOS.isCritical_iff"
+   "headline": "Checked.Chemistry.RKAcentric.rk_coexistence_exists"
   },
   {
    "item": 5,
@@ -73,19 +73,15 @@
   },
   {
    "item": 6,
-   "headline": "Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone"
+   "headline": "Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_window"
   },
   {
    "item": 7,
-   "headline": "Checked.Data.Moresco16.line_bic_exceeds"
+   "headline": "Checked.FalknerSkan.fs_zero_wall_shear"
   },
   {
    "item": 8,
    "headline": "Checked.Cosmography.B1.cubic_shape_miss"
-  },
-  {
-   "item": 9,
-   "headline": "Checked.FalknerSkan.Bounded.hiemenz_bounded_equal"
   },
   {
    "item": 10,
@@ -97,7 +93,11 @@
   },
   {
    "item": 12,
-   "headline": "Checked.Math.LaneEmden2.laneEmden2_constants"
+   "headline": "Checked.FalknerSkan.MonotoneWindow.homann_monotone_window"
+  },
+  {
+   "item": 13,
+   "headline": "Checked.Blasius.blasius_exists"
   },
   {
    "item": 14,
@@ -109,11 +109,11 @@
   },
   {
    "item": 17,
-   "headline": "Checked.FalknerSkan.MonotoneExists.homann_exists_monotone"
+   "headline": "Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded"
   },
   {
    "item": 18,
-   "headline": "Checked.Homann.homann_under"
+   "headline": "Checked.Homann.homann_exists"
   },
   {
    "item": 19,
@@ -128,8 +128,12 @@
    "headline": "Checked.Chemistry.Coexistence.vdW_coexistence_exists"
   },
   {
+   "item": 22,
+   "headline": "Checked.FalknerSkan.Bounded.homann_bounded_equal"
+  },
+  {
    "item": 23,
-   "headline": "Checked.Sim.MichaelisMenten.mm_solution_exists"
+   "headline": "Checked.Sim.RobLong.rob_state1e11"
   },
   {
    "item": 25,
@@ -137,7 +141,7 @@
   },
   {
    "item": 26,
-   "headline": "Checked.FalknerSkan.fs_half_exists"
+   "headline": "Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window"
   },
   {
    "item": 27,
@@ -145,23 +149,23 @@
   },
   {
    "item": 28,
-   "headline": "Checked.Math.Gelfand.gelfand_ball_critical"
+   "headline": "Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists"
   },
   {
    "item": 29,
-   "headline": "Checked.Hiemenz.hiemenz_over"
+   "headline": "Checked.Homann.homann_under"
   },
   {
    "item": 30,
-   "headline": "Checked.Math.ThomasFermiExists.tf_exists"
+   "headline": "Checked.Townes.Shooting.townes_under"
   },
   {
    "item": 31,
-   "headline": "Checked.Hiemenz.hiemenz_under"
+   "headline": "Checked.Homann.homann_over"
   },
   {
    "item": 32,
-   "headline": "Checked.Townes.Shooting.townes_over"
+   "headline": "Checked.Blasius.blasius_wall_shear"
   },
   {
    "item": 33,
@@ -169,27 +173,27 @@
   },
   {
    "item": 34,
-   "headline": "Checked.Blasius.blasius_wall_shear"
+   "headline": "Checked.Hiemenz.hiemenz_under"
   },
   {
    "item": 35,
-   "headline": "Checked.Homann.homann_exists"
+   "headline": "Checked.Math.LaneEmden2.laneEmden2_constants"
   },
   {
    "item": 36,
-   "headline": "Checked.Homann.homann_over"
+   "headline": "Checked.Data.Moresco16.line_bic_exceeds"
   },
   {
    "item": 37,
-   "headline": "Checked.Sim.Duffing.duffing_first_zero_sol"
+   "headline": "Checked.Sim.Robertson.rob_exists"
   },
   {
    "item": 38,
-   "headline": "Checked.Chemistry.SRKAcentric.srk_omega1_exists"
+   "headline": "Checked.Sim.Duffing.duffing_solution_exists"
   },
   {
    "item": 39,
-   "headline": "Checked.Data.FR13.fr13_minval68"
+   "headline": "Checked.Math.Gelfand.gelfand_ball_critical"
   },
   {
    "item": 40,
@@ -204,12 +208,8 @@
    "headline": "Checked.Cosmography.CPLExistence.printedL0_false_at"
   },
   {
-   "item": 43,
-   "headline": "Checked.Records.F1_m0_agrees"
-  },
-  {
    "item": 44,
-   "headline": "Checked.Blasius.blasius_exists"
+   "headline": "Checked.Hiemenz.hiemenz_over"
   },
   {
    "item": 45,
@@ -229,7 +229,7 @@
   },
   {
    "item": 50,
-   "headline": "Checked.FalknerSkan.Bounded.hiemenz_exists_bounded"
+   "headline": "Checked.FalknerSkan.Bounded.hiemenz_bounded_equal"
   },
   {
    "item": 51,
@@ -237,15 +237,15 @@
   },
   {
    "item": 52,
-   "headline": "Checked.FalknerSkan.fs_zero_wall_shear"
+   "headline": "Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone"
   },
   {
    "item": 53,
-   "headline": "Checked.FalknerSkan.MonotoneWindow.homann_monotone_window"
+   "headline": "Checked.FalknerSkan.MonotoneExists.homann_exists_monotone"
   },
   {
    "item": 54,
-   "headline": "Checked.Math.LaneEmden.laneEmden3_constants"
+   "headline": "Checked.Math.ThomasFermi.tf_initial_slope"
   },
   {
    "item": 55,
@@ -253,55 +253,51 @@
   },
   {
    "item": 56,
-   "headline": "Checked.Sim.Robertson.rob_state40"
+   "headline": "Checked.Data.FR13.fr13_bestfit68"
   },
   {
    "item": 57,
-   "headline": "Checked.FalknerSkan.Bounded.homann_exists_bounded"
-  },
-  {
-   "item": 58,
    "headline": "Checked.Cosmography.BambaA.printedDA4_fails"
   },
   {
-   "item": 59,
-   "headline": "Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window"
+   "item": 58,
+   "headline": "Checked.FalknerSkan.Bounded.homann_exists_bounded"
   },
   {
-   "item": 60,
+   "item": 59,
    "headline": "Checked.Cosmography.BambaK.bambaD3yClaimPast_false"
   },
   {
-   "item": 61,
+   "item": 60,
    "headline": "Checked.Cosmography.DemianskiZ.demDLzClaim_false"
   },
   {
+   "item": 61,
+   "headline": "Checked.FalknerSkan.HalfBounded.fs_half_bounded_window"
+  },
+  {
    "item": 62,
-   "headline": "Checked.FalknerSkan.Bounded.homann_bounded_window"
+   "headline": "Checked.FalknerSkan.fs_half_exists"
   },
   {
    "item": 63,
-   "headline": "Checked.Data.Moresco16Min.chiSqOL_lt"
+   "headline": "Checked.Records.F1_m0_agrees"
   },
   {
-   "item": 64,
-   "headline": "Checked.Math.GelfandPDE.gelfand_pde_radial_bound"
-  },
-  {
-   "item": 66,
+   "item": 65,
    "headline": "Checked.Cosmography.B1L19.l19_sqg_box"
   },
   {
-   "item": 67,
+   "item": 66,
    "headline": "Checked.Cosmography.Aviles.avilesM0Claim_false"
   },
   {
-   "item": 68,
-   "headline": "Checked.Chemistry.PRAcentric.pr_omega1_exists"
+   "item": 67,
+   "headline": "Checked.Sim.MichaelisMenten.mm_half_conversion"
   },
   {
-   "item": 69,
-   "headline": "Checked.Sim.RobLong.rob_state1e11"
+   "item": 68,
+   "headline": "Checked.Math.LEExists.exists_solution"
   }
  ]
 }

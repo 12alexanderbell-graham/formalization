@@ -1,43 +1,62 @@
 # Item 23
 
-**Area:** Rigorous simulation of a reaction network
+**Area:** Robertson at t = 1e11
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `y₁ : ℝ → ℝ`, `y₂ : ℝ → ℝ`, `y₃ : ℝ → ℝ`:
 
-- there is `s : ℝ → ℝ` such that there is `e : ℝ → ℝ` such that there is `c : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that the functions `s`, `e`, `c`, `p` (concentrations of S, E, C, P) solve the mass-action rate equations of the mechanism in which E and S bind reversibly to C and C releases E and P, with binding, unbinding and catalytic rate constants `k₁ := 1`, `km₁ := 1`, `k₂ := 1`, on the time interval [0, `T := 13 / 5`] (derivatives taken within [0, `T := 13 / 5`]), with initial values `s₀ := 1`, `e₀ := 1`, `c₀ := 0`, `p₀ := 0` at time 0
+**assuming**
+
+1. the functions `y₁`, `y₂`, `y₃` (concentrations of A, B, C) solve the rate equations of the reaction network in which A turns into B with rate constant `k₁ := 1 / 25`, B and C turn into A and C with rate constant `k₂ := 10000`, and two B turn into B and C with rate constant `k₃ := 30000000`, on the time interval [0, `T := 100000000000`] (derivatives taken within [0, `T := 100000000000`]), with initial values `a₀ := 1`, `b₀ := 0`, `c₀ := 0` at time 0
+
+**then**
+
+1. `20833401494 / 1000000000000000000 < y₁ 100000000000`
+2. `y₁ 100000000000 < 20833401500 / 1000000000000000000`
+3. `83333 / 1000000000000000000 < y₂ 100000000000`
+4. `y₂ 100000000000 < 83334 / 1000000000000000000`
+5. `99999997916651 / 100000000000000 < y₃ 100000000000`
+6. `y₃ 100000000000 < 99999997916652 / 100000000000000`
 
 Program definitions in this claim:
 
-- `IsMMSolution k₁ km₁ k₂ s₀ e₀ c₀ p₀ T s e c p` — **PINNED** (pin theorem `mmSpec_pins`): phrase (hand-written, linted): the functions `s`, `e`, `c`, `p` (concentrations of S, E, C, P) solve the mass-action rate equations of the mechanism in which E and S bind reversibly to C and C releases E and P, with binding, unbinding and catalytic rate constants `k₁`, `km₁`, `k₂`, on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `s₀`, `e₀`, `c₀`, `p₀` at time 0; by definition, means (`s 0 = s₀`) and (`e 0 = e₀`) and (`c 0 = c₀`) and (`p 0 = p₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt s (-k₁ * e t * s t + km₁ * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt e (-k₁ * e t * s t + (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt c (k₁ * e t * s t - (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt p (k₂ * c t) (Set.Icc 0 T) t`))
+- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): phrase (hand-written, linted): the functions `y₁`, `y₂`, `y₃` (concentrations of A, B, C) solve the rate equations of the reaction network in which A turns into B with rate constant `k₁`, B and C turn into A and C with rate constant `k₂`, and two B turn into B and C with rate constant `k₃`, on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `a₀`, `b₀`, `c₀` at time 0; by definition, means (`y₁ 0 = a₀`) and (`y₂ 0 = b₀`) and (`y₃ 0 = c₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt y₁ (-k₁ * y₁ t + k₂ * y₂ t * y₃ t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₂ (k₁ * y₁ t - k₂ * y₂ t * y₃ t - k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₃ (k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`))
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-There is a solution of the mass-action rate equations of the Michaelis–Menten mechanism
-with k₁ = k₋₁ = k₂ = 1, [S]₀ = [E]₀ = 1, [C]₀ = [P]₀ = 0 on the time interval [0, 13/5]
-(derivatives within the interval).
+Certified state of Robertson's stiff network at t = 10¹¹: for k₁ = 1/25, k₂ = 10⁴,
+k₃ = 3·10⁷ and initial concentrations (1, 0, 0), every solution of the rate equations on
+[0, 10¹¹] has 0.000000020833401494 < y₁(10¹¹) < 0.0000000208334015,
+0.000000000000083333 < y₂(10¹¹) < 0.000000000000083334 and
+0.99999997916651 < y₃(10¹¹) < 0.99999997916652.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem mm_solution_exists :
-    ∃ s e c p : ℝ → ℝ, IsMMSolution 1 1 1 1 1 0 0 (13 / 5) s e c p := …
+theorem rob_state1e11 {y₁ y₂ y₃ : ℝ → ℝ}
+    (h : Checked.Sim.Robertson.IsRobSolution (1 / 25) 10000 30000000 1 0 0 100000000000 y₁ y₂ y₃) :
+    20833401494 / 1000000000000000000 < y₁ 100000000000 ∧
+    y₁ 100000000000 < 20833401500 / 1000000000000000000 ∧
+    83333 / 1000000000000000000 < y₂ 100000000000 ∧
+    y₂ 100000000000 < 83334 / 1000000000000000000 ∧
+    99999997916651 / 100000000000000 < y₃ 100000000000 ∧
+    y₃ 100000000000 < 99999997916652 / 100000000000000 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Sim.MichaelisMenten.IsMMSolution`
+See GLOSSARY.md: `Sim.Robertson.IsRobSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsMMSolution.
+- Definitions pinned by a machine-checked specification: IsRobSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5.
-- Source file: `Checked/Sim/MichaelisMenten.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rob_state1e11`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 100000000000.
+- Source file: `Checked/Sim/RobLong.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 23

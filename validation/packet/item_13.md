@@ -1,55 +1,42 @@
 # Item 13
 
-**Area:** F2
+**Area:** Fluid mechanics
 
-**Source:** Capozziello, Lazkoz, Salzano, PRD 84, 124061 (2011), arXiv:1104.3096 (v1 and v2), Eq. (22): flat matter + CPL l₀, w_a² term missing a factor 9
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
+**It holds that**
 
-**assuming**
-
-1. the scale factor `a` obeys the flat matter plus CPL dark-energy expansion law with matter fraction `Ω` and dark-energy parameters `w₀` and `wₐ` on some neighbourhood of the time `t₀`, with a positive Hubble rate at `t₀` and a positive, differentiable scale factor on that neighbourhood
-2. `ContDiffAt ℝ 5 a t₀`
-3. `(1 - Ω) * (7 - Ω) * wₐ = 0`
-
-**then**
-
-- `cosmoCoeff 5 a t₀ ≠ 35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀ + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2 + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3 + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4`
-
-Program definitions in this claim:
-
-- `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): phrase (hand-written, linted): the scale factor `a` obeys the flat matter plus CPL dark-energy expansion law with matter fraction `Ω` and dark-energy parameters `w₀` and `wₐ` on some neighbourhood of the time `t₀`, with a positive Hubble rate at `t₀` and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + (1 - Ω) * (1 + redshift a t₀ t) ^ (3 * (1 + w₀ + wₐ)) * Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))`)
-- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): phrase (hand-written, linted): the `n`-th cosmographic coefficient of the scale factor `a` at time `t` (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η / 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The printed `l₀` is wrong in every flat CPL model with `(1 − Ω)(7 − Ω) wₐ ≠ 0`.
+Blasius boundary layer, existence: there are functions f, p, q on the reals such that f has
+derivative p, p has derivative q and q has derivative −f q/2 on [0, ∞) (one-sided at 0), with
+f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem printedL0_ne (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatCPL Ω w₀ wₐ a t₀)
-    (hs : ContDiffAt ℝ 5 a t₀) (hne : (1 - Ω) * (7 - Ω) * wₐ = 0) :
-    cosmoCoeff 5 a t₀ ≠ 35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ
-      + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀
-      + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2
-      + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3
-      + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4 := …
+theorem blasius_exists : ∃ f p q : ℝ → ℝ,
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η / 2)) (Ici 0) η) ∧
+    f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, IsFlatCPL.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedL0_ne`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 5.
-- Source file: `Checked/Cosmography/CPLCoefficients.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Blasius/BlasiusExists.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 13

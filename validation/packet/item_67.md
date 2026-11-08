@@ -1,43 +1,52 @@
 # Item 67
 
-**Area:** F1
+**Area:** Rigorous simulation of a reaction network
 
-**Source:** Aviles, Gruber, Luongo, Quevedo, PRD 86, 123516 (2012), arXiv:1204.2007 (v1 and v2), Eq. (15): misprinted ΛCDM l₀ and m₀
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `s : ℝ → ℝ`, `e : ℝ → ℝ`, `c : ℝ → ℝ`, `p : ℝ → ℝ`:
 
-- it is false that (`AvilesM0Claim`)
+**assuming**
+
+1. the functions `s`, `e`, `c`, `p` (concentrations of S, E, C, P) solve the mass-action rate equations of the mechanism in which E and S bind reversibly to C and C releases E and P, with binding, unbinding and catalytic rate constants `k₁ := 1`, `km₁ := 1`, `k₂ := 1`, on the time interval [0, `T := 13 / 5`] (derivatives taken within [0, `T := 13 / 5`]), with initial values `s₀ := 1`, `e₀ := 1`, `c₀ := 0`, `p₀ := 0` at time 0
+
+**then**
+
+1. for every `t : ℝ`, if `t ∈ Set.Icc 0 (25665 / 10000)`, then `p t < 1 / 2`
+2. `1 / 2 < p (25666 / 10000)`
 
 Program definitions in this claim:
 
-- `AvilesM0Claim` — CLAIM, not pinned; the source-dependent data written inline (printed formula, order of the printed series) agree with an independent blind second reading of the source (`Checked.Trust.Transcriptions.agree_AvilesM0Claim`); the quantifiers and hypotheses are the program's formalisation: means for every `Ω : ℝ`, for every `a : ℝ → ℝ`, for every `t₀ : ℝ`, if the scale factor `a` obeys the flat ΛCDM expansion law with matter fraction `Ω` on some neighbourhood of the time `t₀`, with a positive Hubble rate at `t₀` and a positive, differentiable scale factor on that neighbourhood, then if `ContDiffAt ℝ 6 a t₀`, then `cosmoCoeff 6 a t₀ = 1 - 27 / 2 * Ω ^ 2 - 81 * Ω ^ 2 - 81 / 2 * Ω ^ 3`
-- `IsFlatLCDM Ω a t₀` — **PINNED** (pin theorem `flatLCDMSpec2_pins`): phrase (hand-written, linted): the scale factor `a` obeys the flat ΛCDM expansion law with matter fraction `Ω` on some neighbourhood of the time `t₀`, with a positive Hubble rate at `t₀` and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`)
-- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): phrase (hand-written, linted): the `n`-th cosmographic coefficient of the scale factor `a` at time `t` (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
+- `IsMMSolution k₁ km₁ k₂ s₀ e₀ c₀ p₀ T s e c p` — **PINNED** (pin theorem `mmSpec_pins`): phrase (hand-written, linted): the functions `s`, `e`, `c`, `p` (concentrations of S, E, C, P) solve the mass-action rate equations of the mechanism in which E and S bind reversibly to C and C releases E and P, with binding, unbinding and catalytic rate constants `k₁`, `km₁`, `k₂`, on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `s₀`, `e₀`, `c₀`, `p₀` at time 0; by definition, means (`s 0 = s₀`) and (`e 0 = e₀`) and (`c 0 = c₀`) and (`p 0 = p₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt s (-k₁ * e t * s t + km₁ * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt e (-k₁ * e t * s t + (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt c (k₁ * e t * s t - (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt p (k₂ * c t) (Set.Icc 0 T) t`))
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Refutation of the printed m₀ in Eq. (15).** On Einstein–de Sitter the printed formula
-gives `−134`, the true value is `−455/4`.
+Certified half-conversion time of the full Michaelis–Menten mechanism with
+k₁ = k₋₁ = k₂ = 1, [S]₀ = [E]₀ = 1, [C]₀ = [P]₀ = 0: every solution of the mass-action rate
+equations on the time interval [0, 13/5] (derivatives within the interval) has product
+concentration strictly below 1/2 at all times in [0, 2.5665] and strictly above 1/2 at time
+2.5666, so half of the substrate is first converted to product between 2.5665 and 2.5666.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem avilesM0Claim_false : ¬ AvilesM0Claim := …
+theorem mm_half_conversion {s e c p : ℝ → ℝ} (h : IsMMSolution 1 1 1 1 1 0 0 (13 / 5) s e c p) :
+    (∀ t ∈ Icc (0 : ℝ) (25665 / 10000), p t < 1 / 2) ∧ 1 / 2 < p (25666 / 10000) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.Aviles.AvilesM0Claim`, `Cosmography.hubble`, `Cosmography.redshift`
+See GLOSSARY.md: `Sim.MichaelisMenten.IsMMSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): AvilesM0Claim².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 6.
-- Source file: `Checked/Cosmography/LCDMCoefficients.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: IsMMSolution.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `mm_half_conversion`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5.
+- Source file: `Checked/Sim/MichaelisMenten.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 67

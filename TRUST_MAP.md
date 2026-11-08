@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 207. Resting on no unpinned physics definition: 207.
-Non-vacuity (trust track T2): 135 headlines have hypotheses; 135 of them have a
+Headlines: 210. Resting on no unpinned physics definition: 210.
+Non-vacuity (trust track T2): 137 headlines have hypotheses; 137 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -240,6 +240,9 @@ the docstring says; universally bound parameters are not listed.
 | `FalknerSkan.HalfBounded.fs_half_bounded_window` | — | — | — | `fs_half_bounded_window` | — |
 | `FalknerSkan.HalfBounded.fs_half_bounded_equal` | — | — | — | `fs_half_bounded_equal` | — |
 | `FalknerSkan.HalfBounded.fs_half_exists_bounded` | — | — | — | unconditional | — |
+| `FalknerSkan.FifthBounded.fs_fifth_bounded_window` | — | — | — | `fs_fifth_bounded_window` | — |
+| `FalknerSkan.FifthBounded.fs_fifth_bounded_equal` | — | — | — | `fs_fifth_bounded_equal` | — |
+| `FalknerSkan.FifthBounded.fs_fifth_exists_bounded` | — | — | — | unconditional | — |
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 

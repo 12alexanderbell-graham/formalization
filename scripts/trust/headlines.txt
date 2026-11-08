@@ -246,3 +246,6 @@ Checked.FalknerSkan.Bounded.homann_exists_bounded
 Checked.FalknerSkan.HalfBounded.fs_half_bounded_window
 Checked.FalknerSkan.HalfBounded.fs_half_bounded_equal
 Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded
+Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_window
+Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_equal
+Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded
