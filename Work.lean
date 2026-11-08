@@ -277,6 +277,7 @@ import Work.Blasius.BWData
 import Work.Hiemenz.Hiemenz
 import Work.Hiemenz.HiemenzBlindClosed
 import Work.Homann.Homann
+import Work.Homann.HomannBlindClosed
 import Work.Sim.OneSided3
 import Work.Blasius.BlasiusExists
 import Work.Blasius.BExBase

@@ -1,4 +1,7 @@
 import Mathlib
+import Work.Homann.HmUData
+import Work.Homann.HmOData
+import Work.Homann.HmExAssemble
 
 /-!
 # Fluid mechanics (THE RESULT parts 2 and 5): the Homann axisymmetric stagnation-point flow — two
@@ -39,7 +42,11 @@ theorem homann_under (S : ℝ) (hS : 6 ≤ S) (f p q : ℝ → ℝ)
     (hq : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Icc 0 S) η)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 1.3119376938) :
     ∃ η ∈ Ioc (0 : ℝ) 6, q η < 0 ∧ ∀ s ∈ Icc 0 η, p s < 1 := by
-  sorry
+  have hsub : Icc (0 : ℝ) 6 ⊆ Icc 0 S := Icc_subset_Icc le_rfl hS
+  obtain ⟨hq', hp'⟩ := Work.Homann.HmUData.chain (g := f) (p := p) (q := q)
+    (fun t ht => (hf t (hsub ht)).mono hsub) (fun t ht => (hp t (hsub ht)).mono hsub)
+    (fun t ht => (hq t (hsub ht)).mono hsub) hf0 hp0 hq0
+  exact ⟨6, ⟨by norm_num, le_rfl⟩, hq', hp'⟩
 
 /-- Homann axisymmetric stagnation-point flow, overshoot: for every S ≥ 6 and every solution of
 f''' + 2 f f'' + 1 − f'² = 0 on [0, S] (f has derivative p, p has derivative q, q has derivative
@@ -51,7 +58,11 @@ theorem homann_over (S : ℝ) (hS : 6 ≤ S) (f p q : ℝ → ℝ)
     (hq : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Icc 0 S) η)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 1.3119376939) :
     ∃ η ∈ Ioc (0 : ℝ) 6, 1 < p η ∧ ∀ s ∈ Icc 0 η, 0 < q s := by
-  sorry
+  have hsub : Icc (0 : ℝ) 6 ⊆ Icc 0 S := Icc_subset_Icc le_rfl hS
+  obtain ⟨hp', hq'⟩ := Work.Homann.HmOData.chain (g := f) (p := p) (q := q)
+    (fun t ht => (hf t (hsub ht)).mono hsub) (fun t ht => (hp t (hsub ht)).mono hsub)
+    (fun t ht => (hq t (hsub ht)).mono hsub) hf0 hp0 hq0
+  exact ⟨6, ⟨by norm_num, le_rfl⟩, hp', hq'⟩
 
 /-- Homann axisymmetric stagnation-point flow, existence: there is a solution of
 f''' + 2 f f'' + 1 − f'² = 0 on [0, ∞) (f has derivative p, p has derivative q, q has derivative
@@ -62,7 +73,7 @@ theorem homann_exists : ∃ f p q : ℝ → ℝ,
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Ici 0) η) ∧
     f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-    1.3119376938 < q 0 ∧ q 0 < 1.3119376939 := by
-  sorry
+    1.3119376938 < q 0 ∧ q 0 < 1.3119376939 :=
+  Work.Homann.HmExAssemble.exists_bvp
 
 end Work.Homann
