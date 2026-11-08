@@ -17,4 +17,5 @@
 
 ## CI
 - e172f1e (42511639502): green on every job (read this run).
-- 2a6ff04 (42518549459) and this run's pushes (682f6a1 … records): read next run. The `.lake` symlink was on main from c52587e to 682f6a1.
+- ca0dfff (42523479762): **success on all nine jobs** (63 min; tree after the `.lake` repair 00cbca8, with the β = 1/5 Work proofs and blind closure and the β = 1/10 freeze): the repair works and the β = 1/5 Work proofs are green in CI.
+- 26d2718 (promotion, 42529715818), 1e0a1f2 (β = 1/10 Work proofs, 42530573055) and the records: running at 22:31Z, read next run. The `.lake` symlink was on main from c52587e to 682f6a1.
