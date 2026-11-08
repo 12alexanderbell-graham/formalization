@@ -49,6 +49,10 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: python3 scripts/goal_guard.py
+      - name: No tracked symlinks outside _archive (a committed .lake symlink broke every lake checkout; run 2026-11-08T2028Z, see LEDGER)
+        run: |
+          bad=$(git ls-files -s | awk '$1 == "120000" {print $4}' | grep -v '^_archive/' || true)
+          if [ -n "$bad" ]; then echo "tracked symlinks: $bad"; exit 1; fi
 
   validation-packet:
     name: expert-validation packet is current, or frozen once sent (THE RESULT part 4; run 2026-10-31T0828Z, see LEDGER)
