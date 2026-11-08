@@ -1,0 +1,5 @@
+- Solution = four functions ℝ→ℝ (f, f1=f', f2=f'', f3=f''') with HasDerivWithinAt chain on the domain set, ODE pointwise.
+- Domain: Icc 0 6 for claims 1-2, Ici 0 for claim 3.
+- Numerals 1.3119376938 read as real literals (OfScientific).
+- "f'<1 on [0,η]" and "f''>0 on [0,η]" use closed Icc 0 η, as stated (f2 0 > 0 holds, f1 0 = 0 < 1).
+- Limit f' → 1 as Tendsto f1 atTop (nhds 1).
