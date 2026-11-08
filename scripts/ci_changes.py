@@ -22,7 +22,7 @@ Prints GitHub step outputs:
                         lean-toolchain, scripts/nanoda_checked.sh, scripts/nanoda_shard.sh, scripts/nanoda/, the workflow file). The nanoda job
                         memoises a pass under this hash.
 
-Fail-closed: if the API cannot be read or no green ancestor is found among the last 3000 commits,
+Fail-closed: if the API cannot be read after 5 attempts (transient 5xx/429/timeouts retried) or no green ancestor is found among the last 3000 commits,
 the script exits non-zero, the changes job fails and every dependent job is skipped (run red).
 
 Usage in CI: python3 scripts/ci_changes.py >> "$GITHUB_OUTPUT"   (env GITHUB_REPOSITORY, GH_TOKEN)
@@ -50,6 +50,28 @@ def git(*args, check=True):
     return r
 
 
+def fetch_json(req, attempts=5, wait=15):
+    """GET with retries on transient failures (HTTP 5xx, 429, timeouts, connection errors).
+
+    Run 2026-11-08T0228Z: heartbeat dce69bf went red on a single HTTP 504 from the Actions API.
+    Retrying does not weaken the gate: after the last attempt the error propagates (fail-closed),
+    and a 4xx other than 429 is never retried."""
+    import time
+    import urllib.error
+    for i in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            if not (e.code >= 500 or e.code == 429) or i == attempts - 1:
+                raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            if i == attempts - 1:
+                raise
+        time.sleep(wait * (i + 1))
+    raise RuntimeError("unreachable")
+
+
 def green_runs():
     """head_sha -> run id of successful runs of this workflow (newest first)."""
     repo = os.environ["GITHUB_REPOSITORY"]
@@ -60,8 +82,7 @@ def green_runs():
                f"?status=success&per_page=100&page={page}")
         req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}",
                                                    "Accept": "application/vnd.github+json"})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            runs = json.load(r).get("workflow_runs", [])
+        runs = fetch_json(req).get("workflow_runs", [])
         for run in runs:
             if run.get("conclusion") == "success":
                 out.setdefault(run["head_sha"], run["id"])
