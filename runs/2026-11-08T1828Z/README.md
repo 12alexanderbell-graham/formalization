@@ -32,3 +32,9 @@ STATE exact next step 2 (part 3, rotation): the phrases of pinned definitions we
 ## Open
 - Role and sign words: a phrase may permute or delete words its spec contains (X d01, X d06, Y d02). Next: a blind phrase reader per pinned definition writing the role of each argument from the spec alone, compared slot by slot.
 - P2 baseline (98 word pairs): blind spec writers add role docstrings to the specs, then lines are removed.
+
+## Commits
+d259163 LOCK + stub · 395ebf5 brief X · c677e79 red team X output · e172f1e brief Y · 32299ec red team Y output · d1ea2a3 LOCK heartbeat · 1e03610 phrase fidelity (rules, phrases, CLAIMS/FINDINGS/packet, relock, records) · the IsFlatLCDM/CPL vocabulary fix · this records commit (LOCK removed).
+
+## CI
+- This run's pushes: read next run (the push of 1e03610 and its successors carries the checked job that also judges e62e945's promotion, whose own checked job was cancelled by coalescing).
