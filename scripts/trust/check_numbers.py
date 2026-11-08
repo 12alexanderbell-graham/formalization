@@ -199,6 +199,34 @@ def _parse(toks, i=0):
     return out, i
 
 
+_BODIES = None
+
+
+def composite_body(full, kinds):
+    """parsed body of a COMPOSITE definition, from its generated line in CLAIMS.md (`is defined as `…``), with
+    short names resolved to the labelled program constants they name (unique suffix); None if unknown"""
+    global _BODIES
+    if _BODIES is None:
+        _BODIES = {}
+        try:
+            for l in open("CLAIMS.md", encoding="utf-8"):
+                m = re.match(r"- `([^\s`]+)[^`]*` — COMPOSITE\b.*: is defined as `([^`]*)`\s*$", l.rstrip("\n"))
+                if m:
+                    _BODIES.setdefault(m.group(1), m.group(2))
+        except FileNotFoundError:
+            pass
+    short = full.split(".")[-1]
+    body = _BODIES.get(short)
+    if body is None:
+        return None
+    toks = []
+    for t in _tokens(body):
+        hits = [k for k in kinds if k.endswith("." + t)] if re.match(r"[A-Za-z_]", t) else []
+        toks.append(hits[0] if len(hits) == 1 else t)
+    items, _ = _parse(toks)
+    return items
+
+
 def _outer(items, kinds, acc):
     """outermost program definitions (head of a juxtaposition run) of a parsed term"""
     run_start = True
@@ -209,7 +237,14 @@ def _outer(items, kinds, acc):
         if run_start:
             if isinstance(it, str) and it.startswith("Checked."):
                 # every program constant a headline reaches is labelled or pinned (StatementDeps, T1 blocking)
-                acc.append((it, kinds.get(it, "PINNED")))
+                body = composite_body(it, kinds) if kinds.get(it) == "COMPOSITE" and len(acc) < 64 else None
+                if body is not None:
+                    # a COMPOSITE is read through: its role is that of the definitions its body combines (blind
+                    # red team W, run 2026-11-08T1428Z, d06: `l0Value Ω := printedAvilesL0 Ω + 0` made a printed
+                    # value read as derived in a generated block)
+                    _outer(body, kinds, acc)
+                else:
+                    acc.append((it, kinds.get(it, "PINNED")))
                 run_start = False
                 skip = True
                 continue
@@ -636,6 +671,14 @@ def selftest():
                          "Checked.Cosmography.CCS.correctD4 (Checked.Cosmography.decel a t₀) b c d", kinds) \
             != "difference(printed−derived)":
         bad.append("role_of does not read printedD4 − correctD4 as difference(printed−derived)")
+    if kinds:
+        global _BODIES
+        composite_body("Checked.X", kinds)  # load CLAIMS.md bodies first
+        _BODIES["wrapZZ"] = "printedAvilesL0 Ω + 0"
+        k2 = dict(kinds, **{"Checked.Records.wrapZZ": "COMPOSITE"})
+        if role_of("Checked.Records.wrapZZ (3 / 10)", k2) != "printed":
+            bad.append("role_of does not read through a COMPOSITE wrapper of a PRINTED definition (W d06)")
+        del _BODIES["wrapZZ"]
     for text, rule in cases:
         errs, _ = check_text(head + text + "\n", cert, params, set(), fixed, roles)
         fired = {e.split(":")[0] for e in errs}
