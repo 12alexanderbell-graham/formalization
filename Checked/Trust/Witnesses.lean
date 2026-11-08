@@ -44,6 +44,8 @@ import Checked.Chemistry.PR78Acentric
 import Checked.Chemistry.SRKAcentric
 import Checked.Cosmography.B1L19Curved
 import Checked.Math.LaneEmden
+import Checked.Math.LaneEmden2
+import Checked.Math.LE2Exists
 import Checked.Math.LEExists
 import Checked.Math.Gelfand
 import Checked.Math.GelfandExists
@@ -677,6 +679,14 @@ the centre, Picard–Lindelöf after, glued). -/
 
 theorem laneEmden3_constants : nonvacuity% Checked.Math.LaneEmden.laneEmden3_constants := by
   obtain ⟨θ, φ, hθ, hφ0, hφ, h0⟩ := Checked.Math.LEExists.exists_solution
+  exact ⟨θ, φ, hθ, hφ0, hφ, h0, trivial⟩
+
+/-! Lane–Emden equation of index two (run 2026-11-08T0228Z): the solution on the claim's range
+constructed in `Checked.Math.LE2Exists.exists_solution` (fixed point at the centre, Picard–Lindelöf
+for the clamped field after, clamps inactive by the certified cells, glued). -/
+
+theorem laneEmden2_constants : nonvacuity% Checked.Math.LaneEmden2.laneEmden2_constants := by
+  obtain ⟨θ, φ, hθ, hφ0, hφ, h0⟩ := Checked.Math.LE2Exists.exists_solution
   exact ⟨θ, φ, hθ, hφ0, hφ, h0, trivial⟩
 
 /-! Gelfand problem in the three-dimensional ball (run 2026-11-06T1228Z, promoted 1428Z): the radial

@@ -226,3 +226,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Certified-number selectors, `scripts/trust/StatementDeps.lean` + `scripts/trust/check_numbers.py` (run 2026-11-08T0028Z)
 - StatementDeps: `letBinds`, `roundsSel` (selector of `x` in `RoundsTo x d k`: `@Def`, numeral arguments by binder, `let` arguments), `posRoundsToSels`, `posRoundsToXs` (pretty-printed quantity); `ratLits` reads `let` values. `.lake/records_numbers.tsv` columns: record, value, selector, quantity.
 - check_numbers: `parse_sel_tsv`, `parse_sel_tag`, `check_text` (S1–S4, P1–P2), `generated_table` / `--write`, `selftest` (11 controls), shrink-only `scripts/trust/records_selector_baseline.txt`.
+
+## Lane–Emden of any integer index; index 2, `Checked/Math/LEN*.lean`, `Checked/Math/LE2*.lean` (run 2026-11-08T0228Z)
+- Generic in n: `LENStart.pow_sub_le_of`, `LENStart.start n`; `LENCell.leF n`, `pow_sub_le_slab`, `lip_slab n`, `cell n`; `LENCellQ.qpow`, `evalQ_qpow`, `defect2 n`, `CellProp n`, `cellOK`, `chainTo`, `segOK n`, `cell_q`, `chain_gen`, `seg_q n`.
+- Index 2: `LE2Start.startI`, `LE2QData` (cells, `seg0_ok`–`seg4_ok`), `LE2Last.stepL`, `lastFacts`, `LE2Chain.chain`, `LaneEmden2.core`, headline `laneEmden2_constants`; existence `LE2ExistsLeft` (fixed point, clamped square), `LE2ExistsStart`, `LE2ExistsCell` (clamped field `Fc`, `cellC`, `boxOK`, `chainC`), `LE2ExistsData`, `LE2Exists.exists_solution`.
+- Generators: `runs/2026-11-08T0228Z/scripts/gen_len.py <n>` (window table `WIN`), `emit_len.py <n> <T_num> <T_den> <ω_lo> <ω_hi>`, `gen_exists.py`, `promote_le2.py`. Audit: `Work/Math/LaneEmden2BlindClosed.lean`; reader `Checked/Trust/SecondReadingLE2.lean`.

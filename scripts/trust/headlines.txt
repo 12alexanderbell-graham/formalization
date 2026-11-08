@@ -222,3 +222,5 @@ Checked.Data.Moresco16Min.chiSqOL_lt
 Checked.Data.Moresco16Min.chiSqOL_glb_prior
 Checked.Data.Moresco16Min.chiSqOL_glb_wide
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable
+# Mathematics: Lane–Emden polytrope of index two (run 2026-11-08T0228Z, frozen, proved, audited and promoted the same run): first zero, mass factor, central concentration; simulator generic in the index
+Checked.Math.LaneEmden2.laneEmden2_constants

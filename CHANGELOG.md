@@ -420,3 +420,8 @@
 - Env: repo ok (add_repo not exposed; pre-cloned shallow checkout, `git checkout -B main origin/main` = 24caf5b); local Lean via elan ok (full Checked build 59 min); CI: 5556e24 (42427258702) green on every job → **Hiemenz trio PROVED**.
 - **Part 3: certified numbers bound to their quantity and argument** (12da5ad, ef070d8): StatementDeps writes each certified value's selector and pretty-printed quantity; `check_numbers.py` S1–S4, P1–P2 with 11 controls; generated table of all 26 certified values at the end of FINDINGS.md; `Checked.Records.F8_sizes`, `F11_sizes` state their arguments as `let`s (values unchanged, relocked; LEDGER). Closes round T d01. Adversary (Sonnet): 7/7 past the first version, 5/7 after (role class open).
 - PROMPT working note (selectors; `let` arguments keep the literal baseline a subsequence).
+
+## 2026-11-08T0228Z (scheduled run)
+- Env: repo ok; local Lean (elan + cache); full `lake build Checked` 60 min. CI: ef070d8 green; heartbeat dce69bf red on one Actions-API 504 → `scripts/ci_changes.py` retries transient failures, then fails closed.
+- Parts 1/5: Lane–Emden simulator generic in the index (`Checked/Math/LENStart.lean`, `LENCell.lean`, `LENCellQ.lean`); index 2 frozen (d65a231), proved (166b676), existence + blind closure (b297597), referee STANDS, blind literal reading (924714c → d2d0608), promoted to Checked: `Checked.Math.LaneEmden2.laneEmden2_constants` (PROVED once CI is green). Index 4 needs weighted cells (float study).
+- PROMPT working notes: a table row per run by parameterising the simulator; CI reads the Actions API with retries.

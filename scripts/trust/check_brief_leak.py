@@ -201,6 +201,18 @@ def leaks(code, text):
     return sorted(set(found))
 
 
+def brief_text(b):
+    """the brief's text without its own run id (run 2026-11-08T0228Z): a brief must name its run folder in the
+    output path, and the digits of that id are not data (`2026-11-08` reads as `20261108`, which contains the
+    fragment `110` of an answer 2.4110460120). Only the exact id of the brief's own folder is removed; any other
+    date- or id-shaped token is still read."""
+    text = (ROOT / b).read_text(errors="replace")
+    parts = Path(b).parts
+    if len(parts) > 1 and parts[0] == "runs":
+        text = text.replace(parts[1], "")
+    return text
+
+
 def reader_routes(base):
     """[(module rel, runs copy, [briefs])] of second versions with a reader file new since base"""
     out = []
@@ -222,7 +234,7 @@ def main():
         for rel, c, bs in reader_routes(None):
             code = P.code((ROOT / c).read_text())
             for b in bs:
-                f = leaks(code, (ROOT / b).read_text(errors="replace"))
+                f = leaks(code, brief_text(b))
                 print(f"{b}: {'; '.join(f) if f else 'clean'}")
         return 0
     if "--base" not in sys.argv:
@@ -237,7 +249,7 @@ def main():
         code = P.code((ROOT / c).read_text())
         for b in bs:
             n += 1
-            f = leaks(code, (ROOT / b).read_text(errors="replace"))
+            f = leaks(code, brief_text(b))
             if f:
                 errors.append(f"{rel}: brief {b} hands over the reader's answer: {'; '.join(f[:6])}")
     for e in errors:

@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 188. Resting on no unpinned physics definition: 188.
-Non-vacuity (trust track T2): 123 headlines have hypotheses; 123 of them have a
+Headlines: 189. Resting on no unpinned physics definition: 189.
+Non-vacuity (trust track T2): 124 headlines have hypotheses; 124 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -221,6 +221,7 @@ the docstring says; universally bound parameters are not listed.
 | `Data.Moresco16Min.chiSqOL_glb_prior` | — | — | m16Table² | unconditional | — |
 | `Data.Moresco16Min.chiSqOL_glb_wide` | — | — | m16Table² | unconditional | — |
 | `Data.Moresco16Min.table5_oL_aicc_unattainable` | — | — | m16Table² | `table5_oL_aicc_unattainable` | — |
+| `Math.LaneEmden2.laneEmden2_constants` | — | — | — | `laneEmden2_constants` | — |
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 

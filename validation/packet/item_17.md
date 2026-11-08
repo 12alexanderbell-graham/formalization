@@ -1,49 +1,55 @@
 # Item 17
 
-**Area:** Chemistry
+**Area:** Mathematics
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `u : ℝ`, `w : ℝ`:
+**For every** `lam : ℝ`, `u : EuclideanSpace ℝ (Fin 3) → ℝ`:
 
 **assuming**
 
-1. `-2 < u`
-2. `0 < 1 + u + w`
-3. `u + w < -1`
+1. `ContDiffOn ℝ 2 u (Metric.ball 0 1)`
+2. `ContinuousOn u (Metric.closedBall 0 1)`
+3. for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u x = 0`
+4. there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u x = g ‖x‖`
+5. for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian u x + lam * Real.exp (u x) = 0`
 
 **then**
 
-- there is exactly one `x : ℝ` such that (`1 < x`) and (`critCubic u w x = 0`)
-
-Program definitions in this claim:
-
-- `critCubic u w x` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_critCubic`) (for `u : ℝ`, `w : ℝ`, `x : ℝ`): is defined as `x ^ 3 - 3 * x ^ 2 - 3 * (u + w) * x - (u ^ 2 + u * w - w)`
+- `lam ≤ 3.321992119`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The critical cubic has exactly one root above 1 (x = v_c/b > 1).
+Gelfand problem in the unit ball of three-dimensional space, radial solutions: if u is twice
+continuously differentiable on the open unit ball, continuous on the closed unit ball, zero on the unit sphere
+and a function of ‖x‖ on the closed ball, and Δu + λ eᵘ = 0 on the open ball (Δ is Mathlib's Laplacian),
+then λ ≤ 3.321992119.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem critCubic_existsUnique (u w : ℝ) (hu : -2 < u) (h1 : 0 < 1 + u + w) (h2 : u + w < -1) :
-    ∃! x : ℝ, 1 < x ∧ critCubic u w x = 0 := …
+theorem gelfand_pde_radial_bound (lam : ℝ) (u : EuclideanSpace ℝ (Fin 3) → ℝ)
+    (hu : ContDiffOn ℝ 2 u (ball 0 1))
+    (hc : ContinuousOn u (closedBall 0 1))
+    (hb : ∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u x = 0)
+    (hrad : ∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u x = g ‖x‖)
+    (hpde : ∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + lam * Real.exp (u x) = 0) :
+    lam ≤ 3.321992119 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.CubicEOS.critCubic`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `critCubic_existsUnique`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `gelfand_pde_radial_bound`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/GelfandPDE.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 17
