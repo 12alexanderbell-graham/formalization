@@ -315,3 +315,4 @@ import Work.FalknerSkan.Bounded
 import Work.FalknerSkan.BBlindClosed
 import Work.FalknerSkan.HalfBounded
 import Work.FalknerSkan.HBBlindClosed
+import Work.FalknerSkan.FifthBounded
