@@ -301,3 +301,4 @@ import Work.FalknerSkan.FSScale
 import Work.FalknerSkan.FalknerSkan
 import Work.FalknerSkan.FSBlind
 import Work.FalknerSkan.FSBlindClosed
+import Work.FalknerSkan.MonotoneWindow
