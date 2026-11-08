@@ -66,7 +66,7 @@ s = s[:bodies[0].start()] + chain_text(P + 'UDataC', "(fun _ p _ t => p t < 1)",
 open(p, 'w').write(s)
 # 4. coefficient-K statements (from the beta = 1/5 row's FSFifth.lean) and the bounded-class module
 def subst5(t):
-    t = t.replace('Work.FSFifth.F5', 'Work.%s.%s' % (NS, P)).replace('Work.FSFifth', 'Work.' + NS).replace('k5_', 'k%d_' % k)
+    t = t.replace('Work.FSFifth.FSFifth', 'Work.%s.%s' % (NS, NS)).replace('Work.FSFifth.F5', 'Work.%s.%s' % (NS, P)).replace('Work.FSFifth', 'Work.' + NS).replace('k5_', 'k%d_' % k)
     t = t.replace('1.5355261734', LO).replace('1.5355261735', HI).replace('-(5 * ', '-(%d * ' % k).replace('(0:ℝ) ≤ 5)', '(0:ℝ) ≤ %d)' % k)
     t = t.replace('−5 f q', '−%d f q' % k).replace("5 f f''", "%d f f''" % k).replace("5 F F''", "%d F F''" % k).replace('β = 1/5', 'β = 1/%d' % k)
     t = t.replace('coefficient 5', 'coefficient %d' % k).replace('coefficient is\n5', 'coefficient is\n%d' % k).replace('Coefficient 5', 'Coefficient %d' % k).replace('coefficient-5', 'coefficient-%d' % k)
@@ -85,5 +85,5 @@ open(W + P + 'Bounded.lean', 'w').write(subst5(s))
 t = fs_stmts(True); open(out, 'w').write(t)
 for f in os.listdir(W):
     t = open(W + f).read()
-    assert 'FSFifth' not in t and '1.5355261' not in t, f
+    assert 'FSFifth' not in t and 'k5_' not in t and ('Data' in f or '1.5355261' not in t), f
 print('row made', NS, NAME)
