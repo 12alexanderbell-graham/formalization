@@ -1,0 +1,4 @@
+Category: wrong-definition (phrase states a formula the body does not compute: wrong power)
+Reader would wrongly believe: CLAIMS.md: "`angDist K a t₀ t` — PINNED (pin theorem `angDistSpec_pins`): the angular-diameter distance d_L/(1 + z), at observation time `t₀`, of a source emitting at time `t`, in the FLRW model with scale factor `a` and curvature constant `K` (c = 1)"
+Why it is false: Body: angDist K a t₀ t = lumDist K a t₀ t / (1 + redshift a t₀ t)^2 (Etherington: d_A = d_L/(1+z)^2). The phrase says d_L/(1+z): off by a factor (1+z) = 1/a-ratio, i.e. 1.5 at z = 0.5. Every angDist headline (the D_A series and their refutations) is then read as a statement about d_L/(1+z), a quantity larger than the angular-diameter distance by the factor 1+z.
+Expected: ACCEPTED (no check compares the printed formula of a phrase with the body; glossary lint passes since d_L and angular-diameter distance belong to angDist). One commit.
