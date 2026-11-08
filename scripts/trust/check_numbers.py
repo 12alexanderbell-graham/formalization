@@ -37,6 +37,32 @@ definition, and `v=p/q` for each rational numeral argument of that definition (b
   P2  an input tag of a record that fixes several parameters must name its slot (adversary of run
       2026-11-08T0028Z, d3: the toy parameters (w₀, wₐ) permuted in prose passed set membership).
 `--selftest` runs a rejecting control and a clean twin for S1–S3 (also run first by every check).
+Roles (run 2026-11-08T0628Z; adversary of run 2026-11-08T0028Z, d1 d2 d5 d6: a printed and a true value
+swapped in prose, or a difference called q₀, passed every rule above because a record's *role* — printed
+formula, derived quantity, difference — was free text). The role of every certified value is computed
+from the Lean statement, not from prose: the outermost program definitions of the certified quantity
+`x` (those not inside another program definition's arguments) and their labels in
+`scripts/trust/def_kinds.txt` (checked labels: PRINTED needs a blind second reading). `printed`: every
+outermost definition is PRINTED; `derived`: at least one is not (a pinned or derived quantity of the
+program); `free`: none (a formula of numerals or a bound variable such as the `r` of `∃ r`);
+`difference(A−B)`: `x` is `u − v` with roles A ≠ B. Rules:
+  R0  every certified value whose role is printed, derived or a difference carries it in its tag,
+      `0.685[✓F1_printedL0(printed)]`, `0.2153[✓F3_D4_LCDM(correctD4, derived)]`, `0.24[✓F3_D4_LCDM(difference)]`
+      (S1/S2 read it), so the role Lean gives a number stands next to it in the text a reader reads.
+On the *window* of a certified number (the text of its sentence after the previous tag):
+  R1  the last role word of the window agrees with the role: a printed word (printed, misprinted,
+      misprint, erroneous, wrong) only before a printed value, a true word (true, correct, corrected,
+      actual, exact) only before a derived value;
+  R2  a printed value has a printed word in its window (so a swap with a derived value fails R1 or R2);
+  R3  a difference: role words in the window, if any, name both sides in the order of the subtraction
+      ("true − printed" for derived − printed);
+  R4  `q₀ = c[✓…]`, `l₀ ≈ c[✓…]` (the cosmographic symbols q₀ j₀ s₀ l₀ m₀, from the frozen phrases of
+      the pinned `decel` and `cosmoCoeff`): a derived value must be that quantity (`decel`,
+      `cosmoCoeff n`, n = 3…6); a difference or free value may not be named by a symbol.
+The generated table shows each value's role. Open (recorded): free and bound values (roots, sizes) carry
+no role; role words outside the closed lists are not read; which derived quantity a value is (beyond
+R4's symbols and the selector's head) is still read from the tag's selector, not from prose.
+
 
 With `--base REF` (CI, after the frozen-registry check) it also compares with REF: a certified
 pair (number, [✓name]) present at REF and absent now (number changed, or tag downgraded to
@@ -120,6 +146,108 @@ def sel_tag_text(col):
     return ", ".join(items)
 
 
+KINDS_FILE = "scripts/trust/def_kinds.txt"
+PRINTED_W = r"printed|misprinted|misprint|erroneous|wrong"
+TRUE_W = r"true|correct|corrected|actual|exact"
+ROLE_WORD = re.compile(r"(?<![\w])(" + PRINTED_W + "|" + TRUE_W + r")(?![\w])", re.I)
+ROLES = ("printed", "derived", "difference", "free")
+# cosmographic symbols -> the pinned quantity (frozen phrases of `decel` and `Aviles.cosmoCoeff` in
+# scripts/trust/phrases.txt: "j, s, l, m for n = 3, 4, 5, 6"; decel is the deceleration parameter)
+SYMBOLS = {"q₀": ("Checked.Cosmography.decel", None), "j₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "3"),
+           "s₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "4"), "l₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "5"),
+           "m₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "6")}
+PHRASE_GUARD = ("j, s, l, m for n = 3, 4, 5, 6", "the deceleration parameter")
+
+
+def load_kinds():
+    out = {}
+    try:
+        for l in open(KINDS_FILE, encoding="utf-8"):
+            l = l.split("#")[0].split()
+            if len(l) == 2:
+                out[l[0]] = l[1]
+    except FileNotFoundError:
+        pass
+    return out
+
+
+def _tokens(x):
+    """identifiers, numerals, parentheses and operators of a pretty-printed Lean term"""
+    return re.findall(r"[A-Za-z_][\w.'₀-₉⁰-⁹]*|\d+(?:\.\d+)?|:=|[()]|[-+*/^;=∣]|\S", x)
+
+
+OPS = {"+", "-", "*", "/", "^", ";", ":=", "=", "∣", "have", "let", "fun", "↦", "=>"}
+
+
+def _parse(toks, i=0):
+    """nested lists by parentheses"""
+    out = []
+    while i < len(toks):
+        t = toks[i]
+        if t == "(":
+            sub, i = _parse(toks, i + 1)
+            out.append(sub)
+        elif t == ")":
+            return out, i + 1
+        else:
+            out.append(t)
+            i += 1
+    return out, i
+
+
+def _outer(items, kinds, acc):
+    """outermost program definitions (head of a juxtaposition run) of a parsed term"""
+    run_start = True
+    for it in items:
+        if isinstance(it, str) and it in OPS:
+            run_start = True
+            continue
+        if run_start:
+            if isinstance(it, str) and it.startswith("Checked."):
+                # every program constant a headline reaches is labelled or pinned (StatementDeps, T1 blocking)
+                acc.append((it, kinds.get(it, "PINNED")))
+                run_start = False
+                skip = True
+                continue
+            if isinstance(it, list):
+                _outer(it, kinds, acc)
+            run_start = False
+            skip = False
+        else:
+            # an argument of the run's head: only skipped when the head is a program definition
+            if not skip and isinstance(it, list):
+                _outer(it, kinds, acc)
+    return acc
+
+
+def _term_role(items, kinds):
+    acc = _outer(items, kinds, [])
+    if not acc:
+        return "free"
+    return "printed" if all(k == "PRINTED" for _, k in acc) else "derived"
+
+
+def role_of(x, kinds):
+    """role of a certified quantity (pretty-printed Lean term): printed / derived / free / difference(A−B)"""
+    items, _ = _parse(_tokens(x))
+    while len(items) == 1 and isinstance(items[0], list):
+        items = items[0]
+    # top-level binary minus: u − v
+    add = [i for i, it in enumerate(items) if it in ("+", "-") and i > 0 and not (isinstance(items[i - 1], str) and items[i - 1] in OPS)]
+    if len(add) == 1 and items[add[0]] == "-" and not any(isinstance(t, str) and t in (";", ":=") for t in items):
+        i = add[0]
+        a, b = _term_role(items[:i], kinds), _term_role(items[i + 1:], kinds)
+        if a != b and "free" not in (a, b):
+            return f"difference({a}−{b})"
+    return _term_role(items, kinds)
+
+
+def head_of(x):
+    """(outermost head identifier, first argument) of a pretty-printed term, for R4"""
+    t = _tokens(x)
+    return (t[0], t[1] if len(t) > 1 else None) if t else (None, None)
+
+
 def generated_table(rows):
     """FINDINGS.md's generated section: every certified value with the tag that selects it and the quantity
     as Lean states it (run 2026-11-08T0028Z: the binding of a number to its quantity is read from Lean, not
@@ -132,14 +260,25 @@ def generated_table(rows):
            "record certifies several values), the certified decimal, and the quantity Lean certifies it for "
            "(`RoundsTo x d k`: |x − d| ≤ 10⁻ᵏ/2). Free names (`a`, `t₀`, `r`) are bound in the record's statement; "
            "read the full statement in CLAIMS.md.", "",
-           "| tag | value | certified quantity |", "|---|---|---|"]
+           "Role (run 2026-11-08T0628Z): `printed` (every outermost definition of the quantity is labelled "
+           "PRINTED: a source's printed formula), `derived` (a pinned or derived quantity of the program), "
+           "`difference(A−B)`, or `free` (no program definition: a formula of numerals or a bound variable); "
+           "read from the statement and scripts/trust/def_kinds.txt, checked against the prose by rules R0–R4.", "",
+           "| tag | value | role | certified quantity |", "|---|---|---|---|"]
+    kinds = load_kinds()
+    selcount = {}
+    for r in rows:
+        selcount[(r[0], r[2] if len(r) > 2 else "")] = selcount.get((r[0], r[2] if len(r) > 2 else ""), 0) + 1
     for r in rows:
         name, val = r[0], r[1]
         sel = r[2] if len(r) > 2 else ""
         x = r[3] if len(r) > 3 else ""
         st = sel_tag_text(sel)
+        rl = role_of(x, kinds)
+        if rl != "free":
+            st = ", ".join(([st] if st else []) + ["difference" if rl.startswith("difference(") else rl])
         tag = f"✓{name}" + (f"({st})" if st else "")
-        out.append(f"| {tag} | {val.replace('-', '−')} | `{x.replace('|', '∣')}` |")
+        out.append(f"| {tag} | {val.replace('-', '−')} | {role_of(x, kinds)} | `{x.replace('|', '∣')}` |")
     return "\n".join(out) + "\n"
 
 
@@ -158,7 +297,10 @@ def certified_pairs(text):
     out = {}
     for line in scope(text).split("\n"):
         for t in re.finditer(r"(" + NUM + r")\[((?:in)?✓[A-Za-z0-9_]+" + SELX + r")\]", code_blank(line)):
-            k = (norm(t.group(1)), t.group(2))
+            # role items (R0) are checked against Lean on every run; adding one is not a change of the pair
+            tg = re.sub(r"\(([^()]*)\)$", lambda mm: "(" + ", ".join(x.strip() for x in mm.group(1).split(",")
+                        if x.strip() not in ROLES) + ")", t.group(2)).replace("()", "")
+            k = (norm(t.group(1)), tg)
             out[k] = out.get(k, 0) + 1
     return out
 
@@ -236,17 +378,22 @@ def fmt_sel(sel):
     return "(" + ", ".join(items) + ")" if items else "(no selector)"
 
 
-def check_text(text, cert, params, ambig_ok, fixed=None):
-    """All FINDINGS rules on `text`. cert: name -> [(value string, selector)]. Returns (errors, counts)."""
+def check_text(text, cert, params, ambig_ok, fixed=None, roles=None):
+    """All FINDINGS rules on `text`. cert: name -> [(value string, selector)]; roles: name -> [(value string,
+    selector, role, quantity)] in the same order (rules R1–R4; absent: S-rules only). Returns (errors, counts)."""
     errors, counts = [], {"✓": 0, "src": 0, "in": 0, "unc": 0}
     fixed = fixed or {}
+    roles = roles or {}
     for line in scope(text).split("\n"):
         s = code_blank(line)
         tagged_starts = set()
         bound_tags = []   # (start, end, {var: Fraction}) of selector tags with bindings (rule S3)
+        tag_spans = []    # (number start, tag end) of every tag (window boundaries of R1–R4)
+        role_tags = []    # (number start, tag end, role, quantity, text) of certified values with a known role
         for t in re.finditer(r"(" + NUM + r")" + TAG, s):
             num, tag = t.group(1), t.group(2)
             tagged_starts.add(t.start(1))
+            tag_spans.append((t.start(1), t.end()))
             if tag.startswith("in✓"):
                 m = re.fullmatch(r"in✓([A-Za-z0-9_]+)(?:\(([^()]*)\))?", tag)
                 name, slot = m.group(1), m.group(2)
@@ -270,6 +417,17 @@ def check_text(text, cert, params, ambig_ok, fixed=None):
                 if name not in cert:
                     errors.append(f"[✓{name}] after {num}: no registered Checked.Records headline {name} asserts a RoundsTo")
                     continue
+                role_req = None
+                if seltxt is not None:
+                    items = [x.strip() for x in seltxt.split(",")]
+                    rl = [x for x in items if x in ROLES]
+                    if len(rl) > 1:
+                        errors.append(f"{num}[{tag}]: the selector names two roles")
+                        continue
+                    if rl:
+                        role_req = rl[0]
+                        items = [x for x in items if x not in ROLES]
+                        seltxt = ", ".join(items) if items else None
                 sel = None
                 if seltxt is not None:
                     sel = parse_sel_tag(seltxt)
@@ -283,7 +441,16 @@ def check_text(text, cert, params, ambig_ok, fixed=None):
                     errors.append(f"{num}[✓{name}]: {name} certifies {vals}, not {num}")
                     continue
                 want = sel if sel is not None else ("", frozenset())
-                same = [(v, c) for v, c in cert[name] if c == want]
+                rrows = roles.get(name) or [(v, c, None, "") for v, c in cert[name]]
+                # a tag naming only a role selects by role (the conjunct's own selector need not be written)
+                byrole = role_req is not None and sel is None
+                rmatch = lambda r: role_req is None or r == role_req or (role_req == "difference" and str(r).startswith("difference("))
+                same = [(v, c) for v, c, r, _ in rrows if (byrole or c == want) and rmatch(r)]
+                rmatch = lambda r: role_req is None or r == role_req or (role_req == "difference" and str(r).startswith("difference("))
+                if role_req is not None and not any(value(v) == value(num) and rmatch(r) for v, c, r, _ in rrows):
+                    errors.append(f"S1: {num}[{tag}]: {name} certifies {num} with role "
+                                  f"{', '.join(str(r) for v, c, r, _ in rrows if value(v) == value(num))}, not {role_req}")
+                    continue
                 if sel is not None and not any(value(v) == value(num) for v, _ in same):
                     errors.append(f"S1: {num}[{tag}]: {name} certifies {num} with selector "
                                   f"{', '.join(fmt_sel(c) for v, c in cert[name] if value(v) == value(num))}, "
@@ -291,8 +458,20 @@ def check_text(text, cert, params, ambig_ok, fixed=None):
                     continue
                 if len(cert[name]) > 1 and name not in ambig_ok and len(same) != 1:
                     errors.append(f"S2: {num}[{tag}]: {name} certifies several values; the tag must name the selector "
-                                  f"of this one: {', '.join(fmt_sel(c) for v, c in cert[name] if value(v) == value(num))}")
+                                  f"of this one: {', '.join(fmt_sel(c) for v, c in cert[name] if value(v) == value(num))}"
+                                  + (f" (or its role: {', '.join(str(r) for v, c, r, _ in rrows if value(v) == value(num))})"
+                                     if roles.get(name) else ""))
                     continue
+                hit = [(r, x) for v, c, r, x in rrows if value(v) == value(num) and (byrole or c == want) and rmatch(r)]
+                if not hit and sel is None and role_req is None:
+                    hit = [(r, x) for v, c, r, x in rrows if value(v) == value(num)]  # untagged selector: by value
+                if len({r for r, _ in hit}) == 1 and hit[0][0] is not None:
+                    role_tags.append((t.start(1), t.end(), hit[0][0], hit[0][1], f"{num}[{tag}]"))
+                    # R0: the role is written in the tag, next to the number, for every value that has one
+                    if role_req is None and hit[0][0] != "free":
+                        rr = "difference" if hit[0][0].startswith("difference(") else hit[0][0]
+                        errors.append(f"R0: {num}[{tag}]: name the role Lean gives this value in the tag: "
+                                      f"{num}[✓{name}({(seltxt + ', ') if seltxt else ''}{rr})]")
                 counts["✓"] += 1
             else:
                 counts[tag] += 1
@@ -303,6 +482,43 @@ def check_text(text, cert, params, ambig_ok, fixed=None):
             if "[✓" in sent and ("[in]" in sent or "[src]" in sent or "[unc]" in sent):
                 errors.append(f"bare [in]/[src]/[unc] in a sentence with a certified number: bind the parameter to "
                               f"its record, 0.3[in✓name], or move the quote to its own sentence: {sent.strip()[:90]}")
+        # R1–R4: the role of a certified value (read from Lean) agrees with the words next to it (run 2026-11-08T0628Z)
+        off = 0
+        for sent in re.split(r"(?<=[.;])\s", s):
+            a0 = s.find(sent, off)
+            off = a0 + len(sent)
+            for na, nb, role, x, shown in [rt for rt in role_tags if a0 <= rt[0] < off]:
+                prev = max([b for a, b in tag_spans if a0 <= a and b <= na] + [a0])
+                window = s[prev:na]
+                words = ["P" if re.fullmatch(PRINTED_W, w.lower()) else "T" for w in ROLE_WORD.findall(window)]
+                ctx = window.strip()[-70:]
+                if role == "printed":
+                    if not words:
+                        errors.append(f"R2: {shown} is the value of a printed formula (role read from Lean) but no printed "
+                                      f"word labels it in its window: …{ctx}…")
+                    elif words[-1] != "P":
+                        errors.append(f"R1: {shown} is the value of a printed formula but the nearest role word before it "
+                                      f"says true/correct: …{ctx}…")
+                elif role == "derived":
+                    if words and words[-1] == "P":
+                        errors.append(f"R1: {shown} is a derived quantity (role read from Lean: not every outermost "
+                                      f"definition is PRINTED) but the nearest role word before it says printed: …{ctx}…")
+                elif role.startswith("difference("):
+                    a, b = role[len("difference("):-1].split("−")
+                    want = ["P" if a == "printed" else "T", "P" if b == "printed" else "T"]  # derived: a true word
+                    if words and not (words[0] == want[0] and want[1] in words[1:]):
+                        errors.append(f"R3: {shown} is the difference {a} − {b} (read from Lean) but the role words of its "
+                                      f"window are in another order: …{ctx}…")
+                sm = re.search(r"(?<![\w])(" + "|".join(SYMBOLS) + r")\s*[=≈]\s*\+?$", s[a0:na])
+                if sm:
+                    sym = sm.group(1)
+                    if role == "derived":
+                        h, arg = head_of(x)
+                        if (h, arg if SYMBOLS[sym][1] else None) != SYMBOLS[sym]:
+                            errors.append(f"R4: prose `{sym} = {shown}` but the certified quantity is `{x[:60]}`, not {sym}")
+                    elif role != "printed":
+                        errors.append(f"R4: prose `{sym} = {shown}` but the certified value is {role} (read from Lean), "
+                                      f"not the quantity {sym}")
         # S3: an argument the prose names agrees with the selector of the certified value it describes
         off = 0
         for sent in re.split(r"(?<=[.;])\s", s):
@@ -386,9 +602,38 @@ def selftest():
         ("toy (−0.41[in✓T(w0)], −0.93[in✓T(wa)]): 0.809[✓T].", "P1"),
         ("toy (−0.41[in✓T], −0.93[in✓T]): 0.809[✓T].", "P2"),
     ]
+    # roles (R1–R4, run 2026-11-08T0628Z): P = printed formula, V = program quantity, D = difference, Z = q₀
+    cert["P"] = [("0.685", ("", frozenset()))]
+    cert["V"] = [("3.115", ("cosmoCoeff", frozenset()))]
+    cert["D"] = [("0.24", ("", frozenset()))]
+    cert["Z"] = [("-0.55", ("decel", frozenset()))]
+    cert["W"] = [("0.277", ("", frozenset())), ("-5.25", ("", frozenset()))]
+    roles = {"P": [("0.685", cert["P"][0][1], "printed", "Checked.X.printedL0 (3 / 10)")],
+             "V": [("3.115", cert["V"][0][1], "derived", "Checked.Cosmography.Aviles.cosmoCoeff 5 a t₀")],
+             "D": [("0.24", cert["D"][0][1], "difference(printed−derived)", "Checked.X.p a - Checked.X.c a")],
+             "Z": [("-0.55", cert["Z"][0][1], "derived", "Checked.Cosmography.decel a t₀")],
+             "W": [("0.277", ("", frozenset()), "printed", "x"), ("-5.25", ("", frozenset()), "derived", "y")]}
+    cases += [
+        ("the printed l₀ is 0.685[✓P(printed)] instead of 3.115[✓V(derived)].", None),
+        ("the printed l₀ is 0.685[✓P] instead of 3.115[✓V(derived)].", "R0"),
+        ("the printed l₀ is 3.115[✓V(derived)] instead of 0.685[✓P(printed)].", "R1"),
+        ("the formula's l₀ is 3.115[✓V(derived)] instead of 0.685[✓P(printed)].", "R2"),
+        ("the printed l₀ is 0.685[✓P(derived)] instead of 3.115[✓V(derived)].", "S1"),
+        ("printed − true = 0.24[✓D(difference)], at q₀ = −0.55[✓Z(decel, derived)].", None),
+        ("true − printed = 0.24[✓D(difference)].", "R3"),
+        ("off by −0.55[✓Z(decel, derived)] at q₀ = +0.24[✓D(difference)].", "R4"),
+        ("printed 0.277[✓W(printed)] instead of −5.25[✓W(derived)].", None),
+        ("printed −5.25[✓W(derived)] instead of 0.277[✓W(printed)].", "R1"),
+        ("printed 0.277[✓W] instead of −5.25[✓W(derived)].", "S2"),
+    ]
     bad = []
+    kinds = load_kinds()
+    if kinds and role_of("Checked.Cosmography.CCS.printedD4 (Checked.Cosmography.decel a t₀) b c d - "
+                         "Checked.Cosmography.CCS.correctD4 (Checked.Cosmography.decel a t₀) b c d", kinds) \
+            != "difference(printed−derived)":
+        bad.append("role_of does not read printedD4 − correctD4 as difference(printed−derived)")
     for text, rule in cases:
-        errs, _ = check_text(head + text + "\n", cert, params, set(), fixed)
+        errs, _ = check_text(head + text + "\n", cert, params, set(), fixed, roles)
         fired = {e.split(":")[0] for e in errs}
         if rule is None and errs:
             bad.append(f"clean control rejected: {text} -> {errs}")
@@ -412,9 +657,20 @@ def main():
     except FileNotFoundError:
         print(f"::error::{TSV} missing: run `lake env lean scripts/trust/StatementDeps.lean` first")
         return 1
-    cert = {}
+    cert, roles = {}, {}
+    kinds = load_kinds()
     for r in rows:
         cert.setdefault(r[0], []).append((r[1], parse_sel_tsv(r[2] if len(r) > 2 else "")))
+        x = r[3] if len(r) > 3 else ""
+        roles.setdefault(r[0], []).append((r[1], parse_sel_tsv(r[2] if len(r) > 2 else ""), role_of(x, kinds) if x else None, x))
+    try:
+        ph = open("scripts/trust/phrases.txt", encoding="utf-8").read()
+        for g in PHRASE_GUARD:
+            if g not in ph:
+                print(f"::error::R4: the frozen phrase of decel/cosmoCoeff no longer contains {g!r}: update SYMBOLS")
+                return 1
+    except FileNotFoundError:
+        pass
     params = {}
     try:
         for l in open(PARAMS, encoding="utf-8").read().splitlines():
@@ -477,7 +733,7 @@ def main():
     elif cur != table:
         errors.append(f"the section '{GENERATED}' of {FINDINGS} is missing or stale: run "
                       f"`python3 scripts/trust/check_numbers.py --write` after StatementDeps.lean and commit")
-    errs, counts = check_text(text, cert, params, ambig_ok, fixed)
+    errs, counts = check_text(text, cert, params, ambig_ok, fixed, roles)
     errors += errs
     total = sum(counts.values())
     print(f"certified numbers (FINDINGS.md outside '{UNVERIFIED}'): {counts['✓']} certified [✓], "

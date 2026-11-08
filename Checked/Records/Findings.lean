@@ -28,9 +28,14 @@ theorem F1_l0 (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatLCDM (3 / 10) a t₀)
   rw [(flatLCDM_coeffs _ a t₀ hL hs).2.2.2.1]
   unfold RoundsTo; rw [abs_le]; norm_num
 
-/-- The printed `l₀ = 1 + 3Ω − (27/2)Ω²` at `Ω = 0.3` is `0.685`. -/
-theorem F1_printedL0 : RoundsTo (1 + 3 * (3 / 10) - 27 / 2 * (3 / 10) ^ 2) 0.685 3 := by
-  unfold RoundsTo; rw [abs_le]; norm_num
+/-- Aviles, Gruber, Luongo, Quevedo 2012 (arXiv:1204.2007), Eq. (15): the printed
+`l₀ = 1 + 3Ω − (27/2)Ω²` (run 2026-11-08T0628Z: a named PRINTED definition so that the role of the
+certified number, printed, is read from Lean; blind second reading `Checked.Trust.SecondReading.avilesL0`). -/
+noncomputable def printedAvilesL0 (Ω : ℝ) : ℝ := 1 + 3 * Ω - (27 / 2) * Ω ^ 2
+
+/-- The printed `l₀` (`printedAvilesL0`) at `Ω = 0.3` is `0.685`. -/
+theorem F1_printedL0 : RoundsTo (printedAvilesL0 (3 / 10)) 0.685 3 := by
+  unfold printedAvilesL0 RoundsTo; rw [abs_le]; norm_num
 
 /-- There is a matter fraction `Ω ≈ 0.549` in `(0, 1)` at which the printed `m₀` agrees with the
 true `m₀` of every flat ΛCDM model (`Ω = (√7 − 1)/3`). -/
@@ -49,13 +54,16 @@ theorem F1_m0_agrees : ∃ r : ℝ, RoundsTo r 0.549 3 ∧ 0 < r ∧ r < 1 ∧
 
 /-! ## F2 (Capozziello, Lazkoz, Salzano 2011, Eq. (22)) -/
 
-/-- The printed CPL `l₀` (Eq. (22)), written out. -/
-local notation "printedCPLl0" Ω:max w₀:max wₐ:max =>
+/-- Capozziello, Lazkoz, Salzano 2011 (arXiv:1104.3096), Eq. (22): the printed flat matter + CPL
+`l₀`, written out (run 2026-11-08T0628Z: a named PRINTED definition replacing a `local notation`, so
+that the role of the certified numbers is read from Lean; blind second reading
+`Checked.Trust.SecondReading.clsL0`). -/
+noncomputable def printedCLSL0 (Ω w₀ wₐ : ℝ) : ℝ :=
   35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ
-      + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀
-      + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2
-      + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3
-      + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4
+    + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀
+    + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2
+    + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3
+    + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4
 
 /-- The paper's toy model `(Ω, w₀, wₐ) = (0.245, −0.93, −0.41)`: in every flat matter + CPL model
 with these parameters `l₀ = 0.809`, while the printed formula gives `−0.906`. -/
@@ -63,16 +71,17 @@ theorem F2_toy (a : ℝ → ℝ) (t₀ : ℝ)
     (hL : CPL.IsFlatCPL (245 / 1000) (-93 / 100) (-41 / 100) a t₀)
     (hs : ContDiffAt ℝ 5 a t₀) :
     RoundsTo (cosmoCoeff 5 a t₀) 0.809 3 ∧
-      RoundsTo (printedCPLl0 (245 / 1000 : ℝ) (-93 / 100 : ℝ) (-41 / 100 : ℝ)) (-0.906) 3 := by
+      RoundsTo (printedCLSL0 (245 / 1000) (-93 / 100) (-41 / 100)) (-0.906) 3 := by
   rw [(CPL.flatCPL_coeffs _ _ _ a t₀ hL hs).2.2.2]
-  unfold RoundsTo; simp only [abs_le]; norm_num
+  unfold printedCLSL0 RoundsTo; simp only [abs_le]; norm_num
 
 /-- At `Ω = 0.3`, `wₐ = −0.5` and every `w₀`, every flat CPL model has `l₀` exceeding the printed
 formula by `2.345`. -/
 theorem F2_error (w₀ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hL : CPL.IsFlatCPL (3 / 10) w₀ (-1 / 2) a t₀)
     (hs : ContDiffAt ℝ 5 a t₀) :
-    RoundsTo (cosmoCoeff 5 a t₀ - printedCPLl0 (3 / 10 : ℝ) w₀ (-1 / 2 : ℝ)) 2.345 3 := by
+    RoundsTo (cosmoCoeff 5 a t₀ - printedCLSL0 (3 / 10) w₀ (-1 / 2)) 2.345 3 := by
   rw [(CPL.flatCPL_coeffs _ _ _ a t₀ hL hs).2.2.2]
+  unfold printedCLSL0
   have : ∀ x : ℝ, x = 2.345 → |x - 2.345| ≤ 1 / (2 * 10 ^ 3) := fun x hx => by
     rw [hx]; norm_num
   exact this _ (by ring)
@@ -108,13 +117,13 @@ theorem F8_sizes :
 
 /-! ## F9 (Bamba et al. 2012, (11.21) with the printed R) -/
 
-/-- At `Ω = 0.25` the printed (11.21) gives `F(R₀) = 0.277 H₀²`; the ΛCDM value `3H₀²(Ω − 2)` is
-`−5.25 H₀²` (`H₀ = 1`). -/
+/-- At `Ω = 0.25` the printed (11.21) with the printed R gives `0.0462`; with the correct R it gives −0.875. -/
 theorem F9_values :
-    RoundsTo (27 * (1 / 4) ^ 2 * ((1 / 4) - 2) * (27 * (1 / 4) ^ 2 + 60 * (1 / 4) + 112) /
-      (243 * (1 / 4) ^ 4 + 540 * (1 / 4) ^ 3 - 6264 * (1 / 4) ^ 2 + 9360 * (1 / 4) - 3328)) 0.277 3 ∧
-    RoundsTo (3 * ((1 / 4 : ℝ) - 2)) (-5.25) 2 := by
-  unfold RoundsTo; simp only [abs_le]; norm_num
+    RoundsTo (let Ω := (1 / 4 : ℝ); -(FRCosmo.P0 (FREta.qL Ω) FREta.jL (FREta.sL Ω) (FREta.lL Ω) * Ω + FRCosmo.Q0 (FREta.qL Ω) FREta.jL (FREta.sL Ω) (FREta.lL Ω)) / FRCosmo.printedR (FREta.qL Ω) FREta.jL (FREta.sL Ω) (FREta.lL Ω)) 0.0462 4 ∧
+    RoundsTo (let Ω := (1 / 4 : ℝ); -(FRCosmo.P0 (FREta.qL Ω) FREta.jL (FREta.sL Ω) (FREta.lL Ω) * Ω + FRCosmo.Q0 (FREta.qL Ω) FREta.jL (FREta.sL Ω) (FREta.lL Ω)) / FRCosmo.correctR (FREta.qL Ω) FREta.jL (FREta.sL Ω) (FREta.lL Ω)) (-0.875) 3 := by
+  simp only [FRCosmo.P0, FRCosmo.Q0, FRCosmo.printedR, FRCosmo.correctR, FREta.qL, FREta.jL, FREta.sL,
+    FREta.lL, RoundsTo, abs_le]
+  norm_num
 
 /-- The denominator of the printed (11.21) in ΛCDM vanishes at some `Ω ≈ 0.538`. -/
 theorem F9_pole : ∃ r : ℝ, RoundsTo r 0.538 3 ∧

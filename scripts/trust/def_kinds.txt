@@ -183,3 +183,5 @@ Checked.Data.Moresco16.m16Table PRINTED
 Checked.Data.Moresco16.e2OL FORMULA
 Checked.Data.Moresco16.chiSqOL FORMULA
 Checked.Data.Moresco16.chiSqLine FORMULA
+Checked.Records.printedAvilesL0 PRINTED
+Checked.Records.printedCLSL0 PRINTED

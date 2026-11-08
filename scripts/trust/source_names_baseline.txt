@@ -18,12 +18,7 @@ Checked.Cosmography.FRCosmo.curv_derivs equation-number  # '(11.10)': inline sou
 Checked.Cosmography.FRCosmo.exists_LCDM_model equation-number  # '(11.40)': inline source data, no reached PRINTED/CLAIM definition or registered reading
 Checked.Cosmography.FREta.eta_numbers printed  # 'printed': inline source data, no reached PRINTED/CLAIM definition or registered reading
 Checked.Cosmography.FREta.eta_numbers equation-number  # '(11.44)': inline source data, no reached PRINTED/CLAIM definition or registered reading
-Checked.Records.F1_printedL0 printed  # 'printed': inline source data, no reached PRINTED/CLAIM definition or registered reading
 Checked.Records.F1_m0_agrees printed  # 'printed': inline source data, no reached PRINTED/CLAIM definition or registered reading
-Checked.Records.F2_toy printed  # 'printed': inline source data, no reached PRINTED/CLAIM definition or registered reading
-Checked.Records.F2_error printed  # 'printed': inline source data, no reached PRINTED/CLAIM definition or registered reading
-Checked.Records.F9_values printed  # 'printed': inline source data, no reached PRINTED/CLAIM definition or registered reading
-Checked.Records.F9_values equation-number  # '(11.21)': inline source data, no reached PRINTED/CLAIM definition or registered reading
 Checked.Records.F9_pole printed  # 'printed': inline source data, no reached PRINTED/CLAIM definition or registered reading
 Checked.Records.F9_pole equation-number  # '(11.21)': inline source data, no reached PRINTED/CLAIM definition or registered reading
 Checked.Records.F10_exceptions printed  # 'printed': inline source data, no reached PRINTED/CLAIM definition or registered reading

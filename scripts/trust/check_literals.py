@@ -17,7 +17,7 @@ Every numeric literal (numeral, decimal, `(n : ℝ)`) written in the statement o
 (`scripts/trust/headlines.txt`, located through `.lake/meaning.jsonl`) is classified, and must be:
  (a) a certified target of the conclusion: in a positive position (not under `¬`, not left of an `→`, not
      in a quantifier's binder, not on either side of `≠`, `↔`), (a1) the last two arguments (value, digits)
-     of `RoundsTo`, or (a2) a literal of a side of `=`, `≤`, `<`, `≥`, `>`, `∈` that consists only of
+     of `RoundsTo` (a negative value written `(-d)` included, run 2026-11-08T0628Z), or (a2) a literal of a side of `=`, `≤`, `<`, `≥`, `>`, `∈` that consists only of
      numerals, `+ - * / ^`, parentheses, type ascriptions and `Set.Icc/Ico/Ioc/Ioo` — the side the
      proof certifies (not for `=` whose other side is a bare variable: `∃ k, k = 0.480 + … ∧ …` defines k); or
  (a3) the numeral `0` or `1` standing alone as one side of a comparison (`0 < b`, `x ≠ 0`, `1 ≤ n`): domain
@@ -342,6 +342,10 @@ def positive(toks, lo, hi, ok):
         for a, b in args[-2:]:
             if b - a == 1 and is_num(toks[a]):
                 ok[a] = "a1"
+            # a negative certified decimal `(-0.55)` is the same target (repair, run 2026-11-08T0628Z: every
+            # negative RoundsTo value had been baselined as an uncovered literal)
+            elif b - a == 4 and toks[a] == "(" and toks[a + 1] in ("-", "−") and is_num(toks[a + 2]) and toks[a + 3] == ")":
+                ok[a + 2] = "a1"
         return
     sides = split_top(toks, lo, hi, RELS)
     if len(sides) < 2 or any(t == "≠" for t in toks[lo:hi]):

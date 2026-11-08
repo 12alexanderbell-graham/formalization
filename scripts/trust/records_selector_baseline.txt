@@ -1,5 +1,4 @@
 # Records whose certified values cannot yet be told apart by a selector (check_numbers.py rule S2,
 # run 2026-11-08T0028Z). Shrink-only (--base). Remove a line once the record names its quantities
 # (a program definition as the head of each certified quantity, or distinct `let` arguments).
-F9_values
 F10_exceptions

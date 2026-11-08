@@ -12,7 +12,7 @@ Non-vacuity (trust track T2): 126 headlines have hypotheses; 126 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Transcriptions (trust track T3): 44 PRINTED definitions; 44 carry a machine-checked
+Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
 FORMULA, MATH and WITNESS definitions with a blind second formulation: 31/31 (run 2026-11-05T0828Z;
 ² on a FORMULA means a machine-checked agreement with a blind second formulation in
@@ -135,13 +135,13 @@ the docstring says; universally bound parameters are not listed.
 | `Fidelity.masterEq_iff_blind` | MasterEq, curv | — | — | `masterEq_iff_blind` | — |
 | `Fidelity.transverseSpec_pins` | transverse | — | — | `transverseSpec_pins` | — |
 | `Records.F1_l0` | IsFlatLCDM, cosmoCoeff | — | — | `F1_l0` | IsFlatLCDM: Ω = 3/10; RoundsTo: d = 3.115, k = 3; cosmoCoeff: n = 5 |
-| `Records.F1_printedL0` | — | — | — | unconditional | RoundsTo: d = 0.685, k = 3 |
+| `Records.F1_printedL0` | — | — | printedAvilesL0² | unconditional | RoundsTo: d = 0.685, k = 3; printedAvilesL0: Ω = 3/10 |
 | `Records.F1_m0_agrees` | IsFlatLCDM, cosmoCoeff | — | — | unconditional | RoundsTo: d = 0.549, k = 3; cosmoCoeff: n = 6 |
-| `Records.F2_toy` | cosmoCoeff, IsFlatCPL | — | — | `F2_toy` | IsFlatCPL: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100; RoundsTo: d = 0.809, k = 3, d = -0.906; cosmoCoeff: n = 5 |
-| `Records.F2_error` | cosmoCoeff, IsFlatCPL | — | — | `F2_error` | IsFlatCPL: Ω = 3/10, wₐ = -1/2; RoundsTo: d = 2.345, k = 3; cosmoCoeff: n = 5 |
+| `Records.F2_toy` | cosmoCoeff, IsFlatCPL | — | printedCLSL0² | `F2_toy` | IsFlatCPL: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100; RoundsTo: d = 0.809, k = 3, d = -0.906; cosmoCoeff: n = 5; printedCLSL0: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100 |
+| `Records.F2_error` | cosmoCoeff, IsFlatCPL | — | printedCLSL0² | `F2_error` | IsFlatCPL: Ω = 3/10, wₐ = -1/2; RoundsTo: d = 2.345, k = 3; cosmoCoeff: n = 5; printedCLSL0: Ω = 3/10, wₐ = -1/2 |
 | `Records.F3_D4_LCDM` | IsFlatLCDM, cosmoCoeff, decel | — | printedD4² | `F3_D4_LCDM` | IsFlatLCDM: Ω = 3/10; RoundsTo: d = 0.2153, k = 4, d = 0.4555, d = 0.24, k = 2, d = -0.55; cosmoCoeff: n = 3, n = 4, n = 5 |
 | `Records.F8_sizes` | — | — | — | unconditional | RoundsTo: d = 0.000013, k = 6, d = 0.56, k = 2, d = 6.7, k = 1 |
-| `Records.F9_values` | — | — | — | unconditional | RoundsTo: d = 0.277, k = 3, d = -5.25, k = 2 |
+| `Records.F9_values` | — | — | P0², Q0², printedR², jL², lL², qL², sL² | unconditional | RoundsTo: d = 0.0462, k = 4, d = -0.875, k = 3; qL: Ω = 1/4; sL: Ω = 1/4; lL: Ω = 1/4 |
 | `Records.F9_pole` | — | — | — | unconditional | RoundsTo: d = 0.538, k = 3 |
 | `Records.F10_eta` | — | — | — | unconditional | RoundsTo: d = -0.249, k = 3, d = -0.032, d = -0.400, d = -0.0152, k = 4; correct20: Ω = 41/1000, Ω = 1/4; correct30: Ω = 41/1000, Ω = 1/4 |
 | `Records.F10_printed_pole` | — | — | printedDen² | unconditional | RoundsTo: d = 0.176, k = 3 |

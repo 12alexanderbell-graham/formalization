@@ -426,7 +426,6 @@ Checked.Fidelity.transverseSpec_pins|blind
 Checked.Fidelity.transverseSpec_pins|determining
 Checked.Fidelity.transverseSpec_pins|law
 Checked.Records.F1_l0|model
-Checked.Records.F1_printedL0|printed
 Checked.Records.F1_m0_agrees|matter
 Checked.Records.F1_m0_agrees|fraction
 Checked.Records.F1_m0_agrees|printed
@@ -435,11 +434,9 @@ Checked.Records.F1_m0_agrees|model
 Checked.Records.F2_toy|paper
 Checked.Records.F2_toy|toy
 Checked.Records.F2_toy|model
-Checked.Records.F2_toy|printed
 Checked.Records.F2_toy|gives
 Checked.Records.F2_error|model
 Checked.Records.F2_error|exceeding
-Checked.Records.F2_error|printed
 Checked.Records.F3_D4_LCDM|model
 Checked.Records.F3_D4_LCDM|lookback
 Checked.Records.F3_D4_LCDM|excess
@@ -448,9 +445,7 @@ Checked.Records.F8_sizes|omitted
 Checked.Records.F8_sizes|milne
 Checked.Records.F8_sizes|exactly
 Checked.Records.F8_sizes|relative
-Checked.Records.F9_values|printed
 Checked.Records.F9_values|gives
-Checked.Records.F9_values|cdm
 Checked.Records.F9_pole|denominator
 Checked.Records.F9_pole|printed
 Checked.Records.F9_pole|cdm
@@ -1202,7 +1197,6 @@ Checked.Fidelity.friedmannEq_iff_blind|span:R = curv a
 Checked.Fidelity.masterEq_iff_blind|span:R = curv a
 Checked.Records.F1_l0|span:Ω_m = 0.3
 Checked.Records.F1_l0|span:l₀ = 3.115
-Checked.Records.F1_printedL0|span:l₀ = 1 + 3Ω − (27/2)Ω²
 Checked.Records.F1_printedL0|span:Ω = 0.3
 Checked.Records.F1_m0_agrees|span:Ω = (√7 − 1)/3
 Checked.Records.F2_toy|span:(Ω, w₀, wₐ) = (0.245, −0.93, −0.41)
@@ -1217,8 +1211,6 @@ Checked.Records.F8_sizes|span:H₀d_L = z + z²/2
 Checked.Records.F8_sizes|span:z = 1
 Checked.Records.F8_sizes|span:z = 2
 Checked.Records.F9_values|span:Ω = 0.25
-Checked.Records.F9_values|span:F(R₀) = 0.277 H₀²
-Checked.Records.F9_values|span:H₀ = 1
 Checked.Records.F10_eta|span:Ω = 0.041, 0.25
 Checked.Records.F10_family_pole|span:Ω = 0.041
 Checked.Records.F10_family_pole|span:j₀ − q₀ − 2 = 0
@@ -1827,7 +1819,6 @@ checked.records.f11_sizes|nameword:sizes
 checked.records.f1_l0|numctx:3:decimals
 checked.records.f1_m0_agrees|fspan:(0, 1)
 checked.records.f1_m0_agrees|fspan:ω ≈ 0.549
-checked.records.f1_printedl0|nameword:printed
 checked.records.f2_error|nameword:error
 checked.records.f2_toy|fspan:−0.906
 checked.records.f2_toy|nameword:toy
@@ -1840,8 +1831,6 @@ checked.records.f8_sizes|fspan:z⁵/120
 checked.records.f8_sizes|nameword:sizes
 checked.records.f9_pole|fspan:ω ≈ 0.538
 checked.records.f9_pole|nameword:pole
-checked.records.f9_values|fspan:3h₀²(ω − 2)
-checked.records.f9_values|fspan:−5.25 h₀²
 checked.sim.duffing.duffing_first_zero_sol|nameword:sol
 checked.sim.duffing.duffing_first_zero_sol|numctx:0:released
 checked.sim.michaelismenten.mm_half_conversion|nameword:conversion

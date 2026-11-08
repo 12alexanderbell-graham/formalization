@@ -3022,15 +3022,16 @@ Full name `Checked.Records.F1_printedL0`.
 
 **It holds that**
 
-- `RoundsTo (1 + 3 * (3 / 10) - 27 / 2 * (3 / 10) ^ 2) 0.685 3`
+- `RoundsTo (printedAvilesL0 (3 / 10)) 0.685 3`
 
 Program definitions in this claim:
 
 - `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `printedAvilesL0 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedAvilesL0`); its name is not checked (for `Ω : ℝ`): is defined as `1 + 3 * Ω - 27 / 2 * Ω ^ 2`
 
 Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
-> The printed `l₀ = 1 + 3Ω − (27/2)Ω²` at `Ω = 0.3` is `0.685`.
+> The printed `l₀` (`printedAvilesL0`) at `Ω = 0.3` is `0.685`.
 
 ## `F1_m0_agrees`
 
@@ -3065,13 +3066,14 @@ Full name `Checked.Records.F2_toy`.
 **then**
 
 1. `RoundsTo (cosmoCoeff 5 a t₀) 0.809 3`
-2. `RoundsTo (35 / 2 + (1 - 245 / 1000) / 4 * (213 + (7 - 245 / 1000) * (-41 / 100)) * (-41 / 100) + (1 - 245 / 1000) / 4 * (489 + 9 * (82 - 21 * (245 / 1000)) * (-41 / 100)) * (-93 / 100) + 9 / 2 * (1 - 245 / 1000) * (67 - 21 * (245 / 1000) + 3 / 2 * (23 - 11 * (245 / 1000)) * (-41 / 100)) * (-93 / 100) ^ 2 + 27 / 4 * (1 - 245 / 1000) * (47 - 24 * (245 / 1000)) * (-93 / 100) ^ 3 + 81 / 2 * (1 - 245 / 1000) * (3 - 2 * (245 / 1000)) * (-93 / 100) ^ 4) (-0.906) 3`
+2. `RoundsTo (printedCLSL0 (245 / 1000) (-93 / 100) (-41 / 100)) (-0.906) 3`
 
 Program definitions in this claim:
 
 - `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `Ω`, w₀ = `w₀`, wₐ = `wₐ`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood
 - `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
 - `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): the `n`-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor `a` at time `t` (n = `n`; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
+- `printedCLSL0 Ω w₀ wₐ` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedCLSL0`); its name is not checked (for `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`): is defined as `35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀ + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2 + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3 + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4`
 
 Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
@@ -3091,13 +3093,14 @@ Full name `Checked.Records.F2_error`.
 
 **then**
 
-- `RoundsTo (cosmoCoeff 5 a t₀ - (35 / 2 + (1 - 3 / 10) / 4 * (213 + (7 - 3 / 10) * (-1 / 2)) * (-1 / 2) + (1 - 3 / 10) / 4 * (489 + 9 * (82 - 21 * (3 / 10)) * (-1 / 2)) * w₀ + 9 / 2 * (1 - 3 / 10) * (67 - 21 * (3 / 10) + 3 / 2 * (23 - 11 * (3 / 10)) * (-1 / 2)) * w₀ ^ 2 + 27 / 4 * (1 - 3 / 10) * (47 - 24 * (3 / 10)) * w₀ ^ 3 + 81 / 2 * (1 - 3 / 10) * (3 - 2 * (3 / 10)) * w₀ ^ 4)) 2.345 3`
+- `RoundsTo (cosmoCoeff 5 a t₀ - printedCLSL0 (3 / 10) w₀ (-1 / 2)) 2.345 3`
 
 Program definitions in this claim:
 
 - `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `Ω`, w₀ = `w₀`, wₐ = `wₐ`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood
 - `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
 - `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): the `n`-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor `a` at time `t` (n = `n`; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
+- `printedCLSL0 Ω w₀ wₐ` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedCLSL0`); its name is not checked (for `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`): is defined as `35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀ + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2 + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3 + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4`
 
 Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
@@ -3162,17 +3165,24 @@ Full name `Checked.Records.F9_values`.
 
 **It holds that**
 
-1. `RoundsTo (27 * (1 / 4) ^ 2 * (1 / 4 - 2) * (27 * (1 / 4) ^ 2 + 60 * (1 / 4) + 112) / (243 * (1 / 4) ^ 4 + 540 * (1 / 4) ^ 3 - 6264 * (1 / 4) ^ 2 + 9360 * (1 / 4) - 3328)) 0.277 3`
-2. `RoundsTo (3 * (1 / 4 - 2)) (-5.25) 2`
+1. `RoundsTo (have Ω := 1 / 4; -(P0 (qL Ω) jL (sL Ω) (lL Ω) * Ω + Q0 (qL Ω) jL (sL Ω) (lL Ω)) / printedR (qL Ω) jL (sL Ω) (lL Ω)) 462e-4 4`
+2. `RoundsTo (have Ω := 1 / 4; -(P0 (qL Ω) jL (sL Ω) (lL Ω) * Ω + Q0 (qL Ω) jL (sL Ω) (lL Ω)) / correctR (qL Ω) jL (sL Ω) (lL Ω)) (-0.875) 3`
 
 Program definitions in this claim:
 
+- `P0 q j s l` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_P0`); its name is not checked (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `(j - q - 2) * l - (3 * s + 7 * j + 6 * q ^ 2 + 41 * q + 22) * s - ((3 * q + 16) * j + 20 * q ^ 2 + 64 * q + 12) * j - (3 * q ^ 4 + 25 * q ^ 3 + 96 * q ^ 2 + 72 * q + 20)`
+- `Q0 q j s l` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_Q0`); its name is not checked (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `(q ^ 2 - j * q + 2 * q) * l + (3 * q * s + (4 * q + 6) * j + 6 * q ^ 3 + 44 * q ^ 2 + 22 * q - 12) * s + (2 * j ^ 2 + (3 * q ^ 2 + 10 * q - 6) * j + 17 * q ^ 3 + 52 * q ^ 2 + 54 * q + 36) * j + (3 * q ^ 5 + 28 * q ^ 4 + 118 * q ^ 3 + 72 * q ^ 2 - 76 * q - 64)`
 - `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `correctR q j s l` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_correctR`) (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `(j - q - 2) * l - (3 * s - 2 * j + 6 * q ^ 2 + 50 * q + 40) * s - ((3 * q + 10) * j + 11 * q ^ 2 + 4 * q - 18) * j - (3 * q ^ 4 + 34 * q ^ 3 + 180 * q ^ 2 + 246 * q + 104)`
+- `jL` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_jL`); its name is not checked: is defined as `1`
+- `lL Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lL`); its name is not checked (for `Ω : ℝ`): is defined as `1 + 3 * Ω + 27 / 2 * Ω ^ 2`
+- `printedR q j s l` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedR`); its name is not checked (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `(j - q - 2) * l - (3 * s - 2 * j + 6 * q ^ 2 + 50 * q + 40) * s + ((3 * q + 10) * j + 11 * q ^ 2 + 4 * q + 18) * j - (3 * q ^ 4 + 34 * q ^ 3 + 246 * q + 104)`
+- `qL Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_qL`); its name is not checked (for `Ω : ℝ`): is defined as `3 / 2 * Ω - 1`
+- `sL Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_sL`); its name is not checked (for `Ω : ℝ`): is defined as `1 - 9 / 2 * Ω`
 
 Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
-> At `Ω = 0.25` the printed (11.21) gives `F(R₀) = 0.277 H₀²`; the ΛCDM value `3H₀²(Ω − 2)` is
-> `−5.25 H₀²` (`H₀ = 1`).
+> At `Ω = 0.25` the printed (11.21) with the printed R gives `0.0462`; with the correct R it gives −0.875.
 
 ## `F9_pole`
 

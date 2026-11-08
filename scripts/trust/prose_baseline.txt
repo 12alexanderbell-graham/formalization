@@ -282,14 +282,10 @@ Checked.Records.F10_eta|free-record
 Checked.Records.F10_exceptions|free-record
 Checked.Records.F10_exceptions|number|0.176
 Checked.Records.F11_sizes|free-record
-Checked.Records.F1_printedL0|free-record
-Checked.Records.F2_toy|free-record
 Checked.Records.F8_sizes|free-record
 Checked.Records.F8_sizes|vocab|(?i)luminosity[- ]distance|(?<![A-Za-z])d_L\b|(?<![A-Za-z])d_\{L\b
 Checked.Records.F9_pole|free-record
 Checked.Records.F9_pole|vocab|(?i)ΛCDM|\bLCDM\b|lambda[- ]?CDM
-Checked.Records.F9_values|free-record
-Checked.Records.F9_values|vocab|(?i)ΛCDM|\bLCDM\b|lambda[- ]?CDM
 Checked.Records.Findings|moduledoc|10.38
 Checked.Records.Findings|moduledoc|10.51
 Checked.Records.Findings|moduledoc|11.42

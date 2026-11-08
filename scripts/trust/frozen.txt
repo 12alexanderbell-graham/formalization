@@ -337,14 +337,16 @@ Checked.Records.F10_printed_pole 87fd43e-doc8506688851552309792
 Checked.Records.F11_sizes 1e36c7b0-doc4390042586132807648
 Checked.Records.F1_l0 86e62cc4-doc17214862890485777470
 Checked.Records.F1_m0_agrees 9bfdd380-doc13495434544363526396
-Checked.Records.F1_printedL0 14edb71f-doc11193343068236362648
-Checked.Records.F2_error e5984cbc-doc4429113388589737741
-Checked.Records.F2_toy 1453ba8e-doc3983489604496042780
+Checked.Records.F1_printedL0 427e763-doc3216406102202614421
+Checked.Records.F2_error e2a0d806-doc4429113388589737741
+Checked.Records.F2_toy 77aad2ef-doc3983489604496042780
 Checked.Records.F3_D4_LCDM 28732c3c-doc9710593186470651274
 Checked.Records.F8_sizes 3f428489-doc2762880498692998171
 Checked.Records.F9_pole bbb3e2d3-doc16115897663067957623
-Checked.Records.F9_values 26204386-doc14443165463141132680
+Checked.Records.F9_values 78c54bea-doc13433309950998015723
 Checked.Records.RoundsTo 6490dd4a817db795-MATH
+Checked.Records.printedAvilesL0 6dacdea18180e5b5-PRINTED
+Checked.Records.printedCLSL0 956d2d8c9ee11cd9-PRINTED
 Checked.Sim.Duffing.IsDuffingSolution 9b62f53de9047025-doc13018569994916158289-PHYSICS
 Checked.Sim.Duffing.duffing_first_zero_sol 4c60f1ae-doc11947998396381678298
 Checked.Sim.Duffing.duffing_solution_exists 8984c4ba-doc12830420669646441606
@@ -1468,6 +1470,8 @@ doc:Checked.Math.TFReduce.phi_neg -doc13310526814993100226
 doc:Checked.Math.TFReduce.zero_event -doc1563505144548253276
 doc:Checked.Records.RoundsTo -doc2357215725765789315
 doc:Checked.Records.exists_root_roundsTo -doc11421421922466462281
+doc:Checked.Records.printedAvilesL0 -doc1999228335981886063
+doc:Checked.Records.printedCLSL0 -doc957890880190524111
 doc:Checked.Sim.ChebBound.Ts -doc11173002926551828956
 doc:Checked.Sim.ChebBound.Us -doc10100893633987733756
 doc:Checked.Sim.ChebBound.bound_of_eq -doc8787550957227205588
@@ -1933,6 +1937,8 @@ doc:Checked.Trust.Transcriptions.agree_lusA3 -doc5673657323548927892
 doc:Checked.Trust.Transcriptions.agree_m16Table -doc5544600102270606917
 doc:Checked.Trust.Transcriptions.agree_printed20 -doc7487919175454237598
 doc:Checked.Trust.Transcriptions.agree_printed30 -doc13933733069044796747
+doc:Checked.Trust.Transcriptions.agree_printedAvilesL0 -doc12734487754533123871
+doc:Checked.Trust.Transcriptions.agree_printedCLSL0 -doc5165418892899924603
 doc:Checked.Trust.Transcriptions.agree_printedD2y -doc723179581411627117
 doc:Checked.Trust.Transcriptions.agree_printedD3y -doc2441437019335613656
 doc:Checked.Trust.Transcriptions.agree_printedD4y -doc2907118756736799688
@@ -2212,5 +2218,6 @@ moduledoc:Checked.Trust.TranscriptionsFR13 -mdoc12203395201808648388
 moduledoc:Checked.Trust.TranscriptionsFR -mdoc11191104128708509847
 moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
+moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
 moduledoc:Checked.Trust.Witnesses -mdoc15463883155401232342
