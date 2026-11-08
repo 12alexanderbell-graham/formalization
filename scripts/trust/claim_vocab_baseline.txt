@@ -883,7 +883,6 @@ Checked.Sim.Duffing.duffing_first_zero_sol|num:1.192005
 Checked.Sim.Duffing.duffing_first_zero_sol|num:1.192006
 Checked.Sim.Duffing.duffing_solution_exists|initial
 Checked.Sim.MichaelisMenten.mm_half_conversion|certified
-Checked.Sim.MichaelisMenten.mm_half_conversion|half
 Checked.Sim.MichaelisMenten.mm_half_conversion|conversion
 Checked.Sim.MichaelisMenten.mm_half_conversion|full
 Checked.Sim.MichaelisMenten.mm_half_conversion|michaelis
@@ -1834,7 +1833,6 @@ checked.records.f9_pole|nameword:pole
 checked.sim.duffing.duffing_first_zero_sol|nameword:sol
 checked.sim.duffing.duffing_first_zero_sol|numctx:0:released
 checked.sim.michaelismenten.mm_half_conversion|nameword:conversion
-checked.sim.michaelismenten.mm_half_conversion|nameword:half
 checked.sim.michaelismenten.mm_half_conversion|nameword:menten
 checked.sim.michaelismenten.mm_half_conversion|nameword:michaelis
 checked.sim.michaelismenten.mm_solution_exists|nameword:menten
