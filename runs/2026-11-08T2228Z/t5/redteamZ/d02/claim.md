@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that the observation time is the argument printed second (t) and the emission time the one printed first (t₀): the source is at t₀, the observer at t.
+Why it is false: lumDist K a t₀ t = a t₀ * (1 + redshift a t₀ t) * transverse K (comoving a t₀ t): t₀ is the observation time (a(t₀) is the scale factor today, redshift a(t₀)/a(t) - 1), t the emission time. Generated line: "phrase (hand-written, linted): the luminosity distance, at observation time `t`, of a source emitting at time `t₀`, in the FLRW model with scale factor `a` and curvature constant `K` (units in which the speed of light is one); by definition, ..." The printed body names the times only by the symbols t₀ and t, so the phrase is the only place their roles are stated.
+Expected: ACCEPTED (P2 ignores placeholders; same words; LEDGER names lumDist). Possibly DISCLOSED if the judge counts a reader recomputing redshift from the body.

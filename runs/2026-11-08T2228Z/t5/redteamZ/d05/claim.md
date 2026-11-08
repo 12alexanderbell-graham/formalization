@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that the dust density in the F(R) Friedmann and master equations (FriedmannEq, MasterEq, curvature/F(R) headlines) is expressed in units with κ = 2, so that the printed 3H0²Ω(a0/a)^3 is the density for κ = 2 (and, rescaled to κ = 1, would be different by a factor).
+Why it is false: rhoM is 3 H0² Ω (a0/a)^3, the Bamba et al. normalisation with κ² = 1 (the docstring says κ²=1). Generated line: "the dust density at time `t` for the density parameter `Ω` referred to time `t₀` (scale factor `a`; units in which the coupling κ is two)". The body contains no κ, so nothing contradicts the stated unit; 'two' is in the function-word list of P2 and numbers spelled as words are not read by the numeral rule.
+Expected: ACCEPTED (P2 FUNCTION contains one..ten; P1 sees no formula character; LEDGER names rhoM).

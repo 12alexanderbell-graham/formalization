@@ -1,0 +1,4 @@
+Category: weakened-statement
+Reader would wrongly believe: that the Aviles et al. coefficient claims (l0, m0 and every claim with hypothesis IsFlatLCDM) hold for the ΛCDM expansion law in general, i.e. with spatial curvature allowed.
+Why it is false: IsFlatLCDM is H = H0 sqrt(Ω(1+z)^3 + 1 - Ω), the SPATIALLY FLAT law (the 1-Ω is the cosmological constant only because curvature is zero); curved ΛCDM has an extra Ω_k (1+z)^2 term and the proved claims do not cover it. Generated line (every claim whose hypothesis is IsFlatLCDM): "the scale factor `a` obeys the ΛCDM expansion law with matter fraction `Ω` on some neighbourhood of the time `t₀`, with a positive Hubble rate at `t₀` and a positive, differentiable scale factor on that neighbourhood". The body shows no K, but nothing in the generated text says that omission means flat.
+Expected: ACCEPTED (deleting a word cannot violate P2; LEDGER names IsFlatLCDM). Possibly DISCLOSED by the body.

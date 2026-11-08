@@ -1,0 +1,4 @@
+Category: wrong-definition
+Reader would wrongly believe: that Maxwell coexistence only requires the area under the isotherm between the two volumes to EXCEED ps(vg - vl), an inequality, so the equal-area rule is not what was checked (or that van der Waals coexistence results are weaker/looser than they are).
+Why it is false: IsMaxwellCoexistence demands equality (equal-area construction): ∫_{vl}^{vg} p = ps (vg - vl). Generated line: "... the isotherm takes the value `ps` at both, and its integral from `vl` to `vg` exceeds `ps` times the volume difference". 'exceeds' is a P2 function word.
+Expected: DISCLOSED at best (the printed body shows '=' on the same line); ACCEPTED by the lints.

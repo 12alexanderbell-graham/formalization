@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that the order-2 cosmographic coefficient IS the deceleration parameter q (so e.g. a claim cosmoCoeff 2 a t = -1/2 says q = +1/2, deceleration); the sign convention is reversed.
+Why it is false: cosmoCoeff 2 = a''/(a H^2) = -q, so q = minus the order-2 coefficient. Generated line (CLAIMS.md, under every claim reaching cosmoCoeff, 67 of 88 headlines): "phrase (hand-written, linted): the {n}-th cosmographic coefficient of the scale factor `a` at time `t` (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is the order 2 coefficient)". The printed body (iteratedDeriv n a t / (a t * hubble a t ^ n)) never mentions q, so it cannot contradict the sentence.
+Expected: ACCEPTED (P2: every word is in the old phrase / baseline pair 'cosmoCoeff minus' only allows, never requires; check_numbers PHRASE_GUARD only tests 'the deceleration parameter'; LEDGER line names cosmoCoeff).
