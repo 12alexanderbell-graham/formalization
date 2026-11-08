@@ -46,13 +46,13 @@ lemma le_sqrt2' : (1.41421356237309 : ℝ) ≤ Real.sqrt 2 :=
 
 /-- Falkner–Skan β = 1/2 (Homann by the similarity scaling): there is a solution of
 g''' + g g'' + (1 − g'²)/2 = 0 on [0, ∞), g(0) = g'(0) = 0, g' → 1, with g''(0) in
-(0.9276800397, 0.9276800399). -/
+(0.927680039, 0.927680040). -/
 theorem fs_half_exists : ∃ f p q : ℝ → ℝ,
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Ici 0) η) ∧
     f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-    0.9276800397 < q 0 ∧ q 0 < 0.9276800399 := by
+    0.927680039 < q 0 ∧ q 0 < 0.927680040 := by
   obtain ⟨f, p, q, hf, hp, hq, f0, p0, lim, lo, hi⟩ := Checked.Homann.homann_exists
   have hq' : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(2 * f η * q η) - 1 * (1 - p η ^ 2)) (Ici 0) η :=
     fun η hη => (hq η hη).congr_deriv (by ring)
@@ -63,22 +63,22 @@ theorem fs_half_exists : ∃ f p q : ℝ → ℝ,
     scale_lim hc lim, ?_, ?_⟩
   · simp [f0]
   · simp [p0]
-  · show 0.9276800397 < q (0 / Real.sqrt 2) / Real.sqrt 2
+  · show 0.927680039 < q (0 / Real.sqrt 2) / Real.sqrt 2
     rw [zero_div, lt_div_iff₀ hc]
     nlinarith [sqrt2_lt]
-  · show q (0 / Real.sqrt 2) / Real.sqrt 2 < 0.9276800399
+  · show q (0 / Real.sqrt 2) / Real.sqrt 2 < 0.927680040
     rw [zero_div, div_lt_iff₀ hc]
     nlinarith [lt_sqrt2]
 
 /-- Falkner–Skan β = 0 (Blasius in the normalisation g''' + g g'' = 0): for every solution on
-[0, ∞) with g(0) = g'(0) = 0 and g' → 1, the wall value g''(0) lies between 0.46959998836100
-and 0.46959998836103. -/
+[0, ∞) with g(0) = g'(0) = 0 and g' → 1, the wall value g''(0) lies between 0.4695999883610
+and 0.4695999883611. -/
 theorem fs_zero_wall_shear (f p q : ℝ → ℝ)
     (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
     (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
     (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η)) (Ici 0) η)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1)) :
-    0.46959998836100 ≤ q 0 ∧ q 0 ≤ 0.46959998836103 := by
+    0.4695999883610 ≤ q 0 ∧ q 0 ≤ 0.4695999883611 := by
   have hq' : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(1 * f η * q η) - 0 * (1 - p η ^ 2)) (Ici 0) η :=
     fun η hη => (hq η hη).congr_deriv (by ring)
   have hc : (0 : ℝ) < Real.sqrt 2 := by positivity

@@ -17,9 +17,9 @@ f''' + f f''/2 = 0 becomes β = 0. The Hiemenz problem is β = 1 as it stands.
 
 **Statements.** Writing p = g' and q = g'' (derivatives within [0, ∞), one-sided at 0):
 * `fs_half_exists`: there is a solution of the β = 1/2 problem with q(0) strictly between
-  0.9276800397 and 0.9276800399.
-* `fs_zero_wall_shear`: every solution of the β = 0 problem has q(0) between 0.46959998836100
-  and 0.46959998836103.
+  0.927680039 and 0.927680040.
+* `fs_zero_wall_shear`: every solution of the β = 0 problem has q(0) between 0.4695999883610
+  and 0.4695999883611.
 
 Uniqueness of the β = 1/2 solution is not part of these statements.
 -/
@@ -30,25 +30,25 @@ open Set Filter Topology
 /-- Falkner–Skan β = 1/2, existence: there is a solution of g''' + g g'' + (1 − g'²)/2 = 0 on
 [0, ∞) (g has derivative p, p has derivative q, q has derivative −g q − (1 − p²)/2, one-sided
 at 0) with g(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value q(0) = g''(0) lies
-strictly between 0.9276800397 and 0.9276800399. -/
+strictly between 0.927680039 and 0.927680040. -/
 theorem fs_half_exists : ∃ f p q : ℝ → ℝ,
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Ici 0) η) ∧
     f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-    0.9276800397 < q 0 ∧ q 0 < 0.9276800399 := by
+    0.927680039 < q 0 ∧ q 0 < 0.927680040 := by
   sorry
 
 /-- Falkner–Skan β = 0, wall shear: for every solution of g''' + g g'' = 0 on [0, ∞) (g has
 derivative p, p has derivative q, q has derivative −g q, one-sided at 0) with g(0) = 0,
-p(0) = 0 and p(η) → 1 as η → ∞, the wall value q(0) = g''(0) lies between 0.46959998836100
-and 0.46959998836103. -/
+p(0) = 0 and p(η) → 1 as η → ∞, the wall value q(0) = g''(0) lies between 0.4695999883610
+and 0.4695999883611. -/
 theorem fs_zero_wall_shear (f p q : ℝ → ℝ)
     (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
     (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
     (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η)) (Ici 0) η)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1)) :
-    0.46959998836100 ≤ q 0 ∧ q 0 ≤ 0.46959998836103 := by
+    0.4695999883610 ≤ q 0 ∧ q 0 ≤ 0.4695999883611 := by
   sorry
 
 end Work.FalknerSkan
