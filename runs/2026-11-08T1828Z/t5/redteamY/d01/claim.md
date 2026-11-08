@@ -1,0 +1,5 @@
+Category: wrong-definition
+Reader would wrongly believe: `hubble a t` is the conformal Hubble rate and `t` is conformal time (every headline built on `hubble`, `decel`, `redshift`, the lookback and distance series then reads as a statement in conformal time)
+Why it is false: the Lean body is deriv a t / a t with t the variable of the series, which every pinned spec and every headline treats as cosmic time (lookback t0-t, comoving integral of 1/a dt, Friedmann equations in cosmic time). Calling t conformal time changes the physics: H = a'/a w.r.t. conformal time is the conformal Hubble rate aH, and the lookback/distance coefficients would be different.
+Expected: ACCEPTED (glossary has no term for time variables; P1/U1/U2 pass: "Hubble rate" is still hubble's own first term; only a LEDGER line naming hubble is needed and is allowed; the printed body deriv a t / a t does not say which time).
+Generated line (CLAIMS.md after regeneration): phrase (hand-written, linted): the conformal Hubble rate of the scale factor `a` at the conformal time `t`; by definition, `hubble a t` is `deriv a t / a t`

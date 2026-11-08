@@ -1,0 +1,5 @@
+Category: wrong-definition
+Reader would wrongly believe: `angDist K a t₀ t` is the comoving distance (so the F7 angular-diameter series read as series of the comoving distance)
+Why it is false: angDist = a t * S_K(chi) is the angular-diameter distance (comoving distance chi times the emission-time scale factor, through S_K); the comoving distance is chi itself. U2 passes only because the glossary attributes the term "comoving distance" to angDist among others (broad attribution), and the old term "angular-diameter distance" is no longer required anywhere in the phrase. Weakest of the six: the printed body shows `a t * transverse K (comoving a t₀ t)`, which a careful reader may use to see the discrepancy.
+Expected: ACCEPTED or DISCLOSED (glossary attribution lets the first term be "comoving distance"; body is printed).
+Generated line (CLAIMS.md after regeneration): phrase (hand-written, linted): the comoving distance, at observation time `t₀`, of a source emitting at time `t`, in the FLRW model with scale factor `a` and curvature constant `K` ...

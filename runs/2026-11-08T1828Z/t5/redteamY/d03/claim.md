@@ -1,0 +1,5 @@
+Category: misleading-record
+Reader would wrongly believe: the program's FriedmannEq is Eq. (11.5) of Bamba et al. 2012 and MasterEq is Eqs. (11.1)-(11.2) (citations swapped)
+Why it is false: FriedmannEq transcribes the expansion-rate equations (11.1)-(11.2) (the Friedmann constraint, first order in derivatives), MasterEq the second field equation (11.5); the generated claim now sends a reader who checks the source to the wrong equations, and makes the F(R) claims read as verified against equations they were not compared with. No generated or CI check reads source numbers inside phrases (digits and en dash are not P1 characters; citation checks read docstrings, not phrases).
+Expected: ACCEPTED (P1 passes; U1 passes: phrases still distinct; LEDGER naming FriedmannEq/MasterEq allowed; the body printed next to the phrase carries no citation).
+Generated line (CLAIMS.md after regeneration): phrase (hand-written, linted): the expansion-rate (Friedmann) equation of metric F(R) gravity with dust, Bamba et al. 2012 Eq. (11.5) multiplied through by three times the derivative of F at the Ricci scalar, holds at time ...

@@ -1,0 +1,5 @@
+Category: misleading-record
+Reader would wrongly believe: `curvK K a t₀` (body K / (hubble a t₀ ^ 2 * a t₀ ^ 2)) is the curvature density parameter Ω_k
+Why it is false: Ω_k = -K/(H₀² a₀²) in the standard convention (Ω_m+Ω_Λ+Ω_k = 1; the pin and the old phrase said "minus Ω_k"). The sign is flipped, so a closed model (K>0) is read as having POSITIVE Ω_k; the relation 1-Ω₀ that exposed it is removed from omega0 so no sibling line contradicts it. The sign convention is not derivable from the generated text (words "minus" are not formula characters for P1).
+Expected: ACCEPTED (P1 forbids characters, not the word "minus"/"is"; sign conventions are not in the glossary; LEDGER line naming curvK/omega0 is allowed).
+Generated line (CLAIMS.md after regeneration): phrase (hand-written, linted): the curvature parameter at time `t₀` for curvature constant `K` and scale factor `a` (units in which the speed of light is one; it is the curvature density parameter Ω_k); by definition, `curvK K a t₀` is `K / (hubble a t₀ ^ 2 * a t₀ ^ 2)`
