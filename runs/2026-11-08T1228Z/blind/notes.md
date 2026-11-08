@@ -1,0 +1,6 @@
+- f : ℝ → ℝ, only values on [0,∞) matter. Derivatives are one-sided: derivWithin on Ici 0 (D1, D2, D3 iterated).
+- Regularity hypothesis: ContDiffOn ℝ 3 f (Ici 0) (used in W, U hypotheses and E conclusion alike; weakest natural, C^3 needed for f''').
+- ODE imposed for all η ≥ 0 (including 0 via one-sided derivatives); f(0)=0, f'(0)=0, f' → 1 at atTop.
+- One IsSol c with c=1 (Hiemenz), c=2 (Homann). Bdd: -1 ≤ f' ≤ 1 on [0,∞).
+- Wall shear = D2 f 0 (one-sided f''(0)); window strict on both sides, decimals as real literals.
+- U conclusion: EqOn f g (Ici 0). E: 0 ≤ f' < 1 on [0,∞) plus window; E uses same IsSol.
