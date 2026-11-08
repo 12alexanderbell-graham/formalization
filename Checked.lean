@@ -158,6 +158,7 @@ import Checked.Trust.SecondReadingTownes
 import Checked.Trust.SecondReadingBlasius
 import Checked.Trust.SecondReadingHiemenz
 import Checked.Trust.SecondReadingHomann
+import Checked.Trust.SecondReadingFalknerSkan
 import Checked.Trust.SecondReadingLE2
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
@@ -245,3 +246,5 @@ import Checked.Homann.HmExLimit
 import Checked.Homann.HmExAssemble
 import Checked.Homann.Homann
 import Checked.Homann.HmIVP
+import Checked.FalknerSkan.FSScale
+import Checked.FalknerSkan.FalknerSkan

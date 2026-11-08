@@ -1,48 +1,56 @@
 # Item 49
 
-**Area:** T1 fidelity
+**Area:** Mathematics
 
-**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `P : ℝ → ℝ → ℝ → (ℝ → ℝ) → ℝ → Prop`:
+**For every** `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
 
-1. for every `Ω : ℝ`, for every `w₀ : ℝ`, for every `wₐ : ℝ`, for every `a : ℝ → ℝ`, for every `t₀ : ℝ`, (`P Ω w₀ wₐ a t₀`) if and only if (`FriedmannCPL Ω w₀ wₐ a t₀`)
+1. for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 5`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 5) ξ`
+2. `ContinuousWithinAt φ (Set.Icc 0 5) 0`
+3. for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 5`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 2) (Set.Icc 0 5) ξ`
+4. `θ 0 = 1`
 
 **then**
 
-- `P = IsFlatCPL`
-
-Program definitions in this claim:
-
-- `FriedmannCPL Ω w₀ wₐ a t₀` — SPEC, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`): means there is `ρm : ℝ → ℝ` such that there is `ρde : ℝ → ℝ` such that (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ (deriv a t / a t) ^ 2 = ρm t + ρde t ∧ ρm t * a t ^ 3 = ρm t₀ * a t₀ ^ 3 ∧ HasDerivAt ρde (-(3 * (deriv a t / a t) * (1 + (w₀ + wₐ * (1 - a t / a t₀))) * ρde t)) t`) and (`0 < deriv a t₀`) and (`Ω = ρm t₀ / (deriv a t₀ / a t₀) ^ 2`)
-- `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): the scale factor `a` obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = `Ω`, w₀ = `w₀`, wₐ = `wₐ`, on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0 and a is positive and differentiable on that neighbourhood
+- there is `ξ₁ : ℝ` such that (`4.3528745959 ≤ ξ₁`) and (`ξ₁ ≤ 4.3528745960`) and (`θ ξ₁ = 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ico 0 ξ₁`, then `0 < θ ξ`) and (`2.4110460120 ≤ -(ξ₁ ^ 2 * φ ξ₁)`) and (`-(ξ₁ ^ 2 * φ ξ₁) ≤ 2.4110460122`) and (`11.402542860 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁))`) and (`ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 11.402542864`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** any predicate obeying the blind first-principles law is `IsFlatCPL`.
+Lane–Emden equation θ'' + (2/ξ)θ' + θ² = 0: for every solution θ on (0, 5] with θ(0) = 1, θ
+differentiable on [0, 5] with derivative φ, and φ continuous at 0, there is a first zero ξ₁ of θ with
+4.3528745959 ≤ ξ₁ ≤ 4.3528745960, at which −ξ₁² θ'(ξ₁) lies between 2.4110460120 and 2.4110460122
+and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 11.402542860 and 11.402542864.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem flatCPL_pins (P : ℝ → ℝ → ℝ → (ℝ → ℝ) → ℝ → Prop)
-    (h : ∀ Ω w₀ wₐ a t₀, P Ω w₀ wₐ a t₀ ↔ FriedmannCPL Ω w₀ wₐ a t₀) : P = IsFlatCPL := …
+theorem laneEmden2_constants (θ φ : ℝ → ℝ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 5, HasDerivWithinAt θ (φ ξ) (Icc 0 5) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 5) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 5, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 2) (Icc 0 5) ξ)
+    (h0 : θ 0 = 1) :
+    ∃ ξ₁ : ℝ, 4.3528745959 ≤ ξ₁ ∧ ξ₁ ≤ 4.3528745960 ∧ θ ξ₁ = 0 ∧ (∀ ξ ∈ Ico 0 ξ₁, 0 < θ ξ) ∧
+      2.4110460120 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.4110460122 ∧
+      11.402542860 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
+      ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 11.402542864 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannCPL`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatCPL.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `flatCPL_pins`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `laneEmden2_constants`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/FriedmannCPL.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/LaneEmden2.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 49

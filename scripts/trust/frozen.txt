@@ -266,6 +266,8 @@ Checked.Data.Moresco16Min.chiSqOL_glb_prior 22fea68d-doc1827598156874358102
 Checked.Data.Moresco16Min.chiSqOL_glb_wide da0fd44-doc10099351900359537472
 Checked.Data.Moresco16Min.chiSqOL_lt da1445ce-doc1545668925535682644
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable 70d0b8e9-doc4697546999697406605
+Checked.FalknerSkan.fs_half_exists afe2cd76-doc12326526542792863068
+Checked.FalknerSkan.fs_zero_wall_shear a7d43ffa-doc1707734161577470334
 Checked.Fidelity.AngDistSpec 25618f87-SPEC
 Checked.Fidelity.CoeffOK 54b463b234103b4f-SPEC
 Checked.Fidelity.CosmoCoeffSpecCore 7671324e-SPEC
@@ -762,6 +764,7 @@ doc:Checked.Data.Moresco16Min.ge_of_point -doc5724304663505934516
 doc:Checked.Data.Moresco16Min.tQ -doc17505504274685020164
 doc:Checked.Data.Moresco16Min.wt -doc2863056672744410289
 doc:Checked.Data.Moresco16Min.yQ -doc8122356211956399430
+doc:Checked.FalknerSkan.FSScale.sqrt2_lt -doc17865031123788325693
 doc:Checked.Fidelity.AngDistSpec.closed -doc9732509374418883569
 doc:Checked.Fidelity.AngDistSpec.deSitterContracting -doc13735758360209474623
 doc:Checked.Fidelity.AngDistSpec.deSitter -doc10244915488021376396
@@ -1787,6 +1790,13 @@ doc:Checked.Trust.SecondReading.demDL4 -doc13209254269752908774
 doc:Checked.Trust.SecondReading.demDLLast -doc1535430170866068384
 doc:Checked.Trust.SecondReading.demDLPrefactor -doc14846241798013484455
 doc:Checked.Trust.SecondReading.fr13Table -doc13377963916444384042
+doc:Checked.Trust.SecondReading.fskEdge -doc12949739588321372722
+doc:Checked.Trust.SecondReading.fskHalfLineTyped -doc1556741051336813692
+doc:Checked.Trust.SecondReading.fskHalfLine -doc5419855902624249831
+doc:Checked.Trust.SecondReading.fskPlateShear -doc4787007457473858143
+doc:Checked.Trust.SecondReading.fskWall -doc1870998120493147218
+doc:Checked.Trust.SecondReading.fskWedgeRhs -doc5239334816044038060
+doc:Checked.Trust.SecondReading.fskWedgeShear -doc3565676728694301651
 doc:Checked.Trust.SecondReading.gelfandCentre -doc14607809201003277988
 doc:Checked.Trust.SecondReading.gelfandDomain -doc4677687179150538001
 doc:Checked.Trust.SecondReading.gelfandLambda -doc9494125978743900681
@@ -2036,6 +2046,8 @@ moduledoc:Checked.Data.Moresco16MinCover -mdoc9700213023670081597
 moduledoc:Checked.Data.Moresco16MinTools -mdoc5985369208106060556
 moduledoc:Checked.Data.Moresco16Min -mdoc15563693230278511805
 moduledoc:Checked.Data.Moresco16 -mdoc8629197678968256333
+moduledoc:Checked.FalknerSkan.FSScale -mdoc7137273582316677182
+moduledoc:Checked.FalknerSkan.FalknerSkan -mdoc349848568453626590
 moduledoc:Checked.Fidelity.CriticalSpec -mdoc7440715596430870242
 moduledoc:Checked.Fidelity.DuffingSpec -mdoc15630159284443887379
 moduledoc:Checked.Fidelity.FRSpecs -mdoc1744885112342587104
@@ -2198,6 +2210,7 @@ moduledoc:Checked.Trust.SecondReadingBlasius -mdoc10558104316128241795
 moduledoc:Checked.Trust.SecondReadingClaims -mdoc11105787854413030724
 moduledoc:Checked.Trust.SecondReadingFR13 -mdoc15889175085118273039
 moduledoc:Checked.Trust.SecondReadingFR -mdoc1417811703977418368
+moduledoc:Checked.Trust.SecondReadingFalknerSkan -mdoc15589594309241309580
 moduledoc:Checked.Trust.SecondReadingGelfandPDE -mdoc6784883769121500962
 moduledoc:Checked.Trust.SecondReadingGelfand -mdoc12307442956037775381
 moduledoc:Checked.Trust.SecondReadingHiemenz -mdoc17248177210924213095
@@ -2220,4 +2233,4 @@ moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc15463883155401232342
+moduledoc:Checked.Trust.Witnesses -mdoc14871009025188166167

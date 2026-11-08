@@ -1,43 +1,43 @@
 # Item 35
 
-**Area:** Mathematics
+**Area:** Fluid mechanics
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
 
-1. for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 5`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 5) ξ`
-2. `ContinuousWithinAt φ (Set.Icc 0 5) 0`
-3. for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 5`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 2) (Set.Icc 0 5) ξ`
-4. `θ 0 = 1`
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
 
 **then**
 
-- there is `ξ₁ : ℝ` such that (`4.3528745959 ≤ ξ₁`) and (`ξ₁ ≤ 4.3528745960`) and (`θ ξ₁ = 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ico 0 ξ₁`, then `0 < θ ξ`) and (`2.4110460120 ≤ -(ξ₁ ^ 2 * φ ξ₁)`) and (`-(ξ₁ ^ 2 * φ ξ₁) ≤ 2.4110460122`) and (`11.402542860 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁))`) and (`ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 11.402542864`)
+1. `0.4695999883610 ≤ q 0`
+2. `q 0 ≤ 0.4695999883611`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Lane–Emden equation θ'' + (2/ξ)θ' + θ² = 0: for every solution θ on (0, 5] with θ(0) = 1, θ
-differentiable on [0, 5] with derivative φ, and φ continuous at 0, there is a first zero ξ₁ of θ with
-4.3528745959 ≤ ξ₁ ≤ 4.3528745960, at which −ξ₁² θ'(ξ₁) lies between 2.4110460120 and 2.4110460122
-and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 11.402542860 and 11.402542864.
+Falkner–Skan β = 0, wall shear: for every solution f of f''' + f f'' = 0 on [0, ∞) (f has
+derivative p, p has derivative q, q has derivative −f q, one-sided at 0) with f(0) = 0,
+p(0) = 0 and p(η) → 1 as η → ∞, the wall value q(0) = f''(0) lies between 0.4695999883610
+and 0.4695999883611.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem laneEmden2_constants (θ φ : ℝ → ℝ)
-    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 5, HasDerivWithinAt θ (φ ξ) (Icc 0 5) ξ)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 5) 0)
-    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 5, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 2) (Icc 0 5) ξ)
-    (h0 : θ 0 = 1) :
-    ∃ ξ₁ : ℝ, 4.3528745959 ≤ ξ₁ ∧ ξ₁ ≤ 4.3528745960 ∧ θ ξ₁ = 0 ∧ (∀ ξ ∈ Ico 0 ξ₁, 0 < θ ξ) ∧
-      2.4110460120 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.4110460122 ∧
-      11.402542860 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
-      ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 11.402542864 := …
+theorem fs_zero_wall_shear (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
+    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
+    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η)) (Ici 0) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1)) :
+    0.4695999883610 ≤ q 0 ∧ q 0 ≤ 0.4695999883611 := …
 ```
 
 ## Definitions it uses
@@ -49,8 +49,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `laneEmden2_constants`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fs_zero_wall_shear`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/LaneEmden2.lean` (do not open it before submitting your answers).
+- Source file: `Checked/FalknerSkan/FalknerSkan.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 35

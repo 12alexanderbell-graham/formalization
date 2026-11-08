@@ -61,6 +61,7 @@ import Checked.Hiemenz.Hiemenz
 import Checked.Hiemenz.HIVP
 import Checked.Homann.Homann
 import Checked.Homann.HmIVP
+import Checked.FalknerSkan.FalknerSkan
 import Checked.Data.Moresco16Min
 
 /-!
@@ -792,5 +793,18 @@ theorem table5_oL_aicc_unattainable :
     nonvacuity% Checked.Data.Moresco16Min.table5_oL_aicc_unattainable := by
   obtain ⟨H, m, l, a1, a2, a3, a4, a5, -⟩ := Checked.Data.Moresco16Min.chiSqOL_lt
   exact ⟨31, H, m, l, by norm_num, le_refl _, a2, by linarith, fun i => (a5 i).le, trivial⟩
+
+/-! Falkner–Skan rows (run 2026-11-08T0828Z): a solution of the flat-plate problem, the Blasius solution of
+`Checked.Blasius.blasius_exists` rescaled by `Checked.FalknerSkan.FSScale.scale`. -/
+
+theorem fs_zero_wall_shear : nonvacuity% Checked.FalknerSkan.fs_zero_wall_shear := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim⟩ := Checked.Blasius.blasius_exists
+  have hq' : ∀ η ∈ Set.Ici (0 : ℝ), HasDerivWithinAt q (-(1 / 2 * f η * q η) - 0 * (1 - p η ^ 2))
+      (Set.Ici 0) η := fun η hη => (hq η hη).congr_deriv (by ring)
+  have hc : (0 : ℝ) < Real.sqrt (1 / 2) := by positivity
+  have h2 : Real.sqrt (1 / 2) ^ 2 = 1 / 2 := Real.sq_sqrt (by norm_num)
+  obtain ⟨A, B, C⟩ := Checked.FalknerSkan.FSScale.scale hc hf hp hq'
+  exact ⟨_, _, _, A, B, fun s hs => (C s hs).congr_deriv (by rw [h2]; ring), by simp [hf0],
+    by simp [hp0], Checked.FalknerSkan.FSScale.scale_lim hc hlim, trivial⟩
 
 end Checked.Trust.NV

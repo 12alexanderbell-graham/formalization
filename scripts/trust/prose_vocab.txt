@@ -30,3 +30,6 @@ emden
 constants
 homann
 axisymmetric
+falkner
+skan
+half

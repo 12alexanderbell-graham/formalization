@@ -30,9 +30,9 @@ namespace Work.FalknerSkan
 open Set Filter Topology
 open Work.FalknerSkan.FSScale
 
-/-- Falkner–Skan β = 1/2, existence: there is a solution of g''' + g g'' + (1 − g'²)/2 = 0 on
-[0, ∞) (g has derivative p, p has derivative q, q has derivative −g q − (1 − p²)/2, one-sided
-at 0) with g(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value q(0) = g''(0) lies
+/-- Falkner–Skan β = 1/2, existence: there is a solution f of f''' + f f'' + (1 − f'²)/2 = 0 on
+[0, ∞) (f has derivative p, p has derivative q, q has derivative −f q − (1 − p²)/2, one-sided
+at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value q(0) = f''(0) lies
 strictly between 0.927680039 and 0.927680040. -/
 theorem fs_half_exists : ∃ f p q : ℝ → ℝ,
     (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
@@ -57,9 +57,9 @@ theorem fs_half_exists : ∃ f p q : ℝ → ℝ,
     rw [zero_div, div_lt_iff₀ hc]
     nlinarith [lt_sqrt2]
 
-/-- Falkner–Skan β = 0, wall shear: for every solution of g''' + g g'' = 0 on [0, ∞) (g has
-derivative p, p has derivative q, q has derivative −g q, one-sided at 0) with g(0) = 0,
-p(0) = 0 and p(η) → 1 as η → ∞, the wall value q(0) = g''(0) lies between 0.4695999883610
+/-- Falkner–Skan β = 0, wall shear: for every solution f of f''' + f f'' = 0 on [0, ∞) (f has
+derivative p, p has derivative q, q has derivative −f q, one-sided at 0) with f(0) = 0,
+p(0) = 0 and p(η) → 1 as η → ∞, the wall value q(0) = f''(0) lies between 0.4695999883610
 and 0.4695999883611. -/
 theorem fs_zero_wall_shear (f p q : ℝ → ℝ)
     (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)

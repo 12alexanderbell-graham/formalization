@@ -228,3 +228,6 @@ Checked.Data.Moresco16Min.chiSqOL_glb_wide
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable
 # Mathematics: Lane–Emden polytrope of index two (run 2026-11-08T0228Z, frozen, proved, audited and promoted the same run): first zero, mass factor, central concentration; simulator generic in the index
 Checked.Math.LaneEmden2.laneEmden2_constants
+# Fluid mechanics: two rows of the Falkner–Skan wall-shear table (run 2026-11-08T0828Z, frozen, proved, audited and promoted the same run) from the Homann and Blasius theorems by the similarity scaling: existence at half-β with wall shear in a window, the window for every solution at β zero
+Checked.FalknerSkan.fs_half_exists
+Checked.FalknerSkan.fs_zero_wall_shear
