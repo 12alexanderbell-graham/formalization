@@ -22,3 +22,4 @@
 
 ## CI
 - 82f01ff, f75c98a, 2233028, 7e40c13 (0828Z's commits) and 46a6de2 (42472312787, this run's freeze): Lean jobs red in lean-action's toolchain download (timeout on releases.lean-lang.org; elan's downloader ignores `~/.curlrc`) — infrastructure; third repair b6c6f95 pre-installs the toolchain with retries. fe97390 / 6d095c2 / 7e861d8 (42473852605, 42473953940, 42474160290) were still running at 12:50Z. The promotion 82833d9 and the records: next run.
+- **b6c6f95 (42474861814): success on every job** — the third CI repair works (toolchain pre-installed), and this run's Work proofs (MonotoneWindow, MonotoneExists, HExMono, HmExMono, both blind closures except MEBlindClosed, added later) are judged green by the work job; c8c8253 (42478597204, heartbeat) success.
