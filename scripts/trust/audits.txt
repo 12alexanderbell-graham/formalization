@@ -548,3 +548,8 @@ Blind.FSHalf.toSys
 Blind.FSHalf.fs_W
 Blind.FSHalf.fs_U
 Blind.FSHalf.fs_E
+Blind.FSFifth.toSys
+Blind.FSFifth.bddI
+Blind.FSFifth.fs_W
+Blind.FSFifth.fs_U
+Blind.FSFifth.fs_E
