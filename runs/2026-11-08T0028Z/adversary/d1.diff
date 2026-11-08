@@ -1,0 +1,13 @@
+diff --git a/FINDINGS.md b/defects/d1/FINDINGS.md
+index 2b219cb..ef21511 100644
+--- a/FINDINGS.md
++++ b/defects/d1/FINDINGS.md
+@@ -10,7 +10,7 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each
+ - **Lean evidence (Checked, CI 40996176398 green):** `Checked.Cosmography.Aviles.flatLCDM_coeffs` (correct q₀…m₀ for every Ω, any C⁶ scale factor obeying the model near t₀); `avilesL0Claim_false`, `avilesM0Claim_false` (printed formulas refuted on Einstein–de Sitter, Ω_m = 1: true l₀ = 35/2 vs printed −19/2; true m₀ = −455/4 vs printed −134).
+ - **Classification:** Source error (misprint). **Scope:** the paper's numbers are unaffected: its Table V l₀ = 2.774[src], m₀ = −8.827[src] (and their asymmetric error bars) follow the correct formulas (referee check). The l₀ discrepancy, 27Ω_m², is nonzero for every Ω_m ≠ 0; the m₀ one vanishes at Ω_m = 0 and Ω_m = (√7 − 1)/3 ≈ 0.549[✓F1_m0_agrees].
+ - **Propagation:** the l₀ misprint is repeated in Aviles, Bravetti, Capozziello, Luongo, PRD 90, 043531 (2014), arXiv:1405.6935, Eq. (30) (rendered and read; that paper's Table IV value again follows the correct formula). Correct formulas appear in arXiv:1903.11433 Eq. (21), 2307.13464 Eq. (A7) (cites 1204.2007), 2408.10704 Eq. (7).
+-- **Plain words:** a sign slip in a printed formula, copied once, that a reader using the formula (not the paper's numbers) would get wrong: at Ω_m = 0.3[in✓F1_l0] the printed l₀ is 0.685[✓F1_printedL0] instead of 3.115[✓F1_l0].
++- **Plain words:** a sign slip in a printed formula, copied once, that a reader using the formula (not the paper's numbers) would get wrong: at Ω_m = 0.3[in✓F1_l0] the printed l₀ is 3.115[✓F1_l0] instead of 0.685[✓F1_printedL0].
+ - **Fidelity audit:** `runs/2026-10-30T0220Z/audit.md` (blind restatement derived verbatim; restater's own reading also refuted, with a globally C⁶ model).
+ - **Referee (subagent, independent):** STANDS-WITH-CORRECTIONS (corrections adopted above: v1 exists and has the same text; m₀ nuance). Weakness noted: no Lean witness model with 0 < Ω_m < 1 yet (only Ω_m = 1 refutes in Lean; Ω_m ∈ (0,1) is conditional on existence).
+ - **Errata:** none found (arXiv abs pages, web search).

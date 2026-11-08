@@ -510,8 +510,100 @@ partial def ratLits (e : Expr) (acc : Array (Int × Nat) := #[]) : Array (Int ×
     | .mdata _ b => ratLits b acc
     | .forallE _ d b _ => ratLits b (ratLits d acc)
     | .lam _ d b _ => ratLits b (ratLits d acc)
+    | .letE _ t v b _ => ratLits b (ratLits v (ratLits t acc))
     | .app f a => ratLits a (ratLits f acc)
     | _ => acc
+
+/-- `v=p/q` for every `let v := c` with `c` a rational numeral inside `e` (a record states the
+argument a certified quantity is evaluated at as a `let`, run 2026-11-08T0028Z). -/
+partial def letBinds (e : Expr) (acc : Array String := #[]) : Array String :=
+  match e with
+  | .mdata _ b => letBinds b acc
+  | .letE n _ v b _ =>
+    let acc := match ratLit? v with
+      | some (p, q) => acc.push s!"{n.eraseMacroScopes.toString (escape := false)}={p}/{q}"
+      | none => letBinds v acc
+    letBinds b acc
+  | .forallE _ d b _ => letBinds b (letBinds d acc)
+  | .lam _ d b _ => letBinds b (letBinds d acc)
+  | .app f a => letBinds a (letBinds f acc)
+  | _ => acc
+
+/-- The selector of a certified quantity `x` in `RoundsTo x d k` (run 2026-11-08T0028Z; blind red
+team T, defect d01 swapped the redshifts of two certified percentages of one record in FINDINGS.md
+and every check accepted it, because a record certified values, not the argument the prose attached
+to them). Items: `@Def` when the head of `x` is a program definition; `v=p/q` for each explicit
+argument of that definition (binder `v`) or of a `fun` head that is a rational numeral; `v=p/q` for
+each `let v := p/q` inside `x`. `check_numbers.py` requires a FINDINGS tag of a record with several
+certified values to name the selector of the value it tags, `0.56[✓F8_sizes(z=1)]`. -/
+def roundsSel (env : Environment) (x : Expr) : String := Id.run do
+  let x := x.consumeMData
+  let fn := x.getAppFn.consumeMData
+  let args := x.getAppArgs
+  let mut items : Array String := #[]
+  match fn with
+  | .const c _ =>
+    if isCheckedConst env c then
+      items := items.push s!"@{(c.componentsRev.head!).toString (escape := false)}"
+      if let some ci := env.find? c then
+        let mut ty := ci.type
+        let mut i := 0
+        while i < args.size do
+          match ty with
+          | .forallE n _ b bi =>
+            if bi.isExplicit then
+              if let some (p, q) := ratLit? args[i]! then
+                items := items.push s!"{n.eraseMacroScopes.toString (escape := false)}={p}/{q}"
+            ty := b
+            i := i + 1
+          | _ => i := args.size
+  | .lam .. =>
+    let mut f := fn
+    let mut i := 0
+    while i < args.size do
+      match f with
+      | .lam n _ b _ =>
+        if let some (p, q) := ratLit? args[i]! then
+          items := items.push s!"{n.eraseMacroScopes.toString (escape := false)}={p}/{q}"
+        f := b
+        i := i + 1
+      | _ => i := args.size
+  | _ => pure ()
+  items := items ++ letBinds x
+  return ";".intercalate items.toList
+
+/-- The certified quantities `x` of the asserted `RoundsTo x d k`, pretty-printed (binders of `∀` and `∃`
+as locals), in the order of `posRoundsToLits`: the generated table of certified numbers in FINDINGS.md
+(run 2026-11-08T0028Z) shows each tag's quantity as Lean states it. -/
+partial def posRoundsToXs (e : Expr) : MetaM (Array String) := do
+  match e.consumeMData with
+  | .forallE n d b bi => withLocalDecl n bi d fun x => posRoundsToXs (b.instantiate1 x)
+  | e =>
+    if e.isAppOfArity ``And 2 then
+      return (← posRoundsToXs (e.getArg! 0)) ++ (← posRoundsToXs (e.getArg! 1))
+    else if e.isAppOfArity ``Exists 2 then
+      match (e.getArg! 1).consumeMData with
+      | .lam n d b bi => withLocalDecl n bi d fun x => posRoundsToXs (b.instantiate1 x)
+      | _ => return #[]
+    else if e.isAppOfArity `Checked.Records.RoundsTo 3 then
+      let str := toString (← ppExpr (e.getArg! 0))
+      let str := " ".intercalate (((str.map fun c => if c == '\n' || c == '\t' then ' ' else c).splitOn " ").filter (· != ""))
+      return #[str]
+    else return #[]
+
+/-- The selectors of the `RoundsTo` conjuncts a statement asserts, in the order of
+`posRoundsToLits` (one per asserted `RoundsTo`). -/
+partial def posRoundsToSels (env : Environment) (e : Expr) (acc : Array String := #[]) : Array String :=
+  match e.consumeMData with
+  | .forallE _ _ b _ => posRoundsToSels env b acc
+  | e =>
+    if e.isAppOfArity ``And 2 then posRoundsToSels env (e.getArg! 1) (posRoundsToSels env (e.getArg! 0) acc)
+    else if e.isAppOfArity ``Exists 2 then
+      match (e.getArg! 1).consumeMData with
+      | .lam _ _ b _ => posRoundsToSels env b acc
+      | _ => acc
+    else if e.isAppOfArity `Checked.Records.RoundsTo 3 then acc.push (roundsSel env (e.getArg! 0))
+    else acc
 
 end StatementDeps
 
@@ -907,9 +999,15 @@ run_cmd do
           errors := errors.push s!"{hn}: a RoundsTo in a position the statement does not assert (under ¬, ∨, ↔ or in a hypothesis)"
         for (n, d) in ratLits (env.find? hn).get!.type do
           parLines := parLines.push s!"{hn.componentsRev.head!}\t{n}/{d}"
-        for l in lits do
+        let sels := posRoundsToSels env (env.find? hn).get!.type
+        let xs ← liftTermElabM <| posRoundsToXs (env.find? hn).get!.type
+        for (l, j) in lits.zipIdx do
+          -- third column: the selector of the certified quantity; fourth: the quantity as Lean prints it
+          -- (run 2026-11-08T0028Z)
+          let sel := if sels.size == lits.size then sels[j]! else ""
+          let xq := if xs.size == lits.size then xs[j]! else ""
           match l with
-          | some str => recLines := recLines.push s!"{hn.componentsRev.head!}\t{str}"
+          | some str => recLines := recLines.push s!"{hn.componentsRev.head!}\t{str}\t{sel}\t{xq}"
           | none => errors := errors.push s!"{hn}: a RoundsTo whose value is not a decimal literal with at most k decimals"
   IO.FS.createDirAll ".lake"
   IO.FS.writeFile ".lake/records_numbers.tsv" (String.intercalate "\n" recLines.toList ++ "\n")

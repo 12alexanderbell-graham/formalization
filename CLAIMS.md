@@ -3142,9 +3142,9 @@ Full name `Checked.Records.F8_sizes`.
 
 **It holds that**
 
-1. `RoundsTo ((1 / 100) ^ 2 * 2 ^ 4 / 120) 13e-6 6`
-2. `RoundsTo (100 * (1 ^ 5 / 120) / (1 + 1 ^ 2 / 2)) 0.56 2`
-3. `RoundsTo (100 * (2 ^ 5 / 120) / (2 + 2 ^ 2 / 2)) 6.7 1`
+1. `RoundsTo (have k := 1 / 100; have z := 2; k ^ 2 * z ^ 4 / 120) 13e-6 6`
+2. `RoundsTo (100 * have z := 1; z ^ 5 / 120 / (z + z ^ 2 / 2)) 0.56 2`
+3. `RoundsTo (100 * have z := 2; z ^ 5 / 120 / (z + z ^ 2 / 2)) 6.7 1`
 
 Program definitions in this claim:
 
@@ -3275,8 +3275,8 @@ Full name `Checked.Records.F11_sizes`.
 
 **It holds that**
 
-1. `RoundsTo (-210 * (-4 / 5) ^ 4) (-86) 0`
-2. `RoundsTo (7 / 4 * (-4 / 5) ^ 4 * 1 ^ 4) 0.72 2`
+1. `RoundsTo (-210 * have q₀ := -4 / 5; q₀ ^ 4) (-86) 0`
+2. `RoundsTo (7 / 4 * have q₀ := -4 / 5; q₀ ^ 4 * have z := 1; z ^ 4) 0.72 2`
 
 Program definitions in this claim:
 

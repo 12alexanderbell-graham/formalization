@@ -118,7 +118,7 @@ Checked.Records.F1_printedL0 | 1 3 3 10 27 2 3 10 2 | evaluation points and sour
 Checked.Records.F2_error | 3 10 1 2 5 3 10 1 2 | evaluation points and source parameters of certified numbers as literals; not read twice
 Checked.Records.F2_toy | 245 1000 93 100 41 100 5 245 1000 93 100 41 100 0.906 | evaluation points and source parameters of certified numbers as literals; not read twice
 Checked.Records.F3_D4_LCDM | 3 10 6 0.55 | evaluation points and source parameters of certified numbers as literals; not read twice
-Checked.Records.F8_sizes | 1 100 2 2 4 120 100 1 5 120 1 1 2 2 100 2 5 120 2 2 2 2 | evaluation points and source parameters of certified numbers as literals; not read twice
+Checked.Records.F8_sizes | 1 100 2 2 4 120 100 1 5 120 2 2 100 2 5 120 2 2 | evaluation points and source parameters of certified numbers as literals; not read twice
 Checked.Records.F9_pole | 243 4 540 3 6264 2 9360 3328 | evaluation points and source parameters of certified numbers as literals; not read twice
 Checked.Records.F9_values | 27 1 4 2 1 4 2 27 1 4 2 60 1 4 112 243 1 4 4 540 1 4 3 6264 1 4 2 9360 1 4 3328 3 1 4 2 5.25 | evaluation points and source parameters of certified numbers as literals; not read twice
 Checked.Sim.Duffing.duffing_first_zero_sol | 6 5 0 1192005 1000000 1192006 1000000 | initial data and parameters of the simulated/mathematical system as literals; not read twice

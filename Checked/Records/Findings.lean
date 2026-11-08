@@ -101,9 +101,9 @@ theorem F3_D4_LCDM (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatLCDM (3 / 10) a t�
 (`H₀d_L = z + z²/2` exactly) the omitted `z⁵/120` relative to `H₀d_L` is `0.56 %` at `z = 1` and
 `6.7 %` at `z = 2`. -/
 theorem F8_sizes :
-    RoundsTo ((1 / 100) ^ 2 * 2 ^ 4 / 120) 0.000013 6 ∧
-    RoundsTo (100 * ((1 : ℝ) ^ 5 / 120) / (1 + 1 ^ 2 / 2)) 0.56 2 ∧
-    RoundsTo (100 * ((2 : ℝ) ^ 5 / 120) / (2 + 2 ^ 2 / 2)) 6.7 1 := by
+    RoundsTo (let k := (1 / 100 : ℝ); let z := (2 : ℝ); k ^ 2 * z ^ 4 / 120) 0.000013 6 ∧
+    RoundsTo (100 * (let z := (1 : ℝ); z ^ 5 / 120 / (z + z ^ 2 / 2))) 0.56 2 ∧
+    RoundsTo (100 * (let z := (2 : ℝ); z ^ 5 / 120 / (z + z ^ 2 / 2))) 6.7 1 := by
   unfold RoundsTo; simp only [abs_le]; norm_num
 
 /-! ## F9 (Bamba et al. 2012, (11.21) with the printed R) -/
@@ -159,7 +159,8 @@ theorem F10_family_pole : ∃ ε : ℝ, RoundsTo ε 0.032 3 ∧ FREta.Jfam (41 /
 /-- At `q₀ = −0.80`: the shift `l₀ ↦ l₀ − 210q₀⁴` that absorbs the D⁴_L error is `−86`, and the
 error `(7/4)q₀⁴ z⁴` inside the bracket at `z = 1` is `0.72`. -/
 theorem F11_sizes :
-    RoundsTo (-210 * (-4 / 5) ^ 4) (-86) 0 ∧ RoundsTo (7 / 4 * (-4 / 5) ^ 4 * 1 ^ 4) 0.72 2 := by
+    RoundsTo (-210 * (let q₀ := (-4 / 5 : ℝ); q₀ ^ 4)) (-86) 0 ∧
+    RoundsTo (7 / 4 * (let q₀ := (-4 / 5 : ℝ); q₀ ^ 4 * (let z := (1 : ℝ); z ^ 4))) 0.72 2 := by
   unfold RoundsTo; simp only [abs_le]; norm_num
 
 end Checked.Records
