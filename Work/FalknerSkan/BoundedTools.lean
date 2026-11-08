@@ -1,4 +1,5 @@
 import Mathlib
+import Checked.FalknerSkan.CroccoWindow
 
 /-!
 # Tools: from |f'| ≤ 1 to f'' > 0, and uniqueness from the start values
@@ -210,5 +211,25 @@ theorem abs_lt_of_abs_le {k : ℝ} {f p q : ℝ → ℝ}
   · have := start_of_touch (Or.inl rfl) hf hp hq hb hpos he
     rw [hp0] at this; norm_num at this
 
+
+/-- From −1 ≤ p ≤ 1 (and p(0) = 0, p → 1): q > 0 on [0, ∞). -/
+theorem pos_of_abs_le {k : ℝ} {f p q : ℝ → ℝ}
+    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
+    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
+    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(k * f η * q η) - 1 + p η ^ 2) (Ici 0) η)
+    (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
+    (hb : ∀ η ∈ Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1) : ∀ η ∈ Ici (0 : ℝ), 0 < q η :=
+  pos_of_abs_lt_one hp hq hlim (abs_lt_of_abs_le hf hp hq hp0 hb)
+
+/-- The monotone solution is in the class: q > 0, p(0) = 0 and p → 1 give 0 ≤ p < 1. -/
+theorem bounded_of_pos {p q : ℝ → ℝ}
+    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
+    (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1)) (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η) :
+    ∀ η ∈ Ici (0 : ℝ), 0 ≤ p η ∧ p η < 1 := by
+  intro η hη
+  refine ⟨?_, Checked.FalknerSkan.CroccoWindow.p_lt_one hp hlim hpos η hη⟩
+  have := (Checked.FalknerSkan.CroccoWindow.smono_Ici hp hpos).monotoneOn
+    (Set.mem_Ici.2 le_rfl) hη hη
+  rwa [hp0] at this
 
 end Work.FalknerSkan.BoundedTools

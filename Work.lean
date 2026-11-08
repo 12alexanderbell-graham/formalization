@@ -312,3 +312,4 @@ import Work.FalknerSkan.MonotoneExists
 import Work.FalknerSkan.MEBlindClosed
 import Work.FalknerSkan.BoundedTools
 import Work.FalknerSkan.Bounded
+import Work.FalknerSkan.BBlindClosed
