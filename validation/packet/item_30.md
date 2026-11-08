@@ -1,58 +1,55 @@
 # Item 30
 
-**Area:** Chemistry
+**Area:** Mathematics
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`:
+**For every** `lam : ℝ`, `u : EuclideanSpace ℝ (Fin 3) → ℝ`:
 
 **assuming**
 
-1. `0 < R`
-2. `0 < a`
-3. `0 < b`
+1. `ContDiffOn ℝ 2 u (Metric.ball 0 1)`
+2. `ContinuousOn u (Metric.closedBall 0 1)`
+3. for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u x = 0`
+4. there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u x = g ‖x‖`
+5. for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian u x + lam * Real.exp (u x) = 0`
 
 **then**
 
-- there is `vl : ℝ` such that there is `vg : ℝ` such that there is `ps : ℝ` such that (`b < vl`) and (the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b)))` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)) and (`RoundsTo (ps / (a / (27 * b ^ 2))) 0.20046 5`) and (`RoundsTo (acentric ps (a / (27 * b ^ 2))) (-0.3020) 4`)
-
-Program definitions in this claim:
-
-- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): the molar volumes `vl` < `vg` are in Maxwell coexistence on the isotherm `p` at pressure `ps`: p(`vl`) = p(`vg`) = `ps` and the integral of p from `vl` to `vg` equals `ps`·(`vg` − `vl`)
-- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `acentric ps pc` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_acentric`) (for `ps : ℝ`, `pc : ℝ`): is defined as `-Real.logb 10 (ps / pc) - 1`
-- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
+- `lam ≤ 3.321992119`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-van der Waals fluid at T = 0.7 · 8a/(27Rb) (that is 0.7 T_c): there is a Maxwell coexistence
-state (liquid volume above the co-volume b), and its pressure is 0.20046 · a/(27b²) (that is
-0.20046 P_c) to five decimals, so the acentric factor of the van der Waals fluid is −0.3020 to four
-decimals.
+Gelfand problem in the unit ball of three-dimensional space, radial solutions: if u is twice
+continuously differentiable on the open unit ball, continuous on the closed unit ball, zero on the unit sphere
+and a function of ‖x‖ on the closed ball, and Δu + λ eᵘ = 0 on the open ball (Δ is Mathlib's Laplacian),
+then λ ≤ 3.321992119.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem vdW_coexistence_exists (R a b : ℝ) (hR : 0 < R) (ha : 0 < a) (hb : 0 < b) :
-    ∃ vl vg ps, b < vl ∧
-      IsMaxwellCoexistence (cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b)))) vl vg ps ∧
-      RoundsTo (ps / (a / (27 * b ^ 2))) 0.20046 5 ∧
-      RoundsTo (acentric ps (a / (27 * b ^ 2))) (-0.3020) 4 := …
+theorem gelfand_pde_radial_bound (lam : ℝ) (u : EuclideanSpace ℝ (Fin 3) → ℝ)
+    (hu : ContDiffOn ℝ 2 u (ball 0 1))
+    (hc : ContinuousOn u (closedBall 0 1))
+    (hb : ∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u x = 0)
+    (hrad : ∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u x = g ‖x‖)
+    (hpde : ∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + lam * Real.exp (u x) = 0) :
+    lam ≤ 3.321992119 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.Coexistence.acentric`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsMaxwellCoexistence.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `vdW_coexistence_exists`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 0, w = 0; RoundsTo: d = 0.20046, k = 5, d = -0.3020, k = 4.
-- Source file: `Checked/Chemistry/Coexistence.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `gelfand_pde_radial_bound`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Math/GelfandPDE.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 30

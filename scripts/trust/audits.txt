@@ -531,3 +531,8 @@ Work.FalknerSkan.BlindClosed.claimA_closed
 Work.FalknerSkan.BlindClosed.claimB_closed
 Work.Math.LaneEmden2BlindClosed.bridge
 Work.Math.LaneEmden2BlindClosed.blind_laneEmden2
+Blind.MonotoneWindow.hiemenz_blind
+Blind.MonotoneWindow.homann_blind
+Blind.MonotoneExists.toSys
+Blind.MonotoneExists.hiemenz_unique_blind
+Blind.MonotoneExists.homann_unique_blind

@@ -1,53 +1,58 @@
 # Item 14
 
-**Area:** T1 fidelity
+**Area:** Mathematics
 
-**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Rc : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `a' : ℝ → ℝ`, `a'' : ℝ → ℝ`, `t : ℝ`:
+**For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
 
-1. `RicciFlatFLRWSpec Rc`
-2. `0 < a t`
-3. `∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s`
-4. `HasDerivAt a' (a'' t) t`
+1. `41 / 10 ≤ S`
+2. for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `HasDerivWithinAt w (φ s) (Set.Icc 0 S) s`
+3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
+4. for every `s : ℝ`, if `s ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Icc 0 S) s`
+5. `w 0 = 0`
 
 **then**
 
-- `Rc a t = curv a t`
-
-Program definitions in this claim:
-
-- `RicciFlatFLRWSpec` — SPEC, not pinned: inductive type with constructors `RicciFlatFLRWSpec.mk : ∀ {Rc : (ℝ → ℝ) → ℝ → ℝ}, (∀ (a a' a'' : ℝ → ℝ) (t : ℝ), 0 < a t → (∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t → Rc a t = -6 * (a'' t / a t + (a' t / a t) ^ 2)) → (∀ (c h t : ℝ), 0 < c → Rc (fun s => c * Real.exp (h * s)) t = -12 * h ^ 2) → (∀ (t : ℝ), 0 < t → Rc (fun s => s ^ (1 / 2)) t = 0) → (∀ (t : ℝ), 0 < t → Rc (fun s => s ^ (2 / 3)) t = -4 / (3 * t ^ 2)) → (∀ (a a' a'' : ℝ → ℝ) (c t : ℝ), 0 < c → 0 < a t → (∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t → Rc (fun s => c * a s) t = Rc a t) → (∀ (a a' a'' : ℝ → ℝ) (τ t : ℝ), 0 < a (t + τ) → (∀ᶠ (s : ℝ) in nhds (t + τ), HasDerivAt a (a' s) s) → HasDerivAt a' (a'' (t + τ)) (t + τ) → Rc (fun s => a (s + τ)) t = Rc a (t + τ)) → RicciFlatFLRWSpec Rc`
-- `curv a t` — **PINNED** (pin theorem `ricciSpec_pins`): the Ricci scalar R = −6(Ḣ + 2H²) of spatially flat FLRW with scale factor `a` at time `t` (sign convention of Bamba et al. 2012, Eq. (11.6))
+- there is `s₁ : ℝ` such that (`4.071496844 ≤ s₁`) and (`s₁ ≤ 4.071496845`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `s ^ 2 * Real.exp (w s) ≤ s₁ ^ 2 * Real.exp (w s₁)`) and (`3.321992118 ≤ s₁ ^ 2 * Real.exp (w s₁)`) and (`s₁ ^ 2 * Real.exp (w s₁) ≤ 3.321992119`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** any `Rc` meeting `RicciFlatFLRWSpec` is `curv` wherever `a > 0` is twice
-differentiable at `t`.
+Gelfand problem in the three-dimensional ball, radial branch: for every S ≥ 41/10 and every
+solution w of w'' + (2/s)w' + e^w = 0 on (0, S] with w(0) = 0, w differentiable on [0, S] with
+derivative φ and φ continuous at 0, there is a point s₁ between 4.071496844 and 4.071496845 at which
+s² e^{w(s)} attains its maximum over [0, S], and that maximum lies between 3.321992118 and
+3.321992119.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem ricciSpec_pins (Rc : (ℝ → ℝ) → ℝ → ℝ) (h : RicciFlatFLRWSpec Rc) (a a' a'' : ℝ → ℝ)
-    (t : ℝ) (ha : 0 < a t) (h1 : ∀ᶠ s in 𝓝 t, HasDerivAt a (a' s) s)
-    (h2 : HasDerivAt a' (a'' t) t) : Rc a t = curv a t := …
+theorem gelfand_ball_critical (S : ℝ) (hS : 41 / 10 ≤ S) (w φ : ℝ → ℝ)
+    (hw : ∀ s ∈ Icc (0 : ℝ) S, HasDerivWithinAt w (φ s) (Icc 0 S) s)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 S) 0)
+    (hφ : ∀ s ∈ Ioc (0 : ℝ) S,
+      HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Icc 0 S) s)
+    (h0 : w 0 = 0) :
+    ∃ s₁ : ℝ, 4.071496844 ≤ s₁ ∧ s₁ ≤ 4.071496845 ∧
+      (∀ s ∈ Icc 0 S, s ^ 2 * Real.exp (w s) ≤ s₁ ^ 2 * Real.exp (w s₁)) ∧
+      3.321992118 ≤ s₁ ^ 2 * Real.exp (w s₁) ∧ s₁ ^ 2 * Real.exp (w s₁) ≤ 3.321992119 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FRCosmo.curv`, `Cosmography.hubble`, `Fidelity.RicciFlatFLRWSpec`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: curv.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `ricciSpec_pins`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `gelfand_ball_critical`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/FRSpecs.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/Gelfand.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 14

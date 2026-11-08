@@ -33,3 +33,5 @@ axisymmetric
 falkner
 skan
 half
+monotone
+window

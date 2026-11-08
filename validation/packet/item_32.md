@@ -1,44 +1,52 @@
 # Item 32
 
-**Area:** Fluid mechanics
+**Area:** Chemistry
 
-**Source:** see the claim
+**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`:
 
-- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`1.3119376938 < q 0`) and (`q 0 < 1.3119376939`)
+**assuming**
+
+1. `0 < a`
+2. `b < v`
+3. `0 < v ^ 2 + u * b * v + w * b ^ 2`
+
+**then**
+
+- (the molar volume `v` is a critical point of the isotherm `cubicP R a b u w T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0) if and only if ((`v ^ 3 - 3 * b * v ^ 2 - 3 * (u + w) * b ^ 2 * v - (u ^ 2 + u * w - w) * b ^ 3 = 0`) and (`R * T * (v ^ 2 + u * b * v + w * b ^ 2) ^ 2 = a * (v - b) ^ 2 * (2 * v + u * b)`))
+
+Program definitions in this claim:
+
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
+- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Homann axisymmetric stagnation-point flow, existence: there is a solution of
-f''' + 2 f f'' + 1 − f'² = 0 on [0, ∞) (f has derivative p, p has derivative q, q has derivative
-−2 f q − 1 + p², one-sided at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value
-q(0) = f''(0) lies strictly between 1.3119376938 and 1.3119376939.
+Critical-point conditions of the generalized cubic EOS, in closed form.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem homann_exists : ∃ f p q : ℝ → ℝ,
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Ici 0) η) ∧
-    f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-    1.3119376938 < q 0 ∧ q 0 < 1.3119376939 := …
+theorem isCritical_iff (R a b u w T v : ℝ) (ha : 0 < a) (hv : b < v) (hD : 0 < v ^ 2 + u * b * v + w * b ^ 2) :
+    IsCriticalIsotherm (cubicP R a b u w T) v ↔
+      (v ^ 3 - 3 * b * v ^ 2 - 3 * (u + w) * b ^ 2 * v - (u ^ 2 + u * w - w) * b ^ 3 = 0 ∧
+        R * T * (v ^ 2 + u * b * v + w * b ^ 2) ^ 2 = a * (v - b) ^ 2 * (2 * v + u * b)) := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `isCritical_iff`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Homann/Homann.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 32

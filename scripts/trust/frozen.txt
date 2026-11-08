@@ -266,6 +266,10 @@ Checked.Data.Moresco16Min.chiSqOL_glb_prior 22fea68d-doc1827598156874358102
 Checked.Data.Moresco16Min.chiSqOL_glb_wide da0fd44-doc10099351900359537472
 Checked.Data.Moresco16Min.chiSqOL_lt da1445ce-doc1545668925535682644
 Checked.Data.Moresco16Min.table5_oL_aicc_unattainable 70d0b8e9-doc4697546999697406605
+Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone 88d2dd0e-doc7650516872405001050
+Checked.FalknerSkan.MonotoneExists.homann_exists_monotone 20cb52c4-doc8367086458688938965
+Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window 78a54082-doc12104196721363992899
+Checked.FalknerSkan.MonotoneWindow.homann_monotone_window a9fa969e-doc2009427181864777849
 Checked.FalknerSkan.fs_half_exists afe2cd76-doc12326526542792863068
 Checked.FalknerSkan.fs_zero_wall_shear a7d43ffa-doc1707734161577470334
 Checked.Fidelity.AngDistSpec 25618f87-SPEC
@@ -764,7 +768,17 @@ doc:Checked.Data.Moresco16Min.ge_of_point -doc5724304663505934516
 doc:Checked.Data.Moresco16Min.tQ -doc17505504274685020164
 doc:Checked.Data.Moresco16Min.wt -doc2863056672744410289
 doc:Checked.Data.Moresco16Min.yQ -doc8122356211956399430
+doc:Checked.FalknerSkan.CroccoCompare.compare_window -doc4043652235078997279
+doc:Checked.FalknerSkan.CroccoCompare.compare -doc6676999987959559067
+doc:Checked.FalknerSkan.CroccoMap.crocco -doc456583831429690733
+doc:Checked.FalknerSkan.CroccoWindow.exists_q_lt -doc3661469288523038999
+doc:Checked.FalknerSkan.CroccoWindow.ge_of_under -doc10504942743877009960
+doc:Checked.FalknerSkan.CroccoWindow.le_of_over -doc14878783316794793107
+doc:Checked.FalknerSkan.CroccoWindow.p_lt_one -doc10008363234436284022
+doc:Checked.FalknerSkan.CroccoWindow.smono_Icc -doc14126783961144053727
+doc:Checked.FalknerSkan.CroccoWindow.smono_Ici -doc4904052454536944920
 doc:Checked.FalknerSkan.FSScale.sqrt2_lt -doc17865031123788325693
+doc:Checked.FalknerSkan.MonotoneExists.not_lt_wall -doc6915838252959666888
 doc:Checked.Fidelity.AngDistSpec.closed -doc9732509374418883569
 doc:Checked.Fidelity.AngDistSpec.deSitterContracting -doc13735758360209474623
 doc:Checked.Fidelity.AngDistSpec.deSitter -doc10244915488021376396
@@ -1171,6 +1185,7 @@ doc:Checked.Hiemenz.HExLimit.eventually_gt_of_deriv_pos -doc4913265224533718809
 doc:Checked.Hiemenz.HExLimit.eventually_lt_of_deriv_neg -doc4047816102748965670
 doc:Checked.Hiemenz.HExLimit.le_of_left -doc3891301892697335657
 doc:Checked.Hiemenz.HExLimit.no_event -doc11860025901848769382
+doc:Checked.Hiemenz.HExMono.no_event_pos -doc1968474974974813690
 doc:Checked.Hiemenz.HIVP.ivp_hi -doc5463349773829506758
 doc:Checked.Hiemenz.HIVP.ivp_lo -doc9361615637101242663
 doc:Checked.Hiemenz.HIVP.solves -doc4911976120072066559
@@ -1266,6 +1281,7 @@ doc:Checked.Homann.HmExLimit.eventually_gt_of_deriv_pos -doc4913265224533718809
 doc:Checked.Homann.HmExLimit.eventually_lt_of_deriv_neg -doc4047816102748965670
 doc:Checked.Homann.HmExLimit.le_of_left -doc3891301892697335657
 doc:Checked.Homann.HmExLimit.no_event -doc14738253682662985939
+doc:Checked.Homann.HmExMono.no_event_pos -doc4735152979597337807
 doc:Checked.Homann.HmIVP.ivp_hi -doc11045743207643672722
 doc:Checked.Homann.HmIVP.ivp_lo -doc9691706511825327285
 doc:Checked.Homann.HmIVP.solves -doc3874061912468717308
@@ -2046,8 +2062,13 @@ moduledoc:Checked.Data.Moresco16MinCover -mdoc9700213023670081597
 moduledoc:Checked.Data.Moresco16MinTools -mdoc5985369208106060556
 moduledoc:Checked.Data.Moresco16Min -mdoc15563693230278511805
 moduledoc:Checked.Data.Moresco16 -mdoc8629197678968256333
+moduledoc:Checked.FalknerSkan.CroccoCompare -mdoc116563095309948664
+moduledoc:Checked.FalknerSkan.CroccoMap -mdoc6176723414911369388
+moduledoc:Checked.FalknerSkan.CroccoWindow -mdoc1764999034406625581
 moduledoc:Checked.FalknerSkan.FSScale -mdoc7137273582316677182
 moduledoc:Checked.FalknerSkan.FalknerSkan -mdoc349848568453626590
+moduledoc:Checked.FalknerSkan.MonotoneExists -mdoc12682757103394502662
+moduledoc:Checked.FalknerSkan.MonotoneWindow -mdoc5585761144945174777
 moduledoc:Checked.Fidelity.CriticalSpec -mdoc7440715596430870242
 moduledoc:Checked.Fidelity.DuffingSpec -mdoc15630159284443887379
 moduledoc:Checked.Fidelity.FRSpecs -mdoc1744885112342587104
@@ -2069,6 +2090,7 @@ moduledoc:Checked.Hiemenz.HExAssemble -mdoc725636419806461163
 moduledoc:Checked.Hiemenz.HExBase -mdoc3590473131834699101
 moduledoc:Checked.Hiemenz.HExFlow -mdoc4950646087718941559
 moduledoc:Checked.Hiemenz.HExLimit -mdoc3489656254568241076
+moduledoc:Checked.Hiemenz.HExMono -mdoc96027965189398405
 moduledoc:Checked.Hiemenz.HIVP -mdoc3456594572877594883
 moduledoc:Checked.Hiemenz.HODataC -mdoc14509768872807264705
 moduledoc:Checked.Hiemenz.HOData -mdoc7740759618200956584
@@ -2081,6 +2103,7 @@ moduledoc:Checked.Homann.HmExAssemble -mdoc5326019562418413928
 moduledoc:Checked.Homann.HmExBase -mdoc15562651856209244950
 moduledoc:Checked.Homann.HmExFlow -mdoc5257214270898675056
 moduledoc:Checked.Homann.HmExLimit -mdoc14704847102940714106
+moduledoc:Checked.Homann.HmExMono -mdoc17081951113141853164
 moduledoc:Checked.Homann.HmIVP -mdoc16770803138006087278
 moduledoc:Checked.Homann.HmODataC -mdoc2312593256939215783
 moduledoc:Checked.Homann.HmOData -mdoc4423658232581791386
@@ -2233,4 +2256,4 @@ moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc14871009025188166167
+moduledoc:Checked.Trust.Witnesses -mdoc2735394626184079765

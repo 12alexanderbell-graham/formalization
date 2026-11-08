@@ -1,43 +1,65 @@
 # Item 41
 
-**Area:** Data claims
+**Area:** F9
 
-**Source:** see the claim
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI ("testing F(R) gravity by cosmography"), Eq. (11.31), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583, PRD 78, 063504) Eq. (33): the common denominator R of the F(R₀), F″(R₀), F‴(R₀) formulas is wrong, so the printed F(R₀) formula (11.21) fails the paper's own ΛCDM check (11.40); also (11.13) d³R₀/dt³ has a sign error
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
-- there is `a : ℝ` such that there is `b : ℝ` such that (`chiSqLine a b < 27.972`) and (for every `N : ℝ`, if `0 < N`, then if `N ≤ 35`, then `chiSqLine a b + 2 * Real.log N < 35.285`)
+**assuming**
+
+1. `0 < a t₀`
+2. `0 < hubble a t₀`
+3. `ContDiffAt ℝ 5 a t₀`
+
+**then**
+
+1. `curv a t₀ = -6 * hubble a t₀ ^ 2 * (1 - decel a t₀)`
+2. `deriv (curv a) t₀ = -6 * hubble a t₀ ^ 3 * (cosmoCoeff 3 a t₀ - decel a t₀ - 2)`
+3. `deriv^[2] (curv a) t₀ = -6 * hubble a t₀ ^ 4 * (cosmoCoeff 4 a t₀ + decel a t₀ ^ 2 + 8 * decel a t₀ + 6)`
+4. `deriv^[3] (curv a) t₀ = -6 * hubble a t₀ ^ 5 * (cosmoCoeff 5 a t₀ - cosmoCoeff 4 a t₀ - 2 * (decel a t₀ + 4) * cosmoCoeff 3 a t₀ - 6 * (3 * decel a t₀ + 8) * decel a t₀ - 24)`
 
 Program definitions in this claim:
 
-- `chiSqLine a b` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_chiSqLine`) (for `a : ℝ`, `b : ℝ`): is defined as `∑ i, (a + b * (m16Table i).1 - (m16Table i).2.1 / (1 + (m16Table i).1)) ^ 2 / ((m16Table i).2.2 / (1 + (m16Table i).1)) ^ 2 + (a - 73) ^ 2 / 2.4 ^ 2` ⚠ contains decimal constants that no check compares with a source
-- `m16Table` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_m16Table`); its name is not checked: is defined as `![(7e-2, 69.0, 19.6), (9e-2, 69, 12), (0.12, 68.6, 26.2), (0.17, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.20, 72.9, 29.6), (0.27, 77, 14), (0.28, 88.8, 36.6), (0.352, 83, 14), (0.3802, 83, 13.5), (0.4, 95, 17), (0.4004, 77, 10.2), (0.4247, 87.1, 11.2), (0.44497, 92.8, 12.9), (0.4783, 80.9, 9), (0.48, 97, 62), (0.593, 104, 13), (0.68, 92, 8), (0.781, 105, 12), (0.875, 125, 17), (0.88, 90, 40), (0.9, 117, 23), (1.037, 154, 20), (1.3, 168, 17), (1.363, 160, 33.6), (1.43, 177, 18), (1.53, 140, 14), (1.75, 202, 40), (1.965, 186.5, 50.4)]`
+- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): the `n`-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor `a` at time `t` (n = `n`; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
+- `curv a t` — **PINNED** (pin theorem `ricciSpec_pins`): the Ricci scalar R = −6(Ḣ + 2H²) of spatially flat FLRW with scale factor `a` at time `t` (sign convention of Bamba et al. 2012, Eq. (11.6))
+- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): the deceleration parameter −a″(t)·a(t)/a′(t)² of the scale factor `a` at time `t`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-There are a, b at which the χ² of the straight line a + b z against H/(1+z) is below 27.972
-and χ² + 2 ln N is below 35.285 for every N with 0 < N ≤ 35.
+**Correct (11.10)–(11.13).** For every flat FLRW scale factor `C⁵` at `t₀` with `a(t₀) > 0`, `H₀ > 0`,
+the Ricci scalar `R = −6(Ḣ + 2H²)` (the review's sign convention) and its first three time derivatives
+at `t₀`: `R₀ = −6H₀²(1 − q₀)`, `Ṙ₀ = −6H₀³(j₀ − q₀ − 2)`, `R̈₀ = −6H₀⁴(s₀ + q₀² + 8q₀ + 6)`,
+`R⃛₀ = −6H₀⁵[l₀ − s₀ − 2(q₀ + 4)j₀ − 6(3q₀ + 8)q₀ − 24]` (the review's (11.13) prints `+2(q₀ + 4)j₀`).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem line_bic_exceeds : ∃ a b : ℝ, chiSqLine a b < 27.972 ∧
-    ∀ N : ℝ, 0 < N → N ≤ 35 → chiSqLine a b + 2 * Real.log N < 35.285 := …
+theorem curv_derivs (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hH : 0 < hubble a t₀)
+    (hs : ContDiffAt ℝ 5 a t₀) :
+    curv a t₀ = -6 * hubble a t₀ ^ 2 * (1 - decel a t₀) ∧
+    deriv (curv a) t₀ = -6 * hubble a t₀ ^ 3 * (cosmoCoeff 3 a t₀ - decel a t₀ - 2) ∧
+    deriv^[2] (curv a) t₀ =
+      -6 * hubble a t₀ ^ 4 * (cosmoCoeff 4 a t₀ + decel a t₀ ^ 2 + 8 * decel a t₀ + 6) ∧
+    deriv^[3] (curv a) t₀ = -6 * hubble a t₀ ^ 5 *
+      (cosmoCoeff 5 a t₀ - cosmoCoeff 4 a t₀ - 2 * (decel a t₀ + 4) * cosmoCoeff 3 a t₀
+        - 6 * (3 * decel a t₀ + 8) * decel a t₀ - 24) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Data.Moresco16.m16Table`, `Data.Moresco16.chiSqLine`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.FRCosmo.curv`, `Cosmography.decel`, `Cosmography.hubble`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): m16Table².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Data/Moresco16.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, curv, decel, hubble.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `curv_derivs`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
+- Source file: `Checked/Cosmography/FRCosmo.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 41

@@ -309,3 +309,4 @@ import Work.FalknerSkan.MWBlindClosed
 import Work.Hiemenz.HExMono
 import Work.Homann.HmExMono
 import Work.FalknerSkan.MonotoneExists
+import Work.FalknerSkan.MEBlindClosed

@@ -231,3 +231,8 @@ Checked.Math.LaneEmden2.laneEmden2_constants
 # Fluid mechanics: two rows of the Falkner–Skan wall-shear table (run 2026-11-08T0828Z, frozen, proved, audited and promoted the same run) from the Homann and Blasius theorems by the similarity scaling: existence at half-β with wall shear in a window, the window for every solution at β zero
 Checked.FalknerSkan.fs_half_exists
 Checked.FalknerSkan.fs_zero_wall_shear
+# Fluid mechanics: the monotone (f'' > 0) solutions of the Hiemenz and Homann boundary-value problems (run 2026-11-08T1028Z, frozen, proved, audited and promoted the same run): every such solution has its wall shear in the certified window, and one exists (Crocco comparison; no new numerical certificate)
+Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window
+Checked.FalknerSkan.MonotoneWindow.homann_monotone_window
+Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone
+Checked.FalknerSkan.MonotoneExists.homann_exists_monotone

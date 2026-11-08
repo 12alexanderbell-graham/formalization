@@ -1,58 +1,44 @@
 # Item 48
 
-**Area:** T1 fidelity
+**Area:** F6
 
-**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421 (v1–v3), Eqs. (10.55)–(10.57), copied verbatim from Capozziello & Salzano, Adv. Astron. 2009, 217420, arXiv:0902.0088, Eqs. (56)–(58): curvature terms of the y-redshift d_L coefficients D³_{L,y}, D⁴_{L,y} wrong
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `H : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `t : ℝ`:
-
-**assuming**
-
-1. `HubbleSpec H`
-2. `0 < a t`
-3. `DifferentiableAt ℝ a t`
+**For every** `K : ℝ`:
 
 **then**
 
-- `H a t = hubble a t`
+- `(fun x => transverse K x - (x - K * x ^ 3 / 6 + K ^ 2 * x ^ 5 / 120)) =o[nhds 0] fun x => x ^ 5`
 
 Program definitions in this claim:
 
-- `HubbleSpec` — SPEC, not pinned: inductive type with constructors `HubbleSpec.mk : ∀ {H : (ℝ → ℝ) → ℝ → ℝ}, (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → HasDerivAt (fun s => Real.log (a s)) (H a t) t) → (∀ (h t : ℝ), H (fun s => Real.exp (h * s)) t = h) → (∀ (n t : ℝ), 0 < t → H (fun s => s ^ n) t = n / t) → (∀ (R t : ℝ), 0 < R → H (fun x => R) t = 0) → (∀ (c : ℝ), 0 < c → ∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → H (fun s => c * a s) t = H a t) → (∀ (τ : ℝ) (a : ℝ → ℝ) (t : ℝ), 0 < a (t + τ) → DifferentiableAt ℝ a (t + τ) → H (fun s => a (s + τ)) t = H a (t + τ)) → (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a (-t) → DifferentiableAt ℝ a (-t) → H (fun s => a (-s)) t = -H a (-t)) → HubbleSpec H`
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t)² of the scale factor `a` at time `t`
+- `transverse K χ` — **PINNED** (pin theorem `transverseSpec_pins`): the transverse factor S_K(χ) at K = `K`, χ = `χ`: sin(√K·χ)/√K if K > 0, χ if K = 0, sinh(√(−K)·χ)/√(−K) if K < 0
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-`HubbleSpec` pins `hubble` for every positive scale factor differentiable at `t`
-(its `logDeriv` law `H = d ln a/dt` and uniqueness of derivatives).
+`S_K(χ) = χ − Kχ³/6 + K²χ⁵/120 + o(χ⁵)` for every `K`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem hubbleSpec_pins (H : (ℝ → ℝ) → ℝ → ℝ) (h : HubbleSpec H) (a : ℝ → ℝ) (t : ℝ)
-    (ha : 0 < a t) (hd : DifferentiableAt ℝ a t) : H a t = hubble a t := …
-```
-
-Definitions specific to this item:
-
-```lean
-/-- The Hubble rate `H = ȧ/a`. (Used by this item in place of the glossary entry.) -/
-noncomputable def hubble (a : ℝ → ℝ) (t : ℝ) : ℝ := deriv a t / a t ^ 2
+theorem transverse_expansion (K : ℝ) :
+    (fun x => transverse K x - (x - K * x ^ 3 / 6 + K ^ 2 * x ^ 5 / 120)) =o[𝓝 0]
+      fun x => x ^ 5 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.hubble`, `Fidelity.HubbleSpec`
+See GLOSSARY.md: `Cosmography.Transverse.transverse`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: hubble.
+- Definitions pinned by a machine-checked specification: transverse.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hubbleSpec_pins`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/Pins.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Cosmography/Transverse.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 48

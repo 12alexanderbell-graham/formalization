@@ -1,0 +1,9 @@
+- Solution = f : ℝ → ℝ, only values on Ici 0 matter; derivatives are one-sided via derivWithin f (Ici 0), nested for f', f'', f'''.
+- Equation imposed for all x ≥ 0 (including 0 with one-sided derivatives); f 0 = 0, f' 0 = 0; Tendsto f' atTop (𝓝 1).
+- Existence: ContDiffOn ℝ ⊤ (C^∞) on Ici 0 (strongest; ODE solutions are analytic anyway). I did not ask for analytic.
+- Uniqueness: only ContDiffOn ℝ 3 on Ici 0 (weakest natural class so f''' exists and is continuous); f'' > 0 on Ici 0 required for both.
+- Homann/Hiemenz differ by coefficient c = 2 / 1 in IsSol (shared def).
+- Decimals are real literals (exact rationals) with strict inequalities.
+- Ambiguity: "f'' > 0 on [0,∞)" taken to include x = 0 (so f''(0) > 0 follows too).
+- Ambiguity: ⊤ in WithTop ℕ∞ is analytic-order in recent Mathlib (ω); if so it is stronger than C^∞. Check elaboration result below.
+- Elaboration check: file elaborates with only the 4 sorry warnings.

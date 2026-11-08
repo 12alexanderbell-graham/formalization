@@ -248,3 +248,10 @@ import Checked.Homann.Homann
 import Checked.Homann.HmIVP
 import Checked.FalknerSkan.FSScale
 import Checked.FalknerSkan.FalknerSkan
+import Checked.FalknerSkan.CroccoCompare
+import Checked.FalknerSkan.CroccoMap
+import Checked.FalknerSkan.CroccoWindow
+import Checked.FalknerSkan.MonotoneWindow
+import Checked.Hiemenz.HExMono
+import Checked.Homann.HmExMono
+import Checked.FalknerSkan.MonotoneExists

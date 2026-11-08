@@ -1,43 +1,58 @@
 # Item 36
 
-**Area:** F1
+**Area:** Fluid mechanics
 
-**Source:** arXiv:1903.11433, Eq. (21): misprinted flat ΛCDM l₀ (printed as 1 + 3Ω_m − (27/2)Ω_m²)
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
-- it is false that (`AvilesL0Claim`)
+**assuming**
 
-Program definitions in this claim:
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
 
-- `AvilesL0Claim` — CLAIM, not pinned; the source-dependent data written inline (printed formula, order of the printed series) agree with an independent blind second reading of the source (`Checked.Trust.Transcriptions.agree_AvilesL0Claim`); the quantifiers and hypotheses are the program's formalisation: means for every `Ω : ℝ`, for every `a : ℝ → ℝ`, for every `t₀ : ℝ`, if the scale factor `a` obeys the flat ΛCDM expansion law H = H₀·√(`Ω`·(1 + z)³ + 1 − `Ω`) on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0, z is the redshift observed at `t₀`, and a is positive and differentiable on that neighbourhood, then if `ContDiffAt ℝ 6 a t₀`, then `cosmoCoeff 5 a t₀ = 1 + 3 * Ω - 27 / 2 * Ω ^ 2`
-- `IsFlatLCDM Ω a t₀` — **PINNED** (pin theorem `flatLCDMSpec2_pins`): the scale factor `a` obeys the flat ΛCDM expansion law H = H₀·√(`Ω`·(1 + z)³ + 1 − `Ω`) on some neighbourhood of the time `t₀`, where H₀ = H(`t₀`) > 0, z is the redshift observed at `t₀`, and a is positive and differentiable on that neighbourhood
-- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): the `n`-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor `a` at time `t` (n = `n`; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
+**then**
+
+1. `1.2325876568 < q 0`
+2. `q 0 < 1.2325876569`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Refutation of the printed l₀ in Eq. (21).** On Einstein–de Sitter (Ω = 1) the printed
-formula gives `−19/2`, the true value is `35/2`.
+Hiemenz stagnation-point flow: every solution of f''' + f f'' + 1 − f'² = 0 on [0, ∞)
+(f has derivative p, p has derivative q, q has derivative −f q − 1 + p², one-sided at 0) with
+f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and q > 0 on [0, ∞) has wall shear q(0) = f''(0)
+strictly between 1.2325876568 and 1.2325876569.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem avilesL0Claim_false : ¬ AvilesL0Claim := …
+theorem hiemenz_monotone_window (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
+    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
+    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Ici 0) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
+    (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η) :
+    1.2325876568 < q 0 ∧ q 0 < 1.2325876569 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.Aviles.AvilesL0Claim`, `Cosmography.hubble`, `Cosmography.redshift`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): AvilesL0Claim².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 5.
-- Source file: `Checked/Cosmography/LCDMCoefficients.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hiemenz_monotone_window`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/FalknerSkan/MonotoneWindow.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 36

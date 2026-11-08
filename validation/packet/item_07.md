@@ -1,52 +1,54 @@
 # Item 07
 
-**Area:** Rigorous simulation
+**Area:** Data claim
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `x : ℝ → ℝ`:
+**For every** `Ω : ℝ`:
 
 **assuming**
 
-1. the function `x` solves x″ + `1`·x + `1`·x³ = 0 with x(0) = `1`, x′(0) = `0` on the time interval [0, `6 / 5`] (derivatives taken within [0, `6 / 5`])
+1. `0 ≤ Ω`
+2. `Ω ≤ 1`
+3. for every `Ω' : ℝ`, if `Ω' ∈ Set.Icc 0 1`, then `margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω'`
 
 **then**
 
-1. for every `t : ℝ`, if `t ∈ Set.Icc 0 (1192005 / 1000000)`, then `0 < x t`
-2. `x (1192006 / 1000000) < 0`
+1. `18.19 < margChiSq fr13Table 68 2.8 Ω`
+2. `margChiSq fr13Table 68 2.8 Ω < 18.21`
 
 Program definitions in this claim:
 
-- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): the function `x` solves x″ + `k`·x + `β`·x³ = 0 with x(0) = `x₀`, x′(0) = `v₀` on the time interval [0, `T`] (derivatives taken within [0, `T`])
+- `chiSqHz tbl H₀ Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_chiSqHz`) (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `H₀ : ℝ`, `Ω : ℝ`): is defined as `∑ i, ((H₀ * √(Ω * (1 + (tbl i).1) ^ 3 + 1 - Ω) - (tbl i).2.1) / (tbl i).2.2) ^ 2`
+- `fr13Table` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_fr13Table`); its name is not checked: is defined as `![(70e-3, 69, 19.6), (0.100, 69, 12), (0.120, 68.6, 26.2), (0.170, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.200, 72.9, 29.6), (0.270, 77, 14), (0.280, 88.8, 36.6), (0.350, 76.3, 5.6), (0.352, 83, 14), (0.400, 95, 17), (0.440, 82.6, 7.8), (0.480, 97, 62), (0.593, 104, 13), (0.600, 87.9, 6.1), (0.680, 92, 8), (0.730, 97.3, 7.0), (0.781, 105, 12), (0.875, 125, 17), (0.880, 90, 40), (0.900, 117, 23), (1.037, 154, 20), (1.300, 168, 17), (1.430, 177, 18), (1.530, 140, 14), (1.750, 202, 40), (2.300, 224, 8)]`
+- `margChiSq tbl Hbar σ Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_margChiSq`) (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `Hbar : ℝ`, `σ : ℝ`, `Ω : ℝ`): is defined as `-2 * Real.log (∫ (H₀ : ℝ), Real.exp (-chiSqHz tbl H₀ Ω / 2) * (Real.exp (-(H₀ - Hbar) ^ 2 / (2 * σ ^ 2)) / √(2 * Real.pi * σ ^ 2)))`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Certified first zero of the Duffing oscillator x'' + x + x³ = 0 released from rest at
-x = 1: every solution on the time interval [0, 6/5] (derivatives within the interval) is strictly
-positive at all times in [0, 1.192005] and strictly negative at time 1.192006, so its earliest
-zero lies strictly between 1.192005 and 1.192006. Proved by a validated enclosure of every
-solution (rational Taylor cells, exact defect bounds, energy box, Grönwall).
+With the prior 68 ± 2.8, the smallest value over Ω in [0, 1] of the marginalised
+chi-square of the Farooq–Ratra 2013 table lies strictly between 18.19 and 18.21.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem duffing_first_zero_sol (x : ℝ → ℝ) (hx : IsDuffingSolution 1 1 1 0 (6 / 5) x) :
-    (∀ t ∈ Icc (0 : ℝ) (1192005 / 1000000), 0 < x t) ∧ x (1192006 / 1000000) < 0 := …
+theorem fr13_minval68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω') :
+    18.19 < margChiSq fr13Table 68 2.8 Ω ∧ margChiSq fr13Table 68 2.8 Ω < 18.21 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Sim.Duffing.IsDuffingSolution`
+See GLOSSARY.md: `Data.FR13.fr13Table`, `Data.FR13.chiSqHz`, `Data.FR13.margChiSq`, `Data.FR13Certs.tbl`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsDuffingSolution.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `duffing_first_zero_sol`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5.
-- Source file: `Checked/Sim/Duffing.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): fr13Table².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fr13_minval68`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): margChiSq: Hbar = 68, σ = 2.8.
+- Source file: `Checked/Data/FR13.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 07

@@ -5520,3 +5520,89 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > p(0) = 0 and p(η) → 1 as η → ∞, the wall value q(0) = f''(0) lies between 0.4695999883610
 > and 0.4695999883611.
 
+## `hiemenz_monotone_window`
+
+Full name `Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
+
+**then**
+
+1. `1.2325876568 < q 0`
+2. `q 0 < 1.2325876569`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Hiemenz stagnation-point flow: every solution of f''' + f f'' + 1 − f'² = 0 on [0, ∞)
+> (f has derivative p, p has derivative q, q has derivative −f q − 1 + p², one-sided at 0) with
+> f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and q > 0 on [0, ∞) has wall shear q(0) = f''(0)
+> strictly between 1.2325876568 and 1.2325876569.
+
+## `homann_monotone_window`
+
+Full name `Checked.FalknerSkan.MonotoneWindow.homann_monotone_window`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
+
+**then**
+
+1. `1.3119376938 < q 0`
+2. `q 0 < 1.3119376939`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Homann axisymmetric stagnation-point flow: every solution of f''' + 2 f f'' + 1 − f'² = 0 on
+> [0, ∞) (f has derivative p, p has derivative q, q has derivative −2 f q − 1 + p², one-sided at 0)
+> with f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and q > 0 on [0, ∞) has wall shear q(0) = f''(0)
+> strictly between 1.3119376938 and 1.3119376939.
+
+## `hiemenz_exists_monotone`
+
+Full name `Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone`.
+
+**It holds that**
+
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (`1.2325876568 < q 0`) and (`q 0 < 1.2325876569`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Hiemenz stagnation-point flow: there is a solution of f''' + f f'' + 1 − f'² = 0 on [0, ∞)
+> (f has derivative p, p has derivative q, q has derivative −f q − 1 + p², one-sided at 0) with
+> f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞, q > 0 on [0, ∞), and wall shear q(0) = f''(0) strictly
+> between 1.2325876568 and 1.2325876569.
+
+## `homann_exists_monotone`
+
+Full name `Checked.FalknerSkan.MonotoneExists.homann_exists_monotone`.
+
+**It holds that**
+
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (`1.3119376938 < q 0`) and (`q 0 < 1.3119376939`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Homann axisymmetric stagnation-point flow: there is a solution of f''' + 2 f f'' + 1 − f'² = 0
+> on [0, ∞) (f has derivative p, p has derivative q, q has derivative −2 f q − 1 + p², one-sided at
+> 0) with f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞, q > 0 on [0, ∞), and wall shear q(0) = f''(0)
+> strictly between 1.3119376938 and 1.3119376939.
+

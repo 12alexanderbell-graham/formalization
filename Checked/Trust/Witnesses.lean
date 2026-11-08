@@ -62,6 +62,8 @@ import Checked.Hiemenz.HIVP
 import Checked.Homann.Homann
 import Checked.Homann.HmIVP
 import Checked.FalknerSkan.FalknerSkan
+import Checked.FalknerSkan.MonotoneWindow
+import Checked.FalknerSkan.MonotoneExists
 import Checked.Data.Moresco16Min
 
 /-!
@@ -806,5 +808,18 @@ theorem fs_zero_wall_shear : nonvacuity% Checked.FalknerSkan.fs_zero_wall_shear 
   obtain ⟨A, B, C⟩ := Checked.FalknerSkan.FSScale.scale hc hf hp hq'
   exact ⟨_, _, _, A, B, fun s hs => (C s hs).congr_deriv (by rw [h2]; ring), by simp [hf0],
     by simp [hp0], Checked.FalknerSkan.FSScale.scale_lim hc hlim, trivial⟩
+
+/-! Hiemenz and Homann monotone solutions (run 2026-11-08T1028Z): the solution with positive second
+derivative of `Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone` (resp. Homann). -/
+
+theorem hiemenz_monotone_window : nonvacuity% Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, -⟩ :=
+    Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, trivial⟩
+
+theorem homann_monotone_window : nonvacuity% Checked.FalknerSkan.MonotoneWindow.homann_monotone_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, -⟩ :=
+    Checked.FalknerSkan.MonotoneExists.homann_exists_monotone
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, trivial⟩
 
 end Checked.Trust.NV
