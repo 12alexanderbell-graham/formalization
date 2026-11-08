@@ -245,6 +245,7 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Falkner–Skan table rows by similarity scaling, `Work/FalknerSkan/`, `Checked/FalknerSkan/` (run 2026-11-08T0828Z)
 - `FSScale.scale` (for c > 0: (f, p, q) solving f' = p, p' = q, q' = −a f q − b(1 − p²) within Ici 0 ↦ (c f(·/c), p(·/c), q(·/c)/c) solving it with a/c², b/c²), `FSScale.scale_lim`, rational √2 bounds `sqrt2_lt`, `lt_sqrt2`, `sqrt2_le'`, `le_sqrt2'`.
 - Headlines `FalknerSkan.fs_half_exists` (from `Checked.Homann.homann_exists`, c = √2), `fs_zero_wall_shear` (from `Checked.Blasius.blasius_wall_shear`, c = √2). NV witness of `fs_zero_wall_shear`: `blasius_exists` rescaled with c = √(1/2).
+- Bounded class (run 2026-11-08T1628Z): `HalfBounded.fs_half_bounded_window`, `fs_half_bounded_equal`, `fs_half_exists_bounded` from `Bounded.homann_*` by `FSScale.scale` (c = 1/√2; existence c = √2); audit `Work/FalknerSkan/HBBlindClosed.lean`, referee `runs/2026-11-08T1628Z/referee_fshalf.md`; script `runs/2026-11-08T1628Z/scripts/promote_hb.py`.
 - Scripts: `runs/2026-11-08T0828Z/scripts/promote_fs.py`. Audit: `Work/FalknerSkan/FSBlindClosed.lean`; reader `Checked/Trust/SecondReadingFalknerSkan.lean`; referee `runs/2026-11-08T0828Z/referee_fs.md`.
 
 ## Monotone solutions of stagnation-point flows (Crocco comparison), `Work/FalknerSkan/`, `Checked/FalknerSkan/`, `Checked/{Hiemenz,Homann}/*ExMono.lean` (run 2026-11-08T1028Z)

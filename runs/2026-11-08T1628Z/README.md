@@ -1,6 +1,10 @@
 # Run 2026-11-08T1628Z (scheduled)
 
-**THE RESULT:** parts 2/5 (exact next step 2 of run 1228Z: the Falkner–Skan β = 1/2 row in the class −1 ≤ f' ≤ 1, window and uniqueness by the proved scaling) and the open widening to f' < 1 alone (next step 4); in progress — auditor role while run 1428Z holds the LOCK.
+**THE RESULT:** parts 2/5 — the Falkner–Skan β = 1/2 row in the class −1 ≤ f' ≤ 1 (window, equality, existence) frozen, audited, proved and promoted to Checked in one run (e62e945), the first half in auditor role.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** That *every* solution of the β = 1/2 Falkner–Skan boundary-value problem with −1 ≤ f' ≤ 1 has f''(0) strictly between 0.927680039 and 0.927680040, that two such solutions are the same function on [0, ∞), and that one exists with 0 ≤ f' < 1 — before, Lean said only that *a* solution has its wall shear there.
+
+**Measure:** Checked headlines 204 → 207, NV 135/135; six bounded-class and two Falkner–Skan headlines PROVED (CI 42491111671 green on every job). **Weakest unchecked step:** whether f' < 1 alone suffices (unproved here; the classical unrestricted uniqueness is read second-hand only).
 
 ## Start
 - 16:27Z. add_repo not exposed; pre-cloned checkout detached; `git checkout -B main origin/main` = de88fae.
@@ -14,3 +18,12 @@
 
 ## Freeze → proof → promotion
 - LOCK taken; freeze `Work/FalknerSkan/HalfBounded.lean` (statements byte-identical to the candidate, namespace `Work.FalknerSkan.HalfBounded`; all `sorry`).
+- c6a98c8: Work proofs (statements byte-identical) + blind restatement closed in full (`Work/FalknerSkan/HBBlindClosed.lean`); axioms propext, Classical.choice, Quot.sound.
+- e62e945: promotion (`scripts/promote_hb.py`): `Checked/FalknerSkan/HalfBounded.lean`; literal readings from the existing readers (`SecondReadingFalknerSkan`, `SecondReadingBound`), no new numeral; 2 NV witnesses; audits +4; relock (Witnesses module-doc block named in LEDGER), TRUST_MAP, CLAIMS, packet. Local: full `lake build Checked` 16:31–17:48Z, incremental build, StatementDeps (207 headlines, NV 135/135), Claims, every Python trust check incl. `--base c6a98c8` green.
+
+## f' < 1 alone (next step 4): not attempted beyond exploration
+Two exact identities along any solution of f''' + k f f'' + 1 − f'² = 0 (p = f', q = f''), checked by hand: E = q²/2 − p³/3 + p has E' = −k f q²; J = q + k f (p − 1) has J' = (p − 1)((1 + k) p + 1). Neither gives a sign argument by itself (f changes sign along a dipping trajectory). Recorded in STATE item 4 for a later run.
+
+## CI
+- 9062ed7 (42491111671, run 1428Z's brief commit; its tree contains 2785b03): **green on every job** (checked: Lean 23 min, trust step 5 min, frozen registry, author files; work; nanoda shards memoised) → the six bounded-class headlines of run 1228Z and the two Falkner–Skan rows of run 0828Z are PROVED.
+- This run's pushes (868336e 42501629369, c6a98c8, e62e945, records): read next run.
