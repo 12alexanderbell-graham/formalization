@@ -101,7 +101,6 @@ Checked.Cosmography.CCS.lookback_fifth_order|eq
 Checked.Cosmography.CCS.printedD4_fails|fails
 Checked.Cosmography.CCS.printedD4_fails_past|fails
 Checked.Cosmography.CCS.printedD4_fails_past|past
-Checked.Cosmography.CCS.printedD4_fails_past|emission
 Checked.Cosmography.CCS.printedD4_fails_past|model
 Checked.Cosmography.CCS.ccsD4Claim_false|witness
 Checked.Cosmography.CCS.ccsD4Claim_false|de
@@ -120,7 +119,6 @@ Checked.Cosmography.BambaY.printedD2y_fails|version
 Checked.Cosmography.BambaY.printedD2y_fails_past|fails
 Checked.Cosmography.BambaY.printedD2y_fails_past|model
 Checked.Cosmography.BambaY.printedD2y_fails_past|past
-Checked.Cosmography.BambaY.printedD2y_fails_past|emission
 Checked.Cosmography.BambaY.printedD2y_fails_past|version
 Checked.Cosmography.BambaY.printedD2y_fails_past|follows
 Checked.Cosmography.BambaY.bambaD2yClaim_false|witness
@@ -131,7 +129,6 @@ Checked.Cosmography.BambaY.bambaD2yClaimPast_false|sitter
 Checked.Cosmography.CVdQ.dQ_y_third_order|flrw
 Checked.Cosmography.CVdQ.printedQ2_fails_past|fails
 Checked.Cosmography.CVdQ.printedQ2_fails_past|past
-Checked.Cosmography.CVdQ.printedQ2_fails_past|emission
 Checked.Cosmography.CVdQ.printedQ2_fails_past|model
 Checked.Cosmography.CVdQ.cvdQClaim_false|de
 Checked.Cosmography.CVdQ.cvdQClaim_false|sitter
@@ -161,7 +158,6 @@ Checked.Cosmography.BambaK.bambaD3yClaim_false|everywhere
 Checked.Cosmography.BambaK.bambaD3yClaim_false|corrected
 Checked.Cosmography.BambaK.bambaD3yClaimPast_false|review
 Checked.Cosmography.BambaK.bambaD3yClaimPast_false|even
-Checked.Cosmography.BambaK.bambaD3yClaimPast_false|emission
 Checked.Cosmography.BambaK.bambaD4yClaim_false|review
 Checked.Cosmography.BambaK.bambaD4yClaim_false|true
 Checked.Cosmography.BambaK.bambaD4yClaim_false|analytic
@@ -169,7 +165,6 @@ Checked.Cosmography.BambaK.bambaD4yClaim_false|everywhere
 Checked.Cosmography.BambaK.bambaD4yClaim_false|corrected
 Checked.Cosmography.BambaK.bambaD4yClaimPast_false|review
 Checked.Cosmography.BambaK.bambaD4yClaimPast_false|even
-Checked.Cosmography.BambaK.bambaD4yClaimPast_false|emission
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|fail
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|milne
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|universe
@@ -192,7 +187,6 @@ Checked.Cosmography.BambaK.milne_printedD4y_fails_past|universe
 Checked.Cosmography.BambaK.milne_printedD4y_fails_past|corrected
 Checked.Cosmography.BambaK.milne_printedD4y_fails_past|eqs
 Checked.Cosmography.BambaK.milne_printedD4y_fails_past|past
-Checked.Cosmography.BambaK.milne_printedD4y_fails_past|emission
 Checked.Cosmography.BambaA.angDist_y_fifth_order|headline
 Checked.Cosmography.BambaA.printedDA3_fails|eq
 Checked.Cosmography.BambaA.printedDA3_fails|fails
@@ -216,7 +210,6 @@ Checked.Cosmography.BambaA.bambaDA3Claim_false|analytic
 Checked.Cosmography.BambaA.bambaDA3Claim_false|everywhere
 Checked.Cosmography.BambaA.bambaDA3ClaimPast_false|review
 Checked.Cosmography.BambaA.bambaDA3ClaimPast_false|even
-Checked.Cosmography.BambaA.bambaDA3ClaimPast_false|emission
 Checked.Cosmography.BambaA.bambaDA3ClaimPast_false|only
 Checked.Cosmography.BambaA.bambaDA4Claim_false|review
 Checked.Cosmography.BambaA.bambaDA4Claim_false|true
@@ -225,7 +218,6 @@ Checked.Cosmography.BambaA.bambaDA4Claim_false|everywhere
 Checked.Cosmography.BambaA.bambaDA4Claim_false|corrected
 Checked.Cosmography.BambaA.bambaDA4ClaimPast_false|review
 Checked.Cosmography.BambaA.bambaDA4ClaimPast_false|even
-Checked.Cosmography.BambaA.bambaDA4ClaimPast_false|emission
 Checked.Cosmography.BambaA.bambaDA4ClaimPast_false|only
 Checked.Cosmography.BambaA.milne_printedDA4_fails_past|milne
 Checked.Cosmography.BambaA.milne_printedDA4_fails_past|fails
@@ -249,14 +241,12 @@ Checked.Cosmography.BambaZ.bambaDLzClaim_false|analytic
 Checked.Cosmography.BambaZ.bambaDLzClaim_false|everywhere
 Checked.Cosmography.BambaZ.bambaDLzClaimPast_false|review
 Checked.Cosmography.BambaZ.bambaDLzClaimPast_false|even
-Checked.Cosmography.BambaZ.bambaDLzClaimPast_false|emission
 Checked.Cosmography.BambaZ.bambaDAzClaim_false|review
 Checked.Cosmography.BambaZ.bambaDAzClaim_false|true
 Checked.Cosmography.BambaZ.bambaDAzClaim_false|analytic
 Checked.Cosmography.BambaZ.bambaDAzClaim_false|everywhere
 Checked.Cosmography.BambaZ.bambaDAzClaimPast_false|review
 Checked.Cosmography.BambaZ.bambaDAzClaimPast_false|even
-Checked.Cosmography.BambaZ.bambaDAzClaimPast_false|emission
 Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|milne
 Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|universe
 Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|exact
@@ -344,7 +334,6 @@ Checked.Cosmography.DemianskiZ.demDLzClaimPast_false|demianski
 Checked.Cosmography.DemianskiZ.demDLzClaimPast_false|et
 Checked.Cosmography.DemianskiZ.demDLzClaimPast_false|al
 Checked.Cosmography.DemianskiZ.demDLzClaimPast_false|even
-Checked.Cosmography.DemianskiZ.demDLzClaimPast_false|emission
 Checked.Cosmography.DemianskiZ.demDAzClaim_false|flat
 Checked.Cosmography.DemianskiZ.demDAzClaim_false|demianski
 Checked.Cosmography.DemianskiZ.demDAzClaim_false|et
@@ -357,7 +346,6 @@ Checked.Cosmography.DemianskiZ.demDAzClaimPast_false|demianski
 Checked.Cosmography.DemianskiZ.demDAzClaimPast_false|et
 Checked.Cosmography.DemianskiZ.demDAzClaimPast_false|al
 Checked.Cosmography.DemianskiZ.demDAzClaimPast_false|even
-Checked.Cosmography.DemianskiZ.demDAzClaimPast_false|emission
 Checked.Fidelity.lumDistSpec2_pins|pinning
 Checked.Fidelity.lumDistSpec2_pins|specification
 Checked.Fidelity.lumDistSpec2_pins|determines
@@ -426,8 +414,6 @@ Checked.Fidelity.transverseSpec_pins|blind
 Checked.Fidelity.transverseSpec_pins|determining
 Checked.Fidelity.transverseSpec_pins|law
 Checked.Records.F1_l0|model
-Checked.Records.F1_m0_agrees|matter
-Checked.Records.F1_m0_agrees|fraction
 Checked.Records.F1_m0_agrees|printed
 Checked.Records.F1_m0_agrees|true
 Checked.Records.F1_m0_agrees|model
@@ -749,7 +735,6 @@ Checked.Chemistry.Coexistence.vdW_coexistence_exists|fluid
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|rb
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|state
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|liquid
-Checked.Chemistry.Coexistence.vdW_coexistence_exists|volume
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|co
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|so
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|factor
@@ -761,7 +746,6 @@ Checked.Chemistry.Coexistence.vdW_coexistence_unique|fluid
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|rb
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|state
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|liquid
-Checked.Chemistry.Coexistence.vdW_coexistence_unique|volume
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|co
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|saturation
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|determined
@@ -881,13 +865,11 @@ Checked.Sim.Duffing.duffing_first_zero_sol|box
 Checked.Sim.Duffing.duffing_first_zero_sol|grönwall
 Checked.Sim.Duffing.duffing_first_zero_sol|num:1.192005
 Checked.Sim.Duffing.duffing_first_zero_sol|num:1.192006
-Checked.Sim.Duffing.duffing_solution_exists|initial
 Checked.Sim.MichaelisMenten.mm_half_conversion|certified
 Checked.Sim.MichaelisMenten.mm_half_conversion|conversion
 Checked.Sim.MichaelisMenten.mm_half_conversion|full
 Checked.Sim.MichaelisMenten.mm_half_conversion|michaelis
 Checked.Sim.MichaelisMenten.mm_half_conversion|menten
-Checked.Sim.MichaelisMenten.mm_half_conversion|mechanism
 Checked.Sim.MichaelisMenten.mm_half_conversion|concentration
 Checked.Sim.MichaelisMenten.mm_half_conversion|all
 Checked.Sim.MichaelisMenten.mm_half_conversion|so
@@ -1700,7 +1682,6 @@ checked.cosmography.freta.eta_numbers|fspan:η₃₀ ≈ −0.400ε, −0.0152ε
 checked.cosmography.freta.eta_numbers|nameword:eta
 checked.cosmography.freta.eta_numbers|nameword:fr
 checked.cosmography.freta.eta_ratios|fspan:≈
-checked.cosmography.freta.eta_ratios|nameword:fr
 checked.cosmography.freta.eta_ratios|numctx:2:ratios
 checked.cosmography.freta.printedeta20_false_at|fspan:(54ω² − 29ω − 2)(27ω² + 24ω − 32)
 checked.cosmography.freta.printedeta20_false_at|nameword:fr

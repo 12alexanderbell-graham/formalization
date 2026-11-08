@@ -1,0 +1,25 @@
+== X variants (not blind), final rules
+d01: phrases changed ['Checked.Cosmography.redshift'] -> passes the phrase rules
+d02: phrases changed ['BambaA.angDist'] -> REJECTED
+    Checked.Cosmography.BambaA.angDist: phrase words not in its pinning specification's text or in a function word list: ['divided', 'once'] (P2: a phrase quotes the blind spec)
+d03: phrases changed ['CubicEOS.IsCriticalIsotherm'] -> REJECTED
+    Checked.Chemistry.CubicEOS.IsCriticalIsotherm: phrase words not in its pinning specification's text or in a function word list: ['twice'] (P2: a phrase quotes the blind spec)
+d04: phrases changed ['Aviles.IsFlatLCDM'] -> passes the phrase rules
+d05: phrases changed ['Robertson.IsRobSolution'] -> passes the phrase rules
+d06: phrases changed ['BambaZ.curvK'] -> passes the phrase rules
+== Y as submitted, final rules
+d01: phrases changed ['Checked.Cosmography.hubble'] -> REJECTED
+    Checked.Cosmography.hubble: phrase words not in its pinning specification's text or in a function word list: ['conformal'] (P2: a phrase quotes the blind spec)
+d02: phrases changed ['BambaK.omega0', 'BambaZ.curvK'] -> passes the phrase rules
+d03: phrases changed ['FRCosmo.FriedmannEq', 'FRCosmo.MasterEq'] -> REJECTED
+    Checked.Cosmography.FRCosmo.FriedmannEq: phrase words not in its pinning specification's text or in a function word list: ['eq', '11.5'] (P2: a phrase quotes the blind spec)
+    Checked.Cosmography.FRCosmo.MasterEq: phrase words not in its pinning specification's text or in a function word list: ['11.1', '11.2'] (P2: a phrase quotes the blind spec)
+d04: apply.py FAILED on this tree: AssertionError: ('scripts/trust/phrases.txt', 'on some neighbourhood of the time {t₀}, with a positive Hubble rate at {t₀} and a positive, differentiable scale factor on that neighbourhood (the law itself is the formula printed with the definition)\nAviles.cosmoCoeff')
+d05: phrases changed ['Checked.Cosmography.decel'] -> REJECTED
+    Checked.Cosmography.decel: phrase words not in its pinning specification's text or in a function word list: ['claim', 'made', 'vanishes'] (P2: a phrase quotes the blind spec)
+d06: phrases changed ['BambaA.angDist'] -> REJECTED
+    Checked.Cosmography.BambaA.angDist: phrase words not in its pinning specification's text or in a function word list: ['comoving'] (P2: a phrase quotes the blind spec)
+# note (judge): Y d04's apply.py matches the IsFlatLCDM phrase as it stood before the final edit removed its
+# parenthesis "(the law itself is the formula printed with the definition)" (it put the word "printed" into every
+# ΛCDM claim's vocabulary). Judged on the tree before that edit (same rules): REJECTED by P2 —
+# IsFlatLCDM: words not in its pinning specification's text: ['al', 'aviles', 'et', 'fitted', 'verified', '0.3'].

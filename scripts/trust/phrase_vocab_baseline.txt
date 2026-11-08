@@ -20,8 +20,6 @@ IsDuffingSolution taken
 IsDuffingSolution time
 IsFlatCPL fraction
 IsFlatCPL plus
-IsFlatCPL printed
-IsFlatLCDM printed
 IsMMSolution bind
 IsMMSolution catalytic
 IsMMSolution concentrations
