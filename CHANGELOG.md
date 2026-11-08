@@ -425,3 +425,9 @@
 - Env: repo ok; local Lean (elan + cache); full `lake build Checked` 60 min. CI: ef070d8 green; heartbeat dce69bf red on one Actions-API 504 → `scripts/ci_changes.py` retries transient failures, then fails closed.
 - Parts 1/5: Lane–Emden simulator generic in the index (`Checked/Math/LENStart.lean`, `LENCell.lean`, `LENCellQ.lean`); index 2 frozen (d65a231), proved (166b676), existence + blind closure (b297597), referee STANDS, blind literal reading (924714c → d2d0608), promoted to Checked: `Checked.Math.LaneEmden2.laneEmden2_constants` (PROVED once CI is green). Index 4 needs weighted cells (float study).
 - PROMPT working notes: a table row per run by parameterising the simulator; CI reads the Actions API with retries.
+
+## 2026-11-08T0428Z (scheduled run)
+- Env: repo ok (add_repo not exposed; pre-cloned checkout reset to origin/main a6d46f5); LOCK held by run 0228Z until 1a99699 → work prepared in the run folder meanwhile; local Lean (elan + cache); full Checked build 55 min. CI: 7887164 work job green (Homann Work proofs, closed audits); 1a99699 work + nanoda green, checked cancelled by coalescing.
+- Parts 2/5: **Homann axisymmetric stagnation-point flow** — freeze 7819e6b/cf4d646, Work proofs 7887164 (96 + 96 kernel-evaluated cells; existence by the ported Hiemenz shooting argument), blind restatement closed, referee STANDS (32-digit f''(0) by two methods; no ≥ 10-digit value or uniqueness proof found in print), blind literal reading (488aa29 → 1c1f4b0), promoted to Checked 129f217: `Checked.Homann.homann_under`, `homann_over`, `homann_exists` (PROVED once CI is green).
+- Float study for the Falkner–Skan separation value (next step: the Hiemenz event pair does not carry over for β < 0).
+- PROMPT working note (a sibling equation by porting the whole stack; integer ends in emitters; check h at both ends before freezing).
