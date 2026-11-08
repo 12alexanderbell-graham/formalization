@@ -1,0 +1,4 @@
+- Solution = f with explicitly supplied derivatives f1,f2,f3; HasDerivWithinAt on Ici 0 (one-sided at 0), no `deriv` junk values.
+- ODE and f(0)=0, f1(0)=0 stated at/after 0; f1 -> 1 via Tendsto atTop.
+- Bounds -1 ≤ f1 ≤ 1 only on η ≥ 0; wall shear = f2 0. Uniqueness concludes equality of f,f1,f2 on η ≥ 0.
+- Existence asks 0 ≤ f1 < 1 on η ≥ 0 plus the window.
