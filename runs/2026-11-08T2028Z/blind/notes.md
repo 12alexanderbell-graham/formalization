@@ -1,0 +1,4 @@
+- Solution = four explicit functions f,f1,f2,f3 (f', f'', f''' given as functions) with HasDerivWithinAt on Ici 0 at each eta>=0 (one-sided at 0); avoids `deriv` junk.
+- ODE stated pointwise for eta>=0 with beta = 1/5 literal; BCs f 0 = 0, f1 0 = 0, f1 -> 1 at atTop.
+- Bounds -1<=f1<=1 only on [0,inf) via Bdd; values outside [0,inf) unconstrained.
+- Uniqueness concludes equality of f,f1,f2 for eta>=0.
