@@ -1,0 +1,115 @@
+== new files compile one by one 16:08:23
+  ok Checked/Cosmography/AccelPredicate.lean
+  ok Checked/Cosmography/AvilesVanishing.lean
+  ok Checked/Cosmography/FlatLimit.lean
+  ok Checked/Cosmography/TurningPoint.lean
+  ok Checked/Fidelity/ExpansionRatePin.lean
+== build 16:08:43
+build: PASS
+grep: PASS
+== trust 16:08:50
+trust: PASS
+--- claims 16:14:35
+CLAIMS.md: 210 generated claims
+wrote the generated section and blocks of FINDINGS.md (26 certified values)
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 13 quoted [src], 2 inputs [in], 2 unchecked [unc]; 43 tagged
+  Checked.Cosmography.expansionRate_pins: ''
+  Checked.Cosmography.powerLaw_isAccelerating: ''
+== column W (scripts/trust/*.py of fcadd0f) 16:17:37
+  [check_numbers.py]
+    check_numbers selftest: 34 controls, 0 failing
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 13 quoted [src], 2 inputs [in], 2 unchecked [unc]; 43 tagged
+  [check_prose.py]
+    check_prose: 210 headlines, 138 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 24 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 29 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 24 checked, 0 problems
+  [check_literals.py]
+    rule 1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: statement literals ['0.3', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 210 headlines, 122 with uncovered literals (121 baselined), 217 registered readings; FAIL
+  [check_source_names.py]
+    check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 210 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 210 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 372 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 210 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+      V13: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: its name says 'vanishes', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: its paraphrase says 'density', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: its paraphrase says 'rounding', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V13: Checked.Cosmography.expansionRate_timeReverse: its name says 'reverse', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V13: Checked.Cosmography.powerLaw_isAccelerating: its name says 'power', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V13: Checked.Cosmography.powerLaw_isAccelerating: its name says 'law', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V13: Checked.Cosmography.powerLaw_isAccelerating: its name says 'accelerating', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+    check_claim_vocab: 210 sections, 1863 findings (1828 baselined), vocabulary 38; FAIL
+  [check_status_lines.py]
+    prose_rule_controls: 23 controls; ok
+    check_status_lines: ok
+  [check_relock.py fcadd0f]
+    frozen registry: 2276 entries at fcadd0f, none changed or removed
+  [check_numbers.py --base fcadd0f]
+    check_numbers selftest: 34 controls, 0 failing
+    certified-number diff vs fcadd0f: 26 certified pairs before, 26 now, 0 removed or changed
+  [check_prose.py --base fcadd0f]
+    check_prose: 210 headlines, 138 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base fcadd0f]
+    check_trusted_defs: 24 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base fcadd0f]
+    phrases: 23 at fcadd0f, none changed or removed
+  [check_formulas.py --base fcadd0f]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base fcadd0f]
+    check_provenance: 29 second-version modules, 6 baselined; ok
+  [check_literals.py --base fcadd0f]
+    rule 1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: statement literals ['0.3', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 210 headlines, 122 with uncovered literals (121 baselined), 217 registered readings; FAIL
+  [check_source_names.py --base fcadd0f]
+    check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py --base fcadd0f]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base fcadd0f]
+    check_blind_route: 0 second versions added or changed since fcadd0f; ok
+  [check_literal_targets.py --base fcadd0f]
+    check_literal_targets: 210 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base fcadd0f]
+    check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base fcadd0f]
+    check_prose_gen: 210 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base fcadd0f]
+    check_reader_frozen: 28 reader modules and 24 runs/ reader files at fcadd0f checked; ok
+  [check_brief_leak.py --base fcadd0f]
+    check_brief_leak: 0 briefs of reader files new since fcadd0f; ok
+  [check_prose_eval.py --base fcadd0f]
+    check_prose_eval: 372 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base fcadd0f]
+    check_claim_words: 210 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base fcadd0f]
+      V13: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: its name says 'vanishes', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: its paraphrase says 'density', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: its paraphrase says 'rounding', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V13: Checked.Cosmography.expansionRate_timeReverse: its name says 'reverse', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V13: Checked.Cosmography.powerLaw_isAccelerating: its name says 'power', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V13: Checked.Cosmography.powerLaw_isAccelerating: its name says 'law', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+      V13: Checked.Cosmography.powerLaw_isAccelerating: its name says 'accelerating', a word that is neither in the generated claim nor in scripts/trust/prose_vocab.txt (a name may only use the claim's words or disclosed vocabulary; add a naming word there with a LEDGER line)
+    check_claim_vocab: 210 sections, 1863 findings (1828 baselined), vocabulary 38; FAIL
+--- make_packet --check
+  Checked.Cosmography.expansionRate_timeReverse: ''
+  Checked.Cosmography.expansionRate_pins: ''
+  Checked.Cosmography.powerLaw_isAccelerating: ''
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== end 16:18:48

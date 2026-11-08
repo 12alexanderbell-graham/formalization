@@ -1,0 +1,211 @@
+== new files compile one by one 16:20:46
+  ok Checked/Records/DerivedL0.lean
+== build 16:20:50
+build: PASS
+grep: PASS
+== trust 16:21:01
+trust: PASS
+--- claims 16:27:15
+CLAIMS.md: 211 generated claims
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 2 inputs [in], 2 unchecked [unc]; 44 tagged
+::error::G5: the fraction −19/2 equals a certified value but stands in author prose: …ein–de Sitter, Ω_m = 1: true l₀ = 35/2 vs printed −19/2; true m₀…
+headlines without a self-contained plain-words docstring (>= 40 characters, not 'Same ...'):
+  Checked.Cosmography.decel_eq_zero_of_deriv_eq_zero: '`decel a t₀ = 0` when `deriv a t₀ = 0`.'
+== column W (scripts/trust/*.py of fcadd0f) 16:30:13
+  [check_numbers.py]
+    check_numbers selftest: 34 controls, 0 failing
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 27 certified [✓], 13 quoted [src], 2 inputs [in], 2 unchecked [unc]; 44 tagged
+    ::error::G5: the fraction −19/2 equals a certified value but stands in author prose: …ein–de Sitter, Ω_m = 1: true l₀ = 35/2 vs printed −19/2; true m₀…
+  [check_prose.py]
+    check_prose: 211 headlines, 139 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 24 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 29 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 24 checked, 0 problems
+  [check_literals.py]
+    rule 1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: statement literals ['0.3', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 211 headlines, 122 with uncovered literals (121 baselined), 217 registered readings; FAIL
+  [check_source_names.py]
+    check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 211 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 211 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 374 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 211 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+      V1: Checked.Records.F1_l0Value_at_one: its paraphrase says 'matter', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V1: Checked.Records.F1_l0Value_at_one: its paraphrase says 'fraction', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      scripts/trust/claim_vocab_baseline.txt: checked.cosmography.cplexistence.exists_local_model|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.cosmocoeffcore_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.hubblespec_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.redshiftcore_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.transversespec_pins|law no longer fires; remove the line (shrink-only)
+    check_claim_vocab: 211 sections, 1864 findings (1823 baselined), vocabulary 42; FAIL
+  [check_status_lines.py]
+    prose_rule_controls: 23 controls; ok
+    check_status_lines: ok
+  [check_relock.py fcadd0f]
+    frozen registry: 2276 entries at fcadd0f, none changed or removed
+  [check_numbers.py --base fcadd0f]
+    check_numbers selftest: 34 controls, 0 failing
+    certified-number diff vs fcadd0f: 26 certified pairs before, 27 now, 0 removed or changed
+  [check_prose.py --base fcadd0f]
+    check_prose: 211 headlines, 139 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base fcadd0f]
+    check_trusted_defs: 24 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base fcadd0f]
+    phrases: 23 at fcadd0f, none changed or removed
+  [check_formulas.py --base fcadd0f]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base fcadd0f]
+    check_provenance: 29 second-version modules, 6 baselined; ok
+  [check_literals.py --base fcadd0f]
+    rule 1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: statement literals ['0.3', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 211 headlines, 122 with uncovered literals (121 baselined), 217 registered readings; FAIL
+  [check_source_names.py --base fcadd0f]
+    check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py --base fcadd0f]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base fcadd0f]
+    check_blind_route: 0 second versions added or changed since fcadd0f; ok
+  [check_literal_targets.py --base fcadd0f]
+    check_literal_targets: 211 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base fcadd0f]
+    check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base fcadd0f]
+    check_prose_gen: 211 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base fcadd0f]
+    check_reader_frozen: 28 reader modules and 24 runs/ reader files at fcadd0f checked; ok
+  [check_brief_leak.py --base fcadd0f]
+    check_brief_leak: 0 briefs of reader files new since fcadd0f; ok
+  [check_prose_eval.py --base fcadd0f]
+    check_prose_eval: 374 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base fcadd0f]
+    check_claim_words: 211 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base fcadd0f]
+      V1: Checked.Records.F1_l0Value_at_one: its paraphrase says 'matter', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V1: Checked.Records.F1_l0Value_at_one: its paraphrase says 'fraction', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      scripts/trust/claim_vocab_baseline.txt: checked.cosmography.cplexistence.exists_local_model|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.cosmocoeffcore_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.hubblespec_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.redshiftcore_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.transversespec_pins|law no longer fires; remove the line (shrink-only)
+    check_claim_vocab: 211 sections, 1864 findings (1823 baselined), vocabulary 42; FAIL
+--- make_packet --check
+headlines without a self-contained plain-words docstring (>= 40 characters, not 'Same ...'):
+  Checked.Cosmography.decel_eq_zero_of_deriv_eq_zero: '`decel a t₀ = 0` when `deriv a t₀ = 0`.'
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== column NEW (scripts/trust/*.py of 2108488) 16:31:19
+  [check_numbers.py]
+    check_numbers selftest: 34 controls, 0 failing
+    certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 13 quoted [src], 2 inputs [in], 2 unchecked [unc]; 43 tagged
+    ::error::the section '## Certified numbers (generated from the Lean records; do not edit)' of FINDINGS.md is missing or stale: run `python3 scripts/trust/check_numbers.py --write` after StatementDeps.lean and commit
+    ::error::G2: a certified-numbers block differs from what `check_numbers.py --write` generates (edited, stale, or unclosed)
+    ::error::G5: the fraction −19/2 equals a certified value but stands in author prose: …ein–de Sitter, Ω_m = 1: true l₀ = 35/2 vs printed −19/2; true m₀…
+    ::error::S1: −9.5[✓F1_l0Value_at_one(l0Value, derived)]: F1_l0Value_at_one certifies −9.5 with role printed, not derived
+  [check_prose.py]
+    check_prose: 211 headlines, 139 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py]
+    check_trusted_defs: 24 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_formulas.py]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py]
+    check_provenance: 29 second-version modules, 6 baselined; ok
+  [check_claims.py]
+    phrases: 24 checked, 0 problems
+  [check_literals.py]
+    rule 1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: statement literals ['0.3', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 211 headlines, 122 with uncovered literals (121 baselined), 217 registered readings; FAIL
+  [check_source_names.py]
+    check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py]
+    check_literal_targets: 211 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py]
+    check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py]
+    check_prose_gen: 211 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py]
+    check_prose_eval: 374 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py]
+    check_claim_words: 211 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py]
+      V1: Checked.Records.F1_l0Value_at_one: its paraphrase says 'matter', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V1: Checked.Records.F1_l0Value_at_one: its paraphrase says 'fraction', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      scripts/trust/claim_vocab_baseline.txt: checked.cosmography.cplexistence.exists_local_model|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.cosmocoeffcore_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.hubblespec_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.redshiftcore_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.transversespec_pins|law no longer fires; remove the line (shrink-only)
+    check_claim_vocab: 211 sections, 1864 findings (1823 baselined), vocabulary 42; FAIL
+  [check_status_lines.py]
+    prose_rule_controls: 23 controls; ok
+    check_status_lines: ok
+  [check_relock.py fcadd0f]
+    frozen registry: 2276 entries at fcadd0f, none changed or removed
+  [check_numbers.py --base fcadd0f]
+    check_numbers selftest: 34 controls, 0 failing
+    certified-number diff vs fcadd0f: 26 certified pairs before, 27 now, 0 removed or changed
+  [check_prose.py --base fcadd0f]
+    check_prose: 211 headlines, 139 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base fcadd0f]
+    check_trusted_defs: 24 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base fcadd0f]
+    phrases: 23 at fcadd0f, none changed or removed
+  [check_formulas.py --base fcadd0f]
+    check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base fcadd0f]
+    check_provenance: 29 second-version modules, 6 baselined; ok
+  [check_literals.py --base fcadd0f]
+    rule 1: Checked.Cosmography.Aviles.decel_half_when_scale_vanishes: statement literals ['0.3', '1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant
+    check_literals: 211 headlines, 122 with uncovered literals (121 baselined), 217 registered readings; FAIL
+  [check_source_names.py --base fcadd0f]
+    check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py --base fcadd0f]
+    check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base fcadd0f]
+    check_blind_route: 0 second versions added or changed since fcadd0f; ok
+  [check_literal_targets.py --base fcadd0f]
+    check_literal_targets: 211 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base fcadd0f]
+    check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base fcadd0f]
+    check_prose_gen: 211 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base fcadd0f]
+    check_reader_frozen: 28 reader modules and 24 runs/ reader files at fcadd0f checked; ok
+  [check_brief_leak.py --base fcadd0f]
+    check_brief_leak: 0 briefs of reader files new since fcadd0f; ok
+  [check_prose_eval.py --base fcadd0f]
+    check_prose_eval: 374 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base fcadd0f]
+    check_claim_words: 211 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base fcadd0f]
+      V1: Checked.Records.F1_l0Value_at_one: its paraphrase says 'matter', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      V1: Checked.Records.F1_l0Value_at_one: its paraphrase says 'fraction', a word the generated claim does not use (add it to scripts/trust/prose_vocab.txt with a LEDGER line if it names something, or say what the statement proves)
+      scripts/trust/claim_vocab_baseline.txt: checked.cosmography.cplexistence.exists_local_model|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.cosmocoeffcore_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.hubblespec_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.redshiftcore_pins|law no longer fires; remove the line (shrink-only)
+      scripts/trust/claim_vocab_baseline.txt: checked.fidelity.transversespec_pins|law no longer fires; remove the line (shrink-only)
+    check_claim_vocab: 211 sections, 1864 findings (1823 baselined), vocabulary 42; FAIL
+--- make_packet --check
+headlines without a self-contained plain-words docstring (>= 40 characters, not 'Same ...'):
+  Checked.Cosmography.decel_eq_zero_of_deriv_eq_zero: '`decel a t₀ = 0` when `deriv a t₀ = 0`.'
+--- goal guard
+goal guard: ok
+precheck_citations: 0 suspected
+== end 16:32:32

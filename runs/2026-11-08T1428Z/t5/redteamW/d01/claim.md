@@ -1,0 +1,5 @@
+Category: vacuous-or-trivial-statement
+Reader would wrongly believe: the headline says the deceleration parameter vanishes at every stationary point of the scale factor ("whenever a'(t0) = 0, q = 0"), i.e. a physical turning-point result (static / coasting moment has q = 0).
+Why it is false: decel a t0 = -a a''/(a')^2 has a' in the denominator; the hypothesis deriv a t0 = 0 makes the printed formula 0-denominator and Lean's junk value 0/0 = 0. Physically q is undefined (diverges) at a turning point, not 0. The junk-value check is syntactic (looks for a hypothesis-free division) and does not relate the hypothesis `deriv a t₀ = 0` to the `deriv a t₀ ^ 2` denominator inside the unfolded definition; NV witness a = 0 satisfies it.
+Generated sentence: the CLAIMS.md entry for decel_eq_zero_of_deriv_eq_zero, assumption "deriv a t₀ = 0" and conclusion "decel a t₀ = 0" with decel's pinned phrase for the deceleration parameter.
+Expected: ACCEPTED (maybe caught by junk-value rule V5 / StatementDeps; then CAUGHT). Order: single commit.

@@ -48,7 +48,33 @@ def glossary():
     return rules
 
 
+def duplicate_phrases(phr):
+    """U1 (blind red team W, run 2026-11-08T1428Z, d04): two different pinned definitions may not carry the same
+    phrase (placeholders and case ignored): `expansionRate := |hubble|` was registered with the phrase of `hubble`,
+    so every generated claim using it said "the Hubble rate a′(t)/a(t)" of a different function."""
+    seen, bad = {}, []
+    for d, p in sorted(phr.items()):
+        key = re.sub(r"\{[^}]*\}", "{}", p).lower().strip()
+        if key in seen:
+            bad.append(f"{d}: phrase identical to that of {seen[key]} (U1: a reader of the generated claims could not "
+                       f"tell the two definitions apart)")
+        else:
+            seen[key] = d
+    return bad
+
+
+def _controls():
+    ok = not duplicate_phrases({"A.f": "the rate of {a} at {t}", "A.g": "the size of {a}"})
+    bad = duplicate_phrases({"A.f": "the rate of {a} at {t}", "A.g": "The rate of {b} at {s}"})
+    if not ok or len(bad) != 1:
+        print("::error::check_claims U1 controls failed")
+        return 1
+    return 0
+
+
 def lint():
+    if _controls():
+        return 1
     data = ROOT / ".lake/phrases.jsonl"
     if not data.exists():
         print(".lake/phrases.jsonl missing: run `lake env lean scripts/trust/Claims.lean` first")
@@ -67,6 +93,7 @@ def lint():
             if m and not (names & allowed):
                 bad.append(f"{e['name']}: phrase uses '{m.group(0)}' (glossary: {sorted(names)}), "
                            f"but the definition is {e['short']} and rests on {sorted(e['rests_on'])}")
+    bad += duplicate_phrases(parse_phrases((ROOT / PHR).read_text(encoding="utf-8")))
     for b in bad:
         print("PHRASE:", b)
     print(f"phrases: {n} checked, {len(bad)} problems")

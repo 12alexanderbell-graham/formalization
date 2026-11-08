@@ -166,6 +166,16 @@ partial def denominators (e : Expr) (acc : Array Expr := #[]) : Array Expr :=
   | .mdata _ b | .proj _ _ b => denominators b acc
   | _ => acc
 
+/-- Factors of a denominator: the denominator itself, the base of a power, both factors of a product, the
+argument of a negation (blind red team W, run 2026-11-08T1428Z, d01: `deriv a t₀ = 0 → decel a t₀ = 0`, where
+the pinned `decel` divides by `deriv a t ^ 2`, passed the junk-value rule, which compared whole denominators). -/
+partial def denomFactors (e : Expr) (acc : Array Expr := #[]) : Array Expr :=
+  let acc := acc.push e
+  if e.isAppOfArity ``HPow.hPow 6 then denomFactors (e.getArg! 4) acc
+  else if e.isAppOfArity ``HMul.hMul 6 then denomFactors (e.getArg! 5) (denomFactors (e.getArg! 4) acc)
+  else if e.isAppOfArity ``Neg.neg 3 then denomFactors (e.getArg! 2) acc
+  else acc
+
 def isZeroLit (e : Expr) : Bool :=
   (e.isAppOfArity ``OfNat.ofNat 3 && (e.getArg! 1).rawNatLit? == some 0) || e.isAppOfArity ``Zero.zero 2
 
@@ -1134,7 +1144,7 @@ run_cmd do
           if let some (_, l, r) := t.eq? then
             if isZeroLit r then zeros := zeros.push l
             if isZeroLit l then zeros := zeros.push r
-        let dens := denominators body
+        let dens := (denominators body).foldl (fun acc d => denomFactors d acc) #[]
         (zeros.filter fun z => dens.contains z).mapM fun z => return toString (← ppExpr z)
       unless junk.isEmpty do
         errors := errors.push s!"{hn} assumes {junk.toList} = 0 and divides by it: its conclusion is about Lean's junk value x / 0 = 0, outside the domain of every pinned meaning (red team K, d04)"
