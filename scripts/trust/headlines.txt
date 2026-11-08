@@ -211,6 +211,10 @@ Checked.Blasius.blasius_exists
 Checked.Hiemenz.hiemenz_under
 Checked.Hiemenz.hiemenz_over
 Checked.Hiemenz.hiemenz_exists
+# Fluid mechanics: Homann axisymmetric stagnation-point flow (run 2026-11-08T0428Z, promoted same run): the two shooting events at the ends of the wall-shear window, and existence of a solution with wall shear in it
+Checked.Homann.homann_under
+Checked.Homann.homann_over
+Checked.Homann.homann_exists
 # Data claims: Moresco et al. 2016 Table 5 (run 2026-11-05T0428Z) and the certified minimum of its open-universe χ² (run 2026-11-05T0628Z); promoted run 2026-11-05T1028Z
 Checked.Data.Moresco16.table5_oL_inconsistent
 Checked.Data.Moresco16.table5_pw_inconsistent

@@ -156,6 +156,7 @@ import Checked.Trust.SecondReadingGelfandPDE
 import Checked.Trust.SecondReadingTownes
 import Checked.Trust.SecondReadingBlasius
 import Checked.Trust.SecondReadingHiemenz
+import Checked.Trust.SecondReadingHomann
 import Checked.Trust.SecondReadingLE2
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
@@ -231,3 +232,15 @@ import Checked.Hiemenz.HExLimit
 import Checked.Hiemenz.HExAssemble
 import Checked.Hiemenz.Hiemenz
 import Checked.Hiemenz.HIVP
+import Checked.Homann.HmExBase
+import Checked.Homann.HmCellW
+import Checked.Homann.HmCellWC
+import Checked.Homann.HmUData
+import Checked.Homann.HmOData
+import Checked.Homann.HmUDataC
+import Checked.Homann.HmODataC
+import Checked.Homann.HmExFlow
+import Checked.Homann.HmExLimit
+import Checked.Homann.HmExAssemble
+import Checked.Homann.Homann
+import Checked.Homann.HmIVP

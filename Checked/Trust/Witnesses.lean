@@ -59,6 +59,8 @@ import Checked.Blasius.Blasius
 import Checked.Blasius.BlasiusExists
 import Checked.Hiemenz.Hiemenz
 import Checked.Hiemenz.HIVP
+import Checked.Homann.Homann
+import Checked.Homann.HmIVP
 import Checked.Data.Moresco16Min
 
 /-!
@@ -753,6 +755,18 @@ theorem hiemenz_under : nonvacuity% Checked.Hiemenz.hiemenz_under := by
 theorem hiemenz_over : nonvacuity% Checked.Hiemenz.hiemenz_over := by
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hq0⟩ := Checked.Hiemenz.HIVP.ivp_hi
   exact ⟨15 / 2, le_rfl, f, p, q, hf, hp, hq, hf0, hp0, hq0, trivial⟩
+
+/-! Homann axisymmetric stagnation-point flow (run 2026-11-08T0428Z): the clamped flow from the wall at the
+value each shooting headline names, on [0, 6], where the certified cells keep every clamp inactive
+(`Checked/Homann/HmIVP.lean`). -/
+
+theorem homann_under : nonvacuity% Checked.Homann.homann_under := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hq0⟩ := Checked.Homann.HmIVP.ivp_lo
+  exact ⟨6, le_rfl, f, p, q, hf, hp, hq, hf0, hp0, hq0, trivial⟩
+
+theorem homann_over : nonvacuity% Checked.Homann.homann_over := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hq0⟩ := Checked.Homann.HmIVP.ivp_hi
+  exact ⟨6, le_rfl, f, p, q, hf, hp, hq, hf0, hp0, hq0, trivial⟩
 
 /-! ### Data claims of Moresco et al. 2016 (runs 2026-11-05T0428Z, 0628Z; promoted 1028Z): the
 printed AICc rows are attained by the value c of −2 ln L_max that makes them exact at N = 31; the

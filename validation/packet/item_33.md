@@ -2,32 +2,41 @@
 
 **Area:** Certified numbers of the findings
 
-**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI ("testing F(R) gravity by cosmography"), Eq. (11.31), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583, PRD 78, 063504) Eq. (33): the common denominator R of the F(R₀), F″(R₀), F‴(R₀) formulas is wrong, so the printed F(R₀) formula (11.21) fails the paper's own ΛCDM check (11.40); also (11.13) d³R₀/dt³ has a sign error
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
 **It holds that**
 
-- there is `r : ℝ` such that (`RoundsTo r 0.538 3`) and (`243 * r ^ 4 + 540 * r ^ 3 - 6264 * r ^ 2 + 9360 * r - 3328 = 0`)
+1. `RoundsTo (correct20 (41 / 1000)) (-0.249) 3`
+2. `RoundsTo (correct20 (1 / 4)) (-32e-3) 3`
+3. `RoundsTo (correct30 (41 / 1000)) (-0.400) 3`
+4. `RoundsTo (correct30 (1 / 4)) (-152e-4) 4`
 
 Program definitions in this claim:
 
 - `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `correct20 Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_correct20`) (for `Ω : ℝ`): is defined as `-2 * (27 * Ω ^ 2 + 24 * Ω - 32) / (27 * Ω * (Ω - 2) * (27 * Ω ^ 2 + 60 * Ω + 112))`
+- `correct30 Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_correct30`) (for `Ω : ℝ`): is defined as `-2 * (81 * Ω ^ 2 - 60 * Ω - 16) / (243 * Ω ^ 2 * (Ω - 2) * (27 * Ω ^ 2 + 60 * Ω + 112))`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The denominator of the printed (11.21) in ΛCDM vanishes at some `Ω ≈ 0.538`.
+The correct first-order coefficients (`FREta.correct20`, `correct30`, the `ε`-derivatives of
+η₂₀, η₃₀ by `FREta.eta20_hasDerivAt`, `eta30_hasDerivAt`) at the paper's `Ω = 0.041, 0.25`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem F9_pole : ∃ r : ℝ, RoundsTo r 0.538 3 ∧
-    243 * r ^ 4 + 540 * r ^ 3 - 6264 * r ^ 2 + 9360 * r - 3328 = 0 := …
+theorem F10_eta :
+    RoundsTo (FREta.correct20 (41 / 1000)) (-0.249) 3 ∧
+    RoundsTo (FREta.correct20 (1 / 4)) (-0.032) 3 ∧
+    RoundsTo (FREta.correct30 (41 / 1000)) (-0.400) 3 ∧
+    RoundsTo (FREta.correct30 (1 / 4)) (-0.0152) 4 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Records.RoundsTo`
+See GLOSSARY.md: `Cosmography.FREta.correct20`, `Cosmography.FREta.correct30`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
@@ -35,7 +44,7 @@ See GLOSSARY.md: `Records.RoundsTo`
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = 0.538, k = 3.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = -0.249, k = 3, d = -0.032, d = -0.400, d = -0.0152, k = 4; correct20: Ω = 41/1000, Ω = 1/4; correct30: Ω = 41/1000, Ω = 1/4.
 - Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 33

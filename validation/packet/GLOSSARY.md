@@ -135,16 +135,6 @@ algebra with `log₁₀ 2 ∈ [0.30101, 0.30105]`. -/
 open Checked.Cosmography.B1Fit
 ```
 
-## `Cosmography.BambaA.BambaDA3ClaimPast`
-
-Claim (10.61) as in `BambaDA3Claim`, past emission only (`t → t₀⁻`).
-
-```lean
-def BambaDA3ClaimPast : Prop :=
-  ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remA printedDA3 (fun _ _ _ _ _ => 0) K a t₀ t) =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 4)
-```
-
 ## `Cosmography.BambaA.DA1`
 
 `D¹_{A,y}` as printed.
@@ -177,6 +167,15 @@ Proposed correction of (10.61): add `q₀(Ω₀ − 1)/4`.
 ```lean
 noncomputable def correctDA3 (q j s Ω : ℝ) : ℝ :=
   printedDA3 q j s Ω + q * (Ω - 1) / 4
+```
+
+## `Cosmography.BambaA.correctDA4`
+
+Proposed correction of (10.62)–(10.63): add `(Ω₀ − 1)[(Ω₀ − 1) + 10j₀ − 45q₀² + 20q₀]/120`.
+
+```lean
+noncomputable def correctDA4 (q j s l Ω : ℝ) : ℝ :=
+  printedDA4 q j s l Ω + (Ω - 1) * ((Ω - 1) + 10 * j - 45 * q ^ 2 + 20 * q) / 120
 ```
 
 ## `Cosmography.BambaA.printedDA3`
@@ -213,15 +212,15 @@ noncomputable def remA (D3 : ℝ → ℝ → ℝ → ℝ → ℝ) (D4 : ℝ → 
           (omega0 K a t₀) * yred a t₀ t ^ 4)
 ```
 
-## `Cosmography.BambaK.BambaD4yClaimPast`
+## `Cosmography.BambaK.BambaD3yClaimPast`
 
-Claim (10.56)–(10.57) as in `BambaD4yClaim`, past emission only (`t → t₀⁻`).
+Claim (10.55) as in `BambaD3yClaim`, past emission only (`t → t₀⁻`).
 
 ```lean
-def BambaD4yClaimPast : Prop :=
+def BambaD3yClaimPast : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remK correctD2y correctD3y printedD4y K a t₀ t)
-      =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 5)
+    (fun t => remK correctD2y printedD3y (fun _ _ _ _ _ => 0) K a t₀ t)
+      =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 4)
 ```
 
 ## `Cosmography.BambaK.correctD3y`
@@ -297,17 +296,6 @@ noncomputable def seriesY4 (q d2 d3 d4 y : ℝ) : ℝ :=
   y * (1 + D1y q * y + d2 * y ^ 2 + d3 * y ^ 3 + d4 * y ^ 4)
 ```
 
-## `Cosmography.BambaY.BambaD2yClaim`
-
-The printed claim, flat instance, weakest reading (`o(y³)`), strongest hypotheses (analytic,
-everywhere positive scale factor, `H₀ > 0`).
-
-```lean
-def BambaD2yClaim : Prop :=
-  ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remainderY printedD2y a t₀ t) =o[𝓝 t₀] (fun t => yred a t₀ t ^ 3)
-```
-
 ## `Cosmography.BambaY.D1y`
 
 `D¹_{L,y}` as printed (Eq. (10.53)).
@@ -378,15 +366,14 @@ noncomputable def yred (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   redshift a t₀ t / (1 + redshift a t₀ t)
 ```
 
-## `Cosmography.BambaZ.BambaDLzClaim`
+## `Cosmography.BambaZ.BambaDAzClaim`
 
-Claim (10.38)–(10.44): printed `D⁰…D⁴_L`, remainder `o(z⁵)`, every `K`, every analytic,
-everywhere positive scale factor with `H₀ > 0`.
+Claim (10.45)–(10.51): printed `D⁰…D⁴_A`, remainder `o(z⁵)`.
 
 ```lean
-def BambaDLzClaim : Prop :=
+def BambaDAzClaim : Prop :=
   ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remLz printedDL4z K a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5)
+    (fun t => remAz printedDA4z K a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5)
 ```
 
 ## `Cosmography.BambaZ.DA1z`
@@ -440,22 +427,6 @@ noncomputable def DL3z (q j s k : ℝ) : ℝ :=
   (1 / 24) * (2 - 2 * q - 15 * q ^ 2 - 15 * q ^ 3 + 5 * j + 10 * q * j + s + 2 * k * (1 + 3 * q))
 ```
 
-## `Cosmography.BambaZ.correctDA4z`
-
-Proposed correction of (10.50)–(10.51): add `k²/120`.
-
-```lean
-noncomputable def correctDA4z (q j s l k : ℝ) : ℝ := printedDA4z q j s l k + k ^ 2 / 120
-```
-
-## `Cosmography.BambaZ.correctDL4z`
-
-Proposed correction of (10.43)–(10.44): add `k²/120` (the `K²χ⁵/5!` term of `sin`/`sinh`).
-
-```lean
-noncomputable def correctDL4z (q j s l k : ℝ) : ℝ := printedDL4z q j s l k + k ^ 2 / 120
-```
-
 ## `Cosmography.BambaZ.curvK`
 
 `K c²/(H₀² a₀²)` (`c = 1`); the review's `Ω₀ = 1 + Kc²/(H₀²a₀²)` is `omega0`.
@@ -474,17 +445,6 @@ noncomputable def printedDA4z (q j s l k : ℝ) : ℝ :=
   (1 / 120) * (274 + 326 * q + 411 * q ^ 2 + 315 * q ^ 3 + 105 * q ^ 4 - 210 * q * j
     - 105 * q ^ 2 * j - 15 * q * s + -137 * j + 10 * j ^ 2 - 21 * s - l
     - 5 * k * (17 + 20 * q + 9 * q ^ 2 - 2 * j))
-```
-
-## `Cosmography.BambaZ.printedDL4z`
-
-`D⁴_L` as printed (Eqs. (10.43)–(10.44)), verbatim (`j² = j₀²`).
-
-```lean
-noncomputable def printedDL4z (q j s l k : ℝ) : ℝ :=
-  (1 / 120) * (-6 + 6 * q + 81 * q ^ 2 + 165 * q ^ 3 + 105 * q ^ 4 - 110 * q * j
-    - 105 * q ^ 2 * j - 15 * q * s + -27 * j + 10 * j ^ 2 - 11 * s - l
-    - 5 * k * (1 + 8 * q + 9 * q ^ 2 - 2 * j))
 ```
 
 ## `Cosmography.BambaZ.remAz`
@@ -520,19 +480,6 @@ noncomputable def remLz (D4 : ℝ → ℝ → ℝ → ℝ → ℝ → ℝ) (K : 
 ```lean
 noncomputable def seriesZ (d1 d2 d3 d4 z : ℝ) : ℝ :=
   z * (1 + d1 * z + d2 * z ^ 2 + d3 * z ^ 3 + d4 * z ^ 4)
-```
-
-## `Cosmography.CCS.CCSD4Claim`
-
-The printed claim, weakest reading, strongest hypotheses: for every analytic, everywhere
-positive scale factor with `H₀ > 0`, Eq. (A2) holds with remainder `o(z⁵)`.
-
-```lean
-def CCSD4Claim : Prop :=
-  ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remainder printedD4 a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5)
-
-/-! ### Algebra (polynomials generated by `runs/2026-10-30T0628Z/scripts/gen2.py`; Lean checks every identity) -/
 ```
 
 ## `Cosmography.CCS.D1`
@@ -615,12 +562,16 @@ def IsFlatCPL (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : Prop :=
         Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))
 ```
 
-## `Cosmography.CVdQ.correctQ2`
+## `Cosmography.CVdQ.CVdQClaimPast`
 
-The same bracket over 24.
+Same, past emission only.
 
 ```lean
-noncomputable def correctQ2 (q j Ω : ℝ) : ℝ := (1 / 24) * (3 - 2 * q + 12 * q ^ 2 - 4 * (j + Ω))
+def CVdQClaimPast : Prop :=
+  ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
+    (fun t => remainderQ printedQ2 a t₀ t) =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 3)
+
+/-! ### Helpers -/
 ```
 
 ## `Cosmography.CVdQ.dQFlat`
@@ -630,6 +581,14 @@ Deceleration distance in a flat model: `d_Q = d_L/(1+z)^{3/2}` (real power).
 ```lean
 noncomputable def dQFlat (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   lumDistFlat a t₀ t / (1 + redshift a t₀ t) ^ ((3 : ℝ) / 2)
+```
+
+## `Cosmography.CVdQ.printedQ2`
+
+The y² coefficient as printed in Eq. (59).
+
+```lean
+noncomputable def printedQ2 (q j Ω : ℝ) : ℝ := (1 / 12) * (3 - 2 * q + 12 * q ^ 2 - 4 * (j + Ω))
 ```
 
 ## `Cosmography.CVdQ.remainderQ`
@@ -648,6 +607,17 @@ noncomputable def remainderQ (D2 : ℝ → ℝ → ℝ → ℝ) (a : ℝ → ℝ
 
 ```lean
 noncomputable def seriesQ (d2 q y : ℝ) : ℝ := y * (1 - q / 2 * y + d2 * y ^ 2)
+```
+
+## `Cosmography.DemianskiZ.DemDLzClaim`
+
+Printed `d_L(z)` series, flat, remainder `o(z⁵)`, every analytic positive scale factor.
+
+```lean
+def DemDLzClaim : Prop :=
+  ∀ (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
+    (fun t => remLz (fun q j s l _ => demDL4 q j s l) 0 a t₀ t)
+      =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5)
 ```
 
 ## `Cosmography.DemianskiZ.demDA4`
@@ -738,19 +708,6 @@ def P2 (q j s : ℝ) : ℝ := 9 * s + 6 * j + 9 * q ^ 2 + 66 * q + 42
 def P3 (q j s l : ℝ) : ℝ := 3 * l + 3 * s - 9 * (q + 4) * j - (45 * q ^ 2 + 78 * q + 12)
 ```
 
-## `Cosmography.FRCosmo.PrintedR3Claim`
-
-Printed (11.13): `d³R₀/dt³ = −6H₀⁵[l₀ − s₀ + 2(q₀ + 4)j₀ − 6(3q₀ + 8)q₀ − 24]` for every
-flat FLRW scale factor (`C⁵` at `t₀`, `a(t₀) > 0`, `H₀ > 0`).
-
-```lean
-def PrintedR3Claim : Prop :=
-  ∀ (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → 0 < hubble a t₀ → ContDiffAt ℝ 5 a t₀ →
-    deriv^[3] (curv a) t₀ = -6 * hubble a t₀ ^ 5 *
-      (cosmoCoeff 5 a t₀ - cosmoCoeff 4 a t₀ + 2 * (decel a t₀ + 4) * cosmoCoeff 3 a t₀
-        - 6 * (3 * decel a t₀ + 8) * decel a t₀ - 24)
-```
-
 ## `Cosmography.FRCosmo.Q0`
 
 `Q₀` (11.26), verbatim.
@@ -782,18 +739,6 @@ def Q3 (q j s l : ℝ) : ℝ :=
     - (30 * q ^ 3 + 84 * q ^ 2 + 78 * q + 24))
 ```
 
-## `Cosmography.FRCosmo.correctR`
-
-Proposed correction of (11.31) (derived in `runs/2026-10-30T1428Z/scripts/derive_fr.py`):
-the bracket enters with a minus sign, `+18` is `−18`, and `180 q₀²` is missing.
-
-```lean
-def correctR (q j s l : ℝ) : ℝ :=
-  (j - q - 2) * l - (3 * s - 2 * j + 6 * q ^ 2 + 50 * q + 40) * s
-    - ((3 * q + 10) * j + 11 * q ^ 2 + 4 * q - 18) * j
-    - (3 * q ^ 4 + 34 * q ^ 3 + 180 * q ^ 2 + 246 * q + 104)
-```
-
 ## `Cosmography.FRCosmo.curv`
 
 Ricci scalar of flat FLRW in the review's sign convention (11.6): `R = −6(Ḣ + 2H²)`.
@@ -803,6 +748,17 @@ noncomputable def curv (a : ℝ → ℝ) (t : ℝ) : ℝ :=
   -6 * (deriv (hubble a) t + 2 * hubble a t ^ 2)
 ```
 
+## `Cosmography.FRCosmo.printedR`
+
+`R` (11.31) as printed in the review, verbatim.
+
+```lean
+def printedR (q j s l : ℝ) : ℝ :=
+  (j - q - 2) * l - (3 * s - 2 * j + 6 * q ^ 2 + 50 * q + 40) * s
+    + ((3 * q + 10) * j + 11 * q ^ 2 + 4 * q + 18) * j
+    - (3 * q ^ 4 + 34 * q ^ 3 + 246 * q + 104)
+```
+
 ## `Cosmography.FRCosmo.rhoM`
 
 Dust density `ρ_M = 3H₀²Ω (a₀/a)³` (`κ² = 1`, text after (11.2)).
@@ -810,6 +766,15 @@ Dust density `ρ_M = 3H₀²Ω (a₀/a)³` (`κ² = 1`, text after (11.2)).
 ```lean
 noncomputable def rhoM (Ω : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   3 * hubble a t₀ ^ 2 * Ω * (a t₀ / a t) ^ 3
+```
+
+## `Cosmography.FREta.correct20`
+
+Derived coefficient of `ε` in `η₂₀` (`runs/2026-10-30T1628Z/scripts/gen_eta.py`).
+
+```lean
+noncomputable def correct20 (Ω : ℝ) : ℝ :=
+  -2 * (27 * Ω ^ 2 + 24 * Ω - 32) / (27 * Ω * (Ω - 2) * (27 * Ω ^ 2 + 60 * Ω + 112))
 ```
 
 ## `Cosmography.FREta.correct30`
@@ -994,6 +959,20 @@ noncomputable def tbl : Fin 28 → ℝ × ℝ × ℝ :=
   ![(0.070, 69, 19.6), (0.100, 69, 12), (0.120, 68.6, 26.2), (0.170, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.200, 72.9, 29.6), (0.270, 77, 14), (0.280, 88.8, 36.6), (0.350, 76.3, 5.6), (0.352, 83, 14), (0.400, 95, 17), (0.440, 82.6, 7.8), (0.480, 97, 62), (0.593, 104, 13), (0.600, 87.9, 6.1), (0.680, 92, 8), (0.730, 97.3, 7.0), (0.781, 105, 12), (0.875, 125, 17), (0.880, 90, 40), (0.900, 117, 23), (1.037, 154, 20), (1.300, 168, 17), (1.430, 177, 18), (1.530, 140, 14), (1.750, 202, 40), (2.300, 224, 8)]
 ```
 
+## `Data.Moresco16.chiSqLine`
+
+χ² of the straight line f(z) = a + b z against the values H/(1+z) of Table 4 with errors
+σ_H/(1+z), plus the point f(0) = 73 ± 2.4 (Moresco et al. 2016, Sec. 5.2, linear fit).
+
+```lean
+noncomputable def chiSqLine (a b : ℝ) : ℝ :=
+  (∑ i, ((a + b * (m16Table i).1) - (m16Table i).2.1 / (1 + (m16Table i).1)) ^ 2 /
+    ((m16Table i).2.2 / (1 + (m16Table i).1)) ^ 2) + (a - 73) ^ 2 / 2.4 ^ 2
+
+set_option maxHeartbeats 8000000 in
+open Checked.Data.Moresco16Certs in
+```
+
 ## `Data.Moresco16.chiSqOL`
 
 χ² of the law H₀ √E² (E² = `e2OL`) against the thirty measurements of Table 4, plus the
@@ -1030,42 +1009,6 @@ noncomputable def m16Table : Fin 30 → ℝ × ℝ × ℝ :=
     (0.781, 105, 12), (0.875, 125, 17), (0.88, 90, 40), (0.9, 117, 23), (1.037, 154, 20),
     (1.3, 168, 17), (1.363, 160, 33.6), (1.43, 177, 18), (1.53, 140, 14), (1.75, 202, 40),
     (1.965, 186.5, 50.4)]
-```
-
-## `Fidelity.AngDistSpec`
-
-Specification of an angular-diameter-distance function `D K a t₀ t`.
-
-```lean
-structure AngDistSpec (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) : Prop where
-  /-- Flat FLRW: `d_A = a(t) χ`, `χ = ∫_t^{t₀} ds/a(s)` (Weinberg §1.4;
-  Hogg 1999, §§5–6: `d_A = d_M/(1+z)`). Positive continuous `a` on the past light cone. -/
-  flat : ∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) →
-    ContinuousOn a (Set.Icc t t₀) → D 0 a t₀ t = a t * ∫ s in t..t₀, 1 / a s
-  /-- Closed FLRW (`K = 1`): `d_A = a(t) sin χ`. -/
-  closed : ∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) →
-    ContinuousOn a (Set.Icc t t₀) → D 1 a t₀ t = a t * Real.sin (∫ s in t..t₀, 1 / a s)
-  /-- Open FLRW (`K = −1`): `d_A = a(t) sinh χ`. -/
-  «open» : ∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) →
-    ContinuousOn a (Set.Icc t t₀) → D (-1) a t₀ t = a t * Real.sinh (∫ s in t..t₀, 1 / a s)
-  /-- Normalization invariance: `a ↦ c a`, `K ↦ c² K` leaves `d_A` unchanged. -/
-  rescale : ∀ c : ℝ, 0 < c → ∀ K a t₀ t, D (c ^ 2 * K) (fun s => c * a s) t₀ t = D K a t₀ t
-  /-- Time-translation invariance. -/
-  translate : ∀ (τ K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ),
-    D K (fun s => a (s + τ)) (t₀ - τ) (t - τ) = D K a t₀ t
-  /-- Flat de Sitter (`a = eᵗ`, `t₀ = 0`, `H₀ = 1`): `d_A = z/(1+z) = 1 − eᵗ`
-  (bounded by the Hubble radius). -/
-  deSitter : ∀ t : ℝ, t ≤ 0 → D 0 Real.exp 0 t = 1 - Real.exp t
-  /-- Contracting de Sitter (`a = e^{−t}`, blueshift): `d_A = a(t)(1 − eᵗ) = e^{−t} − 1`. -/
-  deSitterContracting : ∀ t : ℝ, t ≤ 0 → D 0 (fun s => Real.exp (-s)) 0 t = Real.exp (-t) - 1
-  /-- Milne (`a = t`, `K = −1`, `t₀ = 1`): `d_A = t sinh(ln(1/t)) = (1 − t²)/2`, i.e.
-  `z(1 + z/2)/(1+z)²`. -/
-  milne : ∀ t : ℝ, 0 < t → t ≤ 1 → D (-1) id 1 t = (1 - t ^ 2) / 2
-  /-- Static closed universe of radius `R` (`a ≡ R`, `K = 1`): `d_A = R sin((t₀ − t)/R)`. -/
-  staticClosed : ∀ R : ℝ, 0 < R → ∀ t₀ t : ℝ, t ≤ t₀ →
-    D 1 (fun _ => R) t₀ t = R * Real.sin ((t₀ - t) / R)
-  /-- Static flat universe (`a ≡ R`): `d_A = t₀ − t` (Euclidean). -/
-  staticFlat : ∀ R : ℝ, 0 < R → ∀ t₀ t : ℝ, t ≤ t₀ → D 0 (fun _ => R) t₀ t = t₀ - t
 ```
 
 ## `Fidelity.FriedmannCPL`
@@ -1136,35 +1079,43 @@ structure HubbleSpec (H : (ℝ → ℝ) → ℝ → ℝ) : Prop where
     H (fun s => a (-s)) t = -H a (-t)
 ```
 
-## `Fidelity.LumDistSpec`
+## `Fidelity.RicciFlatFLRWSpec`
 
-Specification of a luminosity-distance function `D K a t₀ t`.
+Specification of the Ricci scalar of a spatially flat FLRW metric with scale factor `a`
+(function of cosmic time), in the **negative** convention: `Rc a t = −6 (ä/a + (ȧ/a)²)`,
+so that de Sitter (`a = c·e^{ht}`) has `R = −12 h²`.  In the common convention
+(`R_c = +6(ä/a + (ȧ/a)²)`) this is `R = −R_c`.
 
-```lean
-structure LumDistSpec (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) : Prop where
-  /-- Flat de Sitter (`a = eᵗ`, `H₀ = 1`, `t₀ = 0`): `d_L = z(1+z)` with `1 + z = e^{−t}`. -/
-  deSitter : ∀ t ≤ 0, D 0 Real.exp 0 t = (Real.exp (-t) - 1) * Real.exp (-t)
-  /-- Milne (`a = t`, `K = −1`, `t₀ = 1`, `H₀ = 1`): `d_L = z(1 + z/2) = ((1+z)² − 1)/2`,
-  `1 + z = 1/t`. -/
-  milne : ∀ t, 0 < t → t ≤ 1 → D (-1) id 1 t = ((1 / t) ^ 2 - 1) / 2
-  /-- Static closed universe (`a ≡ 1`, `K = 1`): `d_L = sin χ`, `χ = t₀ − t`. -/
-  staticClosed : ∀ t₀ t, t ≤ t₀ → D 1 (fun _ => 1) t₀ t = Real.sin (t₀ - t)
-  /-- The normalization of `a` is unphysical: `a ↦ c a`, `K ↦ c² K` leaves `d_L` unchanged. -/
-  rescale : ∀ c : ℝ, 0 < c → ∀ K a t₀ t, D (c ^ 2 * K) (fun s => c * a s) t₀ t = D K a t₀ t
-
-/-! ## The program's definition meets the specification -/
-```
-
-## `Fidelity.LumDistSpec2`
-
-Anchors plus Etherington distance duality `d_L = (1+z)² d_A`.
+* `law` determines `Rc a t` whenever `a(t) > 0` and `a` is twice differentiable at `t`, given
+  as: `a` has derivative `a' s` at every `s` near `t`, and `a'` has derivative `a''t` at `t`
+  (explicit derivative functions, so no `deriv` junk values enter).
+* anchors: de Sitter, radiation `a = t^{1/2}` (`R = 0`, conformal/traceless source),
+  matter `a = t^{2/3}` (`R = −4/(3t²)`; in common convention `R_c = 4/(3t²) = ρ` for
+  Einstein–de Sitter with `κ² = 1`, as `R_c = κ²(ρ − 3p)`).
+* invariances: rescaling `a ↦ c·a` (`c > 0`), and time translation.
 
 ```lean
-structure LumDistSpec2 (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) : Prop where
-  base : LumDistSpec D
-  etherington : ∃ DA : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ, AngDistSpec DA ∧
-    ∀ K (a : ℝ → ℝ) t₀ t, t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) →
-      ContinuousOn a (Set.Icc t t₀) → D K a t₀ t = (1 + redshift a t₀ t) ^ 2 * DA K a t₀ t
+structure RicciFlatFLRWSpec (Rc : (ℝ → ℝ) → ℝ → ℝ) : Prop where
+  /-- Determining law: `R = −6 (ä/a + (ȧ/a)²)`. -/
+  law : ∀ (a a' a'' : ℝ → ℝ) (t : ℝ), 0 < a t →
+    (∀ᶠ s in 𝓝 t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t →
+    Rc a t = -6 * (a'' t / a t + (a' t / a t) ^ 2)
+  /-- de Sitter anchor: `a = c·e^{h t}` has `R = −12 h²`. -/
+  deSitter : ∀ (c h t : ℝ), 0 < c → Rc (fun s => c * Real.exp (h * s)) t = -12 * h ^ 2
+  /-- Radiation anchor: `a = t^{1/2}` has `R = 0` for `t > 0`. -/
+  radiation : ∀ t : ℝ, 0 < t → Rc (fun s => s ^ (1 / 2 : ℝ)) t = 0
+  /-- Matter (Einstein–de Sitter) anchor: `a = t^{2/3}` has `R = −4/(3t²)` for `t > 0`. -/
+  matter : ∀ t : ℝ, 0 < t → Rc (fun s => s ^ (2 / 3 : ℝ)) t = -4 / (3 * t ^ 2)
+  /-- Invariance under constant rescaling of the scale factor (normalization of `a` is
+  unphysical in flat FLRW). Stated under the same regularity hypotheses as `law`. -/
+  scale_invariant : ∀ (a a' a'' : ℝ → ℝ) (c t : ℝ), 0 < c → 0 < a t →
+    (∀ᶠ s in 𝓝 t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t →
+    Rc (fun s => c * a s) t = Rc a t
+  /-- Invariance under time translation. Stated under the regularity hypotheses of `law`
+  at the shifted time `t + τ`. -/
+  time_translation : ∀ (a a' a'' : ℝ → ℝ) (τ t : ℝ), 0 < a (t + τ) →
+    (∀ᶠ s in 𝓝 (t + τ), HasDerivAt a (a' s) s) → HasDerivAt a' (a'' (t + τ)) (t + τ) →
+    Rc (fun s => a (s + τ)) t = Rc a (t + τ)
 ```
 
 ## `Records.RoundsTo`

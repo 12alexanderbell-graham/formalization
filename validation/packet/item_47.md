@@ -17,7 +17,7 @@
 
 **then**
 
-- it is false that (`(fun t => remK correctD2y correctD3y printedD4y K a t₀ t) =o[nhds t₀] fun t => yred a t₀ t ^ 5`)
+- it is false that (`(fun t => remK correctD2y correctD3y printedD4y K a t₀ t) =o[nhdsWithin t₀ (Set.Iio t₀)] fun t => yred a t₀ t ^ 5`)
 
 Program definitions in this claim:
 
@@ -37,19 +37,17 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The printed `D⁴_{L,y}` (Eqs. (10.56)–(10.57)), used with the corrected `D²`, `D³`, fails in every FLRW
-model of curvature `K` whose scale factor is `C⁵` at `t₀` with `a(t₀) ≠ 0`, `H₀ ≠ 0` and
-`(Ω₀ − 1)²/120 + 5q₀(Ω₀ − 1)/12 ≠ 0`: the `d_L(y)` series is not `d_L + o(y⁵)` as `t → t₀`
-(two-sided; past-only: `printedD4y_fails_past`).
+The printed `D⁴_{L,y}` (with corrected `D²`, `D³`) fails, from the past, in every `C⁵` model
+with `a(t₀) ≠ 0`, `H₀ ≠ 0` and `(Ω₀ − 1)²/120 + 5 q₀ (Ω₀ − 1)/12 ≠ 0`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem printedD4y_fails (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
+theorem printedD4y_fails_past (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : ContDiffAt ℝ 5 a t₀)
     (ha0 : a t₀ ≠ 0) (hH : hubble a t₀ ≠ 0)
     (hD : (omega0 K a t₀ - 1) ^ 2 / 120 + 5 * decel a t₀ * (omega0 K a t₀ - 1) / 12 ≠ 0) :
     ¬ (fun t => remK correctD2y correctD3y printedD4y K a t₀ t)
-      =o[𝓝 t₀] (fun t => yred a t₀ t ^ 5) := …
+      =o[𝓝[<] t₀] (fun t => yred a t₀ t ^ 5) := …
 ```
 
 ## Definitions it uses
@@ -61,7 +59,7 @@ See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.BambaK.lumDist`, 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: cosmoCoeff, lumDist, omega0, yred, decel, hubble.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): printedD3y², printedD4y², D1y².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedD4y_fails`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `printedD4y_fails_past`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
 - Source file: `Checked/Cosmography/BambaCurved.lean` (do not open it before submitting your answers).
 

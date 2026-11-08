@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 189. Resting on no unpinned physics definition: 189.
-Non-vacuity (trust track T2): 124 headlines have hypotheses; 124 of them have a
+Headlines: 192. Resting on no unpinned physics definition: 192.
+Non-vacuity (trust track T2): 126 headlines have hypotheses; 126 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -211,6 +211,9 @@ the docstring says; universally bound parameters are not listed.
 | `Hiemenz.hiemenz_under` | — | — | — | `hiemenz_under` | — |
 | `Hiemenz.hiemenz_over` | — | — | — | `hiemenz_over` | — |
 | `Hiemenz.hiemenz_exists` | — | — | — | unconditional | — |
+| `Homann.homann_under` | — | — | — | `homann_under` | — |
+| `Homann.homann_over` | — | — | — | `homann_over` | — |
+| `Homann.homann_exists` | — | — | — | unconditional | — |
 | `Data.Moresco16.table5_oL_inconsistent` | — | — | — | `table5_oL_inconsistent` | — |
 | `Data.Moresco16.table5_pw_inconsistent` | — | — | — | `table5_pw_inconsistent` | — |
 | `Data.Moresco16.table5_line_inconsistent` | — | — | — | `table5_line_inconsistent` | — |

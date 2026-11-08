@@ -3,17 +3,17 @@
  "planted": [
   {
    "item": 6,
+   "base": "Checked.Cosmography.B1.cubic_misses_z3",
+   "defect_class": "wrong number",
+   "what_is_wrong": "Bound 0.9 mag instead of 0.09 mag.",
+   "why_it_is_wrong": "The exact miss at z = 3 is 0.115 to 0.175 mag over Ω ∈ [0.2, 0.4] (mpmath quadrature, run 0828Z), below 0.9 for every Ω; the statement is false."
+  },
+  {
+   "item": 10,
    "base": "Checked.Cosmography.CPL.printedL0_ne",
    "defect_class": "formal statement contradicts claim (negated hypothesis)",
    "what_is_wrong": "Hypothesis reads (1 − Ω)(7 − Ω)wₐ = 0 instead of ≠ 0.",
    "why_it_is_wrong": "printed − true l₀ = −2(1−Ω)(7−Ω)wₐ² (FINDINGS F2), which is 0 under the hypothesis; with wₐ = 0 such models exist (exists_flatCPL), so the statement is false and does not say what the claim says."
-  },
-  {
-   "item": 10,
-   "base": "Checked.Cosmography.BambaY.lumDist_y_third_order",
-   "defect_class": "overstated scope",
-   "what_is_wrong": "The claim says 'any spatial curvature K'; the statement is about the flat luminosity distance only.",
-   "why_it_is_wrong": "In a curved FLRW model the y³ coefficient of d_L contains Ω₀ = 1 + K/(a₀H₀)² (Cattoën–Visser 2007; the program's curved theorem BambaK.lumDist_y_fifth_order), so the flat series is wrong at this order when K ≠ 0."
   },
   {
    "item": 27,
@@ -23,25 +23,18 @@
    "why_it_is_wrong": "h1 and h2 are jointly unsatisfiable."
   },
   {
-   "item": 35,
+   "item": 36,
    "base": "Checked.Cosmography.Aviles.avilesL0Claim_false",
    "defect_class": "provenance / transcription",
    "what_is_wrong": "The source line attributes the misprinted l₀ to arXiv:1903.11433 Eq. (21); that paper prints the correct formula. The misprint is in Aviles et al., PRD 86, 123516 (2012), arXiv:1204.2007, Eq. (15).",
    "why_it_is_wrong": "FINDINGS.md F1 'Propagation' (F1 referee reading): arXiv:1903.11433 Eq. (21) prints the correct l₀; the item's own glossary entry AvilesL0Claim cites Aviles et al. Eq. (15)."
   },
   {
-   "item": 36,
-   "base": "Checked.Cosmography.B1.cubic_misses_z3",
-   "defect_class": "wrong number",
-   "what_is_wrong": "Bound 0.9 mag instead of 0.09 mag.",
-   "why_it_is_wrong": "The exact miss at z = 3 is 0.115 to 0.175 mag over Ω ∈ [0.2, 0.4] (mpmath quadrature, run 0828Z), below 0.9 for every Ω; the statement is false."
-  },
-  {
    "item": 44,
-   "base": "Checked.Chemistry.CubicEOS.rk_constants",
-   "defect_class": "wrong number",
-   "what_is_wrong": "Ω_b = 0.07780 (the Peng–Robinson value) instead of 0.08664.",
-   "why_it_is_wrong": "For RK, Ω_b = (2^{1/3} − 1)/3 = 0.086640…; the statement is false."
+   "base": "Checked.Cosmography.BambaY.lumDist_y_third_order",
+   "defect_class": "overstated scope",
+   "what_is_wrong": "The claim says 'any spatial curvature K'; the statement is about the flat luminosity distance only.",
+   "why_it_is_wrong": "In a curved FLRW model the y³ coefficient of d_L contains Ω₀ = 1 + K/(a₀H₀)² (Cattoën–Visser 2007; the program's curved theorem BambaK.lumDist_y_fifth_order), so the flat series is wrong at this order when K ≠ 0."
   },
   {
    "item": 48,
@@ -56,28 +49,35 @@
    "defect_class": "number relabelled",
    "what_is_wrong": "The plain words swap the correct (0.2153) and printed (0.4555) values; they are also inconsistent with 'printed − correct = 0.24'.",
    "why_it_is_wrong": "The formal statement assigns 0.2153 to correctD4 and 0.4555 to printedD4."
+  },
+  {
+   "item": 54,
+   "base": "Checked.Chemistry.CubicEOS.rk_constants",
+   "defect_class": "wrong number",
+   "what_is_wrong": "Ω_b = 0.07780 (the Peng–Robinson value) instead of 0.08664.",
+   "why_it_is_wrong": "For RK, Ω_b = (2^{1/3} − 1)/3 = 0.086640…; the statement is false."
   }
  ],
  "genuine": [
   {
    "item": 1,
-   "headline": "Checked.Cosmography.DemianskiZ.demDL4_fails_past"
+   "headline": "Checked.Cosmography.DemianskiZ.demDLzClaim_false"
   },
   {
    "item": 2,
-   "headline": "Checked.Cosmography.BambaA.milne_printedDA4_fails_past"
+   "headline": "Checked.Cosmography.BambaA.angDist_y_fifth_order"
   },
   {
    "item": 3,
-   "headline": "Checked.Chemistry.CubicEOS.vdW_constants"
+   "headline": "Checked.Chemistry.CubicEOS.isCritical_iff"
   },
   {
    "item": 4,
-   "headline": "Checked.Chemistry.PRAcentric.pr_omega1_exists"
+   "headline": "Checked.Chemistry.SRKAcentric.srk_omega1_exists"
   },
   {
    "item": 5,
-   "headline": "Checked.Cosmography.CCS.ccsD4Claim_false"
+   "headline": "Checked.Cosmography.CCS.lookback_fifth_order"
   },
   {
    "item": 7,
@@ -89,23 +89,23 @@
   },
   {
    "item": 9,
-   "headline": "Checked.Hiemenz.hiemenz_over"
+   "headline": "Checked.Hiemenz.hiemenz_under"
   },
   {
    "item": 11,
-   "headline": "Checked.Chemistry.CubicEOS.pr_constants"
-  },
-  {
-   "item": 12,
-   "headline": "Checked.Cosmography.BambaK.bambaD4yClaimPast_false"
-  },
-  {
-   "item": 13,
    "headline": "Checked.Chemistry.CubicEOS.exists_unique_critical"
   },
   {
+   "item": 12,
+   "headline": "Checked.Cosmography.BambaK.bambaD3yClaimPast_false"
+  },
+  {
+   "item": 13,
+   "headline": "Checked.Chemistry.CubicEOS.pr_constants"
+  },
+  {
    "item": 14,
-   "headline": "Checked.Fidelity.comoving_pins"
+   "headline": "Checked.Fidelity.ricciSpec_pins"
   },
   {
    "item": 15,
@@ -121,19 +121,19 @@
   },
   {
    "item": 18,
-   "headline": "Checked.Cosmography.FRCosmo.fR_values"
+   "headline": "Checked.Cosmography.FRCosmo.printedF0Mul_false_at"
   },
   {
    "item": 19,
-   "headline": "Checked.Data.FR13.fr13_zda738"
+   "headline": "Checked.Data.FR13.fr13_minval68"
   },
   {
    "item": 20,
-   "headline": "Checked.Townes.Exists.townes_exists"
+   "headline": "Checked.Townes.Shooting.townes_over"
   },
   {
    "item": 21,
-   "headline": "Checked.Cosmography.B1Sep.cubic_separation"
+   "headline": "Checked.Cosmography.B1.cubic_shape_miss"
   },
   {
    "item": 22,
@@ -141,11 +141,11 @@
   },
   {
    "item": 23,
-   "headline": "Checked.Cosmography.BambaY.bambaD2yClaim_false"
+   "headline": "Checked.Cosmography.BambaY.printedD2y_fails_past"
   },
   {
    "item": 24,
-   "headline": "Checked.Cosmography.BambaZ.bambaDLzClaim_false"
+   "headline": "Checked.Cosmography.BambaZ.bambaDAzClaim_false"
   },
   {
    "item": 25,
@@ -161,35 +161,39 @@
   },
   {
    "item": 29,
-   "headline": "Checked.Sim.RobLong.rob_exists_1e11"
+   "headline": "Checked.Sim.RobLong.rob_state1e11"
   },
   {
    "item": 30,
-   "headline": "Checked.Chemistry.RKAcentric.rk_coexistence_unique"
+   "headline": "Checked.Chemistry.Coexistence.vdW_coexistence_exists"
   },
   {
    "item": 31,
-   "headline": "Checked.Cosmography.B1L19Curved.l19_sqg_curved"
+   "headline": "Checked.Cosmography.B1L19.l19_sqg_box"
   },
   {
    "item": 32,
-   "headline": "Checked.Data.Moresco16.table5_line_inconsistent"
+   "headline": "Checked.Homann.homann_exists"
   },
   {
    "item": 33,
-   "headline": "Checked.Records.F9_pole"
+   "headline": "Checked.Records.F10_eta"
   },
   {
    "item": 34,
-   "headline": "Checked.Cosmography.CPLExistence.exists_local_model"
+   "headline": "Checked.Cosmography.CPLExistence.exists_flatCPL"
+  },
+  {
+   "item": 35,
+   "headline": "Checked.Math.LaneEmden2.laneEmden2_constants"
   },
   {
    "item": 37,
-   "headline": "Checked.Cosmography.FREta.eta30_hasDerivAt"
+   "headline": "Checked.Cosmography.FREta.printedEta20_false_at"
   },
   {
    "item": 38,
-   "headline": "Checked.Records.F9_values"
+   "headline": "Checked.Records.F1_m0_agrees"
   },
   {
    "item": 39,
@@ -197,15 +201,15 @@
   },
   {
    "item": 40,
-   "headline": "Checked.Cosmography.FRCosmo.printedR3Claim_false"
+   "headline": "Checked.Cosmography.FRCosmo.exists_LCDM_model"
   },
   {
    "item": 41,
-   "headline": "Checked.Math.LaneEmden2.laneEmden2_constants"
+   "headline": "Checked.Data.Moresco16.line_bic_exceeds"
   },
   {
    "item": 42,
-   "headline": "Checked.Cosmography.CVdQ.dQ_y_third_order"
+   "headline": "Checked.Cosmography.CVdQ.cvdQClaimPast_false"
   },
   {
    "item": 43,
@@ -213,23 +217,23 @@
   },
   {
    "item": 45,
-   "headline": "Checked.Chemistry.RKAcentric.rk_coexistence_exists"
+   "headline": "Checked.Chemistry.PRAcentric.pr_omega1_exists"
   },
   {
    "item": 46,
-   "headline": "Checked.Cosmography.BambaA.bambaDA3ClaimPast_false"
+   "headline": "Checked.Cosmography.BambaA.printedDA4_fails_past"
   },
   {
    "item": 47,
-   "headline": "Checked.Cosmography.BambaK.printedD4y_fails"
+   "headline": "Checked.Cosmography.BambaK.printedD4y_fails_past"
   },
   {
    "item": 49,
-   "headline": "Checked.Fidelity.isFlatCPL_iff_friedmannCPL"
+   "headline": "Checked.Fidelity.flatCPL_pins"
   },
   {
    "item": 51,
-   "headline": "Checked.Cosmography.BambaZ.printed_flat_eq"
+   "headline": "Checked.Cosmography.BambaZ.printedDA4z_fails_past"
   },
   {
    "item": 52,
@@ -240,15 +244,15 @@
    "headline": "Checked.Cosmography.lookback_second_order_bigO"
   },
   {
-   "item": 54,
+   "item": 55,
    "headline": "Checked.Math.ThomasFermiExists.tf_exists"
   },
   {
-   "item": 55,
-   "headline": "Checked.Cosmography.FREta.printedEta20_false_at"
+   "item": 56,
+   "headline": "Checked.Cosmography.FREta.eta30_hasDerivAt"
   },
   {
-   "item": 56,
+   "item": 57,
    "headline": "Checked.Cosmography.DemianskiZ.demDA4_fails_past"
   }
  ]
