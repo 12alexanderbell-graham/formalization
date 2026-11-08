@@ -1,53 +1,56 @@
 # Item 51
 
-**Area:** T1 fidelity
+**Area:** Mathematics
 
-**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Rc : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `a' : ℝ → ℝ`, `a'' : ℝ → ℝ`, `t : ℝ`:
+**For every** `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
 
-1. `RicciFlatFLRWSpec Rc`
-2. `0 < a t`
-3. `∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s`
-4. `HasDerivAt a' (a'' t) t`
+1. for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 5`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 5) ξ`
+2. `ContinuousWithinAt φ (Set.Icc 0 5) 0`
+3. for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 5`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 2) (Set.Icc 0 5) ξ`
+4. `θ 0 = 1`
 
 **then**
 
-- `Rc a t = curv a t`
-
-Program definitions in this claim:
-
-- `RicciFlatFLRWSpec` — SPEC, not pinned: inductive type with constructors `RicciFlatFLRWSpec.mk : ∀ {Rc : (ℝ → ℝ) → ℝ → ℝ}, (∀ (a a' a'' : ℝ → ℝ) (t : ℝ), 0 < a t → (∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t → Rc a t = -6 * (a'' t / a t + (a' t / a t) ^ 2)) → (∀ (c h t : ℝ), 0 < c → Rc (fun s => c * Real.exp (h * s)) t = -12 * h ^ 2) → (∀ (t : ℝ), 0 < t → Rc (fun s => s ^ (1 / 2)) t = 0) → (∀ (t : ℝ), 0 < t → Rc (fun s => s ^ (2 / 3)) t = -4 / (3 * t ^ 2)) → (∀ (a a' a'' : ℝ → ℝ) (c t : ℝ), 0 < c → 0 < a t → (∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t → Rc (fun s => c * a s) t = Rc a t) → (∀ (a a' a'' : ℝ → ℝ) (τ t : ℝ), 0 < a (t + τ) → (∀ᶠ (s : ℝ) in nhds (t + τ), HasDerivAt a (a' s) s) → HasDerivAt a' (a'' (t + τ)) (t + τ) → Rc (fun s => a (s + τ)) t = Rc a (t + τ)) → RicciFlatFLRWSpec Rc`
-- `curv a t` — **PINNED** (pin theorem `ricciSpec_pins`): the Ricci scalar R = −6(Ḣ + 2H²) of spatially flat FLRW with scale factor `a` at time `t` (sign convention of Bamba et al. 2012, Eq. (11.6))
+- there is `ξ₁ : ℝ` such that (`4.3528745959 ≤ ξ₁`) and (`ξ₁ ≤ 4.3528745960`) and (`θ ξ₁ = 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ico 0 ξ₁`, then `0 < θ ξ`) and (`2.4110460120 ≤ -(ξ₁ ^ 2 * φ ξ₁)`) and (`-(ξ₁ ^ 2 * φ ξ₁) ≤ 2.4110460122`) and (`11.402542860 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁))`) and (`ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 11.402542864`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** any `Rc` meeting `RicciFlatFLRWSpec` is `curv` wherever `a > 0` is twice
-differentiable at `t`.
+Lane–Emden equation θ'' + (2/ξ)θ' + θ² = 0: for every solution θ on (0, 5] with θ(0) = 1, θ
+differentiable on [0, 5] with derivative φ, and φ continuous at 0, there is a first zero ξ₁ of θ with
+4.3528745959 ≤ ξ₁ ≤ 4.3528745960, at which −ξ₁² θ'(ξ₁) lies between 2.4110460120 and 2.4110460122
+and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 11.402542860 and 11.402542864.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem ricciSpec_pins (Rc : (ℝ → ℝ) → ℝ → ℝ) (h : RicciFlatFLRWSpec Rc) (a a' a'' : ℝ → ℝ)
-    (t : ℝ) (ha : 0 < a t) (h1 : ∀ᶠ s in 𝓝 t, HasDerivAt a (a' s) s)
-    (h2 : HasDerivAt a' (a'' t) t) : Rc a t = curv a t := …
+theorem laneEmden2_constants (θ φ : ℝ → ℝ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 5, HasDerivWithinAt θ (φ ξ) (Icc 0 5) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 5) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 5, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 2) (Icc 0 5) ξ)
+    (h0 : θ 0 = 1) :
+    ∃ ξ₁ : ℝ, 4.3528745959 ≤ ξ₁ ∧ ξ₁ ≤ 4.3528745960 ∧ θ ξ₁ = 0 ∧ (∀ ξ ∈ Ico 0 ξ₁, 0 < θ ξ) ∧
+      2.4110460120 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.4110460122 ∧
+      11.402542860 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
+      ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 11.402542864 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FRCosmo.curv`, `Cosmography.hubble`, `Fidelity.RicciFlatFLRWSpec`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: curv.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `ricciSpec_pins`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `laneEmden2_constants`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/FRSpecs.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/LaneEmden2.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 51

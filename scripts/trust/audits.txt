@@ -536,3 +536,11 @@ Blind.MonotoneWindow.homann_blind
 Blind.MonotoneExists.toSys
 Blind.MonotoneExists.hiemenz_unique_blind
 Blind.MonotoneExists.homann_unique_blind
+Blind.Bounded.toSys
+Blind.Bounded.ofSys
+Blind.Bounded.hiemenz_W
+Blind.Bounded.homann_W
+Blind.Bounded.hiemenz_U
+Blind.Bounded.homann_U
+Blind.Bounded.hiemenz_E
+Blind.Bounded.homann_E

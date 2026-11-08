@@ -236,3 +236,10 @@ Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window
 Checked.FalknerSkan.MonotoneWindow.homann_monotone_window
 Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone
 Checked.FalknerSkan.MonotoneExists.homann_exists_monotone
+# Fluid mechanics: the Hiemenz and Homann boundary-value problems in the class -1 <= f' <= 1 (run 2026-11-08T1228Z, frozen, proved, audited and promoted the same run): every such solution has its wall shear in the certified window, any two are equal on [0, oo), and one exists with 0 <= f' < 1 (no new numerical certificate)
+Checked.FalknerSkan.Bounded.hiemenz_bounded_window
+Checked.FalknerSkan.Bounded.homann_bounded_window
+Checked.FalknerSkan.Bounded.hiemenz_bounded_equal
+Checked.FalknerSkan.Bounded.homann_bounded_equal
+Checked.FalknerSkan.Bounded.hiemenz_exists_bounded
+Checked.FalknerSkan.Bounded.homann_exists_bounded

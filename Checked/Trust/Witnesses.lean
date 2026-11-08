@@ -64,6 +64,7 @@ import Checked.Homann.HmIVP
 import Checked.FalknerSkan.FalknerSkan
 import Checked.FalknerSkan.MonotoneWindow
 import Checked.FalknerSkan.MonotoneExists
+import Checked.FalknerSkan.Bounded
 import Checked.Data.Moresco16Min
 
 /-!
@@ -821,5 +822,36 @@ theorem homann_monotone_window : nonvacuity% Checked.FalknerSkan.MonotoneWindow.
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, -⟩ :=
     Checked.FalknerSkan.MonotoneExists.homann_exists_monotone
   exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, trivial⟩
+
+/-! Hiemenz and Homann bounded class (run 2026-11-08T1228Z): the solution of
+`Checked.FalknerSkan.Bounded.hiemenz_exists_bounded` (resp. Homann), whose velocity profile lies in
+the half-open unit interval, hence between minus one and one; used twice for the uniqueness
+theorems. -/
+
+theorem hiemenz_bounded_window : nonvacuity% Checked.FalknerSkan.Bounded.hiemenz_bounded_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hb, -⟩ :=
+    Checked.FalknerSkan.Bounded.hiemenz_exists_bounded
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim,
+    fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩, trivial⟩
+
+theorem homann_bounded_window : nonvacuity% Checked.FalknerSkan.Bounded.homann_bounded_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hb, -⟩ :=
+    Checked.FalknerSkan.Bounded.homann_exists_bounded
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim,
+    fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩, trivial⟩
+
+theorem hiemenz_bounded_equal : nonvacuity% Checked.FalknerSkan.Bounded.hiemenz_bounded_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hb, -⟩ :=
+    Checked.FalknerSkan.Bounded.hiemenz_exists_bounded
+  have hb' : ∀ η ∈ Set.Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1 :=
+    fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩
+  exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hb', hf, hp, hq, hf0, hp0, hlim, hb', 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+theorem homann_bounded_equal : nonvacuity% Checked.FalknerSkan.Bounded.homann_bounded_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hb, -⟩ :=
+    Checked.FalknerSkan.Bounded.homann_exists_bounded
+  have hb' : ∀ η ∈ Set.Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1 :=
+    fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩
+  exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hb', hf, hp, hq, hf0, hp0, hlim, hb', 0, Set.mem_Ici.2 le_rfl, trivial⟩
 
 end Checked.Trust.NV

@@ -1,43 +1,48 @@
 # Item 34
 
-**Area:** Certified numbers of the findings
+**Area:** Data claims
 
-**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `N : ℝ`, `c : ℝ`:
 
-- there is `ε : ℝ` such that (`RoundsTo ε 32e-3 3`) and (`Jfam (41 / 1000) ε = 0`)
+**assuming**
 
-Program definitions in this claim:
+1. `5 < N`
+2. `N ≤ 31`
+3. `|c + 2 * 4 + 2 * 4 * (4 + 1) / (N - 4 - 1) - 23.99| ≤ 5e-3`
 
-- `Jfam Ω ε` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_Jfam`) (for `Ω : ℝ`, `ε : ℝ`): is defined as `jL * (1 + ε) - qL Ω * (1 + ε) - 2`
-- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `jL` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_jL`); its name is not checked: is defined as `1`
-- `qL Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_qL`); its name is not checked (for `Ω : ℝ`): is defined as `3 / 2 * Ω - 1`
+**then**
+
+- `5e-3 < |c + 4 * Real.log N - 28.72|`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-At `Ω = 0.041` there is an `ε ≈ 0.032` at which the ε-family (11.41) reaches `j₀ − q₀ − 2 = 0`.
+Table 5, piecewise-linear row (k = 4): for every N with 5 < N ≤ 31 and every value c of
+−2 ln L_max, if c + 8 + 40/(N − 5) is within 0.005 of the printed AICc 23.99, then
+c + 4 ln N differs from the printed BIC 28.72 by more than 0.005.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem F10_family_pole : ∃ ε : ℝ, RoundsTo ε 0.032 3 ∧ FREta.Jfam (41 / 1000) ε = 0 := …
+theorem table5_pw_inconsistent (N c : ℝ) (hN : 5 < N) (hN31 : N ≤ 31)
+    (hA : |c + 2 * 4 + 2 * 4 * (4 + 1) / (N - 4 - 1) - 23.99| ≤ 0.005) :
+    0.005 < |c + 4 * Real.log N - 28.72| := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FREta.jL`, `Cosmography.FREta.qL`, `Cosmography.FREta.Jfam`, `Records.RoundsTo`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): jL², qL².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = 0.032, k = 3; Jfam: Ω = 41/1000.
-- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `table5_pw_inconsistent`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Data/Moresco16.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 34

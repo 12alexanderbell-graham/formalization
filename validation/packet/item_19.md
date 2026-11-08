@@ -1,54 +1,57 @@
 # Item 19
 
-**Area:** Mathematics
+**Area:** Chemistry
 
-**Source:** see the claim
+**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `S : ℝ`, `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
 
 **assuming**
 
-1. `68 / 5 ≤ S`
-2. for every `r : ℝ`, if `r ∈ Set.Icc 0 S`, then `HasDerivWithinAt θ (φ r) (Set.Icc 0 S) r`
-3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
-4. for every `r : ℝ`, if `r ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Set.Icc 0 S) r`
-5. `θ 0 = 2.2062008647`
+1. `0 < a`
+2. `0 < b`
+3. `b < v`
+4. the molar volume `v` is a critical point of the isotherm `cubicP R a b 2 (-1) T` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
 
 **then**
 
-- there is `r : ℝ` such that (`r ∈ Set.Ioc 0 (68 / 5)`) and (`θ r < 0`) and (for every `s : ℝ`, if `s ∈ Set.Ioc 0 r`, then `φ s < 0`)
+1. `RoundsTo (cubicP R a b 2 (-1) T v * v / (R * T)) 0.3074 4`
+2. `RoundsTo (b * cubicP R a b 2 (-1) T v / (R * T)) 7780e-5 5`
+3. `RoundsTo (a * cubicP R a b 2 (-1) T v / (R * T) ^ 2) 0.45724 5`
+
+Program definitions in this claim:
+
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): p′(`v`) = 0 and p″(`v`) = 0
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Townes radial equation, overshoot: for every S ≥ 68/5 and every solution θ of
-θ'' + (1/r)θ' − θ + θ³ = 0 on (0, S] with θ(0) = 2.2062008647, θ differentiable on [0, S] with
-derivative φ and φ continuous at 0, there is r in (0, 68/5] with θ(r) < 0 and φ negative on
-(0, r].
+Peng–Robinson: at every critical point, Z_c = 0.3074 (four decimals), Ω_b = 0.07780 and
+Ω_a = 0.45724 (five decimals).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem townes_over (S : ℝ) (hS : 68 / 5 ≤ S) (θ φ : ℝ → ℝ)
-    (hθ : ∀ r ∈ Icc (0 : ℝ) S, HasDerivWithinAt θ (φ r) (Icc 0 S) r)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 S) 0)
-    (hφ : ∀ r ∈ Ioc (0 : ℝ) S, HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Icc 0 S) r)
-    (h0 : θ 0 = 2.2062008647) :
-    ∃ r ∈ Ioc (0 : ℝ) (68 / 5), θ r < 0 ∧ ∀ s ∈ Ioc 0 r, φ s < 0 := …
+theorem pr_constants (R a b T v : ℝ) (ha : 0 < a) (hb : 0 < b) (hv : b < v) (hc : IsCriticalIsotherm (cubicP R a b 2 (-1) T) v) :
+    RoundsTo (cubicP R a b 2 (-1) T v * v / (R * T)) 0.3074 4 ∧
+      RoundsTo (b * cubicP R a b 2 (-1) T v / (R * T)) 0.07780 5 ∧
+      RoundsTo (a * cubicP R a b 2 (-1) T v / (R * T) ^ 2) 0.45724 5 := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `townes_over`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Townes/TownesShooting.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `pr_constants`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 2, w = -1; RoundsTo: d = 0.3074, k = 4, d = 0.07780, k = 5, d = 0.45724.
+- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 19

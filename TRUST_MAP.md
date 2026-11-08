@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 198. Resting on no unpinned physics definition: 198.
-Non-vacuity (trust track T2): 129 headlines have hypotheses; 129 of them have a
+Headlines: 204. Resting on no unpinned physics definition: 204.
+Non-vacuity (trust track T2): 133 headlines have hypotheses; 133 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -231,6 +231,12 @@ the docstring says; universally bound parameters are not listed.
 | `FalknerSkan.MonotoneWindow.homann_monotone_window` | — | — | — | `homann_monotone_window` | — |
 | `FalknerSkan.MonotoneExists.hiemenz_exists_monotone` | — | — | — | unconditional | — |
 | `FalknerSkan.MonotoneExists.homann_exists_monotone` | — | — | — | unconditional | — |
+| `FalknerSkan.Bounded.hiemenz_bounded_window` | — | — | — | `hiemenz_bounded_window` | — |
+| `FalknerSkan.Bounded.homann_bounded_window` | — | — | — | `homann_bounded_window` | — |
+| `FalknerSkan.Bounded.hiemenz_bounded_equal` | — | — | — | `hiemenz_bounded_equal` | — |
+| `FalknerSkan.Bounded.homann_bounded_equal` | — | — | — | `homann_bounded_equal` | — |
+| `FalknerSkan.Bounded.hiemenz_exists_bounded` | — | — | — | unconditional | — |
+| `FalknerSkan.Bounded.homann_exists_bounded` | — | — | — | unconditional | — |
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 

@@ -104,7 +104,7 @@ theorem hiemenz_U (f g : ℝ → ℝ) (hf : IsSol 1 f) (hg : IsSol 1 g)
     (hfb : Bdd f) (hgb : Bdd g) : EqOn f g (Ici 0) := by
   obtain ⟨A, B, C, E0, E1, L⟩ := toSys hf
   obtain ⟨A', B', C', E0', E1', L'⟩ := toSys hg
-  exact fun x hx => (Work.FalknerSkan.Bounded.hiemenz_bounded_unique _ _ _ _ _ _ A B
+  exact fun x hx => (Work.FalknerSkan.Bounded.hiemenz_bounded_equal _ _ _ _ _ _ A B
     (fun x hx => (C x hx).congr_deriv (by ring)) E0 E1 L (bdd_sys hfb) A' B'
     (fun x hx => (C' x hx).congr_deriv (by ring)) E0' E1' L' (bdd_sys hgb) x hx).1
 
@@ -129,7 +129,7 @@ theorem homann_U (f g : ℝ → ℝ) (hf : IsSol 2 f) (hg : IsSol 2 g)
     (hfb : Bdd f) (hgb : Bdd g) : EqOn f g (Ici 0) := by
   obtain ⟨A, B, C, E0, E1, L⟩ := toSys hf
   obtain ⟨A', B', C', E0', E1', L'⟩ := toSys hg
-  exact fun x hx => (Work.FalknerSkan.Bounded.homann_bounded_unique _ _ _ _ _ _ A B C E0 E1 L
+  exact fun x hx => (Work.FalknerSkan.Bounded.homann_bounded_equal _ _ _ _ _ _ A B C E0 E1 L
     (bdd_sys hfb) A' B' C' E0' E1' L' (bdd_sys hgb) x hx).1
 
 theorem homann_E : ∃ f : ℝ → ℝ, IsSol 2 f ∧ (∀ η, 0 ≤ η → 0 ≤ D1 f η ∧ D1 f η < 1) ∧

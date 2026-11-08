@@ -16,7 +16,7 @@ uniqueness theory; whether f' < 1 alone suffices is not settled here).
 
 * `hiemenz_bounded_window`, `homann_bounded_window`: every such solution has its wall shear in the
   certified window.
-* `hiemenz_bounded_unique`, `homann_bounded_unique`: any two such solutions are equal on [0, ∞).
+* `hiemenz_bounded_equal`, `homann_bounded_equal`: any two such solutions are equal on [0, ∞).
 * `hiemenz_exists_bounded`, `homann_exists_bounded`: there is a solution with 0 ≤ f' < 1 on
   [0, ∞) and wall shear in the window.
 
@@ -58,10 +58,10 @@ theorem homann_bounded_window (f p q : ℝ → ℝ)
   exact Checked.FalknerSkan.MonotoneWindow.homann_monotone_window f p q hf hp hq hf0 hp0 hlim
     (Work.FalknerSkan.BoundedTools.pos_of_abs_le hf hp hq hp0 hlim hb)
 
-/-- Hiemenz stagnation-point flow: any two solutions of f''' + f f'' + 1 − f'² = 0 on [0, ∞)
-(derivatives one-sided at 0) with f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and −1 ≤ p ≤ 1 on
-[0, ∞) are equal on [0, ∞): same f, same p = f', same q = f''. -/
-theorem hiemenz_bounded_unique (f p q f₂ p₂ q₂ : ℝ → ℝ)
+/-- Hiemenz stagnation-point flow: for every solution (f, p, q) and every solution (f₂, p₂, q₂) of f''' + f f'' + 1 − f'² = 0
+on [0, ∞) (derivatives one-sided at 0), both with f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and
+−1 ≤ p ≤ 1 on [0, ∞): f η = f₂ η, p η = p₂ η and q η = q₂ η for every η ≥ 0. -/
+theorem hiemenz_bounded_equal (f p q f₂ p₂ q₂ : ℝ → ℝ)
     (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
     (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
     (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Ici 0) η)
@@ -86,10 +86,10 @@ theorem hiemenz_bounded_unique (f p q f₂ p₂ q₂ : ℝ → ℝ)
       hpos hf₂ hp₂ hq₂1 hf₂0 hp₂0 hlim₂ hpos₂))
   exact Work.FalknerSkan.BoundedTools.eq_of_start hf hp hq1 hf₂ hp₂ hq₂1 (hf0.trans hf₂0.symm) (hp0.trans hp₂0.symm) hw
 
-/-- Homann axisymmetric stagnation-point flow: any two solutions of f''' + 2 f f'' + 1 − f'² = 0
-on [0, ∞) (derivatives one-sided at 0) with f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and
-−1 ≤ p ≤ 1 on [0, ∞) are equal on [0, ∞): same f, same p = f', same q = f''. -/
-theorem homann_bounded_unique (f p q f₂ p₂ q₂ : ℝ → ℝ)
+/-- Homann axisymmetric stagnation-point flow: for every solution (f, p, q) and every solution (f₂, p₂, q₂) of f''' + 2 f f'' + 1 − f'² = 0
+on [0, ∞) (derivatives one-sided at 0), both with f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and
+−1 ≤ p ≤ 1 on [0, ∞): f η = f₂ η, p η = p₂ η and q η = q₂ η for every η ≥ 0. -/
+theorem homann_bounded_equal (f p q f₂ p₂ q₂ : ℝ → ℝ)
     (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
     (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
     (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Ici 0) η)

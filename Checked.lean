@@ -159,6 +159,7 @@ import Checked.Trust.SecondReadingBlasius
 import Checked.Trust.SecondReadingHiemenz
 import Checked.Trust.SecondReadingHomann
 import Checked.Trust.SecondReadingFalknerSkan
+import Checked.Trust.SecondReadingBound
 import Checked.Trust.SecondReadingLE2
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
@@ -255,3 +256,5 @@ import Checked.FalknerSkan.MonotoneWindow
 import Checked.Hiemenz.HExMono
 import Checked.Homann.HmExMono
 import Checked.FalknerSkan.MonotoneExists
+import Checked.FalknerSkan.BoundedTools
+import Checked.FalknerSkan.Bounded

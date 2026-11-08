@@ -1,41 +1,71 @@
 # Item 57
 
-**Area:** Mathematics/physics
+**Area:** B1
 
-**Source:** see the claim
+**Source:** Risaliti & Lusso, Nat. Astron. 3, 272 (2019); Lusso et al., A&A 628, L4 (2019), Eq. (8): third-order log-polynomial distance and its ΛCDM-implied coefficients
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t : ℝ`, `t₀ : ℝ`:
 
-- there is `y : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `x : ℝ`, if `0 ≤ x`, then `HasDerivWithinAt y (φ x) (Set.Ici 0) x`) and (for every `x : ℝ`, if `0 < x`, then `HasDerivAt φ (y x ^ (3 / 2) / √x) x`) and (`ContinuousWithinAt φ (Set.Ici 0) 0`) and (`y 0 = 1`) and (for every `x : ℝ`, if `0 ≤ x`, then `0 < y x`) and (`Filter.Tendsto y Filter.atTop (nhds 0)`)
+**assuming**
+
+1. `1 / 5 ≤ Ω`
+2. `Ω ≤ 2 / 5`
+3. `t ≤ t₀`
+4. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `0 < a s`
+5. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `DifferentiableAt ℝ a s`
+6. `0 < hubble a t₀`
+7. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
+8. `redshift a t₀ t = 3`
+
+**then**
+
+1. `0 < logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t)`
+2. `9 / 10 < 5 * Real.logb 10 (lumDistFlat a t₀ t / logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t))`
+
+Program definitions in this claim:
+
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`
+- `logPolyDL3 a₂ a₃ H₀ z` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_logPolyDL3`); its name is not checked (for `a₂ : ℝ`, `a₃ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3)`
+- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time `t₀`, of a source emitting at time `t` (scale factor `a`, c = 1, χ the comoving radial distance)
+- `lusA2 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA2`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 * (3 / 2 - 3 / 4 * Ω)`
+- `lusA3 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA3`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 ^ 2 * (9 / 8 * Ω ^ 2 - 2 * Ω + 7 / 6)`
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): the redshift a(`t₀`)/a(`t`) − 1, observed at time `t₀`, of light emitted at time `t` (scale factor `a`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-There is a solution y of the Thomas–Fermi equation y'' = y^{3/2}/√x on (0, ∞) with y' = φ on
-[0, ∞), φ continuous at 0 from the right, y(0) = 1, y > 0 on [0, ∞) and y(x) → 0 as x → ∞.
+**B1, z = 3.** For every flat ΛCDM model with `Ω ∈ [0.2, 0.4]`, the third-order
+log-polynomial at the ΛCDM-implied coefficients (same `H₀`) is positive at `z = 3` and
+underestimates the exact distance modulus there by more than 0.9 mag.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem tf_exists : ∃ y φ : ℝ → ℝ,
-    (∀ x, 0 ≤ x → HasDerivWithinAt y (φ x) (Ici 0) x) ∧
-    (∀ x, 0 < x → HasDerivAt φ (y x ^ ((3 : ℝ) / 2) / Real.sqrt x) x) ∧
-    ContinuousWithinAt φ (Ici 0) 0 ∧ y 0 = 1 ∧ (∀ x, 0 ≤ x → 0 < y x) ∧
-    Tendsto y atTop (𝓝 0) := …
+theorem cubic_misses_z3 (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 5)
+    (a : ℝ → ℝ) (t t₀ : ℝ) (htt : t ≤ t₀)
+    (hpos : ∀ s ∈ Set.Icc t t₀, 0 < a s)
+    (hdiff : ∀ s ∈ Set.Icc t t₀, DifferentiableAt ℝ a s)
+    (hH₀ : 0 < hubble a t₀)
+    (hH : ∀ s ∈ Set.Icc t t₀,
+      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
+    (hz : redshift a t₀ t = 3) :
+    0 < logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t) ∧
+    9 / 10 < 5 * Real.logb 10
+      (lumDistFlat a t₀ t / logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t)) := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1.logPolyDL3`, `Cosmography.B1.lusA2`, `Cosmography.B1.lusA3`, `Cosmography.BambaY.comoving`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/ThomasFermiExists.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL3², lusA2², lusA3².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `cubic_misses_z3`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): redshift(t) = 3.
+- Source file: `Checked/Cosmography/B1Truncation.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 57
