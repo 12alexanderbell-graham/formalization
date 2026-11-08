@@ -21,7 +21,7 @@
 Program definitions in this claim:
 
 - `HubbleSpec` — SPEC, not pinned: inductive type with constructors `HubbleSpec.mk : ∀ {H : (ℝ → ℝ) → ℝ → ℝ}, (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → HasDerivAt (fun s => Real.log (a s)) (H a t) t) → (∀ (h t : ℝ), H (fun s => Real.exp (h * s)) t = h) → (∀ (n t : ℝ), 0 < t → H (fun s => s ^ n) t = n / t) → (∀ (R t : ℝ), 0 < R → H (fun x => R) t = 0) → (∀ (c : ℝ), 0 < c → ∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → H (fun s => c * a s) t = H a t) → (∀ (τ : ℝ) (a : ℝ → ℝ) (t : ℝ), 0 < a (t + τ) → DifferentiableAt ℝ a (t + τ) → H (fun s => a (s + τ)) t = H a (t + τ)) → (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a (-t) → DifferentiableAt ℝ a (-t) → H (fun s => a (-s)) t = -H a (-t)) → HubbleSpec H`
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): the Hubble rate a′(t)/a(t)² of the scale factor `a` at time `t`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): phrase (hand-written, linted): the Hubble rate of the scale factor `a` at time `t`; by definition, `hubble a t` is `deriv a t / a t ^ 2`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 

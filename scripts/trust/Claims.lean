@@ -22,8 +22,15 @@ Rendering (deterministic, no model involved):
   hand-written text; it is frozen and linted by `check_claims.py`);
 * every other atom is printed verbatim by Lean's pretty-printer in a code span (program names
   shortened to a suffix that is unique in this file);
-* every program definition the statement reaches is listed: PINNED ones with their phrase and pin
-  theorem, all others with their kind and their full body (Prop-valued bodies rendered in words).
+* every program definition the statement reaches is listed: PINNED ones with their phrase, pin
+  theorem and their full body, all others with their kind and their full body (Prop-valued bodies
+  rendered in words).
+
+After blind round W (run 2026-11-08T1428Z, d04: `expansionRate := |hubble|` registered with the phrase
+"the Hubble rate a′(t)/a(t)"), run 2026-11-08T1828Z: a phrase is author text, so the body of every
+pinned definition is now printed from Lean right after its phrase, and phrases contain no formula
+(rule P1 of `check_claims.py`; U2: a phrase's first glossary term belongs to its own definition). Every
+formula a reader sees in a generated claim is printed by Lean.
 The author's docstring is shown last, labelled as an unchecked paraphrase.
 
 After blind red team J (run 2026-11-04T2228Z, `runs/2026-11-04T2228Z/t5/RESULTS.md`; designed after
@@ -139,7 +146,13 @@ def atom (ctx : Ctx) (e : Expr) : MetaM String := do
         let names ← binderNames c
         let args := e.getAppArgs
         if args.size == names.size && (← isProp e) then
-          let vals ← args.mapM fun a => do return code (← ppE ctx a)
+          -- each filled slot shows its binder name when the argument is printed differently (run
+          -- 2026-11-08T1828Z, blind red team X d05: a phrase listing rate constants `{k₁}, {k₃}, {k₂}`
+          -- in the wrong order put the values on the wrong reactions, and the body printed with the
+          -- definition uses the binder names): `k₃ := 10000` ties each value to the body's symbol
+          let vals ← (args.zip names).mapM fun (a, n) => do
+            let s ← ppE ctx a
+            return if s == n then code s else code s!"{n} := {s}"
           return fill tmpl names vals
   return code (← ppE ctx e)
 
@@ -261,11 +274,23 @@ def explain (ctx : Ctx) (d : Name) : MetaM String := do
   match ctx.pinned.find? d with
   | some pin =>
     let tmpl := (ctx.phrases.find? d).getD "(no phrase)"
-    forallTelescope ci.type fun xs _ => do
+    let pre ← forallTelescope ci.type fun xs _ => do
       let names ← xs.mapM fun x => return (← x.fvarId!.getUserName).eraseMacroScopes.toString
       let head ← ppE ctx (mkAppN (.const d (ci.levelParams.map Level.param)) xs)
       let vals := names.map code
-      return s!"- {code head} — **PINNED** (pin theorem {code (tidy ctx pin.toString)}): {fill tmpl names vals}"
+      return s!"- {code head} — **PINNED** (pin theorem {code (tidy ctx pin.toString)}): phrase (hand-written, linted): {fill tmpl names vals}"
+    -- the body, printed by Lean (run 2026-11-08T1828Z, blind round W d04: a phrase is author text and
+    -- carried a formula, "a′(t)/a(t)", onto `|hubble|`; phrases now contain no formula, rule P1 of
+    -- check_claims.py, and every formula a reader sees comes from the definition itself)
+    match ci with
+    | .defnInfo dv =>
+      lambdaTelescope dv.value fun xs body => do
+        let head ← ppE ctx (mkAppN (.const d (ci.levelParams.map Level.param)) xs)
+        if ← isProp body then
+          return s!"{pre}; by definition, means {← renderProp ctx body}"
+        else
+          return s!"{pre}; by definition, {code head} is {code (← ppE ctx body)}"
+    | _ => return pre
   | none =>
     let kind := (ctx.kinds.find? d).getD "UNCLASSIFIED"
     match ci with
@@ -398,8 +423,10 @@ run_cmd do
     "2026-11-04T2228Z). The logical structure (for every, assuming, then, and, or, it is false that,",
     "there is) is spelled out by the generator; formulas are printed verbatim by Lean in code spans;",
     "the only hand-written words are the phrases of pinned definitions (`scripts/trust/phrases.txt`,",
-    "frozen and linted in CI). Every program definition a claim uses is listed under it: pinned ones",
-    "with their phrase, all others with their full definition. The author's docstring follows,",
+    "frozen and linted in CI); since run 2026-11-08T1828Z (blind round W, d04) phrases contain no",
+    "formula (rule P1), so every formula in a claim is printed by Lean. Every program definition a",
+    "claim uses is listed under it: pinned ones with their phrase AND their definition printed from",
+    "Lean, all others with their full definition. The author's docstring follows,",
     "labelled as a paraphrase: **where the paraphrase and the generated claim differ, the generated",
     "claim is what was proved.** CI fails if this file differs from the generator's output.", "",
     "Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);",
@@ -461,8 +488,46 @@ run_cmd do
     let dc := (env.find? d).get!
     let own := (deps env stop (dc.value?.getD (.sort 0)) (deps env stop dc.type {})).toList.filter
       (fun n => stop.contains n && n != d)
+    -- the pinning specification's own text (run 2026-11-08T1828Z, rule P2 of check_claims.py, after blind
+    -- red team Y: words in a phrase that no check reads, "conformal", "fitted value 0.3", swapped equation
+    -- numbers): the docstrings and field names of the program constants the pin theorem's statement uses
+    -- other than pinned definitions (the SPEC structure or blind formulation, written by a blind spec
+    -- writer), not the pin theorem's own docstring
+    let mut spec : Array String := #[]
+    let inFid := fun (c : Name) => match env.getModuleIdxFor? c with
+      | some idx => (`Checked.Fidelity).isPrefixOf (env.header.moduleNames[idx.toNat]!)
+      | none => false
+    if let some pin := pinned.find? d then
+      if let some pc := env.find? pin then
+        -- specification constants: definitions and structures of `Checked.Fidelity` modules that the pin
+        -- theorem's statement uses, and those their field types or bodies use (two levels), never a theorem
+        let mut todo : Array (Name × Nat) := (pc.type.getUsedConstants.filter fun c =>
+          inFid c && !stop.contains c).map (·, 0)
+        let mut seen : NameSet := {}
+        while !todo.isEmpty do
+          let (c, k) := todo.back!
+          todo := todo.pop
+          if seen.contains c then continue
+          seen := seen.insert c
+          let some ci := env.find? c | continue
+          let isThm := match ci with | .thmInfo _ => true | _ => false
+          if isThm then continue
+          spec := spec.push c.componentsRev.head!.toString
+          if let some s := (← findDocString? env c) then spec := spec.push s
+          let mut inner : Array Name := match ci with
+            | .defnInfo dv => dv.value.getUsedConstants
+            | _ => #[]
+          if isStructure env c then
+            for f in getStructureFields env c do
+              spec := spec.push f.toString
+              if let some s := (← findDocString? env (c ++ f)) then spec := spec.push s
+              if let some fi := env.find? (c ++ f) then inner := inner ++ fi.type.getUsedConstants
+          if k < 2 then
+            for c' in inner do
+              if inFid c' && !stop.contains c' && !seen.contains c' then todo := todo.push (c', k + 1)
     pl := pl.push (Json.mkObj [("name", toString d), ("short", d.componentsRev.head!.toString),
-      ("phrase", tmpl), ("rests_on", toJson (own.map fun n => n.componentsRev.head!.toString))]).compress
+      ("phrase", tmpl), ("rests_on", toJson (own.map fun n => n.componentsRev.head!.toString)),
+      ("spec_text", toJson (" ".intercalate spec.toList))]).compress
   IO.FS.createDirAll ".lake"
   IO.FS.writeFile ".lake/phrases.jsonl" (String.intercalate "\n" pl.toList ++ "\n")
   logInfo m!"CLAIMS.md: {nDone} generated claims"

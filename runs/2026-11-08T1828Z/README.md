@@ -1,8 +1,34 @@
 # Run 2026-11-08T1828Z (scheduled)
 
-**THE RESULT:** part 3 (in progress) — phrase fidelity of the generated claims (STATE exact next step 2).
+**THE RESULT:** part 3 — phrase fidelity of the generated claims: the last author-written words inside CLAIMS.md (the phrases of the 23 pinned definitions) no longer carry formulas, every pinned definition's body is printed from Lean next to its phrase, and every phrase word must quote the blind specification that pins it; measured by two blind Sonnet red teams in the same run.
 
-**What can a scientist now trust without checking it themselves, that they could not before?** (to be written at the end of the run)
+**What can a scientist now trust without checking it themselves, that they could not before?** That every formula they read in a generated claim — including the meaning of each pinned quantity (Hubble rate, redshift, distances, ΛCDM law, rate equations) — is printed by Lean from the definition itself, not transcribed by the author; and that the words describing a pinned quantity are drawn from its blind specification (a phrase can no longer call `hubble` a *conformal* Hubble rate, cite the wrong equation of the source, or add "fitted value 0.3, as verified").
+
+**Measure (blind red teams on the phrase layer, judged with this run's full build):** round X (brief 395ebf5, before any rule; checks of d259163): **6/6 valid defects accepted**; with the fork's rules written blind in the same message (P1, U2, bodies printed): **0/6** (all six rejected by P1). Round Y (brief e172f1e, aimed at those first rules, snapshot de503f3): **6/6 passed the lints** (5 misleading, 1 disclosed by the printed body); after P2 (written after reading Y: not blind) **1/6** passes (Y d02: "minus" deleted from the `curvK` phrase). Formula-free variants of X written by the judge (not blind): 4/6 pass P2; of these two are disclosed by generated text next to them (slot binding `k₃ := …`, printed body) and two mislead (X d01 role swap emission/observation time; X d06 sign word). **Weakest unchecked step:** role and sign words of a phrase built from the spec's own vocabulary (deletions and permutations of quoted words).
 
 ## Start
-- 18:27Z. add_repo not exposed; pre-cloned checkout detached; `git checkout -B main origin/main` = bba2fff. No LOCK (run 1628Z removed it in bba2fff); LOCK taken.
+- 18:27Z. add_repo not exposed; pre-cloned checkout detached; `git checkout -B main origin/main` = bba2fff. No LOCK (run 1628Z removed it in bba2fff); LOCK taken (d259163), heartbeat d1ea2a3.
+- Environment: repo reachable (push); local Lean: elan + toolchain v4.35.0 + Mathlib cache ≈ 3 min; full `lake build Checked` 18:30–19:42Z (MMCerts first, 72 min, 2 cores); StatementDeps ≈ 6 min, Claims ≈ 3 min. Commits on main from a second worktree (`/tmp/claude-0/fzmain`) while the build tree carried the work branch (working note 146).
+- CI read: 868336e (42501629369) and c6a98c8 (42506001827) green on every job; e62e945 (42508051185, promotion of run 1628Z): work and all four nanoda shards green, **checked job cancelled by coalescing** (bba2fff's run 42508145008 cancelled too) → the β = 1/2 bounded-class trio waits for the checked job of a later main run.
+
+## Bottleneck
+STATE exact next step 2 (part 3, rotation): the phrases of pinned definitions were the only author-written words inside the generated claims, and round W (d04) showed one copied onto a different definition. A yes (phrases checked) makes the generated layer — what the program tells scientists to rely on — generated end to end except for vocabulary; a no would leave every claim that reaches a pinned definition resting on author transcriptions of formulas.
+
+## Work
+1. Brief X committed alone (395ebf5); red team X (Sonnet, blind, snapshot d259163) and a fork implementing the planned change (told not to read X's output) launched in ONE message (working note 103). X: six rewordings of existing phrases with LEDGER disclosure (role swap in `redshift`, `angDist` formula d_L/(1+z), over-description of `IsCriticalIsotherm`, dropped positivity in `IsFlatLCDM`, permuted rate constants in `IsRobSolution`, sign of Ω_k in `curvK`), committed c677e79 before judging.
+2. Fork's change (blind): `scripts/trust/Claims.lean` prints every PINNED definition's body after its phrase ("phrase (hand-written, linted): …; by definition, …"); `check_claims.py` P1 (no formula characters in a phrase), U2 (a phrase's first glossary term belongs to its own definition), controls; all 23 phrases rewritten without formulas.
+3. After reading X (not blind): a pinned Prop phrase substituted in a claim shows each slot whose argument prints differently as `k₃ := 10000`, tying values to the printed body's symbols (X d05).
+4. Brief Y committed alone (e172f1e); red team Y (Sonnet, blind to the rules' code until given the snapshot de503f3 = the rules of steps 2–3) attacked the new rules: conformal Hubble rate (d01), "Ω_k" for −Ω_k with the omega0 clause removed (d02), swapped Bamba equation numbers between `FriedmannEq` and `MasterEq` (d03), "fitted value 0.3, as verified in Aviles et al." (d04), "not defined where a′ vanishes, no claim is made there" on `decel` (d05), "comoving distance" for `angDist` (d06); committed 32299ec before judging. All six pass P1/U1/U2, the glossary lint and `--base`.
+5. After reading Y (not blind): **P2** — every word and number of a phrase occurs in the text of its pinning specification (docstrings and field names of the `Checked.Fidelity` structures/definitions the pin theorem uses, two levels deep, never the pin theorem's own docstring; exported by Claims.lean as `spec_text`) or of a pinned definition it rests on, or is a function word; grandfathered words (argument roles, units, citations the thin spec docstrings lack) in the shrink-only `scripts/trust/phrase_vocab_baseline.txt` (100 lines), checked by `--base`. Control with a clean twin. `redshift`/`yred` reworded to the spec's "observation time"/"emission time".
+6. Consequences handled: `check_numbers.py` R4 guard follows the reworded `cosmoCoeff` phrase; the validation packet's planted wrong-Hubble control now edits the printed body; `curv_derivs`' docstring quoted the old phrase formula `R = −6(Ḣ + 2H²)` as code (check_claim_vocab V11) → reworded to `curv a t₀` (frozen docstring: relock + LEDGER line); two stale claim-vocabulary baseline lines removed (shrink).
+
+## Judge (`t5/scripts/judge_X.sh` not needed: phrase-only defects; `t5/scripts/judge_phrases.py`, `variants_X.py`)
+| round | defect | before (checks of the snapshot) | after this run's rules |
+|---|---|---|---|
+| X (blind) | d01–d06 | 6/6 accepted (check_claims lint and `--base` green on the defect tree 4604f0e) | 6/6 rejected (P1; the fork's rules were written blind) |
+| X variants (not blind) | formula-free d01–d06 | — | d02, d03 rejected (P2: "divided once", "twice"); d04, d05 pass but disclosed (printed body shows the positivity; `k₃ := 10000` against the body); **d01, d06 pass and mislead** |
+| Y (blind vs P1/U2) | d01–d06 | 6/6 pass the lints (d06 disclosed by the printed body) | 5/6 rejected by P2; **d02 passes** (a deleted "minus") |
+
+## Open
+- Role and sign words: a phrase may permute or delete words its spec contains (X d01, X d06, Y d02). Next: a blind phrase reader per pinned definition writing the role of each argument from the spec alone, compared slot by slot.
+- P2 baseline (100 word pairs): blind spec writers add role docstrings to the specs, then lines are removed.

@@ -156,11 +156,12 @@ TRUE_W = r"true|correct|corrected|actual|exact"
 ROLE_WORD = re.compile(r"(?<![\w])(" + PRINTED_W + "|" + TRUE_W + r")(?![\w])", re.I)
 ROLES = ("printed", "derived", "difference", "free")
 # cosmographic symbols -> the pinned quantity (frozen phrases of `decel` and `Aviles.cosmoCoeff` in
-# scripts/trust/phrases.txt: "j, s, l, m for n = 3, 4, 5, 6"; decel is the deceleration parameter)
+# scripts/trust/phrases.txt: "j, s, l, m for the orders 3, 4, 5, 6" since run 2026-11-08T1828Z, rule P1 of
+# check_claims.py, formerly "for n = 3, 4, 5, 6"; decel is the deceleration parameter)
 SYMBOLS = {"q₀": ("Checked.Cosmography.decel", None), "j₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "3"),
            "s₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "4"), "l₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "5"),
            "m₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "6")}
-PHRASE_GUARD = ("j, s, l, m for n = 3, 4, 5, 6", "the deceleration parameter")
+PHRASE_GUARD = ("j, s, l, m for the orders 3, 4, 5, 6", "the deceleration parameter")
 
 
 def load_kinds():

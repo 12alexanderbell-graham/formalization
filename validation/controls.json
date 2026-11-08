@@ -41,7 +41,7 @@
  "defect_class": "wrong definition",
  "what_is_wrong": "The item's definition of the Hubble rate divides by a², not a; its docstring says ȧ/a.",
  "why_it_is_wrong": "H = ȧ/a; with this body the pin H a t = hubble a t contradicts the spec's law H = d ln a/dt for any a with a(t) ≠ 1 and ȧ ≠ 0.",
- "claim_replace": [["the Hubble rate a′(t)/a(t) of the scale factor `a` at time `t`", "the Hubble rate a′(t)/a(t)² of the scale factor `a` at time `t`"]]},
+ "claim_replace": [["by definition, `hubble a t` is `deriv a t / a t`", "by definition, `hubble a t` is `deriv a t / a t ^ 2`"]]},
 {"base": "Records.F3_D4_LCDM",
  "doc": "In every flat ΛCDM model with `Ω_m = 0.3` (q₀ = −0.55): the correct lookback `D⁴` is\n`0.4555`, the printed one `0.2153`, the excess `printed − correct` is `0.24`, and `q₀ = −0.55`.",
  "defect_class": "number relabelled",

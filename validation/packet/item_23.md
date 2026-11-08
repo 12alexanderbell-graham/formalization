@@ -8,11 +8,11 @@
 
 **It holds that**
 
-- there is `s : ℝ → ℝ` such that there is `e : ℝ → ℝ` such that there is `c : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that the functions `s`, `e`, `c`, `p` (concentrations [S], [E], [C], [P]) solve the mass-action rate equations of E + S ⇌ C → E + P with rate constants k₁ = `1`, k₋₁ = `1`, k₂ = `1` on the time interval [0, `13 / 5`] (derivatives taken within [0, `13 / 5`]), with initial values [S] = `1`, [E] = `1`, [C] = `0`, [P] = `0` at time 0
+- there is `s : ℝ → ℝ` such that there is `e : ℝ → ℝ` such that there is `c : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that the functions `s`, `e`, `c`, `p` (concentrations of S, E, C, P) solve the mass-action rate equations of the mechanism in which E and S bind reversibly to C and C releases E and P, with binding, unbinding and catalytic rate constants `k₁ := 1`, `km₁ := 1`, `k₂ := 1`, on the time interval [0, `T := 13 / 5`] (derivatives taken within [0, `T := 13 / 5`]), with initial values `s₀ := 1`, `e₀ := 1`, `c₀ := 0`, `p₀ := 0` at time 0
 
 Program definitions in this claim:
 
-- `IsMMSolution k₁ km₁ k₂ s₀ e₀ c₀ p₀ T s e c p` — **PINNED** (pin theorem `mmSpec_pins`): the functions `s`, `e`, `c`, `p` (concentrations [S], [E], [C], [P]) solve the mass-action rate equations of E + S ⇌ C → E + P with rate constants k₁ = `k₁`, k₋₁ = `km₁`, k₂ = `k₂` on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values [S] = `s₀`, [E] = `e₀`, [C] = `c₀`, [P] = `p₀` at time 0
+- `IsMMSolution k₁ km₁ k₂ s₀ e₀ c₀ p₀ T s e c p` — **PINNED** (pin theorem `mmSpec_pins`): phrase (hand-written, linted): the functions `s`, `e`, `c`, `p` (concentrations of S, E, C, P) solve the mass-action rate equations of the mechanism in which E and S bind reversibly to C and C releases E and P, with binding, unbinding and catalytic rate constants `k₁`, `km₁`, `k₂`, on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `s₀`, `e₀`, `c₀`, `p₀` at time 0; by definition, means (`s 0 = s₀`) and (`e 0 = e₀`) and (`c 0 = c₀`) and (`p 0 = p₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt s (-k₁ * e t * s t + km₁ * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt e (-k₁ * e t * s t + (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt c (k₁ * e t * s t - (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt p (k₂ * c t) (Set.Icc 0 T) t`))
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 

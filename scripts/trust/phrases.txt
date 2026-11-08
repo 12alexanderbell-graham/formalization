@@ -10,26 +10,36 @@
 # Format: <definition (unique suffix)> | <template>; {x} is replaced by the argument in binder
 # position x (the definition's own binder names). Prop-valued definitions are substituted in
 # place; value-valued ones are explained once per claim with their own binder names.
-Checked.Cosmography.hubble | the Hubble rate a′(t)/a(t) of the scale factor {a} at time {t}
-Checked.Cosmography.decel | the deceleration parameter −a″(t)·a(t)/a′(t)² of the scale factor {a} at time {t}
-Checked.Cosmography.redshift | the redshift a({t₀})/a({t}) − 1, observed at time {t₀}, of light emitted at time {t} (scale factor {a})
-BambaK.lumDist | the luminosity distance a(t₀)·(1 + z)·S_K(χ), at observation time {t₀}, of a source emitting at time {t}, in the FLRW model with scale factor {a} and curvature constant {K} (c = 1; z the redshift, χ the comoving radial distance, S_K the transverse factor)
-BambaA.angDist | the angular-diameter distance d_L/(1 + z)², at observation time {t₀}, of a source emitting at time {t}, in the FLRW model with scale factor {a} and curvature constant {K} (c = 1)
-Aviles.IsFlatLCDM | the scale factor {a} obeys the flat ΛCDM expansion law H = H₀·√({Ω}·(1 + z)³ + 1 − {Ω}) on some neighbourhood of the time {t₀}, where H₀ = H({t₀}) > 0, z is the redshift observed at {t₀}, and a is positive and differentiable on that neighbourhood
-Aviles.cosmoCoeff | the {n}-th cosmographic coefficient a⁽ⁿ⁾(t)/(a(t)·H(t)ⁿ) of the scale factor {a} at time {t} (n = {n}; j, s, l, m for n = 3, 4, 5, 6; the deceleration parameter is minus the n = 2 coefficient)
-BambaY.yred | the y-redshift z/(1 + z), observed at time {t₀}, of light emitted at time {t} (scale factor {a})
-BambaK.omega0 | the total density parameter Ω₀ = 1 + K/(H₀²·a₀²) at time {t₀} for curvature constant {K} and scale factor {a} (c = 1; H₀, a₀ the Hubble rate and scale factor at {t₀}; Ω_k = 1 − Ω₀)
-BambaZ.curvK | the curvature parameter K/(H₀²·a₀²) at time {t₀} for curvature constant {K} and scale factor {a} (c = 1; equal to −Ω_k)
-BambaY.lumDistFlat | the spatially flat luminosity distance a(t₀)·(1 + z)·χ, at observation time {t₀}, of a source emitting at time {t} (scale factor {a}, c = 1, χ the comoving radial distance)
-BambaY.comoving | the comoving radial distance χ = ∫ from {t} to {t₀} of ds/a(s) (scale factor {a}, c = 1)
-CPL.IsFlatCPL | the scale factor {a} obeys the flat matter + CPL dark-energy expansion law H = H₀·√(Ω(1 + z)³ + (1 − Ω)(1 + z)^(3(1 + w₀ + wₐ))·exp(−3wₐz/(1 + z))) with Ω = {Ω}, w₀ = {w₀}, wₐ = {wₐ}, on some neighbourhood of the time {t₀}, where H₀ = H({t₀}) > 0 and a is positive and differentiable on that neighbourhood
-FRCosmo.curv | the Ricci scalar R = −6(Ḣ + 2H²) of spatially flat FLRW with scale factor {a} at time {t} (sign convention of Bamba et al. 2012, Eq. (11.6))
-FRCosmo.rhoM | the dust density 3H₀²·Ω·(a₀/a(t))³ with Ω = {Ω} at time {t} (H₀, a₀ taken at time {t₀}; scale factor {a}; κ² = 1)
-FRCosmo.FriedmannEq | the expansion-rate (Friedmann) equation of metric F(R) gravity with dust, Bamba et al. 2012 Eqs. (11.1)–(11.2) multiplied by 3F′(R), holds at time {t} for the scale factor {a}, the function F = {F} and dust density parameter {Ω} referred to time {t₀}
-FRCosmo.MasterEq | the second field equation of metric F(R) gravity with dust, Bamba et al. 2012 Eq. (11.5) multiplied by −2F′(R), holds at time {t} for the scale factor {a}, the function F = {F} and dust density parameter {Ω} referred to time {t₀}
-Transverse.transverse | the transverse factor S_K(χ) at K = {K}, χ = {χ}: sin(√K·χ)/√K if K > 0, χ if K = 0, sinh(√(−K)·χ)/√(−K) if K < 0
-CubicEOS.IsCriticalIsotherm | the molar volume {v} is a critical point of the isotherm {p} (pressure as a function of molar volume at fixed temperature): p′({v}) = 0 and p″({v}) = 0
-Coexistence.IsMaxwellCoexistence | the molar volumes {vl} < {vg} are in Maxwell coexistence on the isotherm {p} at pressure {ps}: p({vl}) = p({vg}) = {ps} and the integral of p from {vl} to {vg} equals {ps}·({vg} − {vl})
-Duffing.IsDuffingSolution | the function {x} solves x″ + {k}·x + {β}·x³ = 0 with x(0) = {x₀}, x′(0) = {v₀} on the time interval [0, {T}] (derivatives taken within [0, {T}])
-MichaelisMenten.IsMMSolution | the functions {s}, {e}, {c}, {p} (concentrations [S], [E], [C], [P]) solve the mass-action rate equations of E + S ⇌ C → E + P with rate constants k₁ = {k₁}, k₋₁ = {km₁}, k₂ = {k₂} on the time interval [0, {T}] (derivatives taken within [0, {T}]), with initial values [S] = {s₀}, [E] = {e₀}, [C] = {c₀}, [P] = {p₀} at time 0
-Robertson.IsRobSolution | the functions {y₁}, {y₂}, {y₃} (concentrations [A], [B], [C]) solve {y₁}′ = −{k₁}·{y₁} + {k₂}·{y₂}·{y₃}, {y₂}′ = {k₁}·{y₁} − {k₂}·{y₂}·{y₃} − {k₃}·{y₂}², {y₃}′ = {k₃}·{y₂}² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, {T}] (derivatives taken within [0, {T}]), with initial values {y₁}(0) = {a₀}, {y₂}(0) = {b₀}, {y₃}(0) = {c₀}
+# Rule P1 (run 2026-11-08T1828Z, after blind round W d04; check_claims.py, blocking): a phrase contains
+# NO formula: none of = + / · * √ ′ ″ ^ ² ³ ⁴ ⁵ ⁽ ⁾ ⁿ < > ≤ ≥ − × and no hyphen-minus except between two
+# letters. Claims.lean prints every pinned definition's body from Lean right after its phrase, so every
+# formula a reader sees is printed by Lean; the phrase only names the quantity and the roles of its arguments.
+# Rule U2 (same run, blocking): the FIRST glossary term in a phrase must be attributed by the glossary to
+# the phrase's own definition (W d04: `expansionRate := |hubble|` was called "the Hubble rate ...").
+# Rule P2 (same run, after blind red team Y, not blind; blocking): every word and number of a phrase occurs
+# in the text of its pinning specification (docstrings and field names of the SPEC or blind formulation
+# the pin theorem uses, written by blind spec writers) or of the specification of a pinned definition it
+# rests on, or is a function word (check_claim_vocab.py FUNCTION): a phrase quotes the blind spec.
+Checked.Cosmography.hubble | the Hubble rate of the scale factor {a} at time {t}
+Checked.Cosmography.decel | the deceleration parameter of the scale factor {a} at time {t}
+Checked.Cosmography.redshift | the redshift at observation time {t₀} of light at emission time {t} (scale factor {a})
+BambaK.lumDist | the luminosity distance, at observation time {t₀}, of a source emitting at time {t}, in the FLRW model with scale factor {a} and curvature constant {K} (units in which the speed of light is one)
+BambaA.angDist | the angular-diameter distance, at observation time {t₀}, of a source emitting at time {t}, in the FLRW model with scale factor {a} and curvature constant {K} (units in which the speed of light is one)
+Aviles.IsFlatLCDM | the scale factor {a} obeys the flat ΛCDM expansion law with matter fraction {Ω} on some neighbourhood of the time {t₀}, with a positive Hubble rate at {t₀} and a positive, differentiable scale factor on that neighbourhood (the law itself is the formula printed with the definition)
+Aviles.cosmoCoeff | the {n}-th cosmographic coefficient of the scale factor {a} at time {t} (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient)
+BambaY.yred | the y-redshift at observation time {t₀} of light at emission time {t} (scale factor {a})
+BambaK.omega0 | the total density parameter Ω₀ at time {t₀} for curvature constant {K} and scale factor {a} (units in which the speed of light is one; Ω_k is one minus Ω₀)
+BambaZ.curvK | the curvature parameter at time {t₀} for curvature constant {K} and scale factor {a} (units in which the speed of light is one; it is minus Ω_k)
+BambaY.lumDistFlat | the spatially flat luminosity distance, at observation time {t₀}, of a source emitting at time {t} (scale factor {a}; units in which the speed of light is one)
+BambaY.comoving | the comoving radial distance between the emission time {t} and the observation time {t₀} (scale factor {a}; units in which the speed of light is one)
+CPL.IsFlatCPL | the scale factor {a} obeys the flat matter plus CPL dark-energy expansion law with matter fraction {Ω} and dark-energy parameters {w₀} and {wₐ} on some neighbourhood of the time {t₀}, with a positive Hubble rate at {t₀} and a positive, differentiable scale factor on that neighbourhood (the law itself is the formula printed with the definition)
+FRCosmo.curv | the Ricci scalar of spatially flat FLRW with scale factor {a} at time {t} (sign convention of Bamba et al. 2012, Eq. (11.6))
+FRCosmo.rhoM | the dust density at time {t} for the density parameter {Ω} referred to time {t₀} (scale factor {a}; units in which the coupling κ is one)
+FRCosmo.FriedmannEq | the expansion-rate (Friedmann) equation of metric F(R) gravity with dust, Bamba et al. 2012 Eqs. (11.1)–(11.2) multiplied through by three times the derivative of F at the Ricci scalar, holds at time {t} for the scale factor {a}, the function {F} and the dust density parameter {Ω} referred to time {t₀}
+FRCosmo.MasterEq | the second field equation of metric F(R) gravity with dust, Bamba et al. 2012 Eq. (11.5) multiplied through by minus two times the derivative of F at the Ricci scalar, holds at time {t} for the scale factor {a}, the function {F} and the dust density parameter {Ω} referred to time {t₀}
+Transverse.transverse | the transverse factor S_K(χ) for the curvature constant {K} at the comoving distance {χ} (sine form for positive, identity for zero, hyperbolic sine form for negative curvature)
+CubicEOS.IsCriticalIsotherm | the molar volume {v} is a critical point of the isotherm {p} (pressure as a function of molar volume at fixed temperature): its first and second derivatives vanish at {v}
+Coexistence.IsMaxwellCoexistence | the molar volumes {vl} and {vg}, with {vl} below {vg}, are in Maxwell coexistence on the isotherm {p} at the pressure {ps}: the isotherm takes the value {ps} at both, and its integral from {vl} to {vg} equals {ps} times the volume difference
+Duffing.IsDuffingSolution | the function {x} solves the Duffing equation with stiffness {k} and cubic coefficient {β}, initial position {x₀} and initial velocity {v₀} on the time interval [0, {T}] (derivatives taken within [0, {T}])
+MichaelisMenten.IsMMSolution | the functions {s}, {e}, {c}, {p} (concentrations of S, E, C, P) solve the mass-action rate equations of the mechanism in which E and S bind reversibly to C and C releases E and P, with binding, unbinding and catalytic rate constants {k₁}, {km₁}, {k₂}, on the time interval [0, {T}] (derivatives taken within [0, {T}]), with initial values {s₀}, {e₀}, {c₀}, {p₀} at time 0
+Robertson.IsRobSolution | the functions {y₁}, {y₂}, {y₃} (concentrations of A, B, C) solve the rate equations of the reaction network in which A turns into B with rate constant {k₁}, B and C turn into A and C with rate constant {k₂}, and two B turn into B and C with rate constant {k₃}, on the time interval [0, {T}] (derivatives taken within [0, {T}]), with initial values {a₀}, {b₀}, {c₀} at time 0

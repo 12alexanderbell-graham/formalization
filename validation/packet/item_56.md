@@ -10,7 +10,7 @@
 
 **assuming**
 
-1. the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`1 / 25`·`y₁` + `10000`·`y₂`·`y₃`, `y₂`′ = `1 / 25`·`y₁` − `10000`·`y₂`·`y₃` − `30000000`·`y₂`², `y₃`′ = `30000000`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `40`] (derivatives taken within [0, `40`]), with initial values `y₁`(0) = `1`, `y₂`(0) = `0`, `y₃`(0) = `0`
+1. the functions `y₁`, `y₂`, `y₃` (concentrations of A, B, C) solve the rate equations of the reaction network in which A turns into B with rate constant `k₁ := 1 / 25`, B and C turn into A and C with rate constant `k₂ := 10000`, and two B turn into B and C with rate constant `k₃ := 30000000`, on the time interval [0, `T := 40`] (derivatives taken within [0, `T := 40`]), with initial values `a₀ := 1`, `b₀ := 0`, `c₀ := 0` at time 0
 
 **then**
 
@@ -23,7 +23,7 @@
 
 Program definitions in this claim:
 
-- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): the functions `y₁`, `y₂`, `y₃` (concentrations [A], [B], [C]) solve `y₁`′ = −`k₁`·`y₁` + `k₂`·`y₂`·`y₃`, `y₂`′ = `k₁`·`y₁` − `k₂`·`y₂`·`y₃` − `k₃`·`y₂`², `y₃`′ = `k₃`·`y₂`² (the rate equations of the network A → B, B + C → A + C, 2B → B + C) on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `y₁`(0) = `a₀`, `y₂`(0) = `b₀`, `y₃`(0) = `c₀`
+- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): phrase (hand-written, linted): the functions `y₁`, `y₂`, `y₃` (concentrations of A, B, C) solve the rate equations of the reaction network in which A turns into B with rate constant `k₁`, B and C turn into A and C with rate constant `k₂`, and two B turn into B and C with rate constant `k₃`, on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `a₀`, `b₀`, `c₀` at time 0; by definition, means (`y₁ 0 = a₀`) and (`y₂ 0 = b₀`) and (`y₃ 0 = c₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt y₁ (-k₁ * y₁ t + k₂ * y₂ t * y₃ t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₂ (k₁ * y₁ t - k₂ * y₂ t * y₃ t - k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₃ (k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`))
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 

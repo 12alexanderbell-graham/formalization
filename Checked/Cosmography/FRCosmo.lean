@@ -360,7 +360,7 @@ lemma deriv3_curv (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hs : ContDif
   exact (Filter.EventuallyEq.deriv_eq E2).trans D3.self_of_nhds.deriv
 
 /-- **Correct (11.10)–(11.13).** For every flat FLRW scale factor `C⁵` at `t₀` with `a(t₀) > 0`, `H₀ > 0`,
-the Ricci scalar `R = −6(Ḣ + 2H²)` (the review's sign convention) and its first three time derivatives
+the Ricci scalar `curv a t₀` (the review's sign convention) and its first three time derivatives
 at `t₀`: `R₀ = −6H₀²(1 − q₀)`, `Ṙ₀ = −6H₀³(j₀ − q₀ − 2)`, `R̈₀ = −6H₀⁴(s₀ + q₀² + 8q₀ + 6)`,
 `R⃛₀ = −6H₀⁵[l₀ − s₀ − 2(q₀ + 4)j₀ − 6(3q₀ + 8)q₀ − 24]` (the review's (11.13) prints `+2(q₀ + 4)j₀`). -/
 theorem curv_derivs (a : ℝ → ℝ) (t₀ : ℝ) (ha : 0 < a t₀) (hH : 0 < hubble a t₀)
