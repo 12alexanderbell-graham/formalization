@@ -18,4 +18,4 @@
 ## CI
 - 129f217 (42453268112, Homann promotion): green on every job (read by run 0628Z).
 - fdf09cd (42464403738): work job red in the elan install step (GitHub returned 504 for the elan download) — infrastructure, not the tree; later runs re-judge the same Work tree.
-- 0a532a1 (42464635792, Work proofs) and the promotion/records commits: see below or next run.
+- 0a532a1 (42464635792, Work proofs): work and checked jobs red in the same elan download (504); nanoda shards memoised green. Repair: curl retries via `~/.curlrc` before lean-action in all three Lean jobs (LEDGER). The promotion 4db684a, records 82f01ff and the CI repair: read next run.
