@@ -63,6 +63,10 @@ The generated table shows each value's role. Open (recorded): free and bound val
 no role; role words outside the closed lists are not read; which derived quantity a value is (beyond
 R4's symbols and the selector's head) is still read from the tag's selector, not from prose.
 
+Generated number layout (run 2026-11-08T1428Z; rules G1–G4, see the comment block before `claim_sections`): certified
+numbers and bound inputs stand only in generated blocks `<!-- certified: … -->` that quote the record's Lean statement
+from CLAIMS.md; author prose carries none (blind red team U, run 0628Z: 6/6 accepted defects were author words beside a
+correctly tagged number). `--write` regenerates the blocks, the table and the reading guide.
 
 With `--base REF` (CI, after the frozen-registry check) it also compares with REF: a certified
 pair (number, [✓name]) present at REF and absent now (number changed, or tag downgraded to
@@ -639,10 +643,263 @@ def selftest():
             bad.append(f"clean control rejected: {text} -> {errs}")
         if rule is not None and rule not in fired:
             bad.append(f"control for {rule} not rejected: {text} -> {errs}")
+    ng, gbad = g_selftest(kinds)
+    bad += gbad
     for b in bad:
         print(f"::error::check_numbers selftest: {b}")
-    print(f"check_numbers selftest: {len(cases)} controls, {len(bad)} failing")
+    print(f"check_numbers selftest: {len(cases) + ng} controls, {len(bad)} failing")
     return 1 if bad else 0
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Generated number sentences (run 2026-11-08T1428Z; blind red team U, run 2026-11-08T0628Z: 6/6 valid defects put
+# the falsehood in author prose *beside* a correctly tagged certified number — a range phrase, a coefficient, a
+# direction word, a unit, an input's symbol, the attribution of a free value). Rules on the words around a tag
+# have been routed around in every round since F (PROMPT working note "Filtering prose does not converge; generate
+# it"). So a certified number no longer stands in an author's sentence at all:
+#   G1  in the scope of FINDINGS.md, a certified tag [✓…] or a bound input [in✓…] stands only inside a generated
+#       block, and outside the blocks no number may equal (in absolute value) a certified value of any record;
+#   G2  each block `<!-- certified: R1 R2 … -->` … `<!-- /certified -->` is exactly what `--write` generates for the
+#       records it names: per record its Lean statement quoted from CLAIMS.md (binders, assumptions, conclusion,
+#       program definitions other than RoundsTo), then one line per certified value (the quantity as Lean states
+#       it, the value with its tag, its role) and the order of every printed/derived pair of the record, decided
+#       from the two certified roundings;
+#   G3  every record of .lake/records_numbers.tsv is named by exactly one block.
+# Author prose may refer to a record by name ("certified below"); it can no longer attach a scope, a direction, a
+# unit, a coefficient or a symbol to a certified number, because the number is not in its sentence. What remains
+# author prose is labelled as such by the banner at the top of FINDINGS.md (G4).
+BLOCK_OPEN = re.compile(r"^<!-- certified: ([A-Za-z0-9_ ]+?) -->$")
+BLOCK_CLOSE = "<!-- /certified -->"
+BANNER = ("**Reading guide (generated layout, rule G4 of `scripts/trust/check_numbers.py`):** a number is "
+          "machine-checked only inside a block headed *Certified numbers (generated)*: there it stands next to "
+          "the Lean statement that certifies it, quoted from CLAIMS.md. Every other sentence of this file is "
+          "author prose: it may explain, but it carries no certified number and is not checked by Lean.")
+CLAIMS = "CLAIMS.md"
+
+
+def claim_sections(claims_text):
+    """CLAIMS.md: headline short name -> (statement lines, definition lines other than RoundsTo)"""
+    out = {}
+    for sec in re.split(r"\n(?=## `)", claims_text):
+        m = re.match(r"## `([^`]+)`\n", sec)
+        if not m:
+            continue
+        body = sec[m.end():]
+        stmt, defs = [], []
+        part = "pre"
+        for l in body.split("\n"):
+            if l.startswith("Full name "):
+                part = "stmt"
+                continue
+            if l.startswith("Program definitions in this claim"):
+                part = "defs"
+                continue
+            if l.startswith("Author's paraphrase"):
+                break
+            if part == "stmt" and l.strip():
+                stmt.append(l)
+            elif part == "defs" and l.startswith("- ") and not l.startswith("- `RoundsTo "):
+                # evidence pointers (pin theorems, agreement theorems) are not headlines: STATE.md/FINDINGS.md may
+                # cite only registered headlines (StatementDeps records rule); CLAIMS.md keeps them
+                l = re.sub(r" \((?:pin theorem )?`[^`]*(?:_pins|Checked\.Trust\.[^`]*)`\)", "", l)
+                defs.append(l)
+        out[m.group(1)] = (stmt, defs)
+    return out
+
+
+def _enclosure(v, k):
+    d = Fraction(Decimal(norm(v)))
+    h = Fraction(1, 2 * 10 ** k)
+    return d - h, d + h
+
+
+def _digits(v):
+    v = norm(v)
+    return len(v.split(".")[1]) if "." in v else 0
+
+
+def short(x):
+    """Lean's quantity with namespaces dropped, as CLAIMS.md prints it"""
+    return re.sub(r"\bChecked(?:\.[A-Za-z_][\w']*)*\.(?=[A-Za-z_][\w']*)", "", x).replace("|", "∣")
+
+
+def block_text(names, rows, claims, kinds):
+    """the generated content of one block (G2)"""
+    sel_rows = {}
+    for r in rows:
+        sel_rows.setdefault(r[0], []).append(r)
+    out = ["- **Certified numbers (generated by `scripts/trust/check_numbers.py --write` from the Lean records and "
+           "CLAIMS.md; do not edit).** Each value below is a conjunct `RoundsTo x d k` (|x − d| ≤ 10⁻ᵏ/2) of the "
+           "quoted Lean statement:"]
+    for nm in names:
+        stmt, defs = claims.get(nm, ([], []))
+        out.append(f"  - `Checked.Records.{nm}`, as Lean states it:")
+        for n, l in enumerate(stmt + (["where"] + defs if defs else [])):
+            if n:
+                out.append("    >")
+            # one-word code spans (binder names such as `n`, `a`, `Ω`) in italics: STATE.md/FINDINGS.md code spans
+            # without a space are read as theorem citations by the StatementDeps records rule
+            out.append("    > " + re.sub(r"`([^`\s]+)`", r"*\1*", l))
+        vals = []
+        for r in sel_rows.get(nm, []):
+            val, sel, x = r[1], (r[2] if len(r) > 2 else ""), (r[3] if len(r) > 3 else "")
+            rl = role_of(x, kinds) if x else "free"
+            st = sel_tag_text(sel)
+            if rl != "free":
+                st = ", ".join(([st] if st else []) + ["difference" if rl.startswith("difference(") else rl])
+            tag = f"✓{nm}" + (f"({st})" if st else "")
+            word = {"printed": "printed value", "derived": "derived value", "free": "value"}.get(
+                rl, "difference" if rl.startswith("difference(") else rl)
+            k = _digits(val)
+            out.append(f"    - {word}: `{short(x)}` rounds to {val.replace('-', '−')}[{tag}] at {k} "
+                       f"decimal{'s' if k != 1 else ''}; role {rl.replace('-', '−')}.")
+            vals.append((rl, x, val, k))
+        one_each = [v[0] for v in vals].count("printed") == 1 and [v[0] for v in vals].count("derived") == 1
+        for rp, xp, vp, kp in vals:
+            if rp != "printed":
+                continue
+            for rd, xd, vd, kd in vals:
+                # a printed formula and the program's quantity of the same arguments (or the record's only pair)
+                if rd != "derived" or not (one_each or _tokens(xp)[1:] == _tokens(xd)[1:]):
+                    continue
+                lp, hp = _enclosure(vp, kp)
+                ld, hd = _enclosure(vd, kd)
+                if hp < ld:
+                    rel = "below"
+                elif lp > hd:
+                    rel = "above"
+                else:
+                    rel = "not separated by the two roundings from"
+                out.append(f"    - order, from the two roundings: the printed value `{short(xp)}` is "
+                           f"{rel} the derived value `{short(xd)}`.")
+    return out
+
+
+def render_blocks(text, rows, claims, kinds):
+    """replace the content of every block by its generated text"""
+    lines, out, i = text.split("\n"), [], 0
+    while i < len(lines):
+        out.append(lines[i])
+        m = BLOCK_OPEN.match(lines[i])
+        if m:
+            j = i + 1
+            while j < len(lines) and lines[j] != BLOCK_CLOSE:
+                j += 1
+            out += block_text(m.group(1).split(), rows, claims, kinds)
+            if j < len(lines):
+                out.append(BLOCK_CLOSE)
+            i = j + 1
+            continue
+        i += 1
+    return "\n".join(out)
+
+
+def strip_blocks(text):
+    """(text with every block's lines blanked, text of the blocks only): rules G1 and the prose rules read the
+    first; the tag rules read the second without its quoted Lean lines (G2 makes those exact)"""
+    prose, gen, inside = [], [], False
+    for l in text.split("\n"):
+        if BLOCK_OPEN.match(l):
+            inside = True
+            prose.append("")
+            gen.append("")
+            continue
+        if l == BLOCK_CLOSE:
+            inside = False
+            prose.append("")
+            gen.append("")
+            continue
+        if inside:
+            prose.append("")
+            gen.append("" if l.lstrip().startswith(">") else l)
+        else:
+            prose.append(l)
+            gen.append(l if l.startswith("#") else "")
+    return "\n".join(prose), "\n".join(gen)
+
+
+def check_g(text, rows, claims, kinds):
+    """G1–G4 on FINDINGS.md text (rows: records_numbers.tsv)"""
+    errors = []
+    if BANNER not in text:
+        errors.append("G4: the reading guide (BANNER of check_numbers.py) is missing at the top of FINDINGS.md: "
+                      "run --write")
+    regenerated = render_blocks(text, rows, claims, kinds)
+    if regenerated != text:
+        errors.append("G2: a certified-numbers block differs from what `check_numbers.py --write` generates "
+                      "(edited, stale, or unclosed)")
+    named = []
+    for l in text.split("\n"):
+        m = BLOCK_OPEN.match(l)
+        if m:
+            named += m.group(1).split()
+    recs = sorted({r[0] for r in rows})
+    for nm in recs:
+        if named.count(nm) != 1:
+            errors.append(f"G3: record {nm} is named by {named.count(nm)} certified-numbers blocks (exactly one)")
+    for nm in sorted(set(named) - set(recs)):
+        errors.append(f"G3: a block names {nm}, which certifies no number")
+    certvals = {abs(value(r[1])[0]) for r in rows}
+    prose, _ = strip_blocks(scope(text))
+    for line in prose.split("\n"):
+        s = code_blank(line)
+        for t in re.finditer(r"\[(?:in)?✓[^\]]*\]", s):
+            errors.append(f"G1: certified tag {t.group()} outside a generated block (certified numbers and their "
+                          f"inputs stand only in the blocks): …{s[max(0, t.start() - 50):t.end()].strip()}…")
+        for t in re.finditer(r"(?<![\w.])(" + NUM + r")(?!\d)(?!\.\d)", s):
+            num = t.group(1)
+            if not ("." in num or "×10" in num):
+                # an integer is read only when signed or after ≈/≃/= (a journal volume "PRD 86" is not a value)
+                if not (norm(num).startswith("-") or s[:t.start()].rstrip().endswith(("≈", "≃", "=", "~"))):
+                    continue
+            v = abs(value(num)[0])
+            if v in certvals and not re.fullmatch(r"\d{4}\.\d{4,5}", num):
+                errors.append(f"G1: {t.group(1)} equals a certified value but stands in author prose (refer to the "
+                              f"record by name; the value is in its generated block): "
+                              f"…{s[max(0, t.start() - 50):t.end() + 10].strip()}…")
+    return errors
+
+
+def blank_quotes(text):
+    """the quoted Lean lines of the generated blocks are exact by G2; the number rules read the rest"""
+    out, inside = [], False
+    for l in text.split("\n"):
+        if BLOCK_OPEN.match(l):
+            inside = True
+        elif l == BLOCK_CLOSE:
+            inside = False
+        if inside and (l.lstrip().startswith(">") or BLOCK_OPEN.match(l)):
+            l = ""
+        elif inside:
+            # a generated value line: its code spans are Lean's quantity, exact by G2 (not prose numbers)
+            l = re.sub(r"`[^`]*`", lambda mm: " " * len(mm.group()), l)
+        out.append(l)
+    return "\n".join(out)
+
+
+def g_selftest(kinds):
+    """controls for G1–G3: a rejecting case and a clean twin each"""
+    rows = [["R", "0.56", "z=1/1", "100 * have z := 1; z"], ["P", "0.685", "@pp;Ω=3/10", "Checked.X.pp (3 / 10)"]]
+    claims = {"R": (["**It holds that**", "- `RoundsTo (100 * have z := 1; z) 0.56 2`"], []),
+              "P": (["**It holds that**", "- `RoundsTo (pp (3 / 10)) 0.685 3`"], [])}
+    head = "# F\n\n" + BANNER + "\n\n## Verified findings\n\n"
+    blk = "<!-- certified: R P -->\n" + "\n".join(block_text(["R", "P"], rows, claims, kinds)) + "\n" + BLOCK_CLOSE + "\n"
+    cases = [
+        (head + "The size is small.\n" + blk, None),
+        (head + "The size is 0.56[✓R(z=1)] % up to z = 5.\n" + blk, "G1"),
+        (head + "The size is 0.56 % up to z = 5.\n" + blk, "G1"),
+        (head + "The printed value is too high.\n" + blk.replace("rounds to 0.685", "rounds to 0.686"), "G2"),
+        (head + "The size is small.\n" + blk.replace("certified: R P", "certified: R"), "G3"),
+        (("# F\n\n## Verified findings\n\nThe size is small.\n" + blk), "G4"),
+    ]
+    bad = []
+    for t, rule in cases:
+        fired = {e.split(":")[0] for e in check_g(t, rows, claims, kinds)}
+        if rule is None and fired:
+            bad.append(f"clean G control rejected: {fired}")
+        if rule is not None and rule not in fired:
+            bad.append(f"control for {rule} not rejected (fired: {fired})")
+    return len(cases), bad
 
 
 def main():
@@ -725,15 +982,25 @@ def main():
     if g >= 0:
         k = text.find("\n## ", g + 1)
         cur = text[g + 1:(k + 1 if k >= 0 else len(text))]
+    try:
+        claims = claim_sections(open(CLAIMS, encoding="utf-8").read())
+    except FileNotFoundError:
+        claims = {}
+        errors.append(f"{CLAIMS} missing (rule G2 quotes the Lean statements from it)")
     if "--write" in sys.argv:
         new_text = (text[:g + 1] + table + (text[k + 1:] if k >= 0 else "")) if g >= 0 else text.rstrip("\n") + "\n\n" + table
+        new_text = render_blocks(new_text, rows, claims, kinds)
+        if BANNER not in new_text:
+            a = new_text.find("\n\n", new_text.find("\n\n") + 2)
+            new_text = new_text[:a] + "\n\n" + BANNER + new_text[a:]
         open(FINDINGS, "w", encoding="utf-8").write(new_text)
-        print(f"wrote the generated section of {FINDINGS} ({len(rows)} certified values)")
+        print(f"wrote the generated section and blocks of {FINDINGS} ({len(rows)} certified values)")
         text = new_text
     elif cur != table:
         errors.append(f"the section '{GENERATED}' of {FINDINGS} is missing or stale: run "
                       f"`python3 scripts/trust/check_numbers.py --write` after StatementDeps.lean and commit")
-    errs, counts = check_text(text, cert, params, ambig_ok, fixed, roles)
+    errors += check_g(text, rows, claims, kinds)
+    errs, counts = check_text(blank_quotes(text), cert, params, ambig_ok, fixed, roles)
     errors += errs
     total = sum(counts.values())
     print(f"certified numbers (FINDINGS.md outside '{UNVERIFIED}'): {counts['✓']} certified [✓], "
