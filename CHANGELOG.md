@@ -415,3 +415,8 @@
 - Env: repo ok (add_repo not exposed; pre-cloned checkout reset to origin/main a62dd14); local Lean via elan ok; CI: caa6439 and a62dd14 green on every job (Hiemenz Work proofs judged); acdcfe1 red (LEDGER disclosure one commit late, intermediate).
 - **Hiemenz trio promoted to Checked** (5556e24): `Checked.Hiemenz.hiemenz_under`, `hiemenz_over`, `hiemenz_exists`; blind literal reading (brief → reading → copy, 1bd103f/90f7727/acdcfe1); NV witnesses from the new `Checked/Hiemenz/HIVP.lean` (clamps inactive along the certified cells); vocabulary, relock, TRUST_MAP, CLAIMS, packet. Local full build and every trust check green. PROVED once CI 42427258702 is green on every job.
 
+
+## 2026-11-08T0028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; pre-cloned shallow checkout, `git checkout -B main origin/main` = 24caf5b); local Lean via elan ok (full Checked build 59 min); CI: 5556e24 (42427258702) green on every job → **Hiemenz trio PROVED**.
+- **Part 3: certified numbers bound to their quantity and argument** (12da5ad, ef070d8): StatementDeps writes each certified value's selector and pretty-printed quantity; `check_numbers.py` S1–S4, P1–P2 with 11 controls; generated table of all 26 certified values at the end of FINDINGS.md; `Checked.Records.F8_sizes`, `F11_sizes` state their arguments as `let`s (values unchanged, relocked; LEDGER). Closes round T d01. Adversary (Sonnet): 7/7 past the first version, 5/7 after (role class open).
+- PROMPT working note (selectors; `let` arguments keep the literal baseline a subsequence).
