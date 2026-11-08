@@ -306,3 +306,4 @@ import Work.FalknerSkan.CroccoMap
 import Work.FalknerSkan.CroccoWindow
 import Work.FalknerSkan.MonotoneWindow
 import Work.FalknerSkan.MWBlindClosed
+import Work.FalknerSkan.MonotoneExists
