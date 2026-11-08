@@ -12,7 +12,7 @@ def q(x):
 def ql(xs): return "[" + ", ".join(q(fr(v)) for v in xs) + "]"
 cells = d['cells']; n = len(cells); L = fr(d['L']); mode = d['mode']
 assert fr(d['A']) == Fr(Adec)
-Ls = q(L); Lr = f"({L.numerator} / {L.denominator} : ℝ)"
+Ls = q(L); Lr = f"({L.numerator} / {L.denominator} : ℝ)" if L.denominator != 1 else f"({L.numerator} : ℝ)"
 side = 'sideU' if mode == 'under' else 'sideO'
 endb = f'(endU {Ls})' if mode == 'under' else f'(endO {Ls})'
 endlemma = 'endS_q0' if mode == 'under' else 'endSO_q0'
