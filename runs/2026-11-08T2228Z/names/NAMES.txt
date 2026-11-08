@@ -1,0 +1,25 @@
+NAME | Checked.Cosmography.hubble | Hubble rate
+NAME | Checked.Cosmography.decel | deceleration parameter
+NAME | Checked.Cosmography.BambaK.lumDist | luminosity distance in FLRW with curvature
+NAME | Checked.Cosmography.BambaA.angDist | angular diameter distance in FLRW with curvature
+NAME | Checked.Cosmography.Aviles.IsFlatLCDM | flat ΛCDM Friedmann expansion law
+NAME | Checked.Cosmography.redshift | cosmological redshift
+NAME | Checked.Cosmography.Aviles.cosmoCoeff | cosmographic coefficient
+NAME | Checked.Cosmography.BambaY.yred | y redshift
+NAME | Checked.Cosmography.BambaK.omega0 | present total density parameter Ω0
+NAME | Checked.Cosmography.BambaZ.curvK | dimensionless spatial curvature parameter
+NAME | Checked.Cosmography.BambaY.lumDistFlat | luminosity distance in flat FLRW
+NAME | Checked.Cosmography.BambaY.comoving | comoving radial distance
+NAME | Checked.Cosmography.CPL.IsFlatCPL | flat matter plus CPL dark energy Friedmann expansion law
+NAME | Checked.Cosmography.FRCosmo.curv | Ricci scalar of flat FLRW
+NAME | Checked.Cosmography.FRCosmo.rhoM | dust matter density
+NAME | Checked.Cosmography.FRCosmo.FriedmannEq | metric F(R) gravity Friedmann equation with dust
+NAME | Checked.Cosmography.FRCosmo.MasterEq | metric F(R) gravity second equation with dust
+NAME | Checked.Cosmography.Transverse.transverse | FLRW transverse distance function
+NAME | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | critical point condition of an isotherm
+NAME | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | Maxwell equal area coexistence condition
+NAME | Checked.Sim.Duffing.IsDuffingSolution | Duffing oscillator initial value problem solution
+NAME | Checked.Sim.MichaelisMenten.IsMMSolution | Michaelis Menten mass action initial value problem solution
+NAME | Checked.Sim.Robertson.IsRobSolution | Robertson chemical kinetics initial value problem solution
+END
+Undecided: the transverse function is the curvature-dependent factor S_K(chi) (sin, identity, sinh over sqrt|K|), so I named it a transverse distance function without saying comoving. IsFlatLCDM and IsFlatCPL are stated as H(t) = H0 sqrt(...) near t0 with H0>0 (equivalent to the flat dust plus Lambda, resp. CPL, Friedmann law), so I called them expansion laws. curvK is K/(H0 a0)^2 (equal to Omega0 minus 1), named as the dimensionless curvature parameter. FriedmannEq and MasterEq are the 00 and H-dot equations; the pinning theorems do not say whether the latter is called second Friedmann or Raychaudhuri equation. The name "Michaelis Menten" contains a hyphen, which the brief forbids as a formula character; replace with a space if the checker is strict.
