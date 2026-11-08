@@ -139,6 +139,13 @@ import Work.Math.LECerts3
 import Work.Math.LEChain
 import Work.Math.LaneEmden
 import Work.Math.LaneEmden2
+import Work.Math.LENStart
+import Work.Math.LENCell
+import Work.Math.LENCellQ
+import Work.Math.LE2Start
+import Work.Math.LE2QData
+import Work.Math.LE2Last
+import Work.Math.LE2Chain
 import Work.Math.LEBlindBridge
 import Work.Math.LaneEmdenBlind
 import Work.Math.GStart

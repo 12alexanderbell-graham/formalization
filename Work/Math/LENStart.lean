@@ -1,0 +1,284 @@
+import Mathlib.Algebra.Order.Star.Real
+import Mathlib.Analysis.Calculus.Deriv.Pow
+import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.Analysis.InnerProductSpace.Basic
+import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
+import Mathlib.Topology.Algebra.Module.ModuleTopology
+import Mathlib.Tactic.NormNum
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Positivity
+
+/-!
+# Lane–Emden of integer index n: the singular start
+
+At the regular singular point ξ = 0 of θ'' + (2/ξ)θ' + θⁿ = 0 no Lipschitz/Grönwall step
+applies. `start` encloses every solution with θ(0) = 1 (θ differentiable with derivative φ,
+φ continuous at the centre) near a polynomial reference p with derivative q whose residual is
+bounded by a multiple of ξ²: with u = ξ²(φ − q) the error bound on θ − p improves strictly,
+closed by continuous induction (generic in the index n; generalised from `Checked/Math/LEStart.lean`, run 2026-11-08T0228Z).
+-/
+
+namespace Work.Math.LENStart
+open Set Filter Topology
+
+/-- Comparison from the singular end: `f → 0` at `0⁺`, `|f'| ≤ B'` on `(0, t)`, `B(0) = 0`
+give `|f t| ≤ B t`. -/
+theorem bound_from_zero {f f' B B' : ℝ → ℝ} {t : ℝ} (ht : 0 < t)
+    (hf0 : Tendsto f (𝓝[>] 0) (𝓝 0))
+    (hfc : ContinuousOn f (Ioc 0 t))
+    (hf' : ∀ x ∈ Ioo 0 t, HasDerivAt f (f' x) x)
+    (hB : ∀ x, HasDerivAt B (B' x) x) (hB0 : B 0 = 0)
+    (hbound : ∀ x ∈ Ioo 0 t, |f' x| ≤ B' x) : |f t| ≤ B t := by
+  have key : ∀ a ∈ Ioo 0 t, |f t| ≤ |f a| + (B t - B a) := by
+    intro a ha
+    have hsub : Icc a t ⊆ Ioc 0 t := fun x hx => ⟨ha.1.trans_le hx.1, hx.2⟩
+    have := image_norm_le_of_norm_deriv_right_le_deriv_boundary (f := f) (a := a) (b := t)
+      (f' := f') (B := fun x => |f a| + (B x - B a)) (B' := B')
+      (hfc.mono hsub)
+      (fun x hx => (hf' x ⟨ha.1.trans_le hx.1, hx.2⟩).hasDerivWithinAt)
+      (by simp [Real.norm_eq_abs])
+      (fun x => ((hB x).sub_const (B a)).const_add |f a|)
+      (fun x hx => by
+        rw [Real.norm_eq_abs]; exact hbound x ⟨ha.1.trans_le hx.1, hx.2⟩)
+      ⟨ha.2.le, le_rfl⟩
+    simpa [Real.norm_eq_abs] using this
+  have hBc : Tendsto B (𝓝[>] 0) (𝓝 (B 0)) :=
+    ((hB 0).continuousAt.tendsto).mono_left nhdsWithin_le_nhds
+  have hlim : Tendsto (fun a => |f a| + (B t - B a)) (𝓝[>] 0) (𝓝 (|0| + (B t - B 0))) :=
+    ((continuous_abs.tendsto 0).comp hf0).add (tendsto_const_nhds.sub hBc)
+  rw [abs_zero, hB0, sub_zero, zero_add] at hlim
+  exact ge_of_tendsto hlim (by filter_upwards [Ioo_mem_nhdsGT ht] with a ha using key a ha)
+
+theorem pow_sub_le_of (n : ℕ) {a b M η : ℝ} (hab : |a - b| ≤ η) (hb : |b| ≤ M) :
+    |a ^ n - b ^ n| ≤ n * (M + η) ^ (n - 1) * |a - b| := by
+  have ha : |a| ≤ M + η := by
+    calc |a| = |(a - b) + b| := by rw [sub_add_cancel]
+      _ ≤ |a - b| + |b| := abs_add_le _ _
+      _ ≤ η + M := add_le_add hab hb
+      _ = M + η := by ring
+  have hb' : |b| ≤ M + η := by linarith [abs_nonneg (a - b)]
+  have hm : max |a| |b| ≤ M + η := max_le ha hb'
+  calc |a ^ n - b ^ n| ≤ |a - b| * n * max |a| |b| ^ (n - 1) := abs_pow_sub_pow_le a b n
+    _ ≤ |a - b| * n * (M + η) ^ (n - 1) := by
+        gcongr
+    _ = n * (M + η) ^ (n - 1) * |a - b| := by ring
+
+theorem hasDerivAt_cube_div (C x : ℝ) :
+    HasDerivAt (fun x : ℝ => x ^ 3 / 3 * C) (x ^ 2 * C) x := by
+  have := ((hasDerivAt_pow 3 x).div_const 3).mul_const C
+  convert this using 1
+  rw [show (3 : ℕ) - 1 = 2 from rfl]
+  push_cast
+  ring
+
+theorem hasDerivAt_sq_div (C x : ℝ) :
+    HasDerivAt (fun x : ℝ => x ^ 2 / 6 * C) (x / 3 * C) x := by
+  have := ((hasDerivAt_pow 2 x).div_const 6).mul_const C
+  convert this using 1
+  rw [show (2 : ℕ) - 1 = 1 from rfl]
+  push_cast
+  ring
+
+/-- One improvement step: from `|θ − p| ≤ η` on `[0, c)` to the polynomial-in-ξ bounds on
+`(0, c]`. -/
+theorem core (n : ℕ) (θ φ p q w : ℝ → ℝ) {X ξ0 η R L Mp c : ℝ} (hξ0X : ξ0 ≤ X)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) X, HasDerivWithinAt θ (φ ξ) (Icc 0 X) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 X) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) X, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ n) (Icc 0 X) ξ)
+    (h0 : θ 0 = 1)
+    (hp : ∀ ξ, HasDerivAt p (q ξ) ξ) (hp0 : p 0 = 1)
+    (hq : ∀ ξ, HasDerivAt (fun t => t ^ 2 * q t) (w ξ) ξ)
+    (hres : ∀ ξ ∈ Icc (0 : ℝ) ξ0, |w ξ + ξ ^ 2 * p ξ ^ n| ≤ ξ ^ 2 * R)
+    (hpM : ∀ ξ ∈ Icc (0 : ℝ) ξ0, |p ξ| ≤ Mp)
+    (hL : n * (Mp + η) ^ (n - 1) ≤ L) (hη : 0 < η)
+    (hc : c ≤ ξ0) (hb : ∀ s ∈ Ico 0 c, |θ s - p s| ≤ η) :
+    ∀ t ∈ Ioc 0 c, |φ t - q t| ≤ t / 3 * (L * η + R) ∧
+      |θ t - p t| ≤ t ^ 2 / 6 * (L * η + R) := by
+  set C := L * η + R with hC
+  intro t0 ht0
+  have hcX : c ≤ X := hc.trans hξ0X
+  have hX : 0 < X := ht0.1.trans_le (ht0.2.trans hcX)
+  have hle : 𝓝[>] (0 : ℝ) ≤ 𝓝[Icc 0 X] 0 := by
+    rw [← nhdsWithin_Ioo_eq_nhdsGT hX]; exact nhdsWithin_mono _ Ioo_subset_Icc_self
+  -- u = t² φ − t² q
+  set u : ℝ → ℝ := fun t => t ^ 2 * φ t - t ^ 2 * q t with hu
+  have uder : ∀ x ∈ Ioo 0 X, HasDerivAt u (-(x ^ 2 * θ x ^ n) - w x) x := by
+    intro x hx
+    have hφx := (hφ x ⟨hx.1, hx.2.le⟩).hasDerivAt (Icc_mem_nhds hx.1 hx.2)
+    have h := ((hasDerivAt_pow 2 x).mul hφx).sub (hq x)
+    convert h using 1
+    have hx0 : x ≠ 0 := hx.1.ne'
+    field_simp
+    ring
+  have ubound : ∀ x ∈ Ioo 0 c, |-(x ^ 2 * θ x ^ n) - w x| ≤ x ^ 2 * C := by
+    intro x hx
+    have hxξ : x ∈ Icc (0 : ℝ) ξ0 := ⟨hx.1.le, hx.2.le.trans hc⟩
+    have h1 := hb x ⟨hx.1.le, hx.2⟩
+    have h2 := pow_sub_le_of n h1 (hpM x hxξ)
+    have h3 := hres x hxξ
+    have e : -(x ^ 2 * θ x ^ n) - w x =
+        -(x ^ 2 * (θ x ^ n - p x ^ n)) - (w x + x ^ 2 * p x ^ n) := by ring
+    have hx2 : 0 ≤ x ^ 2 := sq_nonneg x
+    have hMη : 0 ≤ Mp + η := by linarith [(abs_nonneg _).trans (hpM x hxξ), hη]
+    have hco : 0 ≤ (n : ℝ) * (Mp + η) ^ (n - 1) := by positivity
+    have h4 : |θ x ^ n - p x ^ n| ≤ L * η := by
+      calc _ ≤ n * (Mp + η) ^ (n - 1) * |θ x - p x| := h2
+        _ ≤ n * (Mp + η) ^ (n - 1) * η := mul_le_mul_of_nonneg_left h1 hco
+        _ ≤ L * η := mul_le_mul_of_nonneg_right hL hη.le
+    rw [e]
+    calc |-(x ^ 2 * (θ x ^ n - p x ^ n)) - (w x + x ^ 2 * p x ^ n)|
+        ≤ |-(x ^ 2 * (θ x ^ n - p x ^ n))| + |w x + x ^ 2 * p x ^ n| := abs_sub _ _
+      _ = x ^ 2 * |θ x ^ n - p x ^ n| + |w x + x ^ 2 * p x ^ n| := by
+          rw [abs_neg, abs_mul, abs_of_nonneg hx2]
+      _ ≤ x ^ 2 * (L * η) + x ^ 2 * R := by gcongr
+      _ = x ^ 2 * C := by rw [hC]; ring
+  have hq2c : Continuous (fun t => t ^ 2 * q t) :=
+    continuous_iff_continuousAt.2 fun x => (hq x).continuousAt
+  have u0 : Tendsto u (𝓝[>] 0) (𝓝 0) := by
+    have h1 : Tendsto (fun t : ℝ => t ^ 2 * φ t) (𝓝[>] 0) (𝓝 (0 ^ 2 * φ 0)) :=
+      ((continuous_pow 2).continuousAt.tendsto.mono_left nhdsWithin_le_nhds).mul
+        (hφ0.tendsto.mono_left hle)
+    have h2 : Tendsto (fun t : ℝ => t ^ 2 * q t) (𝓝[>] 0) (𝓝 (0 ^ 2 * q 0)) :=
+      (hq2c.continuousAt.tendsto).mono_left nhdsWithin_le_nhds
+    have := h1.sub h2
+    simpa using this
+  have ucont : ContinuousOn u (Ioc 0 c) := by
+    intro x hx
+    have hxX : x ∈ Ioc (0 : ℝ) X := ⟨hx.1, hx.2.trans hcX⟩
+    have h := (((continuous_pow 2).continuousWithinAt).mul
+      (hφ x hxX).continuousWithinAt).sub (hq2c.continuousWithinAt (s := Icc 0 X) (x := x))
+    exact h.mono (fun y hy => ⟨hy.1.le, hy.2.trans hcX⟩)
+  have phibd : ∀ t ∈ Ioc 0 c, |φ t - q t| ≤ t / 3 * C := by
+    intro t ht
+    have hub := bound_from_zero (f := u) (f' := fun x => -(x ^ 2 * θ x ^ n) - w x)
+      (B := fun x => x ^ 3 / 3 * C) (B' := fun x => x ^ 2 * C) ht.1 u0
+      (ucont.mono (Ioc_subset_Ioc_right ht.2))
+      (fun x hx => uder x ⟨hx.1, hx.2.trans_le (ht.2.trans hcX)⟩)
+      (hasDerivAt_cube_div C) (by simp)
+      (fun x hx => ubound x ⟨hx.1, hx.2.trans_le ht.2⟩)
+    have e : u t = t ^ 2 * (φ t - q t) := by simp only [hu]; ring
+    rw [e, abs_mul, abs_of_nonneg (sq_nonneg t)] at hub
+    have ht2 : 0 < t ^ 2 := by have := ht.1; positivity
+    refine le_of_mul_le_mul_left ?_ ht2
+    calc t ^ 2 * |φ t - q t| ≤ t ^ 3 / 3 * C := hub
+      _ = t ^ 2 * (t / 3 * C) := by ring
+  refine ⟨phibd t0 ht0, ?_⟩
+  -- θ − p
+  have f0 : Tendsto (fun x => θ x - p x) (𝓝[>] 0) (𝓝 0) := by
+    have h := ((hθ 0 ⟨le_rfl, hX.le⟩).continuousWithinAt.tendsto.mono_left hle).sub
+      ((hp 0).continuousAt.tendsto.mono_left nhdsWithin_le_nhds)
+    rw [h0, hp0, sub_self] at h
+    exact h
+  have fc : ContinuousOn (fun x => θ x - p x) (Ioc 0 t0) := by
+    intro x hx
+    have hxX : x ∈ Icc (0 : ℝ) X := ⟨hx.1.le, hx.2.trans (ht0.2.trans hcX)⟩
+    exact (((hθ x hxX).continuousWithinAt).sub (hp x).continuousAt.continuousWithinAt).mono
+      (fun y hy => ⟨hy.1.le, hy.2.trans (ht0.2.trans hcX)⟩)
+  exact bound_from_zero (f := fun x => θ x - p x) (f' := fun x => φ x - q x)
+    (B := fun x => x ^ 2 / 6 * C) (B' := fun x => x / 3 * C) ht0.1 f0 fc
+    (fun x hx => ((hθ x ⟨hx.1.le, (hx.2.trans_le (ht0.2.trans hcX)).le⟩).hasDerivAt
+      (Icc_mem_nhds hx.1 (hx.2.trans_le (ht0.2.trans hcX)))).sub (hp x))
+    (hasDerivAt_sq_div C) (by simp)
+    (fun x hx => phibd x ⟨hx.1, (hx.2.trans_le ht0.2).le⟩)
+
+/-- The singular start: every solution stays near the reference on `[0, ξ0]`. -/
+theorem start (n : ℕ) (θ φ p q w : ℝ → ℝ) {X ξ0 η R L Mp : ℝ} (hξ0 : 0 < ξ0) (hξ0X : ξ0 ≤ X)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) X, HasDerivWithinAt θ (φ ξ) (Icc 0 X) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 X) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) X, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ n) (Icc 0 X) ξ)
+    (h0 : θ 0 = 1)
+    (hp : ∀ ξ, HasDerivAt p (q ξ) ξ) (hp0 : p 0 = 1)
+    (hq : ∀ ξ, HasDerivAt (fun t => t ^ 2 * q t) (w ξ) ξ)
+    (hres : ∀ ξ ∈ Icc (0 : ℝ) ξ0, |w ξ + ξ ^ 2 * p ξ ^ n| ≤ ξ ^ 2 * R)
+    (hpM : ∀ ξ ∈ Icc (0 : ℝ) ξ0, |p ξ| ≤ Mp)
+    (hL : n * (Mp + η) ^ (n - 1) ≤ L) (hη : 0 < η) (hR : 0 ≤ R)
+    (hcontr : ξ0 ^ 2 / 6 * (L * η + R) < η) :
+    ∀ ξ ∈ Icc (0 : ℝ) ξ0, |θ ξ - p ξ| ≤ ξ0 ^ 2 / 6 * (L * η + R) ∧
+      |φ ξ - q ξ| ≤ ξ / 3 * (L * η + R) := by
+  set C := L * η + R with hC
+  have hX : 0 < X := hξ0.trans_le hξ0X
+  have hMp : 0 ≤ Mp := (abs_nonneg _).trans (hpM 0 ⟨le_rfl, hξ0.le⟩)
+  have hL0 : 0 ≤ L := (by have := hη.le; positivity : (0 : ℝ) ≤ n * (Mp + η) ^ (n - 1)).trans hL
+  have hC0 : 0 ≤ C := by rw [hC]; have := hη.le; positivity
+  have cr : ∀ c, c ≤ ξ0 → (∀ s ∈ Ico 0 c, |θ s - p s| ≤ η) →
+      ∀ t ∈ Ioc 0 c, |φ t - q t| ≤ t / 3 * C ∧ |θ t - p t| ≤ t ^ 2 / 6 * C :=
+    fun c hc hb => core n θ φ p q w (c := c) hξ0X hθ hφ0 hφ h0 hp hp0 hq hres hpM hL hη hc hb
+  -- continuous induction on c ∈ [0, ξ0] for |θ − p| ≤ η on [0, c)
+  set S : Set ℝ := {c | c ∈ Icc 0 ξ0 ∧ ∀ s ∈ Ico 0 c, |θ s - p s| ≤ η} with hS
+  have h0S : (0 : ℝ) ∈ S := ⟨⟨le_rfl, hξ0.le⟩, fun s hs => absurd hs.2 (not_lt.2 hs.1)⟩
+  have hbdd : BddAbove S := ⟨ξ0, fun c hc => hc.1.2⟩
+  set T := sSup S with hT
+  have hT0 : 0 ≤ T := le_csSup hbdd h0S
+  have hTξ : T ≤ ξ0 := csSup_le ⟨0, h0S⟩ fun c hc => hc.1.2
+  have hTS : ∀ s ∈ Ico 0 T, |θ s - p s| ≤ η := by
+    intro s hs
+    obtain ⟨c, hcS, hsc⟩ := exists_lt_of_lt_csSup ⟨0, h0S⟩ hs.2
+    exact hcS.2 s ⟨hs.1, hsc⟩
+  -- strict bound on [0, T]
+  have hstrict : ∀ s ∈ Icc 0 T, |θ s - p s| < η := by
+    intro s hs
+    rcases eq_or_lt_of_le hs.1 with h | h
+    · rw [← h, h0, hp0, sub_self, abs_zero]; exact hη
+    · have := (cr T hTξ hTS s ⟨h, hs.2⟩).2
+      have hs2 : s ^ 2 ≤ ξ0 ^ 2 := by gcongr; exact hs.2.trans hTξ
+      calc |θ s - p s| ≤ s ^ 2 / 6 * C := this
+        _ ≤ ξ0 ^ 2 / 6 * C := by gcongr
+        _ < η := hcontr
+  have hTeq : T = ξ0 := by
+    by_contra hne
+    have hTlt : T < ξ0 := lt_of_le_of_ne hTξ hne
+    have hTX : T ∈ Icc (0 : ℝ) X := ⟨hT0, hTξ.trans hξ0X⟩
+    have hcont : ContinuousWithinAt (fun s => θ s - p s) (Icc 0 X) T :=
+      (hθ T hTX).continuousWithinAt.sub (hp T).continuousAt.continuousWithinAt
+    have hgap : 0 < η - |θ T - p T| := by linarith [hstrict T ⟨hT0, le_rfl⟩]
+    obtain ⟨δ, hδ, hδb⟩ := Metric.continuousWithinAt_iff.1 hcont _ hgap
+    set c := min (T + δ / 2) ξ0 with hc
+    have hTc : T < c := lt_min (by linarith) hTlt
+    have hcS : c ∈ S := by
+      refine ⟨⟨by linarith, min_le_right _ _⟩, fun s hs => ?_⟩
+      rcases le_or_gt s T with hsT | hsT
+      · exact (hstrict s ⟨hs.1, hsT⟩).le
+      · have hsX : s ∈ Icc (0 : ℝ) X :=
+          ⟨hs.1, (hs.2.le.trans (min_le_right _ _)).trans hξ0X⟩
+        have hd : dist s T < δ := by
+          rw [Real.dist_eq, abs_of_nonneg (by linarith)]
+          linarith [hs.2.trans_le (min_le_left (T + δ / 2) ξ0)]
+        have h1 := hδb hsX hd
+        rw [Real.dist_eq] at h1
+        have := abs_sub_abs_le_abs_sub (θ s - p s) (θ T - p T)
+        linarith
+    have := le_csSup hbdd hcS
+    linarith
+  have hfin : ∀ s ∈ Ico 0 ξ0, |θ s - p s| ≤ η := by rw [← hTeq]; exact hTS
+  have cr' := cr ξ0 le_rfl hfin
+  -- φ 0 = q 0 from the derivative of θ − p at 0
+  have hφq0 : φ 0 - q 0 = 0 := by
+    have hd : HasDerivWithinAt (fun x => θ x - p x) (φ 0 - q 0) (Ioi 0) 0 :=
+      ((hθ 0 ⟨le_rfl, hX.le⟩).mono_of_mem_nhdsWithin
+        (mem_of_superset (Ioo_mem_nhdsGT hX) Ioo_subset_Icc_self)).sub (hp 0).hasDerivWithinAt
+    have hs := (hasDerivWithinAt_iff_tendsto_slope' (by simp : (0 : ℝ) ∉ Ioi 0)).1 hd
+    have hz : Tendsto (slope (fun x => θ x - p x) 0) (𝓝[>] 0) (𝓝 0) := by
+      refine squeeze_zero_norm' (a := fun t => t / 6 * C) ?_ ?_
+      · filter_upwards [Ioo_mem_nhdsGT hξ0] with t ht
+        rw [slope_def_field, h0, hp0, sub_self, sub_zero, sub_zero, Real.norm_eq_abs, abs_div,
+          abs_of_pos ht.1]
+        have hb := (cr' t ⟨ht.1, ht.2.le⟩).2
+        rw [div_le_iff₀ ht.1]
+        calc |θ t - p t| ≤ t ^ 2 / 6 * C := hb
+          _ = t / 6 * C * t := by ring
+      · have : Tendsto (fun t : ℝ => t / 6 * C) (𝓝 0) (𝓝 (0 / 6 * C)) :=
+          ((continuous_id.div_const 6).mul_const C).tendsto 0
+        simpa using this.mono_left nhdsWithin_le_nhds
+    exact tendsto_nhds_unique hs hz
+  intro ξ hξ
+  rcases eq_or_lt_of_le hξ.1 with h | h
+  · rw [← h, h0, hp0, sub_self, abs_zero, hφq0, abs_zero]
+    exact ⟨by positivity, by simp⟩
+  · have := cr' ξ ⟨h, hξ.2⟩
+    refine ⟨this.2.trans ?_, this.1⟩
+    have : ξ ^ 2 ≤ ξ0 ^ 2 := by gcongr; exact hξ.2
+    gcongr
+
+end Work.Math.LENStart
