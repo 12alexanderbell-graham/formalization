@@ -1,41 +1,57 @@
 # Item 03
 
-**Area:** Rigorous simulation
+**Area:** Mathematics
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
-- there is `x : ℝ → ℝ` such that the position as function of time `x` is a Duffing oscillator initial value problem solution with the linear stiffness coefficient `k := 1`, the cubic stiffness coefficient `β := 1`, the initial position `x₀ := 1`, the initial velocity `v₀ := 0` and the final time of the interval `T := 6 / 5` (restoring force for positive stiffness, acceleration equals minus force terms; the second derivative plus `k := 1` times `x` plus `β := 1` times `x` cubed vanishes; `k := 1` is the linear stiffness and `β := 1` the cubic coefficient; `x₀ := 1` is the initial position and `v₀ := 0` the initial velocity; holds on the closed time interval from zero to `T := 6 / 5`; derivatives at the endpoints are one-sided)
+**assuming**
 
-Program definitions in this claim:
+1. for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 7`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 7) ξ`
+2. `ContinuousWithinAt φ (Set.Icc 0 7) 0`
+3. for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 7`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Set.Icc 0 7) ξ`
+4. `θ 0 = 1`
 
-- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): phrase (hand-written, linted): the position as function of time `x` is a Duffing oscillator initial value problem solution with the linear stiffness coefficient `k`, the cubic stiffness coefficient `β`, the initial position `x₀`, the initial velocity `v₀` and the final time of the interval `T` (restoring force for positive stiffness, acceleration equals minus force terms; the second derivative plus `k` times `x` plus `β` times `x` cubed vanishes; `k` is the linear stiffness and `β` the cubic coefficient; `x₀` is the initial position and `v₀` the initial velocity; holds on the closed time interval from zero to `T`; derivatives at the endpoints are one-sided); by definition, means (`x 0 = x₀`) and (there is `v : ℝ → ℝ` such that (`v 0 = v₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt x (v t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt v (-k * x t - β * x t ^ 3) (Set.Icc 0 T) t`)))
+**then**
+
+- there is `ξ₁ : ℝ` such that (`6.896848615 ≤ ξ₁`) and (`ξ₁ ≤ 6.896848625`) and (`θ ξ₁ = 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ico 0 ξ₁`, then `0 < θ ξ`) and (`2.018235945 ≤ -(ξ₁ ^ 2 * φ ξ₁)`) and (`-(ξ₁ ^ 2 * φ ξ₁) ≤ 2.018235955`) and (`54.1824805 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁))`) and (`ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 54.1824815`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-There is a solution of the Duffing initial value problem x'' + x + x³ = 0, x(0) = 1,
-x'(0) = 0 on the time interval [0, 6/5] (derivatives within the interval).
+Lane–Emden equation of index 3: for every solution θ of θ'' + (2/ξ)θ' + θ³ = 0 on (0, 7] with
+θ(0) = 1, θ differentiable on [0, 7] with derivative φ, and φ continuous at 0, there is a first zero
+ξ₁ of θ with 6.896848615 ≤ ξ₁ ≤ 6.896848625 (θ > 0 before it), at which the Chandrasekhar-mass
+constant −ξ₁² θ'(ξ₁) lies between 2.018235945 and 2.018235955 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies
+between 54.1824805 and 54.1824815.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem duffing_solution_exists : ∃ x : ℝ → ℝ, IsDuffingSolution 1 1 1 0 (6 / 5) x := …
+theorem laneEmden3_constants (θ φ : ℝ → ℝ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 7) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ)
+    (h0 : θ 0 = 1) :
+    ∃ ξ₁ : ℝ, 6.896848615 ≤ ξ₁ ∧ ξ₁ ≤ 6.896848625 ∧ θ ξ₁ = 0 ∧ (∀ ξ ∈ Ico 0 ξ₁, 0 < θ ξ) ∧
+      2.018235945 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.018235955 ∧
+      54.1824805 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
+      ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 54.1824815 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Sim.Duffing.IsDuffingSolution`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsDuffingSolution.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5.
-- Source file: `Checked/Sim/Duffing.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `laneEmden3_constants`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Math/LaneEmden.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 03

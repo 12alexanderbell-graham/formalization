@@ -44,3 +44,6 @@ expansion
 fraction
 mechanism
 network
+tenth
+pressure
+gradient

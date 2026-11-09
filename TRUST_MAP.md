@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 218. Resting on no unpinned physics definition: 218.
-Non-vacuity (trust track T2): 145 headlines have hypotheses; 145 of them have a
+Headlines: 224. Resting on no unpinned physics definition: 224.
+Non-vacuity (trust track T2): 150 headlines have hypotheses; 150 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -243,6 +243,9 @@ the docstring says; universally bound parameters are not listed.
 | `FalknerSkan.FifthBounded.fs_fifth_bounded_window` | — | — | — | `fs_fifth_bounded_window` | — |
 | `FalknerSkan.FifthBounded.fs_fifth_bounded_equal` | — | — | — | `fs_fifth_bounded_equal` | — |
 | `FalknerSkan.FifthBounded.fs_fifth_exists_bounded` | — | — | — | unconditional | — |
+| `FalknerSkan.TenthBounded.fs_tenth_bounded_window` | — | — | — | `fs_tenth_bounded_window` | — |
+| `FalknerSkan.TenthBounded.fs_tenth_bounded_equal` | — | — | — | `fs_tenth_bounded_equal` | — |
+| `FalknerSkan.TenthBounded.fs_tenth_exists_bounded` | — | — | — | unconditional | — |
 | `FalknerSkan.Limit.hiemenz_limit_window` | — | — | — | `hiemenz_limit_window` | — |
 | `FalknerSkan.Limit.hiemenz_limit_equal` | — | — | — | `hiemenz_limit_equal` | — |
 | `FalknerSkan.Limit.homann_limit_window` | — | — | — | `homann_limit_window` | — |
@@ -251,6 +254,9 @@ the docstring says; universally bound parameters are not listed.
 | `FalknerSkan.Limit.fs_half_limit_equal` | — | — | — | `fs_half_limit_equal` | — |
 | `FalknerSkan.Limit.fs_fifth_limit_window` | — | — | — | `fs_fifth_limit_window` | — |
 | `FalknerSkan.Limit.fs_fifth_limit_equal` | — | — | — | `fs_fifth_limit_equal` | — |
+| `FalknerSkan.LimitTenth.fs_tenth_limit_window` | — | — | — | `fs_tenth_limit_window` | — |
+| `FalknerSkan.LimitTenth.fs_tenth_limit_equal` | — | — | — | `fs_tenth_limit_equal` | — |
+| `FalknerSkan.Limit.fs_monotone_of_limit` | — | — | — | `fs_monotone_of_limit` | — |
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 

@@ -1,36 +1,42 @@
 # Item 56
 
-**Area:** Fluid mechanics
+**Area:** Certified numbers of the findings
 
-**Source:** see the claim
+**Source:** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Sec. XI, Eqs. (11.42)–(11.45) (p. 121), from Capozziello, Cardone, Salzano 2008 (arXiv:0802.1583) Eqs. (43)–(44) and the display after (44): the first-order deviations η₂₀ = F″(R₀)H₀⁴/F(R₀), η₃₀ = F‴(R₀)H₀⁶/F(R₀) of F(R) from GR are wrong, formulas and numbers
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
 **It holds that**
 
-- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`0.927680039 < q 0`) and (`q 0 < 0.927680040`)
+1. `RoundsTo (correct20 (41 / 1000)) (-0.249) 3`
+2. `RoundsTo (correct20 (1 / 4)) (-32e-3) 3`
+3. `RoundsTo (correct30 (41 / 1000)) (-0.400) 3`
+4. `RoundsTo (correct30 (1 / 4)) (-152e-4) 4`
+
+Program definitions in this claim:
+
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `correct20 Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_correct20`) (for `Ω : ℝ`): is defined as `-2 * (27 * Ω ^ 2 + 24 * Ω - 32) / (27 * Ω * (Ω - 2) * (27 * Ω ^ 2 + 60 * Ω + 112))`
+- `correct30 Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_correct30`) (for `Ω : ℝ`): is defined as `-2 * (81 * Ω ^ 2 - 60 * Ω - 16) / (243 * Ω ^ 2 * (Ω - 2) * (27 * Ω ^ 2 + 60 * Ω + 112))`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Falkner–Skan β = 1/2, existence: there is a solution f of f''' + f f'' + (1 − f'²)/2 = 0 on
-[0, ∞) (f has derivative p, p has derivative q, q has derivative −f q − (1 − p²)/2, one-sided
-at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value q(0) = f''(0) lies
-strictly between 0.927680039 and 0.927680040.
+The correct first-order coefficients (`FREta.correct20`, `correct30`, the `ε`-derivatives of
+η₂₀, η₃₀ by `FREta.eta20_hasDerivAt`, `eta30_hasDerivAt`) at the paper's `Ω = 0.041, 0.25`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fs_half_exists : ∃ f p q : ℝ → ℝ,
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Ici 0) η) ∧
-    f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-    0.927680039 < q 0 ∧ q 0 < 0.927680040 := …
+theorem F10_eta :
+    RoundsTo (FREta.correct20 (41 / 1000)) (-0.249) 3 ∧
+    RoundsTo (FREta.correct20 (1 / 4)) (-0.032) 3 ∧
+    RoundsTo (FREta.correct30 (41 / 1000)) (-0.400) 3 ∧
+    RoundsTo (FREta.correct30 (1 / 4)) (-0.0152) 4 := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Cosmography.FREta.correct20`, `Cosmography.FREta.correct30`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
@@ -38,7 +44,7 @@ Only Mathlib notions.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/FalknerSkan.lean` (do not open it before submitting your answers).
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = -0.249, k = 3, d = -0.032, d = -0.400, d = -0.0152, k = 4; correct20: Ω = 41/1000, Ω = 1/4; correct30: Ω = 41/1000, Ω = 1/4.
+- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 56

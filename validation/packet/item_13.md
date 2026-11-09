@@ -1,6 +1,6 @@
 # Item 13
 
-**Area:** Mathematics/physics
+**Area:** Mathematics
 
 **Source:** see the claim
 
@@ -8,21 +8,23 @@
 
 **It holds that**
 
-- there is `y : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `x : ℝ`, if `0 ≤ x`, then `HasDerivWithinAt y (φ x) (Set.Ici 0) x`) and (for every `x : ℝ`, if `0 < x`, then `HasDerivAt φ (y x ^ (3 / 2) / √x) x`) and (`ContinuousWithinAt φ (Set.Ici 0) 0`) and (`y 0 = 1`) and (for every `x : ℝ`, if `0 ≤ x`, then `0 < y x`) and (`Filter.Tendsto y Filter.atTop (nhds 0)`)
+- there is `θ : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 7`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 7) ξ`) and (`ContinuousWithinAt φ (Set.Icc 0 7) 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 7`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Set.Icc 0 7) ξ`) and (`θ 0 = 1`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-There is a solution y of the Thomas–Fermi equation y'' = y^{3/2}/√x on (0, ∞) with y' = φ on
-[0, ∞), φ continuous at 0 from the right, y(0) = 1, y > 0 on [0, ∞) and y(x) → 0 as x → ∞.
+There exist θ, φ with θ differentiable within [0, 7] with derivative φ, φ continuous at 0,
+φ' = −(2/ξ)φ − θ³ on (0, 7] and θ(0) = 1: the hypotheses of the Lane–Emden headline
+`Checked.Math.LaneEmden.laneEmden3_constants` are satisfied together (a solution regular at the centre
+exists).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem tf_exists : ∃ y φ : ℝ → ℝ,
-    (∀ x, 0 ≤ x → HasDerivWithinAt y (φ x) (Ici 0) x) ∧
-    (∀ x, 0 < x → HasDerivAt φ (y x ^ ((3 : ℝ) / 2) / Real.sqrt x) x) ∧
-    ContinuousWithinAt φ (Ici 0) 0 ∧ y 0 = 1 ∧ (∀ x, 0 ≤ x → 0 < y x) ∧
-    Tendsto y atTop (𝓝 0) := …
+theorem exists_solution : ∃ θ φ : ℝ → ℝ,
+    (∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ) ∧
+    ContinuousWithinAt φ (Icc 0 7) 0 ∧
+    (∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ) ∧
+    θ 0 = 1 := …
 ```
 
 ## Definitions it uses
@@ -36,6 +38,6 @@ Only Mathlib notions.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/ThomasFermiExists.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/LEExists.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 13

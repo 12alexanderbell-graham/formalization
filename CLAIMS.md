@@ -5926,6 +5926,86 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞, 0 ≤ p < 1 on [0, ∞), and wall shear q(0) = f''(0)
 > strictly between 0.6867081809 and 0.6867081811.
 
+## `fs_tenth_bounded_window`
+
+Full name `Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_window`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)
+
+**then**
+
+1. `0.5870352191 < q 0`
+2. `q 0 < 0.5870352193`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan β = 1/10: every solution of f''' + f f'' + (1 − f'²)/10 = 0 on [0, ∞) (f has
+> derivative p, p has derivative q, q has derivative −f q − (1 − p²)/10, one-sided at 0) with
+> f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and −1 ≤ p ≤ 1 on [0, ∞) has wall shear q(0) = f''(0)
+> strictly between 0.5870352191 and 0.5870352193.
+
+## `fs_tenth_bounded_equal`
+
+Full name `Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_equal`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)
+8. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₂ (p₂ η) (Set.Ici 0) η`
+9. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₂ (q₂ η) (Set.Ici 0) η`
+10. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - 1 / 10 * (1 - p₂ η ^ 2)) (Set.Ici 0) η`
+11. `f₂ 0 = 0`
+12. `p₂ 0 = 0`
+13. `Filter.Tendsto p₂ Filter.atTop (nhds 1)`
+14. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p₂ η`) and (`p₂ η ≤ 1`)
+15. `η ∈ Set.Ici 0`
+
+**then**
+
+1. `f η = f₂ η`
+2. `p η = p₂ η`
+3. `q η = q₂ η`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan β = 1/10: for every solution (f, p, q) and every solution (f₂, p₂, q₂) of
+> f''' + f f'' + (1 − f'²)/10 = 0 on [0, ∞) (derivatives one-sided at 0), both with f(0) = 0,
+> p(0) = 0, p(η) → 1 as η → ∞ and −1 ≤ p ≤ 1 on [0, ∞): f η = f₂ η, p η = p₂ η and q η = q₂ η for
+> every η ≥ 0.
+
+## `fs_tenth_exists_bounded`
+
+Full name `Checked.FalknerSkan.TenthBounded.fs_tenth_exists_bounded`.
+
+**It holds that**
+
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`0 ≤ p η`) and (`p η < 1`)) and (`0.5870352191 < q 0`) and (`q 0 < 0.5870352193`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan β = 1/10: there is a solution of f''' + f f'' + (1 − f'²)/10 = 0 on [0, ∞)
+> (f has derivative p, p has derivative q, q has derivative −f q − (1 − p²)/10, one-sided at 0) with
+> f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞, 0 ≤ p < 1 on [0, ∞), and wall shear q(0) = f''(0)
+> strictly between 0.5870352191 and 0.5870352193.
+
 ## `hiemenz_limit_window`
 
 Full name `Checked.FalknerSkan.Limit.hiemenz_limit_window`.
@@ -6173,4 +6253,95 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > f''' + f f'' + (1 − f'²)/5 = 0 on [0, ∞) (derivatives one-sided at 0), both with f(0) = 0, p(0) = 0 and
 > p(η) → 1 as η → ∞: f η = f₂ η, p η = p₂ η and q η = q₂ η for every
 > η ≥ 0.
+
+## `fs_tenth_limit_window`
+
+Full name `Checked.FalknerSkan.LimitTenth.fs_tenth_limit_window`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+
+**then**
+
+1. `0.5870352191 < q 0`
+2. `q 0 < 0.5870352193`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan β = 1/10: every solution of f''' + f f'' + (1 − f'²)/10 = 0 on [0, ∞) (f has derivative p, p has
+> derivative q, q has derivative −f q − (1 − p²)/10, one-sided at 0) with f(0) = 0, p(0) = 0 and
+> p(η) → 1 as η → ∞ has wall shear q(0) = f''(0) strictly between
+> 0.5870352191 and 0.5870352193.
+
+## `fs_tenth_limit_equal`
+
+Full name `Checked.FalknerSkan.LimitTenth.fs_tenth_limit_equal`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₂ (p₂ η) (Set.Ici 0) η`
+8. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₂ (q₂ η) (Set.Ici 0) η`
+9. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - 1 / 10 * (1 - p₂ η ^ 2)) (Set.Ici 0) η`
+10. `f₂ 0 = 0`
+11. `p₂ 0 = 0`
+12. `Filter.Tendsto p₂ Filter.atTop (nhds 1)`
+13. `η ∈ Set.Ici 0`
+
+**then**
+
+1. `f η = f₂ η`
+2. `p η = p₂ η`
+3. `q η = q₂ η`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan β = 1/10: for every solution (f, p, q) and every solution (f₂, p₂, q₂) of
+> f''' + f f'' + (1 − f'²)/10 = 0 on [0, ∞) (derivatives one-sided at 0), both with f(0) = 0, p(0) = 0 and
+> p(η) → 1 as η → ∞: f η = f₂ η, p η = p₂ η and q η = q₂ η for every
+> η ≥ 0.
+
+## `fs_monotone_of_limit`
+
+Full name `Checked.FalknerSkan.Limit.fs_monotone_of_limit`.
+
+**For every** `β : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `η : ℝ`:
+
+**assuming**
+
+1. `0 < β`
+2. `β ≤ 1`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+4. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+5. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Set.Ici 0) η`
+6. `f 0 = 0`
+7. `p 0 = 0`
+8. `Filter.Tendsto p Filter.atTop (nhds 1)`
+9. `η ∈ Set.Ici 0`
+
+**then**
+
+- `0 < q η`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan with pressure-gradient coefficient β, 0 < β ≤ 1: every solution of
+> f''' + f f'' + β (1 − f'²) = 0 on [0, ∞) (f has derivative p, p has derivative q, q has derivative
+> −f q − β (1 − p²), one-sided at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ has q(η) = f''(η)
+> positive for every η ≥ 0.
 

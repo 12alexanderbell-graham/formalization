@@ -1,71 +1,53 @@
 # Item 40
 
-**Area:** B1
+**Area:** T1 fidelity
 
-**Source:** Risaliti & Lusso, Nat. Astron. 3, 272 (2019); Lusso et al., A&A 628, L4 (2019), Eq. (8): third-order log-polynomial distance and its ΛCDM-implied coefficients
+**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t : ℝ`, `t₀ : ℝ`:
+**For every** `Rc : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `a' : ℝ → ℝ`, `a'' : ℝ → ℝ`, `t : ℝ`:
 
 **assuming**
 
-1. `1 / 5 ≤ Ω`
-2. `Ω ≤ 2 / 5`
-3. `t ≤ t₀`
-4. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `0 < a s`
-5. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `DifferentiableAt ℝ a s`
-6. `0 < hubble a t₀`
-7. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
-8. `redshift a t₀ t = 3`
+1. `RicciFlatFLRWSpec Rc`
+2. `0 < a t`
+3. `∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s`
+4. `HasDerivAt a' (a'' t) t`
 
 **then**
 
-1. `0 < logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t)`
-2. `9 / 10 < 5 * Real.logb 10 (lumDistFlat a t₀ t / logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t))`
+- `Rc a t = curv a t`
 
 Program definitions in this claim:
 
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): phrase (hand-written, linted): the Hubble rate with the scale factor `a` and the cosmic time of evaluation `t` (logarithmic derivative of the scale factor with respect to cosmic time; positive for expansion and negative for contraction); by definition, `hubble a t` is `deriv a t / a t`
-- `logPolyDL3 a₂ a₃ H₀ z` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_logPolyDL3`); its name is not checked (for `a₂ : ℝ`, `a₃ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3)`
-- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): phrase (hand-written, linted): the luminosity distance in flat FLRW with the scale factor `a`, the observation time `t₀` and the emission time `t` (units in which the speed of light is one); by definition, `lumDistFlat a t₀ t` is `a t₀ * (1 + redshift a t₀ t) * comoving a t₀ t`
-- `lusA2 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA2`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 * (3 / 2 - 3 / 4 * Ω)`
-- `lusA3 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA3`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 ^ 2 * (9 / 8 * Ω ^ 2 - 2 * Ω + 7 / 6)`
-- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): phrase (hand-written, linted): the cosmological redshift with the scale factor `a`, the observation time `t₀` and the emission time `t` (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide); by definition, `redshift a t₀ t` is `a t₀ / a t - 1`
+- `RicciFlatFLRWSpec` — SPEC, not pinned: inductive type with constructors `RicciFlatFLRWSpec.mk : ∀ {Rc : (ℝ → ℝ) → ℝ → ℝ}, (∀ (a a' a'' : ℝ → ℝ) (t : ℝ), 0 < a t → (∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t → Rc a t = -6 * (a'' t / a t + (a' t / a t) ^ 2)) → (∀ (c h t : ℝ), 0 < c → Rc (fun s => c * Real.exp (h * s)) t = -12 * h ^ 2) → (∀ (t : ℝ), 0 < t → Rc (fun s => s ^ (1 / 2)) t = 0) → (∀ (t : ℝ), 0 < t → Rc (fun s => s ^ (2 / 3)) t = -4 / (3 * t ^ 2)) → (∀ (a a' a'' : ℝ → ℝ) (c t : ℝ), 0 < c → 0 < a t → (∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t → Rc (fun s => c * a s) t = Rc a t) → (∀ (a a' a'' : ℝ → ℝ) (τ t : ℝ), 0 < a (t + τ) → (∀ᶠ (s : ℝ) in nhds (t + τ), HasDerivAt a (a' s) s) → HasDerivAt a' (a'' (t + τ)) (t + τ) → Rc (fun s => a (s + τ)) t = Rc a (t + τ)) → RicciFlatFLRWSpec Rc`
+- `curv a t` — **PINNED** (pin theorem `ricciSpec_pins`): phrase (hand-written, linted): the Ricci scalar of flat FLRW with the scale factor `a` and the cosmic time of evaluation `t` (negative convention, de Sitter has negative Ricci scalar; Ricci scalar of a spatially flat FLRW metric; negative convention so de Sitter has minus twelve times Hubble rate squared); by definition, `curv a t` is `-6 * (deriv (hubble a) t + 2 * hubble a t ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**B1, z = 3.** For every flat ΛCDM model with `Ω ∈ [0.2, 0.4]`, the third-order
-log-polynomial at the ΛCDM-implied coefficients (same `H₀`) is positive at `z = 3` and
-underestimates the exact distance modulus there by more than 0.9 mag.
+**Pinning:** any `Rc` meeting `RicciFlatFLRWSpec` is `curv` wherever `a > 0` is twice
+differentiable at `t`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem cubic_misses_z3 (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 5)
-    (a : ℝ → ℝ) (t t₀ : ℝ) (htt : t ≤ t₀)
-    (hpos : ∀ s ∈ Set.Icc t t₀, 0 < a s)
-    (hdiff : ∀ s ∈ Set.Icc t t₀, DifferentiableAt ℝ a s)
-    (hH₀ : 0 < hubble a t₀)
-    (hH : ∀ s ∈ Set.Icc t t₀,
-      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
-    (hz : redshift a t₀ t = 3) :
-    0 < logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t) ∧
-    9 / 10 < 5 * Real.logb 10
-      (lumDistFlat a t₀ t / logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble a t₀) (redshift a t₀ t)) := …
+theorem ricciSpec_pins (Rc : (ℝ → ℝ) → ℝ → ℝ) (h : RicciFlatFLRWSpec Rc) (a a' a'' : ℝ → ℝ)
+    (t : ℝ) (ha : 0 < a t) (h1 : ∀ᶠ s in 𝓝 t, HasDerivAt a (a' s) s)
+    (h2 : HasDerivAt a' (a'' t) t) : Rc a t = curv a t := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1.logPolyDL3`, `Cosmography.B1.lusA2`, `Cosmography.B1.lusA3`, `Cosmography.BambaY.comoving`
+See GLOSSARY.md: `Cosmography.FRCosmo.curv`, `Cosmography.hubble`, `Fidelity.RicciFlatFLRWSpec`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL3², lusA2², lusA3².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `cubic_misses_z3`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): redshift(t) = 3.
-- Source file: `Checked/Cosmography/B1Truncation.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: curv.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `ricciSpec_pins`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Fidelity/FRSpecs.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 40

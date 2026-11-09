@@ -68,6 +68,8 @@ import Checked.FalknerSkan.Bounded
 import Checked.FalknerSkan.HalfBounded
 import Checked.FalknerSkan.FifthBounded
 import Checked.FalknerSkan.Limit
+import Checked.FalknerSkan.TenthBounded
+import Checked.FalknerSkan.LimitTenth
 import Checked.Data.Moresco16Min
 
 /-!
@@ -935,5 +937,40 @@ theorem fs_fifth_limit_equal : nonvacuity% Checked.FalknerSkan.Limit.fs_fifth_li
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
     Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded
   exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hf, hp, hq, hf0, hp0, hlim, 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+/-! Falkner–Skan with coefficient one tenth (run 2026-11-09T0428Z): the solution of
+`Checked.FalknerSkan.TenthBounded.fs_tenth_exists_bounded`, whose velocity profile lies in the
+half-open unit interval, hence between minus one and one; used twice for the equality theorems. -/
+
+theorem fs_tenth_bounded_window : nonvacuity% Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hb, -⟩ :=
+    Checked.FalknerSkan.TenthBounded.fs_tenth_exists_bounded
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim,
+    fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩, trivial⟩
+
+theorem fs_tenth_bounded_equal : nonvacuity% Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hb, -⟩ :=
+    Checked.FalknerSkan.TenthBounded.fs_tenth_exists_bounded
+  have hb' : ∀ η ∈ Set.Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1 :=
+    fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩
+  exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hb', hf, hp, hq, hf0, hp0, hlim, hb', 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+theorem fs_tenth_limit_window : nonvacuity% Checked.FalknerSkan.LimitTenth.fs_tenth_limit_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.TenthBounded.fs_tenth_exists_bounded
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, trivial⟩
+
+theorem fs_tenth_limit_equal : nonvacuity% Checked.FalknerSkan.LimitTenth.fs_tenth_limit_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.TenthBounded.fs_tenth_exists_bounded
+  exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hf, hp, hq, hf0, hp0, hlim, 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+/-! The general monotonicity theorem, instantiated at the coefficient one half: the solution of
+`Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded` satisfies every hypothesis. -/
+
+theorem fs_monotone_of_limit : nonvacuity% Checked.FalknerSkan.Limit.fs_monotone_of_limit := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded
+  exact ⟨1 / 2, by norm_num, by norm_num, f, p, q, hf, hp, hq, hf0, hp0, hlim, 0, Set.mem_Ici.2 le_rfl, trivial⟩
 
 end Checked.Trust.NV
