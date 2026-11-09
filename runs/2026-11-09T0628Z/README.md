@@ -31,4 +31,4 @@ Full `lake build Checked` green (incl. Witnesses and Necessity); all 165 witness
 - This run's pushes: read next run.
 
 ## Commits
-eefdb24 LOCK + stub · f583a55 heartbeat + generator · necessity commit · records (LOCK removed)
+eefdb24 LOCK + stub · f583a55 heartbeat + generator · f8fcf46 heartbeat + generators + adversary report · 31dc67c necessity (Lean, StatementDeps, TRUST_MAP, relock, records) · records (LOCK removed; Claims regenerated unchanged, check_claims green)
