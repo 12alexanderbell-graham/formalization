@@ -1,0 +1,11 @@
+# Prior-art screen: Falkner–Skan β < 0 (run 2026-11-09T1028Z; Opus subagent, web only; summary of its report)
+
+Primary source read: Veldman & van de Vooren (1980), J. Math. Anal. Appl. 75, 102–111. Its introduction summarises the λ < 0 case under 0 < f' < 1 for h* < λ < 0, h* = −0.1988…: "there exists a unique solution for which y' → 1 exponentially"; algebraically decaying solutions also exist; "for λ < h* no solutions exist" — attributed to Iglisch & Kemnitz (1955, 50 Jahre Grenzschichtforschung) and Hartman (ODE, Wiley 1964; ZAMM 44 (1964) 123–128).
+Secondary only: Hastings (1972, SIAM J. Appl. Math. 22) (same summary; reversed-flow analogue); Caltech annotated bibliography (Hartman: for β < 0 one integral exponential, others algebraic; Hartree 1937 chose the "most rapid approach"); Brauner, Lainé & Nicolaenko (1982, Mathematika 29) (all solutions algebraic except two extremal ones, Hartree and Stewartson); Stewartson (1954) abstract; Coppel (1960) abstract (mainly β ≥ 0); Lan & Yang (2008) abstract (β* ∈ [−0.4, −0.12]).
+Not read: Hartman's book Ch. XIV, Hartman (1972) SIAM J. Math. Anal. 3, Iglisch & Kemnitz, Rosenhead (1963), Stewartson full text, Brauner–Lainé–Nicolaenko full text.
+Machine-checked versions: none found (Lean, Coq, Isabelle); no computer-assisted proof for β < 0 found.
+
+Verdicts (screen):
+- fs_neg_decay_max_shear / fs_neg_decay_equal: PARTLY CLASSICAL — uniqueness of the exponentially approaching solution with 0 < f' < 1 for β* < β < 0 is Iglisch & Kemnitz 1955 / Hartman 1964 (as cited by Veldman & van de Vooren 1980); the largest-wall-shear form and the "faster than every exponential" class were not found classically (for β < β* the statements hold vacuously as far as the cited literature says no solution exists).
+- fs_neg_tenth_exists_decay / fs_neg_tenth_not_unique_outside: CLASSICAL in substance (existence of the exponential solution and of a family of algebraically approaching monotone solutions for β* < β < 0, secondary attribution); that those solutions have f'' > 0 and different f''(0) was not verified in a source.
+Consequence for the records: the β < 0 headlines are machine-checked versions of classical (1955/1964) results, not new science; the new part is the machine check (first found), the certified shooting at β = −1/10, and the comparison form.
