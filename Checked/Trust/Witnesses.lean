@@ -67,6 +67,7 @@ import Checked.FalknerSkan.MonotoneExists
 import Checked.FalknerSkan.Bounded
 import Checked.FalknerSkan.HalfBounded
 import Checked.FalknerSkan.FifthBounded
+import Checked.FalknerSkan.Limit
 import Checked.Data.Moresco16Min
 
 /-!
@@ -889,5 +890,50 @@ theorem fs_fifth_bounded_equal : nonvacuity% Checked.FalknerSkan.FifthBounded.fs
   have hb' : ∀ η ∈ Set.Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1 :=
     fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩
   exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hb', hf, hp, hq, hf0, hp0, hlim, hb', 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+/-! Falkner–Skan and stagnation-point problems with no bound on the velocity profile (run
+2026-11-09T0028Z): the solutions of the existence theorems of the bounded class satisfy every
+hypothesis; the coefficient one half is used for the general monotonicity theorem. -/
+
+
+theorem hiemenz_limit_window : nonvacuity% Checked.FalknerSkan.Limit.hiemenz_limit_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.Bounded.hiemenz_exists_bounded
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, trivial⟩
+
+theorem hiemenz_limit_equal : nonvacuity% Checked.FalknerSkan.Limit.hiemenz_limit_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.Bounded.hiemenz_exists_bounded
+  exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hf, hp, hq, hf0, hp0, hlim, 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+theorem homann_limit_window : nonvacuity% Checked.FalknerSkan.Limit.homann_limit_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.Bounded.homann_exists_bounded
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, trivial⟩
+
+theorem homann_limit_equal : nonvacuity% Checked.FalknerSkan.Limit.homann_limit_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.Bounded.homann_exists_bounded
+  exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hf, hp, hq, hf0, hp0, hlim, 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+theorem fs_half_limit_window : nonvacuity% Checked.FalknerSkan.Limit.fs_half_limit_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, trivial⟩
+
+theorem fs_half_limit_equal : nonvacuity% Checked.FalknerSkan.Limit.fs_half_limit_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded
+  exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hf, hp, hq, hf0, hp0, hlim, 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+theorem fs_fifth_limit_window : nonvacuity% Checked.FalknerSkan.Limit.fs_fifth_limit_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, trivial⟩
+
+theorem fs_fifth_limit_equal : nonvacuity% Checked.FalknerSkan.Limit.fs_fifth_limit_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
+    Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded
+  exact ⟨f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hf, hp, hq, hf0, hp0, hlim, 0, Set.mem_Ici.2 le_rfl, trivial⟩
 
 end Checked.Trust.NV

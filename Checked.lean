@@ -275,3 +275,5 @@ import Checked.FSFifth.F5IVP
 import Checked.FSFifth.FSFifth
 import Checked.FSFifth.F5Bounded
 import Checked.FalknerSkan.FifthBounded
+import Checked.FalknerSkan.LimitCore
+import Checked.FalknerSkan.Limit

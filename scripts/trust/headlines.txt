@@ -249,3 +249,12 @@ Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded
 Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_window
 Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_equal
 Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded
+# Fluid mechanics: the Falkner–Skan and stagnation-point boundary-value problems with no bound on f' (run 2026-11-09T0028Z, frozen d71bf54, proved, audited and promoted the same run): every solution has f'' > 0 (helper fs_monotone_of_limit, 0 < β ≤ 1; registered as a headline once its literals are read blind), so the windows and equality theorems of the class -1 <= f' <= 1 hold for every solution
+Checked.FalknerSkan.Limit.hiemenz_limit_window
+Checked.FalknerSkan.Limit.hiemenz_limit_equal
+Checked.FalknerSkan.Limit.homann_limit_window
+Checked.FalknerSkan.Limit.homann_limit_equal
+Checked.FalknerSkan.Limit.fs_half_limit_window
+Checked.FalknerSkan.Limit.fs_half_limit_equal
+Checked.FalknerSkan.Limit.fs_fifth_limit_window
+Checked.FalknerSkan.Limit.fs_fifth_limit_equal

@@ -1,62 +1,56 @@
 # Item 23
 
-**Area:** Robertson at t = 1e11
+**Area:** Fluid mechanics
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `y₁ : ℝ → ℝ`, `y₂ : ℝ → ℝ`, `y₃ : ℝ → ℝ`:
+**For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
 
-1. the concentration of species A over time `y₁`, the concentration of species B over time `y₂` and the concentration of species C over time `y₃` are a Robertson chemical kinetics initial value problem solution: they solve the rate equations of the reaction network in which A turns into B with rate constant of the first reaction `k₁ := 1 / 25`, B and C turn into A and C with rate constant of the second reaction `k₂ := 10000`, and two B turn into B and C with rate constant of the third reaction `k₃ := 30000000`, on the time interval from 0 to the final time of the interval `T := 100000000000` (derivatives taken within [0, `T := 100000000000`]), with initial concentration of species A `a₀ := 1`, initial concentration of species B `b₀ := 0` and initial concentration of species C `c₀ := 0` at time 0
+1. `15 / 2 ≤ S`
+2. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt f (p η) (Set.Icc 0 S) η`
+3. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt p (q η) (Set.Icc 0 S) η`
+4. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Icc 0 S) η`
+5. `f 0 = 0`
+6. `p 0 = 0`
+7. `q 0 = 1.2325876568`
 
 **then**
 
-1. `20833401494 / 1000000000000000000 < y₁ 100000000000`
-2. `y₁ 100000000000 < 20833401500 / 1000000000000000000`
-3. `83333 / 1000000000000000000 < y₂ 100000000000`
-4. `y₂ 100000000000 < 83334 / 1000000000000000000`
-5. `99999997916651 / 100000000000000 < y₃ 100000000000`
-6. `y₃ 100000000000 < 99999997916652 / 100000000000000`
-
-Program definitions in this claim:
-
-- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): phrase (hand-written, linted): the concentration of species A over time `y₁`, the concentration of species B over time `y₂` and the concentration of species C over time `y₃` are a Robertson chemical kinetics initial value problem solution: they solve the rate equations of the reaction network in which A turns into B with rate constant of the first reaction `k₁`, B and C turn into A and C with rate constant of the second reaction `k₂`, and two B turn into B and C with rate constant of the third reaction `k₃`, on the time interval from 0 to the final time of the interval `T` (derivatives taken within [0, `T`]), with initial concentration of species A `a₀`, initial concentration of species B `b₀` and initial concentration of species C `c₀` at time 0; by definition, means (`y₁ 0 = a₀`) and (`y₂ 0 = b₀`) and (`y₃ 0 = c₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt y₁ (-k₁ * y₁ t + k₂ * y₂ t * y₃ t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₂ (k₁ * y₁ t - k₂ * y₂ t * y₃ t - k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₃ (k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`))
+- there is `η : ℝ` such that (`η ∈ Set.Ioc 0 (15 / 2)`) and (`q η < 0`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 η`, then `p s < 1`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Certified state of Robertson's stiff network at t = 10¹¹: for k₁ = 1/25, k₂ = 10⁴,
-k₃ = 3·10⁷ and initial concentrations (1, 0, 0), every solution of the rate equations on
-[0, 10¹¹] has 0.000000020833401494 < y₁(10¹¹) < 0.0000000208334015,
-0.000000000000083333 < y₂(10¹¹) < 0.000000000000083334 and
-0.99999997916651 < y₃(10¹¹) < 0.99999997916652.
+Hiemenz stagnation-point flow, undershoot: for every S ≥ 15/2 and every solution of
+f''' + f f'' + 1 − f'² = 0 on [0, S] (f has derivative p, p has derivative q, q has derivative
+−f q − 1 + p², within [0, S]) with f(0) = 0, p(0) = 0 and q(0) = 1.2325876568, there is
+η in (0, 15/2] with q(η) < 0 and p < 1 on [0, η].
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem rob_state1e11 {y₁ y₂ y₃ : ℝ → ℝ}
-    (h : Checked.Sim.Robertson.IsRobSolution (1 / 25) 10000 30000000 1 0 0 100000000000 y₁ y₂ y₃) :
-    20833401494 / 1000000000000000000 < y₁ 100000000000 ∧
-    y₁ 100000000000 < 20833401500 / 1000000000000000000 ∧
-    83333 / 1000000000000000000 < y₂ 100000000000 ∧
-    y₂ 100000000000 < 83334 / 1000000000000000000 ∧
-    99999997916651 / 100000000000000 < y₃ 100000000000 ∧
-    y₃ 100000000000 < 99999997916652 / 100000000000000 := …
+theorem hiemenz_under (S : ℝ) (hS : 15 / 2 ≤ S) (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt f (p η) (Icc 0 S) η)
+    (hp : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt p (q η) (Icc 0 S) η)
+    (hq : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Icc 0 S) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 1.2325876568) :
+    ∃ η ∈ Ioc (0 : ℝ) (15 / 2), q η < 0 ∧ ∀ s ∈ Icc 0 η, p s < 1 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Sim.Robertson.IsRobSolution`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsRobSolution.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rob_state1e11`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 100000000000.
-- Source file: `Checked/Sim/RobLong.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hiemenz_under`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Hiemenz/Hiemenz.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 23

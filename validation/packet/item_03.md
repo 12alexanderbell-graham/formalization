@@ -1,58 +1,41 @@
 # Item 03
 
-**Area:** T1 fidelity
+**Area:** Rigorous simulation
 
-**Source:** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `H : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `t : ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `HubbleSpec H`
-2. `0 < a t`
-3. `DifferentiableAt ℝ a t`
-
-**then**
-
-- `H a t = hubble a t`
+- there is `x : ℝ → ℝ` such that the position as function of time `x` is a Duffing oscillator initial value problem solution: it solves the Duffing equation with linear stiffness coefficient `k := 1` and cubic stiffness coefficient `β := 1`, initial position `x₀ := 1` and initial velocity `v₀ := 0` on the time interval from 0 to the final time of the interval `T := 6 / 5` (derivatives taken within [0, `T := 6 / 5`]; restoring force for positive stiffness, acceleration equals minus force terms)
 
 Program definitions in this claim:
 
-- `HubbleSpec` — SPEC, not pinned: inductive type with constructors `HubbleSpec.mk : ∀ {H : (ℝ → ℝ) → ℝ → ℝ}, (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → HasDerivAt (fun s => Real.log (a s)) (H a t) t) → (∀ (h t : ℝ), H (fun s => Real.exp (h * s)) t = h) → (∀ (n t : ℝ), 0 < t → H (fun s => s ^ n) t = n / t) → (∀ (R t : ℝ), 0 < R → H (fun x => R) t = 0) → (∀ (c : ℝ), 0 < c → ∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → DifferentiableAt ℝ a t → H (fun s => c * a s) t = H a t) → (∀ (τ : ℝ) (a : ℝ → ℝ) (t : ℝ), 0 < a (t + τ) → DifferentiableAt ℝ a (t + τ) → H (fun s => a (s + τ)) t = H a (t + τ)) → (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a (-t) → DifferentiableAt ℝ a (-t) → H (fun s => a (-s)) t = -H a (-t)) → HubbleSpec H`
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): phrase (hand-written, linted): the Hubble rate of the scale factor `a` at the cosmic time of evaluation `t`; by definition, `hubble a t` is `deriv a t / a t ^ 2`
+- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): phrase (hand-written, linted): the position as function of time `x` is a Duffing oscillator initial value problem solution: it solves the Duffing equation with linear stiffness coefficient `k` and cubic stiffness coefficient `β`, initial position `x₀` and initial velocity `v₀` on the time interval from 0 to the final time of the interval `T` (derivatives taken within [0, `T`]; restoring force for positive stiffness, acceleration equals minus force terms); by definition, means (`x 0 = x₀`) and (there is `v : ℝ → ℝ` such that (`v 0 = v₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt x (v t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt v (-k * x t - β * x t ^ 3) (Set.Icc 0 T) t`)))
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-`HubbleSpec` pins `hubble` for every positive scale factor differentiable at `t`
-(its `logDeriv` law `H = d ln a/dt` and uniqueness of derivatives).
+There is a solution of the Duffing initial value problem x'' + x + x³ = 0, x(0) = 1,
+x'(0) = 0 on the time interval [0, 6/5] (derivatives within the interval).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem hubbleSpec_pins (H : (ℝ → ℝ) → ℝ → ℝ) (h : HubbleSpec H) (a : ℝ → ℝ) (t : ℝ)
-    (ha : 0 < a t) (hd : DifferentiableAt ℝ a t) : H a t = hubble a t := …
-```
-
-Definitions specific to this item:
-
-```lean
-/-- The Hubble rate `H = ȧ/a`. (Used by this item in place of the glossary entry.) -/
-noncomputable def hubble (a : ℝ → ℝ) (t : ℝ) : ℝ := deriv a t / a t ^ 2
+theorem duffing_solution_exists : ∃ x : ℝ → ℝ, IsDuffingSolution 1 1 1 0 (6 / 5) x := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.hubble`, `Fidelity.HubbleSpec`
+See GLOSSARY.md: `Sim.Duffing.IsDuffingSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: hubble.
+- Definitions pinned by a machine-checked specification: IsDuffingSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hubbleSpec_pins`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/Pins.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5.
+- Source file: `Checked/Sim/Duffing.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 03
