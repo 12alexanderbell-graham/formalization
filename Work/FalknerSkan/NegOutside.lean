@@ -21,7 +21,7 @@ open Set Filter Topology
 f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 and 0 ≤ p ≤ 1 on
 [0, ∞), neither of which satisfies "for every M, eventually M (1 − p) ≤ q", with different wall
 values q(0) ≠ q₂(0). -/
-theorem fs_neg_tenth_not_unique_outside :
+theorem fs_neg_tenth_outside_decay :
     ∃ f p q f₂ p₂ q₂ : ℝ → ℝ,
       (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
       (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧

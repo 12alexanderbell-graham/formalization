@@ -70,6 +70,8 @@ import Checked.FalknerSkan.FifthBounded
 import Checked.FalknerSkan.Limit
 import Checked.FalknerSkan.TenthBounded
 import Checked.FalknerSkan.LimitTenth
+import Checked.FalknerSkan.NegDecay
+import Checked.FalknerSkan.NegTenth
 import Checked.Data.Moresco16Min
 
 /-!
@@ -972,5 +974,23 @@ theorem fs_monotone_of_limit : nonvacuity% Checked.FalknerSkan.Limit.fs_monotone
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, -, -⟩ :=
     Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded
   exact ⟨1 / 2, by norm_num, by norm_num, f, p, q, hf, hp, hq, hf0, hp0, hlim, 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+
+/-! Falkner–Skan with adverse pressure gradient (run 2026-11-09T1028Z): the solution of
+`Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay` (pressure-gradient coefficient minus one tenth,
+positive second derivative, approach faster than every exponential) satisfies every hypothesis; used
+twice for the comparison and equality theorems. -/
+
+theorem fs_neg_decay_max_shear : nonvacuity% Checked.FalknerSkan.NegDecay.fs_neg_decay_max_shear := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  exact ⟨-1 / 10, by norm_num, f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec,
+    hf, hp, hq, hf0, hp0, hlim, hpos, trivial⟩
+
+theorem fs_neg_decay_equal : nonvacuity% Checked.FalknerSkan.NegDecay.fs_neg_decay_equal := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  exact ⟨-1 / 10, by norm_num, f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec,
+    hf, hp, hq, hf0, hp0, hlim, hpos, hdec, 0, Set.mem_Ici.2 le_rfl, trivial⟩
 
 end Checked.Trust.NV

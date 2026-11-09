@@ -6,7 +6,7 @@ import Work.FalknerSkan.NegOutside
 
 The definitions and `two_outside` are the blind restater's text (Sonnet, from the claim in words only;
 `runs/2026-11-09T1028Z/blind/NegOutsideBlind.lean`, brief next to it), copied verbatim with the
-placeholder proof replaced by a proof from `Work.FalknerSkan.NegOutside.fs_neg_tenth_not_unique_outside`;
+placeholder proof replaced by a proof from `Work.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay`;
 the transport lemma `toBlind` (pattern of `Work.Blasius.BlindClosed`) is program text, not blind text.
 -/
 
@@ -89,7 +89,7 @@ theorem two_outside :
       ¬ DominatesAll f ∧ ¬ DominatesAll g ∧
       d2 f 0 ≠ d2 g 0 := by
   obtain ⟨f, p, q, f₂, p₂, q₂, hf, hp, hq, hf₂, hp₂, hq₂, h0, h1, h2, h3, hl, hl₂, hb, hb₂,
-    hn, hn₂, hne⟩ := Work.FalknerSkan.NegOutside.fs_neg_tenth_not_unique_outside
+    hn, hn₂, hne⟩ := Work.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay
   obtain ⟨s, e1, e2⟩ := toBlind hf hp hq h0 h1 hl
   obtain ⟨s₂, e1₂, e2₂⟩ := toBlind hf₂ hp₂ hq₂ h2 h3 hl₂
   have z : (0 : ℝ) ∈ Ici 0 := mem_Ici.2 le_rfl

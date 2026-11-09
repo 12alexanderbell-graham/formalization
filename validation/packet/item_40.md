@@ -6,48 +6,40 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Rc : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `a' : ℝ → ℝ`, `a'' : ℝ → ℝ`, `t : ℝ`:
-
-**assuming**
-
-1. `RicciFlatFLRWSpec Rc`
-2. `0 < a t`
-3. `∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s`
-4. `HasDerivAt a' (a'' t) t`
+**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **then**
 
-- `Rc a t = curv a t`
+- (the scale factor `a` obeys the flat ΛCDM Friedmann expansion law with the present matter density parameter `Ω` and the observation time `t₀` (spatially flat universe with dust and a cosmological constant; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding)) if and only if (`FriedmannLCDM Ω a t₀`)
 
 Program definitions in this claim:
 
-- `RicciFlatFLRWSpec` — SPEC, not pinned: inductive type with constructors `RicciFlatFLRWSpec.mk : ∀ {Rc : (ℝ → ℝ) → ℝ → ℝ}, (∀ (a a' a'' : ℝ → ℝ) (t : ℝ), 0 < a t → (∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t → Rc a t = -6 * (a'' t / a t + (a' t / a t) ^ 2)) → (∀ (c h t : ℝ), 0 < c → Rc (fun s => c * Real.exp (h * s)) t = -12 * h ^ 2) → (∀ (t : ℝ), 0 < t → Rc (fun s => s ^ (1 / 2)) t = 0) → (∀ (t : ℝ), 0 < t → Rc (fun s => s ^ (2 / 3)) t = -4 / (3 * t ^ 2)) → (∀ (a a' a'' : ℝ → ℝ) (c t : ℝ), 0 < c → 0 < a t → (∀ᶠ (s : ℝ) in nhds t, HasDerivAt a (a' s) s) → HasDerivAt a' (a'' t) t → Rc (fun s => c * a s) t = Rc a t) → (∀ (a a' a'' : ℝ → ℝ) (τ t : ℝ), 0 < a (t + τ) → (∀ᶠ (s : ℝ) in nhds (t + τ), HasDerivAt a (a' s) s) → HasDerivAt a' (a'' (t + τ)) (t + τ) → Rc (fun s => a (s + τ)) t = Rc a (t + τ)) → RicciFlatFLRWSpec Rc`
-- `curv a t` — **PINNED** (pin theorem `ricciSpec_pins`): phrase (hand-written, linted): the Ricci scalar of flat FLRW with the scale factor `a` and the cosmic time of evaluation `t` (negative convention, de Sitter has negative Ricci scalar; Ricci scalar of a spatially flat FLRW metric; negative convention so de Sitter has minus twelve times Hubble rate squared); by definition, `curv a t` is `-6 * (deriv (hubble a) t + 2 * hubble a t ^ 2)`
+- `FriedmannLCDM Ω a t₀` — SPEC, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`): means there is `ρ : ℝ → ℝ` such that there is `Λ : ℝ` such that (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ ρ t * a t ^ 3 = ρ t₀ * a t₀ ^ 3 ∧ (deriv a t / a t) ^ 2 = ρ t + Λ / 3`) and (`0 < deriv a t₀`) and (`Ω = ρ t₀ / (deriv a t₀ / a t₀) ^ 2`)
+- `IsFlatLCDM Ω a t₀` — **PINNED** (pin theorem `flatLCDMSpec2_pins`): phrase (hand-written, linted): the scale factor `a` obeys the flat ΛCDM Friedmann expansion law with the present matter density parameter `Ω` and the observation time `t₀` (spatially flat universe with dust and a cosmological constant; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding); by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** any `Rc` meeting `RicciFlatFLRWSpec` is `curv` wherever `a > 0` is twice
-differentiable at `t`.
+**The program's flat ΛCDM predicate equals the blind textbook Friedmann formulation**, for
+every `Ω`, every scale factor `a` and every `t₀`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem ricciSpec_pins (Rc : (ℝ → ℝ) → ℝ → ℝ) (h : RicciFlatFLRWSpec Rc) (a a' a'' : ℝ → ℝ)
-    (t : ℝ) (ha : 0 < a t) (h1 : ∀ᶠ s in 𝓝 t, HasDerivAt a (a' s) s)
-    (h2 : HasDerivAt a' (a'' t) t) : Rc a t = curv a t := …
+theorem isFlatLCDM_iff_friedmann (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) :
+    IsFlatLCDM Ω a t₀ ↔ FriedmannLCDM Ω a t₀ := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FRCosmo.curv`, `Cosmography.hubble`, `Fidelity.RicciFlatFLRWSpec`
+See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannLCDM`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: curv.
+- Definitions pinned by a machine-checked specification: IsFlatLCDM.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `ricciSpec_pins`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `isFlatLCDM_iff_friedmann`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/FRSpecs.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Fidelity/FriedmannLCDM.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 40

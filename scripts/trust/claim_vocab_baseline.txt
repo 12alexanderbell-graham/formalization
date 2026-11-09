@@ -933,7 +933,6 @@ Checked.Data.Moresco16.table5_oL_inconsistent|table
 Checked.Data.Moresco16.table5_oL_inconsistent|row
 Checked.Data.Moresco16.table5_oL_inconsistent|olcdm
 Checked.Data.Moresco16.table5_oL_inconsistent|ln
-Checked.Data.Moresco16.table5_oL_inconsistent|max
 Checked.Data.Moresco16.table5_oL_inconsistent|printed
 Checked.Data.Moresco16.table5_oL_inconsistent|aicc
 Checked.Data.Moresco16.table5_oL_inconsistent|differs
@@ -945,7 +944,6 @@ Checked.Data.Moresco16.table5_pw_inconsistent|piecewise
 Checked.Data.Moresco16.table5_pw_inconsistent|linear
 Checked.Data.Moresco16.table5_pw_inconsistent|row
 Checked.Data.Moresco16.table5_pw_inconsistent|ln
-Checked.Data.Moresco16.table5_pw_inconsistent|max
 Checked.Data.Moresco16.table5_pw_inconsistent|printed
 Checked.Data.Moresco16.table5_pw_inconsistent|aicc
 Checked.Data.Moresco16.table5_pw_inconsistent|differs
@@ -956,7 +954,6 @@ Checked.Data.Moresco16.table5_line_inconsistent|table
 Checked.Data.Moresco16.table5_line_inconsistent|linear
 Checked.Data.Moresco16.table5_line_inconsistent|row
 Checked.Data.Moresco16.table5_line_inconsistent|ln
-Checked.Data.Moresco16.table5_line_inconsistent|max
 Checked.Data.Moresco16.table5_line_inconsistent|printed
 Checked.Data.Moresco16.table5_line_inconsistent|aicc
 Checked.Data.Moresco16.table5_line_inconsistent|differs

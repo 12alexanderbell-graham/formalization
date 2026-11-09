@@ -47,3 +47,7 @@ network
 tenth
 pressure
 gradient
+neg
+decay
+max
+outside

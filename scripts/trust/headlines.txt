@@ -266,3 +266,8 @@ Checked.FalknerSkan.Limit.fs_fifth_limit_equal
 Checked.FalknerSkan.LimitTenth.fs_tenth_limit_window
 Checked.FalknerSkan.LimitTenth.fs_tenth_limit_equal
 Checked.FalknerSkan.Limit.fs_monotone_of_limit
+# Falkner–Skan with adverse pressure gradient, β < 0 (run 2026-11-09T0828Z frozen and proved in Work; promoted run 2026-11-09T1028Z): uniqueness in the class f'' > 0 with faster-than-every-exponential approach for every β < 0; at β = −1/10 existence in that class, and two solutions outside it with different wall shear (the literal-free form of the Work helper fs_neg_tenth_not_unique, frozen d6dc129)
+Checked.FalknerSkan.NegDecay.fs_neg_decay_max_shear
+Checked.FalknerSkan.NegDecay.fs_neg_decay_equal
+Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay

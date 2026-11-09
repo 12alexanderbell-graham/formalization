@@ -1,6 +1,8 @@
 import Checked.Trust.NonVacuity
 import Checked.FalknerSkan.Limit
 import Checked.FalknerSkan.LimitTenth
+import Checked.FalknerSkan.NegDecay
+import Checked.FalknerSkan.NegOutside
 import Checked.FalknerSkan.FalknerSkan
 import Checked.Blasius.Blasius
 import Checked.Math.LaneEmden
@@ -1380,5 +1382,60 @@ theorem tf_initial_slope_h2 : necessity% Checked.Math.ThomasFermi.tf_initial_slo
     fun x _ => Real.exp_pos _, Real.tendsto_exp_neg_atTop_nhds_zero, ?_⟩
   · exact ((hasDerivAt_neg x).exp.congr_deriv (by ring)).hasDerivWithinAt
   · norm_num
+
+
+/-! Falkner–Skan with adverse pressure gradient (run 2026-11-09T1028Z): the fast-approach condition of
+the comparison and equality theorems is needed. The data: the fast-approach solution of
+`Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay` and the two solutions of
+`Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay`, which fail that condition. -/
+
+theorem fs_neg_decay_equal_h17 : necessity% Checked.FalknerSkan.NegDecay.fs_neg_decay_equal 17 := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  obtain ⟨g, pg, qg, g₂, pg₂, qg₂, hg, hpg, hqg, hg₂, hpg₂, hqg₂, hg0, hpg0, hg₂0, hpg₂0, hlg, hlg₂,
+    hbg, hbg₂, -, -, hne⟩ := Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay
+  by_cases h : qg 0 = q 0
+  · refine ⟨-1 / 10, by norm_num, f, p, q, g₂, pg₂, qg₂, hf, hp, hq, hf0, hp0, hlim, hpos, hdec,
+      hg₂, hpg₂, hqg₂, hg₂0, hpg₂0, hlg₂, fun η hη => (hbg₂ η hη).1, 0, Set.mem_Ici.2 le_rfl, ?_⟩
+    rintro ⟨-, -, he⟩
+    exact hne (h.trans he)
+  · refine ⟨-1 / 10, by norm_num, f, p, q, g, pg, qg, hf, hp, hq, hf0, hp0, hlim, hpos, hdec,
+      hg, hpg, hqg, hg0, hpg0, hlg, fun η hη => (hbg η hη).1, 0, Set.mem_Ici.2 le_rfl, ?_⟩
+    rintro ⟨-, -, he⟩
+    exact h he.symm
+
+theorem fs_neg_decay_equal_h9 : necessity% Checked.FalknerSkan.NegDecay.fs_neg_decay_equal 9 := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  obtain ⟨g, pg, qg, g₂, pg₂, qg₂, hg, hpg, hqg, hg₂, hpg₂, hqg₂, hg0, hpg0, hg₂0, hpg₂0, hlg, hlg₂,
+    hbg, hbg₂, -, -, hne⟩ := Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay
+  by_cases h : qg 0 = q 0
+  · refine ⟨-1 / 10, by norm_num, g₂, pg₂, qg₂, f, p, q, hg₂, hpg₂, hqg₂, hg₂0, hpg₂0, hlg₂,
+      fun η hη => (hbg₂ η hη).1, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, 0, Set.mem_Ici.2 le_rfl, ?_⟩
+    rintro ⟨-, -, he⟩
+    exact hne (h.trans he.symm)
+  · refine ⟨-1 / 10, by norm_num, g, pg, qg, f, p, q, hg, hpg, hqg, hg0, hpg0, hlg,
+      fun η hη => (hbg η hη).1, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, 0, Set.mem_Ici.2 le_rfl, ?_⟩
+    rintro ⟨-, -, he⟩
+    exact h he
+
+theorem fs_neg_decay_max_shear_h9 : necessity% Checked.FalknerSkan.NegDecay.fs_neg_decay_max_shear 9 := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  obtain ⟨g, pg, qg, g₂, pg₂, qg₂, hg, hpg, hqg, hg₂, hpg₂, hqg₂, hg0, hpg0, hg₂0, hpg₂0, hlg, hlg₂,
+    hbg, hbg₂, -, -, hne⟩ := Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay
+  have l1 := Checked.FalknerSkan.NegDecay.fs_neg_decay_max_shear (-1 / 10) (by norm_num) f p q g pg qg
+    hf hp hq hf0 hp0 hlim hpos hdec hg hpg hqg hg0 hpg0 hlg (fun η hη => (hbg η hη).1)
+  have l2 := Checked.FalknerSkan.NegDecay.fs_neg_decay_max_shear (-1 / 10) (by norm_num) f p q g₂ pg₂ qg₂
+    hf hp hq hf0 hp0 hlim hpos hdec hg₂ hpg₂ hqg₂ hg₂0 hpg₂0 hlg₂ (fun η hη => (hbg₂ η hη).1)
+  by_cases h : qg 0 = q 0
+  · refine ⟨-1 / 10, by norm_num, g₂, pg₂, qg₂, f, p, q, hg₂, hpg₂, hqg₂, hg₂0, hpg₂0, hlg₂,
+      fun η hη => (hbg₂ η hη).1, hf, hp, hq, hf0, hp0, hlim, hpos, ?_⟩
+    intro hle
+    exact hne (by rw [h]; linarith)
+  · refine ⟨-1 / 10, by norm_num, g, pg, qg, f, p, q, hg, hpg, hqg, hg0, hpg0, hlg,
+      fun η hη => (hbg η hη).1, hf, hp, hq, hf0, hp0, hlim, hpos, ?_⟩
+    intro hle
+    exact h (le_antisymm l1 hle)
 
 end Checked.Trust.NC

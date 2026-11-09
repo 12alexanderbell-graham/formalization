@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 224. Resting on no unpinned physics definition: 224.
-Non-vacuity (trust track T2): 150 headlines have hypotheses; 150 of them have a
+Headlines: 228. Resting on no unpinned physics definition: 228.
+Non-vacuity (trust track T2): 152 headlines have hypotheses; 152 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 794 hypotheses in 146 headlines;
-155 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 828 hypotheses in 148 headlines;
+158 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 17 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-622 open; headlines with every hypothesis classified: 0/146
+653 open; headlines with every hypothesis classified: 0/148
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -262,6 +262,10 @@ the docstring says; universally bound parameters are not listed.
 | `FalknerSkan.LimitTenth.fs_tenth_limit_window` | — | — | — | `fs_tenth_limit_window` | — |
 | `FalknerSkan.LimitTenth.fs_tenth_limit_equal` | — | — | — | `fs_tenth_limit_equal` | — |
 | `FalknerSkan.Limit.fs_monotone_of_limit` | — | — | — | `fs_monotone_of_limit` | — |
+| `FalknerSkan.NegDecay.fs_neg_decay_max_shear` | — | — | — | `fs_neg_decay_max_shear` | — |
+| `FalknerSkan.NegDecay.fs_neg_decay_equal` | — | — | — | `fs_neg_decay_equal` | — |
+| `FalknerSkan.NegTenth.fs_neg_tenth_exists_decay` | — | — | — | unconditional | — |
+| `FalknerSkan.NegOutside.fs_neg_tenth_outside_decay` | — | — | — | unconditional | — |
 
 ## Hypothesis necessity, per headline
 
@@ -419,6 +423,8 @@ neither is proved yet.
 - `FalknerSkan.LimitTenth.fs_tenth_limit_window` (6): needed 1 (`fs_tenth_limit_window_h1`), 2 (`fs_tenth_limit_window_h2`), 3 (`fs_tenth_limit_window_h3`), 5 (`fs_tenth_limit_window_h5`); open 4, 6
 - `FalknerSkan.LimitTenth.fs_tenth_limit_equal` (13): needed 1 (`fs_tenth_limit_equal_h1`), 2 (`fs_tenth_limit_equal_h2`), 3 (`fs_tenth_limit_equal_h3`), 5 (`fs_tenth_limit_equal_h5`), 7 (`fs_tenth_limit_equal_h7`), 8 (`fs_tenth_limit_equal_h8`), 9 (`fs_tenth_limit_equal_h9`), 11 (`fs_tenth_limit_equal_h11`), 13 (`fs_tenth_limit_equal_h13`); open 4, 6, 10, 12
 - `FalknerSkan.Limit.fs_monotone_of_limit` (9): open 1, 2, 3, 4, 5, 6, 7, 8, 9
+- `FalknerSkan.NegDecay.fs_neg_decay_max_shear` (16): needed 9 (`fs_neg_decay_max_shear_h9`); open 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16
+- `FalknerSkan.NegDecay.fs_neg_decay_equal` (18): needed 9 (`fs_neg_decay_equal_h9`), 17 (`fs_neg_decay_equal_h17`); open 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 18
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 

@@ -6,37 +6,36 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `lam : ℝ`, `u : EuclideanSpace ℝ (Fin 3) → ℝ`:
+**For every** `S : ℝ`, `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
 
-1. `ContDiffOn ℝ 2 u (Metric.ball 0 1)`
-2. `ContinuousOn u (Metric.closedBall 0 1)`
-3. for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u x = 0`
-4. there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u x = g ‖x‖`
-5. for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian u x + lam * Real.exp (u x) = 0`
+1. `68 / 5 ≤ S`
+2. for every `r : ℝ`, if `r ∈ Set.Icc 0 S`, then `HasDerivWithinAt θ (φ r) (Set.Icc 0 S) r`
+3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
+4. for every `r : ℝ`, if `r ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Set.Icc 0 S) r`
+5. `θ 0 = 2.2062008647`
 
 **then**
 
-- `lam ≤ 3.321992119`
+- there is `r : ℝ` such that (`r ∈ Set.Ioc 0 (68 / 5)`) and (`θ r < 0`) and (for every `s : ℝ`, if `s ∈ Set.Ioc 0 r`, then `φ s < 0`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Gelfand problem in the unit ball of three-dimensional space, radial solutions: if u is twice
-continuously differentiable on the open unit ball, continuous on the closed unit ball, zero on the unit sphere
-and a function of ‖x‖ on the closed ball, and Δu + λ eᵘ = 0 on the open ball (Δ is Mathlib's Laplacian),
-then λ ≤ 3.321992119.
+Townes radial equation, overshoot: for every S ≥ 68/5 and every solution θ of
+θ'' + (1/r)θ' − θ + θ³ = 0 on (0, S] with θ(0) = 2.2062008647, θ differentiable on [0, S] with
+derivative φ and φ continuous at 0, there is r in (0, 68/5] with θ(r) < 0 and φ negative on
+(0, r].
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem gelfand_pde_radial_bound (lam : ℝ) (u : EuclideanSpace ℝ (Fin 3) → ℝ)
-    (hu : ContDiffOn ℝ 2 u (ball 0 1))
-    (hc : ContinuousOn u (closedBall 0 1))
-    (hb : ∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u x = 0)
-    (hrad : ∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u x = g ‖x‖)
-    (hpde : ∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + lam * Real.exp (u x) = 0) :
-    lam ≤ 3.321992119 := …
+theorem townes_over (S : ℝ) (hS : 68 / 5 ≤ S) (θ φ : ℝ → ℝ)
+    (hθ : ∀ r ∈ Icc (0 : ℝ) S, HasDerivWithinAt θ (φ r) (Icc 0 S) r)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 S) 0)
+    (hφ : ∀ r ∈ Ioc (0 : ℝ) S, HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Icc 0 S) r)
+    (h0 : θ 0 = 2.2062008647) :
+    ∃ r ∈ Ioc (0 : ℝ) (68 / 5), θ r < 0 ∧ ∀ s ∈ Ioc 0 r, φ s < 0 := …
 ```
 
 ## Definitions it uses
@@ -48,8 +47,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `gelfand_pde_radial_bound`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `townes_over`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/GelfandPDE.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Townes/TownesShooting.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 43
