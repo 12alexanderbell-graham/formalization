@@ -19,8 +19,13 @@ STATE exact next step 2: the β < 0 theorems were PROVED in Work only. A yes (pr
 ## Work
 1. Blind literal reading (brief 600017e → reading 0c8270b): m = −1/21 gives β = −1/10, edge value 1, and the decay-class condition with the reader's own edge asymptotics (algebraic approach fails it, Gaussian satisfies it; shooting: continuum below s ≈ 0.317, critical s* ≈ 0.31927).
 2. The constant `3` of `fs_neg_tenth_not_unique` is the author's choice, not source data: new literal-free headline frozen d6dc129 (each of the two solutions fails the decay condition itself), proved 2fd45eb from the old one; blind restatement from words (Sonnet, derivWithin + ContDiffOn 3) closed in `Work/FalknerSkan/NOBlindClosed.lean` (516b7c8). Renamed `fs_neg_tenth_outside_decay` before registration (V8: `unique`).
+   Docstrings: three rounds against check_claim_vocab/check_prose (V1 words, V11 code must be the claim's own, rule on "each of which").
 3. Promotion by script (`scripts/promote_fsneg.py`: 12 `Checked/FSNeg/*` + 7 `Checked/FalknerSkan/Neg*` modules), reader copies `SecondReadingFSNeg`, `SecondReadingFSWall` (second blind reading eef88ef → 8eb3ece after check_literals flagged the `0` of `q 0`), NV witnesses (2), necessity witnesses (3), docstrings rewritten for the claim vocabulary (`scripts/fix_docs.py`), prose_vocab `neg`, `decay`, `max`, `outside` (LEDGER).
-4. Prior-art screen (`screen/REPORT.md`): substance classical for β* < β < 0; the largest-wall-shear form and machine-checked versions not found.
+4. Promotion commit 83ebad4 (rebased over run 1228Z's auditor-role scratch commits): local full build, StatementDeps with relock, Claims, every Python trust check incl. `--base 92c7b40`, packet, goal guard green.
+5. Prior-art screen (`screen/REPORT.md`): substance classical for β* < β < 0; the largest-wall-shear form and machine-checked versions not found.
+
+## Concurrency
+- Run 1228Z started 12:27Z in auditor role under this LOCK and compiled the ten-decimal window and the reversed-flow branch in its own folder; this run rebased its promotion commit over those scratch commits (no file overlap) and released the LOCK in the records commit.
 
 ## Lessons
 - A constant chosen by the author inside an existential conclusion (here `q < 3(1 − p)`) cannot be read blind; state the property it stands for (here: not in the decay class) and keep the constant in a helper.

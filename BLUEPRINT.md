@@ -281,7 +281,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Falkner–Skan with adverse pressure gradient (β < 0), `Work/FalknerSkan/Neg*.lean`, `Work/FSNeg/` (run 2026-11-09T0828Z)
 - Uniqueness for every β < 0 in the class f'' > 0 + super-exponential approach: scaling `NegCore` → Crocco map adverse sign `NegCrocco` → no-crossing `NegNoCross` (replaces the cooperative `CroccoCompare`) → `NegUPrime` (max wall shear) → `NegDecay`.
 - β = −1/10 existence and non-uniqueness: `NBase` (clamped field, Over/Slow) → `NCellWC` + chains `NSlowHalf`, `NSlow34`, `NOver11` (generator `runs/2026-11-09T0828Z/scripts/gen_neg_wc.py`) → `NFlow`, `NSlowInv`, `NLimit`, `NRiccati`, `NLemma1`, `NUnclamp` → `NAssemble` (core theorems over `ChainTo`) → `NegTenth`.
-- Next: Checked promotion; ten-decimal window; reversed-flow branch (Lemma D).
+- Promoted (run 2026-11-09T1028Z): `Checked/FSNeg/`, `Checked/FalknerSkan/Neg*.lean`; headline `NegOutside.fs_neg_tenth_outside_decay` (two solutions outside the decay class, from `NegTenth.fs_neg_tenth_not_unique`); readings `SecondReadingFSNeg`, `SecondReadingFSWall`; necessity witnesses for the decay hypotheses.
+- Next: ten-decimal window; reversed-flow branch (Lemma D).
 
 ## Hypothesis necessity (trust track T2b), `Checked/Trust/NonVacuity.lean`, `Checked/Trust/Necessity.lean` (run 2026-11-09T0628Z)
 - Obligations `necessity% thm i`, `dropped% thm i` (numbering as CLAIMS.md); classification in `scripts/trust/StatementDeps.lean` → TRUST_MAP.md "Hypothesis necessity" (report-only).
