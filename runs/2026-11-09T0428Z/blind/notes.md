@@ -1,0 +1,7 @@
+- Encoding: four functions f f1 f2 f3 : ℝ → ℝ (f, f', f'', f'''); `IsSolution` bundles everything.
+- Derivatives: HasDerivWithinAt ... (Set.Ici 0) x for every x ≥ 0 (one-sided at 0), for f, f1, f2.
+- ODE: f3 + f*f2 + (1/10)*(1 - f1^2) = 0 for all x ≥ 0; BCs f 0 = 0, f1 0 = 0, Tendsto f1 atTop (nhds 1).
+- No bound on f' assumed; no existence claimed (theorems are about "every" solution, so vacuous if none).
+- Claim 1: strict inequalities with decimals as rationals 5870352191/10^10 and 5870352193/10^10.
+- Ambiguity: "agree, with first and second derivatives" read as f, f', f'' all equal on x ≥ 0 (f''' follows from ODE, not stated).
+- f3 is only pinned by the ODE; values at x < 0 are unconstrained, so conclusions are only for x ≥ 0.
