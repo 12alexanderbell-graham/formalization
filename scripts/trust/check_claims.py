@@ -61,6 +61,12 @@ This script guards them:
                              reader file's line order, and "divided by" joins only consecutive reader lines (AC d03)
                              P12 (--base, after AC d02, not blind): a reader line excluded at the base commit
                              (phrase_clause_baseline.txt) never enters the registry: an exclusion is final
+                             P13 (run 2026-11-09T1828Z, after adversary AD d02/d04; LEDGER): every SIGN and CLAUSE
+                             line of the registry is proved about its definition by a Checked theorem named in
+                             phrase_certs.txt (Claims.lean resolves it, requires its statement to use the definition,
+                             prints its hypotheses after the phrase and its generated claim in PHRASE_LINES.md) or is
+                             in the shrink-only phrase_cert_baseline.txt (--base: no line added, no CERT removed): a
+                             new reader line reaches CLAIMS.md only with a Lean proof of what it says
   check_claims.py --generate rewrite every phrase of phrases.txt from the registry (P11)
   check_claims.py --base B   a phrase changed or removed since commit B needs a LEDGER.md line
                              added since B naming the definition (as check_relock.py does for
@@ -689,6 +695,120 @@ def write_generated():
     return 0
 
 
+CERTS = "scripts/trust/phrase_certs.txt"
+CERT_BASE = "scripts/trust/phrase_cert_baseline.txt"
+
+
+def cert_lines(text=None):
+    """CERT lines of phrase_certs.txt as (kind | definition | reader line, theorem) pairs."""
+    if text is None:
+        text = (ROOT / CERTS).read_text(encoding="utf-8")
+    out = []
+    for l in text.split("\n"):
+        s = l.strip()
+        if not s.startswith("CERT | "):
+            continue
+        p = [x.strip() for x in s.split(" | ")]
+        if len(p) != 5:
+            out.append((None, s))
+            continue
+        out.append((" | ".join(p[1:4]), p[4]))
+    return out
+
+
+def cert_baseline(text=None):
+    if text is None:
+        f = ROOT / CERT_BASE
+        text = f.read_text(encoding="utf-8") if f.exists() else ""
+    return {l.strip() for l in text.split("\n") if l.strip() and not l.strip().startswith("#")}
+
+
+def certified_lines(reg_text=None, cert_text=None, base_text=None):
+    """P13 (run 2026-11-09T1828Z; LEDGER): the content of a blind reading is checked by Lean. Every SIGN and CLAUSE line
+    of the registry is either proved about the definition by a Checked theorem named in phrase_certs.txt (Claims.lean
+    resolves it, requires its statement to use the definition and prints its extra conditions after the phrase in
+    CLAIMS.md) or listed in the shrink-only phrase_cert_baseline.txt. Adversary AD (run 2026-11-09T1428Z) d02/d04
+    commissioned new honest-looking readings that restated excluded overclaims; a new reader line can no longer be
+    baselined (--base), so it is shown only with a proof of what it says. Found while certifying: 'positive curvature
+    constant gives above one' (omega0), 'zero when emission and observation coincide' (redshift) and 'orders 0 and 1
+    coefficients are one' (cosmoCoeff) hold only for nonzero scale factor, Hubble rate or velocity."""
+    if reg_text is None:
+        reg_text = (ROOT / ROLES).read_text(encoding="utf-8")
+    reg = [l.strip() for l in reg_text.split("\n") if re.match(r"^(SIGN|CLAUSE) \| ", l.strip())]
+    regset = set(reg)
+    certs = cert_lines(cert_text)
+    base = cert_baseline(base_text)
+    bad = []
+    have = set()
+    for key, th in certs:
+        if key is None:
+            bad.append(f"{CERTS}: malformed line (P13: CERT | kind | definition | reader line | theorem): {th}")
+            continue
+        if key not in regset:
+            bad.append(f"{CERTS}: certifies a line that is not in the registry: {key} (P13)")
+        if not th.startswith("Checked."):
+            bad.append(f"{CERTS}: theorem {th} is not a Checked constant (P13)")
+        have.add(key)
+    for l in reg:
+        if l not in have and l not in base:
+            bad.append(f"{ROLES}: reader line shown with no Lean certificate: {l} (P13: add a theorem to {CERTS}; the "
+                       f"baseline {CERT_BASE} is shrink-only)")
+    for l in sorted(base):
+        if l not in regset:
+            bad.append(f"{CERT_BASE}: line not in the registry: {l} (P13: stale baseline line; remove it)")
+        elif l in have:
+            bad.append(f"{CERT_BASE}: certified line still baselined: {l} (P13: remove it from the baseline)")
+    return bad
+
+
+def certs_base(base, old_cert_text=None, old_base_text=None, new_cert_text=None, new_base_text=None, reg_text=None):
+    """P13 (--base): the certificate baseline is shrink-only, and no CERT line is removed while its reader line is in
+    the registry."""
+    if old_cert_text is None:
+        oc = git("show", f"{base}:{CERTS}")
+        old_cert_text = oc.stdout if oc.returncode == 0 else ""
+    if old_base_text is None:
+        ob = git("show", f"{base}:{CERT_BASE}")
+        old_base_text = ob.stdout if ob.returncode == 0 else None
+    if reg_text is None:
+        reg_text = (ROOT / ROLES).read_text(encoding="utf-8")
+    regset = {l.strip() for l in reg_text.split("\n")}
+    bad = []
+    if old_base_text is not None:
+        for l in sorted(cert_baseline(new_base_text) - cert_baseline(old_base_text)):
+            bad.append(f"P13 certificate baseline line added since {base}: {l} (shrink-only: a reader line needs a theorem)")
+    new = set(cert_lines(new_cert_text))
+    for key, th in cert_lines(old_cert_text):
+        if key is not None and (key, th) not in new and key in regset:
+            bad.append(f"P13 certificate removed since {base}: {key} | {th} (a shown line keeps its certificate)")
+    return bad
+
+
+def _controls_p13():
+    """Planted controls of P13 (run 2026-11-09T1828Z): each must be rejected."""
+    reg = "SIGN | D.f | positive for x\nCLAUSE | D.f | zero at zero\n"
+    cert = "CERT | SIGN | D.f | positive for x | Checked.T.a\nCERT | CLAUSE | D.f | zero at zero | Checked.T.b\n"
+    ok = certified_lines(reg, cert, "")
+    fails = []
+    if ok:
+        fails.append(f"honest control rejected: {ok}")
+    # an uncertified new reader line (AD d02/d04 shape)
+    if not certified_lines(reg + "CLAUSE | D.f | an inflection point with horizontal tangent\n", cert, ""):
+        fails.append("uncertified reader line accepted")
+    # a certificate pointing outside Checked
+    if not certified_lines(reg, cert.replace("Checked.T.b", "Work.T.b"), ""):
+        fails.append("non-Checked certificate accepted")
+    # baseline grown (--base)
+    if not certs_base("B", cert, "", cert, "CLAUSE | D.f | zero at zero\n", reg):
+        fails.append("grown certificate baseline accepted")
+    # certificate removed (--base)
+    if not certs_base("B", cert, "", cert.split("\n")[0] + "\n", "", reg):
+        fails.append("removed certificate accepted")
+    for f in fails:
+        print("P13 CONTROL FAILED:", f)
+    return 1 if fails else 0
+
+
 def baseline_reentry(base, old_excl_text=None, old_reg_text=None, new_reg_text=None):
     """P12 (--base; after blind red team AC d02, not blind): a reader line excluded at `base` (phrase_clause_baseline.txt:
     false at junk values, a hypothesis rather than a property, true only under extra hypotheses, ambiguous parse) cannot
@@ -873,7 +993,7 @@ def _controls_p10_p12():
 
 
 def lint():
-    if _controls():
+    if _controls() or _controls_p13():
         return 1
     data = ROOT / ".lake/phrases.jsonl"
     if not data.exists():
@@ -904,6 +1024,7 @@ def lint():
     bad += role_binding(phr, roles, signs)
     bad += coverage(phr, roles, signs, clauses, registry_names())
     bad += registry_complete(phr)
+    bad += certified_lines()
     bad += generated()
     bad += spec_vocabulary(entries, p2_baseline() | p5_baseline(), roles, signs, clauses)
     for b in bad:
@@ -986,7 +1107,7 @@ def registry_removals(base, old_text=None, new_text=None, new_phr=None):
 def base_check(base):
     if not base or set(base) == {"0"} or git("cat-file", "-e", base + "^{commit}").returncode:
         base = "HEAD~1"
-    rb = roles_route(base) + baseline_reentry(base)
+    rb = roles_route(base) + baseline_reentry(base) + certs_base(base)
     for b in rb:
         print("PHRASE ROLES:", b)
     if rb:

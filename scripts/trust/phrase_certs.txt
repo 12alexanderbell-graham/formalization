@@ -1,0 +1,38 @@
+# Certified phrase lines (rule P13 of scripts/trust/check_claims.py, run 2026-11-09T1828Z; LEDGER).
+# Each line: CERT | <kind> | <definition> | <reader line, word for word as in phrase_roles.txt> | <theorem>.
+# The theorem (a Checked constant whose statement uses the definition; scripts/trust/Claims.lean checks this) proves
+# about the Lean definition the property the reader line states. Conditions the line does not state are hypotheses
+# of the theorem, and Claims.lean prints them after the phrase in every generated claim that uses the definition.
+# Every SIGN and CLAUSE line of the registry is certified here or listed in the shrink-only
+# phrase_cert_baseline.txt; a reader line added after run 2026-11-09T1828Z cannot be baselined, so it reaches
+# CLAIMS.md only with a Lean proof of what it says. A CERT line is never removed while its reader line is shown.
+CERT | SIGN | Checked.Cosmography.redshift | positive when emission precedes observation in an expanding universe | Checked.Trust.PhraseCerts.redshift_pos
+CERT | SIGN | Checked.Cosmography.BambaK.omega0 | one plus curvature term, positive curvature constant gives above one | Checked.Trust.PhraseCerts.omega0_eq_one_add_curvK
+CERT | SIGN | Checked.Cosmography.BambaK.omega0 | one plus curvature term, positive curvature constant gives above one | Checked.Trust.PhraseCerts.omega0_gt_one
+CERT | SIGN | Checked.Cosmography.BambaZ.curvK | has sign of curvature constant, minus the curvature density parameter | Checked.Trust.PhraseCerts.curvK_sign
+CERT | SIGN | Checked.Cosmography.BambaY.yred | positive for redshift, negative for blueshift | Checked.Trust.PhraseCerts.yred_sign
+CERT | SIGN | Checked.Cosmography.FRCosmo.curv | negative convention, de Sitter has negative Ricci scalar | Checked.Trust.PhraseCerts.curv_deSitter
+CERT | SIGN | Checked.Cosmography.Transverse.transverse | positive curvature constant gives sine, closed spherical case | Checked.Trust.PhraseCerts.transverse_pos
+CERT | CLAUSE | Checked.Cosmography.hubble | logarithmic derivative of the scale factor with respect to cosmic time | Checked.Trust.PhraseCerts.hubble_log_deriv
+CERT | CLAUSE | Checked.Cosmography.hubble | positive for expansion and negative for contraction | Checked.Trust.PhraseCerts.hubble_sign
+CERT | CLAUSE | Checked.Cosmography.decel | negative value means accelerating expansion | Checked.Trust.PhraseCerts.decel_neg_iff
+CERT | CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | present Hubble rate is positive so the universe is expanding | Checked.Trust.PhraseCerts.flatLCDM_expanding
+CERT | CLAUSE | Checked.Cosmography.redshift | one plus redshift is the scale factor at observation over that at emission | Checked.Trust.PhraseCerts.one_add_redshift
+CERT | CLAUSE | Checked.Cosmography.redshift | zero when emission and observation coincide | Checked.Trust.PhraseCerts.redshift_self
+CERT | CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | orders 0 and 1 coefficients are one | Checked.Trust.PhraseCerts.cosmoCoeff_zero_one
+CERT | CLAUSE | Checked.Cosmography.BambaY.yred | one minus the scale factor at emission over that at observation | Checked.Trust.PhraseCerts.yred_eq
+CERT | CLAUSE | Checked.Cosmography.BambaY.yred | always below one for a positive scale factor | Checked.Trust.PhraseCerts.yred_lt_one
+CERT | CLAUSE | Checked.Cosmography.BambaK.omega0 | equals one for zero curvature | Checked.Trust.PhraseCerts.omega0_zero
+CERT | CLAUSE | Checked.Cosmography.BambaZ.curvK | total density parameter minus one | Checked.Trust.PhraseCerts.curvK_eq_omega0_sub_one
+CERT | CLAUSE | Checked.Cosmography.BambaZ.curvK | positive for closed and negative for open | Checked.Trust.PhraseCerts.curvK_sign
+CERT | CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | present Hubble rate is positive so the universe is expanding | Checked.Trust.PhraseCerts.flatCPL_expanding
+CERT | CLAUSE | Checked.Cosmography.FRCosmo.curv | negative convention so de Sitter has minus twelve times Hubble rate squared | Checked.Trust.PhraseCerts.curv_deSitter
+CERT | CLAUSE | Checked.Cosmography.FRCosmo.rhoM | falls as the inverse cube of the scale factor | Checked.Trust.PhraseCerts.rhoM_cube
+CERT | CLAUSE | Checked.Cosmography.Transverse.transverse | vanishes at zero with unit slope | Checked.Trust.PhraseCerts.transverse_origin
+CERT | CLAUSE | Checked.Cosmography.Transverse.transverse | equals χ itself for zero K | Checked.Trust.PhraseCerts.transverse_zero
+CERT | CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | first and second volume derivatives of pressure both vanish | Checked.Trust.PhraseCerts.critical_iff
+CERT | CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | a mere stationary point is not critical | Checked.Trust.PhraseCerts.stationary_not_critical
+CERT | CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | liquid volume is less than gas volume | Checked.Trust.PhraseCerts.maxwell_parts
+CERT | CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | pressure equals the saturation pressure at both volumes | Checked.Trust.PhraseCerts.maxwell_parts
+CERT | CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equal areas between the isotherm and the saturation pressure line | Checked.Trust.PhraseCerts.maxwell_parts
+CERT | CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 2 coefficient is minus the deceleration parameter usually written q | Checked.Trust.PhraseCerts.cosmoCoeff_two

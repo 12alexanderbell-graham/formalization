@@ -1,0 +1,73 @@
+# Reader lines shown WITHOUT a Lean certificate (rule P13 of scripts/trust/check_claims.py, run 2026-11-09T1828Z):
+# SHRINK-ONLY (check_claims.py --base fails on any added line). Every other SIGN and CLAUSE line of the registry
+# scripts/trust/phrase_roles.txt has a theorem in scripts/trust/phrase_certs.txt. Two groups, judged by the run that
+# introduced P13 (not blind; a later run may move a line from B to A only with a theorem):
+#  A. lines that restate the definition's formula or structure in words (the formula itself is printed by Lean right
+#     after the phrase in CLAIMS.md) or a property not yet proved: a certificate is owed (open work);
+#  B. names, roles, units and sign-convention names that state no property of the definition's value.
+# A reader line added after run 2026-11-09T1828Z can never be listed here: it is shown only with a theorem.
+# A (certificate owed)
+SIGN | Checked.Cosmography.decel | minus acceleration times scale factor over velocity squared
+SIGN | Checked.Sim.Duffing.IsDuffingSolution | restoring force for positive stiffness, acceleration equals minus force terms
+SIGN | Checked.Sim.MichaelisMenten.IsMMSolution | binding consumes substrate and free enzyme, forms complex
+CLAUSE | Checked.Cosmography.decel | minus the second time derivative times the scale factor
+CLAUSE | Checked.Cosmography.decel | divided by the squared first time derivative
+CLAUSE | Checked.Cosmography.BambaA.angDist | scale factor at emission times the transverse distance of the comoving distance
+CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | holds on a whole neighbourhood of t₀
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | n-th time derivative of the scale factor over the scale factor
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | divided by the n-th power of the Hubble rate
+CLAUSE | Checked.Cosmography.BambaZ.curvK | minus the curvature density parameter
+CLAUSE | Checked.Cosmography.BambaY.comoving | integral of one over the scale factor over cosmic time
+CLAUSE | Checked.Cosmography.BambaY.comoving | integrated from emission time to observation time
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | holds on a whole neighbourhood of t₀
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | negative Ricci scalar convention with R taken as curv of a
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | multiplied through by F prime with no division
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | derivatives of F are taken with respect to R
+CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | negative Ricci scalar convention with R taken as curv of a
+CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | multiplied through by minus two F prime with no division
+CLAUSE | Checked.Cosmography.Transverse.transverse | second derivative in χ is minus K times itself
+CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | pressure as a function of molar volume at fixed temperature
+CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | pressure is a function of molar volume at fixed temperature
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | the second derivative plus k times x plus β times x cubed vanishes
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | holds on the closed time interval from zero to T
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | derivatives at the endpoints are one-sided
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | mass action kinetics of E plus S reversibly forming complex C
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | k₁ is the rate constant of E plus S forming C
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | km₁ is the rate constant of C returning to E plus S
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | k₂ is the rate constant of C forming E plus P
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | holds on the closed time interval from zero to T
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | A converts to B with rate constant k₁
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | B plus C gives A plus C with rate constant k₂
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | two B give B plus C with rate constant k₃
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | holds on the closed time interval from zero to T
+# B (no property of the value)
+SIGN | Checked.Cosmography.BambaK.lumDist | positive curvature constant means closed, negative means open
+SIGN | Checked.Cosmography.BambaA.angDist | positive curvature constant means closed, negative means open
+SIGN | Checked.Cosmography.FRCosmo.FriedmannEq | negative Ricci scalar convention, minus the common one
+SIGN | Checked.Cosmography.FRCosmo.MasterEq | negative Ricci scalar convention, minus the common one
+CLAUSE | Checked.Cosmography.BambaK.lumDist | units in which the speed of light is one
+CLAUSE | Checked.Cosmography.BambaK.lumDist | positive K is closed and negative K is open
+CLAUSE | Checked.Cosmography.BambaA.angDist | positive K is closed and negative K is open
+CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | spatially flat universe with dust and a cosmological constant
+CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | Ω is the present matter density parameter
+CLAUSE | Checked.Cosmography.redshift | negative redshift is blueshift
+CLAUSE | Checked.Cosmography.BambaK.omega0 | total density parameter and not the matter fraction alone
+CLAUSE | Checked.Cosmography.BambaY.lumDistFlat | units in which the speed of light is one
+CLAUSE | Checked.Cosmography.BambaY.comoving | units in which the speed of light is one
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | spatially flat universe with dust and separately conserved dark energy
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | redshift z is measured from t₀
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | Ω is the present matter density parameter
+CLAUSE | Checked.Cosmography.FRCosmo.curv | Ricci scalar of a spatially flat FLRW metric
+CLAUSE | Checked.Cosmography.FRCosmo.rhoM | pressureless dust density in units where kappa squared is one
+CLAUSE | Checked.Cosmography.FRCosmo.rhoM | Ω is relative to the general relativity critical density
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | constraint equation of metric F of R gravity in flat FLRW
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | dust source and kappa squared is one
+CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | Hubble rate derivative equation of metric F of R gravity
+CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | flat FLRW with dust source and kappa squared is one
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | k is the linear stiffness and β the cubic coefficient
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | x₀ is the initial position and v₀ the initial velocity
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | s e c p are concentrations of S E C and P
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | y₁ y₂ y₃ are concentrations of A B C
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 3 coefficient is the jerk parameter usually written j
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 4 coefficient is the snap parameter usually written s
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 5 coefficient is the lerk parameter usually written l
