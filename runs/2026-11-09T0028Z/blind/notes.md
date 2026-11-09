@@ -1,0 +1,6 @@
+- Solution = explicit f, f1, f2, f3 : ℝ → ℝ with HasDerivWithinAt (Set.Ici 0) at every x ≥ 0 (f'=f1, f''=f2, f'''=f3).
+- ODE hypothesis for all x ≥ 0; f 0 = 0, f1 0 = 0, Tendsto f1 atTop (nhds 1). No bound on f1.
+- Claim 1: ∀ x ≥ 0, 0 < f2 x for β in (0,1] (hypotheses 0<β, β≤1 separate).
+- Claims 2-5: value bounds as strict real inequalities on f2 0 (decimals as ℝ literals); uniqueness as separate theorem with two solution tuples (primed), conclusion f, f1, f2 agree for x ≥ 0.
+- Hiemenz: coefficient 1, β=1; Homann: coefficient 2 on f f'', β=1; FS: coefficient 1, β=1/2, 1/5.
+- Value and uniqueness split into separate theorems per case.
