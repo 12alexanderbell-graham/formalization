@@ -41,3 +41,7 @@ STATE exact next step 2 (part 3 by rotation; five runs without part-3 progress):
 ## Lessons
 - A blind reader choosing a grammatical slot must see the blind texts that fill the neighbouring slots: the shape reader without the NAMEs wrote readings that were each defensible and together false sentences. Give a reader every blind text its output will be joined to (PROMPT working note).
 - A control that "passes" a bad case is first a suspect control: the route check was right; the control re-added an existing line.
+
+## CI
+- 3dcc21f (42635575605; Lean tree = run 1228Z's head, incl. run 1028Z's promotion 83ebad4 and 1228Z's Work proofs 9f7db47): goal guard, packet, changes, work, nanoda 4/4 (memoised) and **checked green** (build 14:42–15:18Z, trust step, frozen registry, author files; read 15:37Z) → **the four β < 0 headlines of 83ebad4 (`fs_neg_decay_max_shear`, `fs_neg_decay_equal`, `fs_neg_tenth_exists_decay`, `fs_neg_tenth_outside_decay`) are PROVED**, and so is every other STATE item still marked "PROVED once green" (14 lines updated).
+- This run's later pushes (rules e1f0f34, 074906b, 31f9758; records): earlier ones cancelled by coalescing; the latest main run is read at the end of the run (below) or by the next run.
