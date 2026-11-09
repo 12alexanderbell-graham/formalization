@@ -1,0 +1,9 @@
+- f : ℝ → ℝ; only values on [0,∞) matter.
+- Derivatives are derivWithin on Ici 0 (one-sided at 0, ordinary for η>0); f', f'', f''' are iterated derivWithin.
+- Regularity: ContDiffOn ℝ 3 f (Ici 0) (so f''' exists and is continuous, one-sided at 0).
+- ODE imposed for all η ≥ 0 including 0 (one-sided).
+- f'(η) → 1 as Tendsto atTop (𝓝 1).
+- "Each with f''>0 and 0≤f'≤1 on η≥0": f''>0 strict, including at 0.
+- Negated property: ¬ ∀ M : ℝ, ∀ᶠ η in atTop, M*(1-f') ≤ f'' (M real, no sign restriction).
+- "Two solutions with different wall values": ∃ f g with d2 f 0 ≠ d2 g 0 (implies f ≠ g); both satisfy all properties.
+- β = -1/10 written as (-1/10 : ℝ).

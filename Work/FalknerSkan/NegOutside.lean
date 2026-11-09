@@ -36,6 +36,15 @@ theorem fs_neg_tenth_not_unique_outside :
       ¬ (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) ∧
       ¬ (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p₂ η) ≤ q₂ η) ∧
       q 0 ≠ q₂ 0 := by
-  sorry
+  obtain ⟨f, p, q, f₂, p₂, q₂, hf, hp, hq, hf₂, hp₂, hq₂, h0, h1, h2, h3, hl, hl₂, hb, hb₂,
+    hs, hs₂, hne⟩ := Work.FalknerSkan.NegTenth.fs_neg_tenth_not_unique
+  refine ⟨f, p, q, f₂, p₂, q₂, hf, hp, hq, hf₂, hp₂, hq₂, h0, h1, h2, h3, hl, hl₂, hb, hb₂,
+    ?_, ?_, hne⟩
+  · intro h
+    obtain ⟨η, h1, h2⟩ := ((h 3).and hs).exists
+    linarith
+  · intro h
+    obtain ⟨η, h1, h2⟩ := ((h 3).and hs₂).exists
+    linarith
 
 end Work.FalknerSkan.NegOutside
