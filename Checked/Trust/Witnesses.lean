@@ -72,6 +72,7 @@ import Checked.FalknerSkan.TenthBounded
 import Checked.FalknerSkan.LimitTenth
 import Checked.FalknerSkan.NegDecay
 import Checked.FalknerSkan.NegTenth
+import Checked.FalknerSkan.NegWindow
 import Checked.Data.Moresco16Min
 
 /-!
@@ -992,5 +993,19 @@ theorem fs_neg_decay_equal : nonvacuity% Checked.FalknerSkan.NegDecay.fs_neg_dec
     Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
   exact ⟨-1 / 10, by norm_num, f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec,
     hf, hp, hq, hf0, hp0, hlim, hpos, hdec, 0, Set.mem_Ici.2 le_rfl, trivial⟩
+
+/-! Falkner–Skan with adverse pressure gradient (run 2026-11-09T1628Z): the solution of
+`Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay` satisfies every hypothesis of the wall-shear
+bounds at the pressure-gradient coefficient minus one tenth. -/
+
+theorem fs_neg_tenth_window : nonvacuity% Checked.FalknerSkan.NegWindow.fs_neg_tenth_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+theorem fs_neg_tenth_monotone_lt : nonvacuity% Checked.FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, -⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, trivial⟩
 
 end Checked.Trust.NV

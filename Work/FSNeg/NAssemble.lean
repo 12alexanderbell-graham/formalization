@@ -9,9 +9,9 @@ import Checked.FalknerSkan.FSScale
 # Falkner–Skan β = −1/10: a Slow trajectory is a boundary-value solution (run 2026-11-09T0828Z)
 
 `slow_class`: if the clamped flow `NFlow.flow α` (0 < α ≤ 11/10) has the Slow event, its clamps never
-act (`NUnclamp.unclamp`), it solves F''' + 10 F F'' + 1 − F'² = 0 on [0, ∞) with 0 ≤ F' < 1,
+act (`NUnclamp.unclamp`), it solves F''' + 10 F F'' − (1 − F'²) = 0 on [0, ∞) with 0 ≤ F' < 1,
 F'' > 0, F' → 1 (Lemma L, `NLimit.neg_limit`) and eventually F'' < 3(1 − F'); the scaling
-f(η) = F(√10 η)/√10 (`Checked.FalknerSkan.FSScale.scale` with a = 10, b = −1, c = √10) gives a
+f(η) = √10 F(η/√10) (`Checked.FalknerSkan.FSScale.scale` with a = 10, b = −1, c = √10) gives a
 solution of f''' + f f'' − (1 − f'²)/10 = 0 with f''(0) = α/√10.
 `core_not_unique`: Slow at α = 1/2 and α = 3/4 (the certified chains, as hypotheses) give
 `NegTenth.fs_neg_tenth_not_unique`.
