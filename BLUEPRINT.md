@@ -292,4 +292,5 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Falkner–Skan β = −1/10, reversed flow and ten-decimal windows, `Work/FSNeg/{NWin*,NWindow,L*}`, `Work/FalknerSkan/{NegWindow,NegReversed}.lean` (run 2026-11-09T1228Z)
 - Attached window: certified Slow/Over at the scaled window ends (`NWinLo`, `NWinHi`), `NWindow.core_window` (supremum argument for any certified window lo < hi ≤ 11/10), uniqueness and largest shear from `NegDecay`.
 - Reversed branch: Over and the lower Slow event `LCell.SlowL` at the window ends (`LOver`, `LSlow`), a tube for the whole window on [0, 3/2] (`LTube`, `LCell.endT`, `sideP`, `cell_box`), Lemma I for the clamped field (`LInv`), no clamp after 3/2 (`LUnclamp`), `LAssemble.core_lower`.
-- Next: promotion (literal readings of the window ends and β; NV witnesses); β = −0.15.
+- Promoted (run 2026-11-09T1628Z, through CI): `Checked/FSNeg/{NWinLo,NWinHi,NWindow,LCell,LInv,LUnclamp,LAssemble,LOver,LSlow,LTube}`, `Checked/FalknerSkan/{NegWindow,NegReversed}.lean`; four headlines; NV witnesses for the two window theorems; necessity witnesses (f'' > 0 needed in `NegDecay`, reversed-flow counterexample).
+- Next: β = −0.15 (K = 20/3) or the exact classical class (Hartman Ch. XIV).

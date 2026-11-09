@@ -1,1 +1,0 @@
-Run 2026-11-09T1628Z (scheduled), started 16:28Z; no LOCK found at 8c80eb9; LOCK taken 16:28Z (parts 2/5 by rotation: beta = -1/10 promotion through CI; local Lean refused this run). Heartbeat 17:13Z (promotion branch wip/fsneg-tenth-promo in CI). Remove at end.
