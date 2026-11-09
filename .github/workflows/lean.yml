@@ -53,6 +53,11 @@ jobs:
         run: |
           bad=$(git ls-files -s | awk '$1 == "120000" {print $4}' | grep -v '^_archive/' || true)
           if [ -n "$bad" ]; then echo "tracked symlinks: $bad"; exit 1; fi
+      - name: Planted controls of the blind-reading route (P3 route) and of P12 in scratch git repositories (blocking; run 2026-11-09T1428Z, see LEDGER)
+        run: |
+          git config --global user.email ci@example.invalid
+          git config --global user.name ci
+          python3 scripts/trust/route_control.py
 
   validation-packet:
     name: expert-validation packet is current, or frozen once sent (THE RESULT part 4; run 2026-10-31T0828Z, see LEDGER)
