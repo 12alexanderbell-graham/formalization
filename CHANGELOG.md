@@ -494,3 +494,9 @@
 - **Parts 2/5:** Falkner–Skan β = 1/10 promoted to Checked (window, equality, existence in the class −1 ≤ f' ≤ 1) with its no-bound pair (`LimitTenth.lean`), and `fs_monotone_of_limit` (0 < β ≤ 1: every solution has f'' > 0) registered after a blind reading of its β-form equation (brief e44788a → reading b7ad60e). Headlines 218 → 224, NV 145 → 150; blind restatement of the pair closed (`FTLBlindClosed.lean`).
 - Research subagent (Opus) on β < 0: both branches at β = −0.1, −0.15; uniqueness in 0 ≤ f' ≤ 1 fails at β = −0.1 (continuum with algebraic decay, re-checked in the main session by scipy); tail-condition uniqueness proof and shooting events proposed (not frozen; STATE next step 2).
 - LEDGER: promotion line, prose_vocab `tenth`/`pressure`/`gradient`, second-reading disclosure. PROMPT working note: a mid-build import of a new module costs one incremental pass (planned).
+
+## 2026-11-09T0628Z (scheduled run)
+- Env: repo ok (add_repo not exposed; `git reset --hard origin/main` = ab22cd6); no LOCK, taken eefdb24; local Lean via elan + cache (full `lake build Checked` 87 min). CI: promotion 1df8963 (42571761542) green on every check step read (author-files step still running).
+- **Part 1 (rotation, ten runs idle): hypothesis necessity (T2b).** `necessity%` / `dropped%` in `Checked/Trust/NonVacuity.lean`; StatementDeps classifies all 794 hypotheses of the 146 conditional headlines (TRUST_MAP.md, report-only); `Checked/Trust/Necessity.lean` (165 generated witnesses). Measured: 155 needed, 17 redundant, 622 open.
+- Adversary (Sonnet) on the first version: no false NEEDED; caveats (total arithmetic, one hypothesis at a time) stated; numbering aligned with CLAIMS.md before the first commit.
+- PROMPT working note (classify every hypothesis; cheap counterexamples for boundary-value headlines); TARGETS T2 status.

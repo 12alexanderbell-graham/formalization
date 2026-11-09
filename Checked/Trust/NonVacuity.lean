@@ -123,4 +123,95 @@ elab "nonvacuity% " id:ident : term => do
   let ci ← getConstInfo c
   nvObligation ci.type
 
+
+/-! ### Hypothesis necessity (trust track T2b level 1, run 2026-11-09T0628Z)
+
+Non-vacuity shows that the hypotheses of a headline can hold together; it does not show that
+each of them carries weight. A statement can be satisfiable and still say nothing about its
+physics: a hypothesis that smuggles in the conclusion (the window next to the equation) makes
+every other hypothesis decorative, and no other check sees it (the decorative hypotheses are used,
+satisfiable, and pinned).
+
+The *hypotheses* of a statement `∀ x₁ … xₙ, C` are its binders whose type is a proposition, and
+its instance arguments (which carry no obligation), numbered from 1 in order exactly as the
+"assuming" list of `CLAIMS.md` numbers them: binders are read as written, without unfolding
+definitions, and a trailing `P → False` counts `P` as the last hypothesis with conclusion `False`
+(an adversary found both mismatches in the first version, run 2026-11-09T0628Z). For the `i`-th
+hypothesis `hᵢ`:
+
+* `necessity% thm i` is `∃ x₁ … xₙ (all binders but hᵢ), ¬ C` (with `¬ ¬ P` written `P`):
+  a proof exhibits data meeting every other hypothesis for which the conclusion is false, so
+  `hᵢ` is **needed**: without it the statement is false.
+* `dropped% thm i` is `∀ x₁ … xₙ (all binders but hᵢ), C`: a proof is the same theorem without
+  `hᵢ`, so `hᵢ` is **redundant in Lean**. Two caveats a reader must keep: Lean's functions are
+  total (`x / 0 = 0`, `√` of a negative number is `0`, `Real.log 0 = 0`, natural subtraction stops
+  at `0`), so a hypothesis can be redundant only because of such a value; and redundancy is shown
+  one hypothesis at a time, never for several together.
+
+`scripts/trust/StatementDeps.lean` classifies every hypothesis of every headline as needed,
+redundant (a `Checked` theorem whose statement is syntactically the obligation, as for
+non-vacuity) or open, and reports the tally in `TRUST_MAP.md`. An instance argument, or a
+hypothesis on which a later binder or the conclusion depends (a proof used as data), has no
+obligation and is reported as such. -/
+
+/-- The binders of a statement as written (no unfolding), and its conclusion, as `CLAIMS.md`
+reads them. -/
+def flatStatement {α : Type} (ty : Expr) (k : Array Expr → Expr → MetaM α) : MetaM α :=
+  forallTelescope ty k
+
+/-- Positions (in the flattened binder list) of the hypotheses: binders whose type is a
+proposition, and instance arguments (numbered like hypotheses, as `CLAIMS.md` does, but they
+carry no obligation). -/
+def hypPositions (xs : Array Expr) : MetaM (Array Nat) := do
+  let mut out := #[]
+  for i in [0:xs.size] do
+    if (← isProp (← inferType xs[i]!)) || (← xs[i]!.fvarId!.getDecl).binderInfo.isInstImplicit then
+      out := out.push i
+  return out
+
+/-- Number of hypotheses of a statement. -/
+def numHyps (ty : Expr) : MetaM Nat :=
+  flatStatement ty fun xs _ => do return (← hypPositions xs).size
+
+/-- Shared part of `necessity%` and `dropped%`: the binders without the `i`-th hypothesis
+(1-based) and the conclusion, or an error if a later binder or the conclusion depends on it. -/
+def withoutHyp {α : Type} (ty : Expr) (i : Nat) (k : Array Expr → Expr → MetaM α) : MetaM α :=
+  flatStatement ty fun xs c => do
+    let ps ← hypPositions xs
+    unless 1 ≤ i && i ≤ ps.size do
+      throwError "hypothesis {i}: the statement has {ps.size} hypotheses"
+    let p := ps[i - 1]!
+    let h := xs[p]!.fvarId!
+    if (← h.getDecl).binderInfo.isInstImplicit then
+      throwError "hypothesis {i} is an instance argument: no obligation"
+    for j in [p+1:xs.size] do
+      if (← inferType xs[j]!).containsFVar h then
+        throwError "hypothesis {i} is used as data by a later binder: no obligation"
+    if c.containsFVar h then
+      throwError "hypothesis {i} is used as data by the conclusion: no obligation"
+    k (xs.eraseIdx! p) c
+
+/-- `¬ C`, with `¬ ¬ P` written `P`. -/
+def negConcl (c : Expr) : Expr :=
+  if c.isAppOfArity ``Not 1 then c.appArg! else mkNot c
+
+/-- Necessity obligation of the `i`-th hypothesis (see above). -/
+def necObligation (ty : Expr) (i : Nat) : MetaM Expr :=
+  withoutHyp ty i fun ys c => mkExistsFVars ys (negConcl c)
+
+/-- Redundancy obligation of the `i`-th hypothesis: the statement without it. -/
+def dropObligation (ty : Expr) (i : Nat) : MetaM Expr :=
+  withoutHyp ty i fun ys c => mkForallFVars ys c
+
+/-- `necessity% c i`: data meeting every hypothesis of `c` but the `i`-th, with the conclusion
+false. -/
+elab "necessity% " id:ident i:num : term => do
+  let c ← realizeGlobalConstNoOverloadWithInfo id
+  necObligation (← getConstInfo c).type i.getNat
+
+/-- `dropped% c i`: the statement of `c` without its `i`-th hypothesis. -/
+elab "dropped% " id:ident i:num : term => do
+  let c ← realizeGlobalConstNoOverloadWithInfo id
+  dropObligation (← getConstInfo c).type i.getNat
+
 end Checked.Trust

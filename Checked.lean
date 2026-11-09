@@ -29,6 +29,7 @@ import Checked.Records.Basic
 import Checked.Records.Findings
 import Checked.Trust.NonVacuity
 import Checked.Trust.Witnesses
+import Checked.Trust.Necessity
 import Checked.Trust.SecondReading
 import Checked.Trust.Transcriptions
 import Checked.Trust.SecondReadingFR
