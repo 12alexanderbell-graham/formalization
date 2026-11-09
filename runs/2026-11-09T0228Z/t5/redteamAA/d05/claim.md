@@ -1,0 +1,5 @@
+Category: misleading-record (non-first placeholder occurrences are unchecked)
+Reader would wrongly believe: the Maxwell lines say "... holds for the liquid molar volume `vl` and the gas molar volume `vg`, with `vg` below `vl`, on the isotherm pressure function of molar volume `p` at the saturation pressure `ps`: the isotherm takes the value `ps` at both, and its integral from `vg` to `vl` equals `ps` times the volume difference" - the gas volume is below the liquid volume and the integral runs from gas to liquid.
+Why it is false: the liquid is the denser phase, vl < vg, and the equal-area integral is taken from vl to vg (the swapped integral is the negative of the Maxwell area). The first occurrences of vl, vg stay preceded by their blind roles (P3), so only later occurrences moved.
+Weakness used: P3 checks only the FIRST occurrence of each placeholder; "below"/"equals" are baselined/quoted words, so P2/P5 pass; same words, only permuted. The body printed on the line is an equation in vl, vg, ps symbols, so a reader who checks it by hand can notice (possible DISCLOSED).
+Expected: ACCEPTED (LEDGER line naming IsMaxwellCoexistence given).

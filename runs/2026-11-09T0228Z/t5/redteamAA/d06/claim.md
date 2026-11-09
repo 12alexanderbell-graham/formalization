@@ -1,0 +1,5 @@
+Category: weakened-statement (hypothesis domain misdescribed through punctuation)
+Reader would wrongly believe: Duffing lines say "... on the time interval from 0 to the final time of the interval `T` (derivatives taken within (0, `T`); restoring force for positive stiffness, acceleration equals minus force terms)" - the ODE is required only on the open interval, so solutions with an endpoint jump are included, and the headline looks like it holds under a weaker hypothesis.
+Why it is false: the definition requires HasDerivAt on the closed interval Icc 0 T; the Duffing specification itself says "solving the ODE only on the open interval is not enough" (endpoint jump). The reader of the phrase is told the opposite.
+Weakness used: brackets/parentheses are not words or formula characters for P1/P2 (FORMULA_CHARS has no brackets, WORD sees only letters); no blind text constrains the interval notation. Possibly DISCLOSED by the printed body if it shows the closed set; the phrase says "within" not a set so a reader gets no set from the body when it is not printed.
+Expected: ACCEPTED (LEDGER line naming IsDuffingSolution given).
