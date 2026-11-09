@@ -145,10 +145,10 @@ def main():
     r1 = last['r1']
     if mode == 'slow': endm = min(ep - r2, 3 * (1 - (ep + r2)) - (eq + B), eg - r1 - Fr(11, 30))
     elif mode == 'slowL': endm = min(ep - r2, eq - B, 3 * (1 - (ep + r2)) - (eq + B), eg - r1 - Fr(11, 30))
-    elif mode == 'tube': endm = min(eg - r1, ep - r2, 1 - (ep + r2), eq - B)
+    elif mode == 'tube': endm = min(eg - r1, 1 - (eg + r1), ep - r2, 1 - (ep + r2), eq - B, Fr(6, 5) - (eq + B))
     else: endm = ep - r2 - 1
     print('end state g p q', float(eg), float(ep), float(eq), 'B', float(B))
-    print('end margins', [float(x) for x in ((ep - r2, 3 * (1 - (ep + r2)) - (eq + B), eg - r1 - Fr(11, 30)) if mode == 'slow' else (ep - r2 - 1,))])
+    pass
     print('cells', len(cells), 'final B %.3g' % float(B), 'r2 %.3g' % float(r2), 'amp e^%.2f' % amp_log,
           'end g p q', float(eg), float(ep), float(eq), 'max eps %.3g' % max(float(x['ε']) for x in cells),
           'mode', mode, 'path margin %.3g' % float(margin), 'end margin %.3g' % float(endm),

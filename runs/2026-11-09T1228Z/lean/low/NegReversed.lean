@@ -7,7 +7,7 @@ import Work.FSNeg.NWindow
 import Work.FalknerSkan.NegTenth
 
 /-!
-# Falkner–Skan β = −1/10 (adverse pressure gradient): the reversed-flow solution, and two solutions
+# Falkner–Skan β = −1/10 (adverse pressure gradient): a reversed-flow solution, and two solutions
 # in the decay class
 
 Program β-form with β = −1/10: f' = p, p' = q, q' = −f q − β (1 − p²), one-sided derivatives at 0,
