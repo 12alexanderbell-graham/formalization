@@ -1,0 +1,20 @@
+d01: phrases changed ['Aviles.cosmoCoeff'] -> passes the phrase rules
+d02: phrases changed ['BambaK.lumDist'] -> passes the phrase rules
+d03: phrases changed ['MichaelisMenten.IsMMSolution'] -> passes the phrase rules
+d04: phrases changed ['Aviles.IsFlatLCDM'] -> passes the phrase rules
+d05: phrases changed ['FRCosmo.rhoM'] -> passes the phrase rules
+d06: phrases changed ['Coexistence.IsMaxwellCoexistence'] -> passes the phrase rules
+== variants on this run's phrases
+d01: phrases changed ['Aviles.cosmoCoeff'] -> passes the phrase rules
+d02: phrases changed ['BambaK.lumDist'] -> REJECTED
+    BambaK.lumDist: placeholder {t} is not immediately preceded by its blind role 'emission time' (P3: roles are bound slot by slot)
+    BambaK.lumDist: placeholder {t₀} is not immediately preceded by its blind role 'observation time' (P3: roles are bound slot by slot)
+d03: phrases changed ['MichaelisMenten.IsMMSolution'] -> REJECTED
+    MichaelisMenten.IsMMSolution: placeholder {p} is not immediately preceded by its blind role 'product concentration over time' (P3: roles are bound slot by slot)
+    MichaelisMenten.IsMMSolution: placeholder {c} is not immediately preceded by its blind role 'complex concentration over time' (P3: roles are bound slot by slot)
+d04: phrases changed ['Aviles.IsFlatLCDM'] -> REJECTED
+    Aviles.IsFlatLCDM: blind sign convention or name 'flat ΛCDM Friedmann expansion law' does not occur word for word in the phrase (P4/P6)
+d05: phrases changed ['FRCosmo.rhoM'] -> REJECTED
+    Checked.Cosmography.FRCosmo.rhoM: phrase words not in its pinning specification's text or in a function word list: ['two'] (P2: a phrase quotes the blind spec)
+d06: phrases changed ['Coexistence.IsMaxwellCoexistence'] -> REJECTED
+    Checked.Chemistry.Coexistence.IsMaxwellCoexistence: phrase words not in its pinning specification's text or in a function word list: ['exceeds'] (P2: a phrase quotes the blind spec)
