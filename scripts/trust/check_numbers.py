@@ -156,12 +156,17 @@ TRUE_W = r"true|correct|corrected|actual|exact"
 ROLE_WORD = re.compile(r"(?<![\w])(" + PRINTED_W + "|" + TRUE_W + r")(?![\w])", re.I)
 ROLES = ("printed", "derived", "difference", "free")
 # cosmographic symbols -> the pinned quantity (frozen phrases of `decel` and `Aviles.cosmoCoeff` in
-# scripts/trust/phrases.txt: "j, s, l, m for the orders 3, 4, 5, 6" since run 2026-11-08T1828Z, rule P1 of
-# check_claims.py, formerly "for n = 3, 4, 5, 6"; decel is the deceleration parameter)
+# scripts/trust/phrases.txt; since run 2026-11-09T0228Z (rule P7 of check_claims.py: phrases are blind texts) the
+# letters j, s, l of the orders 3, 4, 5 come from a blind reader (runs/2026-11-09T0228Z/symbols/SYMBOLS.txt). The
+# blind reader did not name order 6: m₀ -> order 6 rests on this table alone, not on a phrase (known gap, STATE).
+# decel is the deceleration parameter)
 SYMBOLS = {"q₀": ("Checked.Cosmography.decel", None), "j₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "3"),
            "s₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "4"), "l₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "5"),
            "m₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "6")}
-PHRASE_GUARD = ("j, s, l, m for the orders 3, 4, 5, 6", "the deceleration parameter")
+PHRASE_GUARD = ("the order 2 coefficient is minus the deceleration parameter usually written q",
+                "the order 3 coefficient is the jerk parameter usually written j",
+                "the order 4 coefficient is the snap parameter usually written s",
+                "the order 5 coefficient is the lerk parameter usually written l", "the deceleration parameter")
 
 
 def load_kinds():
