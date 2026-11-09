@@ -476,3 +476,9 @@
 - **Part 3: phrase roles, signs and names bound to blind readings.** Blind role reader (95 roles, 13 sign conventions) and blind name reader (23 names with qualifiers), copied verbatim to `scripts/trust/phrase_roles.txt`; `check_claims.py` P3–P6 and the brief → reading → copy route check; all 23 phrases reworded; CLAIMS/FINDINGS/packet regenerated. Blind red team Z: 6/6 accepted by the old rules, same moves 5/6 rejected now (2 by the blind-designed P3). Open: relation sentences outside blind sign clauses.
 - Scratch (parts 2/5): f' ≤ 1 is automatic for the stagnation-point equations; Hiemenz/Homann windows restated with only −1 ≤ f' (`runs/2026-11-08T2228Z/lean/UpperBound.lean`, compiled).
 - PROMPT working note (roles, signs and names of phrases come from blind readers).
+
+## 2026-11-09T0028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; `git checkout -B main origin/main` = fb863a8); no LOCK, taken 6e00d7a; local Lean via elan + cache (full `lake build Checked` 73 min). CI: ae8e18b (42535496360) green on every job → β = 1/5 trio PROVED.
+- **Parts 2/5: the class −1 ≤ f' ≤ 1 removed.** Research subagent's proof (`runs/2026-11-09T0028Z/coppel/REPORT.md`) for K = 1/β ≥ 1: every solution with f(0) = f'(0) = 0, f' → 1 has f'' > 0. Lean core (`Work/FalknerSkan/UnrestrictedCore.lean`), freeze d71bf54, blind restatement + referee 84609a7 (STANDS-WITH-CORRECTIONS), proofs 5ae2ab6, blind closure, promotion 3684e58 (`Checked/FalknerSkan/LimitCore.lean`, `Limit.lean`; eight `*_limit_*` headlines; 218 headlines, NV 145/145).
+- Checks worked as designed: check_claim_vocab V13 rejected the name "Unrestricted" (generality word in a headline name); check_literals kept the general-β theorem out of the headline set until its literals are read blind.
+- PROMPT working note (a research subagent for the missing lemma; name modules after the hypotheses they keep).
