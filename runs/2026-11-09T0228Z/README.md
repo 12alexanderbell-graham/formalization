@@ -10,7 +10,7 @@
 ## Start
 - 02:28Z. add_repo not exposed; pre-cloned checkout detached with a stale diverged local main; `git checkout -B main origin/main` (local branch only) = 4a00073. No LOCK; taken in 1201ad2.
 - Environment: repo reachable (push); local Lean: elan + toolchain v4.35.0 + Mathlib cache ≈ 3 min; full `lake build Checked` from 02:35Z (see below); Claims.lean after it.
-- CI read: 3684e58 (42549988367, the no-bound Falkner–Skan promotion): goal guard, packet, changes, **work job green** (judges `Work/FalknerSkan/UnrestrictedCore.lean`, `Unrestricted.lean`, `UBlindClosed.lean`), nanoda shards 0–2 green, shard 3 running at 02:48Z, **checked job cancelled by coalescing** (by 4a00073's run 42550201653, pending at 02:30Z) → the eight `*_limit_*` headlines become PROVED with the first later main run green on every job.
+- CI read: 3684e58 (42549988367, the no-bound Falkner–Skan promotion): goal guard, packet, changes, **work job green** (judges `Work/FalknerSkan/UnrestrictedCore.lean`, `Unrestricted.lean`, `UBlindClosed.lean`), nanoda shards 0–2 green, shard 3 running at 02:48Z, **checked job cancelled by coalescing** (by 4a00073's run 42550201653, pending at 02:30Z) ; then **4ca5437 (42552130020, this run's push of red team AA's output, a descendant of 3684e58) green on every job incl. the checked job → the eight `*_limit_*` headlines are PROVED**.
 
 ## Bottleneck
 STATE exact next step 3 (part 3; rotation after 0028Z's parts 2/5): relation sentences in phrases, open since round Z d01 — 21 of 23 phrases carried author-written words outside every blind text (prototype count, `scripts/coverage_proto.py`). A yes makes the generated claims' definition phrases entirely blind text; a no leaves the one hand-written layer of CLAIMS.md (what the program tells scientists to rely on) open to an unnoticed false relation, unit, mechanism or domain.
@@ -41,3 +41,7 @@ STATE exact next step 3 (part 3; rotation after 0028Z's parts 2/5): relation sen
 
 ## Commits
 1201ad2 LOCK + stub · dd48d82 clause brief (P7 stated) · f02c700 brief AA · 23af037 clause reading · 4ca5437 AA output · 0eb1c4b letter brief · letter reading · 8906b8e P7/P8, registry, phrases · fe8d722 brief AB · AB output · dd087fc P7 repair + P9, generated phrases · 94b8c65 heartbeat (second worktree) + merge · CLAIMS/packet/vocabulary · records (LOCK removed).
+
+## CI
+- 4ca5437 (42552130020): green on every job (checked: build 32 min, trust step 9 min, frozen registry, author files; nanoda memoised) → `*_limit_*` headlines PROVED.
+- a98a677 (42560045819, phrases + CLAIMS.md): pending at 04:09Z — read next run.
