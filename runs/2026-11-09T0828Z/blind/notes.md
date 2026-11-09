@@ -1,0 +1,6 @@
+- f3 is only constrained via derivative of f2 within Ici 0 and the ODE; no continuity assumed beyond that.
+- All conditions (derivatives, ODE, M) only for eta >= 0; f, f1.. unconstrained on negatives.
+- Free-stream condition encoded as Tendsto f1 atTop (nhds 1).
+- (E): "sufficiently large" = exists R, for all eta >= R; M ranges over all reals.
+- "agree with first and second derivatives" read as f=g, f1=g1, f2=g2 (f3 follows from ODE).
+- Claim 2 conclusion includes f itself (agree) plus f1, f2.
