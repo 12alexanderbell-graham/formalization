@@ -1,0 +1,7 @@
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 2 coefficient is minus the deceleration parameter usually written q
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 3 coefficient is the jerk parameter usually written j
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 4 coefficient is the snap parameter usually written s
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 5 coefficient is the lerk parameter usually written l
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | q j s l for the orders 2 3 4 5
+END
+Body read: cosmoCoeff n a t = iteratedDeriv n a t / (a t * hubble a t ^ n), i.e. a^(n)/(a H^n). Order 2 gives a''/(a H^2) = -q (spec confirms matter case gives -1/2). Orders 3 to 5 carry a plus sign (Visser convention). Order 6 (often called m) not named because I am not confident of the convention.
