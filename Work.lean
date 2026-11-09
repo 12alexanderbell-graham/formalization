@@ -357,3 +357,16 @@ import Work.FalknerSkan.NegUPrime
 import Work.FalknerSkan.NegCore
 import Work.FalknerSkan.NegDecay
 import Work.FalknerSkan.NDBlindClosed
+import Work.FSNeg.NBase
+import Work.FSNeg.NCellWC
+import Work.FSNeg.NSlowHalf
+import Work.FSNeg.NSlow34
+import Work.FSNeg.NOver11
+import Work.FSNeg.NFlow
+import Work.FSNeg.NLemma1
+import Work.FSNeg.NSlowInv
+import Work.FSNeg.NLimit
+import Work.FSNeg.NRiccati
+import Work.FSNeg.NUnclamp
+import Work.FSNeg.NAssemble
+import Work.FalknerSkan.NegTenth

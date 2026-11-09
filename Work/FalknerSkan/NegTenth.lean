@@ -1,4 +1,8 @@
 import Mathlib
+import Work.FSNeg.NAssemble
+import Work.FSNeg.NSlowHalf
+import Work.FSNeg.NSlow34
+import Work.FSNeg.NOver11
 
 /-!
 # Falkner–Skan β = −1/10 (adverse pressure gradient): existence in the decay class, and
@@ -25,7 +29,8 @@ theorem fs_neg_tenth_exists_decay :
       f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
       (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) := by
-  sorry
+  exact Work.FSNeg.NAssemble.core_exists ⟨9 / 8, by norm_num, fun Y hY h0 => Work.FSNeg.NSlow34.chainC hY h0⟩
+    ⟨5 / 4, by norm_num, fun Y hY h0 => Work.FSNeg.NOver11.chainC hY h0⟩
 
 /-- Falkner–Skan with β = −1/10: there are two solutions (f, p, q) and (f₂, p₂, q₂) of
 f''' + f f'' + β(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, p → 1, q > 0 and
@@ -44,6 +49,8 @@ theorem fs_neg_tenth_not_unique :
       (∀ η ∈ Ici (0 : ℝ), 0 < q₂ η ∧ 0 ≤ p₂ η ∧ p₂ η ≤ 1) ∧
       (∀ᶠ η in atTop, q η < 3 * (1 - p η)) ∧ (∀ᶠ η in atTop, q₂ η < 3 * (1 - p₂ η)) ∧
       q 0 ≠ q₂ 0 := by
-  sorry
+  exact Work.FSNeg.NAssemble.core_not_unique
+    ⟨5 / 4, by norm_num, fun Y hY h0 => Work.FSNeg.NSlowHalf.chainC hY h0⟩
+    ⟨9 / 8, by norm_num, fun Y hY h0 => Work.FSNeg.NSlow34.chainC hY h0⟩
 
 end Work.FalknerSkan.NegTenth
