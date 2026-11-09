@@ -54,3 +54,10 @@ Hypotheses: all derivatives `HasDerivWithinAt _ _ (Ici 0) η` for η ≥ 0 (two-
 ## Gaps and formalization notes
 - No known mathematical gap. Lean obligations: L0 (FTC), L1 (ring after product rule), monotonicity from derivative signs, three sSup constructions (L4, L5, η_z), IVT twice. L3 from the existing `start_of_touch`/`uniq_left`; L4 is the existing fencing argument started at T.
 - Prior art unconfirmed; the β = 1 status in print conflicting. The numerics are uncertified and not part of the proof.
+
+## Corrections after the referee (runs/2026-11-09T0028Z/referee_unrestricted.md, STANDS-WITH-CORRECTIONS; added by the main session)
+1. Prior art: the result is **in print according to a secondary source** (Fazio, arXiv:2011.07725, read verbatim: the restriction 0 < f′ < 1 "can be omitted when 0 <= beta <= 1", crediting Coppel 1960 and Craven–Peletier 1972); the primary texts are unread. This is a formalization of a classical result; only the origin of this particular argument (Φ, Ω, descent/ascent) is unknown.
+2. L5: T is L4's T (q > 0 on [T, ∞)); the set is non-empty because q(η₁) ≤ 0 forces η₁ < T. (Lean: `last_zero`.)
+3. Theorem: Sz is also empty when η₂ − δ/2 < 0. (Lean avoids this: `last_zero` returns c with 0 ≤ c < η₂ and q < 0 on [c, η₂).)
+4. K = 2 remark: "q strictly decreasing" alone does not give q > 0; if q(η) ≤ 0 somewhere then q < 0 after, p decreases and cannot tend to 1. (Not used in Lean: K = 2 goes through L8.)
+5. Lean: L3 is `touch` (backward uniqueness, `Checked.FalknerSkan.BoundedTools.uniq_left`); the main session's Lean also re-proves lemma (a) (`le_one`).

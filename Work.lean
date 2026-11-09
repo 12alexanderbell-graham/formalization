@@ -347,4 +347,6 @@ import Work.FSTenth.F10IVP
 import Work.FSTenth.FSTenth
 import Work.FSTenth.F10Bounded
 import Work.FalknerSkan.FTBlindClosed
+import Work.FalknerSkan.UnrestrictedCore
 import Work.FalknerSkan.Unrestricted
+import Work.FalknerSkan.UBlindClosed
