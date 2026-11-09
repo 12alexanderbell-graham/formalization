@@ -1,0 +1,39 @@
+## snapshot 3dcc21f rules (AC as submitted)
+control (unmodified tree): 0 problems
+d01: phrases changed (as check_claims parses them) [] -> passes the phrase rules
+d02: phrases changed (as check_claims parses them) ['Coexistence.IsMaxwellCoexistence'] -> passes the phrase rules
+d03: phrases changed (as check_claims parses them) ['Aviles.cosmoCoeff'] -> passes the phrase rules
+d04: phrases changed (as check_claims parses them) ['CPL.IsFlatCPL'] -> passes the phrase rules
+d05: phrases changed (as check_claims parses them) ['Duffing.IsDuffingSolution', 'MichaelisMenten.IsMMSolution', 'Robertson.IsRobSolution'] -> passes the phrase rules
+d06: phrases changed (as check_claims parses them) ['BambaK.omega0'] -> passes the phrase rules
+## this run's rules (P10, P11, P11a, P11b, P12)
+control (unmodified tree): 0 problems
+d01: phrases changed (as check_claims parses them) [] -> REJECTED
+    scripts/trust/phrases.txt:49: character U+000B (P11: a phrase file line is what Claims.lean prints; no control or invisible characters)
+    scripts/trust/phrases.txt: the file reads differently split on newlines and on all line ends (P11)
+    CubicEOS.IsCriticalIsotherm: phrase is not the template's output from the blind registry (P11); generated: the isotherm pressure function of molar volume {p} satisfies the critical point condition of an isotherm with the molar volume at the point {v} (pressure as a function of molar volume at fixed 
+d02: phrases changed (as check_claims parses them) ['Coexistence.IsMaxwellCoexistence'] -> REJECTED
+    scripts/trust/phrase_roles.txt: line out of its reader file's order (runs/2026-11-09T0228Z/clauses/CLAUSES.txt): CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equivalent to equal chemical potential in both phases (P11: blind texts keep the reader's order)
+    --base scripts/trust/phrase_roles.txt: line excluded at BASE now in the registry: CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equivalent to equal chemical potential in both phases (P12: exclusions are final)
+d03: phrases changed (as check_claims parses them) ['Aviles.cosmoCoeff'] -> REJECTED
+    scripts/trust/phrase_roles.txt: line out of its reader file's order (runs/2026-11-09T0228Z/clauses/CLAUSES.txt): CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | divided by the n-th power of the Hubble rate (P11: blind texts keep the reader's order)
+    Aviles.cosmoCoeff: phrase is not the template's output from the blind registry (P11); generated: the cosmographic coefficient with the derivative order of the coefficient {n}, the scale factor {a} and the time of evaluation {t} ({n}-th time derivative of the scale factor over the scale factor; order
+d04: phrases changed (as check_claims parses them) ['CPL.IsFlatCPL'] -> REJECTED
+    CPL.IsFlatCPL: phrase is not the template's output from the blind registry (P11); generated: the scale factor {a} obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter {Ω}, the present dark energy equation of state {w₀}, the equation of state ev
+d05: phrases changed (as check_claims parses them) ['Duffing.IsDuffingSolution', 'MichaelisMenten.IsMMSolution', 'Robertson.IsRobSolution'] -> REJECTED
+    Duffing.IsDuffingSolution: phrase is not the template's output from the blind registry (P11); generated: the position as function of time {x} is a Duffing oscillator initial value problem solution with the linear stiffness coefficient {k}, the cubic stiffness coefficient {β}, the initial position {x
+    MichaelisMenten.IsMMSolution: phrase is not the template's output from the blind registry (P11); generated: the substrate concentration over time {s}, the free enzyme concentration over time {e}, the complex concentration over time {c} and the product concentration over time {p} are a Michaelis Ment
+    Robertson.IsRobSolution: phrase is not the template's output from the blind registry (P11); generated: the concentration of species A over time {y₁}, the concentration of species B over time {y₂} and the concentration of species C over time {y₃} are a Robertson chemical kinetics initial value proble
+d06: phrases changed (as check_claims parses them) ['BambaK.omega0'] -> REJECTED
+    BambaK.omega0: phrase is not the template's output from the blind registry (P11); generated: the present total density parameter Ω0 with the spatial curvature constant {K}, the scale factor {a} and the observation time {t₀} (one plus curvature term, positive curvature constant gives above one; total
+## judge's variants (not blind)
+# snapshot rules:
+control (unmodified tree): 0 problems
+d02b: phrases changed (as check_claims parses them) ['Coexistence.IsMaxwellCoexistence'] -> passes the phrase rules
+d03b: phrases changed (as check_claims parses them) ['Aviles.cosmoCoeff'] -> passes the phrase rules
+# this run's rules:
+control (unmodified tree): 0 problems
+d02b: phrases changed (as check_claims parses them) ['Coexistence.IsMaxwellCoexistence'] -> REJECTED
+    --base scripts/trust/phrase_roles.txt: line excluded at BASE now in the registry: CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equivalent to equal chemical potential in both phases (P12: exclusions are final)
+d03b: phrases changed (as check_claims parses them) ['Aviles.cosmoCoeff'] -> REJECTED
+    Aviles.cosmoCoeff: phrase is not the template's output from the blind registry (P11); generated: the cosmographic coefficient with the derivative order of the coefficient {n}, the scale factor {a} and the time of evaluation {t} ({n}-th time derivative of the scale factor over the scale factor divide

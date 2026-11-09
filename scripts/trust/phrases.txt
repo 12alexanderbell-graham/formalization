@@ -28,6 +28,9 @@
 # every CLAUSE line in the registry must occur; reader lines not shown are listed, with reasons, in the shrink-only
 # scripts/trust/phrase_clause_baseline.txt. The phrases below are GENERATED from the registry by
 # runs/2026-11-09T0228Z/scripts/gen_phrases.py (shape: the NAME with the ROLE {x}, … (SIGN; CLAUSE; …)).
+# Rules P10/P11 (run 2026-11-09T1428Z, stated before blind red team AC; blocking): the shape of a property's phrase
+# (subject arguments, verb, article) comes from a blind SHAPE reader, and CI fails unless every phrase below is exactly
+# the template's output from the registry: regenerate with `python3 scripts/trust/check_claims.py --generate`, never by hand.
 Checked.Cosmography.hubble | the Hubble rate with the scale factor {a} and the cosmic time of evaluation {t} (logarithmic derivative of the scale factor with respect to cosmic time; positive for expansion and negative for contraction)
 Checked.Cosmography.decel | the deceleration parameter with the scale factor {a} and the cosmic time of evaluation {t} (minus acceleration times scale factor over velocity squared; minus the second time derivative times the scale factor divided by the squared first time derivative; negative value means accelerating expansion)
 Checked.Cosmography.redshift | the cosmological redshift with the scale factor {a}, the observation time {t₀} and the emission time {t} (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide)

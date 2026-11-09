@@ -50,6 +50,18 @@ This script guards them:
                              line: every NAME and SIGN line of each reader file it cites is in the registry while its
                              definition has a phrase (lint), and no `# source:` line and no registry line is removed
                              since the base commit unless its definition's phrase was removed (--base)
+                             P10 (run 2026-11-09T1428Z, stated in the shape reader's brief d48a572 before blind
+                             red team AC ran): the subject, verb and article of every property's phrase come from a
+                             blind SHAPE reader (registry SHAPE lines); a quantity gets no verb
+                             P11 (same, stated before AC): every phrase is exactly the fixed template's output from the
+                             blind registry (`generate`; rewrite with `check_claims.py --generate`): no word,
+                             connective, order or mark is the author's. After AC, not blind: P11a no control or
+                             invisible character in the phrase file or registry, and the file reads the same split on
+                             "\n" (as Claims.lean reads it) and on every line end (AC d01); P11b the registry keeps each
+                             reader file's line order, and "divided by" joins only consecutive reader lines (AC d03)
+                             P12 (--base, after AC d02, not blind): a reader line excluded at the base commit
+                             (phrase_clause_baseline.txt) never enters the registry: an exclusion is final
+  check_claims.py --generate rewrite every phrase of phrases.txt from the registry (P11)
   check_claims.py --base B   a phrase changed or removed since commit B needs a LEDGER.md line
                              added since B naming the definition (as check_relock.py does for
                              frozen fingerprints)
@@ -235,6 +247,8 @@ def load_registry(text=None):
         elif parts[0] == "CLAUSE" and len(parts) == 3:
             # CLAUSE lines (P7) may be used by a phrase, word for word; they are not required
             clauses.setdefault(parts[1], []).append(parts[2])
+        elif parts[0] == "SHAPE" and (parts[2:] == ["quantity"] or (len(parts) == 6 and parts[2] == "property")):
+            pass  # P10 (run 2026-11-09T1428Z): read by registry_shapes
         else:
             bad.append(f"{ROLES}: malformed line: {l}")
     return roles, signs, clauses, bad
@@ -438,11 +452,236 @@ def registry_complete(phr, text=None, excl=None):
         for l in f.read_text(encoding="utf-8").splitlines():
             l = l.strip()
             parts = [x.strip() for x in l.split(" | ")]
-            if len(parts) in (3, 4) and parts[0] in ("NAME", "SIGN", "CLAUSE", "ROLE") and l not in have \
+            if len(parts) in (3, 4, 6) and parts[0] in ("NAME", "SIGN", "CLAUSE", "ROLE", "SHAPE") and l not in have \
                     and l not in excl:
                 if any(parts[1] == k or parts[1].endswith("." + k) for k in keys):
                     bad.append(f"{ROLES}: blind line of {src} missing from the registry: {l} (P8: the registry cannot lose a line)")
     return bad
+
+
+# P10/P11 (run 2026-11-09T1428Z; both stated in the blind shape reader's brief d48a572 before blind red team AC ran).
+# After P7–P9 the author still chose, for a property, which arguments are the subject, the verb and the article
+# (`PRED` of the run-0228Z generator, not CI-checked), and every connective and the order of blind texts was free within
+# P7. P10: the shape of every phrase comes from a blind SHAPE reader (`SHAPE | <def> | quantity` or
+# `SHAPE | <def> | property | <subject binders or none> | <verb> | <article>`). P11: CI regenerates every phrase from the
+# registry with the fixed template below and fails unless the phrase file is exactly that output.
+P11_VERBS = {"is", "are", "obeys", "satisfies", "solves", "holds"}
+P11_ARTICLES = {"a", "the"}
+# Characters Python's str.splitlines() treats as line ends besides "\n", and other invisible controls (red team AC d01:
+# a U+000B in phrases.txt hid text from check_claims.py, whose parser used splitlines(), while Claims.lean, which splits
+# on "\n" only, printed it into CLAIMS.md).
+_BAD_CHARS = re.compile("[\x00-\x09\x0b-\x1f\x7f-\x9f  ​-‏‪-‮⁠-⁤﻿]")
+
+
+def invisible_chars(path_texts):
+    """P11a: no control, line-separator or invisible formatting character in the phrase file or the registry."""
+    bad = []
+    for path, text in path_texts:
+        for n, l in enumerate(text.split("\n"), 1):
+            m = _BAD_CHARS.search(l)
+            if m:
+                bad.append(f"{path}:{n}: character U+{ord(m.group(0)):04X} (P11: a phrase file line is what Claims.lean "
+                           f"prints; no control or invisible characters)")
+    return bad
+
+
+def registry_entries(text=None):
+    """Registry lines in order, with the reader file and the line's index in it: [(kind, key, parts, src, idx)]."""
+    if text is None:
+        text = (ROOT / ROLES).read_text(encoding="utf-8")
+    out, src, src_lines = [], None, []
+    for raw in text.split("\n"):
+        l = raw.strip()
+        m = re.match(r"#\s*source:\s*(\S+)", l)
+        if m:
+            src = m.group(1)
+            f = ROOT / src
+            src_lines = [x.strip() for x in f.read_text(encoding="utf-8").split("\n")] if f.is_file() else []
+            continue
+        if not l or l.startswith("#"):
+            continue
+        parts = [x.strip() for x in l.split(" | ")]
+        idx = src_lines.index(l) if l in src_lines else -1
+        out.append((parts[0], parts[1] if len(parts) > 1 else "", parts, src, idx))
+    return out
+
+
+def registry_order(text=None):
+    """P11b (after blind red team AC d03, not blind): inside each `# source:` block the registry keeps the reader file's
+    line order. AC d03 swapped two cosmoCoeff clauses in the registry; the generator then glued "divided by the n-th
+    power of the Hubble rate" to "orders 0 and 1 coefficients are one". The order of blind texts is the reader's."""
+    bad, last = [], {}
+    for kind, key, parts, src, idx in registry_entries(text):
+        if idx < 0:
+            continue  # load_registry reports lines not in their reader file
+        if idx < last.get(src, -1):
+            bad.append(f"{ROLES}: line out of its reader file's order ({src}): {' | '.join(parts)} (P11: blind texts keep "
+                       f"the reader's order)")
+        last[src] = max(idx, last.get(src, -1))
+    return bad
+
+
+def registry_shapes(text=None):
+    """P10: SHAPE lines by full Lean name -> ('quantity',) or ('property', [subject binders], verb, article)."""
+    out = {}
+    for kind, key, parts, src, idx in registry_entries(text):
+        if kind != "SHAPE":
+            continue
+        if parts[2:] == ["quantity"]:
+            out.setdefault(key, []).append(("quantity",))
+        elif len(parts) == 6 and parts[2] == "property":
+            subj = [] if parts[3] == "none" else parts[3].split()
+            out.setdefault(key, []).append(("property", subj, parts[4], parts[5]))
+    return out
+
+
+def _slots(text, binders):
+    """A binder symbol inside a blind text becomes its placeholder (two fixed exceptions: 'curv of a' is the only use of
+    the binder a as a word, and 'F of R gravity' names the theory, not the binder F)."""
+    for x in sorted(binders, key=len, reverse=True):
+        if x == "a":
+            text = re.sub(r"\bcurv of a$", "curv of {a}", text)
+            continue
+        pat = r"(?<![\w{])" + re.escape(x) + r"(?![\w}])"
+        if x == "F":
+            pat += r"(?! of R gravity)"
+        text = re.sub(pat, "{" + x + "}", text)
+    return text
+
+
+def _listing(items):
+    return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
+
+
+def generate(keys, text=None):
+    """P11: the phrase of every definition in `keys` (phrases.txt keys), from the registry alone. Template:
+    quantity: 'the NAME with the ROLE {x}, … and the ROLE {z} (SIGN; …; CLAUSE; …)';
+    property: 'the ROLE {s}[, … and the ROLE {s'}] VERB ARTICLE NAME with the ROLE {x}, … (…)', or with subject none
+    'the NAME holds with …'. Blind texts in registry order (= reader order, P11b), SIGN lines before CLAUSE lines; a
+    blind text contained word for word in one already shown is not repeated; a CLAUSE starting 'divided by ' is joined
+    to the previous text only if that is the line just above it in the same reader file (the reader split one quotient
+    in two). Returns ({key: phrase}, problems)."""
+    if text is None:
+        text = (ROOT / ROLES).read_text(encoding="utf-8")
+    roles, signs, clauses, _ = load_registry(text)
+    names = registry_names(text)
+    shapes = registry_shapes(text)
+    ents = registry_entries(text)
+    out, bad = {}, []
+    for d in keys:
+        key = _full(d, roles)
+        if key is None:
+            bad.append(f"{d}: no ROLE lines in {ROLES} (P11)")
+            continue
+        rmap = roles[key]
+        if not names.get(key):
+            bad.append(f"{d}: no NAME line (P11)")
+            continue
+        name = names[key][0]
+        sh = shapes.get(key, [])
+        if len(sh) != 1:
+            bad.append(f"{d}: {len(sh)} SHAPE lines in {ROLES}, need exactly one from a blind shape reader (P10)")
+            continue
+        sh = sh[0]
+        texts = [(e[2][2], e[3], e[4]) for e in ents if e[1] == key and e[0] == "SIGN" and e[2][2] != name]
+        texts += [(e[2][2], e[3], e[4]) for e in ents if e[1] == key and e[0] == "CLAUSE"]
+        par, prev = [], None
+        for raw, src, idx in texts:
+            x = _slots(raw, rmap)
+            if any(f" {x} " in f" {y} " for y in par):
+                prev = (src, idx)
+                continue
+            if par and x.startswith("divided by ") and prev == (src, idx - 1):
+                par[-1] += " " + x
+            else:
+                par.append(x)
+            prev = (src, idx)
+        tail = f" ({'; '.join(par)})" if par else ""
+        if sh[0] == "property":
+            subj, verb, art = sh[1], sh[2], sh[3]
+            if verb not in P11_VERBS or art not in P11_ARTICLES or any(b not in rmap for b in subj) or \
+                    (verb == "holds") != (not subj) or (verb == "are") != (len(subj) > 1):
+                bad.append(f"{d}: SHAPE line not usable: subject {subj}, verb {verb}, article {art} (P10)")
+                continue
+            rest = [b for b in rmap if b not in subj]
+            s = _listing([f"the {rmap[b]} {{{b}}}" for b in subj]) + " " if subj else ""
+            ph = f"{s}{verb} {art} {name}" if subj else f"the {name} {verb}"
+            if rest:
+                ph += " with " + _listing([f"the {rmap[b]} {{{b}}}" for b in rest])
+        else:
+            ph = f"the {name} with " + _listing([f"the {rmap[b]} {{{b}}}" for b in rmap])
+        out[d] = ph + tail
+    return out, bad
+
+
+def phrase_lines(text):
+    """phrases.txt as Claims.lean reads it: lines split on '\\n' only."""
+    out = {}
+    for line in text.split("\n"):
+        s = line.strip()
+        if not s or s.startswith("#") or " | " not in s:
+            continue
+        d, p = s.split(" | ", 1)
+        out[d.strip()] = p.strip()
+    return out
+
+
+def generated(phr_text=None, reg_text=None):
+    """P10/P11 lint: every phrase equals the template's output from the registry, byte for byte."""
+    if phr_text is None:
+        phr_text = (ROOT / PHR).read_text(encoding="utf-8")
+    if reg_text is None:
+        reg_text = (ROOT / ROLES).read_text(encoding="utf-8")
+    bad = invisible_chars([(PHR, phr_text), (ROLES, reg_text)])
+    bad += registry_order(reg_text)
+    phr = phrase_lines(phr_text)
+    if phr != parse_phrases(phr_text):
+        bad.append(f"{PHR}: the file reads differently split on newlines and on all line ends (P11)")
+    gen, gbad = generate(list(phr), reg_text)
+    bad += gbad
+    for d, p in phr.items():
+        if d in gen and gen[d] != p:
+            bad.append(f"{d}: phrase is not the template's output from the blind registry (P11); generated: {gen[d]}")
+    return bad
+
+
+def write_generated():
+    """`check_claims.py --generate`: rewrite every phrase of phrases.txt from the registry (P11)."""
+    text = (ROOT / PHR).read_text(encoding="utf-8")
+    phr = phrase_lines(text)
+    gen, bad = generate(list(phr))
+    if bad:
+        print("\n".join(bad))
+        return 1
+    out = []
+    for line in text.split("\n"):
+        s = line.strip()
+        if s and not s.startswith("#") and " | " in s:
+            d = s.split(" | ", 1)[0].strip()
+            line = f"{d} | {gen[d]}"
+        out.append(line)
+    (ROOT / PHR).write_text("\n".join(out), encoding="utf-8")
+    return 0
+
+
+def baseline_reentry(base, old_excl_text=None, old_reg_text=None, new_reg_text=None):
+    """P12 (--base; after blind red team AC d02, not blind): a reader line excluded at `base` (phrase_clause_baseline.txt:
+    false at junk values, a hypothesis rather than a property, true only under extra hypotheses, ambiguous parse) cannot
+    enter the registry later. AC d02 deleted 'equivalent to equal chemical potential in both phases' from the baseline,
+    added it to the registry and showed it: an exclusion is a correctness judgment, not a display preference."""
+    if old_excl_text is None or old_reg_text is None:
+        ob = git("show", f"{base}:{CLAUSE_BASE}")
+        orr = git("show", f"{base}:{ROLES}")
+        if ob.returncode or orr.returncode:
+            return []
+        old_excl_text, old_reg_text = ob.stdout, orr.stdout
+    if new_reg_text is None:
+        new_reg_text = (ROOT / ROLES).read_text(encoding="utf-8")
+    old_excl = clause_baseline(old_excl_text)
+    old_reg = {l.strip() for l in old_reg_text.split("\n")}
+    new_reg = {l.strip() for l in new_reg_text.split("\n")}
+    return [f"{ROLES}: line excluded at {base} now in the registry: {l} (P12: exclusions are final)"
+            for l in sorted((new_reg - old_reg) & old_excl)]
 
 
 def spec_vocabulary(entries, base=frozenset(), roles=None, signs=None, clauses=None):
@@ -551,10 +790,59 @@ def _controls():
             "B", reg_old, "", {}) != ["scripts/trust/phrase_roles.txt: source line removed since B: # source: runs/x/r.txt (P8)"]:
         print("::error::check_claims P8 controls failed")
         return 1
+    if _controls_p10_p12():
+        return 1
     sp5 = [dict(sp[0], spec_text="Specification of the Hubble rate of a scale factor at time t; units in which c is one",
                 phrase="the Hubble rate of the scale factor {a} at time {t} (units in which c is one)")]
     if spec_vocabulary(sp5) or len(spec_vocabulary([dict(sp5[0], phrase=sp5[0]["phrase"].replace("is one", "is two"))])) != 1:
         print("::error::check_claims P5 controls failed")
+        return 1
+    return 0
+
+
+def _controls_p10_p12():
+    """Controls for P10, P11, P11a, P11b, P12 on a synthetic registry whose reader file is this repository's real
+    second shape reading and clause reading (the generator needs line positions in reader files)."""
+    cl = "runs/2026-11-09T0228Z/clauses/CLAUSES.txt"
+    sh = "runs/2026-11-09T1428Z/shapes2/SHAPES.txt"
+    nm = "runs/2026-11-08T2228Z/names/NAMES.txt"
+    ro = "runs/2026-11-08T2228Z/roles/ROLES.txt"
+    if not all((ROOT / f).is_file() for f in (cl, sh, nm, ro)):
+        return 0  # a scratch tree without the readings (judges): controls run in the repository
+    c = "CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | "
+    reg = (f"# source: {ro}\nROLE | Checked.Cosmography.Aviles.cosmoCoeff | n | derivative order of the coefficient\n"
+           f"ROLE | Checked.Cosmography.Aviles.cosmoCoeff | a | scale factor\n"
+           f"ROLE | Checked.Cosmography.Aviles.cosmoCoeff | t | time of evaluation\n"
+           f"ROLE | Checked.Sim.Duffing.IsDuffingSolution | x | position as function of time\n"
+           f"# source: {nm}\nNAME | Checked.Cosmography.Aviles.cosmoCoeff | cosmographic coefficient\n"
+           f"NAME | Checked.Sim.Duffing.IsDuffingSolution | Duffing oscillator initial value problem solution\n"
+           f"# source: {cl}\n{c}n-th time derivative of the scale factor over the scale factor\n"
+           f"{c}divided by the n-th power of the Hubble rate\n{c}orders 0 and 1 coefficients are one\n"
+           f"# source: {sh}\nSHAPE | Checked.Cosmography.Aviles.cosmoCoeff | quantity\n"
+           f"SHAPE | Checked.Sim.Duffing.IsDuffingSolution | property | x | is | a\n")
+    good = ("Aviles.cosmoCoeff | the cosmographic coefficient with the derivative order of the coefficient {n}, the scale "
+            "factor {a} and the time of evaluation {t} ({n}-th time derivative of the scale factor over the scale factor "
+            "divided by the {n}-th power of the Hubble rate; orders 0 and 1 coefficients are one)\n"
+            "Duffing.IsDuffingSolution | the position as function of time {x} is a Duffing oscillator initial value "
+            "problem solution\n")
+    if generated(good, reg):
+        print("::error::check_claims P10/P11 controls failed (generated phrase rejected)", generated(good, reg))
+        return 1
+    swapped = reg.replace(f"{c}divided by the n-th power of the Hubble rate\n{c}orders 0 and 1 coefficients are one\n",
+                          f"{c}orders 0 and 1 coefficients are one\n{c}divided by the n-th power of the Hubble rate\n")
+    muts = [(good.replace("is a Duffing", "is the Duffing"), reg),                       # AC d05: article
+            (good.replace("coefficient with the derivative", "coefficient for the derivative"), reg),  # a connective
+            (good.replace("are one)", "are one)\x0b (orders 0 and 1 are two)"), reg),    # AC d01: hidden line end
+            (good, reg.replace("| x | is | a", "| x | is | the")),                       # P10: shape line changed
+            (good, reg.replace("SHAPE | Checked.Sim.Duffing.IsDuffingSolution | property | x | is | a\n", "")),  # P10
+            (good, swapped)]                                                             # AC d03: order
+    for ph, rg in muts:
+        if not generated(ph, rg):
+            print("::error::check_claims P10/P11 controls failed (mutant accepted):", ph[-80:], rg[-80:])
+            return 1
+    line = "CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equivalent to equal chemical potential in both phases"
+    if baseline_reentry("B", line + "\n", "", "") or len(baseline_reentry("B", line + "\n", "", line + "\n")) != 1:
+        print("::error::check_claims P12 controls failed")
         return 1
     return 0
 
@@ -591,6 +879,7 @@ def lint():
     bad += role_binding(phr, roles, signs)
     bad += coverage(phr, roles, signs, clauses, registry_names())
     bad += registry_complete(phr)
+    bad += generated()
     bad += spec_vocabulary(entries, p2_baseline() | p5_baseline(), roles, signs, clauses)
     for b in bad:
         print("PHRASE:", b)
@@ -672,7 +961,7 @@ def registry_removals(base, old_text=None, new_text=None, new_phr=None):
 def base_check(base):
     if not base or set(base) == {"0"} or git("cat-file", "-e", base + "^{commit}").returncode:
         base = "HEAD~1"
-    rb = roles_route(base)
+    rb = roles_route(base) + baseline_reentry(base)
     for b in rb:
         print("PHRASE ROLES:", b)
     if rb:
@@ -726,6 +1015,8 @@ def base_check(base):
 
 
 if __name__ == "__main__":
+    if "--generate" in sys.argv:
+        sys.exit(write_generated())
     if "--base" in sys.argv:
         i = sys.argv.index("--base")
         sys.exit(base_check(sys.argv[i + 1] if i + 1 < len(sys.argv) else ""))

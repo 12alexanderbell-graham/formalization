@@ -221,3 +221,29 @@ CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 2 coefficient is minu
 CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 3 coefficient is the jerk parameter usually written j
 CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 4 coefficient is the snap parameter usually written s
 CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 5 coefficient is the lerk parameter usually written l
+# P10 (run 2026-11-09T1428Z): predicate shapes from the second blind shape reader (the first, runs/2026-11-09T1428Z/shapes/,
+# was not given the blind NAMEs and chose verbs that do not fit them; not cited). Subject, verb and article of a property.
+# source: runs/2026-11-09T1428Z/shapes2/SHAPES.txt
+SHAPE | Checked.Cosmography.hubble | quantity
+SHAPE | Checked.Cosmography.decel | quantity
+SHAPE | Checked.Cosmography.BambaK.lumDist | quantity
+SHAPE | Checked.Cosmography.BambaA.angDist | quantity
+SHAPE | Checked.Cosmography.Aviles.IsFlatLCDM | property | a | obeys | the
+SHAPE | Checked.Cosmography.redshift | quantity
+SHAPE | Checked.Cosmography.Aviles.cosmoCoeff | quantity
+SHAPE | Checked.Cosmography.BambaY.yred | quantity
+SHAPE | Checked.Cosmography.BambaK.omega0 | quantity
+SHAPE | Checked.Cosmography.BambaZ.curvK | quantity
+SHAPE | Checked.Cosmography.BambaY.lumDistFlat | quantity
+SHAPE | Checked.Cosmography.BambaY.comoving | quantity
+SHAPE | Checked.Cosmography.CPL.IsFlatCPL | property | a | obeys | the
+SHAPE | Checked.Cosmography.FRCosmo.curv | quantity
+SHAPE | Checked.Cosmography.FRCosmo.rhoM | quantity
+SHAPE | Checked.Cosmography.FRCosmo.FriedmannEq | property | none | holds | the
+SHAPE | Checked.Cosmography.FRCosmo.MasterEq | property | none | holds | the
+SHAPE | Checked.Cosmography.Transverse.transverse | quantity
+SHAPE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | property | p | satisfies | the
+SHAPE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | property | p | satisfies | the
+SHAPE | Checked.Sim.Duffing.IsDuffingSolution | property | x | is | a
+SHAPE | Checked.Sim.MichaelisMenten.IsMMSolution | property | s e c p | are | a
+SHAPE | Checked.Sim.Robertson.IsRobSolution | property | y₁ y₂ y₃ | are | a
