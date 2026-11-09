@@ -506,6 +506,27 @@ def registry_entries(text=None):
     return out
 
 
+def registry_blocks(text=None):
+    """P11c (after adversary AD d01, not blind): each reader file is cited by one `# source:` block and no registry line
+    occurs twice. AD d01 cited the clause reading twice around a symbol line, so the generator's skip of the repeated
+    line glued "divided by the n-th power of the Hubble rate" to "the order 2 coefficient is minus the deceleration
+    parameter". Also P11a for the cited reader files themselves (AD: a U+2028 inside a reader line split differently for
+    load_registry and registry_entries)."""
+    if text is None:
+        text = (ROOT / ROLES).read_text(encoding="utf-8")
+    srcs = re.findall(r"#\s*source:\s*(\S+)", text)
+    bad = [f"{ROLES}: reader file cited by more than one source block: {x} (P11c)" for x in sorted(set(srcs)) if srcs.count(x) > 1]
+    seen = set()
+    for l in text.split("\n"):
+        l = l.strip()
+        if l and not l.startswith("#"):
+            if l in seen:
+                bad.append(f"{ROLES}: line occurs twice: {l} (P11c)")
+            seen.add(l)
+    bad += invisible_chars([(x, (ROOT / x).read_text(encoding="utf-8")) for x in sorted(set(srcs)) if (ROOT / x).is_file()])
+    return bad
+
+
 def registry_order(text=None):
     """P11b (after blind red team AC d03, not blind): inside each `# source:` block the registry keeps the reader file's
     line order. AC d03 swapped two cosmoCoeff clauses in the registry; the generator then glued "divided by the n-th
@@ -585,17 +606,20 @@ def generate(keys, text=None):
         sh = sh[0]
         texts = [(e[2][2], e[3], e[4]) for e in ents if e[1] == key and e[0] == "SIGN" and e[2][2] != name]
         texts += [(e[2][2], e[3], e[4]) for e in ents if e[1] == key and e[0] == "CLAUSE"]
-        par, prev = [], None
+        par, last = [], None  # last: the reader line that produced the end of par[-1]
         for raw, src, idx in texts:
             x = _slots(raw, rmap)
             if any(f" {x} " in f" {y} " for y in par):
-                prev = (src, idx)
-                continue
-            if par and x.startswith("divided by ") and prev == (src, idx - 1):
+                continue  # a skipped text never becomes the anchor of a join (adversary AD d01, d03)
+            if par and x.startswith("divided by ") and idx > 0 and last == (src, idx - 1):
                 par[-1] += " " + x
+            elif x.startswith("divided by "):
+                bad.append(f"{d}: blind text '{raw}' continues a quotient but does not follow its numerator's reader line "
+                           f"in the phrase (P11c)")
+                par.append(x)
             else:
                 par.append(x)
-            prev = (src, idx)
+            last = (src, idx)
         tail = f" ({'; '.join(par)})" if par else ""
         if sh[0] == "property":
             subj, verb, art = sh[1], sh[2], sh[3]
@@ -634,6 +658,7 @@ def generated(phr_text=None, reg_text=None):
         reg_text = (ROOT / ROLES).read_text(encoding="utf-8")
     bad = invisible_chars([(PHR, phr_text), (ROLES, reg_text)])
     bad += registry_order(reg_text)
+    bad += registry_blocks(reg_text)
     phr = phrase_lines(phr_text)
     if phr != parse_phrases(phr_text):
         bad.append(f"{PHR}: the file reads differently split on newlines and on all line ends (P11)")

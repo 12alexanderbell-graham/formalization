@@ -1,0 +1,22 @@
+## snapshot 9189018 rules (AD as submitted)
+control (unmodified tree): 0 problems
+d01: phrases changed ['Aviles.cosmoCoeff'] -> passes the phrase rules
+d02: phrases changed ['BambaK.omega0', 'Coexistence.IsMaxwellCoexistence', 'CubicEOS.IsCriticalIsotherm'] -> passes the phrase rules
+d03: phrases changed ['Aviles.cosmoCoeff'] -> passes the phrase rules
+d04: phrases changed ['BambaY.comoving', 'BambaY.lumDistFlat'] -> passes the phrase rules
+## after the repair (P11c: one block per reader file, no line twice, reader files free of invisible characters; a join is anchored on the text the previous reader line produced, and a 'divided by' text that cannot join fails)
+control (unmodified tree): 0 problems
+d01: REJECTED (the defect's own `check_claims.py --generate` step refuses to generate):
+    Aviles.cosmoCoeff: blind text 'divided by the n-th power of the Hubble rate' continues a quotient but does not follow its numerator's reader line in the phrase (P11c)
+d02: phrases changed ['BambaK.omega0', 'Coexistence.IsMaxwellCoexistence', 'CubicEOS.IsCriticalIsotherm'] -> passes the phrase rules
+d03: REJECTED (the defect's own `check_claims.py --generate` step refuses to generate):
+    Aviles.cosmoCoeff: blind text 'divided by the Hubble rate to the power n' continues a quotient but does not follow its numerator's reader line in the phrase (P11c)
+d04: phrases changed ['BambaY.comoving', 'BambaY.lumDistFlat'] -> passes the phrase rules
+## judge's variant d03b (not blind; numerator line contained in, not equal to, a shown text)
+# snapshot:
+control (unmodified tree): 0 problems
+d03b: phrases changed ['Aviles.cosmoCoeff'] -> passes the phrase rules
+# after the repair:
+control (unmodified tree): 0 problems
+d03b: REJECTED (the defect's own `check_claims.py --generate` step refuses to generate):
+    Aviles.cosmoCoeff: blind text 'divided by the Hubble rate to the power n' continues a quotient but does not follow its numerator's reader line in the phrase (P11c)
