@@ -3,6 +3,7 @@ import Checked.FalknerSkan.Limit
 import Checked.FalknerSkan.LimitTenth
 import Checked.FalknerSkan.NegDecay
 import Checked.FalknerSkan.NegOutside
+import Checked.FalknerSkan.NegReversed
 import Checked.FalknerSkan.FalknerSkan
 import Checked.Blasius.Blasius
 import Checked.Math.LaneEmden
@@ -1437,5 +1438,43 @@ theorem fs_neg_decay_max_shear_h9 : necessity% Checked.FalknerSkan.NegDecay.fs_n
       fun η hη => (hbg η hη).1, hf, hp, hq, hf0, hp0, hlim, hpos, ?_⟩
     intro hle
     exact h (le_antisymm l1 hle)
+
+/-! Falkner–Skan with adverse pressure gradient (run 2026-11-09T1628Z): the positivity condition on the
+second derivative of the comparison and equality theorems is needed. The data: the fast-approach solution of
+`Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay` and the fast-approach solution with negative wall
+value of `Checked.FalknerSkan.NegReversed.fs_neg_tenth_reversed`. -/
+
+theorem fs_neg_decay_equal_h8 : necessity% Checked.FalknerSkan.NegDecay.fs_neg_decay_equal 8 := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  obtain ⟨g, pg, qg, hg, hpg, hqg, hg0, hpg0, hlg, -, hdg, -, hw⟩ :=
+    Checked.FalknerSkan.NegReversed.fs_neg_tenth_reversed
+  have h0 := hpos 0 (Set.mem_Ici.2 le_rfl)
+  refine ⟨-1 / 10, by norm_num, g, pg, qg, f, p, q, hg, hpg, hqg, hg0, hpg0, hlg, hdg,
+    hf, hp, hq, hf0, hp0, hlim, hpos, hdec, 0, Set.mem_Ici.2 le_rfl, ?_⟩
+  rintro ⟨-, -, he⟩
+  linarith
+
+theorem fs_neg_decay_equal_h16 : necessity% Checked.FalknerSkan.NegDecay.fs_neg_decay_equal 16 := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  obtain ⟨g, pg, qg, hg, hpg, hqg, hg0, hpg0, hlg, -, hdg, -, hw⟩ :=
+    Checked.FalknerSkan.NegReversed.fs_neg_tenth_reversed
+  have h0 := hpos 0 (Set.mem_Ici.2 le_rfl)
+  refine ⟨-1 / 10, by norm_num, f, p, q, g, pg, qg, hf, hp, hq, hf0, hp0, hlim, hpos, hdec,
+    hg, hpg, hqg, hg0, hpg0, hlg, hdg, 0, Set.mem_Ici.2 le_rfl, ?_⟩
+  rintro ⟨-, -, he⟩
+  linarith
+
+theorem fs_neg_decay_max_shear_h8 : necessity% Checked.FalknerSkan.NegDecay.fs_neg_decay_max_shear 8 := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, -⟩ :=
+    Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
+  obtain ⟨g, pg, qg, hg, hpg, hqg, hg0, hpg0, hlg, -, hdg, -, hw⟩ :=
+    Checked.FalknerSkan.NegReversed.fs_neg_tenth_reversed
+  have h0 := hpos 0 (Set.mem_Ici.2 le_rfl)
+  refine ⟨-1 / 10, by norm_num, g, pg, qg, f, p, q, hg, hpg, hqg, hg0, hpg0, hlg, hdg,
+    hf, hp, hq, hf0, hp0, hlim, hpos, ?_⟩
+  intro hle
+  linarith
 
 end Checked.Trust.NC
