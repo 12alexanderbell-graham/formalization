@@ -373,3 +373,7 @@ import Work.FalknerSkan.NegTenth
 import Work.FalknerSkan.NTBlindClosed
 import Work.FalknerSkan.NegOutside
 import Work.FalknerSkan.NOBlindClosed
+import Work.FalknerSkan.NegWindow
+import Work.FalknerSkan.NWBlindClosed
+import Work.FalknerSkan.NegReversed
+import Work.FalknerSkan.NRBlindClosed

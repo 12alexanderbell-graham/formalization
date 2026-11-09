@@ -1,4 +1,7 @@
 import Mathlib
+import Work.FSNeg.NWindow
+import Work.FSNeg.NWinLo
+import Work.FSNeg.NWinHi
 
 /-!
 # Falkner–Skan β = −1/10 (adverse pressure gradient): ten-decimal window of the wall shear of the
@@ -11,7 +14,8 @@ ends (Slow at 1.009619629, Over at 1.0096196292; `runs/2026-11-09T1228Z/scripts/
 the supremum argument (`Work.FSNeg.NWindow.core_window`), scaling by √10, and the uniqueness and
 largest-shear theorems of `Work.FalknerSkan.NegDecay`.
 
-Frozen in run 2026-11-09T1228Z (statements first, proofs follow): statements only (`sorry`), not yet imported by `Work.lean`; scratch proofs compiled in `runs/2026-11-09T1228Z/lean/`.
+Frozen in run 2026-11-09T1228Z (commit 9149f56: statements first), proofs from the scratch in
+`runs/2026-11-09T1228Z/lean/`.
 -/
 
 namespace Work.FalknerSkan.NegWindow
@@ -28,8 +32,11 @@ theorem fs_neg_tenth_window (f p q : ℝ → ℝ)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
     (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
     (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
-    0.3192697598 < q 0 ∧ q 0 < 0.3192697599 := by
-  sorry
+    0.3192697598 < q 0 ∧ q 0 < 0.3192697599 :=
+  Work.FSNeg.NWindow.ten_window
+    ⟨3, by norm_num, fun _ hY h0 => Work.FSNeg.NWinLo.chainC hY h0⟩
+    ⟨11 / 4, by norm_num, fun _ hY h0 => Work.FSNeg.NWinHi.chainC hY h0⟩
+    f p q hf hp hq hf0 hp0 hlim hpos hdec
 
 /-- Falkner–Skan with β = −1/10: every solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
 [0, ∞) with f(0) = 0, p(0) = 0, p → 1 and q > 0 on [0, ∞) (no condition on how p approaches 1)
@@ -40,7 +47,10 @@ theorem fs_neg_tenth_monotone_lt (f p q : ℝ → ℝ)
     (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-1 / 10) * (1 - p η ^ 2)) (Ici 0) η)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
     (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η) :
-    q 0 < 0.3192697599 := by
-  sorry
+    q 0 < 0.3192697599 :=
+  Work.FSNeg.NWindow.ten_monotone_lt
+    ⟨3, by norm_num, fun _ hY h0 => Work.FSNeg.NWinLo.chainC hY h0⟩
+    ⟨11 / 4, by norm_num, fun _ hY h0 => Work.FSNeg.NWinHi.chainC hY h0⟩
+    f p q hf hp hq hf0 hp0 hlim hpos
 
 end Work.FalknerSkan.NegWindow
