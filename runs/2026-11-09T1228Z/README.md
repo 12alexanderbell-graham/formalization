@@ -6,7 +6,9 @@
 
 **Measure:** 4 theorems PROVED in Work (standard axioms, local lake build), blind restatements 2/2 closed, referee: 0 defects in statements or route, independent values by two methods inside both windows; the research note's Lemma D replaced by a certified tube over the whole parameter window.
 
-**Weakest unchecked step:** CI has not yet built the new modules (work job of 9f7db47, run 42628334624, queued at 13:46Z); the four theorems are not in Checked (window ends and β need blind literal readings; NV witnesses).
+**CI:** work job of 9f7db47 (run 42628334624) green, 13:46–13:52Z: every new module built by the judge.
+
+**Weakest unchecked step:** the four theorems are not in Checked (window ends and β need blind literal readings; NV witnesses).
 
 ## Start
 - 12:27Z. add_repo not exposed; pre-cloned checkout detached, shallow, stale local main; `git fetch --unshallow` and `git checkout -B main origin/main` (local branch only) = 8eb3ece.
