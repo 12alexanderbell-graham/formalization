@@ -1,1 +1,1 @@
-Run 2026-11-09T2228Z (scheduled), started 22:28Z; found LOCK of run 2026-11-09T2028Z (taken 20:29Z, no push or heartbeat since); auditor role until the lock was 150 min old (rule 48.4); takeover 22:59Z. Remove at end.
+Run 2026-11-09T2228Z (scheduled), started 22:28Z; took over the LOCK of run 2026-11-09T2028Z at 22:59Z (150 min, no push or heartbeat; rule 48.4). Heartbeat 23:36Z. Remove at end.

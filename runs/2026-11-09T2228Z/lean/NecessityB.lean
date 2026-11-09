@@ -18,6 +18,20 @@ import Checked.Sim.Duffing
 import Checked.Sim.MichaelisMenten
 import Checked.Sim.Robertson
 import Checked.Sim.RobLong
+import Checked.Chemistry.CubicEOS
+import Checked.Chemistry.Coexistence
+import Checked.Chemistry.RKAcentric
+import Checked.Chemistry.SRKAcentric
+import Checked.Chemistry.PRAcentric
+import Checked.Chemistry.PR78Acentric
+import Checked.Trust.Witnesses
+import Checked.Data.FR13
+import Checked.Data.Moresco16
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Topology.Order.IntermediateValue
+import Checked.Fidelity.FriedmannLCDM
+import Checked.Fidelity.FriedmannCPL
+import Checked.Fidelity.TransverseSpec
 import Checked.Math.ThomasFermi
 import Checked.Math.ThomasFermiExists
 import Mathlib.Analysis.Calculus.Deriv.Slope
@@ -784,6 +798,205 @@ theorem tf_cont (y φ : ℝ → ℝ)
   have := hdiff.add hslope
   simpa using this
 
+/-- The equation is needed in the PDE bound: the zero function meets every other hypothesis, for
+every eigenvalue, in particular λ = 4. -/
+theorem gelfand_pde_radial_bound_h5 : necessity% Checked.Math.GelfandPDE.gelfand_pde_radial_bound 5 := by
+  refine ⟨4, fun _ => 0, contDiffOn_const, continuousOn_const, fun _ _ => rfl,
+    ⟨fun _ => 0, fun _ _ => rfl⟩, by norm_num⟩
+
+/-! ### Pin theorems with a single hypothesis: the specification is needed
+
+Without the specification any other object would be "pinned"; the negated predicate (or the
+function plus one) is such an object. These witnesses are logically trivial; they are recorded so
+that the classification of these pins is complete. -/
+
+theorem ne_pred3 {α β γ : Type*} [Inhabited α] [Inhabited β] [Inhabited γ] (Q : α → β → γ → Prop) :
+    ∃ P : α → β → γ → Prop, ¬ P = Q :=
+  ⟨fun x y z => ¬ Q x y z, fun h => not_iff_self (Iff.of_eq (congrFun (congrFun (congrFun h
+    default) default) default))⟩
+
+theorem ne_pred5 {α β γ δ ε : Type*} [Inhabited α] [Inhabited β] [Inhabited γ] [Inhabited δ]
+    [Inhabited ε] (Q : α → β → γ → δ → ε → Prop) :
+    ∃ P : α → β → γ → δ → ε → Prop, ¬ P = Q :=
+  ⟨fun x y z u v => ¬ Q x y z u v, fun h => not_iff_self (Iff.of_eq (congrFun (congrFun (congrFun
+    (congrFun (congrFun h default) default) default) default) default))⟩
+
+theorem flatLCDMSpec2_pins_h1 : necessity% Checked.Fidelity.flatLCDMSpec2_pins 1 := ne_pred3 _
+
+theorem flatCPL_pins_h1 : necessity% Checked.Fidelity.flatCPL_pins 1 := ne_pred5 _
+
+theorem transverseSpec_pins_h1 : necessity% Checked.Fidelity.transverseSpec_pins 1 := by
+  refine ⟨fun K χ => Checked.Cosmography.Transverse.transverse K χ + 1, fun h => ?_⟩
+  have := congrFun (congrFun h 0) 0
+  linarith
+
+/-! ### Farooq–Ratra 2013 best fit: the minimality hypothesis is needed (Ω = 0 is not the fit) -/
+
+theorem fr13_bestfit68_h3 : necessity% Checked.Data.FR13.fr13_bestfit68 3 := by
+  refine ⟨0, le_rfl, zero_le_one, ?_⟩
+  rintro ⟨h, -⟩
+  norm_num at h
+
+theorem fr13_bestfit738_h3 : necessity% Checked.Data.FR13.fr13_bestfit738 3 := by
+  refine ⟨0, le_rfl, zero_le_one, ?_⟩
+  rintro ⟨h, -⟩
+  norm_num at h
+
+/-! ### Moresco et al. 2016 Table 5: the sample-size range and the AICc value are needed
+
+For each model with k parameters the theorem says: if N lies in (k + 1, 31] and the printed AICc is
+reproduced to 0.005 by some maximum-likelihood term c, then the printed BIC is not. Each hypothesis is
+needed: an N just outside the range (found by the intermediate value theorem on
+k log N − 2k(k + 1)/(N − k − 1), with log 2 bounds at N = 1, 2, 32, 64) reproduces both printed
+values exactly, and without the AICc condition c can be chosen to reproduce the BIC. -/
+
+theorem log32 : Real.log 32 = 5 * Real.log 2 := by
+  rw [show (32 : ℝ) = 2 ^ 5 by norm_num, Real.log_pow]; norm_num
+
+theorem log64 : Real.log 64 = 6 * Real.log 2 := by
+  rw [show (64 : ℝ) = 2 ^ 6 by norm_num, Real.log_pow]; norm_num
+
+theorem table5_oL_inconsistent_h2 : necessity% Checked.Data.Moresco16.table5_oL_inconsistent 2 := by
+  have hc : ContinuousOn (fun N : ℝ => 3 * Real.log N - 2 * 3 * (3 + 1) / (N - 3 - 1)) (Icc 32 64) := by
+    refine ContinuousOn.sub (continuousOn_const.mul (Real.continuousOn_log.mono ?_))
+      (continuousOn_const.div (by fun_prop) ?_)
+    · intro x hx; simp only [mem_compl_iff, mem_singleton_iff]; exact ne_of_gt (by linarith [hx.1])
+    · intro x hx; exact ne_of_gt (by linarith [hx.1])
+  have t1 := Real.log_two_gt_d9
+  have t2 := Real.log_two_lt_d9
+  have ha : (fun N : ℝ => 3 * Real.log N - 2 * 3 * (3 + 1) / (N - 3 - 1)) 32 ≤ (25.71 - 21.41 + 2 * 3) := by
+    simp only []; rw [log32]; norm_num; linarith
+  have hb : (25.71 - 21.41 + 2 * 3) ≤ (fun N : ℝ => 3 * Real.log N - 2 * 3 * (3 + 1) / (N - 3 - 1)) 64 := by
+    simp only []; rw [log64]; norm_num; linarith
+  obtain ⟨N, hN, hgN⟩ := intermediate_value_Icc (by norm_num) hc ⟨ha, hb⟩
+  simp only [] at hgN
+  refine ⟨N, 25.71 - 3 * Real.log N, ?_, ?_, ?_⟩
+  · linarith [hN.1]
+  · rw [show 25.71 - 3 * Real.log N + 2 * 3 + 2 * 3 * (3 + 1) / (N - 3 - 1) - 21.41 = 0 by linarith]
+    norm_num
+  · rw [show 25.71 - 3 * Real.log N + 3 * Real.log N - 25.71 = 0 by ring]
+    norm_num
+
+theorem table5_oL_inconsistent_h1 : necessity% Checked.Data.Moresco16.table5_oL_inconsistent 1 := by
+  have hc : ContinuousOn (fun N : ℝ => 3 * Real.log N - 2 * 3 * (3 + 1) / (N - 3 - 1)) (Icc 1 2) := by
+    refine ContinuousOn.sub (continuousOn_const.mul (Real.continuousOn_log.mono ?_))
+      (continuousOn_const.div (by fun_prop) ?_)
+    · intro x hx; simp only [mem_compl_iff, mem_singleton_iff]; exact ne_of_gt (by linarith [hx.1])
+    · intro x hx; exact ne_of_lt (by linarith [hx.2])
+  have t1 := Real.log_two_gt_d9
+  have t2 := Real.log_two_lt_d9
+  have ha : (fun N : ℝ => 3 * Real.log N - 2 * 3 * (3 + 1) / (N - 3 - 1)) 1 ≤ (25.71 - 21.41 + 2 * 3) := by
+    simp only []; rw [Real.log_one]; norm_num
+  have hb : (25.71 - 21.41 + 2 * 3) ≤ (fun N : ℝ => 3 * Real.log N - 2 * 3 * (3 + 1) / (N - 3 - 1)) 2 := by
+    simp only []; norm_num; linarith
+  obtain ⟨N, hN, hgN⟩ := intermediate_value_Icc (by norm_num) hc ⟨ha, hb⟩
+  simp only [] at hgN
+  refine ⟨N, 25.71 - 3 * Real.log N, ?_, ?_, ?_⟩
+  · linarith [hN.2]
+  · rw [show 25.71 - 3 * Real.log N + 2 * 3 + 2 * 3 * (3 + 1) / (N - 3 - 1) - 21.41 = 0 by linarith]
+    norm_num
+  · rw [show 25.71 - 3 * Real.log N + 3 * Real.log N - 25.71 = 0 by ring]
+    norm_num
+
+theorem table5_oL_inconsistent_h3 : necessity% Checked.Data.Moresco16.table5_oL_inconsistent 3 := by
+  refine ⟨10, 25.71 - 3 * Real.log 10, by norm_num, by norm_num, ?_⟩
+  rw [show 25.71 - 3 * Real.log 10 + 3 * Real.log 10 - 25.71 = 0 by ring]
+  norm_num
+
+theorem table5_pw_inconsistent_h2 : necessity% Checked.Data.Moresco16.table5_pw_inconsistent 2 := by
+  have hc : ContinuousOn (fun N : ℝ => 4 * Real.log N - 2 * 4 * (4 + 1) / (N - 4 - 1)) (Icc 32 64) := by
+    refine ContinuousOn.sub (continuousOn_const.mul (Real.continuousOn_log.mono ?_))
+      (continuousOn_const.div (by fun_prop) ?_)
+    · intro x hx; simp only [mem_compl_iff, mem_singleton_iff]; exact ne_of_gt (by linarith [hx.1])
+    · intro x hx; exact ne_of_gt (by linarith [hx.1])
+  have t1 := Real.log_two_gt_d9
+  have t2 := Real.log_two_lt_d9
+  have ha : (fun N : ℝ => 4 * Real.log N - 2 * 4 * (4 + 1) / (N - 4 - 1)) 32 ≤ (28.72 - 23.99 + 2 * 4) := by
+    simp only []; rw [log32]; norm_num; linarith
+  have hb : (28.72 - 23.99 + 2 * 4) ≤ (fun N : ℝ => 4 * Real.log N - 2 * 4 * (4 + 1) / (N - 4 - 1)) 64 := by
+    simp only []; rw [log64]; norm_num; linarith
+  obtain ⟨N, hN, hgN⟩ := intermediate_value_Icc (by norm_num) hc ⟨ha, hb⟩
+  simp only [] at hgN
+  refine ⟨N, 28.72 - 4 * Real.log N, ?_, ?_, ?_⟩
+  · linarith [hN.1]
+  · rw [show 28.72 - 4 * Real.log N + 2 * 4 + 2 * 4 * (4 + 1) / (N - 4 - 1) - 23.99 = 0 by linarith]
+    norm_num
+  · rw [show 28.72 - 4 * Real.log N + 4 * Real.log N - 28.72 = 0 by ring]
+    norm_num
+
+theorem table5_pw_inconsistent_h1 : necessity% Checked.Data.Moresco16.table5_pw_inconsistent 1 := by
+  have hc : ContinuousOn (fun N : ℝ => 4 * Real.log N - 2 * 4 * (4 + 1) / (N - 4 - 1)) (Icc 1 2) := by
+    refine ContinuousOn.sub (continuousOn_const.mul (Real.continuousOn_log.mono ?_))
+      (continuousOn_const.div (by fun_prop) ?_)
+    · intro x hx; simp only [mem_compl_iff, mem_singleton_iff]; exact ne_of_gt (by linarith [hx.1])
+    · intro x hx; exact ne_of_lt (by linarith [hx.2])
+  have t1 := Real.log_two_gt_d9
+  have t2 := Real.log_two_lt_d9
+  have ha : (fun N : ℝ => 4 * Real.log N - 2 * 4 * (4 + 1) / (N - 4 - 1)) 1 ≤ (28.72 - 23.99 + 2 * 4) := by
+    simp only []; rw [Real.log_one]; norm_num
+  have hb : (28.72 - 23.99 + 2 * 4) ≤ (fun N : ℝ => 4 * Real.log N - 2 * 4 * (4 + 1) / (N - 4 - 1)) 2 := by
+    simp only []; norm_num; linarith
+  obtain ⟨N, hN, hgN⟩ := intermediate_value_Icc (by norm_num) hc ⟨ha, hb⟩
+  simp only [] at hgN
+  refine ⟨N, 28.72 - 4 * Real.log N, ?_, ?_, ?_⟩
+  · linarith [hN.2]
+  · rw [show 28.72 - 4 * Real.log N + 2 * 4 + 2 * 4 * (4 + 1) / (N - 4 - 1) - 23.99 = 0 by linarith]
+    norm_num
+  · rw [show 28.72 - 4 * Real.log N + 4 * Real.log N - 28.72 = 0 by ring]
+    norm_num
+
+theorem table5_pw_inconsistent_h3 : necessity% Checked.Data.Moresco16.table5_pw_inconsistent 3 := by
+  refine ⟨10, 28.72 - 4 * Real.log 10, by norm_num, by norm_num, ?_⟩
+  rw [show 28.72 - 4 * Real.log 10 + 4 * Real.log 10 - 28.72 = 0 by ring]
+  norm_num
+
+theorem table5_line_inconsistent_h2 : necessity% Checked.Data.Moresco16.table5_line_inconsistent 2 := by
+  have hc : ContinuousOn (fun N : ℝ => 2 * Real.log N - 2 * 2 * (2 + 1) / (N - 2 - 1)) (Icc 32 64) := by
+    refine ContinuousOn.sub (continuousOn_const.mul (Real.continuousOn_log.mono ?_))
+      (continuousOn_const.div (by fun_prop) ?_)
+    · intro x hx; simp only [mem_compl_iff, mem_singleton_iff]; exact ne_of_gt (by linarith [hx.1])
+    · intro x hx; exact ne_of_gt (by linarith [hx.1])
+  have t1 := Real.log_two_gt_d9
+  have t2 := Real.log_two_lt_d9
+  have ha : (fun N : ℝ => 2 * Real.log N - 2 * 2 * (2 + 1) / (N - 2 - 1)) 32 ≤ (35.29 - 32.42 + 2 * 2) := by
+    simp only []; rw [log32]; norm_num; linarith
+  have hb : (35.29 - 32.42 + 2 * 2) ≤ (fun N : ℝ => 2 * Real.log N - 2 * 2 * (2 + 1) / (N - 2 - 1)) 64 := by
+    simp only []; rw [log64]; norm_num; linarith
+  obtain ⟨N, hN, hgN⟩ := intermediate_value_Icc (by norm_num) hc ⟨ha, hb⟩
+  simp only [] at hgN
+  refine ⟨N, 35.29 - 2 * Real.log N, ?_, ?_, ?_⟩
+  · linarith [hN.1]
+  · rw [show 35.29 - 2 * Real.log N + 2 * 2 + 2 * 2 * (2 + 1) / (N - 2 - 1) - 32.42 = 0 by linarith]
+    norm_num
+  · rw [show 35.29 - 2 * Real.log N + 2 * Real.log N - 35.29 = 0 by ring]
+    norm_num
+
+theorem table5_line_inconsistent_h1 : necessity% Checked.Data.Moresco16.table5_line_inconsistent 1 := by
+  have hc : ContinuousOn (fun N : ℝ => 2 * Real.log N - 2 * 2 * (2 + 1) / (N - 2 - 1)) (Icc 1 2) := by
+    refine ContinuousOn.sub (continuousOn_const.mul (Real.continuousOn_log.mono ?_))
+      (continuousOn_const.div (by fun_prop) ?_)
+    · intro x hx; simp only [mem_compl_iff, mem_singleton_iff]; exact ne_of_gt (by linarith [hx.1])
+    · intro x hx; exact ne_of_lt (by linarith [hx.2])
+  have t1 := Real.log_two_gt_d9
+  have t2 := Real.log_two_lt_d9
+  have ha : (fun N : ℝ => 2 * Real.log N - 2 * 2 * (2 + 1) / (N - 2 - 1)) 1 ≤ (35.29 - 32.42 + 2 * 2) := by
+    simp only []; rw [Real.log_one]; norm_num
+  have hb : (35.29 - 32.42 + 2 * 2) ≤ (fun N : ℝ => 2 * Real.log N - 2 * 2 * (2 + 1) / (N - 2 - 1)) 2 := by
+    simp only []; norm_num; linarith
+  obtain ⟨N, hN, hgN⟩ := intermediate_value_Icc (by norm_num) hc ⟨ha, hb⟩
+  simp only [] at hgN
+  refine ⟨N, 35.29 - 2 * Real.log N, ?_, ?_, ?_⟩
+  · linarith [hN.2]
+  · rw [show 35.29 - 2 * Real.log N + 2 * 2 + 2 * 2 * (2 + 1) / (N - 2 - 1) - 32.42 = 0 by linarith]
+    norm_num
+  · rw [show 35.29 - 2 * Real.log N + 2 * Real.log N - 35.29 = 0 by ring]
+    norm_num
+
+theorem table5_line_inconsistent_h3 : necessity% Checked.Data.Moresco16.table5_line_inconsistent 3 := by
+  refine ⟨10, 35.29 - 2 * Real.log 10, by norm_num, by norm_num, ?_⟩
+  rw [show 35.29 - 2 * Real.log 10 + 2 * Real.log 10 - 35.29 = 0 by ring]
+  norm_num
+
 /-! ### Thomas–Fermi: continuity of φ at 0 is redundant; the initial value is needed -/
 
 theorem tf_initial_slope_r3 : dropped% Checked.Math.ThomasFermi.tf_initial_slope 3 := by
@@ -827,5 +1040,165 @@ theorem tf_initial_slope_h4 : necessity% Checked.Math.ThomasFermi.tf_initial_slo
   · rintro ⟨h, -⟩
     simp only [mul_zero] at h
     linarith [hb.2]
+
+/-! ### Cubic equations of state: the critical-point condition, a > 0 and the coexistence
+condition are needed -/
+
+section Chemistry
+open Checked.Records Checked.Chemistry.CubicEOS Checked.Chemistry.Coexistence
+
+/-- With a = 0 and T = 0 the isotherm is identically zero, so every volume is a critical point. -/
+theorem zero_isotherm (R b u w : ℝ) : cubicP R 0 b u w 0 = fun _ => 0 := by
+  funext x; simp [cubicP]
+
+theorem zero_isotherm_critical (R b u w v : ℝ) : IsCriticalIsotherm (cubicP R 0 b u w 0) v := by
+  rw [zero_isotherm R b u w]; simp [IsCriticalIsotherm]
+
+theorem vdW_constants_h1 : necessity% Checked.Chemistry.CubicEOS.vdW_constants 1 := by
+  refine ⟨1, 0, 1, 0, 2, one_pos, by norm_num, zero_isotherm_critical 1 1 0 0 2, ?_⟩
+  rintro ⟨h, -⟩
+  rw [zero_isotherm 1 1 0 0] at h
+  norm_num at h
+
+theorem vdW_constants_h4 : necessity% Checked.Chemistry.CubicEOS.vdW_constants 4 := by
+  refine ⟨1, 1, 1, 1, 2, one_pos, one_pos, by norm_num, ?_⟩
+  rintro ⟨h, -⟩
+  norm_num [cubicP] at h
+
+theorem rk_constants_h1 : necessity% Checked.Chemistry.CubicEOS.rk_constants 1 := by
+  refine ⟨1, 0, 1, 0, 2, one_pos, by norm_num, zero_isotherm_critical 1 1 1 0 2, ?_⟩
+  rintro ⟨h, -⟩
+  rw [zero_isotherm 1 1 1 0] at h
+  norm_num at h
+
+theorem rk_constants_h4 : necessity% Checked.Chemistry.CubicEOS.rk_constants 4 := by
+  refine ⟨1, 1, 1, 1, 2, one_pos, one_pos, by norm_num, ?_⟩
+  rintro ⟨h, -⟩
+  norm_num [cubicP] at h
+
+theorem pr_constants_h1 : necessity% Checked.Chemistry.CubicEOS.pr_constants 1 := by
+  refine ⟨1, 0, 1, 0, 2, one_pos, by norm_num, zero_isotherm_critical 1 1 2 (-1) 2, ?_⟩
+  rintro ⟨h, -⟩
+  rw [zero_isotherm 1 1 2 (-1)] at h
+  norm_num [RoundsTo, abs_le] at h
+
+theorem pr_constants_h4 : necessity% Checked.Chemistry.CubicEOS.pr_constants 4 := by
+  refine ⟨1, 1, 1, 1, 2, one_pos, one_pos, by norm_num, ?_⟩
+  rintro ⟨h, -⟩
+  norm_num [cubicP, RoundsTo, abs_le] at h
+
+/-- The positivity of the attraction parameter is needed in the characterisation of critical points:
+with a = 0 and T = 0 every volume is critical, but the critical cubic need not vanish. -/
+theorem isCritical_iff_h1 : necessity% Checked.Chemistry.CubicEOS.isCritical_iff 1 := by
+  refine ⟨1, 0, 1, 0, 0, 0, 2, by norm_num, by norm_num, ?_⟩
+  intro h
+  have := (h.1 (zero_isotherm_critical 1 1 0 0 2)).1
+  norm_num at this
+
+/-- The coexistence hypothesis is needed: a saturation pressure 0 contradicts the conclusion. -/
+theorem vdW_coexistence_unique_h5 : necessity% Checked.Chemistry.Coexistence.vdW_coexistence_unique 5 := by
+  refine ⟨1, 1, 1, 2, 3, 0, one_pos, one_pos, one_pos, by norm_num, ?_⟩
+  norm_num [RoundsTo, abs_le]
+
+/-- With a = 0 the isotherm at 0.7 · 8a/(27Rb) = 0 is identically zero, so every coexistence state
+has pressure 0 and the claimed pressure ratio fails. -/
+theorem vdW_coexistence_exists_h2 : necessity% Checked.Chemistry.Coexistence.vdW_coexistence_exists 2 := by
+  refine ⟨1, 0, 1, one_pos, one_pos, ?_⟩
+  rintro ⟨vl, vg, ps, -, ⟨-, hpl, -, -⟩, h⟩
+  have hz : cubicP 1 0 1 0 0 (7 / 10 * (8 * 0 / (27 * 1 * 1))) = fun _ => 0 := by
+    funext x; simp [cubicP]
+  rw [hz] at hpl
+  subst hpl
+  norm_num [RoundsTo, abs_le] at h
+
+theorem rk_coexistence_unique_h8 : necessity% Checked.Chemistry.RKAcentric.rk_coexistence_unique 8 := by
+  obtain ⟨Tc, vc, hT, hv, hc⟩ := Checked.Trust.NV.rk_crit_witness
+  refine ⟨1, Real.sqrt Tc, 1, Tc, vc, 2, 3, 0, one_pos, Real.sqrt_pos.2 hT, one_pos, hT, hv, hc,
+    by norm_num, ?_⟩
+  rintro ⟨h, -⟩
+  norm_num [RoundsTo, abs_le] at h
+
+theorem srk_omega1_unique_h6 : necessity% Checked.Chemistry.SRKAcentric.srk_omega1_unique 6 := by
+  obtain ⟨Tc, vc, -, hv, hc⟩ := Checked.Trust.NV.srk_crit_witness
+  refine ⟨1, 1, 1, Tc, vc, 2, 3, 0, one_pos, one_pos, hv, hc, by norm_num, ?_⟩
+  rintro ⟨h, -⟩
+  norm_num [RoundsTo, abs_le] at h
+
+theorem pr_omega1_unique_h6 : necessity% Checked.Chemistry.PRAcentric.pr_omega1_unique 6 := by
+  obtain ⟨Tc, vc, -, hv, hc⟩ := Checked.Trust.NV.pr_crit_witness
+  refine ⟨1, 1, 1, Tc, vc, 2, 3, 0, one_pos, one_pos, hv, hc, by norm_num, ?_⟩
+  rintro ⟨h, -⟩
+  norm_num [RoundsTo, abs_le] at h
+
+theorem pr78_omega1_unique_h6 : necessity% Checked.Chemistry.PR78Acentric.pr78_omega1_unique 6 := by
+  obtain ⟨Tc, vc, -, hv, hc⟩ := Checked.Trust.NV.pr_crit_witness
+  refine ⟨1, 1, 1, Tc, vc, 2, 3, 0, one_pos, one_pos, hv, hc, by norm_num, ?_⟩
+  rintro ⟨h, -⟩
+  norm_num [RoundsTo, abs_le] at h
+
+/-- With R = 0 (b = 1) the temperature 0.7 · 8a/(27Rb) is 0 in Lean's arithmetic and the isotherm is
+−1/v², strictly increasing for v > 0: no two volumes have the same pressure, so no coexistence. -/
+theorem vdW_coexistence_exists_h1 : necessity% Checked.Chemistry.Coexistence.vdW_coexistence_exists 1 := by
+  refine ⟨0, 1, 1, one_pos, one_pos, ?_⟩
+  rintro ⟨vl, vg, ps, hl, ⟨hlg, hpl, hpg, -⟩, -⟩
+  simp only [cubicP] at hpl hpg
+  have hvl : 0 < vl := by linarith
+  have hvg : 0 < vg := by linarith
+  simp at hpl hpg
+  have e : (vl ^ 2)⁻¹ = (vg ^ 2)⁻¹ := by linarith
+  have e2 := inv_inj.1 e
+  nlinarith
+
+/-- With b = 0 the temperature is 0 in Lean's arithmetic and the isotherm is −a/v² (a = 1), strictly
+increasing for v > 0: no coexistence. -/
+theorem vdW_coexistence_exists_h3 : necessity% Checked.Chemistry.Coexistence.vdW_coexistence_exists 3 := by
+  refine ⟨1, 1, 0, one_pos, one_pos, ?_⟩
+  rintro ⟨vl, vg, ps, hl, ⟨hlg, hpl, hpg, -⟩, -⟩
+  simp only [cubicP] at hpl hpg
+  have hvl : 0 < vl := by linarith
+  have hvg : 0 < vg := by linarith
+  simp at hpl hpg
+  have e : (vl ^ 2)⁻¹ = (vg ^ 2)⁻¹ := by linarith
+  have e2 := inv_inj.1 e
+  nlinarith
+
+/-- The sign of R is redundant in the coexistence-pressure theorem: for R ≠ 0 the isotherm at
+0.7 · 8a/(27Rb) does not depend on R (R T = 0.7 · 8a/(27b)), and for R = 0 it is −a/v², which
+admits no coexistence state with b < v_l. -/
+theorem vdW_coexistence_unique_r1 : dropped% Checked.Chemistry.Coexistence.vdW_coexistence_unique 1 := by
+  intro R a b vl vg ps ha hb hl h
+  rcases eq_or_ne R 0 with hR | hR
+  · subst hR
+    exfalso
+    obtain ⟨hlg, hpl, hpg, -⟩ := h
+    simp only [cubicP] at hpl hpg
+    have hvl : 0 < vl := by linarith
+    have hvg : 0 < vg := by linarith
+    have e : a / (vl ^ 2 + 0 * b * vl + 0 * b ^ 2) = a / (vg ^ 2 + 0 * b * vg + 0 * b ^ 2) := by
+      simp at hpl hpg ⊢; linarith
+    simp only [zero_mul, add_zero] at e
+    rw [div_eq_div_iff (by positivity) (by positivity)] at e
+    have : vl ^ 2 = vg ^ 2 := by
+      have := mul_left_cancel₀ ha.ne' (show a * vg ^ 2 = a * vl ^ 2 by linarith)
+      linarith
+    nlinarith
+  · have hRT : R * (7 / 10 * (8 * a / (27 * R * b))) = 1 * (7 / 10 * (8 * a / (27 * 1 * b))) := by
+      field_simp
+    have heq : cubicP R a b 0 0 (7 / 10 * (8 * a / (27 * R * b))) =
+        cubicP 1 a b 0 0 (7 / 10 * (8 * a / (27 * 1 * b))) := by
+      funext v; simp only [cubicP, hRT]
+    rw [heq] at h
+    exact Checked.Chemistry.Coexistence.vdW_coexistence_unique 1 a b vl vg ps one_pos ha hb hl h
+
+/-- a > 0 is needed: with a = 0 the isotherm at temperature 0 is identically zero, every pair of
+volumes is a coexistence state at pressure 0, and the claimed ratio fails. -/
+theorem vdW_coexistence_unique_h2 : necessity% Checked.Chemistry.Coexistence.vdW_coexistence_unique 2 := by
+  refine ⟨1, 0, 1, 2, 3, 0, one_pos, one_pos, by norm_num, ⟨by norm_num, ?_, ?_, ?_⟩, ?_⟩
+  · simp [cubicP]
+  · simp [cubicP]
+  · simp [cubicP]
+  · norm_num [RoundsTo, abs_le]
+
+end Chemistry
 
 end Checked.Trust.NCB
