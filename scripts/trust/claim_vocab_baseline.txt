@@ -1672,7 +1672,6 @@ checked.data.moresco16min.chisqol_glb_wide|nameword:min
 checked.data.moresco16min.chisqol_glb_wide|nameword:moresco
 checked.data.moresco16min.chisqol_glb_wide|nameword:wide
 checked.data.moresco16min.chisqol_glb_wide|numctx:4:exists
-checked.data.moresco16min.chisqol_lt|nameword:lt
 checked.data.moresco16min.chisqol_lt|nameword:min
 checked.data.moresco16min.chisqol_lt|nameword:moresco
 checked.data.moresco16min.table5_ol_aicc_unattainable|nameword:aicc

@@ -51,3 +51,5 @@ neg
 decay
 max
 outside
+reversed
+lt

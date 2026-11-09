@@ -271,3 +271,8 @@ Checked.FalknerSkan.NegDecay.fs_neg_decay_max_shear
 Checked.FalknerSkan.NegDecay.fs_neg_decay_equal
 Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
 Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay
+# Falkner–Skan β = −1/10, ten-decimal wall shear of the decay-class solution and a reversed-flow solution in the decay class (run 2026-11-09T1228Z frozen 9149f56 and proved in Work; promoted run 2026-11-09T1628Z)
+Checked.FalknerSkan.NegWindow.fs_neg_tenth_window
+Checked.FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt
+Checked.FalknerSkan.NegReversed.fs_neg_tenth_reversed
+Checked.FalknerSkan.NegReversed.fs_neg_tenth_two_decay

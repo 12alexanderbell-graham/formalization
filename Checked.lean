@@ -317,3 +317,15 @@ import Checked.FalknerSkan.NegCore
 import Checked.FalknerSkan.NegDecay
 import Checked.FalknerSkan.NegTenth
 import Checked.FalknerSkan.NegOutside
+import Checked.FSNeg.NWinLo
+import Checked.FSNeg.NWinHi
+import Checked.FSNeg.NWindow
+import Checked.FSNeg.LCell
+import Checked.FSNeg.LInv
+import Checked.FSNeg.LUnclamp
+import Checked.FSNeg.LAssemble
+import Checked.FSNeg.LOver
+import Checked.FSNeg.LSlow
+import Checked.FSNeg.LTube
+import Checked.FalknerSkan.NegWindow
+import Checked.FalknerSkan.NegReversed
