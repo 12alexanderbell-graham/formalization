@@ -1,0 +1,53 @@
+## snapshot f02c700 rules (AA as submitted)
+d01: phrases changed ['BambaK.omega0'] -> passes the phrase rules
+d02: phrases changed ['Robertson.IsRobSolution'] -> passes the phrase rules
+d03: phrases changed ['FRCosmo.FriedmannEq'] -> passes the phrase rules
+d04: phrases changed ['BambaZ.curvK'] -> passes the phrase rules
+d05: phrases changed ['Coexistence.IsMaxwellCoexistence'] -> passes the phrase rules
+d06: phrases changed ['Duffing.IsDuffingSolution'] -> passes the phrase rules
+## this run's rules (judge's variants of the AA moves on the generated phrases)
+d01: phrases changed ['BambaK.omega0'] -> REJECTED
+    BambaK.omega0: words not inside a blind text (NAME, ROLE before its argument, SIGN, CLAUSE) and not connectives, from: 'ωm is one minus ω0 )' (P7: a phrase is a sequence of blind texts)
+d02: phrases changed ['Robertson.IsRobSolution'] -> REJECTED
+    Robertson.IsRobSolution: blind text 'B plus C gives A plus C with rate constant k₂' does not occur in the phrase word for word, marks and numbers included (P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)
+    Robertson.IsRobSolution: blind text 'two B give B plus C with rate constant k₃' does not occur in the phrase word for word, marks and numbers included (P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)
+    Robertson.IsRobSolution: words not inside a blind text (NAME, ROLE before its argument, SIGN, CLAUSE) and not connectives, from: 'b plus c gives a plus c with' (P7: a phrase is a sequence of blind texts)
+d03: phrases changed ['FRCosmo.FriedmannEq'] -> REJECTED
+    FRCosmo.FriedmannEq: words not inside a blind text (NAME, ROLE before its argument, SIGN, CLAUSE) and not connectives, from: 'metric f ( r ) gravity friedmann equation' (P7: a phrase is a sequence of blind texts)
+    FRCosmo.FriedmannEq: scripts/trust/phrase_roles.txt: blind line of runs/2026-11-08T2228Z/names/NAMES.txt missing from the registry: NAME | Checked.Cosmography.FRCosmo.FriedmannEq | metric F(R) gravity Friedmann equation with dust (P8: the registry cannot lose a line)
+    FRCosmo.FriedmannEq: --base scripts/trust/phrase_roles.txt: blind line removed since BASE while Checked.Cosmography.FRCosmo.FriedmannEq still has a phrase: NAME | Checked.Cosmography.FRCosmo.FriedmannEq | metric F(R) gravity Friedmann equation with dust (P8)
+d04: phrases changed ['BambaZ.curvK'] -> REJECTED
+    BambaZ.curvK: blind text 'minus the curvature density parameter' does not occur in the phrase word for word, marks and numbers included (P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)
+    BambaZ.curvK: words not inside a blind text (NAME, ROLE before its argument, SIGN, CLAUSE) and not connectives, from: 'has sign of curvature constant and is the' (P7: a phrase is a sequence of blind texts)
+    BambaZ.curvK: scripts/trust/phrase_roles.txt: blind line of runs/2026-11-08T2228Z/roles/ROLES.txt missing from the registry: SIGN | Checked.Cosmography.BambaZ.curvK | has sign of curvature constant, minus the curvature density parameter (P8: the registry cannot lose a line)
+    BambaZ.curvK: --base scripts/trust/phrase_roles.txt: blind line removed since BASE while Checked.Cosmography.BambaZ.curvK still has a phrase: SIGN | Checked.Cosmography.BambaZ.curvK | has sign of curvature constant, minus the curvature density parameter (P8)
+d04b: phrases changed ['BambaZ.curvK'] -> REJECTED
+    BambaZ.curvK: blind text 'minus the curvature density parameter' does not occur in the phrase word for word, marks and numbers included (P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)
+    BambaZ.curvK: scripts/trust/phrase_roles.txt: blind line of runs/2026-11-08T2228Z/roles/ROLES.txt missing from the registry: SIGN | Checked.Cosmography.BambaZ.curvK | has sign of curvature constant, minus the curvature density parameter (P8: the registry cannot lose a line)
+    BambaZ.curvK: --base scripts/trust/phrase_roles.txt: blind line removed since BASE while Checked.Cosmography.BambaZ.curvK still has a phrase: SIGN | Checked.Cosmography.BambaZ.curvK | has sign of curvature constant, minus the curvature density parameter (P8)
+d05: phrases changed ['Coexistence.IsMaxwellCoexistence'] -> REJECTED
+    Coexistence.IsMaxwellCoexistence: blind text 'liquid volume is less than gas volume' does not occur in the phrase word for word, marks and numbers included (P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)
+    Coexistence.IsMaxwellCoexistence: words not inside a blind text (NAME, ROLE before its argument, SIGN, CLAUSE) and not connectives, from: 'gas volume is less than liquid volume ;' (P7: a phrase is a sequence of blind texts)
+d06: phrases changed ['Duffing.IsDuffingSolution'] -> REJECTED
+    Duffing.IsDuffingSolution: blind text 'holds on the closed time interval from zero to T' does not occur in the phrase word for word, marks and numbers included (P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)
+    Duffing.IsDuffingSolution: words not inside a blind text (NAME, ROLE before its argument, SIGN, CLAUSE) and not connectives, from: 'on the open time interval ( 0 ,' (P7: a phrase is a sequence of blind texts)
+## adversary AB as submitted, against fe8d722 (P7/P8 as first written)
+d01: phrases changed ['FRCosmo.FriedmannEq', 'FRCosmo.rhoM'] -> REJECTED
+    Checked.Cosmography.FRCosmo.rhoM: the first glossary term 'Hubble rate' is attributed to ['IsFlatCPL', 'IsFlatLCDM', 'cosmoCoeff', 'hubble'], not to rhoM (U2: a phrase names its own definition first)
+d02: phrases changed ['BambaY.comoving'] -> passes the phrase rules
+d03: phrases changed ['Aviles.cosmoCoeff'] -> passes the phrase rules
+d04: phrases changed ['FRCosmo.curv'] -> passes the phrase rules
+d05: phrases changed ['Aviles.cosmoCoeff'] -> passes the phrase rules
+## this run's final rules (variants of the AB moves)
+d01: phrases changed ['FRCosmo.rhoM'] -> REJECTED
+    FRCosmo.rhoM: words not inside a blind text (NAME, ROLE before its argument, SIGN, CLAUSE) and not connectives, from: 'at the present time {t₀} for the present' (P7: a phrase is a sequence of blind texts)
+d02: phrases changed ['BambaY.comoving'] -> REJECTED
+    BambaY.comoving: blind text 'integrated from emission time to observation time' does not occur in the phrase word for word, marks and numbers included (P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)
+    BambaY.comoving: words not inside a blind text (NAME, ROLE before its argument, SIGN, CLAUSE) and not connectives, from: 'from the observation time {t₀} to the emission' (P7: a phrase is a sequence of blind texts)
+d03: phrases changed ['Aviles.cosmoCoeff'] -> REJECTED
+    Aviles.cosmoCoeff: blind text 'divided by the n-th power of the Hubble rate' does not occur in the phrase word for word, marks and numbers included (P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)
+d04: phrases changed ['Duffing.IsDuffingSolution'] -> REJECTED
+    Duffing.IsDuffingSolution: blind text 'the second derivative plus k times x plus β times x cubed vanishes' does not occur in the phrase word for word, marks and numbers included (P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)
+    Duffing.IsDuffingSolution: words not inside a blind text (NAME, ROLE before its argument, SIGN, CLAUSE) and not connectives, from: 'second derivative plus {k} times ( {x} plus' (P7: a phrase is a sequence of blind texts)
+d05: phrases changed ['Aviles.cosmoCoeff'] -> REJECTED
+    Aviles.cosmoCoeff: scripts/trust/phrase_roles.txt: a line of the exclusion baseline scripts/trust/phrase_clause_baseline.txt is in the registry: CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | q j s l for the orders 2 3 4 5 (P9: an excluded reader line cannot be shown)

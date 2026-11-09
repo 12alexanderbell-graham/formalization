@@ -163,10 +163,10 @@ ROLES = ("printed", "derived", "difference", "free")
 SYMBOLS = {"q₀": ("Checked.Cosmography.decel", None), "j₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "3"),
            "s₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "4"), "l₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "5"),
            "m₀": ("Checked.Cosmography.Aviles.cosmoCoeff", "6")}
-PHRASE_GUARD = ("the order 2 coefficient is minus the deceleration parameter usually written q",
-                "the order 3 coefficient is the jerk parameter usually written j",
-                "the order 4 coefficient is the snap parameter usually written s",
-                "the order 5 coefficient is the lerk parameter usually written l", "the deceleration parameter")
+PHRASE_GUARD = ("order 2 coefficient is minus the deceleration parameter usually written q",
+                "order 3 coefficient is the jerk parameter usually written j",
+                "order 4 coefficient is the snap parameter usually written s",
+                "order 5 coefficient is the lerk parameter usually written l", "the deceleration parameter")
 
 
 def load_kinds():

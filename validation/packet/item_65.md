@@ -15,9 +15,9 @@
 3. `0 < b`
 4. `0 < Tc`
 5. `b < v`
-6. the critical point condition of an isotherm holds for the isotherm pressure function of molar volume `p := cubicP R (A / √Tc) b 1 0 Tc` at the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature): its first and second derivatives vanish at `v`
+6. the isotherm pressure function of molar volume `p := cubicP R (A / √Tc) b 1 0 Tc` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical)
 7. `b < vl`
-8. the Maxwell equal area coexistence condition holds for the liquid molar volume `vl` and the gas molar volume `vg`, with `vl` below `vg`, on the isotherm pressure function of molar volume `p := cubicP R (A / √(7 / 10 * Tc)) b 1 0 (7 / 10 * Tc)` at the saturation pressure `ps`: the isotherm takes the value `ps` at both, and its integral from `vl` to `vg` equals `ps` times the volume difference
+8. the isotherm pressure function of molar volume `p := cubicP R (A / √(7 / 10 * Tc)) b 1 0 (7 / 10 * Tc)` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature)
 
 **then**
 
@@ -26,8 +26,8 @@
 
 Program definitions in this claim:
 
-- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): phrase (hand-written, linted): the critical point condition of an isotherm holds for the isotherm pressure function of molar volume `p` at the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature): its first and second derivatives vanish at `v`; by definition, means (`deriv p v = 0`) and (`deriv (deriv p) v = 0`)
-- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): phrase (hand-written, linted): the Maxwell equal area coexistence condition holds for the liquid molar volume `vl` and the gas molar volume `vg`, with `vl` below `vg`, on the isotherm pressure function of molar volume `p` at the saturation pressure `ps`: the isotherm takes the value `ps` at both, and its integral from `vl` to `vg` equals `ps` times the volume difference; by definition, means (`vl < vg`) and (`p vl = ps`) and (`p vg = ps`) and (`∫ (v : ℝ) in vl..vg, p v = ps * (vg - vl)`)
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): phrase (hand-written, linted): the isotherm pressure function of molar volume `p` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical); by definition, means (`deriv p v = 0`) and (`deriv (deriv p) v = 0`)
+- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): phrase (hand-written, linted): the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature); by definition, means (`vl < vg`) and (`p vl = ps`) and (`p vg = ps`) and (`∫ (v : ℝ) in vl..vg, p v = ps * (vg - vl)`)
 - `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
 - `acentric ps pc` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_acentric`) (for `ps : ℝ`, `pc : ℝ`): is defined as `-Real.logb 10 (ps / pc) - 1`
 - `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`

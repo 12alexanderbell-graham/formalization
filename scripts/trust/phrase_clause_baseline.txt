@@ -9,7 +9,8 @@
 # chemical potential": holds only under the pin theorem's extra hypotheses; (6) "a horizontal inflection point": not
 # implied by two vanishing derivatives; (7) duplicates of another blind text shown (cosmoCoeff orders 2 and 3: the
 # letter reader's clauses are shown; yred: its SIGN line is shown); (8) the letter reader's summary line drops the minus
-# of order 2.
+# of order 2; (9) the glossary attributes its term to another pinned definition first (check_claims U2: 'curvature'
+# on lumDistFlat, 'Hubble rate' on rhoM, 'mass action' on IsRobSolution); the NAME or the printed body says it.
 CLAUSE | Checked.Cosmography.hubble | requires a positive scale factor differentiable at t
 CLAUSE | Checked.Cosmography.decel | requires a nonzero first time derivative
 CLAUSE | Checked.Cosmography.BambaK.lumDist | emission time is not later than observation time
@@ -37,3 +38,6 @@ CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | required for isotherms 
 CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equivalent to equal chemical potential in both phases
 CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | required for positive volumes with the isotherm continuous between them
 CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | q j s l for the orders 2 3 4 5
+CLAUSE | Checked.Cosmography.BambaY.lumDistFlat | luminosity distance for zero spatial curvature
+CLAUSE | Checked.Cosmography.FRCosmo.rhoM | critical density is three times present Hubble rate squared
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | mass action kinetics of the Robertson network

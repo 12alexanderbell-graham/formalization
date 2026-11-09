@@ -19,7 +19,7 @@
 Program definitions in this claim:
 
 - `TransverseSpec` — SPEC, not pinned: inductive type with constructors `TransverseSpec.mk : ∀ {S : ℝ → ℝ → ℝ}, (∀ (K : ℝ), ∃ S', (∀ (χ : ℝ), HasDerivAt (S K) (S' χ) χ) ∧ (∀ (χ : ℝ), HasDerivAt S' (-K * S K χ) χ) ∧ S K 0 = 0 ∧ S' 0 = 1) → (∀ (χ : ℝ), S 0 χ = χ) → (∀ (K : ℝ), 0 < K → ∀ (χ : ℝ), S K χ = Real.sin (√K * χ) / √K) → (∀ K < 0, ∀ (χ : ℝ), S K χ = Real.sinh (√(-K) * χ) / √(-K)) → (∀ (χ : ℝ), S 1 χ = Real.sin χ) → (∀ (χ : ℝ), S (-1) χ = Real.sinh χ) → (∀ (K χ : ℝ), S K (-χ) = -S K χ) → TransverseSpec S`
-- `transverse K χ` — **PINNED** (pin theorem `transverseSpec_pins`): phrase (hand-written, linted): the FLRW transverse distance function S_K(χ) for the spatial curvature constant `K` at the comoving radial distance `χ` (sine form for positive, identity for zero, hyperbolic sine form for negative curvature; positive curvature constant gives sine, closed spherical case); by definition, `transverse K χ` is `if 0 < K then Real.sin (√K * χ) / √K else if K < 0 then Real.sinh (√(-K) * χ) / √(-K) else χ`
+- `transverse K χ` — **PINNED** (pin theorem `transverseSpec_pins`): phrase (hand-written, linted): the FLRW transverse distance function with the spatial curvature constant `K` and the comoving radial distance `χ` (positive curvature constant gives sine, closed spherical case; second derivative in `χ` is minus `K` times itself; vanishes at zero with unit slope; equals `χ` itself for zero `K`); by definition, `transverse K χ` is `if 0 < K then Real.sin (√K * χ) / √K else if K < 0 then Real.sinh (√(-K) * χ) / √(-K) else χ`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 

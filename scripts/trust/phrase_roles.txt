@@ -167,7 +167,6 @@ CLAUSE | Checked.Cosmography.BambaK.omega0 | equals one for zero curvature
 CLAUSE | Checked.Cosmography.BambaZ.curvK | minus the curvature density parameter
 CLAUSE | Checked.Cosmography.BambaZ.curvK | total density parameter minus one
 CLAUSE | Checked.Cosmography.BambaZ.curvK | positive for closed and negative for open
-CLAUSE | Checked.Cosmography.BambaY.lumDistFlat | luminosity distance for zero spatial curvature
 CLAUSE | Checked.Cosmography.BambaY.lumDistFlat | units in which the speed of light is one
 CLAUSE | Checked.Cosmography.BambaY.comoving | integral of one over the scale factor over cosmic time
 CLAUSE | Checked.Cosmography.BambaY.comoving | integrated from emission time to observation time
@@ -181,7 +180,6 @@ CLAUSE | Checked.Cosmography.FRCosmo.curv | Ricci scalar of a spatially flat FLR
 CLAUSE | Checked.Cosmography.FRCosmo.curv | negative convention so de Sitter has minus twelve times Hubble rate squared
 CLAUSE | Checked.Cosmography.FRCosmo.rhoM | pressureless dust density in units where kappa squared is one
 CLAUSE | Checked.Cosmography.FRCosmo.rhoM | Ω is relative to the general relativity critical density
-CLAUSE | Checked.Cosmography.FRCosmo.rhoM | critical density is three times present Hubble rate squared
 CLAUSE | Checked.Cosmography.FRCosmo.rhoM | falls as the inverse cube of the scale factor
 CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | constraint equation of metric F of R gravity in flat FLRW
 CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | dust source and kappa squared is one
@@ -213,7 +211,6 @@ CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | km₁ is the rate constant o
 CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | k₂ is the rate constant of C forming E plus P
 CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | s e c p are concentrations of S E C and P
 CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | holds on the closed time interval from zero to T
-CLAUSE | Checked.Sim.Robertson.IsRobSolution | mass action kinetics of the Robertson network
 CLAUSE | Checked.Sim.Robertson.IsRobSolution | A converts to B with rate constant k₁
 CLAUSE | Checked.Sim.Robertson.IsRobSolution | B plus C gives A plus C with rate constant k₂
 CLAUSE | Checked.Sim.Robertson.IsRobSolution | two B give B plus C with rate constant k₃

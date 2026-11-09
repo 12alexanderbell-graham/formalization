@@ -63,29 +63,24 @@ Checked.Cosmography.CPL.flatCPL_coeffs|cls
 Checked.Cosmography.CPL.flatCPL_coeffs|eqs
 Checked.Cosmography.CPL.flatCPL_coeffs|printed
 Checked.Cosmography.CPL.flatCPL_coeffs|dropped
-Checked.Cosmography.CPL.flatCPL_coeffs|sign
 Checked.Cosmography.CPL.flatCPL_coeffs|before
 Checked.Cosmography.CPL.flatCPL_coeffs|restored
 Checked.Cosmography.CPL.flatCPL_coeffs|num:19
 Checked.Cosmography.CPL.flatCPL_coeffs|num:22
 Checked.Cosmography.CPL.printedL0_ne|printed
 Checked.Cosmography.CPL.printedL0_ne|wrong
-Checked.Cosmography.CPL.printedL0_ne|model
 Checked.Cosmography.CPL.clsL0Claim_false|refutation
 Checked.Cosmography.CPL.clsL0Claim_false|eq
 Checked.Cosmography.CPL.clsL0Claim_false|explicit
-Checked.Cosmography.CPL.clsL0Claim_false|model
 Checked.Cosmography.CPL.clsL0Claim_false|log
 Checked.Cosmography.CPL.clsL0Claim_false|true
 Checked.Cosmography.CPL.clsL0Claim_false|num:160
 Checked.Cosmography.CPL.clsL0Claim_false|num:22
-Checked.Cosmography.CPLExistence.exists_flatCPL|models
 Checked.Cosmography.CPLExistence.exists_flatCPL|exist
 Checked.Cosmography.CPLExistence.printedL0_false_at|printed
 Checked.Cosmography.CPLExistence.printedL0_false_at|cls
 Checked.Cosmography.CPLExistence.printedL0_false_at|eq
 Checked.Cosmography.CPLExistence.printedL0_false_at|false
-Checked.Cosmography.CPLExistence.printedL0_false_at|model
 Checked.Cosmography.CPLExistence.printedL0_false_at|differs
 Checked.Cosmography.CPLExistence.printedL0_false_at|num:22
 Checked.Cosmography.CPLExistence.exists_local_model|local
@@ -93,7 +88,6 @@ Checked.Cosmography.CPLExistence.exists_local_model|smooth
 Checked.Cosmography.CPLExistence.exists_local_model|expanding
 Checked.Cosmography.CPLExistence.exists_local_model|scale
 Checked.Cosmography.CPLExistence.exists_local_model|factor
-Checked.Cosmography.CPLExistence.exists_local_model|expansion
 Checked.Cosmography.CPLExistence.exists_local_model|law
 Checked.Cosmography.CCS.lookback_fifth_order|lookback
 Checked.Cosmography.CCS.lookback_fifth_order|version
@@ -101,7 +95,6 @@ Checked.Cosmography.CCS.lookback_fifth_order|eq
 Checked.Cosmography.CCS.printedD4_fails|fails
 Checked.Cosmography.CCS.printedD4_fails_past|fails
 Checked.Cosmography.CCS.printedD4_fails_past|past
-Checked.Cosmography.CCS.printedD4_fails_past|model
 Checked.Cosmography.CCS.ccsD4Claim_false|witness
 Checked.Cosmography.CCS.ccsD4Claim_false|de
 Checked.Cosmography.CCS.ccsD4Claim_false|sitter
@@ -112,11 +105,9 @@ Checked.Cosmography.BambaY.printedD2y_fails|et
 Checked.Cosmography.BambaY.printedD2y_fails|al
 Checked.Cosmography.BambaY.printedD2y_fails|eq
 Checked.Cosmography.BambaY.printedD2y_fails|fails
-Checked.Cosmography.BambaY.printedD2y_fails|model
 Checked.Cosmography.BambaY.printedD2y_fails|past
 Checked.Cosmography.BambaY.printedD2y_fails|version
 Checked.Cosmography.BambaY.printedD2y_fails_past|fails
-Checked.Cosmography.BambaY.printedD2y_fails_past|model
 Checked.Cosmography.BambaY.printedD2y_fails_past|past
 Checked.Cosmography.BambaY.printedD2y_fails_past|version
 Checked.Cosmography.BambaY.printedD2y_fails_past|follows
@@ -127,7 +118,6 @@ Checked.Cosmography.BambaY.bambaD2yClaimPast_false|de
 Checked.Cosmography.BambaY.bambaD2yClaimPast_false|sitter
 Checked.Cosmography.CVdQ.printedQ2_fails_past|fails
 Checked.Cosmography.CVdQ.printedQ2_fails_past|past
-Checked.Cosmography.CVdQ.printedQ2_fails_past|model
 Checked.Cosmography.CVdQ.cvdQClaim_false|de
 Checked.Cosmography.CVdQ.cvdQClaim_false|sitter
 Checked.Cosmography.CVdQ.cvdQClaimPast_false|de
@@ -270,15 +260,12 @@ Checked.Cosmography.FRCosmo.printedF0Mul_false_at|fails
 Checked.Cosmography.FRCosmo.printedF0Mul_false_at|cdm
 Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|review
 Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|denominator
-Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|division
 Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|does
 Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|cosmology
 Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|paper
-Checked.Cosmography.FRCosmo.printedF0_false_at|division
 Checked.Cosmography.FRCosmo.printedF0_false_at|form
 Checked.Cosmography.FRCosmo.printedF0_false_at|cdm
 Checked.Cosmography.FRCosmo.printedF0Claim_false|relation
-Checked.Cosmography.FRCosmo.printedF0Claim_false|division
 Checked.Cosmography.FRCosmo.printedF0Claim_false|form
 Checked.Cosmography.FRCosmo.printedF0Claim_false|fails
 Checked.Cosmography.FRCosmo.printedF0Claim_false|cdm
@@ -290,7 +277,6 @@ Checked.Cosmography.FRCosmo.printedF0Claim_false|uses
 Checked.Cosmography.FRCosmo.printedF0Claim_false|covered
 Checked.Cosmography.FRCosmo.printedF0Claim_false|whenever
 Checked.Cosmography.FREta.eta_ratios|review
-Checked.Cosmography.FREta.eta_ratios|model
 Checked.Cosmography.FREta.printedEta20_false_at|fails
 Checked.Cosmography.FREta.printedEta20_false_at|except
 Checked.Cosmography.FREta.printedEta20_false_at|num:0.599
@@ -408,17 +394,12 @@ Checked.Fidelity.transverseSpec_pins|any
 Checked.Fidelity.transverseSpec_pins|blind
 Checked.Fidelity.transverseSpec_pins|determining
 Checked.Fidelity.transverseSpec_pins|law
-Checked.Records.F1_l0|model
 Checked.Records.F1_m0_agrees|printed
 Checked.Records.F1_m0_agrees|true
-Checked.Records.F1_m0_agrees|model
 Checked.Records.F2_toy|paper
 Checked.Records.F2_toy|toy
-Checked.Records.F2_toy|model
 Checked.Records.F2_toy|gives
-Checked.Records.F2_error|model
 Checked.Records.F2_error|exceeding
-Checked.Records.F3_D4_LCDM|model
 Checked.Records.F3_D4_LCDM|lookback
 Checked.Records.F3_D4_LCDM|excess
 Checked.Records.F8_sizes|size
@@ -457,9 +438,7 @@ Checked.Records.F11_sizes|inside
 Checked.Records.F11_sizes|bracket
 Checked.Cosmography.B1.lumDistFlat_flatLCDM|bridge
 Checked.Cosmography.B1.lumDistFlat_flatLCDM|cdm
-Checked.Cosmography.B1.lumDistFlat_flatLCDM|model
 Checked.Cosmography.B1.cubic_misses_z3|cdm
-Checked.Cosmography.B1.cubic_misses_z3|model
 Checked.Cosmography.B1.cubic_misses_z3|implied
 Checked.Cosmography.B1.cubic_misses_z3|underestimates
 Checked.Cosmography.B1.cubic_misses_z3|exact
@@ -472,7 +451,6 @@ Checked.Cosmography.B1.cubic_shape_miss|shape
 Checked.Cosmography.B1.cubic_shape_miss|normalisation
 Checked.Cosmography.B1.cubic_shape_miss|free
 Checked.Cosmography.B1.cubic_shape_miss|cdm
-Checked.Cosmography.B1.cubic_shape_miss|model
 Checked.Cosmography.B1.cubic_shape_miss|miss
 Checked.Cosmography.B1.cubic_shape_miss|implied
 Checked.Cosmography.B1.cubic_shape_miss|cubic
@@ -486,7 +464,6 @@ Checked.Cosmography.B1.cubic_shape_miss|equally
 Checked.Cosmography.B1.cubic_shape_miss|num:0.18
 Checked.Cosmography.B1Sep.cubic_separation|separation
 Checked.Cosmography.B1Sep.cubic_separation|cdm
-Checked.Cosmography.B1Sep.cubic_separation|model
 Checked.Cosmography.B1Sep.cubic_separation|any
 Checked.Cosmography.B1Sep.cubic_separation|cubic
 Checked.Cosmography.B1Sep.cubic_separation|normalisation
@@ -500,7 +477,6 @@ Checked.Cosmography.B1Sep.cubic_separation|implied
 Checked.Cosmography.B1Sep.cubic_separation|num:0.05
 Checked.Cosmography.B1Sep.cubic_direction|direction
 Checked.Cosmography.B1Sep.cubic_direction|cdm
-Checked.Cosmography.B1Sep.cubic_direction|model
 Checked.Cosmography.B1Sep.cubic_direction|cubic
 Checked.Cosmography.B1Sep.cubic_direction|exact
 Checked.Cosmography.B1Sep.cubic_direction|mag
@@ -563,7 +539,6 @@ Checked.Cosmography.B1FitRL19.rl19_box_unmatched|uncertainty
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|normalisation
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|exact
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|modulus
-Checked.Cosmography.B1FitRL19.rl19_box_unmatched|model
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|mag
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|common
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|offset
@@ -672,7 +647,6 @@ Checked.Cosmography.B1L19Curved.l19_sq_curved|quasars
 Checked.Cosmography.B1L19Curved.l19_sq_curved|central
 Checked.Cosmography.B1L19Curved.l19_sq_curved|fit
 Checked.Cosmography.B1L19Curved.l19_sq_curved|flat
-Checked.Cosmography.B1L19Curved.l19_sq_curved|matter
 Checked.Cosmography.B1L19Curved.l19_sq_curved|whole
 Checked.Cosmography.B1L19Curved.l19_sq_curved|back
 Checked.Cosmography.B1L19Curved.l19_sq_curved|farther
@@ -692,7 +666,6 @@ Checked.Cosmography.B1L19Curved.l19_sqg_curved|grbs
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|central
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|fit
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|flat
-Checked.Cosmography.B1L19Curved.l19_sqg_curved|matter
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|whole
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|back
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|farther
@@ -1588,7 +1561,6 @@ checked.cosmography.cpl.printedl0_ne|nameword:ne
 checked.cosmography.cpl.printedl0_ne|nameword:printed
 checked.cosmography.cplexistence.exists_local_model|nameword:cpl
 checked.cosmography.cplexistence.exists_local_model|nameword:local
-checked.cosmography.cplexistence.exists_local_model|nameword:model
 checked.cosmography.cplexistence.printedl0_false_at|fspan:(1 − ω)(7 − ω) wₐ ≠ 0
 checked.cosmography.cplexistence.printedl0_false_at|nameword:printed
 checked.cosmography.cvdq.cvdqclaim_false|nameword:cvd
@@ -1632,7 +1604,6 @@ checked.cosmography.frcosmo.curv_derivs|nameword:fr
 checked.cosmography.frcosmo.curv_derivs|numctx:3:time
 checked.cosmography.frcosmo.exists_lcdm_model|nameword:cosmo
 checked.cosmography.frcosmo.exists_lcdm_model|nameword:fr
-checked.cosmography.frcosmo.exists_lcdm_model|nameword:model
 checked.cosmography.frcosmo.fr_values|nameword:fr
 checked.cosmography.frcosmo.printedf0_false_at|fspan:−(243ω⁴ + 540ω³ − 6264ω² + 9360ω − 3328)/16
 checked.cosmography.frcosmo.printedf0_false_at|nameword:fr
@@ -1664,7 +1635,6 @@ checked.cosmography.lookback_second_order_bigo|nameword:lookback
 checked.cosmography.lookback_second_order|fspan:t → t₀
 checked.cosmography.lookback_second_order|nameword:lookback
 checked.cosmography.lookback_second_order|numctx:6:ef
-checked.cosmography.transverse.transverse_expansion|nameword:expansion
 checked.data.fr13.fr13_bestfit68|nameword:bestfit
 checked.data.fr13.fr13_bestfit738|nameword:bestfit
 checked.data.fr13.fr13_minval68|nameword:minval

@@ -12,6 +12,7 @@
 - Next: hypothesis necessity (T2b).
 - Run 2026-11-04T2228Z: generated claims `scripts/trust/Claims.lean` → `CLAIMS.md` (151 headlines; phrases `scripts/trust/phrases.txt`, lint `scripts/trust/check_claims.py`), CI-blocking; red team J results `runs/2026-11-04T2228Z/t5/RESULTS.md`.
 - Run 2026-11-08T2228Z: phrase roles, signs and names from blind readers — `scripts/trust/phrase_roles.txt` (copies of `runs/2026-11-08T2228Z/roles/ROLES.txt`, `names/NAMES.txt`), `check_claims.py` P3–P6, `scripts/trust/phrase_polar_baseline.txt` (shrink-only); round Z `runs/2026-11-08T2228Z/t5/`.
+- Run 2026-11-09T0228Z: phrases generated from blind texts — clause reader `runs/2026-11-09T0228Z/clauses/CLAUSES.txt`, letter reader `symbols/SYMBOLS.txt` (copied into `scripts/trust/phrase_roles.txt`), exclusions `scripts/trust/phrase_clause_baseline.txt` (shrink-only), generator `runs/2026-11-09T0228Z/scripts/gen_phrases.py`; `check_claims.py` P7 `coverage` (`p7_tokens`, `_match`, `_verb_ok`, `registry_names`), P8 `registry_complete`, `registry_removals`, P9 `clause_baseline`; judge `runs/2026-11-09T0228Z/t5/judge_AA.py`.
 
 ## Trust track T5 checks added run 2026-11-04T1028Z (after blind red team G, 8/8 accepted)
 - Number rule (rule 5 of `scripts/trust/check_prose.py`): blocking; units read; citations only from `scripts/trust/citations.txt`.
