@@ -1,0 +1,39 @@
+# Reader lines NOT shown in phrases (rule P9 of scripts/trust/check_claims.py, run 2026-11-09T0228Z): SHRINK-ONLY
+# (check_claims.py --base fails on any added line). Every other line of every reader file the registry
+# scripts/trust/phrase_roles.txt cites must be in the registry, and every NAME, SIGN and CLAUSE line there must occur in
+# its definition's phrase word for word. Reasons, by kind: (1) the plain-words parse is ambiguous ("one plus redshift
+# squared", "redshift over one plus redshift", "K over the squared present scale factor times Hubble rate", "sine of root K
+# χ over root K"); (2) "requires …": a hypothesis of the specification, not a property of the total Lean definition;
+# (3) "emission time is not later than observation time": a domain remark that reads as a constraint the definition does
+# not have; (4) "exceeds one exactly for a closed universe": false at the junk value hubble = 0; (5) "equivalent to equal
+# chemical potential": holds only under the pin theorem's extra hypotheses; (6) "a horizontal inflection point": not
+# implied by two vanishing derivatives; (7) duplicates of another blind text shown (cosmoCoeff orders 2 and 3: the
+# letter reader's clauses are shown; yred: its SIGN line is shown); (8) the letter reader's summary line drops the minus
+# of order 2.
+CLAUSE | Checked.Cosmography.hubble | requires a positive scale factor differentiable at t
+CLAUSE | Checked.Cosmography.decel | requires a nonzero first time derivative
+CLAUSE | Checked.Cosmography.BambaK.lumDist | emission time is not later than observation time
+CLAUSE | Checked.Cosmography.BambaK.lumDist | equals one plus redshift squared times the angular diameter distance
+CLAUSE | Checked.Cosmography.BambaK.lumDist | requires a positive continuous scale factor between emission and observation
+CLAUSE | Checked.Cosmography.BambaA.angDist | emission time is not later than observation time
+CLAUSE | Checked.Cosmography.BambaA.angDist | requires a positive continuous scale factor between emission and observation
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | order 2 coefficient is minus the deceleration parameter
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | order 3 coefficient is the jerk
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | requires a positive scale factor with nonzero first derivative
+CLAUSE | Checked.Cosmography.BambaY.yred | redshift over one plus redshift
+CLAUSE | Checked.Cosmography.BambaY.yred | positive for redshift and negative for blueshift
+CLAUSE | Checked.Cosmography.BambaK.omega0 | one plus K over the squared present scale factor times Hubble rate
+CLAUSE | Checked.Cosmography.BambaK.omega0 | exceeds one exactly for a closed universe
+CLAUSE | Checked.Cosmography.BambaK.omega0 | requires nonzero present Hubble rate and positive scale factor
+CLAUSE | Checked.Cosmography.BambaZ.curvK | K over the squared present scale factor times Hubble rate
+CLAUSE | Checked.Cosmography.BambaY.lumDistFlat | scale factor at observation times one plus redshift times comoving distance
+CLAUSE | Checked.Cosmography.BambaY.comoving | flat luminosity distance over scale factor at observation times one plus redshift
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | equation of state w₀ plus wₐ times z over one plus z
+CLAUSE | Checked.Cosmography.FRCosmo.curv | minus six times second derivative over scale factor plus squared Hubble rate
+CLAUSE | Checked.Cosmography.Transverse.transverse | sine of root K χ over root K for positive K
+CLAUSE | Checked.Cosmography.Transverse.transverse | hyperbolic sine of root minus K χ over root minus K for negative K
+CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | a horizontal inflection point of the isotherm
+CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | required for isotherms twice continuously differentiable near v
+CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equivalent to equal chemical potential in both phases
+CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | required for positive volumes with the isotherm continuous between them
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | q j s l for the orders 2 3 4 5

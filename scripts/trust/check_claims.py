@@ -38,9 +38,14 @@ This script guards them:
                              definition, read word for word: the NAME, a ROLE immediately followed by its argument
                              {x}, a SIGN convention, or a CLAUSE (third blind reader); a binder's symbol inside a blind
                              text is matched by that argument {x}; outside blind texts only the connectives of
-                             P7_CONNECT and at most one template verb (P7_VERBS) may occur, and only , ; : ( ) . - as
-                             punctuation. A phrase is a sequence of blind texts, nothing the author wrote in between
+                             P7_CONNECT and at most one template verb (P7_VERBS) may occur. A phrase is a sequence of blind texts, nothing the author wrote in between
                              can state a relation, a number, a direction or a domain
+                             (after adversary AB, not blind: connectives restricted to the a an and with , ; ( ),
+                             since "at"/"for"/"from … to" between role texts carried relations; marks are tokens,
+                             since parentheses regrouped a clause; the verb must touch the NAME)
+                             P9 (same run, after adversary AB: not blind): every CLAUSE line in the registry occurs in
+                             its phrase (omitting a clause made the rest false); reader lines not shown are listed in
+                             the shrink-only phrase_clause_baseline.txt and may not be in the registry
                              P8 (same run, after blind red team AA d03/d04: not blind): the registry cannot lose a
                              line: every NAME and SIGN line of each reader file it cites is in the registry while its
                              definition has a phrase (lint), and no `# source:` line and no registry line is removed
@@ -280,9 +285,24 @@ def role_binding(phr, roles, signs):
 
 
 # P7 (run 2026-11-09T0228Z): coverage of a phrase by blind texts.
-P7_CONNECT = set("the a an of at for in on with and by from to".split())
+# Connectives carry no relation (after adversary AB d01/d02: "at"/"for" and "from … to" between role texts stated which
+# time is evaluated and the direction of an integral): only articles, "and", "with", and as marks , ; ( ).
+P7_CONNECT = set("the a an and with , ; ( )".split())
 P7_VERBS = set("is are obeys holds satisfies solves".split())
-P7_PUNCT = set(",;:().-")
+P7_PUNCT = set()  # marks are tokens (AB d04 regrouped a clause with parentheses): a blind text's own marks must match
+CLAUSE_BASE = "scripts/trust/phrase_clause_baseline.txt"
+
+
+def clause_baseline(text=None):
+    """P9 (run 2026-11-09T0228Z, after adversary AB d03/d05: not blind): reader lines NOT used, shrink-only. Every other
+    line of every reader file the registry cites is in the registry, and every CLAUSE line in the registry occurs in
+    its definition's phrase word for word (as NAME and SIGN): the author no longer chooses which blind texts to show."""
+    if text is None:
+        try:
+            text = (ROOT / CLAUSE_BASE).read_text(encoding="utf-8")
+        except FileNotFoundError:
+            return set()
+    return {l.strip() for l in text.splitlines() if l.strip() and not l.startswith("#")}
 _TOK = re.compile(r"\{[^}]*\}|[^\W_]+|\S")
 
 
@@ -361,6 +381,11 @@ def coverage(phr, roles, signs, clauses, names=None):
         blind += [p7_tokens(c, binders) for c in signs.get(key, []) + clauses.get(key, [])]
         blind = [b for b in blind if b]
         toks = [("tok", t[1]) for t in p7_tokens(p, ())]
+        for c in signs.get(key, []) + clauses.get(key, []):
+            ct = p7_tokens(c, binders)
+            if not any(_match(ct, toks, i) for i in range(len(toks))):
+                bad.append(f"{d}: blind text '{c}' does not occur in the phrase word for word, marks and numbers included "
+                           f"(P4/P6/P9: NAME, SIGN and CLAUSE lines are all required)")
         name_seqs = [[("tok", t[1]) for t in p7_tokens(n, ())] for n in (names or {}).get(key, [])]
         # longest-first greedy cover; on failure report the first uncovered stretch
         i, verbs, gaps = 0, 0, []
@@ -393,15 +418,19 @@ def coverage(phr, roles, signs, clauses, names=None):
     return bad
 
 
-def registry_complete(phr, text=None):
+def registry_complete(phr, text=None, excl=None):
     """P8 (run 2026-11-09T0228Z, after blind red team AA d03/d04: not blind). AA deleted the NAME line of FriedmannEq and
     the SIGN line of curvK from the registry, which switched P6 and P4 off for them. Every NAME and SIGN line of a reader
     file the registry cites must be in the registry while its definition has a phrase."""
     if text is None:
         text = (ROOT / ROLES).read_text(encoding="utf-8")
     have = {l.strip() for l in text.splitlines()}
+    excl = clause_baseline() if excl is None else excl
     keys = [k for k in phr]
     bad = []
+    for l in sorted(have & excl):
+        bad.append(f"{ROLES}: a line of the exclusion baseline {CLAUSE_BASE} is in the registry: {l} (P9: an excluded "
+                   f"reader line cannot be shown)")
     for src in sorted(set(re.findall(r"#\s*source:\s*(\S+)", text))):
         f = ROOT / src
         if not f.is_file():
@@ -409,7 +438,8 @@ def registry_complete(phr, text=None):
         for l in f.read_text(encoding="utf-8").splitlines():
             l = l.strip()
             parts = [x.strip() for x in l.split(" | ")]
-            if len(parts) == 3 and parts[0] in ("NAME", "SIGN") and l not in have:
+            if len(parts) in (3, 4) and parts[0] in ("NAME", "SIGN", "CLAUSE", "ROLE") and l not in have \
+                    and l not in excl:
                 if any(parts[1] == k or parts[1].endswith("." + k) for k in keys):
                     bad.append(f"{ROLES}: blind line of {src} missing from the registry: {l} (P8: the registry cannot lose a line)")
     return bad
@@ -492,34 +522,28 @@ def _controls():
         return 1
     rl7 = {"A.f": {"a": "scale factor", "t₀": "observation time", "t": "emission time"}}
     cl7 = {"A.f": ["order 2 coefficient is minus the deceleration parameter", "holds on a neighbourhood of t₀",
-                   "B plus C gives A plus C with rate constant t"]}
+                   "minus six times second derivative over scale factor plus squared Hubble rate"]}
     nm7 = {"A.f": ["cosmographic coefficient"]}
-    good7 = {"f": "the cosmographic coefficient of the scale factor {a} at the observation time {t₀} and the emission "
-                  "time {t} (order 2 coefficient is minus the deceleration parameter; holds on a neighbourhood of {t₀})"}
     nmd = {"A.f": ["cosmographic coefficient"]}
-    if not coverage({"f": good7["f"].replace("the emission time {t} (", "the emission time {t} (holds on a neighbourhood of "
-                                             "{t₀} is order 2 coefficient is minus the deceleration parameter; ")}, rl7, nm7, cl7, nmd):
-        print("::error::check_claims P7 verb control failed (verb away from the NAME accepted)")
-        return 1
-    if coverage(good7, rl7, nm7, cl7):
-        print("::error::check_claims P7 controls failed (good phrase rejected)", coverage(good7, rl7, nm7, cl7))
+    good7 = {"f": "the cosmographic coefficient with the scale factor {a}, the observation time {t₀} and the emission "
+                  "time {t} (order 2 coefficient is minus the deceleration parameter; holds on a neighbourhood of {t₀}; "
+                  "minus six times second derivative over scale factor plus squared Hubble rate)"}
+    if coverage(good7, rl7, nm7, cl7, nmd):
+        print("::error::check_claims P7 controls failed (good phrase rejected)", coverage(good7, rl7, nm7, cl7, nmd))
         return 1
     g = good7["f"]
     for mut in (g.replace("is minus the", "is the"),                     # Z d01: relation word deleted
-                g.replace("of {t₀})", "of {t})"),                        # slot filled by the wrong argument
+                g.replace("of {t₀};", "of {t};"),                        # slot filled by the wrong argument
                 g.replace("(order", "(Ωₘ is one; order"),                # AA d01: Greek/number outside blind text
                 g.replace("{t₀} and the", "{t₀}, is not the"),           # a verb and a negation between blind texts
-                g.replace("of {t₀})", "of [0, {t₀}])"),                  # AA d06: brackets
-                g.replace("emission time {t}", "emission time {t} is and are")):  # two template verbs
-        if not coverage({"f": mut}, rl7, nm7, cl7):
-            print("::error::check_claims P7 controls failed (mutant accepted):", mut)
+                g.replace("of {t₀};", "of [0, {t₀}];"),                  # AA d06: brackets
+                g.replace("with the scale factor {a}, the observation", "of the scale factor {a} at the observation"),  # AB d01
+                g.replace("over scale factor plus squared", "over (scale factor plus squared") + ")",                 # AB d04
+                g.replace("; holds on a neighbourhood of {t₀}", ""),     # AB d03: a required clause omitted
+                g.replace("emission time {t} (", "emission time {t} is (")):  # verb not touching the NAME
+        if not coverage({"f": mut}, rl7, nm7, cl7, nmd):
+            print("::error::check_claims P7/P9 controls failed (mutant accepted):", mut)
             return 1
-    if coverage({"f": "the cosmographic coefficient of the scale factor {a} at the observation time {t₀} and the emission "
-                      "time {t} (B plus C gives A plus C with rate constant {t})"}, rl7, nm7, cl7) or not coverage(
-            {"f": "the cosmographic coefficient of the scale factor {a} at the observation time {t₀} and the emission "
-                  "time {t} (B plus C gives A plus C with rate constant {t₀})"}, rl7, nm7, cl7):
-        print("::error::check_claims P7 slot controls failed")
-        return 1
     reg_old = "# source: runs/x/r.txt\nNAME | A.f | flat law\nSIGN | A.f | minus one\nROLE | A.f | a | scale factor\n"
     if registry_removals("B", reg_old, reg_old, {"f": "x"}) or len(registry_removals(
             "B", reg_old, reg_old.replace("SIGN | A.f | minus one\n", ""), {"f": "x"})) != 1 or len(registry_removals(
@@ -653,6 +677,13 @@ def base_check(base):
         print("PHRASE ROLES:", b)
     if rb:
         return 1
+    ocb = git("show", f"{base}:{CLAUSE_BASE}")
+    if ocb.returncode == 0:
+        grown = sorted(clause_baseline() - clause_baseline(ocb.stdout))
+        for l in grown:
+            print(f"P9 clause baseline line added since {base}: {l} (shrink-only)")
+        if grown:
+            return 1
     rr = registry_removals(base)
     for b in rr:
         print("PHRASE ROLES:", b)
