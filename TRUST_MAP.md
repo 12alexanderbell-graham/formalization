@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 843 hypotheses in 150 headlines;
-158 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+161 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 17 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-668 open; headlines with every hypothesis classified: 0/150
+665 open; headlines with every hypothesis classified: 0/150
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -427,8 +427,8 @@ neither is proved yet.
 - `FalknerSkan.LimitTenth.fs_tenth_limit_window` (6): needed 1 (`fs_tenth_limit_window_h1`), 2 (`fs_tenth_limit_window_h2`), 3 (`fs_tenth_limit_window_h3`), 5 (`fs_tenth_limit_window_h5`); open 4, 6
 - `FalknerSkan.LimitTenth.fs_tenth_limit_equal` (13): needed 1 (`fs_tenth_limit_equal_h1`), 2 (`fs_tenth_limit_equal_h2`), 3 (`fs_tenth_limit_equal_h3`), 5 (`fs_tenth_limit_equal_h5`), 7 (`fs_tenth_limit_equal_h7`), 8 (`fs_tenth_limit_equal_h8`), 9 (`fs_tenth_limit_equal_h9`), 11 (`fs_tenth_limit_equal_h11`), 13 (`fs_tenth_limit_equal_h13`); open 4, 6, 10, 12
 - `FalknerSkan.Limit.fs_monotone_of_limit` (9): open 1, 2, 3, 4, 5, 6, 7, 8, 9
-- `FalknerSkan.NegDecay.fs_neg_decay_max_shear` (16): needed 9 (`fs_neg_decay_max_shear_h9`); open 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16
-- `FalknerSkan.NegDecay.fs_neg_decay_equal` (18): needed 9 (`fs_neg_decay_equal_h9`), 17 (`fs_neg_decay_equal_h17`); open 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 18
+- `FalknerSkan.NegDecay.fs_neg_decay_max_shear` (16): needed 8 (`fs_neg_decay_max_shear_h8`), 9 (`fs_neg_decay_max_shear_h9`); open 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16
+- `FalknerSkan.NegDecay.fs_neg_decay_equal` (18): needed 8 (`fs_neg_decay_equal_h8`), 9 (`fs_neg_decay_equal_h9`), 16 (`fs_neg_decay_equal_h16`), 17 (`fs_neg_decay_equal_h17`); open 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 18
 - `FalknerSkan.NegWindow.fs_neg_tenth_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 - `FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt` (7): open 1, 2, 3, 4, 5, 6, 7
 

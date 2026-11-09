@@ -261,7 +261,7 @@ jobs:
           tail -n 20 /tmp/author-relock.log
           lake env lean scripts/trust/Claims.lean > /tmp/author-claims.log 2>&1
           python3 validation/make_packet.py > /dev/null 2>&1
-          tar czf /tmp/author-files.tgz CLAIMS.md TRUST_MAP.md scripts/trust/frozen.txt validation .lake/records_numbers.tsv .lake/records_params.tsv .lake/meaning.jsonl /tmp/author-relock.log 2>/dev/null
+          tar czf /tmp/author-files.tgz CLAIMS.md TRUST_MAP.md scripts/trust/frozen.txt validation .lake/records_numbers.tsv .lake/records_params.tsv .lake/meaning.jsonl .lake/phrases.jsonl /tmp/author-relock.log 2>/dev/null
           echo "AUTHOR-FILES-BEGIN"
           base64 /tmp/author-files.tgz
           echo "AUTHOR-FILES-END"
