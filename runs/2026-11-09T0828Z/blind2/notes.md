@@ -1,0 +1,5 @@
+- IsSolution: HasDerivWithinAt (Ici 0) for f,f1,f2 at every eta>=0; ODE f3 + f f2 + (-1/10)(1-f1^2)=0 for eta>=0.
+- BCs: f 0 = 0, f1 0 = 0, Tendsto f1 atTop (nhds 1).
+- "sufficiently large" = ∀ᶠ eta in atTop.
+- Claim 2: "two solutions with different shears" = two quadruples with f2 0 ≠ g2 0 (distinctness follows).
+- Claim 1 inequality non-strict (≥), claim 2 strict (<) as stated.
