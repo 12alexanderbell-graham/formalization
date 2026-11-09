@@ -8,11 +8,11 @@
 
 **It holds that**
 
-- there is `x : ℝ → ℝ` such that the function `x` solves the Duffing equation with stiffness `k := 1` and cubic coefficient `β := 1`, initial position `x₀ := 1` and initial velocity `v₀ := 0` on the time interval [0, `T := 6 / 5`] (derivatives taken within [0, `T := 6 / 5`])
+- there is `x : ℝ → ℝ` such that the position as function of time `x` is a Duffing oscillator initial value problem solution: it solves the Duffing equation with linear stiffness coefficient `k := 1` and cubic stiffness coefficient `β := 1`, initial position `x₀ := 1` and initial velocity `v₀ := 0` on the time interval from 0 to the final time of the interval `T := 6 / 5` (derivatives taken within [0, `T := 6 / 5`]; restoring force for positive stiffness, acceleration equals minus force terms)
 
 Program definitions in this claim:
 
-- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): phrase (hand-written, linted): the function `x` solves the Duffing equation with stiffness `k` and cubic coefficient `β`, initial position `x₀` and initial velocity `v₀` on the time interval [0, `T`] (derivatives taken within [0, `T`]); by definition, means (`x 0 = x₀`) and (there is `v : ℝ → ℝ` such that (`v 0 = v₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt x (v t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt v (-k * x t - β * x t ^ 3) (Set.Icc 0 T) t`)))
+- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): phrase (hand-written, linted): the position as function of time `x` is a Duffing oscillator initial value problem solution: it solves the Duffing equation with linear stiffness coefficient `k` and cubic stiffness coefficient `β`, initial position `x₀` and initial velocity `v₀` on the time interval from 0 to the final time of the interval `T` (derivatives taken within [0, `T`]; restoring force for positive stiffness, acceleration equals minus force terms); by definition, means (`x 0 = x₀`) and (there is `v : ℝ → ℝ` such that (`v 0 = v₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt x (v t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt v (-k * x t - β * x t ^ 3) (Set.Icc 0 T) t`)))
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 

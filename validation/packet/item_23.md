@@ -10,7 +10,7 @@
 
 **assuming**
 
-1. the functions `y₁`, `y₂`, `y₃` (concentrations of A, B, C) solve the rate equations of the reaction network in which A turns into B with rate constant `k₁ := 1 / 25`, B and C turn into A and C with rate constant `k₂ := 10000`, and two B turn into B and C with rate constant `k₃ := 30000000`, on the time interval [0, `T := 100000000000`] (derivatives taken within [0, `T := 100000000000`]), with initial values `a₀ := 1`, `b₀ := 0`, `c₀ := 0` at time 0
+1. the concentration of species A over time `y₁`, the concentration of species B over time `y₂` and the concentration of species C over time `y₃` are a Robertson chemical kinetics initial value problem solution: they solve the rate equations of the reaction network in which A turns into B with rate constant of the first reaction `k₁ := 1 / 25`, B and C turn into A and C with rate constant of the second reaction `k₂ := 10000`, and two B turn into B and C with rate constant of the third reaction `k₃ := 30000000`, on the time interval from 0 to the final time of the interval `T := 100000000000` (derivatives taken within [0, `T := 100000000000`]), with initial concentration of species A `a₀ := 1`, initial concentration of species B `b₀ := 0` and initial concentration of species C `c₀ := 0` at time 0
 
 **then**
 
@@ -23,7 +23,7 @@
 
 Program definitions in this claim:
 
-- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): phrase (hand-written, linted): the functions `y₁`, `y₂`, `y₃` (concentrations of A, B, C) solve the rate equations of the reaction network in which A turns into B with rate constant `k₁`, B and C turn into A and C with rate constant `k₂`, and two B turn into B and C with rate constant `k₃`, on the time interval [0, `T`] (derivatives taken within [0, `T`]), with initial values `a₀`, `b₀`, `c₀` at time 0; by definition, means (`y₁ 0 = a₀`) and (`y₂ 0 = b₀`) and (`y₃ 0 = c₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt y₁ (-k₁ * y₁ t + k₂ * y₂ t * y₃ t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₂ (k₁ * y₁ t - k₂ * y₂ t * y₃ t - k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₃ (k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`))
+- `IsRobSolution k₁ k₂ k₃ a₀ b₀ c₀ T y₁ y₂ y₃` — **PINNED** (pin theorem `robSpec_pins`): phrase (hand-written, linted): the concentration of species A over time `y₁`, the concentration of species B over time `y₂` and the concentration of species C over time `y₃` are a Robertson chemical kinetics initial value problem solution: they solve the rate equations of the reaction network in which A turns into B with rate constant of the first reaction `k₁`, B and C turn into A and C with rate constant of the second reaction `k₂`, and two B turn into B and C with rate constant of the third reaction `k₃`, on the time interval from 0 to the final time of the interval `T` (derivatives taken within [0, `T`]), with initial concentration of species A `a₀`, initial concentration of species B `b₀` and initial concentration of species C `c₀` at time 0; by definition, means (`y₁ 0 = a₀`) and (`y₂ 0 = b₀`) and (`y₃ 0 = c₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt y₁ (-k₁ * y₁ t + k₂ * y₂ t * y₃ t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₂ (k₁ * y₁ t - k₂ * y₂ t * y₃ t - k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`) and (`HasDerivWithinAt y₃ (k₃ * y₂ t ^ 2) (Set.Icc 0 T) t`))
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 

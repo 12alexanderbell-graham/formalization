@@ -19,6 +19,19 @@ This script guards them:
                              P2 (same run, after blind red team Y, not blind): every word and number of
                              a phrase occurs in its pinning specification's text (or that of a pinned
                              definition it rests on) or is a function word: a phrase quotes the blind spec
+                             P3 (run 2026-11-08T2228Z, designed before blind round Z): the first occurrence of
+                             every placeholder {x} is immediately preceded by the role of x written by a
+                             blind role reader (scripts/trust/phrase_roles.txt, copied verbatim from the
+                             reader's file under runs/); every placeholder has a registered role
+                             P4 (same): every SIGN convention the reader registered for the definition occurs
+                             word for word in its phrase
+                             P6 (same run, after reading round Z: not blind): the definition's NAME, written
+                             with its restricting qualifiers by a blind name reader (same registry), occurs
+                             in its phrase word for word (Z d04 deleted "flat")
+                             P5 (same run, after reading round Z: not blind): number, sign, order and
+                             comparison words (one, two, first, positive, below, equals, exceeds, …) are not
+                             function words for P2: they must be quoted from the specification, the roles
+                             or the sign conventions
   check_claims.py --base B   a phrase changed or removed since commit B needs a LEDGER.md line
                              added since B naming the definition (as check_relock.py does for
                              frozen fingerprints)
@@ -119,6 +132,19 @@ NUM = re.compile(r"\d+(?:\.\d+)?")
 
 
 P2_BASE = "scripts/trust/phrase_vocab_baseline.txt"
+P5_BASE = "scripts/trust/phrase_polar_baseline.txt"
+
+
+def p5_baseline(text=None):
+    """P5 grandfathered (definition, word) pairs (run 2026-11-08T2228Z): number, sign and comparison words the phrases
+    carried when P5 was introduced that neither the specification nor the blind readings contain ("units in which
+    the speed of light is one", "two B turn into B and C"). Shrink-only (`--base`), like the P2 baseline."""
+    if text is None:
+        try:
+            text = (ROOT / P5_BASE).read_text(encoding="utf-8")
+        except FileNotFoundError:
+            return set()
+    return p2_baseline(text)
 
 
 def p2_baseline(text=None):
@@ -140,7 +166,98 @@ def p2_baseline(text=None):
     return out
 
 
-def spec_vocabulary(entries, base=frozenset()):
+ROLES = "scripts/trust/phrase_roles.txt"
+# P5 (run 2026-11-08T2228Z, after blind round Z d05/d06: not blind): words of check_claim_vocab.FUNCTION that state a
+# number, a sign, an order or a comparison carry content ("κ is two", "its integral exceeds"): P2 no longer exempts them.
+POLAR = set("""one two three four five six seven eight nine ten first second third fourth fifth sixth not no nor
+below above positive negative nonnegative nonpositive nonzero zero lower upper equals equal more less larger smaller
+greater exceeds exceed least most strictly both same other""".split())
+
+
+def load_roles(text=None):
+    """The blind role registry (P3/P4). Lines `ROLE | <full Lean name> | <binder> | <role>` and
+    `SIGN | <full Lean name> | <convention>`, copied verbatim from a blind role reader's file named by a
+    `# source: runs/<run>/roles/<file>` comment above them. Returns (roles, signs, problems)."""
+    if text is None:
+        try:
+            text = (ROOT / ROLES).read_text(encoding="utf-8")
+        except FileNotFoundError:
+            return {}, {}, [f"{ROLES} missing (P3)"]
+    roles, signs, bad = {}, {}, []
+    src, src_lines = None, set()
+    for raw in text.splitlines():
+        l = raw.strip()
+        m = re.match(r"#\s*source:\s*(\S+)", l)
+        if m:
+            src = m.group(1)
+            f = ROOT / src
+            if not (src.startswith("runs/") and f.is_file() and (f.parent / "BRIEF.md").is_file()):
+                bad.append(f"{ROLES}: source {src} is not a reader file under runs/ next to its BRIEF.md (P3)")
+                src_lines = set()
+            else:
+                src_lines = {x.strip() for x in f.read_text(encoding="utf-8").splitlines()}
+            continue
+        if not l or l.startswith("#"):
+            continue
+        if src is None or l not in src_lines:
+            bad.append(f"{ROLES}: line not found verbatim in its reader file {src}: {l} (P3: roles are blind readings)")
+            continue
+        parts = [x.strip() for x in l.split(" | ")]
+        if parts[0] == "ROLE" and len(parts) == 4:
+            roles.setdefault(parts[1], {})[parts[2]] = parts[3]
+        elif parts[0] in ("SIGN", "NAME") and len(parts) == 3:
+            # NAME lines (P6) are kept with the sign conventions: both must occur in the phrase word for word
+            signs.setdefault(parts[1], []).append(parts[2])
+        else:
+            bad.append(f"{ROLES}: malformed line: {l}")
+    return roles, signs, bad
+
+
+def _full(d, table):
+    """The registry key (full Lean name) whose dotted suffix is the phrases.txt key `d`."""
+    hits = [k for k in table if k == d or k.endswith("." + d)]
+    return hits[0] if len(hits) == 1 else None
+
+
+def _seq(text):
+    return [norm(w) for w in WORD.findall(text)]
+
+
+def role_binding(phr, roles, signs):
+    """P3, P4 (run 2026-11-08T2228Z; designed and committed in the reader brief 5dfc17e before blind round Z ran).
+    Rounds X and Y left one class open: a phrase built from words its spec contains can put them in the wrong place
+    (X d01: observation and emission time swapped; Y d02: "minus" deleted). A blind role reader, given only the
+    specification, the pin theorem and the definition's Lean body, wrote the role of every binder and the sign
+    conventions (`phrase_roles.txt`). P3: the first occurrence of each placeholder {x} is immediately preceded by the
+    words of x's role (a role swap or a missing role fails); P4: each registered sign convention occurs in the phrase
+    word for word (deleting or changing a sign word fails)."""
+    bad = []
+    for d, p in sorted(phr.items()):
+        key = _full(d, roles) or _full(d, signs)
+        rmap = roles.get(key, {}) if key else {}
+        seen = set()
+        for m in re.finditer(r"\{([^}]*)\}", p):
+            x = m.group(1)
+            if x in seen:
+                continue
+            seen.add(x)
+            if x not in rmap:
+                bad.append(f"{d}: placeholder {{{x}}} has no role in {ROLES} (P3: every argument's role is read blind)")
+                continue
+            want = _seq(rmap[x])
+            # words since the previous placeholder: a role cannot be read across another argument
+            before = _seq(re.split(r"\{[^}]*\}", p[:m.start()])[-1])
+            if not want or before[-len(want):] != want:
+                bad.append(f"{d}: placeholder {{{x}}} is not immediately preceded by its blind role '{rmap[x]}' "
+                           f"(P3: roles are bound slot by slot)")
+        ps = " ".join(_seq(re.sub(r"\{[^}]*\}", " ", p)))
+        for c in (signs.get(key, []) if key else []):
+            if " " + " ".join(_seq(c)) + " " not in " " + ps + " ":
+                bad.append(f"{d}: blind sign convention or name '{c}' does not occur word for word in the phrase (P4/P6)")
+    return bad
+
+
+def spec_vocabulary(entries, base=frozenset(), roles=None, signs=None):
     """P2 (run 2026-11-08T1828Z, after blind red team Y: not blind): a phrase may use only words and numbers that occur
     in the text of its own pinning specification or in that of a pinned definition it rests on (docstrings and field
     names of the SPEC structure or blind formulation the pin theorem uses, exported by Claims.lean as `spec_text`; the
@@ -153,11 +270,16 @@ def spec_vocabulary(entries, base=frozenset()):
     for e in entries:
         text = " ".join([e.get("spec_text", "")] + [by_short[r].get("spec_text", "") for r in e.get("rests_on", [])
                                                     if r in by_short])
+        # P3/P4 texts are blind readings too: a phrase may quote the role and sign words of its own definition
+        k = _full(e["name"], roles or {}) or _full(e["name"], signs or {})
+        if k:
+            text += " " + " ".join((roles or {}).get(k, {}).values()) + " " + " ".join((signs or {}).get(k, []))
         allowed = {norm(w) for w in WORD.findall(text)}
         nums = set(NUM.findall(text))
         ph = re.sub(r"\{[^}]*\}", " ", e["phrase"])
         extra = {w for (s, w) in base if s == e["short"]}
-        miss = sorted({norm(w) for w in WORD.findall(ph) if not (forms(norm(w)) & (allowed | FUNCTION | extra))})
+        miss = sorted({norm(w) for w in WORD.findall(ph)
+                       if not (forms(norm(w)) & (allowed | (FUNCTION - POLAR) | extra))})
         miss += sorted({n for n in NUM.findall(ph) if n not in nums and n not in extra})
         if miss:
             bad.append(f"{e['name']}: phrase words not in its pinning specification's text or in a function word list: "
@@ -194,6 +316,24 @@ def _controls():
     if not ok or len(bad) != 1 or "conformal" not in bad[0] or "11.5" not in bad[0]:
         print("::error::check_claims P2 controls failed")
         return 1
+    rl = {"A.f": {"a": "scale factor", "t₀": "observation time", "t": "emission time"}}
+    sg = {"A.f": ["minus the curvature density parameter"]}
+    ok = not role_binding({"f": "the distance at the observation time {t₀} of a source at the emission time {t} "
+                                "(scale factor {a}; it is minus the curvature density parameter)"}, rl, sg)
+    bad = role_binding({"f": "the distance at the observation time {t} of a source at the emission time {t₀} "
+                             "(scale factor {a}; it is minus the curvature density parameter)"}, rl, sg)
+    bad2 = role_binding({"f": "the distance at the observation time {t₀} of a source at the emission time {t} "
+                              "(scale factor {a}; it is the curvature density parameter)"}, rl, sg)
+    bad3 = role_binding({"f": "the distance at the observation time {t₀} of a source at {t} (scale factor {a}; it "
+                              "is minus the curvature density parameter)"}, rl, sg)
+    if not ok or len(bad) != 2 or len(bad2) != 1 or len(bad3) != 1:
+        print("::error::check_claims P3/P4 controls failed")
+        return 1
+    sp5 = [dict(sp[0], spec_text="Specification of the Hubble rate of a scale factor at time t; units in which c is one",
+                phrase="the Hubble rate of the scale factor {a} at time {t} (units in which c is one)")]
+    if spec_vocabulary(sp5) or len(spec_vocabulary([dict(sp5[0], phrase=sp5[0]["phrase"].replace("is one", "is two"))])) != 1:
+        print("::error::check_claims P5 controls failed")
+        return 1
     return 0
 
 
@@ -224,16 +364,66 @@ def lint():
     bad += duplicate_phrases(phr)
     bad += formula_in_phrase(phr)
     bad += head_noun(entries, rules)
-    bad += spec_vocabulary(entries, p2_baseline())
+    roles, signs, rbad = load_roles()
+    bad += rbad
+    bad += role_binding(phr, roles, signs)
+    bad += spec_vocabulary(entries, p2_baseline() | p5_baseline(), roles, signs)
     for b in bad:
         print("PHRASE:", b)
     print(f"phrases: {n} checked, {len(bad)} problems")
     return 1 if bad else 0
 
 
+def _first(base, path):
+    out = git("log", "--format=%H", "--reverse", "--diff-filter=A", f"{base}..HEAD", "--", path).stdout.split()
+    return out[0] if out else None
+
+
+def _before(a, b):
+    """commit a is a strict ancestor of commit b"""
+    return a != b and git("merge-base", "--is-ancestor", a, b).returncode == 0
+
+
+def roles_route(base):
+    """P3 route (run 2026-11-08T2228Z): role registry lines added since `base` come from a reader file under
+    runs/<run>/roles/ whose BRIEF.md was committed alone strictly before the reader file, which was committed
+    (touching only runs/<run>/) strictly before the first commit since `base` that changes the registry:
+    brief, reading, copy (as check_blind_route.py B1/B4 for literal readings)."""
+    old = git("show", f"{base}:{ROLES}")
+    old_lines = set(old.stdout.splitlines()) if old.returncode == 0 else set()
+    new_text = (ROOT / ROLES).read_text(encoding="utf-8") if (ROOT / ROLES).exists() else ""
+    added = [l for l in new_text.splitlines() if l.strip() and not l.startswith("#") and l not in old_lines]
+    if not added:
+        return []
+    srcs = sorted(set(re.findall(r"#\s*source:\s*(\S+)", new_text)))
+    copy = git("log", "--format=%H", "--reverse", f"{base}..HEAD", "--", ROLES).stdout.split()
+    bad = []
+    for src in srcs:
+        brief = str(Path(src).parent / "BRIEF.md")
+        rc, bc = _first(base, src), _first(base, brief)
+        if rc is None:
+            continue  # reader file older than base: checked when it was added
+        if bc is None or not _before(bc, rc):
+            bad.append(f"{src}: its BRIEF.md is not committed strictly before the reading (P3 route)")
+        files = git("show", "--name-only", "--format=", rc).stdout.split()
+        run_dir = "/".join(src.split("/")[:2]) + "/"
+        if any(not f.startswith(run_dir) for f in files):
+            bad.append(f"{src}: the commit adding the reading changes files outside {run_dir} (P3 route)")
+        if bc and any(f.startswith(("scripts/", "Checked/", "Work/")) for f in git("show", "--name-only", "--format=", bc).stdout.split()):
+            bad.append(f"{brief}: the commit adding the brief changes scripts/, Checked/ or Work/ (P3 route)")
+        if copy and not _before(rc, copy[0]):
+            bad.append(f"{src}: the registry {ROLES} was changed before or with the reading (P3 route: brief, reading, copy)")
+    return bad
+
+
 def base_check(base):
     if not base or set(base) == {"0"} or git("cat-file", "-e", base + "^{commit}").returncode:
         base = "HEAD~1"
+    rb = roles_route(base)
+    for b in rb:
+        print("PHRASE ROLES:", b)
+    if rb:
+        return 1
     old = git("show", f"{base}:{PHR}")
     if old.returncode:
         print(f"no {PHR} at {base}: nothing to compare")
@@ -244,6 +434,13 @@ def base_check(base):
         if added:
             for d, w in added:
                 print(f"P2 baseline line added since {base}: {d} {w} (shrink-only)")
+            return 1
+    o5 = git("show", f"{base}:{P5_BASE}")
+    if o5.returncode == 0:
+        added = sorted(p5_baseline() - p5_baseline(o5.stdout))
+        if added:
+            for d, w in added:
+                print(f"P5 baseline line added since {base}: {d} {w} (shrink-only)")
             return 1
     old = parse_phrases(old.stdout)
     new = parse_phrases((ROOT / PHR).read_text(encoding="utf-8"))

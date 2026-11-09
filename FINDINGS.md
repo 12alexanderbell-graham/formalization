@@ -20,7 +20,7 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > **assuming**
     >
-    > 1. the scale factor *a* obeys the flat ΛCDM expansion law with matter fraction `Ω := 3 / 10` on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood
+    > 1. the scale factor *a* obeys the flat ΛCDM Friedmann expansion law with matter fraction given by the present matter density parameter `Ω := 3 / 10` on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood
     >
     > 2. `ContDiffAt ℝ 6 a t₀`
     >
@@ -30,9 +30,9 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > where
     >
-    > - `IsFlatLCDM Ω a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat ΛCDM expansion law with matter fraction *Ω* on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`)
+    > - `IsFlatLCDM Ω a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat ΛCDM Friedmann expansion law with matter fraction given by the present matter density parameter *Ω* on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`)
     >
-    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the *n*-th cosmographic coefficient of the scale factor *a* at time *t* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
+    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the cosmographic coefficient of the scale factor *a* at the time of evaluation *t* for the derivative order of the coefficient *n* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
     - derived value: `cosmoCoeff 5 a t₀` rounds to 3.115[✓F1_l0(cosmoCoeff, derived)] at 3 decimals; role derived.
   - `Checked.Records.F1_printedL0`, as Lean states it:
     > **It holds that**
@@ -46,13 +46,13 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
   - `Checked.Records.F1_m0_agrees`, as Lean states it:
     > **It holds that**
     >
-    > - there is `r : ℝ` such that (`RoundsTo r 0.549 3`) and (`0 < r`) and (`r < 1`) and (for every `a : ℝ → ℝ`, for every `t₀ : ℝ`, if the scale factor *a* obeys the flat ΛCDM expansion law with matter fraction `Ω := r` on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood, then if `ContDiffAt ℝ 6 a t₀`, then `cosmoCoeff 6 a t₀ = 1 - 27 / 2 * r ^ 2 - 81 * r ^ 2 - 81 / 2 * r ^ 3`)
+    > - there is `r : ℝ` such that (`RoundsTo r 0.549 3`) and (`0 < r`) and (`r < 1`) and (for every `a : ℝ → ℝ`, for every `t₀ : ℝ`, if the scale factor *a* obeys the flat ΛCDM Friedmann expansion law with matter fraction given by the present matter density parameter `Ω := r` on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood, then if `ContDiffAt ℝ 6 a t₀`, then `cosmoCoeff 6 a t₀ = 1 - 27 / 2 * r ^ 2 - 81 * r ^ 2 - 81 / 2 * r ^ 3`)
     >
     > where
     >
-    > - `IsFlatLCDM Ω a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat ΛCDM expansion law with matter fraction *Ω* on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`)
+    > - `IsFlatLCDM Ω a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat ΛCDM Friedmann expansion law with matter fraction given by the present matter density parameter *Ω* on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`)
     >
-    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the *n*-th cosmographic coefficient of the scale factor *a* at time *t* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
+    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the cosmographic coefficient of the scale factor *a* at the time of evaluation *t* for the derivative order of the coefficient *n* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
     - value: `r` rounds to 0.549[✓F1_m0_agrees] at 3 decimals; role free.
 <!-- /certified -->
 - **Fidelity audit:** `runs/2026-10-30T0220Z/audit.md` (blind restatement derived verbatim; restater's own reading also refuted, with a globally C⁶ model).
@@ -74,7 +74,7 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > **assuming**
     >
-    > 1. the scale factor *a* obeys the flat matter plus CPL dark-energy expansion law with matter fraction `Ω := 245 / 1000` and dark-energy parameters `w₀ := -93 / 100` and `wₐ := -41 / 100` on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood
+    > 1. the scale factor *a* obeys the flat matter plus CPL dark-energy Friedmann expansion law with matter fraction given by the present matter density parameter `Ω := 245 / 1000`, present dark energy equation of state `w₀ := -93 / 100` and equation of state evolution parameter `wₐ := -41 / 100` on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood
     >
     > 2. `ContDiffAt ℝ 5 a t₀`
     >
@@ -86,9 +86,9 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > where
     >
-    > - `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat matter plus CPL dark-energy expansion law with matter fraction *Ω* and dark-energy parameters *w₀* and *wₐ* on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + (1 - Ω) * (1 + redshift a t₀ t) ^ (3 * (1 + w₀ + wₐ)) * Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))`)
+    > - `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat matter plus CPL dark-energy Friedmann expansion law with matter fraction given by the present matter density parameter *Ω*, present dark energy equation of state *w₀* and equation of state evolution parameter *wₐ* on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + (1 - Ω) * (1 + redshift a t₀ t) ^ (3 * (1 + w₀ + wₐ)) * Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))`)
     >
-    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the *n*-th cosmographic coefficient of the scale factor *a* at time *t* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
+    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the cosmographic coefficient of the scale factor *a* at the time of evaluation *t* for the derivative order of the coefficient *n* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
     >
     > - `printedCLSL0 Ω w₀ wₐ` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription; its name is not checked (for `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`): is defined as `35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀ + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2 + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3 + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4`
     - derived value: `cosmoCoeff 5 a t₀` rounds to 0.809[✓F2_toy(cosmoCoeff, derived)] at 3 decimals; role derived.
@@ -99,7 +99,7 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > **assuming**
     >
-    > 1. the scale factor *a* obeys the flat matter plus CPL dark-energy expansion law with matter fraction `Ω := 3 / 10` and dark-energy parameters *w₀* and `wₐ := -1 / 2` on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood
+    > 1. the scale factor *a* obeys the flat matter plus CPL dark-energy Friedmann expansion law with matter fraction given by the present matter density parameter `Ω := 3 / 10`, present dark energy equation of state *w₀* and equation of state evolution parameter `wₐ := -1 / 2` on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood
     >
     > 2. `ContDiffAt ℝ 5 a t₀`
     >
@@ -109,9 +109,9 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > where
     >
-    > - `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat matter plus CPL dark-energy expansion law with matter fraction *Ω* and dark-energy parameters *w₀* and *wₐ* on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + (1 - Ω) * (1 + redshift a t₀ t) ^ (3 * (1 + w₀ + wₐ)) * Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))`)
+    > - `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat matter plus CPL dark-energy Friedmann expansion law with matter fraction given by the present matter density parameter *Ω*, present dark energy equation of state *w₀* and equation of state evolution parameter *wₐ* on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + (1 - Ω) * (1 + redshift a t₀ t) ^ (3 * (1 + w₀ + wₐ)) * Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))`)
     >
-    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the *n*-th cosmographic coefficient of the scale factor *a* at time *t* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
+    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the cosmographic coefficient of the scale factor *a* at the time of evaluation *t* for the derivative order of the coefficient *n* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
     >
     > - `printedCLSL0 Ω w₀ wₐ` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription; its name is not checked (for `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`): is defined as `35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀ + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2 + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3 + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4`
     - difference: `cosmoCoeff 5 a t₀ - printedCLSL0 (3 / 10) w₀ (-1 / 2)` rounds to 2.345[✓F2_error(difference)] at 3 decimals; role difference(derived−printed).
@@ -136,7 +136,7 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > **assuming**
     >
-    > 1. the scale factor *a* obeys the flat ΛCDM expansion law with matter fraction `Ω := 3 / 10` on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood
+    > 1. the scale factor *a* obeys the flat ΛCDM Friedmann expansion law with matter fraction given by the present matter density parameter `Ω := 3 / 10` on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood
     >
     > 2. `ContDiffAt ℝ 6 a t₀`
     >
@@ -152,13 +152,13 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > where
     >
-    > - `IsFlatLCDM Ω a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat ΛCDM expansion law with matter fraction *Ω* on some neighbourhood of the time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`)
+    > - `IsFlatLCDM Ω a t₀` — **PINNED**: phrase (hand-written, linted): the scale factor *a* obeys the flat ΛCDM Friedmann expansion law with matter fraction given by the present matter density parameter *Ω* on some neighbourhood of the observation time *t₀*, with a positive Hubble rate at *t₀* and a positive, differentiable scale factor on that neighbourhood; by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`)
     >
     > - `correctD4 q j s l` — FORMULA, not pinned; name and body agree with a blind second formulation (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `1 + 2 * q + 3 * q ^ 2 + 5 / 2 * q ^ 3 + 7 / 8 * q ^ 4 - 5 / 3 * q * j - 7 / 8 * q ^ 2 * j - j + j ^ 2 / 12 - 1 / 8 * q * s - s / 6 - l / 120`
     >
-    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the *n*-th cosmographic coefficient of the scale factor *a* at time *t* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
+    > - `cosmoCoeff n a t` — **PINNED**: phrase (hand-written, linted): the cosmographic coefficient of the scale factor *a* at the time of evaluation *t* for the derivative order of the coefficient *n* (j, s, l, m for the orders 3, 4, 5, 6; the deceleration parameter is minus the order 2 coefficient); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`
     >
-    > - `decel a t` — **PINNED**: phrase (hand-written, linted): the deceleration parameter of the scale factor *a* at time *t*; by definition, `decel a t` is `-(deriv (deriv a) t * a t) / deriv a t ^ 2`
+    > - `decel a t` — **PINNED**: phrase (hand-written, linted): the deceleration parameter of the scale factor *a* at the cosmic time of evaluation *t* (minus acceleration times scale factor over velocity squared); by definition, `decel a t` is `-(deriv (deriv a) t * a t) / deriv a t ^ 2`
     >
     > - `printedD4 q j s l` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription; its name is not checked (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `1 + 2 * q + 3 * q ^ 2 + 5 / 2 * q ^ 3 + 7 / 2 * q ^ 4 - 5 / 3 * q * j - 7 / 8 * q ^ 2 * j - j + j ^ 2 / 12 - 1 / 8 * q * s - s / 6 - l / 120`
     - derived value: `correctD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)` rounds to 0.2153[✓F3_D4_LCDM(correctD4, derived)] at 4 decimals; role derived.

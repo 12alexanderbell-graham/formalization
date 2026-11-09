@@ -18,11 +18,11 @@
 
 **then**
 
-- there is exactly one `p : ℝ × ℝ` such that (`0 < p.1`) and (`b < p.2`) and (the molar volume `v := p.2` is a critical point of the isotherm `p := cubicP R a b u w p.1` (pressure as a function of molar volume at fixed temperature): its first and second derivatives vanish at `v := p.2`)
+- there is exactly one `p : ℝ × ℝ` such that (`0 < p.1`) and (`b < p.2`) and (the critical point condition of an isotherm holds for the isotherm pressure function of molar volume `p := cubicP R a b u w p.1` at the molar volume at the point `v := p.2` (pressure as a function of molar volume at fixed temperature): its first and second derivatives vanish at `v := p.2`)
 
 Program definitions in this claim:
 
-- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): phrase (hand-written, linted): the molar volume `v` is a critical point of the isotherm `p` (pressure as a function of molar volume at fixed temperature): its first and second derivatives vanish at `v`; by definition, means (`deriv p v = 0`) and (`deriv (deriv p) v = 0`)
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): phrase (hand-written, linted): the critical point condition of an isotherm holds for the isotherm pressure function of molar volume `p` at the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature): its first and second derivatives vanish at `v`; by definition, means (`deriv p v = 0`) and (`deriv (deriv p) v = 0`)
 - `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)

@@ -1,0 +1,17 @@
+# P5 baseline (run 2026-11-08T2228Z; scripts/trust/check_claims.py, shrink-only): <definition> <word> of a phrase that
+# is a number, sign, order or comparison word and that neither its pinning specification's text nor its blind
+# readings (scripts/trust/phrase_roles.txt) contain. Remove a line when the word leaves the phrase or enters the
+# specification or a blind reading; never add one.
+comoving one
+lumDist one
+angDist one
+lumDistFlat one
+curvK one
+rhoM one
+transverse negative
+transverse zero
+FriedmannEq three
+MasterEq two
+IsCriticalIsotherm first
+IsMaxwellCoexistence below
+IsRobSolution two

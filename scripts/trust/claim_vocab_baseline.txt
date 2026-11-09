@@ -107,7 +107,6 @@ Checked.Cosmography.CCS.ccsD4Claim_false|de
 Checked.Cosmography.CCS.ccsD4Claim_false|sitter
 Checked.Cosmography.CCS.ccsD4ClaimPast_false|de
 Checked.Cosmography.CCS.ccsD4ClaimPast_false|sitter
-Checked.Cosmography.BambaY.lumDist_y_third_order|flrw
 Checked.Cosmography.BambaY.printedD2y_fails|bamba
 Checked.Cosmography.BambaY.printedD2y_fails|et
 Checked.Cosmography.BambaY.printedD2y_fails|al
@@ -126,7 +125,6 @@ Checked.Cosmography.BambaY.bambaD2yClaim_false|de
 Checked.Cosmography.BambaY.bambaD2yClaim_false|sitter
 Checked.Cosmography.BambaY.bambaD2yClaimPast_false|de
 Checked.Cosmography.BambaY.bambaD2yClaimPast_false|sitter
-Checked.Cosmography.CVdQ.dQ_y_third_order|flrw
 Checked.Cosmography.CVdQ.printedQ2_fails_past|fails
 Checked.Cosmography.CVdQ.printedQ2_fails_past|past
 Checked.Cosmography.CVdQ.printedQ2_fails_past|model
@@ -174,7 +172,6 @@ Checked.Cosmography.BambaK.milne_printedD3y_fails_past|instance
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|refutations
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|all
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|frozen
-Checked.Cosmography.BambaK.milne_printedD3y_fails_past|closed
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|exponential
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|refutes
 Checked.Cosmography.BambaK.milne_printedD3y_fails_past|failure
@@ -248,7 +245,6 @@ Checked.Cosmography.BambaZ.bambaDAzClaim_false|everywhere
 Checked.Cosmography.BambaZ.bambaDAzClaimPast_false|review
 Checked.Cosmography.BambaZ.bambaDAzClaimPast_false|even
 Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|milne
-Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|universe
 Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|exact
 Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|fails
 Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past|past
@@ -273,7 +269,6 @@ Checked.Cosmography.FRCosmo.printedF0Mul_false_at|relation
 Checked.Cosmography.FRCosmo.printedF0Mul_false_at|fails
 Checked.Cosmography.FRCosmo.printedF0Mul_false_at|cdm
 Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|review
-Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|common
 Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|denominator
 Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|division
 Checked.Cosmography.FRCosmo.printedF0ClaimMul_false|does
@@ -676,7 +671,6 @@ Checked.Cosmography.B1L19Curved.l19_sq_curved|sne
 Checked.Cosmography.B1L19Curved.l19_sq_curved|quasars
 Checked.Cosmography.B1L19Curved.l19_sq_curved|central
 Checked.Cosmography.B1L19Curved.l19_sq_curved|fit
-Checked.Cosmography.B1L19Curved.l19_sq_curved|closed
 Checked.Cosmography.B1L19Curved.l19_sq_curved|flat
 Checked.Cosmography.B1L19Curved.l19_sq_curved|matter
 Checked.Cosmography.B1L19Curved.l19_sq_curved|whole
@@ -697,7 +691,6 @@ Checked.Cosmography.B1L19Curved.l19_sqg_curved|quasars
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|grbs
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|central
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|fit
-Checked.Cosmography.B1L19Curved.l19_sqg_curved|closed
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|flat
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|matter
 Checked.Cosmography.B1L19Curved.l19_sqg_curved|whole
@@ -734,7 +727,6 @@ Checked.Chemistry.Coexistence.vdW_coexistence_exists|waals
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|fluid
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|rb
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|state
-Checked.Chemistry.Coexistence.vdW_coexistence_exists|liquid
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|co
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|so
 Checked.Chemistry.Coexistence.vdW_coexistence_exists|factor
@@ -745,9 +737,7 @@ Checked.Chemistry.Coexistence.vdW_coexistence_unique|waals
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|fluid
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|rb
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|state
-Checked.Chemistry.Coexistence.vdW_coexistence_unique|liquid
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|co
-Checked.Chemistry.Coexistence.vdW_coexistence_unique|saturation
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|determined
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|accuracy
 Checked.Chemistry.Coexistence.vdW_coexistence_unique|num:0.7
@@ -757,7 +747,6 @@ Checked.Chemistry.RKAcentric.rk_coexistence_exists|fluid
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|rt
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|any
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|state
-Checked.Chemistry.RKAcentric.rk_coexistence_exists|liquid
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|co
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|factor
 Checked.Chemistry.RKAcentric.rk_coexistence_exists|num:0.7
@@ -767,7 +756,6 @@ Checked.Chemistry.RKAcentric.rk_coexistence_unique|fluid
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|rt
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|any
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|state
-Checked.Chemistry.RKAcentric.rk_coexistence_unique|liquid
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|co
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|factor
 Checked.Chemistry.RKAcentric.rk_coexistence_unique|num:0.7
@@ -778,7 +766,6 @@ Checked.Chemistry.PRAcentric.pr_omega1_exists|soave
 Checked.Chemistry.PRAcentric.pr_omega1_exists|published
 Checked.Chemistry.PRAcentric.pr_omega1_exists|any
 Checked.Chemistry.PRAcentric.pr_omega1_exists|state
-Checked.Chemistry.PRAcentric.pr_omega1_exists|liquid
 Checked.Chemistry.PRAcentric.pr_omega1_exists|co
 Checked.Chemistry.PRAcentric.pr_omega1_exists|factor
 Checked.Chemistry.PRAcentric.pr_omega1_exists|num:0.7
@@ -790,7 +777,6 @@ Checked.Chemistry.PRAcentric.pr_omega1_unique|published
 Checked.Chemistry.PRAcentric.pr_omega1_unique|attraction
 Checked.Chemistry.PRAcentric.pr_omega1_unique|any
 Checked.Chemistry.PRAcentric.pr_omega1_unique|state
-Checked.Chemistry.PRAcentric.pr_omega1_unique|liquid
 Checked.Chemistry.PRAcentric.pr_omega1_unique|co
 Checked.Chemistry.PRAcentric.pr_omega1_unique|factor
 Checked.Chemistry.PRAcentric.pr_omega1_unique|input
@@ -803,7 +789,6 @@ Checked.Chemistry.PR78Acentric.pr78_omega1_exists|revised
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|correlation
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|any
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|state
-Checked.Chemistry.PR78Acentric.pr78_omega1_exists|liquid
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|co
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|factor
 Checked.Chemistry.PR78Acentric.pr78_omega1_exists|num:0.7
@@ -816,7 +801,6 @@ Checked.Chemistry.PR78Acentric.pr78_omega1_unique|correlation
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|attraction
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|any
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|state
-Checked.Chemistry.PR78Acentric.pr78_omega1_unique|liquid
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|co
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|factor
 Checked.Chemistry.PR78Acentric.pr78_omega1_unique|input
@@ -828,7 +812,6 @@ Checked.Chemistry.SRKAcentric.srk_omega1_exists|fluid
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|correlation
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|any
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|state
-Checked.Chemistry.SRKAcentric.srk_omega1_exists|liquid
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|co
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|factor
 Checked.Chemistry.SRKAcentric.srk_omega1_exists|num:0.7
@@ -840,13 +823,11 @@ Checked.Chemistry.SRKAcentric.srk_omega1_unique|correlation
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|attraction
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|any
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|state
-Checked.Chemistry.SRKAcentric.srk_omega1_unique|liquid
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|co
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|factor
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|input
 Checked.Chemistry.SRKAcentric.srk_omega1_unique|num:0.7
 Checked.Sim.Duffing.duffing_first_zero_sol|certified
-Checked.Sim.Duffing.duffing_first_zero_sol|oscillator
 Checked.Sim.Duffing.duffing_first_zero_sol|released
 Checked.Sim.Duffing.duffing_first_zero_sol|rest
 Checked.Sim.Duffing.duffing_first_zero_sol|all
@@ -868,20 +849,13 @@ Checked.Sim.Duffing.duffing_first_zero_sol|num:1.192006
 Checked.Sim.MichaelisMenten.mm_half_conversion|certified
 Checked.Sim.MichaelisMenten.mm_half_conversion|conversion
 Checked.Sim.MichaelisMenten.mm_half_conversion|full
-Checked.Sim.MichaelisMenten.mm_half_conversion|michaelis
-Checked.Sim.MichaelisMenten.mm_half_conversion|menten
-Checked.Sim.MichaelisMenten.mm_half_conversion|concentration
 Checked.Sim.MichaelisMenten.mm_half_conversion|all
 Checked.Sim.MichaelisMenten.mm_half_conversion|so
-Checked.Sim.MichaelisMenten.mm_half_conversion|substrate
 Checked.Sim.MichaelisMenten.mm_half_conversion|converted
 Checked.Sim.MichaelisMenten.mm_half_conversion|num:2.5665
 Checked.Sim.MichaelisMenten.mm_half_conversion|num:2.5666
-Checked.Sim.MichaelisMenten.mm_solution_exists|michaelis
-Checked.Sim.MichaelisMenten.mm_solution_exists|menten
 Checked.Sim.Robertson.rob_state40|certified
 Checked.Sim.Robertson.rob_state40|state
-Checked.Sim.Robertson.rob_state40|robertson
 Checked.Sim.Robertson.rob_state40|stiff
 Checked.Sim.Robertson.rob_state40|num:0.0000091855
 Checked.Sim.Robertson.rob_state40|num:0.0000091856
@@ -889,10 +863,8 @@ Checked.Sim.Robertson.rob_state40|num:0.2841637
 Checked.Sim.Robertson.rob_state40|num:0.2841638
 Checked.Sim.Robertson.rob_state40|num:0.7158270
 Checked.Sim.Robertson.rob_state40|num:0.7158271
-Checked.Sim.Robertson.rob_exists|robertson
 Checked.Sim.RobLong.rob_state1e11|certified
 Checked.Sim.RobLong.rob_state1e11|state
-Checked.Sim.RobLong.rob_state1e11|robertson
 Checked.Sim.RobLong.rob_state1e11|stiff
 Checked.Sim.RobLong.rob_state1e11|num:0.000000000000083333
 Checked.Sim.RobLong.rob_state1e11|num:0.000000000000083334
@@ -905,14 +877,11 @@ Checked.Sim.RobLong.rob_printed_y3_low|reference
 Checked.Sim.RobLong.rob_printed_y3_low|bari
 Checked.Sim.RobLong.rob_printed_y3_low|ivp
 Checked.Sim.RobLong.rob_printed_y3_low|test
-Checked.Sim.RobLong.rob_printed_y3_low|concentration
-Checked.Sim.RobLong.rob_printed_y3_low|robertson
 Checked.Sim.RobLong.rob_printed_y3_low|too
 Checked.Sim.RobLong.rob_printed_y3_low|small
 Checked.Sim.RobLong.rob_printed_y3_low|num:0.9999999791665050
 Checked.Sim.RobLong.rob_printed_y3_low|num:10^-14
 Checked.Sim.RobLong.rob_printed_y3_low|num:14
-Checked.Sim.RobLong.rob_exists_1e11|robertson
 Checked.Data.FR13.fr13_bestfit68|prior
 Checked.Data.FR13.fr13_bestfit68|marginalised
 Checked.Data.FR13.fr13_bestfit68|farooq
@@ -1812,12 +1781,6 @@ checked.records.f9_pole|nameword:pole
 checked.sim.duffing.duffing_first_zero_sol|nameword:sol
 checked.sim.duffing.duffing_first_zero_sol|numctx:0:released
 checked.sim.michaelismenten.mm_half_conversion|nameword:conversion
-checked.sim.michaelismenten.mm_half_conversion|nameword:menten
-checked.sim.michaelismenten.mm_half_conversion|nameword:michaelis
-checked.sim.michaelismenten.mm_solution_exists|nameword:menten
-checked.sim.michaelismenten.mm_solution_exists|nameword:michaelis
-checked.sim.robertson.rob_exists|nameword:robertson
-checked.sim.robertson.rob_state40|nameword:robertson
 checked.sim.robertson.rob_state40|nameword:state
 checked.sim.roblong.rob_exists_1e11|nameword:long
 checked.sim.roblong.rob_printed_y3_low|nameword:long

@@ -1,0 +1,138 @@
+# Blind role registry of the pinned definitions (trust track part 3, run 2026-11-08T2228Z; scripts/trust/check_claims.py P3, P4).
+# Every line below is copied VERBATIM from the blind role reader's file named by the `# source:` line above it (the
+# reader got only its brief, committed alone before it ran: the specifications, the pin theorems and the definitions'
+# Lean bodies; never phrases, docstrings or records). P3: the first occurrence of each placeholder {x} in a phrase is
+# immediately preceded by x's ROLE. P4: each SIGN convention of a definition occurs word for word in its phrase.
+# P6: each NAME (the definition's name with its restricting qualifiers, second reader) occurs word for word in its phrase.
+# A new pinned definition needs a new blind reading (brief → reading → copy, in three commits).
+# source: runs/2026-11-08T2228Z/roles/ROLES.txt
+ROLE | Checked.Cosmography.hubble | a | scale factor
+ROLE | Checked.Cosmography.hubble | t | cosmic time of evaluation
+ROLE | Checked.Cosmography.decel | a | scale factor
+ROLE | Checked.Cosmography.decel | t | cosmic time of evaluation
+ROLE | Checked.Cosmography.BambaK.lumDist | K | spatial curvature constant
+ROLE | Checked.Cosmography.BambaK.lumDist | a | scale factor
+ROLE | Checked.Cosmography.BambaK.lumDist | t₀ | observation time
+ROLE | Checked.Cosmography.BambaK.lumDist | t | emission time
+ROLE | Checked.Cosmography.BambaA.angDist | K | spatial curvature constant
+ROLE | Checked.Cosmography.BambaA.angDist | a | scale factor
+ROLE | Checked.Cosmography.BambaA.angDist | t₀ | observation time
+ROLE | Checked.Cosmography.BambaA.angDist | t | emission time
+ROLE | Checked.Cosmography.Aviles.IsFlatLCDM | Ω | present matter density parameter
+ROLE | Checked.Cosmography.Aviles.IsFlatLCDM | a | scale factor
+ROLE | Checked.Cosmography.Aviles.IsFlatLCDM | t₀ | observation time
+ROLE | Checked.Cosmography.redshift | a | scale factor
+ROLE | Checked.Cosmography.redshift | t₀ | observation time
+ROLE | Checked.Cosmography.redshift | t | emission time
+ROLE | Checked.Cosmography.Aviles.cosmoCoeff | n | derivative order of the coefficient
+ROLE | Checked.Cosmography.Aviles.cosmoCoeff | a | scale factor
+ROLE | Checked.Cosmography.Aviles.cosmoCoeff | t | time of evaluation
+ROLE | Checked.Cosmography.BambaY.yred | a | scale factor
+ROLE | Checked.Cosmography.BambaY.yred | t₀ | observation time
+ROLE | Checked.Cosmography.BambaY.yred | t | emission time
+ROLE | Checked.Cosmography.BambaK.omega0 | K | spatial curvature constant
+ROLE | Checked.Cosmography.BambaK.omega0 | a | scale factor
+ROLE | Checked.Cosmography.BambaK.omega0 | t₀ | observation time
+ROLE | Checked.Cosmography.BambaZ.curvK | K | spatial curvature constant
+ROLE | Checked.Cosmography.BambaZ.curvK | a | scale factor
+ROLE | Checked.Cosmography.BambaZ.curvK | t₀ | observation time
+ROLE | Checked.Cosmography.BambaY.lumDistFlat | a | scale factor
+ROLE | Checked.Cosmography.BambaY.lumDistFlat | t₀ | observation time
+ROLE | Checked.Cosmography.BambaY.lumDistFlat | t | emission time
+ROLE | Checked.Cosmography.BambaY.comoving | a | scale factor
+ROLE | Checked.Cosmography.BambaY.comoving | t₀ | observation time
+ROLE | Checked.Cosmography.BambaY.comoving | t | emission time
+ROLE | Checked.Cosmography.CPL.IsFlatCPL | Ω | present matter density parameter
+ROLE | Checked.Cosmography.CPL.IsFlatCPL | w₀ | present dark energy equation of state
+ROLE | Checked.Cosmography.CPL.IsFlatCPL | wₐ | equation of state evolution parameter
+ROLE | Checked.Cosmography.CPL.IsFlatCPL | a | scale factor
+ROLE | Checked.Cosmography.CPL.IsFlatCPL | t₀ | observation time
+ROLE | Checked.Cosmography.FRCosmo.curv | a | scale factor
+ROLE | Checked.Cosmography.FRCosmo.curv | t | cosmic time of evaluation
+ROLE | Checked.Cosmography.FRCosmo.rhoM | Ω | present matter density parameter
+ROLE | Checked.Cosmography.FRCosmo.rhoM | a | scale factor
+ROLE | Checked.Cosmography.FRCosmo.rhoM | t₀ | present time
+ROLE | Checked.Cosmography.FRCosmo.rhoM | t | time of evaluation
+ROLE | Checked.Cosmography.FRCosmo.FriedmannEq | Ω | present matter density parameter
+ROLE | Checked.Cosmography.FRCosmo.FriedmannEq | a | scale factor
+ROLE | Checked.Cosmography.FRCosmo.FriedmannEq | F | gravity Lagrangian function of Ricci scalar
+ROLE | Checked.Cosmography.FRCosmo.FriedmannEq | t₀ | present time
+ROLE | Checked.Cosmography.FRCosmo.FriedmannEq | t | time of evaluation
+ROLE | Checked.Cosmography.FRCosmo.MasterEq | Ω | present matter density parameter
+ROLE | Checked.Cosmography.FRCosmo.MasterEq | a | scale factor
+ROLE | Checked.Cosmography.FRCosmo.MasterEq | F | gravity Lagrangian function of Ricci scalar
+ROLE | Checked.Cosmography.FRCosmo.MasterEq | t₀ | present time
+ROLE | Checked.Cosmography.FRCosmo.MasterEq | t | time of evaluation
+ROLE | Checked.Cosmography.Transverse.transverse | K | spatial curvature constant
+ROLE | Checked.Cosmography.Transverse.transverse | χ | comoving radial distance
+ROLE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | p | isotherm pressure function of molar volume
+ROLE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | v | molar volume at the point
+ROLE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | p | isotherm pressure function of molar volume
+ROLE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | vl | liquid molar volume
+ROLE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | vg | gas molar volume
+ROLE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | ps | saturation pressure
+ROLE | Checked.Sim.Duffing.IsDuffingSolution | k | linear stiffness coefficient
+ROLE | Checked.Sim.Duffing.IsDuffingSolution | β | cubic stiffness coefficient
+ROLE | Checked.Sim.Duffing.IsDuffingSolution | x₀ | initial position
+ROLE | Checked.Sim.Duffing.IsDuffingSolution | v₀ | initial velocity
+ROLE | Checked.Sim.Duffing.IsDuffingSolution | T | final time of the interval
+ROLE | Checked.Sim.Duffing.IsDuffingSolution | x | position as function of time
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | k₁ | binding rate constant
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | km₁ | unbinding rate constant
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | k₂ | catalytic rate constant
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | s₀ | initial substrate concentration
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | e₀ | initial free enzyme concentration
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | c₀ | initial complex concentration
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | p₀ | initial product concentration
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | T | final time of the interval
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | s | substrate concentration over time
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | e | free enzyme concentration over time
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | c | complex concentration over time
+ROLE | Checked.Sim.MichaelisMenten.IsMMSolution | p | product concentration over time
+ROLE | Checked.Sim.Robertson.IsRobSolution | k₁ | rate constant of the first reaction
+ROLE | Checked.Sim.Robertson.IsRobSolution | k₂ | rate constant of the second reaction
+ROLE | Checked.Sim.Robertson.IsRobSolution | k₃ | rate constant of the third reaction
+ROLE | Checked.Sim.Robertson.IsRobSolution | a₀ | initial concentration of species A
+ROLE | Checked.Sim.Robertson.IsRobSolution | b₀ | initial concentration of species B
+ROLE | Checked.Sim.Robertson.IsRobSolution | c₀ | initial concentration of species C
+ROLE | Checked.Sim.Robertson.IsRobSolution | T | final time of the interval
+ROLE | Checked.Sim.Robertson.IsRobSolution | y₁ | concentration of species A over time
+ROLE | Checked.Sim.Robertson.IsRobSolution | y₂ | concentration of species B over time
+ROLE | Checked.Sim.Robertson.IsRobSolution | y₃ | concentration of species C over time
+SIGN | Checked.Cosmography.decel | minus acceleration times scale factor over velocity squared
+SIGN | Checked.Cosmography.redshift | positive when emission precedes observation in an expanding universe
+SIGN | Checked.Cosmography.BambaK.lumDist | positive curvature constant means closed, negative means open
+SIGN | Checked.Cosmography.BambaA.angDist | positive curvature constant means closed, negative means open
+SIGN | Checked.Cosmography.BambaK.omega0 | one plus curvature term, positive curvature constant gives above one
+SIGN | Checked.Cosmography.BambaZ.curvK | has sign of curvature constant, minus the curvature density parameter
+SIGN | Checked.Cosmography.BambaY.yred | positive for redshift, negative for blueshift
+SIGN | Checked.Cosmography.FRCosmo.curv | negative convention, de Sitter has negative Ricci scalar
+SIGN | Checked.Cosmography.FRCosmo.FriedmannEq | negative Ricci scalar convention, minus the common one
+SIGN | Checked.Cosmography.FRCosmo.MasterEq | negative Ricci scalar convention, minus the common one
+SIGN | Checked.Cosmography.Transverse.transverse | positive curvature constant gives sine, closed spherical case
+SIGN | Checked.Sim.Duffing.IsDuffingSolution | restoring force for positive stiffness, acceleration equals minus force terms
+SIGN | Checked.Sim.MichaelisMenten.IsMMSolution | binding consumes substrate and free enzyme, forms complex
+# source: runs/2026-11-08T2228Z/names/NAMES.txt
+NAME | Checked.Cosmography.hubble | Hubble rate
+NAME | Checked.Cosmography.decel | deceleration parameter
+NAME | Checked.Cosmography.BambaK.lumDist | luminosity distance in FLRW with curvature
+NAME | Checked.Cosmography.BambaA.angDist | angular diameter distance in FLRW with curvature
+NAME | Checked.Cosmography.Aviles.IsFlatLCDM | flat ΛCDM Friedmann expansion law
+NAME | Checked.Cosmography.redshift | cosmological redshift
+NAME | Checked.Cosmography.Aviles.cosmoCoeff | cosmographic coefficient
+NAME | Checked.Cosmography.BambaY.yred | y redshift
+NAME | Checked.Cosmography.BambaK.omega0 | present total density parameter Ω0
+NAME | Checked.Cosmography.BambaZ.curvK | dimensionless spatial curvature parameter
+NAME | Checked.Cosmography.BambaY.lumDistFlat | luminosity distance in flat FLRW
+NAME | Checked.Cosmography.BambaY.comoving | comoving radial distance
+NAME | Checked.Cosmography.CPL.IsFlatCPL | flat matter plus CPL dark energy Friedmann expansion law
+NAME | Checked.Cosmography.FRCosmo.curv | Ricci scalar of flat FLRW
+NAME | Checked.Cosmography.FRCosmo.rhoM | dust matter density
+NAME | Checked.Cosmography.FRCosmo.FriedmannEq | metric F(R) gravity Friedmann equation with dust
+NAME | Checked.Cosmography.FRCosmo.MasterEq | metric F(R) gravity second equation with dust
+NAME | Checked.Cosmography.Transverse.transverse | FLRW transverse distance function
+NAME | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | critical point condition of an isotherm
+NAME | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | Maxwell equal area coexistence condition
+NAME | Checked.Sim.Duffing.IsDuffingSolution | Duffing oscillator initial value problem solution
+NAME | Checked.Sim.MichaelisMenten.IsMMSolution | Michaelis Menten mass action initial value problem solution
+NAME | Checked.Sim.Robertson.IsRobSolution | Robertson chemical kinetics initial value problem solution
