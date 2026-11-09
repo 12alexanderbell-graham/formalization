@@ -1,0 +1,9 @@
+# d03 – registry order + the generator's "divided by" glue (cosmoCoeff)
+
+Generated line (phrases.txt = exact output of gen_phrases.py on the reordered registry; CLAIMS.md at every use of `cosmoCoeff`):
+"the cosmographic coefficient with the derivative order of the coefficient `n`, the scale factor `a` and the time of evaluation `t` (`n`-th time derivative of the scale factor over the scale factor; orders 0 and 1 coefficients are one divided by the `n`-th power of the Hubble rate; The order 2 coefficient is minus the deceleration parameter usually written q; ...)"
+
+False: the first clause now defines the coefficient as a^(n)/a (no Hubble normalisation, dimensionful), and the clause "divided by the n-th power of the Hubble rate" is glued to "orders 0 and 1 coefficients are one", i.e. says the order 0 and 1 coefficients are 1/H^n. True: a^(n)/(a H^n), orders 0 and 1 equal one. The Lean body printed after the phrase (`iteratedDeriv n a t / (a t * hubble a t ^ n)`) states the truth, so a careful reader can detect it (probably scored DISCLOSED); I argue the phrase is the one text meant to be read in words and it now misdefines the quantity and contradicts "order 2 coefficient is minus q" for dimensions.
+
+Move: two lines of the CLAUSES block of scripts/trust/phrase_roles.txt (the registry) are swapped; nothing is added, removed or changed. registry_removals/roles_route are set based and see nothing; the generator's heuristic "a clause starting 'divided by' is glued to the previous one" does the rest, and P7 (blind texts in any order, adjacent, no connective needed) and P9 pass. LEDGER line names cosmoCoeff.
+Expected: passes snapshot; survives P10 (no shape); survives P11 unless the template fixes the clause order or drops the glue rule (the glue is exactly such a joining heuristic).
