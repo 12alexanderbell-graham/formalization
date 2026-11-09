@@ -371,3 +371,5 @@ import Work.FSNeg.NUnclamp
 import Work.FSNeg.NAssemble
 import Work.FalknerSkan.NegTenth
 import Work.FalknerSkan.NTBlindClosed
+import Work.FalknerSkan.NegOutside
+import Work.FalknerSkan.NOBlindClosed
