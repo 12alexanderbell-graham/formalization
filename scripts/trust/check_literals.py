@@ -769,7 +769,10 @@ def main():
             errors.append(f"rule 1: {name}: statement literals {unc} are neither certified targets nor covered by "
                           f"a registered reading ({READINGS})"
                           + (f"; baseline lists {have}" if have is not None else "") +
-                          " — enter source data through a PRINTED definition or a blind reader's constant")
+                          " — enter source data through a PRINTED definition or a blind reader's constant; a constant "
+                          "the author chose inside a conclusion (e.g. a bound in an existential, `∃ x, … < 3`) has no "
+                          "source a blind reader could read: state that conclusion through the defining property "
+                          "itself instead (run 2026-11-09T1028Z: fs_neg_tenth_outside_decay replaced such a 3)")
     if base:
         old = P.git("show", f"{base}:{BASELINE}")
         if old is not None:
