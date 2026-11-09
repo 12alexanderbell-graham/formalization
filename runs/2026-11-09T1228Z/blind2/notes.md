@@ -1,0 +1,11 @@
+# Interpretation choices
+- Derivatives are `derivWithin f (Ici 0)` (one-sided at 0, ordinary inside); iterated for f'', f'''.
+- Regularity: `ContDiffOn ℝ 3 f (Ici 0)` added so the derivatives are meaningful.
+- ODE required for every η ≥ 0 (including η = 0), as stated.
+- β = -1/10 as a real constant `-1/10`.
+- f'(η) → 1 as `Tendsto (D f) atTop (𝓝 1)`.
+- Bounds -1 ≤ f' ≤ 1 required for all η ≥ 0.
+- Decay property: `∀ M, ∀ᶠ η in atTop, M * (1 - f' η) ≤ f'' η` (literal reading; M ranges over all reals).
+- Wall value f''(0) = `D (D f) 0`; interval is the open interval (-0.1405462131, -0.1405462129) written as rationals.
+- Claim 2: two solutions f, g (same predicate `IsSol`) with `f''(0) ≠ g''(0)`.
+- Solution predicate bundled in one structure `IsSol` used by both theorems.
