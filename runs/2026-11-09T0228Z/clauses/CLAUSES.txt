@@ -1,0 +1,105 @@
+CLAUSE | Checked.Cosmography.hubble | logarithmic derivative of the scale factor with respect to cosmic time
+CLAUSE | Checked.Cosmography.hubble | positive for expansion and negative for contraction
+CLAUSE | Checked.Cosmography.hubble | requires a positive scale factor differentiable at t
+CLAUSE | Checked.Cosmography.decel | minus the second time derivative times the scale factor
+CLAUSE | Checked.Cosmography.decel | divided by the squared first time derivative
+CLAUSE | Checked.Cosmography.decel | negative value means accelerating expansion
+CLAUSE | Checked.Cosmography.decel | requires a nonzero first time derivative
+CLAUSE | Checked.Cosmography.BambaK.lumDist | units in which the speed of light is one
+CLAUSE | Checked.Cosmography.BambaK.lumDist | positive K is closed and negative K is open
+CLAUSE | Checked.Cosmography.BambaK.lumDist | emission time is not later than observation time
+CLAUSE | Checked.Cosmography.BambaK.lumDist | equals one plus redshift squared times the angular diameter distance
+CLAUSE | Checked.Cosmography.BambaK.lumDist | requires a positive continuous scale factor between emission and observation
+CLAUSE | Checked.Cosmography.BambaA.angDist | scale factor at emission times the transverse distance of the comoving distance
+CLAUSE | Checked.Cosmography.BambaA.angDist | positive K is closed and negative K is open
+CLAUSE | Checked.Cosmography.BambaA.angDist | emission time is not later than observation time
+CLAUSE | Checked.Cosmography.BambaA.angDist | requires a positive continuous scale factor between emission and observation
+CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | spatially flat universe with dust and a cosmological constant
+CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | Ω is the present matter density parameter
+CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | holds on a whole neighbourhood of t₀
+CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | present Hubble rate is positive so the universe is expanding
+CLAUSE | Checked.Cosmography.redshift | one plus redshift is the scale factor at observation over that at emission
+CLAUSE | Checked.Cosmography.redshift | negative redshift is blueshift
+CLAUSE | Checked.Cosmography.redshift | zero when emission and observation coincide
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | n-th time derivative of the scale factor over the scale factor
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | divided by the n-th power of the Hubble rate
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | order 2 coefficient is minus the deceleration parameter
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | order 3 coefficient is the jerk
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | orders 0 and 1 coefficients are one
+CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | requires a positive scale factor with nonzero first derivative
+CLAUSE | Checked.Cosmography.BambaY.yred | one minus the scale factor at emission over that at observation
+CLAUSE | Checked.Cosmography.BambaY.yred | redshift over one plus redshift
+CLAUSE | Checked.Cosmography.BambaY.yred | always below one for a positive scale factor
+CLAUSE | Checked.Cosmography.BambaY.yred | positive for redshift and negative for blueshift
+CLAUSE | Checked.Cosmography.BambaK.omega0 | total density parameter and not the matter fraction alone
+CLAUSE | Checked.Cosmography.BambaK.omega0 | one plus K over the squared present scale factor times Hubble rate
+CLAUSE | Checked.Cosmography.BambaK.omega0 | equals one for zero curvature
+CLAUSE | Checked.Cosmography.BambaK.omega0 | exceeds one exactly for a closed universe
+CLAUSE | Checked.Cosmography.BambaK.omega0 | requires nonzero present Hubble rate and positive scale factor
+CLAUSE | Checked.Cosmography.BambaZ.curvK | K over the squared present scale factor times Hubble rate
+CLAUSE | Checked.Cosmography.BambaZ.curvK | minus the curvature density parameter
+CLAUSE | Checked.Cosmography.BambaZ.curvK | total density parameter minus one
+CLAUSE | Checked.Cosmography.BambaZ.curvK | positive for closed and negative for open
+CLAUSE | Checked.Cosmography.BambaY.lumDistFlat | luminosity distance for zero spatial curvature
+CLAUSE | Checked.Cosmography.BambaY.lumDistFlat | scale factor at observation times one plus redshift times comoving distance
+CLAUSE | Checked.Cosmography.BambaY.lumDistFlat | units in which the speed of light is one
+CLAUSE | Checked.Cosmography.BambaY.comoving | integral of one over the scale factor over cosmic time
+CLAUSE | Checked.Cosmography.BambaY.comoving | integrated from emission time to observation time
+CLAUSE | Checked.Cosmography.BambaY.comoving | units in which the speed of light is one
+CLAUSE | Checked.Cosmography.BambaY.comoving | flat luminosity distance over scale factor at observation times one plus redshift
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | spatially flat universe with dust and separately conserved dark energy
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | equation of state w₀ plus wₐ times z over one plus z
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | redshift z is measured from t₀
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | Ω is the present matter density parameter
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | holds on a whole neighbourhood of t₀
+CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | present Hubble rate is positive so the universe is expanding
+CLAUSE | Checked.Cosmography.FRCosmo.curv | Ricci scalar of a spatially flat FLRW metric
+CLAUSE | Checked.Cosmography.FRCosmo.curv | negative convention so de Sitter has minus twelve times Hubble rate squared
+CLAUSE | Checked.Cosmography.FRCosmo.curv | minus six times second derivative over scale factor plus squared Hubble rate
+CLAUSE | Checked.Cosmography.FRCosmo.rhoM | pressureless dust density in units where kappa squared is one
+CLAUSE | Checked.Cosmography.FRCosmo.rhoM | Ω is relative to the general relativity critical density
+CLAUSE | Checked.Cosmography.FRCosmo.rhoM | critical density is three times present Hubble rate squared
+CLAUSE | Checked.Cosmography.FRCosmo.rhoM | falls as the inverse cube of the scale factor
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | constraint equation of metric F of R gravity in flat FLRW
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | dust source and kappa squared is one
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | negative Ricci scalar convention with R taken as curv of a
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | multiplied through by F prime with no division
+CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | derivatives of F are taken with respect to R
+CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | Hubble rate derivative equation of metric F of R gravity
+CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | flat FLRW with dust source and kappa squared is one
+CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | negative Ricci scalar convention with R taken as curv of a
+CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | multiplied through by minus two F prime with no division
+CLAUSE | Checked.Cosmography.Transverse.transverse | second derivative in χ is minus K times itself
+CLAUSE | Checked.Cosmography.Transverse.transverse | vanishes at zero with unit slope
+CLAUSE | Checked.Cosmography.Transverse.transverse | sine of root K χ over root K for positive K
+CLAUSE | Checked.Cosmography.Transverse.transverse | hyperbolic sine of root minus K χ over root minus K for negative K
+CLAUSE | Checked.Cosmography.Transverse.transverse | equals χ itself for zero K
+CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | pressure as a function of molar volume at fixed temperature
+CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | first and second volume derivatives of pressure both vanish
+CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | a horizontal inflection point of the isotherm
+CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | a mere stationary point is not critical
+CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | required for isotherms twice continuously differentiable near v
+CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | liquid volume is less than gas volume
+CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | pressure equals the saturation pressure at both volumes
+CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equal areas between the isotherm and the saturation pressure line
+CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equivalent to equal chemical potential in both phases
+CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | pressure is a function of molar volume at fixed temperature
+CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | required for positive volumes with the isotherm continuous between them
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | the second derivative plus k times x plus β times x cubed vanishes
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | k is the linear stiffness and β the cubic coefficient
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | x₀ is the initial position and v₀ the initial velocity
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | holds on the closed time interval from zero to T
+CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | derivatives at the endpoints are one-sided
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | mass action kinetics of E plus S reversibly forming complex C
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | k₁ is the rate constant of E plus S forming C
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | km₁ is the rate constant of C returning to E plus S
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | k₂ is the rate constant of C forming E plus P
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | s e c p are concentrations of S E C and P
+CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | holds on the closed time interval from zero to T
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | mass action kinetics of the Robertson network
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | A converts to B with rate constant k₁
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | B plus C gives A plus C with rate constant k₂
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | two B give B plus C with rate constant k₃
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | y₁ y₂ y₃ are concentrations of A B C
+CLAUSE | Checked.Sim.Robertson.IsRobSolution | holds on the closed time interval from zero to T
+END
