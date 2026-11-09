@@ -10,7 +10,7 @@
 
 ## Start
 - 18:28Z. add_repo not exposed; pre-cloned checkout detached at 739510a with a stale diverged local main; `git checkout -B main origin/main` = 739510a. No LOCK; taken 254d087.
-- Environment: repo reachable (push). **Local Lean available**: the official elan installer ran this time (run 1628Z's environment had refused it); `lake exe cache get` ≈ 3 min; full `lake build Checked` from 18:38Z (interrupted once at 18:31Z to build PhraseCerts' imports first).
+- Environment: repo reachable (push). **Local Lean available**: the official elan installer ran this time (run 1628Z's environment had refused it); `lake exe cache get` ≈ 3 min; full `lake build Checked` 18:38–19:56Z (78 min; PhraseCerts' imports built first), incremental pass for PhraseCerts 1 min; StatementDeps with relock and Claims ≈ 8 min each.
 - CI at start: c143ec5 (42672836422) and 739510a (42672998445) "failure" = checked job cancelled by coalescing (goal guard, packet, changes green); 254d087 (42674337617) completed in 51 s with no job (GitHub side); c7e1ad9 (42662510643) work green, nanoda 4/4 running. So the β = −1/10 promotion has had no checked job on main yet.
 
 ## Bottleneck
@@ -21,6 +21,13 @@ STATE exact next step 3(a)/(b): the content of a blind reading (adversary AD d02
 2. `scripts/trust/phrase_certs.txt` (34 CERT lines, 31 reader lines), `phrase_cert_baseline.txt` (61 lines: 34 in group A, owed; 27 in group B, no property), `check_claims.py` P13 + planted controls, `Claims.lean` (certificate checks, conditions after phrases, PHRASE_LINES.md), CI staleness check and author-files tarball.
 3. Adversary AE (Sonnet, brief committed in e74041e's parent tree as `adversary/BRIEF.md`, run on snapshot 86c07c9): 6 defect classes; repairs before the first push (`adversary/JUDGE.md`).
 4. Branch `wip/p13` (e74041e) pushed for a CI build and author files in parallel with the local build.
+
+## Local checks
+Full `lake build Checked` green (incl. PhraseCerts; every PhraseCerts theorem on propext/Classical.choice/Quot.sound only); StatementDeps with relock (232 headlines, NV 154/154, necessity 161/17/665: unchanged); Claims.lean (232 claims, PHRASE_LINES.md, 0 generator errors after allowing predicate certificates to use the predicate in a hypothesis); every Python trust check and every `--base 8c80eb9` check green; P13 planted controls green; `make_packet --check`; goal guard; check_status_lines.
+
+## CI
+- `wip/p13` (42681133363, e74041e): goal guard red (run README stub had no THE RESULT line yet; fixed), checked job running at 20:05Z; a parallel build only.
+- Main push of this run (P13 + records): read next run (STATE exact next step 1).
 
 ## Lessons
 - Writing a reader's sentence as a Lean statement is the fastest falsifier the program has: five false lines in under an hour, each of which had passed three blind readers and the main session.
