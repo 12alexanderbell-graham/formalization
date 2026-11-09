@@ -351,3 +351,9 @@ import Work.FalknerSkan.UnrestrictedCore
 import Work.FalknerSkan.Unrestricted
 import Work.FalknerSkan.UBlindClosed
 import Work.FalknerSkan.FTLBlindClosed
+import Work.FalknerSkan.NegCrocco
+import Work.FalknerSkan.NegNoCross
+import Work.FalknerSkan.NegUPrime
+import Work.FalknerSkan.NegCore
+import Work.FalknerSkan.NegDecay
+import Work.FalknerSkan.NDBlindClosed

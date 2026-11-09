@@ -1,4 +1,5 @@
 import Mathlib
+import Work.FalknerSkan.NegCore
 
 /-!
 # Falkner–Skan with adverse pressure gradient (β < 0): uniqueness in the decay class
@@ -34,7 +35,14 @@ theorem fs_neg_decay_max_shear (β : ℝ) (hβ : β < 0) (f p q f₂ p₂ q₂ :
     (hf₂0 : f₂ 0 = 0) (hp₂0 : p₂ 0 = 0) (hlim₂ : Tendsto p₂ atTop (𝓝 1))
     (hpos₂ : ∀ η ∈ Ici (0 : ℝ), 0 < q₂ η) :
     q₂ 0 ≤ q 0 := by
-  sorry
+  have hc : 0 < Real.sqrt (-β) := Real.sqrt_pos.2 (by linarith)
+  have hK : (0 : ℝ) < 1 / (-β) := one_div_pos.2 (by linarith)
+  have h := Work.FalknerSkan.NegUPrime.u_prime hK
+    (Work.FalknerSkan.NegCore.toSol hβ hf hp hq hf0 hp0 hlim hpos)
+    (Work.FalknerSkan.NegCore.toSol hβ hf₂ hp₂ hq₂ hf₂0 hp₂0 hlim₂ hpos₂)
+    (Work.FalknerSkan.NegCore.toDec hβ hdec)
+  simp only [zero_div] at h
+  exact (div_le_div_iff_of_pos_right hc).1 h
 
 /-- Falkner–Skan with β < 0: two solutions of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞), each with
 f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, eventually M (1 − p) ≤ q, agree:
@@ -53,6 +61,11 @@ theorem fs_neg_decay_equal (β : ℝ) (hβ : β < 0) (f p q f₂ p₂ q₂ : ℝ
     (hpos₂ : ∀ η ∈ Ici (0 : ℝ), 0 < q₂ η)
     (hdec₂ : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p₂ η) ≤ q₂ η) :
     ∀ η ∈ Ici (0 : ℝ), f η = f₂ η ∧ p η = p₂ η ∧ q η = q₂ η := by
-  sorry
+  have h1 := fs_neg_decay_max_shear β hβ f p q f₂ p₂ q₂ hf hp hq hf0 hp0 hlim hpos hdec
+    hf₂ hp₂ hq₂ hf₂0 hp₂0 hlim₂ hpos₂
+  have h2 := fs_neg_decay_max_shear β hβ f₂ p₂ q₂ f p q hf₂ hp₂ hq₂ hf₂0 hp₂0 hlim₂ hpos₂ hdec₂
+    hf hp hq hf0 hp0 hlim hpos
+  exact Work.FalknerSkan.NegCore.eq_of_startb hf hp hq hf₂ hp₂ hq₂ (by rw [hf0, hf₂0])
+    (by rw [hp0, hp₂0]) (le_antisymm h2 h1)
 
 end Work.FalknerSkan.NegDecay
