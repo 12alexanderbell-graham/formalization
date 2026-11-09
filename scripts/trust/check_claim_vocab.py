@@ -148,6 +148,10 @@ def sections(path=None):
                 para.append(l[2:])
             elif not l.startswith("Author's paraphrase"):
                 gen.append(l)
+        # the certificate note after a phrase (rule P13 of check_claims.py, run 2026-11-09T1828Z) repeats reader lines
+        # already in the phrase and adds fixed generator words and hypotheses of certificate theorems: it contributes
+        # no vocabulary (otherwise "proved", "assuming" and certificate identifiers would become claim words)
+        gen = [re.sub(r"\. Phrase lines proved in Lean \(statements in PHRASE_LINES\.md\): .*$", "", l) for l in gen]
         out.append((full or lines[0].split("`")[0], "\n".join(gen), " ".join(para)))
     return out
 

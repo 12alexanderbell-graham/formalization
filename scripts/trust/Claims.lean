@@ -447,7 +447,12 @@ run_cmd do
               | .mdata _ b => stack := stack.push b
               | _ => pure ()
             if hasImp then bad := bad.push "the conclusion contains an implication"
-            unless body.getUsedConstants.contains dn do bad := bad.push s!"the conclusion does not use {dn}"
+            -- a value definition must occur in the conclusion; a predicate may instead occur in a hypothesis (the
+            -- line then states a consequence of the predicate)
+            let isPred ← forallTelescope (← getConstInfo dn).type fun _ b => return b.isProp
+            let inHyp ← xs.anyM fun x => do return (← inferType x).getUsedConstants.contains dn
+            unless body.getUsedConstants.contains dn || (isPred && inHyp) do
+              bad := bad.push s!"the conclusion does not use {dn}"
             return bad : MetaM (Array String))
           for b in shape do
             errors := errors.push s!"phrase_certs.txt: {tn}: {b} (P13: every condition must be a printed hypothesis)"
