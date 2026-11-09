@@ -4,6 +4,7 @@ import Checked.Cosmography.FRCosmo
 import Checked.Cosmography.CPLCoefficients
 import Checked.Chemistry.CubicEOS
 import Checked.Chemistry.Coexistence
+import Checked.Sim.Duffing
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Tactic.FieldSimp
@@ -34,11 +35,15 @@ namespace Checked.Trust.PhraseCerts
 
 /-! ### Hubble rate, deceleration parameter, redshift -/
 
-/-- Line "positive for expansion and negative for contraction" of `hubble`. -/
-theorem hubble_sign (a : ℝ → ℝ) (t : ℝ) (ha : 0 < a t) :
-    (0 < deriv a t → 0 < hubble a t) ∧ (deriv a t < 0 → hubble a t < 0) := by
+/-- Line "positive for expansion and negative for contraction" of `hubble`, first half (expansion). -/
+theorem hubble_pos (a : ℝ → ℝ) (t : ℝ) (ha : 0 < a t) (hv : 0 < deriv a t) : 0 < hubble a t := by
   unfold hubble
-  exact ⟨fun h => div_pos h ha, fun h => div_neg_of_neg_of_pos h ha⟩
+  exact div_pos hv ha
+
+/-- Line "positive for expansion and negative for contraction" of `hubble`, second half (contraction). -/
+theorem hubble_neg (a : ℝ → ℝ) (t : ℝ) (ha : 0 < a t) (hv : deriv a t < 0) : hubble a t < 0 := by
+  unfold hubble
+  exact div_neg_of_neg_of_pos hv ha
 
 /-- Line "logarithmic derivative of the scale factor with respect to cosmic time" of `hubble`: for a
 positive scale factor differentiable at `t`. -/
@@ -60,8 +65,11 @@ theorem cosmoCoeff_two (a : ℝ → ℝ) (t : ℝ) (ha : a t ≠ 0) : cosmoCoeff
   · simp [hv]
   · field_simp
 
-/-- Line "negative value means accelerating expansion" of `decel`. -/
-theorem decel_neg_iff (a : ℝ → ℝ) (t : ℝ) (ha : 0 < a t) (hv : deriv a t ≠ 0) :
+/-- Line "negative value means accelerating expansion" of `decel`: for an expanding universe
+(positive scale factor and velocity), the deceleration parameter is negative exactly when the
+acceleration is positive. (Adversary AE d05: the first version assumed only a nonzero velocity, which
+also covers a contracting universe.) -/
+theorem decel_neg_iff (a : ℝ → ℝ) (t : ℝ) (ha : 0 < a t) (hv : 0 < deriv a t) :
     decel a t < 0 ↔ 0 < deriv (deriv a) t := by
   unfold decel
   have hv2 : 0 < deriv a t ^ 2 := by positivity
@@ -106,8 +114,9 @@ theorem cosmoCoeff_one_needs_velocity : cosmoCoeff 1 (fun _ => 1) 0 = 0 := by
 
 /-! ### Curvature quantities (Bamba et al.) -/
 
-/-- Line "one plus curvature term" (first part of the sign line) of `omega0`, and line "total
-density parameter minus one" of `curvK`: unconditional. -/
+/-- First part of sign line "one plus curvature term, positive curvature constant gives above one" of
+`omega0` (the second part is `omega0_gt_one`), and line "total density parameter minus one" of
+`curvK`: unconditional. -/
 theorem omega0_eq_one_add_curvK (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) :
     BambaK.omega0 K a t₀ = 1 + BambaZ.curvK K a t₀ := by
   unfold BambaK.omega0 BambaZ.curvK; rfl
@@ -117,7 +126,8 @@ theorem curvK_eq_omega0_sub_one (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) :
     BambaZ.curvK K a t₀ = BambaK.omega0 K a t₀ - 1 := by
   rw [omega0_eq_one_add_curvK]; ring
 
-/-- Sign line "positive curvature constant gives above one" of `omega0`: only for a nonzero
+/-- Second part of sign line "one plus curvature term, positive curvature constant gives above one" of
+`omega0`: only for a nonzero
 Hubble rate and scale factor at `t₀`. -/
 theorem omega0_gt_one (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hK : 0 < K) (hH : hubble a t₀ ≠ 0)
     (ha : a t₀ ≠ 0) : 1 < BambaK.omega0 K a t₀ := by
@@ -134,13 +144,21 @@ theorem omega0_needs_hubble (K : ℝ) : BambaK.omega0 K (fun _ => 1) 0 = 1 := by
 theorem omega0_zero (a : ℝ → ℝ) (t₀ : ℝ) : BambaK.omega0 0 a t₀ = 1 := by
   unfold BambaK.omega0; simp
 
-/-- Line "positive for closed and negative for open" and sign line "has sign of curvature
-constant" of `curvK`: only for a nonzero Hubble rate and scale factor at `t₀`. -/
-theorem curvK_sign (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hH : hubble a t₀ ≠ 0) (ha : a t₀ ≠ 0) :
-    (0 < K → 0 < BambaZ.curvK K a t₀) ∧ (K < 0 → BambaZ.curvK K a t₀ < 0) := by
+/-- Line "positive for closed and negative for open" of `curvK`, closed half: only for a nonzero
+Hubble rate and scale factor at `t₀`. -/
+theorem curvK_pos (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hH : hubble a t₀ ≠ 0) (ha : a t₀ ≠ 0) (hK : 0 < K) :
+    0 < BambaZ.curvK K a t₀ := by
   unfold BambaZ.curvK
   have hd : 0 < hubble a t₀ ^ 2 * a t₀ ^ 2 := by positivity
-  exact ⟨fun h => div_pos h hd, fun h => div_neg_of_neg_of_pos h hd⟩
+  exact div_pos hK hd
+
+/-- Line "positive for closed and negative for open" of `curvK`, open half: only for a nonzero
+Hubble rate and scale factor at `t₀`. -/
+theorem curvK_neg (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (hH : hubble a t₀ ≠ 0) (ha : a t₀ ≠ 0) (hK : K < 0) :
+    BambaZ.curvK K a t₀ < 0 := by
+  unfold BambaZ.curvK
+  have hd : 0 < hubble a t₀ ^ 2 * a t₀ ^ 2 := by positivity
+  exact div_neg_of_neg_of_pos hK hd
 
 /-- Line "always below one for a positive scale factor" of `yred`. -/
 theorem yred_lt_one (a : ℝ → ℝ) (t₀ t : ℝ) (ha : 0 < a t) (ha₀ : 0 < a t₀) :
@@ -159,15 +177,24 @@ theorem yred_eq (a : ℝ → ℝ) (t₀ t : ℝ) (ha : a t ≠ 0) (ha₀ : a t�
   rw [h]
   field_simp
 
-/-- Sign line "positive for redshift, negative for blueshift" of `yred`, for a positive scale factor. -/
-theorem yred_sign (a : ℝ → ℝ) (t₀ t : ℝ) (ha : 0 < a t) (ha₀ : 0 < a t₀) :
-    (0 < redshift a t₀ t → 0 < BambaY.yred a t₀ t) ∧ (redshift a t₀ t < 0 → BambaY.yred a t₀ t < 0) := by
+/-- Sign line "positive for redshift, negative for blueshift" of `yred`, redshift half, for a positive
+scale factor. -/
+theorem yred_pos (a : ℝ → ℝ) (t₀ t : ℝ) (ha : 0 < a t) (ha₀ : 0 < a t₀) (hz : 0 < redshift a t₀ t) :
+    0 < BambaY.yred a t₀ t := by
+  have hp : 0 < 1 + redshift a t₀ t := by linarith
+  unfold BambaY.yred
+  exact div_pos hz hp
+
+/-- Sign line "positive for redshift, negative for blueshift" of `yred`, blueshift half, for a positive
+scale factor. -/
+theorem yred_neg (a : ℝ → ℝ) (t₀ t : ℝ) (ha : 0 < a t) (ha₀ : 0 < a t₀) (hz : redshift a t₀ t < 0) :
+    BambaY.yred a t₀ t < 0 := by
   have hp : 0 < 1 + redshift a t₀ t := by
     unfold redshift
     have := div_pos ha₀ ha
     linarith
   unfold BambaY.yred
-  exact ⟨fun h => div_pos h hp, fun h => div_neg_of_neg_of_pos h hp⟩
+  exact div_neg_of_neg_of_pos hz hp
 
 /-! ### Transverse comoving function -/
 
@@ -175,7 +202,7 @@ theorem yred_sign (a : ℝ → ℝ) (t₀ t : ℝ) (ha : 0 < a t) (ha₀ : 0 < a
 theorem transverse_zero (χ : ℝ) : Transverse.transverse 0 χ = χ := by
   unfold Transverse.transverse; simp
 
-/-- Sign line "positive curvature constant gives sine" of `transverse`. -/
+/-- Sign line "positive curvature constant gives sine, closed spherical case" of `transverse`. -/
 theorem transverse_pos (K χ : ℝ) (hK : 0 < K) :
     Transverse.transverse K χ = Real.sin (Real.sqrt K * χ) / Real.sqrt K := by
   unfold Transverse.transverse; simp [hK]
@@ -204,31 +231,84 @@ theorem transverse_origin (K : ℝ) :
     · rfl
     · rw [id_eq, mul_zero, Real.cos_zero, one_mul, mul_one, div_self hs.ne']
 
+/-- Line "second derivative in χ is minus K times itself" of `transverse`, for every curvature
+constant and every χ. -/
+theorem transverse_second_deriv (K χ : ℝ) :
+    deriv (deriv (Transverse.transverse K)) χ = -K * Transverse.transverse K χ := by
+  rcases lt_trichotomy K 0 with hK | rfl | hK
+  · have hs : 0 < Real.sqrt (-K) := Real.sqrt_pos.mpr (by linarith)
+    have hss : Real.sqrt (-K) * Real.sqrt (-K) = -K := Real.mul_self_sqrt (by linarith)
+    have hf : Transverse.transverse K = fun χ => Real.sinh (Real.sqrt (-K) * χ) / Real.sqrt (-K) := by
+      funext χ; unfold Transverse.transverse; simp [hK, not_lt.mpr hK.le]
+    have h1 : deriv (Transverse.transverse K) = fun χ => Real.cosh (Real.sqrt (-K) * χ) := by
+      rw [hf]; funext x
+      have := (((hasDerivAt_id x).const_mul (Real.sqrt (-K))).sinh).div_const (Real.sqrt (-K))
+      rw [show (fun χ => Real.sinh (Real.sqrt (-K) * χ) / Real.sqrt (-K)) = fun x => Real.sinh (Real.sqrt (-K) * id x) / Real.sqrt (-K) from rfl, this.deriv]
+      field_simp
+      rfl
+    have h2 : deriv (fun χ => Real.cosh (Real.sqrt (-K) * χ)) χ = Real.sinh (Real.sqrt (-K) * χ) * Real.sqrt (-K) := by
+      have := ((hasDerivAt_id χ).const_mul (Real.sqrt (-K))).cosh
+      rw [show (fun χ => Real.cosh (Real.sqrt (-K) * χ)) = fun x => Real.cosh (Real.sqrt (-K) * id x) from rfl, this.deriv]
+      simp
+    rw [h1, h2, hf]
+    field_simp
+    rw [Real.sq_sqrt (by linarith)]; ring
+  · have hf : Transverse.transverse 0 = fun χ => χ := by
+      funext χ; unfold Transverse.transverse; simp
+    rw [hf]; simp
+  · have hs : 0 < Real.sqrt K := Real.sqrt_pos.mpr hK
+    have hss : Real.sqrt K * Real.sqrt K = K := Real.mul_self_sqrt hK.le
+    have hf : Transverse.transverse K = fun χ => Real.sin (Real.sqrt K * χ) / Real.sqrt K := by
+      funext χ; unfold Transverse.transverse; simp [hK]
+    have h1 : deriv (Transverse.transverse K) = fun χ => Real.cos (Real.sqrt K * χ) := by
+      rw [hf]; funext x
+      have := (((hasDerivAt_id x).const_mul (Real.sqrt K)).sin).div_const (Real.sqrt K)
+      rw [show (fun χ => Real.sin (Real.sqrt K * χ) / Real.sqrt K) = fun x => Real.sin (Real.sqrt K * id x) / Real.sqrt K from rfl, this.deriv]
+      field_simp
+      rfl
+    have h2 : deriv (fun χ => Real.cos (Real.sqrt K * χ)) χ = -Real.sin (Real.sqrt K * χ) * Real.sqrt K := by
+      have := ((hasDerivAt_id χ).const_mul (Real.sqrt K)).cos
+      rw [show (fun χ => Real.cos (Real.sqrt K * χ)) = fun x => Real.cos (Real.sqrt K * id x) from rfl, this.deriv]
+      simp
+    rw [h1, h2, hf]
+    field_simp
+    rw [Real.sq_sqrt hK.le]; ring
+
 /-! ### f(R) cosmology: Ricci scalar and dust density -/
 
-/-- Lines "negative convention so de Sitter has minus twelve times Hubble rate squared" and sign line
-"de Sitter has negative Ricci scalar" of `curv`: for the de Sitter scale factor `c e^{Ht}`, `c ≠ 0`,
-the Ricci scalar is `-12 H²`, negative when `H ≠ 0`. -/
+theorem hubble_deSitter (c H : ℝ) (hc : c ≠ 0) :
+    hubble (fun s => c * Real.exp (H * s)) = fun _ => H := by
+  funext s
+  unfold hubble
+  have hd : HasDerivAt (fun s => c * Real.exp (H * s)) (c * (Real.exp (H * s) * H)) s :=
+    (((hasDerivAt_id s).const_mul H).exp.congr_deriv (by simp)).const_mul c
+  rw [hd.deriv]
+  have := Real.exp_pos (H * s)
+  field_simp
+
+/-- Line "negative convention so de Sitter has minus twelve times Hubble rate squared" of `curv`: for
+the de Sitter scale factor `c e^{Ht}`, `c ≠ 0`, the Ricci scalar is `-12 H²`. -/
 theorem curv_deSitter (c H t : ℝ) (hc : c ≠ 0) :
-    FRCosmo.curv (fun s => c * Real.exp (H * s)) t = -12 * H ^ 2 ∧
-      (H ≠ 0 → FRCosmo.curv (fun s => c * Real.exp (H * s)) t < 0) := by
-  have hhub : hubble (fun s => c * Real.exp (H * s)) = fun _ => H := by
-    funext s
-    unfold hubble
-    have hd : HasDerivAt (fun s => c * Real.exp (H * s)) (c * (Real.exp (H * s) * H)) s :=
-      (((hasDerivAt_id s).const_mul H).exp.congr_deriv (by simp)).const_mul c
-    rw [hd.deriv]
-    have := Real.exp_pos (H * s)
-    field_simp
-  have hcurv : FRCosmo.curv (fun s => c * Real.exp (H * s)) t = -12 * H ^ 2 := by
-    unfold FRCosmo.curv
-    rw [hhub]
-    simp only [deriv_const']
-    ring
-  refine ⟨hcurv, fun hH => ?_⟩
-  rw [hcurv]
+    FRCosmo.curv (fun s => c * Real.exp (H * s)) t = -12 * H ^ 2 := by
+  unfold FRCosmo.curv
+  rw [hubble_deSitter c H hc]
+  simp only [deriv_const']
+  ring
+
+/-- Sign line "negative convention, de Sitter has negative Ricci scalar" of `curv`: for the de Sitter
+scale factor `c e^{Ht}` with `c ≠ 0` and `H ≠ 0`. -/
+theorem curv_deSitter_neg (c H t : ℝ) (hc : c ≠ 0) (hH : H ≠ 0) :
+    FRCosmo.curv (fun s => c * Real.exp (H * s)) t < 0 := by
+  rw [curv_deSitter c H t hc]
   have : 0 < H ^ 2 := by positivity
   linarith
+
+/-- Line "Ω is relative to the general relativity critical density" of `rhoM`: at `t₀` the density is
+`Ω` times `3 H₀²`, the critical density in units where κ² is one, for a nonzero scale factor. -/
+theorem rhoM_present (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) (ha : a t₀ ≠ 0) :
+    FRCosmo.rhoM Ω a t₀ t₀ = Ω * (3 * hubble a t₀ ^ 2) := by
+  unfold FRCosmo.rhoM
+  rw [div_self ha]; ring
 
 /-- Line "falls as the inverse cube of the scale factor" of `rhoM`: `ρ_M · a³` is the same at every
 time where the scale factor is nonzero. -/
@@ -283,5 +363,18 @@ volumes" and "equal areas between the isotherm and the saturation pressure line"
 theorem maxwell_parts (p : ℝ → ℝ) (vl vg ps : ℝ) (h : Chemistry.Coexistence.IsMaxwellCoexistence p vl vg ps) :
     vl < vg ∧ (p vl = ps ∧ p vg = ps) ∧ ∫ v in vl..vg, p v = ps * (vg - vl) :=
   ⟨h.1, ⟨h.2.1, h.2.2.1⟩, h.2.2.2⟩
+
+/-! ### Simulations -/
+
+/-- Line "x₀ is the initial position and v₀ the initial velocity" of `IsDuffingSolution`: for a
+positive end time `T` (for `T ≤ 0` the interval has no interior and `v₀` is not a velocity: adversary
+AE d06). -/
+theorem duffing_initial (k β x₀ v₀ T : ℝ) (x : ℝ → ℝ) (hT : 0 < T)
+    (h : Sim.Duffing.IsDuffingSolution k β x₀ v₀ T x) :
+    x 0 = x₀ ∧ HasDerivWithinAt x v₀ (Set.Icc 0 T) 0 := by
+  obtain ⟨hx, v, hv, hall⟩ := h
+  refine ⟨hx, ?_⟩
+  have := (hall 0 ⟨le_rfl, hT.le⟩).1
+  rwa [hv] at this
 
 end Checked.Trust.PhraseCerts

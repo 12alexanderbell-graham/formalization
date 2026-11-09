@@ -408,7 +408,10 @@ run_cmd do
   let mut certs : NameMap (Array (String × Name)) := {}
   let mut certList : Array (Name × String × String × Name) := #[]
   for l in ← readLines "scripts/trust/phrase_certs.txt" do
-    unless l.startsWith "CERT | " do continue
+    -- every non-comment line must parse (adversary AE d01: a line Lean skipped silently while Python counted it)
+    unless l.startsWith "CERT | " do
+      errors := errors.push s!"phrase_certs.txt: line is neither a comment nor a CERT line: {l}"
+      continue
     match (l.splitOn " | ").map (·.trimAscii.copy) with
     | [_, kind, d, line, th] =>
       match resolve cands d, resolve cands th with
@@ -418,6 +421,36 @@ run_cmd do
         | .thmInfo _ =>
           unless tc.type.getUsedConstants.contains dn do
             errors := errors.push s!"phrase_certs.txt: the statement of {tn} does not use {dn} (P13: a certificate is a theorem about the definition)"
+          -- adversary AE d02-d04: the theorem's docstring quotes the line it certifies; the definition occurs in
+          -- the conclusion (not only in a hypothesis); the conclusion has no implication and no data binder is a
+          -- subtype, so every condition is a printed hypothesis
+          let doc := oneLine ((← findDocString? env tn).getD "")
+          unless (doc.splitOn s!"\"{line}\"").length > 1 do
+            errors := errors.push s!"phrase_certs.txt: the docstring of {tn} does not quote the line \"{line}\" (P13)"
+          let shape ← liftTermElabM <| (forallTelescope tc.type fun xs body => do
+            let mut bad : Array String := #[]
+            for x in xs do
+              let xt ← inferType x
+              if xt.getAppFn.isConstOf ``Subtype then bad := bad.push "a data binder is a subtype"
+            let mut hasImp := false
+            let mut stack : Array Expr := #[body]
+            while !stack.isEmpty do
+              let e := stack.back!
+              stack := stack.pop
+              match e with
+              | .forallE _ d b _ =>
+                -- a non-dependent arrow is an implication, unless it is a negation (`P → False`)
+                if !b.hasLooseBVar 0 && !b.isConstOf ``False then hasImp := true
+                stack := (stack.push d).push b
+              | .app f a => stack := (stack.push f).push a
+              | .lam _ d b _ => stack := (stack.push d).push b
+              | .mdata _ b => stack := stack.push b
+              | _ => pure ()
+            if hasImp then bad := bad.push "the conclusion contains an implication"
+            unless body.getUsedConstants.contains dn do bad := bad.push s!"the conclusion does not use {dn}"
+            return bad : MetaM (Array String))
+          for b in shape do
+            errors := errors.push s!"phrase_certs.txt: {tn}: {b} (P13: every condition must be a printed hypothesis)"
           unless phrases.contains dn do
             errors := errors.push s!"phrase_certs.txt: {dn} has no phrase"
           certs := certs.insert dn (((certs.find? dn).getD #[]).push (line, tn))

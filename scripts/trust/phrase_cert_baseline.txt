@@ -25,7 +25,6 @@ CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | multiplied through by F prime
 CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | derivatives of F are taken with respect to R
 CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | negative Ricci scalar convention with R taken as curv of a
 CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | multiplied through by minus two F prime with no division
-CLAUSE | Checked.Cosmography.Transverse.transverse | second derivative in χ is minus K times itself
 CLAUSE | Checked.Chemistry.CubicEOS.IsCriticalIsotherm | pressure as a function of molar volume at fixed temperature
 CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | pressure is a function of molar volume at fixed temperature
 CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | the second derivative plus k times x plus β times x cubed vanishes
@@ -40,7 +39,10 @@ CLAUSE | Checked.Sim.Robertson.IsRobSolution | A converts to B with rate constan
 CLAUSE | Checked.Sim.Robertson.IsRobSolution | B plus C gives A plus C with rate constant k₂
 CLAUSE | Checked.Sim.Robertson.IsRobSolution | two B give B plus C with rate constant k₃
 CLAUSE | Checked.Sim.Robertson.IsRobSolution | holds on the closed time interval from zero to T
-# B (no property of the value)
+SIGN | Checked.Cosmography.BambaZ.curvK | has sign of curvature constant, minus the curvature density parameter
+CLAUSE | Checked.Cosmography.redshift | negative redshift is blueshift
+# B (no property of the value; adversary AE d06: the concentration lines of the MM and Robertson predicates are
+# vacuous for an end time T ≤ 0, as the Duffing initial-velocity line was, which is now certified for T > 0)
 SIGN | Checked.Cosmography.BambaK.lumDist | positive curvature constant means closed, negative means open
 SIGN | Checked.Cosmography.BambaA.angDist | positive curvature constant means closed, negative means open
 SIGN | Checked.Cosmography.FRCosmo.FriedmannEq | negative Ricci scalar convention, minus the common one
@@ -50,7 +52,6 @@ CLAUSE | Checked.Cosmography.BambaK.lumDist | positive K is closed and negative 
 CLAUSE | Checked.Cosmography.BambaA.angDist | positive K is closed and negative K is open
 CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | spatially flat universe with dust and a cosmological constant
 CLAUSE | Checked.Cosmography.Aviles.IsFlatLCDM | Ω is the present matter density parameter
-CLAUSE | Checked.Cosmography.redshift | negative redshift is blueshift
 CLAUSE | Checked.Cosmography.BambaK.omega0 | total density parameter and not the matter fraction alone
 CLAUSE | Checked.Cosmography.BambaY.lumDistFlat | units in which the speed of light is one
 CLAUSE | Checked.Cosmography.BambaY.comoving | units in which the speed of light is one
@@ -59,13 +60,11 @@ CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | redshift z is measured from t₀
 CLAUSE | Checked.Cosmography.CPL.IsFlatCPL | Ω is the present matter density parameter
 CLAUSE | Checked.Cosmography.FRCosmo.curv | Ricci scalar of a spatially flat FLRW metric
 CLAUSE | Checked.Cosmography.FRCosmo.rhoM | pressureless dust density in units where kappa squared is one
-CLAUSE | Checked.Cosmography.FRCosmo.rhoM | Ω is relative to the general relativity critical density
 CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | constraint equation of metric F of R gravity in flat FLRW
 CLAUSE | Checked.Cosmography.FRCosmo.FriedmannEq | dust source and kappa squared is one
 CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | Hubble rate derivative equation of metric F of R gravity
 CLAUSE | Checked.Cosmography.FRCosmo.MasterEq | flat FLRW with dust source and kappa squared is one
 CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | k is the linear stiffness and β the cubic coefficient
-CLAUSE | Checked.Sim.Duffing.IsDuffingSolution | x₀ is the initial position and v₀ the initial velocity
 CLAUSE | Checked.Sim.MichaelisMenten.IsMMSolution | s e c p are concentrations of S E C and P
 CLAUSE | Checked.Sim.Robertson.IsRobSolution | y₁ y₂ y₃ are concentrations of A B C
 CLAUSE | Checked.Cosmography.Aviles.cosmoCoeff | The order 3 coefficient is the jerk parameter usually written j

@@ -699,28 +699,51 @@ CERTS = "scripts/trust/phrase_certs.txt"
 CERT_BASE = "scripts/trust/phrase_cert_baseline.txt"
 
 
+def p13_chars(path_texts):
+    """P13 (after adversary AE d01): the certificate files and the registry contain no separator or control/format
+    character other than the ASCII space and line feed (Unicode category Z* or C*). Python's str.strip() removes
+    U+00A0 and friends, Lean's trimAscii does not: a CERT line prefixed with U+00A0 counted here and was skipped by
+    Claims.lean, so a certificate could be dropped (its conditions vanished from CLAIMS.md) or a ghost one added."""
+    import unicodedata
+    bad = []
+    for path, text in path_texts:
+        for n, l in enumerate(text.split("\n"), 1):
+            for c in l:
+                cat = unicodedata.category(c)
+                if c != " " and (cat.startswith("Z") or cat.startswith("C")):
+                    bad.append(f"{path}:{n}: character U+{ord(c):04X} (P13: only ASCII spaces as white space)")
+                    break
+    return bad
+
+
 def cert_lines(text=None):
-    """CERT lines of phrase_certs.txt as (kind | definition | reader line, theorem) pairs."""
+    """CERT lines of phrase_certs.txt as (kind | definition | reader line, theorem) pairs. Lines are read raw (no
+    stripping, AE d01): every line is empty, a comment starting with '#', or 'CERT | ' + four fields; anything else
+    is returned as malformed (key None)."""
     if text is None:
         text = (ROOT / CERTS).read_text(encoding="utf-8")
     out = []
     for l in text.split("\n"):
-        s = l.strip()
-        if not s.startswith("CERT | "):
+        if l == "" or l.startswith("#"):
             continue
-        p = [x.strip() for x in s.split(" | ")]
-        if len(p) != 5:
-            out.append((None, s))
+        if not l.startswith("CERT | "):
+            out.append((None, l))
+            continue
+        p = l.split(" | ")
+        if len(p) != 5 or any(x != x.strip() or not x for x in p):
+            out.append((None, l))
             continue
         out.append((" | ".join(p[1:4]), p[4]))
     return out
 
 
 def cert_baseline(text=None):
+    """Baseline lines, read raw: empty, '#' comment, or exactly a registry line (whitespace-padded lines are kept
+    as they are, so they match nothing and are reported stale)."""
     if text is None:
         f = ROOT / CERT_BASE
         text = f.read_text(encoding="utf-8") if f.exists() else ""
-    return {l.strip() for l in text.split("\n") if l.strip() and not l.strip().startswith("#")}
+    return {l for l in text.split("\n") if l and not l.startswith("#")}
 
 
 def certified_lines(reg_text=None, cert_text=None, base_text=None):
@@ -736,9 +759,14 @@ def certified_lines(reg_text=None, cert_text=None, base_text=None):
         reg_text = (ROOT / ROLES).read_text(encoding="utf-8")
     reg = [l.strip() for l in reg_text.split("\n") if re.match(r"^(SIGN|CLAUSE) \| ", l.strip())]
     regset = set(reg)
+    if cert_text is None:
+        cert_text = (ROOT / CERTS).read_text(encoding="utf-8")
+    if base_text is None:
+        f = ROOT / CERT_BASE
+        base_text = f.read_text(encoding="utf-8") if f.exists() else ""
     certs = cert_lines(cert_text)
     base = cert_baseline(base_text)
-    bad = []
+    bad = p13_chars([(CERTS, cert_text), (CERT_BASE, base_text), (ROLES, reg_text)])
     have = set()
     for key, th in certs:
         if key is None:
@@ -761,7 +789,8 @@ def certified_lines(reg_text=None, cert_text=None, base_text=None):
     return bad
 
 
-def certs_base(base, old_cert_text=None, old_base_text=None, new_cert_text=None, new_base_text=None, reg_text=None):
+def certs_base(base, old_cert_text=None, old_base_text=None, new_cert_text=None, new_base_text=None, reg_text=None,
+               old_lines_text=None, new_lines_text=None, ledger_added=None):
     """P13 (--base): the certificate baseline is shrink-only, and no CERT line is removed while its reader line is in
     the registry."""
     if old_cert_text is None:
@@ -781,7 +810,45 @@ def certs_base(base, old_cert_text=None, old_base_text=None, new_cert_text=None,
     for key, th in cert_lines(old_cert_text):
         if key is not None and (key, th) not in new and key in regset:
             bad.append(f"P13 certificate removed since {base}: {key} | {th} (a shown line keeps its certificate)")
+    if old_lines_text is None:
+        ol = git("show", f"{base}:{LINES}")
+        old_lines_text = ol.stdout if ol.returncode == 0 else ""
+    if new_lines_text is None:
+        f = ROOT / LINES
+        new_lines_text = f.read_text(encoding="utf-8") if f.exists() else ""
+    if ledger_added is None:
+        diff = git("diff", base, "HEAD", "--", "LEDGER.md").stdout
+        ledger_added = "\n".join(l[1:] for l in diff.splitlines() if l.startswith("+") and not l.startswith("+++"))
+    olds, news = lines_sections(old_lines_text), lines_sections(new_lines_text)
+    for th, body in sorted(olds.items()):
+        if th in news and news[th] != body:
+            last = th.split(".")[-1]
+            if not re.search(r"(?<![\w'])" + re.escape(last) + r"(?![\w'])", ledger_added):
+                bad.append(f"P13 certified statement of {th} changed since {base} (PHRASE_LINES.md) with no LEDGER.md "
+                           f"addition naming {last} (AE d03: a certificate cannot be weakened silently)")
     return bad
+
+
+LINES = "PHRASE_LINES.md"
+
+
+def lines_sections(text):
+    """PHRASE_LINES.md: theorem full name -> its generated statement block(s)."""
+    out = {}
+    cur, buf = None, []
+    for l in text.split("\n"):
+        if l.startswith("## "):
+            if cur:
+                out[cur] = out.get(cur, "") + "\n".join(buf)
+            cur, buf = None, [l]
+            continue
+        m = re.match(r"^Theorem `([^`]+)`\.$", l)
+        if m:
+            cur = m.group(1)
+        buf.append(l)
+    if cur:
+        out[cur] = out.get(cur, "") + "\n".join(buf)
+    return out
 
 
 def _controls_p13():
@@ -799,11 +866,20 @@ def _controls_p13():
     if not certified_lines(reg, cert.replace("Checked.T.b", "Work.T.b"), ""):
         fails.append("non-Checked certificate accepted")
     # baseline grown (--base)
-    if not certs_base("B", cert, "", cert, "CLAUSE | D.f | zero at zero\n", reg):
+    if not certs_base("B", cert, "", cert, "CLAUSE | D.f | zero at zero\n", reg, "", "", ""):
         fails.append("grown certificate baseline accepted")
     # certificate removed (--base)
-    if not certs_base("B", cert, "", cert.split("\n")[0] + "\n", "", reg):
+    if not certs_base("B", cert, "", cert.split("\n")[0] + "\n", "", reg, "", "", ""):
         fails.append("removed certificate accepted")
+    # AE d01: a U+00A0-prefixed CERT line (counted by strip(), skipped by Lean)
+    if not certified_lines(reg, "\u00a0" + cert, ""):
+        fails.append("U+00A0-prefixed certificate accepted")
+    # AE d03: a certified statement changed with no LEDGER line
+    old_l = "## `f`: «zero at zero» (CLAUSE)\n\nTheorem `Checked.T.b`.\n\n- `f 0 = 0`\n"
+    if not certs_base("B", cert, "", cert, "", reg, old_l, old_l.replace("f 0 = 0", "True"), ""):
+        fails.append("silently weakened certificate accepted")
+    if certs_base("B", cert, "", cert, "", reg, old_l, old_l.replace("f 0 = 0", "True"), "- weakened b of f"):
+        fails.append("LEDGER-disclosed certificate change rejected")
     for f in fails:
         print("P13 CONTROL FAILED:", f)
     return 1 if fails else 0
