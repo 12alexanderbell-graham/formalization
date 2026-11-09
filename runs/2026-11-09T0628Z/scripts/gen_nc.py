@@ -61,6 +61,18 @@ def wit(full, short, K, B, lo, hi, n):
   · linear_combination (Real.exp (-{a} * η) ^ 2 - 2 * Real.exp (-{a} * η)) * ha2
   · {sq}
 """)
+    # hypothesis 2 (p' = q): q solves the linear equation along an exponential profile, q 0 = 3
+    Kc, Bc = (str(K), "1") if B is None else (str(K), f"1 / {B}")
+    Q = (f"fun η => Real.exp (-({Kc} * (η ^ 2 / 2 - η + 1 - Real.exp (-η)))) * (3 - {Bc} * ∫ s in (0 : ℝ)..η, "
+         f"Real.exp ({Kc} * (s ^ 2 / 2 - s + 1 - Real.exp (-s))) * (1 - (1 - Real.exp (-s)) ^ 2))")
+    out.append(f"""theorem {short}_h2 : necessity% {full} 2 := by
+  obtain ⟨h1, h4, h5⟩ := linProfile
+  refine ⟨fun η => η - 1 + Real.exp (-η), fun η => 1 - Real.exp (-η),
+    {Q}, h1,
+    fun η _ => (linQ_deriv {Kc} ({Bc}) 3 η).hasDerivWithinAt.congr_deriv (by ring),
+    by simp, by simp, h4{hbw}, ?_⟩
+  norm_num
+""")
     # hypothesis 5 (p 0 = 0): the uniform flow f = η
     out.append(f"""theorem {short}_h5 : necessity% {full} 5 := by
   refine ⟨fun η => η, fun _ => 1, fun _ => 0, fun η _ => (hasDerivAt_id' η).hasDerivWithinAt,
@@ -132,7 +144,7 @@ def eq_wits():
             gb = ", hb'" if bounded else ""
             hbdef = ("  have hb' : ∀ η ∈ Ici (0 : ℝ), -1 ≤ p₂ η ∧ p₂ η ≤ 1 :=\n"
                      "    fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩\n") if bounded else ""
-            for i in (1, 3, 5):
+            for i in (1, 2, 3, 5):
                 fw = ", ".join(f"w{j}" for j in range(1, n + 1) if j != i)
                 # the fake replaces solution 1 (hypothesis i) or solution 2 (hypothesis n + i)
                 for side in (1, 2):
@@ -183,3 +195,88 @@ elif mode == "stubs":
 elif mode == "wit":
     print("\n".join(wit(*r) for r in ROWS))
 
+
+# ---------------- monotone windows (positive q) and the β = 0 rows (Blasius, Falkner–Skan β = 0) ----
+MONO = [("Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window", 1, "-(f η * q η) - 1 + p η ^ 2",
+         "1.2325876568", "1.2325876569"),
+        ("Checked.FalknerSkan.MonotoneWindow.homann_monotone_window", 2, "-(2 * f η * q η) - 1 + p η ^ 2",
+         "1.3119376938", "1.3119376939")]
+ZERO = [("Checked.Blasius.blasius_wall_shear", "1 / 2", "-(f η * q η / 2)", "0.33205733621519", "0.33205733621520"),
+        ("Checked.FalknerSkan.fs_zero_wall_shear", "1", "-(f η * q η)", "0.4695999883610", "0.4695999883611")]
+
+def extra_stubs():
+    out = []
+    for full, K, r, lo, hi in MONO:
+        ns, nm = full.rsplit(".", 1)
+        out.append(f"""namespace {ns}
+theorem {nm} (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
+    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
+    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q ({r}) (Ici 0) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
+    (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η) :
+    {lo} < q 0 ∧ q 0 < {hi} := by
+  sorry
+end {ns}
+""")
+    for full, K, r, lo, hi in ZERO:
+        ns, nm = full.rsplit(".", 1)
+        out.append(f"""namespace {ns}
+theorem {nm} (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
+    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
+    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q ({r}) (Ici 0) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1)) :
+    {lo} ≤ q 0 ∧ q 0 ≤ {hi} := by
+  sorry
+end {ns}
+""")
+    return "\n".join(out)
+
+def extra_wits():
+    out = []
+    for full, K, r, lo, hi in MONO:
+        short = full.rsplit(".", 1)[1]
+        out.append(f"""theorem {short}_h3 : necessity% {full} 3 := by
+  obtain ⟨h1, h2, -, h4, -⟩ := expProfile 2 (by norm_num)
+  refine ⟨fun η => η - (1 - Real.exp (-2 * η)) / 2, fun η => 1 - Real.exp (-2 * η),
+    fun η => 2 * Real.exp (-2 * η), h1, h2, by simp, by simp, h4, fun η _ => by positivity, ?_⟩
+  norm_num
+""")
+        out.append(f"""theorem {short}_h1 : necessity% {full} 1 := by
+  obtain ⟨-, h2, h3, h4, -⟩ := expProfile 1 (by norm_num)
+  refine ⟨fun η => -(1 / {K}) * (1 - Real.exp (-1 * η)), fun η => 1 - Real.exp (-1 * η),
+    fun η => 1 * Real.exp (-1 * η), h2, fun η hη => (h3 η hη).congr_deriv (by ring),
+    by simp, by simp, h4, fun η _ => by positivity, ?_⟩
+  norm_num
+""")
+    for full, K, r, lo, hi in ZERO:
+        short = full.rsplit(".", 1)[1]
+        out.append(f"""theorem {short}_h3 : necessity% {full} 3 := by
+  obtain ⟨h1, h2, -, h4, -⟩ := expProfile 2 (by norm_num)
+  refine ⟨fun η => η - (1 - Real.exp (-2 * η)) / 2, fun η => 1 - Real.exp (-2 * η),
+    fun η => 2 * Real.exp (-2 * η), h1, h2, by simp, by simp, h4, ?_⟩
+  norm_num
+""")
+        Q = (f"fun η => Real.exp (-({K} * (η ^ 2 / 2 - η + 1 - Real.exp (-η)))) * (3 - 0 * ∫ s in (0 : ℝ)..η, "
+             f"Real.exp ({K} * (s ^ 2 / 2 - s + 1 - Real.exp (-s))) * (1 - (1 - Real.exp (-s)) ^ 2))")
+        out.append(f"""theorem {short}_h2 : necessity% {full} 2 := by
+  obtain ⟨h1, h4, -⟩ := linProfile
+  refine ⟨fun η => η - 1 + Real.exp (-η), fun η => 1 - Real.exp (-η),
+    {Q}, h1,
+    fun η _ => (linQ_deriv ({K}) 0 3 η).hasDerivWithinAt.congr_deriv (by ring),
+    by simp, by simp, h4, ?_⟩
+  norm_num
+""")
+        out.append(f"""theorem {short}_h5 : necessity% {full} 5 := by
+  refine ⟨fun η => η, fun _ => 1, fun _ => 0, fun η _ => (hasDerivAt_id' η).hasDerivWithinAt,
+    fun η _ => hasDerivWithinAt_const _ _ _, fun η _ => (hasDerivWithinAt_const _ _ _).congr_deriv (by ring),
+    rfl, tendsto_const_nhds, ?_⟩
+  norm_num
+""")
+    return "\n".join(out)
+
+if mode == "xstubs":
+    print(extra_stubs())
+elif mode == "xwit":
+    print(extra_wits())
