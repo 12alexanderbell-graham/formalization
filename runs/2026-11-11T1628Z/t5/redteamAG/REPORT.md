@@ -1,0 +1,13 @@
+# Blind red team AG report (per-part necessity layer, c6fab97)
+All six add a NEW wrapper headline (new files Checked/AGWrap/Dxx.lean, Checked/Trust/AGWxx.lean, one line each in Checked.lean and headlines.txt); no existing Checked file is edited. Single commit each, then relock + regenerate. No LEDGER line is needed (all hypotheses classified, N2 asks nothing). Nothing was compiled (rules): Lean proofs are small and written from existing patterns, but compile risk is real.
+
+| d | category | weakness | generated line a reader misreads | expected |
+|---|---|---|---|---|
+| d01 | misleading-record | necShape flags `bundled i` only if the unfolded hypothesis HEAD is `And`; `∃ Ω, IsFlatLCDM Ω a t₀` has head `Exists` | `- AGWrap.D01.flatLCDM_hubble_pos (1): needed 1 (...)` (no shape; "fully classified" +1) | ACCEPTED |
+| d02 | misleading-record | same, head is `∀ s, s = t₀ → IsFlatLCDM Ω a s` | `- AGWrap.D02.flatLCDM_hubble_pos_at (1): needed 1 (...)` | ACCEPTED |
+| d03 | misleading-record | `subtype` test is `isAppOf Subtype/Set.Elem` as written; `c : NNReal` (a definition) silently assumes 0 ≤ c, which is what makes the theorem true | `- AGWrap.D03.hubble_pos_of_inverse (1): needed 1 (...)` | ACCEPTED |
+| d04 | misleading-record | partsWalk fuel 64: a right-nested 67-conjunct hypothesis yields "65 parts", the last being an unsplit tail of 3 conditions; `bundled 1` is dropped | `- AGWrap.D04.hubble_pos_pinned (1): needed 1 (...); redundant (each alone, not together) 1..64; parts of 1 (65) needed 65 (...)` | ACCEPTED |
+| d05 | misleading-record | `unfoldHead` unfolds only `Checked` constants: Mathlib `∃!` (existence AND uniqueness) is one atom, no bundled/part entries | `- AGWrap.D05.hubble_zero_exists (1): needed 1 (...)` | ACCEPTED |
+| d06 | misleading-record | `restated i` compares syntactically (after whnfR); `x ∈ Set.Ioi b` is not reducible to `b < x`, so a tautological headline gets no `restated 1` | `- AGWrap.D06.hubble_exceeds (1): needed 1 (...)` | ACCEPTED |
+
+Notes: d01/d02/d05 are the "head is not And" family (three different heads: Exists, forall/implication, Mathlib definition). Checked and ruled out: GT/GE/Ne spellings evade `restated` (whnfR unfolds them, so I used Set.Ioi); premise of an implication is never a part but this misleads nobody (premises restrict the hypothesis), so no defect was built on it; the parts walk itself is semantically sound (monotone positions only, binders handled with withLocalDecl). Possible failure points other than CI checks I could not read: claim vocabulary/prose rules and "headline must reach a pinned definition" rules for the new headlines.

@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: TRUST_MAP.md line "- `AGWrap.D06.hubble_exceeds` (1): needed 1 (`hubble_exceeds_h1`)" without `shape: restated 1`, counted as fully classified: the hypothesis is an independent assumption that carries weight for a real conclusion.
+Why it is false: the conclusion `H(s) < H(t₀)` is the hypothesis `H(t₀) ∈ Set.Ioi H(s)` unfolded (Set.mem_Ioi is Iff.rfl); the headline is a tautology and the hypothesis is NEEDED only because the conclusion repeats it. necShape's `restated` test compares the hypothesis (and its whnfR-unfolding) with the conclusion's conjuncts by syntactic `==`; `Set.Ioi b x` is not reducible to `b < x`, so the entry (which N4 would block) is never produced. (The `>`/`≥`/`≠` spellings do NOT evade it, whnfR unfolds them.)
+Expected: ACCEPTED (unless another check rejects a tautological headline).
