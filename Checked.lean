@@ -332,7 +332,7 @@ import Checked.FSSep.UCompare
 import Checked.FSSep.UPair
 import Checked.FSSep.SSlowSol
 import Checked.FalknerSkan.Separation
-import Checked.FalknerSkan.SeparationUnique
+import Checked.FalknerSkan.SeparationEqual
 import Checked.FalknerSkan.NegOutside
 import Checked.FSNeg.NWinLo
 import Checked.FSNeg.NWinHi

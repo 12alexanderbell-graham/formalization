@@ -1,33 +1,60 @@
 # Item 35
 
-**Area:** Falkner–Skan β = −1/10, ten-decimal wall shear of the decay-class solution and a reversed-flow solution in the decay class
+**Area:** Falkner–Skan separation value
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `β₁ : ℝ`, `β₂ : ℝ`, `f₁ : ℝ → ℝ`, `p₁ : ℝ → ℝ`, `q₁ : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`:
 
-- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-0.1405462131 < q 0`) and (`q 0 < -0.1405462129`)
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₁ (p₁ η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₁ (q₁ η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₁ (-(f₁ η * q₁ η) - β₁ * (1 - p₁ η ^ 2)) (Set.Ici 0) η`
+4. `f₁ 0 = 0`
+5. `p₁ 0 = 0`
+6. `q₁ 0 = 0`
+7. `Filter.Tendsto p₁ Filter.atTop (nhds 1)`
+8. for every `η : ℝ`, if `η ∈ Set.Ioi 0`, then `0 < q₁ η`
+9. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₁ η) ≤ q₁ η`
+10. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₂ (p₂ η) (Set.Ici 0) η`
+11. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₂ (q₂ η) (Set.Ici 0) η`
+12. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - β₂ * (1 - p₂ η ^ 2)) (Set.Ici 0) η`
+13. `f₂ 0 = 0`
+14. `p₂ 0 = 0`
+15. `q₂ 0 = 0`
+16. `Filter.Tendsto p₂ Filter.atTop (nhds 1)`
+17. for every `η : ℝ`, if `η ∈ Set.Ioi 0`, then `0 < q₂ η`
+18. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`
+
+**then**
+
+- `β₁ = β₂`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Falkner–Skan with β = −1/10: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with
-f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, with
-−0.1405462131 < q(0) < −0.1405462129.
+Falkner–Skan separation: for every solution (f₁, p₁, q₁) of f''' + f f'' + β₁(1 − f'²) = 0 and every
+solution (f₂, p₂, q₂) of f''' + f f'' + β₂(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, wall
+shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₁ η) ≤ q₁ η` and
+`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`: β₁ = β₂.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fs_neg_tenth_reversed :
-    ∃ f p q : ℝ → ℝ,
-      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
-      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
-      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-1 / 10) * (1 - p η ^ 2)) (Ici 0) η) ∧
-      f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-      (∀ η ∈ Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1) ∧
-      (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) ∧
-      -0.1405462131 < q 0 ∧ q 0 < -0.1405462129 := …
+theorem fs_separation_equal {β₁ β₂ : ℝ} {f₁ p₁ q₁ f₂ p₂ q₂ : ℝ → ℝ}
+    (hf₁ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f₁ (p₁ η) (Ici 0) η)
+    (hp₁ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p₁ (q₁ η) (Ici 0) η)
+    (hq₁ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q₁ (-(f₁ η * q₁ η) - β₁ * (1 - p₁ η ^ 2)) (Ici 0) η)
+    (hf₁0 : f₁ 0 = 0) (hp₁0 : p₁ 0 = 0) (hq₁0 : q₁ 0 = 0) (hl₁ : Tendsto p₁ atTop (𝓝 1))
+    (hpos₁ : ∀ η ∈ Ioi (0 : ℝ), 0 < q₁ η) (hdec₁ : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p₁ η) ≤ q₁ η)
+    (hf₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f₂ (p₂ η) (Ici 0) η)
+    (hp₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p₂ (q₂ η) (Ici 0) η)
+    (hq₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - β₂ * (1 - p₂ η ^ 2)) (Ici 0) η)
+    (hf₂0 : f₂ 0 = 0) (hp₂0 : p₂ 0 = 0) (hq₂0 : q₂ 0 = 0) (hl₂ : Tendsto p₂ atTop (𝓝 1))
+    (hpos₂ : ∀ η ∈ Ioi (0 : ℝ), 0 < q₂ η) (hdec₂ : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p₂ η) ≤ q₂ η) :
+    β₁ = β₂ := …
 ```
 
 ## Definitions it uses
@@ -39,8 +66,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fs_separation_equal`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/NegReversed.lean` (do not open it before submitting your answers).
+- Source file: `Checked/FalknerSkan/SeparationEqual.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 35

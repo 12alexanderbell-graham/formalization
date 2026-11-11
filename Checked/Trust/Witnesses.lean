@@ -1,6 +1,6 @@
 import Checked.Trust.NonVacuity
 import Checked.FalknerSkan.Separation
-import Checked.FalknerSkan.SeparationUnique
+import Checked.FalknerSkan.SeparationEqual
 import Checked.Sim.Duffing
 import Checked.Sim.MichaelisMenten
 import Checked.Sim.Robertson
@@ -1014,7 +1014,7 @@ theorem fs_neg_tenth_monotone_lt : nonvacuity% Checked.FalknerSkan.NegWindow.fs_
 `Checked.FalknerSkan.Separation.fs_separation_exists`, taken twice, satisfies every hypothesis of the
 equality of the two pressure-gradient parameters. -/
 
-theorem fs_separation_beta_eq : nonvacuity% Checked.FalknerSkan.SeparationUnique.fs_separation_beta_eq := by
+theorem fs_separation_equal : nonvacuity% Checked.FalknerSkan.SeparationEqual.fs_separation_equal := by
   obtain ⟨β, -, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec⟩ :=
     Checked.FalknerSkan.Separation.fs_separation_exists
   exact ⟨β, β, f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec,

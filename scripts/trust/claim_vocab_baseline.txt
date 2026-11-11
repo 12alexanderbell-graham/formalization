@@ -462,7 +462,6 @@ Checked.Cosmography.B1.cubic_shape_miss|shifts
 Checked.Cosmography.B1.cubic_shape_miss|misses
 Checked.Cosmography.B1.cubic_shape_miss|equally
 Checked.Cosmography.B1.cubic_shape_miss|num:0.18
-Checked.Cosmography.B1Sep.cubic_separation|separation
 Checked.Cosmography.B1Sep.cubic_separation|cdm
 Checked.Cosmography.B1Sep.cubic_separation|any
 Checked.Cosmography.B1Sep.cubic_separation|cubic
@@ -1377,7 +1376,6 @@ checked.cosmography.b1sep.cubic_separation|fspan:(lusa2 ω, lusa3 ω)
 checked.cosmography.b1sep.cubic_separation|fspan:a₂, a₃
 checked.cosmography.b1sep.cubic_separation|nameword:cubic
 checked.cosmography.b1sep.cubic_separation|nameword:sep
-checked.cosmography.b1sep.cubic_separation|nameword:separation
 checked.cosmography.b1sep.cubic_separation|numctx:0.05:mag
 checked.cosmography.b1sep.cubic_separation|numctx:1:separation
 checked.cosmography.bambaa.angdist_y_fifth_order|fspan:a(t₀) ≠ 0

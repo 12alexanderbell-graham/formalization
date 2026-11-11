@@ -6,9 +6,18 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `Ω : ℝ`:
 
-- there is `Ω : ℝ` such that (`Ω ∈ Set.Icc 0 1`) and (for every `Ω' : ℝ`, if `Ω' ∈ Set.Icc 0 1`, then `margChiSq fr13Table 73.8 2.4 Ω ≤ margChiSq fr13Table 73.8 2.4 Ω'`)
+**assuming**
+
+1. `0 ≤ Ω`
+2. `Ω ≤ 1`
+3. for every `Ω' : ℝ`, if `Ω' ∈ Set.Icc 0 1`, then `margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω'`
+
+**then**
+
+1. `0.2875 < Ω`
+2. `Ω < 0.2881`
 
 Program definitions in this claim:
 
@@ -18,15 +27,16 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-With the prior 73.8 ± 2.4, the marginalised chi-square of the Farooq–Ratra 2013 table
-attains its smallest value over Ω in [0, 1]: there is a minimiser.
+With the prior 68 ± 2.8 on H₀, every Ω in [0, 1] at which the marginalised chi-square of
+the Farooq–Ratra 2013 table is smallest among all Ω′ in [0, 1] lies strictly between 0.2875
+and 0.2881.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fr13_exists738 : ∃ Ω ∈ Set.Icc (0 : ℝ) 1,
-    ∀ Ω' ∈ Set.Icc (0 : ℝ) 1,
-      margChiSq fr13Table 73.8 2.4 Ω ≤ margChiSq fr13Table 73.8 2.4 Ω' := …
+theorem fr13_bestfit68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω') :
+    0.2875 < Ω ∧ Ω < 0.2881 := …
 ```
 
 ## Definitions it uses
@@ -38,8 +48,8 @@ See GLOSSARY.md: `Data.FR13.fr13Table`, `Data.FR13.chiSqHz`, `Data.FR13.margChiS
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): fr13Table².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): margChiSq: Hbar = 73.8, σ = 2.4.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fr13_bestfit68`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): margChiSq: Hbar = 68, σ = 2.8.
 - Source file: `Checked/Data/FR13.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 15

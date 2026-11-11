@@ -26,9 +26,9 @@ namespace Checked.FalknerSkan.Separation
 
 open Set Filter Topology
 
-/-- Falkner–Skan separation: there is β with −0.1988377351 < β < −0.1988377350 and a solution
-(f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0, p(0) = 0, zero wall shear
-q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M, eventually M (1 − p) ≤ q. -/
+/-- Falkner–Skan separation: there is β with `β ∈ Set.Ioo (-(1988377351 / 10000000000)) (-(1988377350 / 10000000000))` and a solution (f, p, q)
+of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0, p(0) = 0, wall shear q(0) = 0, p → 1, q > 0
+on (0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`. -/
 theorem fs_separation_exists :
     ∃ β ∈ Ioo (-(1988377351 / 10000000000 : ℝ)) (-(1988377350 / 10000000000)),
     ∃ f p q : ℝ → ℝ,

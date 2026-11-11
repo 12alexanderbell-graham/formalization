@@ -6529,3 +6529,55 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > q(0) ≠ q₂(0), such that, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, and,
 > for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`.
 
+## `fs_separation_exists`
+
+Full name `Checked.FalknerSkan.Separation.fs_separation_exists`.
+
+**It holds that**
+
+- there is `β : ℝ` such that (`β ∈ Set.Ioo (-(1988377351 / 10000000000)) (-(1988377350 / 10000000000))`) and (there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`q 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ioi 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`))
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan separation: there is β with `β ∈ Set.Ioo (-(1988377351 / 10000000000)) (-(1988377350 / 10000000000))` and a solution (f, p, q)
+> of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0, p(0) = 0, wall shear q(0) = 0, p → 1, q > 0
+> on (0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`.
+
+## `fs_separation_equal`
+
+Full name `Checked.FalknerSkan.SeparationEqual.fs_separation_equal`.
+
+**For every** `β₁ : ℝ`, `β₂ : ℝ`, `f₁ : ℝ → ℝ`, `p₁ : ℝ → ℝ`, `q₁ : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₁ (p₁ η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₁ (q₁ η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₁ (-(f₁ η * q₁ η) - β₁ * (1 - p₁ η ^ 2)) (Set.Ici 0) η`
+4. `f₁ 0 = 0`
+5. `p₁ 0 = 0`
+6. `q₁ 0 = 0`
+7. `Filter.Tendsto p₁ Filter.atTop (nhds 1)`
+8. for every `η : ℝ`, if `η ∈ Set.Ioi 0`, then `0 < q₁ η`
+9. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₁ η) ≤ q₁ η`
+10. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₂ (p₂ η) (Set.Ici 0) η`
+11. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₂ (q₂ η) (Set.Ici 0) η`
+12. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - β₂ * (1 - p₂ η ^ 2)) (Set.Ici 0) η`
+13. `f₂ 0 = 0`
+14. `p₂ 0 = 0`
+15. `q₂ 0 = 0`
+16. `Filter.Tendsto p₂ Filter.atTop (nhds 1)`
+17. for every `η : ℝ`, if `η ∈ Set.Ioi 0`, then `0 < q₂ η`
+18. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`
+
+**then**
+
+- `β₁ = β₂`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan separation: for every solution (f₁, p₁, q₁) of f''' + f f'' + β₁(1 − f'²) = 0 and every
+> solution (f₂, p₂, q₂) of f''' + f f'' + β₂(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, wall
+> shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₁ η) ≤ q₁ η` and
+> `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`: β₁ = β₂.
+

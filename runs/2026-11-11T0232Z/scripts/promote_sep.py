@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Run 2026-11-11T0232Z: promote the Falkner–Skan separation pair (proved in Work this run) to Checked, pattern of
 runs/2026-11-09T1028Z/scripts/promote_fsneg.py (imported, not copied): Work/FSSep/*.lean -> Checked/FSSep/*.lean,
-Work/FalknerSkan/{Separation,SeparationUnique}.lean -> Checked/FalknerSkan/; `Work.` -> `Checked.`, `import Mathlib`
+Work/FalknerSkan/{Separation,SeparationUnique}.lean -> Checked/FalknerSkan/{Separation,SeparationEqual}.lean; `Work.` -> `Checked.`, `import Mathlib`
 replaced by the specific Mathlib imports of the Checked Falkner–Skan modules, number-free module docs, `#print axioms`
 lines dropped. Statements and proofs otherwise byte-identical to Work, except the uniqueness headline's name (no
-strength word in names, PROMPT note on V13): fs_separation_unique -> fs_separation_beta_eq."""
+strength word in names; V13 allows only claim or vocabulary words): fs_separation_unique -> fs_separation_equal, module SeparationUnique -> SeparationEqual."""
 import importlib.util, pathlib, re
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 spec = importlib.util.spec_from_file_location("pf", ROOT / "runs/2026-11-09T1028Z/scripts/promote_fsneg.py")
@@ -31,9 +31,10 @@ FS = {
 }
 for m, doc in SEP.items():
     promote(f"Work/FSSep/{m}.lean", f"Checked/FSSep/{m}.lean", "Falkner–Skan separation, " + doc, m)
+DST = {"Separation": "Separation", "SeparationUnique": "SeparationEqual"}  # no strength word in module names (V8)
 for m, doc in FS.items():
-    promote(f"Work/FalknerSkan/{m}.lean", f"Checked/FalknerSkan/{m}.lean", doc, m)
-p = ROOT / "Checked/FalknerSkan/SeparationUnique.lean"
+    promote(f"Work/FalknerSkan/{m}.lean", f"Checked/FalknerSkan/{DST[m]}.lean", doc, DST[m])
+p = ROOT / "Checked/FalknerSkan/SeparationEqual.lean"
 s = p.read_text(); assert s.count("theorem fs_separation_unique") == 1
-p.write_text(s.replace("theorem fs_separation_unique", "theorem fs_separation_beta_eq"))
+p.write_text(s.replace("theorem fs_separation_unique", "theorem fs_separation_equal"))
 print("promoted", len(SEP) + len(FS))

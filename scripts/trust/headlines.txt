@@ -276,6 +276,6 @@ Checked.FalknerSkan.NegWindow.fs_neg_tenth_window
 Checked.FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt
 Checked.FalknerSkan.NegReversed.fs_neg_tenth_reversed
 Checked.FalknerSkan.NegReversed.fs_neg_tenth_two_decay
-# Falkner–Skan separation value (run 2026-11-11T0232Z: frozen fbaa07e and d6e6727, proved in Work 3e4f5c0 and f6528b6, blind restatements closed, referee STANDS; promoted the same run): a β in (−0.1988377351, −0.1988377350) with a zero-wall-shear solution in the decay class, and at most one such β (Work name fs_separation_unique, renamed without the strength word)
+# Falkner–Skan separation value (run 2026-11-11T0232Z: frozen fbaa07e and d6e6727, proved in Work 3e4f5c0 and f6528b6, blind restatements closed, referee STANDS; promoted the same run): a β in (−0.1988377351, −0.1988377350) with a zero-wall-shear solution in the decay class, and at most one such β (Work name fs_separation_unique, renamed fs_separation_equal: no strength word, and only claim or vocabulary words, in names)
 Checked.FalknerSkan.Separation.fs_separation_exists
-Checked.FalknerSkan.SeparationUnique.fs_separation_beta_eq
+Checked.FalknerSkan.SeparationEqual.fs_separation_equal

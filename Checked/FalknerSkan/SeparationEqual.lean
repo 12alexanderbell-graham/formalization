@@ -17,16 +17,17 @@ import Mathlib.Topology.Algebra.Module.ModuleTopology
 import Mathlib.Topology.Order.IntermediateValue
 import Checked.FSSep.UPair
 
-/-! Falkner–Skan separation: two pressure-gradient parameters with zero-wall-shear solutions approaching the edge value faster than every exponential are equal. Module `SeparationUnique`, promoted from `Work/FalknerSkan/SeparationUnique.lean`. -/
+/-! Falkner–Skan separation: two pressure-gradient parameters with zero-wall-shear solutions approaching the edge value faster than every exponential are equal. Module `SeparationEqual`, promoted from `Work/FalknerSkan/SeparationUnique.lean`. -/
 
-namespace Checked.FalknerSkan.SeparationUnique
+namespace Checked.FalknerSkan.SeparationEqual
 
 open Set Filter Topology
 
-/-- Falkner–Skan separation is unique in β: if (f₁, p₁, q₁) solves f''' + f f'' + β₁(1 − f'²) = 0
-and (f₂, p₂, q₂) solves the same equation with β₂, both on [0, ∞) with f(0) = 0, p(0) = 0, zero wall
-shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M, eventually M (1 − p) ≤ q, then β₁ = β₂. -/
-theorem fs_separation_beta_eq {β₁ β₂ : ℝ} {f₁ p₁ q₁ f₂ p₂ q₂ : ℝ → ℝ}
+/-- Falkner–Skan separation: for every solution (f₁, p₁, q₁) of f''' + f f'' + β₁(1 − f'²) = 0 and every
+solution (f₂, p₂, q₂) of f''' + f f'' + β₂(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, wall
+shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₁ η) ≤ q₁ η` and
+`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`: β₁ = β₂. -/
+theorem fs_separation_equal {β₁ β₂ : ℝ} {f₁ p₁ q₁ f₂ p₂ q₂ : ℝ → ℝ}
     (hf₁ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f₁ (p₁ η) (Ici 0) η)
     (hp₁ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p₁ (q₁ η) (Ici 0) η)
     (hq₁ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q₁ (-(f₁ η * q₁ η) - β₁ * (1 - p₁ η ^ 2)) (Ici 0) η)
@@ -45,5 +46,5 @@ theorem fs_separation_beta_eq {β₁ β₂ : ℝ} {f₁ p₁ q₁ f₂ p₂ q₂
   · exact h
   · exact (Checked.FSSep.UPair.sep_core h S₂ S₁ hdec₁).elim
 
-end Checked.FalknerSkan.SeparationUnique
+end Checked.FalknerSkan.SeparationEqual
 

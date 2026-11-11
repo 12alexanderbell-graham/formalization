@@ -6,19 +6,17 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`:
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`:
 
 **assuming**
 
-1. `0 < R`
-2. `0 < a`
-3. `0 < b`
-4. `-2 < u`
-5. `0 < 1 + u + w`
+1. `0 < a`
+2. `b < v`
+3. `0 < v ^ 2 + u * b * v + w * b ^ 2`
 
 **then**
 
-- there is exactly one `p : ℝ × ℝ` such that (`0 < p.1`) and (`b < p.2`) and (the isotherm pressure function of molar volume `p := cubicP R a b u w p.1` satisfies the critical point condition of an isotherm with the molar volume at the point `v := p.2` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical))
+- (the isotherm pressure function of molar volume `p := cubicP R a b u w T` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical)) if and only if ((`v ^ 3 - 3 * b * v ^ 2 - 3 * (u + w) * b ^ 2 * v - (u ^ 2 + u * w - w) * b ^ 3 = 0`) and (`R * T * (v ^ 2 + u * b * v + w * b ^ 2) ^ 2 = a * (v - b) ^ 2 * (2 * v + u * b)`))
 
 Program definitions in this claim:
 
@@ -27,14 +25,15 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Existence and uniqueness of the critical point (T, v) of the generalized cubic EOS.
+Critical-point conditions of the generalized cubic EOS, in closed form.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem exists_unique_critical (R a b u w : ℝ) (hR : 0 < R) (ha : 0 < a) (hb : 0 < b)
-    (hu : -2 < u) (h1 : 0 < 1 + u + w) :
-    ∃! p : ℝ × ℝ, 0 < p.1 ∧ b < p.2 ∧ IsCriticalIsotherm (cubicP R a b u w p.1) p.2 := …
+theorem isCritical_iff (R a b u w T v : ℝ) (ha : 0 < a) (hv : b < v) (hD : 0 < v ^ 2 + u * b * v + w * b ^ 2) :
+    IsCriticalIsotherm (cubicP R a b u w T) v ↔
+      (v ^ 3 - 3 * b * v ^ 2 - 3 * (u + w) * b ^ 2 * v - (u ^ 2 + u * w - w) * b ^ 3 = 0 ∧
+        R * T * (v ^ 2 + u * b * v + w * b ^ 2) ^ 2 = a * (v - b) ^ 2 * (2 * v + u * b)) := …
 ```
 
 ## Definitions it uses
@@ -46,7 +45,7 @@ See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cu
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `exists_unique_critical`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `isCritical_iff`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
