@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 843 hypotheses in 150 headlines;
-161 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-17 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-665 open; headlines with every hypothesis classified: 0/150
+253 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+51 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+539 open; headlines with every hypothesis classified: 22/150
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -281,37 +281,37 @@ several together, and in Lean's total arithmetic (x / 0 = 0, √ of a negative n
 a hypothesis that only excludes such a value can be redundant here and still matter on paper. Open:
 neither is proved yet.
 
-- `lookback_second_order` (4): open 1, 2, 3, 4
-- `lookback_second_order_bigO` (3): open 1, 2, 3
-- `Aviles.flatLCDM_coeffs` (2): open 1, 2
+- `lookback_second_order` (4): needed 4 (`lookback_second_order_h4`); redundant 3 (`lookback_second_order_r3`); open 1, 2
+- `lookback_second_order_bigO` (3): needed 3 (`lookback_second_order_bigO_h3`); redundant 2 (`lookback_second_order_bigO_r2`); open 1
+- `Aviles.flatLCDM_coeffs` (2): needed 1 (`flatLCDM_coeffs_h1`); open 2
 - `AvilesWitness.printedL0_false_at` (2): open 1, 2
 - `AvilesWitness.printedM0_false_at` (3): open 1, 2, 3
-- `CPL.flatCPL_coeffs` (2): open 1, 2
-- `CPL.printedL0_ne` (3): open 1, 2, 3
-- `CPLExistence.printedL0_false_at` (1): open 1
+- `CPL.flatCPL_coeffs` (2): needed 1 (`flatCPL_coeffs_h1`); open 2
+- `CPL.printedL0_ne` (3): needed 1 (`printedL0_ne_h1`), 3 (`printedL0_ne_h3`); open 2
+- `CPLExistence.printedL0_false_at` (1): needed 1 (`cpl_printedL0_false_at_h1`)
 - `CPLExistence.exists_local_model` (1): open 1
-- `CCS.lookback_fifth_order` (3): open 1, 2, 3
-- `CCS.printedD4_fails` (4): open 1, 2, 3, 4
-- `CCS.printedD4_fails_past` (4): open 1, 2, 3, 4
-- `BambaY.lumDist_y_third_order` (3): open 1, 2, 3
-- `BambaY.printedD2y_fails` (4): open 1, 2, 3, 4
-- `BambaY.printedD2y_fails_past` (4): open 1, 2, 3, 4
-- `CVdQ.dQ_y_third_order` (3): open 1, 2, 3
-- `CVdQ.printedQ2_fails_past` (4): open 1, 2, 3, 4
-- `BambaK.lumDist_y_fifth_order` (3): open 1, 2, 3
-- `BambaK.printedD3y_fails` (4): open 1, 2, 3, 4
-- `BambaK.printedD3y_fails_past` (4): open 1, 2, 3, 4
-- `BambaK.printedD4y_fails` (4): open 1, 2, 3, 4
-- `BambaK.printedD4y_fails_past` (4): open 1, 2, 3, 4
-- `BambaA.angDist_y_fifth_order` (3): open 1, 2, 3
-- `BambaA.printedDA3_fails` (4): open 1, 2, 3, 4
-- `BambaA.printedDA3_fails_past` (4): open 1, 2, 3, 4
-- `BambaA.printedDA4_fails` (4): open 1, 2, 3, 4
-- `BambaA.printedDA4_fails_past` (4): open 1, 2, 3, 4
-- `BambaZ.lumDist_z_fifth_order` (3): open 1, 2, 3
-- `BambaZ.angDist_z_fifth_order` (3): open 1, 2, 3
-- `BambaZ.printedDL4z_fails_past` (4): open 1, 2, 3, 4
-- `BambaZ.printedDA4z_fails_past` (4): open 1, 2, 3, 4
+- `CCS.lookback_fifth_order` (3): needed 3 (`lookback_fifth_order_h3`); redundant 2 (`lookback_fifth_order_r2`); open 1
+- `CCS.printedD4_fails` (4): redundant 2 (`printedD4_fails_r2`); open 1, 3, 4
+- `CCS.printedD4_fails_past` (4): redundant 2 (`printedD4_fails_past_r2`); open 1, 3, 4
+- `BambaY.lumDist_y_third_order` (3): needed 3 (`lumDist_y_third_order_h3`); redundant 2 (`lumDist_y_third_order_r2`); open 1
+- `BambaY.printedD2y_fails` (4): needed 3 (`printedD2y_fails_h3`); redundant 2 (`printedD2y_fails_r2`); open 1, 4
+- `BambaY.printedD2y_fails_past` (4): redundant 2 (`printedD2y_fails_past_r2`); open 1, 3, 4
+- `CVdQ.dQ_y_third_order` (3): needed 3 (`dQ_y_third_order_h3`); redundant 2 (`dQ_y_third_order_r2`); open 1
+- `CVdQ.printedQ2_fails_past` (4): redundant 2 (`printedQ2_fails_past_r2`); open 1, 3, 4
+- `BambaK.lumDist_y_fifth_order` (3): needed 3 (`lumDist_y_fifth_order_h3`); redundant 2 (`lumDist_y_fifth_order_r2`); open 1
+- `BambaK.printedD3y_fails` (4): redundant 2 (`printedD3y_fails_r2`); open 1, 3, 4
+- `BambaK.printedD3y_fails_past` (4): redundant 2 (`printedD3y_fails_past_r2`); open 1, 3, 4
+- `BambaK.printedD4y_fails` (4): redundant 2 (`printedD4y_fails_r2`); open 1, 3, 4
+- `BambaK.printedD4y_fails_past` (4): redundant 2 (`printedD4y_fails_past_r2`); open 1, 3, 4
+- `BambaA.angDist_y_fifth_order` (3): needed 3 (`angDist_y_fifth_order_h3`); redundant 2 (`angDist_y_fifth_order_r2`); open 1
+- `BambaA.printedDA3_fails` (4): redundant 2 (`printedDA3_fails_r2`); open 1, 3, 4
+- `BambaA.printedDA3_fails_past` (4): redundant 2 (`printedDA3_fails_past_r2`); open 1, 3, 4
+- `BambaA.printedDA4_fails` (4): redundant 2 (`printedDA4_fails_r2`); open 1, 3, 4
+- `BambaA.printedDA4_fails_past` (4): redundant 2 (`printedDA4_fails_past_r2`); open 1, 3, 4
+- `BambaZ.lumDist_z_fifth_order` (3): needed 3 (`lumDist_z_fifth_order_h3`); redundant 2 (`lumDist_z_fifth_order_r2`); open 1
+- `BambaZ.angDist_z_fifth_order` (3): needed 3 (`angDist_z_fifth_order_h3`); redundant 2 (`angDist_z_fifth_order_r2`); open 1
+- `BambaZ.printedDL4z_fails_past` (4): redundant 2 (`printedDL4z_fails_past_r2`); open 1, 3, 4
+- `BambaZ.printedDA4z_fails_past` (4): redundant 2 (`printedDA4z_fails_past_r2`); open 1, 3, 4
 - `FRCosmo.fR_values` (1): open 1
 - `FRCosmo.curv_derivs` (3): open 1, 2, 3
 - `FRCosmo.exists_LCDM_model` (2): open 1, 2
@@ -322,13 +322,13 @@ neither is proved yet.
 - `FREta.eta30_hasDerivAt` (2): open 1, 2
 - `FREta.printedEta20_false_at` (4): open 1, 2, 3, 4
 - `FREta.printedEta30_false_at` (4): open 1, 2, 3, 4
-- `DemianskiZ.demDL4_fails_past` (4): open 1, 2, 3, 4
-- `DemianskiZ.demDA4_fails_past` (4): open 1, 2, 3, 4
+- `DemianskiZ.demDL4_fails_past` (4): redundant 2 (`demDL4_fails_past_r2`); open 1, 3, 4
+- `DemianskiZ.demDA4_fails_past` (4): redundant 2 (`demDA4_fails_past_r2`); open 1, 3, 4
 - `Fidelity.lumDistSpec2_pins` (4): open 1, 2, 3, 4
 - `Fidelity.hubbleSpec_pins` (3): open 1, 2, 3
 - `Fidelity.decelSpec_pins` (5): open 1, 2, 3, 4, 5
 - `Fidelity.angDistSpec_pins` (4): open 1, 2, 3, 4
-- `Fidelity.flatLCDMSpec2_pins` (1): open 1
+- `Fidelity.flatLCDMSpec2_pins` (1): needed 1 (`flatLCDMSpec2_pins_h1`)
 - `Fidelity.redshiftCore_pins` (2): open 1, 2
 - `Fidelity.cosmoCoeffCore_pins` (2): open 1, 2
 - `Fidelity.yRedSpec_pins` (3): open 1, 2, 3
@@ -336,13 +336,13 @@ neither is proved yet.
 - `Fidelity.curvKSpec_pins` (4): open 1, 2, 3, 4
 - `Fidelity.lumDistFlat_pins` (4): open 1, 2, 3, 4
 - `Fidelity.comoving_pins` (4): open 1, 2, 3, 4
-- `Fidelity.flatCPL_pins` (1): open 1
+- `Fidelity.flatCPL_pins` (1): needed 1 (`flatCPL_pins_h1`)
 - `Fidelity.ricciSpec_pins` (4): open 1, 2, 3, 4
-- `Fidelity.transverseSpec_pins` (1): open 1
-- `Records.F1_l0` (2): open 1, 2
-- `Records.F2_toy` (2): open 1, 2
-- `Records.F2_error` (2): open 1, 2
-- `Records.F3_D4_LCDM` (2): open 1, 2
+- `Fidelity.transverseSpec_pins` (1): needed 1 (`transverseSpec_pins_h1`)
+- `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); open 2
+- `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); open 2
+- `Records.F2_error` (2): needed 1 (`F2_error_h1`); open 2
+- `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); open 2
 - `B1.lumDistFlat_flatLCDM` (7): open 1, 2, 3, 4, 5, 6, 7
 - `B1.cubic_misses_z3` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 - `B1.cubic_misses_z7` (8): open 1, 2, 3, 4, 5, 6, 7, 8
@@ -357,53 +357,53 @@ neither is proved yet.
 - `B1L19.l19_sqg_box` (15): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
 - `B1L19Curved.l19_sq_curved` (13): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
 - `B1L19Curved.l19_sqg_curved` (13): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
-- `Chemistry.CubicEOS.isCritical_iff` (3): open 1, 2, 3
+- `Chemistry.CubicEOS.isCritical_iff` (3): needed 1 (`isCritical_iff_h1`), 2 (`isCritical_iff_h2`), 3 (`isCritical_iff_h3`)
 - `Chemistry.CubicEOS.critCubic_existsUnique` (2): open 1, 2
 - `Chemistry.CubicEOS.exists_unique_critical` (5): open 1, 2, 3, 4, 5
-- `Chemistry.CubicEOS.vdW_constants` (4): open 1, 2, 3, 4
-- `Chemistry.CubicEOS.rk_constants` (4): open 1, 2, 3, 4
-- `Chemistry.CubicEOS.pr_constants` (4): open 1, 2, 3, 4
-- `Chemistry.Coexistence.vdW_coexistence_exists` (3): open 1, 2, 3
-- `Chemistry.Coexistence.vdW_coexistence_unique` (5): open 1, 2, 3, 4, 5
+- `Chemistry.CubicEOS.vdW_constants` (4): needed 1 (`vdW_constants_h1`), 2 (`vdW_constants_h2`), 3 (`vdW_constants_h3`), 4 (`vdW_constants_h4`)
+- `Chemistry.CubicEOS.rk_constants` (4): needed 1 (`rk_constants_h1`), 2 (`rk_constants_h2`), 3 (`rk_constants_h3`), 4 (`rk_constants_h4`)
+- `Chemistry.CubicEOS.pr_constants` (4): needed 1 (`pr_constants_h1`), 2 (`pr_constants_h2`), 3 (`pr_constants_h3`), 4 (`pr_constants_h4`)
+- `Chemistry.Coexistence.vdW_coexistence_exists` (3): needed 1 (`vdW_coexistence_exists_h1`), 2 (`vdW_coexistence_exists_h2`), 3 (`vdW_coexistence_exists_h3`)
+- `Chemistry.Coexistence.vdW_coexistence_unique` (5): needed 2 (`vdW_coexistence_unique_h2`), 5 (`vdW_coexistence_unique_h5`); redundant 1 (`vdW_coexistence_unique_r1`); open 3, 4
 - `Chemistry.RKAcentric.rk_coexistence_exists` (6): open 1, 2, 3, 4, 5, 6
-- `Chemistry.RKAcentric.rk_coexistence_unique` (8): open 1, 2, 3, 4, 5, 6, 7, 8
+- `Chemistry.RKAcentric.rk_coexistence_unique` (8): needed 8 (`rk_coexistence_unique_h8`); open 1, 2, 3, 4, 5, 6, 7
 - `Chemistry.PRAcentric.pr_omega1_exists` (4): open 1, 2, 3, 4
-- `Chemistry.PRAcentric.pr_omega1_unique` (6): open 1, 2, 3, 4, 5, 6
+- `Chemistry.PRAcentric.pr_omega1_unique` (6): needed 6 (`pr_omega1_unique_h6`); open 1, 2, 3, 4, 5
 - `Chemistry.PR78Acentric.pr78_omega1_exists` (4): open 1, 2, 3, 4
-- `Chemistry.PR78Acentric.pr78_omega1_unique` (6): open 1, 2, 3, 4, 5, 6
+- `Chemistry.PR78Acentric.pr78_omega1_unique` (6): needed 6 (`pr78_omega1_unique_h6`); open 1, 2, 3, 4, 5
 - `Chemistry.SRKAcentric.srk_omega1_exists` (4): open 1, 2, 3, 4
-- `Chemistry.SRKAcentric.srk_omega1_unique` (6): open 1, 2, 3, 4, 5, 6
-- `Sim.Duffing.duffing_first_zero_sol` (1): open 1
-- `Sim.MichaelisMenten.mm_half_conversion` (1): open 1
-- `Sim.Robertson.rob_state40` (1): open 1
-- `Sim.RobLong.rob_state1e11` (1): open 1
-- `Sim.RobLong.rob_printed_y3_low` (1): open 1
-- `Data.FR13.fr13_bestfit68` (3): open 1, 2, 3
-- `Data.FR13.fr13_bestfit738` (3): open 1, 2, 3
+- `Chemistry.SRKAcentric.srk_omega1_unique` (6): needed 6 (`srk_omega1_unique_h6`); open 1, 2, 3, 4, 5
+- `Sim.Duffing.duffing_first_zero_sol` (1): needed 1 (`duffing_first_zero_sol_h1`)
+- `Sim.MichaelisMenten.mm_half_conversion` (1): needed 1 (`mm_half_conversion_h1`)
+- `Sim.Robertson.rob_state40` (1): needed 1 (`rob_state40_h1`)
+- `Sim.RobLong.rob_state1e11` (1): needed 1 (`rob_state1e11_h1`)
+- `Sim.RobLong.rob_printed_y3_low` (1): needed 1 (`rob_printed_y3_low_h1`)
+- `Data.FR13.fr13_bestfit68` (3): needed 3 (`fr13_bestfit68_h3`); open 1, 2
+- `Data.FR13.fr13_bestfit738` (3): needed 3 (`fr13_bestfit738_h3`); open 1, 2
 - `Data.FR13.fr13_minval68` (3): open 1, 2, 3
 - `Data.FR13.fr13_minval738` (3): open 1, 2, 3
 - `Data.FR13.fr13_zda68` (5): open 1, 2, 3, 4, 5
 - `Data.FR13.fr13_zda738` (5): open 1, 2, 3, 4, 5
-- `Math.LaneEmden.laneEmden3_constants` (4): needed 1 (`laneEmden3_constants_h1`), 3 (`laneEmden3_constants_h3`), 4 (`laneEmden3_constants_h4`); open 2
-- `Math.Gelfand.gelfand_ball_critical` (5): open 1, 2, 3, 4, 5
-- `Math.GelfandExists.exists_solution` (1): open 1
-- `Math.ThomasFermi.tf_initial_slope` (6): needed 2 (`tf_initial_slope_h2`); open 1, 3, 4, 5, 6
-- `Math.GelfandPDE.gelfand_pde_radial_bound` (5): open 1, 2, 3, 4, 5
-- `Math.GelfandPDEExists.gelfand_pde_radial_exists` (2): open 1, 2
-- `Townes.Shooting.townes_under` (5): needed 1 (`townes_under_h1`), 2 (`townes_under_h2`), 4 (`townes_under_h4`), 5 (`townes_under_h5`); open 3
-- `Townes.Shooting.townes_over` (5): needed 1 (`townes_over_h1`), 2 (`townes_over_h2`), 4 (`townes_over_h4`), 5 (`townes_over_h5`); open 3
-- `Blasius.blasius_wall_shear` (6): needed 2 (`blasius_wall_shear_h2`), 3 (`blasius_wall_shear_h3`), 5 (`blasius_wall_shear_h5`); open 1, 4, 6
-- `Hiemenz.hiemenz_under` (7): open 1, 2, 3, 4, 5, 6, 7
-- `Hiemenz.hiemenz_over` (7): open 1, 2, 3, 4, 5, 6, 7
-- `Homann.homann_under` (7): open 1, 2, 3, 4, 5, 6, 7
-- `Homann.homann_over` (7): open 1, 2, 3, 4, 5, 6, 7
-- `Data.Moresco16.table5_oL_inconsistent` (3): open 1, 2, 3
-- `Data.Moresco16.table5_pw_inconsistent` (3): open 1, 2, 3
-- `Data.Moresco16.table5_line_inconsistent` (3): open 1, 2, 3
+- `Math.LaneEmden.laneEmden3_constants` (4): needed 1 (`laneEmden3_constants_h1`), 3 (`laneEmden3_constants_h3`), 4 (`laneEmden3_constants_h4`); redundant 2 (`laneEmden3_constants_r2`)
+- `Math.Gelfand.gelfand_ball_critical` (5): needed 1 (`gelfand_ball_critical_h1`), 2 (`gelfand_ball_critical_h2`), 4 (`gelfand_ball_critical_h4`); redundant 3 (`gelfand_ball_critical_r3`); open 5
+- `Math.GelfandExists.exists_solution` (1): redundant 1 (`exists_solution_r1`)
+- `Math.ThomasFermi.tf_initial_slope` (6): needed 2 (`tf_initial_slope_h2`), 4 (`tf_initial_slope_h4`); redundant 3 (`tf_initial_slope_r3`); open 1, 5, 6
+- `Math.GelfandPDE.gelfand_pde_radial_bound` (5): needed 5 (`gelfand_pde_radial_bound_h5`); open 1, 2, 3, 4
+- `Math.GelfandPDEExists.gelfand_pde_radial_exists` (2): needed 2 (`gelfand_pde_radial_exists_h2`); open 1
+- `Townes.Shooting.townes_under` (5): needed 1 (`townes_under_h1`), 2 (`townes_under_h2`), 4 (`townes_under_h4`), 5 (`townes_under_h5`); redundant 3 (`townes_under_r3`)
+- `Townes.Shooting.townes_over` (5): needed 1 (`townes_over_h1`), 2 (`townes_over_h2`), 4 (`townes_over_h4`), 5 (`townes_over_h5`); redundant 3 (`townes_over_r3`)
+- `Blasius.blasius_wall_shear` (6): needed 1 (`blasius_wall_shear_h1`), 2 (`blasius_wall_shear_h2`), 3 (`blasius_wall_shear_h3`), 5 (`blasius_wall_shear_h5`), 6 (`blasius_wall_shear_h6`); open 4
+- `Hiemenz.hiemenz_under` (7): needed 1 (`hiemenz_under_h1`), 2 (`hiemenz_under_h2`), 3 (`hiemenz_under_h3`), 4 (`hiemenz_under_h4`), 7 (`hiemenz_under_h7`); open 5, 6
+- `Hiemenz.hiemenz_over` (7): needed 1 (`hiemenz_over_h1`), 2 (`hiemenz_over_h2`), 3 (`hiemenz_over_h3`), 4 (`hiemenz_over_h4`), 7 (`hiemenz_over_h7`); open 5, 6
+- `Homann.homann_under` (7): needed 1 (`homann_under_h1`), 2 (`homann_under_h2`), 3 (`homann_under_h3`), 4 (`homann_under_h4`), 7 (`homann_under_h7`); open 5, 6
+- `Homann.homann_over` (7): needed 1 (`homann_over_h1`), 2 (`homann_over_h2`), 3 (`homann_over_h3`), 4 (`homann_over_h4`), 7 (`homann_over_h7`); open 5, 6
+- `Data.Moresco16.table5_oL_inconsistent` (3): needed 1 (`table5_oL_inconsistent_h1`), 2 (`table5_oL_inconsistent_h2`), 3 (`table5_oL_inconsistent_h3`)
+- `Data.Moresco16.table5_pw_inconsistent` (3): needed 1 (`table5_pw_inconsistent_h1`), 2 (`table5_pw_inconsistent_h2`), 3 (`table5_pw_inconsistent_h3`)
+- `Data.Moresco16.table5_line_inconsistent` (3): needed 1 (`table5_line_inconsistent_h1`), 2 (`table5_line_inconsistent_h2`), 3 (`table5_line_inconsistent_h3`)
 - `Data.Moresco16Min.chiSqOL_ge` (3): open 1, 2, 3
 - `Data.Moresco16Min.table5_oL_aicc_unattainable` (5): open 1, 2, 3, 4, 5
-- `Math.LaneEmden2.laneEmden2_constants` (4): needed 1 (`laneEmden2_constants_h1`), 3 (`laneEmden2_constants_h3`), 4 (`laneEmden2_constants_h4`); open 2
-- `FalknerSkan.fs_zero_wall_shear` (6): needed 2 (`fs_zero_wall_shear_h2`), 3 (`fs_zero_wall_shear_h3`), 5 (`fs_zero_wall_shear_h5`); open 1, 4, 6
+- `Math.LaneEmden2.laneEmden2_constants` (4): needed 1 (`laneEmden2_constants_h1`), 3 (`laneEmden2_constants_h3`), 4 (`laneEmden2_constants_h4`); redundant 2 (`laneEmden2_constants_r2`)
+- `FalknerSkan.fs_zero_wall_shear` (6): needed 1 (`fs_zero_wall_shear_h1`), 2 (`fs_zero_wall_shear_h2`), 3 (`fs_zero_wall_shear_h3`), 5 (`fs_zero_wall_shear_h5`), 6 (`fs_zero_wall_shear_h6`); open 4
 - `FalknerSkan.MonotoneWindow.hiemenz_monotone_window` (7): needed 1 (`hiemenz_monotone_window_h1`), 3 (`hiemenz_monotone_window_h3`); redundant 7 (`hiemenz_limit_window`); open 2, 4, 5, 6
 - `FalknerSkan.MonotoneWindow.homann_monotone_window` (7): needed 1 (`homann_monotone_window_h1`), 3 (`homann_monotone_window_h3`); redundant 7 (`homann_limit_window`); open 2, 4, 5, 6
 - `FalknerSkan.Bounded.hiemenz_bounded_window` (7): needed 1 (`hiemenz_bounded_window_h1`), 2 (`hiemenz_bounded_window_h2`), 3 (`hiemenz_bounded_window_h3`), 5 (`hiemenz_bounded_window_h5`); redundant 7 (`hiemenz_limit_window`); open 4, 6

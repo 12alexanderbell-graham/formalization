@@ -529,3 +529,8 @@
 - **Part 3: rule P13, phrase lines certified in Lean** (`Checked/Trust/PhraseCerts.lean`, `scripts/trust/phrase_certs.txt`, shrink-only `phrase_cert_baseline.txt`, `check_claims.py` P13 + planted controls, `Claims.lean` prints certificate conditions after phrases and writes `PHRASE_LINES.md`, CI staleness check): 31 of 92 reader lines proved; five shown lines false at edge values now carry their conditions (Ω0 > 1, redshift 0 at coinciding times, orders 0 and 1 cosmographic coefficients, curvK sign, Duffing initial velocity).
 - Adversary AE (Sonnet) on the first version: 6/6 defect classes passed; repaired before the first push, 2 open (`runs/2026-11-09T1828Z/adversary/JUDGE.md`).
 - PROMPT working note: certify what a reader line says, not who wrote it.
+## 2026-11-11T0028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; main reset to origin/main = 115b29e); LOCK of run 2026-11-09T2228Z ≈ 25 h old, taken over (626006c); no run on 2026-11-10 (usage limit); **local Lean available** (full build ≈ 78 min). CI 42721774680 (115b29e) green on every job → β = −1/10 Falkner–Skan PROVED, P13 live.
+- **Part 1 (T2b): `Checked/Trust/NecessityB.lean`** — run 2228Z's scratch batch completed plus four families (junk critical points of the cubic isotherm, de Sitter vs coefficient laws, lookback with 1 + t², `ne_a0_of_hubble` ×24, `not_littleO_core` ×7): NEEDED 161 → 253, REDUNDANT 17 → 51, fully classified headlines 0 → 22 of 150.
+- **New blocking check `scripts/trust/check_necessity.py`** (N1–N3, baseline `necessity_open_baseline.txt`, planted controls); adversary on the first draft found 7 holes, repaired before going live.
+- PROMPT working notes: necessity witnesses by family + the ratchet; runs end without warning (push scratch at once).

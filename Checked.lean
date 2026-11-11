@@ -30,6 +30,7 @@ import Checked.Records.Findings
 import Checked.Trust.NonVacuity
 import Checked.Trust.Witnesses
 import Checked.Trust.Necessity
+import Checked.Trust.NecessityB
 import Checked.Trust.PhraseCerts
 import Checked.Trust.SecondReading
 import Checked.Trust.Transcriptions

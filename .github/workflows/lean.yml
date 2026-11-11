@@ -221,6 +221,9 @@ jobs:
           # (run 2026-11-06T2228Z, after blind red team P: deny-lists were routed around every round)
           python3 scripts/trust/check_claim_vocab.py
           python3 scripts/trust/check_status_lines.py
+          # hypothesis necessity (T2b): every open hypothesis listed in necessity_open_baseline.txt; parser fails closed
+          # (run 2026-11-11T0028Z, see LEDGER; adversary on the first draft: 7 holes, repaired before going live)
+          python3 scripts/trust/check_necessity.py
       - name: Frozen statements and definitions change only with a LEDGER entry naming them (run 2026-10-31T0028Z)
         env:
           BASE: ${{ needs.changes.outputs.base }}
@@ -256,6 +259,9 @@ jobs:
           python3 scripts/trust/check_prose_eval.py --base "$BASE"
           python3 scripts/trust/check_claim_words.py --base "$BASE"
           python3 scripts/trust/check_claim_vocab.py --base "$BASE"
+          # a NEEDED/REDUNDANT hypothesis never becomes open or "no obligation" again; new or renumbered headlines with open
+          # hypotheses, and removed classified ones, are named in LEDGER; NEEDED + REDUNDANT never falls (run 2026-11-11T0028Z)
+          python3 scripts/trust/check_necessity.py --base "$BASE"
       - name: Author files for runs without local Lean (generated output, not a check; run 2026-11-04T0028Z, see LEDGER)
         # When the run environment refuses a local Lean install (run 2026-11-04T0028Z), the files a
         # promotion must commit (TRUST_MAP.md, relocked frozen.txt, validation packet) can only be
