@@ -1,0 +1,305 @@
+diff --git a/Checked/Trust/NonVacuity.lean b/Checked/Trust/NonVacuity.lean
+index 4a83cc5..0e697bc 100644
+--- a/Checked/Trust/NonVacuity.lean
++++ b/Checked/Trust/NonVacuity.lean
+@@ -214,4 +214,92 @@ elab "dropped% " id:ident i:num : term => do
+   let c ← realizeGlobalConstNoOverloadWithInfo id
+   dropObligation (← getConstInfo c).type i.getNat
+ 
++/-! ### Necessity of each conjunct of a bundled hypothesis (trust track T2b, run 2026-11-11T1428Z)
++
++A hypothesis that is a conjunction behind a program definition (an initial-value-problem solution,
++a critical point: `bundled i` in `TRUST_MAP.md`, blind red team AF) is classified as a whole by
++`necessity% thm i`; that says the bundle is needed, not that each of its parts is. Its *conjuncts*
++are read by `hypConjuncts`: the hypothesis's type with `Checked` definitions at the head unfolded
++(`unfoldHead`), split at every `∧`, each part unfolded and split again. A conjunct under a binder
++(`∀ t, A ∧ B`, `∃ v, …`, `∀ᶠ t in 𝓝 t₀, …`) is one conjunct: it is not split. For the `j`-th
++conjunct `cⱼ` of the `i`-th hypothesis (both 1-based):
++
++* `necessity% thm i j` is `∃ x₁ … xₙ (all binders but hᵢ), c₁ ∧ … ∧ cⱼ₋₁ ∧ cⱼ₊₁ ∧ … ∧ ¬ C`:
++  data meeting every other hypothesis and every other conjunct of hᵢ with the conclusion false,
++  so the conjunct `cⱼ` is **needed**;
++* `dropped% thm i j` is `∀ x₁ … xₙ (all binders but hᵢ), c₁ → … → cⱼ₋₁ → cⱼ₊₁ → … → C`: the
++  statement with `cⱼ` dropped from hᵢ, so `cⱼ` is **redundant in Lean** (one conjunct at a time,
++  with the caveats of `dropped%`). -/
++
++/-- The conjuncts of a hypothesis type (see above): `Checked` definitions at the head unfolded,
++split at every `∧`; a conjunct under a binder is not split. -/
++partial def hypConjuncts (t : Expr) (fuel : Nat := 32) : MetaM (Array Expr) := do
++  if fuel = 0 then return #[t]
++  let u ← unfoldHead t
++  if u.isAppOfArity ``And 2 then
++    return (← hypConjuncts u.appFn!.appArg! (fuel - 1)) ++ (← hypConjuncts u.appArg! (fuel - 1))
++  return #[u]
++
++/-- The `i`-th hypothesis's conjuncts other than the `j`-th, the remaining binders and the
++conclusion (errors as `withoutHyp`, and if `j` is out of range or the hypothesis has one conjunct). -/
++def withoutConjunct {α : Type} (ty : Expr) (i j : Nat)
++    (k : Array Expr → Array Expr → Expr → MetaM α) : MetaM α :=
++  flatStatement ty fun xs c => do
++    let ps ← hypPositions xs
++    unless 1 ≤ i && i ≤ ps.size do
++      throwError "hypothesis {i}: the statement has {ps.size} hypotheses"
++    let p := ps[i - 1]!
++    let h := xs[p]!.fvarId!
++    if (← h.getDecl).binderInfo.isInstImplicit then
++      throwError "hypothesis {i} is an instance argument: no obligation"
++    for l in [p+1:xs.size] do
++      if (← inferType xs[l]!).containsFVar h then
++        throwError "hypothesis {i} is used as data by a later binder: no obligation"
++    if c.containsFVar h then
++      throwError "hypothesis {i} is used as data by the conclusion: no obligation"
++    let cs ← hypConjuncts (← inferType xs[p]!)
++    unless 2 ≤ cs.size do
++      throwError "hypothesis {i} has {cs.size} conjunct: nothing to split"
++    unless 1 ≤ j && j ≤ cs.size do
++      throwError "conjunct {j}: hypothesis {i} has {cs.size} conjuncts"
++    k (xs.eraseIdx! p) (cs.eraseIdx! (j - 1)) c
++
++/-- Necessity obligation of the `j`-th conjunct of the `i`-th hypothesis (see above). -/
++def necPartObligation (ty : Expr) (i j : Nat) : MetaM Expr :=
++  withoutConjunct ty i j fun ys others c => do
++    let mut e := negConcl c
++    for o in others.reverse do
++      e ← mkAppM ``And #[o, e]
++    mkExistsFVars ys e
++
++/-- Redundancy obligation of the `j`-th conjunct of the `i`-th hypothesis: the statement with it
++dropped. -/
++def dropPartObligation (ty : Expr) (i j : Nat) : MetaM Expr :=
++  withoutConjunct ty i j fun ys others c => do
++    let mut e := c
++    for o in others.reverse do
++      e ← mkArrow o e
++    mkForallFVars ys e
++
++/-- Number of conjuncts of the `i`-th hypothesis (0 if it is not a proposition binder). -/
++def numConjuncts (ty : Expr) (i : Nat) : MetaM Nat :=
++  flatStatement ty fun xs _ => do
++    let ps ← hypPositions xs
++    unless 1 ≤ i && i ≤ ps.size do return 0
++    let t ← inferType xs[ps[i - 1]!]!
++    unless ← isProp t do return 0
++    return (← hypConjuncts t).size
++
++/-- `necessity% c i j`: data meeting every hypothesis of `c` but the `i`-th, and every conjunct of
++the `i`-th but the `j`-th, with the conclusion false. -/
++elab "necessity% " id:ident i:num j:num : term => do
++  let c ← realizeGlobalConstNoOverloadWithInfo id
++  necPartObligation (← getConstInfo c).type i.getNat j.getNat
++
++/-- `dropped% c i j`: the statement of `c` with the `j`-th conjunct of its `i`-th hypothesis
++dropped. -/
++elab "dropped% " id:ident i:num j:num : term => do
++  let c ← realizeGlobalConstNoOverloadWithInfo id
++  dropPartObligation (← getConstInfo c).type i.getNat j.getNat
++
+ end Checked.Trust
+diff --git a/scripts/trust/StatementDeps.lean b/scripts/trust/StatementDeps.lean
+index 475ea39..14cdb0e 100644
+--- a/scripts/trust/StatementDeps.lean
++++ b/scripts/trust/StatementDeps.lean
+@@ -1263,7 +1263,43 @@ run_cmd do
+     if let .ok hn := resolve cands h then
+       let ci := (env.find? hn).get!
+       let k ← liftTermElabM <| Checked.Trust.numHyps ci.type
+-      let shape ← liftTermElabM <| necShape ci.type
++      let shape0 ← liftTermElabM <| necShape ci.type
++      -- per-conjunct necessity of a bundled hypothesis (run 2026-11-11T1428Z, T2b item 3e from blind
++      -- red team AF): `bundled i` is dropped when every conjunct of hypothesis i is NEEDED (a Checked
++      -- theorem states `necessity% h i j`) or REDUNDANT (`dropped% h i j`); the witnesses are listed in a
++      -- `conjuncts of i (m)` part. Partial coverage is not reported and `bundled i` stays.
++      let mut shape : Array String := #[]
++      let mut conjParts : Array String := #[]
++      for item in shape0 do
++        if item.startsWith "bundled " then
++          let i := (item.drop 8).toNat!
++          let m ← liftTermElabM <| Checked.Trust.numConjuncts ci.type i
++          let mut cNeed : Array String := #[]
++          let mut cRed : Array String := #[]
++          let mut allDone := 2 ≤ m
++          for j in [1:m+1] do
++            let obs ← liftTermElabM do
++              try
++                return some (← Checked.Trust.necPartObligation ci.type i j, ← Checked.Trust.dropPartObligation ci.type i j)
++              catch _ => return none
++            match obs with
++            | none => allDone := false
++            | some (ne, dr) =>
++              match findThm ne hn with
++              | some w => cNeed := cNeed.push s!"{j} (`{w.componentsRev.head!}`)"
++              | none =>
++                match findThm dr hn with
++                | some w => cRed := cRed.push s!"{j} (`{w.componentsRev.head!}`)"
++                | none => allDone := false
++          if allDone then
++            unless cNeed.isEmpty do
++              conjParts := conjParts.push s!"conjuncts of {i} ({m}) needed {", ".intercalate cNeed.toList}"
++            unless cRed.isEmpty do
++              conjParts := conjParts.push (s!"conjuncts of {i} ({m}) " ++
++                (if cRed.size ≥ 2 then "redundant (each alone, not together) " else "redundant ") ++
++                ", ".intercalate cRed.toList)
++          else shape := shape.push item
++        else shape := shape.push item
+       let shortH := (hn.toString.replace "Checked.Cosmography." "").replace "Checked." ""
+       let shapePart := if shape.isEmpty then [] else [s!"shape: {", ".intercalate shape.toList}"]
+       if k == 0 then
+@@ -1305,7 +1341,7 @@ run_cmd do
+       let part := fun (lbl : String) (a : Array String) =>
+         if a.isEmpty then [] else [s!"{lbl} {", ".intercalate a.toList}"]
+       necLines := necLines.push (s!"- `{shortH}` ({k}): " ++ "; ".intercalate
+-        (part "needed" needed ++ part (if redund.size ≥ 2 then "redundant (each alone, not together)" else "redundant") redund ++ part "no obligation (instance, or proof used as data)" dataH ++ part "open" openH ++ shapePart))
++        (part "needed" needed ++ part (if redund.size ≥ 2 then "redundant (each alone, not together)" else "redundant") redund ++ part "no obligation (instance, or proof used as data)" dataH ++ part "open" openH ++ conjParts.toList ++ shapePart))
+   IO.FS.writeFile ".lake/necessity.tsv" (String.intercalate "\n" necTsv.toList ++ "\n")
+   logInfo m!"hypothesis necessity: {nHyp} hypotheses of {nHeadHyp} headlines; needed {nNeeded}, redundant {nRedundant}, no obligation {nDataH}, open {nHyp - nNeeded - nRedundant - nDataH}"
+   let md := String.intercalate "\n" ([
+@@ -1366,7 +1402,11 @@ run_cmd do
+     "conclusion: needed only because the conclusion repeats it). A headline with a shape entry never counts",
+     "as having every hypothesis classified, and a new one fails CI (`check_necessity.py` N4). Two or more",
+     "redundant hypotheses of one headline are labelled \"each alone, not together\": dropping them all may make",
+-    "the statement false (red team AF d02).",
++    "the statement false (red team AF d02). Conjuncts (run 2026-11-11T1428Z): `bundled i` is dropped once every",
++    "conjunct of hypothesis i (its definition unfolded and split at each `∧`; a conjunct under a binder such as",
++    "`∀ t`, `∃ v`, `∀ᶠ t` is not split) is NEEDED (`necessity% <headline> i j`: every other hypothesis and every",
++    "other conjunct hold, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`); the witnesses are",
++    "listed as `conjuncts of i (m)`, m the number of conjuncts.",
+     ""] ++ necLines.toList ++ [
+     "",
+     "## FORMULA, MATH and WITNESS definitions (second formulation)",
+diff --git a/scripts/trust/check_necessity.py b/scripts/trust/check_necessity.py
+index 2032e06..481eba1 100644
+--- a/scripts/trust/check_necessity.py
++++ b/scripts/trust/check_necessity.py
+@@ -26,6 +26,12 @@ the conclusion). Every such headline has exactly that line in the shrink-only ba
+ `scripts/trust/necessity_shape_baseline.txt` (`<headline> | <reasons>`); with --base, the baseline may not gain
+ a line, so a new headline with a shape entry fails (no disclosure route: restate the headline). A headline with
+ a shape entry never counts as fully classified.
++Conjunct parts (run 2026-11-11T1428Z, T2b item 3e): StatementDeps drops `bundled i` once every conjunct of
++hypothesis i is NEEDED (`necessity% <headline> i j`) or REDUNDANT (`dropped% <headline> i j`) and lists them as
++`conjuncts of i (m) needed …` / `conjuncts of i (m) redundant …`; the parser requires those parts to partition
++1..m (m ≥ 2), to name an existing hypothesis, and never to stand next to `bundled i`. A baseline line may lose
++reasons (a `bundled i` closed this way), never gain them; losing the witnesses brings `bundled i` back, which the
++baseline no longer lists, so N4 fails (the ratchet).
+ The parser fails closed: exactly one section heading and one summary paragraph, every list line of the
+ section in the generator's grammar, no duplicate headline, indices partitioning 1..n, summary totals equal to
+ the sums of the lines; an unreadable base fails too (adversary of run 2026-11-11T0028Z, 7 holes in the first
+@@ -53,6 +59,8 @@ TOT = re.compile(r"^Hypothesis necessity \(trust track T2b[^\n]*\n(\d+) shown NE
+ LABELS = {"needed": "needed", "redundant": "redundant", "redundant (each alone, not together)": "redundant",
+           "no obligation (instance, or proof used as data)": "data", "open": "open"}
+ WIT = re.compile(r"^(\d+) \(`[^`]+`\)$")
++# per-conjunct witnesses of a bundled hypothesis (run 2026-11-11T1428Z): `conjuncts of <i> (<m>) <label> <items>`
++CONJ = re.compile(r"^conjuncts of (\d+) \((\d+)\) (needed|redundant \(each alone, not together\)|redundant) (.+)$")
+ 
+ 
+ class ParseError(Exception):
+@@ -76,7 +84,26 @@ def parse_parts(rest):
+             raise ParseError("shape item twice")
+         out["shape"] = tuple(items)
+         parts = parts[:-1]
++    out["conj"] = {}
+     for part in parts:
++        cm = CONJ.match(part)
++        if cm:
++            i, m_, lab, body = int(cm.group(1)), int(cm.group(2)), cm.group(3), cm.group(4)
++            key = LABELS[lab]
++            if key not in ("needed", "redundant"):
++                raise ParseError(f"bad conjunct label `{lab}`")
++            c = out["conj"].setdefault(i, {"m": m_, "needed": set(), "redundant": set()})
++            if c["m"] != m_:
++                raise ParseError(f"conjuncts of {i}: two conjunct counts")
++            if c[key] or (key, i) in seen:
++                raise ParseError(f"part `conjuncts of {i} {lab}` twice")
++            seen.append((key, i))
++            for it in body.split(", "):
++                w = WIT.match(it)
++                if not w:
++                    raise ParseError(f"bad item `{it}` in `conjuncts of {i}`")
++                c[key].add(int(w.group(1)))
++            continue
+         lab = next((l for l in sorted(LABELS, key=len, reverse=True) if part.startswith(l + " ")), None)
+         if lab is None:
+             raise ParseError(f"unknown part `{part}`")
+@@ -124,6 +151,13 @@ def parse_map(text):
+         d = parse_parts(m.group(3))
+         if n == 0 and not d["shape"]:
+             raise ParseError(f"`{name}`: a line with no hypotheses must carry a shape entry")
++        for i, c in d["conj"].items():
++            if not 1 <= i <= n:
++                raise ParseError(f"`{name}`: conjuncts of {i}, but {n} hypotheses")
++            if c["m"] < 2 or c["needed"] & c["redundant"] or c["needed"] | c["redundant"] != set(range(1, c["m"] + 1)):
++                raise ParseError(f"`{name}`: conjuncts of {i} do not partition 1..{c['m']}")
++            if f"bundled {i}" in d["shape"]:
++                raise ParseError(f"`{name}`: conjuncts of {i} listed while the shape keeps `bundled {i}`")
+         allidx = d["needed"] | d["redundant"] | d["data"] | d["open"]
+         if allidx != set(range(1, n + 1)) or sum(len(d[k]) for k in set(LABELS.values())) != n:
+             raise ParseError(f"`{name}`: indices {sorted(allidx)} do not partition 1..{n}")
+@@ -208,9 +242,18 @@ def rule_n4_base(old_text, new_text, errors):
+     if old_text is None:
+         return   # the base predates the shape rule
+     old = {l.strip() for l in old_text.splitlines() if l.strip() and not l.strip().startswith("#")}
++    oldp = {}
++    for l in old:
++        parts = [p.strip() for p in l.split("|")]
++        if len(parts) == 2:
++            oldp[parts[0]] = {x.strip() for x in parts[1].split(",")}
+     for l in new_text.splitlines():
+         s = l.strip()
+         if s and not s.startswith("#") and s not in old:
++            # a line may lose reasons (run 2026-11-11T1428Z: `bundled i` closed by conjunct witnesses), never gain
++            parts = [p.strip() for p in s.split("|")]
++            if len(parts) == 2 and parts[0] in oldp and {x.strip() for x in parts[1].split(",")} < oldp[parts[0]]:
++                continue
+             errors.append(f"N4: line added to the shrink-only {SHAPE_BASELINE}: `{s}`")
+ 
+ 
+@@ -376,6 +419,41 @@ def selftest():
+     if e:
+         fails.append("N4 rejected a shrinking shape baseline")
+     e = []
++    rule_n4_base("C.c | conclusion, bundled 1\n", "C.c | bundled 1\n", e)
++    if e:
++        fails.append("N4 rejected a baseline line that lost a reason")
++    e = []
++    rule_n4_base("C.c | conclusion\n", "C.c | conclusion, bundled 1\n", e)
++    if not e:
++        fails.append("N4 accepted a baseline line that gained a reason")
++    e = []
++    rule_n4_base("C.c | conclusion\n", "D.d | conclusion\n", e)
++    if not e:
++        fails.append("N4 accepted a reason moved to another headline")
++    # conjunct parts (run 2026-11-11T1428Z)
++    tc = tm.replace("- `C.c` (1): redundant 1 (`c_r1`)",
++                    "- `C.c` (1): redundant 1 (`c_r1`); conjuncts of 1 (3) needed 1 (`w1`), 3 (`w3`); conjuncts of 1 (3) redundant 2 (`w2`)")
++    try:
++        mc, _ = parse_map(tc)
++        if mc["C.c"]["conj"] != {1: {"m": 3, "needed": {1, 3}, "redundant": {2}}}:
++            fails.append(f"parser: conjuncts {mc['C.c']['conj']}")
++    except ParseError as ex:
++        fails.append(f"parser rejected conjunct parts: {ex}")
++    for lbl, t in {"incomplete conjuncts": tc.replace("1 (`w1`), 3 (`w3`)", "1 (`w1`)"),
++                   "conjunct index out of range": tc.replace("redundant 2 (`w2`)", "redundant 4 (`w2`)"),
++                   "conjuncts of a missing hypothesis": tc.replace("conjuncts of 1 (3) needed", "conjuncts of 2 (3) needed"),
++                   "conjuncts next to bundled": tc.replace("redundant 2 (`w2`)", "redundant 2 (`w2`); shape: bundled 1"),
++                   "conjunct both needed and redundant": tc.replace("redundant 2 (`w2`)", "redundant 2 (`w2`), 3 (`w3`)"),
++                   "conjunct part twice": tc.replace("; conjuncts of 1 (3) redundant 2 (`w2`)",
++                                                     "; conjuncts of 1 (3) needed 2 (`w2`)"),
++                   "one conjunct": tm.replace("- `C.c` (1): redundant 1 (`c_r1`)",
++                                              "- `C.c` (1): redundant 1 (`c_r1`); conjuncts of 1 (1) needed 1 (`w1`)")}.items():
++        try:
++            parse_map(t)
++            fails.append(f"parser accepted: {lbl}")
++        except ParseError:
++            pass
++    e = []
+     rule_n3((12, 3, 0), (11, 3, 0), e)
+     if not e:
+         fails.append("N3 accepted a falling total")
+@@ -396,7 +474,7 @@ def main():
+         print("check_necessity selftest FAILED:\n  " + "\n  ".join(fails))
+         return 1
+     if "--selftest" in sys.argv:
+-        print("check_necessity selftest: OK (planted controls for the parser, N1, N2, N3, N4)")
++        print("check_necessity selftest: OK (planted controls for the parser, N1, N2, N3, N4, conjunct parts)")
+         return 0
+     errors = []
+     try:
