@@ -1,19 +1,26 @@
 import Mathlib
+import Work.FSAtt.N1988Core
+import Work.FSAtt.N1988Lo
+import Work.FSAtt.N1988Hi
 
 /-!
-# Falkner–Skan at β = −0.1988: the attached wall shear (FROZEN, run 2026-11-11T0828Z; proofs pending)
+# Falkner–Skan at β = −0.1988: the attached wall shear (FROZEN, run 2026-11-11T0828Z; PROVED here, run 2026-11-11T1028Z)
 
-Parts 2/5. Classical tables and recent papers print f''(0) at β = −0.1988 (just above the separation value
+Parts 2/5. Papers print f''(0) at β = −0.1988 (just above the separation value
 β* ∈ (−0.1988377351, −0.1988377350), `Checked.FalknerSkan.Separation`) as 0.005221 (Fazio 2012, typeset
-p. 16, `runs/2026-11-11T0828Z/typeset/fazio2012_p16_beta_min.png`), 0.005222, 0.005225, 0.005226, 0.005229
-(Zhang, Asaithambi, Salama, Zhu; run 2026-11-11T0232Z referee, not yet read typeset). Independent
-numerics (run 0232Z referee, mpmath; run 0828Z scipy DOP853, horizons 10–14): 0.00521818788… So every
-printed value is wrong in the fourth significant digit. The window below certifies it.
+p. 16, `runs/2026-11-11T0828Z/typeset/fazio2012_p16_beta_min.png`), 0.005222, 0.005225, 0.005226 (Zhang–Chen,
+Asaithambi, Salama, as listed by Asaithambi 2021, summary only) and 0.005229 (Zhu–Cheng–Wu, summary only); one
+paper prints the correctly rounded 0.005218 (Guo, Zhuang, Meng, Rabczuk, arXiv:2010.05682v1 Table 8, typeset
+`runs/2026-11-11T1028Z/typeset/guo2020_p33_table8.png`). Independent numerics (run 0232Z referee, mpmath; run
+0828Z scipy; run 1028Z referee, collocation with the parabolic-cylinder tail): 0.00521818788…; the five wrong
+values are reproduced as truncation errors at η∞ ≈ 7.5–7.8 (run 1028Z referee report).
 
 Statements copied from `Checked.FalknerSkan.NegWindow.fs_neg_tenth_window` and
 `Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay` with β = −1988/10000 and the window
-(0.0052181, 0.0052182). Do not change them; prove them (route: the β = −1/10 stack `Checked/FSNeg/`
-templated to K = 10000/1988, or the K-parameterised cells of `Checked/FSSep/` started at q(0) = α).
+(0.0052181, 0.0052182). Proofs (run 1028Z): the attached-flow stack generic in the scaled coefficient
+K ≥ 5 (`Work/FSAtt/`: flow from (0, 0, α), unclamping, shooting, window from two chains) at K = 2500/497,
+with the certified chains `Work.FSAtt.N1988Lo.chain` (slow approach at A = 11703189/10⁹) and
+`Work.FSAtt.N1988Hi.chain` (overshoot at A = 58517/5000000), A = √K · f''(0).
 -/
 
 namespace Work.FalknerSkan.Neg1988
@@ -30,8 +37,9 @@ theorem fs_neg1988_window (f p q : ℝ → ℝ)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
     (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
     (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
-    0.0052181 < q 0 ∧ q 0 < 0.0052182 := by
-  sorry
+    0.0052181 < q 0 ∧ q 0 < 0.0052182 :=
+  Work.FSAtt.N1988Core.window_core Work.FSAtt.N1988Lo.chain Work.FSAtt.N1988Hi.chain
+    f p q hf hp hq hf0 hp0 hlim hpos hdec
 
 /-- Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
 [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`. -/
@@ -42,7 +50,8 @@ theorem fs_neg1988_exists_decay :
       (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-1988 / 10000) * (1 - p η ^ 2)) (Ici 0) η) ∧
       f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
-      (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) := by
-  sorry
+      (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :=
+  Work.FSAtt.N1988Core.exists_core Work.FSAtt.N1988Lo.chain Work.FSAtt.N1988Hi.chain
 
 end Work.FalknerSkan.Neg1988
+

@@ -313,3 +313,7 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Falkner–Skan printed values (run 2026-11-11T0828Z)
 - `Checked/FalknerSkan/SeparationPrinted.lean` (branch `wip/sep-printed-promo`): `Separation.fs_separation_exists` + `SeparationEqual.fs_separation_equal` → the printed β_min is outside the window. Reading `Checked/Trust/SecondReadingFSSepPrinted.lean`; necessity `Checked/Trust/NecessityE.lean` (profiles `1 − e^{−kη²}`, `min(η, 1)` with the linear q-solution); blind closure `Work/FalknerSkan/SepPrintedBlindClosed.lean` (branch `wip/sep-printed`).
 - `Work/FalknerSkan/Neg1988.lean` (frozen): β = −0.1988 window and existence; route: template `Checked/FSNeg/` to K = 2500/497 (STATE exact next step 2).
+
+## Falkner–Skan attached rows, generic in K (run 2026-11-11T1028Z)
+- `Checked/FSAtt/ABase` (`SlowA`, `ChainA K α E`) → `AFlow` (flow of `SBase.vS K` from (0, 0, α), continuous in α; `SFlow` lemmas) → `AUnclamp` → `AAssemble` (`over_open`, `slow_open`, `slow_not_over`, `neither_class`, `slow_class`) → `AWindow` (`core_window`, `window_of_chains`, with `NegDecay.fs_neg_decay_equal`).
+- Row β = −1988/10000 (K = 2500/497): `N1988Lo`, `N1988Hi` (generated chains on `FSSep.SCellWC`), `N1988Core` (√K bounds), headlines `Checked/FalknerSkan/NegWallShear.lean`; Work: `Work/FalknerSkan/Neg1988.lean`, blind closure `Neg1988BlindClosed.lean`.

@@ -30,7 +30,10 @@ for f in glob.glob('Checked/**/*.lean', recursive=True):
         if inprop:
             mf = re.match(r'\s+([^\s:({\[]+)\s*:', line)
             if mf and not line.lstrip().startswith('--'):
-                thms.add(inprop + '.' + mf.group(1)); decls.add(inprop + '.' + mf.group(1)); continue
+                # «open»-quoted field names are the constant `….open` (run 2026-11-11T1028Z: STATE.md backticked
+                # `open`, the Lean check resolved it to `Checked.Fidelity.AngDistSpec.open`, this script reported 0)
+                fld = mf.group(1).strip('«»')
+                thms.add(inprop + '.' + fld); decls.add(inprop + '.' + fld); continue
             if not line.strip() or not line[0].isspace():
                 inprop = None
         m = re.match(r'\s*(?:private\s+)?(?:theorem|lemma)\s+(\S+)', line)

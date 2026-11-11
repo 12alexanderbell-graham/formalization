@@ -299,11 +299,13 @@ Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay e9715f32-doc1755175612
 Checked.FalknerSkan.NegReversed.fs_neg_tenth_reversed 8d5f8016-doc9735462490456761142
 Checked.FalknerSkan.NegReversed.fs_neg_tenth_two_decay e4ea7d07-doc9360327993976267793
 Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay c9ad9048-doc14044108211094345727
+Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay ec6d13c2-doc14283866021624485817
+Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window 3b69a8d2-doc11959414935181654858
 Checked.FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt e8c05f96-doc10263378580646252903
 Checked.FalknerSkan.NegWindow.fs_neg_tenth_window 761513ec-doc9506374802053188700
 Checked.FalknerSkan.Separation.fs_separation_exists 4cb8c87-doc10875584778882655945
 Checked.FalknerSkan.SeparationEqual.fs_separation_equal aa31c3f0-doc15306504158830452833
-Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed 4077fd50-doc1022218057628503705
+Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed 4077fd50-doc73066755183504020
 Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_equal af054814-doc5072253285419948939
 Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_window 28a94f83-doc13879156202606477795
 Checked.FalknerSkan.TenthBounded.fs_tenth_exists_bounded 2e3173c3-doc11697397019607849859
@@ -807,6 +809,15 @@ doc:Checked.Data.Moresco16Min.ge_of_point -doc5724304663505934516
 doc:Checked.Data.Moresco16Min.tQ -doc17505504274685020164
 doc:Checked.Data.Moresco16Min.wt -doc2863056672744410289
 doc:Checked.Data.Moresco16Min.yQ -doc8122356211956399430
+doc:Checked.FSAtt.AAssemble.neither_class -doc16573639306376633682
+doc:Checked.FSAtt.ABase.ChainA -doc5891102639363458435
+doc:Checked.FSAtt.ABase.SlowA -doc9640428923050397348
+doc:Checked.FSAtt.AFlow.flowA_cont -doc8675781380857815983
+doc:Checked.FSAtt.AFlow.flowA -doc3850436624037291119
+doc:Checked.FSAtt.AUnclamp.unclamp_neither -doc4885367262863505208
+doc:Checked.FSAtt.AWindow.window_of_chains -doc17553986993052913785
+doc:Checked.FSAtt.N1988Hi.chain -doc6052609328377500280
+doc:Checked.FSAtt.N1988Lo.chain -doc6810253943801442523
 doc:Checked.FSFifth.F5Bounded.k5_bounded_equal -doc6395291479820661033
 doc:Checked.FSFifth.F5Bounded.k5_bounded_window -doc8854306516470799292
 doc:Checked.FSFifth.F5Bounded.k5_exists_bounded -doc8807307848387973778
@@ -2431,6 +2442,7 @@ doc:Checked.Trust.SecondReading.demDLLast -doc1535430170866068384
 doc:Checked.Trust.SecondReading.demDLPrefactor -doc14846241798013484455
 doc:Checked.Trust.SecondReading.fr13Table -doc13377963916444384042
 doc:Checked.Trust.SecondReading.fsBetaRhs -doc17232666518317973516
+doc:Checked.Trust.SecondReading.fsNearSepWedgeRhs -doc18273160841430061268
 doc:Checked.Trust.SecondReading.fsSepOpenHalfLine -doc15241378809030958903
 doc:Checked.Trust.SecondReading.fsSepPrintedFazio -doc1748778183193303266
 doc:Checked.Trust.SecondReading.fsSepWindow -doc3704237396636913240
@@ -2706,6 +2718,14 @@ moduledoc:Checked.Data.Moresco16MinCover -mdoc9700213023670081597
 moduledoc:Checked.Data.Moresco16MinTools -mdoc5985369208106060556
 moduledoc:Checked.Data.Moresco16Min -mdoc15563693230278511805
 moduledoc:Checked.Data.Moresco16 -mdoc8629197678968256333
+moduledoc:Checked.FSAtt.AAssemble -mdoc18073385890763911974
+moduledoc:Checked.FSAtt.ABase -mdoc16862808345156741406
+moduledoc:Checked.FSAtt.AFlow -mdoc7882038582246276330
+moduledoc:Checked.FSAtt.AUnclamp -mdoc6481604093466562167
+moduledoc:Checked.FSAtt.AWindow -mdoc6607098038372521093
+moduledoc:Checked.FSAtt.N1988Core -mdoc6240369707879938245
+moduledoc:Checked.FSAtt.N1988Hi -mdoc8839878757398506307
+moduledoc:Checked.FSAtt.N1988Lo -mdoc13145631428664633175
 moduledoc:Checked.FSFifth.F5Bounded -mdoc7470192064500068593
 moduledoc:Checked.FSFifth.F5CellWC -mdoc11812248153078236684
 moduledoc:Checked.FSFifth.F5CellW -mdoc5053493799989037842
@@ -2789,6 +2809,7 @@ moduledoc:Checked.FalknerSkan.NegOutside -mdoc10076034479373419759
 moduledoc:Checked.FalknerSkan.NegReversed -mdoc18259355777596292339
 moduledoc:Checked.FalknerSkan.NegTenth -mdoc17765475306659643214
 moduledoc:Checked.FalknerSkan.NegUPrime -mdoc15747770933744482878
+moduledoc:Checked.FalknerSkan.NegWallShear -mdoc11493368670468668567
 moduledoc:Checked.FalknerSkan.NegWindow -mdoc2744711187636356573
 moduledoc:Checked.FalknerSkan.SeparationEqual -mdoc14502484245446734840
 moduledoc:Checked.FalknerSkan.SeparationPrinted -mdoc6727805977742274580
@@ -2967,6 +2988,7 @@ moduledoc:Checked.Trust.SecondReadingFR13 -mdoc15889175085118273039
 moduledoc:Checked.Trust.SecondReadingFR -mdoc1417811703977418368
 moduledoc:Checked.Trust.SecondReadingFSBeta -mdoc14053753005707813791
 moduledoc:Checked.Trust.SecondReadingFSFifth -mdoc12778037588537726726
+moduledoc:Checked.Trust.SecondReadingFSNearSep -mdoc2320962234623549223
 moduledoc:Checked.Trust.SecondReadingFSNeg -mdoc17694638445480914408
 moduledoc:Checked.Trust.SecondReadingFSSepPrinted -mdoc6024456559073170828
 moduledoc:Checked.Trust.SecondReadingFSSepW -mdoc7443825473727391125
@@ -2995,4 +3017,4 @@ moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc12199089772441168369
+moduledoc:Checked.Trust.Witnesses -mdoc2719313805038338655

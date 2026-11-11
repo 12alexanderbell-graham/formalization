@@ -281,3 +281,6 @@ Checked.FalknerSkan.Separation.fs_separation_exists
 Checked.FalknerSkan.SeparationEqual.fs_separation_equal
 # Falkner–Skan printed separation value (run 2026-11-11T0828Z; candidate C-FS-SEP, corollary of the separation pair): the β of every zero-wall-shear solution in the decay class differs from the value −0.1988376 printed by Fazio (2012, 2020); printed value read blind from the typeset captions
 Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed
+# Falkner–Skan at β = −1988/10000, the tabulated row next to separation (run 2026-11-11T1028Z; frozen 50de3b1 by run 0828Z, proved in Work and promoted by run 1028Z on the attached-flow stack generic in K, Checked/FSAtt/; blind restatement closed, referee STANDS-WITH-CORRECTIONS; candidate C-FS-1988): the wall shear of the decay-class solution lies in (0.0052181, 0.0052182), and such a solution exists
+Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window
+Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay

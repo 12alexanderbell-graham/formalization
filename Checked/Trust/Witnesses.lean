@@ -1,4 +1,5 @@
 import Checked.Trust.NonVacuity
+import Checked.FalknerSkan.NegWallShear
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
 import Checked.FalknerSkan.SeparationPrinted
@@ -1029,5 +1030,13 @@ theorem fs_separation_below_printed :
   obtain ⟨β, -, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec⟩ :=
     Checked.FalknerSkan.Separation.fs_separation_exists
   exact ⟨β, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec, trivial⟩
+
+/-! Falkner–Skan at the pressure-gradient coefficient −1988/10000 (run 2026-11-11T1028Z): the solution of
+`Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay` satisfies every hypothesis of the wall-shear window. -/
+
+theorem fs_neg_wall_shear_window : nonvacuity% Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
 
 end Checked.Trust.NV
