@@ -10,12 +10,18 @@ Rule N1 (always): every headline with open hypotheses has a line in the baseline
 `scripts/trust/necessity_open_baseline.txt` of the form `<headline as TRUST_MAP.md names it> | <open indices>`,
 and the line lists exactly the open indices (so the baseline is updated in the same commit as new witnesses,
 and it always states what is still open). Lines for headlines with nothing open, or for unknown headlines, fail.
-Rule N2 (--base SHA): for a headline that the base TRUST_MAP.md already lists with the same number of
-hypotheses, the open set may only shrink (a classified hypothesis never becomes open again, whatever the
-reason: a deleted witness, a renamed headline, a renumbered statement). A headline that is new (or whose
-hypothesis count changed) may enter with open hypotheses only if a line added to LEDGER.md names it in
-backticks; its open set may then only shrink in later commits.
-Rule N3 (--base SHA): the totals NEEDED + REDUNDANT of the summary line may not decrease.
+Rule N2 (--base SHA): for a headline that the base TRUST_MAP.md lists with the same number of hypotheses,
+every hypothesis that was NEEDED or REDUNDANT at the base still is (a classification never regresses: not to
+open, not to "no obligation", whatever the reason: a deleted witness, a renumbered statement). A headline that
+is new, or whose hypothesis count changed, needs a line added to LEDGER.md that names it in backticks exactly
+as TRUST_MAP.md does, with the words `open <its open indices>` (or `classified` if nothing is open); a headline
+that had classified hypotheses at the base and is gone needs such a line with the word `removed`. Lines that
+differ from a base LEDGER line only by surrounding whitespace do not count as added.
+Rule N3 (--base SHA): the totals NEEDED + REDUNDANT may not fall, and "no obligation" may not rise.
+The parser fails closed: exactly one section heading and one summary paragraph, every list line of the
+section in the generator's grammar, no duplicate headline, indices partitioning 1..n, summary totals equal to
+the sums of the lines; an unreadable base fails too (adversary of run 2026-11-11T0028Z, 7 holes in the first
+draft, all repaired before the rule went live).
 
 `--selftest` runs planted controls (each rule rejects its bad case and accepts the clean twin) and is run first
 by the normal mode.
@@ -31,31 +37,83 @@ ROOT = Path(__file__).resolve().parents[2]
 BASELINE = "scripts/trust/necessity_open_baseline.txt"
 
 LINE = re.compile(r"^- `([^`]+)` \((\d+)\): (.*)$")
+HEAD = re.compile(r"^## Hypothesis necessity, per headline$", re.M)
+TOT = re.compile(r"^Hypothesis necessity \(trust track T2b[^\n]*\n(\d+) shown NEEDED [^\n]*\n(\d+) shown REDUNDANT in Lean[^\n]*?(\d+) with no obligation",
+                 re.M)
+LABELS = {"needed": "needed", "redundant": "redundant",
+          "no obligation (instance, or proof used as data)": "data", "open": "open"}
+WIT = re.compile(r"^(\d+) \(`[^`]+`\)$")
+
+
+class ParseError(Exception):
+    pass
+
+
+def parse_parts(rest):
+    """`needed 1 (`w`), 2 (`w`); redundant 3 (`w`); open 4, 5` -> dict label -> set of indices (strict)."""
+    out = {v: set() for v in LABELS.values()}
+    if not rest:
+        raise ParseError("empty classification")
+    seen = []
+    for part in rest.split("; "):
+        lab = next((l for l in sorted(LABELS, key=len, reverse=True) if part.startswith(l + " ")), None)
+        if lab is None:
+            raise ParseError(f"unknown part `{part}`")
+        key = LABELS[lab]
+        if key in seen:
+            raise ParseError(f"part `{lab}` twice")
+        seen.append(key)
+        items = part[len(lab) + 1:].split(", ")
+        for it in items:
+            if key in ("needed", "redundant"):
+                m = WIT.match(it)
+                if not m:
+                    raise ParseError(f"bad item `{it}` in `{lab}`")
+                i = int(m.group(1))
+            else:
+                if not re.fullmatch(r"\d+", it):
+                    raise ParseError(f"bad item `{it}` in `{lab}`")
+                i = int(it)
+            out[key].add(i)
+    return out
 
 
 def parse_map(text):
-    """headline -> (number of hypotheses, set of open indices); plus (needed, redundant) totals."""
+    """headline -> dict(n=..., needed=, redundant=, data=, open=); plus (needed, redundant, data) totals.
+    Fails closed (ParseError) on anything it does not recognise."""
+    heads = list(HEAD.finditer(text))
+    if len(heads) != 1:
+        raise ParseError(f"{len(heads)} section headings `## Hypothesis necessity, per headline` (need exactly 1)")
+    sec = text[heads[0].end():]
+    nxt = re.search(r"^## ", sec, re.M)
+    if nxt:
+        sec = sec[:nxt.start()]
     out = {}
-    if "## Hypothesis necessity, per headline" not in text:
-        return None, None
-    sec = text[text.index("## Hypothesis necessity, per headline"):]
-    nxt = sec.find("\n## ", 5)
-    if nxt >= 0:
-        sec = sec[:nxt]
     for line in sec.splitlines():
+        if not line.startswith("- "):
+            if line.lstrip().startswith(("- ", "* ", "+ ")):
+                raise ParseError(f"unparsed list line `{line}`")
+            continue
         m = LINE.match(line)
         if not m:
-            continue
-        name, n, rest = m.group(1), int(m.group(2)), m.group(3)
-        opens = set()
-        om = re.search(r"(?:^|; )open ([\d, ]+)$", rest)
-        if om:
-            opens = {int(x) for x in om.group(1).replace(" ", "").split(",") if x}
-        out[name] = (n, opens)
-    tot = None
-    sm = re.search(r"(\d+) shown NEEDED.*?\n?.*?(\d+) shown REDUNDANT", text)
-    if sm:
-        tot = (int(sm.group(1)), int(sm.group(2)))
+            raise ParseError(f"unparsed line `{line}`")
+        name, n = m.group(1), int(m.group(2))
+        if name in out:
+            raise ParseError(f"duplicate headline `{name}`")
+        d = parse_parts(m.group(3))
+        allidx = d["needed"] | d["redundant"] | d["data"] | d["open"]
+        if allidx != set(range(1, n + 1)) or sum(len(v) for v in d.values()) != n:
+            raise ParseError(f"`{name}`: indices {sorted(allidx)} do not partition 1..{n}")
+        d["n"] = n
+        out[name] = d
+    tm = list(TOT.finditer(text))
+    if len(tm) != 1:
+        raise ParseError(f"{len(tm)} summary paragraphs `Hypothesis necessity (trust track T2b ...` (need exactly 1)")
+    tot = tuple(int(tm[0].group(k)) for k in (1, 2, 3))
+    if tot[0] != sum(len(d["needed"]) for d in out.values()) or \
+       tot[1] != sum(len(d["redundant"]) for d in out.values()) or \
+       tot[2] != sum(len(d["data"]) for d in out.values()):
+        raise ParseError(f"summary totals {tot} disagree with the per-headline lines")
     return out, tot
 
 
@@ -82,7 +140,8 @@ def parse_baseline(text, errors):
 
 
 def rule_n1(m, base_lines, errors):
-    for name, (n, opens) in m.items():
+    for name, d in m.items():
+        opens = d["open"]
         if opens and name not in base_lines:
             errors.append(f"N1: `{name}` has open hypotheses {sorted(opens)} but no line in {BASELINE}")
         elif opens and base_lines[name] != opens:
@@ -91,29 +150,49 @@ def rule_n1(m, base_lines, errors):
     for name in base_lines:
         if name not in m:
             errors.append(f"N1: {BASELINE} names `{name}`, which TRUST_MAP.md does not list")
-        elif not m[name][1]:
+        elif not m[name]["open"]:
             errors.append(f"N1: {BASELINE} lists `{name}`, which has no open hypothesis: remove the line")
 
 
+def fmt(ix):
+    return ", ".join(str(i) for i in sorted(ix))
+
+
+def disclosed(name, words, ledger_added):
+    """a LEDGER line added in this diff names the headline (as TRUST_MAP names it) in backticks, followed
+    somewhere on the line by the exact words (e.g. `open 2, 3`)."""
+    return any(f"`{name}`" in l and words in l for l in ledger_added)
+
+
+def classified(d):
+    return d["needed"] | d["redundant"]
+
+
 def rule_n2(old_map, new_map, ledger_added, errors):
-    for name, (n, opens) in new_map.items():
-        if not opens:
-            continue
+    for name, d in new_map.items():
         o = old_map.get(name)
-        if o is not None and o[0] == n:
-            if not opens <= o[1]:
-                errors.append(f"N2: `{name}`: hypotheses {sorted(opens - o[1])} were classified at the base "
-                              f"and are open now (a classification never regresses)")
+        if o is not None and o["n"] == d["n"]:
+            lost = classified(o) - classified(d)
+            if lost:
+                errors.append(f"N2: `{name}`: hypotheses {sorted(lost)} were NEEDED/REDUNDANT at the base and are "
+                              f"not now (a classification never regresses)")
         else:
-            short = name.split(".")[-1]
-            if not any(f"`{name}`" in l or re.search(rf"`[\w.]*\b{re.escape(short)}`", l) for l in ledger_added):
-                errors.append(f"N2: `{name}` is new (or its hypothesis count changed) and enters with open "
-                              f"hypotheses {sorted(opens)}: name it in backticks in a line added to LEDGER.md")
+            words = f"open {fmt(d['open'])}" if d["open"] else "classified"
+            if (d["open"] or d["data"] or o is not None) and not disclosed(name, words, ledger_added):
+                why = "is new" if o is None else f"changed its hypothesis count {o['n']} -> {d['n']}"
+                errors.append(f"N2: `{name}` {why}: name it in backticks in a line added to LEDGER.md together with "
+                              f"the words `{words}`")
+    for name, o in old_map.items():
+        if name not in new_map and classified(o) and not disclosed(name, "removed", ledger_added):
+            errors.append(f"N2: `{name}` had classified hypotheses {sorted(classified(o))} at the base and is gone: "
+                          f"name it in backticks with the word `removed` in a line added to LEDGER.md")
 
 
 def rule_n3(old_tot, new_tot, errors):
-    if old_tot and new_tot and sum(new_tot) < sum(old_tot):
-        errors.append(f"N3: NEEDED + REDUNDANT fell from {sum(old_tot)} to {sum(new_tot)}")
+    if new_tot[0] + new_tot[1] < old_tot[0] + old_tot[1]:
+        errors.append(f"N3: NEEDED + REDUNDANT fell from {old_tot[0] + old_tot[1]} to {new_tot[0] + new_tot[1]}")
+    if new_tot[2] > old_tot[2]:
+        errors.append(f"N3: hypotheses with no obligation rose from {old_tot[2]} to {new_tot[2]}")
 
 
 def git_show(base, rel):
@@ -123,12 +202,33 @@ def git_show(base, rel):
 
 def selftest():
     fails = []
-    tm = ("x\n12 shown NEEDED (a), 3 shown REDUNDANT in Lean\n## Hypothesis necessity, per headline\n\n"
-          "- `A.a` (3): needed 1 (`a_h1`); open 2, 3\n- `B.b` (2): needed 1 (`b_h1`), 2 (`b_h2`)\n"
-          "- `C.c` (1): redundant 1 (`c_r1`)\n\n## Next\n- `Z.z` (1): open 1\n")
+    summ = ("Hypothesis necessity (trust track T2b, run X): 6 hypotheses in 3 headlines;\n"
+            "{n} shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),\n"
+            "{r} shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),\n"
+            "2 open; headlines with every hypothesis classified: 2/3\n")
+    sec = ("## Hypothesis necessity, per headline\n\nintro text\n\n"
+           "- `A.a` (3): needed 1 (`a_h1`); open 2, 3\n- `B.b` (2): needed 1 (`b_h1`), 2 (`b_h2`)\n"
+           "- `C.c` (1): redundant 1 (`c_r1`)\n\n## Next\n- `Z.z` (1): open 1\n")
+    tm = "x\n" + summ.format(n=3, r=1) + sec
     m, tot = parse_map(tm)
-    if m != {"A.a": (3, {2, 3}), "B.b": (2, set()), "C.c": (1, set())} or tot != (12, 3):
+    want = {"A.a": ({1}, set(), {2, 3}), "B.b": ({1, 2}, set(), set()), "C.c": (set(), {1}, set())}
+    if {k: (v["needed"], v["redundant"], v["open"]) for k, v in m.items()} != want or tot != (3, 1, 0):
         fails.append(f"parser: {m} {tot}")
+    bad_texts = {
+        "duplicate headline": tm.replace("- `C.c` (1)", "- `A.a` (3): open 1, 2, 3\n- `C.c` (1)"),
+        "second section heading": "## Hypothesis necessity, per headline\n" + tm,
+        "unparsed list line": tm.replace("- `C.c` (1): redundant 1 (`c_r1`)", "* `C.c` (1): redundant 1 (`c_r1`)"),
+        "trailing junk": tm.replace("open 2, 3\n", "open 2, 3 \n"),
+        "non-partition": tm.replace("- `B.b` (2)", "- `B.b` (3)"),
+        "wrong totals": "x\n" + summ.format(n=9, r=9) + sec,
+        "no summary": sec,
+    }
+    for lbl, t in bad_texts.items():
+        try:
+            parse_map(t)
+            fails.append(f"parser accepted: {lbl}")
+        except ParseError:
+            pass
     def n1(bl):
         e = []
         rule_n1(m, parse_baseline(bl, e), e)
@@ -141,27 +241,44 @@ def selftest():
         fails.append("N1 accepted a baseline line listing fewer open hypotheses")
     if not n1("A.a | 2, 3\nB.b | 1\n"):
         fails.append("N1 accepted a line for a fully classified headline")
+    def d(n, needed=(), red=(), op=(), data=()):
+        return {"n": n, "needed": set(needed), "redundant": set(red), "open": set(op), "data": set(data)}
     def n2(old, new, led):
         e = []
         rule_n2(old, new, led, e)
         return e
-    old = {"A.a": (3, {2, 3})}
-    if n2(old, {"A.a": (3, {3})}, []):
-        fails.append("N2 clean twin (shrink) rejected")
-    if not n2(old, {"A.a": (3, {1, 3})}, []):
+    old = {"A.a": d(3, needed=[1], op=[2, 3]), "B.b": d(2, needed=[1, 2])}
+    if n2(old, {"A.a": d(3, needed=[1, 2], op=[3]), "B.b": d(2, needed=[1, 2])}, []):
+        fails.append("N2 clean twin (progress) rejected")
+    if not n2(old, {"A.a": d(3, needed=[2], op=[1, 3]), "B.b": d(2, needed=[1, 2])}, []):
         fails.append("N2 accepted a regression")
-    if not n2(old, {"D.d": (2, {1})}, []):
+    if not n2(old, {"A.a": d(3, needed=[1], op=[2, 3]), "B.b": d(2, needed=[1], data=[2])}, []):
+        fails.append("N2 accepted a needed hypothesis turned into `no obligation`")
+    newD = {"A.a": d(3, needed=[1], op=[2, 3]), "B.b": d(2, needed=[1, 2]), "D.d": d(2, needed=[2], op=[1])}
+    if not n2(old, newD, []):
         fails.append("N2 accepted a new headline with open hypotheses and no LEDGER line")
-    if n2(old, {"D.d": (2, {1})}, ["- run X: new headline `Checked.D.d` (open 1: no witness yet)"]):
+    if not n2(old, newD, ["- new headline `D.d`"]):
+        fails.append("N2 accepted a LEDGER line without the open indices")
+    if not n2(old, newD, ["- new headline `X.D.d` (open 1)"]):
+        fails.append("N2 accepted a LEDGER line naming another headline")
+    if n2(old, newD, ["- run X: new headline `D.d` (open 1: no witness yet)"]):
         fails.append("N2 rejected a disclosed new headline")
-    if not n2(old, {"A.a": (4, {2, 3, 4})}, []):
+    if not n2(old, {"A.a": d(4, needed=[1], op=[2, 3, 4]), "B.b": d(2, needed=[1, 2])}, []):
         fails.append("N2 accepted a changed hypothesis count without a LEDGER line")
+    if not n2(old, {"A.a": d(3, needed=[1], op=[2, 3])}, []):
+        fails.append("N2 accepted a removed classified headline without a LEDGER line")
+    if n2(old, {"A.a": d(3, needed=[1], op=[2, 3])}, ["- `B.b` removed (merged into `A.a`)"]):
+        fails.append("N2 rejected a disclosed removal")
     e = []
-    rule_n3((12, 3), (11, 3), e)
+    rule_n3((12, 3, 0), (11, 3, 0), e)
     if not e:
         fails.append("N3 accepted a falling total")
     e = []
-    rule_n3((12, 3), (14, 3), e)
+    rule_n3((12, 3, 0), (14, 3, 1), e)
+    if not e:
+        fails.append("N3 accepted a rising no-obligation count")
+    e = []
+    rule_n3((12, 3, 0), (14, 3, 0), e)
     if e:
         fails.append("N3 clean twin rejected")
     return fails
@@ -173,33 +290,50 @@ def main():
         print("check_necessity selftest FAILED:\n  " + "\n  ".join(fails))
         return 1
     if "--selftest" in sys.argv:
-        print("check_necessity selftest: OK (11 controls)")
+        print("check_necessity selftest: OK (planted controls for the parser, N1, N2, N3)")
         return 0
     errors = []
-    tm = (ROOT / "TRUST_MAP.md").read_text()
-    m, tot = parse_map(tm)
-    if m is None:
-        print("check_necessity: TRUST_MAP.md has no necessity section")
+    try:
+        m, tot = parse_map((ROOT / "TRUST_MAP.md").read_text())
+    except (ParseError, OSError) as e:
+        print(f"check_necessity: FAILED: TRUST_MAP.md: {e}")
         return 1
     bl_path = ROOT / BASELINE
-    base_lines = parse_baseline(bl_path.read_text() if bl_path.exists() else "", errors)
+    if not bl_path.exists():
+        print(f"check_necessity: FAILED: {BASELINE} missing")
+        return 1
+    base_lines = parse_baseline(bl_path.read_text(), errors)
     rule_n1(m, base_lines, errors)
     if "--base" in sys.argv:
-        b = sys.argv[sys.argv.index("--base") + 1]
-        old_tm = git_show(b, "TRUST_MAP.md") or ""
-        old_map, old_tot = parse_map(old_tm)
-        lo = git_show(b, "LEDGER.md") or ""
-        added = list(set((ROOT / "LEDGER.md").read_text().splitlines()) - set(lo.splitlines()))
-        if old_map is not None:
-            rule_n2(old_map, m, added, errors)
-            rule_n3(old_tot, tot, errors)
-    nopen = sum(len(v[1]) for v in m.values())
-    full = sum(1 for v in m.values() if not v[1])
+        k = sys.argv.index("--base")
+        if k + 1 >= len(sys.argv) or sys.argv[k + 1].startswith("-"):
+            print("check_necessity: FAILED: --base needs a commit")
+            return 1
+        b = sys.argv[k + 1]
+        old_tm = git_show(b, "TRUST_MAP.md")
+        lo = git_show(b, "LEDGER.md")
+        if old_tm is None or lo is None:
+            print(f"check_necessity: FAILED: cannot read TRUST_MAP.md / LEDGER.md at {b}")
+            return 1
+        try:
+            old_map, old_tot = parse_map(old_tm)
+        except ParseError as e:
+            if HEAD.search(old_tm):
+                print(f"check_necessity: FAILED: TRUST_MAP.md at {b}: {e}")
+                return 1
+            old_map, old_tot = {}, (0, 0, 0)   # base predates the necessity report
+        base_set = {l.strip() for l in lo.splitlines()}
+        added = [l for l in (ROOT / "LEDGER.md").read_text().splitlines() if l.strip() and l.strip() not in base_set]
+        rule_n2(old_map, m, added, errors)
+        rule_n3(old_tot, tot, errors)
+    nopen = sum(len(v["open"]) for v in m.values())
+    full = sum(1 for v in m.values() if not v["open"] and not v["data"])
     if errors:
         print("check_necessity: FAILED\n  " + "\n  ".join(errors))
         return 1
     print(f"check_necessity: OK ({len(m)} headlines with hypotheses, {full} fully classified, {nopen} open "
-          f"hypotheses, all in {BASELINE}; totals {tot})")
+          f"hypotheses, all in {BASELINE}; needed/redundant/no obligation {tot})"
+          + (" [with --base]" if "--base" in sys.argv else " [no --base: N2/N3 not run]"))
     return 0
 
 
