@@ -3,6 +3,7 @@ import Work.FSRev.RAssemble
 import Work.FSRev.R1988Over
 import Work.FSRev.R1988Slow
 import Work.FSRev.R1988Tube
+import Work.FSRev.R1988Printed
 import Work.FSAtt.N1988Core
 import Work.FSAtt.N1988Lo
 import Work.FSAtt.N1988Hi
@@ -86,7 +87,40 @@ theorem fs_neg1988_printed_reversed_overshoots (f p q : ℝ → ℝ)
     (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-1988 / 10000) * (1 - p η ^ 2)) (Ici 0) η)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = -0.005158) :
     ∃ η > 0, 1 < p η := by
-  sorry
+  set c := Real.sqrt (497 / 2500 : ℝ) with hcd
+  have hc : 0 < c := Real.sqrt_pos.2 (by norm_num)
+  have hc2 : c ^ 2 = 497 / 2500 := Real.sq_sqrt (by norm_num)
+  have hclo : (44586993619215906 / 100000000000000000 : ℝ) < c := (Real.lt_sqrt (by norm_num)).2 (by norm_num)
+  have hchi : c < (44586993619215907 / 100000000000000000 : ℝ) := (Real.sqrt_lt' (by norm_num)).2 (by norm_num)
+  have hq1 : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(1 * f η * q η) - (-1988 / 10000) * (1 - p η ^ 2)) (Ici 0) η :=
+    fun η hη => (hq η hη).congr_deriv (by ring)
+  obtain ⟨A1, A2, A3⟩ := Checked.FalknerSkan.FSScale.scale hc hf hp hq1
+  set Z : ℝ → ℝ × ℝ × ℝ := fun s => (c * f (s / c), p (s / c), q (s / c) / c) with hZd
+  have hZ : ∀ t ∈ Icc (0 : ℝ) 4, HasDerivWithinAt Z (Work.FSRev.RIdent.uS (2500 / 497) (Z t)) (Icc 0 4) t := by
+    intro t ht
+    have ht' : t ∈ Ici (0 : ℝ) := ht.1
+    have e3 := (A3 t ht').congr_deriv (show -(1 / c ^ 2 * (c * f (t / c)) * (q (t / c) / c)) -
+        (-1988 / 10000) / c ^ 2 * (1 - p (t / c) ^ 2) =
+        -((2500 / 497 : ℝ) * (c * f (t / c)) * (q (t / c) / c)) + 1 - p (t / c) ^ 2 by
+      rw [hc2]; ring)
+    exact ((A1 t ht').prodMk ((A2 t ht').prodMk e3)).mono Icc_subset_Ici_self
+  set α := q 0 / c with hαd
+  have hα : |α - (-11568396030579 / 1000000000000000)| ≤ 1 / 100000000000000 := by
+    rw [hαd, hq0, abs_le]
+    constructor
+    · rw [le_sub_iff_add_le, le_div_iff₀ hc]; nlinarith
+    · rw [sub_le_iff_le_add, div_le_iff₀ hc]; nlinarith
+  set Y := Work.FSAtt.AFlow.flowA (2500 / 497) α with hYd
+  have hY : ∀ t ∈ Icc (0 : ℝ) 4, HasDerivWithinAt Y (Checked.FSSep.SBase.vS (2500 / 497) t (Y t)) (Icc 0 4) t :=
+    fun t ht => (Work.FSAtt.AFlow.flowA_deriv _ _ t ht.1).mono Icc_subset_Ici_self
+  have hY0 : Y 0 = (0, 0, α) := Work.FSAtt.AFlow.flowA_zero _ _
+  obtain ⟨hbox, hover⟩ := Work.FSRev.R1988Printed.chainP hY hY0 hα
+  have hZ0 : Y 0 = Z 0 := by
+    rw [hY0]; simp only [hZd, zero_div, hf0, hp0, mul_zero, hαd]
+  have E := Work.FSRev.RIdent.ident (by norm_num) hY hbox hZ hZ0 ⟨by norm_num, le_rfl⟩
+  have h4 : (Z 4).2.1 = p (4 / c) := rfl
+  refine ⟨4 / c, div_pos (by norm_num) hc, ?_⟩
+  rw [← h4, ← E]; exact hover
 
 /-- Falkner–Skan with β = −1988/10000: there are two solutions (f, p, q) and (f₂, p₂, q₂) of
 f''' + f f'' + β(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on

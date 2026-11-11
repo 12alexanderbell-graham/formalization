@@ -14,3 +14,6 @@ python3 $G -11567117/1000000000 17/4 32 12 18 1/2 2 over "$OUT/rover.json" > "$O
 python3 $G -11567073/1000000000 17/4 32 12 18 1/2 2 slowL "$OUT/rslow.json" > "$OUT/rslow.log" 2>&1 &
 wait
 FS_R0=22/1000000000 python3 $G -11567095/1000000000 3/2 32 12 18 1/2 2 tube "$OUT/rtube.json" > "$OUT/rtube.log" 2>&1
+# Fazio's printed reversed value: ball chain around A_pr = −0.005158·√K ≈ −0.011568396030579258
+# (centre −11568396030579/10¹⁵, radius 10⁻¹⁴), overshoot at L = 4 (p − 1 ≈ 9.3e-9 there).
+FS_R0=1/100000000000000 python3 $G -11568396030579/1000000000000000 4 32 12 18 1/2 2 over "$OUT/rprinted.json" > "$OUT/rprinted.log" 2>&1
