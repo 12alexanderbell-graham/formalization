@@ -27,8 +27,8 @@ open Set Filter Topology
 
 /-- Falkner–Skan separation: for every solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0,
 p(0) = 0, wall shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M,
-`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`: β < `-(1988376 / 10000000)`, so β lies below the value Fazio
-printed for the parameter of the solution with zero wall shear. -/
+`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`: β < `-(1988376 / 10000000)`, the value Fazio printed for the
+parameter of the solution with zero wall shear. -/
 theorem fs_separation_below_printed {β : ℝ} {f p q : ℝ → ℝ}
     (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
     (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)

@@ -1,58 +1,48 @@
 # Item 53
 
-**Area:** F0
+**Area:** Data claims
 
-**Source:** textbook definition of lookback time and the cosmographic parameters (e.g. Visser 2004, Class. Quantum Grav. 21, 2603)
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
+**For every** `N : ℝ`, `c : ℝ`:
 
 **assuming**
 
-1. `∀ᶠ (t : ℝ) in nhds t₀, DifferentiableAt ℝ a t`
-2. `DifferentiableAt ℝ (deriv a) t₀`
-3. `a t₀ ≠ 0`
-4. `deriv a t₀ ≠ 0`
+1. `5 < N`
+2. `N ≤ 31`
+3. `|c + 2 * 4 + 2 * 4 * (4 + 1) / (N - 4 - 1) - 23.99| ≤ 5e-3`
 
 **then**
 
-- `(fun t => t₀ - t - (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2) / hubble a t₀) =o[nhds t₀] fun t => redshift a t₀ t ^ 2`
-
-Program definitions in this claim:
-
-- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): phrase (hand-written, linted): the deceleration parameter with the scale factor `a` and the cosmic time of evaluation `t` (minus acceleration times scale factor over velocity squared; minus the second time derivative times the scale factor divided by the squared first time derivative; negative value means accelerating expansion); by definition, `decel a t` is `-(deriv (deriv a) t * a t) / deriv a t ^ 2`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «negative value means accelerating expansion» only assuming `0 < a t`; `0 < deriv a t`
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): phrase (hand-written, linted): the Hubble rate with the scale factor `a` and the cosmic time of evaluation `t` (logarithmic derivative of the scale factor with respect to cosmic time; positive for expansion and negative for contraction); by definition, `hubble a t` is `deriv a t / a t`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «logarithmic derivative of the scale factor with respect to cosmic time» only assuming `0 < a t`; `DifferentiableAt ℝ a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `0 < deriv a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `deriv a t < 0`
-- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): phrase (hand-written, linted): the cosmological redshift with the scale factor `a`, the observation time `t₀` and the emission time `t` (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide); by definition, `redshift a t₀ t` is `a t₀ / a t - 1`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «positive when emission precedes observation in an expanding universe» only assuming for every `s : ℝ`, `0 < a s`; `StrictMono a`; `t < t₀`, «one plus redshift is the scale factor at observation over that at emission», «zero when emission and observation coincide» only assuming `a t₀ ≠ 0`
+- `5e-3 < |c + 4 * Real.log N - 28.72|`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Milestone 1** (frozen in commit 6ef1003, audited in runs/2026-10-30T0028Z/audit.md). The lookback time `t₀ - t` of a source with redshift
-`z = z(t)` satisfies `t₀ - t = H₀⁻¹ (z - (1 + q₀/2) z²) + o(z²)` as `t → t₀`.
+Table 5, piecewise-linear row (k = 4): for every N with 5 < N ≤ 31 and every value c of
+−2 ln L_max, if c + 8 + 40/(N − 5) is within 0.005 of the printed AICc 23.99, then
+c + 4 ln N differs from the printed BIC 28.72 by more than 0.005.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem lookback_second_order (a : ℝ → ℝ) (t₀ : ℝ)
-    (ha : ∀ᶠ t in 𝓝 t₀, DifferentiableAt ℝ a t)
-    (ha' : DifferentiableAt ℝ (deriv a) t₀)
-    (ha0 : a t₀ ≠ 0) (hH : deriv a t₀ ≠ 0) :
-    (fun t => (t₀ - t) - (redshift a t₀ t - (1 + decel a t₀ / 2) * redshift a t₀ t ^ 2)
-        / hubble a t₀)
-      =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 2) := …
+theorem table5_pw_inconsistent (N c : ℝ) (hN : 5 < N) (hN31 : N ≤ 31)
+    (hA : |c + 2 * 4 + 2 * 4 * (4 + 1) / (N - 4 - 1) - 23.99| ≤ 0.005) :
+    0.005 < |c + 4 * Real.log N - 28.72| := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: decel, hubble, redshift.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `lookback_second_order`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `table5_pw_inconsistent`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Cosmography/Lookback.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Data/Moresco16.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 53

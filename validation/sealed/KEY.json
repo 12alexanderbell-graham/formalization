@@ -31,10 +31,10 @@
   },
   {
    "item": 44,
-   "base": "Checked.Cosmography.BambaY.lumDist_y_third_order",
-   "defect_class": "overstated scope",
-   "what_is_wrong": "The claim says 'any spatial curvature K'; the statement is about the flat luminosity distance only.",
-   "why_it_is_wrong": "In a curved FLRW model the y³ coefficient of d_L contains Ω₀ = 1 + K/(a₀H₀)² (Cattoën–Visser 2007; the program's curved theorem BambaK.lumDist_y_fifth_order), so the flat series is wrong at this order when K ≠ 0."
+   "base": "Checked.Chemistry.CubicEOS.rk_constants",
+   "defect_class": "wrong number",
+   "what_is_wrong": "Ω_b = 0.07780 (the Peng–Robinson value) instead of 0.08664.",
+   "why_it_is_wrong": "For RK, Ω_b = (2^{1/3} − 1)/3 = 0.086640…; the statement is false."
   },
   {
    "item": 48,
@@ -44,18 +44,18 @@
    "why_it_is_wrong": "H = ȧ/a; with this body the pin H a t = hubble a t contradicts the spec's law H = d ln a/dt for any a with a(t) ≠ 1 and ȧ ≠ 0."
   },
   {
-   "item": 50,
+   "item": 51,
    "base": "Checked.Records.F3_D4_LCDM",
    "defect_class": "number relabelled",
    "what_is_wrong": "The plain words swap the correct (0.2153) and printed (0.4555) values; they are also inconsistent with 'printed − correct = 0.24'.",
    "why_it_is_wrong": "The formal statement assigns 0.2153 to correctD4 and 0.4555 to printedD4."
   },
   {
-   "item": 54,
-   "base": "Checked.Chemistry.CubicEOS.rk_constants",
-   "defect_class": "wrong number",
-   "what_is_wrong": "Ω_b = 0.07780 (the Peng–Robinson value) instead of 0.08664.",
-   "why_it_is_wrong": "For RK, Ω_b = (2^{1/3} − 1)/3 = 0.086640…; the statement is false."
+   "item": 55,
+   "base": "Checked.Cosmography.BambaY.lumDist_y_third_order",
+   "defect_class": "overstated scope",
+   "what_is_wrong": "The claim says 'any spatial curvature K'; the statement is about the flat luminosity distance only.",
+   "why_it_is_wrong": "In a curved FLRW model the y³ coefficient of d_L contains Ω₀ = 1 + K/(a₀H₀)² (Cattoën–Visser 2007; the program's curved theorem BambaK.lumDist_y_fifth_order), so the flat series is wrong at this order when K ≠ 0."
   }
  ],
  "genuine": [
@@ -77,7 +77,7 @@
   },
   {
    "item": 5,
-   "headline": "Checked.Cosmography.CCS.printedD4_fails"
+   "headline": "Checked.Cosmography.CCS.ccsD4Claim_false"
   },
   {
    "item": 7,
@@ -97,7 +97,7 @@
   },
   {
    "item": 12,
-   "headline": "Checked.Cosmography.BambaK.bambaD4yClaim_false"
+   "headline": "Checked.Cosmography.BambaK.bambaD3yClaimPast_false"
   },
   {
    "item": 13,
@@ -141,7 +141,7 @@
   },
   {
    "item": 23,
-   "headline": "Checked.Cosmography.BambaY.bambaD2yClaimPast_false"
+   "headline": "Checked.Cosmography.BambaY.bambaD2yClaim_false"
   },
   {
    "item": 24,
@@ -181,11 +181,11 @@
   },
   {
    "item": 34,
-   "headline": "Checked.Cosmography.CPLExistence.exists_flatCPL"
+   "headline": "Checked.Cosmography.CPL.clsL0Claim_false"
   },
   {
    "item": 35,
-   "headline": "Checked.FalknerSkan.SeparationEqual.fs_separation_equal"
+   "headline": "Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed"
   },
   {
    "item": 37,
@@ -209,7 +209,7 @@
   },
   {
    "item": 42,
-   "headline": "Checked.Cosmography.CVdQ.cvdQClaim_false"
+   "headline": "Checked.Cosmography.CVdQ.cvdQClaimPast_false"
   },
   {
    "item": 43,
@@ -221,38 +221,42 @@
   },
   {
    "item": 46,
-   "headline": "Checked.Cosmography.BambaZ.bambaDAzClaimPast_false"
+   "headline": "Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past"
   },
   {
    "item": 47,
-   "headline": "Checked.Cosmography.BambaA.bambaDA3ClaimPast_false"
+   "headline": "Checked.Cosmography.BambaA.bambaDA4Claim_false"
   },
   {
    "item": 49,
+   "headline": "Checked.FalknerSkan.SeparationEqual.fs_separation_equal"
+  },
+  {
+   "item": 50,
    "headline": "Checked.Chemistry.CubicEOS.isCritical_iff"
   },
   {
-   "item": 51,
+   "item": 52,
    "headline": "Checked.Cosmography.DemianskiZ.demDAzClaim_false"
   },
   {
-   "item": 52,
+   "item": 53,
    "headline": "Checked.Data.Moresco16.table5_pw_inconsistent"
   },
   {
-   "item": 53,
-   "headline": "Checked.Cosmography.lookback_second_order"
-  },
-  {
-   "item": 55,
-   "headline": "Checked.FalknerSkan.fs_zero_wall_shear"
+   "item": 54,
+   "headline": "Checked.Cosmography.lookback_second_order_bigO"
   },
   {
    "item": 56,
-   "headline": "Checked.Cosmography.B1Sep.cubic_separation"
+   "headline": "Checked.FalknerSkan.fs_zero_wall_shear"
   },
   {
    "item": 57,
+   "headline": "Checked.Cosmography.B1Sep.cubic_separation"
+  },
+  {
+   "item": 58,
    "headline": "Checked.Cosmography.B1FitRL19.rl19_box_unmatched"
   }
  ]
