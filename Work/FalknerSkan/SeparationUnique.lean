@@ -1,4 +1,5 @@
 import Mathlib
+import Work.FSSep.UPair
 
 /-!
 # Falkner–Skan separation: at most one pressure-gradient parameter has a separation profile
@@ -32,6 +33,13 @@ theorem fs_separation_unique {β₁ β₂ : ℝ} {f₁ p₁ q₁ f₂ p₂ q₂ 
     (hf₂0 : f₂ 0 = 0) (hp₂0 : p₂ 0 = 0) (hq₂0 : q₂ 0 = 0) (hl₂ : Tendsto p₂ atTop (𝓝 1))
     (hpos₂ : ∀ η ∈ Ioi (0 : ℝ), 0 < q₂ η) (hdec₂ : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p₂ η) ≤ q₂ η) :
     β₁ = β₂ := by
-  sorry
+  have S₁ : Work.FSSep.UCompare.SolB β₁ f₁ p₁ q₁ := ⟨hf₁, hp₁, hq₁, hf₁0, hp₁0, hq₁0, hl₁, hpos₁⟩
+  have S₂ : Work.FSSep.UCompare.SolB β₂ f₂ p₂ q₂ := ⟨hf₂, hp₂, hq₂, hf₂0, hp₂0, hq₂0, hl₂, hpos₂⟩
+  rcases lt_trichotomy β₁ β₂ with h | h | h
+  · exact (Work.FSSep.UPair.sep_core h S₁ S₂ hdec₂).elim
+  · exact h
+  · exact (Work.FSSep.UPair.sep_core h S₂ S₁ hdec₁).elim
 
 end Work.FalknerSkan.SeparationUnique
+
+#print axioms Work.FalknerSkan.SeparationUnique.fs_separation_unique

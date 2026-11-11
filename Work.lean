@@ -385,4 +385,9 @@ import Work.FSSep.SFlow
 import Work.FSSep.SUnclamp
 import Work.FSSep.SAssemble
 import Work.FalknerSkan.Separation
+import Work.FSSep.UCrocco
+import Work.FSSep.UCompare
+import Work.FSSep.UPair
 import Work.FalknerSkan.SeparationUnique
+import Work.FalknerSkan.SepBlindClosed
+import Work.FalknerSkan.SepUniqueBlindClosed
