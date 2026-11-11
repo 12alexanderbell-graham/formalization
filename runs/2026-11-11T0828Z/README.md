@@ -7,6 +7,8 @@
 - LOCK held by run 0628Z (heartbeat 08:23Z, final relock running) → auditor role (rule 48.4): writes only in this folder and a CHANGELOG append.
 - Local Lean: the elan installer was refused by the environment → not worked around (PROMPT instruction 4); CI judge only.
 
+- LOCK released by run 0628Z (7f5e9c6); LOCK taken 08:40Z.
+
 ## Plan (bottleneck and what a yes/no changes)
 - C-FS-SEP rests on WebFetch summaries of the printed values. Typeset read (arxiv PDF → page → crop → blind reader) of both Fazio papers. Yes (printed values as summarised): the candidate's printed side is confirmed and can go to FINDINGS proper once the Lean evidence is promoted (it is: `fs_separation_exists`/`fs_separation_equal` in Checked). No: correct the candidate or drop it.
 
