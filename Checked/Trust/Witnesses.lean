@@ -1,6 +1,7 @@
 import Checked.Trust.NonVacuity
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
+import Checked.FalknerSkan.SeparationPrinted
 import Checked.Sim.Duffing
 import Checked.Sim.MichaelisMenten
 import Checked.Sim.Robertson
@@ -1019,5 +1020,14 @@ theorem fs_separation_equal : nonvacuity% Checked.FalknerSkan.SeparationEqual.fs
     Checked.FalknerSkan.Separation.fs_separation_exists
   exact ⟨β, β, f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec,
     hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec, trivial⟩
+
+/-! Falkner–Skan separation (run 2026-11-11T0828Z): the zero-wall-shear solution of
+`Checked.FalknerSkan.Separation.fs_separation_exists` satisfies every hypothesis of the comparison with the
+printed value. -/
+theorem fs_separation_not_printed_value :
+    nonvacuity% Checked.FalknerSkan.SeparationPrinted.fs_separation_not_printed_value := by
+  obtain ⟨β, -, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.Separation.fs_separation_exists
+  exact ⟨β, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec, trivial⟩
 
 end Checked.Trust.NV
