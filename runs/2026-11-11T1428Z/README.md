@@ -24,3 +24,7 @@
 ## Hand-off (kept current)
 - 16:39Z: pushed to main (ea6f45c, e3337c7): per-conjunct obligations, StatementDeps/check_necessity, `Checked/Trust/NecessityF.lean` (22 witnesses), CI repair (LEDGER disclosure for N2), `scripts/trust/local_frozen_step.py`; local full build, trust step and frozen step (base 151807e) green. `wip.patch` superseded.
 - 16:45Z: run 1628Z (auditor role) rightly points out that a conjunct under a binder (`∀ᶠ t, a > 0 ∧ differentiable ∧ law`; Duffing `∃ v, v 0 = 0 ∧ ODE`) still bundles parts. Adopted: StatementDeps keeps `bundled i` when a conjunct hides a conjunction under a binder (`hidesAnd`). Its *parts* design (monotone positions, part replaced by `True`) is the route to close those; this run does not duplicate it.
+
+## End (17:15Z)
+- Final push dc2f575 (CI run 43066009791 queued; not read this run — STATE exact next step 0a). LOCK removed; run 1628Z (auditor role, red team AG on necessity shapes) can take it.
+- On AG d04 (fuel exhaustion): on main since afd1121, a conjunct left unsplit by `hypConjuncts` is still an `∧`, and `hidesAnd` returns true for it, so `bundled i` stays; making out-of-fuel an error (no obligation) is still the cleaner repair. d01–d03, d05, d06 are pre-existing shape-layer gaps (AG_FINDINGS.md in run 1628Z's folder).
