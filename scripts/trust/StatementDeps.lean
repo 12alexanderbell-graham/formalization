@@ -615,37 +615,6 @@ partial def posRoundsToSels (env : Environment) (e : Expr) (acc : Array String :
     else if e.isAppOfArity `Checked.Records.RoundsTo 3 then acc.push (roundsSel env (e.getArg! 0))
     else acc
 
-/-- Does a proposition hide a conjunction under a binder (run 2026-11-11T1428Z, after run 1628Z's review
-of the first version)? Looks through program definitions at the head, `∀`/implications (premises and
-body), `∃`, `∀ᶠ` and `let`. A conjunct of a bundled hypothesis for which this holds has parts that its
-conjunct witness does not classify one by one, so the hypothesis stays `bundled`. -/
-partial def hidesAnd (e : Expr) (fuel : Nat := 32) : MetaM Bool := do
-  if fuel = 0 then return true
-  let u ← Checked.Trust.unfoldHead e
-  if u.isAppOfArity ``And 2 || u.isAppOfArity ``Iff 2 then return true
-  if u.consumeMData.isLet then
-    return ← hidesAnd (u.consumeMData.letBody!.instantiate1 u.consumeMData.letValue!) (fuel - 1)
-  if u.isForall then
-    return ← forallTelescope u fun xs b => do
-      for x in xs do
-        let t ← inferType x
-        if (← isProp t) && (← hidesAnd t (fuel - 1)) then return true
-      hidesAnd b (fuel - 1)
-  if u.isAppOfArity ``Exists 2 then
-    return ← lambdaTelescope u.appArg! fun _ b => hidesAnd b (fuel - 1)
-  if u.isAppOfArity ``Filter.Eventually 3 || u.isAppOfArity ``Filter.Frequently 3 then
-    return ← lambdaTelescope (u.getArg! 1) fun _ b => hidesAnd b (fuel - 1)
-  return false
-
-/-- Some conjunct of hypothesis `i` hides a conjunction under a binder (`hidesAnd`). -/
-def conjunctHidesAnd (ty : Expr) (i : Nat) : MetaM Bool :=
-  Checked.Trust.flatStatement ty fun xs _ => do
-    let ps ← Checked.Trust.hypPositions xs
-    unless 1 ≤ i && i ≤ ps.size do return true
-    for c in ← Checked.Trust.hypConjuncts (← inferType xs[ps[i - 1]!]!) do
-      if ← hidesAnd c then return true
-    return false
-
 /-- The conjuncts of a conclusion, looking through `let` (zeta) and program definitions at the head
 (`Checked.Trust.unfoldHead`); the flag says whether a `let` or a definition had to be opened. -/
 partial def necConjuncts (c : Expr) (hidden : Bool := false) (fuel : Nat := 32) :
@@ -668,9 +637,12 @@ Reasons:
 * `conclusion`: after opening a `let` or a program definition, the conclusion (or one of its
   conjuncts) is itself an implication or `∀`: its assumptions are never numbered or classified;
 * `subtype`: a binder's type is a subtype (`{x // P x}`, a coerced set): `P` is assumed silently;
-* `bundled i`: hypothesis i is a conjunction behind a program definition: necessity is shown for
-  the bundle, not for each part;
-* `restated i`: hypothesis i is literally a conjunct of the conclusion: it is NEEDED only because
+* `bundled i`: hypothesis i has two or more parts (`Checked.Trust.partsWalk`: through `∧`, `∃`,
+  `∃!`, `∀`, `∀ᶠ` and an implication's conclusion, program definitions unfolded; since run
+  2026-11-11T1628Z, blind red team AG, not only a top-level `∧`): necessity is shown for the bundle,
+  not for each part, until every part has a witness;
+* `restated i`: hypothesis i is a conjunct of the conclusion (literally, or definitionally at default
+  transparency since AG d06): it is NEEDED only because
   the conclusion repeats it. -/
 def necShape (ty : Expr) : MetaM (Array String) :=
   Checked.Trust.flatStatement ty fun xs c => do
@@ -681,14 +653,35 @@ def necShape (ty : Expr) : MetaM (Array String) :=
     for x in xs do
       let t := (← inferType x).consumeMData
       if t.isAppOf ``Subtype || t.isAppOf ``Set.Elem then sub := true
+      -- a type defined as a subtype (`NNReal := {r // 0 ≤ r}`) assumes its property just as silently
+      -- (blind red team AG d03, run 2026-11-11T1628Z): unfold the type's head at default transparency
+      else if !(← isProp t) then
+        let w ← withTransparency .default (whnf t)
+        if w.isAppOf ``Subtype || w.isAppOf ``Set.Elem then sub := true
     if sub then out := out.push "subtype"
     let ps ← Checked.Trust.hypPositions xs
     for j in [0:ps.size] do
       let t ← inferType xs[ps[j]!]!
       if ← isProp t then
         let u ← Checked.Trust.unfoldHead t
-        if u.isAppOfArity ``And 2 then out := out.push s!"bundled {j+1}"
-        if cs.any (fun (e, _) => e == t || e == u) then out := out.push s!"restated {j+1}"
+        -- bundled: two or more *parts* (through ∧, ∃, ∃!, ∀, ∀ᶠ and an implication's conclusion,
+        -- `Checked.Trust.partsWalk`), not only a top-level `∧` (blind red team AG d01, d02, d05: a
+        -- bundle behind `∃ Ω,`, `∀ s, s = t₀ →` or `∃!` was never flagged); a walk that runs out of fuel
+        -- counts as bundled
+        let m ← try Checked.Trust.numParts t catch _ => pure 2
+        if u.isAppOfArity ``And 2 || 2 ≤ m then out := out.push s!"bundled {j+1}"
+        -- restated: syntactic, or definitionally equal at default transparency (AG d06: `x ∈ Set.Ioi b`
+        -- restating the conclusion `b < x` passed the syntactic test)
+        let mut rest := cs.any (fun (e, _) => e == t || e == u)
+        unless rest do
+          for (e, _) in cs do
+            unless rest do
+              -- bounded: a failed unfolding race must not stall the trust step
+              rest ← try
+                  withCurrHeartbeats <| withTheReader Core.Context (fun c => { c with maxHeartbeats := 20000000 })
+                    (withTransparency .default (withNewMCtxDepth (isDefEq e t)))
+                catch _ => pure false
+        if rest then out := out.push s!"restated {j+1}"
     return out
 
 end StatementDeps
@@ -1295,21 +1288,20 @@ run_cmd do
       let ci := (env.find? hn).get!
       let k ← liftTermElabM <| Checked.Trust.numHyps ci.type
       let shape0 ← liftTermElabM <| necShape ci.type
-      -- per-conjunct necessity of a bundled hypothesis (run 2026-11-11T1428Z, T2b item 3e from blind
-      -- red team AF): `bundled i` is dropped when every conjunct of hypothesis i is NEEDED (a Checked
-      -- theorem states `necessity% h i j`) or REDUNDANT (`dropped% h i j`); the witnesses are listed in a
-      -- `conjuncts of i (m)` part. Partial coverage is not reported and `bundled i` stays; so does a hypothesis
-      -- one of whose conjuncts hides a further conjunction under a binder (`hidesAnd`; run 1628Z's review).
+      -- per-part necessity of a bundled hypothesis (runs 2026-11-11T1428Z, 1628Z; T2b item 3e from blind
+      -- red team AF): `bundled i` is dropped when every part of hypothesis i (`Checked.Trust.partsWalk`:
+      -- through ∧, ∃, ∀, ∀ᶠ and an implication's conclusion) is NEEDED (a Checked theorem states
+      -- `necessity% h i j`) or REDUNDANT (`dropped% h i j`); the witnesses are listed in a `parts of i (m)`
+      -- part. Partial coverage is not reported and `bundled i` stays.
       let mut shape : Array String := #[]
       let mut conjParts : Array String := #[]
       for item in shape0 do
         if item.startsWith "bundled " then
           let i := (item.drop 8).toNat!
-          let m ← liftTermElabM <| Checked.Trust.numConjuncts ci.type i
+          let m ← liftTermElabM <| Checked.Trust.numHypParts ci.type i
           let mut cNeed : Array String := #[]
           let mut cRed : Array String := #[]
-          let nested ← liftTermElabM <| conjunctHidesAnd ci.type i
-          let mut allDone : Bool := decide (2 ≤ m) && !nested
+          let mut allDone := 2 ≤ m
           for j in [1:m+1] do
             let obs ← liftTermElabM do
               try
@@ -1326,9 +1318,9 @@ run_cmd do
                 | none => allDone := false
           if allDone then
             unless cNeed.isEmpty do
-              conjParts := conjParts.push s!"conjuncts of {i} ({m}) needed {", ".intercalate cNeed.toList}"
+              conjParts := conjParts.push s!"parts of {i} ({m}) needed {", ".intercalate cNeed.toList}"
             unless cRed.isEmpty do
-              conjParts := conjParts.push (s!"conjuncts of {i} ({m}) " ++
+              conjParts := conjParts.push (s!"parts of {i} ({m}) " ++
                 (if cRed.size ≥ 2 then "redundant (each alone, not together) " else "redundant ") ++
                 ", ".intercalate cRed.toList)
           else shape := shape.push item
@@ -1430,17 +1422,17 @@ run_cmd do
     "neither is proved yet. Shape (run 2026-11-11T0428Z, blind red team AF): assumptions the numbering does",
     "not reach or reaches only formally — `conclusion` (after opening a `let` or a program definition the",
     "conclusion contains an implication or `∀` whose assumptions are not numbered), `subtype` (a binder of",
-    "subtype type assumes its property silently), `bundled i` (hypothesis i is a conjunction behind a program",
-    "definition: shown needed as a bundle only), `restated i` (hypothesis i is also a conjunct of the",
-    "conclusion: needed only because the conclusion repeats it). A headline with a shape entry never counts",
+    "subtype type assumes its property silently), `bundled i` (hypothesis i has two or more parts, see below:",
+    "shown needed as a bundle only), `restated i` (hypothesis i is also a conjunct of the conclusion, literally",
+    "or after unfolding definitions: needed only because the conclusion repeats it). A headline with a shape entry never counts",
     "as having every hypothesis classified, and a new one fails CI (`check_necessity.py` N4). Two or more",
     "redundant hypotheses of one headline are labelled \"each alone, not together\": dropping them all may make",
-    "the statement false (red team AF d02). Conjuncts (run 2026-11-11T1428Z): `bundled i` is dropped once every",
-    "conjunct of hypothesis i (its definition unfolded and split at each `∧`; a conjunct under a binder such as",
-    "`∀ t`, `∃ v`, `∀ᶠ t` is not split) is NEEDED (`necessity% <headline> i j`: every other hypothesis and every",
-    "other conjunct hold, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`); the witnesses are",
-    "listed as `conjuncts of i (m)`, m the number of conjuncts. `bundled i` stays when some conjunct hides a",
-    "further conjunction under a binder or an implication (its parts would go unclassified).",
+    "the statement false (red team AF d02). Parts (runs 2026-11-11T1428Z, 1628Z): `bundled i` is dropped once every",
+    "part of hypothesis i is NEEDED (`necessity% <headline> i j`: every other hypothesis holds and hypothesis i",
+    "holds with part j replaced by `True`, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`). The",
+    "parts are the maximal sub-propositions reached through `∧`, `∃ x,`, `∀ x,`, `∀ᶠ x in l,` and the conclusion",
+    "of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`); an implication's premise,",
+    "`∨`, `↔` and `¬` are not entered. The witnesses are listed as `parts of i (m)`, m the number of parts.",
     ""] ++ necLines.toList ++ [
     "",
     "## FORMULA, MATH and WITNESS definitions (second formulation)",

@@ -214,90 +214,125 @@ elab "dropped% " id:ident i:num : term => do
   let c ← realizeGlobalConstNoOverloadWithInfo id
   dropObligation (← getConstInfo c).type i.getNat
 
-/-! ### Necessity of each conjunct of a bundled hypothesis (trust track T2b, run 2026-11-11T1428Z)
+/-! ### Necessity of each part of a bundled hypothesis (trust track T2b item 3e, runs 2026-11-11T1428Z, 1628Z)
 
 A hypothesis that is a conjunction behind a program definition (an initial-value-problem solution,
-a critical point: `bundled i` in `TRUST_MAP.md`, blind red team AF) is classified as a whole by
-`necessity% thm i`; that says the bundle is needed, not that each of its parts is. Its *conjuncts*
-are read by `hypConjuncts`: the hypothesis's type with `Checked` definitions at the head unfolded
-(`unfoldHead`), split at every `∧`, each part unfolded and split again. A conjunct under a binder
-(`∀ t, A ∧ B`, `∃ v, …`, `∀ᶠ t in 𝓝 t₀, …`) is one conjunct: it is not split. For the `j`-th
-conjunct `cⱼ` of the `i`-th hypothesis (both 1-based):
+a critical point, an expansion law: `bundled i` in `TRUST_MAP.md`, blind red team AF) is classified
+as a whole by `necessity% thm i`; that says the bundle is needed, not that each of its parts is.
+Its *parts* are the maximal sub-propositions reached from the hypothesis through positions where
+the hypothesis is monotone: `Checked` definitions at the head unfolded (`unfoldHead`), then both
+sides of `∧`, the body of `∃ x,` and of `∀ x,` (including the conclusion of an implication
+`P → Q`, but never its premise `P`), the body of `∀ᶠ x in l,`, `∃!` opened to its definition and
+`A ↔ B` read as `(A → B) ∧ (B → A)`. Everything else (`∨`, `¬`, equations, inequalities,
+membership, a premise) is one part; a proposition too deep to walk (fuel) has no parts (error), so
+its hypothesis stays bundled (blind red team AG, run 2026-11-11T1628Z: d04 fuel, d05 `∃!`). Replacing a part by `True` therefore
+gives a hypothesis implied by the original one: "dropping" that part. For the `j`-th part
+(1-based, left to right) of the `i`-th hypothesis:
 
-* `necessity% thm i j` is `∃ x₁ … xₙ (all binders but hᵢ), c₁ ∧ … ∧ cⱼ₋₁ ∧ cⱼ₊₁ ∧ … ∧ ¬ C`:
-  data meeting every other hypothesis and every other conjunct of hᵢ with the conclusion false,
-  so the conjunct `cⱼ` is **needed**;
-* `dropped% thm i j` is `∀ x₁ … xₙ (all binders but hᵢ), c₁ → … → cⱼ₋₁ → cⱼ₊₁ → … → C`: the
-  statement with `cⱼ` dropped from hᵢ, so `cⱼ` is **redundant in Lean** (one conjunct at a time,
-  with the caveats of `dropped%`). -/
+* `necessity% thm i j` is `∃ x₁ … xₙ (all binders but hᵢ), hᵢ[part j := True] ∧ ¬ C`:
+  data meeting every other hypothesis and every other part of hᵢ with the conclusion false, so
+  part `j` is **needed**;
+* `dropped% thm i j` is `∀ x₁ … xₙ (all binders but hᵢ), hᵢ[part j := True] → C`: the statement
+  with part `j` dropped, so part `j` is **redundant in Lean** (one part at a time, with the caveats
+  of `dropped%`). -/
 
-/-- The conjuncts of a hypothesis type (see above): `Checked` definitions at the head unfolded,
-split at every `∧`; a conjunct under a binder is not split. -/
-partial def hypConjuncts (t : Expr) (fuel : Nat := 32) : MetaM (Array Expr) := do
-  if fuel = 0 then return #[t]
+/-- Walk the parts of a proposition `t` (see above), counting them in `StateRefT`; the part whose
+index (0-based) is `target` is replaced by `True`. Returns the rebuilt proposition. -/
+partial def partsWalk (t : Expr) (target : Option Nat) (fuel : Nat := 256) :
+    StateRefT Nat MetaM Expr := do
+  let atom : StateRefT Nat MetaM Expr := do
+    let k ← get
+    set (k + 1)
+    return if target == some k then mkConst ``True else t
+  -- out of fuel is an error, never a silent part (blind red team AG d04: a 67-conjunct chain left
+  -- an unsplit conjunction as its last "part")
+  if fuel = 0 then throwError "parts: proposition too deep to split"
   let u ← unfoldHead t
+  -- `∃!` hides existence and uniqueness as one atom (AG d05): open it
+  if u.isAppOfArity `ExistsUnique 2 then
+    if let some e ← unfoldDefinition? u then
+      return ← partsWalk e target (fuel - 1)
+  -- `A ↔ B` assumes `A → B` and `B → A`: walk that conjunction (each implication's conclusion)
+  if u.isAppOfArity ``Iff 2 then
+    let a := u.appFn!.appArg!
+    let b := u.appArg!
+    return ← partsWalk (← mkAppM ``And #[← mkArrow a b, ← mkArrow b a]) target (fuel - 1)
   if u.isAppOfArity ``And 2 then
-    return (← hypConjuncts u.appFn!.appArg! (fuel - 1)) ++ (← hypConjuncts u.appArg! (fuel - 1))
-  return #[u]
+    let a ← partsWalk u.appFn!.appArg! target (fuel - 1)
+    let b ← partsWalk u.appArg! target (fuel - 1)
+    return ← mkAndSimp a b
+  if u.isAppOfArity ``Exists 2 then
+    let f := u.appArg!
+    if let .lam n d b bi := f then
+      return ← withLocalDecl n bi d fun x => do
+        let body ← partsWalk (b.instantiate1 x) target (fuel - 1)
+        mkAppM ``Exists #[← mkLambdaFVars #[x] body]
+    return ← atom
+  if u.isAppOfArity `Filter.Eventually 3 then
+    let f := u.appFn!.appArg!
+    if let .lam n d b bi := f then
+      return ← withLocalDecl n bi d fun x => do
+        let body ← partsWalk (b.instantiate1 x) target (fuel - 1)
+        mkAppM `Filter.Eventually #[← mkLambdaFVars #[x] body, u.appArg!]
+    return ← atom
+  if let .forallE n d b bi := u then
+    return ← withLocalDecl n bi d fun x => do
+      let body ← partsWalk (b.instantiate1 x) target (fuel - 1)
+      mkForallFVars #[x] body
+  atom
 
-/-- The `i`-th hypothesis's conjuncts other than the `j`-th, the remaining binders and the
-conclusion (errors as `withoutHyp`, and if `j` is out of range or the hypothesis has one conjunct). -/
-def withoutConjunct {α : Type} (ty : Expr) (i j : Nat)
-    (k : Array Expr → Array Expr → Expr → MetaM α) : MetaM α :=
-  flatStatement ty fun xs c => do
+/-- Number of parts of a proposition. -/
+def numParts (t : Expr) : MetaM Nat := do
+  let (_, k) ← (partsWalk t none).run 0
+  return k
+
+/-- The proposition with its `j`-th part (1-based) replaced by `True`. -/
+def dropPart (t : Expr) (j : Nat) : MetaM Expr := do
+  let (e, _) ← (partsWalk t (some (j - 1))).run 0
+  return e
+
+/-- The `i`-th hypothesis with its `j`-th part dropped, the remaining binders and the conclusion
+(errors as `withoutHyp`, and if `j` is out of range or the hypothesis has one part). -/
+def withoutPart {α : Type} (ty : Expr) (i j : Nat)
+    (k : Array Expr → Expr → Expr → MetaM α) : MetaM α :=
+  withoutHyp ty i fun ys c => flatStatement ty fun xs _ => do
     let ps ← hypPositions xs
-    unless 1 ≤ i && i ≤ ps.size do
-      throwError "hypothesis {i}: the statement has {ps.size} hypotheses"
-    let p := ps[i - 1]!
-    let h := xs[p]!.fvarId!
-    if (← h.getDecl).binderInfo.isInstImplicit then
-      throwError "hypothesis {i} is an instance argument: no obligation"
-    for l in [p+1:xs.size] do
-      if (← inferType xs[l]!).containsFVar h then
-        throwError "hypothesis {i} is used as data by a later binder: no obligation"
-    if c.containsFVar h then
-      throwError "hypothesis {i} is used as data by the conclusion: no obligation"
-    let cs ← hypConjuncts (← inferType xs[p]!)
-    unless 2 ≤ cs.size do
-      throwError "hypothesis {i} has {cs.size} conjunct: nothing to split"
-    unless 1 ≤ j && j ≤ cs.size do
-      throwError "conjunct {j}: hypothesis {i} has {cs.size} conjuncts"
-    k (xs.eraseIdx! p) (cs.eraseIdx! (j - 1)) c
+    let t ← inferType xs[ps[i - 1]!]!
+    let m ← numParts t
+    unless 2 ≤ m do
+      throwError "hypothesis {i} has {m} part: nothing to split"
+    unless 1 ≤ j && j ≤ m do
+      throwError "part {j}: hypothesis {i} has {m} parts"
+    -- `t` lives in the context of `xs`; re-express it over `ys` (the same binders minus hᵢ)
+    let others := xs.eraseIdx! ps[i - 1]!
+    let t' := (← dropPart t j).replaceFVars others ys
+    k ys t' c
 
-/-- Necessity obligation of the `j`-th conjunct of the `i`-th hypothesis (see above). -/
+/-- Necessity obligation of the `j`-th part of the `i`-th hypothesis (see above). -/
 def necPartObligation (ty : Expr) (i j : Nat) : MetaM Expr :=
-  withoutConjunct ty i j fun ys others c => do
-    let mut e := negConcl c
-    for o in others.reverse do
-      e ← mkAppM ``And #[o, e]
-    mkExistsFVars ys e
+  withoutPart ty i j fun ys h c => do mkExistsFVars ys (← mkAndSimp h (negConcl c))
 
-/-- Redundancy obligation of the `j`-th conjunct of the `i`-th hypothesis: the statement with it
+/-- Redundancy obligation of the `j`-th part of the `i`-th hypothesis: the statement with it
 dropped. -/
 def dropPartObligation (ty : Expr) (i j : Nat) : MetaM Expr :=
-  withoutConjunct ty i j fun ys others c => do
-    let mut e := c
-    for o in others.reverse do
-      e ← mkArrow o e
-    mkForallFVars ys e
+  withoutPart ty i j fun ys h c => do mkForallFVars ys (← mkArrow h c)
 
-/-- Number of conjuncts of the `i`-th hypothesis (0 if it is not a proposition binder). -/
-def numConjuncts (ty : Expr) (i : Nat) : MetaM Nat :=
+/-- Number of parts of the `i`-th hypothesis (0 if it is not a proposition binder). -/
+def numHypParts (ty : Expr) (i : Nat) : MetaM Nat :=
   flatStatement ty fun xs _ => do
     let ps ← hypPositions xs
     unless 1 ≤ i && i ≤ ps.size do return 0
     let t ← inferType xs[ps[i - 1]!]!
     unless ← isProp t do return 0
-    return (← hypConjuncts t).size
+    numParts t
 
-/-- `necessity% c i j`: data meeting every hypothesis of `c` but the `i`-th, and every conjunct of
-the `i`-th but the `j`-th, with the conclusion false. -/
+/-- `necessity% c i j`: data meeting every hypothesis of `c` but the `i`-th, and every part of the
+`i`-th but the `j`-th, with the conclusion false. -/
 elab "necessity% " id:ident i:num j:num : term => do
   let c ← realizeGlobalConstNoOverloadWithInfo id
   necPartObligation (← getConstInfo c).type i.getNat j.getNat
 
-/-- `dropped% c i j`: the statement of `c` with the `j`-th conjunct of its `i`-th hypothesis
-dropped. -/
+/-- `dropped% c i j`: the statement of `c` with the `j`-th part of its `i`-th hypothesis dropped. -/
 elab "dropped% " id:ident i:num j:num : term => do
   let c ← realizeGlobalConstNoOverloadWithInfo id
   dropPartObligation (← getConstInfo c).type i.getNat j.getNat
