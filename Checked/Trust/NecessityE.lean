@@ -28,16 +28,33 @@ theorem kP_pos : 0 < kP := by unfold kP; norm_num
 
 theorem pr_exp_deriv (η : ℝ) :
     HasDerivAt (fun η : ℝ => Real.exp (-(kP * η ^ 2))) (-(2 * kP * η) * Real.exp (-(kP * η ^ 2))) η := by
-  have := (((hasDerivAt_pow 2 η).const_mul kP).neg).exp
-  convert this using 1; push_cast; ring
+  have h1 : HasDerivAt (fun x : ℝ => -(kP * x ^ 2)) (-(2 * kP * η)) η := by
+    convert (hasDerivAt_pow 2 η).const_mul (-kP) using 1
+    all_goals first
+      | (funext x; ring)
+      | ring
+      | (norm_num; done)
+      | (norm_num; ring)
+      | (simp; ring)
+  refine h1.exp.congr_deriv ?_
+  first
+    | ring
+    | (beta_reduce; ring)
 
 theorem prP_deriv (η : ℝ) : HasDerivAt prP (prQ η) η := by
   have := (pr_exp_deriv η).const_sub 1
   unfold prP prQ; convert this using 1; ring
 
 theorem prQ_deriv (η : ℝ) : HasDerivAt prQ (prQ' η) η := by
-  have h := ((hasDerivAt_id η).const_mul (2 * kP)).mul (pr_exp_deriv η)
-  unfold prQ prQ'; convert h using 1 <;> simp only [id]; ring
+  have h1 : HasDerivAt (fun x : ℝ => 2 * kP * x) (2 * kP) η := by
+    simpa using (hasDerivAt_id η).const_mul (2 * kP)
+  have h := h1.mul (pr_exp_deriv η)
+  have e : prQ = (fun x : ℝ => 2 * kP * x) * (fun x : ℝ => Real.exp (-(kP * x ^ 2))) := by
+    funext x; simp only [prQ, Pi.mul_apply]
+  rw [e]
+  refine h.congr_deriv ?_
+  unfold prQ'
+  ring
 
 theorem prP_zero : prP 0 = 0 := by simp [prP]
 theorem prQ_zero : prQ 0 = 0 := by simp [prQ]
@@ -90,7 +107,7 @@ theorem prG_ode (η : ℝ) (hη : η ∈ Ici (0 : ℝ)) :
 solves the equation at the printed `β = c`, meets every boundary and decay condition, and β equals `c`. -/
 theorem fs_separation_not_printed_value_h1 :
     necessity% Checked.FalknerSkan.SeparationPrinted.fs_separation_not_printed_value 1 := by
-  refine ⟨-(1988376 / 10000000), prG, prP, prQ, fun η _ => (prQ_deriv η).hasDerivWithinAt,
+  refine ⟨-(1988376 / 10000000), prG, prP, prQ, fun η _ => (prP_deriv η).hasDerivWithinAt,
     fun η hη => by rw [← prG_ode η hη]; exact (prQ_deriv η).hasDerivWithinAt, by simp [prG],
     prP_zero, prQ_zero, prP_lim, prQ_pos, pr_decay, ?_⟩
   simp
