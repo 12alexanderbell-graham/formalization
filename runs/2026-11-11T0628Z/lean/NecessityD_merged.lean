@@ -42,10 +42,21 @@ printed coefficient differs from the correct one. This file classifies the last 
   and `C⁵` are needed. Eventual differentiability of `a` near `t₀` is redundant in
   `lookback_second_order`: a differentiable `ȧ` with `ȧ(t₀) ≠ 0` is nonzero near `t₀`, and a nonzero
   `deriv` value means `a` is differentiable there.
+* **Smoothness, the distance series** (`BambaY.lumDist_y_third_order`, `CVdQ.dQ_y_third_order` with
+  `1 + t + t²|t|`; `BambaK.lumDist_y_fifth_order`, `BambaA.angDist_y_fifth_order`,
+  `BambaZ.lumDist_z_fifth_order`, `BambaZ.angDist_z_fifth_order` with `1 + t + t⁴|t|` and `K = 0`): the
+  kinked scale factor has the same coefficients as `1 + t` (one of them a junk value), the series theorem
+  holds for `1 + t`, and the two remainders differ by `tⁿ⁺¹|t|(1 + o(1)) + O(|t|ⁿ⁺³)`
+  (`compare_general`, with the comoving distances compared by `comoving_bounds`), so the kinked
+  remainder is not `o(·ⁿ⁺²)`: smoothness is needed.
 * **Smoothness under an expansion law is redundant** (`Aviles.flatLCDM_coeffs`, `CPL.flatCPL_coeffs`,
   `CPL.printedL0_ne`, records `F1_l0`, `F2_toy`, `F2_error`, `F3_D4_LCDM`): the flat ΛCDM and CPL laws
   say `ȧ = Φ(a)` near `t₀` with `Φ` smooth near `a(t₀)`, and a bootstrap (`contDiffAt_of_law`: `a` is
   `Cᵏ` ⇒ `ȧ = Φ ∘ a` is `Cᵏ` ⇒ `a` is `Cᵏ⁺¹`) makes `a` smooth at `t₀`.
+* **The `f(R)` slow-roll ratios** (`FREta.eta20_hasDerivAt`, `FREta.eta30_hasDerivAt`): `0 < Ω` and `Ω < 1`
+  are needed: at `Ω = 0` and `Ω = 2` the family's denominator vanishes at `ε = 0`, Lean's `x/0 = 0`
+  gives `η(0) = 0`, but `εᵏ η(ε)` tends to a nonzero limit, so `η` has no derivative at `0`
+  (`not_hasDerivAt_of`).
 * **The separation pair** (`FalknerSkan.SeparationEqual.fs_separation_equal`): `f' = p` (hypotheses 1
   and 10) and the Falkner–Skan equation (3 and 12) are needed. The profile `p = 1 − (1 + η²)e^{−η²}`,
   `q = p' = 2η³e^{−η²}` meets every boundary, sign and decay condition; with `f = −q'/q` (`f(0) = 0`) it
@@ -1331,5 +1342,160 @@ theorem angDist_z_fifth_order_h1 : necessity% Checked.Cosmography.BambaZ.angDist
       simp only [BambaZ.remAz, BambaZ.seriesZ, bq, bj, bs, bl, curvK_flat, cub_hubble]; ring
   · filter_upwards [near0] with t ht
     exact angflat_bound 3 t ht
+
+theorem dQ_eq {a : ℝ → ℝ} (h0 : a 0 = 1) {t : ℝ} (ht : 0 < a t) :
+    CVdQ.dQFlat a 0 t = √(a t) * BambaY.comoving a 0 t := by
+  have e : 1 + redshift a 0 t = (a t)⁻¹ := by simp [redshift, h0]
+  have hi : 0 < (a t)⁻¹ := inv_pos.2 ht
+  have hr : (a t)⁻¹ ^ ((3 : ℝ) / 2) = (a t)⁻¹ * (√(a t))⁻¹ := by
+    rw [show (3 : ℝ) / 2 = 1 + 1 / 2 by norm_num, Real.rpow_add hi, Real.rpow_one,
+      ← Real.sqrt_eq_rpow, Real.sqrt_inv]
+  have hs : 0 < √(a t) := Real.sqrt_pos.2 ht
+  simp only [CVdQ.dQFlat, BambaY.lumDistFlat, e, h0, hr]
+  field_simp
+
+theorem sqrt_diff {a b : ℝ} (ha : 1 / 2 ≤ a) (hb : 1 / 2 ≤ b) : |√a - √b| ≤ |a - b| := by
+  have sa := Real.sq_sqrt (show 0 ≤ a by linarith)
+  have sb := Real.sq_sqrt (show 0 ≤ b by linarith)
+  have h1 : 1 / 2 ≤ √a := by
+    rw [show (1 / 2 : ℝ) = √(1 / 4) by rw [show (1 / 4 : ℝ) = (1 / 2) ^ 2 by norm_num,
+      Real.sqrt_sq (by norm_num)]]
+    exact Real.sqrt_le_sqrt (by linarith)
+  have h2 : 1 / 2 ≤ √b := by
+    rw [show (1 / 2 : ℝ) = √(1 / 4) by rw [show (1 / 4 : ℝ) = (1 / 2) ^ 2 by norm_num,
+      Real.sqrt_sq (by norm_num)]]
+    exact Real.sqrt_le_sqrt (by linarith)
+  have hab : a - b = (√a - √b) * (√a + √b) := by nlinarith
+  rw [hab, abs_mul, abs_of_pos (show 0 < √a + √b by linarith)]
+  have := abs_nonneg (√a - √b)
+  nlinarith
+
+theorem dQflat_bound (n : ℕ) (t : ℝ) (ht : |t| ≤ 1 / 4) :
+    |CVdQ.dQFlat (kink n) 0 t - CVdQ.dQFlat (cub 0) 0 t| ≤ 16 * |t| ^ (n + 3) := by
+  obtain ⟨hc, hca⟩ := comoving_bounds n t ht
+  obtain ⟨hk, he⟩ := kink_pt n t ht
+  have hb := cub0_pt t ht
+  rw [dQ_eq (by simp [kink]) (by linarith), dQ_eq (by simp [cub]) (by linarith)]
+  have hsd := sqrt_diff hk hb
+  have hab : kink n t - cub 0 t = t ^ (n + 1) * |t| := by simp [kink, cub]
+  rw [hab, he] at hsd
+  have hsb : |√(cub 0 t)| ≤ 2 := by
+    rw [abs_of_nonneg (Real.sqrt_nonneg _)]
+    have := abs_le.1 ht
+    calc √(cub 0 t) ≤ √4 := Real.sqrt_le_sqrt (by simp [cub]; linarith)
+      _ = 2 := by rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]
+  have : √(kink n t) * BambaY.comoving (kink n) 0 t - √(cub 0 t) * BambaY.comoving (cub 0) 0 t =
+      (√(kink n t) - √(cub 0 t)) * BambaY.comoving (kink n) 0 t +
+      √(cub 0 t) * (BambaY.comoving (kink n) 0 t - BambaY.comoving (cub 0) 0 t) := by ring
+  rw [this]
+  calc _ ≤ |(√(kink n t) - √(cub 0 t)) * BambaY.comoving (kink n) 0 t| +
+        |√(cub 0 t) * (BambaY.comoving (kink n) 0 t - BambaY.comoving (cub 0) 0 t)| := abs_add_le _ _
+    _ ≤ |t| ^ (n + 2) * (2 * |t|) + 2 * (4 * |t| ^ (n + 3)) := by
+        rw [abs_mul (√(kink n t) - √(cub 0 t)), abs_mul (√(cub 0 t))]; gcongr
+    _ ≤ 16 * |t| ^ (n + 3) := by
+        have : 0 ≤ |t| ^ (n + 3) := by positivity
+        have e : |t| ^ (n + 2) * (2 * |t|) = 2 * |t| ^ (n + 3) := by ring
+        linarith
+
+/-- Smoothness (`C³`) is needed in `CVdQ.dQ_y_third_order`: `a = 1 + t + t²|t|` against `1 + t`. -/
+theorem dQ_y_third_order_h1 : necessity% Checked.Cosmography.CVdQ.dQ_y_third_order 1 := by
+  refine ⟨kink 1, 0, kink_ne 1, by rw [kink_hubble]; norm_num, ?_⟩
+  obtain ⟨hq, hj⟩ := kink1_coeffs
+  obtain ⟨bq, bj, -, -⟩ := cub0_coeffs
+  refine compare_general 1 _ (fun t => CVdQ.remainderQ CVdQ.correctQ2 (cub 0) 0 t)
+    (fun t => CVdQ.dQFlat (kink 1) 0 t) (fun t => CVdQ.dQFlat (cub 0) 0 t)
+    _ _ (fun _ => 1) (-(0 : ℝ) / 2) (CVdQ.correctQ2 0 0 1) 0 0 16 ?_ ?_
+    (CVdQ.dQ_y_third_order (cub 0) 0 (cub_smooth 0 _) (cub_ne 0) (by rw [cub_hubble]; norm_num))
+    ?_ (ya_bound 1) yb_bound (y_diff 1) tendsto_const_nhds
+  · exact Eventually.of_forall fun t => by
+      simp only [CVdQ.remainderQ, CVdQ.seriesQ, hq, hj, kink_hubble]; ring
+  · exact Eventually.of_forall fun t => by
+      simp only [CVdQ.remainderQ, CVdQ.seriesQ, bq, bj, cub_hubble]; ring
+  · filter_upwards [near0] with t ht
+    exact dQflat_bound 1 t ht
+
+/-! ### `f(R)` slow-roll ratios: the range `0 < Ω < 1` (`FREta.eta20_hasDerivAt`, `FREta.eta30_hasDerivAt`) -/
+
+/-- A function with `f(0) = 0` and `εᵏ f(ε) → G(0) ≠ 0` (for `ε ≠ 0`) has no derivative at `0`. -/
+theorem not_hasDerivAt_of (f G : ℝ → ℝ) (k : ℕ) (hG : ContinuousAt G 0) (hG0 : G 0 ≠ 0)
+    (hf0 : f 0 = 0) (hfg : ∀ᶠ ε in 𝓝[≠] (0 : ℝ), ε ^ k * f ε = G ε) (c : ℝ) :
+    ¬ HasDerivAt f c 0 := by
+  intro h
+  have hc : Tendsto f (𝓝 0) (𝓝 0) := by simpa [hf0] using h.continuousAt.tendsto
+  have h1 : Tendsto (fun ε : ℝ => ε ^ k * f ε) (𝓝[≠] 0) (𝓝 0) := by
+    have := ((continuous_pow k).tendsto (0 : ℝ)).mul hc
+    simpa using this.mono_left nhdsWithin_le_nhds
+  have h2 : Tendsto G (𝓝[≠] 0) (𝓝 (G 0)) := hG.tendsto.mono_left nhdsWithin_le_nhds
+  exact hG0 (tendsto_nhds_unique (h1.congr' hfg) h2).symm
+
+theorem eta_ne : ∀ᶠ ε in 𝓝[≠] (0 : ℝ), ε ≠ 0 := self_mem_nhdsWithin
+
+theorem poly_ne (P : ℝ → ℝ) (hP : Continuous P) (h0 : P 0 ≠ 0) : ∀ᶠ ε in 𝓝[≠] (0 : ℝ), P ε ≠ 0 :=
+  (hP.continuousAt.eventually_ne h0).filter_mono nhdsWithin_le_nhds
+
+/-- `0 < Ω` is needed in `FREta.eta20_hasDerivAt`: at `Ω = 0` the family's denominator has a double zero
+at `ε = 0`, `η₂₀(0, ε) → 26/3348 ≠ 0` while `η₂₀(0, 0) = 0` (Lean's `x/0 = 0`), so there is no derivative. -/
+theorem eta20_hasDerivAt_h1 : necessity% Checked.Cosmography.FREta.eta20_hasDerivAt 1 := by
+  refine ⟨0, by norm_num, fun h => ?_⟩
+  set P : ℝ → ℝ := fun ε => 3 * ε ^ 3 + 7 * ε ^ 2 + 33 * ε + 93
+  refine not_hasDerivAt_of (FREta.eta20 0) (fun ε => -2 * (3 * ε - 13) / (36 * P ε)) 0
+    (by apply ContinuousAt.div (by fun_prop) (by fun_prop); simp [P]) (by simp [P]) h.1 ?_ _ h.2
+  filter_upwards [eta_ne, poly_ne P (by fun_prop) (by simp [P])] with ε he hp
+  have hD : FREta.Dfam 0 ε = -(ε ^ 2 * P ε) := by
+    simp only [P]; unfold FREta.Dfam FRCosmo.P0 FRCosmo.Q0 FREta.qL FREta.jL FREta.sL FREta.lL; ring
+  rw [FREta.eta20_eq]; beta_reduce; rw [hD]
+  simp only [pow_zero, one_mul, FREta.N2e]
+  field_simp
+  ring
+
+/-- `Ω < 1` is needed in `FREta.eta20_hasDerivAt`: at `Ω = 2` the denominator has a simple zero at
+`ε = 0`, `η₂₀(2, ε) → −186/34992 ≠ 0` while `η₂₀(2, 0) = 0`. -/
+theorem eta20_hasDerivAt_h2 : necessity% Checked.Cosmography.FREta.eta20_hasDerivAt 2 := by
+  refine ⟨2, by norm_num, fun h => ?_⟩
+  set P : ℝ → ℝ := fun ε => 24 * ε ^ 4 + 149 * ε ^ 3 + 361 * ε ^ 2 + 453 * ε + 243
+  refine not_hasDerivAt_of (FREta.eta20 2) (fun ε => FREta.N2e 2 ε / (144 * P ε)) 0
+    (by apply ContinuousAt.div (by unfold FREta.N2e; fun_prop) (by fun_prop); simp [P])
+    (by simp [P, FREta.N2e]; norm_num) h.1 ?_ _ h.2
+  filter_upwards [eta_ne, poly_ne P (by fun_prop) (by simp [P])] with ε he hp
+  have hD : FREta.Dfam 2 ε = 4 * ε * P ε := by
+    simp only [P]; unfold FREta.Dfam FRCosmo.P0 FRCosmo.Q0 FREta.qL FREta.jL FREta.sL FREta.lL; ring
+  rw [FREta.eta20_eq]; beta_reduce; rw [hD]
+  simp only [pow_zero, one_mul]
+  field_simp
+  ring
+
+/-- `0 < Ω` is needed in `FREta.eta30_hasDerivAt`: at `Ω = 0`, `ε η₃₀(0, ε) → 1/20088 ≠ 0`, so `η₃₀(0, ·)`
+is unbounded near `0` while `η₃₀(0, 0) = 0`. -/
+theorem eta30_hasDerivAt_h1 : necessity% Checked.Cosmography.FREta.eta30_hasDerivAt 1 := by
+  refine ⟨0, by norm_num, fun h => ?_⟩
+  set P : ℝ → ℝ := fun ε => 3 * ε ^ 3 + 7 * ε ^ 2 + 33 * ε + 93
+  refine not_hasDerivAt_of (FREta.eta30 0) (fun ε => (13 * ε + 1) / (216 * P ε)) 1
+    (by apply ContinuousAt.div (by fun_prop) (by fun_prop); simp [P]) (by simp [P]) h.1 ?_ _ h.2
+  filter_upwards [eta_ne, poly_ne P (by fun_prop) (by simp [P])] with ε he hp
+  have hD : FREta.Dfam 0 ε = -(ε ^ 2 * P ε) := by
+    simp only [P]; unfold FREta.Dfam FRCosmo.P0 FRCosmo.Q0 FREta.qL FREta.jL FREta.sL FREta.lL; ring
+  have hJ : FREta.Jfam 0 ε = 2 * ε := by unfold FREta.Jfam FREta.qL FREta.jL; ring
+  rw [FREta.eta30_eq]; beta_reduce; rw [hD, hJ]
+  simp only [pow_one, FREta.N3e]
+  field_simp
+  ring
+
+/-- `Ω < 1` is needed in `FREta.eta30_hasDerivAt`: at `Ω = 2`, `η₃₀(2, ε) → 282/(−629856) ≠ 0` while
+`η₃₀(2, 0) = 0`. -/
+theorem eta30_hasDerivAt_h2 : necessity% Checked.Cosmography.FREta.eta30_hasDerivAt 2 := by
+  refine ⟨2, by norm_num, fun h => ?_⟩
+  set P : ℝ → ℝ := fun ε => 24 * ε ^ 4 + 149 * ε ^ 3 + 361 * ε ^ 2 + 453 * ε + 243
+  refine not_hasDerivAt_of (FREta.eta30 2) (fun ε => FREta.N3e 2 ε / (864 * (-(ε + 3)) * P ε)) 0
+    (by apply ContinuousAt.div (by unfold FREta.N3e; fun_prop) (by fun_prop); simp [P])
+    (by simp [P, FREta.N3e]; norm_num) h.1 ?_ _ h.2
+  filter_upwards [eta_ne, poly_ne P (by fun_prop) (by simp [P]),
+    poly_ne (fun ε => -(ε + 3)) (by fun_prop) (by norm_num)] with ε he hp hj
+  have hD : FREta.Dfam 2 ε = 4 * ε * P ε := by
+    simp only [P]; unfold FREta.Dfam FRCosmo.P0 FRCosmo.Q0 FREta.qL FREta.jL FREta.sL FREta.lL; ring
+  have hJ : FREta.Jfam 2 ε = -(ε + 3) := by unfold FREta.Jfam FREta.qL FREta.jL; ring
+  rw [FREta.eta30_eq]; beta_reduce; rw [hD, hJ]
+  simp only [pow_zero, one_mul]
+  field_simp
+  ring
 
 end Checked.Trust.NCD
