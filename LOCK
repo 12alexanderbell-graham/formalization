@@ -1,1 +1,1 @@
-Run 2026-11-11T1428Z (scheduled), started 14:28Z; no LOCK present (run 1028Z removed it in 3f860a5; run 1228Z ended 13:20Z). Plan: read CI of a00b1b4 (both promotions), then part 1 or 3 by rotation. Remove at end.
+Run 2026-11-11T1428Z (scheduled), started 14:28Z; no LOCK present at start. Alive: heartbeat 16:45Z. Pushed e3337c7 (per-conjunct necessity, CI repair of a00b1b4's N2). Now applying run 1628Z's review (a conjunct hiding a conjunction under a binder keeps `bundled i`); then records. Remove at end.

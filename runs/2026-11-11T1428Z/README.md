@@ -11,4 +11,5 @@
 - STATE exact next step 0b (from blind red team AF): 26 headlines carry `shape: bundled i` — a hypothesis that is a conjunction behind a definition (IVP solution, critical point, expansion law), shown needed only as a bundle. Yes (a mechanical per-conjunct obligation + witnesses): `bundled i` disappears for every headline whose conjuncts are all witnessed, the count of fully classified headlines rises honestly, and the shape baseline shrinks. No: record what resists.
 
 ## Hand-off (kept current)
-- Lean changes so far are saved as `wip.patch` in this folder until they are verified and merged.
+- 16:39Z: pushed to main (ea6f45c, e3337c7): per-conjunct obligations, StatementDeps/check_necessity, `Checked/Trust/NecessityF.lean` (22 witnesses), CI repair (LEDGER disclosure for N2), `scripts/trust/local_frozen_step.py`; local full build, trust step and frozen step (base 151807e) green. `wip.patch` superseded.
+- 16:45Z: run 1628Z (auditor role) rightly points out that a conjunct under a binder (`∀ᶠ t, a > 0 ∧ differentiable ∧ law`; Duffing `∃ v, v 0 = 0 ∧ ODE`) still bundles parts. Adopted: StatementDeps keeps `bundled i` when a conjunct hides a conjunction under a binder (`hidesAnd`). Its *parts* design (monotone positions, part replaced by `True`) is the route to close those; this run does not duplicate it.
