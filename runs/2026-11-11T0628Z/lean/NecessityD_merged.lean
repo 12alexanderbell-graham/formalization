@@ -11,6 +11,7 @@ import Mathlib.Analysis.Calculus.Deriv.Abs
 import Checked.Records.Findings
 import Checked.Cosmography.CPLExistence
 import Checked.Chemistry.CubicEOS
+import Checked.Cosmography.LCDMWitness
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
@@ -58,6 +59,10 @@ printed coefficient differs from the correct one. This file classifies the last 
 * **Local existence for an expansion law** (`CPLExistence.exists_local_model`): smoothness of the law
   is needed: for `E(x) = 1 + |x − 1|` a `C⁵` solution of `ȧ = a E(a)` would make `|a − 1|` differentiable
   at its minimum.
+* **Printed `l₀`, `m₀`** (`AvilesWitness.printedL0_false_at`, `printedM0_false_at`): `0 < Ω` and
+  `3Ω² + 2Ω − 2 ≠ 0` are needed: at `Ω = 0` and `Ω = (√7 − 1)/3` the printed coefficient is the correct
+  one (`flatLCDM_coeffs`). `Ω < 1` is redundant there: a flat ΛCDM model exists for every `Ω`
+  (`exists_flatLCDM_any`, from `CPLExistence.exists_local_model`).
 * **The critical cubic** (`Chemistry.CubicEOS.critCubic_existsUnique`): `−2 < u` and `0 < 1 + u + w` are
   needed: `(x − 2)(x − 3)(x + 2)` (two roots above 1) and `(x − 1)³` (none).
   In `exists_unique_critical`, `0 < R` and `0 < a` are needed: with `R = 0` or `a = 0` the isotherm's
@@ -1605,5 +1610,85 @@ theorem exists_unique_critical_h1 :
   have : (p.2 - 1) ^ 2 ≠ 0 := pow_ne_zero 2 hv1
   field_simp at hc
   nlinarith
+
+/-! ### Printed `l₀`, `m₀` of flat ΛCDM: the conditions that make the misprints matter -/
+
+/-- `0 < Ω` is needed in `AvilesWitness.printedL0_false_at`: at `Ω = 0` the printed and correct `l₀`
+agree (both `1`), so the printed formula holds in every flat ΛCDM model. -/
+theorem printedL0_false_at_h1 :
+    necessity% Checked.Cosmography.AvilesWitness.printedL0_false_at 1 := by
+  refine ⟨0, by norm_num, fun a t₀ hL hs => ?_⟩
+  rw [(flatLCDM_coeffs 0 a t₀ hL hs).2.2.2.1]; ring
+
+/-- `0 < Ω` is needed in `AvilesWitness.printedM0_false_at`: at `Ω = 0` the printed and correct `m₀`
+agree. -/
+theorem printedM0_false_at_h1 :
+    necessity% Checked.Cosmography.AvilesWitness.printedM0_false_at 1 := by
+  refine ⟨0, by norm_num, by norm_num, fun a t₀ hL hs => ?_⟩
+  rw [(flatLCDM_coeffs 0 a t₀ hL hs).2.2.2.2]; ring
+
+/-- `3Ω² + 2Ω − 2 ≠ 0` is needed in `AvilesWitness.printedM0_false_at`: at `Ω = (√7 − 1)/3` the printed
+and correct `m₀` agree. -/
+theorem printedM0_false_at_h3 :
+    necessity% Checked.Cosmography.AvilesWitness.printedM0_false_at 3 := by
+  have h7 : Real.sqrt 7 ^ 2 = 7 := Real.sq_sqrt (by norm_num)
+  have hlo : 2 < Real.sqrt 7 := by
+    rw [show (2 : ℝ) = Real.sqrt 4 by rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]]
+    exact Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+  have hhi : Real.sqrt 7 < 3 := by
+    rw [show (3 : ℝ) = Real.sqrt 9 by rw [show (9 : ℝ) = 3 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]]
+    exact Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+  refine ⟨(Real.sqrt 7 - 1) / 3, by linarith, by linarith, fun a t₀ hL hs => ?_⟩
+  rw [(flatLCDM_coeffs _ a t₀ hL hs).2.2.2.2]
+  linear_combination (3 / 4 * (Real.sqrt 7 - 1)) * h7
+
+/-- A flat ΛCDM model exists for every `Ω` (no range condition): integrate `ȧ = a √(Ω a⁻³ + 1 − Ω)`
+from `a(0) = 1` (`CPLExistence.exists_local_model`). -/
+theorem exists_flatLCDM_any (Ω : ℝ) : ∃ (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ := by
+  set E : ℝ → ℝ := fun x => √(Ω * (1 / x) ^ 3 + 1 - Ω) with hE
+  have hE1 : E 1 = 1 := by simp [hE]
+  have hEs : ContDiffAt ℝ 5 E 1 := by
+    have hin : ContDiffAt ℝ 5 (fun x : ℝ => Ω * (1 / x) ^ 3 + 1 - Ω) 1 :=
+      (((contDiffAt_const.div contDiffAt_id one_ne_zero).pow 3).const_smul Ω |>.add contDiffAt_const).sub
+        contDiffAt_const
+    exact hin.sqrt (by norm_num)
+  obtain ⟨a, ha0, -, hev⟩ := Checked.Cosmography.CPLExistence.exists_local_model E hEs
+  have hH : ∀ᶠ t in 𝓝 (0 : ℝ), 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = E (a t) := by
+    filter_upwards [hev] with t ⟨hp, hd⟩
+    refine ⟨hp, hd.differentiableAt, ?_⟩
+    simp only [hubble, hd.deriv]; field_simp
+  have hH0 : hubble a 0 = 1 := by rw [(hH.self_of_nhds).2.2, ha0, hE1]
+  refine ⟨a, 0, by rw [hH0]; norm_num, ?_⟩
+  filter_upwards [hH] with t ⟨hp, hd, hh⟩
+  refine ⟨hp, hd, ?_⟩
+  rw [hh, hH0, one_mul]
+  simp only [hE, redshift, ha0]
+  congr 1
+  field_simp
+  ring
+
+/-- `Ω < 1` is redundant in `AvilesWitness.printedL0_false_at`: a flat ΛCDM model exists for every `Ω`
+(`exists_flatLCDM_any`), and in it the printed `l₀` is wrong whenever `Ω ≠ 0`. -/
+theorem printedL0_false_at_r2 :
+    dropped% Checked.Cosmography.AvilesWitness.printedL0_false_at 2 := by
+  intro Ω h0 h
+  obtain ⟨a, t₀, hL⟩ := exists_flatLCDM_any Ω
+  have hs : ContDiffAt ℝ 6 a t₀ := by exact_mod_cast contDiffAt_of_flatLCDM hL 6
+  have e := h a t₀ hL hs
+  rw [(flatLCDM_coeffs Ω a t₀ hL hs).2.2.2.1] at e
+  nlinarith [sq_pos_of_pos h0]
+
+/-- `Ω < 1` is redundant in `AvilesWitness.printedM0_false_at`. -/
+theorem printedM0_false_at_r2 :
+    dropped% Checked.Cosmography.AvilesWitness.printedM0_false_at 2 := by
+  intro Ω h0 hr h
+  obtain ⟨a, t₀, hL⟩ := exists_flatLCDM_any Ω
+  have hs : ContDiffAt ℝ 6 a t₀ := by exact_mod_cast contDiffAt_of_flatLCDM hL 6
+  have e := h a t₀ hL hs
+  rw [(flatLCDM_coeffs Ω a t₀ hL hs).2.2.2.2] at e
+  have : Ω * (3 * Ω ^ 2 + 2 * Ω - 2) = 0 := by linarith
+  rcases mul_eq_zero.1 this with h | h
+  · linarith
+  · exact hr h
 
 end Checked.Trust.NCD
