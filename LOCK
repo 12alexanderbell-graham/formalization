@@ -1,1 +1,1 @@
-Run 2026-11-11T0628Z (scheduled), started 06:28Z; LOCK taken 06:36Z after run 0428Z removed its LOCK (df2d22a). Heartbeat 07:37Z (full local build running; integration of Checked/Trust/NecessityD.lean follows). Remove at end.
+Run 2026-11-11T0628Z (scheduled), started 06:28Z; LOCK taken 06:36Z after run 0428Z removed its LOCK (df2d22a). Heartbeat 08:09Z (full build green; StatementDeps relock running). Remove at end.
