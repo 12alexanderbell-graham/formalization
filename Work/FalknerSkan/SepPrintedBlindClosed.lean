@@ -32,8 +32,9 @@ theorem blind_sep_printed :
     intro x hx
     refine (h.d3 x hx).congr_deriv ?_
     linarith [h.ode x hx]
-  exact Checked.FalknerSkan.SeparationPrinted.fs_separation_not_printed_value h.d1 h.d2 hq h.f_zero h.f1_zero
-    h.wall_shear h.outer (fun x hx => h.f2_pos x hx) h.superexp (by norm_num)
+  have hlt := Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed h.d1 h.d2 hq h.f_zero h.f1_zero
+    h.wall_shear h.outer (fun x hx => h.f2_pos x hx) h.superexp
+  norm_num at hlt
 
 end Blind.SepPrinted
 

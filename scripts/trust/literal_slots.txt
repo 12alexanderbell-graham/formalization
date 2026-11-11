@@ -12,3 +12,4 @@ Checked.Trust.SecondReading.robInit IsRobSolution.a₀ IsRobSolution.b₀ IsRobS
 Checked.Trust.SecondReading.robT IsRobSolution.T+eval
 Checked.Trust.SecondReading.robTEnd IsRobSolution.T+eval
 Checked.Trust.SecondReading.robY3Ref target
+Checked.Trust.SecondReading.fsSepPrintedFazio target

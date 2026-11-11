@@ -280,4 +280,4 @@ Checked.FalknerSkan.NegReversed.fs_neg_tenth_two_decay
 Checked.FalknerSkan.Separation.fs_separation_exists
 Checked.FalknerSkan.SeparationEqual.fs_separation_equal
 # Falkner–Skan printed separation value (run 2026-11-11T0828Z; candidate C-FS-SEP, corollary of the separation pair): the β of every zero-wall-shear solution in the decay class differs from the value −0.1988376 printed by Fazio (2012, 2020); printed value read blind from the typeset captions
-Checked.FalknerSkan.SeparationPrinted.fs_separation_not_printed_value
+Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed

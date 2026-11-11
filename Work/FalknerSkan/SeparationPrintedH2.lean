@@ -3,14 +3,14 @@ import Checked.FalknerSkan.SeparationPrinted
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
 
-/-! Necessity witness for hypothesis 2 of `Checked.FalknerSkan.SeparationPrinted.fs_separation_not_printed_value`
+/-! Necessity witness for hypothesis 2 of `Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed`
 (run 2026-11-11T0828Z), compiled in Work first; moves to `Checked/Trust/NecessityE.lean` once green. -/
 
 open Set Filter Topology
 
 namespace Work.Trust.NCPH2
 
-/- Witness for hypothesis 2 (p' = q) of `fs_separation_not_printed_value` (append to NecessityE, namespace NCP).
+/- Witness for hypothesis 2 (p' = q) of `fs_separation_below_printed` (append to NecessityE, namespace NCP).
 p = min η 1, f = ∫ p, and q the solution of the linear equation q' = −f q − β(1 − p²) with q(0) = 0 at the
 printed β: q = e^{−F} ∫₀^η e^{F} (−β)(1 − p²), F = ∫ f. The forcing vanishes for η ≥ 1, so 1 − p = 0 there and
 the decay condition holds; q > 0 beyond the wall; but q is not p' (p' = 0 for η > 1, q > 0). -/
@@ -91,10 +91,10 @@ theorem p2_decay : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p2 η) ≤ q2 η :=
   rw [hp, sub_self, mul_zero]
   exact (q2_pos η (by simp only [mem_Ioi]; linarith)).le
 
-/-- `p' = q` is needed in `fs_separation_not_printed_value`: with p = min(η, 1), f = ∫ p and q the solution
+/-- `p' = q` is needed in `fs_separation_below_printed`: with p = min(η, 1), f = ∫ p and q the solution
 of the equation's linear q-part at the printed β, every other condition holds and β is the printed value. -/
-theorem fs_separation_not_printed_value_h2 :
-    necessity% Checked.FalknerSkan.SeparationPrinted.fs_separation_not_printed_value 2 := by
+theorem fs_separation_below_printed_h2 :
+    necessity% Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed 2 := by
   refine ⟨-(1988376 / 10000000), f2, p2, q2, fun η _ => (f2_deriv η).hasDerivWithinAt,
     fun η _ => (q2_deriv η).hasDerivWithinAt, by simp [f2], by simp [p2], by simp [q2, G2],
     p2_lim, q2_pos, p2_decay, ?_⟩

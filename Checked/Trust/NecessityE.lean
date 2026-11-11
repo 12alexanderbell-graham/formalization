@@ -8,11 +8,11 @@ import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
 # Hypothesis necessity witnesses, the printed separation value (trust track T2b, run 2026-11-11T0828Z)
 
 Profile `p = 1 − e^{−k η²}`, `q = p' = 2 k η e^{−k η²}` with `k = 1988376 / 20000000`, so that `q'(0) = 2k`
-equals `0.1988376`: it starts at `p = q = 0`, tends to `1`, has `q > 0` beyond the wall and
+is minus the printed parameter: it starts at `p = q = 0`, tends to `1`, has `q > 0` beyond the wall and
 `q / (1 − p) = 2 k η → ∞`. With `f = ∫ p` it solves no Falkner–Skan equation (the equation hypothesis
-is needed); with `f = −(q' + c(1 − p²)) / q` (`c` the printed value, junk value `0` at the wall, where the
+is needed); with `f = −(q' + c(1 − p²)) / q` (`c` the printed parameter, junk value `0` at the wall, where the
 equation holds because `q'(0) = −c`) it solves the equation but `f' ≠ p` (the hypothesis `f' = p` is
-needed). In both cases β is the printed value, so the conclusion `β ≠ −0.1988376` is false.
+needed). In both cases β is the printed parameter, so the conclusion (β below it) is false.
 -/
 
 open Set Filter Topology
@@ -103,19 +103,19 @@ theorem prG_ode (η : ℝ) (hη : η ∈ Ici (0 : ℝ)) :
     field_simp
     ring
 
-/-- `f' = p` is needed in `fs_separation_not_printed_value`: the profile above with `f = −(q' + c(1 − p²))/q`
+/-- `f' = p` is needed in `fs_separation_below_printed`: the profile above with `f = −(q' + c(1 − p²))/q`
 solves the equation at the printed `β = c`, meets every boundary and decay condition, and β equals `c`. -/
-theorem fs_separation_not_printed_value_h1 :
-    necessity% Checked.FalknerSkan.SeparationPrinted.fs_separation_not_printed_value 1 := by
+theorem fs_separation_below_printed_h1 :
+    necessity% Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed 1 := by
   refine ⟨-(1988376 / 10000000), prG, prP, prQ, fun η _ => (prP_deriv η).hasDerivWithinAt,
     fun η hη => by rw [← prG_ode η hη]; exact (prQ_deriv η).hasDerivWithinAt, by simp [prG],
     prP_zero, prQ_zero, prP_lim, prQ_pos, pr_decay, ?_⟩
   simp
 
-/-- The Falkner–Skan equation is needed in `fs_separation_not_printed_value`: the profile above with
+/-- The Falkner–Skan equation is needed in `fs_separation_below_printed`: the profile above with
 `f = ∫ p` meets every other condition at the printed `β`. -/
-theorem fs_separation_not_printed_value_h3 :
-    necessity% Checked.FalknerSkan.SeparationPrinted.fs_separation_not_printed_value 3 := by
+theorem fs_separation_below_printed_h3 :
+    necessity% Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed 3 := by
   refine ⟨-(1988376 / 10000000), prF, prP, prQ, fun η _ => (prF_deriv η).hasDerivWithinAt,
     fun η _ => (prP_deriv η).hasDerivWithinAt, by simp [prF],
     prP_zero, prQ_zero, prP_lim, prQ_pos, pr_decay, ?_⟩

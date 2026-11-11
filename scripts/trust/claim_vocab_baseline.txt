@@ -844,7 +844,6 @@ Checked.Sim.RobLong.rob_state1e11|num:0.000000020833401494
 Checked.Sim.RobLong.rob_state1e11|num:0.0000000208334015
 Checked.Sim.RobLong.rob_state1e11|num:0.99999997916651
 Checked.Sim.RobLong.rob_state1e11|num:0.99999997916652
-Checked.Sim.RobLong.rob_printed_y3_low|printed
 Checked.Sim.RobLong.rob_printed_y3_low|reference
 Checked.Sim.RobLong.rob_printed_y3_low|bari
 Checked.Sim.RobLong.rob_printed_y3_low|ivp
