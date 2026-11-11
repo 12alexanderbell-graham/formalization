@@ -169,7 +169,7 @@ import Checked.Trust.SecondReadingFSTenth
 import Checked.Trust.SecondReadingFSBeta
 import Checked.Trust.SecondReadingFSNeg
 import Checked.Trust.SecondReadingFSWall
-import Checked.Trust.SecondReadingFSSep
+import Checked.Trust.SecondReadingFSSepW
 import Checked.Trust.SecondReadingLE2
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
