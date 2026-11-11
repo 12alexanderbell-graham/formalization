@@ -34,6 +34,7 @@ import Checked.Trust.NecessityB
 import Checked.Trust.NecessityC
 import Checked.Trust.NecessityD
 import Checked.Trust.NecessityE
+import Checked.Trust.NecessityF
 import Checked.Trust.PhraseCerts
 import Checked.Trust.SecondReading
 import Checked.Trust.Transcriptions

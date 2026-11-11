@@ -26,6 +26,12 @@ the conclusion). Every such headline has exactly that line in the shrink-only ba
 `scripts/trust/necessity_shape_baseline.txt` (`<headline> | <reasons>`); with --base, the baseline may not gain
 a line, so a new headline with a shape entry fails (no disclosure route: restate the headline). A headline with
 a shape entry never counts as fully classified.
+Conjunct parts (run 2026-11-11T1428Z, T2b item 3e): StatementDeps drops `bundled i` once every conjunct of
+hypothesis i is NEEDED (`necessity% <headline> i j`) or REDUNDANT (`dropped% <headline> i j`) and lists them as
+`conjuncts of i (m) needed …` / `conjuncts of i (m) redundant …`; the parser requires those parts to partition
+1..m (m ≥ 2), to name an existing hypothesis, and never to stand next to `bundled i`. A baseline line may lose
+reasons (a `bundled i` closed this way), never gain them; losing the witnesses brings `bundled i` back, which the
+baseline no longer lists, so N4 fails (the ratchet).
 The parser fails closed: exactly one section heading and one summary paragraph, every list line of the
 section in the generator's grammar, no duplicate headline, indices partitioning 1..n, summary totals equal to
 the sums of the lines; an unreadable base fails too (adversary of run 2026-11-11T0028Z, 7 holes in the first
@@ -53,6 +59,8 @@ TOT = re.compile(r"^Hypothesis necessity \(trust track T2b[^\n]*\n(\d+) shown NE
 LABELS = {"needed": "needed", "redundant": "redundant", "redundant (each alone, not together)": "redundant",
           "no obligation (instance, or proof used as data)": "data", "open": "open"}
 WIT = re.compile(r"^(\d+) \(`[^`]+`\)$")
+# per-conjunct witnesses of a bundled hypothesis (run 2026-11-11T1428Z): `conjuncts of <i> (<m>) <label> <items>`
+CONJ = re.compile(r"^conjuncts of (\d+) \((\d+)\) (needed|redundant \(each alone, not together\)|redundant) (.+)$")
 
 
 class ParseError(Exception):
@@ -76,7 +84,26 @@ def parse_parts(rest):
             raise ParseError("shape item twice")
         out["shape"] = tuple(items)
         parts = parts[:-1]
+    out["conj"] = {}
     for part in parts:
+        cm = CONJ.match(part)
+        if cm:
+            i, m_, lab, body = int(cm.group(1)), int(cm.group(2)), cm.group(3), cm.group(4)
+            key = LABELS[lab]
+            if key not in ("needed", "redundant"):
+                raise ParseError(f"bad conjunct label `{lab}`")
+            c = out["conj"].setdefault(i, {"m": m_, "needed": set(), "redundant": set()})
+            if c["m"] != m_:
+                raise ParseError(f"conjuncts of {i}: two conjunct counts")
+            if c[key] or (key, i) in seen:
+                raise ParseError(f"part `conjuncts of {i} {lab}` twice")
+            seen.append((key, i))
+            for it in body.split(", "):
+                w = WIT.match(it)
+                if not w:
+                    raise ParseError(f"bad item `{it}` in `conjuncts of {i}`")
+                c[key].add(int(w.group(1)))
+            continue
         lab = next((l for l in sorted(LABELS, key=len, reverse=True) if part.startswith(l + " ")), None)
         if lab is None:
             raise ParseError(f"unknown part `{part}`")
@@ -124,6 +151,13 @@ def parse_map(text):
         d = parse_parts(m.group(3))
         if n == 0 and not d["shape"]:
             raise ParseError(f"`{name}`: a line with no hypotheses must carry a shape entry")
+        for i, c in d["conj"].items():
+            if not 1 <= i <= n:
+                raise ParseError(f"`{name}`: conjuncts of {i}, but {n} hypotheses")
+            if c["m"] < 2 or c["needed"] & c["redundant"] or c["needed"] | c["redundant"] != set(range(1, c["m"] + 1)):
+                raise ParseError(f"`{name}`: conjuncts of {i} do not partition 1..{c['m']}")
+            if f"bundled {i}" in d["shape"]:
+                raise ParseError(f"`{name}`: conjuncts of {i} listed while the shape keeps `bundled {i}`")
         allidx = d["needed"] | d["redundant"] | d["data"] | d["open"]
         if allidx != set(range(1, n + 1)) or sum(len(d[k]) for k in set(LABELS.values())) != n:
             raise ParseError(f"`{name}`: indices {sorted(allidx)} do not partition 1..{n}")
@@ -208,9 +242,18 @@ def rule_n4_base(old_text, new_text, errors):
     if old_text is None:
         return   # the base predates the shape rule
     old = {l.strip() for l in old_text.splitlines() if l.strip() and not l.strip().startswith("#")}
+    oldp = {}
+    for l in old:
+        parts = [p.strip() for p in l.split("|")]
+        if len(parts) == 2:
+            oldp[parts[0]] = {x.strip() for x in parts[1].split(",")}
     for l in new_text.splitlines():
         s = l.strip()
         if s and not s.startswith("#") and s not in old:
+            # a line may lose reasons (run 2026-11-11T1428Z: `bundled i` closed by conjunct witnesses), never gain
+            parts = [p.strip() for p in s.split("|")]
+            if len(parts) == 2 and parts[0] in oldp and {x.strip() for x in parts[1].split(",")} < oldp[parts[0]]:
+                continue
             errors.append(f"N4: line added to the shrink-only {SHAPE_BASELINE}: `{s}`")
 
 
@@ -376,6 +419,41 @@ def selftest():
     if e:
         fails.append("N4 rejected a shrinking shape baseline")
     e = []
+    rule_n4_base("C.c | conclusion, bundled 1\n", "C.c | bundled 1\n", e)
+    if e:
+        fails.append("N4 rejected a baseline line that lost a reason")
+    e = []
+    rule_n4_base("C.c | conclusion\n", "C.c | conclusion, bundled 1\n", e)
+    if not e:
+        fails.append("N4 accepted a baseline line that gained a reason")
+    e = []
+    rule_n4_base("C.c | conclusion\n", "D.d | conclusion\n", e)
+    if not e:
+        fails.append("N4 accepted a reason moved to another headline")
+    # conjunct parts (run 2026-11-11T1428Z)
+    tc = tm.replace("- `C.c` (1): redundant 1 (`c_r1`)",
+                    "- `C.c` (1): redundant 1 (`c_r1`); conjuncts of 1 (3) needed 1 (`w1`), 3 (`w3`); conjuncts of 1 (3) redundant 2 (`w2`)")
+    try:
+        mc, _ = parse_map(tc)
+        if mc["C.c"]["conj"] != {1: {"m": 3, "needed": {1, 3}, "redundant": {2}}}:
+            fails.append(f"parser: conjuncts {mc['C.c']['conj']}")
+    except ParseError as ex:
+        fails.append(f"parser rejected conjunct parts: {ex}")
+    for lbl, t in {"incomplete conjuncts": tc.replace("1 (`w1`), 3 (`w3`)", "1 (`w1`)"),
+                   "conjunct index out of range": tc.replace("redundant 2 (`w2`)", "redundant 4 (`w2`)"),
+                   "conjuncts of a missing hypothesis": tc.replace("conjuncts of 1 (3) needed", "conjuncts of 2 (3) needed"),
+                   "conjuncts next to bundled": tc.replace("redundant 2 (`w2`)", "redundant 2 (`w2`); shape: bundled 1"),
+                   "conjunct both needed and redundant": tc.replace("redundant 2 (`w2`)", "redundant 2 (`w2`), 3 (`w3`)"),
+                   "conjunct part twice": tc.replace("; conjuncts of 1 (3) redundant 2 (`w2`)",
+                                                     "; conjuncts of 1 (3) needed 2 (`w2`)"),
+                   "one conjunct": tm.replace("- `C.c` (1): redundant 1 (`c_r1`)",
+                                              "- `C.c` (1): redundant 1 (`c_r1`); conjuncts of 1 (1) needed 1 (`w1`)")}.items():
+        try:
+            parse_map(t)
+            fails.append(f"parser accepted: {lbl}")
+        except ParseError:
+            pass
+    e = []
     rule_n3((12, 3, 0), (11, 3, 0), e)
     if not e:
         fails.append("N3 accepted a falling total")
@@ -396,7 +474,7 @@ def main():
         print("check_necessity selftest FAILED:\n  " + "\n  ".join(fails))
         return 1
     if "--selftest" in sys.argv:
-        print("check_necessity selftest: OK (planted controls for the parser, N1, N2, N3, N4)")
+        print("check_necessity selftest: OK (planted controls for the parser, N1, N2, N3, N4, conjunct parts)")
         return 0
     errors = []
     try:

@@ -1,17 +1,7 @@
 # Shrink-only (check_necessity.py N4, run 2026-11-11T0428Z): headlines whose assumptions the necessity
 # numbering does not reach or reaches only formally (TRUST_MAP.md "shape:" entries). `<headline> | <reasons>`.
-Aviles.flatLCDM_coeffs | bundled 1
-CPL.flatCPL_coeffs | bundled 1
-CPL.printedL0_ne | bundled 1
 Fidelity.redshiftCore_pins | bundled 2
 Fidelity.cosmoCoeffCore_pins | bundled 2
-Records.F1_l0 | bundled 1
-Records.F2_toy | bundled 1
-Records.F2_error | bundled 1
-Records.F3_D4_LCDM | bundled 1
-Chemistry.CubicEOS.vdW_constants | bundled 4
-Chemistry.CubicEOS.rk_constants | bundled 4
-Chemistry.CubicEOS.pr_constants | bundled 4
 Chemistry.Coexistence.vdW_coexistence_unique | bundled 5
 Chemistry.RKAcentric.rk_coexistence_exists | bundled 6
 Chemistry.RKAcentric.rk_coexistence_unique | bundled 6, bundled 8
@@ -21,7 +11,6 @@ Chemistry.PR78Acentric.pr78_omega1_exists | bundled 4
 Chemistry.PR78Acentric.pr78_omega1_unique | bundled 4, bundled 6
 Chemistry.SRKAcentric.srk_omega1_exists | bundled 4
 Chemistry.SRKAcentric.srk_omega1_unique | bundled 4, bundled 6
-Sim.Duffing.duffing_first_zero_sol | bundled 1
 Sim.MichaelisMenten.mm_half_conversion | bundled 1
 Sim.Robertson.rob_state40 | bundled 1
 Sim.RobLong.rob_state1e11 | bundled 1

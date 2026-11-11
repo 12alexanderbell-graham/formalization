@@ -1263,7 +1263,43 @@ run_cmd do
     if let .ok hn := resolve cands h then
       let ci := (env.find? hn).get!
       let k ← liftTermElabM <| Checked.Trust.numHyps ci.type
-      let shape ← liftTermElabM <| necShape ci.type
+      let shape0 ← liftTermElabM <| necShape ci.type
+      -- per-conjunct necessity of a bundled hypothesis (run 2026-11-11T1428Z, T2b item 3e from blind
+      -- red team AF): `bundled i` is dropped when every conjunct of hypothesis i is NEEDED (a Checked
+      -- theorem states `necessity% h i j`) or REDUNDANT (`dropped% h i j`); the witnesses are listed in a
+      -- `conjuncts of i (m)` part. Partial coverage is not reported and `bundled i` stays.
+      let mut shape : Array String := #[]
+      let mut conjParts : Array String := #[]
+      for item in shape0 do
+        if item.startsWith "bundled " then
+          let i := (item.drop 8).toNat!
+          let m ← liftTermElabM <| Checked.Trust.numConjuncts ci.type i
+          let mut cNeed : Array String := #[]
+          let mut cRed : Array String := #[]
+          let mut allDone : Bool := decide (2 ≤ m)
+          for j in [1:m+1] do
+            let obs ← liftTermElabM do
+              try
+                return some (← Checked.Trust.necPartObligation ci.type i j, ← Checked.Trust.dropPartObligation ci.type i j)
+              catch _ => return none
+            match obs with
+            | none => allDone := false
+            | some (ne, dr) =>
+              match findThm ne hn with
+              | some w => cNeed := cNeed.push s!"{j} (`{w.componentsRev.head!}`)"
+              | none =>
+                match findThm dr hn with
+                | some w => cRed := cRed.push s!"{j} (`{w.componentsRev.head!}`)"
+                | none => allDone := false
+          if allDone then
+            unless cNeed.isEmpty do
+              conjParts := conjParts.push s!"conjuncts of {i} ({m}) needed {", ".intercalate cNeed.toList}"
+            unless cRed.isEmpty do
+              conjParts := conjParts.push (s!"conjuncts of {i} ({m}) " ++
+                (if cRed.size ≥ 2 then "redundant (each alone, not together) " else "redundant ") ++
+                ", ".intercalate cRed.toList)
+          else shape := shape.push item
+        else shape := shape.push item
       let shortH := (hn.toString.replace "Checked.Cosmography." "").replace "Checked." ""
       let shapePart := if shape.isEmpty then [] else [s!"shape: {", ".intercalate shape.toList}"]
       if k == 0 then
@@ -1305,7 +1341,7 @@ run_cmd do
       let part := fun (lbl : String) (a : Array String) =>
         if a.isEmpty then [] else [s!"{lbl} {", ".intercalate a.toList}"]
       necLines := necLines.push (s!"- `{shortH}` ({k}): " ++ "; ".intercalate
-        (part "needed" needed ++ part (if redund.size ≥ 2 then "redundant (each alone, not together)" else "redundant") redund ++ part "no obligation (instance, or proof used as data)" dataH ++ part "open" openH ++ shapePart))
+        (part "needed" needed ++ part (if redund.size ≥ 2 then "redundant (each alone, not together)" else "redundant") redund ++ part "no obligation (instance, or proof used as data)" dataH ++ part "open" openH ++ conjParts.toList ++ shapePart))
   IO.FS.writeFile ".lake/necessity.tsv" (String.intercalate "\n" necTsv.toList ++ "\n")
   logInfo m!"hypothesis necessity: {nHyp} hypotheses of {nHeadHyp} headlines; needed {nNeeded}, redundant {nRedundant}, no obligation {nDataH}, open {nHyp - nNeeded - nRedundant - nDataH}"
   let md := String.intercalate "\n" ([
@@ -1366,7 +1402,11 @@ run_cmd do
     "conclusion: needed only because the conclusion repeats it). A headline with a shape entry never counts",
     "as having every hypothesis classified, and a new one fails CI (`check_necessity.py` N4). Two or more",
     "redundant hypotheses of one headline are labelled \"each alone, not together\": dropping them all may make",
-    "the statement false (red team AF d02).",
+    "the statement false (red team AF d02). Conjuncts (run 2026-11-11T1428Z): `bundled i` is dropped once every",
+    "conjunct of hypothesis i (its definition unfolded and split at each `∧`; a conjunct under a binder such as",
+    "`∀ t`, `∃ v`, `∀ᶠ t` is not split) is NEEDED (`necessity% <headline> i j`: every other hypothesis and every",
+    "other conjunct hold, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`); the witnesses are",
+    "listed as `conjuncts of i (m)`, m the number of conjuncts.",
     ""] ++ necLines.toList ++ [
     "",
     "## FORMULA, MATH and WITNESS definitions (second formulation)",
