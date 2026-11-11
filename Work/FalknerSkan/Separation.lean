@@ -1,5 +1,8 @@
 import Mathlib
 import Work.FSSep.SBase
+import Work.FSSep.SAssemble
+import Work.FSSep.SOverLo
+import Work.FSSep.SSlowHi
 
 /-!
 # Falkner–Skan separation: the pressure-gradient parameter of the zero-wall-shear profile
@@ -31,6 +34,8 @@ theorem fs_separation_exists :
       f 0 = 0 ∧ p 0 = 0 ∧ q 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ioi (0 : ℝ), 0 < q η) ∧
       (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) := by
-  sorry
+  exact Work.FSSep.SAssemble.core_sep Work.FSSep.SOverLo.chain Work.FSSep.SSlowHi.chain
 
 end Work.FalknerSkan.Separation
+
+#print axioms Work.FalknerSkan.Separation.fs_separation_exists

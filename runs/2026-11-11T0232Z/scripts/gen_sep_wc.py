@@ -144,7 +144,7 @@ def main():
     B, r2 = last['B'], last['r2']
     r1 = last['r1']
     endm = min(ep - r2, 3 * (1 - (ep + r2)) - (eq + B), eg - r1 - THETA) if mode in ('slow', 'slowp') else ep - r2 - 1
-    print('end margins', [float(x) for x in ((ep - r2, 3 * (1 - (ep + r2)) - (eq + B), eg - r1 - THETA) if mode == 'slow' else (ep - r2 - 1,))])
+    print('end margins', [float(x) for x in ((ep - r2, 3 * (1 - (ep + r2)) - (eq + B), eg - r1 - THETA) if mode in ('slow', 'slowp') else (ep - r2 - 1,))])
     print('cells', len(cells), 'final B %.3g' % float(B), 'r2 %.3g' % float(r2), 'amp e^%.2f' % amp_log,
           'end g p q', float(eg), float(ep), float(eq), 'max eps %.3g' % max(float(x['ε']) for x in cells),
           'mode', mode, 'path margin %.3g' % float(margin), 'end margin %.3g' % float(endm),

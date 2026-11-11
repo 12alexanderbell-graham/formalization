@@ -378,4 +378,10 @@ import Work.FalknerSkan.NWBlindClosed
 import Work.FalknerSkan.NegReversed
 import Work.FalknerSkan.NRBlindClosed
 import Work.FSSep.SBase
+import Work.FSSep.SCellWC
+import Work.FSSep.SOverLo
+import Work.FSSep.SSlowHi
+import Work.FSSep.SFlow
+import Work.FSSep.SUnclamp
+import Work.FSSep.SAssemble
 import Work.FalknerSkan.Separation
