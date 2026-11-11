@@ -38,6 +38,9 @@
 - CI housekeeping: cancelled the superseded branch runs 42975694116, 42978251321 (`wip/necessity-d*`, already merged by 0628Z) and 42988291350 (own compile test): seven Lean runs were building at once, each > 90 min.
 - PROMPT working note: referee side observations are FINDINGS candidates the same run.
 
+## β = −0.1988: certificates found (Python, exact rationals)
+- `scripts/gen_neg_wc_theta.py` (copy of run 2026-11-09T0828Z's `gen_neg_wc.py` with the slow threshold θ and a fine start step as options) and `scripts/make_neg1988.sh`: at K = 2500/497, **Slow at A = 0.011703189 (134 cells) and Over at A = 0.0117034 (142 cells) both close** — the two chain certificates of the window (0.0052181, 0.0052182) exist. The first try failed only because the first cell's crude q-range (q(0) = 0.0117, step 1/32) dipped below 0: a step 1/128 on [0, 1/16) fixes it. Remaining work is the Lean side (template `Checked/FSNeg/` to K = 2500/497, θ = 11/15).
+
 ## CI of the promotion
 - 42989694522 (8d0ce16): checked job build 78 min; **every new module built (the headline, the reading, the NV witness in Witnesses)** except `Checked/Trust/NecessityE.lean` (3 errors: derivative of `exp(−k η²)` in the Pi-negation form, a product derivative in Pi form, the h1 witness tuple started with the wrong derivative). Fixed blind in 0c2fe8b (no local Lean), with h2 and the blind closure added as Work files; superseded runs cancelled (42989694522 after its checked job, 42990806831).
 
