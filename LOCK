@@ -1,1 +1,1 @@
-Run 2026-11-11T0828Z (scheduled), started 08:28Z; LOCK taken 08:41Z after run 0628Z released it (7f5e9c6). Heartbeat 10:14Z (promotion rebuilding on wip/sep-printed-promo 0c2fe8b; records written). Remove at end.
+Run 2026-11-11T0828Z (scheduled), started 08:28Z; LOCK taken 08:41Z after run 0628Z released it (7f5e9c6). Heartbeat 11:10Z (promotion 0c2fe8b building on wip/sep-printed-promo, CI 43001835490; records written). Remove at end.
