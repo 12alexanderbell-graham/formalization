@@ -309,3 +309,7 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Hypothesis necessity, fourth batch (run 2026-11-11T0628Z)
 - `Checked/Trust/NecessityD.lean` (namespace `Checked.Trust.NCD`): models `cub c = 1 + t + c t³`, `kink n = 1 + t + tⁿ⁺¹|t|` (`pabs_hasDerivAt`), static `a = 1`; comparison `compare_general` / `not_littleO_decomp` with `comoving_bounds`, `lumflat_bound`, `angflat_bound`, `dQflat_bound`; bootstrap `contDiffAt_of_law` → `contDiffAt_of_flatLCDM`, `contDiffAt_of_flatCPL`, `exists_flatLCDM_any`; `not_hasDerivAt_of` (removable-looking singularity); toy Falkner–Skan profile `toyP`, `toyQ`; `not_unique_of_pole` (uses `NCB.crit_at_root`). Scratch history in `runs/2026-11-11T0628Z/lean/`. Next: the `_fails` smoothness hypotheses (junk fifth derivative with a prescribed true coefficient), B1 interval hypotheses, bundled predicates (item 0b).
+
+## Falkner–Skan printed values (run 2026-11-11T0828Z)
+- `Checked/FalknerSkan/SeparationPrinted.lean` (branch `wip/sep-printed-promo`): `Separation.fs_separation_exists` + `SeparationEqual.fs_separation_equal` → the printed β_min is outside the window. Reading `Checked/Trust/SecondReadingFSSepPrinted.lean`; necessity `Checked/Trust/NecessityE.lean` (profiles `1 − e^{−kη²}`, `min(η, 1)` with the linear q-solution); blind closure `Work/FalknerSkan/SepPrintedBlindClosed.lean` (branch `wip/sep-printed`).
+- `Work/FalknerSkan/Neg1988.lean` (frozen): β = −0.1988 window and existence; route: template `Checked/FSNeg/` to K = 2500/497 (STATE exact next step 2).

@@ -1,1 +1,1 @@
-Run 2026-11-11T0828Z (scheduled), started 08:28Z; LOCK taken 08:41Z after run 0628Z released it (7f5e9c6). Heartbeat 09:34Z (promotion of fs_separation_not_printed_value building on wip/sep-printed-promo). Remove at end.
+Run 2026-11-11T0828Z (scheduled), started 08:28Z; LOCK taken 08:41Z after run 0628Z released it (7f5e9c6). Heartbeat 10:14Z (promotion rebuilding on wip/sep-printed-promo 0c2fe8b; records written). Remove at end.
