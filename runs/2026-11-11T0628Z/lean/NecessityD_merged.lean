@@ -1,4 +1,5 @@
 import Checked.Trust.NonVacuity
+import Checked.Trust.NecessityB
 import Checked.Cosmography.CCSLookback
 import Checked.Cosmography.BambaDLy
 import Checked.Cosmography.CVdQ
@@ -60,13 +61,15 @@ printed coefficient differs from the correct one. This file classifies the last 
   is needed: for `E(x) = 1 + |x − 1|` a `C⁵` solution of `ȧ = a E(a)` would make `|a − 1|` differentiable
   at its minimum.
 * **Printed `l₀`, `m₀`** (`AvilesWitness.printedL0_false_at`, `printedM0_false_at`): `0 < Ω` and
-  `3Ω² + 2Ω − 2 ≠ 0` are needed: at `Ω = 0` and `Ω = (√7 − 1)/3` the printed coefficient is the correct
-  one (`flatLCDM_coeffs`). `Ω < 1` is redundant there: a flat ΛCDM model exists for every `Ω`
+  `3Ω² + 2Ω − 2 ≠ 0` are needed: at `Ω = 0` and at the positive root of `3Ω² + 2Ω − 2` the printed
+  coefficient is the correct one (`flatLCDM_coeffs`). `Ω < 1` is redundant there: a flat ΛCDM model exists for every `Ω`
   (`exists_flatLCDM_any`, from `CPLExistence.exists_local_model`).
 * **The critical cubic** (`Chemistry.CubicEOS.critCubic_existsUnique`): `−2 < u` and `0 < 1 + u + w` are
   needed: `(x − 2)(x − 3)(x + 2)` (two roots above 1) and `(x − 1)³` (none).
-  In `exists_unique_critical`, `0 < R` and `0 < a` are needed: with `R = 0` or `a = 0` the isotherm's
-  slope never vanishes beyond the covolume.
+  In `exists_unique_critical` all five are needed: with `R = 0` or `a = 0` the isotherm's slope never
+  vanishes beyond the covolume; with `b = 0` the critical conditions force `v³ = 0`; and with `u ≤ −2`
+  or `1 + u + w ≤ 0` (`exists_unique_critical_h4`, `_h5`) the isotherm can have a pole beyond the covolume, which Lean's junk
+  derivatives make a critical point at every temperature (`NCB.crit_at_root`), so it is not unique.
 * **The `f(R)` slow-roll ratios** (`FREta.eta20_hasDerivAt`, `FREta.eta30_hasDerivAt`): `0 < Ω` and `Ω < 1`
   are needed: at `Ω = 0` and `Ω = 2` the family's denominator vanishes at `ε = 0`, Lean's `x/0 = 0`
   gives `η(0) = 0`, but `εᵏ η(ε)` tends to a nonzero limit, so `η` has no derivative at `0`
@@ -1690,5 +1693,51 @@ theorem printedM0_false_at_r2 :
   rcases mul_eq_zero.1 this with h | h
   · linarith
   · exact hr h
+
+/-- A pole of the isotherm beyond the covolume is a (junk) critical point for every temperature
+(`NCB.crit_at_root`), so the critical point is not unique. -/
+theorem not_unique_of_pole (R a b u w v₀ : ℝ) (hb : b < v₀) (ha : a ≠ 0)
+    (hD : v₀ ^ 2 + u * b * v₀ + w * b ^ 2 = 0)
+    (hne : ∀ᶠ x in 𝓝[>] v₀, x ^ 2 + u * b * x + w * b ^ 2 ≠ 0) :
+    ¬ ∃! p : ℝ × ℝ, 0 < p.1 ∧ b < p.2 ∧
+      Checked.Chemistry.CubicEOS.IsCriticalIsotherm (Checked.Chemistry.CubicEOS.cubicP R a b u w p.1) p.2 := by
+  rintro ⟨p, -, hp⟩
+  have h1 := hp (1, v₀) ⟨one_pos, hb, NCB.crit_at_root R a b u w 1 v₀ hb ha hD hne⟩
+  have h2 := hp (2, v₀) ⟨two_pos, hb, NCB.crit_at_root R a b u w 2 v₀ hb ha hD hne⟩
+  have := congrArg Prod.fst (h1.trans h2.symm)
+  norm_num at this
+
+/-- `0 < b` is needed in `CubicEOS.exists_unique_critical`: with `b = 0` (`R = a = 1`, `u = w = 0`)
+the critical conditions force `v³ = 0`, impossible for `v > 0`. -/
+theorem exists_unique_critical_h3 :
+    necessity% Checked.Chemistry.CubicEOS.exists_unique_critical 3 := by
+  refine ⟨1, 1, 0, 0, 0, by norm_num, by norm_num, by norm_num, by norm_num, ?_⟩
+  rintro ⟨p, ⟨hT, hv, hc⟩, -⟩
+  have hD : 0 < p.2 ^ 2 + 0 * 0 * p.2 + 0 * 0 ^ 2 := by nlinarith
+  have := ((Checked.Chemistry.CubicEOS.isCritical_iff 1 1 0 0 0 p.1 p.2 one_pos hv hD).1 hc).1
+  have : p.2 ^ 3 = 0 := by linarith
+  have := pow_eq_zero_iff (n := 3) (by norm_num) |>.1 this
+  linarith
+
+/-- `−2 < u` is needed in `CubicEOS.exists_unique_critical`: at `u = −3`, `w = 9/4` (`1 + u + w = 1/4`,
+`R = a = b = 1`) the isotherm has a pole at `v = 3/2` beyond the covolume, a junk critical point at
+every temperature. -/
+theorem exists_unique_critical_h4 :
+    necessity% Checked.Chemistry.CubicEOS.exists_unique_critical 4 := by
+  refine ⟨1, 1, 1, -3, 9 / 4, by norm_num, by norm_num, by norm_num, by norm_num, ?_⟩
+  refine not_unique_of_pole 1 1 1 (-3) (9 / 4) (3 / 2) (by norm_num) one_ne_zero (by norm_num) ?_
+  filter_upwards [self_mem_nhdsWithin] with x hx
+  have hx' : (3 : ℝ) / 2 < x := hx
+  nlinarith
+
+/-- `0 < 1 + u + w` is needed in `CubicEOS.exists_unique_critical`: at `u = 0`, `w = −4`
+(`R = a = b = 1`) the isotherm has a pole at `v = 2` beyond the covolume. -/
+theorem exists_unique_critical_h5 :
+    necessity% Checked.Chemistry.CubicEOS.exists_unique_critical 5 := by
+  refine ⟨1, 1, 1, 0, -4, by norm_num, by norm_num, by norm_num, by norm_num, ?_⟩
+  refine not_unique_of_pole 1 1 1 0 (-4) 2 (by norm_num) one_ne_zero (by norm_num) ?_
+  filter_upwards [self_mem_nhdsWithin] with x hx
+  have hx' : (2 : ℝ) < x := hx
+  nlinarith
 
 end Checked.Trust.NCD

@@ -32,6 +32,7 @@ import Checked.Trust.Witnesses
 import Checked.Trust.Necessity
 import Checked.Trust.NecessityB
 import Checked.Trust.NecessityC
+import Checked.Trust.NecessityD
 import Checked.Trust.PhraseCerts
 import Checked.Trust.SecondReading
 import Checked.Trust.Transcriptions

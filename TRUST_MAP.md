@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 861 hypotheses in 151 headlines;
-255 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-51 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-555 open; headlines with every hypothesis classified: 14/151
+303 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+73 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+485 open; headlines with every hypothesis classified: 29/151
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -291,49 +291,49 @@ as having every hypothesis classified, and a new one fails CI (`check_necessity.
 redundant hypotheses of one headline are labelled "each alone, not together": dropping them all may make
 the statement false (red team AF d02).
 
-- `lookback_second_order` (4): needed 4 (`lookback_second_order_h4`); redundant 3 (`lookback_second_order_r3`); open 1, 2
+- `lookback_second_order` (4): needed 2 (`lookback_second_order_h2`), 4 (`lookback_second_order_h4`); redundant (each alone, not together) 1 (`lookback_second_order_r1`), 3 (`lookback_second_order_r3`)
 - `lookback_second_order_bigO` (3): needed 3 (`lookback_second_order_bigO_h3`); redundant 2 (`lookback_second_order_bigO_r2`); open 1
-- `Aviles.flatLCDM_coeffs` (2): needed 1 (`flatLCDM_coeffs_h1`); open 2; shape: bundled 1
-- `AvilesWitness.printedL0_false_at` (2): open 1, 2
-- `AvilesWitness.printedM0_false_at` (3): open 1, 2, 3
-- `CPL.flatCPL_coeffs` (2): needed 1 (`flatCPL_coeffs_h1`); open 2; shape: bundled 1
-- `CPL.printedL0_ne` (3): needed 1 (`printedL0_ne_h1`), 3 (`printedL0_ne_h3`); open 2; shape: bundled 1
+- `Aviles.flatLCDM_coeffs` (2): needed 1 (`flatLCDM_coeffs_h1`); redundant 2 (`flatLCDM_coeffs_r2`); shape: bundled 1
+- `AvilesWitness.printedL0_false_at` (2): needed 1 (`printedL0_false_at_h1`); redundant 2 (`printedL0_false_at_r2`)
+- `AvilesWitness.printedM0_false_at` (3): needed 1 (`printedM0_false_at_h1`), 3 (`printedM0_false_at_h3`); redundant 2 (`printedM0_false_at_r2`)
+- `CPL.flatCPL_coeffs` (2): needed 1 (`flatCPL_coeffs_h1`); redundant 2 (`flatCPL_coeffs_r2`); shape: bundled 1
+- `CPL.printedL0_ne` (3): needed 1 (`printedL0_ne_h1`), 3 (`printedL0_ne_h3`); redundant 2 (`printedL0_ne_r2`); shape: bundled 1
 - `CPLExistence.printedL0_false_at` (1): needed 1 (`cpl_printedL0_false_at_h1`)
-- `CPLExistence.exists_local_model` (1): open 1
-- `CCS.lookback_fifth_order` (3): needed 3 (`lookback_fifth_order_h3`); redundant 2 (`lookback_fifth_order_r2`); open 1
-- `CCS.printedD4_fails` (4): redundant 2 (`printedD4_fails_r2`); open 1, 3, 4
-- `CCS.printedD4_fails_past` (4): redundant 2 (`printedD4_fails_past_r2`); open 1, 3, 4
-- `BambaY.lumDist_y_third_order` (3): needed 3 (`lumDist_y_third_order_h3`); redundant 2 (`lumDist_y_third_order_r2`); open 1
-- `BambaY.printedD2y_fails` (4): needed 3 (`printedD2y_fails_h3`); redundant 2 (`printedD2y_fails_r2`); open 1, 4
-- `BambaY.printedD2y_fails_past` (4): redundant 2 (`printedD2y_fails_past_r2`); open 1, 3, 4
-- `CVdQ.dQ_y_third_order` (3): needed 3 (`dQ_y_third_order_h3`); redundant 2 (`dQ_y_third_order_r2`); open 1
-- `CVdQ.printedQ2_fails_past` (4): redundant 2 (`printedQ2_fails_past_r2`); open 1, 3, 4
-- `BambaK.lumDist_y_fifth_order` (3): needed 3 (`lumDist_y_fifth_order_h3`); redundant 2 (`lumDist_y_fifth_order_r2`); open 1
-- `BambaK.printedD3y_fails` (4): redundant 2 (`printedD3y_fails_r2`); open 1, 3, 4
-- `BambaK.printedD3y_fails_past` (4): redundant 2 (`printedD3y_fails_past_r2`); open 1, 3, 4
-- `BambaK.printedD4y_fails` (4): redundant 2 (`printedD4y_fails_r2`); open 1, 3, 4
-- `BambaK.printedD4y_fails_past` (4): redundant 2 (`printedD4y_fails_past_r2`); open 1, 3, 4
-- `BambaA.angDist_y_fifth_order` (3): needed 3 (`angDist_y_fifth_order_h3`); redundant 2 (`angDist_y_fifth_order_r2`); open 1
-- `BambaA.printedDA3_fails` (4): redundant 2 (`printedDA3_fails_r2`); open 1, 3, 4
-- `BambaA.printedDA3_fails_past` (4): redundant 2 (`printedDA3_fails_past_r2`); open 1, 3, 4
-- `BambaA.printedDA4_fails` (4): redundant 2 (`printedDA4_fails_r2`); open 1, 3, 4
-- `BambaA.printedDA4_fails_past` (4): redundant 2 (`printedDA4_fails_past_r2`); open 1, 3, 4
-- `BambaZ.lumDist_z_fifth_order` (3): needed 3 (`lumDist_z_fifth_order_h3`); redundant 2 (`lumDist_z_fifth_order_r2`); open 1
-- `BambaZ.angDist_z_fifth_order` (3): needed 3 (`angDist_z_fifth_order_h3`); redundant 2 (`angDist_z_fifth_order_r2`); open 1
-- `BambaZ.printedDL4z_fails_past` (4): redundant 2 (`printedDL4z_fails_past_r2`); open 1, 3, 4
-- `BambaZ.printedDA4z_fails_past` (4): redundant 2 (`printedDA4z_fails_past_r2`); open 1, 3, 4
+- `CPLExistence.exists_local_model` (1): needed 1 (`exists_local_model_h1`)
+- `CCS.lookback_fifth_order` (3): needed 1 (`lookback_fifth_order_h1`), 3 (`lookback_fifth_order_h3`); redundant 2 (`lookback_fifth_order_r2`)
+- `CCS.printedD4_fails` (4): needed 4 (`printedD4_fails_h4`); redundant (each alone, not together) 2 (`printedD4_fails_r2`), 3 (`printedD4_fails_r3`); open 1
+- `CCS.printedD4_fails_past` (4): needed 4 (`printedD4_fails_past_h4`); redundant (each alone, not together) 2 (`printedD4_fails_past_r2`), 3 (`printedD4_fails_past_r3`); open 1
+- `BambaY.lumDist_y_third_order` (3): needed 1 (`lumDist_y_third_order_h1`), 3 (`lumDist_y_third_order_h3`); redundant 2 (`lumDist_y_third_order_r2`)
+- `BambaY.printedD2y_fails` (4): needed 3 (`printedD2y_fails_h3`), 4 (`printedD2y_fails_h4`); redundant 2 (`printedD2y_fails_r2`); open 1
+- `BambaY.printedD2y_fails_past` (4): needed 3 (`printedD2y_fails_past_h3`), 4 (`printedD2y_fails_past_h4`); redundant 2 (`printedD2y_fails_past_r2`); open 1
+- `CVdQ.dQ_y_third_order` (3): needed 1 (`dQ_y_third_order_h1`), 3 (`dQ_y_third_order_h3`); redundant 2 (`dQ_y_third_order_r2`)
+- `CVdQ.printedQ2_fails_past` (4): needed 3 (`printedQ2_fails_past_h3`), 4 (`printedQ2_fails_past_h4`); redundant 2 (`printedQ2_fails_past_r2`); open 1
+- `BambaK.lumDist_y_fifth_order` (3): needed 1 (`lumDist_y_fifth_order_h1`), 3 (`lumDist_y_fifth_order_h3`); redundant 2 (`lumDist_y_fifth_order_r2`)
+- `BambaK.printedD3y_fails` (4): needed 4 (`printedD3y_fails_h4`); redundant (each alone, not together) 2 (`printedD3y_fails_r2`), 3 (`printedD3y_fails_r3`); open 1
+- `BambaK.printedD3y_fails_past` (4): needed 4 (`printedD3y_fails_past_h4`); redundant (each alone, not together) 2 (`printedD3y_fails_past_r2`), 3 (`printedD3y_fails_past_r3`); open 1
+- `BambaK.printedD4y_fails` (4): needed 4 (`printedD4y_fails_h4`); redundant (each alone, not together) 2 (`printedD4y_fails_r2`), 3 (`printedD4y_fails_r3`); open 1
+- `BambaK.printedD4y_fails_past` (4): needed 4 (`printedD4y_fails_past_h4`); redundant (each alone, not together) 2 (`printedD4y_fails_past_r2`), 3 (`printedD4y_fails_past_r3`); open 1
+- `BambaA.angDist_y_fifth_order` (3): needed 1 (`angDist_y_fifth_order_h1`), 3 (`angDist_y_fifth_order_h3`); redundant 2 (`angDist_y_fifth_order_r2`)
+- `BambaA.printedDA3_fails` (4): needed 4 (`printedDA3_fails_h4`); redundant (each alone, not together) 2 (`printedDA3_fails_r2`), 3 (`printedDA3_fails_r3`); open 1
+- `BambaA.printedDA3_fails_past` (4): needed 4 (`printedDA3_fails_past_h4`); redundant (each alone, not together) 2 (`printedDA3_fails_past_r2`), 3 (`printedDA3_fails_past_r3`); open 1
+- `BambaA.printedDA4_fails` (4): needed 4 (`printedDA4_fails_h4`); redundant (each alone, not together) 2 (`printedDA4_fails_r2`), 3 (`printedDA4_fails_r3`); open 1
+- `BambaA.printedDA4_fails_past` (4): needed 4 (`printedDA4_fails_past_h4`); redundant (each alone, not together) 2 (`printedDA4_fails_past_r2`), 3 (`printedDA4_fails_past_r3`); open 1
+- `BambaZ.lumDist_z_fifth_order` (3): needed 1 (`lumDist_z_fifth_order_h1`), 3 (`lumDist_z_fifth_order_h3`); redundant 2 (`lumDist_z_fifth_order_r2`)
+- `BambaZ.angDist_z_fifth_order` (3): needed 1 (`angDist_z_fifth_order_h1`), 3 (`angDist_z_fifth_order_h3`); redundant 2 (`angDist_z_fifth_order_r2`)
+- `BambaZ.printedDL4z_fails_past` (4): needed 3 (`printedDL4z_fails_past_h3`), 4 (`printedDL4z_fails_past_h4`); redundant 2 (`printedDL4z_fails_past_r2`); open 1
+- `BambaZ.printedDA4z_fails_past` (4): needed 3 (`printedDA4z_fails_past_h3`), 4 (`printedDA4z_fails_past_h4`); redundant 2 (`printedDA4z_fails_past_r2`); open 1
 - `FRCosmo.fR_values` (1): open 1
 - `FRCosmo.curv_derivs` (3): open 1, 2, 3
 - `FRCosmo.exists_LCDM_model` (2): open 1, 2
 - `FRCosmo.printedF0Mul_false_at` (2): open 1, 2
 - `FRCosmo.printedF0_false_at` (3): open 1, 2, 3
 - `FREta.eta_ratios` (4): open 1, 2, 3, 4
-- `FREta.eta20_hasDerivAt` (2): open 1, 2
-- `FREta.eta30_hasDerivAt` (2): open 1, 2
+- `FREta.eta20_hasDerivAt` (2): needed 1 (`eta20_hasDerivAt_h1`), 2 (`eta20_hasDerivAt_h2`)
+- `FREta.eta30_hasDerivAt` (2): needed 1 (`eta30_hasDerivAt_h1`), 2 (`eta30_hasDerivAt_h2`)
 - `FREta.printedEta20_false_at` (4): open 1, 2, 3, 4
 - `FREta.printedEta30_false_at` (4): open 1, 2, 3, 4
-- `DemianskiZ.demDL4_fails_past` (4): redundant 2 (`demDL4_fails_past_r2`); open 1, 3, 4
-- `DemianskiZ.demDA4_fails_past` (4): redundant 2 (`demDA4_fails_past_r2`); open 1, 3, 4
+- `DemianskiZ.demDL4_fails_past` (4): needed 4 (`demDL4_fails_past_h4`); redundant (each alone, not together) 2 (`demDL4_fails_past_r2`), 3 (`demDL4_fails_past_r3`); open 1
+- `DemianskiZ.demDA4_fails_past` (4): needed 4 (`demDA4_fails_past_h4`); redundant (each alone, not together) 2 (`demDA4_fails_past_r2`), 3 (`demDA4_fails_past_r3`); open 1
 - `Fidelity.lumDistSpec2_pins` (4): open 1, 2, 3, 4
 - `Fidelity.hubbleSpec_pins` (3): open 1, 2, 3
 - `Fidelity.decelSpec_pins` (5): open 1, 2, 3, 4, 5
@@ -349,10 +349,10 @@ the statement false (red team AF d02).
 - `Fidelity.flatCPL_pins` (1): needed 1 (`flatCPL_pins_h1`)
 - `Fidelity.ricciSpec_pins` (4): open 1, 2, 3, 4
 - `Fidelity.transverseSpec_pins` (1): needed 1 (`transverseSpec_pins_h1`)
-- `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); open 2; shape: bundled 1
-- `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); open 2; shape: bundled 1
-- `Records.F2_error` (2): needed 1 (`F2_error_h1`); open 2; shape: bundled 1
-- `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); open 2; shape: bundled 1
+- `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); redundant 2 (`F1_l0_r2`); shape: bundled 1
+- `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant 2 (`F2_toy_r2`); shape: bundled 1
+- `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant 2 (`F2_error_r2`); shape: bundled 1
+- `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant 2 (`F3_D4_LCDM_r2`); shape: bundled 1
 - `B1.lumDistFlat_flatLCDM` (7): open 1, 2, 3, 4, 5, 6, 7
 - `B1.cubic_misses_z3` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 - `B1.cubic_misses_z7` (8): open 1, 2, 3, 4, 5, 6, 7, 8
@@ -368,8 +368,8 @@ the statement false (red team AF d02).
 - `B1L19Curved.l19_sq_curved` (13): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
 - `B1L19Curved.l19_sqg_curved` (13): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
 - `Chemistry.CubicEOS.isCritical_iff` (3): needed 1 (`isCritical_iff_h1`), 2 (`isCritical_iff_h2`), 3 (`isCritical_iff_h3`)
-- `Chemistry.CubicEOS.critCubic_existsUnique` (2): open 1, 2
-- `Chemistry.CubicEOS.exists_unique_critical` (5): open 1, 2, 3, 4, 5
+- `Chemistry.CubicEOS.critCubic_existsUnique` (2): needed 1 (`critCubic_existsUnique_h1`), 2 (`critCubic_existsUnique_h2`)
+- `Chemistry.CubicEOS.exists_unique_critical` (5): needed 1 (`exists_unique_critical_h1`), 2 (`exists_unique_critical_h2`), 3 (`exists_unique_critical_h3`), 4 (`exists_unique_critical_h4`), 5 (`exists_unique_critical_h5`)
 - `Chemistry.CubicEOS.vdW_constants` (4): needed 1 (`vdW_constants_h1`), 2 (`vdW_constants_h2`), 3 (`vdW_constants_h3`), 4 (`vdW_constants_h4`); shape: bundled 4
 - `Chemistry.CubicEOS.rk_constants` (4): needed 1 (`rk_constants_h1`), 2 (`rk_constants_h2`), 3 (`rk_constants_h3`), 4 (`rk_constants_h4`); shape: bundled 4
 - `Chemistry.CubicEOS.pr_constants` (4): needed 1 (`pr_constants_h1`), 2 (`pr_constants_h2`), 3 (`pr_constants_h3`), 4 (`pr_constants_h4`); shape: bundled 4
@@ -441,7 +441,7 @@ the statement false (red team AF d02).
 - `FalknerSkan.NegDecay.fs_neg_decay_equal` (18): needed 8 (`fs_neg_decay_equal_h8`), 9 (`fs_neg_decay_equal_h9`), 16 (`fs_neg_decay_equal_h16`), 17 (`fs_neg_decay_equal_h17`); open 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 18
 - `FalknerSkan.NegWindow.fs_neg_tenth_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 - `FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt` (7): open 1, 2, 3, 4, 5, 6, 7
-- `FalknerSkan.SeparationEqual.fs_separation_equal` (18): needed 9 (`fs_separation_equal_h9`), 18 (`fs_separation_equal_h18`); open 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17
+- `FalknerSkan.SeparationEqual.fs_separation_equal` (18): needed 1 (`fs_separation_equal_h1`), 3 (`fs_separation_equal_h3`), 9 (`fs_separation_equal_h9`), 10 (`fs_separation_equal_h10`), 12 (`fs_separation_equal_h12`), 18 (`fs_separation_equal_h18`); open 2, 4, 5, 6, 7, 8, 11, 13, 14, 15, 16, 17
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 
