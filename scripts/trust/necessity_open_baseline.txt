@@ -83,16 +83,16 @@ Data.Moresco16Min.table5_oL_aicc_unattainable | 1, 2, 3, 4, 5
 FalknerSkan.fs_zero_wall_shear | 4
 FalknerSkan.MonotoneWindow.hiemenz_monotone_window | 2, 4, 5, 6
 FalknerSkan.MonotoneWindow.homann_monotone_window | 2, 4, 5, 6
-FalknerSkan.Bounded.hiemenz_bounded_window | 4, 6
-FalknerSkan.Bounded.homann_bounded_window | 4, 6
-FalknerSkan.Bounded.hiemenz_bounded_equal | 4, 6, 11, 13
-FalknerSkan.Bounded.homann_bounded_equal | 4, 6, 11, 13
-FalknerSkan.HalfBounded.fs_half_bounded_window | 4, 6
-FalknerSkan.HalfBounded.fs_half_bounded_equal | 4, 6, 11, 13
-FalknerSkan.FifthBounded.fs_fifth_bounded_window | 4, 6
-FalknerSkan.FifthBounded.fs_fifth_bounded_equal | 4, 6, 11, 13
-FalknerSkan.TenthBounded.fs_tenth_bounded_window | 4, 6
-FalknerSkan.TenthBounded.fs_tenth_bounded_equal | 4, 6, 11, 13
+FalknerSkan.Bounded.hiemenz_bounded_window | 4
+FalknerSkan.Bounded.homann_bounded_window | 4
+FalknerSkan.Bounded.hiemenz_bounded_equal | 4, 11
+FalknerSkan.Bounded.homann_bounded_equal | 4, 11
+FalknerSkan.HalfBounded.fs_half_bounded_window | 4
+FalknerSkan.HalfBounded.fs_half_bounded_equal | 4, 11
+FalknerSkan.FifthBounded.fs_fifth_bounded_window | 4
+FalknerSkan.FifthBounded.fs_fifth_bounded_equal | 4, 11
+FalknerSkan.TenthBounded.fs_tenth_bounded_window | 4
+FalknerSkan.TenthBounded.fs_tenth_bounded_equal | 4, 11
 FalknerSkan.Limit.hiemenz_limit_window | 4, 6
 FalknerSkan.Limit.hiemenz_limit_equal | 4, 6, 10, 12
 FalknerSkan.Limit.homann_limit_window | 4, 6

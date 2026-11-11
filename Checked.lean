@@ -36,6 +36,7 @@ import Checked.Trust.NecessityD
 import Checked.Trust.NecessityE
 import Checked.Trust.NecessityF
 import Checked.Trust.NecessityG
+import Checked.Trust.NecessityH
 import Checked.Trust.PhraseCerts
 import Checked.Trust.SecondReading
 import Checked.Trust.Transcriptions
@@ -309,6 +310,7 @@ import Checked.FSTenth.FSTenth
 import Checked.FSTenth.F10Bounded
 import Checked.FalknerSkan.TenthBounded
 import Checked.FalknerSkan.LimitTenth
+import Checked.FalknerSkan.BoundedLimit
 import Checked.FSNeg.NBase
 import Checked.FSNeg.NCellWC
 import Checked.FSNeg.NSlowHalf

@@ -1214,6 +1214,13 @@ doc:Checked.FSTenth.F10UDataC.chainC -doc122570113428325778
 doc:Checked.FSTenth.k10_exists -doc5523981079563532324
 doc:Checked.FSTenth.k10_over -doc13241143511720471228
 doc:Checked.FSTenth.k10_under -doc4536325393109016676
+doc:Checked.FalknerSkan.BoundedLimit.anti_le -doc12689909207444759693
+doc:Checked.FalknerSkan.BoundedLimit.false_of_nonpos -doc5682170165049552813
+doc:Checked.FalknerSkan.BoundedLimit.mono_le -doc7374962196449037161
+doc:Checked.FalknerSkan.BoundedLimit.stays_nonpos_from -doc12054271353457860064
+doc:Checked.FalknerSkan.BoundedLimit.tendsto_of_bounded_beta -doc6384643829177880773
+doc:Checked.FalknerSkan.BoundedLimit.tendsto_of_bounded -doc13427132881962572389
+doc:Checked.FalknerSkan.BoundedLimit.tendsto_of_pos -doc15737898567354508733
 doc:Checked.FalknerSkan.BoundedTools.abs_lt_of_abs_le -doc1050466544017028917
 doc:Checked.FalknerSkan.BoundedTools.bounded_of_pos -doc18362349718372969879
 doc:Checked.FalknerSkan.BoundedTools.eq_of_start -doc13624092624175042151
@@ -2875,6 +2882,7 @@ moduledoc:Checked.FSTenth.F10OData -mdoc4357505454597864526
 moduledoc:Checked.FSTenth.F10UDataC -mdoc414936659544070655
 moduledoc:Checked.FSTenth.F10UData -mdoc12335632478986590340
 moduledoc:Checked.FSTenth.FSTenth -mdoc7025045620987659786
+moduledoc:Checked.FalknerSkan.BoundedLimit -mdoc5475789100601282840
 moduledoc:Checked.FalknerSkan.BoundedTools -mdoc13243146993676154743
 moduledoc:Checked.FalknerSkan.Bounded -mdoc1299260318824202914
 moduledoc:Checked.FalknerSkan.CroccoCompare -mdoc116563095309948664
@@ -3065,6 +3073,7 @@ moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
 moduledoc:Checked.Trust.NecessityE -mdoc11818550271791330910
 moduledoc:Checked.Trust.NecessityF -mdoc17051244676957586254
 moduledoc:Checked.Trust.NecessityG -mdoc16339050702225557435
+moduledoc:Checked.Trust.NecessityH -mdoc11784490702786269791
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401
