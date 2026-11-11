@@ -1748,7 +1748,6 @@ checked.sim.robertson.rob_state40|nameword:state
 checked.sim.roblong.rob_exists_1e11|nameword:long
 checked.sim.roblong.rob_printed_y3_low|nameword:long
 checked.sim.roblong.rob_printed_y3_low|nameword:low
-checked.sim.roblong.rob_printed_y3_low|nameword:printed
 checked.sim.roblong.rob_state1e11|nameword:long
 checked.sim.roblong.rob_state1e11|nameword:state
 checked.townes.shooting.townes_over|nameword:shooting
