@@ -615,6 +615,37 @@ partial def posRoundsToSels (env : Environment) (e : Expr) (acc : Array String :
     else if e.isAppOfArity `Checked.Records.RoundsTo 3 then acc.push (roundsSel env (e.getArg! 0))
     else acc
 
+/-- Does a proposition hide a conjunction under a binder (run 2026-11-11T1428Z, after run 1628Z's review
+of the first version)? Looks through program definitions at the head, `∀`/implications (premises and
+body), `∃`, `∀ᶠ` and `let`. A conjunct of a bundled hypothesis for which this holds has parts that its
+conjunct witness does not classify one by one, so the hypothesis stays `bundled`. -/
+partial def hidesAnd (e : Expr) (fuel : Nat := 32) : MetaM Bool := do
+  if fuel = 0 then return true
+  let u ← Checked.Trust.unfoldHead e
+  if u.isAppOfArity ``And 2 || u.isAppOfArity ``Iff 2 then return true
+  if u.consumeMData.isLet then
+    return ← hidesAnd (u.consumeMData.letBody!.instantiate1 u.consumeMData.letValue!) (fuel - 1)
+  if u.isForall then
+    return ← forallTelescope u fun xs b => do
+      for x in xs do
+        let t ← inferType x
+        if (← isProp t) && (← hidesAnd t (fuel - 1)) then return true
+      hidesAnd b (fuel - 1)
+  if u.isAppOfArity ``Exists 2 then
+    return ← lambdaTelescope u.appArg! fun _ b => hidesAnd b (fuel - 1)
+  if u.isAppOfArity ``Filter.Eventually 3 || u.isAppOfArity ``Filter.Frequently 3 then
+    return ← lambdaTelescope (u.getArg! 1) fun _ b => hidesAnd b (fuel - 1)
+  return false
+
+/-- Some conjunct of hypothesis `i` hides a conjunction under a binder (`hidesAnd`). -/
+def conjunctHidesAnd (ty : Expr) (i : Nat) : MetaM Bool :=
+  Checked.Trust.flatStatement ty fun xs _ => do
+    let ps ← Checked.Trust.hypPositions xs
+    unless 1 ≤ i && i ≤ ps.size do return true
+    for c in ← Checked.Trust.hypConjuncts (← inferType xs[ps[i - 1]!]!) do
+      if ← hidesAnd c then return true
+    return false
+
 /-- The conjuncts of a conclusion, looking through `let` (zeta) and program definitions at the head
 (`Checked.Trust.unfoldHead`); the flag says whether a `let` or a definition had to be opened. -/
 partial def necConjuncts (c : Expr) (hidden : Bool := false) (fuel : Nat := 32) :
@@ -1267,7 +1298,8 @@ run_cmd do
       -- per-conjunct necessity of a bundled hypothesis (run 2026-11-11T1428Z, T2b item 3e from blind
       -- red team AF): `bundled i` is dropped when every conjunct of hypothesis i is NEEDED (a Checked
       -- theorem states `necessity% h i j`) or REDUNDANT (`dropped% h i j`); the witnesses are listed in a
-      -- `conjuncts of i (m)` part. Partial coverage is not reported and `bundled i` stays.
+      -- `conjuncts of i (m)` part. Partial coverage is not reported and `bundled i` stays; so does a hypothesis
+      -- one of whose conjuncts hides a further conjunction under a binder (`hidesAnd`; run 1628Z's review).
       let mut shape : Array String := #[]
       let mut conjParts : Array String := #[]
       for item in shape0 do
@@ -1276,7 +1308,8 @@ run_cmd do
           let m ← liftTermElabM <| Checked.Trust.numConjuncts ci.type i
           let mut cNeed : Array String := #[]
           let mut cRed : Array String := #[]
-          let mut allDone : Bool := decide (2 ≤ m)
+          let nested ← liftTermElabM <| conjunctHidesAnd ci.type i
+          let mut allDone : Bool := decide (2 ≤ m) && !nested
           for j in [1:m+1] do
             let obs ← liftTermElabM do
               try
@@ -1406,7 +1439,8 @@ run_cmd do
     "conjunct of hypothesis i (its definition unfolded and split at each `∧`; a conjunct under a binder such as",
     "`∀ t`, `∃ v`, `∀ᶠ t` is not split) is NEEDED (`necessity% <headline> i j`: every other hypothesis and every",
     "other conjunct hold, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`); the witnesses are",
-    "listed as `conjuncts of i (m)`, m the number of conjuncts.",
+    "listed as `conjuncts of i (m)`, m the number of conjuncts. `bundled i` stays when some conjunct hides a",
+    "further conjunction under a binder or an implication (its parts would go unclassified).",
     ""] ++ necLines.toList ++ [
     "",
     "## FORMULA, MATH and WITNESS definitions (second formulation)",

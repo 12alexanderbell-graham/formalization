@@ -562,3 +562,8 @@
 - **New stack `Checked/FSAtt/`**: the β = −1/10 attached-flow route generic in the scaled coefficient K ≥ 5 (every β ∈ [−1/5, 0)); new rows are generator runs. Emitter `runs/2026-11-11T1028Z/scripts/emit_att_wc.py`, promotion script `promote_n1988.py`.
 - Run 0828Z's printed-value promotion (`fs_separation_below_printed`, efdb2d6) merged in the same local build, relock, Claims and Python trust suite.
 - `scripts/trust/precheck_citations.py`: «»-quoted structure fields (the Lean check resolved a backticked `open` in STATE to one; main's trust step was red from fe01874).
+
+## 2026-11-11T1428Z (scheduled run)
+- Env: repo ok (add_repo not exposed; detached checkout); no LOCK; **local Lean available** (elan; full build from scratch ≈ 100 min).
+- **CI read and repair:** run 1028Z's push a00b1b4 (run 43031110000) was green except the checked job's frozen step: `check_necessity.py` N2 wanted the new headline disclosed by its TRUST_MAP name. LEDGER line added. New `scripts/trust/local_frozen_step.py [--trust] <base>` runs both CI trust steps, read from lean.yml, locally.
+- **Part 1, T2b item 3e (red team AF): per-conjunct necessity.** `necessity% thm i j` / `dropped% thm i j` (NonVacuity); StatementDeps closes `bundled i` when every conjunct is classified and none hides a conjunction under a binder; check_necessity parses the new parts fail-closed (10 new planted controls). `Checked/Trust/NecessityF.lean`: 22 witnesses. Fully classified headlines 29 → 32 of 153 (vdW, RK, PR critical constants). First version closed 11 (40/153); run 1628Z's review (binder-nested conjuncts) corrected it before any green main.

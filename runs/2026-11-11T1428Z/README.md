@@ -1,6 +1,17 @@
 # Run 2026-11-11T1428Z (scheduled)
 
-**THE RESULT:** part 1 (the trust system), T2b item 3e: per-conjunct necessity of bundled hypotheses — in progress (see below; records written as the run goes).
+**THE RESULT:** part 1 (the trust system): hypotheses bundled behind a definition are now classified conjunct by conjunct (T2b item 3e from blind red team AF), machine-checked; and main's red checked job (run 1028Z's two promotions) repaired.
+
+**What a scientist can now trust without checking it themselves:** for the van der Waals, Redlich–Kwong and Peng–Robinson critical constants, each of the two critical-point conditions (zero slope, zero curvature) is shown needed by a machine-checked counterexample — the three headlines now have every assumption classified (fully classified headlines 29 → 32 of 153, a CI-enforced ratchet). The trust map states which bundled assumptions are still classified only as a whole.
+**Weakest unchecked step:** binder-nested parts of model predicates (the expansion law's `a > 0 ∧ differentiable ∧ law` under ∀ᶠ; IVP solutions' ODE conjunctions) are still classified only as bundles in 23 headlines.
+
+## Results
+- `Checked/Trust/NonVacuity.lean`: `hypConjuncts`, `necessity% thm i j`, `dropped% thm i j` (obligations computed from the statement).
+- `scripts/trust/StatementDeps.lean`: `conjuncts of i (m)` parts; `bundled i` dropped only if every conjunct is classified and none hides a conjunction under a binder (`hidesAnd`).
+- `scripts/trust/check_necessity.py`: parser for conjunct parts (partition, range, never next to `bundled i`), baseline lines may lose reasons, never gain; selftest 10 new controls.
+- `Checked/Trust/NecessityF.lean`: 22 witnesses (static model / de Sitter for `0 < H₀` and the law in 7 cosmography headlines; T fixed by the other condition at R = a = b = 1, v = 2 for 3 cubic-EOS headlines; rest state / straight line for Duffing). Standard axioms only (`#print axioms` checked on three).
+- Measure: fully classified 29 → 32 of 153; shape baseline 26 → 23. (First push said 40: corrected the same run, see LEDGER.)
+- CI repair: LEDGER disclosure by TRUST_MAP name; `scripts/trust/local_frozen_step.py` (both CI trust steps from lean.yml; local run green, base 151807e).
 
 ## Start
 - 14:28Z. Pre-cloned checkout detached; `git checkout main` + pull = a00b1b4. No LOCK (run 1028Z removed it; run 1228Z ended 13:20Z) → LOCK taken f70905f.

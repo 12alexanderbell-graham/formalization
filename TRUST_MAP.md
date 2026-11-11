@@ -15,7 +15,7 @@ unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 878 hypotheses in 153 headlines;
 306 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 73 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-499 open; headlines with every hypothesis classified: 40/153
+499 open; headlines with every hypothesis classified: 32/153
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -296,15 +296,16 @@ the statement false (red team AF d02). Conjuncts (run 2026-11-11T1428Z): `bundle
 conjunct of hypothesis i (its definition unfolded and split at each `∧`; a conjunct under a binder such as
 `∀ t`, `∃ v`, `∀ᶠ t` is not split) is NEEDED (`necessity% <headline> i j`: every other hypothesis and every
 other conjunct hold, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`); the witnesses are
-listed as `conjuncts of i (m)`, m the number of conjuncts.
+listed as `conjuncts of i (m)`, m the number of conjuncts. `bundled i` stays when some conjunct hides a
+further conjunction under a binder or an implication (its parts would go unclassified).
 
 - `lookback_second_order` (4): needed 2 (`lookback_second_order_h2`), 4 (`lookback_second_order_h4`); redundant (each alone, not together) 1 (`lookback_second_order_r1`), 3 (`lookback_second_order_r3`)
 - `lookback_second_order_bigO` (3): needed 3 (`lookback_second_order_bigO_h3`); redundant 2 (`lookback_second_order_bigO_r2`); open 1
-- `Aviles.flatLCDM_coeffs` (2): needed 1 (`flatLCDM_coeffs_h1`); redundant 2 (`flatLCDM_coeffs_r2`); conjuncts of 1 (2) needed 1 (`flatLCDM_coeffs_h1_1`), 2 (`flatLCDM_coeffs_h1_2`)
+- `Aviles.flatLCDM_coeffs` (2): needed 1 (`flatLCDM_coeffs_h1`); redundant 2 (`flatLCDM_coeffs_r2`); shape: bundled 1
 - `AvilesWitness.printedL0_false_at` (2): needed 1 (`printedL0_false_at_h1`); redundant 2 (`printedL0_false_at_r2`)
 - `AvilesWitness.printedM0_false_at` (3): needed 1 (`printedM0_false_at_h1`), 3 (`printedM0_false_at_h3`); redundant 2 (`printedM0_false_at_r2`)
-- `CPL.flatCPL_coeffs` (2): needed 1 (`flatCPL_coeffs_h1`); redundant 2 (`flatCPL_coeffs_r2`); conjuncts of 1 (2) needed 1 (`flatCPL_coeffs_h1_1`), 2 (`flatCPL_coeffs_h1_2`)
-- `CPL.printedL0_ne` (3): needed 1 (`printedL0_ne_h1`), 3 (`printedL0_ne_h3`); redundant 2 (`printedL0_ne_r2`); conjuncts of 1 (2) needed 1 (`printedL0_ne_h1_1`), 2 (`printedL0_ne_h1_2`)
+- `CPL.flatCPL_coeffs` (2): needed 1 (`flatCPL_coeffs_h1`); redundant 2 (`flatCPL_coeffs_r2`); shape: bundled 1
+- `CPL.printedL0_ne` (3): needed 1 (`printedL0_ne_h1`), 3 (`printedL0_ne_h3`); redundant 2 (`printedL0_ne_r2`); shape: bundled 1
 - `CPLExistence.printedL0_false_at` (1): needed 1 (`cpl_printedL0_false_at_h1`)
 - `CPLExistence.exists_local_model` (1): needed 1 (`exists_local_model_h1`)
 - `CCS.lookback_fifth_order` (3): needed 1 (`lookback_fifth_order_h1`), 3 (`lookback_fifth_order_h3`); redundant 2 (`lookback_fifth_order_r2`)
@@ -356,10 +357,10 @@ listed as `conjuncts of i (m)`, m the number of conjuncts.
 - `Fidelity.flatCPL_pins` (1): needed 1 (`flatCPL_pins_h1`)
 - `Fidelity.ricciSpec_pins` (4): open 1, 2, 3, 4
 - `Fidelity.transverseSpec_pins` (1): needed 1 (`transverseSpec_pins_h1`)
-- `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); redundant 2 (`F1_l0_r2`); conjuncts of 1 (2) needed 1 (`F1_l0_h1_1`), 2 (`F1_l0_h1_2`)
-- `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant 2 (`F2_toy_r2`); conjuncts of 1 (2) needed 1 (`F2_toy_h1_1`), 2 (`F2_toy_h1_2`)
-- `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant 2 (`F2_error_r2`); conjuncts of 1 (2) needed 1 (`F2_error_h1_1`), 2 (`F2_error_h1_2`)
-- `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant 2 (`F3_D4_LCDM_r2`); conjuncts of 1 (2) needed 1 (`F3_D4_LCDM_h1_1`), 2 (`F3_D4_LCDM_h1_2`)
+- `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); redundant 2 (`F1_l0_r2`); shape: bundled 1
+- `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant 2 (`F2_toy_r2`); shape: bundled 1
+- `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant 2 (`F2_error_r2`); shape: bundled 1
+- `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant 2 (`F3_D4_LCDM_r2`); shape: bundled 1
 - `B1.lumDistFlat_flatLCDM` (7): open 1, 2, 3, 4, 5, 6, 7
 - `B1.cubic_misses_z3` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 - `B1.cubic_misses_z7` (8): open 1, 2, 3, 4, 5, 6, 7, 8
@@ -390,7 +391,7 @@ listed as `conjuncts of i (m)`, m the number of conjuncts.
 - `Chemistry.PR78Acentric.pr78_omega1_unique` (6): needed 6 (`pr78_omega1_unique_h6`); open 1, 2, 3, 4, 5; shape: bundled 4, bundled 6
 - `Chemistry.SRKAcentric.srk_omega1_exists` (4): open 1, 2, 3, 4; shape: bundled 4
 - `Chemistry.SRKAcentric.srk_omega1_unique` (6): needed 6 (`srk_omega1_unique_h6`); open 1, 2, 3, 4, 5; shape: bundled 4, bundled 6
-- `Sim.Duffing.duffing_first_zero_sol` (1): needed 1 (`duffing_first_zero_sol_h1`); conjuncts of 1 (2) needed 1 (`duffing_first_zero_sol_h1_1`), 2 (`duffing_first_zero_sol_h1_2`)
+- `Sim.Duffing.duffing_first_zero_sol` (1): needed 1 (`duffing_first_zero_sol_h1`); shape: bundled 1
 - `Sim.MichaelisMenten.mm_half_conversion` (1): needed 1 (`mm_half_conversion_h1`); shape: bundled 1
 - `Sim.Robertson.rob_state40` (1): needed 1 (`rob_state40_h1`); shape: bundled 1
 - `Sim.RobLong.rob_state1e11` (1): needed 1 (`rob_state1e11_h1`); shape: bundled 1
