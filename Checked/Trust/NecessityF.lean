@@ -23,12 +23,11 @@ Witnesses, by family:
   `−1, 1, 1, …` (the hypothesis-level witnesses of run 2026-11-11T0028Z already use it). The law conjunct
   sits under `∀ᶠ t in 𝓝 t₀` and is not split further (stated in the trust map).
 * **Critical point of a cubic isotherm** (`IsCriticalIsotherm p v` = `p'(v) = 0 ∧ p''(v) = 0`), at
-  R = a = b = 1, v = 2: each condition alone fixes a temperature (vdW: T = 3/16 or 1/4; RK: 19/216 or
-  5/36; PR: 29/343 or 6/49) at which the other fails and the compressibility factor `p v / (R T)` is
-  −2/3, 0, −34/19, −2/5, −40/29, −1/3, not the critical value.
+  R = a = b = 1, v = 2: each condition alone fixes a temperature at which the other fails and the
+  compressibility factor `p v / (R T)` is not the critical value (the numbers are in each docstring).
 * **Duffing initial-value problem** (`x(0) = 1 ∧ ∃ v, v(0) = 0 ∧ ODE`): without `x(0) = 1` the rest
-  state `x ≡ 0` solves the equation; without the equation `x(t) = 1 − 2t` meets `x(0) = 1` and is
-  negative at t = 1 < 1.192005.
+  state `x ≡ 0` solves the equation; without the equation a straight line with `x(0) = 1` is negative
+  before the certified first zero.
 -/
 
 open Set Filter Topology
