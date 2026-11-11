@@ -250,8 +250,8 @@ theorem flatLCDM_coeffs_p1_1 : necessity% Checked.Cosmography.Aviles.flatLCDM_co
   rintro ⟨-, h, -⟩; rw [st_coeff 3 (by norm_num)] at h; norm_num at h
 
 /-- The ΛCDM law is needed: de Sitter (H₀ = 1 > 0) has deceleration −1, not 1/2 at Ω = 1. -/
-theorem flatLCDM_coeffs_p1_4 : necessity% Checked.Cosmography.Aviles.flatLCDM_coeffs 1 2 := by
-  refine ⟨1, Real.exp, 0, dS_smooth _, dS_H_pos, dS_ev, ?_⟩
+theorem flatLCDM_coeffs_p1_4 : necessity% Checked.Cosmography.Aviles.flatLCDM_coeffs 1 4 := by
+  refine ⟨1, Real.exp, 0, dS_smooth _, ⟨dS_H_pos, dS_ev⟩, ?_⟩
   rintro ⟨h, -⟩; rw [dS_decel] at h; norm_num at h
 
 /-- `0 < H₀` is needed in flat CPL's coefficients: static third coefficient 0, claimed 1 at Ω = 1. -/
@@ -260,8 +260,8 @@ theorem flatCPL_coeffs_p1_1 : necessity% Checked.Cosmography.CPL.flatCPL_coeffs 
   rintro ⟨-, h, -⟩; rw [st_coeff 3 (by norm_num)] at h; norm_num at h
 
 /-- The CPL law is needed: de Sitter has deceleration −1, not 1/2 at Ω = 1. -/
-theorem flatCPL_coeffs_p1_4 : necessity% Checked.Cosmography.CPL.flatCPL_coeffs 1 2 := by
-  refine ⟨1, 0, 0, Real.exp, 0, dS_smooth _, dS_H_pos, dS_ev, ?_⟩
+theorem flatCPL_coeffs_p1_4 : necessity% Checked.Cosmography.CPL.flatCPL_coeffs 1 4 := by
+  refine ⟨1, 0, 0, Real.exp, 0, dS_smooth _, ⟨dS_H_pos, dS_ev⟩, ?_⟩
   rintro ⟨h, -⟩; rw [dS_decel] at h; norm_num at h
 
 /-- `0 < H₀` is needed in the misprint statement: the static fifth coefficient 0 equals the printed
@@ -282,8 +282,8 @@ theorem printedL0_ne_p1_1 : necessity% Checked.Cosmography.CPL.printedL0_ne 1 1 
 
 /-- The CPL law is needed in the misprint statement: de Sitter's fifth coefficient 1 equals the printed
 formula at Ω = 0, w₀ = −1, wₐ = −96/7 (the hypothesis-level witness `printedL0_ne_h1`). -/
-theorem printedL0_ne_p1_4 : necessity% Checked.Cosmography.CPL.printedL0_ne 1 2 := by
-  refine ⟨0, -1, -96 / 7, Real.exp, 0, dS_smooth _, by norm_num, dS_H_pos, dS_ev, ?_⟩
+theorem printedL0_ne_p1_4 : necessity% Checked.Cosmography.CPL.printedL0_ne 1 4 := by
+  refine ⟨0, -1, -96 / 7, Real.exp, 0, dS_smooth _, by norm_num, ⟨dS_H_pos, dS_ev⟩, ?_⟩
   intro h; apply h; rw [dS_coeff]; norm_num
 
 /-- Record F1: `0 < H₀` is needed (static fifth coefficient 0 does not round to 3.115). -/
@@ -292,8 +292,8 @@ theorem F1_l0_p1_1 : necessity% Checked.Records.F1_l0 1 1 := by
   rw [st_coeff 5 (by norm_num)]; norm_num [RoundsTo, abs_le]
 
 /-- Record F1: the ΛCDM law is needed (de Sitter's fifth coefficient 1 does not round to 3.115). -/
-theorem F1_l0_p1_4 : necessity% Checked.Records.F1_l0 1 2 := by
-  refine ⟨Real.exp, 0, dS_smooth _, dS_H_pos, dS_ev, ?_⟩
+theorem F1_l0_p1_4 : necessity% Checked.Records.F1_l0 1 4 := by
+  refine ⟨Real.exp, 0, dS_smooth _, ⟨dS_H_pos, dS_ev⟩, ?_⟩
   rw [dS_coeff]; norm_num [RoundsTo, abs_le]
 
 /-- Record F2 (toy): `0 < H₀` is needed (static fifth coefficient 0 does not round to 0.809). -/
@@ -302,8 +302,8 @@ theorem F2_toy_p1_1 : necessity% Checked.Records.F2_toy 1 1 := by
   rintro ⟨h, -⟩; rw [st_coeff 5 (by norm_num)] at h; norm_num [RoundsTo, abs_le] at h
 
 /-- Record F2 (toy): the CPL law is needed (de Sitter: 1 does not round to 0.809). -/
-theorem F2_toy_p1_4 : necessity% Checked.Records.F2_toy 1 2 := by
-  refine ⟨Real.exp, 0, dS_smooth _, dS_H_pos, dS_ev, ?_⟩
+theorem F2_toy_p1_4 : necessity% Checked.Records.F2_toy 1 4 := by
+  refine ⟨Real.exp, 0, dS_smooth _, ⟨dS_H_pos, dS_ev⟩, ?_⟩
   rintro ⟨h, -⟩; rw [dS_coeff] at h; norm_num [RoundsTo, abs_le] at h
 
 /-- Record F2 (error): `0 < H₀` is needed (static, w₀ = 0: 0 − printed ≈ 0.84, not 2.345). -/
@@ -312,8 +312,8 @@ theorem F2_error_p1_1 : necessity% Checked.Records.F2_error 1 1 := by
   rw [st_coeff 5 (by norm_num)]; norm_num [RoundsTo, abs_le, printedCLSL0]
 
 /-- Record F2 (error): the CPL law is needed (de Sitter, w₀ = 0: 1 − printed ≈ 1.84, not 2.345). -/
-theorem F2_error_p1_4 : necessity% Checked.Records.F2_error 1 2 := by
-  refine ⟨0, Real.exp, 0, dS_smooth _, dS_H_pos, dS_ev, ?_⟩
+theorem F2_error_p1_4 : necessity% Checked.Records.F2_error 1 4 := by
+  refine ⟨0, Real.exp, 0, dS_smooth _, ⟨dS_H_pos, dS_ev⟩, ?_⟩
   rw [dS_coeff]; norm_num [RoundsTo, abs_le, printedCLSL0]
 
 /-- Record F3: `0 < H₀` is needed (static: every coefficient 0, corrected D⁴ = 1, not 0.2153). -/
@@ -324,8 +324,8 @@ theorem F3_D4_LCDM_p1_1 : necessity% Checked.Records.F3_D4_LCDM 1 1 := by
   norm_num [RoundsTo, abs_le, Checked.Cosmography.CCS.correctD4] at h
 
 /-- Record F3: the ΛCDM law is needed (de Sitter's corrected D⁴ is 1/5, not 0.2153). -/
-theorem F3_D4_LCDM_p1_4 : necessity% Checked.Records.F3_D4_LCDM 1 2 := by
-  refine ⟨Real.exp, 0, dS_smooth _, dS_H_pos, dS_ev, ?_⟩
+theorem F3_D4_LCDM_p1_4 : necessity% Checked.Records.F3_D4_LCDM 1 4 := by
+  refine ⟨Real.exp, 0, dS_smooth _, ⟨dS_H_pos, dS_ev⟩, ?_⟩
   rintro ⟨h, -⟩
   rw [dS_decel, dS_coeff, dS_coeff, dS_coeff] at h
   norm_num [RoundsTo, abs_le, Checked.Cosmography.CCS.correctD4] at h
@@ -386,7 +386,7 @@ theorem duffing_first_zero_sol_p1_1 : necessity% Checked.Sim.Duffing.duffing_fir
 /-- Duffing: the equation for the velocity is needed: x(t) = 1 − 2t², v(t) = −4t has x(0) = 1,
 v(0) = 0, x' = v within the interval, and x(1) = −1 < 0. -/
 theorem duffing_first_zero_sol_p1_4 : necessity% Checked.Sim.Duffing.duffing_first_zero_sol 1 4 := by
-  refine ⟨fun t => 1 - 2 * t ^ 2, by norm_num, fun t => -4 * t, by norm_num, fun t _ => ?_, ?_⟩
+  refine ⟨fun t => 1 - 2 * t ^ 2, ⟨by norm_num, fun t => -4 * t, by norm_num, fun t _ => ?_⟩, ?_⟩
   · have := ((hasDerivAt_pow 2 t).const_mul 2).const_sub 1
     convert this.hasDerivWithinAt using 1; push_cast; ring
   · rintro ⟨h, -⟩; have := h 1 (by norm_num); norm_num at this
