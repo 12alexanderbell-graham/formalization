@@ -391,3 +391,4 @@ import Work.FSSep.UPair
 import Work.FalknerSkan.SeparationUnique
 import Work.FalknerSkan.SepBlindClosed
 import Work.FalknerSkan.SepUniqueBlindClosed
+import Work.FalknerSkan.Neg1988
