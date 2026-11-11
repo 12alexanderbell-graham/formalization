@@ -377,3 +377,5 @@ import Work.FalknerSkan.NegWindow
 import Work.FalknerSkan.NWBlindClosed
 import Work.FalknerSkan.NegReversed
 import Work.FalknerSkan.NRBlindClosed
+import Work.FSSep.SBase
+import Work.FalknerSkan.Separation
