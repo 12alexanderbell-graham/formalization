@@ -366,6 +366,12 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
 
 ## Candidates under verification (UNVERIFIED, not findings)
 
+### C-FS-SEP (run 2026-11-11T0232Z; Lean evidence in Work): two printed values of the Falkner–Skan separation parameter β* are wrong in the 7th–8th digit
+- **Printed (read through WebFetch summaries only, not yet from the typeset text):** Fazio, arXiv:2011.07725 (2020), Fig. 7 caption "β = −0.1988376" with f''(0) = 0; Fazio, arXiv:1212.5057 (2012), "when β = −0.198837723795 we found the skin-friction coefficients 6.61D−06 and −6.61D−06" (implies β* within ≈ 10⁻¹¹ of that value).
+- **Lean evidence (Work, local build):** `Work.FalknerSkan.Separation.fs_separation_exists` and `Work.FalknerSkan.SeparationUnique.fs_separation_unique`: the separation value is unique and lies in (−0.1988377351, −0.1988377350), so it rounds to −0.1988377 (not −0.1988376) and differs from −0.198837723795 by ≈ 1.1·10⁻⁸.
+- **Second route:** referee's independent computation (`runs/2026-11-11T0232Z/referee/REPORT.md`): β* = −0.198837735046677546889…; at β = −0.198837723795 the wall shears are ±8.96·10⁻⁵, not ±6.61·10⁻⁶.
+- **Remaining:** typeset read of both papers (arxiv.org/pdf, crops), check for later versions/errata, decide whether any reported conclusion changes (probably none: truncated-domain numerics); promotion of the Lean evidence.
+
 ### C-ROBER (run 2026-11-06T0828Z; PROVED in Work, not yet Checked): the Bari IVP test-set reference value of ROBER's y₃ at t = 10¹¹ is about 1.0·10⁻¹⁴ too small
 - **Printed:** Mazzia & Magherini, Test Set for IVP Solvers, release 2.4 (2008), Problem ROBER, Table II.10.3 (reference solution at t = 10¹¹, RADAU, double precision): y₁ = 0.2083340149701255·10⁻⁷, y₂ = 0.8333360770334713·10⁻¹³, y₃ = 0.9999999791665050; the same digits in `rober.f` revisions 1.1 (2003) and 1.2 (2006). Read blind from the rendered PDF (`runs/2026-11-06T0828Z/typeset/`, `reader_rober.md`).
 - **Lean evidence (Work, local build):** `Work.Sim.RobLong.rob_state1e11` (every solution on [0, 10¹¹] has y₃(10¹¹) between 0.99999997916651 and 0.99999997916652, y₁ and y₂ in narrow intervals) and `rob_printed_y3_low` (printed y₃ + 10⁻¹⁴ < y₃(10¹¹)); existence `rob_exists_1e11`; blind restatement closed (`Work.Sim.RobLongAudit`).

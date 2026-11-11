@@ -297,3 +297,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - Promoted (run 2026-11-09T1628Z, through CI): `Checked/FSNeg/{NWinLo,NWinHi,NWindow,LCell,LInv,LUnclamp,LAssemble,LOver,LSlow,LTube}`, `Checked/FalknerSkan/{NegWindow,NegReversed}.lean`; four headlines; NV witnesses for the two window theorems; necessity witnesses (f'' > 0 needed in `NegDecay`, reversed-flow counterexample).
 - Next: β = −0.15 (K = 20/3) or the exact classical class (Hartman Ch. XIV).
 - **Part 3 (run 2026-11-09T1828Z):** P13 — every SIGN/CLAUSE reader line of a phrase is a theorem of `Checked/Trust/PhraseCerts.lean` about its definition (registry `scripts/trust/phrase_certs.txt`; conditions printed after the phrase; `PHRASE_LINES.md`) or in the shrink-only `phrase_cert_baseline.txt`. Next: certify group A (34 owed), a check that a certificate's statement matches its line (AE d02), unpinned predicates in certificate hypotheses printed with their bodies (AE d04c).
+
+## Falkner–Skan separation value, `Work/FSSep/`, `Work/FalknerSkan/Separation*.lean` (run 2026-11-11T0232Z)
+- Existence: `SBase` (field `vS K`, events `Over`, `SlowS`, `ChainK`) → `SCellWC` (`CellProp K`, rational coefficient) + chains `SOverLo`, `SSlowHi` (generator `runs/2026-11-11T0232Z/scripts/gen_sep_wc.py`, emitter `emit_sep_wc.py`) → `SFlow` (`flowK`, `flowK_cont` in K) → `SUnclamp` (q(0) = 0) → `SAssemble.core_sep` → `Separation.fs_separation_exists`.
+- Uniqueness: `UCrocco` (β-form Crocco map, q > 0 only on (0, E)) → `UCompare` (`SolB`, `start` by z², `no_cross_s`, `stepS`) → `UPair.sep_core` → `SeparationUnique.fs_separation_unique`.
+- Audits: `SepBlindClosed.lean`, `SepUniqueBlindClosed.lean`. Next: promotion.

@@ -534,3 +534,7 @@
 - **Part 1 (T2b): `Checked/Trust/NecessityB.lean`** — run 2228Z's scratch batch completed plus four families (junk critical points of the cubic isotherm, de Sitter vs coefficient laws, lookback with 1 + t², `ne_a0_of_hubble` ×24, `not_littleO_core` ×7): NEEDED 161 → 253, REDUNDANT 17 → 51, fully classified headlines 0 → 22 of 150.
 - **New blocking check `scripts/trust/check_necessity.py`** (N1–N3, baseline `necessity_open_baseline.txt`, planted controls); adversary on the first draft found 7 holes, repaired before going live.
 - PROMPT working notes: necessity witnesses by family + the ratchet; runs end without warning (push scratch at once).
+## 2026-11-11T0232Z (scheduled run)
+- Env: repo ok (add_repo not exposed; main = origin/main 3e54961); no LOCK, taken 51906d8; **local Lean available**; CI 42944553092 (3e54961) green on every job (NecessityB + `check_necessity.py` live).
+- **Parts 2/5: the Falkner–Skan separation value** — `fs_separation_exists` (β ∈ (−0.1988377351, −0.1988377350) with a zero-wall-shear profile in the decay class) and `fs_separation_unique` (at most one such β), PROVED in Work + AUDITED (blind restatements closed, referee STANDS; independent β* to ≈ 35 digits). First shooting in a coefficient of the equation (`Work/FSSep/`). Prior art: no rigorous enclosure found; two printed values wrong in the 7th–8th digit (candidate C-FS-SEP).
+- PROMPT working note: shooting in an equation parameter.
