@@ -1,0 +1,24 @@
+check_necessity: FAILED
+  N4: `Fidelity.flatCPL_pins` has shape entry `bundled 1` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.Bounded.hiemenz_bounded_window` has shape entry `bundled 7` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.Bounded.homann_bounded_window` has shape entry `bundled 7` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.Bounded.hiemenz_bounded_equal` has shape entry `bundled 7, bundled 14` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.Bounded.homann_bounded_equal` has shape entry `bundled 7, bundled 14` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.HalfBounded.fs_half_bounded_window` has shape entry `bundled 7` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.HalfBounded.fs_half_bounded_equal` has shape entry `bundled 7, bundled 14` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.FifthBounded.fs_fifth_bounded_window` has shape entry `bundled 7` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.FifthBounded.fs_fifth_bounded_equal` has shape entry `bundled 7, bundled 14` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.TenthBounded.fs_tenth_bounded_window` has shape entry `bundled 7` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `FalknerSkan.TenthBounded.fs_tenth_bounded_equal` has shape entry `bundled 7, bundled 14` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `AGWrap.D01.flatLCDM_hubble_pos` has shape entry `bundled 1` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `AGWrap.D02.flatLCDM_hubble_pos_at` has shape entry `bundled 1` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `AGWrap.D03.hubble_pos_of_inverse` has shape entry `subtype` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `AGWrap.D05.hubble_zero_exists` has shape entry `bundled 1` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: `AGWrap.D06.hubble_exceeds` has shape entry `restated 1` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  N4: scripts/trust/necessity_shape_baseline.txt lists `Aviles.flatLCDM_coeffs`, which has no shape entry: remove the line
+  N4: scripts/trust/necessity_shape_baseline.txt lists `CPL.flatCPL_coeffs`, which has no shape entry: remove the line
+  N4: scripts/trust/necessity_shape_baseline.txt lists `CPL.printedL0_ne`, which has no shape entry: remove the line
+  N4: scripts/trust/necessity_shape_baseline.txt lists `Records.F1_l0`, which has no shape entry: remove the line
+  N4: scripts/trust/necessity_shape_baseline.txt lists `Records.F2_toy`, which has no shape entry: remove the line
+  N4: scripts/trust/necessity_shape_baseline.txt lists `Records.F2_error`, which has no shape entry: remove the line
+  N4: scripts/trust/necessity_shape_baseline.txt lists `Records.F3_D4_LCDM`, which has no shape entry: remove the line

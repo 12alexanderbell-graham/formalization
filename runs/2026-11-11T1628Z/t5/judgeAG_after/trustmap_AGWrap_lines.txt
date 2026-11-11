@@ -1,0 +1,5 @@
+- `AGWrap.D01.flatLCDM_hubble_pos` (1): needed 1 (`flatLCDM_hubble_pos_h1`); shape: bundled 1
+- `AGWrap.D02.flatLCDM_hubble_pos_at` (1): needed 1 (`flatLCDM_hubble_pos_at_h1`); shape: bundled 1
+- `AGWrap.D03.hubble_pos_of_inverse` (1): needed 1 (`hubble_pos_of_inverse_h1`); shape: subtype
+- `AGWrap.D05.hubble_zero_exists` (1): needed 1 (`hubble_zero_exists_h1`); shape: bundled 1
+- `AGWrap.D06.hubble_exceeds` (1): needed 1 (`hubble_exceeds_h1`); shape: restated 1
