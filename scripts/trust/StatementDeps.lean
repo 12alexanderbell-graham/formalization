@@ -1301,7 +1301,7 @@ run_cmd do
           let m ← liftTermElabM <| Checked.Trust.numHypParts ci.type i
           let mut cNeed : Array String := #[]
           let mut cRed : Array String := #[]
-          let mut allDone := 2 ≤ m
+          let mut allDone : Bool := decide (2 ≤ m)
           for j in [1:m+1] do
             let obs ← liftTermElabM do
               try

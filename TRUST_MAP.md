@@ -15,7 +15,7 @@ unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 878 hypotheses in 153 headlines;
 306 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 73 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-499 open; headlines with every hypothesis classified: 32/153
+499 open; headlines with every hypothesis classified: 38/153
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -287,25 +287,25 @@ a hypothesis that only excludes such a value can be redundant here and still mat
 neither is proved yet. Shape (run 2026-11-11T0428Z, blind red team AF): assumptions the numbering does
 not reach or reaches only formally — `conclusion` (after opening a `let` or a program definition the
 conclusion contains an implication or `∀` whose assumptions are not numbered), `subtype` (a binder of
-subtype type assumes its property silently), `bundled i` (hypothesis i is a conjunction behind a program
-definition: shown needed as a bundle only), `restated i` (hypothesis i is also a conjunct of the
-conclusion: needed only because the conclusion repeats it). A headline with a shape entry never counts
+subtype type assumes its property silently), `bundled i` (hypothesis i has two or more parts, see below:
+shown needed as a bundle only), `restated i` (hypothesis i is also a conjunct of the conclusion, literally
+or after unfolding definitions: needed only because the conclusion repeats it). A headline with a shape entry never counts
 as having every hypothesis classified, and a new one fails CI (`check_necessity.py` N4). Two or more
 redundant hypotheses of one headline are labelled "each alone, not together": dropping them all may make
-the statement false (red team AF d02). Conjuncts (run 2026-11-11T1428Z): `bundled i` is dropped once every
-conjunct of hypothesis i (its definition unfolded and split at each `∧`; a conjunct under a binder such as
-`∀ t`, `∃ v`, `∀ᶠ t` is not split) is NEEDED (`necessity% <headline> i j`: every other hypothesis and every
-other conjunct hold, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`); the witnesses are
-listed as `conjuncts of i (m)`, m the number of conjuncts. `bundled i` stays when some conjunct hides a
-further conjunction under a binder or an implication (its parts would go unclassified).
+the statement false (red team AF d02). Parts (runs 2026-11-11T1428Z, 1628Z): `bundled i` is dropped once every
+part of hypothesis i is NEEDED (`necessity% <headline> i j`: every other hypothesis holds and hypothesis i
+holds with part j replaced by `True`, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`). The
+parts are the maximal sub-propositions reached through `∧`, `∃ x,`, `∀ x,`, `∀ᶠ x in l,` and the conclusion
+of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`); an implication's premise,
+`∨`, `↔` and `¬` are not entered. The witnesses are listed as `parts of i (m)`, m the number of parts.
 
 - `lookback_second_order` (4): needed 2 (`lookback_second_order_h2`), 4 (`lookback_second_order_h4`); redundant (each alone, not together) 1 (`lookback_second_order_r1`), 3 (`lookback_second_order_r3`)
 - `lookback_second_order_bigO` (3): needed 3 (`lookback_second_order_bigO_h3`); redundant 2 (`lookback_second_order_bigO_r2`); open 1
-- `Aviles.flatLCDM_coeffs` (2): needed 1 (`flatLCDM_coeffs_h1`); redundant 2 (`flatLCDM_coeffs_r2`); shape: bundled 1
+- `Aviles.flatLCDM_coeffs` (2): needed 1 (`flatLCDM_coeffs_h1`); redundant 2 (`flatLCDM_coeffs_r2`); parts of 1 (4) needed 1 (`flatLCDM_coeffs_p1_1`), 4 (`flatLCDM_coeffs_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`flatLCDM_coeffs_p1_2`), 3 (`flatLCDM_coeffs_p1_3`)
 - `AvilesWitness.printedL0_false_at` (2): needed 1 (`printedL0_false_at_h1`); redundant 2 (`printedL0_false_at_r2`)
 - `AvilesWitness.printedM0_false_at` (3): needed 1 (`printedM0_false_at_h1`), 3 (`printedM0_false_at_h3`); redundant 2 (`printedM0_false_at_r2`)
-- `CPL.flatCPL_coeffs` (2): needed 1 (`flatCPL_coeffs_h1`); redundant 2 (`flatCPL_coeffs_r2`); shape: bundled 1
-- `CPL.printedL0_ne` (3): needed 1 (`printedL0_ne_h1`), 3 (`printedL0_ne_h3`); redundant 2 (`printedL0_ne_r2`); shape: bundled 1
+- `CPL.flatCPL_coeffs` (2): needed 1 (`flatCPL_coeffs_h1`); redundant 2 (`flatCPL_coeffs_r2`); parts of 1 (4) needed 1 (`flatCPL_coeffs_p1_1`), 4 (`flatCPL_coeffs_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`flatCPL_coeffs_p1_2`), 3 (`flatCPL_coeffs_p1_3`)
+- `CPL.printedL0_ne` (3): needed 1 (`printedL0_ne_h1`), 3 (`printedL0_ne_h3`); redundant 2 (`printedL0_ne_r2`); parts of 1 (4) needed 1 (`printedL0_ne_p1_1`), 4 (`printedL0_ne_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`printedL0_ne_p1_2`), 3 (`printedL0_ne_p1_3`)
 - `CPLExistence.printedL0_false_at` (1): needed 1 (`cpl_printedL0_false_at_h1`)
 - `CPLExistence.exists_local_model` (1): needed 1 (`exists_local_model_h1`)
 - `CCS.lookback_fifth_order` (3): needed 1 (`lookback_fifth_order_h1`), 3 (`lookback_fifth_order_h3`); redundant 2 (`lookback_fifth_order_r2`)
@@ -354,13 +354,13 @@ further conjunction under a binder or an implication (its parts would go unclass
 - `Fidelity.curvKSpec_pins` (4): open 1, 2, 3, 4
 - `Fidelity.lumDistFlat_pins` (4): open 1, 2, 3, 4
 - `Fidelity.comoving_pins` (4): open 1, 2, 3, 4
-- `Fidelity.flatCPL_pins` (1): needed 1 (`flatCPL_pins_h1`)
+- `Fidelity.flatCPL_pins` (1): needed 1 (`flatCPL_pins_h1`); shape: bundled 1
 - `Fidelity.ricciSpec_pins` (4): open 1, 2, 3, 4
 - `Fidelity.transverseSpec_pins` (1): needed 1 (`transverseSpec_pins_h1`)
-- `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); redundant 2 (`F1_l0_r2`); shape: bundled 1
-- `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant 2 (`F2_toy_r2`); shape: bundled 1
-- `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant 2 (`F2_error_r2`); shape: bundled 1
-- `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant 2 (`F3_D4_LCDM_r2`); shape: bundled 1
+- `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); redundant 2 (`F1_l0_r2`); parts of 1 (4) needed 1 (`F1_l0_p1_1`), 4 (`F1_l0_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F1_l0_p1_2`), 3 (`F1_l0_p1_3`)
+- `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant 2 (`F2_toy_r2`); parts of 1 (4) needed 1 (`F2_toy_p1_1`), 4 (`F2_toy_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_toy_p1_2`), 3 (`F2_toy_p1_3`)
+- `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant 2 (`F2_error_r2`); parts of 1 (4) needed 1 (`F2_error_p1_1`), 4 (`F2_error_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_error_p1_2`), 3 (`F2_error_p1_3`)
+- `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant 2 (`F3_D4_LCDM_r2`); parts of 1 (4) needed 1 (`F3_D4_LCDM_p1_1`), 4 (`F3_D4_LCDM_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F3_D4_LCDM_p1_2`), 3 (`F3_D4_LCDM_p1_3`)
 - `B1.lumDistFlat_flatLCDM` (7): open 1, 2, 3, 4, 5, 6, 7
 - `B1.cubic_misses_z3` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 - `B1.cubic_misses_z7` (8): open 1, 2, 3, 4, 5, 6, 7, 8
@@ -378,9 +378,9 @@ further conjunction under a binder or an implication (its parts would go unclass
 - `Chemistry.CubicEOS.isCritical_iff` (3): needed 1 (`isCritical_iff_h1`), 2 (`isCritical_iff_h2`), 3 (`isCritical_iff_h3`)
 - `Chemistry.CubicEOS.critCubic_existsUnique` (2): needed 1 (`critCubic_existsUnique_h1`), 2 (`critCubic_existsUnique_h2`)
 - `Chemistry.CubicEOS.exists_unique_critical` (5): needed 1 (`exists_unique_critical_h1`), 2 (`exists_unique_critical_h2`), 3 (`exists_unique_critical_h3`), 4 (`exists_unique_critical_h4`), 5 (`exists_unique_critical_h5`)
-- `Chemistry.CubicEOS.vdW_constants` (4): needed 1 (`vdW_constants_h1`), 2 (`vdW_constants_h2`), 3 (`vdW_constants_h3`), 4 (`vdW_constants_h4`); conjuncts of 4 (2) needed 1 (`vdW_constants_h4_1`), 2 (`vdW_constants_h4_2`)
-- `Chemistry.CubicEOS.rk_constants` (4): needed 1 (`rk_constants_h1`), 2 (`rk_constants_h2`), 3 (`rk_constants_h3`), 4 (`rk_constants_h4`); conjuncts of 4 (2) needed 1 (`rk_constants_h4_1`), 2 (`rk_constants_h4_2`)
-- `Chemistry.CubicEOS.pr_constants` (4): needed 1 (`pr_constants_h1`), 2 (`pr_constants_h2`), 3 (`pr_constants_h3`), 4 (`pr_constants_h4`); conjuncts of 4 (2) needed 1 (`pr_constants_h4_1`), 2 (`pr_constants_h4_2`)
+- `Chemistry.CubicEOS.vdW_constants` (4): needed 1 (`vdW_constants_h1`), 2 (`vdW_constants_h2`), 3 (`vdW_constants_h3`), 4 (`vdW_constants_h4`); parts of 4 (2) needed 1 (`vdW_constants_p4_1`), 2 (`vdW_constants_p4_2`)
+- `Chemistry.CubicEOS.rk_constants` (4): needed 1 (`rk_constants_h1`), 2 (`rk_constants_h2`), 3 (`rk_constants_h3`), 4 (`rk_constants_h4`); parts of 4 (2) needed 1 (`rk_constants_p4_1`), 2 (`rk_constants_p4_2`)
+- `Chemistry.CubicEOS.pr_constants` (4): needed 1 (`pr_constants_h1`), 2 (`pr_constants_h2`), 3 (`pr_constants_h3`), 4 (`pr_constants_h4`); parts of 4 (2) needed 1 (`pr_constants_p4_1`), 2 (`pr_constants_p4_2`)
 - `Chemistry.Coexistence.vdW_coexistence_exists` (3): needed 1 (`vdW_coexistence_exists_h1`), 2 (`vdW_coexistence_exists_h2`), 3 (`vdW_coexistence_exists_h3`)
 - `Chemistry.Coexistence.vdW_coexistence_unique` (5): needed 2 (`vdW_coexistence_unique_h2`), 5 (`vdW_coexistence_unique_h5`); redundant 1 (`vdW_coexistence_unique_r1`); open 3, 4; shape: bundled 5
 - `Chemistry.RKAcentric.rk_coexistence_exists` (6): open 1, 2, 3, 4, 5, 6; shape: bundled 6
@@ -424,16 +424,16 @@ further conjunction under a binder or an implication (its parts would go unclass
 - `FalknerSkan.fs_zero_wall_shear` (6): needed 1 (`fs_zero_wall_shear_h1`), 2 (`fs_zero_wall_shear_h2`), 3 (`fs_zero_wall_shear_h3`), 5 (`fs_zero_wall_shear_h5`), 6 (`fs_zero_wall_shear_h6`); open 4
 - `FalknerSkan.MonotoneWindow.hiemenz_monotone_window` (7): needed 1 (`hiemenz_monotone_window_h1`), 3 (`hiemenz_monotone_window_h3`); redundant 7 (`hiemenz_limit_window`); open 2, 4, 5, 6
 - `FalknerSkan.MonotoneWindow.homann_monotone_window` (7): needed 1 (`homann_monotone_window_h1`), 3 (`homann_monotone_window_h3`); redundant 7 (`homann_limit_window`); open 2, 4, 5, 6
-- `FalknerSkan.Bounded.hiemenz_bounded_window` (7): needed 1 (`hiemenz_bounded_window_h1`), 2 (`hiemenz_bounded_window_h2`), 3 (`hiemenz_bounded_window_h3`), 5 (`hiemenz_bounded_window_h5`); redundant 7 (`hiemenz_limit_window`); open 4, 6
-- `FalknerSkan.Bounded.homann_bounded_window` (7): needed 1 (`homann_bounded_window_h1`), 2 (`homann_bounded_window_h2`), 3 (`homann_bounded_window_h3`), 5 (`homann_bounded_window_h5`); redundant 7 (`homann_limit_window`); open 4, 6
-- `FalknerSkan.Bounded.hiemenz_bounded_equal` (15): needed 1 (`hiemenz_bounded_equal_h1`), 2 (`hiemenz_bounded_equal_h2`), 3 (`hiemenz_bounded_equal_h3`), 5 (`hiemenz_bounded_equal_h5`), 8 (`hiemenz_bounded_equal_h8`), 9 (`hiemenz_bounded_equal_h9`), 10 (`hiemenz_bounded_equal_h10`), 12 (`hiemenz_bounded_equal_h12`), 15 (`hiemenz_bounded_equal_h15`); redundant (each alone, not together) 7 (`hiemenz_bounded_equal_r7`), 14 (`hiemenz_bounded_equal_r14`); open 4, 6, 11, 13
-- `FalknerSkan.Bounded.homann_bounded_equal` (15): needed 1 (`homann_bounded_equal_h1`), 2 (`homann_bounded_equal_h2`), 3 (`homann_bounded_equal_h3`), 5 (`homann_bounded_equal_h5`), 8 (`homann_bounded_equal_h8`), 9 (`homann_bounded_equal_h9`), 10 (`homann_bounded_equal_h10`), 12 (`homann_bounded_equal_h12`), 15 (`homann_bounded_equal_h15`); redundant (each alone, not together) 7 (`homann_bounded_equal_r7`), 14 (`homann_bounded_equal_r14`); open 4, 6, 11, 13
-- `FalknerSkan.HalfBounded.fs_half_bounded_window` (7): needed 1 (`fs_half_bounded_window_h1`), 2 (`fs_half_bounded_window_h2`), 3 (`fs_half_bounded_window_h3`), 5 (`fs_half_bounded_window_h5`); redundant 7 (`fs_half_limit_window`); open 4, 6
-- `FalknerSkan.HalfBounded.fs_half_bounded_equal` (15): needed 1 (`fs_half_bounded_equal_h1`), 2 (`fs_half_bounded_equal_h2`), 3 (`fs_half_bounded_equal_h3`), 5 (`fs_half_bounded_equal_h5`), 8 (`fs_half_bounded_equal_h8`), 9 (`fs_half_bounded_equal_h9`), 10 (`fs_half_bounded_equal_h10`), 12 (`fs_half_bounded_equal_h12`), 15 (`fs_half_bounded_equal_h15`); redundant (each alone, not together) 7 (`fs_half_bounded_equal_r7`), 14 (`fs_half_bounded_equal_r14`); open 4, 6, 11, 13
-- `FalknerSkan.FifthBounded.fs_fifth_bounded_window` (7): needed 1 (`fs_fifth_bounded_window_h1`), 2 (`fs_fifth_bounded_window_h2`), 3 (`fs_fifth_bounded_window_h3`), 5 (`fs_fifth_bounded_window_h5`); redundant 7 (`fs_fifth_limit_window`); open 4, 6
-- `FalknerSkan.FifthBounded.fs_fifth_bounded_equal` (15): needed 1 (`fs_fifth_bounded_equal_h1`), 2 (`fs_fifth_bounded_equal_h2`), 3 (`fs_fifth_bounded_equal_h3`), 5 (`fs_fifth_bounded_equal_h5`), 8 (`fs_fifth_bounded_equal_h8`), 9 (`fs_fifth_bounded_equal_h9`), 10 (`fs_fifth_bounded_equal_h10`), 12 (`fs_fifth_bounded_equal_h12`), 15 (`fs_fifth_bounded_equal_h15`); redundant (each alone, not together) 7 (`fs_fifth_bounded_equal_r7`), 14 (`fs_fifth_bounded_equal_r14`); open 4, 6, 11, 13
-- `FalknerSkan.TenthBounded.fs_tenth_bounded_window` (7): needed 1 (`fs_tenth_bounded_window_h1`), 2 (`fs_tenth_bounded_window_h2`), 3 (`fs_tenth_bounded_window_h3`), 5 (`fs_tenth_bounded_window_h5`); redundant 7 (`fs_tenth_limit_window`); open 4, 6
-- `FalknerSkan.TenthBounded.fs_tenth_bounded_equal` (15): needed 1 (`fs_tenth_bounded_equal_h1`), 2 (`fs_tenth_bounded_equal_h2`), 3 (`fs_tenth_bounded_equal_h3`), 5 (`fs_tenth_bounded_equal_h5`), 8 (`fs_tenth_bounded_equal_h8`), 9 (`fs_tenth_bounded_equal_h9`), 10 (`fs_tenth_bounded_equal_h10`), 12 (`fs_tenth_bounded_equal_h12`), 15 (`fs_tenth_bounded_equal_h15`); redundant (each alone, not together) 7 (`fs_tenth_bounded_equal_r7`), 14 (`fs_tenth_bounded_equal_r14`); open 4, 6, 11, 13
+- `FalknerSkan.Bounded.hiemenz_bounded_window` (7): needed 1 (`hiemenz_bounded_window_h1`), 2 (`hiemenz_bounded_window_h2`), 3 (`hiemenz_bounded_window_h3`), 5 (`hiemenz_bounded_window_h5`); redundant 7 (`hiemenz_limit_window`); open 4, 6; shape: bundled 7
+- `FalknerSkan.Bounded.homann_bounded_window` (7): needed 1 (`homann_bounded_window_h1`), 2 (`homann_bounded_window_h2`), 3 (`homann_bounded_window_h3`), 5 (`homann_bounded_window_h5`); redundant 7 (`homann_limit_window`); open 4, 6; shape: bundled 7
+- `FalknerSkan.Bounded.hiemenz_bounded_equal` (15): needed 1 (`hiemenz_bounded_equal_h1`), 2 (`hiemenz_bounded_equal_h2`), 3 (`hiemenz_bounded_equal_h3`), 5 (`hiemenz_bounded_equal_h5`), 8 (`hiemenz_bounded_equal_h8`), 9 (`hiemenz_bounded_equal_h9`), 10 (`hiemenz_bounded_equal_h10`), 12 (`hiemenz_bounded_equal_h12`), 15 (`hiemenz_bounded_equal_h15`); redundant (each alone, not together) 7 (`hiemenz_bounded_equal_r7`), 14 (`hiemenz_bounded_equal_r14`); open 4, 6, 11, 13; shape: bundled 7, bundled 14
+- `FalknerSkan.Bounded.homann_bounded_equal` (15): needed 1 (`homann_bounded_equal_h1`), 2 (`homann_bounded_equal_h2`), 3 (`homann_bounded_equal_h3`), 5 (`homann_bounded_equal_h5`), 8 (`homann_bounded_equal_h8`), 9 (`homann_bounded_equal_h9`), 10 (`homann_bounded_equal_h10`), 12 (`homann_bounded_equal_h12`), 15 (`homann_bounded_equal_h15`); redundant (each alone, not together) 7 (`homann_bounded_equal_r7`), 14 (`homann_bounded_equal_r14`); open 4, 6, 11, 13; shape: bundled 7, bundled 14
+- `FalknerSkan.HalfBounded.fs_half_bounded_window` (7): needed 1 (`fs_half_bounded_window_h1`), 2 (`fs_half_bounded_window_h2`), 3 (`fs_half_bounded_window_h3`), 5 (`fs_half_bounded_window_h5`); redundant 7 (`fs_half_limit_window`); open 4, 6; shape: bundled 7
+- `FalknerSkan.HalfBounded.fs_half_bounded_equal` (15): needed 1 (`fs_half_bounded_equal_h1`), 2 (`fs_half_bounded_equal_h2`), 3 (`fs_half_bounded_equal_h3`), 5 (`fs_half_bounded_equal_h5`), 8 (`fs_half_bounded_equal_h8`), 9 (`fs_half_bounded_equal_h9`), 10 (`fs_half_bounded_equal_h10`), 12 (`fs_half_bounded_equal_h12`), 15 (`fs_half_bounded_equal_h15`); redundant (each alone, not together) 7 (`fs_half_bounded_equal_r7`), 14 (`fs_half_bounded_equal_r14`); open 4, 6, 11, 13; shape: bundled 7, bundled 14
+- `FalknerSkan.FifthBounded.fs_fifth_bounded_window` (7): needed 1 (`fs_fifth_bounded_window_h1`), 2 (`fs_fifth_bounded_window_h2`), 3 (`fs_fifth_bounded_window_h3`), 5 (`fs_fifth_bounded_window_h5`); redundant 7 (`fs_fifth_limit_window`); open 4, 6; shape: bundled 7
+- `FalknerSkan.FifthBounded.fs_fifth_bounded_equal` (15): needed 1 (`fs_fifth_bounded_equal_h1`), 2 (`fs_fifth_bounded_equal_h2`), 3 (`fs_fifth_bounded_equal_h3`), 5 (`fs_fifth_bounded_equal_h5`), 8 (`fs_fifth_bounded_equal_h8`), 9 (`fs_fifth_bounded_equal_h9`), 10 (`fs_fifth_bounded_equal_h10`), 12 (`fs_fifth_bounded_equal_h12`), 15 (`fs_fifth_bounded_equal_h15`); redundant (each alone, not together) 7 (`fs_fifth_bounded_equal_r7`), 14 (`fs_fifth_bounded_equal_r14`); open 4, 6, 11, 13; shape: bundled 7, bundled 14
+- `FalknerSkan.TenthBounded.fs_tenth_bounded_window` (7): needed 1 (`fs_tenth_bounded_window_h1`), 2 (`fs_tenth_bounded_window_h2`), 3 (`fs_tenth_bounded_window_h3`), 5 (`fs_tenth_bounded_window_h5`); redundant 7 (`fs_tenth_limit_window`); open 4, 6; shape: bundled 7
+- `FalknerSkan.TenthBounded.fs_tenth_bounded_equal` (15): needed 1 (`fs_tenth_bounded_equal_h1`), 2 (`fs_tenth_bounded_equal_h2`), 3 (`fs_tenth_bounded_equal_h3`), 5 (`fs_tenth_bounded_equal_h5`), 8 (`fs_tenth_bounded_equal_h8`), 9 (`fs_tenth_bounded_equal_h9`), 10 (`fs_tenth_bounded_equal_h10`), 12 (`fs_tenth_bounded_equal_h12`), 15 (`fs_tenth_bounded_equal_h15`); redundant (each alone, not together) 7 (`fs_tenth_bounded_equal_r7`), 14 (`fs_tenth_bounded_equal_r14`); open 4, 6, 11, 13; shape: bundled 7, bundled 14
 - `FalknerSkan.Limit.hiemenz_limit_window` (6): needed 1 (`hiemenz_limit_window_h1`), 2 (`hiemenz_limit_window_h2`), 3 (`hiemenz_limit_window_h3`), 5 (`hiemenz_limit_window_h5`); open 4, 6
 - `FalknerSkan.Limit.hiemenz_limit_equal` (13): needed 1 (`hiemenz_limit_equal_h1`), 2 (`hiemenz_limit_equal_h2`), 3 (`hiemenz_limit_equal_h3`), 5 (`hiemenz_limit_equal_h5`), 7 (`hiemenz_limit_equal_h7`), 8 (`hiemenz_limit_equal_h8`), 9 (`hiemenz_limit_equal_h9`), 11 (`hiemenz_limit_equal_h11`), 13 (`hiemenz_limit_equal_h13`); open 4, 6, 10, 12
 - `FalknerSkan.Limit.homann_limit_window` (6): needed 1 (`homann_limit_window_h1`), 2 (`homann_limit_window_h2`), 3 (`homann_limit_window_h3`), 5 (`homann_limit_window_h5`); open 4, 6
