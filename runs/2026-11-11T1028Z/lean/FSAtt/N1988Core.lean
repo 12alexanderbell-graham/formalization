@@ -23,17 +23,17 @@ theorem lo_bound : (0.0052181 : ℝ) < 11703189 / 1000000000 / Real.sqrt (2500 /
   have h3 : (0.0052181 : ℝ) * (11703189 / 1000000000 / 0.0052181) = 11703189 / 1000000000 := by norm_num
   linarith
 
-theorem hi_bound : 117034 / 10000000 / Real.sqrt (2500 / 497) < (0.0052182 : ℝ) := by
+theorem hi_bound : 58517 / 5000000 / Real.sqrt (2500 / 497) < (0.0052182 : ℝ) := by
   rw [div_lt_iff₀ sqrtK_pos]
-  have h : 117034 / 10000000 / 0.0052182 < Real.sqrt (2500 / 497 : ℝ) :=
+  have h : 58517 / 5000000 / 0.0052182 < Real.sqrt (2500 / 497 : ℝ) :=
     (Real.lt_sqrt (by norm_num)).2 (by norm_num)
-  have h2 : (0.0052182 : ℝ) * (117034 / 10000000 / 0.0052182) < 0.0052182 * Real.sqrt (2500 / 497) :=
+  have h2 : (0.0052182 : ℝ) * (58517 / 5000000 / 0.0052182) < 0.0052182 * Real.sqrt (2500 / 497) :=
     mul_lt_mul_of_pos_left h (by norm_num)
-  have h3 : (0.0052182 : ℝ) * (117034 / 10000000 / 0.0052182) = 117034 / 10000000 := by norm_num
+  have h3 : (0.0052182 : ℝ) * (58517 / 5000000 / 0.0052182) = 58517 / 5000000 := by norm_num
   linarith
 
 theorem window_core (hS : ChainA (2500 / 497) (11703189 / 1000000000) SlowA)
-    (hO : ChainA (2500 / 497) (117034 / 10000000) Over) (f p q : ℝ → ℝ)
+    (hO : ChainA (2500 / 497) (58517 / 5000000) Over) (f p q : ℝ → ℝ)
     (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
     (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
     (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-1988 / 10000) * (1 - p η ^ 2)) (Ici 0) η)
@@ -49,7 +49,7 @@ theorem window_core (hS : ChainA (2500 / 497) (11703189 / 1000000000) SlowA)
   exact ⟨lo_bound.trans W.1, W.2.trans hi_bound⟩
 
 theorem exists_core (hS : ChainA (2500 / 497) (11703189 / 1000000000) SlowA)
-    (hO : ChainA (2500 / 497) (117034 / 10000000) Over) :
+    (hO : ChainA (2500 / 497) (58517 / 5000000) Over) :
     ∃ f p q : ℝ → ℝ,
       (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
       (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
