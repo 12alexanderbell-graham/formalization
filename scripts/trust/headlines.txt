@@ -284,3 +284,7 @@ Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed
 # Falkner–Skan at β = −1988/10000, the tabulated row next to separation (run 2026-11-11T1028Z; frozen 50de3b1 by run 0828Z, proved in Work and promoted by run 1028Z on the attached-flow stack generic in K, Checked/FSAtt/; blind restatement closed, referee STANDS-WITH-CORRECTIONS; candidate C-FS-1988): the wall shear of the decay-class solution lies in (0.0052181, 0.0052182), and such a solution exists
 Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window
 Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay
+# Falkner–Skan at β = −1988/10000, reversed-flow branch (run 2026-11-11T1828Z; frozen c9be92b and proved by run 1228Z in its runs/ folder, merged into Work and promoted by run 1828Z on the reversed-flow stack generic in K, Checked/FSRev/; blind restatement closed, referee STANDS-WITH-CORRECTIONS; candidate C-FS-1988R): a decay-class solution with f''(0) in (−0.00515743, −0.00515741) exists; the IVP from Fazio's printed −0.005158 overshoots f' = 1; two decay-class solutions with different wall shear
+Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_wall_shear_exists
+Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots
+Checked.FalknerSkan.NegReversedWallShear.fs_neg_wall_shear_two_decay

@@ -1,0 +1,160 @@
+import Mathlib.Algebra.Order.Star.Real
+import Mathlib.Analysis.Calculus.Deriv.Inverse
+import Mathlib.Analysis.Calculus.Deriv.MeanValue
+import Mathlib.Analysis.InnerProductSpace.Basic
+import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
+import Mathlib.Analysis.ODE.ExistUnique
+import Mathlib.Analysis.SpecialFunctions.ExpDeriv
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.FunProp
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.NormNum
+import Mathlib.Tactic.Positivity
+import Mathlib.Tactic.Ring
+import Mathlib.Topology.Algebra.Module.ModuleTopology
+import Mathlib.Topology.Order.IntermediateValue
+import Checked.FalknerSkan.FSScale
+import Checked.FSRev.RAssemble
+import Checked.FSRev.R1988Over
+import Checked.FSRev.R1988Slow
+import Checked.FSRev.R1988Tube
+import Checked.FSRev.R1988Printed
+import Checked.FSAtt.N1988Core
+import Checked.FSAtt.N1988Lo
+import Checked.FSAtt.N1988Hi
+
+/-! Falkner–Skan with the adverse pressure-gradient coefficient −1988/10000 (the tabulated row next to separation), reversed-flow branch: a solution with negative wall shear that approaches the edge value faster than every exponential, the overshoot of the initial-value problem started from the printed reverse-flow wall value, and two solutions with different wall shear in that class. Module `NegReversedWallShear`, promoted from `Work/FalknerSkan/Neg1988Rev.lean` (theorems `fs_neg1988_reversed`, `fs_neg1988_printed_reversed_overshoots`, `fs_neg1988_two_decay` there). -/
+
+namespace Checked.FalknerSkan.NegReversedWallShear
+
+open Set Filter Topology
+
+theorem sqrtK_pos : 0 < Real.sqrt (2500 / 497 : ℝ) := Real.sqrt_pos.2 (by norm_num)
+
+theorem hK : (-1 / (2500 / 497 : ℝ)) = -1988 / 10000 := by norm_num
+
+theorem lo_pos : 11567117 / 1000000000 / Real.sqrt (2500 / 497) < (0.00515743 : ℝ) := by
+  rw [div_lt_iff₀ sqrtK_pos]
+  have h : 11567117 / 1000000000 / 0.00515743 < Real.sqrt (2500 / 497 : ℝ) :=
+    (Real.lt_sqrt (by norm_num)).2 (by norm_num)
+  have h2 : (0.00515743 : ℝ) * (11567117 / 1000000000 / 0.00515743) < 0.00515743 * Real.sqrt (2500 / 497) :=
+    mul_lt_mul_of_pos_left h (by norm_num)
+  have h3 : (0.00515743 : ℝ) * (11567117 / 1000000000 / 0.00515743) = 11567117 / 1000000000 := by norm_num
+  linarith
+
+theorem hi_pos : (0.00515741 : ℝ) < 11567073 / 1000000000 / Real.sqrt (2500 / 497) := by
+  rw [lt_div_iff₀ sqrtK_pos]
+  have h : Real.sqrt (2500 / 497 : ℝ) < 11567073 / 1000000000 / 0.00515741 :=
+    (Real.sqrt_lt' (by norm_num)).2 (by norm_num)
+  have h2 : (0.00515741 : ℝ) * Real.sqrt (2500 / 497) < 0.00515741 * (11567073 / 1000000000 / 0.00515741) :=
+    mul_lt_mul_of_pos_left h (by norm_num)
+  have h3 : (0.00515741 : ℝ) * (11567073 / 1000000000 / 0.00515741) = 11567073 / 1000000000 := by norm_num
+  linarith
+
+theorem lo_bound : (-0.00515743 : ℝ) < -11567117 / 1000000000 / Real.sqrt (2500 / 497) := by
+  rw [neg_div, neg_div]; linarith [lo_pos]
+
+theorem hi_bound : -11567073 / 1000000000 / Real.sqrt (2500 / 497) < (-0.00515741 : ℝ) := by
+  rw [neg_div, neg_div]; linarith [hi_pos]
+
+/-- Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0
+on [0, ∞) with f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, eventually
+M (1 − p) ≤ q, whose wall value satisfies −0.00515743 < q(0) < −0.00515741 (reversed flow at the wall). -/
+theorem fs_neg_reversed_wall_shear_exists :
+    ∃ f p q : ℝ → ℝ,
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-1988 / 10000) * (1 - p η ^ 2)) (Ici 0) η) ∧
+      f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
+      (∀ η ∈ Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1) ∧
+      (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) ∧
+      -0.00515743 < q 0 ∧ q 0 < -0.00515741 := by
+  obtain ⟨f, p, q, a1, a2, a3, a4, a5, a6, a7, a8, w1, w2⟩ :=
+    Checked.FSRev.RAssemble.core_rev (K := 2500 / 497) (by norm_num) (by norm_num)
+      Checked.FSRev.R1988Over.chain Checked.FSRev.R1988Slow.chain Checked.FSRev.R1988Tube.tube
+  refine ⟨f, p, q, a1, a2, fun η hη => ?_, a4, a5, a6,
+    fun η hη => ⟨by linarith [(a7 η hη).1], (a7 η hη).2.le⟩, a8, lo_bound.trans w1, w2.trans hi_bound⟩
+  rw [← hK]; exact a3 η hη
+
+/-- Falkner–Skan with β = −1988/10000, the printed reversed-flow wall value: every solution (f, p, q) of
+f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0, p(0) = 0 and q(0) = −0.005158 has p(η) > 1 at
+some η > 0. -/
+theorem fs_neg_reversed_printed_overshoots (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
+    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
+    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-1988 / 10000) * (1 - p η ^ 2)) (Ici 0) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = -0.005158) :
+    ∃ η > 0, 1 < p η := by
+  set c := Real.sqrt (497 / 2500 : ℝ) with hcd
+  have hc : 0 < c := Real.sqrt_pos.2 (by norm_num)
+  have hc2 : c ^ 2 = 497 / 2500 := Real.sq_sqrt (by norm_num)
+  have hclo : (44586993619215906 / 100000000000000000 : ℝ) < c := (Real.lt_sqrt (by norm_num)).2 (by norm_num)
+  have hchi : c < (44586993619215907 / 100000000000000000 : ℝ) := (Real.sqrt_lt' (by norm_num)).2 (by norm_num)
+  have hq1 : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(1 * f η * q η) - (-1988 / 10000) * (1 - p η ^ 2)) (Ici 0) η :=
+    fun η hη => (hq η hη).congr_deriv (by ring)
+  obtain ⟨A1, A2, A3⟩ := Checked.FalknerSkan.FSScale.scale hc hf hp hq1
+  set Z : ℝ → ℝ × ℝ × ℝ := fun s => (c * f (s / c), p (s / c), q (s / c) / c) with hZd
+  have hZ : ∀ t ∈ Icc (0 : ℝ) 4, HasDerivWithinAt Z (Checked.FSRev.RIdent.uS (2500 / 497) (Z t)) (Icc 0 4) t := by
+    intro t ht
+    have ht' : t ∈ Ici (0 : ℝ) := ht.1
+    have e3 := (A3 t ht').congr_deriv (show -(1 / c ^ 2 * (c * f (t / c)) * (q (t / c) / c)) -
+        (-1988 / 10000) / c ^ 2 * (1 - p (t / c) ^ 2) =
+        -((2500 / 497 : ℝ) * (c * f (t / c)) * (q (t / c) / c)) + 1 - p (t / c) ^ 2 by
+      rw [hc2]; ring)
+    exact ((A1 t ht').prodMk ((A2 t ht').prodMk e3)).mono Icc_subset_Ici_self
+  set α := q 0 / c with hαd
+  have hα : |α - (-11568396030579 / 1000000000000000)| ≤ 1 / 100000000000000 := by
+    rw [hαd, hq0, abs_le]
+    constructor
+    · rw [le_sub_iff_add_le, le_div_iff₀ hc]; nlinarith
+    · rw [sub_le_iff_le_add, div_le_iff₀ hc]; nlinarith
+  set Y := Checked.FSAtt.AFlow.flowA (2500 / 497) α with hYd
+  have hY : ∀ t ∈ Icc (0 : ℝ) 4, HasDerivWithinAt Y (Checked.FSSep.SBase.vS (2500 / 497) t (Y t)) (Icc 0 4) t :=
+    fun t ht => (Checked.FSAtt.AFlow.flowA_deriv _ _ t ht.1).mono Icc_subset_Ici_self
+  have hY0 : Y 0 = (0, 0, α) := Checked.FSAtt.AFlow.flowA_zero _ _
+  obtain ⟨hbox, hover⟩ := Checked.FSRev.R1988Printed.chainP hY hY0 hα
+  have hZ0 : Y 0 = Z 0 := by
+    rw [hY0]; simp only [hZd, zero_div, hf0, hp0, mul_zero, hαd]
+  have E := Checked.FSRev.RIdent.ident (by norm_num) hY hbox hZ hZ0 ⟨by norm_num, le_rfl⟩
+  have h4 : (Z 4).2.1 = p (4 / c) := rfl
+  refine ⟨4 / c, div_pos (by norm_num) hc, ?_⟩
+  rw [← h4, ← E]; exact hover
+
+/-- Falkner–Skan with β = −1988/10000: there are two solutions (f, p, q) and (f₂, p₂, q₂) of
+f''' + f f'' + β(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on
+[0, ∞) and, for every M, eventually M (1 − p) ≤ q, whose values q(0) and q₂(0) differ. -/
+theorem fs_neg_wall_shear_two_decay :
+    ∃ f p q f₂ p₂ q₂ : ℝ → ℝ,
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-1988 / 10000) * (1 - p η ^ 2)) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f₂ (p₂ η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p₂ (q₂ η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - (-1988 / 10000) * (1 - p₂ η ^ 2)) (Ici 0) η) ∧
+      f 0 = 0 ∧ p 0 = 0 ∧ f₂ 0 = 0 ∧ p₂ 0 = 0 ∧
+      Tendsto p atTop (𝓝 1) ∧ Tendsto p₂ atTop (𝓝 1) ∧
+      (∀ η ∈ Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1) ∧ (∀ η ∈ Ici (0 : ℝ), -1 ≤ p₂ η ∧ p₂ η ≤ 1) ∧
+      (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) ∧ (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p₂ η) ≤ q₂ η) ∧
+      q 0 ≠ q₂ 0 := by
+  obtain ⟨f, p, q, a1, a2, a3, a4, a5, a6, a7, a8, w1, w2⟩ := fs_neg_reversed_wall_shear_exists
+  obtain ⟨f₂, p₂, q₂, b1, b2, b3, b4, b5, b6, b7, b8⟩ :=
+    Checked.FSAtt.N1988Core.exists_core Checked.FSAtt.N1988Lo.chain Checked.FSAtt.N1988Hi.chain
+  have h00 : (0 : ℝ) ∈ Ici (0 : ℝ) := Set.mem_Ici.2 le_rfl
+  have hmono : MonotoneOn p₂ (Ici 0) := by
+    refine monotoneOn_of_hasDerivWithinAt_nonneg (f' := q₂) (convex_Ici 0)
+      (HasDerivWithinAt.continuousOn (fun x hx => b2 x hx)) (fun x hx => ?_) (fun x hx => ?_)
+    · exact (b2 x (interior_subset hx)).mono interior_subset
+    · exact (b7 x (interior_subset hx)).le
+  have hp₂ : ∀ η ∈ Ici (0 : ℝ), -1 ≤ p₂ η ∧ p₂ η ≤ 1 := by
+    intro η hη
+    have h0 : p₂ 0 ≤ p₂ η := hmono h00 hη hη
+    have h1 : p₂ η ≤ 1 := ge_of_tendsto b6
+      (eventually_atTop.2 ⟨η, fun t ht => hmono hη (le_trans hη ht) ht⟩)
+    constructor <;> linarith
+  refine ⟨f, p, q, f₂, p₂, q₂, a1, a2, a3, b1, b2, b3, a4, a5, b4, b5, a6, b6, a7, hp₂, a8, b8, ?_⟩
+  have := b7 0 h00
+  intro h; rw [h] at w2; linarith
+
+end Checked.FalknerSkan.NegReversedWallShear

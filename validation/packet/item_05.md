@@ -6,37 +6,25 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `lam : ℝ`, `u : EuclideanSpace ℝ (Fin 3) → ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `ContDiffOn ℝ 2 u (Metric.ball 0 1)`
-2. `ContinuousOn u (Metric.closedBall 0 1)`
-3. for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u x = 0`
-4. there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u x = g ‖x‖`
-5. for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian u x + lam * Real.exp (u x) = 0`
-
-**then**
-
-- `lam ≤ 3.321992119`
+- there is `θ : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 7`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 7) ξ`) and (`ContinuousWithinAt φ (Set.Icc 0 7) 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 7`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Set.Icc 0 7) ξ`) and (`θ 0 = 1`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Gelfand problem in the unit ball of three-dimensional space, radial solutions: if u is twice
-continuously differentiable on the open unit ball, continuous on the closed unit ball, zero on the unit sphere
-and a function of ‖x‖ on the closed ball, and Δu + λ eᵘ = 0 on the open ball (Δ is Mathlib's Laplacian),
-then λ ≤ 3.321992119.
+There exist θ, φ with θ differentiable within [0, 7] with derivative φ, φ continuous at 0,
+φ' = −(2/ξ)φ − θ³ on (0, 7] and θ(0) = 1: the hypotheses of the Lane–Emden headline
+`Checked.Math.LaneEmden.laneEmden3_constants` are satisfied together (a solution regular at the centre
+exists).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem gelfand_pde_radial_bound (lam : ℝ) (u : EuclideanSpace ℝ (Fin 3) → ℝ)
-    (hu : ContDiffOn ℝ 2 u (ball 0 1))
-    (hc : ContinuousOn u (closedBall 0 1))
-    (hb : ∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u x = 0)
-    (hrad : ∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u x = g ‖x‖)
-    (hpde : ∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + lam * Real.exp (u x) = 0) :
-    lam ≤ 3.321992119 := …
+theorem exists_solution : ∃ θ φ : ℝ → ℝ,
+    (∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ) ∧
+    ContinuousWithinAt φ (Icc 0 7) 0 ∧
+    (∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ) ∧
+    θ 0 = 1 := …
 ```
 
 ## Definitions it uses
@@ -48,8 +36,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `gelfand_pde_radial_bound`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/GelfandPDE.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/LEExists.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 05

@@ -1,4 +1,6 @@
 import Checked.Trust.NonVacuity
+import Checked.FalknerSkan.NegReversedWallShear
+import Checked.FSRev.RPrintedNV
 import Checked.FalknerSkan.NegWallShear
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
@@ -1038,5 +1040,14 @@ theorem fs_neg_wall_shear_window : nonvacuity% Checked.FalknerSkan.NegWallShear.
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
     Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay
   exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+/-! Falkner–Skan at the pressure-gradient coefficient −1988/10000 (run 2026-11-11T1828Z): the initial-value
+problem with the printed reverse-flow wall value has a solution on the whole half-line
+(`Checked.FSRev.RPrintedNV.printed_ivp_exists`), which meets every hypothesis of the overshoot statement. -/
+
+theorem fs_neg_reversed_printed_overshoots :
+    nonvacuity% Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hq0⟩ := Checked.FSRev.RPrintedNV.printed_ivp_exists
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hq0, trivial⟩
 
 end Checked.Trust.NV
