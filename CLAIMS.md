@@ -6661,9 +6661,9 @@ Full name `Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_wall_shear_e
 
 Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
-> Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0
-> on [0, ∞) with f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, eventually
-> M (1 − p) ≤ q, whose wall value satisfies −0.00515743 < q(0) < −0.00515741 (reversed flow at the wall).
+> Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with
+> f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, with
+> −0.00515743 < q(0) < −0.00515741.
 
 ## `fs_neg_reversed_printed_overshoots`
 
@@ -6700,7 +6700,8 @@ Full name `Checked.FalknerSkan.NegReversedWallShear.fs_neg_wall_shear_two_decay`
 
 Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
-> Falkner–Skan with β = −1988/10000: there are two solutions (f, p, q) and (f₂, p₂, q₂) of
-> f''' + f f'' + β(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on
-> [0, ∞) and, for every M, eventually M (1 − p) ≤ q, whose values q(0) and q₂(0) differ.
+> Falkner–Skan with β = −1988/10000: there are solutions (f, p, q) and (f₂, p₂, q₂) of
+> f''' + f f'' + β(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, p → 1 and −1 ≤ p ≤ 1 on [0, ∞), with
+> q(0) ≠ q₂(0), such that, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, and,
+> for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`.
 

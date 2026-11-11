@@ -12,9 +12,9 @@
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0
-on [0, ∞) with f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, eventually
-M (1 − p) ≤ q, whose wall value satisfies −0.00515743 < q(0) < −0.00515741 (reversed flow at the wall).
+Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with
+f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, with
+−0.00515743 < q(0) < −0.00515741.
 
 ## Formal statement (Lean 4)
 

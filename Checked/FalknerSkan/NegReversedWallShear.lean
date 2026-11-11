@@ -59,9 +59,9 @@ theorem lo_bound : (-0.00515743 : ℝ) < -11567117 / 1000000000 / Real.sqrt (250
 theorem hi_bound : -11567073 / 1000000000 / Real.sqrt (2500 / 497) < (-0.00515741 : ℝ) := by
   rw [neg_div, neg_div]; linarith [hi_pos]
 
-/-- Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0
-on [0, ∞) with f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, eventually
-M (1 − p) ≤ q, whose wall value satisfies −0.00515743 < q(0) < −0.00515741 (reversed flow at the wall). -/
+/-- Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with
+f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, with
+−0.00515743 < q(0) < −0.00515741. -/
 theorem fs_neg_reversed_wall_shear_exists :
     ∃ f p q : ℝ → ℝ,
       (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
@@ -122,9 +122,10 @@ theorem fs_neg_reversed_printed_overshoots (f p q : ℝ → ℝ)
   refine ⟨4 / c, div_pos (by norm_num) hc, ?_⟩
   rw [← h4, ← E]; exact hover
 
-/-- Falkner–Skan with β = −1988/10000: there are two solutions (f, p, q) and (f₂, p₂, q₂) of
-f''' + f f'' + β(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on
-[0, ∞) and, for every M, eventually M (1 − p) ≤ q, whose values q(0) and q₂(0) differ. -/
+/-- Falkner–Skan with β = −1988/10000: there are solutions (f, p, q) and (f₂, p₂, q₂) of
+f''' + f f'' + β(1 − f'²) = 0 on [0, ∞), both with f(0) = 0, p(0) = 0, p → 1 and −1 ≤ p ≤ 1 on [0, ∞), with
+q(0) ≠ q₂(0), such that, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, and,
+for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`. -/
 theorem fs_neg_wall_shear_two_decay :
     ∃ f p q f₂ p₂ q₂ : ℝ → ℝ,
       (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
