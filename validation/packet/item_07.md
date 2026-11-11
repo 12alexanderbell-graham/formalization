@@ -1,41 +1,43 @@
 # Item 07
 
-**Area:** Mathematics
+**Area:** Fluid mechanics
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `S : ℝ`, `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
+**For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
 
-1. `68 / 5 ≤ S`
-2. for every `r : ℝ`, if `r ∈ Set.Icc 0 S`, then `HasDerivWithinAt θ (φ r) (Set.Icc 0 S) r`
-3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
-4. for every `r : ℝ`, if `r ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Set.Icc 0 S) r`
-5. `θ 0 = 2.2062008646`
+1. `15 / 2 ≤ S`
+2. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt f (p η) (Set.Icc 0 S) η`
+3. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt p (q η) (Set.Icc 0 S) η`
+4. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Icc 0 S) η`
+5. `f 0 = 0`
+6. `p 0 = 0`
+7. `q 0 = 1.2325876569`
 
 **then**
 
-- there is `r : ℝ` such that (`r ∈ Set.Ioc 0 (68 / 5)`) and (`0 < φ r`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 r`, then `0 < θ s`)
+- there is `η : ℝ` such that (`η ∈ Set.Ioc 0 (15 / 2)`) and (`1 < p η`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 η`, then `0 < q s`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Townes radial equation, undershoot: for every S ≥ 68/5 and every solution θ of
-θ'' + (1/r)θ' − θ + θ³ = 0 on (0, S] with θ(0) = 2.2062008646, θ differentiable on [0, S] with
-derivative φ and φ continuous at 0, there is r in (0, 68/5] with φ(r) > 0 and θ positive on
-[0, r].
+Hiemenz stagnation-point flow, overshoot: for every S ≥ 15/2 and every solution of
+f''' + f f'' + 1 − f'² = 0 on [0, S] (f has derivative p, p has derivative q, q has derivative
+−f q − 1 + p², within [0, S]) with f(0) = 0, p(0) = 0 and q(0) = 1.2325876569, there is
+η in (0, 15/2] with p(η) > 1 and q > 0 on [0, η].
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem townes_under (S : ℝ) (hS : 68 / 5 ≤ S) (θ φ : ℝ → ℝ)
-    (hθ : ∀ r ∈ Icc (0 : ℝ) S, HasDerivWithinAt θ (φ r) (Icc 0 S) r)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 S) 0)
-    (hφ : ∀ r ∈ Ioc (0 : ℝ) S, HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Icc 0 S) r)
-    (h0 : θ 0 = 2.2062008646) :
-    ∃ r ∈ Ioc (0 : ℝ) (68 / 5), 0 < φ r ∧ ∀ s ∈ Icc 0 r, 0 < θ s := …
+theorem hiemenz_over (S : ℝ) (hS : 15 / 2 ≤ S) (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt f (p η) (Icc 0 S) η)
+    (hp : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt p (q η) (Icc 0 S) η)
+    (hq : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Icc 0 S) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 1.2325876569) :
+    ∃ η ∈ Ioc (0 : ℝ) (15 / 2), 1 < p η ∧ ∀ s ∈ Icc 0 η, 0 < q s := …
 ```
 
 ## Definitions it uses
@@ -47,8 +49,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `townes_under`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `hiemenz_over`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Townes/TownesShooting.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Hiemenz/Hiemenz.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 07

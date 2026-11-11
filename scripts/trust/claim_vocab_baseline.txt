@@ -47,10 +47,8 @@ Checked.Cosmography.Aviles.avilesM0Claim_false|sitter
 Checked.Cosmography.Aviles.avilesM0Claim_false|gives
 Checked.Cosmography.Aviles.avilesM0Claim_false|true
 Checked.Cosmography.Aviles.avilesM0Claim_false|num:15
-Checked.Cosmography.AvilesWitness.printedL0_false_at|printed
 Checked.Cosmography.AvilesWitness.printedL0_false_at|eq
 Checked.Cosmography.AvilesWitness.printedL0_false_at|num:15
-Checked.Cosmography.AvilesWitness.printedM0_false_at|printed
 Checked.Cosmography.AvilesWitness.printedM0_false_at|eq
 Checked.Cosmography.AvilesWitness.printedM0_false_at|differs
 Checked.Cosmography.AvilesWitness.printedM0_false_at|true
@@ -61,13 +59,11 @@ Checked.Cosmography.CPL.flatCPL_coeffs|correct
 Checked.Cosmography.CPL.flatCPL_coeffs|version
 Checked.Cosmography.CPL.flatCPL_coeffs|cls
 Checked.Cosmography.CPL.flatCPL_coeffs|eqs
-Checked.Cosmography.CPL.flatCPL_coeffs|printed
 Checked.Cosmography.CPL.flatCPL_coeffs|dropped
 Checked.Cosmography.CPL.flatCPL_coeffs|before
 Checked.Cosmography.CPL.flatCPL_coeffs|restored
 Checked.Cosmography.CPL.flatCPL_coeffs|num:19
 Checked.Cosmography.CPL.flatCPL_coeffs|num:22
-Checked.Cosmography.CPL.printedL0_ne|printed
 Checked.Cosmography.CPL.printedL0_ne|wrong
 Checked.Cosmography.CPL.clsL0Claim_false|refutation
 Checked.Cosmography.CPL.clsL0Claim_false|eq
@@ -77,7 +73,6 @@ Checked.Cosmography.CPL.clsL0Claim_false|true
 Checked.Cosmography.CPL.clsL0Claim_false|num:160
 Checked.Cosmography.CPL.clsL0Claim_false|num:22
 Checked.Cosmography.CPLExistence.exists_flatCPL|exist
-Checked.Cosmography.CPLExistence.printedL0_false_at|printed
 Checked.Cosmography.CPLExistence.printedL0_false_at|cls
 Checked.Cosmography.CPLExistence.printedL0_false_at|eq
 Checked.Cosmography.CPLExistence.printedL0_false_at|false
@@ -292,7 +287,6 @@ Checked.Cosmography.FREta.printedEta30Claim_false|family
 Checked.Cosmography.FREta.printedEta30Claim_false|denominator
 Checked.Cosmography.FREta.eta_numbers|paper
 Checked.Cosmography.FREta.eta_numbers|fiducial
-Checked.Cosmography.FREta.eta_numbers|printed
 Checked.Cosmography.DemianskiZ.flat_corrections|against
 Checked.Cosmography.DemianskiZ.flat_corrections|flat
 Checked.Cosmography.DemianskiZ.flat_corrections|misses
@@ -394,7 +388,6 @@ Checked.Fidelity.transverseSpec_pins|any
 Checked.Fidelity.transverseSpec_pins|blind
 Checked.Fidelity.transverseSpec_pins|determining
 Checked.Fidelity.transverseSpec_pins|law
-Checked.Records.F1_m0_agrees|printed
 Checked.Records.F1_m0_agrees|true
 Checked.Records.F2_toy|paper
 Checked.Records.F2_toy|toy
@@ -409,7 +402,6 @@ Checked.Records.F8_sizes|exactly
 Checked.Records.F8_sizes|relative
 Checked.Records.F9_values|gives
 Checked.Records.F9_pole|denominator
-Checked.Records.F9_pole|printed
 Checked.Records.F9_pole|cdm
 Checked.Records.F9_pole|vanishes
 Checked.Records.F10_eta|paper
@@ -423,7 +415,6 @@ Checked.Records.F10_exceptions|proved
 Checked.Records.F10_exceptions|words
 Checked.Records.F10_exceptions|only
 Checked.Records.F10_exceptions|together
-Checked.Records.F10_exceptions|printed
 Checked.Records.F10_exceptions|denominator
 Checked.Records.F10_exceptions|undefined
 Checked.Records.F10_exceptions|refutations
@@ -844,7 +835,6 @@ Checked.Sim.RobLong.rob_state1e11|num:0.000000020833401494
 Checked.Sim.RobLong.rob_state1e11|num:0.0000000208334015
 Checked.Sim.RobLong.rob_state1e11|num:0.99999997916651
 Checked.Sim.RobLong.rob_state1e11|num:0.99999997916652
-Checked.Sim.RobLong.rob_printed_y3_low|printed
 Checked.Sim.RobLong.rob_printed_y3_low|reference
 Checked.Sim.RobLong.rob_printed_y3_low|bari
 Checked.Sim.RobLong.rob_printed_y3_low|ivp
@@ -932,7 +922,6 @@ Checked.Data.Moresco16.table5_oL_inconsistent|table
 Checked.Data.Moresco16.table5_oL_inconsistent|row
 Checked.Data.Moresco16.table5_oL_inconsistent|olcdm
 Checked.Data.Moresco16.table5_oL_inconsistent|ln
-Checked.Data.Moresco16.table5_oL_inconsistent|printed
 Checked.Data.Moresco16.table5_oL_inconsistent|aicc
 Checked.Data.Moresco16.table5_oL_inconsistent|differs
 Checked.Data.Moresco16.table5_oL_inconsistent|bic
@@ -943,7 +932,6 @@ Checked.Data.Moresco16.table5_pw_inconsistent|piecewise
 Checked.Data.Moresco16.table5_pw_inconsistent|linear
 Checked.Data.Moresco16.table5_pw_inconsistent|row
 Checked.Data.Moresco16.table5_pw_inconsistent|ln
-Checked.Data.Moresco16.table5_pw_inconsistent|printed
 Checked.Data.Moresco16.table5_pw_inconsistent|aicc
 Checked.Data.Moresco16.table5_pw_inconsistent|differs
 Checked.Data.Moresco16.table5_pw_inconsistent|bic
@@ -953,7 +941,6 @@ Checked.Data.Moresco16.table5_line_inconsistent|table
 Checked.Data.Moresco16.table5_line_inconsistent|linear
 Checked.Data.Moresco16.table5_line_inconsistent|row
 Checked.Data.Moresco16.table5_line_inconsistent|ln
-Checked.Data.Moresco16.table5_line_inconsistent|printed
 Checked.Data.Moresco16.table5_line_inconsistent|aicc
 Checked.Data.Moresco16.table5_line_inconsistent|differs
 Checked.Data.Moresco16.table5_line_inconsistent|bic
@@ -1305,10 +1292,8 @@ checked.cosmography.aviles.avilesm0claim_false|fspan:−455/4
 checked.cosmography.aviles.flatlcdm_coeffs|nameword:aviles
 checked.cosmography.aviles.flatlcdm_coeffs|numctx:6:times
 checked.cosmography.avileswitness.printedl0_false_at|nameword:aviles
-checked.cosmography.avileswitness.printedl0_false_at|nameword:printed
 checked.cosmography.avileswitness.printedl0_false_at|nameword:witness
 checked.cosmography.avileswitness.printedm0_false_at|nameword:aviles
-checked.cosmography.avileswitness.printedm0_false_at|nameword:printed
 checked.cosmography.avileswitness.printedm0_false_at|nameword:witness
 checked.cosmography.b1.cubic_misses_z3|nameword:cubic
 checked.cosmography.b1.cubic_misses_z3|nameword:misses
@@ -1553,11 +1538,9 @@ checked.cosmography.cpl.flatcpl_coeffs|fspan:(7 − ω)
 checked.cosmography.cpl.flatcpl_coeffs|fspan:9 (7 − ω)
 checked.cosmography.cpl.printedl0_ne|fspan:(1 − ω)(7 − ω) wₐ ≠ 0
 checked.cosmography.cpl.printedl0_ne|nameword:ne
-checked.cosmography.cpl.printedl0_ne|nameword:printed
 checked.cosmography.cplexistence.exists_local_model|nameword:cpl
 checked.cosmography.cplexistence.exists_local_model|nameword:local
 checked.cosmography.cplexistence.printedl0_false_at|fspan:(1 − ω)(7 − ω) wₐ ≠ 0
-checked.cosmography.cplexistence.printedl0_false_at|nameword:printed
 checked.cosmography.cvdq.cvdqclaim_false|nameword:cvd
 checked.cosmography.cvdq.cvdqclaimpast_false|nameword:cvd
 checked.cosmography.cvdq.dq_y_third_order|nameword:vd
@@ -1749,7 +1732,6 @@ checked.sim.robertson.rob_state40|nameword:state
 checked.sim.roblong.rob_exists_1e11|nameword:long
 checked.sim.roblong.rob_printed_y3_low|nameword:long
 checked.sim.roblong.rob_printed_y3_low|nameword:low
-checked.sim.roblong.rob_printed_y3_low|nameword:printed
 checked.sim.roblong.rob_state1e11|nameword:long
 checked.sim.roblong.rob_state1e11|nameword:state
 checked.townes.shooting.townes_over|nameword:shooting

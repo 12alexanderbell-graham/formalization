@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 234. Resting on no unpinned physics definition: 234.
-Non-vacuity (trust track T2): 155 headlines have hypotheses; 155 of them have a
+Headlines: 237. Resting on no unpinned physics definition: 237.
+Non-vacuity (trust track T2): 157 headlines have hypotheses; 157 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 861 hypotheses in 151 headlines;
-303 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 878 hypotheses in 153 headlines;
+306 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 73 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-485 open; headlines with every hypothesis classified: 29/151
+499 open; headlines with every hypothesis classified: 29/153
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -272,6 +272,9 @@ the docstring says; universally bound parameters are not listed.
 | `FalknerSkan.NegReversed.fs_neg_tenth_two_decay` | — | — | — | unconditional | — |
 | `FalknerSkan.Separation.fs_separation_exists` | — | — | — | unconditional | — |
 | `FalknerSkan.SeparationEqual.fs_separation_equal` | — | — | — | `fs_separation_equal` | — |
+| `FalknerSkan.SeparationPrinted.fs_separation_below_printed` | — | — | — | `fs_separation_below_printed` | — |
+| `FalknerSkan.NegWallShear.fs_neg_wall_shear_window` | — | — | — | `fs_neg_wall_shear_window` | — |
+| `FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay` | — | — | — | unconditional | — |
 
 ## Hypothesis necessity, per headline
 
@@ -442,6 +445,8 @@ the statement false (red team AF d02).
 - `FalknerSkan.NegWindow.fs_neg_tenth_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 - `FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt` (7): open 1, 2, 3, 4, 5, 6, 7
 - `FalknerSkan.SeparationEqual.fs_separation_equal` (18): needed 1 (`fs_separation_equal_h1`), 3 (`fs_separation_equal_h3`), 9 (`fs_separation_equal_h9`), 10 (`fs_separation_equal_h10`), 12 (`fs_separation_equal_h12`), 18 (`fs_separation_equal_h18`); open 2, 4, 5, 6, 7, 8, 11, 13, 14, 15, 16, 17
+- `FalknerSkan.SeparationPrinted.fs_separation_below_printed` (9): needed 1 (`fs_separation_below_printed_h1`), 2 (`fs_separation_below_printed_h2`), 3 (`fs_separation_below_printed_h3`); open 4, 5, 6, 7, 8, 9
+- `FalknerSkan.NegWallShear.fs_neg_wall_shear_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 
