@@ -1,0 +1,6 @@
+Category: misleading-record (hypothesis necessity, partial hypothesis)
+Generated line (TRUST_MAP.md, section "Hypothesis necessity, per headline", and the summary count of fully classified headlines): `- `Toy.bound_holds` (1): needed 1 (`bound_holds_h1`)`; CLAIMS.md shows hypothesis 1 as `Window a b c d`, by definition `(a ≤ b) and (c ≤ d)`.
+Reader would wrongly believe: both conditions of assumption 1 (a ≤ b and c ≤ d) are machine-shown to carry weight ("without hypothesis i the statement is false"), so neither can be dropped.
+Why it is false: the conclusion is `a ≤ b`; the second conjunct `c ≤ d` is decorative (`∀ a b, a ≤ b → a ≤ b` holds with no condition on c, d). `necessity%` removes the whole hypothesis, so a hypothesis made of a load-bearing and a decorative part is NEEDED. The syntactic "no conjunction hypothesis" lint does not fire because the conjunction hides behind the definition `Window`; unusedHyps sees one used binder.
+Order: one commit (apply.py), then the author relocks (TRUST_RELOCK=1) and regenerates TRUST_MAP.md, CLAIMS.md, PHRASE_LINES.md, the FINDINGS blocks and the packet. No LEDGER line is needed (nothing is open, nothing has no obligation).
+Expected: ACCEPTED (new headline, new CLAIM-kind def; possible incidental catches: prose/vocab/literal rules on the new docstring or names)

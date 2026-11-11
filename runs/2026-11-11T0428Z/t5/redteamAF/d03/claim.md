@@ -1,0 +1,6 @@
+Category: misleading-record (hypothesis necessity, statement shape `let`)
+Generated line: `- `Toy.case_holds` (1): needed 1 (`case_holds_h1`)` counted as fully classified; CLAIMS.md "then" part prints `let c := b; c ≤ c → a ≤ c`.
+Reader would wrongly believe: the headline has exactly one assumption (a ≤ b) and it is needed, i.e. every assumption of the headline is classified.
+Why it is false: the statement is `a ≤ b → let c := b; c ≤ c → a ≤ c`. The elaborators of NonVacuity.lean (`forallTelescope`) and Claims.lean (`peel`) stop at the `let`, so the second assumption `c ≤ c` (inside the conclusion, but an assumption of the implication) is neither numbered nor classified. It is decorative (the conclusion follows from a ≤ b alone), yet the headline is tallied as fully classified. Non-vacuity does see through the `let` (whnfR zeta), so the witness is demanded, but the necessity layer does not.
+Order: one commit (apply.py), then the author relocks (TRUST_RELOCK=1) and regenerates TRUST_MAP.md, CLAIMS.md, PHRASE_LINES.md, the FINDINGS blocks and the packet. No LEDGER line is needed (nothing is open, nothing has no obligation).
+Expected: ACCEPTED (risk: a statement-text lexer rule choking on `let`)
