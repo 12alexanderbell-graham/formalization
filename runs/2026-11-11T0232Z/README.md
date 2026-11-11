@@ -1,10 +1,10 @@
 # Run 2026-11-11T0232Z (scheduled)
 
-**THE RESULT:** parts 2 and 5 (rotation) — new certified science in fluid mechanics: **the Falkner–Skan separation value β\* (zero wall shear) is unique and lies in (−0.1988377351, −0.1988377350)**, PROVED in Work + AUDITED (two theorems, both blind restatements closed in Lean, referee STANDS). Promotion to Checked next.
+**THE RESULT:** parts 2 and 5 (rotation) — new certified science in fluid mechanics: **the Falkner–Skan separation value β\* (zero wall shear) is unique and lies in (−0.1988377351, −0.1988377350)**, PROVED in Work + AUDITED (two theorems, both blind restatements closed in Lean, referee STANDS) and **promoted to Checked** the same run (blind literal reading, NV witness, two necessity witnesses; every local check green); PROVED once the main CI run is green.
 
 **What can a scientist now trust without checking it themselves, that they could not before?** The classical separation value of the Falkner–Skan family, quoted since Hartree (1937) from floating-point computations to 4–9 digits (and misprinted in the 7th–8th digit in two recent papers), now has a machine-checked ten-decimal enclosure together with a proof that no other β has a separation profile of the decaying kind.
 
-**Weakest unchecked step behind the results:** the window literals and the theorem names are not yet read by a blind literal reader and the theorems are in Work (local build; CI work job pending), not in Checked; the claim that no rigorous enclosure exists in print rests on one referee's limited search.
+**Weakest unchecked step behind the results:** the promotion's CI run on main is not yet read (local checks green); 16 of the 18 hypotheses of the equality theorem are not yet shown needed or redundant; the claim that no rigorous enclosure exists in print rests on one referee's limited search.
 
 **Measure:** Work headlines +2 (+2 blind closures); certified chains 2 (260 cells, margins ≥ 2.3·10⁻¹¹); first certificate family parameterised by a coefficient of the equation (`CellProp K`) and first flow continuous in an equation parameter; axioms standard.
 
@@ -28,5 +28,13 @@
 - A freeze of the *uniqueness* companion the same run turned an existence statement the referee called "not yet the separation value" into the full characterisation within 15 minutes, because the referee's report already contained the route.
 - Fork-heavy runs: five agents in one message (three Lean forks, blind, referee) finished the whole existence proof in ≈ 30 min wall time.
 
-## Next
-- Promotion of both headlines (STATE exact next step 1a). Full `lake build Checked` started at ≈ 03:30Z in this container.
+## Promotion (branch `wip/sep-promo`, fast-forwarded into main)
+- `promote_sep.py`; renames for the name rules: headline `fs_separation_unique` → `fs_separation_equal`, module `SeparationUnique` → `SeparationEqual` (V8 reads module names too); docstrings in the generated claim's code (V11) and without derived decimals (check_prose); `separation` added to prose_vocab.
+- Blind literal reader: three briefs. The first wrote the template's denominator into the brief (B3 / brief-leak) — archived; the second brief was committed together with the staged module rename (B4) — kept as a record; the third, committed alone, passed. All three readers gave L = 1988377351, U = 1988377350.
+- Necessity: fork F proved the two decay hypotheses of `fs_separation_equal` needed with the certified slow-approach solution at the window's upper end (zero wall shear, algebraic tail).
+- Local: full `lake build Checked` (≈ 60 min), StatementDeps with relock (four rounds, ≈ 8 min each), Claims, every Python check of the trust and frozen steps incl. `--base 3e54961`, packet.
+
+## Lessons (promotion)
+- `git mv` stages immediately: a later `git add <one file>; git commit` carries the rename too. Before every brief or reading commit run `git diff --cached --name-only` (it must list exactly that file).
+- A brief's template must not contain any numeral the reader will write, not even a denominator; give the rounding rule in words.
+- V8 reads module names: name the Work module after its conclusion (`…Equal`), not its strength.
