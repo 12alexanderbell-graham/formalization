@@ -1,4 +1,6 @@
 import Checked.Trust.NonVacuity
+import Checked.FalknerSkan.Separation
+import Checked.FalknerSkan.SeparationUnique
 import Checked.Sim.Duffing
 import Checked.Sim.MichaelisMenten
 import Checked.Sim.Robertson
@@ -1007,5 +1009,15 @@ theorem fs_neg_tenth_monotone_lt : nonvacuity% Checked.FalknerSkan.NegWindow.fs_
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, -⟩ :=
     Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay
   exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, trivial⟩
+
+/-! Falkner–Skan separation (run 2026-11-11T0232Z): the zero-wall-shear solution of
+`Checked.FalknerSkan.Separation.fs_separation_exists`, taken twice, satisfies every hypothesis of the
+equality of the two pressure-gradient parameters. -/
+
+theorem fs_separation_beta_eq : nonvacuity% Checked.FalknerSkan.SeparationUnique.fs_separation_beta_eq := by
+  obtain ⟨β, -, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.Separation.fs_separation_exists
+  exact ⟨β, β, f, p, q, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec,
+    hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec, trivial⟩
 
 end Checked.Trust.NV
