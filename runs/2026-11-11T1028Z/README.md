@@ -32,3 +32,6 @@
 - Typeset reading (this run): Guo, Zhuang, Meng & Rabczuk, arXiv:2010.05682v1 p. 33 Table 8, row β = −0.1988: 0.005218 (`typeset/guo2020_p33_table8.png`); rows −0.15 and −0.18 (0.216361, 0.128636) agree with collocation (0.2163614056, 0.1286362206).
 - 13:4xZ: pushed the merge with the LOCK removed (records written; CI read is the next run's step 1, or below if it finishes in time).
 - Commit trailer slip: 8586752 carries run 0828Z's `Claude-Session` line (copied from its commits); later commits carry this session's. PROMPT note added.
+
+## CI of the final push (read 13:42Z)
+- 43029991407 (3f860a5): changes, goal guard, packet and **work job green** (Work: the FSAtt stack, both Neg1988 proofs, the blind closure, closed audits); checked job queued and nanoda 4/4 running when the run ended — reading them is STATE exact next step 1.
