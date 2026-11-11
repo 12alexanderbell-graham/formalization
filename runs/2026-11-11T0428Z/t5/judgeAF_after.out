@@ -1,0 +1,71 @@
+== build 05:57:41
+build: PASS
+grep: PASS
+== trust (author relock) 05:57:54
+trust: PASS
+--- claims 06:03:42
+claims exit 0
+wrote the generated section and blocks of FINDINGS.md (26 certified values)
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 13 quoted [src], 2 inputs [in], 2 unchecked [unc]; 43 tagged
+wrote 61 files, 57 items, seed 72c4d16f819f
+== CI non-relock trust step 06:06:10
+trust(CI): PASS
+  [check_numbers.py] exit 0: certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 13 quoted [src], 2 inputs [in], 2 unchecked [unc]; 43 tagged
+  [check_prose.py] exit 0: check_prose: 238 headlines, 139 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_literals.py] exit 1: check_literals: 238 headlines, 122 with uncovered literals (121 baselined), 392 registered readings; FAIL
+      rule 1: Checked.Toy.side_holds: statement literals ['1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant; a constant the author chose inside a conclusion (e.g. a bound in an existential, `∃ x, … < 3`) has no source a blind reader could read: state that conclusion through the defining property itself instead (run 2026-11-09T1028Z: fs_neg_tenth_outside_decay replaced such a 3)
+      check_literals: 238 headlines, 122 with uncovered literals (121 baselined), 392 registered readings; FAIL
+  [check_source_names.py] exit 0: check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py] exit 0: check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py] exit 0: check_literal_targets: 238 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py] exit 0: check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py] exit 0: check_prose_gen: 238 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py] exit 0: check_prose_eval: 400 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py] exit 0: check_claim_words: 238 headlines, 8 findings (8 baselined); ok
+  [check_trusted_defs.py] exit 0: check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py] exit 0: phrases: 23 checked, 0 problems
+  [check_claim_vocab.py] exit 0: check_claim_vocab: 238 sections, 1760 findings (1736 baselined), vocabulary 54; ok
+  [check_status_lines.py] exit 0: check_status_lines: ok
+  [check_necessity.py] exit 1:   N4: `Toy.term_holds` has shape entry `restated 2` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entr
+      check_necessity: FAILED
+        N4: `Toy.bound_holds` has shape entry `bundled 1` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+        N4: `Toy.case_holds` has shape entry `conclusion` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+        N4: `Toy.side_holds` has shape entry `subtype` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+        N4: `Toy.statement_holds` has shape entry `conclusion` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+        N4: `Toy.term_holds` has shape entry `restated 2` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  [check_relock.py a6e306995991f6c90701abff2baa09a0778fe318] exit 0: frozen registry: 2832 entries at a6e306995991f6c90701abff2baa09a0778fe318, none changed or removed
+  [check_numbers.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: certified-number diff vs a6e306995991f6c90701abff2baa09a0778fe318: 26 certified pairs before, 26 now, 0 removed or changed
+  [check_prose.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_prose: 238 headlines, 139 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: phrases: 23 at a6e306995991f6c90701abff2baa09a0778fe318, none changed or removed
+  [check_formulas.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_provenance: 34 second-version modules, 6 baselined; ok
+  [check_literals.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 1: check_literals: 238 headlines, 122 with uncovered literals (121 baselined), 392 registered readings; FAIL
+      rule 1: Checked.Toy.side_holds: statement literals ['1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant; a constant the author chose inside a conclusion (e.g. a bound in an existential, `∃ x, … < 3`) has no source a blind reader could read: state that conclusion through the defining property itself instead (run 2026-11-09T1028Z: fs_neg_tenth_outside_decay replaced such a 3)
+      check_literals: 238 headlines, 122 with uncovered literals (121 baselined), 392 registered readings; FAIL
+  [check_source_names.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_blind_route: 0 second versions added or changed since a6e306995991; ok
+  [check_literal_targets.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_literal_targets: 238 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_prose_gen: 238 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_reader_frozen: 33 reader modules and 35 runs/ reader files at a6e306995991 checked; ok
+  [check_brief_leak.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_brief_leak: 0 briefs of reader files new since a6e306995991; ok
+  [check_prose_eval.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_prose_eval: 400 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_claim_words: 238 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_claim_vocab: 238 sections, 1760 findings (1736 baselined), vocabulary 54; ok
+  [check_necessity.py --base a6e306995991f6c90701abff2baa09a0778fe318] exit 1:   N4: `Toy.term_holds` has shape entry `restated 2` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entr
+      check_necessity: FAILED
+        N4: `Toy.bound_holds` has shape entry `bundled 1` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+        N4: `Toy.case_holds` has shape entry `conclusion` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+        N4: `Toy.side_holds` has shape entry `subtype` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+        N4: `Toy.statement_holds` has shape entry `conclusion` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+        N4: `Toy.term_holds` has shape entry `restated 2` (assumptions the necessity numbering does not reach); scripts/trust/necessity_shape_baseline.txt lists None: restate the headline (no new shape entries)
+  [check_audits.py a6e306995991f6c90701abff2baa09a0778fe318] exit 0: check_audits: 0 closed run records changed without a LEDGER.md addition naming them
+--- make_packet --check
+validation packet up to date (57 items)
+--- goal guard
+goal guard: ok
+--- precheck
+precheck_citations: 0 suspected
+== end 06:12:43

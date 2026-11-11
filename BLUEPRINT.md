@@ -303,3 +303,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - Uniqueness: `UCrocco` (β-form Crocco map, q > 0 only on (0, E)) → `UCompare` (`SolB`, `start` by z², `no_cross_s`, `stepS`) → `UPair.sep_core` → `SeparationUnique.fs_separation_unique`.
 - Audits: `SepBlindClosed.lean`, `SepUniqueBlindClosed.lean`.
 - Promoted (same run): `Checked/FSSep/*` (+ `SSlowSol` for necessity), `Checked/FalknerSkan/{Separation,SeparationEqual}.lean`; reading `Checked/Trust/SecondReadingFSSepW.lean`; necessity `Checked/Trust/NecessityC.lean`. Next: the 16 open hypotheses of `fs_separation_equal`; β-form endpoint events.
+
+## Hypothesis necessity: shape of the statement (run 2026-11-11T0428Z)
+- `scripts/trust/StatementDeps.lean` `necConjuncts` (conclusion conjuncts through `let` and program definitions) → `necShape` (`conclusion`, `subtype`, `bundled i`, `restated i`) → `shape:` entry of each TRUST_MAP.md necessity line, excluded from the fully-classified tally → `scripts/trust/check_necessity.py` N4 with `scripts/trust/necessity_shape_baseline.txt` (shrink-only). Blind measurement: `runs/2026-11-11T0428Z/t5/` (red team AF). Next: per-conjunct necessity for the bundled predicates.

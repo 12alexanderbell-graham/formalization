@@ -18,6 +18,14 @@ as TRUST_MAP.md does, with the words `open <its open indices>` (or `classified` 
 that had classified hypotheses at the base and is gone needs such a line with the word `removed`. Lines that
 differ from a base LEDGER line only by surrounding whitespace do not count as added.
 Rule N3 (--base SHA): the totals NEEDED + REDUNDANT may not fall, and "no obligation" may not rise.
+Rule N4 (blind red team AF, run 2026-11-11T0428Z: 4 of 6 defects got assumptions past the numbering): a
+headline line may end with `shape: <reasons>` (StatementDeps `necShape`: `conclusion` = a `let` or a program
+definition hides an implication or `∀` in the conclusion; `subtype` = a subtype binder assumes its property;
+`bundled i` = hypothesis i is a conjunction behind a definition; `restated i` = hypothesis i is a conjunct of
+the conclusion). Every such headline has exactly that line in the shrink-only baseline
+`scripts/trust/necessity_shape_baseline.txt` (`<headline> | <reasons>`); with --base, the baseline may not gain
+a line, so a new headline with a shape entry fails (no disclosure route: restate the headline). A headline with
+a shape entry never counts as fully classified.
 The parser fails closed: exactly one section heading and one summary paragraph, every list line of the
 section in the generator's grammar, no duplicate headline, indices partitioning 1..n, summary totals equal to
 the sums of the lines; an unreadable base fails too (adversary of run 2026-11-11T0028Z, 7 holes in the first
@@ -35,12 +43,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 BASELINE = "scripts/trust/necessity_open_baseline.txt"
+SHAPE_BASELINE = "scripts/trust/necessity_shape_baseline.txt"
+SHAPE_ITEM = re.compile(r"^(conclusion|subtype|(bundled|restated) \d+)$")
 
 LINE = re.compile(r"^- `([^`]+)` \((\d+)\): (.*)$")
 HEAD = re.compile(r"^## Hypothesis necessity, per headline$", re.M)
 TOT = re.compile(r"^Hypothesis necessity \(trust track T2b[^\n]*\n(\d+) shown NEEDED [^\n]*\n(\d+) shown REDUNDANT in Lean[^\n]*?(\d+) with no obligation",
                  re.M)
-LABELS = {"needed": "needed", "redundant": "redundant",
+LABELS = {"needed": "needed", "redundant": "redundant", "redundant (each alone, not together)": "redundant",
           "no obligation (instance, or proof used as data)": "data", "open": "open"}
 WIT = re.compile(r"^(\d+) \(`[^`]+`\)$")
 
@@ -52,10 +62,21 @@ class ParseError(Exception):
 def parse_parts(rest):
     """`needed 1 (`w`), 2 (`w`); redundant 3 (`w`); open 4, 5` -> dict label -> set of indices (strict)."""
     out = {v: set() for v in LABELS.values()}
+    out["shape"] = ()
     if not rest:
         raise ParseError("empty classification")
     seen = []
-    for part in rest.split("; "):
+    parts = rest.split("; ")
+    if parts[-1].startswith("shape: "):
+        items = parts[-1][len("shape: "):].split(", ")
+        for it in items:
+            if not SHAPE_ITEM.match(it):
+                raise ParseError(f"bad shape item `{it}`")
+        if len(set(items)) != len(items):
+            raise ParseError("shape item twice")
+        out["shape"] = tuple(items)
+        parts = parts[:-1]
+    for part in parts:
         lab = next((l for l in sorted(LABELS, key=len, reverse=True) if part.startswith(l + " ")), None)
         if lab is None:
             raise ParseError(f"unknown part `{part}`")
@@ -101,8 +122,10 @@ def parse_map(text):
         if name in out:
             raise ParseError(f"duplicate headline `{name}`")
         d = parse_parts(m.group(3))
+        if n == 0 and not d["shape"]:
+            raise ParseError(f"`{name}`: a line with no hypotheses must carry a shape entry")
         allidx = d["needed"] | d["redundant"] | d["data"] | d["open"]
-        if allidx != set(range(1, n + 1)) or sum(len(v) for v in d.values()) != n:
+        if allidx != set(range(1, n + 1)) or sum(len(d[k]) for k in set(LABELS.values())) != n:
             raise ParseError(f"`{name}`: indices {sorted(allidx)} do not partition 1..{n}")
         d["n"] = n
         out[name] = d
@@ -152,6 +175,43 @@ def rule_n1(m, base_lines, errors):
             errors.append(f"N1: {BASELINE} names `{name}`, which TRUST_MAP.md does not list")
         elif not m[name]["open"]:
             errors.append(f"N1: {BASELINE} lists `{name}`, which has no open hypothesis: remove the line")
+
+
+def parse_shape_baseline(text, errors):
+    out = {}
+    for k, line in enumerate(text.splitlines(), 1):
+        s = line.strip()
+        if not s or s.startswith("#"):
+            continue
+        parts = [p.strip() for p in s.split("|")]
+        if len(parts) != 2:
+            errors.append(f"{SHAPE_BASELINE}:{k}: expected `<headline> | <reasons>`")
+            continue
+        if parts[0] in out:
+            errors.append(f"{SHAPE_BASELINE}:{k}: duplicate line for `{parts[0]}`")
+        out[parts[0]] = tuple(x.strip() for x in parts[1].split(","))
+    return out
+
+
+def rule_n4(m, shape_lines, errors):
+    for name, d in m.items():
+        if d["shape"] and shape_lines.get(name) != d["shape"]:
+            errors.append(f"N4: `{name}` has shape entry `{', '.join(d['shape'])}` (assumptions the necessity "
+                          f"numbering does not reach); {SHAPE_BASELINE} lists "
+                          f"{shape_lines.get(name)}: restate the headline (no new shape entries)")
+    for name in shape_lines:
+        if name not in m or not m[name]["shape"]:
+            errors.append(f"N4: {SHAPE_BASELINE} lists `{name}`, which has no shape entry: remove the line")
+
+
+def rule_n4_base(old_text, new_text, errors):
+    if old_text is None:
+        return   # the base predates the shape rule
+    old = {l.strip() for l in old_text.splitlines() if l.strip() and not l.strip().startswith("#")}
+    for l in new_text.splitlines():
+        s = l.strip()
+        if s and not s.startswith("#") and s not in old:
+            errors.append(f"N4: line added to the shrink-only {SHAPE_BASELINE}: `{s}`")
 
 
 def fmt(ix):
@@ -269,6 +329,52 @@ def selftest():
         fails.append("N2 accepted a removed classified headline without a LEDGER line")
     if n2(old, {"A.a": d(3, needed=[1], op=[2, 3])}, ["- `B.b` removed (merged into `A.a`)"]):
         fails.append("N2 rejected a disclosed removal")
+    try:
+        m2, _ = parse_map(tm.replace("- `B.b` (2): needed 1 (`b_h1`), 2 (`b_h2`)",
+                                     "- `B.b` (2): redundant (each alone, not together) 1 (`b_h1`), 2 (`b_h2`)")
+                          .replace("3 shown NEEDED", "1 shown NEEDED").replace("1 shown REDUNDANT", "3 shown REDUNDANT"))
+        if m2["B.b"]["redundant"] != {1, 2}:
+            fails.append("parser: joint-redundancy label")
+    except ParseError as ex:
+        fails.append(f"parser rejected the joint-redundancy label: {ex}")
+    tm4 = tm.replace("- `C.c` (1): redundant 1 (`c_r1`)",
+                     "- `C.c` (1): redundant 1 (`c_r1`); shape: conclusion, restated 1\n- `E.e` (0): shape: subtype")
+    try:
+        m4, _ = parse_map(tm4)
+        if m4["C.c"]["shape"] != ("conclusion", "restated 1") or m4["E.e"]["shape"] != ("subtype",):
+            fails.append(f"parser: shape {m4}")
+    except ParseError as ex:
+        fails.append(f"parser rejected shape entries: {ex}")
+        m4 = m
+    for lbl, t in {"bad shape item": tm4.replace("shape: conclusion", "shape: hidden"),
+                   "shape not last": tm4.replace("redundant 1 (`c_r1`); shape: conclusion, restated 1",
+                                                 "shape: conclusion; redundant 1 (`c_r1`)"),
+                   "zero-hypothesis line without shape": tm4.replace("- `E.e` (0): shape: subtype", "- `E.e` (0): open 1")}.items():
+        try:
+            parse_map(t)
+            fails.append(f"parser accepted: {lbl}")
+        except ParseError:
+            pass
+    def n4(bl):
+        e = []
+        rule_n4(m4, parse_shape_baseline(bl, e), e)
+        return e
+    if n4("C.c | conclusion, restated 1\nE.e | subtype\n"):
+        fails.append("N4 clean twin rejected")
+    if not n4("E.e | subtype\n"):
+        fails.append("N4 accepted a shape entry without a baseline line")
+    if not n4("C.c | conclusion\nE.e | subtype\n"):
+        fails.append("N4 accepted a baseline line with fewer reasons")
+    if not n4("C.c | conclusion, restated 1\nE.e | subtype\nA.a | subtype\n"):
+        fails.append("N4 accepted a line for a headline without shape entry")
+    e = []
+    rule_n4_base("C.c | conclusion\n", "C.c | conclusion\nE.e | subtype\n", e)
+    if not e:
+        fails.append("N4 accepted a line added to the shape baseline")
+    e = []
+    rule_n4_base("C.c | conclusion\nE.e | subtype\n", "E.e | subtype\n", e)
+    if e:
+        fails.append("N4 rejected a shrinking shape baseline")
     e = []
     rule_n3((12, 3, 0), (11, 3, 0), e)
     if not e:
@@ -290,7 +396,7 @@ def main():
         print("check_necessity selftest FAILED:\n  " + "\n  ".join(fails))
         return 1
     if "--selftest" in sys.argv:
-        print("check_necessity selftest: OK (planted controls for the parser, N1, N2, N3)")
+        print("check_necessity selftest: OK (planted controls for the parser, N1, N2, N3, N4)")
         return 0
     errors = []
     try:
@@ -304,6 +410,11 @@ def main():
         return 1
     base_lines = parse_baseline(bl_path.read_text(), errors)
     rule_n1(m, base_lines, errors)
+    sb_path = ROOT / SHAPE_BASELINE
+    if not sb_path.exists():
+        print(f"check_necessity: FAILED: {SHAPE_BASELINE} missing")
+        return 1
+    rule_n4(m, parse_shape_baseline(sb_path.read_text(), errors), errors)
     if "--base" in sys.argv:
         k = sys.argv.index("--base")
         if k + 1 >= len(sys.argv) or sys.argv[k + 1].startswith("-"):
@@ -326,8 +437,9 @@ def main():
         added = [l for l in (ROOT / "LEDGER.md").read_text().splitlines() if l.strip() and l.strip() not in base_set]
         rule_n2(old_map, m, added, errors)
         rule_n3(old_tot, tot, errors)
+        rule_n4_base(git_show(b, SHAPE_BASELINE), sb_path.read_text(), errors)
     nopen = sum(len(v["open"]) for v in m.values())
-    full = sum(1 for v in m.values() if not v["open"] and not v["data"])
+    full = sum(1 for v in m.values() if v["n"] and not v["open"] and not v["data"] and not v["shape"])
     if errors:
         print("check_necessity: FAILED\n  " + "\n  ".join(errors))
         return 1

@@ -1,0 +1,59 @@
+== build 05:42:27
+build: PASS
+grep: PASS
+== trust (author relock) 05:42:46
+trust: PASS
+--- claims 05:48:30
+claims exit 0
+wrote the generated section and blocks of FINDINGS.md (26 certified values)
+certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 13 quoted [src], 2 inputs [in], 2 unchecked [unc]; 43 tagged
+wrote 61 files, 57 items, seed 72c4d16f819f
+== CI non-relock trust step 05:51:02
+trust(CI): PASS
+  [check_numbers.py] exit 0: certified numbers (FINDINGS.md outside '## Candidates under verification'): 26 certified [✓], 13 quoted [src], 2 inputs [in], 2 unchecked [unc]; 43 tagged
+  [check_prose.py] exit 0: check_prose: 238 headlines, 139 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_literals.py] exit 1: check_literals: 238 headlines, 122 with uncovered literals (121 baselined), 392 registered readings; FAIL
+      rule 1: Checked.Toy.side_holds: statement literals ['1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant; a constant the author chose inside a conclusion (e.g. a bound in an existential, `∃ x, … < 3`) has no source a blind reader could read: state that conclusion through the defining property itself instead (run 2026-11-09T1028Z: fs_neg_tenth_outside_decay replaced such a 3)
+      check_literals: 238 headlines, 122 with uncovered literals (121 baselined), 392 registered readings; FAIL
+  [check_source_names.py] exit 0: check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py] exit 0: check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_literal_targets.py] exit 0: check_literal_targets: 238 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py] exit 0: check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py] exit 0: check_prose_gen: 238 headlines, 7 findings (7 baselined); ok
+  [check_prose_eval.py] exit 0: check_prose_eval: 400 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py] exit 0: check_claim_words: 238 headlines, 8 findings (8 baselined); ok
+  [check_trusted_defs.py] exit 0: check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py] exit 0: phrases: 23 checked, 0 problems
+  [check_claim_vocab.py] exit 0: check_claim_vocab: 238 sections, 1760 findings (1736 baselined), vocabulary 54; ok
+  [check_status_lines.py] exit 0: check_status_lines: ok
+  [check_necessity.py] exit 0: check_necessity: OK (156 headlines with hypotheses, 28 fully classified, 539 open hypotheses, all in scripts/trust/necessity_open_baseline.txt; needed/redundant/no obligation (259, 53, 0)) [no --base:
+  [check_relock.py 7d4c53f] exit 0: frozen registry: 2832 entries at 7d4c53f, none changed or removed
+  [check_numbers.py --base 7d4c53f] exit 0: certified-number diff vs 7d4c53f: 26 certified pairs before, 26 now, 0 removed or changed
+  [check_prose.py --base 7d4c53f] exit 0: check_prose: 238 headlines, 139 definitions, 21 glossary terms; 0 new problems; 352 known gaps (prose_baseline.txt)
+  [check_trusted_defs.py --base 7d4c53f] exit 0: check_trusted_defs: 23 pins; 0 problems in TRUSTED_DEFINITIONS.md
+  [check_claims.py --base 7d4c53f] exit 0: phrases: 23 at 7d4c53f, none changed or removed
+  [check_formulas.py --base 7d4c53f] exit 0: check_formulas: 0 baselined FORMULA definitions; ok
+  [check_provenance.py --base 7d4c53f] exit 0: check_provenance: 34 second-version modules, 6 baselined; ok
+  [check_literals.py --base 7d4c53f] exit 1: check_literals: 238 headlines, 122 with uncovered literals (121 baselined), 392 registered readings; FAIL
+      rule 1: Checked.Toy.side_holds: statement literals ['1'] are neither certified targets nor covered by a registered reading (scripts/trust/literal_readings.txt) — enter source data through a PRINTED definition or a blind reader's constant; a constant the author chose inside a conclusion (e.g. a bound in an existential, `∃ x, … < 3`) has no source a blind reader could read: state that conclusion through the defining property itself instead (run 2026-11-09T1028Z: fs_neg_tenth_outside_decay replaced such a 3)
+      check_literals: 238 headlines, 122 with uncovered literals (121 baselined), 392 registered readings; FAIL
+  [check_source_names.py --base 7d4c53f] exit 0: check_source_names: 23 names, 28 unbacked matches (28 baselined); ok
+  [check_templates.py --base 7d4c53f] exit 0: check_templates: 28 claims with generated readings, 28 frozen templates (28 distinct); ok
+  [check_blind_route.py --base 7d4c53f] exit 0: check_blind_route: 0 second versions added or changed since 7d4c53f; ok
+  [check_literal_targets.py --base 7d4c53f] exit 0: check_literal_targets: 238 headlines, 1 with extra literals (1 baselined), 7 slot registrations; ok
+  [check_source_variants.py --base 7d4c53f] exit 0: check_source_variants: 31 alias lines, 28 unbacked matches (28 in source_names_baseline.txt, 0 baselined here); ok
+  [check_prose_gen.py --base 7d4c53f] exit 0: check_prose_gen: 238 headlines, 7 findings (7 baselined); ok
+  [check_reader_frozen.py --base 7d4c53f] exit 0: check_reader_frozen: 33 reader modules and 35 runs/ reader files at 7d4c53f checked; ok
+  [check_brief_leak.py --base 7d4c53f] exit 0: check_brief_leak: 0 briefs of reader files new since 7d4c53f; ok
+  [check_prose_eval.py --base 7d4c53f] exit 0: check_prose_eval: 400 meaning rows, 0 grading words (0 baselined); ok
+  [check_claim_words.py --base 7d4c53f] exit 0: check_claim_words: 238 headlines, 8 findings (8 baselined); ok
+  [check_claim_vocab.py --base 7d4c53f] exit 0: check_claim_vocab: 238 sections, 1760 findings (1736 baselined), vocabulary 54; ok
+  [check_necessity.py --base 7d4c53f] exit 0: check_necessity: OK (156 headlines with hypotheses, 28 fully classified, 539 open hypotheses, all in scripts/trust/necessity_open_baseline.txt; needed/redundant/no obligation (259, 53, 0)) [with --bas
+  [check_audits.py 7d4c53f] exit 0: check_audits: 0 closed run records changed without a LEDGER.md addition naming them
+--- make_packet --check
+validation packet up to date (57 items)
+--- goal guard
+goal guard: ok
+--- precheck
+precheck_citations: 0 suspected
+== end 05:57:41

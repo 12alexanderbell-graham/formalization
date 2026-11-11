@@ -615,6 +615,51 @@ partial def posRoundsToSels (env : Environment) (e : Expr) (acc : Array String :
     else if e.isAppOfArity `Checked.Records.RoundsTo 3 then acc.push (roundsSel env (e.getArg! 0))
     else acc
 
+/-- The conjuncts of a conclusion, looking through `let` (zeta) and program definitions at the head
+(`Checked.Trust.unfoldHead`); the flag says whether a `let` or a definition had to be opened. -/
+partial def necConjuncts (c : Expr) (hidden : Bool := false) (fuel : Nat := 32) :
+    MetaM (Array (Expr × Bool)) := do
+  if fuel = 0 then return #[(c, hidden)]
+  let c := c.consumeMData
+  if c.isLet then
+    return ← necConjuncts (c.letBody!.instantiate1 c.letValue!) true (fuel - 1)
+  let u ← Checked.Trust.unfoldHead c
+  let hidden := hidden || u != c
+  if u.isAppOfArity ``And 2 then
+    return (← necConjuncts u.appFn!.appArg! hidden (fuel - 1)) ++ (← necConjuncts u.appArg! hidden (fuel - 1))
+  if u.consumeMData.isLet then
+    return ← necConjuncts u true (fuel - 1)
+  return #[(u, hidden)]
+
+/-- Assumptions of a statement that the necessity numbering (binders as written, as CLAIMS.md
+numbers them) does not reach, or reaches only formally (blind red team AF, run 2026-11-11T0428Z).
+Reasons:
+* `conclusion`: after opening a `let` or a program definition, the conclusion (or one of its
+  conjuncts) is itself an implication or `∀`: its assumptions are never numbered or classified;
+* `subtype`: a binder's type is a subtype (`{x // P x}`, a coerced set): `P` is assumed silently;
+* `bundled i`: hypothesis i is a conjunction behind a program definition: necessity is shown for
+  the bundle, not for each part;
+* `restated i`: hypothesis i is literally a conjunct of the conclusion: it is NEEDED only because
+  the conclusion repeats it. -/
+def necShape (ty : Expr) : MetaM (Array String) :=
+  Checked.Trust.flatStatement ty fun xs c => do
+    let mut out : Array String := #[]
+    let cs ← necConjuncts c
+    if cs.any (fun (e, h) => h && e.consumeMData.isForall) then out := out.push "conclusion"
+    let mut sub := false
+    for x in xs do
+      let t := (← inferType x).consumeMData
+      if t.isAppOf ``Subtype || t.isAppOf ``Set.Elem then sub := true
+    if sub then out := out.push "subtype"
+    let ps ← Checked.Trust.hypPositions xs
+    for j in [0:ps.size] do
+      let t ← inferType xs[ps[j]!]!
+      if ← isProp t then
+        let u ← Checked.Trust.unfoldHead t
+        if u.isAppOfArity ``And 2 then out := out.push s!"bundled {j+1}"
+        if cs.any (fun (e, _) => e == t || e == u) then out := out.push s!"restated {j+1}"
+    return out
+
 end StatementDeps
 
 open StatementDeps in
@@ -1218,7 +1263,13 @@ run_cmd do
     if let .ok hn := resolve cands h then
       let ci := (env.find? hn).get!
       let k ← liftTermElabM <| Checked.Trust.numHyps ci.type
-      if k == 0 then continue
+      let shape ← liftTermElabM <| necShape ci.type
+      let shortH := (hn.toString.replace "Checked.Cosmography." "").replace "Checked." ""
+      let shapePart := if shape.isEmpty then [] else [s!"shape: {", ".intercalate shape.toList}"]
+      if k == 0 then
+        unless shape.isEmpty do
+          necLines := necLines.push (s!"- `{shortH}` (0): " ++ "; ".intercalate shapePart)
+        continue
       nHeadHyp := nHeadHyp + 1
       let mut needed : Array String := #[]
       let mut redund : Array String := #[]
@@ -1250,12 +1301,11 @@ run_cmd do
             | none =>
               openH := openH.push s!"{i}"
               necTsv := necTsv.push s!"{hn}\t{i}\tOPEN\t-"
-      if openH.size == 0 && dataH.size == 0 then nHeadAll := nHeadAll + 1
-      let shortH := (hn.toString.replace "Checked.Cosmography." "").replace "Checked." ""
+      if openH.size == 0 && dataH.size == 0 && shape.isEmpty then nHeadAll := nHeadAll + 1
       let part := fun (lbl : String) (a : Array String) =>
         if a.isEmpty then [] else [s!"{lbl} {", ".intercalate a.toList}"]
       necLines := necLines.push (s!"- `{shortH}` ({k}): " ++ "; ".intercalate
-        (part "needed" needed ++ part "redundant" redund ++ part "no obligation (instance, or proof used as data)" dataH ++ part "open" openH))
+        (part "needed" needed ++ part (if redund.size ≥ 2 then "redundant (each alone, not together)" else "redundant") redund ++ part "no obligation (instance, or proof used as data)" dataH ++ part "open" openH ++ shapePart))
   IO.FS.writeFile ".lake/necessity.tsv" (String.intercalate "\n" necTsv.toList ++ "\n")
   logInfo m!"hypothesis necessity: {nHyp} hypotheses of {nHeadHyp} headlines; needed {nNeeded}, redundant {nRedundant}, no obligation {nDataH}, open {nHyp - nNeeded - nRedundant - nDataH}"
   let md := String.intercalate "\n" ([
@@ -1308,7 +1358,15 @@ run_cmd do
     "statement holds in Lean without hypothesis i). Redundancy is shown one hypothesis at a time, never for",
     "several together, and in Lean's total arithmetic (x / 0 = 0, √ of a negative number = 0, log 0 = 0), so",
     "a hypothesis that only excludes such a value can be redundant here and still matter on paper. Open:",
-    "neither is proved yet.",
+    "neither is proved yet. Shape (run 2026-11-11T0428Z, blind red team AF): assumptions the numbering does",
+    "not reach or reaches only formally — `conclusion` (after opening a `let` or a program definition the",
+    "conclusion contains an implication or `∀` whose assumptions are not numbered), `subtype` (a binder of",
+    "subtype type assumes its property silently), `bundled i` (hypothesis i is a conjunction behind a program",
+    "definition: shown needed as a bundle only), `restated i` (hypothesis i is also a conjunct of the",
+    "conclusion: needed only because the conclusion repeats it). A headline with a shape entry never counts",
+    "as having every hypothesis classified, and a new one fails CI (`check_necessity.py` N4). Two or more",
+    "redundant hypotheses of one headline are labelled \"each alone, not together\": dropping them all may make",
+    "the statement false (red team AF d02).",
     ""] ++ necLines.toList ++ [
     "",
     "## FORMULA, MATH and WITNESS definitions (second formulation)",

@@ -1,0 +1,6 @@
+- `Toy.bound_holds` (1): needed 1 (`bound_holds_h1`)
+- `Toy.order_holds` (2): redundant 1 (`order_holds_r1`), 2 (`order_holds_r2`)
+- `Toy.case_holds` (1): needed 1 (`case_holds_h1`)
+- `Toy.side_holds` (1): needed 1 (`side_holds_h1`)
+- `Toy.statement_holds` (1): needed 1 (`statement_holds_h1`)
+- `Toy.term_holds` (2): needed 1 (`term_holds_h1`), 2 (`term_holds_h2`)
