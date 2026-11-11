@@ -9,6 +9,8 @@ import Checked.Cosmography.DemianskiZ
 import Checked.Cosmography.LookbackThird
 import Mathlib.Analysis.Calculus.Deriv.Abs
 import Checked.Records.Findings
+import Checked.Cosmography.CPLExistence
+import Checked.Chemistry.CubicEOS
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
@@ -53,6 +55,13 @@ printed coefficient differs from the correct one. This file classifies the last 
   `CPL.printedL0_ne`, records `F1_l0`, `F2_toy`, `F2_error`, `F3_D4_LCDM`): the flat ΛCDM and CPL laws
   say `ȧ = Φ(a)` near `t₀` with `Φ` smooth near `a(t₀)`, and a bootstrap (`contDiffAt_of_law`: `a` is
   `Cᵏ` ⇒ `ȧ = Φ ∘ a` is `Cᵏ` ⇒ `a` is `Cᵏ⁺¹`) makes `a` smooth at `t₀`.
+* **Local existence for an expansion law** (`CPLExistence.exists_local_model`): smoothness of the law
+  is needed: for `E(x) = 1 + |x − 1|` a `C⁵` solution of `ȧ = a E(a)` would make `|a − 1|` differentiable
+  at its minimum.
+* **The critical cubic** (`Chemistry.CubicEOS.critCubic_existsUnique`): `−2 < u` and `0 < 1 + u + w` are
+  needed: `(x − 2)(x − 3)(x + 2)` (two roots above 1) and `(x − 1)³` (none).
+  In `exists_unique_critical`, `0 < R` and `0 < a` are needed: with `R = 0` or `a = 0` the isotherm's
+  slope never vanishes beyond the covolume.
 * **The `f(R)` slow-roll ratios** (`FREta.eta20_hasDerivAt`, `FREta.eta30_hasDerivAt`): `0 < Ω` and `Ω < 1`
   are needed: at `Ω = 0` and `Ω = 2` the family's denominator vanishes at `ε = 0`, Lean's `x/0 = 0`
   gives `η(0) = 0`, but `εᵏ η(ε)` tends to a nonzero limit, so `η` has no derivative at `0`
@@ -1497,5 +1506,104 @@ theorem eta30_hasDerivAt_h2 : necessity% Checked.Cosmography.FREta.eta30_hasDeri
   simp only [pow_zero, one_mul]
   field_simp
   ring
+
+/-! ### Local existence of a scale factor for an expansion law -/
+
+/-- Smoothness of the expansion law is needed in `CPLExistence.exists_local_model`: for
+`E(x) = 1 + |x − 1|` no `C⁵` scale factor with `a(0) = 1` solves `ȧ = a E(a)` near `0` (it would make
+`|a − 1| = ȧ/a − 1` differentiable at `0`, so `o(t)` at its minimum, while `a − 1 = t + o(t)`). -/
+theorem exists_local_model_h1 :
+    necessity% Checked.Cosmography.CPLExistence.exists_local_model 1 := by
+  refine ⟨fun x => 1 + |x - 1|, ?_⟩
+  rintro ⟨a, ha0, hs, hev⟩
+  have hd1 : HasDerivAt a 1 0 := by
+    have := (hev.self_of_nhds).2; simpa [ha0] using this
+  have hda : ∀ᶠ t in 𝓝 (0 : ℝ), deriv a t = a t * (1 + |a t - 1|) :=
+    hev.mono fun t ht => ht.2.deriv
+  have hpos : ∀ᶠ t in 𝓝 (0 : ℝ), 0 < a t := hev.mono fun t ht => ht.1
+  have h2d : ContDiffAt ℝ 4 (deriv a) 0 := hs.derivWithin (by norm_num)
+  have hD : DifferentiableAt ℝ (fun t => deriv a t / a t - 1) 0 :=
+    ((h2d.differentiableAt (by norm_num)).div hd1.differentiableAt (by rw [ha0]; norm_num)).sub_const 1
+  have heq : (fun t => deriv a t / a t - 1) =ᶠ[𝓝 0] fun t => |a t - 1| := by
+    filter_upwards [hda, hpos] with t h1 h2
+    rw [h1]; field_simp; ring
+  have hh : DifferentiableAt ℝ (fun t => |a t - 1|) 0 := hD.congr_of_eventuallyEq heq.symm
+  have hmin : IsLocalMin (fun t => |a t - 1|) 0 :=
+    Eventually.of_forall fun t => by simp [ha0]
+  have hz : HasDerivAt (fun t => |a t - 1|) 0 0 := by
+    exact hh.hasDerivAt.congr_deriv (hmin.hasDerivAt_eq_zero hh.hasDerivAt)
+  have ho := hz.isLittleO
+  have hoa := hd1.isLittleO
+  have h1 := ho.def (show (0 : ℝ) < 1 / 4 by norm_num)
+  have h2 := hoa.def (show (0 : ℝ) < 1 / 4 by norm_num)
+  have h3 : ∀ᶠ t in 𝓝 (0 : ℝ), t = 0 := by
+    filter_upwards [h1, h2] with t ht1 ht2
+    simp only [ha0, sub_self, abs_zero, smul_eq_mul, mul_zero, sub_zero, zero_add,
+      Real.norm_eq_abs, mul_one, abs_abs] at ht1 ht2
+    have : |t| ≤ |a t - 1| + |a t - 1 - t| := by
+      calc |t| = |(a t - 1) - (a t - 1 - t)| := by ring_nf
+        _ ≤ |a t - 1| + |a t - 1 - t| := abs_sub _ _
+    have : |t| ≤ 0 := by
+      have e : a t - 1 - t = a t - 1 - t := rfl
+      linarith [abs_nonneg t]
+    exact abs_nonpos_iff.1 this
+  have hne : ∀ᶠ t in 𝓝[≠] (0 : ℝ), t ≠ 0 := self_mem_nhdsWithin
+  have := (h3.filter_mono nhdsWithin_le_nhds).and hne
+  exact (this.exists).elim fun t ht => ht.2 ht.1
+
+/-! ### The critical cubic of the generalized cubic equation of state -/
+
+/-- `−2 < u` is needed in `CubicEOS.critCubic_existsUnique`: at `u = −32/7`, `w = 124/21`
+(`1 + u + w = 7/3 > 0`) the cubic is `(x − 2)(x − 3)(x + 2)`, with two roots above `1`. -/
+theorem critCubic_existsUnique_h1 :
+    necessity% Checked.Chemistry.CubicEOS.critCubic_existsUnique 1 := by
+  refine ⟨-32 / 7, 124 / 21, by norm_num, ?_⟩
+  rintro ⟨x, -, hx⟩
+  have h2 := hx 2 ⟨by norm_num, by unfold Checked.Chemistry.CubicEOS.critCubic; norm_num⟩
+  have h3 := hx 3 ⟨by norm_num, by unfold Checked.Chemistry.CubicEOS.critCubic; norm_num⟩
+  linarith
+
+/-- `0 < 1 + u + w` is needed in `CubicEOS.critCubic_existsUnique`: at `u = 0`, `w = −1` the cubic is
+`(x − 1)³`, with no root above `1`. -/
+theorem critCubic_existsUnique_h2 :
+    necessity% Checked.Chemistry.CubicEOS.critCubic_existsUnique 2 := by
+  refine ⟨0, -1, by norm_num, ?_⟩
+  rintro ⟨x, ⟨h1, hx⟩, -⟩
+  have e : Checked.Chemistry.CubicEOS.critCubic 0 (-1) x = (x - 1) ^ 3 := by
+    unfold Checked.Chemistry.CubicEOS.critCubic; ring
+  rw [e] at hx
+  have : x - 1 = 0 := pow_eq_zero_iff (by norm_num) |>.1 hx
+  linarith
+
+/-- `0 < a` is needed in `CubicEOS.exists_unique_critical`: with `a = 0` (an ideal gas with excluded
+volume, `R = b = 1`, `u = w = 0`) the slope `−T/(v − 1)²` never vanishes for `T > 0`. -/
+theorem exists_unique_critical_h2 :
+    necessity% Checked.Chemistry.CubicEOS.exists_unique_critical 2 := by
+  refine ⟨1, 0, 1, 0, 0, by norm_num, by norm_num, by norm_num, by norm_num, ?_⟩
+  rintro ⟨p, ⟨hT, hv, hc, -⟩, -⟩
+  have hv1 : p.2 - 1 ≠ 0 := by linarith
+  have hD : p.2 ^ 2 + 0 * 1 * p.2 + 0 * 1 ^ 2 ≠ 0 := by nlinarith
+  have hd := (Checked.Chemistry.CubicEOS.hasDerivAt_P 1 0 1 0 0 p.1 p.2 hv1 hD).deriv
+  rw [hd] at hc
+  have : (p.2 - 1) ^ 2 ≠ 0 := pow_ne_zero 2 hv1
+  field_simp at hc
+  have hp : 0 < p.2 := by linarith
+  have h4 : 0 < p.1 * (p.2 * (p.2 + 0) + 0) ^ 2 := by positivity
+  linarith
+
+/-- `0 < R` is needed in `CubicEOS.exists_unique_critical`: with `R = 0` (`a = b = 1`, `u = w = 0`) the
+slope `2/v³` never vanishes for `v > 1`. -/
+theorem exists_unique_critical_h1 :
+    necessity% Checked.Chemistry.CubicEOS.exists_unique_critical 1 := by
+  refine ⟨0, 1, 1, 0, 0, by norm_num, by norm_num, by norm_num, by norm_num, ?_⟩
+  rintro ⟨p, ⟨hT, hv, hc, -⟩, -⟩
+  have hv1 : p.2 - 1 ≠ 0 := by linarith
+  have hp : 0 < p.2 := by linarith
+  have hD : p.2 ^ 2 + 0 * 1 * p.2 + 0 * 1 ^ 2 ≠ 0 := by positivity
+  have hd := (Checked.Chemistry.CubicEOS.hasDerivAt_P 0 1 1 0 0 p.1 p.2 hv1 hD).deriv
+  rw [hd] at hc
+  have : (p.2 - 1) ^ 2 ≠ 0 := pow_ne_zero 2 hv1
+  field_simp at hc
+  nlinarith
 
 end Checked.Trust.NCD
