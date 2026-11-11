@@ -303,6 +303,7 @@ Checked.FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt e8c05f96-doc1026337858064
 Checked.FalknerSkan.NegWindow.fs_neg_tenth_window 761513ec-doc9506374802053188700
 Checked.FalknerSkan.Separation.fs_separation_exists 4cb8c87-doc10875584778882655945
 Checked.FalknerSkan.SeparationEqual.fs_separation_equal aa31c3f0-doc15306504158830452833
+Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed 4077fd50-doc1022218057628503705
 Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_equal af054814-doc5072253285419948939
 Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_window 28a94f83-doc13879156202606477795
 Checked.FalknerSkan.TenthBounded.fs_tenth_exists_bounded 2e3173c3-doc11697397019607849859
@@ -2272,6 +2273,10 @@ doc:Checked.Trust.NCD.printedQ2_fails_past_h3 -doc8004805797790645975
 doc:Checked.Trust.NCD.printedQ2_fails_past_h4 -doc9600435389645581742
 doc:Checked.Trust.NCD.toyF -doc7282255688467322510
 doc:Checked.Trust.NCD.toyG -doc12952755636350555566
+doc:Checked.Trust.NCP.fs_separation_below_printed_h1 -doc12091985303137600028
+doc:Checked.Trust.NCP.fs_separation_below_printed_h2 -doc13035893517214846558
+doc:Checked.Trust.NCP.fs_separation_below_printed_h3 -doc3884087358989731490
+doc:Checked.Trust.NCP.prG -doc16460989226057728327
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_one_needs_velocity -doc11106357578457800887
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_two -doc8443822091892815726
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_zero_one -doc17973409964959887418
@@ -2427,6 +2432,7 @@ doc:Checked.Trust.SecondReading.demDLPrefactor -doc14846241798013484455
 doc:Checked.Trust.SecondReading.fr13Table -doc13377963916444384042
 doc:Checked.Trust.SecondReading.fsBetaRhs -doc17232666518317973516
 doc:Checked.Trust.SecondReading.fsSepOpenHalfLine -doc15241378809030958903
+doc:Checked.Trust.SecondReading.fsSepPrintedFazio -doc1748778183193303266
 doc:Checked.Trust.SecondReading.fsSepWindow -doc3704237396636913240
 doc:Checked.Trust.SecondReading.fsfWedgeRhs -doc66781506000328584
 doc:Checked.Trust.SecondReading.fsfWedgeShear -doc2137208358235785917
@@ -2785,6 +2791,7 @@ moduledoc:Checked.FalknerSkan.NegTenth -mdoc17765475306659643214
 moduledoc:Checked.FalknerSkan.NegUPrime -mdoc15747770933744482878
 moduledoc:Checked.FalknerSkan.NegWindow -mdoc2744711187636356573
 moduledoc:Checked.FalknerSkan.SeparationEqual -mdoc14502484245446734840
+moduledoc:Checked.FalknerSkan.SeparationPrinted -mdoc6727805977742274580
 moduledoc:Checked.FalknerSkan.Separation -mdoc16840946878620615927
 moduledoc:Checked.FalknerSkan.TenthBounded -mdoc6005534617602399699
 moduledoc:Checked.Fidelity.CriticalSpec -mdoc7440715596430870242
@@ -2945,6 +2952,7 @@ moduledoc:Checked.Trust.Formulations -mdoc3132082450200944994
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
+moduledoc:Checked.Trust.NecessityE -mdoc11818550271791330910
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc5844843501139226509
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401
@@ -2960,6 +2968,7 @@ moduledoc:Checked.Trust.SecondReadingFR -mdoc1417811703977418368
 moduledoc:Checked.Trust.SecondReadingFSBeta -mdoc14053753005707813791
 moduledoc:Checked.Trust.SecondReadingFSFifth -mdoc12778037588537726726
 moduledoc:Checked.Trust.SecondReadingFSNeg -mdoc17694638445480914408
+moduledoc:Checked.Trust.SecondReadingFSSepPrinted -mdoc6024456559073170828
 moduledoc:Checked.Trust.SecondReadingFSSepW -mdoc7443825473727391125
 moduledoc:Checked.Trust.SecondReadingFSTenth -mdoc9871297434382448959
 moduledoc:Checked.Trust.SecondReadingFSWall -mdoc9285180167247650877
@@ -2986,4 +2995,4 @@ moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc4552942350747040452
+moduledoc:Checked.Trust.Witnesses -mdoc12199089772441168369

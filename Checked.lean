@@ -33,6 +33,7 @@ import Checked.Trust.Necessity
 import Checked.Trust.NecessityB
 import Checked.Trust.NecessityC
 import Checked.Trust.NecessityD
+import Checked.Trust.NecessityE
 import Checked.Trust.PhraseCerts
 import Checked.Trust.SecondReading
 import Checked.Trust.Transcriptions
@@ -171,6 +172,7 @@ import Checked.Trust.SecondReadingFSBeta
 import Checked.Trust.SecondReadingFSNeg
 import Checked.Trust.SecondReadingFSWall
 import Checked.Trust.SecondReadingFSSepW
+import Checked.Trust.SecondReadingFSSepPrinted
 import Checked.Trust.SecondReadingLE2
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
@@ -334,6 +336,7 @@ import Checked.FSSep.UPair
 import Checked.FSSep.SSlowSol
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
+import Checked.FalknerSkan.SeparationPrinted
 import Checked.FalknerSkan.NegOutside
 import Checked.FSNeg.NWinLo
 import Checked.FSNeg.NWinHi
