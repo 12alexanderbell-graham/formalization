@@ -38,8 +38,8 @@ theorem hiemenz_limit_equal_h4 :
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hl, -, -, -⟩ := Work.Suction.HSAssemble.exists_bvpS
   obtain ⟨f₂, p₂, q₂, hf₂, hp₂, hq₂, hf₂0, hp₂0, hl₂, -, -⟩ := Checked.Hiemenz.hiemenz_exists
   refine ⟨f, p, q, f₂, p₂, q₂, hf, hp, hq, hp0, hl, hf₂, hp₂, hq₂, hf₂0, hp₂0, hl₂, ?_⟩
-  intro h
-  have := (h 0 (mem_Ici.2 le_rfl)).1
+  refine ⟨0, mem_Ici.2 le_rfl, fun h => ?_⟩
+  have := h.1
   rw [hf0, hf₂0] at this; norm_num at this
 
 theorem hiemenz_limit_equal_h10 :
@@ -47,8 +47,8 @@ theorem hiemenz_limit_equal_h10 :
   obtain ⟨f₂, p₂, q₂, hf₂, hp₂, hq₂, hf₂0, hp₂0, hl₂, -, -, -⟩ := Work.Suction.HSAssemble.exists_bvpS
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hl, -, -⟩ := Checked.Hiemenz.hiemenz_exists
   refine ⟨f, p, q, f₂, p₂, q₂, hf, hp, hq, hf0, hp0, hl, hf₂, hp₂, hq₂, hp₂0, hl₂, ?_⟩
-  intro h
-  have := (h 0 (mem_Ici.2 le_rfl)).1
+  refine ⟨0, mem_Ici.2 le_rfl, fun h => ?_⟩
+  have := h.1
   rw [hf0, hf₂0] at this; norm_num at this
 
 theorem hiemenz_bounded_equal_h4 :
@@ -58,8 +58,8 @@ theorem hiemenz_bounded_equal_h4 :
     Checked.FalknerSkan.Bounded.hiemenz_exists_bounded
   refine ⟨f, p, q, f₂, p₂, q₂, hf, hp, hq, hp0, hl, bound_of hc, hf₂, hp₂, hq₂, hf₂0, hp₂0, hl₂,
     fun η hη => ⟨by linarith [(hb₂ η hη).1], (hb₂ η hη).2.le⟩, ?_⟩
-  intro h
-  have := (h 0 (mem_Ici.2 le_rfl)).1
+  refine ⟨0, mem_Ici.2 le_rfl, fun h => ?_⟩
+  have := h.1
   rw [hf0, hf₂0] at this; norm_num at this
 
 theorem hiemenz_bounded_equal_h11 :
@@ -70,8 +70,8 @@ theorem hiemenz_bounded_equal_h11 :
   refine ⟨f, p, q, f₂, p₂, q₂, hf, hp, hq, hf0, hp0, hl,
     fun η hη => ⟨by linarith [(hb η hη).1], (hb η hη).2.le⟩, hf₂, hp₂, hq₂, hp₂0, hl₂,
     bound_of hc, ?_⟩
-  intro h
-  have := (h 0 (mem_Ici.2 le_rfl)).1
+  refine ⟨0, mem_Ici.2 le_rfl, fun h => ?_⟩
+  have := h.1
   rw [hf0, hf₂0] at this; norm_num at this
 
 end Work.Suction.HSWitness
