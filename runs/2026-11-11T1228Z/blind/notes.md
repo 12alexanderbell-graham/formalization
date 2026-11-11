@@ -1,0 +1,11 @@
+# Interpretive choices
+- Solutions are functions f : ℝ → ℝ; only values on Ici 0 matter. Derivatives are derivWithin on Ici 0 (d1, d2, d3), so f'(0), f''(0) are one-sided.
+- Regularity: ContDiffOn ℝ 3 f (Ici 0) is part of "solves" (FSOde); the ODE is required for all η ≥ 0 (including 0).
+- β = -0.1988 as a real constant (decimal literal, exact rational).
+- Boundary-value solution FSSol = ODE + f 0 = 0 + f'(0) = 0 + f' → 1 at atTop.
+- SuperExp: ∀ M : ℝ, ∀ᶠ η in atTop, M*(1 - f' η) ≤ f'' η, literally as stated.
+- |f'| ≤ 1 required for all η ≥ 0.
+- Claim 1: existence of f with FSSol, |f'| ≤ 1, SuperExp, and -0.00515743 < f''(0) < -0.00515741 (strict).
+- Claim 2: any f with FSOde, f(0)=0, f'(0)=0, f''(0) = -0.005158 has some η > 0 with f'(η) > 1. No condition at infinity; solution assumed global on Ici 0 (a blow-up is excluded by the C³ hypothesis on all of Ici 0).
+- Claim 3: two FSSol solutions, each |f'| ≤ 1 and SuperExp, with f''(0) ≠ g''(0).
+- Not compiled, per brief.
