@@ -537,4 +537,5 @@
 ## 2026-11-11T0232Z (scheduled run)
 - Env: repo ok (add_repo not exposed; main = origin/main 3e54961); no LOCK, taken 51906d8; **local Lean available**; CI 42944553092 (3e54961) green on every job (NecessityB + `check_necessity.py` live).
 - **Parts 2/5: the Falkner–Skan separation value** — `fs_separation_exists` (β ∈ (−0.1988377351, −0.1988377350) with a zero-wall-shear profile in the decay class) and `fs_separation_unique` (at most one such β), PROVED in Work + AUDITED (blind restatements closed, referee STANDS; independent β* to ≈ 35 digits). First shooting in a coefficient of the equation (`Work/FSSep/`). Prior art: no rigorous enclosure found; two printed values wrong in the 7th–8th digit (candidate C-FS-SEP).
-- PROMPT working note: shooting in an equation parameter.
+- **Promoted to Checked the same run** (branch `wip/sep-promo`, fast-forwarded): headlines `fs_separation_exists`, `fs_separation_equal` (234 headlines, NV 155/155), blind literal reading (third brief; the first leaked a denominator, the second was committed with a rename), two necessity witnesses (decay conditions needed); every local check green.
+- PROMPT working notes: shooting in an equation parameter; reader briefs committed alone with no numeral of the answer.

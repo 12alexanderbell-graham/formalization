@@ -301,4 +301,5 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Falkner–Skan separation value, `Work/FSSep/`, `Work/FalknerSkan/Separation*.lean` (run 2026-11-11T0232Z)
 - Existence: `SBase` (field `vS K`, events `Over`, `SlowS`, `ChainK`) → `SCellWC` (`CellProp K`, rational coefficient) + chains `SOverLo`, `SSlowHi` (generator `runs/2026-11-11T0232Z/scripts/gen_sep_wc.py`, emitter `emit_sep_wc.py`) → `SFlow` (`flowK`, `flowK_cont` in K) → `SUnclamp` (q(0) = 0) → `SAssemble.core_sep` → `Separation.fs_separation_exists`.
 - Uniqueness: `UCrocco` (β-form Crocco map, q > 0 only on (0, E)) → `UCompare` (`SolB`, `start` by z², `no_cross_s`, `stepS`) → `UPair.sep_core` → `SeparationUnique.fs_separation_unique`.
-- Audits: `SepBlindClosed.lean`, `SepUniqueBlindClosed.lean`. Next: promotion.
+- Audits: `SepBlindClosed.lean`, `SepUniqueBlindClosed.lean`.
+- Promoted (same run): `Checked/FSSep/*` (+ `SSlowSol` for necessity), `Checked/FalknerSkan/{Separation,SeparationEqual}.lean`; reading `Checked/Trust/SecondReadingFSSepW.lean`; necessity `Checked/Trust/NecessityC.lean`. Next: the 16 open hypotheses of `fs_separation_equal`; β-form endpoint events.
