@@ -2,6 +2,7 @@ import Checked.Trust.NonVacuity
 import Checked.Cosmography.B1L19
 import Checked.Cosmography.B1Separation
 import Checked.Cosmography.B1FitRL19
+import Checked.Cosmography.B1L19Curved
 import Mathlib.Analysis.Calculus.MeanValue
 
 /-!
@@ -707,5 +708,114 @@ theorem l19_sqg_box_h15 : necessity% Checked.Cosmography.B1L19.l19_sqg_box 15 :=
   · rw [abs_of_pos (by nlinarith), abs_of_neg (by nlinarith)]; nlinarith
 
 end L19Box
+
+section Curved
+open Checked.Cosmography.BambaK Checked.Cosmography.B1L19 Checked.Cosmography.B1L19Curved
+
+/-- The curved law's radicand is positive for `Ω ∈ [1/10, 1]`, `Ω₀ ∈ [1, 11/10]` and `1 + z > 0`. -/
+theorem curved_arg_pos (Ω K₀ x : ℝ) (h0 : 1 / 10 ≤ Ω) (h1 : Ω ≤ 1) (hK0 : 1 ≤ K₀)
+    (hK1 : K₀ ≤ 11 / 10) (hx : 0 < x) : 0 < Ω * x ^ 3 + (1 - K₀) * x ^ 2 + K₀ - Ω := by
+  have hx3 : 0 < x ^ 3 := pow_pos hx 3
+  have hx2 : 0 < x ^ 2 := pow_pos hx 2
+  rcases le_or_gt x 1 with hle | hgt
+  · have : 0 ≤ (K₀ - 1) * (1 - x ^ 2) := mul_nonneg (by linarith) (by nlinarith)
+    nlinarith [mul_pos (show (0:ℝ) < Ω by linarith) hx3]
+  · have : 0 < x ^ 2 * (Ω * x - (K₀ - 1)) := mul_pos hx2 (by nlinarith)
+    nlinarith
+
+theorem curved_model : ∃ (a : ℝ → ℝ) (t₅ t₃ t₀ : ℝ), t₅ ≤ t₃ ∧ t₃ ≤ t₀ ∧
+    (∀ s ∈ Icc t₅ t₀, 0 < a s) ∧ (∀ s ∈ Icc t₅ t₀, DifferentiableAt ℝ a s) ∧
+    0 < hubble a t₀ ∧ 1 ≤ omega0 0 a t₀ ∧ omega0 0 a t₀ ≤ 11 / 10 ∧
+    (∀ s ∈ Icc t₅ t₀, hubble a s = hubble a t₀ * √(1 / 5 * (1 + redshift a t₀ s) ^ 3
+        + (1 - omega0 0 a t₀) * (1 + redshift a t₀ s) ^ 2 + omega0 0 a t₀ - 1 / 5)) ∧
+    redshift a t₀ t₃ = 2 * √2 - 1 ∧ redshift a t₀ t₅ = 4 * √2 - 1 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, _, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  have hω : omega0 0 a t₀ = 1 := by simp [omega0]
+  refine ⟨a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀, by rw [hω], by rw [hω]; norm_num,
+    fun s hs => ?_, hz₃, hz₅⟩
+  rw [hω, hH s hs]
+  congr 2
+  ring
+
+theorem curved_diff (Ω K : ℝ) (h0 : 1 / 10 ≤ Ω) (h1 : Ω ≤ 1) (a : ℝ → ℝ) (t₅ t₀ : ℝ)
+    (hpos : ∀ s ∈ Icc t₅ t₀, 0 < a s) (hH₀ : 0 < hubble a t₀)
+    (hK0 : 1 ≤ omega0 K a t₀) (hK1 : omega0 K a t₀ ≤ 11 / 10)
+    (hH : ∀ s ∈ Icc t₅ t₀, hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3
+        + (1 - omega0 K a t₀) * (1 + redshift a t₀ s) ^ 2 + omega0 K a t₀ - Ω)) :
+    ∀ s ∈ Icc t₅ t₀, DifferentiableAt ℝ a s := by
+  refine diff_of_law a t₅ t₀ (fun s => Ω * (1 + redshift a t₀ s) ^ 3
+    + (1 - omega0 K a t₀) * (1 + redshift a t₀ s) ^ 2 + omega0 K a t₀ - Ω) hH₀ hH ?_
+  intro s hs
+  have ha₀ := hpos t₀ ⟨le_trans hs.1 hs.2, le_rfl⟩
+  have has := hpos s hs
+  have hy : 0 < 1 + redshift a t₀ s := by
+    unfold redshift; have := div_pos ha₀ has; linarith
+  exact curved_arg_pos Ω _ _ h0 h1 hK0 hK1 hy
+
+theorem curved_H0 (Ω K : ℝ) (a : ℝ → ℝ) (t₅ t₀ : ℝ) (h50 : t₅ ≤ t₀)
+    (hpos : ∀ s ∈ Icc t₅ t₀, 0 < a s) (hdiff : ∀ s ∈ Icc t₅ t₀, DifferentiableAt ℝ a s)
+    (hH : ∀ s ∈ Icc t₅ t₀, hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3
+        + (1 - omega0 K a t₀) * (1 + redshift a t₀ s) ^ 2 + omega0 K a t₀ - Ω))
+    (hz : 0 < redshift a t₀ t₅) : 0 < hubble a t₀ :=
+  H0_pos_of_redshift a t₅ t₀ t₅ (fun s => Ω * (1 + redshift a t₀ s) ^ 3
+    + (1 - omega0 K a t₀) * (1 + redshift a t₀ s) ^ 2 + omega0 K a t₀ - Ω) ⟨le_rfl, h50⟩ hpos hdiff
+    hH hz
+
+theorem l19_sq_curved_r6 : dropped% Checked.Cosmography.B1L19Curved.l19_sq_curved 6 := by
+  intro Ω K h0 h1 a t₅ t₃ t₀ h53 h30 hpos hH₀ hK0 hK1 hH hz3 hz5 H hHp
+  exact l19_sq_curved Ω K h0 h1 a t₅ t₃ t₀ h53 h30 hpos
+    (curved_diff Ω K h0 h1 a t₅ t₀ hpos hH₀ hK0 hK1 hH) hH₀ hK0 hK1 hH hz3 hz5 H hHp
+
+theorem l19_sq_curved_r7 : dropped% Checked.Cosmography.B1L19Curved.l19_sq_curved 7 := by
+  intro Ω K h0 h1 a t₅ t₃ t₀ h53 h30 hpos hdiff hK0 hK1 hH hz3 hz5 H hHp
+  exact l19_sq_curved Ω K h0 h1 a t₅ t₃ t₀ h53 h30 hpos hdiff
+    (curved_H0 Ω K a t₅ t₀ (le_trans h53 h30) hpos hdiff hH (hz5 ▸ z5_pos)) hK0 hK1 hH hz3 hz5 H hHp
+
+theorem l19_sq_curved_h11 : necessity% Checked.Cosmography.B1L19Curved.l19_sq_curved 11 := by
+  obtain ⟨a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH₀, hK0, hK1, hH, -, hz5⟩ := curved_model
+  exact ⟨1 / 5, 0, by norm_num, by norm_num, a, t₅, t₅, t₀, le_rfl, le_trans h53 h30, hpos, hdiff,
+    hH₀, hK0, hK1, hH, hz5, 1, one_pos, by rw [sub_self]; norm_num⟩
+
+theorem l19_sq_curved_h12 : necessity% Checked.Cosmography.B1L19Curved.l19_sq_curved 12 := by
+  obtain ⟨a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH₀, hK0, hK1, hH, hz3, -⟩ := curved_model
+  have hsub : Icc t₃ t₀ ⊆ Icc t₅ t₀ := Icc_subset_Icc_left h53
+  exact ⟨1 / 5, 0, by norm_num, by norm_num, a, t₃, t₃, t₀, le_rfl, h30,
+    fun s hs => hpos s (hsub hs), fun s hs => hdiff s (hsub hs), hH₀, hK0, hK1,
+    fun s hs => hH s (hsub hs), hz3, 1, one_pos, by rw [sub_self]; norm_num⟩
+
+theorem l19_sq_curved_h13 : necessity% Checked.Cosmography.B1L19Curved.l19_sq_curved 13 := by
+  obtain ⟨a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH₀, hK0, hK1, hH, hz3, hz5⟩ := curved_model
+  exact ⟨1 / 5, 0, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, h30, hpos, hdiff,
+    hH₀, hK0, hK1, hH, hz3, hz5, 0, by norm_num [lp4_H0]⟩
+
+theorem l19_sqg_curved_r6 : dropped% Checked.Cosmography.B1L19Curved.l19_sqg_curved 6 := by
+  intro Ω K h0 h1 a t₅ t₃ t₀ h53 h30 hpos hH₀ hK0 hK1 hH hz3 hz5 H hHp
+  exact l19_sqg_curved Ω K h0 h1 a t₅ t₃ t₀ h53 h30 hpos
+    (curved_diff Ω K h0 h1 a t₅ t₀ hpos hH₀ hK0 hK1 hH) hH₀ hK0 hK1 hH hz3 hz5 H hHp
+
+theorem l19_sqg_curved_r7 : dropped% Checked.Cosmography.B1L19Curved.l19_sqg_curved 7 := by
+  intro Ω K h0 h1 a t₅ t₃ t₀ h53 h30 hpos hdiff hK0 hK1 hH hz3 hz5 H hHp
+  exact l19_sqg_curved Ω K h0 h1 a t₅ t₃ t₀ h53 h30 hpos hdiff
+    (curved_H0 Ω K a t₅ t₀ (le_trans h53 h30) hpos hdiff hH (hz5 ▸ z5_pos)) hK0 hK1 hH hz3 hz5 H hHp
+
+theorem l19_sqg_curved_h11 : necessity% Checked.Cosmography.B1L19Curved.l19_sqg_curved 11 := by
+  obtain ⟨a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH₀, hK0, hK1, hH, -, hz5⟩ := curved_model
+  exact ⟨1 / 5, 0, by norm_num, by norm_num, a, t₅, t₅, t₀, le_rfl, le_trans h53 h30, hpos, hdiff,
+    hH₀, hK0, hK1, hH, hz5, 1, one_pos, by rw [sub_self]; norm_num⟩
+
+theorem l19_sqg_curved_h12 : necessity% Checked.Cosmography.B1L19Curved.l19_sqg_curved 12 := by
+  obtain ⟨a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH₀, hK0, hK1, hH, hz3, -⟩ := curved_model
+  have hsub : Icc t₃ t₀ ⊆ Icc t₅ t₀ := Icc_subset_Icc_left h53
+  exact ⟨1 / 5, 0, by norm_num, by norm_num, a, t₃, t₃, t₀, le_rfl, h30,
+    fun s hs => hpos s (hsub hs), fun s hs => hdiff s (hsub hs), hH₀, hK0, hK1,
+    fun s hs => hH s (hsub hs), hz3, 1, one_pos, by rw [sub_self]; norm_num⟩
+
+theorem l19_sqg_curved_h13 : necessity% Checked.Cosmography.B1L19Curved.l19_sqg_curved 13 := by
+  obtain ⟨a, t₅, t₃, t₀, h53, h30, hpos, hdiff, hH₀, hK0, hK1, hH, hz3, hz5⟩ := curved_model
+  exact ⟨1 / 5, 0, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, h30, hpos, hdiff,
+    hH₀, hK0, hK1, hH, hz3, hz5, 0, by norm_num [lp4_H0]⟩
+
+end Curved
 
 end Checked.Trust.NCL
