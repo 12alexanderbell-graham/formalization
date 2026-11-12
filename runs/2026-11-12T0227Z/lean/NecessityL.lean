@@ -1,5 +1,7 @@
 import Checked.Trust.NonVacuity
 import Checked.Cosmography.B1L19
+import Checked.Cosmography.B1Separation
+import Checked.Cosmography.B1FitRL19
 import Mathlib.Analysis.Calculus.MeanValue
 
 /-!
@@ -231,5 +233,192 @@ theorem l19_sqg_box_h10 : necessity% Checked.Cosmography.B1L19.l19_sqg_box 10 :=
   exact mul_pos (div_pos hl0 one_pos) (quartic_small _ (by linarith) (by linarith))
 
 end L19
+
+section B1
+open Checked.Cosmography.B1 Checked.Cosmography.BambaY
+
+theorem lumDistFlat_flatLCDM_r5 : dropped% Checked.Cosmography.B1.lumDistFlat_flatLCDM 5 := by
+  intro Ω h0 h1 a t t₀ htt hpos hH₀ hH
+  exact lumDistFlat_flatLCDM Ω h0 h1 a t t₀ htt hpos (flat_diff Ω h0 h1 a t t₀ hpos hH₀ hH) hH₀ hH
+
+/-- Without `0 < H(t₀)`: the static model `a ≡ 1` meets the law with `H ≡ 0`; its distance from
+`t = −1` is `1`, while the formula divides by `H(t₀) = 0` and gives `0`. -/
+theorem lumDistFlat_flatLCDM_h6 : necessity% Checked.Cosmography.B1.lumDistFlat_flatLCDM 6 := by
+  refine ⟨0, le_rfl, zero_le_one, fun _ => 1, -1, 0, by norm_num, fun _ _ => one_pos,
+    fun _ _ => differentiableAt_const _, fun _ _ => by simp [hubble], ?_⟩
+  simp [lumDistFlat, comoving, redshift, hubble]
+
+theorem cubic_misses_z3_r5 : dropped% Checked.Cosmography.B1.cubic_misses_z3 5 := by
+  intro Ω h1 h2 a t t₀ htt hpos hH₀ hH hz
+  exact cubic_misses_z3 Ω h1 h2 a t t₀ htt hpos
+    (flat_diff Ω (by linarith) (by linarith) a t t₀ hpos hH₀ hH) hH₀ hH hz
+
+theorem cubic_misses_z3_r6 : dropped% Checked.Cosmography.B1.cubic_misses_z3 6 := by
+  intro Ω h1 h2 a t t₀ htt hpos hdiff hH hz
+  exact cubic_misses_z3 Ω h1 h2 a t t₀ htt hpos hdiff
+    (flat_H0 Ω a t t₀ htt hpos hdiff hH (by rw [hz]; norm_num)) hH hz
+
+theorem cubic_misses_z7_r5 : dropped% Checked.Cosmography.B1.cubic_misses_z7 5 := by
+  intro Ω h1 h2 a t t₀ htt hpos hH₀ hH hz
+  exact cubic_misses_z7 Ω h1 h2 a t t₀ htt hpos
+    (flat_diff Ω (by linarith) (by linarith) a t t₀ hpos hH₀ hH) hH₀ hH hz
+
+theorem cubic_misses_z7_r6 : dropped% Checked.Cosmography.B1.cubic_misses_z7 6 := by
+  intro Ω h1 h2 a t t₀ htt hpos hdiff hH hz
+  exact cubic_misses_z7 Ω h1 h2 a t t₀ htt hpos hdiff
+    (flat_H0 Ω a t t₀ htt hpos hdiff hH (by rw [hz]; norm_num)) hH hz
+
+/-- The redshift at the observation time is `0`, where the cubic distance is `0`. -/
+theorem lp3_now (a : ℝ → ℝ) (t₀ a₂ a₃ H : ℝ) (ha : a t₀ ≠ 0) :
+    logPolyDL3 a₂ a₃ H (redshift a t₀ t₀) = 0 := by
+  simp [logPolyDL3, redshift, div_self ha]
+
+theorem cubic_misses_z3_h8 : necessity% Checked.Cosmography.B1.cubic_misses_z3 8 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, -, -⟩ := exists_flatLCDM_on
+  have hsub : Icc t₀ t₀ ⊆ Icc t₇ t₀ := Icc_subset_Icc_left (le_trans h73 h30)
+  have ha : a t₀ ≠ 0 := (hpos t₀ ⟨le_trans h73 h30, le_rfl⟩).ne'
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₀, t₀, le_rfl, fun s hs => hpos s (hsub hs),
+    fun s hs => hdiff s (hsub hs), hH₀, fun s hs => hH s (hsub hs),
+    fun h => (lt_irrefl (0 : ℝ)) (by simpa [lp3_now a t₀ _ _ _ ha] using h.1)⟩
+
+theorem cubic_misses_z7_h8 : necessity% Checked.Cosmography.B1.cubic_misses_z7 8 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, -, -⟩ := exists_flatLCDM_on
+  have hsub : Icc t₀ t₀ ⊆ Icc t₇ t₀ := Icc_subset_Icc_left (le_trans h73 h30)
+  have ha : a t₀ ≠ 0 := (hpos t₀ ⟨le_trans h73 h30, le_rfl⟩).ne'
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₀, t₀, le_rfl, fun s hs => hpos s (hsub hs),
+    fun s hs => hdiff s (hsub hs), hH₀, fun s hs => hH s (hsub hs),
+    fun h => (lt_irrefl (0 : ℝ)) (by simpa [lp3_now a t₀ _ _ _ ha] using h.1)⟩
+
+theorem cubic_shape_miss_r6 : dropped% Checked.Cosmography.B1.cubic_shape_miss 6 := by
+  intro Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hH₀ hH hz3 hz7
+  exact cubic_shape_miss Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos
+    (flat_diff Ω (by linarith) (by linarith) a t₇ t₀ hpos hH₀ hH) hH₀ hH hz3 hz7
+
+theorem cubic_shape_miss_r7 : dropped% Checked.Cosmography.B1.cubic_shape_miss 7 := by
+  intro Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hdiff hH hz3 hz7
+  exact cubic_shape_miss Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hdiff
+    (flat_H0 Ω a t₇ t₀ (le_trans h73 h30) hpos hdiff hH (by rw [hz7]; norm_num)) hH hz3 hz7
+
+theorem cubic_shape_miss_h9 : necessity% Checked.Cosmography.B1.cubic_shape_miss 9 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, -, hz7⟩ := exists_flatLCDM_on
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₇, t₀, le_rfl, le_trans h73 h30, hpos, hdiff,
+    hH₀, hH, hz7, by rw [sub_self]; norm_num⟩
+
+theorem cubic_shape_miss_h10 : necessity% Checked.Cosmography.B1.cubic_shape_miss 10 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, -⟩ := exists_flatLCDM_on
+  have hsub : Icc t₃ t₀ ⊆ Icc t₇ t₀ := Icc_subset_Icc_left h73
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₃, t₃, t₀, le_rfl, h30,
+    fun s hs => hpos s (hsub hs), fun s hs => hdiff s (hsub hs), hH₀, fun s hs => hH s (hsub hs),
+    hz3, by rw [sub_self]; norm_num⟩
+
+end B1
+
+section B1Sep
+open Checked.Cosmography.B1 Checked.Cosmography.B1Sep Checked.Cosmography.BambaY
+
+theorem cubic_separation_r6 : dropped% Checked.Cosmography.B1Sep.cubic_separation 6 := by
+  intro Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hH₀ hH hz3 hz7 a₂ a₃ H c hHp hp3 hp7 hm3 hm7
+  exact cubic_separation Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos
+    (flat_diff Ω (by linarith) (by linarith) a t₇ t₀ hpos hH₀ hH) hH₀ hH hz3 hz7 a₂ a₃ H c hHp
+    hp3 hp7 hm3 hm7
+
+theorem cubic_separation_r7 : dropped% Checked.Cosmography.B1Sep.cubic_separation 7 := by
+  intro Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hdiff hH hz3 hz7 a₂ a₃ H c hHp hp3 hp7 hm3 hm7
+  exact cubic_separation Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hdiff
+    (flat_H0 Ω a t₇ t₀ (le_trans h73 h30) hpos hdiff hH (by rw [hz7]; norm_num)) hH hz3 hz7
+    a₂ a₃ H c hHp hp3 hp7 hm3 hm7
+
+theorem cubic_direction_r6 : dropped% Checked.Cosmography.B1Sep.cubic_direction 6 := by
+  intro Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hH₀ hH hz3 hz7 a₂ a₃ H c hHp hp3 hp7 hm3 hm7
+  exact cubic_direction Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos
+    (flat_diff Ω (by linarith) (by linarith) a t₇ t₀ hpos hH₀ hH) hH₀ hH hz3 hz7 a₂ a₃ H c hHp
+    hp3 hp7 hm3 hm7
+
+theorem cubic_direction_r7 : dropped% Checked.Cosmography.B1Sep.cubic_direction 7 := by
+  intro Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hdiff hH hz3 hz7 a₂ a₃ H c hHp hp3 hp7 hm3 hm7
+  exact cubic_direction Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hdiff
+    (flat_H0 Ω a t₇ t₀ (le_trans h73 h30) hpos hdiff hH (by rw [hz7]; norm_num)) hH hz3 hz7
+    a₂ a₃ H c hHp hp3 hp7 hm3 hm7
+
+/-! Redshift conditions of the separation pair: with both sources at the same redshift, the ΛCDM
+coefficients themselves (`lusA2`, `lusA3` at `Ω = 1/5`, `H = H(t₀)`) match both residuals to one
+constant, so the claimed separation and direction fail (both sides are `0`). -/
+
+theorem cubic_separation_h9 : necessity% Checked.Cosmography.B1Sep.cubic_separation 9 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, -, hz7⟩ := exists_flatLCDM_on
+  have hp := (cubic_misses_z7 (1 / 5) (by norm_num) (by norm_num) a t₇ t₀ (le_trans h73 h30)
+    hpos hdiff hH₀ hH hz7).1
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₇, t₀, le_rfl, le_trans h73 h30, hpos, hdiff,
+    hH₀, hH, hz7, lusA2 (1 / 5), lusA3 (1 / 5), hubble a t₀, _, hH₀, hp, hp,
+    by rw [sub_self, abs_zero]; norm_num, by rw [sub_self, abs_zero]; norm_num,
+    by rw [sub_self, sub_self]; norm_num⟩
+
+theorem cubic_separation_h10 : necessity% Checked.Cosmography.B1Sep.cubic_separation 10 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, -⟩ := exists_flatLCDM_on
+  have hsub : Icc t₃ t₀ ⊆ Icc t₇ t₀ := Icc_subset_Icc_left h73
+  have hp := (cubic_misses_z3 (1 / 5) (by norm_num) (by norm_num) a t₃ t₀ h30
+    (fun s hs => hpos s (hsub hs)) (fun s hs => hdiff s (hsub hs)) hH₀
+    (fun s hs => hH s (hsub hs)) hz3).1
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₃, t₃, t₀, le_rfl, h30,
+    fun s hs => hpos s (hsub hs), fun s hs => hdiff s (hsub hs), hH₀, fun s hs => hH s (hsub hs),
+    hz3, lusA2 (1 / 5), lusA3 (1 / 5), hubble a t₀, _, hH₀, hp, hp,
+    by rw [sub_self, abs_zero]; norm_num, by rw [sub_self, abs_zero]; norm_num,
+    by rw [sub_self, sub_self]; norm_num⟩
+
+theorem cubic_direction_h9 : necessity% Checked.Cosmography.B1Sep.cubic_direction 9 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, -, hz7⟩ := exists_flatLCDM_on
+  have hp := (cubic_misses_z7 (1 / 5) (by norm_num) (by norm_num) a t₇ t₀ (le_trans h73 h30)
+    hpos hdiff hH₀ hH hz7).1
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₇, t₀, le_rfl, le_trans h73 h30, hpos, hdiff,
+    hH₀, hH, hz7, lusA2 (1 / 5), lusA3 (1 / 5), hubble a t₀, _, hH₀, hp, hp,
+    by rw [sub_self, abs_zero]; norm_num, by rw [sub_self, abs_zero]; norm_num,
+    by rw [sub_self, sub_self]; norm_num⟩
+
+theorem cubic_direction_h10 : necessity% Checked.Cosmography.B1Sep.cubic_direction 10 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, -⟩ := exists_flatLCDM_on
+  have hsub : Icc t₃ t₀ ⊆ Icc t₇ t₀ := Icc_subset_Icc_left h73
+  have hp := (cubic_misses_z3 (1 / 5) (by norm_num) (by norm_num) a t₃ t₀ h30
+    (fun s hs => hpos s (hsub hs)) (fun s hs => hdiff s (hsub hs)) hH₀
+    (fun s hs => hH s (hsub hs)) hz3).1
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₃, t₃, t₀, le_rfl, h30,
+    fun s hs => hpos s (hsub hs), fun s hs => hdiff s (hsub hs), hH₀, fun s hs => hH s (hsub hs),
+    hz3, lusA2 (1 / 5), lusA3 (1 / 5), hubble a t₀, _, hH₀, hp, hp,
+    by rw [sub_self, abs_zero]; norm_num, by rw [sub_self, abs_zero]; norm_num,
+    by rw [sub_self, sub_self]; norm_num⟩
+
+end B1Sep
+
+section B1Fit
+open Checked.Cosmography.B1 Checked.Cosmography.B1Fit Checked.Cosmography.B1FitRL19
+
+theorem fit_direction_r7 : dropped% Checked.Cosmography.B1Fit.fit_direction 7 := by
+  intro Ω h0 h1 a t₅ t₃ t₁ t₀ h53 h31 h10 hpos hH₀ hH hz1 hz3 hz5 a₂ a₃ H c hHp hp1 hp3 hp5
+    hm1 hm3 hm5
+  exact fit_direction Ω h0 h1 a t₅ t₃ t₁ t₀ h53 h31 h10 hpos
+    (flat_diff Ω h0 h1 a t₅ t₀ hpos hH₀ hH) hH₀ hH hz1 hz3 hz5 a₂ a₃ H c hHp hp1 hp3 hp5
+    hm1 hm3 hm5
+
+theorem fit_direction_r8 : dropped% Checked.Cosmography.B1Fit.fit_direction 8 := by
+  intro Ω h0 h1 a t₅ t₃ t₁ t₀ h53 h31 h10 hpos hdiff hH hz1 hz3 hz5 a₂ a₃ H c hHp hp1 hp3 hp5
+    hm1 hm3 hm5
+  exact fit_direction Ω h0 h1 a t₅ t₃ t₁ t₀ h53 h31 h10 hpos hdiff
+    (flat_H0 Ω a t₅ t₀ (le_trans h53 (le_trans h31 h10)) hpos hdiff hH (hz5 ▸ z5_pos))
+    hH hz1 hz3 hz5 a₂ a₃ H c hHp hp1 hp3 hp5 hm1 hm3 hm5
+
+theorem rl19_box_unmatched_r7 : dropped% Checked.Cosmography.B1FitRL19.rl19_box_unmatched 7 := by
+  intro Ω h0 h1 a t₅ t₃ t₁ t₀ h53 h31 h10 hpos hH₀ hH hz1 hz3 hz5 a₂ a₃ H c h2l h2u h3l h3u hHp
+    hp1 hp3 hp5
+  exact rl19_box_unmatched Ω h0 h1 a t₅ t₃ t₁ t₀ h53 h31 h10 hpos
+    (flat_diff Ω h0 h1 a t₅ t₀ hpos hH₀ hH) hH₀ hH hz1 hz3 hz5 a₂ a₃ H c h2l h2u h3l h3u hHp
+    hp1 hp3 hp5
+
+theorem rl19_box_unmatched_r8 : dropped% Checked.Cosmography.B1FitRL19.rl19_box_unmatched 8 := by
+  intro Ω h0 h1 a t₅ t₃ t₁ t₀ h53 h31 h10 hpos hdiff hH hz1 hz3 hz5 a₂ a₃ H c h2l h2u h3l h3u hHp
+    hp1 hp3 hp5
+  exact rl19_box_unmatched Ω h0 h1 a t₅ t₃ t₁ t₀ h53 h31 h10 hpos hdiff
+    (flat_H0 Ω a t₅ t₀ (le_trans h53 (le_trans h31 h10)) hpos hdiff hH (hz5 ▸ z5_pos))
+    hH hz1 hz3 hz5 a₂ a₃ H c h2l h2u h3l h3u hHp hp1 hp3 hp5
+
+end B1Fit
 
 end Checked.Trust.NCL
