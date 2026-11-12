@@ -202,7 +202,7 @@ import Checked.Math.BEQData
 import Checked.Math.BEChain
 import Checked.Math.BEMain
 import Checked.Math.BonnorEbert
-import Checked.Trust.SecondReadingBE
+import Checked.Trust.SecondReadingBE3
 import Checked.Math.TFReduce
 import Checked.Math.TFCell
 import Checked.Math.TFCellQ
