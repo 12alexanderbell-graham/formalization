@@ -1,0 +1,20 @@
+beta=  -0.15 L=  8 status=1 nodes=312073 maxres=8.5e-07 s=0.216361405647111
+beta=  -0.15 L= 10 status=1 nodes=308845 maxres=9.1e-07 s=0.216361405647112
+beta=  -0.15 L= 12 status=0 nodes= 11441 maxres=1.0e-12 s=0.216361405647112
+beta=  -0.15 L= 14 status=1 nodes=374336 maxres=1.9e-07 s=0.216361405647112
+beta=  -0.18 L=  8 status=0 nodes= 11982 maxres=1.0e-12 s=0.128636220596061
+beta=  -0.18 L= 10 status=0 nodes= 11227 maxres=1.0e-12 s=0.128636220596061
+beta=  -0.18 L= 12 status=0 nodes= 11855 maxres=1.0e-12 s=0.128636220596061
+beta=  -0.18 L= 14 status=1 nodes=157819 maxres=2.5e-07 s=0.128636220596061
+beta=  -0.19 L=  8 status=1 nodes=260880 maxres=8.5e-07 s=0.085699744059817
+beta=  -0.19 L= 10 status=0 nodes= 10854 maxres=1.0e-12 s=0.085699744059817
+beta=  -0.19 L= 12 status=1 nodes=193932 maxres=2.2e-07 s=0.085699744059817
+beta=  -0.19 L= 14 status=0 nodes= 11328 maxres=1.0e-12 s=0.085699744059817
+beta= -0.195 L=  8 status=1 nodes=194388 maxres=5.6e-10 s=0.055171828577138
+beta= -0.195 L= 10 status=0 nodes= 14848 maxres=1.0e-12 s=0.055171828577138
+beta= -0.195 L= 12 status=1 nodes=325530 maxres=2.9e-07 s=0.055171828577138
+beta= -0.195 L= 14 status=0 nodes= 14970 maxres=1.0e-12 s=0.055171828577138
+beta= -0.198 L=  8 status=1 nodes=328746 maxres=6.9e-08 s=0.025094283620865
+beta= -0.198 L= 10 status=1 nodes=285591 maxres=9.8e-07 s=0.025094283620865
+beta= -0.198 L= 12 status=1 nodes=179262 maxres=2.9e-07 s=0.025094283620865
+beta= -0.198 L= 14 status=0 nodes= 14305 maxres=1.0e-12 s=0.025094283620866

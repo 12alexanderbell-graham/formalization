@@ -1,0 +1,25 @@
+import Work.FalknerSkan.AttachedRowsBlindClosed
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_fifteen_window
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_fifteen_exists_decay
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_seventeen_window
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_seventeen_exists_decay
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_eighteen_window
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_eighteen_exists_decay
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_nineteen_window
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_nineteen_exists_decay
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_nineteenhalf_window
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_nineteenhalf_exists_decay
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_ninetynine_window
+#print axioms Work.FalknerSkan.AttachedRows.fs_att_ninetynine_exists_decay
+#print axioms RowFifteenBlind.blind_fifteen_window
+#print axioms RowFifteenBlind.blind_fifteen_exists
+#print axioms RowSeventeenBlind.blind_seventeen_window
+#print axioms RowSeventeenBlind.blind_seventeen_exists
+#print axioms RowEighteenBlind.blind_eighteen_window
+#print axioms RowEighteenBlind.blind_eighteen_exists
+#print axioms RowNineteenBlind.blind_nineteen_window
+#print axioms RowNineteenBlind.blind_nineteen_exists
+#print axioms RowNineteenHalfBlind.blind_nineteenhalf_window
+#print axioms RowNineteenHalfBlind.blind_nineteenhalf_exists
+#print axioms RowNinetyNineBlind.blind_ninetynine_window
+#print axioms RowNinetyNineBlind.blind_ninetynine_exists

@@ -1,4 +1,22 @@
 import Mathlib
+import Work.FSAtt.RFifteenCore
+import Work.FSAtt.RFifteenLo
+import Work.FSAtt.RFifteenHi
+import Work.FSAtt.RSeventeenCore
+import Work.FSAtt.RSeventeenLo
+import Work.FSAtt.RSeventeenHi
+import Work.FSAtt.REighteenCore
+import Work.FSAtt.REighteenLo
+import Work.FSAtt.REighteenHi
+import Work.FSAtt.RNineteenCore
+import Work.FSAtt.RNineteenLo
+import Work.FSAtt.RNineteenHi
+import Work.FSAtt.RNineteenHalfCore
+import Work.FSAtt.RNineteenHalfLo
+import Work.FSAtt.RNineteenHalfHi
+import Work.FSAtt.RNinetyNineCore
+import Work.FSAtt.RNinetyNineLo
+import Work.FSAtt.RNinetyNineHi
 
 /-!
 # Falkner–Skan attached rows β = −0.15, −0.17, −0.18, −0.19, −0.195, −0.198: wall-shear windows (FROZEN, run 2026-11-12T1428Z; row −0.17 added to the freeze in the same run)
@@ -27,7 +45,8 @@ theorem fs_att_fifteen_window (f p q : ℝ → ℝ)
     (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
     (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
     0.2163614056 < q 0 ∧ q 0 < 0.2163614057 :=
-  sorry
+  Work.FSAtt.RFifteenCore.window_core Work.FSAtt.RFifteenLo.chain Work.FSAtt.RFifteenHi.chain
+    f p q hf hp hq hf0 hp0 hlim hpos hdec
 
 /-- Falkner–Skan with β = −15/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
 [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`. -/
@@ -39,7 +58,7 @@ theorem fs_att_fifteen_exists_decay :
       f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
       (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :=
-  sorry
+  Work.FSAtt.RFifteenCore.exists_core Work.FSAtt.RFifteenLo.chain Work.FSAtt.RFifteenHi.chain
 
 /-- Falkner–Skan with β = −17/100: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
 with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
@@ -52,7 +71,8 @@ theorem fs_att_seventeen_window (f p q : ℝ → ℝ)
     (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
     (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
     0.1621146770 < q 0 ∧ q 0 < 0.1621146771 :=
-  sorry
+  Work.FSAtt.RSeventeenCore.window_core Work.FSAtt.RSeventeenLo.chain Work.FSAtt.RSeventeenHi.chain
+    f p q hf hp hq hf0 hp0 hlim hpos hdec
 
 /-- Falkner–Skan with β = −17/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
 [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`. -/
@@ -64,7 +84,7 @@ theorem fs_att_seventeen_exists_decay :
       f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
       (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :=
-  sorry
+  Work.FSAtt.RSeventeenCore.exists_core Work.FSAtt.RSeventeenLo.chain Work.FSAtt.RSeventeenHi.chain
 
 /-- Falkner–Skan with β = −18/100: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
 with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
@@ -77,7 +97,8 @@ theorem fs_att_eighteen_window (f p q : ℝ → ℝ)
     (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
     (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
     0.1286362205 < q 0 ∧ q 0 < 0.1286362206 :=
-  sorry
+  Work.FSAtt.REighteenCore.window_core Work.FSAtt.REighteenLo.chain Work.FSAtt.REighteenHi.chain
+    f p q hf hp hq hf0 hp0 hlim hpos hdec
 
 /-- Falkner–Skan with β = −18/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
 [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`. -/
@@ -89,7 +110,7 @@ theorem fs_att_eighteen_exists_decay :
       f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
       (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :=
-  sorry
+  Work.FSAtt.REighteenCore.exists_core Work.FSAtt.REighteenLo.chain Work.FSAtt.REighteenHi.chain
 
 /-- Falkner–Skan with β = −19/100: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
 with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
@@ -102,7 +123,8 @@ theorem fs_att_nineteen_window (f p q : ℝ → ℝ)
     (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
     (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
     0.0856997440 < q 0 ∧ q 0 < 0.0856997441 :=
-  sorry
+  Work.FSAtt.RNineteenCore.window_core Work.FSAtt.RNineteenLo.chain Work.FSAtt.RNineteenHi.chain
+    f p q hf hp hq hf0 hp0 hlim hpos hdec
 
 /-- Falkner–Skan with β = −19/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
 [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`. -/
@@ -114,7 +136,7 @@ theorem fs_att_nineteen_exists_decay :
       f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
       (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :=
-  sorry
+  Work.FSAtt.RNineteenCore.exists_core Work.FSAtt.RNineteenLo.chain Work.FSAtt.RNineteenHi.chain
 
 /-- Falkner–Skan with β = −195/1000: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
 with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
@@ -127,7 +149,8 @@ theorem fs_att_nineteenhalf_window (f p q : ℝ → ℝ)
     (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
     (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
     0.0551718285 < q 0 ∧ q 0 < 0.0551718286 :=
-  sorry
+  Work.FSAtt.RNineteenHalfCore.window_core Work.FSAtt.RNineteenHalfLo.chain Work.FSAtt.RNineteenHalfHi.chain
+    f p q hf hp hq hf0 hp0 hlim hpos hdec
 
 /-- Falkner–Skan with β = −195/1000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
 [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`. -/
@@ -139,7 +162,7 @@ theorem fs_att_nineteenhalf_exists_decay :
       f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
       (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :=
-  sorry
+  Work.FSAtt.RNineteenHalfCore.exists_core Work.FSAtt.RNineteenHalfLo.chain Work.FSAtt.RNineteenHalfHi.chain
 
 /-- Falkner–Skan with β = −198/1000: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
 with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
@@ -152,7 +175,8 @@ theorem fs_att_ninetynine_window (f p q : ℝ → ℝ)
     (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
     (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
     0.0250942836 < q 0 ∧ q 0 < 0.0250942837 :=
-  sorry
+  Work.FSAtt.RNinetyNineCore.window_core Work.FSAtt.RNinetyNineLo.chain Work.FSAtt.RNinetyNineHi.chain
+    f p q hf hp hq hf0 hp0 hlim hpos hdec
 
 /-- Falkner–Skan with β = −198/1000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
 [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`. -/
@@ -164,6 +188,6 @@ theorem fs_att_ninetynine_exists_decay :
       f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
       (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :=
-  sorry
+  Work.FSAtt.RNinetyNineCore.exists_core Work.FSAtt.RNinetyNineLo.chain Work.FSAtt.RNinetyNineHi.chain
 
 end Work.FalknerSkan.AttachedRows
