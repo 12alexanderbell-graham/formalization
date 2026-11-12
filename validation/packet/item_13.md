@@ -1,58 +1,43 @@
 # Item 13
 
-**Area:** Mathematics
+**Area:** Rigorous simulation of a reaction network
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
+**It holds that**
 
-**assuming**
+- there is `s : ℝ → ℝ` such that there is `e : ℝ → ℝ` such that there is `c : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that the substrate concentration over time `s`, the free enzyme concentration over time `e`, the complex concentration over time `c` and the product concentration over time `p` are a Michaelis Menten mass action initial value problem solution with the binding rate constant `k₁ := 1`, the unbinding rate constant `km₁ := 1`, the catalytic rate constant `k₂ := 1`, the initial substrate concentration `s₀ := 1`, the initial free enzyme concentration `e₀ := 1`, the initial complex concentration `c₀ := 0`, the initial product concentration `p₀ := 0` and the final time of the interval `T := 13 / 5` (binding consumes substrate and free enzyme, forms complex; mass action kinetics of E plus S reversibly forming complex C; `k₁ := 1` is the rate constant of E plus S forming C; `km₁ := 1` is the rate constant of C returning to E plus S; `k₂ := 1` is the rate constant of C forming E plus P; `s` `e` `c` `p` are concentrations of S E C and P; holds on the closed time interval from zero to `T := 13 / 5`)
 
-1. `41 / 10 ≤ S`
-2. for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `HasDerivWithinAt w (φ s) (Set.Icc 0 S) s`
-3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
-4. for every `s : ℝ`, if `s ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Icc 0 S) s`
-5. `w 0 = 0`
+Program definitions in this claim:
 
-**then**
-
-- there is `s₁ : ℝ` such that (`4.071496844 ≤ s₁`) and (`s₁ ≤ 4.071496845`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `s ^ 2 * Real.exp (w s) ≤ s₁ ^ 2 * Real.exp (w s₁)`) and (`3.321992118 ≤ s₁ ^ 2 * Real.exp (w s₁)`) and (`s₁ ^ 2 * Real.exp (w s₁) ≤ 3.321992119`)
+- `IsMMSolution k₁ km₁ k₂ s₀ e₀ c₀ p₀ T s e c p` — **PINNED** (pin theorem `mmSpec_pins`): phrase (hand-written, linted): the substrate concentration over time `s`, the free enzyme concentration over time `e`, the complex concentration over time `c` and the product concentration over time `p` are a Michaelis Menten mass action initial value problem solution with the binding rate constant `k₁`, the unbinding rate constant `km₁`, the catalytic rate constant `k₂`, the initial substrate concentration `s₀`, the initial free enzyme concentration `e₀`, the initial complex concentration `c₀`, the initial product concentration `p₀` and the final time of the interval `T` (binding consumes substrate and free enzyme, forms complex; mass action kinetics of E plus S reversibly forming complex C; `k₁` is the rate constant of E plus S forming C; `km₁` is the rate constant of C returning to E plus S; `k₂` is the rate constant of C forming E plus P; `s` `e` `c` `p` are concentrations of S E C and P; holds on the closed time interval from zero to `T`); by definition, means (`s 0 = s₀`) and (`e 0 = e₀`) and (`c 0 = c₀`) and (`p 0 = p₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt s (-k₁ * e t * s t + km₁ * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt e (-k₁ * e t * s t + (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt c (k₁ * e t * s t - (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt p (k₂ * c t) (Set.Icc 0 T) t`))
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Gelfand problem in the three-dimensional ball, radial branch: for every S ≥ 41/10 and every
-solution w of w'' + (2/s)w' + e^w = 0 on (0, S] with w(0) = 0, w differentiable on [0, S] with
-derivative φ and φ continuous at 0, there is a point s₁ between 4.071496844 and 4.071496845 at which
-s² e^{w(s)} attains its maximum over [0, S], and that maximum lies between 3.321992118 and
-3.321992119.
+There is a solution of the mass-action rate equations of the Michaelis–Menten mechanism
+with k₁ = k₋₁ = k₂ = 1, [S]₀ = [E]₀ = 1, [C]₀ = [P]₀ = 0 on the time interval [0, 13/5]
+(derivatives within the interval).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem gelfand_ball_critical (S : ℝ) (hS : 41 / 10 ≤ S) (w φ : ℝ → ℝ)
-    (hw : ∀ s ∈ Icc (0 : ℝ) S, HasDerivWithinAt w (φ s) (Icc 0 S) s)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 S) 0)
-    (hφ : ∀ s ∈ Ioc (0 : ℝ) S,
-      HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Icc 0 S) s)
-    (h0 : w 0 = 0) :
-    ∃ s₁ : ℝ, 4.071496844 ≤ s₁ ∧ s₁ ≤ 4.071496845 ∧
-      (∀ s ∈ Icc 0 S, s ^ 2 * Real.exp (w s) ≤ s₁ ^ 2 * Real.exp (w s₁)) ∧
-      3.321992118 ≤ s₁ ^ 2 * Real.exp (w s₁) ∧ s₁ ^ 2 * Real.exp (w s₁) ≤ 3.321992119 := …
+theorem mm_solution_exists :
+    ∃ s e c p : ℝ → ℝ, IsMMSolution 1 1 1 1 1 0 0 (13 / 5) s e c p := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Sim.MichaelisMenten.IsMMSolution`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: IsMMSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `gelfand_ball_critical`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/Gelfand.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5.
+- Source file: `Checked/Sim/MichaelisMenten.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 13

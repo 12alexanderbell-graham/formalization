@@ -301,3 +301,10 @@ Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window
 Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_exists_decay
 Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window
 Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_exists_decay
+# Falkner–Skan reversed-flow rows β = −0.17, −0.18, −0.19 (run 2026-11-12T1828Z; frozen 33cd0de, proved cab49ad on the reversed-flow stack generic in K, Checked/FSRev/; statements of the audited β = −1988/10000 reversed pair with β and window replaced; referee STANDS; β read blind in run 2026-11-12T1428Z)
+Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_17_exists
+Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_17_two_decay
+Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_18_exists
+Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_18_two_decay
+Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_19_exists
+Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_19_two_decay

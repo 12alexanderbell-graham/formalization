@@ -7,7 +7,7 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 250. Resting on no unpinned physics definition: 250.
+Headlines: 256. Resting on no unpinned physics definition: 256.
 Non-vacuity (trust track T2): 164 headlines have hypotheses; 164 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
@@ -288,6 +288,12 @@ the docstring says; universally bound parameters are not listed.
 | `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_exists_decay` | — | — | — | unconditional | — |
 | `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window` | — | — | — | `fs_neg_wall_shear_19_window` | — |
 | `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_exists_decay` | — | — | — | unconditional | — |
+| `FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_17_exists` | — | — | — | unconditional | — |
+| `FalknerSkan.NegReversedRows.fs_neg_wall_shear_17_two_decay` | — | — | — | unconditional | — |
+| `FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_18_exists` | — | — | — | unconditional | — |
+| `FalknerSkan.NegReversedRows.fs_neg_wall_shear_18_two_decay` | — | — | — | unconditional | — |
+| `FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_19_exists` | — | — | — | unconditional | — |
+| `FalknerSkan.NegReversedRows.fs_neg_wall_shear_19_two_decay` | — | — | — | unconditional | — |
 
 ## Hypothesis necessity, per headline
 
