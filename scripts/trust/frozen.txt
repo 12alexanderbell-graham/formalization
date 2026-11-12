@@ -2556,6 +2556,7 @@ doc:Checked.Trust.SecondReading.bambaJLCDM -doc6357448113160589362
 doc:Checked.Trust.SecondReading.bambaR3 -doc12218058858658860492
 doc:Checked.Trust.SecondReading.beContrast -doc16363964487035410132
 doc:Checked.Trust.SecondReading.beDecreaseEnd -doc16532489407231177751
+doc:Checked.Trust.SecondReading.beDecreaseRange -doc9770628648679435329
 doc:Checked.Trust.SecondReading.beMass -doc8150524139383411235
 doc:Checked.Trust.SecondReading.blasiusEdge -doc4842813862602201423
 doc:Checked.Trust.SecondReading.blasiusHalfLineTyped -doc14410342809527929474
@@ -3173,6 +3174,7 @@ moduledoc:Checked.Trust.SecondFormulationCosmo -mdoc14861710477027291596
 moduledoc:Checked.Trust.SecondFormulationM16 -mdoc8057426027505603843
 moduledoc:Checked.Trust.SecondFormulation -mdoc10887534755347747998
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
+moduledoc:Checked.Trust.SecondReadingBE2 -mdoc11087213205959863901
 moduledoc:Checked.Trust.SecondReadingBE -mdoc13130162747971828809
 moduledoc:Checked.Trust.SecondReadingBlasius -mdoc10558104316128241795
 moduledoc:Checked.Trust.SecondReadingBound -mdoc13469660202480217973
