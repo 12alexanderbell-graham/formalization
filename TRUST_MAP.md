@@ -290,12 +290,13 @@ several together, and in Lean's total arithmetic (x / 0 = 0, √ of a negative n
 a hypothesis that only excludes such a value can be redundant here and still matter on paper. Open:
 neither is proved yet. Shape (run 2026-11-11T0428Z, blind red team AF): assumptions the numbering does
 not reach or reaches only formally — `conclusion` (after opening a `let` or a program definition the
-conclusion contains an implication or `∀` whose assumptions are not numbered), `subtype` (a binder of
-subtype type assumes its property silently), `bundled i` (hypothesis i has two or more parts, see below:
+conclusion contains an implication or `∀` whose assumptions are not numbered), `subtype` (a binder whose
+type carries a proof — a subtype, or a structure with a proposition field such as `ℝˣ`, `PLift P`, `Fin n` —
+assumes that proposition silently), `bundled i` (hypothesis i has two or more parts, see below:
 shown needed as a bundle only), `restated i` (hypothesis i is also a conjunct of the conclusion, literally
 or after unfolding definitions: needed only because the conclusion repeats it). A headline with a shape entry never counts
 as having every hypothesis classified, and a new one fails CI (`check_necessity.py` N4). Two or more
-redundant hypotheses of one headline are labelled "each alone, not together": dropping them all may make
+redundant hypotheses or parts of one headline (counted together) are labelled "each alone, not together": dropping them all may make
 the statement false (red team AF d02). Parts (runs 2026-11-11T1428Z, 1628Z): `bundled i` is dropped once every
 part of hypothesis i is NEEDED (`necessity% <headline> i j`: every other hypothesis holds and hypothesis i
 holds with part j replaced by `True`, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`). The
@@ -305,11 +306,11 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 
 - `lookback_second_order` (4): needed 2 (`lookback_second_order_h2`), 4 (`lookback_second_order_h4`); redundant (each alone, not together) 1 (`lookback_second_order_r1`), 3 (`lookback_second_order_r3`)
 - `lookback_second_order_bigO` (3): needed 3 (`lookback_second_order_bigO_h3`); redundant 2 (`lookback_second_order_bigO_r2`); open 1
-- `Aviles.flatLCDM_coeffs` (2): needed 1 (`flatLCDM_coeffs_h1`); redundant 2 (`flatLCDM_coeffs_r2`); parts of 1 (4) needed 1 (`flatLCDM_coeffs_p1_1`), 4 (`flatLCDM_coeffs_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`flatLCDM_coeffs_p1_2`), 3 (`flatLCDM_coeffs_p1_3`)
+- `Aviles.flatLCDM_coeffs` (2): needed 1 (`flatLCDM_coeffs_h1`); redundant (each alone, not together) 2 (`flatLCDM_coeffs_r2`); parts of 1 (4) needed 1 (`flatLCDM_coeffs_p1_1`), 4 (`flatLCDM_coeffs_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`flatLCDM_coeffs_p1_2`), 3 (`flatLCDM_coeffs_p1_3`)
 - `AvilesWitness.printedL0_false_at` (2): needed 1 (`printedL0_false_at_h1`); redundant 2 (`printedL0_false_at_r2`)
 - `AvilesWitness.printedM0_false_at` (3): needed 1 (`printedM0_false_at_h1`), 3 (`printedM0_false_at_h3`); redundant 2 (`printedM0_false_at_r2`)
-- `CPL.flatCPL_coeffs` (2): needed 1 (`flatCPL_coeffs_h1`); redundant 2 (`flatCPL_coeffs_r2`); parts of 1 (4) needed 1 (`flatCPL_coeffs_p1_1`), 4 (`flatCPL_coeffs_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`flatCPL_coeffs_p1_2`), 3 (`flatCPL_coeffs_p1_3`)
-- `CPL.printedL0_ne` (3): needed 1 (`printedL0_ne_h1`), 3 (`printedL0_ne_h3`); redundant 2 (`printedL0_ne_r2`); parts of 1 (4) needed 1 (`printedL0_ne_p1_1`), 4 (`printedL0_ne_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`printedL0_ne_p1_2`), 3 (`printedL0_ne_p1_3`)
+- `CPL.flatCPL_coeffs` (2): needed 1 (`flatCPL_coeffs_h1`); redundant (each alone, not together) 2 (`flatCPL_coeffs_r2`); parts of 1 (4) needed 1 (`flatCPL_coeffs_p1_1`), 4 (`flatCPL_coeffs_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`flatCPL_coeffs_p1_2`), 3 (`flatCPL_coeffs_p1_3`)
+- `CPL.printedL0_ne` (3): needed 1 (`printedL0_ne_h1`), 3 (`printedL0_ne_h3`); redundant (each alone, not together) 2 (`printedL0_ne_r2`); parts of 1 (4) needed 1 (`printedL0_ne_p1_1`), 4 (`printedL0_ne_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`printedL0_ne_p1_2`), 3 (`printedL0_ne_p1_3`)
 - `CPLExistence.printedL0_false_at` (1): needed 1 (`cpl_printedL0_false_at_h1`)
 - `CPLExistence.exists_local_model` (1): needed 1 (`exists_local_model_h1`)
 - `CCS.lookback_fifth_order` (3): needed 1 (`lookback_fifth_order_h1`), 3 (`lookback_fifth_order_h3`); redundant 2 (`lookback_fifth_order_r2`)
@@ -361,10 +362,10 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Fidelity.flatCPL_pins` (1): needed 1 (`flatCPL_pins_h1`); shape: bundled 1
 - `Fidelity.ricciSpec_pins` (4): needed 1 (`ricciSpec_pins_h1`); open 2, 3, 4
 - `Fidelity.transverseSpec_pins` (1): needed 1 (`transverseSpec_pins_h1`)
-- `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); redundant 2 (`F1_l0_r2`); parts of 1 (4) needed 1 (`F1_l0_p1_1`), 4 (`F1_l0_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F1_l0_p1_2`), 3 (`F1_l0_p1_3`)
-- `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant 2 (`F2_toy_r2`); parts of 1 (4) needed 1 (`F2_toy_p1_1`), 4 (`F2_toy_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_toy_p1_2`), 3 (`F2_toy_p1_3`)
-- `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant 2 (`F2_error_r2`); parts of 1 (4) needed 1 (`F2_error_p1_1`), 4 (`F2_error_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_error_p1_2`), 3 (`F2_error_p1_3`)
-- `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant 2 (`F3_D4_LCDM_r2`); parts of 1 (4) needed 1 (`F3_D4_LCDM_p1_1`), 4 (`F3_D4_LCDM_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F3_D4_LCDM_p1_2`), 3 (`F3_D4_LCDM_p1_3`)
+- `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); redundant (each alone, not together) 2 (`F1_l0_r2`); parts of 1 (4) needed 1 (`F1_l0_p1_1`), 4 (`F1_l0_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F1_l0_p1_2`), 3 (`F1_l0_p1_3`)
+- `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant (each alone, not together) 2 (`F2_toy_r2`); parts of 1 (4) needed 1 (`F2_toy_p1_1`), 4 (`F2_toy_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_toy_p1_2`), 3 (`F2_toy_p1_3`)
+- `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant (each alone, not together) 2 (`F2_error_r2`); parts of 1 (4) needed 1 (`F2_error_p1_1`), 4 (`F2_error_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_error_p1_2`), 3 (`F2_error_p1_3`)
+- `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant (each alone, not together) 2 (`F3_D4_LCDM_r2`); parts of 1 (4) needed 1 (`F3_D4_LCDM_p1_1`), 4 (`F3_D4_LCDM_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F3_D4_LCDM_p1_2`), 3 (`F3_D4_LCDM_p1_3`)
 - `B1.lumDistFlat_flatLCDM` (7): needed 6 (`lumDistFlat_flatLCDM_h6`), 7 (`lumDistFlat_flatLCDM_h7`); redundant 5 (`lumDistFlat_flatLCDM_r5`); open 1, 2, 3, 4
 - `B1.cubic_misses_z3` (8): needed 7 (`cubic_misses_z3_h7`), 8 (`cubic_misses_z3_h8`); redundant (each alone, not together) 5 (`cubic_misses_z3_r5`), 6 (`cubic_misses_z3_r6`); open 1, 2, 3, 4
 - `B1.cubic_misses_z7` (8): needed 7 (`cubic_misses_z7_h7`), 8 (`cubic_misses_z7_h8`); redundant (each alone, not together) 5 (`cubic_misses_z7_r5`), 6 (`cubic_misses_z7_r6`); open 1, 2, 3, 4
