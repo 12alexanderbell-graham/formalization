@@ -1375,6 +1375,206 @@ theorem yRedSpec_pins_h3 : necessity% Checked.Fidelity.yRedSpec_pins 3 := by
   refine ⟨yredOff, yredOff_spec, fun s => s, 1, -1, by norm_num, ?_⟩
   rw [yredOff, ite_eq_right (fun h => absurd h.2 (by norm_num))]; norm_num
 
+/- `Omega0Spec` constrains its function only where `a t₀ > 0`, `a` is differentiable at `t₀` and the Hubble
+rate is nonzero; `omega0` shifted by one elsewhere meets it. Positivity and a nonzero Hubble rate are NEEDED
+(`a = −exp`; the static model); differentiability is REDUNDANT (a nonzero Hubble rate needs a nonzero, hence
+genuine, derivative), also in `curvKSpec_pins`. -/
+
+def OmOK (a : ℝ → ℝ) (t₀ : ℝ) : Prop :=
+  0 < a t₀ ∧ DifferentiableAt ℝ a t₀ ∧ deriv a t₀ / a t₀ ≠ 0
+
+open Classical in
+noncomputable def omega0Off (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : ℝ :=
+  if OmOK a t₀ then omega0 K a t₀ else omega0 K a t₀ + 1
+
+theorem omega0Off_eq {K : ℝ} {a : ℝ → ℝ} {t₀ : ℝ} (h : OmOK a t₀) :
+    omega0Off K a t₀ = omega0 K a t₀ := by
+  rw [omega0Off, ite_eq_left h]
+
+theorem omOK_id (t : ℝ) (ht : 0 < t) : OmOK (fun s : ℝ => s) t :=
+  ⟨ht, differentiableAt_id, by rw [Checked.Fidelity.hubble_id']; exact one_div_ne_zero ht.ne'⟩
+
+theorem omega0Off_spec : Checked.Fidelity.Omega0Spec omega0Off := by
+  have M := Checked.Fidelity.omega0_meets_spec
+  refine ⟨fun K a t₀ ha hd hH => ?_, fun G ρ K a t₀ hG ha hd hH hF => ?_, fun a t₀ ha hd hH => ?_,
+    fun t₀ h => ?_, fun t₀ h => ?_, ?_, fun K a t₀ ha hd hH => ?_, fun K a t₀ ha hd hH => ?_,
+    fun c K a t₀ hc ha hd hH => ?_, fun τ K a t₀ ha hd hH => ?_, fun K a b t₀ ha hd hH h => ?_,
+    ?_, ?_⟩
+  · rw [omega0Off_eq ⟨ha, hd, hH⟩]; exact M.law K a t₀ ha hd hH
+  · rw [omega0Off_eq ⟨ha, hd, hH⟩]; exact M.friedmann G ρ K a t₀ hG ha hd hH hF
+  · rw [omega0Off_eq ⟨ha, hd, hH⟩]; exact M.flat a t₀ ha hd hH
+  · rw [omega0Off_eq (omOK_id t₀ h)]; exact M.milne t₀ h
+  · have hs : Real.sinh t₀ ≠ 0 := by rwa [ne_eq, Real.sinh_eq_zero]
+    rw [omega0Off_eq ⟨Real.cosh_pos t₀, Real.differentiable_cosh t₀,
+      by rw [Real.deriv_cosh]; exact div_ne_zero hs (Real.cosh_pos t₀).ne'⟩]
+    exact M.closed_deSitter t₀ h
+  · rw [omega0Off_eq (omOK_id 1 one_pos)]; exact M.closed_value
+  · rw [omega0Off_eq ⟨ha, hd, hH⟩]; exact M.gt_one_iff K a t₀ ha hd hH
+  · rw [omega0Off_eq ⟨ha, hd, hH⟩]; exact M.lt_one_iff K a t₀ ha hd hH
+  · have hok : OmOK (fun s => c * a s) t₀ := by
+      refine ⟨mul_pos hc ha, hd.const_mul c, ?_⟩
+      rw [deriv_const_mul_field', mul_div_mul_left _ _ hc.ne']; exact hH
+    rw [omega0Off_eq hok, omega0Off_eq ⟨ha, hd, hH⟩]; exact M.rescale c K a t₀ hc ha hd hH
+  · have hok : OmOK (fun s => a (s + τ)) (t₀ - τ) := by
+      refine ⟨by simpa using ha, ?_, ?_⟩
+      · have : DifferentiableAt ℝ a ((t₀ - τ) + τ) := by simpa using hd
+        exact this.comp (t₀ - τ) (differentiableAt_id.add_const τ)
+      · rw [deriv_comp_add_const, sub_add_cancel]; simpa using hH
+    rw [omega0Off_eq hok, omega0Off_eq ⟨ha, hd, hH⟩]; exact M.shift_inv τ K a t₀ ha hd hH
+  · have hok : OmOK b t₀ := by
+      refine ⟨h.eq_of_nhds ▸ ha, hd.congr_of_eventuallyEq h.symm, ?_⟩
+      rw [← h.deriv_eq, ← h.eq_of_nhds]; exact hH
+    rw [omega0Off_eq hok, omega0Off_eq ⟨ha, hd, hH⟩]; exact M.local_germ K a b t₀ ha hd hH h
+  · rw [omega0Off_eq (omOK_id 1 one_pos)]; exact M.not_sign_flip
+  · have hok : OmOK (fun s : ℝ => 2 * s) 1 :=
+      ⟨by norm_num, by fun_prop, by rw [Checked.Fidelity.deriv_two_mul]; norm_num⟩
+    rw [omega0Off_eq hok]
+    exact M.not_missing_a0
+
+theorem omega0Spec_pins_h2 : necessity% Checked.Fidelity.omega0Spec_pins 2 := by
+  refine ⟨omega0Off, omega0Off_spec, 0, fun s => -Real.exp s, 0, by fun_prop,
+    by simp [Real.deriv_exp], ?_⟩
+  rw [omega0Off, ite_eq_right (fun h => absurd h.1 (by simp))]; norm_num
+
+theorem omega0Spec_pins_r3 : dropped% Checked.Fidelity.omega0Spec_pins 3 := by
+  intro O h K a t₀ ha hH
+  have hd : DifferentiableAt ℝ a t₀ :=
+    differentiableAt_of_deriv_ne_zero (fun h0 => hH (by rw [h0, zero_div]))
+  exact Checked.Fidelity.omega0Spec_pins O h K a t₀ ha hd hH
+
+theorem omega0Spec_pins_h4 : necessity% Checked.Fidelity.omega0Spec_pins 4 := by
+  refine ⟨omega0Off, omega0Off_spec, 0, fun _ => 1, 0, one_pos, differentiableAt_const _, ?_⟩
+  rw [omega0Off, ite_eq_right (fun h => h.2.2 (by simp))]; norm_num
+
+theorem curvKSpec_pins_r3 : dropped% Checked.Fidelity.curvKSpec_pins 3 := by
+  intro k h K a t₀ ha hH
+  have hd : DifferentiableAt ℝ a t₀ :=
+    differentiableAt_of_deriv_ne_zero (fun h0 => hH (by rw [h0, zero_div]))
+  exact Checked.Fidelity.curvKSpec_pins k h K a t₀ ha hd hH
+
+open Classical in
+noncomputable def curvKOff (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : ℝ :=
+  if OmOK a t₀ then curvK K a t₀ else curvK K a t₀ + 1
+
+theorem curvKOff_eq {K : ℝ} {a : ℝ → ℝ} {t₀ : ℝ} (h : OmOK a t₀) :
+    curvKOff K a t₀ = curvK K a t₀ := by
+  rw [curvKOff, ite_eq_left h]
+
+theorem curvKOff_spec : Checked.Fidelity.CurvKSpec curvKOff := by
+  have M := Checked.Fidelity.curvK_meets_spec
+  have h2 : OmOK (fun s : ℝ => 2 * s) 1 :=
+    ⟨by norm_num, by fun_prop, by rw [Checked.Fidelity.deriv_two_mul]; norm_num⟩
+  refine ⟨fun K a t₀ ha hd hH => ?_, fun K a t₀ ha hd hd' => ?_,
+    fun G ρ K a t₀ hG ha hd hH hF => ?_, fun a t₀ ha hd hH => ?_, fun t₀ h => ?_, fun t₀ h => ?_,
+    fun K a t₀ ha hd hH => ?_, fun K a t₀ ha hd hH => ?_, fun r K a t₀ ha hd hH => ?_,
+    fun c K a t₀ hc ha hd hH => ?_, fun τ K a t₀ ha hd hH => ?_, ?_, ?_, ?_⟩
+  · rw [curvKOff_eq ⟨ha, hd, hH⟩]; exact M.law K a t₀ ha hd hH
+  · rw [curvKOff_eq ⟨ha, hd, div_ne_zero hd' ha.ne'⟩]; exact M.law_adot K a t₀ ha hd hd'
+  · rw [curvKOff_eq ⟨ha, hd, hH⟩]; exact M.friedmann G ρ K a t₀ hG ha hd hH hF
+  · rw [curvKOff_eq ⟨ha, hd, hH⟩]; exact M.flat a t₀ ha hd hH
+  · rw [curvKOff_eq (omOK_id t₀ h)]; exact M.milne t₀ h
+  · have hs : Real.sinh t₀ ≠ 0 := by rwa [ne_eq, Real.sinh_eq_zero]
+    rw [curvKOff_eq ⟨Real.cosh_pos t₀, Real.differentiable_cosh t₀,
+      by rw [Real.deriv_cosh]; exact div_ne_zero hs (Real.cosh_pos t₀).ne'⟩]
+    exact M.closed_deSitter t₀ h
+  · rw [curvKOff_eq ⟨ha, hd, hH⟩]; exact M.pos_iff K a t₀ ha hd hH
+  · rw [curvKOff_eq ⟨ha, hd, hH⟩]; exact M.neg_iff K a t₀ ha hd hH
+  · rw [curvKOff_eq ⟨ha, hd, hH⟩, curvKOff_eq ⟨ha, hd, hH⟩]; exact M.linear_K r K a t₀ ha hd hH
+  · have hok : OmOK (fun s => c * a s) t₀ := by
+      refine ⟨mul_pos hc ha, hd.const_mul c, ?_⟩
+      rw [deriv_const_mul_field', mul_div_mul_left _ _ hc.ne']; exact hH
+    rw [curvKOff_eq hok, curvKOff_eq ⟨ha, hd, hH⟩]; exact M.rescale c K a t₀ hc ha hd hH
+  · have hok : OmOK (fun s => a (s + τ)) (t₀ - τ) := by
+      refine ⟨by simpa using ha, ?_, ?_⟩
+      · have : DifferentiableAt ℝ a ((t₀ - τ) + τ) := by simpa using hd
+        exact this.comp (t₀ - τ) (differentiableAt_id.add_const τ)
+      · rw [deriv_comp_add_const, sub_add_cancel]; simpa using hH
+    rw [curvKOff_eq hok, curvKOff_eq ⟨ha, hd, hH⟩]; exact M.shift_inv τ K a t₀ ha hd hH
+  · rw [curvKOff_eq (omOK_id 1 one_pos)]; exact M.not_omega_k
+  · rw [curvKOff_eq h2]; exact M.not_missing_a0
+  · rw [curvKOff_eq h2]; exact M.value_2t
+
+theorem curvKSpec_pins_h2 : necessity% Checked.Fidelity.curvKSpec_pins 2 := by
+  refine ⟨curvKOff, curvKOff_spec, 1, fun s => -Real.exp s, 0, by fun_prop,
+    by simp [Real.deriv_exp], ?_⟩
+  rw [curvKOff, ite_eq_right (fun h => absurd h.1 (by simp))]; norm_num
+
+theorem curvKSpec_pins_h4 : necessity% Checked.Fidelity.curvKSpec_pins 4 := by
+  refine ⟨curvKOff, curvKOff_spec, 1, fun _ => 1, 0, one_pos, differentiableAt_const _, ?_⟩
+  rw [curvKOff, ite_eq_right (fun h => h.2.2 (by simp))]; norm_num
+
+/- `DecelSpec` constrains its function only where `a t > 0` and `ȧ ≠ 0` (its invariance fields preserve both);
+`decel` shifted by one elsewhere meets it, so positivity and `ȧ ≠ 0` are NEEDED in `decelSpec_pins`
+(`a = −exp`; `a = 1 + t²` at `0`). -/
+
+open Classical in
+noncomputable def decelOff (a : ℝ → ℝ) (t : ℝ) : ℝ :=
+  if 0 < a t ∧ deriv a t ≠ 0 then decel a t else decel a t + 1
+
+theorem rpow_deriv_ne (n t : ℝ) (hn : n ≠ 0) (ht : 0 < t) : deriv (fun s : ℝ => s ^ n) t ≠ 0 := by
+  rw [(Real.hasDerivAt_rpow_const (Or.inl ht.ne')).deriv]
+  exact mul_ne_zero hn (Real.rpow_pos_of_pos ht _).ne'
+
+theorem decelOff_spec : Checked.Fidelity.DecelSpec decelOff := by
+  have M := Checked.Fidelity.decel_meets_spec
+  refine ⟨fun a a' a'' t h1 h2 ha hd => ?_, fun h t hh => ?_, fun n t hn ht => ?_, fun t ht => ?_,
+    fun n t hn ht => ?_, fun c hc a t hd => ?_, fun τ a t hd => ?_, fun a t hd => ?_⟩
+  · have hd' : deriv a t ≠ 0 := by
+      rw [(h1.self_of_nhds).deriv]; exact hd
+    rw [decelOff, ite_eq_left ⟨ha, hd'⟩]; exact M.formula a a' a'' t h1 h2 ha hd
+  · have hD : deriv (fun s => Real.exp (h * s)) t ≠ 0 := by
+      rw [(Checked.Fidelity.ms_hasDerivAt_expMul h t).deriv]
+      exact mul_ne_zero hh (Real.exp_pos _).ne'
+    rw [decelOff, ite_eq_left ⟨Real.exp_pos _, hD⟩]; exact M.deSitter h t hh
+  · rw [decelOff, ite_eq_left ⟨Real.rpow_pos_of_pos ht n, rpow_deriv_ne n t hn ht⟩]
+    exact M.powerLaw n t hn ht
+  · rw [decelOff, ite_eq_left ⟨Real.rpow_pos_of_pos ht _, rpow_deriv_ne _ t (by norm_num) ht⟩]
+    exact M.eds t ht
+  · have hD : deriv (fun s : ℝ => (-s) ^ n) t ≠ 0 := by
+      have e := deriv_comp_neg (fun s : ℝ => s ^ n) t
+      rw [e]
+      exact neg_ne_zero.2 (rpow_deriv_ne n (-t) hn (by linarith))
+    rw [decelOff, ite_eq_left ⟨Real.rpow_pos_of_pos (by linarith) n, hD⟩]
+    exact M.crunch n t hn ht
+  · have e : deriv (fun s => c * a s) t = c * deriv a t := by rw [deriv_const_mul_field']
+    have hiff : (0 < c * a t ∧ deriv (fun s => c * a s) t ≠ 0) ↔ (0 < a t ∧ deriv a t ≠ 0) := by
+      rw [e, mul_pos_iff_of_pos_left hc, mul_ne_zero_iff, and_iff_right hc.ne']
+    have hM := M.rescale c hc a t hd
+    unfold decelOff
+    by_cases h : 0 < a t ∧ deriv a t ≠ 0
+    · rw [ite_eq_left h, ite_eq_left (hiff.2 h), hM]
+    · rw [ite_eq_right h, ite_eq_right (fun h' => h (hiff.1 h')), hM]
+  · have e : deriv (fun s => a (s + τ)) t = deriv a (t + τ) := deriv_comp_add_const a τ t
+    have hM := M.translate τ a t hd
+    unfold decelOff
+    simp only [e]
+    by_cases h : 0 < a (t + τ) ∧ deriv a (t + τ) ≠ 0
+    · rw [ite_eq_left h, ite_eq_left h, hM]
+    · rw [ite_eq_right h, ite_eq_right h, hM]
+  · have e : deriv (fun s => a (-s)) t = -deriv a (-t) := deriv_comp_neg a t
+    have hM := M.timeReverse a t hd
+    unfold decelOff
+    have hiff : (0 < a (-t) ∧ -deriv a (-t) ≠ 0) ↔ (0 < a (-t) ∧ deriv a (-t) ≠ 0) := by
+      rw [neg_ne_zero]
+    simp only [e]
+    by_cases h : 0 < a (-t) ∧ deriv a (-t) ≠ 0
+    · rw [ite_eq_left (hiff.2 h), ite_eq_left h, hM]
+    · rw [ite_eq_right (fun h' => h (hiff.1 h')), ite_eq_right h, hM]
+
+theorem decelSpec_pins_h4 : necessity% Checked.Fidelity.decelSpec_pins 4 := by
+  refine ⟨decelOff, decelOff_spec, fun s => -Real.exp s, fun s => -Real.exp s, -Real.exp 0, 0,
+    Filter.Eventually.of_forall fun s => (Real.hasDerivAt_exp s).neg, (Real.hasDerivAt_exp 0).neg,
+    by simp, ?_⟩
+  rw [decelOff, ite_eq_right (fun h => absurd h.1 (by simp))]; norm_num
+
+theorem decelSpec_pins_h5 : necessity% Checked.Fidelity.decelSpec_pins 5 := by
+  have hD : ∀ s : ℝ, HasDerivAt (fun s : ℝ => 1 + s ^ 2) (2 * s) s := fun s => by
+    simpa using ((hasDerivAt_pow 2 s).const_add 1)
+  have hD2 : HasDerivAt (fun s : ℝ => 2 * s) 2 0 := by simpa using (hasDerivAt_id (0:ℝ)).const_mul 2
+  refine ⟨decelOff, decelOff_spec, fun s => 1 + s ^ 2, fun s => 2 * s, 2, 0,
+    Filter.Eventually.of_forall hD, hD2, by norm_num, ?_⟩
+  rw [decelOff, ite_eq_right (fun h => h.2 (by rw [(hD 0).deriv]; norm_num))]; norm_num
+
 end Pins
 
 end Checked.Trust.NCL

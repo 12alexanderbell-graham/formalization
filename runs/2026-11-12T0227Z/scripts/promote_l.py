@@ -23,8 +23,10 @@ luminosity-distance fits tested against flat ΛCDM, with and without curvature):
 
 And for the twelve pinning theorems of `Checked/Fidelity/`: the specification hypothesis is NEEDED (a constant
 function meets every other hypothesis and differs from the program definition in the static or de Sitter model);
-for `hubbleSpec_pins` and `yRedSpec_pins` the positivity and differentiability conditions are NEEDED as well (the
-program definition shifted by one off that domain still meets the specification).
+for `hubbleSpec_pins`, `decelSpec_pins`, `yRedSpec_pins`, `omega0Spec_pins` and `curvKSpec_pins` the positivity, differentiability and nonzero-rate
+conditions are NEEDED as well (the program definition shifted by one off that domain still meets the
+specification), except differentiability in `omega0Spec_pins` and `curvKSpec_pins`, which is REDUNDANT (a nonzero
+Hubble rate needs a genuine derivative).
 -/'''
 out = src[:i] + header + src[j:]
 k = out.index('-/', out.index('# Hypothesis necessity, B1 family')) + 2

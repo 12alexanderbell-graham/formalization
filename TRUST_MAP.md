@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 884 hypotheses in 154 headlines;
-343 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-88 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-453 open; headlines with every hypothesis classified: 50/154
+414 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+117 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+353 open; headlines with every hypothesis classified: 54/154
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -345,39 +345,39 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FREta.printedEta30_false_at` (4): open 1, 2, 3, 4
 - `DemianskiZ.demDL4_fails_past` (4): needed 4 (`demDL4_fails_past_h4`); redundant (each alone, not together) 2 (`demDL4_fails_past_r2`), 3 (`demDL4_fails_past_r3`); open 1
 - `DemianskiZ.demDA4_fails_past` (4): needed 4 (`demDA4_fails_past_h4`); redundant (each alone, not together) 2 (`demDA4_fails_past_r2`), 3 (`demDA4_fails_past_r3`); open 1
-- `Fidelity.lumDistSpec2_pins` (4): open 1, 2, 3, 4
-- `Fidelity.hubbleSpec_pins` (3): open 1, 2, 3
-- `Fidelity.decelSpec_pins` (5): open 1, 2, 3, 4, 5
-- `Fidelity.angDistSpec_pins` (4): open 1, 2, 3, 4
+- `Fidelity.lumDistSpec2_pins` (4): needed 1 (`lumDistSpec2_pins_h1`); open 2, 3, 4
+- `Fidelity.hubbleSpec_pins` (3): needed 1 (`hubbleSpec_pins_h1`), 2 (`hubbleSpec_pins_h2`), 3 (`hubbleSpec_pins_h3`)
+- `Fidelity.decelSpec_pins` (5): needed 1 (`decelSpec_pins_h1`), 4 (`decelSpec_pins_h4`), 5 (`decelSpec_pins_h5`); open 2, 3
+- `Fidelity.angDistSpec_pins` (4): needed 1 (`angDistSpec_pins_h1`); open 2, 3, 4
 - `Fidelity.flatLCDMSpec2_pins` (1): needed 1 (`flatLCDMSpec2_pins_h1`)
-- `Fidelity.redshiftCore_pins` (2): open 1, 2; shape: bundled 2
-- `Fidelity.cosmoCoeffCore_pins` (2): open 1, 2; shape: bundled 2
-- `Fidelity.yRedSpec_pins` (3): open 1, 2, 3
-- `Fidelity.omega0Spec_pins` (4): open 1, 2, 3, 4
-- `Fidelity.curvKSpec_pins` (4): open 1, 2, 3, 4
-- `Fidelity.lumDistFlat_pins` (4): open 1, 2, 3, 4
-- `Fidelity.comoving_pins` (4): open 1, 2, 3, 4
+- `Fidelity.redshiftCore_pins` (2): needed 1 (`redshiftCore_pins_h1`); open 2; shape: bundled 2
+- `Fidelity.cosmoCoeffCore_pins` (2): needed 1 (`cosmoCoeffCore_pins_h1`); open 2; shape: bundled 2
+- `Fidelity.yRedSpec_pins` (3): needed 1 (`yRedSpec_pins_h1`), 2 (`yRedSpec_pins_h2`), 3 (`yRedSpec_pins_h3`)
+- `Fidelity.omega0Spec_pins` (4): needed 1 (`omega0Spec_pins_h1`), 2 (`omega0Spec_pins_h2`), 4 (`omega0Spec_pins_h4`); redundant 3 (`omega0Spec_pins_r3`)
+- `Fidelity.curvKSpec_pins` (4): needed 1 (`curvKSpec_pins_h1`), 2 (`curvKSpec_pins_h2`), 4 (`curvKSpec_pins_h4`); redundant 3 (`curvKSpec_pins_r3`)
+- `Fidelity.lumDistFlat_pins` (4): needed 1 (`lumDistFlat_pins_h1`); open 2, 3, 4
+- `Fidelity.comoving_pins` (4): needed 1 (`comoving_pins_h1`); open 2, 3, 4
 - `Fidelity.flatCPL_pins` (1): needed 1 (`flatCPL_pins_h1`); shape: bundled 1
-- `Fidelity.ricciSpec_pins` (4): open 1, 2, 3, 4
+- `Fidelity.ricciSpec_pins` (4): needed 1 (`ricciSpec_pins_h1`); open 2, 3, 4
 - `Fidelity.transverseSpec_pins` (1): needed 1 (`transverseSpec_pins_h1`)
 - `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); redundant 2 (`F1_l0_r2`); parts of 1 (4) needed 1 (`F1_l0_p1_1`), 4 (`F1_l0_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F1_l0_p1_2`), 3 (`F1_l0_p1_3`)
 - `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant 2 (`F2_toy_r2`); parts of 1 (4) needed 1 (`F2_toy_p1_1`), 4 (`F2_toy_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_toy_p1_2`), 3 (`F2_toy_p1_3`)
 - `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant 2 (`F2_error_r2`); parts of 1 (4) needed 1 (`F2_error_p1_1`), 4 (`F2_error_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_error_p1_2`), 3 (`F2_error_p1_3`)
 - `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant 2 (`F3_D4_LCDM_r2`); parts of 1 (4) needed 1 (`F3_D4_LCDM_p1_1`), 4 (`F3_D4_LCDM_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F3_D4_LCDM_p1_2`), 3 (`F3_D4_LCDM_p1_3`)
-- `B1.lumDistFlat_flatLCDM` (7): open 1, 2, 3, 4, 5, 6, 7
-- `B1.cubic_misses_z3` (8): open 1, 2, 3, 4, 5, 6, 7, 8
-- `B1.cubic_misses_z7` (8): open 1, 2, 3, 4, 5, 6, 7, 8
-- `B1.cubic_shape_miss` (10): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-- `B1Sep.cubic_separation` (15): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-- `B1Sep.cubic_direction` (15): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-- `B1Fit.fit_direction` (19): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
-- `B1FitRL19.rl19_box_unmatched` (20): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-- `B1L19.l19_sq_central` (11): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-- `B1L19.l19_sqg_central` (11): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-- `B1L19.l19_sq_box` (15): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-- `B1L19.l19_sqg_box` (15): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-- `B1L19Curved.l19_sq_curved` (13): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
-- `B1L19Curved.l19_sqg_curved` (13): open 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+- `B1.lumDistFlat_flatLCDM` (7): needed 6 (`lumDistFlat_flatLCDM_h6`), 7 (`lumDistFlat_flatLCDM_h7`); redundant 5 (`lumDistFlat_flatLCDM_r5`); open 1, 2, 3, 4
+- `B1.cubic_misses_z3` (8): needed 7 (`cubic_misses_z3_h7`), 8 (`cubic_misses_z3_h8`); redundant (each alone, not together) 5 (`cubic_misses_z3_r5`), 6 (`cubic_misses_z3_r6`); open 1, 2, 3, 4
+- `B1.cubic_misses_z7` (8): needed 7 (`cubic_misses_z7_h7`), 8 (`cubic_misses_z7_h8`); redundant (each alone, not together) 5 (`cubic_misses_z7_r5`), 6 (`cubic_misses_z7_r6`); open 1, 2, 3, 4
+- `B1.cubic_shape_miss` (10): needed 8 (`cubic_shape_miss_h8`), 9 (`cubic_shape_miss_h9`), 10 (`cubic_shape_miss_h10`); redundant (each alone, not together) 6 (`cubic_shape_miss_r6`), 7 (`cubic_shape_miss_r7`); open 1, 2, 3, 4, 5
+- `B1Sep.cubic_separation` (15): needed 9 (`cubic_separation_h9`), 10 (`cubic_separation_h10`), 14 (`cubic_separation_h14`), 15 (`cubic_separation_h15`); redundant (each alone, not together) 6 (`cubic_separation_r6`), 7 (`cubic_separation_r7`); open 1, 2, 3, 4, 5, 8, 11, 12, 13
+- `B1Sep.cubic_direction` (15): needed 9 (`cubic_direction_h9`), 10 (`cubic_direction_h10`), 14 (`cubic_direction_h14`), 15 (`cubic_direction_h15`); redundant (each alone, not together) 6 (`cubic_direction_r6`), 7 (`cubic_direction_r7`); open 1, 2, 3, 4, 5, 8, 11, 12, 13
+- `B1Fit.fit_direction` (19): redundant (each alone, not together) 7 (`fit_direction_r7`), 8 (`fit_direction_r8`); open 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+- `B1FitRL19.rl19_box_unmatched` (20): redundant (each alone, not together) 7 (`rl19_box_unmatched_r7`), 8 (`rl19_box_unmatched_r8`); open 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+- `B1L19.l19_sq_central` (11): needed 8 (`l19_sq_central_h8`), 9 (`l19_sq_central_h9`), 10 (`l19_sq_central_h10`), 11 (`l19_sq_central_h11`); redundant (each alone, not together) 6 (`l19_sq_central_r6`), 7 (`l19_sq_central_r7`); open 1, 2, 3, 4, 5
+- `B1L19.l19_sqg_central` (11): needed 8 (`l19_sqg_central_h8`), 9 (`l19_sqg_central_h9`), 10 (`l19_sqg_central_h10`), 11 (`l19_sqg_central_h11`); redundant (each alone, not together) 6 (`l19_sqg_central_r6`), 7 (`l19_sqg_central_r7`); open 1, 2, 3, 4, 5
+- `B1L19.l19_sq_box` (15): needed 8 (`l19_sq_box_h8`), 9 (`l19_sq_box_h9`), 10 (`l19_sq_box_h10`), 11 (`l19_sq_box_h11`), 12 (`l19_sq_box_h12`), 13 (`l19_sq_box_h13`), 14 (`l19_sq_box_h14`), 15 (`l19_sq_box_h15`); redundant (each alone, not together) 6 (`l19_sq_box_r6`), 7 (`l19_sq_box_r7`); open 1, 2, 3, 4, 5
+- `B1L19.l19_sqg_box` (15): needed 8 (`l19_sqg_box_h8`), 9 (`l19_sqg_box_h9`), 10 (`l19_sqg_box_h10`), 11 (`l19_sqg_box_h11`), 12 (`l19_sqg_box_h12`), 13 (`l19_sqg_box_h13`), 14 (`l19_sqg_box_h14`), 15 (`l19_sqg_box_h15`); redundant (each alone, not together) 6 (`l19_sqg_box_r6`), 7 (`l19_sqg_box_r7`); open 1, 2, 3, 4, 5
+- `B1L19Curved.l19_sq_curved` (13): needed 10 (`l19_sq_curved_h10`), 11 (`l19_sq_curved_h11`), 12 (`l19_sq_curved_h12`), 13 (`l19_sq_curved_h13`); redundant (each alone, not together) 6 (`l19_sq_curved_r6`), 7 (`l19_sq_curved_r7`); open 1, 2, 3, 4, 5, 8, 9
+- `B1L19Curved.l19_sqg_curved` (13): needed 10 (`l19_sqg_curved_h10`), 11 (`l19_sqg_curved_h11`), 12 (`l19_sqg_curved_h12`), 13 (`l19_sqg_curved_h13`); redundant (each alone, not together) 6 (`l19_sqg_curved_r6`), 7 (`l19_sqg_curved_r7`); open 1, 2, 3, 4, 5, 8, 9
 - `Chemistry.CubicEOS.isCritical_iff` (3): needed 1 (`isCritical_iff_h1`), 2 (`isCritical_iff_h2`), 3 (`isCritical_iff_h3`)
 - `Chemistry.CubicEOS.critCubic_existsUnique` (2): needed 1 (`critCubic_existsUnique_h1`), 2 (`critCubic_existsUnique_h2`)
 - `Chemistry.CubicEOS.exists_unique_critical` (5): needed 1 (`exists_unique_critical_h1`), 2 (`exists_unique_critical_h2`), 3 (`exists_unique_critical_h3`), 4 (`exists_unique_critical_h4`), 5 (`exists_unique_critical_h5`)

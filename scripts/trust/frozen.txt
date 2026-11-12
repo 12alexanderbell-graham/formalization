@@ -2391,6 +2391,18 @@ doc:Checked.Trust.NCK.sol_half -doc5140764753213571279
 doc:Checked.Trust.NCK.sol_homann -doc7202880722566903167
 doc:Checked.Trust.NCK.sol_tenth -doc7725405223549775484
 doc:Checked.Trust.NCK.to_fs -doc14735049056668049519
+doc:Checked.Trust.NCL.box_fails -doc18227415227495018380
+doc:Checked.Trust.NCL.curved_arg_pos -doc11497221836124201609
+doc:Checked.Trust.NCL.five_logb_diff_le -doc3810093337672605572
+doc:Checked.Trust.NCL.flat_H0 -doc3080532562633262286
+doc:Checked.Trust.NCL.lp3_now -doc6388842219381982454
+doc:Checked.Trust.NCL.lp4_H0 -doc5616980215054695421
+doc:Checked.Trust.NCL.lp4_abs_ratio -doc307271730790029637
+doc:Checked.Trust.NCL.lumDistFlat_flatLCDM_h6 -doc16178603173415911852
+doc:Checked.Trust.NCL.no_rise -doc12586682696006485838
+doc:Checked.Trust.NCL.quartic_small -doc1420646773972731277
+doc:Checked.Trust.NCL.rad_diff_le -doc2038557273582614497
+doc:Checked.Trust.NCL.z5_pos -doc6676620353257283814
 doc:Checked.Trust.NCP.fs_separation_below_printed_h1 -doc12091985303137600028
 doc:Checked.Trust.NCP.fs_separation_below_printed_h2 -doc13035893517214846558
 doc:Checked.Trust.NCP.fs_separation_below_printed_h3 -doc3884087358989731490
@@ -3133,6 +3145,7 @@ moduledoc:Checked.Trust.NecessityH -mdoc11784490702786269791
 moduledoc:Checked.Trust.NecessityI -mdoc16829996702632798693
 moduledoc:Checked.Trust.NecessityJ -mdoc1488043631767461679
 moduledoc:Checked.Trust.NecessityK -mdoc6552524809572826252
+moduledoc:Checked.Trust.NecessityL -mdoc14468159082974997690
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401

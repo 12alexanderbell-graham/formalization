@@ -28,32 +28,28 @@ FREta.printedEta20_false_at | 1, 2, 3, 4
 FREta.printedEta30_false_at | 1, 2, 3, 4
 DemianskiZ.demDL4_fails_past | 1
 DemianskiZ.demDA4_fails_past | 1
-Fidelity.lumDistSpec2_pins | 1, 2, 3, 4
-Fidelity.hubbleSpec_pins | 1, 2, 3
-Fidelity.decelSpec_pins | 1, 2, 3, 4, 5
-Fidelity.angDistSpec_pins | 1, 2, 3, 4
-Fidelity.redshiftCore_pins | 1, 2
-Fidelity.cosmoCoeffCore_pins | 1, 2
-Fidelity.yRedSpec_pins | 1, 2, 3
-Fidelity.omega0Spec_pins | 1, 2, 3, 4
-Fidelity.curvKSpec_pins | 1, 2, 3, 4
-Fidelity.lumDistFlat_pins | 1, 2, 3, 4
-Fidelity.comoving_pins | 1, 2, 3, 4
-Fidelity.ricciSpec_pins | 1, 2, 3, 4
-B1.lumDistFlat_flatLCDM | 1, 2, 3, 4, 5, 6, 7
-B1.cubic_misses_z3 | 1, 2, 3, 4, 5, 6, 7, 8
-B1.cubic_misses_z7 | 1, 2, 3, 4, 5, 6, 7, 8
-B1.cubic_shape_miss | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-B1Sep.cubic_separation | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-B1Sep.cubic_direction | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-B1Fit.fit_direction | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
-B1FitRL19.rl19_box_unmatched | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-B1L19.l19_sq_central | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-B1L19.l19_sqg_central | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-B1L19.l19_sq_box | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-B1L19.l19_sqg_box | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-B1L19Curved.l19_sq_curved | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
-B1L19Curved.l19_sqg_curved | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+Fidelity.lumDistSpec2_pins | 2, 3, 4
+Fidelity.decelSpec_pins | 2, 3
+Fidelity.angDistSpec_pins | 2, 3, 4
+Fidelity.redshiftCore_pins | 2
+Fidelity.cosmoCoeffCore_pins | 2
+Fidelity.lumDistFlat_pins | 2, 3, 4
+Fidelity.comoving_pins | 2, 3, 4
+Fidelity.ricciSpec_pins | 2, 3, 4
+B1.lumDistFlat_flatLCDM | 1, 2, 3, 4
+B1.cubic_misses_z3 | 1, 2, 3, 4
+B1.cubic_misses_z7 | 1, 2, 3, 4
+B1.cubic_shape_miss | 1, 2, 3, 4, 5
+B1Sep.cubic_separation | 1, 2, 3, 4, 5, 8, 11, 12, 13
+B1Sep.cubic_direction | 1, 2, 3, 4, 5, 8, 11, 12, 13
+B1Fit.fit_direction | 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+B1FitRL19.rl19_box_unmatched | 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+B1L19.l19_sq_central | 1, 2, 3, 4, 5
+B1L19.l19_sqg_central | 1, 2, 3, 4, 5
+B1L19.l19_sq_box | 1, 2, 3, 4, 5
+B1L19.l19_sqg_box | 1, 2, 3, 4, 5
+B1L19Curved.l19_sq_curved | 1, 2, 3, 4, 5, 8, 9
+B1L19Curved.l19_sqg_curved | 1, 2, 3, 4, 5, 8, 9
 Chemistry.Coexistence.vdW_coexistence_unique | 3, 4
 Chemistry.RKAcentric.rk_coexistence_exists | 1, 2, 3, 4, 5, 6
 Chemistry.RKAcentric.rk_coexistence_unique | 1, 2, 3, 4, 5, 6, 7
