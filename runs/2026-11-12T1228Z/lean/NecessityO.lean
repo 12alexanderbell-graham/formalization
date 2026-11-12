@@ -233,8 +233,8 @@ theorem srk_omega1_exists_h2 : necessity% Checked.Chemistry.SRKAcentric.srk_omeg
   · rintro ⟨vl, vg, ps, -, -, h1, -⟩
     norm_num [cubicP, RoundsTo, abs_le] at h1
 
-/-- `b < v_c` is needed for existence: at v_c = b the "critical pressure" is −1/2, so a ratio
-0.0102 needs a negative coexistence pressure, but every coexistence pressure is positive (the
+/-- `b < v_c` is needed for existence: at v_c = b the "critical pressure" is −1/2, so a positive
+ratio needs a negative coexistence pressure, but every coexistence pressure is positive (the
 uniqueness theorem at the genuine critical point). -/
 theorem srk_omega1_exists_h3 : necessity% Checked.Chemistry.SRKAcentric.srk_omega1_exists 3 := by
   obtain ⟨Tc, vc, hT, hv, hc⟩ := srk_crit_witness
@@ -379,8 +379,8 @@ theorem pr_omega1_exists_h2 : necessity% Checked.Chemistry.PRAcentric.pr_omega1_
     rw [e] at h1
     norm_num [RoundsTo, abs_le] at h1
 
-/-- `b < v_c` is needed for existence: at v_c = b the "critical pressure" is −1/2, so a ratio
-0.0102 needs a negative coexistence pressure, but every coexistence pressure is positive (the
+/-- `b < v_c` is needed for existence: at v_c = b the "critical pressure" is −1/2, so a positive
+ratio needs a negative coexistence pressure, but every coexistence pressure is positive (the
 uniqueness theorem at the genuine critical point). -/
 theorem pr_omega1_exists_h3 : necessity% Checked.Chemistry.PRAcentric.pr_omega1_exists 3 := by
   obtain ⟨Tc, vc, hT, hv, hc⟩ := pr_crit_witness
@@ -525,8 +525,8 @@ theorem pr78_omega1_exists_h2 : necessity% Checked.Chemistry.PR78Acentric.pr78_o
     rw [e] at h1
     norm_num [RoundsTo, abs_le] at h1
 
-/-- `b < v_c` is needed for existence: at v_c = b the "critical pressure" is −1/2, so a ratio
-0.0102 needs a negative coexistence pressure, but every coexistence pressure is positive (the
+/-- `b < v_c` is needed for existence: at v_c = b the "critical pressure" is −1/2, so a positive
+ratio needs a negative coexistence pressure, but every coexistence pressure is positive (the
 uniqueness theorem at the genuine critical point). -/
 theorem pr78_omega1_exists_h3 : necessity% Checked.Chemistry.PR78Acentric.pr78_omega1_exists 3 := by
   obtain ⟨Tc, vc, hT, hv, hc⟩ := pr_crit_witness
