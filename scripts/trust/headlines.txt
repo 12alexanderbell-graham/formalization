@@ -194,6 +194,8 @@ Checked.Math.LEExists.exists_solution
 # Mathematics: Gelfand problem in the 3-D ball (run 2026-11-06T1228Z, promoted 1428Z): critical parameter of the radial branch with the global maximum, existence
 Checked.Math.Gelfand.gelfand_ball_critical
 Checked.Math.GelfandExists.exists_solution
+# Astrophysics: Bonnor–Ebert critical sphere (run 2026-11-12T0427Z): first maximum of the pressure-confined mass of the isothermal sphere, radius, mass and density contrast
+Checked.Math.BonnorEbert.bonnor_ebert_critical
 # Mathematics/physics: Thomas–Fermi equation of the neutral atom (run 2026-11-06T1828Z; existence and promotion 2028Z): initial slope, existence
 Checked.Math.ThomasFermi.tf_initial_slope
 Checked.Math.ThomasFermiExists.tf_exists

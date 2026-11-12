@@ -6,17 +6,19 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `H0 : ℝ`, `Ωm : ℝ`, `ΩΛ : ℝ`:
+**For every** `N : ℝ`, `H0 : ℝ`, `Ωm : ℝ`, `ΩΛ : ℝ`:
 
 **assuming**
 
-1. `Ωm ≤ 1`
-2. `0 ≤ ΩΛ`
-3. for every `i : Fin 30`, `0 ≤ e2OL Ωm ΩΛ (m16Table i).1`
+1. `4 < N`
+2. `N ≤ 31`
+3. `Ωm ≤ 1`
+4. `0 ≤ ΩΛ`
+5. for every `i : Fin 30`, `0 ≤ e2OL Ωm ΩΛ (m16Table i).1`
 
 **then**
 
-- `14.9665 ≤ chiSqOL H0 Ωm ΩΛ`
+- `21.41 + 5e-3 < chiSqOL H0 Ωm ΩΛ + 2 * 3 + 2 * 3 * (3 + 1) / (N - 3 - 1)`
 
 Program definitions in this claim:
 
@@ -26,15 +28,16 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-For every H0, every Ωm ≤ 1 and every ΩΛ ≥ 0 at which E² is nonnegative at the thirty z values
-of Table 4, the χ² `chiSqOL` (with the H₀ prior term) is at least 14.9665.
+Table 5, row oLCDM: for every N with 4 < N ≤ 31, every H0, every Ωm ≤ 1 and every ΩΛ ≥ 0
+with E² nonnegative at the thirty z values of Table 4, the corrected Akaike criterion
+χ² + 2k + 2k(k + 1)/(N − k − 1) with k = 3 exceeds the printed 21.41 by more than 0.005.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem chiSqOL_ge (H0 Ωm ΩΛ : ℝ) (hm : Ωm ≤ 1) (hl : 0 ≤ ΩΛ)
-    (hy : ∀ i, 0 ≤ e2OL Ωm ΩΛ (m16Table i).1) :
-    14.9665 ≤ chiSqOL H0 Ωm ΩΛ := …
+theorem table5_oL_aicc_unattainable (N H0 Ωm ΩΛ : ℝ) (hN : 4 < N) (hN31 : N ≤ 31)
+    (hm : Ωm ≤ 1) (hl : 0 ≤ ΩΛ) (hy : ∀ i, 0 ≤ e2OL Ωm ΩΛ (m16Table i).1) :
+    21.41 + 0.005 < chiSqOL H0 Ωm ΩΛ + 2 * 3 + 2 * 3 * (3 + 1) / (N - 3 - 1) := …
 ```
 
 ## Definitions it uses
@@ -46,7 +49,7 @@ See GLOSSARY.md: `Data.Moresco16.m16Table`, `Data.Moresco16.chiSqOL`, `Data.More
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): m16Table².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `chiSqOL_ge`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `table5_oL_aicc_unattainable`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
 - Source file: `Checked/Data/Moresco16Min.lean` (do not open it before submitting your answers).
 

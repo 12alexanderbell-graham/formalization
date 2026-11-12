@@ -196,6 +196,13 @@ import Checked.Math.Gelfand
 import Checked.Math.GExistsRight
 import Checked.Math.GExistsLeft
 import Checked.Math.GelfandExists
+import Checked.Math.BECellQ
+import Checked.Math.BEStart
+import Checked.Math.BEQData
+import Checked.Math.BEChain
+import Checked.Math.BEMain
+import Checked.Math.BonnorEbert
+import Checked.Trust.SecondReadingBE
 import Checked.Math.TFReduce
 import Checked.Math.TFCell
 import Checked.Math.TFCellQ

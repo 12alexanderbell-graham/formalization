@@ -369,6 +369,7 @@ Checked.Hiemenz.hiemenz_under 8b3aeb3-doc13230694655351504512
 Checked.Homann.homann_exists 273d315f-doc3009616568739691773
 Checked.Homann.homann_over fdf52e42-doc13021469199748902275
 Checked.Homann.homann_under 2b238655-doc5097830784794214902
+Checked.Math.BonnorEbert.bonnor_ebert_critical cfe7915e-doc9077218428088810556
 Checked.Math.Gelfand.gelfand_ball_critical 8bc55514-doc3099962857817823782
 Checked.Math.GelfandExists.exists_solution 20e32e81-doc6694226507590696985
 Checked.Math.GelfandPDE.gelfand_pde_radial_bound a60a1dff-doc5938021182067386944
@@ -1792,6 +1793,16 @@ doc:Checked.Homann.HmODataC.chainC -doc13843879746968612803
 doc:Checked.Homann.HmUData.chain -doc17391047608857817925
 doc:Checked.Homann.HmUDataC.boxC -doc6671869179443007368
 doc:Checked.Homann.HmUDataC.chainC -doc7524319669735919764
+doc:Checked.Math.BECellQ.BInvProp -doc5754822879245240895
+doc:Checked.Math.BECellQ.BInv -doc3550959105028545002
+doc:Checked.Math.BECellQ.bcellOK -doc5933824609801872588
+doc:Checked.Math.BECellQ.bcell_facts -doc4490565985877665492
+doc:Checked.Math.BECellQ.bchainTo -doc12645533576181818905
+doc:Checked.Math.BECellQ.bend_q -doc14287315386179610655
+doc:Checked.Math.BECellQ.bseg_q -doc3744640711232050682
+doc:Checked.Math.BECellQ.gpoly -doc1088457638110400929
+doc:Checked.Math.BECellQ.pp_box -doc12325479447397341371
+doc:Checked.Math.BEMain.gap_consts -doc5648584972411431393
 doc:Checked.Math.GCell.box -doc13997350109791766934
 doc:Checked.Math.GCell.cell -doc6124411505368476458
 doc:Checked.Math.GCell.exp_sol -doc3631106083092817629
@@ -2543,6 +2554,9 @@ doc:Checked.Trust.SecondReading.bambaF0Norm -doc826340502239970354
 doc:Checked.Trust.SecondReading.bambaF0Sign -doc16309106037127375957
 doc:Checked.Trust.SecondReading.bambaJLCDM -doc6357448113160589362
 doc:Checked.Trust.SecondReading.bambaR3 -doc12218058858658860492
+doc:Checked.Trust.SecondReading.beContrast -doc16363964487035410132
+doc:Checked.Trust.SecondReading.beDecreaseEnd -doc16532489407231177751
+doc:Checked.Trust.SecondReading.beMass -doc8150524139383411235
 doc:Checked.Trust.SecondReading.blasiusEdge -doc4842813862602201423
 doc:Checked.Trust.SecondReading.blasiusHalfLineTyped -doc14410342809527929474
 doc:Checked.Trust.SecondReading.blasiusHalfLine -doc5073422301478383058
@@ -3001,6 +3015,12 @@ moduledoc:Checked.Homann.HmOData -mdoc4423658232581791386
 moduledoc:Checked.Homann.HmUDataC -mdoc7753510760382622848
 moduledoc:Checked.Homann.HmUData -mdoc7957932360403728042
 moduledoc:Checked.Homann.Homann -mdoc2051465372214870842
+moduledoc:Checked.Math.BECellQ -mdoc10997157589943964423
+moduledoc:Checked.Math.BEChain -mdoc4330682546558219368
+moduledoc:Checked.Math.BEMain -mdoc3459006954674770938
+moduledoc:Checked.Math.BEQData -mdoc5261983848398859491
+moduledoc:Checked.Math.BEStart -mdoc2603103045724268153
+moduledoc:Checked.Math.BonnorEbert -mdoc16108829127181183395
 moduledoc:Checked.Math.GCellQ -mdoc4960724099563984183
 moduledoc:Checked.Math.GCell -mdoc5299691976011732180
 moduledoc:Checked.Math.GCerts -mdoc3374331134478059207
@@ -3153,6 +3173,7 @@ moduledoc:Checked.Trust.SecondFormulationCosmo -mdoc14861710477027291596
 moduledoc:Checked.Trust.SecondFormulationM16 -mdoc8057426027505603843
 moduledoc:Checked.Trust.SecondFormulation -mdoc10887534755347747998
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
+moduledoc:Checked.Trust.SecondReadingBE -mdoc13130162747971828809
 moduledoc:Checked.Trust.SecondReadingBlasius -mdoc10558104316128241795
 moduledoc:Checked.Trust.SecondReadingBound -mdoc13469660202480217973
 moduledoc:Checked.Trust.SecondReadingClaims -mdoc11105787854413030724
@@ -3190,4 +3211,4 @@ moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc17464976236044472773
+moduledoc:Checked.Trust.Witnesses -mdoc10126928759690679207
