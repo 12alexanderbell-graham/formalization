@@ -1,0 +1,4 @@
+Category: weakened-statement (scope overstated in a finding)
+Reader would wrongly believe: F12 'Correct' and 'Scope': that the parameter of EVERY zero-wall-shear Falkner-Skan solution (f'' > 0), whatever its approach to the edge velocity, lies below the printed -0.1988376, so the caption is false in general.
+Why it is false: The Lean evidence (fs_separation_equal, record F12_separation hypothesis 9 `M*(1-p) <= q` for all M) covers only the decay class (faster than every exponential approach). The original Scope line says that for parameters between the separation value and 0 an algebraic-tail zero-wall-shear solution exists: such a solution has a parameter ABOVE the printed value, so the 'every solution' sentence is false and the caption is not false 'in general'.
+Expected: ACCEPTED (author prose of the verified section; the only checks on it are number tags; nothing compares the class in the prose with hypothesis 9 of the record).
