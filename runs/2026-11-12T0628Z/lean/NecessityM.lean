@@ -4,6 +4,8 @@ import Checked.Math.BonnorEbert
 import Checked.Math.GelfandExists
 import Checked.Math.Gelfand
 import Checked.Math.GProfile
+import Checked.Math.ThomasFermi
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.SpecialFunctions.Sqrt
 import Mathlib.Analysis.Real.Pi.Bounds
@@ -21,10 +23,11 @@ w, 3 continuity of φ at the centre, 4 the equation, 5 the centre value w(0) = 0
   own critical radius below 7: impossible.
 
 The same symmetry with the factor 1/3 shows that hypothesis 5 of `Checked.Math.Gelfand.gelfand_ball_critical`
-(the same centre value) is needed. -/
+(the same centre value) is needed; and hypothesis 1 of `Checked.Math.ThomasFermi.tf_initial_slope` (y' = φ) is
+needed (an explicit pair with φ' = y^{3/2}/√x but φ(0) = 0). -/
 
 namespace Checked.Trust.NecessityM
-open Set
+open Set Filter Topology
 
 /-- The pressure-confined mass of the claim, as a function of the radius. -/
 noncomputable def mass (w φ : ℝ → ℝ) (s : ℝ) : ℝ :=
@@ -157,5 +160,41 @@ theorem gelfand_ball_critical_h5 : necessity% Checked.Math.Gelfand.gelfand_ball_
   have he : Real.exp (w ((1 / 3) * s₁)) ≤ 1 := Real.exp_le_one_iff.mpr hw0
   have hs2 : 0 ≤ s₁ ^ 2 := sq_nonneg _
   nlinarith [mul_le_mul_of_nonneg_left he hs2]
+
+/-! ### Thomas–Fermi: the relation y' = φ is needed -/
+
+/-- Hypothesis 1 of `tf_initial_slope` (φ is the derivative of y) is needed: y = 1/(1 + √x)² and
+φ = 1 − 1/(1 + √x)² meet every other hypothesis (φ' = y^{3/2}/√x, y(0) = 1, y > 0, y → 0) and φ(0) = 0. -/
+theorem tf_initial_slope_h1 : necessity% Checked.Math.ThomasFermi.tf_initial_slope 1 := by
+  refine ⟨fun x => 1 / (1 + Real.sqrt x) ^ 2, fun x => 1 - 1 / (1 + Real.sqrt x) ^ 2, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · intro x hx
+    have hs : HasDerivAt Real.sqrt (1 / (2 * Real.sqrt x)) x := by
+      simpa using Real.hasDerivAt_sqrt hx.ne'
+    have hb : 0 < 1 + Real.sqrt x := by positivity
+    have hsx : 0 < Real.sqrt x := Real.sqrt_pos.mpr hx
+    have h1 := ((hs.const_add 1).pow 2).inv (by simp only [Pi.pow_apply]; positivity)
+    have h2 := (h1.const_mul (-1 : ℝ)).const_add 1
+    have key : (1 / (1 + Real.sqrt x) ^ 2) ^ ((3 : ℝ) / 2) = 1 / (1 + Real.sqrt x) ^ 3 := by
+      rw [show (1 : ℝ) / (1 + Real.sqrt x) ^ 2 = (1 / (1 + Real.sqrt x)) ^ (2 : ℝ) by
+        rw [Real.rpow_two]; field_simp, ← Real.rpow_mul (by positivity)]
+      rw [show (2 : ℝ) * (3 / 2) = ((3 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+      field_simp
+    rw [key]
+    refine (h2.congr_deriv ?_).congr_of_eventuallyEq ?_
+    · simp only [Pi.pow_apply]
+      field_simp
+      ring
+    · exact Filter.Eventually.of_forall fun z => by simp [one_div, neg_mul, sub_eq_add_neg]
+  · have hc : Continuous fun x : ℝ => 1 - 1 / (1 + Real.sqrt x) ^ 2 := by
+      refine continuous_const.sub (continuous_const.div (by fun_prop) fun x => by positivity)
+    exact hc.continuousWithinAt
+  · simp
+  · intro x _; positivity
+  · have h1 : Tendsto (fun x : ℝ => 1 + Real.sqrt x) atTop atTop :=
+      tendsto_atTop_add_const_left _ _ Real.tendsto_sqrt_atTop
+    have h2 := (tendsto_pow_atTop (two_ne_zero)).comp h1
+    simpa [one_div, Function.comp_def] using tendsto_inv_atTop_zero.comp h2
+  · simp only [sub_self, Real.sqrt_zero, add_zero, one_pow, div_one]
+    norm_num
 
 end Checked.Trust.NecessityM
