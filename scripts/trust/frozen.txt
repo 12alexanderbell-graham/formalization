@@ -2452,6 +2452,19 @@ doc:Checked.Trust.NCP.fs_separation_below_printed_h1 -doc12091985303137600028
 doc:Checked.Trust.NCP.fs_separation_below_printed_h2 -doc13035893517214846558
 doc:Checked.Trust.NCP.fs_separation_below_printed_h3 -doc3884087358989731490
 doc:Checked.Trust.NCP.prG -doc16460989226057728327
+doc:Checked.Trust.NCQ.F13_wall_shear_h1 -doc5408597778864399763
+doc:Checked.Trust.NCQ.F13_wall_shear_h3 -doc16690574402722608188
+doc:Checked.Trust.NCQ.fs_neg_tenth_window_h1 -doc8550235238129434294
+doc:Checked.Trust.NCQ.fs_neg_tenth_window_h3 -doc17488350921121049341
+doc:Checked.Trust.NCQ.fs_neg_wall_shear_17_window_h1 -doc14508737199914007133
+doc:Checked.Trust.NCQ.fs_neg_wall_shear_17_window_h3 -doc877126129688023786
+doc:Checked.Trust.NCQ.fs_neg_wall_shear_18_window_h1 -doc13910822080270928086
+doc:Checked.Trust.NCQ.fs_neg_wall_shear_18_window_h3 -doc18010305663560158936
+doc:Checked.Trust.NCQ.fs_neg_wall_shear_19_window_h1 -doc16932541562631940936
+doc:Checked.Trust.NCQ.fs_neg_wall_shear_19_window_h3 -doc16113128011792909800
+doc:Checked.Trust.NCQ.fs_neg_wall_shear_window_h1 -doc13249398983104776413
+doc:Checked.Trust.NCQ.fs_neg_wall_shear_window_h3 -doc13638738307976281637
+doc:Checked.Trust.NCQ.tail -doc5399003708245745676
 doc:Checked.Trust.NCR.fs_neg_reversed_printed_overshoots_h2 -doc15858226168887545224
 doc:Checked.Trust.NCR.fs_neg_reversed_printed_overshoots_h3 -doc11326111422051915082
 doc:Checked.Trust.NCR.fs_neg_reversed_printed_overshoots_h6 -doc14885842316987261906
@@ -3273,6 +3286,7 @@ moduledoc:Checked.Trust.NecessityM -mdoc9738669776155721230
 moduledoc:Checked.Trust.NecessityN -mdoc7098328307445460454
 moduledoc:Checked.Trust.NecessityO -mdoc3293891495360465668
 moduledoc:Checked.Trust.NecessityP -mdoc12809478230966364075
+moduledoc:Checked.Trust.NecessityQ -mdoc12818282291017817196
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401

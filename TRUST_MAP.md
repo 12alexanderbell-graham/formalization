@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 930 hypotheses in 160 headlines;
-460 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+472 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 127 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-343 open; headlines with every hypothesis classified: 56/160
+331 open; headlines with every hypothesis classified: 56/160
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -376,7 +376,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant (each alone, not together) 2 (`F2_error_r2`); parts of 1 (4) needed 1 (`F2_error_p1_1`), 4 (`F2_error_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_error_p1_2`), 3 (`F2_error_p1_3`)
 - `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant (each alone, not together) 2 (`F3_D4_LCDM_r2`); parts of 1 (4) needed 1 (`F3_D4_LCDM_p1_1`), 4 (`F3_D4_LCDM_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F3_D4_LCDM_p1_2`), 3 (`F3_D4_LCDM_p1_3`)
 - `Records.F12_separation` (9): needed 1 (`F12_separation_h1`), 2 (`F12_separation_h2`), 3 (`F12_separation_h3`); open 4, 5, 6, 7, 8, 9
-- `Records.F13_wall_shear` (8): open 1, 2, 3, 4, 5, 6, 7, 8
+- `Records.F13_wall_shear` (8): needed 1 (`F13_wall_shear_h1`), 3 (`F13_wall_shear_h3`); open 2, 4, 5, 6, 7, 8
 - `B1.lumDistFlat_flatLCDM` (7): needed 6 (`lumDistFlat_flatLCDM_h6`), 7 (`lumDistFlat_flatLCDM_h7`); redundant 5 (`lumDistFlat_flatLCDM_r5`); open 1, 2, 3, 4
 - `B1.cubic_misses_z3` (8): needed 7 (`cubic_misses_z3_h7`), 8 (`cubic_misses_z3_h8`); redundant (each alone, not together) 5 (`cubic_misses_z3_r5`), 6 (`cubic_misses_z3_r6`); open 1, 2, 3, 4
 - `B1.cubic_misses_z7` (8): needed 7 (`cubic_misses_z7_h7`), 8 (`cubic_misses_z7_h8`); redundant (each alone, not together) 5 (`cubic_misses_z7_r5`), 6 (`cubic_misses_z7_r6`); open 1, 2, 3, 4
@@ -464,15 +464,15 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FalknerSkan.Limit.fs_monotone_of_limit` (9): open 1, 2, 3, 4, 5, 6, 7, 8, 9
 - `FalknerSkan.NegDecay.fs_neg_decay_max_shear` (16): needed 8 (`fs_neg_decay_max_shear_h8`), 9 (`fs_neg_decay_max_shear_h9`); open 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16
 - `FalknerSkan.NegDecay.fs_neg_decay_equal` (18): needed 8 (`fs_neg_decay_equal_h8`), 9 (`fs_neg_decay_equal_h9`), 16 (`fs_neg_decay_equal_h16`), 17 (`fs_neg_decay_equal_h17`); open 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 18
-- `FalknerSkan.NegWindow.fs_neg_tenth_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
+- `FalknerSkan.NegWindow.fs_neg_tenth_window` (8): needed 1 (`fs_neg_tenth_window_h1`), 3 (`fs_neg_tenth_window_h3`); open 2, 4, 5, 6, 7, 8
 - `FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt` (7): open 1, 2, 3, 4, 5, 6, 7
 - `FalknerSkan.SeparationEqual.fs_separation_equal` (18): needed 1 (`fs_separation_equal_h1`), 3 (`fs_separation_equal_h3`), 9 (`fs_separation_equal_h9`), 10 (`fs_separation_equal_h10`), 12 (`fs_separation_equal_h12`), 18 (`fs_separation_equal_h18`); open 2, 4, 5, 6, 7, 8, 11, 13, 14, 15, 16, 17
 - `FalknerSkan.SeparationPrinted.fs_separation_below_printed` (9): needed 1 (`fs_separation_below_printed_h1`), 2 (`fs_separation_below_printed_h2`), 3 (`fs_separation_below_printed_h3`); open 4, 5, 6, 7, 8, 9
-- `FalknerSkan.NegWallShear.fs_neg_wall_shear_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
+- `FalknerSkan.NegWallShear.fs_neg_wall_shear_window` (8): needed 1 (`fs_neg_wall_shear_window_h1`), 3 (`fs_neg_wall_shear_window_h3`); open 2, 4, 5, 6, 7, 8
 - `FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots` (6): needed 2 (`fs_neg_reversed_printed_overshoots_h2`), 3 (`fs_neg_reversed_printed_overshoots_h3`), 6 (`fs_neg_reversed_printed_overshoots_h6`); open 1, 4, 5
-- `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
-- `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
-- `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
+- `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window` (8): needed 1 (`fs_neg_wall_shear_17_window_h1`), 3 (`fs_neg_wall_shear_17_window_h3`); open 2, 4, 5, 6, 7, 8
+- `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window` (8): needed 1 (`fs_neg_wall_shear_18_window_h1`), 3 (`fs_neg_wall_shear_18_window_h3`); open 2, 4, 5, 6, 7, 8
+- `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window` (8): needed 1 (`fs_neg_wall_shear_19_window_h1`), 3 (`fs_neg_wall_shear_19_window_h3`); open 2, 4, 5, 6, 7, 8
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 
