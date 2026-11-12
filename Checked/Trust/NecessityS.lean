@@ -12,7 +12,7 @@ import Checked.FSRev.RNineteenSlow
 import Checked.FSRev.RNineteenTube
 
 /-! Necessity witnesses (THE RESULT part 1, run 2026-11-12T1828Z): positivity of the shear is needed in the three
-attached Falkner–Skan row windows β = −17/100, −18/100, −19/100 of `NegWallShearRows`. The witness is the reversed-flow
+attached Falkner–Skan row windows of `NegWallShearRows`. The witness is the reversed-flow
 solution of each row (wall shear negative), built by the reversed-flow shooting argument (`RAssemble.core_rev`) from
 three certified chains per row (`Checked/FSRev/R{Seventeen,Eighteen,Nineteen}{Over,Slow,Tube}.lean`): it meets every
 other hypothesis of the window headline (the equation, the wall conditions, the edge limit and the fast-approach

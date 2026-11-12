@@ -28,7 +28,9 @@
 9. Records (annex LIV): STATE.md had passed 300 KB; older environment lines, older "Last updated" summaries and run 1628Z's long next-step item moved verbatim to `_archive/STATE_environment_history.md` (PROMPT note).
 
 ## Local checks and push
-- See the final commit message; `local_frozen_step.py --trust 6a660ac` is the replica.
+- `lake build Checked` green (incremental on the restored CI build); StatementDeps with relock (256 headlines, NV 164/164, necessity needed 486 / redundant 140 / open 304); Claims (256); validation packet regenerated (59 items, new headlines).
+- `local_frozen_step.py --trust 6a660ac` first run: exit 1 at the module-doc number check (the twelve certificate modules and NecessityS named β and K in their module docs; generated docs made number-free, `emit_rows.py` fixed); after rebuild + relock + Claims every trust-step Python check passes one by one, check_status_lines needed one STATE line to cite its module, and `local_frozen_step.py 6a660ac` (base-diff step) ran 20 commands, 0 failed.
+- Intermediate pushes carried `[skip ci]`; the final push (LOCK removed) starts the main run that judges NecessityS and the NegReversedRows promotion.
 
 ## Next start
 - CI read first: this run's final push (NegReversedRows promotion + NecessityS + twelve certificate modules). Green on every job → six `NegReversedRows` headlines PROVED.
