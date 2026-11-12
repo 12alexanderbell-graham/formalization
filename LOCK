@@ -1,1 +1,1 @@
-Run 2026-11-12T0427Z (scheduled), started 04:27Z; LOCK taken 04:59Z (run 0227Z released it in 89aca37/ae60cc6); heartbeat 05:26Z (records written; CI artifact trial pending). Remove at end.
+Run 2026-11-12T0427Z (scheduled), started 04:27Z; LOCK taken 04:59Z (run 0227Z released it in 89aca37/ae60cc6); heartbeat 06:38Z (promotion of Bonnor–Ebert to Checked in ../fztest: build green, StatementDeps/Claims rerun after a docstring fix). Remove at end.
