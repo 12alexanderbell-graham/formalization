@@ -6,6 +6,9 @@ import Checked.Math.Gelfand
 import Checked.Math.GProfile
 import Checked.Math.ThomasFermi
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Checked.Math.GelfandPDE
+import Checked.Math.GelfandPDEExists
+import Mathlib.Analysis.Complex.ExponentialBounds
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.SpecialFunctions.Sqrt
 import Mathlib.Analysis.Real.Pi.Bounds
@@ -24,10 +27,11 @@ w, 3 continuity of φ at the centre, 4 the equation, 5 the centre value w(0) = 0
 
 The same symmetry with the factor 1/3 shows that hypothesis 5 of `Checked.Math.Gelfand.gelfand_ball_critical`
 (the same centre value) is needed; and hypothesis 1 of `Checked.Math.ThomasFermi.tf_initial_slope` (y' = φ) is
-needed (an explicit pair with φ' = y^{3/2}/√x but φ(0) = 0). -/
+needed (an explicit pair with φ' = y^{3/2}/√x but φ(0) = 0); hypotheses 2 and 3 of
+`Checked.Math.GelfandPDE.gelfand_pde_radial_bound` are needed (a constant shift of the existence solution). -/
 
 namespace Checked.Trust.NecessityM
-open Set Filter Topology
+open Set Filter Topology Metric InnerProductSpace Laplacian
 
 /-- The pressure-confined mass of the claim, as a function of the radius. -/
 noncomputable def mass (w φ : ℝ → ℝ) (s : ℝ) : ℝ :=
@@ -196,5 +200,54 @@ theorem tf_initial_slope_h1 : necessity% Checked.Math.ThomasFermi.tf_initial_slo
     simpa [one_div, Function.comp_def] using tendsto_inv_atTop_zero.comp h2
   · simp only [sub_self, Real.sqrt_zero, add_zero, one_pow, div_one]
     norm_num
+
+/-! ### Gelfand PDE bound: continuity on the closed ball and the boundary value are needed
+
+The shift u − 2 of the solution for λ = 1 (`gelfand_pde_radial_exists`) solves Δv + e² eᵛ = 0 (Mathlib's
+Laplacian kills constants), with e² above the bound; its boundary value is −2 (hypothesis 3 dropped), or it is
+redefined as 0 on the unit sphere, keeping the equation inside and losing continuity (hypothesis 2 dropped). -/
+
+/-- e² exceeds the upper end of the Gelfand PDE bound. -/
+theorem e2_gt : (3.321992119 : ℝ) < Real.exp 2 := by
+  have h := Real.exp_one_gt_d9
+  have : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+  rw [this]; nlinarith
+
+theorem gelfand_pde_radial_bound_h3 : necessity% Checked.Math.GelfandPDE.gelfand_pde_radial_bound 3 := by
+  obtain ⟨u, hu, hc, -, ⟨g, hg⟩, hpde⟩ :=
+    Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists 1 one_pos (by norm_num)
+  refine ⟨Real.exp 2, fun x => u x - 2, hu.sub contDiffOn_const, hc.sub continuousOn_const,
+    ⟨fun r => g r - 2, fun x hx => by simp [hg x hx]⟩, fun x hx => ?_, ?_⟩
+  · have hca : ContDiffAt ℝ 2 u x := hu.contDiffAt (isOpen_ball.mem_nhds hx)
+    have e : (fun y => u y - 2) = u - fun _ => (2 : ℝ) := rfl
+    simp only []
+    rw [e, hca.laplacian_sub contDiffAt_const, laplacian_const, Pi.zero_apply, sub_zero]
+    have h := hpde x hx
+    rw [Real.exp_sub, mul_div_cancel₀ _ (Real.exp_pos 2).ne']
+    linarith
+  · exact not_le.mpr e2_gt
+
+theorem gelfand_pde_radial_bound_h2 : necessity% Checked.Math.GelfandPDE.gelfand_pde_radial_bound 2 := by
+  obtain ⟨u, hu, -, -, ⟨g, hg⟩, hpde⟩ :=
+    Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists 1 one_pos (by norm_num)
+  set v : EuclideanSpace ℝ (Fin 3) → ℝ := fun x => if ‖x‖ = 1 then 0 else u x - 2 with hv
+  have hball : ∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, v x = u x - 2 := fun x hx => by
+    have : ‖x‖ ≠ 1 := (mem_ball_zero_iff.mp hx).ne
+    simp [hv, this]
+  refine ⟨Real.exp 2, v, (hu.sub contDiffOn_const).congr hball, fun x hx => by simp [hv, hx],
+    ⟨fun r => if r = 1 then 0 else g r - 2, fun x hx => ?_⟩, fun x hx => ?_, ?_⟩
+  · by_cases h1 : ‖x‖ = 1
+    · simp [hv, h1]
+    · simp [hv, h1, hg x hx]
+  · have hev : v =ᶠ[nhds x] fun y => u y - 2 :=
+      Filter.eventually_of_mem (isOpen_ball.mem_nhds hx) hball
+    have hca : ContDiffAt ℝ 2 u x := hu.contDiffAt (isOpen_ball.mem_nhds hx)
+    have e : (fun y => u y - 2) = u - fun _ => (2 : ℝ) := rfl
+    rw [(laplacian_congr_nhds hev).self_of_nhds, e, hca.laplacian_sub contDiffAt_const, laplacian_const, Pi.zero_apply,
+      sub_zero, hball x hx]
+    have h := hpde x hx
+    rw [Real.exp_sub, mul_div_cancel₀ _ (Real.exp_pos 2).ne']
+    linarith
+  · exact not_le.mpr e2_gt
 
 end Checked.Trust.NecessityM
