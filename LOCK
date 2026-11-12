@@ -1,1 +1,1 @@
-Run 2026-11-12T2028Z (scheduled), started 20:28Z; LOCK taken 20:28Z. Task: part 3 by rotation (no part-3 progress since run 0828Z) — blind red team round; CI read of 02fb347. Remove at end.
+Run 2026-11-12T2028Z (scheduled), started 20:28Z; LOCK taken 20:29Z; heartbeat 20:46Z: judging blind round AI (6 defects on FINDINGS F12–F14, all predicted ACCEPTED); repair check_findings.py written, local CI replica next. Remove at end.
