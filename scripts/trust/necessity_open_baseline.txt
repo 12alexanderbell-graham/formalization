@@ -65,9 +65,8 @@ Data.FR13.fr13_minval68 | 1, 2, 3
 Data.FR13.fr13_minval738 | 1, 2, 3
 Data.FR13.fr13_zda68 | 1, 2, 3, 4, 5
 Data.FR13.fr13_zda738 | 1, 2, 3, 4, 5
-Math.Gelfand.gelfand_ball_critical | 5
-Math.ThomasFermi.tf_initial_slope | 1, 5, 6
-Math.GelfandPDE.gelfand_pde_radial_bound | 1, 2, 3, 4
+Math.ThomasFermi.tf_initial_slope | 5, 6
+Math.GelfandPDE.gelfand_pde_radial_bound | 1, 4
 Math.GelfandPDEExists.gelfand_pde_radial_exists | 1
 Hiemenz.hiemenz_under | 5, 6
 Hiemenz.hiemenz_over | 5, 6

@@ -2421,6 +2421,11 @@ doc:Checked.Trust.NCP.prG -doc16460989226057728327
 doc:Checked.Trust.NCR.fs_neg_reversed_printed_overshoots_h2 -doc15858226168887545224
 doc:Checked.Trust.NCR.fs_neg_reversed_printed_overshoots_h3 -doc11326111422051915082
 doc:Checked.Trust.NCR.fs_neg_reversed_printed_overshoots_h6 -doc14885842316987261906
+doc:Checked.Trust.NecessityM.e2_gt -doc7156091412783282893
+doc:Checked.Trust.NecessityM.gelfand_ball_critical_h5 -doc11881122222935074317
+doc:Checked.Trust.NecessityM.mass -doc14212066320530025749
+doc:Checked.Trust.NecessityM.scaled_hyps -doc11463252725797114041
+doc:Checked.Trust.NecessityM.tf_initial_slope_h1 -doc5079583557829905420
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_one_needs_velocity -doc11106357578457800887
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_two -doc8443822091892815726
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_zero_one -doc17973409964959887418
@@ -3167,6 +3172,7 @@ moduledoc:Checked.Trust.NecessityI -mdoc16829996702632798693
 moduledoc:Checked.Trust.NecessityJ -mdoc1488043631767461679
 moduledoc:Checked.Trust.NecessityK -mdoc6552524809572826252
 moduledoc:Checked.Trust.NecessityL -mdoc14468159082974997690
+moduledoc:Checked.Trust.NecessityM -mdoc13989409223173508593
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401
@@ -3174,8 +3180,7 @@ moduledoc:Checked.Trust.SecondFormulationCosmo -mdoc14861710477027291596
 moduledoc:Checked.Trust.SecondFormulationM16 -mdoc8057426027505603843
 moduledoc:Checked.Trust.SecondFormulation -mdoc10887534755347747998
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
-moduledoc:Checked.Trust.SecondReadingBE2 -mdoc11087213205959863901
-moduledoc:Checked.Trust.SecondReadingBE -mdoc13130162747971828809
+moduledoc:Checked.Trust.SecondReadingBE -mdoc14632787277133674012
 moduledoc:Checked.Trust.SecondReadingBlasius -mdoc10558104316128241795
 moduledoc:Checked.Trust.SecondReadingBound -mdoc13469660202480217973
 moduledoc:Checked.Trust.SecondReadingClaims -mdoc11105787854413030724

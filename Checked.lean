@@ -203,7 +203,6 @@ import Checked.Math.BEChain
 import Checked.Math.BEMain
 import Checked.Math.BonnorEbert
 import Checked.Trust.SecondReadingBE
-import Checked.Trust.SecondReadingBE2
 import Checked.Math.TFReduce
 import Checked.Math.TFCell
 import Checked.Math.TFCellQ
@@ -411,3 +410,4 @@ import Checked.Trust.NecessityI
 import Checked.Trust.NecessityJ
 import Checked.Trust.NecessityK
 import Checked.Trust.NecessityL
+import Checked.Trust.NecessityM

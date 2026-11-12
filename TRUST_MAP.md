@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 889 hypotheses in 155 headlines;
-414 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-117 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-358 open; headlines with every hypothesis classified: 54/155
+422 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+118 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+349 open; headlines with every hypothesis classified: 56/155
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -407,11 +407,11 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Data.FR13.fr13_zda68` (5): open 1, 2, 3, 4, 5
 - `Data.FR13.fr13_zda738` (5): open 1, 2, 3, 4, 5
 - `Math.LaneEmden.laneEmden3_constants` (4): needed 1 (`laneEmden3_constants_h1`), 3 (`laneEmden3_constants_h3`), 4 (`laneEmden3_constants_h4`); redundant 2 (`laneEmden3_constants_r2`)
-- `Math.Gelfand.gelfand_ball_critical` (5): needed 1 (`gelfand_ball_critical_h1`), 2 (`gelfand_ball_critical_h2`), 4 (`gelfand_ball_critical_h4`); redundant 3 (`gelfand_ball_critical_r3`); open 5
+- `Math.Gelfand.gelfand_ball_critical` (5): needed 1 (`gelfand_ball_critical_h1`), 2 (`gelfand_ball_critical_h2`), 4 (`gelfand_ball_critical_h4`), 5 (`gelfand_ball_critical_h5`); redundant 3 (`gelfand_ball_critical_r3`)
 - `Math.GelfandExists.exists_solution` (1): redundant 1 (`exists_solution_r1`)
-- `Math.BonnorEbert.bonnor_ebert_critical` (5): open 1, 2, 3, 4, 5
-- `Math.ThomasFermi.tf_initial_slope` (6): needed 2 (`tf_initial_slope_h2`), 4 (`tf_initial_slope_h4`); redundant 3 (`tf_initial_slope_r3`); open 1, 5, 6
-- `Math.GelfandPDE.gelfand_pde_radial_bound` (5): needed 5 (`gelfand_pde_radial_bound_h5`); open 1, 2, 3, 4
+- `Math.BonnorEbert.bonnor_ebert_critical` (5): needed 1 (`bonnor_ebert_critical_h1`), 2 (`bonnor_ebert_critical_h2`), 4 (`bonnor_ebert_critical_h4`), 5 (`bonnor_ebert_critical_h5`); redundant 3 (`bonnor_ebert_critical_r3`)
+- `Math.ThomasFermi.tf_initial_slope` (6): needed 1 (`tf_initial_slope_h1`), 2 (`tf_initial_slope_h2`), 4 (`tf_initial_slope_h4`); redundant 3 (`tf_initial_slope_r3`); open 5, 6
+- `Math.GelfandPDE.gelfand_pde_radial_bound` (5): needed 2 (`gelfand_pde_radial_bound_h2`), 3 (`gelfand_pde_radial_bound_h3`), 5 (`gelfand_pde_radial_bound_h5`); open 1, 4
 - `Math.GelfandPDEExists.gelfand_pde_radial_exists` (2): needed 2 (`gelfand_pde_radial_exists_h2`); open 1
 - `Townes.Shooting.townes_under` (5): needed 1 (`townes_under_h1`), 2 (`townes_under_h2`), 4 (`townes_under_h4`), 5 (`townes_under_h5`); redundant 3 (`townes_under_r3`)
 - `Townes.Shooting.townes_over` (5): needed 1 (`townes_over_h1`), 2 (`townes_over_h2`), 4 (`townes_over_h4`), 5 (`townes_over_h5`); redundant 3 (`townes_over_r3`)
