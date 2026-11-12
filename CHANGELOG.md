@@ -623,3 +623,4 @@
 ## 2026-11-12T1428Z (scheduled run)
 - Env: repo ok; local Lean (elan, Mathlib cache, CI build artifact of 43196172253 restored); CI 43218463622 (4c7b118) in progress, 43235588795 (3aac2e0) pending at start.
 - Parts 2/5: attached Falkner–Skan rows β = −0.15, −0.17, −0.18, −0.19, −0.195, −0.198 certified to ten decimals with existence (generator + emitter + generic-K stack; PROVED in Work, axioms standard); referee STANDS-WITH-CORRECTIONS; rows −0.17, −0.18, −0.19 promoted to Checked (`Checked/FalknerSkan/NegWallShearRows.lean`) with a blind β reading of Ganapol 2010 Table 6. −0.195/−0.198: no printed value found (new numbers), Work only.
+- Part 1 in the same run: hypotheses 1 and 3 NEEDED in six FS window headlines (`Checked/Trust/NecessityQ.lean`), open 343 → 331. Local replica `local_frozen_step.py --trust 0e262e6` green after two LEDGER disclosure fixes.
