@@ -325,3 +325,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `Checked/Suction/<T>Flow` (`flowS a0 α`, `flowS_cont`) → `<T>Limit.no_eventS` (0 ≤ a0 ≤ 2) → `<T>UData`/`<T>OData` (cells from (a0, 0, lo/hi)) → `<T>Assemble.exists_bvpS`, for T = HS (Hiemenz), HmS (Homann), F5S, F10S (coefficients 5, 10); witnesses `Checked/Trust/NecessityI.lean` (Blasius, β = 0), `NecessityJ.lean` (Hiemenz), `NecessityK.lean` (Homann, β = 1/2, 1/5, 1/10).
 ## Necessity witnesses for the B1 family and the pinning theorems (run 2026-11-12T0227Z)
 - `Checked/Trust/NecessityL.lean` (`Checked.Trust.NCL`): `diff_of_law`, `H0_pos_of_redshift` (generic redundancies of the law), `flat_arg_pos`, `curved_arg_pos`; `model_ratio` (exact ΛCDM at Ω = 1/5: `d₅ ≤ 4 d₃`) → `no_rise` → `box_fails`; radiation model `rad_*` (`a = √t`, `rad_dL`: `d_L = 2z`) → `rad_diff_le`; off-domain spec witnesses `hubbleOff`, `decelOff`, `yredOff`, `omega0Off`, `curvKOff` (each meets its specification).
+
+## Bonnor–Ebert critical sphere, `Work/Math/BE*.lean`, `Work/Math/BonnorEbert*.lean` (run 2026-11-12T0427Z)
+- Start `BEStart.startBE` (Gelfand start template, [0, 1/64], domain [0, 7]) → cells `BEQData` (381, `GCellQ.Cell`, `bchainTo` with `BECellQ.BInvProp` modes 1/2) → `BEChain.chain` (φ²/2 < e^w on [1/64, A], bracket-cell enclosure on [A, B], e^w < φ²/2 on [B, 7]) → `BEMain.bonnor_ebert_critical` (with `GProfile.profile_bounds` on (0, 1/64], `GFinal.derivs_at`) → `BonnorEbert.bonnor_ebert_critical` (frozen statement).
+- Audit: `BonnorEbertBlind.lean` (verbatim blind file), `BonnorEbertBlindClosed.lean`.
+- Next: promotion to `Checked/Math/` (STATE 0e); the maximum over all radii.

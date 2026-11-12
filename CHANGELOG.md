@@ -591,3 +591,8 @@
 - CI 43128169409 (1727c31) red only at `check_status_lines` S2 (one STATE word); repaired 31bb06c; `precheck_citations.py` now also runs `check_status_lines.py`.
 - Part 1: `Checked/Trust/NecessityL.lean` — 100 hypotheses classified (B1 family: 80; pinning theorems: 20). NEEDED 343 → 414, REDUNDANT 88 → 117, open 453 → 353, fully classified 50 → 54 of 154.
 - PROMPT working notes: `[skip ci]` on scratch/heartbeat pushes; necessity witnesses for model-based families.
+
+## 2026-11-12T0427Z (scheduled run; auditor role 04:27–04:58Z, then LOCK)
+- Env: repo ok (add_repo not exposed; detached checkout, unshallowed); LOCK of run 0227Z (alive) → auditor role until its release (89aca37), LOCK taken b74a618; **local Lean available** (elan; Mathlib cache ≈ 3 min).
+- **Parts 2/5, astrophysics: the Bonnor–Ebert critical sphere PROVED in Work + AUDITED** (`Work/Math/BonnorEbert.lean`): mass increasing to ξ₁ ∈ [6.4507514, 6.4507515], decreasing to 7, m ∈ [1.1822265, 1.1822266], contrast ∈ [14.042032, 14.042033]; 381 kernel-evaluated cells with a new nonlinear cell invariant; blind closure, referee STANDS, 26 printed values screened; candidate C-BE-1 (13.98 printed by Galli et al. 2002).
+- LIV experiment in trial: CI artifact `checked-build` + `scripts/restore_checked_build.sh` (branch `wip/checked-build-artifact`).

@@ -1,6 +1,10 @@
 # Run 2026-11-12T0427Z (scheduled)
 
-**THE RESULT:** (in progress) auditor role while run 0227Z holds the LOCK; target: cut the ≈ 75–100 min local `lake build Checked` that every run pays (annex LIV, root cause: every run starts in a fresh container with no build of the program's own modules) by publishing the CI build of `Checked` as an artifact a run restores; then parts 2/5 by rotation (last 2/5 run: 1828Z; since then 2028Z, 2228Z, 0227Z were part 1/3).
+**THE RESULT:** parts 2/5 (new science through the system, a new field: astrophysics): **the Bonnor–Ebert critical sphere is certified in Lean** — for the regular isothermal sphere, the pressure-confined mass m = ξ²(−w')e^{w/2}/√(4π) increases strictly up to a radius ξ₁ ∈ [6.4507514, 6.4507515] and decreases after it (to ξ = 7), with m(ξ₁) ∈ [1.1822265, 1.1822266] and centre-to-edge density contrast ∈ [14.042032, 14.042033] (`Work/Math/BonnorEbert.lean`, PROVED in Work, statement byte-identical to the freeze; blind restatement closed in Lean; referee STANDS; 26 printed values screened, one wrong: Galli et al. 2002 print the critical contrast as 13.98, candidate C-BE-1). Plus a part-3 infrastructure fix in trial: CI publishes its build of `Checked` for runs to restore (`wip/checked-build-artifact`).
+
+**What a scientist can now trust without checking:** the three constants of the most used stability criterion for dense molecular-cloud cores (the critical radius 6.451, mass coefficient 1.182 and density contrast 14.04 behind M_BE ≈ 1.18 c_s⁴ G^{−3/2} P^{−1/2}) to seven or eight significant digits, as a machine-checked statement about every regular solution, with the monotonicity of the mass on both sides — no floating point anywhere in the chain (381 kernel-evaluated cells).
+
+**Weakest unchecked step:** the result is in `Work` (judged by CI's work job), not yet `Checked`: registration, NV witness, necessity disclosure and the trust-map steps are the next run's promotion; "first maximum" is certified only up to ξ = 7 (the global maximum over all radii needs a tail argument; the referee puts the next extremum, a minimum, at ξ ≈ 67).
 
 ## Start
 - 04:27Z. add_repo not exposed; pre-cloned checkout detached; `git fetch --unshallow` + `git checkout -B main origin/main` = 60a8194.
@@ -19,3 +23,10 @@
 
 ## LOCK
 - 04:59Z run 0227Z released the LOCK (89aca37, ae60cc6); taken by this run.
+
+## Bonnor–Ebert: proof (05:00–05:18Z, local; pushed cc6673d, blind closure 1b0ca12)
+- Generator `scripts/gen_be.py` (exact rationals; the Gelfand cell scheme `g_base.py` = runs/2026-11-06T1228Z/scripts/gen_g.py): start at 1/64 instead of 1/32 (start error 5.6e-21 instead of 6.9e-19; the crude Grönwall growth e^{∫(2/t+1)} ≈ 10⁷ made 1/32 too coarse for the bracket), 381 cells to 7, degree 10, coefficients rounded to 10⁻³⁰; geometric refinement towards the bracket A = 6.450751440 and away from B = 6.4507515 (the crude polynomial bound of a decreasing g needs h < t − ξ_c). Enclosure radius at A 1.2e-12.
+- `emit_be.py` re-checks every cell condition in the form the Lean definitions compute and writes `BEStart.lean` (the Gelfand start template at 1/64 on [0, 7]) and `BEQData.lean` (27 `decide +kernel` segments, ≈ 3.5 min); `emit_chain.py` writes `BEChain.lean`; `be_consts.py` the rational constants of the assembly.
+- New Lean: `BECellQ.lean` — invariant modes on the existing `GCellQ` cells: mode 1 φ²/2 < E, mode 2 E < φ²/2, from the polynomial pe − pp²/2 with error B(1 + PH). `BEMain.lean` — dm/ds = s²e^{w/2}(e^w − φ²/2)/√(4π); g = e^w − φ²/2 strictly decreasing on the bracket cell (g' = 2e^wφ + 2φ²/s ≤ −0.0095 by the cell enclosure); IVT gives ξ₁; StrictMonoOn/StrictAntiOn from the sign of g; m(ξ₁) ≥ m(A) by monotonicity, m(ξ₁) ≤ m(A) + (B − A)B²g(A) by the mean value theorem; contrast from w antitone (φ ≤ 0, `GProfile.profile_bounds`) and the bracket enclosure. Margins (exact rationals): m 8.8e-8 / 1.1e-8, contrast 2.6e-8 / 6.6e-7.
+- Axioms: propext, Classical.choice, Quot.sound. Blind closure `Work/Math/BonnorEbertBlindClosed.lean` (right derivative of ψ at 0 from the limit of ψ').
+- Lean lessons: `maxHeartbeats` counts the whole declaration (a long assembly needs `set_option maxHeartbeats 4000000 in`); `set` functions → `clear_value` and rewrite with the `with` equation, else linarith/simp time out in whnf; `HasDerivAt.mul` leaves `Pi.mul_apply` forms for `convert`.
