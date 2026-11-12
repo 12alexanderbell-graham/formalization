@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 241. Resting on no unpinned physics definition: 241.
-Non-vacuity (trust track T2): 159 headlines have hypotheses; 159 of them have a
+Headlines: 244. Resting on no unpinned physics definition: 244.
+Non-vacuity (trust track T2): 161 headlines have hypotheses; 161 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 889 hypotheses in 155 headlines;
-422 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 906 hypotheses in 157 headlines;
+425 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 118 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-349 open; headlines with every hypothesis classified: 56/155
+363 open; headlines with every hypothesis classified: 56/157
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -153,6 +153,9 @@ the docstring says; universally bound parameters are not listed.
 | `Records.F10_exceptions` | — | — | — | unconditional | RoundsTo: d = 0.599, k = 3, d = 0.731 |
 | `Records.F10_family_pole` | — | — | jL², qL² | unconditional | RoundsTo: d = 0.032, k = 3; Jfam: Ω = 41/1000 |
 | `Records.F11_sizes` | — | — | — | unconditional | RoundsTo: d = -86, k = 0, d = 0.72, k = 2 |
+| `Records.F12_separation` | — | — | — | `F12_separation` | RoundsTo: d = -0.1988377, k = 7 |
+| `Records.F13_wall_shear` | — | — | — | `F13_wall_shear` | RoundsTo: d = 0.005218, k = 6 |
+| `Records.F14_reversed_wall_shear` | — | — | — | unconditional | RoundsTo: d = -0.005157, k = 6 |
 | `B1.lumDistFlat_flatLCDM` | lumDistFlat, hubble, redshift | — | — | `lumDistFlat_flatLCDM` | — |
 | `B1.cubic_misses_z3` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z3` | redshift(t) = 3 |
 | `B1.cubic_misses_z7` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z7` | redshift(t) = 7 |
@@ -366,6 +369,8 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant (each alone, not together) 2 (`F2_toy_r2`); parts of 1 (4) needed 1 (`F2_toy_p1_1`), 4 (`F2_toy_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_toy_p1_2`), 3 (`F2_toy_p1_3`)
 - `Records.F2_error` (2): needed 1 (`F2_error_h1`); redundant (each alone, not together) 2 (`F2_error_r2`); parts of 1 (4) needed 1 (`F2_error_p1_1`), 4 (`F2_error_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_error_p1_2`), 3 (`F2_error_p1_3`)
 - `Records.F3_D4_LCDM` (2): needed 1 (`F3_D4_LCDM_h1`); redundant (each alone, not together) 2 (`F3_D4_LCDM_r2`); parts of 1 (4) needed 1 (`F3_D4_LCDM_p1_1`), 4 (`F3_D4_LCDM_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F3_D4_LCDM_p1_2`), 3 (`F3_D4_LCDM_p1_3`)
+- `Records.F12_separation` (9): needed 1 (`F12_separation_h1`), 2 (`F12_separation_h2`), 3 (`F12_separation_h3`); open 4, 5, 6, 7, 8, 9
+- `Records.F13_wall_shear` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 - `B1.lumDistFlat_flatLCDM` (7): needed 6 (`lumDistFlat_flatLCDM_h6`), 7 (`lumDistFlat_flatLCDM_h7`); redundant 5 (`lumDistFlat_flatLCDM_r5`); open 1, 2, 3, 4
 - `B1.cubic_misses_z3` (8): needed 7 (`cubic_misses_z3_h7`), 8 (`cubic_misses_z3_h8`); redundant (each alone, not together) 5 (`cubic_misses_z3_r5`), 6 (`cubic_misses_z3_r6`); open 1, 2, 3, 4
 - `B1.cubic_misses_z7` (8): needed 7 (`cubic_misses_z7_h7`), 8 (`cubic_misses_z7_h8`); redundant (each alone, not together) 5 (`cubic_misses_z7_r5`), 6 (`cubic_misses_z7_r6`); open 1, 2, 3, 4

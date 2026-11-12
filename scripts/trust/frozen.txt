@@ -384,6 +384,9 @@ Checked.Records.F10_exceptions f8c180c0-doc8018801978463092988
 Checked.Records.F10_family_pole 77d6616e-doc9802536482937249793
 Checked.Records.F10_printed_pole 87fd43e-doc8506688851552309792
 Checked.Records.F11_sizes 1e36c7b0-doc4390042586132807648
+Checked.Records.F12_separation a17f6b11-doc8162910299867650669
+Checked.Records.F13_wall_shear f16ea78d-doc14113853095423408103
+Checked.Records.F14_reversed_wall_shear ed5050db-doc14677927002311240110
 Checked.Records.F1_l0 86e62cc4-doc17214862890485777470
 Checked.Records.F1_m0_agrees 9bfdd380-doc13495434544363526396
 Checked.Records.F1_printedL0 427e763-doc3216406102202614421
@@ -2414,6 +2417,9 @@ doc:Checked.Trust.NCL.no_rise -doc12586682696006485838
 doc:Checked.Trust.NCL.quartic_small -doc1420646773972731277
 doc:Checked.Trust.NCL.rad_diff_le -doc2038557273582614497
 doc:Checked.Trust.NCL.z5_pos -doc6676620353257283814
+doc:Checked.Trust.NCP.F12_separation_h1 -doc2040674116474285037
+doc:Checked.Trust.NCP.F12_separation_h2 -doc14190810903206871252
+doc:Checked.Trust.NCP.F12_separation_h3 -doc16449674853816042659
 doc:Checked.Trust.NCP.fs_separation_below_printed_h1 -doc12091985303137600028
 doc:Checked.Trust.NCP.fs_separation_below_printed_h2 -doc13035893517214846558
 doc:Checked.Trust.NCP.fs_separation_below_printed_h3 -doc3884087358989731490
@@ -3083,6 +3089,7 @@ moduledoc:Checked.Math.TFReduce -mdoc3146223978608859584
 moduledoc:Checked.Math.ThomasFermiExists -mdoc3187720628668602761
 moduledoc:Checked.Math.ThomasFermi -mdoc2131791644132145726
 moduledoc:Checked.Records.Basic -mdoc17748666938352798359
+moduledoc:Checked.Records.FalknerSkan -mdoc17725893492915324486
 moduledoc:Checked.Records.Findings -mdoc12674245471988407188
 moduledoc:Checked.Sim.ChebBound -mdoc2779961283632007385
 moduledoc:Checked.Sim.DuffingCell -mdoc7174413968324916952
@@ -3173,6 +3180,7 @@ moduledoc:Checked.Trust.NecessityJ -mdoc1488043631767461679
 moduledoc:Checked.Trust.NecessityK -mdoc6552524809572826252
 moduledoc:Checked.Trust.NecessityL -mdoc14468159082974997690
 moduledoc:Checked.Trust.NecessityM -mdoc9738669776155721230
+moduledoc:Checked.Trust.NecessityN -mdoc17239129158478424958
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401
@@ -3218,4 +3226,4 @@ moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc10126928759690679207
+moduledoc:Checked.Trust.Witnesses -mdoc14438749219625166923

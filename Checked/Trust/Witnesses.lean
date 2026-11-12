@@ -1,4 +1,5 @@
 import Checked.Trust.NonVacuity
+import Checked.Records.FalknerSkan
 import Checked.FalknerSkan.NegReversedWallShear
 import Checked.FSRev.RPrintedNV
 import Checked.FalknerSkan.NegWallShear
@@ -1057,5 +1058,22 @@ theorem fs_neg_reversed_printed_overshoots :
     nonvacuity% Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots := by
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hq0⟩ := Checked.FSRev.RPrintedNV.printed_ivp_exists
   exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hq0, trivial⟩
+
+end Checked.Trust.NV
+
+/-! Records of the Falkner–Skan findings F12–F14 (run 2026-11-12T1028Z): the existence headlines meet every
+hypothesis of the conditional records (F14 is an existence statement with no hypotheses). -/
+
+namespace Checked.Trust.NV
+
+theorem F12_separation : nonvacuity% Checked.Records.F12_separation := by
+  obtain ⟨β, -, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.Separation.fs_separation_exists
+  exact ⟨β, f, p, q, hf, hp, hq, hf0, hp0, hq0, hlim, hpos, hdec, trivial⟩
+
+theorem F13_wall_shear : nonvacuity% Checked.Records.F13_wall_shear := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
 
 end Checked.Trust.NV

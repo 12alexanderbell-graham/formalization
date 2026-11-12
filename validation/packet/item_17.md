@@ -1,6 +1,6 @@
 # Item 17
 
-**Area:** Robertson at t = 1e11
+**Area:** Rigorous simulation of a stiff network
 
 **Source:** see the claim
 
@@ -10,11 +10,16 @@
 
 **assuming**
 
-1. the concentration of species A over time `y₁`, the concentration of species B over time `y₂` and the concentration of species C over time `y₃` are a Robertson chemical kinetics initial value problem solution with the rate constant of the first reaction `k₁ := 1 / 25`, the rate constant of the second reaction `k₂ := 10000`, the rate constant of the third reaction `k₃ := 30000000`, the initial concentration of species A `a₀ := 1`, the initial concentration of species B `b₀ := 0`, the initial concentration of species C `c₀ := 0` and the final time of the interval `T := 100000000000` (A converts to B with rate constant `k₁ := 1 / 25`; B plus C gives A plus C with rate constant `k₂ := 10000`; two B give B plus C with rate constant `k₃ := 30000000`; `y₁` `y₂` `y₃` are concentrations of A B C; holds on the closed time interval from zero to `T := 100000000000`)
+1. the concentration of species A over time `y₁`, the concentration of species B over time `y₂` and the concentration of species C over time `y₃` are a Robertson chemical kinetics initial value problem solution with the rate constant of the first reaction `k₁ := 1 / 25`, the rate constant of the second reaction `k₂ := 10000`, the rate constant of the third reaction `k₃ := 30000000`, the initial concentration of species A `a₀ := 1`, the initial concentration of species B `b₀ := 0`, the initial concentration of species C `c₀ := 0` and the final time of the interval `T := 40` (A converts to B with rate constant `k₁ := 1 / 25`; B plus C gives A plus C with rate constant `k₂ := 10000`; two B give B plus C with rate constant `k₃ := 30000000`; `y₁` `y₂` `y₃` are concentrations of A B C; holds on the closed time interval from zero to `T := 40`)
 
 **then**
 
-- `9999999791665050 / 10000000000000000 + 1 / 100000000000000 < y₃ 100000000000`
+1. `7158270 / 10000000 < y₁ 40`
+2. `y₁ 40 < 7158271 / 10000000`
+3. `91855 / 10000000000 < y₂ 40`
+4. `y₂ 40 < 91856 / 10000000000`
+5. `2841637 / 10000000 < y₃ 40`
+6. `y₃ 40 < 2841638 / 10000000`
 
 Program definitions in this claim:
 
@@ -22,17 +27,19 @@ Program definitions in this claim:
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The printed reference value 0.9999999791665050 of the Bari IVP test set for the third
-concentration of Robertson's network at t = 10¹¹ is more than 10⁻¹⁴ too small: every solution of
-the rate equations on [0, 10¹¹] with k₁ = 1/25, k₂ = 10⁴, k₃ = 3·10⁷ and initial concentrations
-(1, 0, 0) has y₃(10¹¹) > 0.9999999791665050 + 10⁻¹⁴.
+Certified state of Robertson's stiff network at t = 40: for k₁ = 1/25, k₂ = 10⁴,
+k₃ = 3·10⁷ and initial concentrations (1, 0, 0), every solution of the rate equations on
+[0, 40] has 0.7158270 < y₁(40) < 0.7158271, 0.0000091855 < y₂(40) < 0.0000091856 and
+0.2841637 < y₃(40) < 0.2841638.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem rob_printed_y3_low {y₁ y₂ y₃ : ℝ → ℝ}
-    (h : Checked.Sim.Robertson.IsRobSolution (1 / 25) 10000 30000000 1 0 0 100000000000 y₁ y₂ y₃) :
-    9999999791665050 / 10000000000000000 + 1 / 100000000000000 < y₃ 100000000000 := …
+theorem rob_state40 {y₁ y₂ y₃ : ℝ → ℝ}
+    (h : IsRobSolution (1 / 25) 10000 30000000 1 0 0 40 y₁ y₂ y₃) :
+    7158270 / 10000000 < y₁ 40 ∧ y₁ 40 < 7158271 / 10000000 ∧
+    91855 / 10000000000 < y₂ 40 ∧ y₂ 40 < 91856 / 10000000000 ∧
+    2841637 / 10000000 < y₃ 40 ∧ y₃ 40 < 2841638 / 10000000 := …
 ```
 
 ## Definitions it uses
@@ -44,8 +51,8 @@ See GLOSSARY.md: `Sim.Robertson.IsRobSolution`
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: IsRobSolution.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rob_printed_y3_low`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 100000000000.
-- Source file: `Checked/Sim/RobLong.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `rob_state40`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsRobSolution: k₁ = 1/25, k₂ = 10000, k₃ = 30000000, a₀ = 1, b₀ = 0, c₀ = 0, T = 40.
+- Source file: `Checked/Sim/Robertson.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 17
