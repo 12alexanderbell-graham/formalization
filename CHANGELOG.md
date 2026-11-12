@@ -628,3 +628,9 @@
 ## 2026-11-12T1628Z (scheduled run)
 - Env: repo ok; local Lean (elan, Mathlib cache, CI build artifact of 43196172253 restored). CI: 43218463622 (4c7b118) checked job cancelled at 240 min — root cause found in its log (axiom-audit's bare `lake build` rebuilt Work on a cache miss) and repaired (`defaultTargets = ["Checked"]`); 43252958184 (156c3da) cancelled as superseded.
 - Part 1: `Checked/Trust/NecessityR.lean` — 24 hypotheses of eleven Falkner–Skan headlines classified (13 REDUNDANT: p → 1; 11 NEEDED: p' = q, q > 0); open 331 → 307.
+
+## 2026-11-12T1828Z (scheduled run)
+- Env: repo ok; local Lean (elan, Mathlib cache, CI build artifact of 43268238201 restored). CI 43268238201 (6a660ac): checked (strict) green in 64 min and nanoda 4/4 green — run 1628Z's `defaultTargets` repair confirmed; `work` job still running at the end of this run.
+- Parts 2/5: reversed-flow Falkner–Skan rows β = −0.15, −0.17, −0.18, −0.19 certified to ten decimals with existence and two decay-class solutions (generator run on the generic-K reversed-flow stack; twelve certificate modules, all compiled first time; PROVED in Work, axioms standard); referee STANDS; Ganapol 2010 Table 7 confirmed to 12 digits at these rows; Stewartson 1954 as quoted by Fazio wrong in the third digit (parked).
+- Part 1: `Checked/Trust/NecessityS.lean` — q > 0 NEEDED in the three Ganapol row windows (`fs_neg_wall_shear_17/18/19_window`).
+- Records: STATE.md trimmed (older environment lines and summaries moved verbatim to `_archive/STATE_environment_history.md`).

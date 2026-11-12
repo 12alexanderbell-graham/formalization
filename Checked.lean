@@ -398,6 +398,18 @@ import Checked.FSRev.R1988Printed
 import Checked.FSRev.R1988PrintedEnd
 import Checked.FSRev.RGlobal
 import Checked.FSRev.RPrintedNV
+import Checked.FSRev.RFifteenOver
+import Checked.FSRev.RFifteenSlow
+import Checked.FSRev.RFifteenTube
+import Checked.FSRev.RSeventeenOver
+import Checked.FSRev.RSeventeenSlow
+import Checked.FSRev.RSeventeenTube
+import Checked.FSRev.REighteenOver
+import Checked.FSRev.REighteenSlow
+import Checked.FSRev.REighteenTube
+import Checked.FSRev.RNineteenOver
+import Checked.FSRev.RNineteenSlow
+import Checked.FSRev.RNineteenTube
 import Checked.FalknerSkan.NegReversedWallShear
 import Checked.FalknerSkan.NegReversed
 import Checked.Suction.HSFlow
@@ -430,4 +442,5 @@ import Checked.Trust.NecessityO
 import Checked.Trust.NecessityP
 import Checked.Trust.NecessityQ
 import Checked.Trust.NecessityR
+import Checked.Trust.NecessityS
 import Checked.Trust.MaxwellRight
