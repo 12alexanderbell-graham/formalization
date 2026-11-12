@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.BEMain
 
 /-! Bonnor–Ebert sphere, `BonnorEbert` (FROZEN by run 2026-11-12T0427Z in auditor role; to move to
 `Work/Math/BonnorEbert.lean` byte-identical once the LOCK is free).
@@ -32,7 +33,7 @@ theorem bonnor_ebert_critical (S : ℝ) (hS : 7 ≤ S) (w φ : ℝ → ℝ)
         (Icc ξ₁ 7) ∧
       1.1822265 ≤ ξ₁ ^ 2 * (-φ ξ₁) * Real.exp (w ξ₁ / 2) / Real.sqrt (4 * Real.pi) ∧
       ξ₁ ^ 2 * (-φ ξ₁) * Real.exp (w ξ₁ / 2) / Real.sqrt (4 * Real.pi) ≤ 1.1822266 ∧
-      14.042032 ≤ Real.exp (-w ξ₁) ∧ Real.exp (-w ξ₁) ≤ 14.042033 := by
-  sorry
+      14.042032 ≤ Real.exp (-w ξ₁) ∧ Real.exp (-w ξ₁) ≤ 14.042033 :=
+  Work.Math.BEMain.bonnor_ebert_critical S hS w φ hw hφ0 hφ h0
 
 end Work.Math.BonnorEbert
