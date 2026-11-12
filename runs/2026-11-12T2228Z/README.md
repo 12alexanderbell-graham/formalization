@@ -48,7 +48,10 @@
 8. **Blind closure:** `scripts/make_rev_closures.py` writes `Work/FalknerSkan/ReversedTableBlindClosed.lean`, which is run 1228Z's restater's text per row with the printed-value and two-solution theorems dropped.
 
 ## Local checks and push
-- See the final commit message and `lean/` for the build, the axioms and the local CI replica.
+- `lake build Checked` green (incremental on the restored CI build); `lake build Work.FalknerSkan.ReversedTableBlindClosed` green; axioms standard (`lean/axioms.log`).
+- The container was restarted once (exit 137: a StatementDeps run next to two degree-14 chain generators for row −0.03 ran out of memory); row −0.03 dropped, StatementDeps rerun alone.
+- StatementDeps with relock (256 headlines, NV 164/164, necessity unchanged: needed 486 / redundant 140 / open 304; only new `doc:` entries of the helper modules in `frozen.txt`); Claims (256, unchanged); `local_frozen_step.py --trust 02fb347`: trust step exit 0, frozen step 21 commands, 0 failed.
+- Intermediate pushes carried `[skip ci]`; the final push (LOCK removed) starts the main run.
 
 ## Next start
 - CI read first: this run's final push, which adds 35 Checked helper modules (the Checked job grows) and the Work rows; also 43311405425.
