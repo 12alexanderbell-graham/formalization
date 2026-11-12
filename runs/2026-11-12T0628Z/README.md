@@ -11,3 +11,11 @@
 ## Bottleneck
 - STATE next step 0e: promote `bonnor_ebert_critical` to Checked. Yes → a new field (astrophysics) PROVED in the trust system, and C-BE-1 can be decided on Checked evidence; no → a promotion defect (imports, docstring, NV, necessity) to repair.
 - Draft promotion script `scripts/promote_be.py` (pattern of promote_g.py) written in auditor role; compile against the restored build.
+
+## Auditor role (06:28Z–LOCK release)
+- **Collision (LIV):** run 0427Z's LOCK line said from 06:38Z "promotion of Bonnor–Ebert to Checked in ../fztest"; this run read only the heartbeat times and promoted the same modules in its own tree (local only, never pushed; ≈ 25 min). Root cause and fix: PROMPT working note "Read the LOCK line, not just its time".
+- **Disjoint work instead — nine hypotheses classified** (scratch `lean/NecessityM.lean`, compiled against the promoted modules): Bonnor–Ebert 1, 2, 4, 5 needed, 3 redundant (5 by the scaling symmetry u(s) = w(cs) + 2 log c of the isothermal equation); Gelfand ball 5 needed (c = 1/3); Thomas–Fermi 1 needed (explicit pair); Gelfand PDE bound 2, 3 needed (constant shift). StatementDeps on wip/be-promo + NecessityM: needed +8, redundant +1, open −9.
+- **CI artifact restore measured (LIV experiment of run 0427Z):** download of `checked-build` (1.9 GB) ≈ 1 min, `restore_checked_build.sh` 68 s, `lake build Checked.Math.BonnorEbert` on top 4.6 min (the six new modules); a later branch build 5.9 min.
+
+## LOCK
+- Run 0427Z released the LOCK (f789e4d); taken by this run.
