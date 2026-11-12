@@ -5,7 +5,7 @@ registered headline (scripts/trust/headlines.txt). Approximates the Lean check (
 alarm). Run before every records commit (run 2026-11-06T0828Z: the records commit of run 0628Z cited
 a pin theorem and an NV witness by name; the trust step on main was red for two hours).
 Usage: python3 scripts/trust/precheck_citations.py  (exit 1 on a suspected violation)"""
-import re, glob, sys
+import os, re, glob, sys
 
 thms = set()
 decls = set()
@@ -73,4 +73,11 @@ bad -= PURE
 for n in sorted(bad):
     print(f'suspected: STATE.md/FINDINGS.md cite {n}, which is not in scripts/trust/headlines.txt')
 print(f'precheck_citations: {len(bad)} suspected')
-sys.exit(1 if bad else 0)
+# Records commits also break the status-line rule (check_status_lines S1-S3 reads STATE.md against CLAIMS.md):
+# 1727c31 (run 2026-11-11T2228Z) put 'global' into a STATE status line and turned the checked job's trust step
+# red although every Lean and necessity check passed. It is pure Python (< 1 s), so the records precheck runs
+# it too (run 2026-11-12T0227Z, LEDGER); a records commit then needs only this one command.
+import subprocess
+here = os.path.dirname(os.path.abspath(__file__))
+rc = subprocess.call([sys.executable, os.path.join(here, 'check_status_lines.py')])
+sys.exit(1 if (bad or rc) else 0)
