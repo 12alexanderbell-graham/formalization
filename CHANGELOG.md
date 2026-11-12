@@ -619,3 +619,7 @@
 - Part 1: 44 hypotheses classified (35 NEEDED, 9 REDUNDANT; open 363 → 319): RK/SRK/PR/PR78 acentric claims (`Checked/Trust/NecessityO.lean`), `b < v_l` redundant in the RK/SRK uniqueness claims (`Checked/Trust/MaxwellRight.lean`: every Maxwell state of a subcritical RK-form isotherm lies right of b), FR13 transition redshift and `eta_ratios` (`Checked/Trust/NecessityP.lean`). RK module doc: a referee sentence calling `b < v_l` essential corrected.
 - New blocking check `scripts/trust/check_necessity_prose.py` (N-P1): prose necessity claims cite the generated classification (LEDGER).
 - CI: 43196172253 (0e262e6) green on every job → Bonnor–Ebert critical sphere PROVED.
+
+## 2026-11-12T1428Z (scheduled run)
+- Env: repo ok; local Lean (elan, Mathlib cache, CI build artifact of 43196172253 restored); CI 43218463622 (4c7b118) in progress, 43235588795 (3aac2e0) pending at start.
+- Parts 2/5: attached Falkner–Skan rows β = −0.15, −0.17, −0.18, −0.19, −0.195, −0.198 certified to ten decimals with existence (generator + emitter + generic-K stack; PROVED in Work, axioms standard); referee STANDS-WITH-CORRECTIONS; rows −0.17, −0.18, −0.19 promoted to Checked (`Checked/FalknerSkan/NegWallShearRows.lean`) with a blind β reading of Ganapol 2010 Table 6. −0.195/−0.198: no printed value found (new numbers), Work only.

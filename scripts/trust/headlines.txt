@@ -294,3 +294,10 @@ Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay
 Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_wall_shear_exists
 Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots
 Checked.FalknerSkan.NegReversedWallShear.fs_neg_wall_shear_two_decay
+# Falkner–Skan attached rows β = −0.17, −0.18, −0.19 (run 2026-11-12T1428Z; frozen 964c644/this run, proved in Work on the attached-flow stack generic in K, Checked/FSAtt/; statements of the audited β = −1988/10000 pair with β and a ten-decimal window replaced; referee STANDS-WITH-CORRECTIONS; the windows confirm Ganapol 2010 Table 6): wall-shear windows of the decay-class solutions, and existence
+Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window
+Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_exists_decay
+Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window
+Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_exists_decay
+Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window
+Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_exists_decay

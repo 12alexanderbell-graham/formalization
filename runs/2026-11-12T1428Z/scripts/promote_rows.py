@@ -82,6 +82,6 @@ theorem fs_neg_wall_shear_{tag}_window : nonvacuity% Checked.FalknerSkan.NegWall
     Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_{tag}_exists_decay
   exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
 """
-    W = W.replace('end Checked.Trust.NV', blk + '\nend Checked.Trust.NV')
+    i = W.rindex('end Checked.Trust.NV'); W = W[:i] + blk + '\n' + W[i:]  # last NV section only (two exist)
     (R / 'Checked/Trust/Witnesses.lean').write_text(W)
 print('promoted', mods)

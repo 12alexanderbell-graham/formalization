@@ -1,58 +1,50 @@
 # Item 03
 
-**Area:** Falkner–Skan with adverse pressure gradient, β < 0
+**Area:** Astrophysics
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `β : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`:
+**For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
 
-1. `β < 0`
-2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
-3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
-4. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Set.Ici 0) η`
-5. `f 0 = 0`
-6. `p 0 = 0`
-7. `Filter.Tendsto p Filter.atTop (nhds 1)`
-8. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
-9. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`
-10. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₂ (p₂ η) (Set.Ici 0) η`
-11. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₂ (q₂ η) (Set.Ici 0) η`
-12. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - β * (1 - p₂ η ^ 2)) (Set.Ici 0) η`
-13. `f₂ 0 = 0`
-14. `p₂ 0 = 0`
-15. `Filter.Tendsto p₂ Filter.atTop (nhds 1)`
-16. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q₂ η`
+1. `7 ≤ S`
+2. for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `HasDerivWithinAt w (φ s) (Set.Icc 0 S) s`
+3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
+4. for every `s : ℝ`, if `s ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Icc 0 S) s`
+5. `w 0 = 0`
 
 **then**
 
-- `q₂ 0 ≤ q 0`
+- there is `ξ₁ : ℝ` such that (`6.4507514 ≤ ξ₁`) and (`ξ₁ ≤ 6.4507515`) and (`StrictMonoOn (fun s => s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi)) (Set.Icc 0 ξ₁)`) and (`StrictAntiOn (fun s => s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi)) (Set.Icc ξ₁ 7)`) and (`1.1822265 ≤ ξ₁ ^ 2 * -φ ξ₁ * Real.exp (w ξ₁ / 2) / √(4 * Real.pi)`) and (`ξ₁ ^ 2 * -φ ξ₁ * Real.exp (w ξ₁ / 2) / √(4 * Real.pi) ≤ 1.1822266`) and (`14.042032 ≤ Real.exp (-w ξ₁)`) and (`Real.exp (-w ξ₁) ≤ 14.042033`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Falkner–Skan with β < 0: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with
-f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, and (f₂, p₂, q₂) is a
-solution with f₂(0) = 0, p₂(0) = 0, p₂ → 1 and q₂ > 0 on [0, ∞), then q₂(0) ≤ q(0).
+Bonnor–Ebert critical sphere: for every S ≥ 7 and every solution w of w'' + (2/s)w' + e^w = 0 on
+(0, S] with w(0) = 0, w differentiable on [0, S] with derivative φ and φ continuous at 0, there is a radius ξ₁
+between 6.4507514 and 6.4507515 such that the dimensionless mass m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π)
+increases strictly on [0, ξ₁] and decreases strictly on [ξ₁, 7]; there the mass lies between 1.1822265 and
+1.1822266 and the centre-to-edge density contrast e^{−w(ξ₁)} between 14.042032 and 14.042033.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fs_neg_decay_max_shear (β : ℝ) (hβ : β < 0) (f p q f₂ p₂ q₂ : ℝ → ℝ)
-    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
-    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
-    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Ici 0) η)
-    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
-    (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
-    (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η)
-    (hf₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f₂ (p₂ η) (Ici 0) η)
-    (hp₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p₂ (q₂ η) (Ici 0) η)
-    (hq₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - β * (1 - p₂ η ^ 2)) (Ici 0) η)
-    (hf₂0 : f₂ 0 = 0) (hp₂0 : p₂ 0 = 0) (hlim₂ : Tendsto p₂ atTop (𝓝 1))
-    (hpos₂ : ∀ η ∈ Ici (0 : ℝ), 0 < q₂ η) :
-    q₂ 0 ≤ q 0 := …
+theorem bonnor_ebert_critical (S : ℝ) (hS : 7 ≤ S) (w φ : ℝ → ℝ)
+    (hw : ∀ s ∈ Icc (0 : ℝ) S, HasDerivWithinAt w (φ s) (Icc 0 S) s)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 S) 0)
+    (hφ : ∀ s ∈ Ioc (0 : ℝ) S,
+      HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Icc 0 S) s)
+    (h0 : w 0 = 0) :
+    ∃ ξ₁ : ℝ, 6.4507514 ≤ ξ₁ ∧ ξ₁ ≤ 6.4507515 ∧
+      StrictMonoOn (fun s => s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi))
+        (Icc 0 ξ₁) ∧
+      StrictAntiOn (fun s => s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi))
+        (Icc ξ₁ 7) ∧
+      1.1822265 ≤ ξ₁ ^ 2 * (-φ ξ₁) * Real.exp (w ξ₁ / 2) / Real.sqrt (4 * Real.pi) ∧
+      ξ₁ ^ 2 * (-φ ξ₁) * Real.exp (w ξ₁ / 2) / Real.sqrt (4 * Real.pi) ≤ 1.1822266 ∧
+      14.042032 ≤ Real.exp (-w ξ₁) ∧ Real.exp (-w ξ₁) ≤ 14.042033 := …
 ```
 
 ## Definitions it uses
@@ -64,8 +56,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fs_neg_decay_max_shear`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `bonnor_ebert_critical`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/NegDecay.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/BonnorEbert.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 03

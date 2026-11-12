@@ -1,6 +1,6 @@
 # Item 25
 
-**Area:** Mathematics
+**Area:** Fluid mechanics
 
 **Source:** see the claim
 
@@ -8,23 +8,24 @@
 
 **It holds that**
 
-- there is `θ : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 7`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 7) ξ`) and (`ContinuousWithinAt φ (Set.Icc 0 7) 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 7`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Set.Icc 0 7) ξ`) and (`θ 0 = 1`)
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`0.927680039 < q 0`) and (`q 0 < 0.927680040`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-There exist θ, φ with θ differentiable within [0, 7] with derivative φ, φ continuous at 0,
-φ' = −(2/ξ)φ − θ³ on (0, 7] and θ(0) = 1: the hypotheses of the Lane–Emden headline
-`Checked.Math.LaneEmden.laneEmden3_constants` are satisfied together (a solution regular at the centre
-exists).
+Falkner–Skan β = 1/2, existence: there is a solution f of f''' + f f'' + (1 − f'²)/2 = 0 on
+[0, ∞) (f has derivative p, p has derivative q, q has derivative −f q − (1 − p²)/2, one-sided
+at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value q(0) = f''(0) lies
+strictly between 0.927680039 and 0.927680040.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem exists_solution : ∃ θ φ : ℝ → ℝ,
-    (∀ ξ ∈ Icc (0 : ℝ) 7, HasDerivWithinAt θ (φ ξ) (Icc 0 7) ξ) ∧
-    ContinuousWithinAt φ (Icc 0 7) 0 ∧
-    (∀ ξ ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Icc 0 7) ξ) ∧
-    θ 0 = 1 := …
+theorem fs_half_exists : ∃ f p q : ℝ → ℝ,
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Ici 0) η) ∧
+    f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
+    0.927680039 < q 0 ∧ q 0 < 0.927680040 := …
 ```
 
 ## Definitions it uses
@@ -38,6 +39,6 @@ Only Mathlib notions.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/LEExists.lean` (do not open it before submitting your answers).
+- Source file: `Checked/FalknerSkan/FalknerSkan.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 25

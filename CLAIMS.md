@@ -6818,3 +6818,126 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > q(0) ≠ q₂(0), such that, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, and,
 > for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`.
 
+## `fs_neg_wall_shear_17_window`
+
+Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -17 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
+8. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`
+
+**then**
+
+1. `0.1621146770 < q 0`
+2. `q 0 < 0.1621146771`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan with β = −17/100: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
+> with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
+> then 0.1621146770 < q(0) < 0.1621146771.
+
+## `fs_neg_wall_shear_17_exists_decay`
+
+Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_exists_decay`.
+
+**It holds that**
+
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -17 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan with β = −17/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
+> [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`.
+
+## `fs_neg_wall_shear_18_window`
+
+Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -18 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
+8. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`
+
+**then**
+
+1. `0.1286362205 < q 0`
+2. `q 0 < 0.1286362206`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan with β = −18/100: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
+> with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
+> then 0.1286362205 < q(0) < 0.1286362206.
+
+## `fs_neg_wall_shear_18_exists_decay`
+
+Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_exists_decay`.
+
+**It holds that**
+
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -18 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan with β = −18/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
+> [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`.
+
+## `fs_neg_wall_shear_19_window`
+
+Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -19 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
+8. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`
+
+**then**
+
+1. `856997440e-10 < q 0`
+2. `q 0 < 856997441e-10`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan with β = −19/100: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
+> with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
+> then 0.0856997440 < q(0) < 0.0856997441.
+
+## `fs_neg_wall_shear_19_exists_decay`
+
+Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_exists_decay`.
+
+**It holds that**
+
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -19 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan with β = −19/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
+> [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`.
+

@@ -1,58 +1,50 @@
 # Item 05
 
-**Area:** Data claim
+**Area:** F3
 
-**Source:** see the claim
+**Source:** Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v2, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Ω : ℝ`, `z : ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `0 ≤ Ω`
-2. `Ω ≤ 1`
-3. for every `Ω' : ℝ`, if `Ω' ∈ Set.Icc 0 1`, then `margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω'`
-4. `-1 < z`
-5. `Ω * (1 + z) ^ 3 = 2 * (1 - Ω)`
-
-**then**
-
-1. `0.703 < z`
-2. `z < 0.706`
+- it is false that (`CCSD4Claim`)
 
 Program definitions in this claim:
 
-- `chiSqHz tbl H₀ Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_chiSqHz`) (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `H₀ : ℝ`, `Ω : ℝ`): is defined as `∑ i, ((H₀ * √(Ω * (1 + (tbl i).1) ^ 3 + 1 - Ω) - (tbl i).2.1) / (tbl i).2.2) ^ 2`
-- `fr13Table` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_fr13Table`); its name is not checked: is defined as `![(70e-3, 69, 19.6), (0.100, 69, 12), (0.120, 68.6, 26.2), (0.170, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.200, 72.9, 29.6), (0.270, 77, 14), (0.280, 88.8, 36.6), (0.350, 76.3, 5.6), (0.352, 83, 14), (0.400, 95, 17), (0.440, 82.6, 7.8), (0.480, 97, 62), (0.593, 104, 13), (0.600, 87.9, 6.1), (0.680, 92, 8), (0.730, 97.3, 7.0), (0.781, 105, 12), (0.875, 125, 17), (0.880, 90, 40), (0.900, 117, 23), (1.037, 154, 20), (1.300, 168, 17), (1.430, 177, 18), (1.530, 140, 14), (1.750, 202, 40), (2.300, 224, 8)]`
-- `margChiSq tbl Hbar σ Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_margChiSq`) (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `Hbar : ℝ`, `σ : ℝ`, `Ω : ℝ`): is defined as `-2 * Real.log (∫ (H₀ : ℝ), Real.exp (-chiSqHz tbl H₀ Ω / 2) * (Real.exp (-(H₀ - Hbar) ^ 2 / (2 * σ ^ 2)) / √(2 * Real.pi * σ ^ 2)))`
+- `CCSD4Claim` — CLAIM, not pinned; the source-dependent data written inline (printed formula, order of the printed series) agree with an independent blind second reading of the source (`Checked.Trust.Transcriptions.agree_CCSD4Claim`); the quantifiers and hypotheses are the program's formalisation: means for every `a : ℝ → ℝ`, for every `t₀ : ℝ`, if `ContDiff ℝ ⊤ a`, then if for every `t : ℝ`, `0 < a t`, then if `0 < hubble a t₀`, then `(fun t => remainder printedD4 a t₀ t) =o[nhds t₀] fun t => redshift a t₀ t ^ 5`
+- `D1 q` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_D1`); its name is not checked (for `q : ℝ`): is defined as `-(1 + q / 2)`
+- `D2 q j` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_D2`); its name is not checked (for `q : ℝ`, `j : ℝ`): is defined as `1 + q + q ^ 2 / 2 - j / 6`
+- `D3 q j s` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_D3`); its name is not checked (for `q : ℝ`, `j : ℝ`, `s : ℝ`): is defined as `-(1 + 3 / 2 * q + 3 / 2 * q ^ 2 + 5 / 8 * q ^ 3 - 1 / 2 * j - 5 / 12 * q * j - s / 24)`
+- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): phrase (hand-written, linted): the cosmographic coefficient with the derivative order of the coefficient `n`, the scale factor `a` and the time of evaluation `t` (`n`-th time derivative of the scale factor over the scale factor divided by the `n`-th power of the Hubble rate; orders 0 and 1 coefficients are one; The order 2 coefficient is minus the deceleration parameter usually written q; The order 3 coefficient is the jerk parameter usually written j; The order 4 coefficient is the snap parameter usually written s; The order 5 coefficient is the lerk parameter usually written l); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «orders 0 and 1 coefficients are one» only assuming `a t ≠ 0`; `deriv a t ≠ 0`, «The order 2 coefficient is minus the deceleration parameter usually written q» only assuming `a t ≠ 0`
+- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): phrase (hand-written, linted): the deceleration parameter with the scale factor `a` and the cosmic time of evaluation `t` (minus acceleration times scale factor over velocity squared; minus the second time derivative times the scale factor divided by the squared first time derivative; negative value means accelerating expansion); by definition, `decel a t` is `-(deriv (deriv a) t * a t) / deriv a t ^ 2`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «negative value means accelerating expansion» only assuming `0 < a t`; `0 < deriv a t`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): phrase (hand-written, linted): the Hubble rate with the scale factor `a` and the cosmic time of evaluation `t` (logarithmic derivative of the scale factor with respect to cosmic time; positive for expansion and negative for contraction); by definition, `hubble a t` is `deriv a t / a t`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «logarithmic derivative of the scale factor with respect to cosmic time» only assuming `0 < a t`; `DifferentiableAt ℝ a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `0 < deriv a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `deriv a t < 0`
+- `printedD4 q j s l` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedD4`); its name is not checked (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `1 + 2 * q + 3 * q ^ 2 + 5 / 2 * q ^ 3 + 7 / 2 * q ^ 4 - 5 / 3 * q * j - 7 / 8 * q ^ 2 * j - j + j ^ 2 / 12 - 1 / 8 * q * s - s / 6 - l / 120`
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): phrase (hand-written, linted): the cosmological redshift with the scale factor `a`, the observation time `t₀` and the emission time `t` (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide); by definition, `redshift a t₀ t` is `a t₀ / a t - 1`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «positive when emission precedes observation in an expanding universe» only assuming for every `s : ℝ`, `0 < a s`; `StrictMono a`; `t < t₀`, «one plus redshift is the scale factor at observation over that at emission», «zero when emission and observation coincide» only assuming `a t₀ ≠ 0`
+- `remainder D4 a t₀ t` — COMPOSITE, not pinned, so only the formula shown is checked, not its name (for `D4 : ℝ → ℝ → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`): is defined as `hubble a t₀ * (t₀ - t) - series (D4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)) (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (redshift a t₀ t)`
+- `series d4 q j s z` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_series`) (for `d4 : ℝ`, `q : ℝ`, `j : ℝ`, `s : ℝ`, `z : ℝ`): is defined as `z * (1 + D1 q * z + D2 q j * z ^ 2 + D3 q j s * z ^ 3 + d4 * z ^ 4)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-With the prior 68 ± 2.8, at every minimiser Ω over [0, 1] of the marginalised chi-square
-of the Farooq–Ratra 2013 table, the z > −1 solving Ω(1+z)³ = 2(1 − Ω) lies strictly between
-0.703 and 0.706.
+The printed claim is false (witness: de Sitter, `a = exp`, `t₀ = 0`).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fr13_zda68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
-    (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω')
-    (z : ℝ) (hz : -1 < z) (hda : Ω * (1 + z) ^ 3 = 2 * (1 - Ω)) :
-    0.703 < z ∧ z < 0.706 := …
+theorem ccsD4Claim_false : ¬ CCSD4Claim := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Data.FR13.fr13Table`, `Data.FR13.chiSqHz`, `Data.FR13.margChiSq`, `Data.FR13Certs.tbl`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.decel`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.CCS.CCSD4Claim`, `Cosmography.CCS.D1`, `Cosmography.CCS.D2`, `Cosmography.CCS.D3`, `Cosmography.CCS.printedD4`, `Cosmography.CCS.remainder`, `Cosmography.CCS.series`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): fr13Table².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fr13_zda68`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): margChiSq: Hbar = 68, σ = 2.8.
-- Source file: `Checked/Data/FR13.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, decel, hubble, redshift.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): CCSD4Claim², D1², D2², D3², printedD4².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cosmoCoeff: n = 3, n = 4, n = 5.
+- Source file: `Checked/Cosmography/CCSLookback.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 05

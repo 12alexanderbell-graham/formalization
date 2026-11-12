@@ -1,49 +1,56 @@
 # Item 30
 
-**Area:** Chemistry
+**Area:** Mathematics/physics
 
-**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `u : ℝ`, `w : ℝ`:
+**For every** `y : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
 
-1. `-2 < u`
-2. `0 < 1 + u + w`
-3. `u + w < -1`
+1. for every `x : ℝ`, if `0 ≤ x`, then `HasDerivWithinAt y (φ x) (Set.Ici 0) x`
+2. for every `x : ℝ`, if `0 < x`, then `HasDerivAt φ (y x ^ (3 / 2) / √x) x`
+3. `ContinuousWithinAt φ (Set.Ici 0) 0`
+4. `y 0 = 1`
+5. for every `x : ℝ`, if `0 ≤ x`, then `0 < y x`
+6. `Filter.Tendsto y Filter.atTop (nhds 0)`
 
 **then**
 
-- there is exactly one `x : ℝ` such that (`1 < x`) and (`critCubic u w x = 0`)
-
-Program definitions in this claim:
-
-- `critCubic u w x` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_critCubic`) (for `u : ℝ`, `w : ℝ`, `x : ℝ`): is defined as `x ^ 3 - 3 * x ^ 2 - 3 * (u + w) * x - (u ^ 2 + u * w - w)`
+1. `-1.58807103 ≤ φ 0`
+2. `φ 0 ≤ -1.58807102`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The critical cubic has exactly one root above 1 (x = v_c/b > 1).
+Every solution y of the Thomas–Fermi equation y'' = y^{3/2}/√x on (0, ∞) with y' = φ on
+[0, ∞), φ continuous at 0 from the right, y(0) = 1, y > 0 on [0, ∞) and y(x) → 0 as x → ∞ has
+initial slope −1.58807103 ≤ φ(0) ≤ −1.58807102.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem critCubic_existsUnique (u w : ℝ) (hu : -2 < u) (h1 : 0 < 1 + u + w) (h2 : u + w < -1) :
-    ∃! x : ℝ, 1 < x ∧ critCubic u w x = 0 := …
+theorem tf_initial_slope (y φ : ℝ → ℝ)
+    (hy : ∀ x, 0 ≤ x → HasDerivWithinAt y (φ x) (Ici 0) x)
+    (hφ : ∀ x, 0 < x → HasDerivAt φ (y x ^ ((3 : ℝ) / 2) / Real.sqrt x) x)
+    (hφ0 : ContinuousWithinAt φ (Ici 0) 0)
+    (h0 : y 0 = 1) (hpos : ∀ x, 0 ≤ x → 0 < y x)
+    (hlim : Tendsto y atTop (𝓝 0)) :
+    -1.58807103 ≤ φ 0 ∧ φ 0 ≤ -1.58807102 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.CubicEOS.critCubic`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `critCubic_existsUnique`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `tf_initial_slope`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/ThomasFermi.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 30

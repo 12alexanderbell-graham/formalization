@@ -3,6 +3,7 @@ import Checked.Records.FalknerSkan
 import Checked.FalknerSkan.NegReversedWallShear
 import Checked.FSRev.RPrintedNV
 import Checked.FalknerSkan.NegWallShear
+import Checked.FalknerSkan.NegWallShearRows
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
 import Checked.FalknerSkan.SeparationPrinted
@@ -1074,6 +1075,24 @@ theorem F12_separation : nonvacuity% Checked.Records.F12_separation := by
 theorem F13_wall_shear : nonvacuity% Checked.Records.F13_wall_shear := by
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
     Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+/-! Falkner–Skan attached rows read blind from a table (run 2026-11-12T1428Z): the solution of each row's existence
+headline satisfies every hypothesis of that row's wall-shear window. -/
+
+theorem fs_neg_wall_shear_17_window : nonvacuity% Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+theorem fs_neg_wall_shear_18_window : nonvacuity% Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+theorem fs_neg_wall_shear_19_window : nonvacuity% Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_exists_decay
   exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
 
 end Checked.Trust.NV

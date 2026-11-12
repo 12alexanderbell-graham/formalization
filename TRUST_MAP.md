@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 244. Resting on no unpinned physics definition: 244.
-Non-vacuity (trust track T2): 161 headlines have hypotheses; 161 of them have a
+Headlines: 250. Resting on no unpinned physics definition: 250.
+Non-vacuity (trust track T2): 164 headlines have hypotheses; 164 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 906 hypotheses in 157 headlines;
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 930 hypotheses in 160 headlines;
 460 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 127 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-319 open; headlines with every hypothesis classified: 56/157
+343 open; headlines with every hypothesis classified: 56/160
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -282,6 +282,12 @@ the docstring says; universally bound parameters are not listed.
 | `FalknerSkan.NegReversedWallShear.fs_neg_reversed_wall_shear_exists` | — | — | — | unconditional | — |
 | `FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots` | — | — | — | `fs_neg_reversed_printed_overshoots` | — |
 | `FalknerSkan.NegReversedWallShear.fs_neg_wall_shear_two_decay` | — | — | — | unconditional | — |
+| `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window` | — | — | — | `fs_neg_wall_shear_17_window` | — |
+| `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_exists_decay` | — | — | — | unconditional | — |
+| `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window` | — | — | — | `fs_neg_wall_shear_18_window` | — |
+| `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_exists_decay` | — | — | — | unconditional | — |
+| `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window` | — | — | — | `fs_neg_wall_shear_19_window` | — |
+| `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_exists_decay` | — | — | — | unconditional | — |
 
 ## Hypothesis necessity, per headline
 
@@ -464,6 +470,9 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FalknerSkan.SeparationPrinted.fs_separation_below_printed` (9): needed 1 (`fs_separation_below_printed_h1`), 2 (`fs_separation_below_printed_h2`), 3 (`fs_separation_below_printed_h3`); open 4, 5, 6, 7, 8, 9
 - `FalknerSkan.NegWallShear.fs_neg_wall_shear_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 - `FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots` (6): needed 2 (`fs_neg_reversed_printed_overshoots_h2`), 3 (`fs_neg_reversed_printed_overshoots_h3`), 6 (`fs_neg_reversed_printed_overshoots_h6`); open 1, 4, 5
+- `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
+- `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
+- `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window` (8): open 1, 2, 3, 4, 5, 6, 7, 8
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 

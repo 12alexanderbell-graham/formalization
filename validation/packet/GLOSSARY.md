@@ -868,44 +868,6 @@ noncomputable def tbl : Fin 28 → ℝ × ℝ × ℝ :=
   ![(0.070, 69, 19.6), (0.100, 69, 12), (0.120, 68.6, 26.2), (0.170, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.200, 72.9, 29.6), (0.270, 77, 14), (0.280, 88.8, 36.6), (0.350, 76.3, 5.6), (0.352, 83, 14), (0.400, 95, 17), (0.440, 82.6, 7.8), (0.480, 97, 62), (0.593, 104, 13), (0.600, 87.9, 6.1), (0.680, 92, 8), (0.730, 97.3, 7.0), (0.781, 105, 12), (0.875, 125, 17), (0.880, 90, 40), (0.900, 117, 23), (1.037, 154, 20), (1.300, 168, 17), (1.430, 177, 18), (1.530, 140, 14), (1.750, 202, 40), (2.300, 224, 8)]
 ```
 
-## `Data.Moresco16.chiSqOL`
-
-χ² of the law H₀ √E² (E² = `e2OL`) against the thirty measurements of Table 4, plus the
-Gaussian prior term (H₀ − 73)²/2.4² (Moresco et al. 2016, Sec. 5.2).
-
-```lean
-noncomputable def chiSqOL (H0 Ωm ΩΛ : ℝ) : ℝ :=
-  (∑ i, (H0 * Real.sqrt (e2OL Ωm ΩΛ (m16Table i).1) - (m16Table i).2.1) ^ 2 /
-    (m16Table i).2.2 ^ 2) + (H0 - 73) ^ 2 / 2.4 ^ 2
-```
-
-## `Data.Moresco16.e2OL`
-
-The squared dimensionless expansion rate E² at z of Eq. 5.1 (matter fraction Ω_m,
-cosmological-constant fraction Ω_Λ, remainder 1 − Ω_m − Ω_Λ):
-Ω_m (1+z)³ + (1 − Ω_m − Ω_Λ)(1+z)² + Ω_Λ (Moresco et al. 2016, Eq. 5.1).
-
-```lean
-noncomputable def e2OL (Ωm ΩΛ z : ℝ) : ℝ :=
-  Ωm * (1 + z) ^ 3 + (1 - Ωm - ΩΛ) * (1 + z) ^ 2 + ΩΛ
-```
-
-## `Data.Moresco16.m16Table`
-
-Table 4 of Moresco et al. 2016 (arXiv:1601.01701v2): the thirty (z, H(z), σ_H) cosmic
-chronometer measurements in km/s/Mpc, left column then right column, as printed.
-
-```lean
-noncomputable def m16Table : Fin 30 → ℝ × ℝ × ℝ :=
-  ![(0.07, 69.0, 19.6), (0.09, 69, 12), (0.12, 68.6, 26.2), (0.17, 83, 8), (0.179, 75, 4),
-    (0.199, 75, 5), (0.20, 72.9, 29.6), (0.27, 77, 14), (0.28, 88.8, 36.6), (0.352, 83, 14),
-    (0.3802, 83, 13.5), (0.4, 95, 17), (0.4004, 77, 10.2), (0.4247, 87.1, 11.2),
-    (0.44497, 92.8, 12.9), (0.4783, 80.9, 9), (0.48, 97, 62), (0.593, 104, 13), (0.68, 92, 8),
-    (0.781, 105, 12), (0.875, 125, 17), (0.88, 90, 40), (0.9, 117, 23), (1.037, 154, 20),
-    (1.3, 168, 17), (1.363, 160, 33.6), (1.43, 177, 18), (1.53, 140, 14), (1.75, 202, 40),
-    (1.965, 186.5, 50.4)]
-```
-
 ## `Fidelity.HubbleSpec`
 
 Specification of a Hubble-rate function `H a t` (scale factor `a`, cosmic time `t`).

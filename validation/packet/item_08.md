@@ -1,6 +1,6 @@
 # Item 08
 
-**Area:** Rigorous simulation of a reaction network
+**Area:** Falkner–Skan with adverse pressure gradient, β < 0
 
 **Source:** see the claim
 
@@ -8,36 +8,37 @@
 
 **It holds that**
 
-- there is `s : ℝ → ℝ` such that there is `e : ℝ → ℝ` such that there is `c : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that the substrate concentration over time `s`, the free enzyme concentration over time `e`, the complex concentration over time `c` and the product concentration over time `p` are a Michaelis Menten mass action initial value problem solution with the binding rate constant `k₁ := 1`, the unbinding rate constant `km₁ := 1`, the catalytic rate constant `k₂ := 1`, the initial substrate concentration `s₀ := 1`, the initial free enzyme concentration `e₀ := 1`, the initial complex concentration `c₀ := 0`, the initial product concentration `p₀ := 0` and the final time of the interval `T := 13 / 5` (binding consumes substrate and free enzyme, forms complex; mass action kinetics of E plus S reversibly forming complex C; `k₁ := 1` is the rate constant of E plus S forming C; `km₁ := 1` is the rate constant of C returning to E plus S; `k₂ := 1` is the rate constant of C forming E plus P; `s` `e` `c` `p` are concentrations of S E C and P; holds on the closed time interval from zero to `T := 13 / 5`)
-
-Program definitions in this claim:
-
-- `IsMMSolution k₁ km₁ k₂ s₀ e₀ c₀ p₀ T s e c p` — **PINNED** (pin theorem `mmSpec_pins`): phrase (hand-written, linted): the substrate concentration over time `s`, the free enzyme concentration over time `e`, the complex concentration over time `c` and the product concentration over time `p` are a Michaelis Menten mass action initial value problem solution with the binding rate constant `k₁`, the unbinding rate constant `km₁`, the catalytic rate constant `k₂`, the initial substrate concentration `s₀`, the initial free enzyme concentration `e₀`, the initial complex concentration `c₀`, the initial product concentration `p₀` and the final time of the interval `T` (binding consumes substrate and free enzyme, forms complex; mass action kinetics of E plus S reversibly forming complex C; `k₁` is the rate constant of E plus S forming C; `km₁` is the rate constant of C returning to E plus S; `k₂` is the rate constant of C forming E plus P; `s` `e` `c` `p` are concentrations of S E C and P; holds on the closed time interval from zero to `T`); by definition, means (`s 0 = s₀`) and (`e 0 = e₀`) and (`c 0 = c₀`) and (`p 0 = p₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt s (-k₁ * e t * s t + km₁ * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt e (-k₁ * e t * s t + (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt c (k₁ * e t * s t - (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt p (k₂ * c t) (Set.Icc 0 T) t`))
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-There is a solution of the mass-action rate equations of the Michaelis–Menten mechanism
-with k₁ = k₋₁ = k₂ = 1, [S]₀ = [E]₀ = 1, [C]₀ = [P]₀ = 0 on the time interval [0, 13/5]
-(derivatives within the interval).
+Falkner–Skan with β = −1/10: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
+[0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem mm_solution_exists :
-    ∃ s e c p : ℝ → ℝ, IsMMSolution 1 1 1 1 1 0 0 (13 / 5) s e c p := …
+theorem fs_neg_tenth_exists_decay :
+    ∃ f p q : ℝ → ℝ,
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-1 / 10) * (1 - p η ^ 2)) (Ici 0) η) ∧
+      f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
+      (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
+      (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Sim.MichaelisMenten.IsMMSolution`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsMMSolution.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5.
-- Source file: `Checked/Sim/MichaelisMenten.lean` (do not open it before submitting your answers).
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/FalknerSkan/NegTenth.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 08
