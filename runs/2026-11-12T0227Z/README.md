@@ -25,3 +25,16 @@
 - Separation pair: each residual condition NEEDED (ΛCDM coefficients match the other residual); static model refutes `0 < H(t₀)` in `lumDistFlat_flatLCDM`.
 - Pins: specification NEEDED (constant function) in all twelve; off-domain shifted definitions (`hubbleOff`, `decelOff`, `yredOff`, `omega0Off`, `curvKOff`) meet the specifications, so the domain conditions are NEEDED; differentiability REDUNDANT in `omega0Spec_pins`, `curvKSpec_pins`.
 - Every witness compiled first or second time; ≈ 1 h 20 min of Lean while the full build ran.
+
+## Integration and local checks
+- `Checked/Trust/NecessityL.lean` wired into `Checked.lean`; full build had started before the module existed (failed at the root as expected); incremental `lake build Checked` 75 s green.
+- `TRUST_RELOCK=1 StatementDeps`: 240 headlines, NV 158/158; **NEEDED 343 → 414, REDUNDANT 88 → 117, open 453 → 353, fully classified 50 → 54 of 154**; relock adds only `doc:`/`moduledoc:` entries of the new module. Claims: CLAIMS.md unchanged. Open baseline regenerated (`scripts/regen_open_baseline.py`, order kept).
+- `local_frozen_step.py --trust 89d717f`: trust step exit 0, frozen step 20/20 green (incl. `check_necessity --base`, `check_status_lines`, `precheck`-covered records).
+- CI: one push (integration + records + LOCK removal); scratch and heartbeat pushes after 03:30Z carry `[skip ci]`. Read by run ID next run.
+
+## Lessons
+- Six scratch pushes cancelled six main runs, including the run of this run's own CI repair: scratch and heartbeat pushes now carry `[skip ci]` (PROMPT note 193 amended).
+- A family of 14 headlines sharing one model block yields most of its necessity witnesses from two generic lemmas and three models (exact ΛCDM, `a = √t`, static); the remaining open hypotheses need two-sided distance certificates (STATE item 3(d)).
+
+## Next step
+STATE item 0a (CI read of this push), then parts 2/5 or 3 by rotation (part 3: a blind round against the necessity witnesses — e.g. can a witness be vacuous or prove a different headline's index?).

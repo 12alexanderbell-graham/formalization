@@ -586,3 +586,8 @@
 - Env: repo ok (add_repo not exposed; detached checkout with an unrelated stale local `main`, reset to origin/main); LOCK of run 2028Z (alive) → auditor role until its release (53d4d4c), LOCK taken 647b974; **local Lean available** (elan; Mathlib cache ≈ 3 min). A full `lake build Checked` was OOM-killed once (B1L19 curved certificates next to TFQData; rebuilt with the certificate modules first, serially).
 - **Part 1, T2b: f(0) = 0 NEEDED in 24 boundary-value headlines, 34 hypotheses** (suction witnesses): Blasius and β = 0 by an elementary global-existence argument (no shooting: scaling symmetry); Hiemenz, Homann, β = 1/2, 1/5, 1/10 by the existing shooting stacks ported to a free wall value of f by script, with new kernel-evaluated cells; every generated module compiled first time. The ten bounded-class headlines and the Blasius / β = 0 wall-shear headlines are now fully classified.
 - PROMPT working note: parametrise the start of a shooting stack to witness initial/wall conditions.
+
+## 2026-11-12T0227Z (scheduled run)
+- CI 43128169409 (1727c31) red only at `check_status_lines` S2 (one STATE word); repaired 31bb06c; `precheck_citations.py` now also runs `check_status_lines.py`.
+- Part 1: `Checked/Trust/NecessityL.lean` — 100 hypotheses classified (B1 family: 80; pinning theorems: 20). NEEDED 343 → 414, REDUNDANT 88 → 117, open 453 → 353, fully classified 50 → 54 of 154.
+- PROMPT working notes: `[skip ci]` on scratch/heartbeat pushes; necessity witnesses for model-based families.
