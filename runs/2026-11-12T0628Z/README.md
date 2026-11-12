@@ -1,6 +1,10 @@
 # Run 2026-11-12T0628Z (scheduled)
 
-**THE RESULT:** parts 2/5 — promotion of the Bonnor–Ebert critical sphere (PROVED in Work + AUDITED by run 0427Z) to `Checked` (in progress).
+**THE RESULT:** parts 2/5 and 1 — **the Bonnor–Ebert critical sphere is in `Checked`** (run 0427Z's promotion branch finished: a new blind literal reading whose template carries its imports, so the copy keeps the reader's code) **with every hypothesis of the claim classified** by machine-checked witnesses, and **nine hypotheses classified by symmetries of the equations** (`Checked/Trust/NecessityM.lean`: the isothermal scaling u(s) = w(cs) + 2 log c makes the centre value w(0) = 0 NEEDED for Bonnor–Ebert and the Gelfand ball; Thomas–Fermi 1; Gelfand PDE 2, 3). NEEDED 422, REDUNDANT 118, open 349, fully classified 56 of 155. PROVED once the main run is green on every job.
+
+**What a scientist can now trust without checking:** that the Bonnor–Ebert statement (critical radius, mass coefficient, density contrast) assumes nothing decorative — each of its five assumptions is shown in Lean to be needed (the claim fails without it) or redundant.
+
+**Weakest unchecked step:** the claim certifies the mass up to radius 7 only (the maximum over all radii needs a tail argument); C-BE-1 (Galli et al. 2002 print 13.98) is not yet decided as finding vs parked misprint; PROVED waits on CI.
 
 ## Start
 - 06:28Z. add_repo not exposed; pre-cloned checkout detached with a stale local main; `git fetch --unshallow` + `git checkout -B main origin/main` = bf7ef60.
@@ -19,3 +23,12 @@
 
 ## LOCK
 - Run 0427Z released the LOCK (f789e4d); taken by this run.
+
+## Promotion finished (07:33Z–)
+- Branch `wip/be-promo-0628` = run 0427Z's `wip/be-promo` (f5194d0) with main merged in (no rebase). Remaining failures of STATE 0e: (1) provenance rule 4 — new blind reading `be_reader/` (brief alone, reading, copy: three ordered commits; Sonnet reader: A=2, B=2, C=4, D=(−1), E=7, all agree). The first copy kept the module path `SecondReadingBE.lean` and failed rule 4 / B1 (they order the reading before the *first* commit touching the module since the base, and run 0427Z's copy was earlier): copied instead as the new module `SecondReadingBE3.lean`, run 0427Z's two copies archived. (2) check_formulas and (3) check_relock — LEDGER line names the reading constants with their brief and `moduledoc:Checked.Trust.Witnesses`. (4) N1 — no open hypothesis left (NecessityM).
+- check_prose flagged three numbers in the NecessityM module doc (6.45, 1/3, 3/2): rewritten without them.
+- Local: `lake build Checked` green; relock; Claims; packet; `local_frozen_step.py --trust 89aca37` trust step exit 0 (frozen step then failed only at rule 4/B1, fixed by the new module), `local_frozen_step.py cc6673d` 20/20 green after the rename; goal guard, precheck_citations, packet check green.
+
+## Next run's starting point
+- Read CI of this run's merge push on main (the checked job ≈ 60–100 min): green on every job → `bonnor_ebert_critical` PROVED; tell Alexander only with a decided C-BE-1 or other L.2 item. Red → `local_frozen_step.py --trust <base>` on the restored artifact.
+- Then STATE 0a (move C-FS-SEP, C-FS-1988, C-FS-1988R to verified findings with certified-number tags) and C-BE-1.
