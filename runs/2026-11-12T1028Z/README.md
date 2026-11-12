@@ -18,7 +18,7 @@
 - `Checked/Records/FalknerSkan.lean`: three records, each a corollary of PROVED headlines with the hypotheses copied verbatim — `F12_separation` (printed − β, 8 decimals), `F13_wall_shear` (printed − q(0), 6 decimals), `F14_reversed_wall_shear` (a reverse-flow solution, q(0) − printed, 7 decimals) — against three PRINTED definitions (`printedFazioSeparation` with the existing reading; `printedFazioWall`, `printedFazioRevWall` with a new blind reading from the typeset crop, `fsval_reader2/`, brief 9b97dec, reading 1fdfa88; the first reader `fsval_reader/` gave the same values but had the crop in its folder, which B5 of `check_blind_route.py` rejects). The first version certified the true values as free roundings; `check_prose.py` rejected it (`free-record`: a record must reach a pinned or transcribed definition) — there is no pinned Falkner–Skan solution predicate, so true values of FS quantities cannot yet be records on their own.
 - NV witnesses (Witnesses.lean), necessity 1–3 of F12 (`Checked/Trust/NecessityN.lean`, NecessityE's profiles at the printed β), literal readings, open baseline, relock, TRUST_MAP (244 headlines, NV 161/161, NEEDED 425), CLAIMS, FINDINGS blocks (`check_numbers.py --write`: 29 certified values), packet.
 - FINDINGS F12–F14 written from the candidate entries; certified values only in generated blocks; printed `[src]`, referee `[unc]`.
-- Local CI replica: `local_frozen_step.py --trust cc6673d` (result below).
+- Local CI replica on the final tree: the checked job's trust step (StatementDeps with relock and Claims freshly regenerated, then every Python trust check) exit 0, and `local_frozen_step.py cc6673d` (base-diff step) 20/20 green; goal guard and precheck_citations green. Three rounds were needed: check_prose `free-record` (true values without a pinned predicate → printed − true differences against PRINTED definitions), check_claim_vocab V1/V12/V14 (docstrings now quote the generated claim), check_blind_route B5 (crop beside the brief → second reader) and the LEDGER disclosure of the two readings by bare name. The role classifier labelled `printed − β` a "printed value": fixed (difference with a free side).
 
 ## CI incident and repair
 - Main run 43175455329 (f789e4d) had its checked job in the build step from 07:32Z (green checked jobs: 35–100 min); through the per-ref job concurrency it held 0e262e6's checked job pending. Cancelled at ≈ 11:00Z (f789e4d is an ancestor of 0e262e6). Its cancelled job went on running the `always()` author-files steps.
@@ -26,3 +26,7 @@
 
 ## Not done
 - C-BE-1 (Galli et al. 2002's 13.98): needs a reading of the paper's other numbers; arxiv.org WebFetch permission was not answered this run, so no reading (no other route).
+
+## Next run's starting point
+- Read CI by run ID: main run 43196172253 of 0e262e6 (Bonnor–Ebert promotion + AH repair; checked job started 11:05Z after the cancel) and the run of this run's merge to main (records F12–F14, lean.yml repair). Green on every job → `bonnor_ebert_critical` and the three records PROVED; send Alexander one L.2 message if this run's notification did not already cover it.
+- Then STATE next step 0 (part 1 by rotation).
