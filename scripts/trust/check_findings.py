@@ -20,7 +20,8 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
                      lies at or above U: the printed value is too large for every solution H speaks of;
          `d[src<H]`  likewise below a lower bound L of the conclusion.
        A hypothesis never counts as a bound (only the "**then**" part), and an existential statement never refutes.
-  FB3  in a section with a generated block, a bare `[src]` decimal is an error unless listed in the shrink-only
+  FB3  in a section with a generated block, a bare `[src]` decimal outside the Referee and Fidelity-audit lines
+       (heading, Printed, Correct, Lean evidence, Classification, Plain words) is an error unless listed in the shrink-only
        baseline `scripts/trust/findings_baseline.txt` (`src <section> <value>`): a printed value the finding relies on
        is bound by FB2 or visibly unbound (d01, d05).
   FB4  a spelled-out count next to a unit of size ("three units", "seven decimals", "fourth significant digit") is
@@ -31,8 +32,10 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        each, whatever) over an existential H must also say that something exists (d03; the shape rule of
        check_prose.py applied to the words that describe a cited theorem in a finding).
 
-Open (recorded, not checked): which solution class the "Correct" line names (d02: a qualifier dropped from prose
-while the record keeps it as a hypothesis; the generated block under it quotes every hypothesis).
+  FB6  for each line `<atom> => <phrase>` of the grow-only registry `scripts/trust/finding_class_phrases.txt`: when a
+       record of a finding's section contains the atom anywhere in its statement (CLAIMS.md), the finding's
+       "Correct" line contains the phrase (d02: a class qualifier dropped from the prose that states the finding).
+       Known limit: only registered atoms are read, and only the Correct line (Scope prose is free).
 
   python3 scripts/trust/check_findings.py              rules FB1–FB5 on FINDINGS.md (reads CLAIMS.md)
   python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA
@@ -46,6 +49,7 @@ from fractions import Fraction
 FINDINGS = "FINDINGS.md"
 CLAIMS = "CLAIMS.md"
 BASELINE = "scripts/trust/findings_baseline.txt"
+PHRASES = "scripts/trust/finding_class_phrases.txt"
 DASHES = "−–—‐‑‒-"
 SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹"
 NUM = r"[" + DASHES + r"]?\d+(?:\.\d+)?(?:×10[⁻⁺]?[" + SUP + r"]+)?"
@@ -153,7 +157,21 @@ def load_baseline(path=BASELINE, text=None):
     return {l.strip() for l in text.splitlines() if l.strip() and not l.startswith("#")}
 
 
-def check(findings, claims, baseline):
+def load_phrases(path=PHRASES, text=None):
+    if text is None:
+        try:
+            text = open(path, encoding="utf-8").read()
+        except FileNotFoundError:
+            text = ""
+    out = []
+    for l in text.splitlines():
+        if l.strip() and not l.startswith("#") and " => " in l:
+            a, b = l.rsplit(" => ", 1)
+            out.append((a.strip(), b.strip()))
+    return out
+
+
+def check(findings, claims, baseline, phrases=()):
     errs = []
     cb = claims_blocks(claims)
     for sec, prose, records in verified_sections(findings):
@@ -165,9 +183,17 @@ def check(findings, claims, baseline):
             elif f"F{m.group(1)}" != sec:
                 errs.append(f"FB1 {sec}: the generated block of record {r} stands in section {sec}; it certifies "
                             f"finding F{m.group(1)} (move the `<!-- certified -->` marker to its own section)")
+        # FB6
+        correct = " ".join(l for l in prose.split("\n") if l.startswith("- **Correct"))
+        for r in records:
+            for atom, phrase in phrases:
+                if r in cb and atom in cb[r] and phrase not in correct:
+                    errs.append(f"FB6 {sec}: record {r} states `{atom}` but the Correct line does not name its class "
+                                f"('{phrase}', scripts/trust/finding_class_phrases.txt)")
         cited = set(re.findall(r"`(?:[A-Za-z0-9_.]*\.)?([A-Za-z0-9_]+)`", prose)) | set(records)
         for line in prose.split("\n"):
-            claimline = line.startswith("### ") or line.startswith("- **Printed")
+            # every line that states the finding; the referee and audit lines report how it was checked
+            claimline = not (line.startswith("- **Referee") or line.startswith("- **Fidelity"))
             # code spans are not prose numbers
             s = re.sub(r"`[^`]*`", lambda mm: " " * len(mm.group()), line)
             for t in SRC.finditer(s):
@@ -245,7 +271,7 @@ def selftest():
     tail = "\n## Candidates under verification\n"
     good = (head + "### F9 (x). Paper: values at β = −0.1988[src=F9_r] too large\n- **Printed:** 0.005221[src>W], "
             "0.005221[src=F9_r]; window `W` (the wall shear of every such solution lies in it); `E` (there is one; all "
-            "of them non-unique)\n<!-- certified: F9_r -->\n- block\n<!-- /certified -->\n" + tail)
+            "of them non-unique)\n- **Correct:** too large in the decay class\n- **Referee:** quotes 0.005226[src]\n<!-- certified: F9_r -->\n- block\n<!-- /certified -->\n" + tail)
     bad = [
         ("FB1", good.replace("<!-- certified: F9_r -->", "<!-- certified: F8_r -->")),
         ("FB2", good.replace("0.005221[src>W]", "0.005218[src>W]")),          # inside the rounding: not refuted
@@ -253,17 +279,20 @@ def selftest():
         ("FB2", good.replace("0.005221[src>W]", "0.005221[src>E]")),          # existential refutes nothing
         ("FB2", good.replace("0.005221[src>W]", "0.005221[src<W]")),          # wrong side
         ("FB3", good.replace("0.005221[src>W]", "0.005226[src]")),
+        ("FB3", good.replace("\n<!-- certified: F9_r", "\n- **Correct:** also 0.005226[src]\n<!-- certified: F9_r")),
         ("FB4", good.replace("too large", "three units too large")),
+        ("FB6", good.replace("too large in the decay class", "too large")),
         ("FB5", good.replace("(there is one; all of them non-unique)", "(the solution is unique)")),
         ("FB5", good.replace("(there is one; all of them non-unique)", "(all solutions lie below)")),
     ]
     fails = 0
-    e = check(good, claims, set())
+    ph = [("RoundsTo (q", "decay class")]
+    e = check(good, claims, set(), ph)
     if e:
         print("selftest: clean control fails:", e)
         fails += 1
     for rule, txt in bad:
-        e = check(txt, claims, set())
+        e = check(txt, claims, set(), ph)
         if not any(x.startswith(rule) for x in e):
             print(f"selftest: {rule} control not rejected; errors: {e}")
             fails += 1
@@ -280,7 +309,7 @@ def main():
     findings = open(FINDINGS, encoding="utf-8").read()
     claims = open(CLAIMS, encoding="utf-8").read()
     baseline = load_baseline()
-    errs = check(findings, claims, baseline)
+    errs = check(findings, claims, baseline, load_phrases())
     if "--base" in args:
         base = args[args.index("--base") + 1]
         try:
@@ -290,6 +319,13 @@ def main():
             grown = []  # the baseline is new since BASE (introduced with this check)
         for g in grown:
             errs.append(f"FB-base: {BASELINE} gained '{g}' since {base}: the baseline only shrinks")
+        try:
+            oldp = subprocess.run(["git", "show", f"{base}:{PHRASES}"], capture_output=True, text=True, check=True).stdout
+            lost = sorted(set(load_phrases(text=oldp)) - set(load_phrases()))
+        except subprocess.CalledProcessError:
+            lost = []
+        for a, b in lost:
+            errs.append(f"FB-base: {PHRASES} lost '{a} => {b}' since {base}: the registry only grows")
     for e in errs:
         print("::error::" + e)
     print(f"check_findings: {len(verified_sections(findings))} verified findings, {len(errs)} problems")

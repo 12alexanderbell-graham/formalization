@@ -1,0 +1,9 @@
+# Required class phrases of verified findings (scripts/trust/check_findings.py FB6, run 2026-11-12T2028Z; blind red team AI d02).
+# Format: `<text of a statement atom, as CLAIMS.md prints it> => <phrase>`. When a finding's record (a block of its
+# section) contains the atom anywhere in its statement, the finding's "Correct" line must contain the phrase, so a
+# class qualifier the Lean statement carries cannot be dropped from the prose that states the finding.
+# Grow-only: CI (--base) rejects a removed or changed line.
+M * (1 - p η) ≤ q η => faster-than-every-exponential
+if `η ∈ Set.Ioi 0`, then `0 < q η` => f'' > 0
+if `η ∈ Set.Ici 0`, then `0 < q η` => f'' > 0
+`-1 ≤ p η`) and (`p η ≤ 1` => −1 ≤ f' ≤ 1

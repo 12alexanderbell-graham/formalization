@@ -286,6 +286,24 @@ def role_of(x, kinds):
         # difference too — before, `printedFazioSeparation - β` was labelled "printed value" in the generated block
         if a != b and (a, b) != ("free", "free"):
             return f"difference({a}−{b})"
+    # run 2026-11-12T2028Z (blind red team AI, side note): a relative difference `(u − v) / w` (or `c * (u − v)`)
+    # was labelled by the roles of all its definitions together ("printed" for (printed − q 0) / printed). A
+    # product or quotient with exactly one factor that is a difference of two roles takes that difference's role.
+    if not add and all(it in ("*", "/") for it in items if isinstance(it, str) and it in OPS):
+        diffs = [r for it in items if isinstance(it, list) for r in [role_of_items(it, kinds)] if r.startswith("difference(")]
+        if len(diffs) == 1:
+            return diffs[0]
+    return _term_role(items, kinds)
+
+
+def role_of_items(items, kinds):
+    while len(items) == 1 and isinstance(items[0], list):
+        items = items[0]
+    add = [i for i, it in enumerate(items) if it in ("+", "-") and i > 0 and not (isinstance(items[i - 1], str) and items[i - 1] in OPS)]
+    if len(add) == 1 and items[add[0]] == "-" and not any(isinstance(t, str) and t in (";", ":=") for t in items):
+        a, b = _term_role(items[:add[0]], kinds), _term_role(items[add[0] + 1:], kinds)
+        if a != b and (a, b) != ("free", "free"):
+            return f"difference({a}−{b})"
     return _term_role(items, kinds)
 
 
@@ -679,6 +697,9 @@ def selftest():
                          "Checked.Cosmography.CCS.correctD4 (Checked.Cosmography.decel a t₀) b c d", kinds) \
             != "difference(printed−derived)":
         bad.append("role_of does not read printedD4 − correctD4 as difference(printed−derived)")
+    if kinds and role_of("(Checked.Records.printedFazioWall - q 0) / Checked.Records.printedFazioWall", kinds) \
+            != "difference(printed−free)":
+        bad.append("role_of does not read a relative difference (printed − q 0) / printed as difference(printed−free) (AI side note)")
     if kinds:
         global _BODIES
         composite_body("Checked.X", kinds)  # load CLAIMS.md bodies first

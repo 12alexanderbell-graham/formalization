@@ -634,3 +634,8 @@
 - Parts 2/5: reversed-flow Falkner–Skan rows β = −0.15, −0.17, −0.18, −0.19 certified to ten decimals with existence and two decay-class solutions (generator run on the generic-K reversed-flow stack; twelve certificate modules, all compiled first time; PROVED in Work, axioms standard); referee STANDS; Ganapol 2010 Table 7 confirmed to 12 digits at these rows; Stewartson 1954 as quoted by Fazio wrong in the third digit (parked).
 - Part 1: `Checked/Trust/NecessityS.lean` — q > 0 NEEDED in the three Ganapol row windows (`fs_neg_wall_shear_17/18/19_window`).
 - Records: STATE.md trimmed (older environment lines and summaries moved verbatim to `_archive/STATE_environment_history.md`).
+
+## 2026-11-12T2028Z (scheduled run)
+- Env: repo ok; local Lean (elan, Mathlib cache, CI build artifact of 43268238201 restored, run 1828Z's twelve FSRev modules built locally ≈ 15 min). CI 43294811277 (02fb347, run 1828Z's final push) in progress during the run.
+- Part 3 by rotation (none since run 0828Z): first blind red team on the verified-findings layer (round AI, Sonnet): **6/6 wrong findings accepted by every check on main** (a correct published value declared wrong, blocks of two findings swapped, a row's β changed, a non-uniqueness theorem called uniqueness, a size word changed, a class qualifier dropped).
+- Repair: `scripts/trust/check_findings.py` (FB1–FB6, blocking, 12 controls) — printed values of F12–F14 now bound to Lean statements; the five refuted F13 values are checked mechanically against the certified window. AFTER (not blind): 6/6 rejected plus three judge variants. `check_numbers.py` role of relative differences repaired.

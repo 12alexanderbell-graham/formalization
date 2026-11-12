@@ -1,0 +1,10 @@
+AFTER clean: ACCEPTED (every check green)
+AFTER d01: CAUGHT | check_findings.py :: check_findings selftest: 10 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 10 controls, 0 failing
+AFTER d01b: CAUGHT | check_findings.py :: check_findings selftest: 10 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 10 controls, 0 failing
+AFTER d02: ACCEPTED (every check green)
+AFTER d03: CAUGHT | check_findings.py :: check_findings selftest: 10 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 10 controls, 0 failing
+AFTER d04: CAUGHT | check_findings.py :: check_findings selftest: 10 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 10 controls, 0 failing
+AFTER d05: CAUGHT | check_findings.py :: check_findings selftest: 10 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 10 controls, 0 failing
+AFTER d05b: CAUGHT | check_findings.py :: check_findings selftest: 10 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 10 controls, 0 failing
+AFTER d06: CAUGHT | check_findings.py :: check_findings selftest: 10 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 10 controls, 0 failing
+DONE
