@@ -531,6 +531,10 @@ def main():
         if old_tm is None or lo is None:
             print(f"check_necessity: FAILED: cannot read TRUST_MAP.md / LEDGER.md at {b}")
             return 1
+        # Run 2026-11-11T2228Z (repair, see LEDGER): maps generated before 12d6cdc print the per-part entries as
+        # `conjuncts of i (m) …` with the grammar of today's `parts of i (m) …`; read that legacy label as the same
+        # entry, so a base older than the rename stays readable (it failed every --base run with `unknown part`).
+        old_tm = re.sub(r"(?m)(; |: )conjuncts of (\d+ \(\d+\) )", r"\1parts of \2", old_tm)
         try:
             old_map, old_tot = parse_map(old_tm)
         except ParseError as e:
