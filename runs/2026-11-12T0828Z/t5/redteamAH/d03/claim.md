@@ -1,0 +1,7 @@
+Category: weakened-statement (assumption hidden in a binder type that neither the numbering nor the shape detector reaches)
+Reader would wrongly believe: that the headline assumes only the four numbered conditions and that every assumption is classified. Expected generated lines:
+TRUST_MAP.md `- LookbackUnit.lookback_second_order_unit (4): needed 2 (...), 4 (...); redundant (each alone, not together) 1 (...), 3 (...)` with no `shape:` entry, counted as fully classified (55/155);
+CLAIMS.md "For every `a : R -> R`, `t0 : R`, `H : Rˣ`" and "assuming 1..4" where 4 reads `(H : R) = deriv a t0`.
+Why it is false: the binder `H : Units R` silently assumes `H != 0`, hence (through hypothesis 4) `deriv a t0 != 0`, which the expansion genuinely needs (the map's own NEEDED witness for `lookback_second_order` hyp 4, flatStart). The statement is thereby the original with its fourth hypothesis hidden: hypothesis 4 is listed as an innocuous definition of H and 'needed', and the real assumption `deriv a t0 != 0` is never numbered. necShape flags `Subtype`/`Set.Elem` and types that whnf (default) to them, but `Units` is a structure carrying proofs (`val_inv`, `inv_val`), as are `Fin n`, `C(X,Y)`, `E →L[R] F`, `Equiv`; none is flagged.
+Order: one commit (module NecessityM3, Checked.lean import, headlines.txt). No LEDGER line needed.
+Expected: ACCEPTED by N1-N4/shape; possibly caught by prose/claims rules on the docstring.

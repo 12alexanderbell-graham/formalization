@@ -1,0 +1,6 @@
+Category: vacuous-or-trivial-statement (two assumptions counted as one hypothesis: membership atom escapes the bundled detector)
+Reader would wrongly believe: that the single-root theorem has one assumption which is shown needed as a whole, with nothing bundled. Expected line:
+`- CubicEOSRegion.critCubic_existsUnique_region (1): needed 1 (critCubic_existsUnique_region_h1)` (no `shape: bundled 1`, no `parts of 1`), fully classified (55/155).
+Why it is false: hypothesis 1 `p in {q | -2 < q.1 /\ 0 < 1 + q.1 + q.2}` is two independent conditions (-2 < u and 0 < 1+u+w); the witness shows only that dropping both together breaks the theorem (u = 0, w = -1 violates the second). partsWalk/unfoldHead stop at the membership atom (Set.Mem/setOf is not reducible), so numParts = 1 and `bundled` never fires; the same hole bundles any number of conditions via `Set.Icc`, `Metric.ball`, `{x | .. /\ ..}`. A reader cannot tell from the map that one of the two conditions (-2 < u) is separately needed (main: critCubic_existsUnique_h1) and the headline lines of main list them as two needed hypotheses.
+Order: one commit. No LEDGER line.
+Expected: ACCEPTED if whnfR does not open the membership; if Lean unfolds it to a conjunction the `bundled 1` entry appears and N4 fails (CAUGHT) - uncertain.

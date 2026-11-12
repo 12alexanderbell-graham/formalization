@@ -1,0 +1,6 @@
+Category: misleading-record (redundancy label does not cover a redundant hypothesis together with a redundant part of another hypothesis)
+Reader would wrongly believe: that `-2 < u` can be dropped (it is listed twice as REDUNDANT, each time without the "each alone, not together" warning). Expected generated line:
+`- CubicEOSTwice.critCubic_existsUnique_twice (2): needed 1 (critCubic_existsUnique_twice_h1); redundant 2 (critCubic_existsUnique_twice_r2); parts of 1 (2) needed 2 (critCubic_existsUnique_twice_p1_2); parts of 1 (2) redundant 1 (critCubic_existsUnique_twice_p1_1)` (fully classified, 55/155).
+Why it is false: hypothesis 2 (`-2 < u`) is redundant given part 1 of hypothesis 1 (`-2 < u`), and that part is redundant given hypothesis 2; dropping both makes the theorem false (u = -32/7, w = 124/21: three roots above 1; main's critCubic_existsUnique_h1). The label "(each alone, not together)" is added only when a single list (hypotheses, or the parts of one hypothesis) has two or more redundant entries (`redund.size >= 2`, `cRed.size >= 2` in StatementDeps), so one redundant hypothesis plus one redundant part, which are jointly needed, carry no warning. The generic sentence in the section intro is the only caveat.
+Order: one commit. No LEDGER line.
+Expected: ACCEPTED (N1-N4 do not look at labels).
