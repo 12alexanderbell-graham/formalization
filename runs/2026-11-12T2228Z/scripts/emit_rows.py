@@ -13,7 +13,7 @@ EM = R / 'runs/2026-11-11T1228Z/scripts/emit_rev.py'
 def lean(x):
     x = Fr(x); return f"({x.numerator} / {x.denominator})"
 for tag in sys.argv[2:]:
-    r = rows[tag]; nm = NAMES[tag]; K = r['K']
+    r = rows[tag]; nm = NAMES[tag]; K = r['K'] if '/' in r['K'] else r['K'] + '/1'  # emit_rev.py needs a/b
     for side, fn in (('Over', 'over'), ('Slow', 'slow'), ('Tube', 'tube')):
         mod = f'R{nm}{side}'; out = R / f'Checked/FSRev/{mod}.lean'
         A = {'over': r['Aover'], 'slow': r['Aslow'], 'tube': r['Ac']}[fn]
