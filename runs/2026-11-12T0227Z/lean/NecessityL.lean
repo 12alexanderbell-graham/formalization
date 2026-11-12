@@ -3,7 +3,13 @@ import Checked.Cosmography.B1L19
 import Checked.Cosmography.B1Separation
 import Checked.Cosmography.B1FitRL19
 import Checked.Cosmography.B1L19Curved
+import Checked.Fidelity.Pins
+import Checked.Fidelity.FlatPins
+import Checked.Fidelity.RedshiftCoeffSpecs
+import Checked.Fidelity.YOmegaKSpecs
+import Checked.Fidelity.FRSpecs
 import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.Analysis.Calculus.Deriv.Abs
 
 /-!
 # Hypothesis necessity, B1 family (trust track T2b, run 2026-11-12T0227Z) — scratch
@@ -1199,5 +1205,176 @@ theorem lumDistFlat_flatLCDM_h7 : necessity% Checked.Cosmography.B1.lumDistFlat_
   norm_num
 
 end Radiation
+
+section Pins
+open Checked.Cosmography.BambaK Checked.Cosmography.BambaY Checked.Cosmography.BambaA
+  Checked.Cosmography.BambaZ Checked.Cosmography.FRCosmo Checked.Cosmography.Aviles
+  Checked.Cosmography.Transverse
+
+/- The specification hypothesis of each pinning theorem is needed: a constant function (value `7`) meets
+every other hypothesis (static model `a ≡ 1`, or de Sitter `a = exp` at `t = 0`) and differs from the
+program definition there. -/
+
+theorem const_comoving : comoving (fun _ : ℝ => (1 : ℝ)) 0 (-1) = 1 := by simp [comoving]
+
+theorem const_redshift (t₀ t : ℝ) : redshift (fun _ : ℝ => (1 : ℝ)) t₀ t = 0 := by simp [redshift]
+
+theorem const_lumDist : lumDist 0 (fun _ : ℝ => (1 : ℝ)) 0 (-1) = 1 := by
+  simp [lumDist, const_redshift, transverse, const_comoving]
+
+theorem exp_hubble : hubble Real.exp = fun _ => 1 := by
+  funext t; simp [hubble, Real.deriv_exp]
+
+theorem lumDistSpec2_pins_h1 : necessity% Checked.Fidelity.lumDistSpec2_pins 1 :=
+  ⟨fun _ _ _ _ => 7, 0, fun _ => 1, 0, -1, by norm_num, fun _ _ => one_pos, continuousOn_const,
+    by rw [const_lumDist]; norm_num⟩
+
+theorem angDistSpec_pins_h1 : necessity% Checked.Fidelity.angDistSpec_pins 1 :=
+  ⟨fun _ _ _ _ => 7, 0, fun _ => 1, 0, -1, by norm_num, fun _ _ => one_pos, continuousOn_const,
+    by simp [angDist, const_lumDist, const_redshift]⟩
+
+theorem lumDistFlat_pins_h1 : necessity% Checked.Fidelity.lumDistFlat_pins 1 :=
+  ⟨fun _ _ _ _ => 7, fun _ => 1, 0, -1, by norm_num, fun _ _ => one_pos, continuousOn_const,
+    by simp [lumDistFlat, const_redshift, const_comoving]⟩
+
+theorem comoving_pins_h1 : necessity% Checked.Fidelity.comoving_pins 1 :=
+  ⟨fun _ _ _ _ => 7, fun _ => 1, 0, -1, by norm_num, fun _ _ => one_pos, continuousOn_const,
+    by simp [const_redshift, const_comoving]⟩
+
+theorem hubbleSpec_pins_h1 : necessity% Checked.Fidelity.hubbleSpec_pins 1 :=
+  ⟨fun _ _ => 7, Real.exp, 0, Real.exp_pos 0, Real.differentiableAt_exp,
+    by rw [exp_hubble]; norm_num⟩
+
+theorem decelSpec_pins_h1 : necessity% Checked.Fidelity.decelSpec_pins 1 :=
+  ⟨fun _ _ => 7, Real.exp, Real.exp, Real.exp 0, 0,
+    Filter.Eventually.of_forall fun s => Real.hasDerivAt_exp s, Real.hasDerivAt_exp 0,
+    Real.exp_pos 0, (Real.exp_pos 0).ne', by simp [decel, Real.deriv_exp]; norm_num⟩
+
+theorem redshiftCore_pins_h1 : necessity% Checked.Fidelity.redshiftCore_pins 1 :=
+  ⟨fun _ _ _ => 7, fun _ => 1, 0, 0, ⟨fun _ _ => one_pos, contDiffOn_const⟩,
+    by rw [const_redshift]; norm_num⟩
+
+theorem cosmoCoeffCore_pins_h1 : necessity% Checked.Fidelity.cosmoCoeffCore_pins 1 :=
+  ⟨fun _ _ _ => 7, 1, Real.exp, 0,
+    ⟨Real.exp_pos 0, Real.contDiff_exp.contDiffAt, by simp [Real.deriv_exp]⟩,
+    by simp [cosmoCoeff, exp_hubble, iteratedDeriv_one, Real.deriv_exp]⟩
+
+theorem yRedSpec_pins_h1 : necessity% Checked.Fidelity.yRedSpec_pins 1 :=
+  ⟨fun _ _ _ => 7, fun _ => 1, 0, -1, one_pos, one_pos,
+    by simp [yred, const_redshift]⟩
+
+theorem omega0Spec_pins_h1 : necessity% Checked.Fidelity.omega0Spec_pins 1 :=
+  ⟨fun _ _ _ => 7, 0, Real.exp, 0, Real.exp_pos 0, Real.differentiableAt_exp,
+    by simp [Real.deriv_exp], by simp [omega0, exp_hubble]⟩
+
+theorem curvKSpec_pins_h1 : necessity% Checked.Fidelity.curvKSpec_pins 1 :=
+  ⟨fun _ _ _ => 7, 1, Real.exp, 0, Real.exp_pos 0, Real.differentiableAt_exp,
+    by simp [Real.deriv_exp], by simp [curvK, exp_hubble]⟩
+
+theorem ricciSpec_pins_h1 : necessity% Checked.Fidelity.ricciSpec_pins 1 :=
+  ⟨fun _ _ => 7, Real.exp, Real.exp, Real.exp, 0, Real.exp_pos 0,
+    Filter.Eventually.of_forall fun s => Real.hasDerivAt_exp s, Real.hasDerivAt_exp 0,
+    by simp [curv, exp_hubble]; norm_num⟩
+
+/- `HubbleSpec` constrains its function only where `a t > 0` and `a` is differentiable at `t`, so the Hubble
+rate shifted by one off that domain meets the specification; it differs from `hubble` for the contracting
+`a = −exp` (negative scale factor) and for `a = 1 + |t|` at `0` (not differentiable). -/
+
+open Classical in
+noncomputable def hubbleOff (a : ℝ → ℝ) (t : ℝ) : ℝ :=
+  if 0 < a t ∧ DifferentiableAt ℝ a t then hubble a t else hubble a t + 1
+
+theorem hubbleOff_spec : Checked.Fidelity.HubbleSpec hubbleOff where
+  logDeriv a t ha hd := by
+    rw [hubbleOff, ite_eq_left ⟨ha, hd⟩]; exact Checked.Fidelity.hubble_meets_spec.logDeriv a t ha hd
+  deSitter h t := by
+    rw [hubbleOff, ite_eq_left ⟨Real.exp_pos _, by fun_prop⟩]
+    exact Checked.Fidelity.hubble_meets_spec.deSitter h t
+  powerLaw n t ht := by
+    rw [hubbleOff, ite_eq_left ⟨Real.rpow_pos_of_pos ht n,
+      (Real.hasDerivAt_rpow_const (Or.inl ht.ne')).differentiableAt⟩]
+    exact Checked.Fidelity.hubble_meets_spec.powerLaw n t ht
+  static R t hR := by
+    rw [hubbleOff, ite_eq_left ⟨hR, differentiableAt_const _⟩]
+    exact Checked.Fidelity.hubble_meets_spec.static R t hR
+  rescale c hc a t ha hd := by
+    rw [hubbleOff, hubbleOff, ite_eq_left ⟨mul_pos hc ha, hd.const_mul c⟩, ite_eq_left ⟨ha, hd⟩]
+    exact Checked.Fidelity.hubble_meets_spec.rescale c hc a t ha hd
+  translate τ a t ha hd := by
+    have hd' : DifferentiableAt ℝ (fun s => a (s + τ)) t :=
+      hd.comp t (differentiableAt_id.add_const τ)
+    rw [hubbleOff, hubbleOff, ite_eq_left ⟨ha, hd'⟩, ite_eq_left ⟨ha, hd⟩]
+    exact Checked.Fidelity.hubble_meets_spec.translate τ a t ha hd
+  timeReverse a t ha hd := by
+    have hd' : DifferentiableAt ℝ (fun s => a (-s)) t := hd.comp t differentiableAt_id.neg
+    rw [hubbleOff, hubbleOff, ite_eq_left ⟨ha, hd'⟩, ite_eq_left ⟨ha, hd⟩]
+    exact Checked.Fidelity.hubble_meets_spec.timeReverse a t ha hd
+
+theorem hubbleSpec_pins_h2 : necessity% Checked.Fidelity.hubbleSpec_pins 2 := by
+  refine ⟨hubbleOff, hubbleOff_spec, fun s => -Real.exp s, 0, by fun_prop, ?_⟩
+  have : ¬ (0 < (fun s => -Real.exp s) 0 ∧ DifferentiableAt ℝ (fun s => -Real.exp s) 0) :=
+    fun h => absurd h.1 (by simp)
+  rw [hubbleOff, ite_eq_right this]; norm_num
+
+theorem hubbleSpec_pins_h3 : necessity% Checked.Fidelity.hubbleSpec_pins 3 := by
+  refine ⟨hubbleOff, hubbleOff_spec, fun s => 1 + |s|, 0, by positivity, ?_⟩
+  have hnd : ¬ DifferentiableAt ℝ (fun s : ℝ => 1 + |s|) 0 := by
+    intro h
+    have := (h.const_add (-1)).congr_of_eventuallyEq (Filter.Eventually.of_forall fun s => by ring)
+    exact not_differentiableAt_abs_zero this
+  rw [hubbleOff, ite_eq_right (fun h => hnd h.2)]; norm_num
+
+/- `YRedSpec` constrains its function only where the scale factor is positive at both times; `yred` shifted by
+one elsewhere meets it and differs from `yred` when either value is negative (`a = −t` or `a = t`). -/
+
+open Classical in
+noncomputable def yredOff (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
+  if 0 < a t₀ ∧ 0 < a t then yred a t₀ t else yred a t₀ t + 1
+
+theorem yredOff_eq {a : ℝ → ℝ} {t₀ t : ℝ} (h0 : 0 < a t₀) (h1 : 0 < a t) :
+    yredOff a t₀ t = yred a t₀ t := by
+  rw [yredOff, ite_eq_left ⟨h0, h1⟩]
+
+theorem yredOff_spec : Checked.Fidelity.YRedSpec yredOff := by
+  have M := Checked.Fidelity.yred_meets_spec
+  have m1 : ∀ s : ℝ, 0 < s → 0 < (fun s : ℝ => s) s := fun s h => h
+  refine ⟨fun a t₀ t h0 h1 => ?_, fun a t₀ t h0 h1 => ?_, fun a t₀ t h0 h1 => ?_,
+    fun a t₀ t h0 h1 => ?_, fun a t₀ t h0 h1 => ?_, fun a b t₀ t h0 h1 hb hab hlt => ?_,
+    fun a t₀ h => ?_, fun H t₀ t => ?_, fun t₀ t h₀ h => ?_, ?_, fun c t₀ t hc => ?_,
+    fun c a t₀ t hc h0 h1 => ?_, fun τ a t₀ t h0 h1 => ?_, fun a b t₀ t h0 h1 h2 h3 => ?_,
+    ?_, ?_, ?_, ?_, ?_⟩
+  · rw [yredOff_eq h0 h1]; exact M.law a t₀ t h0 h1
+  · rw [yredOff_eq h0 h1]; exact M.of_z a t₀ t h0 h1
+  · rw [yredOff_eq h0 h1]; exact M.inv_z a t₀ t h0 h1
+  · rw [yredOff_eq h0 h1]; exact M.lt_one a t₀ t h0 h1
+  · rw [yredOff_eq h0 h1]; exact M.pos_iff a t₀ t h0 h1
+  · rw [yredOff_eq h0 h1, yredOff_eq (hab ▸ h0) hb]; exact M.strictAnti_a a b t₀ t h0 h1 hb hab hlt
+  · rw [yredOff_eq h h]; exact M.self a t₀ h
+  · rw [yredOff_eq (a := fun s => Real.exp (H * s)) (Real.exp_pos _) (Real.exp_pos _)]
+    exact M.deSitter H t₀ t
+  · rw [yredOff_eq (m1 t₀ h₀) (m1 t h)]; exact M.milne t₀ t h₀ h
+  · rw [yredOff_eq (m1 2 (by norm_num)) (m1 1 (by norm_num))]; exact M.milne_value
+  · rw [yredOff_eq hc hc]; exact M.static c t₀ t hc
+  · rw [yredOff_eq (a := fun s => c * a s) (mul_pos hc h0) (mul_pos hc h1), yredOff_eq h0 h1]
+    exact M.scale_inv c a t₀ t hc h0 h1
+  · rw [yredOff_eq (a := fun s => a (s + τ)) (by simpa using h0) (by simpa using h1),
+      yredOff_eq h0 h1]
+    exact M.shift_inv τ a t₀ t h0 h1
+  · rw [yredOff_eq h0 h1, yredOff_eq (h2 ▸ h0) (h3 ▸ h1)]; exact M.local_values a b t₀ t h0 h1 h2 h3
+  · rw [yredOff_eq (m1 3 (by norm_num)) (m1 1 (by norm_num))]; exact M.not_z_div_one_sub_z
+  · rw [yredOff_eq (m1 2 (by norm_num)) (m1 1 (by norm_num))]; exact M.not_z
+  · rw [yredOff_eq (m1 2 (by norm_num)) (m1 1 (by norm_num))]; exact M.not_neg
+  · rw [yredOff_eq (m1 2 (by norm_num)) (m1 1 (by norm_num))]; exact M.not_neg_z
+  · rw [yredOff_eq (m1 2 (by norm_num)) (m1 1 (by norm_num))]; exact M.not_log
+
+theorem yRedSpec_pins_h2 : necessity% Checked.Fidelity.yRedSpec_pins 2 := by
+  refine ⟨yredOff, yredOff_spec, fun s => -s, 1, -1, by norm_num, ?_⟩
+  rw [yredOff, ite_eq_right (fun h => absurd h.1 (by norm_num))]; norm_num
+
+theorem yRedSpec_pins_h3 : necessity% Checked.Fidelity.yRedSpec_pins 3 := by
+  refine ⟨yredOff, yredOff_spec, fun s => s, 1, -1, by norm_num, ?_⟩
+  rw [yredOff, ite_eq_right (fun h => absurd h.2 (by norm_num))]; norm_num
+
+end Pins
 
 end Checked.Trust.NCL
