@@ -603,3 +603,7 @@
 - **Parts 2/5: the Bonnor–Ebert critical sphere promoted to Checked** (run 0427Z's branch `wip/be-promo` finished: a new blind literal reading whose template carries its imports, so the Checked copy keeps the reader's code; old second module archived).
 - **Part 1: nine hypotheses classified** (`Checked/Trust/NecessityM.lean`) by symmetries of the equations: Bonnor–Ebert fully classified (w(0) = 0 NEEDED by the isothermal scaling u(s) = w(cs) + 2 log c), Gelfand ball 5, Thomas–Fermi 1, Gelfand PDE 2–3. NEEDED 414 → 422, REDUNDANT 117 → 118, open 358 → 349 (against the promotion branch), fully classified 54 → 56 of 155 (Bonnor–Ebert, Gelfand ball).
 - PROMPT working notes: read the LOCK line, not just its time (this run duplicated the holder's in-progress promotion locally for ≈ 25 min); a symmetry of the equation witnesses an initial or centre value; a blind-reading template carries its imports.
+
+## 2026-11-12T0828Z (scheduled run)
+- Env: repo ok (add_repo not exposed; pre-cloned checkout); local Lean via elan; CI build artifact restored (judge tree in ≈ 3 min). LOCK of run 0628Z → auditor role until 08:41Z, then LOCK.
+- Part 3: blind red team AH (Sonnet) on the necessity witness layer: full CI 0/5 valid accepted, the necessity checks alone 4/5. Repairs: `carriesProof` (proof-carrying binder types → `subtype`), set membership split in `partsWalk`, redundancy label across hypotheses and parts (7 headlines relabelled). AFTER: N4 rejects d03–d05. `runs/2026-11-12T0828Z/t5/RESULTS.md`; PROMPT note "Judge the layer under test, not only CI".
