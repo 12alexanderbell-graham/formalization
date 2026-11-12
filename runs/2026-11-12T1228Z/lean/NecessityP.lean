@@ -1,17 +1,22 @@
 import Checked.Trust.NonVacuity
 import Checked.Data.FR13
+import Checked.Cosmography.FREta
 
 /-!
-# Hypothesis necessity for the Farooq–Ratra 2013 deceleration–acceleration redshift claims (run 2026-11-12T1228Z)
+# Hypothesis necessity for the Farooq–Ratra 2013 deceleration–acceleration redshift claims and the
+f(R) ratio theorem (run 2026-11-12T1228Z)
 
 `Checked.Data.FR13.fr13_zda68` and `fr13_zda738` say: at every minimiser Ω over [0, 1] of the
-marginalised chi-square (prior 68 ± 2.8 or 73.8 ± 2.4), every redshift z > −1 with
+marginalised chi-square (either Gaussian prior on H₀), every redshift z > −1 with
 Ω (1 + z)³ = 2 (1 − Ω) lies in the stated window. Here:
 
-* the minimiser condition is needed: Ω = 1/5 and z = 1 satisfy Ω (1 + z)³ = 2 (1 − Ω);
+* the minimiser condition is needed: a non-minimising Ω solves the transition equation with z = 1;
 * the transition equation is needed: z = 0 at the certified minimiser;
 * z > −1 is redundant: the minimiser lies strictly between 0 and 1, so the right side is positive
   and (1 + z)³ > 0 forces 1 + z > 0.
+
+`Checked.Cosmography.FREta.eta_ratios`: the hypothesis F(R₀) ≠ 0 is redundant, as its referee note
+says (with F(R₀) = 0 both sides of each ratio are Lean's division by zero).
 -/
 
 namespace Checked.Trust.NecessityP
@@ -48,5 +53,28 @@ theorem fr13_zda738_r4 : dropped% Checked.Data.FR13.fr13_zda738 4 := by
   intro Ω h0 h1 hmin z hda
   obtain ⟨a, b⟩ := bestfit738_aux Ω h0 h1 hmin
   exact fr13_zda738 Ω h0 h1 hmin z (gt_neg_one_of_cube (by linarith) (by linarith) hda) hda
+
+section FREta
+open Checked.Cosmography Checked.Cosmography.Aviles Checked.Cosmography.FRCosmo Checked.Cosmography.FREta
+
+/-- `F(R₀) ≠ 0` is redundant in `eta_ratios` (the referee's note in its module doc): with F(R₀) = 0
+the first f(R) relation forces P₀Ω + Q₀ = 0, so both sides of each ratio are Lean's x/0 = 0. -/
+theorem eta_ratios_r2 : dropped% Checked.Cosmography.FREta.eta_ratios 2 := by
+  intro Ω a F t₀ hM hR hJ
+  by_cases hF : F (curv a t₀) = 0
+  · obtain ⟨e1, -, -⟩ := fR_values Ω a F t₀ hM
+    have hH : hubble a t₀ ≠ 0 := hM.expanding.ne'
+    rw [hF, mul_zero] at e1
+    have hD : P0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) * Ω
+        + Q0 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) = 0 := by
+      have h6 : -6 * hubble a t₀ ^ 2 ≠ 0 := by
+        have := pow_ne_zero 2 hH; intro h; apply this; linarith
+      exact (mul_eq_zero.1 e1.symm).resolve_left h6
+    unfold eta20Of eta30Of
+    rw [hF, hD]
+    simp
+  · exact eta_ratios Ω a F t₀ hM hF hR hJ
+
+end FREta
 
 end Checked.Trust.NecessityP

@@ -23,7 +23,7 @@ FRCosmo.curv_derivs | 1, 2, 3
 FRCosmo.exists_LCDM_model | 1, 2
 FRCosmo.printedF0Mul_false_at | 1, 2
 FRCosmo.printedF0_false_at | 1, 2, 3
-FREta.eta_ratios | 1, 2, 3, 4
+FREta.eta_ratios | 1, 3, 4
 FREta.printedEta20_false_at | 1, 2, 3, 4
 FREta.printedEta30_false_at | 1, 2, 3, 4
 DemianskiZ.demDL4_fails_past | 1

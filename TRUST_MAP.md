@@ -14,8 +14,8 @@ obligation computed from the statement by `Checked.Trust.nvObligation`); the oth
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 906 hypotheses in 157 headlines;
 460 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-126 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-320 open; headlines with every hypothesis classified: 56/157
+127 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+319 open; headlines with every hypothesis classified: 56/157
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -343,7 +343,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FRCosmo.exists_LCDM_model` (2): open 1, 2
 - `FRCosmo.printedF0Mul_false_at` (2): open 1, 2
 - `FRCosmo.printedF0_false_at` (3): open 1, 2, 3
-- `FREta.eta_ratios` (4): open 1, 2, 3, 4
+- `FREta.eta_ratios` (4): redundant 2 (`eta_ratios_r2`); open 1, 3, 4
 - `FREta.eta20_hasDerivAt` (2): needed 1 (`eta20_hasDerivAt_h1`), 2 (`eta20_hasDerivAt_h2`)
 - `FREta.eta30_hasDerivAt` (2): needed 1 (`eta30_hasDerivAt_h1`), 2 (`eta30_hasDerivAt_h2`)
 - `FREta.printedEta20_false_at` (4): open 1, 2, 3, 4

@@ -2489,6 +2489,7 @@ doc:Checked.Trust.NecessityO.srk_omega1_unique_h1 -doc8203090287317937254
 doc:Checked.Trust.NecessityO.srk_omega1_unique_h2 -doc6767200896694596868
 doc:Checked.Trust.NecessityO.srk_omega1_unique_h3 -doc7727280209867496555
 doc:Checked.Trust.NecessityO.srk_omega1_unique_h4 -doc7107632530671736647
+doc:Checked.Trust.NecessityP.eta_ratios_r2 -doc14153690257767808791
 doc:Checked.Trust.NecessityP.gt_neg_one_of_cube -doc12457600721305539357
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_one_needs_velocity -doc11106357578457800887
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_two -doc8443822091892815726
@@ -3246,7 +3247,7 @@ moduledoc:Checked.Trust.NecessityL -mdoc14468159082974997690
 moduledoc:Checked.Trust.NecessityM -mdoc9738669776155721230
 moduledoc:Checked.Trust.NecessityN -mdoc7098328307445460454
 moduledoc:Checked.Trust.NecessityO -mdoc3293891495360465668
-moduledoc:Checked.Trust.NecessityP -mdoc2525490039154952710
+moduledoc:Checked.Trust.NecessityP -mdoc12809478230966364075
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401
