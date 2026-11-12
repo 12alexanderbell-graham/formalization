@@ -16,3 +16,6 @@
 - **Blind restatement** (Sonnet, brief only): `blind/BonnorEbertBlind.lean` — ψ with ψ(0) = ψ'(0) = 0, both right-continuous at 0, two-sided derivatives on (0, ∞), mass with rpow (4π)^(−1/2); to be closed in Lean against the frozen statement once proved.
 - **Referee** (Opus): STANDS (`referee/REPORT.md`): three independent methods agree to 27 digits; tightest margin 1.15e-8 (m ≤ 1.1822266); uniqueness forced by continuity of φ at 0; next extremum of m at ξ ≈ 67.
 - **Printed-values screen** (Sonnet; 26 typeset arXiv readings, crops in `screen/typeset/`; `screen/READING.md`): ξ_max printed 6.451 / 6.45 / 6.5; contrast 14.04 / 14.1 / 14 / **13.98** (Galli, Walmsley & Gonçalves 2002, A&A 394, 275, arXiv:astro-ph/0208416, p. 2: "stable for ρ_c/ρ_b < 13.98", main session re-read the crop `screen/typeset/galli_13.98.png`); mass 1.18 / 1.182 / 1.1822. Candidate C-BE-1 (to verify): the 13.98 threshold is wrong (true 14.0420…); the others are correct roundings.
+
+## LOCK
+- 04:59Z run 0227Z released the LOCK (89aca37, ae60cc6); taken by this run.
