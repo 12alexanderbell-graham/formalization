@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/claude/formalization/runs/2026-11-11T1228Z/scripts/gen_rev.py", line 166, in <module>
+    main()
+    ~~~~^^
+  File "/home/claude/formalization/runs/2026-11-11T1228Z/scripts/gen_rev.py", line 127, in main
+    assert mu * h < 1, (float(t0), float(mu))
+           ^^^^^^^^^^
+AssertionError: (1.09375, 32.8103)
