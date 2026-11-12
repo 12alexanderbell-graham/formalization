@@ -13,7 +13,7 @@ from scipy.optimize import brentq
 def res(a, b, L):
     s = solve_ivp(lambda t, y: [y[1], y[2], -y[0]*y[2] - b*(1 - y[1]**2)], [0, L], [0, 0, a], rtol=1e-13, atol=1e-15, method='DOP853')
     return s.y[1, -1] - 1
-ROWS = {'15': Fr(-15, 100), '18': Fr(-18, 100), '19': Fr(-19, 100), '195': Fr(-195, 1000), '198': Fr(-198, 1000)}
+ROWS = {'15': Fr(-15, 100), '17': Fr(-17, 100), '18': Fr(-18, 100), '19': Fr(-19, 100), '195': Fr(-195, 1000), '198': Fr(-198, 1000)}
 out = {}
 for tag, b in ROWS.items():
     qs = [brentq(lambda a: res(a, float(b), L), 1e-3, 0.5, xtol=1e-16) for L in (10, 12)]
