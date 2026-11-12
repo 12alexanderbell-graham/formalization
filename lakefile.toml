@@ -1,5 +1,10 @@
 name = "Formalization"
-defaultTargets = ["Checked", "Work"]
+# Repair, run 2026-11-12T1628Z (annex LIV, see LEDGER): the checked job's axiom-audit step runs a bare `lake build`
+# (lean-action v1.7.0, scripts/run_axiom_audit.sh), i.e. the default targets. With Work among them, every checked job
+# whose lake cache missed rebuilt all of Work single-threaded inside the audit (4c7b118, run 43218463622: audit still
+# building Work after 90 min, job cancelled at its 240-min limit). Work is built and judged by the `work` job
+# (`lake build Work`, explicit target); every CI build names its target. No check changes.
+defaultTargets = ["Checked"]
 
 [[require]]
 name = "mathlib"

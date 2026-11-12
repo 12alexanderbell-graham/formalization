@@ -16,7 +16,7 @@ it to grow); the relation between velocity and shear is needed (a velocity profi
 at a finite height, the shear from the equation by an integrating factor); positivity of the shear is needed
 where a reverse-flow solution is certified. -/
 
-namespace Checked.Trust.NCR
+namespace Checked.Trust.NCS
 
 open Set Filter Topology
 
@@ -376,4 +376,4 @@ theorem fs_neg_decay_equal_r15 : dropped% Checked.FalknerSkan.NegDecay.fs_neg_de
   exact Checked.FalknerSkan.NegDecay.fs_neg_decay_equal β hβ f p q f₂ p₂ q₂ hf hp hq hf0 hp0 hlim hpos hdec
     hf₂ hp₂ hq₂ hf₂0 hp₂0 (lim_one β hβ.le f₂ p₂ q₂ hf₂ hp₂ hq₂ (fun η hη => (hpos₂ η hη).le) hdec₂) hpos₂ hdec₂
 
-end Checked.Trust.NCR
+end Checked.Trust.NCS
