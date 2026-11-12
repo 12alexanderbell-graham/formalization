@@ -56,3 +56,15 @@ lt
 separation
 printed
 fazio
+bonnor
+ebert
+critical
+radius
+dimensionless
+mass
+increases
+decreases
+centre
+edge
+density
+contrast

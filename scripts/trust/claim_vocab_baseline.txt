@@ -524,7 +524,6 @@ Checked.Cosmography.B1FitRL19.rl19_box_unmatched|cubic
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|rl
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|fig
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|contour
-Checked.Cosmography.B1FitRL19.rl19_box_unmatched|centre
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|uncertainty
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|normalisation
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched|exact
@@ -670,7 +669,6 @@ Checked.Chemistry.CubicEOS.isCritical_iff|generalized
 Checked.Chemistry.CubicEOS.isCritical_iff|eos
 Checked.Chemistry.CubicEOS.isCritical_iff|closed
 Checked.Chemistry.CubicEOS.isCritical_iff|form
-Checked.Chemistry.CubicEOS.critCubic_existsUnique|critical
 Checked.Chemistry.CubicEOS.exists_unique_critical|uniqueness
 Checked.Chemistry.CubicEOS.exists_unique_critical|generalized
 Checked.Chemistry.CubicEOS.exists_unique_critical|eos
@@ -897,13 +895,11 @@ Checked.Data.FR13.fr13_zda738|solving
 Checked.Math.LaneEmden.laneEmden3_constants|index
 Checked.Math.LaneEmden.laneEmden3_constants|before
 Checked.Math.LaneEmden.laneEmden3_constants|chandrasekhar
-Checked.Math.LaneEmden.laneEmden3_constants|mass
 Checked.Math.LaneEmden.laneEmden3_constants|constant
 Checked.Math.LEExists.exists_solution|exist
 Checked.Math.LEExists.exists_solution|headline
 Checked.Math.LEExists.exists_solution|together
 Checked.Math.LEExists.exists_solution|regular
-Checked.Math.LEExists.exists_solution|centre
 Checked.Math.LEExists.exists_solution|exists
 Checked.Math.Gelfand.gelfand_ball_critical|ball
 Checked.Math.Gelfand.gelfand_ball_critical|branch
@@ -1678,7 +1674,6 @@ checked.fidelity.omega0spec_pins|fspan:h₀ ≠ 0
 checked.fidelity.redshiftcore_pins|nameword:core
 checked.fidelity.yredspec_pins|nameword:red
 checked.math.gelfand.gelfand_ball_critical|nameword:ball
-checked.math.gelfand.gelfand_ball_critical|nameword:critical
 checked.math.gelfandpde.gelfand_pde_radial_bound|nameword:pde
 checked.math.gelfandpdeexists.gelfand_pde_radial_exists|nameword:pde
 checked.math.laneemden.laneemden3_constants|numctx:0:before
