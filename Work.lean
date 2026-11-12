@@ -173,6 +173,8 @@ import Work.Math.BEQData
 import Work.Math.BEChain
 import Work.Math.BEMain
 import Work.Math.BonnorEbert
+import Work.Math.BonnorEbertBlind
+import Work.Math.BonnorEbertBlindClosed
 import Work.Math.GelfandBlind
 import Work.Math.GelfandBlindClosed
 import Work.Math.RadialLaplacian
