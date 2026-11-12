@@ -290,8 +290,10 @@ jobs:
         # run; OOM-killed once). This packs the build the judge just made (.lake/build: oleans, ileans, ir, Lake's
         # hash traces) so a run restores it with scripts/restore_checked_build.sh and Lake rebuilds only modules
         # whose inputs changed. A restored build is a convenience for the run's own iteration, never evidence:
-        # every push is still judged here from scratch. Placed after every check so it cannot delay or alter one.
+        # every push is still judged here from scratch. Placed after every check so it cannot delay or alter one,
+        # and continue-on-error so that a packing or upload failure can never turn the judge red.
         if: always()
+        continue-on-error: true
         run: |
           if [ -d .lake/build/lib/lean/Checked ]; then
             git rev-parse HEAD > .lake/build/CHECKED_BUILD_COMMIT
@@ -302,6 +304,7 @@ jobs:
           fi
       - name: Upload the build of Checked
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: checked-build

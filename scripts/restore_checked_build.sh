@@ -32,17 +32,21 @@ fi
 unzip -q "$tmp/a.zip" -d "$tmp/x"
 tarball="$(find "$tmp/x" -name 'checked-build.tar.zst' | head -1)"
 [ -n "$tarball" ] || { echo "no checked-build.tar.zst in the artifact" >&2; exit 3; }
-# Only .lake/build/... members are accepted (no absolute paths, no ..).
-if zstd -dc "$tarball" | tar -tf - | grep -vE '^\.lake/build(/|$)' | grep -q .; then
+# Decompressor: the zstd binary, else Python's `zstandard` (pip install --break-system-packages zstandard).
+unz() {
+  if command -v zstd >/dev/null 2>&1; then zstd -dc "$1"
+  else python3 -c 'import sys, zstandard; zstandard.ZstdDecompressor().copy_stream(open(sys.argv[1], "rb"), sys.stdout.buffer)' "$1"
+  fi
+}
+# Only .lake/build/... members are accepted (no absolute paths, no ..); a failed listing refuses.
+unz "$tarball" | tar -tf - > "$tmp/members" || { echo "cannot list the artifact; refusing" >&2; exit 4; }
+[ -s "$tmp/members" ] || { echo "empty artifact; refusing" >&2; exit 4; }
+if grep -vE '^\.lake/build(/|$)' "$tmp/members" | grep -q . || grep -q '\.\./' "$tmp/members"; then
   echo "artifact contains paths outside .lake/build; refusing" >&2
-  exit 4
-fi
-if zstd -dc "$tarball" | tar -tf - | grep -q '\.\./'; then
-  echo "artifact contains '..' paths; refusing" >&2
   exit 4
 fi
 rm -rf .lake/build
 mkdir -p .lake
-zstd -dc "$tarball" | tar -xf - --no-same-owner
+unz "$tarball" | tar -xf - --no-same-owner
 echo "restored .lake/build from commit $(cat .lake/build/CHECKED_BUILD_COMMIT 2>/dev/null || echo '?')"
 echo "next: lake build Checked   (rebuilds only modules changed since that commit)"
