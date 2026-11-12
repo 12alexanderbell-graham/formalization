@@ -2,6 +2,8 @@ import Checked.Trust.NonVacuity
 import Checked.Trust.NecessityB
 import Checked.Math.BonnorEbert
 import Checked.Math.GelfandExists
+import Checked.Math.Gelfand
+import Checked.Math.GProfile
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.SpecialFunctions.Sqrt
 import Mathlib.Analysis.Real.Pi.Bounds
@@ -16,7 +18,10 @@ w, 3 continuity of φ at the centre, 4 the equation, 5 the centre value w(0) = 0
 * 5 is needed, by the scaling symmetry of the isothermal equation: if w solves it on [0, 2S] then
   u(s) = w(2s) + 2 log 2 solves it on [0, S], with u(0) = 2 log 2 and mass m_u(s) = m_w(2s). The mass of u
   would then increase strictly up to twice a radius above 6.45, while the mass of w decreases strictly after its
-  own critical radius below 7: impossible. -/
+  own critical radius below 7: impossible.
+
+The same symmetry with the factor 1/3 shows that hypothesis 5 of `Checked.Math.Gelfand.gelfand_ball_critical`
+(the same centre value) is needed. -/
 
 namespace Checked.Trust.NecessityM
 open Set
@@ -60,49 +65,52 @@ theorem bonnor_ebert_critical_h2 : necessity% Checked.Math.BonnorEbert.bonnor_eb
     rw [div_le_iff₀ hsq0] at h6
     nlinarith [mul_le_mul_of_nonneg_left hsq (by positivity : (0 : ℝ) ≤ 1.1822266)]
 
-/-- The scaled solution: w(2s) + 2 log 2 with derivative 2 φ(2s). -/
-theorem scaled_hyps (w φ : ℝ → ℝ)
-    (hw : ∀ s ∈ Icc (0 : ℝ) 14, HasDerivWithinAt w (φ s) (Icc 0 14) s)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 14) 0)
-    (hφ : ∀ s ∈ Ioc (0 : ℝ) 14,
-      HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Icc 0 14) s) :
-    (∀ s ∈ Icc (0 : ℝ) 7, HasDerivWithinAt (fun s => w (2 * s) + 2 * Real.log 2)
-        ((fun s => 2 * φ (2 * s)) s) (Icc 0 7) s) ∧
-    ContinuousWithinAt (fun s => 2 * φ (2 * s)) (Icc 0 7) 0 ∧
-    (∀ s ∈ Ioc (0 : ℝ) 7, HasDerivWithinAt (fun s => 2 * φ (2 * s))
-        (-(2 / s * (fun s => 2 * φ (2 * s)) s) - Real.exp ((fun s => w (2 * s) + 2 * Real.log 2) s))
-        (Icc 0 7) s) := by
-  have hmaps : MapsTo (fun s : ℝ => 2 * s) (Icc 0 7) (Icc 0 14) := by
-    intro s hs; exact ⟨by linarith [hs.1], by linarith [hs.2]⟩
-  have hlin : ∀ s : ℝ, HasDerivWithinAt (fun s : ℝ => 2 * s) 2 (Icc 0 7) s := fun s => by
-    simpa using ((hasDerivAt_id s).const_mul (2 : ℝ)).hasDerivWithinAt
-  have hlog : Real.exp (2 * Real.log 2) = 4 := by
-    rw [show 2 * Real.log 2 = Real.log 4 by
-      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num, Real.exp_log (by norm_num)]
+/-- Scaling symmetry of the isothermal (Gelfand) equation: if w solves it on [0, cT] (c > 0), then
+u(s) = w(cs) + 2 log c, with derivative c φ(cs), solves it on [0, T]. -/
+theorem scaled_hyps (c T : ℝ) (hc : 0 < c) (w φ : ℝ → ℝ)
+    (hw : ∀ s ∈ Icc (0 : ℝ) (c * T), HasDerivWithinAt w (φ s) (Icc 0 (c * T)) s)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 (c * T)) 0)
+    (hφ : ∀ s ∈ Ioc (0 : ℝ) (c * T),
+      HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Icc 0 (c * T)) s) :
+    (∀ s ∈ Icc (0 : ℝ) T, HasDerivWithinAt (fun s => w (c * s) + 2 * Real.log c)
+        ((fun s => c * φ (c * s)) s) (Icc 0 T) s) ∧
+    ContinuousWithinAt (fun s => c * φ (c * s)) (Icc 0 T) 0 ∧
+    (∀ s ∈ Ioc (0 : ℝ) T, HasDerivWithinAt (fun s => c * φ (c * s))
+        (-(2 / s * (fun s => c * φ (c * s)) s) - Real.exp ((fun s => w (c * s) + 2 * Real.log c) s))
+        (Icc 0 T) s) := by
+  have hmaps : MapsTo (fun s : ℝ => c * s) (Icc 0 T) (Icc 0 (c * T)) := by
+    intro s hs
+    exact ⟨mul_nonneg hc.le hs.1, mul_le_mul_of_nonneg_left hs.2 hc.le⟩
+  have hlin : ∀ s : ℝ, HasDerivWithinAt (fun s : ℝ => c * s) c (Icc 0 T) s := fun s => by
+    simpa using ((hasDerivAt_id s).const_mul c).hasDerivWithinAt
+  have hlog : Real.exp (2 * Real.log c) = c ^ 2 := by
+    rw [show (2 : ℝ) * Real.log c = Real.log (c ^ 2) by rw [Real.log_pow]; push_cast; ring,
+      Real.exp_log (by positivity)]
   refine ⟨fun s hs => ?_, ?_, fun s hs => ?_⟩
-  · have h := ((hw (2 * s) (hmaps hs)).scomp s (hlin s) hmaps).add_const (2 * Real.log 2)
+  · have h := ((hw (c * s) (hmaps hs)).scomp s (hlin s) hmaps).add_const (2 * Real.log c)
     refine h.congr_deriv ?_
     simp [smul_eq_mul]
-  · have hc : ContinuousWithinAt (fun s : ℝ => 2 * s) (Icc 0 7) 0 :=
+  · have hcc : ContinuousWithinAt (fun s : ℝ => c * s) (Icc 0 T) 0 :=
       (continuous_const.mul continuous_id).continuousWithinAt
-    have h := ContinuousWithinAt.comp (g := φ) (f := fun s : ℝ => 2 * s) (x := 0)
-      (by simpa using hφ0) hc hmaps
-    exact (continuousWithinAt_const (b := (2 : ℝ))).mul h
-  · have hs' : 2 * s ∈ Ioc (0 : ℝ) 14 := ⟨by linarith [hs.1], by linarith [hs.2]⟩
-    have h := ((hφ (2 * s) hs').scomp s (hlin s) hmaps).const_mul (2 : ℝ)
+    have h := ContinuousWithinAt.comp (g := φ) (f := fun s : ℝ => c * s) (x := 0)
+      (by simpa using hφ0) hcc hmaps
+    exact (continuousWithinAt_const (b := c)).mul h
+  · have hs' : c * s ∈ Ioc (0 : ℝ) (c * T) :=
+      ⟨mul_pos hc hs.1, mul_le_mul_of_nonneg_left hs.2 hc.le⟩
+    have h := ((hφ (c * s) hs').scomp s (hlin s) hmaps).const_mul c
     refine h.congr_deriv ?_
     have hs0 : s ≠ 0 := hs.1.ne'
+    have hc0 : c ≠ 0 := hc.ne'
     simp only [smul_eq_mul, Real.exp_add, hlog]
     field_simp
-    ring
 
 theorem bonnor_ebert_critical_h5 : necessity% Checked.Math.BonnorEbert.bonnor_ebert_critical 5 := by
-  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.GelfandExists.exists_solution 14 (by norm_num)
-  obtain ⟨hu, hψ0, hψ⟩ := scaled_hyps w φ hw hφ0 hφ
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.GelfandExists.exists_solution (2 * 7) (by norm_num)
+  obtain ⟨hu, hψ0, hψ⟩ := scaled_hyps 2 7 (by norm_num) w φ hw hφ0 hφ
   refine ⟨7, le_rfl, fun s => w (2 * s) + 2 * Real.log 2, fun s => 2 * φ (2 * s), hu, hψ0, hψ, ?_⟩
   · rintro ⟨η, hη1, hη2, hmono, -, -, -, -, -⟩
     obtain ⟨ξ, hξ1, hξ2, -, hanti, -⟩ :=
-      Checked.Math.BonnorEbert.bonnor_ebert_critical 14 (by norm_num) w φ hw hφ0 hφ h0
+      Checked.Math.BonnorEbert.bonnor_ebert_critical (2 * 7) (by norm_num) w φ hw hφ0 hφ h0
     -- m_u(s) = m_w(2s)
     have hm : ∀ s, (fun s => s ^ 2 * (-(fun s => 2 * φ (2 * s)) s) *
         Real.exp ((fun s => w (2 * s) + 2 * Real.log 2) s / 2) / Real.sqrt (4 * Real.pi)) s =
@@ -125,5 +133,29 @@ theorem bonnor_ebert_critical_h5 : necessity% Checked.Math.BonnorEbert.bonnor_eb
     rw [e1, e2] at hlt
     simp only [mass] at hlt
     linarith
+
+/-! ### Gelfand ball: the centre value w(0) = 0 is needed (scaling by 1/3) -/
+
+/-- Hypothesis 5 of `gelfand_ball_critical` (w(0) = 0) is needed: u(s) = w(s/3) − 2 log 3 solves the equation on
+[0, 41/10] when w solves it on [0, 41/30]; then s² e^{u(s)} = (s/3)² e^{w(s/3)} ≤ (s/3)² (w ≤ 0 by
+`Checked.Math.GProfile.profile_bounds`), below the claimed maximum value at every point of [0, 41/10]. -/
+theorem gelfand_ball_critical_h5 : necessity% Checked.Math.Gelfand.gelfand_ball_critical 5 := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ :=
+    Checked.Math.GelfandExists.exists_solution ((1 / 3) * (41 / 10)) (by norm_num)
+  obtain ⟨hu, hψ0, hψ⟩ := scaled_hyps (1 / 3) (41 / 10) (by norm_num) w φ hw hφ0 hφ
+  obtain ⟨-, hwb, -⟩ := Checked.Math.GProfile.profile_bounds ((1 / 3) * (41 / 10)) (by norm_num)
+    w φ hw hφ0 hφ h0
+  refine ⟨41 / 10, le_rfl, fun s => w ((1 / 3) * s) + 2 * Real.log (1 / 3),
+    fun s => (1 / 3) * φ ((1 / 3) * s), hu, hψ0, hψ, ?_⟩
+  rintro ⟨s₁, hlo, hhi, -, hv, -⟩
+  have hmem : (1 / 3) * s₁ ∈ Icc (0 : ℝ) ((1 / 3) * (41 / 10)) := ⟨by linarith, by linarith⟩
+  have hw0 : w ((1 / 3) * s₁) ≤ 0 := (hwb _ hmem).2
+  have hlog : Real.exp (2 * Real.log (1 / 3)) = (1 / 3) ^ 2 := by
+    rw [show (2 : ℝ) * Real.log (1 / 3) = Real.log ((1 / 3) ^ 2) by rw [Real.log_pow]; push_cast; ring,
+      Real.exp_log (by positivity)]
+  rw [Real.exp_add, hlog] at hv
+  have he : Real.exp (w ((1 / 3) * s₁)) ≤ 1 := Real.exp_le_one_iff.mpr hw0
+  have hs2 : 0 ≤ s₁ ^ 2 := sq_nonneg _
+  nlinarith [mul_le_mul_of_nonneg_left he hs2]
 
 end Checked.Trust.NecessityM
