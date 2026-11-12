@@ -1058,6 +1058,94 @@ theorem l19_sqg_box_h8 : necessity% Checked.Cosmography.B1L19.l19_sqg_box 8 := b
       (by norm_num) (by norm_num) (by norm_num)
   · norm_num at hD ⊢; linarith
 
+theorem logb4 : Real.logb 10 (1 + 3) = 2 * Real.log 2 / Real.log 10 := by
+  rw [show (1:ℝ) + 3 = 2 ^ 2 by norm_num, Real.logb, Real.log_pow]; push_cast; ring
+
+theorem logb8 : Real.logb 10 (1 + 7) = 3 * Real.log 2 / Real.log 10 := by
+  rw [show (1:ℝ) + 7 = 2 ^ 3 by norm_num, Real.logb, Real.log_pow]; push_cast; ring
+
+theorem rad_P3 : logPolyDL3 (lusA2 (1 / 5)) (lusA3 (1 / 5)) (hubble (fun s : ℝ => √s) 1) 3
+    = 4 * Real.log 2 + 54 / 5 * Real.log 2 ^ 2 + 974 / 75 * Real.log 2 ^ 3 := by
+  have hl0 : 0 < Real.log 10 := Real.log_pos (by norm_num)
+  rw [rad_hubble 1 one_pos]
+  simp only [logPolyDL3, lusA2, lusA3, logb4]
+  field_simp
+  ring
+
+theorem rad_P7 : logPolyDL3 (lusA2 (1 / 5)) (lusA3 (1 / 5)) (hubble (fun s : ℝ => √s) 1) 7
+    = 6 * Real.log 2 + 243 / 10 * Real.log 2 ^ 2 + 4383 / 100 * Real.log 2 ^ 3 := by
+  have hl0 : 0 < Real.log 10 := Real.log_pos (by norm_num)
+  rw [rad_hubble 1 one_pos]
+  simp only [logPolyDL3, lusA2, lusA3, logb8]
+  field_simp
+  ring
+
+theorem rad_zk (k : ℝ) (hk : 0 < k) : redshift (fun s : ℝ => √s) 1 (1 / (1 + k) ^ 2) = k :=
+  by rw [rad_z _ (by linarith)]; ring
+
+theorem logb_le_zero_of (A : ℝ) (hA : 0 < A) (h : A ≤ 1) : Real.logb 10 A ≤ 0 :=
+  Real.logb_nonpos (by norm_num) hA.le h
+
+theorem cubic_misses_z3_h7 : necessity% Checked.Cosmography.B1.cubic_misses_z3 7 := by
+  have hz : redshift (fun s : ℝ => √s) 1 (1 / 16) = 3 := by
+    rw [show (1 / 16 : ℝ) = 1 / (1 + 3) ^ 2 by norm_num]; exact rad_zk 3 (by norm_num)
+  have hl := Real.log_two_gt_d9
+  refine ⟨1 / 5, by norm_num, by norm_num, fun s : ℝ => √s, 1 / 16, 1, by norm_num,
+    rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, hz, ?_⟩
+  rintro ⟨-, h⟩
+  rw [hz, rad_P3, rad_dL _ (by norm_num) (by norm_num), hz] at h
+  have hP : 0 < 4 * Real.log 2 + 54 / 5 * Real.log 2 ^ 2 + 974 / 75 * Real.log 2 ^ 3 := by positivity
+  have := logb_le_zero_of (2 * 3 / (4 * Real.log 2 + 54 / 5 * Real.log 2 ^ 2 + 974 / 75 * Real.log 2 ^ 3))
+    (div_pos (by norm_num) hP) ((div_le_one hP).2 (by nlinarith))
+  linarith
+
+theorem cubic_misses_z7_h7 : necessity% Checked.Cosmography.B1.cubic_misses_z7 7 := by
+  have hz : redshift (fun s : ℝ => √s) 1 (1 / 64) = 7 := by
+    rw [show (1 / 64 : ℝ) = 1 / (1 + 7) ^ 2 by norm_num]; exact rad_zk 7 (by norm_num)
+  have hl := Real.log_two_gt_d9
+  refine ⟨1 / 5, by norm_num, by norm_num, fun s : ℝ => √s, 1 / 64, 1, by norm_num,
+    rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, hz, ?_⟩
+  rintro ⟨-, h⟩
+  rw [hz, rad_P7, rad_dL _ (by norm_num) (by norm_num), hz] at h
+  have hP : 0 < 6 * Real.log 2 + 243 / 10 * Real.log 2 ^ 2 + 4383 / 100 * Real.log 2 ^ 3 := by
+    positivity
+  have := logb_le_zero_of (2 * 7 / (6 * Real.log 2 + 243 / 10 * Real.log 2 ^ 2
+    + 4383 / 100 * Real.log 2 ^ 3)) (div_pos (by norm_num) hP) ((div_le_one hP).2 (by nlinarith))
+  linarith
+
+theorem cubic_shape_miss_h8 : necessity% Checked.Cosmography.B1.cubic_shape_miss 8 := by
+  have hz3 : redshift (fun s : ℝ => √s) 1 (1 / 16) = 3 := by
+    rw [show (1 / 16 : ℝ) = 1 / (1 + 3) ^ 2 by norm_num]; exact rad_zk 3 (by norm_num)
+  have hz7 : redshift (fun s : ℝ => √s) 1 (1 / 64) = 7 := by
+    rw [show (1 / 64 : ℝ) = 1 / (1 + 7) ^ 2 by norm_num]; exact rad_zk 7 (by norm_num)
+  have hl := Real.log_two_gt_d9
+  have hl' := Real.log_two_lt_d9
+  refine ⟨1 / 5, by norm_num, by norm_num, fun s : ℝ => √s, 1 / 64, 1 / 16, 1, by norm_num,
+    by norm_num, rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, hz3, hz7, ?_⟩
+  rw [hz3, hz7, rad_P3, rad_P7, rad_dL _ (by norm_num) (by norm_num),
+    rad_dL _ (by norm_num) (by norm_num), hz3, hz7]
+  set l := Real.log 2
+  have hP3 : 0 < 4 * l + 54 / 5 * l ^ 2 + 974 / 75 * l ^ 3 := by positivity
+  have hP7 : 0 < 6 * l + 243 / 10 * l ^ 2 + 4383 / 100 * l ^ 3 := by positivity
+  have hD := five_logb_diff_le (2 * 7 / (6 * l + 243 / 10 * l ^ 2 + 4383 / 100 * l ^ 3))
+    (2 * 3 / (4 * l + 54 / 5 * l ^ 2 + 974 / 75 * l ^ 3)) 0 (by positivity) (by positivity) le_rfl
+    (by rw [div_div_div_eq, div_le_iff₀ (by positivity)]; nlinarith)
+  norm_num at hD ⊢; linarith
+
+theorem lumDistFlat_flatLCDM_h7 : necessity% Checked.Cosmography.B1.lumDistFlat_flatLCDM 7 := by
+  have hz : redshift (fun s : ℝ => √s) 1 (1 / 16) = 3 := by
+    rw [show (1 / 16 : ℝ) = 1 / (1 + 3) ^ 2 by norm_num]; exact rad_zk 3 (by norm_num)
+  refine ⟨1, le_rfl.trans' zero_le_one, le_rfl, fun s : ℝ => √s, 1 / 16, 1, by norm_num,
+    rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, ?_⟩
+  rw [rad_dL _ (by norm_num) (by norm_num), hz, rad_hubble 1 one_pos]
+  have e1 : √((fun s : ℝ => √s) (1 / 16) / (fun s : ℝ => √s) 1) = 1 / 2 := by
+    simp only [Real.sqrt_one, div_one]
+    rw [show (1 / 16 : ℝ) = (1 / 4) ^ 2 by norm_num, Real.sqrt_sq (by norm_num),
+      show (1 / 4 : ℝ) = (1 / 2) ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]
+  rw [e1]
+  simp
+  norm_num
+
 end Radiation
 
 end Checked.Trust.NCL
