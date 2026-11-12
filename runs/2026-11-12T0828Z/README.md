@@ -22,7 +22,8 @@
 - Repair 6c02253 (`carriesProof`; membership opened in `partsWalk`; label counted across hypotheses and parts). AFTER on the same tree: N4 fails on exactly d03, d04, d05; no existing headline changes shape; tallies on main unchanged (422 / 118 / 349 open; label on 7 lines).
 
 ## LOCK
-- Run 0628Z released the LOCK (2934d8e, 08:41Z); taken 08:49Z (40cbeca); heartbeat 09:29Z.
+- Run 0628Z released the LOCK (2934d8e, 08:41Z); taken 08:49Z (40cbeca); heartbeat 09:29Z. Removed in the final commit (10:0xZ).
 
 ## Next run's starting point (written as the run goes)
-- If this run vanishes: judge `t5/redteamAH/` (copied verbatim once returned) on main with the restored CI build: apply each defect, `lake build Checked`, `TRUST_RELOCK=1 lake env lean scripts/trust/StatementDeps.lean`, `python3 scripts/trust/check_necessity.py`.
+- Read CI of this run's final push on main (it carries run 0628Z's Bonnor–Ebert promotion 2934d8e and the AH repair): green on every job → `bonnor_ebert_critical` PROVED (tell Alexander only with an L.2 item) and the AH repair is live. Red → `local_frozen_step.py --trust <base>` on the restored artifact (`scripts/restore_checked_build.sh`).
+- Then STATE 0a (C-FS-SEP, C-FS-1988, C-FS-1988R to verified findings) and C-BE-1; next part-3 round: proof fields one level deeper, D1 up to definitional unfolding.

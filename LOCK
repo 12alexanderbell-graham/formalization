@@ -1,1 +1,0 @@
-Run 2026-11-12T0828Z (scheduled), started 08:28Z; LOCK taken 08:49Z after run 0628Z released it (2934d8e); heartbeat 09:29Z: red team AH judged (BEFORE: necessity layer accepted 4/5 valid; repair 6c02253 on wip/ah-repair, AFTER 0/5); author pipeline (relock, Claims, packet, local_frozen_step) running in ../fzJ. Remove at end.
