@@ -24,7 +24,8 @@
 2. StatementDeps (relock): needed 472 → 483, redundant 127 → 140, open 331 → 307 (930 hypotheses of 160 headlines); fully classified unchanged (56: none of the eleven is complete yet).
 
 ## Local checks and push
-- (filled below)
+- Local: `lake build Checked` green (incremental, NecessityR 5 s), StatementDeps with relock (250 headlines, NV 164/164, necessity 483/140/307), Claims (unchanged), packet (unchanged), `local_frozen_step.py --trust 0e262e6`: trust step green, 19/20 base commands green; check_necessity N2 wanted LEDGER disclosure lines for the five headlines that are new since 0e262e6 with their current open lists (added; `check_necessity.py --base 0e262e6` then OK).
+- Final push removes the LOCK and starts the main run (the first with the lakefile repair).
 
 ## Next start
 - CI read first: this run's final push (first main run with the lakefile repair). Green on every job → NegWallShearRows (1428Z) and F12–F14 (1028Z) PROVED; tell Alexander in one L.2 message (F12–F14 + Bonnor–Ebert, if not sent). Read the checked job's step times (expected ≈ 3 h uncached).
