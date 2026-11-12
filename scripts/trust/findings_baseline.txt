@@ -1,0 +1,24 @@
+# Shrink-only baseline of scripts/trust/check_findings.py (run 2026-11-12T2028Z, blind red team AI).
+# `src <section> <value>`: a bare [src] printed value on a finding's heading or Printed line, not yet bound to Lean (FB3).
+# `words <section> <phrase>`: a spelled-out size in a verified finding (FB4). A changed value or word fires again.
+# CI (--base) rejects any line added since the base commit.
+src F10 -0.12
+src F10 -0.18
+src F10 0.041
+src F10 0.15
+src F10 0.25
+src F10 4
+src F12 -0.198837723795
+src F12 6.61×10⁻⁶
+words F11 one unit
+words F12 eight decimals
+words F12 four digits
+words F12 nine digits
+words F12 one unit
+words F12 seven decimals
+words F13 few units
+words F13 fourth digit
+words F13 fourth significant digit
+words F13 six decimals
+words F13 three units
+words F14 seven decimals

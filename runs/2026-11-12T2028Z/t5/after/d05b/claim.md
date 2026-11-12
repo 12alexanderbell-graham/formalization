@@ -1,0 +1,4 @@
+Category: misleading-record (wrong parameter row)
+Reader would wrongly believe: F13 heading and 'Printed' line: Fazio's 0.005221 and the four other printed values are wall shears at beta = -0.1998[src] (the heading now reads 'at beta = -0.1998'), and the Lean window of `fs_neg_wall_shear_window` refutes them.
+Why it is false: The printed values (Fazio p. 16, Asaithambi Table 2) are at beta = -0.1988; the record F13_wall_shear and the window are stated at beta = -1988/10000 (visible in the generated block). At beta = -0.1998 the wall shear is a different number (smaller, near the separation value -0.19884 the attached branch ends: -0.1998 is beyond separation, no such solution), so the finding attaches the certified window to the wrong row/parameter.
+Expected: ACCEPTED (a [src] decimal is only tag-checked; the sentence has no certified number; [in✓] input tags exist only for certified inputs; nothing compares [src] parameters with the numerals of the record).

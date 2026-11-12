@@ -94,7 +94,7 @@ DASHES = "−–—‐‑‒-"
 SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹"
 NUM = r"[" + DASHES + r"]?\d+(?:\.\d+)?(?:×10[⁻⁺]?[" + SUP + r"]+)?"
 SELX = r"(?:\([^()\[\]]*\))?"
-TAG = r"\[(✓[A-Za-z0-9_]+" + SELX + r"|in✓[A-Za-z0-9_]+" + SELX + r"|src|in|unc)\]"
+TAG = r"\[(✓[A-Za-z0-9_]+" + SELX + r"|in✓[A-Za-z0-9_]+" + SELX + r"|src(?:[=<>][A-Za-z0-9_]+)?|in|unc)\]"  # src=H, src>H, src<H: check_findings.py FB2
 SELBASE = "scripts/trust/records_selector_baseline.txt"
 PARAMS = ".lake/records_params.tsv"
 try:
@@ -521,7 +521,7 @@ def check_text(text, cert, params, ambig_ok, fixed=None, roles=None):
                                       f"{num}[✓{name}({(seltxt + ', ') if seltxt else ''}{rr})]")
                 counts["✓"] += 1
             else:
-                counts[tag] += 1
+                counts["src" if tag.startswith("src") else tag] += 1
         for t in re.finditer(r"\[(✓[^\]]*|src|in|unc)\]×10", s):
             errors.append(f"power of ten after the tag {t.group()[:-3]}: write it before the tag, 1.3×10⁻⁵[✓name]")
         # an input in a sentence with a certified number must be bound to a record (red team D, D02)

@@ -177,6 +177,9 @@ jobs:
           lake env lean scripts/trust/StatementDeps.lean | tail -n 40
           # certified numbers in FINDINGS.md (run 2026-10-31T0228Z; reads .lake/records_numbers.tsv)
           python3 scripts/trust/check_numbers.py
+          # verified findings bound to Lean: blocks to their section, printed values to statements and windows,
+          # spelled-out sizes, uniqueness words (run 2026-11-12T2028Z, blind red team AI; reads CLAIMS.md)
+          python3 scripts/trust/check_findings.py
           # meaning carried by prose and names: docstrings, names and statement shape checked against
           # what the statement reaches (run 2026-10-31T1028Z; reads .lake/meaning.jsonl)
           python3 scripts/trust/check_prose.py
@@ -238,6 +241,8 @@ jobs:
           python3 scripts/trust/check_relock.py "$BASE"
           # certified numbers of FINDINGS.md may not be changed or downgraded silently (run 2026-10-31T0228Z)
           python3 scripts/trust/check_numbers.py --base "$BASE"
+          # the check_findings baseline only shrinks (run 2026-11-12T2028Z)
+          python3 scripts/trust/check_findings.py --base "$BASE"
           # the prose baseline may only shrink and the glossary only grow (run 2026-10-31T1028Z)
           python3 scripts/trust/check_prose.py --base "$BASE"
           # added or changed lines of TRUSTED_DEFINITIONS.md are disclosed in LEDGER (run 2026-11-04T1028Z, red team G)
