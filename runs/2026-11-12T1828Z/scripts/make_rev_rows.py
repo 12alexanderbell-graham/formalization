@@ -48,8 +48,10 @@ theorem {nm.lower()}_hi_bound : -({lit(As)}) / Real.sqrt ({KN} / {KD}) < ({his} 
   refine ⟨f, p, q, a1, a2, fun η hη => ?_, a4, a5, a6,
     fun η hη => ⟨by linarith [(a7 η hη).1], (a7 η hη).2.le⟩, a8, ?_, ?_⟩
   · rw [← {nm.lower()}_hK]; exact a3 η hη
-  · have := {nm.lower()}_lo_bound; rw [neg_div] at this ⊢; linarith
-  · have := {nm.lower()}_hi_bound; rw [neg_div] at this ⊢; linarith"""
+  · have e : (-{Ao.numerator} / {Ao.denominator} : ℝ) / Real.sqrt ({KN} / {KD}) = -({lit(Ao)}) / Real.sqrt ({KN} / {KD}) := by ring
+    linarith [{nm.lower()}_lo_bound]
+  · have e : (-{As.numerator} / {As.denominator} : ℝ) / Real.sqrt ({KN} / {KD}) = -({lit(As)}) / Real.sqrt ({KN} / {KD}) := by ring
+    linarith [{nm.lower()}_hi_bound]"""
         pr2 = f"""by
   obtain ⟨f, p, q, a1, a2, a3, a4, a5, a6, a7, a8, w1, w2⟩ := fs_rev_{nm.lower()}_exists
   obtain ⟨f₂, p₂, q₂, b1, b2, b3, b4, b5, b6, b7, b8⟩ := {ATT[tag]}

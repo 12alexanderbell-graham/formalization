@@ -1,0 +1,5 @@
+-0.15 f'' sign changes at eta~ [0.9375, 14.25]  f' becomes >0 at eta~ 1.8125  min f'= -0.059537413  max(f'-1)= 4.2793e-23  f(16)-16= -3.739743875
+-0.17 f'' sign changes at eta~ [0.6875]  f' becomes >0 at eta~ 1.375  min f'= -0.038414811  max(f'-1)= -1.7634e-23  f(16)-16= -3.312319102
+-0.18 f'' sign changes at eta~ [0.5625, 13.9375]  f' becomes >0 at eta~ 1.125  min f'= -0.026494701  max(f'-1)= 8.3951e-25  f(16)-16= -3.083901743
+-0.19 f'' sign changes at eta~ [0.4375, 13.75]  f' becomes >0 at eta~ 0.8125  min f'= -0.013393788  max(f'-1)= 3.4777e-25  f(16)-16= -2.819803572
+odefun cross-check beta=-0.17, L=12: -0.11422723909825489649

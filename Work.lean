@@ -429,6 +429,8 @@ import Work.FSAtt.RNinetyNineHi
 import Work.FSAtt.RNinetyNineCore
 import Work.FalknerSkan.AttachedRows
 import Work.FalknerSkan.AttachedRowsBlindClosed
+import Work.FalknerSkan.ReversedRows
+import Work.FalknerSkan.ReversedRowsBlindClosed
 import Work.FSRev.RBase
 import Work.FSRev.RCell
 import Work.FSRev.RInv
