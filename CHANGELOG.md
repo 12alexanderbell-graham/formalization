@@ -639,3 +639,9 @@
 - Env: repo ok; local Lean (elan, Mathlib cache, CI build artifact of 43268238201 restored, run 1828Z's twelve FSRev modules built locally ≈ 15 min). CI 43294811277 (02fb347, run 1828Z's final push) in progress during the run.
 - Part 3 by rotation (none since run 0828Z): first blind red team on the verified-findings layer (round AI, Sonnet): **6/6 wrong findings accepted by every check on main** (a correct published value declared wrong, blocks of two findings swapped, a row's β changed, a non-uniqueness theorem called uniqueness, a size word changed, a class qualifier dropped).
 - Repair: `scripts/trust/check_findings.py` (FB1–FB6, blocking, 12 controls) — printed values of F12–F14 now bound to Lean statements; the five refuted F13 values are checked mechanically against the certified window. AFTER (not blind): 6/6 rejected plus three judge variants. `check_numbers.py` role of relative differences repaired.
+
+## 2026-11-12T2228Z (scheduled run)
+- Env: repo ok; local Lean (elan, Mathlib cache, CI build artifact of 43294811277 restored). CI 43294811277 (02fb347): green on every job → `NegReversedRows` (six headlines) and `NecessityS` PROVED; 43311405425 (50d4d16) in progress.
+- Parts 2/5: eleven more reversed-flow Falkner–Skan rows (β = −0.04 … −0.09, −0.11 … −0.14, −0.16) certified to ten decimals with existence, PROVED in Work, referee STANDS (all 19 rows of Ganapol 2010 Table 7 correct to 12 digits; 16 of 19 now machine-checked). New generic tube with free end time (`Checked/FSRev/RTubeA.lean`, `RAssembleA.lean`); 33 certificate modules.
+- Records: STATE "Last updated" and environment lines trimmed (oldest moved verbatim to `_archive/STATE_environment_history.md`).
+

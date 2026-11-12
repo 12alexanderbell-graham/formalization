@@ -347,3 +347,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - Work headlines: `Work/FalknerSkan/ReversedRows.lean` (`fs_rev_<row>_exists`, `fs_rev_<row>_two_decay`), blind closure `Work/FalknerSkan/ReversedRowsBlindClosed.lean`.
 - Part 1: `Checked/Trust/NecessityS.lean` (`rev_witness`: any row's chains give a witness with every hypothesis of the attached window but q > 0, and q(0) < 0).
 - Pipeline scripts: `runs/2026-11-12T1828Z/scripts/` (PROMPT note "Reverse-flow rows are one command each").
+
+## Reversed-flow Falkner–Skan table, rows β = −0.04 … −0.09, −0.11 … −0.14, −0.16 (run 2026-11-12T2228Z)
+- Generic: `Checked/FSRev/RTubeA.lean` (`TubeRA K lo hi L`: the tube shape with end time L) and `Checked/FSRev/RAssembleA.lean` (`core_revA`: as `RAssemble.core_rev` for every L ≥ 1; the Slow-event index is taken past max(2, L)).
+- Certificates (generated, helpers): `Checked/FSRev/R{Four,…,Nine,Eleven,…,Fourteen,Sixteen}{Over,Slow,Tube}.lean`; tubes of rows −0.04 … −0.08 end at 7/4 and prove `TubeRA`.
+- Work headlines: `Work/FalknerSkan/ReversedTable.lean` (`fs_rev_<row>_exists`), blind closure `Work/FalknerSkan/ReversedTableBlindClosed.lean`.
+- Pipeline scripts: `runs/2026-11-12T2228Z/scripts/` (`plan_rev.py`, `chain.sh` with every generator parameter explicit, `emit_rows.py`, `make_table.py freeze|prove`, `make_rev_closures.py`).
