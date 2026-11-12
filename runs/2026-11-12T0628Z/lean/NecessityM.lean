@@ -22,12 +22,12 @@ w, 3 continuity of φ at the centre, 4 the equation, 5 the centre value w(0) = 0
 * 3 is redundant: the equation forces continuity of φ at the centre (`Checked.Trust.NCB.cont_at_zero_of_continuous`).
 * 5 is needed, by the scaling symmetry of the isothermal equation: if w solves it on [0, 2S] then
   u(s) = w(2s) + 2 log 2 solves it on [0, S], with u(0) = 2 log 2 and mass m_u(s) = m_w(2s). The mass of u
-  would then increase strictly up to twice a radius above 6.45, while the mass of w decreases strictly after its
+  would then increase strictly up to twice the claimed critical radius, while the mass of w decreases strictly after its
   own critical radius below 7: impossible.
 
-The same symmetry with the factor 1/3 shows that hypothesis 5 of `Checked.Math.Gelfand.gelfand_ball_critical`
+The same symmetry with a factor below one shows that hypothesis 5 of `Checked.Math.Gelfand.gelfand_ball_critical`
 (the same centre value) is needed; and hypothesis 1 of `Checked.Math.ThomasFermi.tf_initial_slope` (y' = φ) is
-needed (an explicit pair with φ' = y^{3/2}/√x but φ(0) = 0); hypotheses 2 and 3 of
+needed (an explicit pair with the equation's derivative relation but φ(0) = 0); hypotheses 2 and 3 of
 `Checked.Math.GelfandPDE.gelfand_pde_radial_bound` are needed (a constant shift of the existence solution). -/
 
 namespace Checked.Trust.NecessityM
@@ -141,7 +141,7 @@ theorem bonnor_ebert_critical_h5 : necessity% Checked.Math.BonnorEbert.bonnor_eb
     simp only [mass] at hlt
     linarith
 
-/-! ### Gelfand ball: the centre value w(0) = 0 is needed (scaling by 1/3) -/
+/-! ### Gelfand ball: the centre value w(0) = 0 is needed (a scaling) -/
 
 /-- Hypothesis 5 of `gelfand_ball_critical` (w(0) = 0) is needed: u(s) = w(s/3) − 2 log 3 solves the equation on
 [0, 41/10] when w solves it on [0, 41/30]; then s² e^{u(s)} = (s/3)² e^{w(s/3)} ≤ (s/3)² (w ≤ 0 by
