@@ -130,6 +130,10 @@ Records.F10_printed_pole
 Records.F10_exceptions
 Records.F10_family_pole
 Records.F11_sizes
+# Falkner–Skan findings F12–F14 (run 2026-11-12T1028Z): roundings of the separation parameter and of the attached and reversed wall shear at β = −0.1988, restating fs_separation_equal, fs_neg_wall_shear_window, fs_neg_reversed_wall_shear_exists
+Records.F12_separation
+Records.F13_wall_shear
+Records.F14_reversed_wall_shear
 # B1 (run 2026-10-31T0428Z): RL19 cubic log-polynomial vs exact flat ΛCDM, certified (Riemann sums)
 B1.lumDistFlat_flatLCDM
 B1.cubic_misses_z3

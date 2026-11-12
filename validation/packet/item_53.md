@@ -1,65 +1,84 @@
 # Item 53
 
-**Area:** Certified numbers of the findings
+**Area:** B1 fourth order
 
-**Source:** Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v2, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴
+**Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
+**For every** `Ω : ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `H : ℝ`:
 
 **assuming**
 
-1. the scale factor `a` obeys the flat ΛCDM Friedmann expansion law with the present matter density parameter `Ω := 3 / 10` and the observation time `t₀` (spatially flat universe with dust and a cosmological constant; `Ω := 3 / 10` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding)
-2. `ContDiffAt ℝ 6 a t₀`
+1. `1 / 10 ≤ Ω`
+2. `Ω ≤ 1`
+3. `t₅ ≤ t₃`
+4. `t₃ ≤ t₀`
+5. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `0 < a s`
+6. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `DifferentiableAt ℝ a s`
+7. `0 < hubble a t₀`
+8. `1 ≤ omega0 K a t₀`
+9. `omega0 K a t₀ ≤ 11 / 10`
+10. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + (1 - omega0 K a t₀) * (1 + redshift a t₀ s) ^ 2 + omega0 K a t₀ - Ω)`
+11. `redshift a t₀ t₃ = 2 * √2 - 1`
+12. `redshift a t₀ t₅ = 4 * √2 - 1`
+13. `0 < H`
 
 **then**
 
-1. `RoundsTo (correctD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)) 0.2153 4`
-2. `RoundsTo (printedD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)) 0.4555 4`
-3. `RoundsTo (printedD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) - correctD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀)) 0.24 2`
-4. `RoundsTo (decel a t₀) (-0.55) 2`
+- `1 / 4 < 5 * Real.logb 10 (lumDist K a t₀ t₅ / logPolyDL4 3.075 4.466 (-3.716) H (redshift a t₀ t₅)) - 5 * Real.logb 10 (lumDist K a t₀ t₃ / logPolyDL4 3.075 4.466 (-3.716) H (redshift a t₀ t₃))`
 
 Program definitions in this claim:
 
-- `IsFlatLCDM Ω a t₀` — **PINNED** (pin theorem `flatLCDMSpec2_pins`): phrase (hand-written, linted): the scale factor `a` obeys the flat ΛCDM Friedmann expansion law with the present matter density parameter `Ω` and the observation time `t₀` (spatially flat universe with dust and a cosmological constant; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding); by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + 1 - Ω)`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «present Hubble rate is positive so the universe is expanding» only assuming the scale factor `a` obeys the flat ΛCDM Friedmann expansion law with the present matter density parameter `Ω` and the observation time `t₀` (spatially flat universe with dust and a cosmological constant; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding)
-- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `correctD4 q j s l` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_correctD4`) (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `1 + 2 * q + 3 * q ^ 2 + 5 / 2 * q ^ 3 + 7 / 8 * q ^ 4 - 5 / 3 * q * j - 7 / 8 * q ^ 2 * j - j + j ^ 2 / 12 - 1 / 8 * q * s - s / 6 - l / 120`
-- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): phrase (hand-written, linted): the cosmographic coefficient with the derivative order of the coefficient `n`, the scale factor `a` and the time of evaluation `t` (`n`-th time derivative of the scale factor over the scale factor divided by the `n`-th power of the Hubble rate; orders 0 and 1 coefficients are one; The order 2 coefficient is minus the deceleration parameter usually written q; The order 3 coefficient is the jerk parameter usually written j; The order 4 coefficient is the snap parameter usually written s; The order 5 coefficient is the lerk parameter usually written l); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «orders 0 and 1 coefficients are one» only assuming `a t ≠ 0`; `deriv a t ≠ 0`, «The order 2 coefficient is minus the deceleration parameter usually written q» only assuming `a t ≠ 0`
-- `decel a t` — **PINNED** (pin theorem `decelSpec_pins`): phrase (hand-written, linted): the deceleration parameter with the scale factor `a` and the cosmic time of evaluation `t` (minus acceleration times scale factor over velocity squared; minus the second time derivative times the scale factor divided by the squared first time derivative; negative value means accelerating expansion); by definition, `decel a t` is `-(deriv (deriv a) t * a t) / deriv a t ^ 2`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «negative value means accelerating expansion» only assuming `0 < a t`; `0 < deriv a t`
-- `printedD4 q j s l` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedD4`); its name is not checked (for `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`): is defined as `1 + 2 * q + 3 * q ^ 2 + 5 / 2 * q ^ 3 + 7 / 2 * q ^ 4 - 5 / 3 * q * j - 7 / 8 * q ^ 2 * j - j + j ^ 2 / 12 - 1 / 8 * q * s - s / 6 - l / 120`
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): phrase (hand-written, linted): the Hubble rate with the scale factor `a` and the cosmic time of evaluation `t` (logarithmic derivative of the scale factor with respect to cosmic time; positive for expansion and negative for contraction); by definition, `hubble a t` is `deriv a t / a t`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «logarithmic derivative of the scale factor with respect to cosmic time» only assuming `0 < a t`; `DifferentiableAt ℝ a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `0 < deriv a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `deriv a t < 0`
+- `logPolyDL4 a₂ a₃ a₄ H₀ z` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_logPolyDL4`); its name is not checked (for `a₂ : ℝ`, `a₃ : ℝ`, `a₄ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3 + a₄ * Real.logb 10 (1 + z) ^ 4)`
+- `lumDist K a t₀ t` — **PINNED** (pin theorem `lumDistSpec2_pins`): phrase (hand-written, linted): the luminosity distance in FLRW with curvature with the spatial curvature constant `K`, the scale factor `a`, the observation time `t₀` and the emission time `t` (positive curvature constant means closed, negative means open; units in which the speed of light is one; positive `K` is closed and negative `K` is open); by definition, `lumDist K a t₀ t` is `a t₀ * (1 + redshift a t₀ t) * transverse K (comoving a t₀ t)`
+- `omega0 K a t₀` — **PINNED** (pin theorem `omega0Spec_pins`): phrase (hand-written, linted): the present total density parameter Ω0 with the spatial curvature constant `K`, the scale factor `a` and the observation time `t₀` (one plus curvature term, positive curvature constant gives above one; total density parameter and not the matter fraction alone; equals one for zero curvature); by definition, `omega0 K a t₀` is `1 + K / (hubble a t₀ ^ 2 * a t₀ ^ 2)`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «one plus curvature term, positive curvature constant gives above one», «one plus curvature term, positive curvature constant gives above one» only assuming `0 < K`; `hubble a t₀ ≠ 0`; `a t₀ ≠ 0`, «equals one for zero curvature»
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): phrase (hand-written, linted): the cosmological redshift with the scale factor `a`, the observation time `t₀` and the emission time `t` (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide); by definition, `redshift a t₀ t` is `a t₀ / a t - 1`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «positive when emission precedes observation in an expanding universe» only assuming for every `s : ℝ`, `0 < a s`; `StrictMono a`; `t < t₀`, «one plus redshift is the scale factor at observation over that at emission», «zero when emission and observation coincide» only assuming `a t₀ ≠ 0`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-In every flat ΛCDM model with `Ω_m = 0.3` (q₀ = −0.55): the correct lookback `D⁴` is
-`0.4555`, the printed one `0.2153`, the excess `printed − correct` is `0.24`, and `q₀ = −0.55`.
+**Lusso et al. 2019, SNe + quasars, central fit, closed or flat curvature.** For every matter density
+`Ω ∈ [1/10, 1]`, every curvature constant `K` whose total density parameter `Ω₀ = 1 + K/(H₀²a₀²)`
+lies in `[1, 11/10]`, and every scale factor obeying
+`H = H₀ √(Ω(1+z)³ + (1 − Ω₀)(1+z)² + Ω₀ − Ω)` (with `H₀ > 0`) on the whole interval back to the
+farther source, with sources at `1 + z = 2√2` and `1 + z = 4√2`, and every normalisation `H > 0`,
+the quartic log-polynomial distance with the printed central coefficients `a₂ = 3.075`,
+`a₃ = 4.466`, `a₄ = −3.716` has a residual distance modulus `5 log₁₀(d_L / D_L)` against the exact
+luminosity distance `d_L` (`lumDist K`) that exceeds at `1 + z = 4√2` the one at `1 + z = 2√2` by
+more than 1/4 mag.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem F3_D4_LCDM (a : ℝ → ℝ) (t₀ : ℝ) (hL : IsFlatLCDM (3 / 10) a t₀)
-    (hs : ContDiffAt ℝ 6 a t₀) :
-    RoundsTo (CCS.correctD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀)
-      (cosmoCoeff 5 a t₀)) 0.2153 4 ∧
-    RoundsTo (CCS.printedD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀)
-      (cosmoCoeff 5 a t₀)) 0.4555 4 ∧
-    RoundsTo (CCS.printedD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀)
-      (cosmoCoeff 5 a t₀) - CCS.correctD4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀)
-      (cosmoCoeff 5 a t₀)) 0.24 2 ∧
-    RoundsTo (decel a t₀) (-0.55) 2 := …
+theorem l19_sq_curved (Ω K : ℝ) (hΩ₀ : 1 / 10 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (a : ℝ → ℝ) (t₅ t₃ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₀ : t₃ ≤ t₀)
+    (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
+    (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
+    (hH₀ : 0 < hubble a t₀)
+    (hK₀ : 1 ≤ omega0 K a t₀) (hK₁ : omega0 K a t₀ ≤ 11 / 10)
+    (hH : ∀ s ∈ Set.Icc t₅ t₀,
+      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3
+        + (1 - omega0 K a t₀) * (1 + redshift a t₀ s) ^ 2 + omega0 K a t₀ - Ω))
+    (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1) (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
+    (H : ℝ) (hHp : 0 < H) :
+    1 / 4 < 5 * Real.logb 10 (lumDist K a t₀ t₅
+        / logPolyDL4 3.075 4.466 (-3.716) H (redshift a t₀ t₅))
+      - 5 * Real.logb 10 (lumDist K a t₀ t₃
+        / logPolyDL4 3.075 4.466 (-3.716) H (redshift a t₀ t₃)) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.IsFlatLCDM`, `Cosmography.Aviles.cosmoCoeff`, `Cosmography.decel`, `Cosmography.CCS.printedD4`, `Cosmography.CCS.correctD4`, `Cosmography.hubble`, `Cosmography.redshift`, `Records.RoundsTo`
+See GLOSSARY.md: `Cosmography.BambaK.lumDist`, `Cosmography.BambaK.omega0`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1L19.logPolyDL4`, `Cosmography.BambaY.comoving`, `Cosmography.Transverse.transverse`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsFlatLCDM, cosmoCoeff, decel.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): printedD4².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `F3_D4_LCDM`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatLCDM: Ω = 3/10; RoundsTo: d = 0.2153, k = 4, d = 0.4555, d = 0.24, k = 2, d = -0.55; cosmoCoeff: n = 3, n = 4, n = 5.
-- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: lumDist, omega0, hubble, redshift.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL4².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `l19_sq_curved`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): logPolyDL4: a₂ = 3.075, a₃ = 4.466, a₄ = -3.716; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1.
+- Source file: `Checked/Cosmography/B1L19Curved.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 53

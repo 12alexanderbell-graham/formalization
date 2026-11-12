@@ -3299,6 +3299,93 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > At `q₀ = −0.80`: the shift `l₀ ↦ l₀ − 210q₀⁴` that absorbs the D⁴_L error is `−86`, and the
 > error `(7/4)q₀⁴ z⁴` inside the bracket at `z = 1` is `0.72`.
 
+## `F12_separation`
+
+Full name `Checked.Records.F12_separation`.
+
+**For every** `β : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `q 0 = 0`
+7. `Filter.Tendsto p Filter.atTop (nhds 1)`
+8. for every `η : ℝ`, if `η ∈ Set.Ioi 0`, then `0 < q η`
+9. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`
+
+**then**
+
+- `RoundsTo (printedFazioSeparation - β) 14e-8 8`
+
+Program definitions in this claim:
+
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `printedFazioSeparation` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedFazioSeparation`); its name is not checked: is defined as `-(1988376 / 10000000)`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan separation: for every solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0,
+> p(0) = 0, wall shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M,
+> `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`: `RoundsTo (printedFazioSeparation - β) 14e-8 8`, with
+> `printedFazioSeparation` the value Fazio printed for that parameter.
+
+## `F13_wall_shear`
+
+Full name `Checked.Records.F13_wall_shear`.
+
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1988 / 10000 * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
+8. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`
+
+**then**
+
+- `RoundsTo (printedFazioWall - q 0) 3e-6 6`
+
+Program definitions in this claim:
+
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `printedFazioWall` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedFazioWall`); its name is not checked: is defined as `5221e-6`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan with β = −1988/10000: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
+> with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
+> then `RoundsTo (printedFazioWall - q 0) 3e-6 6`, with `printedFazioWall` the wall shear value Fazio printed
+> for that β.
+
+## `F14_reversed_wall_shear`
+
+Full name `Checked.Records.F14_reversed_wall_shear`.
+
+**It holds that**
+
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1988 / 10000 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`RoundsTo (q 0 - printedFazioRevWall) 6e-7 7`)
+
+Program definitions in this claim:
+
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `printedFazioRevWall` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedFazioRevWall`); its name is not checked: is defined as `-5158e-6`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with
+> f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
+> with `RoundsTo (q 0 - printedFazioRevWall) 6e-7 7`, with `printedFazioRevWall` a wall shear value Fazio printed
+> for that β.
+
 ## `lumDistFlat_flatLCDM`
 
 Full name `Checked.Cosmography.B1.lumDistFlat_flatLCDM`.

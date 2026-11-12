@@ -282,7 +282,9 @@ def role_of(x, kinds):
     if len(add) == 1 and items[add[0]] == "-" and not any(isinstance(t, str) and t in (";", ":=") for t in items):
         i = add[0]
         a, b = _term_role(items[:i], kinds), _term_role(items[i + 1:], kinds)
-        if a != b and "free" not in (a, b):
+        # run 2026-11-12T1028Z: a printed or derived quantity minus a bound variable (or the reverse) is a
+        # difference too — before, `printedFazioSeparation - β` was labelled "printed value" in the generated block
+        if a != b and (a, b) != ("free", "free"):
             return f"difference({a}−{b})"
     return _term_role(items, kinds)
 

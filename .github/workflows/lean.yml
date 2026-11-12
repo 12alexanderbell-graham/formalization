@@ -119,6 +119,10 @@ jobs:
     needs: changes
     if: needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest
+    # Repair, run 2026-11-12T1028Z (annex LIV, see LEDGER): the checked job of f789e4d (run 43175455329) sat in the
+    # build step for 4 h (green checked jobs take 35-100 min) and, with the per-ref concurrency group, held every later
+    # main checked job in "pending" until GitHub's 6 h default. A hung job now fails (red, never green) after 240 min (an uncached full build is ≈ 110–150 min).
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v5
         with:
@@ -267,7 +271,9 @@ jobs:
         # promotion must commit (TRUST_MAP.md, relocked frozen.txt, validation packet) can only be
         # generated here. They are printed (base64 tarball between markers) and uploaded; the run
         # still commits them itself, with the LEDGER line that check_relock.py requires.
-        if: always()
+        # Run 2026-11-12T1028Z: `!cancelled()` instead of `always()` (a cancelled hung job no longer spends its
+        # remaining minutes generating files nobody reads; failed jobs still produce them).
+        if: ${{ !cancelled() }}
         run: |
           set +e
           TRUST_RELOCK=1 lake env lean scripts/trust/StatementDeps.lean > /tmp/author-relock.log 2>&1
@@ -280,7 +286,7 @@ jobs:
           echo "AUTHOR-FILES-END"
           exit 0
       - name: Upload author files
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
           name: author-files
@@ -292,7 +298,7 @@ jobs:
         # whose inputs changed. A restored build is a convenience for the run's own iteration, never evidence:
         # every push is still judged here from scratch. Placed after every check so it cannot delay or alter one,
         # and continue-on-error so that a packing or upload failure can never turn the judge red.
-        if: always()
+        if: ${{ !cancelled() }}
         continue-on-error: true
         run: |
           if [ -d .lake/build/lib/lean/Checked ]; then
@@ -303,7 +309,7 @@ jobs:
             echo "no build of Checked to pack"
           fi
       - name: Upload the build of Checked
-        if: always()
+        if: ${{ !cancelled() }}
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:

@@ -1,59 +1,43 @@
 # Item 43
 
-**Area:** Falkner–Skan printed separation value
+**Area:** Certified numbers of the findings
 
-**Source:** see the claim
+**Source:** Demianski, Piedipalumbo, Sawant, Amati, A&A 598, A113 (2017), arXiv:1609.09631 (v1, v2), p. 3: flat z-series D⁴_L has −105q₀⁴ (should be +105q₀⁴) and D⁴_A (Eq. (23)) has +137j₀ (should be −137j₀); the D⁴_L error is reprinted in Lusso et al., A&A 628, L4 (2019), arXiv:1907.07692 (v1–v4), the quasar+SN+GRB paper claiming > 4σ tension with flat ΛCDM
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `β : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+**It holds that**
 
-**assuming**
+1. `RoundsTo (-210 * have q₀ := -4 / 5; q₀ ^ 4) (-86) 0`
+2. `RoundsTo (7 / 4 * have q₀ := -4 / 5; q₀ ^ 4 * have z := 1; z ^ 4) 0.72 2`
 
-1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
-2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
-3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Set.Ici 0) η`
-4. `f 0 = 0`
-5. `p 0 = 0`
-6. `q 0 = 0`
-7. `Filter.Tendsto p Filter.atTop (nhds 1)`
-8. for every `η : ℝ`, if `η ∈ Set.Ioi 0`, then `0 < q η`
-9. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`
+Program definitions in this claim:
 
-**then**
-
-- `β < -(1988376 / 10000000)`
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Falkner–Skan separation: for every solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0,
-p(0) = 0, wall shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M,
-`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`: β < `-(1988376 / 10000000)`, the value Fazio printed for the
-parameter of the solution with zero wall shear.
+At `q₀ = −0.80`: the shift `l₀ ↦ l₀ − 210q₀⁴` that absorbs the D⁴_L error is `−86`, and the
+error `(7/4)q₀⁴ z⁴` inside the bracket at `z = 1` is `0.72`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fs_separation_below_printed {β : ℝ} {f p q : ℝ → ℝ}
-    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
-    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
-    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Ici 0) η)
-    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 0) (hl : Tendsto p atTop (𝓝 1))
-    (hpos : ∀ η ∈ Ioi (0 : ℝ), 0 < q η) (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
-    β < -(1988376 / 10000000) := …
+theorem F11_sizes :
+    RoundsTo (-210 * (let q₀ := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fs_separation_below_printed`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/SeparationPrinted.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = -86, k = 0, d = 0.72, k = 2.
+- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 43

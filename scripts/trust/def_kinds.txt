@@ -185,3 +185,6 @@ Checked.Data.Moresco16.chiSqOL FORMULA
 Checked.Data.Moresco16.chiSqLine FORMULA
 Checked.Records.printedAvilesL0 PRINTED
 Checked.Records.printedCLSL0 PRINTED
+Checked.Records.printedFazioSeparation PRINTED
+Checked.Records.printedFazioWall PRINTED
+Checked.Records.printedFazioRevWall PRINTED
