@@ -22,7 +22,7 @@
 - Local: `lake build Checked` green; StatementDeps with relock; `local_frozen_step.py --trust 37b67ea` (see below); every new theorem on standard axioms (`#print axioms`).
 
 ## Not done / next
-- PR/PR78 `b < v_l`: the same route needs p'' > 0 between the roots b(−1 ± √2) of v² + 2bv − b² (where the bound used for RK is too weak near the right root; split the interval) and a no-zero lemma left of b.
+- PR/PR78 `b < v_l` (plan, worked out on paper this run): p'' = 2c/(v − b)³ − 2a(3(v + b)² + 2b²)/D³ with D = v² + 2bv − b², roots r₁ = −b(1 + √2), r₂ = b(√2 − 1). Concave on (−∞, r₁) and (r₂, b) (both terms negative). Convex on (r₁, r₂) by splitting at 0: for v ≤ 0, |D| ≤ 2b² and 3(v + b)² + 2b² ≥ 2b² give the second term ≥ a/(2b⁴) while b − v ≥ b bounds the first by 2c/b³ (needs θ = cb/a < 1/4); for 0 < v < r₂, |D| < b² and 3(v + b)² + 2b² ≥ 5b² give ≥ 10a/b⁴ against 2c/((2 − √2)b)³ < 10c/b³ (needs θ < 1). No zero left of b: c D = a(v − b) needs D < 0; on (r₁, 0] c D + a(b − v) ≥ b(a − 2cb) > 0, on (0, r₂) ≥ ab(2 − √2) − cb² > 0; junk values at r₁, r₂, b are nonzero. Poles r₁, r₂ via `not_ii_of_pole` with m(x) = x − r_other (as in `pr_junk_maxwell`). θ ≤ 0.074 from `PRExists.theta_bounds`-style lemmas (check the PR/PR78 modules for the exact name).
 - RK existence `b > 0` (3): no junk route found (with b < 0 the isotherm may have genuine Maxwell states right of the junk critical point).
 - vdW uniqueness 3, 4 (same questions for u = w = 0).
 - FR13 1, 2 (Ω outside [0, 1] satisfying the minimiser inequality: needs the χ² outside the unit interval).
