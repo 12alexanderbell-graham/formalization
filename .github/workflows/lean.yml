@@ -285,6 +285,30 @@ jobs:
         with:
           name: author-files
           path: /tmp/author-files.tgz
+      - name: Pack the judge's build of Checked for runs to restore (generated output, not a check; run 2026-11-12T0427Z, see LEDGER)
+        # Annex LIV: every scheduled run starts in a fresh container and rebuilt all of Checked locally (60–100 min a
+        # run; OOM-killed once). This packs the build the judge just made (.lake/build: oleans, ileans, ir, Lake's
+        # hash traces) so a run restores it with scripts/restore_checked_build.sh and Lake rebuilds only modules
+        # whose inputs changed. A restored build is a convenience for the run's own iteration, never evidence:
+        # every push is still judged here from scratch. Placed after every check so it cannot delay or alter one.
+        if: always()
+        run: |
+          if [ -d .lake/build/lib/lean/Checked ]; then
+            git rev-parse HEAD > .lake/build/CHECKED_BUILD_COMMIT
+            tar -cf - .lake/build | zstd -q -T0 -12 -o "$RUNNER_TEMP/checked-build.tar.zst"
+            ls -l "$RUNNER_TEMP/checked-build.tar.zst"
+          else
+            echo "no build of Checked to pack"
+          fi
+      - name: Upload the build of Checked
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checked-build
+          path: ${{ runner.temp }}/checked-build.tar.zst
+          if-no-files-found: ignore
+          compression-level: 0
+          retention-days: 14
 
   nanoda:
     # Run 2026-11-07T0428Z (annex LIV, integrity event 39.5, see LEDGER): nanoda moved out of the checked job into
