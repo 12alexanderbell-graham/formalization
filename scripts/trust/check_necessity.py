@@ -20,7 +20,8 @@ differ from a base LEDGER line only by surrounding whitespace do not count as ad
 Rule N3 (--base SHA): the totals NEEDED + REDUNDANT may not fall, and "no obligation" may not rise.
 Rule N4 (blind red team AF, run 2026-11-11T0428Z: 4 of 6 defects got assumptions past the numbering): a
 headline line may end with `shape: <reasons>` (StatementDeps `necShape`: `conclusion` = a `let` or a program
-definition hides an implication or `∀` in the conclusion; `subtype` = a subtype binder assumes its property;
+definition hides an implication or `∀` in the conclusion; `subtype` = a binder whose type carries a proof (a subtype, or since run 2026-11-12T0828Z, blind red team AH, any
+structure with a proposition field such as `ℝˣ`, `PLift P`, `Fin n`) assumes that proposition;
 `bundled i` = hypothesis i has two or more parts; `restated i` = hypothesis i is a conjunct of the
 conclusion, possibly up to definitional unfolding). Every such headline has exactly that line in the shrink-only baseline
 `scripts/trust/necessity_shape_baseline.txt` (`<headline> | <reasons>`); with --base, the baseline may not gain

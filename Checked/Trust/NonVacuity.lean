@@ -252,6 +252,14 @@ partial def partsWalk (t : Expr) (target : Option Nat) (fuel : Nat := 256) :
   if u.isAppOfArity `ExistsUnique 2 then
     if let some e ← unfoldDefinition? u then
       return ← partsWalk e target (fuel - 1)
+  -- membership in a set-builder set or an interval hides its defining proposition as one atom (blind red
+  -- team AH d05, run 2026-11-12T0828Z: `p ∈ {q | -2 < q.1 ∧ 0 < 1 + q.1 + q.2}` was one part): unfold the
+  -- membership at default transparency and walk the result when it is a conjunction, `∃`, `∃!`, `↔` or `∀`
+  if u.isAppOfArity ``Membership.mem 5 then
+    let w := (← withTransparency .default (whnf u)).consumeMData
+    if w.isAppOfArity ``And 2 || w.isAppOfArity ``Exists 2 || w.isAppOfArity `ExistsUnique 2 ||
+        w.isAppOfArity ``Iff 2 || w.isForall then
+      return ← partsWalk w target (fuel - 1)
   -- `A ↔ B` assumes `A → B` and `B → A`: walk that conjunction (each implication's conclusion)
   if u.isAppOfArity ``Iff 2 then
     let a := u.appFn!.appArg!

@@ -631,12 +631,43 @@ partial def necConjuncts (c : Expr) (hidden : Bool := false) (fuel : Nat := 32) 
     return ← necConjuncts u true (fuel - 1)
   return #[(u, hidden)]
 
+/-- A data type that carries a proof (blind red team AH d03, d04, run 2026-11-12T0828Z): after `∀`s
+(a function's values) and unfolding at default transparency, the type is a subtype or an inductive type
+one of whose constructors has a proposition field (`ℝˣ` carries `val * inv = 1`, `PLift P` carries `P`,
+`Fin n` carries `i < n`), or one of its type arguments is such a type (`List (PLift P)`). A binder of
+such a type assumes that proposition without the necessity numbering seeing it. -/
+partial def carriesProof (t : Expr) (fuel : Nat := 4) : MetaM Bool := do
+  if fuel = 0 then return false
+  forallTelescopeReducing t fun _ b => do
+    let w := (← withTransparency .default (whnf b)).consumeMData
+    if w.isAppOf ``Subtype || w.isAppOf ``Set.Elem then return true
+    let .const n lvls := w.getAppFn | return false
+    let args := w.getAppArgs
+    if let some (.inductInfo iv) := (← getEnv).find? n then
+      if iv.numParams ≤ args.size then
+        let params := args.extract 0 iv.numParams
+        for c in iv.ctors do
+          let found ← try
+              forallTelescopeReducing (← inferType (mkAppN (mkConst c lvls) params)) fun fs _ => do
+                let mut r := false
+                for f in fs do
+                  if ← isProp (← inferType f) then r := true
+                return r
+            catch _ => pure false
+          if found then return true
+    for a in args do
+      if (← isType a) && !(← isProp a) then
+        if ← carriesProof a (fuel - 1) then return true
+    return false
+
 /-- Assumptions of a statement that the necessity numbering (binders as written, as CLAIMS.md
 numbers them) does not reach, or reaches only formally (blind red team AF, run 2026-11-11T0428Z).
 Reasons:
 * `conclusion`: after opening a `let` or a program definition, the conclusion (or one of its
   conjuncts) is itself an implication or `∀`: its assumptions are never numbered or classified;
-* `subtype`: a binder's type is a subtype (`{x // P x}`, a coerced set): `P` is assumed silently;
+* `subtype`: a binder's type carries a proof (`carriesProof`: a subtype `{x // P x}`, a coerced set, or
+  a structure with a proposition field such as `ℝˣ`, `PLift P`, `Fin n`; since run 2026-11-12T0828Z, blind
+  red team AH d03, d04): the proposition is assumed silently;
 * `bundled i`: hypothesis i has two or more parts (`Checked.Trust.partsWalk`: through `∧`, `∃`,
   `∃!`, `∀`, `∀ᶠ` and an implication's conclusion, program definitions unfolded; since run
   2026-11-11T1628Z, blind red team AG, not only a top-level `∧`): necessity is shown for the bundle,
@@ -654,10 +685,12 @@ def necShape (ty : Expr) : MetaM (Array String) :=
       let t := (← inferType x).consumeMData
       if t.isAppOf ``Subtype || t.isAppOf ``Set.Elem then sub := true
       -- a type defined as a subtype (`NNReal := {r // 0 ≤ r}`) assumes its property just as silently
-      -- (blind red team AG d03, run 2026-11-11T1628Z): unfold the type's head at default transparency
-      else if !(← isProp t) then
+      -- (blind red team AG d03, run 2026-11-11T1628Z): unfold the type's head at default transparency;
+      -- so does any type with a proposition field (AH d03 `ℝˣ`, d04 `PLift P`): `carriesProof`
+      else if !(← isProp t) && !(← x.fvarId!.getDecl).binderInfo.isInstImplicit then
         let w ← withTransparency .default (whnf t)
         if w.isAppOf ``Subtype || w.isAppOf ``Set.Elem then sub := true
+        else if ← carriesProof t then sub := true
     if sub then out := out.push "subtype"
     let ps ← Checked.Trust.hypPositions xs
     for j in [0:ps.size] do
@@ -1294,7 +1327,11 @@ run_cmd do
       -- `necessity% h i j`) or REDUNDANT (`dropped% h i j`); the witnesses are listed in a `parts of i (m)`
       -- part. Partial coverage is not reported and `bundled i` stays.
       let mut shape : Array String := #[]
-      let mut conjParts : Array String := #[]
+      -- per-part entries (i, m, needed, redundant); the lines are written after the hypotheses are classified,
+      -- so that the "each alone, not together" label counts redundant hypotheses and redundant parts together
+      -- (blind red team AH d06, run 2026-11-12T0828Z: one redundant hypothesis next to one redundant part of
+      -- another, jointly needed, carried no label)
+      let mut conjEntries : Array (Nat × Nat × Array String × Array String) := #[]
       for item in shape0 do
         if item.startsWith "bundled " then
           let i := (item.drop 8).toNat!
@@ -1317,12 +1354,7 @@ run_cmd do
                 | some w => cRed := cRed.push s!"{j} (`{w.componentsRev.head!}`)"
                 | none => allDone := false
           if allDone then
-            unless cNeed.isEmpty do
-              conjParts := conjParts.push s!"parts of {i} ({m}) needed {", ".intercalate cNeed.toList}"
-            unless cRed.isEmpty do
-              conjParts := conjParts.push (s!"parts of {i} ({m}) " ++
-                (if cRed.size ≥ 2 then "redundant (each alone, not together) " else "redundant ") ++
-                ", ".intercalate cRed.toList)
+            conjEntries := conjEntries.push (i, m, cNeed, cRed)
           else shape := shape.push item
         else shape := shape.push item
       let shortH := (hn.toString.replace "Checked.Cosmography." "").replace "Checked." ""
@@ -1365,8 +1397,16 @@ run_cmd do
       if openH.size == 0 && dataH.size == 0 && shape.isEmpty then nHeadAll := nHeadAll + 1
       let part := fun (lbl : String) (a : Array String) =>
         if a.isEmpty then [] else [s!"{lbl} {", ".intercalate a.toList}"]
+      let nRedAll := conjEntries.foldl (fun acc (_, _, _, r) => acc + r.size) redund.size
+      let redLbl := if nRedAll ≥ 2 then "redundant (each alone, not together)" else "redundant"
+      let mut conjParts : Array String := #[]
+      for (i, m, cNeed, cRed) in conjEntries do
+        unless cNeed.isEmpty do
+          conjParts := conjParts.push s!"parts of {i} ({m}) needed {", ".intercalate cNeed.toList}"
+        unless cRed.isEmpty do
+          conjParts := conjParts.push s!"parts of {i} ({m}) {redLbl} {", ".intercalate cRed.toList}"
       necLines := necLines.push (s!"- `{shortH}` ({k}): " ++ "; ".intercalate
-        (part "needed" needed ++ part (if redund.size ≥ 2 then "redundant (each alone, not together)" else "redundant") redund ++ part "no obligation (instance, or proof used as data)" dataH ++ part "open" openH ++ conjParts.toList ++ shapePart))
+        (part "needed" needed ++ part redLbl redund ++ part "no obligation (instance, or proof used as data)" dataH ++ part "open" openH ++ conjParts.toList ++ shapePart))
   IO.FS.writeFile ".lake/necessity.tsv" (String.intercalate "\n" necTsv.toList ++ "\n")
   logInfo m!"hypothesis necessity: {nHyp} hypotheses of {nHeadHyp} headlines; needed {nNeeded}, redundant {nRedundant}, no obligation {nDataH}, open {nHyp - nNeeded - nRedundant - nDataH}"
   let md := String.intercalate "\n" ([
@@ -1421,12 +1461,13 @@ run_cmd do
     "a hypothesis that only excludes such a value can be redundant here and still matter on paper. Open:",
     "neither is proved yet. Shape (run 2026-11-11T0428Z, blind red team AF): assumptions the numbering does",
     "not reach or reaches only formally — `conclusion` (after opening a `let` or a program definition the",
-    "conclusion contains an implication or `∀` whose assumptions are not numbered), `subtype` (a binder of",
-    "subtype type assumes its property silently), `bundled i` (hypothesis i has two or more parts, see below:",
+    "conclusion contains an implication or `∀` whose assumptions are not numbered), `subtype` (a binder whose",
+    "type carries a proof — a subtype, or a structure with a proposition field such as `ℝˣ`, `PLift P`, `Fin n` —",
+    "assumes that proposition silently), `bundled i` (hypothesis i has two or more parts, see below:",
     "shown needed as a bundle only), `restated i` (hypothesis i is also a conjunct of the conclusion, literally",
     "or after unfolding definitions: needed only because the conclusion repeats it). A headline with a shape entry never counts",
     "as having every hypothesis classified, and a new one fails CI (`check_necessity.py` N4). Two or more",
-    "redundant hypotheses of one headline are labelled \"each alone, not together\": dropping them all may make",
+    "redundant hypotheses or parts of one headline (counted together) are labelled \"each alone, not together\": dropping them all may make",
     "the statement false (red team AF d02). Parts (runs 2026-11-11T1428Z, 1628Z): `bundled i` is dropped once every",
     "part of hypothesis i is NEEDED (`necessity% <headline> i j`: every other hypothesis holds and hypothesis i",
     "holds with part j replaced by `True`, the conclusion fails) or REDUNDANT (`dropped% <headline> i j`). The",
