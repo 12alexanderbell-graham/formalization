@@ -1,0 +1,6 @@
+# Uncited necessity paragraphs written before rule N-P1 (check_necessity_prose.py, run 2026-11-12T1228Z). Shrink-only.
+# Format: <file> | <first matching line, whitespace-normalised>.
+Checked/Cosmography/B1L19Curved.lean | lower bound on the matter density is needed. The curvature range contains the Planck 2018 TT,TE,EE
+Checked/Cosmography/FREta.lean | * In `eta_ratios` the hypothesis `F(R₀) ≠ 0` is redundant (given `R ≠ 0`, `F(R₀) = 0` forces
+Checked/Fidelity/MoreSpecs.lean | /-- Necessary condition: the model is expanding with a positive scale factor at `t₀`. -/
+Checked/Sim/MMCell.lean | (`Checked.Sim.Validated.tube_cell`), with tube radius 1/100: no invariant is needed.

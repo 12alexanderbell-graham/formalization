@@ -228,6 +228,9 @@ jobs:
           # hypothesis necessity (T2b): every open hypothesis listed in necessity_open_baseline.txt; parser fails closed
           # (run 2026-11-11T0028Z, see LEDGER; adversary on the first draft: 7 holes, repaired before going live)
           python3 scripts/trust/check_necessity.py
+          # prose claims that a hypothesis is essential/needed/redundant cite TRUST_MAP.md or a Checked.Trust witness
+          # (run 2026-11-12T1228Z: a referee sentence "b < v_l is essential" in a module doc was false; shrink-only baseline)
+          python3 scripts/trust/check_necessity_prose.py
       - name: Frozen statements and definitions change only with a LEDGER entry naming them (run 2026-10-31T0028Z)
         env:
           BASE: ${{ needs.changes.outputs.base }}

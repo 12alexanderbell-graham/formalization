@@ -613,3 +613,9 @@
 - Parts 2/5: findings F12 (Falkner–Skan separation parameter, Fazio 2012/2020), F13 (five tabulated attached-flow wall shears at β = −0.1988), F14 (Fazio's reverse-flow wall shear) verified, from candidates C-FS-SEP, C-FS-1988, C-FS-1988R; record headlines `Checked.Records.F12_separation`, `F13_wall_shear`, `F14_reversed_wall_shear` (printed − true differences against PRINTED definitions; one new blind reading); certified values 26 → 29.
 - CI: main's checked job of f789e4d hung 4 h in its build and held 0e262e6's checked job pending; cancelled; `timeout-minutes: 240` on the checked job (LEDGER, 39.5).
 
+
+## 2026-11-12T1228Z (scheduled run)
+- Env: repo ok (add_repo not exposed; pre-cloned checkout); local Lean via elan; CI build artifact restored by hand (disk-limited). LOCK of run 1028Z alive at start, released minutes later.
+- Part 1: 44 hypotheses classified (35 NEEDED, 9 REDUNDANT; open 363 → 319): RK/SRK/PR/PR78 acentric claims (`Checked/Trust/NecessityO.lean`), `b < v_l` redundant in the RK/SRK uniqueness claims (`Checked/Trust/MaxwellRight.lean`: every Maxwell state of a subcritical RK-form isotherm lies right of b), FR13 transition redshift and `eta_ratios` (`Checked/Trust/NecessityP.lean`). RK module doc: a referee sentence calling `b < v_l` essential corrected.
+- New blocking check `scripts/trust/check_necessity_prose.py` (N-P1): prose necessity claims cite the generated classification (LEDGER).
+- CI: 43196172253 (0e262e6) green on every job → Bonnor–Ebert critical sphere PROVED.
