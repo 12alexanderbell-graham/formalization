@@ -2234,6 +2234,16 @@ doc:Checked.Trust.Formulations.agree_seriesY -doc15787849109342415218
 doc:Checked.Trust.Formulations.agree_seriesZ -doc6767174922982075412
 doc:Checked.Trust.Formulations.agree_series -doc11270102913557556441
 doc:Checked.Trust.FormulationsCond.agree_margChiSq_pos -doc8304778488989356614
+doc:Checked.Trust.MaxwellRight.cubicP_rk -doc14516749170531532525
+doc:Checked.Trust.MaxwellRight.deriv2_eq -doc9721344548912767361
+doc:Checked.Trust.MaxwellRight.integral_gt_of_strictConcave -doc2707171405887192455
+doc:Checked.Trust.MaxwellRight.integral_lt_of_strictConvex -doc12460939308649271855
+doc:Checked.Trust.MaxwellRight.maxwell_right -doc16953137911693788728
+doc:Checked.Trust.MaxwellRight.p1 -doc12880893285872207638
+doc:Checked.Trust.MaxwellRight.p2 -doc7780558284035563262
+doc:Checked.Trust.MaxwellRight.p_ne_zero -doc13655213264122452585
+doc:Checked.Trust.MaxwellRight.rk_coexistence_unique_r7 -doc1938827518846565383
+doc:Checked.Trust.MaxwellRight.srk_omega1_unique_r5 -doc2161576805784891856
 doc:Checked.Trust.NC.expProfile -doc2035430984366527399
 doc:Checked.Trust.NC.linF_deriv -doc10324070420418891594
 doc:Checked.Trust.NC.linProfile -doc36654788800133930
@@ -2479,6 +2489,7 @@ doc:Checked.Trust.NecessityO.srk_omega1_unique_h1 -doc8203090287317937254
 doc:Checked.Trust.NecessityO.srk_omega1_unique_h2 -doc6767200896694596868
 doc:Checked.Trust.NecessityO.srk_omega1_unique_h3 -doc7727280209867496555
 doc:Checked.Trust.NecessityO.srk_omega1_unique_h4 -doc7107632530671736647
+doc:Checked.Trust.NecessityP.gt_neg_one_of_cube -doc12457600721305539357
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_one_needs_velocity -doc11106357578457800887
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_two -doc8443822091892815726
 doc:Checked.Trust.PhraseCerts.cosmoCoeff_zero_one -doc17973409964959887418
@@ -2872,7 +2883,7 @@ moduledoc:Checked.Chemistry.PRAcentric -mdoc633268313114980280
 moduledoc:Checked.Chemistry.PRCore -mdoc12446558732775879805
 moduledoc:Checked.Chemistry.PRExists -mdoc3201021166491961190
 moduledoc:Checked.Chemistry.PRReduced -mdoc6522914760099261
-moduledoc:Checked.Chemistry.RKAcentric -mdoc16978900516971406692
+moduledoc:Checked.Chemistry.RKAcentric -mdoc12526944423216607431
 moduledoc:Checked.Chemistry.RKExists -mdoc13837604028158584914
 moduledoc:Checked.Chemistry.RKReduced -mdoc17799278113134051071
 moduledoc:Checked.Chemistry.SRKAcentric -mdoc10014022841654797209
@@ -3220,6 +3231,7 @@ moduledoc:Checked.Trust.FormulationsD -mdoc7386803657877262644
 moduledoc:Checked.Trust.FormulationsE -mdoc2467640904656959187
 moduledoc:Checked.Trust.FormulationsM16 -mdoc11027901487961054669
 moduledoc:Checked.Trust.Formulations -mdoc3132082450200944994
+moduledoc:Checked.Trust.MaxwellRight -mdoc8367287905405943229
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
@@ -3234,6 +3246,7 @@ moduledoc:Checked.Trust.NecessityL -mdoc14468159082974997690
 moduledoc:Checked.Trust.NecessityM -mdoc9738669776155721230
 moduledoc:Checked.Trust.NecessityN -mdoc7098328307445460454
 moduledoc:Checked.Trust.NecessityO -mdoc3293891495360465668
+moduledoc:Checked.Trust.NecessityP -mdoc2525490039154952710
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401

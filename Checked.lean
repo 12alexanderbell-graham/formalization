@@ -416,3 +416,5 @@ import Checked.Trust.NecessityL
 import Checked.Trust.NecessityM
 import Checked.Trust.NecessityN
 import Checked.Trust.NecessityO
+import Checked.Trust.NecessityP
+import Checked.Trust.MaxwellRight

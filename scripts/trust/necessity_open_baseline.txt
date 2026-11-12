@@ -52,16 +52,14 @@ B1L19Curved.l19_sq_curved | 1, 2, 3, 4, 5, 8, 9
 B1L19Curved.l19_sqg_curved | 1, 2, 3, 4, 5, 8, 9
 Chemistry.Coexistence.vdW_coexistence_unique | 3, 4
 Chemistry.RKAcentric.rk_coexistence_exists | 3
-Chemistry.RKAcentric.rk_coexistence_unique | 7
 Chemistry.PRAcentric.pr_omega1_unique | 5
 Chemistry.PR78Acentric.pr78_omega1_unique | 5
-Chemistry.SRKAcentric.srk_omega1_unique | 5
 Data.FR13.fr13_bestfit68 | 1, 2
 Data.FR13.fr13_bestfit738 | 1, 2
 Data.FR13.fr13_minval68 | 1, 2, 3
 Data.FR13.fr13_minval738 | 1, 2, 3
-Data.FR13.fr13_zda68 | 1, 2, 3, 4, 5
-Data.FR13.fr13_zda738 | 1, 2, 3, 4, 5
+Data.FR13.fr13_zda68 | 1, 2
+Data.FR13.fr13_zda738 | 1, 2
 Math.ThomasFermi.tf_initial_slope | 5, 6
 Math.GelfandPDE.gelfand_pde_radial_bound | 1, 4
 Math.GelfandPDEExists.gelfand_pde_radial_exists | 1

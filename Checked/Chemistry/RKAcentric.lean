@@ -39,8 +39,11 @@ value is already in print: Shamsundar and Lienhard (Can. J. Chem. Eng. 1983) giv
 factor of a Redlich–Kwong fluid as 0.058, and that the RK form suits fluids of small acentric
 factor is attributed to Barner and coworkers (1966). New here is the certified form: bounds
 proved for every critical point and every coexistence state (uniqueness of the numbers), and
-existence. The hypothesis `0 < R` is implied by the others (harmless); `b < v_c` and `b < v_l`
-are essential (they exclude junk derivatives and integrals across the pole at v = b).
+existence. The hypothesis `0 < R` is implied by the others (harmless); `b < v_c` is essential
+(it excludes junk derivatives at the pole v = b). Correction (run 2026-11-12T1228Z): `b < v_l` is
+not essential, and `0 < A` is implied too: every Maxwell coexistence state lies right of b, and with
+A ≤ 0 there is no critical point (`Checked.Trust.MaxwellRight`, `Checked.Trust.NecessityO`; the
+generated `TRUST_MAP.md` lists every hypothesis as needed, redundant or open).
 -/
 
 namespace Checked.Chemistry.RKAcentric

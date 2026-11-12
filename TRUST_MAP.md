@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 906 hypotheses in 157 headlines;
-456 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-122 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-328 open; headlines with every hypothesis classified: 56/157
+460 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+126 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+320 open; headlines with every hypothesis classified: 56/157
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -394,13 +394,13 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Chemistry.Coexistence.vdW_coexistence_exists` (3): needed 1 (`vdW_coexistence_exists_h1`), 2 (`vdW_coexistence_exists_h2`), 3 (`vdW_coexistence_exists_h3`)
 - `Chemistry.Coexistence.vdW_coexistence_unique` (5): needed 2 (`vdW_coexistence_unique_h2`), 5 (`vdW_coexistence_unique_h5`); redundant 1 (`vdW_coexistence_unique_r1`); open 3, 4; shape: bundled 5
 - `Chemistry.RKAcentric.rk_coexistence_exists` (6): needed 4 (`rk_coexistence_exists_h4`), 5 (`rk_coexistence_exists_h5`), 6 (`rk_coexistence_exists_h6`); redundant (each alone, not together) 1 (`rk_coexistence_exists_r1`), 2 (`rk_coexistence_exists_r2`); open 3; shape: bundled 6
-- `Chemistry.RKAcentric.rk_coexistence_unique` (8): needed 3 (`rk_coexistence_unique_h3`), 4 (`rk_coexistence_unique_h4`), 5 (`rk_coexistence_unique_h5`), 6 (`rk_coexistence_unique_h6`), 8 (`rk_coexistence_unique_h8`); redundant (each alone, not together) 1 (`rk_coexistence_unique_r1`), 2 (`rk_coexistence_unique_r2`); open 7; shape: bundled 6, bundled 8
+- `Chemistry.RKAcentric.rk_coexistence_unique` (8): needed 3 (`rk_coexistence_unique_h3`), 4 (`rk_coexistence_unique_h4`), 5 (`rk_coexistence_unique_h5`), 6 (`rk_coexistence_unique_h6`), 8 (`rk_coexistence_unique_h8`); redundant (each alone, not together) 1 (`rk_coexistence_unique_r1`), 2 (`rk_coexistence_unique_r2`), 7 (`rk_coexistence_unique_r7`); shape: bundled 6, bundled 8
 - `Chemistry.PRAcentric.pr_omega1_exists` (4): needed 1 (`pr_omega1_exists_h1`), 2 (`pr_omega1_exists_h2`), 3 (`pr_omega1_exists_h3`), 4 (`pr_omega1_exists_h4`); shape: bundled 4
 - `Chemistry.PRAcentric.pr_omega1_unique` (6): needed 1 (`pr_omega1_unique_h1`), 2 (`pr_omega1_unique_h2`), 3 (`pr_omega1_unique_h3`), 4 (`pr_omega1_unique_h4`), 6 (`pr_omega1_unique_h6`); open 5; shape: bundled 4, bundled 6
 - `Chemistry.PR78Acentric.pr78_omega1_exists` (4): needed 1 (`pr78_omega1_exists_h1`), 2 (`pr78_omega1_exists_h2`), 3 (`pr78_omega1_exists_h3`), 4 (`pr78_omega1_exists_h4`); shape: bundled 4
 - `Chemistry.PR78Acentric.pr78_omega1_unique` (6): needed 1 (`pr78_omega1_unique_h1`), 2 (`pr78_omega1_unique_h2`), 3 (`pr78_omega1_unique_h3`), 4 (`pr78_omega1_unique_h4`), 6 (`pr78_omega1_unique_h6`); open 5; shape: bundled 4, bundled 6
 - `Chemistry.SRKAcentric.srk_omega1_exists` (4): needed 1 (`srk_omega1_exists_h1`), 2 (`srk_omega1_exists_h2`), 3 (`srk_omega1_exists_h3`), 4 (`srk_omega1_exists_h4`); shape: bundled 4
-- `Chemistry.SRKAcentric.srk_omega1_unique` (6): needed 1 (`srk_omega1_unique_h1`), 2 (`srk_omega1_unique_h2`), 3 (`srk_omega1_unique_h3`), 4 (`srk_omega1_unique_h4`), 6 (`srk_omega1_unique_h6`); open 5; shape: bundled 4, bundled 6
+- `Chemistry.SRKAcentric.srk_omega1_unique` (6): needed 1 (`srk_omega1_unique_h1`), 2 (`srk_omega1_unique_h2`), 3 (`srk_omega1_unique_h3`), 4 (`srk_omega1_unique_h4`), 6 (`srk_omega1_unique_h6`); redundant 5 (`srk_omega1_unique_r5`); shape: bundled 4, bundled 6
 - `Sim.Duffing.duffing_first_zero_sol` (1): needed 1 (`duffing_first_zero_sol_h1`); shape: bundled 1
 - `Sim.MichaelisMenten.mm_half_conversion` (1): needed 1 (`mm_half_conversion_h1`); shape: bundled 1
 - `Sim.Robertson.rob_state40` (1): needed 1 (`rob_state40_h1`); shape: bundled 1
@@ -410,8 +410,8 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Data.FR13.fr13_bestfit738` (3): needed 3 (`fr13_bestfit738_h3`); open 1, 2
 - `Data.FR13.fr13_minval68` (3): open 1, 2, 3
 - `Data.FR13.fr13_minval738` (3): open 1, 2, 3
-- `Data.FR13.fr13_zda68` (5): open 1, 2, 3, 4, 5
-- `Data.FR13.fr13_zda738` (5): open 1, 2, 3, 4, 5
+- `Data.FR13.fr13_zda68` (5): needed 3 (`fr13_zda68_h3`), 5 (`fr13_zda68_h5`); redundant 4 (`fr13_zda68_r4`); open 1, 2
+- `Data.FR13.fr13_zda738` (5): needed 3 (`fr13_zda738_h3`), 5 (`fr13_zda738_h5`); redundant 4 (`fr13_zda738_r4`); open 1, 2
 - `Math.LaneEmden.laneEmden3_constants` (4): needed 1 (`laneEmden3_constants_h1`), 3 (`laneEmden3_constants_h3`), 4 (`laneEmden3_constants_h4`); redundant 2 (`laneEmden3_constants_r2`)
 - `Math.Gelfand.gelfand_ball_critical` (5): needed 1 (`gelfand_ball_critical_h1`), 2 (`gelfand_ball_critical_h2`), 4 (`gelfand_ball_critical_h4`), 5 (`gelfand_ball_critical_h5`); redundant 3 (`gelfand_ball_critical_r3`)
 - `Math.GelfandExists.exists_solution` (1): redundant 1 (`exists_solution_r1`)
