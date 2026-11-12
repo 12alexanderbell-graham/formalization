@@ -421,4 +421,291 @@ theorem rl19_box_unmatched_r8 : dropped% Checked.Cosmography.B1FitRL19.rl19_box_
 
 end B1Fit
 
+section L19Box
+open Checked.Cosmography.B1 Checked.Cosmography.B1L19 Checked.Cosmography.B1Fit
+  Checked.Cosmography.BambaY
+
+/-! Coefficient conditions of the two box theorems. In the exact flat ΛCDM model at `Ω = 1/5` the two
+distances satisfy `d₅ ≤ 4 d₃` (`model_ratio`: the integrand `gL (1/5)` is at most `9/2` and at least `2`
+on `[w₃, 1]`). A quartic with `|P(x₅)| ≥ 4 |P(x₃)|` then makes the `z = 4√2 − 1` residual no larger than
+the `z = 2√2 − 1` one (`no_rise`), so each box condition, the positivity at `x₅` and `0 < H` are needed:
+each witness keeps every other condition and violates only its own. -/
+
+theorem gL5_le (v : ℝ) : gL (1 / 5) v ≤ 9 / 2 := by
+  unfold gL
+  have h1 : (4 / 9 : ℝ) ≤ √(1 / 5 + (1 - 1 / 5) * v ^ 6) := by
+    apply Real.le_sqrt_of_sq_le
+    nlinarith [pow_two_nonneg (v ^ 3), show v ^ 6 = (v ^ 3) ^ 2 by ring]
+  rw [div_le_iff₀ (by linarith)]; linarith
+
+theorem gL5_ge (v : ℝ) (h0 : 0 ≤ v) (h1 : v ≤ 1) : 2 ≤ gL (1 / 5) v := by
+  unfold gL
+  have hv6 : v ^ 6 ≤ 1 := pow_le_one₀ h0 h1
+  have hs : √(1 / 5 + (1 - 1 / 5) * v ^ 6) ≤ 1 := by
+    rw [Real.sqrt_le_one]; nlinarith
+  have hp : 0 < √(1 / 5 + (1 - 1 / 5) * v ^ 6) := Real.sqrt_pos.2 (by positivity)
+  rw [le_div_iff₀ hp]; linarith
+
+theorem model_ratio (a : ℝ → ℝ) (t₅ t₃ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₀ : t₃ ≤ t₀)
+    (hpos : ∀ s ∈ Icc t₅ t₀, 0 < a s) (hdiff : ∀ s ∈ Icc t₅ t₀, DifferentiableAt ℝ a s)
+    (hH₀ : 0 < hubble a t₀)
+    (hH : ∀ s ∈ Icc t₅ t₀,
+      hubble a s = hubble a t₀ * √(1 / 5 * (1 + redshift a t₀ s) ^ 3 + 1 - 1 / 5))
+    (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1) (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1) :
+    0 < lumDistFlat a t₀ t₃ ∧ lumDistFlat a t₀ t₅ ≤ 4 * lumDistFlat a t₀ t₃ := by
+  have h₅₀ : t₅ ≤ t₀ := le_trans h₅₃ h₃₀
+  have hsub3 : Icc t₃ t₀ ⊆ Icc t₅ t₀ := Icc_subset_Icc_left h₅₃
+  have hbr3 := lumDistFlat_flatLCDM (1 / 5) (by norm_num) (by norm_num) a t₃ t₀ h₃₀
+    (fun s hs => hpos s (hsub3 hs)) (fun s hs => hdiff s (hsub3 hs)) hH₀ (fun s hs => hH s (hsub3 hs))
+  have hbr5 := lumDistFlat_flatLCDM (1 / 5) (by norm_num) (by norm_num) a t₅ t₀ h₅₀ hpos hdiff hH₀ hH
+  have ha₀ : 0 < a t₀ := hpos t₀ ⟨h₅₀, le_rfl⟩
+  have ha3 : 0 < a t₃ := hpos t₃ ⟨h₅₃, h₃₀⟩
+  have ha5 : 0 < a t₅ := hpos t₅ ⟨le_rfl, h₅₀⟩
+  have es3 : (1:ℝ) + (2 * √2 - 1) = 2 * √2 := by ring
+  have es5 : (1:ℝ) + (4 * √2 - 1) = 4 * √2 := by ring
+  rw [ratio_of_z a t₃ t₀ _ ha3 ha₀ hz₃, es3, hz₃, es3] at hbr3
+  rw [ratio_of_z a t₅ t₀ _ ha5 ha₀ hz₅, es5, hz₅, es5] at hbr5
+  change lumDistFlat a t₀ t₃ = 2 * √2 / hubble a t₀ * ∫ v in √(1 / (2 * √2))..1, gL (1 / 5) v at hbr3
+  change lumDistFlat a t₀ t₅ = 4 * √2 / hubble a t₀ * ∫ v in √(1 / (4 * √2))..1, gL (1 / 5) v at hbr5
+  obtain ⟨hq2l, hq2u⟩ := sqrt2_bounds
+  obtain ⟨w3u, w3l⟩ := wb (2 * √2) (148651 / 250000) (594603 / 1000000) (by positivity)
+    (by norm_num) (by norm_num; linarith) (by norm_num; linarith)
+  obtain ⟨w5u, w5l⟩ := wb (4 * √2) (420449 / 1000000) (13139 / 31250) (by positivity)
+    (by norm_num) (by norm_num; linarith) (by norm_num; linarith)
+  set w3 := √(1 / (2 * √2)) with hw3
+  set w5 := √(1 / (4 * √2)) with hw5
+  have hint : ∀ x y : ℝ, w5 ≤ x → w5 ≤ y →
+      IntervalIntegrable (gL (1 / 5)) MeasureTheory.volume x y := by
+    intro x y hx hy
+    apply (gL_cont (1 / 5) (by norm_num) (by norm_num)).mono _ |>.intervalIntegrable
+    intro z hz; rcases mem_uIcc.1 hz with h | h
+    · exact lt_of_lt_of_le (by linarith) (le_trans hx h.1)
+    · exact lt_of_lt_of_le (by linarith) (le_trans hy h.1)
+  have hsplit := intervalIntegral.integral_add_adjacent_intervals (hint w5 w3 le_rfl (by linarith))
+    (hint w3 1 (by linarith) (by linarith))
+  have hI : ∫ v in w5..w3, gL (1 / 5) v ≤ ∫ v in w5..w3, (9 / 2 : ℝ) :=
+    intervalIntegral.integral_mono_on (by linarith) (hint w5 w3 le_rfl (by linarith))
+      intervalIntegrable_const (fun v _ => gL5_le v)
+  have hJ : ∫ v in w3..1, (2 : ℝ) ≤ ∫ v in w3..1, gL (1 / 5) v :=
+    intervalIntegral.integral_mono_on (by linarith) intervalIntegrable_const
+      (hint w3 1 (by linarith) (by linarith))
+      (fun v hv => gL5_ge v (by linarith [hv.1]) hv.2)
+  rw [intervalIntegral.integral_const, smul_eq_mul] at hI hJ
+  set J3 := ∫ v in w3..1, gL (1 / 5) v
+  set I := ∫ v in w5..w3, gL (1 / 5) v
+  have hJ3 : 0 < J3 := by nlinarith
+  have hc : 0 < 2 * √2 / hubble a t₀ := by positivity
+  rw [hbr3, hbr5, ← hsplit]
+  refine ⟨mul_pos hc hJ3, ?_⟩
+  have hIJ : I ≤ J3 := by nlinarith
+  have e : 4 * √2 / hubble a t₀ = 2 * (2 * √2 / hubble a t₀) := by ring
+  rw [e]
+  nlinarith [mul_le_mul_of_nonneg_left hIJ hc.le]
+
+/-- With `d₅ ≤ 4 d₃` and `|P₅| ≥ 4 |P₃|` the residual at the far source is not larger. -/
+theorem no_rise (d₃ d₅ P₃ P₅ : ℝ) (hd₃ : 0 < d₃) (hd₅ : 0 < d₅) (hd : d₅ ≤ 4 * d₃)
+    (hP₃ : P₃ ≠ 0) (hP : 4 * |P₃| ≤ |P₅|) :
+    ¬ (5 * Real.logb 10 (d₃ / P₃) < 5 * Real.logb 10 (d₅ / P₅)) := by
+  have hA₃ : 0 < |P₃| := abs_pos.2 hP₃
+  have hA₅ : 0 < |P₅| := by linarith
+  rw [← Real.logb_abs 10 (d₃ / P₃), ← Real.logb_abs 10 (d₅ / P₅), abs_div, abs_div, abs_of_pos hd₃,
+    abs_of_pos hd₅]
+  apply not_lt.2
+  apply mul_le_mul_of_nonneg_left _ (by norm_num)
+  apply Real.logb_le_logb_of_le (by norm_num) (div_pos hd₅ hA₅)
+  rw [div_le_div_iff₀ hA₅ hA₃]
+  nlinarith [mul_le_mul_of_nonneg_left hP hd₃.le, mul_le_mul_of_nonneg_right hd hA₃.le]
+
+/-- `|logPolyDL4 … z| = (ln 10/|H|) |Q(x)|`, so `4|P₃| ≤ |P₅|` reduces to the quartics. -/
+theorem lp4_abs_ratio (a₂ a₃ a₄ H x₃ x₅ z₃ z₅ : ℝ)
+    (h₃ : Real.logb 10 (1 + z₃) = x₃) (h₅ : Real.logb 10 (1 + z₅) = x₅)
+    (hQ : 4 * |x₃ + a₂ * x₃ ^ 2 + a₃ * x₃ ^ 3 + a₄ * x₃ ^ 4|
+      ≤ |x₅ + a₂ * x₅ ^ 2 + a₃ * x₅ ^ 3 + a₄ * x₅ ^ 4|) :
+    4 * |logPolyDL4 a₂ a₃ a₄ H z₃| ≤ |logPolyDL4 a₂ a₃ a₄ H z₅| := by
+  rw [lp4_eq _ _ _ _ _ _ h₃, lp4_eq _ _ _ _ _ _ h₅, abs_mul, abs_mul]
+  have : 0 ≤ |Real.log 10 / H| := abs_nonneg _
+  nlinarith [mul_le_mul_of_nonneg_left hQ this]
+
+theorem L_pows : (30101 / 100000 : ℝ) ≤ Real.log 2 / Real.log 10 ∧
+    Real.log 2 / Real.log 10 ≤ 30105 / 100000 ∧
+    (30101 / 100000 : ℝ) ^ 2 ≤ (Real.log 2 / Real.log 10) ^ 2 ∧
+    (Real.log 2 / Real.log 10) ^ 2 ≤ (30105 / 100000) ^ 2 ∧
+    (30101 / 100000 : ℝ) ^ 3 ≤ (Real.log 2 / Real.log 10) ^ 3 ∧
+    (Real.log 2 / Real.log 10) ^ 3 ≤ (30105 / 100000) ^ 3 ∧
+    (30101 / 100000 : ℝ) ^ 4 ≤ (Real.log 2 / Real.log 10) ^ 4 ∧
+    (Real.log 2 / Real.log 10) ^ 4 ≤ (30105 / 100000) ^ 4 := by
+  obtain ⟨h1, h2⟩ := L_bounds
+  have h0 : (0 : ℝ) ≤ 30101 / 100000 := by norm_num
+  refine ⟨h1, h2, pow_le_pow_left₀ h0 h1 2, pow_le_pow_left₀ (le_trans h0 h1) h2 2,
+    pow_le_pow_left₀ h0 h1 3, pow_le_pow_left₀ (le_trans h0 h1) h2 3,
+    pow_le_pow_left₀ h0 h1 4, pow_le_pow_left₀ (le_trans h0 h1) h2 4⟩
+
+/-- In the model of `model_ratio`, any quartic with `|Q(x₅)| ≥ 4|Q(x₃)| > 0` and `H ≠ 0` makes the box
+theorems' conclusion false. -/
+theorem box_fails (a : ℝ → ℝ) (t₅ t₃ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₀ : t₃ ≤ t₀)
+    (hpos : ∀ s ∈ Icc t₅ t₀, 0 < a s) (hdiff : ∀ s ∈ Icc t₅ t₀, DifferentiableAt ℝ a s)
+    (hH₀ : 0 < hubble a t₀)
+    (hH : ∀ s ∈ Icc t₅ t₀,
+      hubble a s = hubble a t₀ * √(1 / 5 * (1 + redshift a t₀ s) ^ 3 + 1 - 1 / 5))
+    (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1) (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
+    (a₂ a₃ a₄ H : ℝ) (hH0 : H ≠ 0)
+    (hQ₃ : 3 / 2 * (Real.log 2 / Real.log 10) + a₂ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + a₃ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3
+      + a₄ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 ≠ 0)
+    (hQ : 4 * |3 / 2 * (Real.log 2 / Real.log 10) + a₂ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + a₃ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3
+      + a₄ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4|
+      ≤ |5 / 2 * (Real.log 2 / Real.log 10) + a₂ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + a₃ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3
+      + a₄ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4|) :
+    ¬ (5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₃))
+      < 5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL4 a₂ a₃ a₄ H (redshift a t₀ t₅))) := by
+  obtain ⟨hd₃, hd⟩ := model_ratio a t₅ t₃ t₀ h₅₃ h₃₀ hpos hdiff hH₀ hH hz₃ hz₅
+  have hd₅ : 0 < lumDistFlat a t₀ t₅ := by
+    have h₅₀ : t₅ ≤ t₀ := le_trans h₅₃ h₃₀
+    have hbr5 := lumDistFlat_flatLCDM (1 / 5) (by norm_num) (by norm_num) a t₅ t₀ h₅₀ hpos hdiff
+      hH₀ hH
+    have ha₀ : 0 < a t₀ := hpos t₀ ⟨h₅₀, le_rfl⟩
+    have ha5 : 0 < a t₅ := hpos t₅ ⟨le_rfl, h₅₀⟩
+    rw [ratio_of_z a t₅ t₀ _ ha5 ha₀ hz₅, hz₅] at hbr5
+    obtain ⟨hq2l, -⟩ := sqrt2_bounds
+    obtain ⟨hw0, hw1⟩ := w_lt_one (1 + (4 * √2 - 1)) (by linarith)
+    rw [hbr5]
+    exact mul_pos (div_pos (by linarith) hH₀) (Jpos (1 / 5) _ (by norm_num) (by norm_num) hw0 hw1)
+  rw [hz₃, hz₅]
+  apply no_rise _ _ _ _ hd₃ hd₅ hd
+  · rw [lp4_eq _ _ _ _ _ _ x3_eq]
+    exact mul_ne_zero (div_ne_zero (Real.log_pos (by norm_num)).ne' hH0) hQ₃
+  · exact lp4_abs_ratio _ _ _ _ _ _ _ _ x3_eq x5_eq hQ
+
+theorem l19_sq_box_h11 : necessity% Checked.Cosmography.B1L19.l19_sq_box 11 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, 2.906, 5.479, -30, -1, by norm_num, by norm_num, by norm_num, ?_,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · rw [hz₅, lp4_eq _ _ _ _ _ _ x5_eq]
+    apply mul_pos_of_neg_of_neg (div_neg_of_pos_of_neg (Real.log_pos (by norm_num)) (by norm_num))
+    nlinarith
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_neg (by nlinarith)]; nlinarith
+
+theorem l19_sq_box_h12 : necessity% Checked.Cosmography.B1L19.l19_sq_box 12 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, -21 / 5, 5.479, -1.794, 1, one_pos, by norm_num, by norm_num, ?_,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · rw [hz₅, lp4_eq _ _ _ _ _ _ x5_eq]
+    exact mul_pos (div_pos (Real.log_pos (by norm_num)) one_pos) (by nlinarith)
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_pos (by nlinarith)]; nlinarith
+
+theorem l19_sq_box_h13 : necessity% Checked.Cosmography.B1L19.l19_sq_box 13 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, 2.906, 100, -1.794, 1, one_pos, by norm_num, by norm_num, ?_,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · rw [hz₅, lp4_eq _ _ _ _ _ _ x5_eq]
+    exact mul_pos (div_pos (Real.log_pos (by norm_num)) one_pos) (by nlinarith)
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_pos (by nlinarith)]; nlinarith
+
+theorem l19_sq_box_h14 : necessity% Checked.Cosmography.B1L19.l19_sq_box 14 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, 2.906, 5.479, 100, 1, one_pos, by norm_num, by norm_num, ?_,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · rw [hz₅, lp4_eq _ _ _ _ _ _ x5_eq]
+    exact mul_pos (div_pos (Real.log_pos (by norm_num)) one_pos) (by nlinarith)
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_pos (by nlinarith)]; nlinarith
+
+theorem l19_sq_box_h15 : necessity% Checked.Cosmography.B1L19.l19_sq_box 15 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, 2.906, 5.479, -30, 1, one_pos, by norm_num, by norm_num, by norm_num,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_neg (by nlinarith)]; nlinarith
+
+theorem l19_sqg_box_h11 : necessity% Checked.Cosmography.B1L19.l19_sqg_box 11 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, 3.043, 4.480, -30, -1, by norm_num, by norm_num, by norm_num, ?_,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · rw [hz₅, lp4_eq _ _ _ _ _ _ x5_eq]
+    apply mul_pos_of_neg_of_neg (div_neg_of_pos_of_neg (Real.log_pos (by norm_num)) (by norm_num))
+    nlinarith
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_neg (by nlinarith)]; nlinarith
+
+theorem l19_sqg_box_h12 : necessity% Checked.Cosmography.B1L19.l19_sqg_box 12 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, -4, 4.480, -0.915, 1, one_pos, by norm_num, by norm_num, ?_,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · rw [hz₅, lp4_eq _ _ _ _ _ _ x5_eq]
+    exact mul_pos (div_pos (Real.log_pos (by norm_num)) one_pos) (by nlinarith)
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_pos (by nlinarith)]; nlinarith
+
+theorem l19_sqg_box_h13 : necessity% Checked.Cosmography.B1L19.l19_sqg_box 13 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, 3.043, 100, -0.915, 1, one_pos, by norm_num, by norm_num, ?_,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · rw [hz₅, lp4_eq _ _ _ _ _ _ x5_eq]
+    exact mul_pos (div_pos (Real.log_pos (by norm_num)) one_pos) (by nlinarith)
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_pos (by nlinarith)]; nlinarith
+
+theorem l19_sqg_box_h14 : necessity% Checked.Cosmography.B1L19.l19_sqg_box 14 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, 3.043, 4.480, 100, 1, one_pos, by norm_num, by norm_num, ?_,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · rw [hz₅, lp4_eq _ _ _ _ _ _ x5_eq]
+    exact mul_pos (div_pos (Real.log_pos (by norm_num)) one_pos) (by nlinarith)
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_pos (by nlinarith)]; nlinarith
+
+theorem l19_sqg_box_h15 : necessity% Checked.Cosmography.B1L19.l19_sqg_box 15 := by
+  obtain ⟨a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH₀, hH, -, hz₃, hz₅⟩ :=
+    Checked.Cosmography.B1FitWitness.exists_model
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₅, t₃, t₀, h53, le_trans h31 h10, hpos, hdiff, hH₀,
+    hH, hz₃, hz₅, 3.043, 4.480, -30, 1, one_pos, by norm_num, by norm_num, by norm_num,
+    box_fails a t₅ t₃ t₀ h53 (le_trans h31 h10) hpos hdiff hH₀ hH hz₃ hz₅ _ _ _ _ (by norm_num)
+      ?_ ?_⟩
+  · nlinarith
+  · rw [abs_of_pos (by nlinarith), abs_of_neg (by nlinarith)]; nlinarith
+
+end L19Box
+
 end Checked.Trust.NCL
