@@ -17,7 +17,7 @@ Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 906 hypotheses in 
 118 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
 363 open; headlines with every hypothesis classified: 56/157
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
-Transcriptions (trust track T3): 46 PRINTED definitions; 46 carry a machine-checked
+Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
 FORMULA, MATH and WITNESS definitions with a blind second formulation: 31/31 (run 2026-11-05T0828Z;
 ² on a FORMULA means a machine-checked agreement with a blind second formulation in
@@ -153,9 +153,9 @@ the docstring says; universally bound parameters are not listed.
 | `Records.F10_exceptions` | — | — | — | unconditional | RoundsTo: d = 0.599, k = 3, d = 0.731 |
 | `Records.F10_family_pole` | — | — | jL², qL² | unconditional | RoundsTo: d = 0.032, k = 3; Jfam: Ω = 41/1000 |
 | `Records.F11_sizes` | — | — | — | unconditional | RoundsTo: d = -86, k = 0, d = 0.72, k = 2 |
-| `Records.F12_separation` | — | — | — | `F12_separation` | RoundsTo: d = -0.1988377, k = 7 |
-| `Records.F13_wall_shear` | — | — | — | `F13_wall_shear` | RoundsTo: d = 0.005218, k = 6 |
-| `Records.F14_reversed_wall_shear` | — | — | — | unconditional | RoundsTo: d = -0.005157, k = 6 |
+| `Records.F12_separation` | — | — | printedFazioSeparation² | `F12_separation` | RoundsTo: d = 0.00000014, k = 8 |
+| `Records.F13_wall_shear` | — | — | printedFazioWall² | `F13_wall_shear` | RoundsTo: d = 0.000003, k = 6 |
+| `Records.F14_reversed_wall_shear` | — | — | printedFazioRevWall² | unconditional | RoundsTo: d = 0.0000006, k = 7 |
 | `B1.lumDistFlat_flatLCDM` | lumDistFlat, hubble, redshift | — | — | `lumDistFlat_flatLCDM` | — |
 | `B1.cubic_misses_z3` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z3` | redshift(t) = 3 |
 | `B1.cubic_misses_z7` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_misses_z7` | redshift(t) = 7 |

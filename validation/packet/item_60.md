@@ -22,17 +22,19 @@
 
 **then**
 
-- `RoundsTo β (-0.1988377) 7`
+- `RoundsTo (printedFazioSeparation - β) 14e-8 8`
 
 Program definitions in this claim:
 
 - `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `printedFazioSeparation` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedFazioSeparation`); its name is not checked: is defined as `-(1988376 / 10000000)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
 Falkner–Skan separation: for every solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0,
 p(0) = 0, wall shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M,
-`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, the parameter β rounds to `-0.1988377` at seven decimals.
+`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, the value Fazio printed for that parameter
+(`printedFazioSeparation`) minus β rounds to `0.00000014` at eight decimals.
 
 ## Formal statement (Lean 4)
 
@@ -43,20 +45,20 @@ theorem F12_separation {β : ℝ} {f p q : ℝ → ℝ}
     (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Ici 0) η)
     (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 0) (hl : Tendsto p atTop (𝓝 1))
     (hpos : ∀ η ∈ Ioi (0 : ℝ), 0 < q η) (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
-    RoundsTo β (-0.1988377) 7 := …
+    RoundsTo (printedFazioSeparation - β) 0.00000014 8 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Records.RoundsTo`
+See GLOSSARY.md: `Records.printedFazioSeparation`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): printedFazioSeparation².
 - Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `F12_separation`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = -0.1988377, k = 7.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = 0.00000014, k = 8.
 - Source file: `Checked/Records/FalknerSkan.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 60

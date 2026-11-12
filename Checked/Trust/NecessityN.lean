@@ -4,15 +4,16 @@ import Checked.Records.FalknerSkan
 
 /-! Hypothesis necessity for the record `Checked.Records.F12_separation` (run 2026-11-12T1028Z). Its hypotheses
 are those of `Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed`, copied verbatim, so the three
-witness profiles of `Checked/Trust/NecessityE.lean` serve again: each meets every other hypothesis at
-β = −0.1988376, and that β does not round to −0.1988377 at seven decimals (it is 10⁻⁷ away). -/
+witness profiles of `Checked/Trust/NecessityE.lean` serve again: each meets every other hypothesis at the printed
+parameter `printedFazioSeparation` itself, where the certified difference is zero. -/
 
 namespace Checked.Trust.NCP
 
 open Set Filter Topology
 
-theorem not_rounds_printed : ¬ Checked.Records.RoundsTo (-(1988376 / 10000000)) (-0.1988377) 7 := by
-  unfold Checked.Records.RoundsTo; rw [abs_le]; norm_num
+theorem not_rounds_printed : ¬ Checked.Records.RoundsTo
+    (Checked.Records.printedFazioSeparation - -(1988376 / 10000000)) 0.00000014 8 := by
+  unfold Checked.Records.RoundsTo Checked.Records.printedFazioSeparation; rw [abs_le]; norm_num
 
 /-- `f' = p` is needed in `F12_separation`: the profile of `fs_separation_below_printed_h1`. -/
 theorem F12_separation_h1 : necessity% Checked.Records.F12_separation 1 := by

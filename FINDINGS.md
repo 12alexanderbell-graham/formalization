@@ -366,8 +366,8 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
 
 ### F12 (was C-FS-SEP). Fazio, arXiv:1212.5057v1 (2012), Fig. 4 caption (p. 28), and arXiv:2011.07725v1 (2020), Fig. 7 caption (p. 22): the Falkner–Skan separation parameter of the zero-wall-shear solution is printed wrong in its last digit
 - **Printed (typeset read, run 2026-11-11T0828Z, crops in `runs/2026-11-11T0828Z/typeset/`; blind literal reading `Checked.Trust.SecondReading.fsSepPrintedFazio`):** "Numerical solutions to Falkner-Skan model for β = −0.1988376[src]. We notice that d²f/dη²(0) = 0", the text calling it the unique solution at the limiting value β_min; same equation f''' + f f'' + β(1 − f'²) = 0 (the 2012 paper's model equation). The 2012 text (p. 16) also reports, at β = −0.198837723795[src] (initial-value problem solved on [0, 1]), skin-friction coefficients ±6.61×10⁻⁶[src].
-- **Correct:** the parameter of every zero-wall-shear solution with f'' > 0 beyond the wall and faster-than-every-exponential approach to the edge velocity has the seven-decimal rounding certified below (`F12_separation`), one unit below the printed last digit; the printed value is the parameter of no such solution (`fs_separation_below_printed`).
-- **Lean evidence (Checked; PROVED: CI 43146846258 of 37b67ea green on every job incl. nanoda, read run 2026-11-12T0227Z):** `Checked.FalknerSkan.Separation.fs_separation_exists` (such a solution exists, with β in a window of width 10⁻¹⁰), `Checked.FalknerSkan.SeparationEqual.fs_separation_equal` (any two such solutions have the same β), `Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed` (every such β lies below the printed value); record `Checked.Records.F12_separation` (run 2026-11-12T1028Z, a corollary of the first two).
+- **Correct:** the parameter of every zero-wall-shear solution with f'' > 0 beyond the wall and faster-than-every-exponential approach to the edge velocity lies below the printed value by the difference certified below (`F12_separation`, eight decimals), more than one unit of the printed last digit; the printed value is the parameter of no such solution (`fs_separation_below_printed`).
+- **Lean evidence (Checked; PROVED: CI 43146846258 of 37b67ea green on every job incl. nanoda, read run 2026-11-12T0227Z):** `Checked.FalknerSkan.Separation.fs_separation_exists` (such a solution exists, with β in a window of width 10⁻¹⁰), `Checked.FalknerSkan.SeparationEqual.fs_separation_equal` (any two such solutions have the same β), `Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed` (every such β lies below the printed value); record `Checked.Records.F12_separation` (run 2026-11-12T1028Z, a corollary of the first two; the printed value is a PRINTED definition of the record, agreeing with its blind reading).
 - **Classification:** Source error (numerical: truncated computational domain). **Scope:** for parameters between the separation value and 0 a zero-wall-shear solution with an algebraic tail exists, so the caption is false only in the classical class (exponential approach), the class in which the paper calls the solution unique. Changes no qualitative conclusion of the papers.
 - **Plain words:** the pressure-gradient parameter at which a Falkner–Skan boundary layer separates is a classical constant; two papers by the same author print it with seven decimals, and the seventh is wrong.
 <!-- certified: F12_separation -->
@@ -397,16 +397,20 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > **then**
     >
-    > - `RoundsTo β (-0.1988377) 7`
-    - value: `β` rounds to −0.1988377[✓F12_separation] at 7 decimals; role free.
+    > - `RoundsTo (printedFazioSeparation - β) 14e-8 8`
+    >
+    > where
+    >
+    > - *printedFazioSeparation* — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription; its name is not checked: is defined as `-(1988376 / 10000000)`
+    - difference: `printedFazioSeparation - β` rounds to 0.00000014[✓F12_separation(difference)] at 8 decimals; role difference(printed−free).
 <!-- /certified -->
 - **Fidelity audit:** blind restatements (Sonnet, words only) closed in Lean: `Work/FalknerSkan/SepBlindClosed.lean`, `Work/FalknerSkan/SepUniqueBlindClosed.lean` (run 2026-11-11T0232Z), and for the comparison with the printed value `runs/2026-11-11T0828Z/blind/`; blind literal readings of the window ends (`Checked/Trust/SecondReadingFSSepW.lean`) and of the printed value.
 - **Referee:** STANDS (`runs/2026-11-11T0232Z/referee/REPORT.md`: an independent high-precision value by `odefun` with parabolic-cylinder tail matching, inside the certified window; at the 2012 paper's β the true wall shears are ±8.96×10⁻⁵[unc], not ±6.61×10⁻⁶[src]). **Errata / prior art:** the most precise correct printed value found is Barlow et al., arXiv:1907.09912 (nine digits, correctly rounded); Stewartson 1954 and later classical sources give four digits; no erratum found; whether later arXiv versions of the two Fazio papers exist was not read (WebFetch of the abstract pages not answered, run 2026-11-12T1028Z).
 
 ### F13 (was C-FS-1988). Fazio, arXiv:1212.5057v1 (2012), p. 16, and the values tabulated in Asaithambi, Fluids 6 (2021) 153, Table 2 (Asaithambi 2005, Zhang–Chen 2009, Salama 2004), and Zhu–Cheng–Wu (2009 preprint), Table 5: five printed values of the attached Falkner–Skan wall shear at β = −0.1988[src] are too large in the fourth significant digit
 - **Printed:** Fazio 2012, p. 16: 0.005221[src] (typeset, crop `runs/2026-11-11T0828Z/typeset/fazio2012_p16_beta_min.png`; read again blind by the run 2026-11-11T1028Z literal reader); Asaithambi 2021, Table 2, row β = −0.1988[src]: 0.005225[src] (Asaithambi 2005), 0.005222[src] (Zhang–Chen 2009), 0.005226[src] (Salama 2004) (HTML through a summarizer only; the MDPI PDF returned 403, not read); Zhu–Cheng–Wu Table 5: 0.005229[src] (summary only). Same equation f''' + f f'' + β(1 − f'²) = 0 in every source read.
-- **Correct:** every solution with f(0) = f'(0) = 0, f' → 1, f'' > 0 on [0, ∞) and faster-than-every-exponential approach has the six-decimal wall shear certified below (`F13_wall_shear`), and such a solution exists (`fs_neg_wall_shear_exists_decay`). One printed value is its correct rounding: Guo, Zhuang, Meng & Rabczuk, arXiv:2010.05682v1, Table 8 (p. 33; typeset, crop `runs/2026-11-11T1028Z/typeset/guo2020_p33_table8.png`; the same table lists the older values without comment).
-- **Lean evidence (Checked; PROVED: CI 43146846258 of 37b67ea green on every job incl. nanoda, read run 2026-11-12T0227Z):** `Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window` (the wall shear of every such solution lies in an open window of width 10⁻⁷ that excludes the five printed values) and `fs_neg_wall_shear_exists_decay`; record `Checked.Records.F13_wall_shear` (run 2026-11-12T1028Z, a corollary of the window).
+- **Correct:** every solution with f(0) = f'(0) = 0, f' → 1, f'' > 0 on [0, ∞) and faster-than-every-exponential approach has a wall shear below Fazio's printed value by the difference certified below (`F13_wall_shear`, six decimals: three units of the printed last digit), and such a solution exists (`fs_neg_wall_shear_exists_decay`); the window of `fs_neg_wall_shear_window` also excludes the four other printed values. One printed value is its correct rounding: Guo, Zhuang, Meng & Rabczuk, arXiv:2010.05682v1, Table 8 (p. 33; typeset, crop `runs/2026-11-11T1028Z/typeset/guo2020_p33_table8.png`; the same table lists the older values without comment).
+- **Lean evidence (Checked; PROVED: CI 43146846258 of 37b67ea green on every job incl. nanoda, read run 2026-11-12T0227Z):** `Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window` (the wall shear of every such solution lies in an open window of width 10⁻⁷ that excludes the five printed values) and `fs_neg_wall_shear_exists_decay`; record `Checked.Records.F13_wall_shear` (run 2026-11-12T1028Z, a corollary of the window; Fazio's printed value is a PRINTED definition of the record, read blind from the typeset crop this run, `runs/2026-11-12T1028Z/fsval_reader/`).
 - **Classification:** Source error (numerical: truncated computational domain). **Scope:** changes no qualitative conclusion of the papers; a numerical-accuracy error near separation, where the slow tail needs a longer computational domain than these papers used. The Asaithambi 2021 and Zhu–Cheng–Wu values were read through a summarizer only.
 - **Plain words:** five published tables give the wall shear of the boundary layer just above separation a few units too large in the fourth digit, because their computations stop the domain too early; one later table has it right.
 <!-- certified: F13_wall_shear -->
@@ -434,16 +438,20 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
     >
     > **then**
     >
-    > - `RoundsTo (q 0) 5218e-6 6`
-    - value: `q 0` rounds to 0.005218[✓F13_wall_shear] at 6 decimals; role free.
+    > - `RoundsTo (printedFazioWall - q 0) 3e-6 6`
+    >
+    > where
+    >
+    > - *printedFazioWall* — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription; its name is not checked: is defined as *5221e-6*
+    - difference: `printedFazioWall - q 0` rounds to 0.000003[✓F13_wall_shear(difference)] at 6 decimals; role difference(printed−free).
 <!-- /certified -->
 - **Fidelity audit:** blind restatement (Sonnet, words only, brief dc5a294) closed in `Work/FalknerSkan/Neg1988BlindClosed.lean`; blind literal reading of β (`Checked/Trust/SecondReadingFSNearSep.lean`).
 - **Referee:** STANDS-WITH-CORRECTIONS (`runs/2026-11-11T1028Z/referee/REPORT.md`: independent value by collocation with the parabolic-cylinder tail imposed, inside the certified window; the wrong printed values reproduced as truncation errors of the computational domain, Zhu–Cheng–Wu's exactly at their stated domain length). **Errata / prior art:** Guo et al. 2020 print the correct rounding without comment on the older values; no erratum found.
 
 ### F14 (was C-FS-1988R). Fazio, arXiv:1212.5057v1 (2012), p. 16 (the same sentence in arXiv:2003.07971v1, p. 39): the printed reverse-flow Falkner–Skan wall shear at β = −0.1988[src] is the wall shear of no solution with f' ≤ 1
 - **Printed (typeset read, run 2026-11-11T1828Z, crop `runs/2026-11-11T1828Z/typeset/fazio2012_p16_reverse_value.png`; blind literal reading `Checked.Trust.SecondReading.fsRevPrintedWallFazio`):** "For instance, when β = −0.1988[src] we get for the missing initial conditions the values 0.005221[src] and −0.005158[src], respectively" (normal and reverse flow; the 2020 text by text extraction only). Same equation f''' + f f'' + β(1 − f'²) = 0 (the 2012 paper's model equation).
-- **Correct:** every solution on [0, ∞) of the initial-value problem with f(0) = f'(0) = 0 and the printed f''(0) has f' > 1 somewhere (`fs_neg_reversed_printed_overshoots`), so it is no reverse-flow boundary-layer solution; a reverse-flow solution with −1 ≤ f' ≤ 1, f' → 1 and faster-than-every-exponential approach exists, with the six-decimal wall shear certified below (`F14_reversed_wall_shear`).
-- **Lean evidence (Checked; PROVED: CI 43146846258 of 37b67ea green on every job incl. nanoda, read run 2026-11-12T0227Z):** `Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots`, `fs_neg_reversed_wall_shear_exists`, `fs_neg_wall_shear_two_decay` (two solutions of that class with different wall shear: non-uniqueness just above separation); record `Checked.Records.F14_reversed_wall_shear` (run 2026-11-12T1028Z, a corollary of the existence headline). The overshoot statement is not vacuous: the initial-value problem has a solution on all of [0, ∞) (NV witness through `Checked/FSRev/RPrintedNV.lean`).
+- **Correct:** every solution on [0, ∞) of the initial-value problem with f(0) = f'(0) = 0 and the printed f''(0) has f' > 1 somewhere (`fs_neg_reversed_printed_overshoots`), so it is no reverse-flow boundary-layer solution; a reverse-flow solution with −1 ≤ f' ≤ 1, f' → 1 and faster-than-every-exponential approach exists, with a wall shear above the printed value by the difference certified below (`F14_reversed_wall_shear`, seven decimals).
+- **Lean evidence (Checked; PROVED: CI 43146846258 of 37b67ea green on every job incl. nanoda, read run 2026-11-12T0227Z):** `Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots`, `fs_neg_reversed_wall_shear_exists`, `fs_neg_wall_shear_two_decay` (two solutions of that class with different wall shear: non-uniqueness just above separation); record `Checked.Records.F14_reversed_wall_shear` (run 2026-11-12T1028Z, a corollary of the existence headline; the printed value is a PRINTED definition of the record, read blind from the typeset crop this run). The overshoot statement is not vacuous: the initial-value problem has a solution on all of [0, ∞) (NV witness through `Checked/FSRev/RPrintedNV.lean`).
 - **Classification:** Source error (numerical). **Scope:** the printed value is wrong in its last digit; uniqueness of the reverse-flow branch is not proved and not needed (the refutation covers every solution of the initial-value problem). With F13 both values printed at this β are wrong. Changes no qualitative conclusion of the paper.
 - **Plain words:** the same sentence that gives the attached-flow value of F13 also gives a reverse-flow value; started from it, the velocity profile overshoots the outer speed, so it is not the boundary layer it is meant to be.
 <!-- certified: F14_reversed_wall_shear -->
@@ -451,8 +459,12 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
   - `Checked.Records.F14_reversed_wall_shear`, as Lean states it:
     > **It holds that**
     >
-    > - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1988 / 10000 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`RoundsTo (q 0) (-5157e-6) 6`)
-    - value: `q 0` rounds to −0.005157[✓F14_reversed_wall_shear] at 6 decimals; role free.
+    > - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1988 / 10000 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`RoundsTo (q 0 - printedFazioRevWall) 6e-7 7`)
+    >
+    > where
+    >
+    > - *printedFazioRevWall* — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription; its name is not checked: is defined as *-5158e-6*
+    - difference: `q 0 - printedFazioRevWall` rounds to 0.0000006[✓F14_reversed_wall_shear(difference)] at 7 decimals; role difference(free−printed).
 <!-- /certified -->
 - **Fidelity audit:** blind restatement closed in `Work/FalknerSkan/Neg1988RevBlindClosed.lean` (run 2026-11-11T1228Z).
 - **Referee:** STANDS-WITH-CORRECTIONS (`runs/2026-11-11T1228Z/referee/REPORT.md`: independent value by collocation with the parabolic-cylinder tail and 40-digit Taylor shooting with tail matching; the initial-value problem at the printed value crosses f' = 1 near η ≈ 8.10[unc]). **Errata / prior art:** none found.
@@ -554,6 +566,6 @@ Role (run 2026-11-08T0628Z): `printed` (every outermost definition of the quanti
 | ✓F10_family_pole | 0.032 | free | `ε` |
 | ✓F11_sizes(q₀=−0.8) | −86 | free | `-210 * have q₀ := -4 / 5; q₀ ^ 4` |
 | ✓F11_sizes(q₀=−0.8, z=1) | 0.72 | free | `7 / 4 * have q₀ := -4 / 5; q₀ ^ 4 * have z := 1; z ^ 4` |
-| ✓F12_separation | −0.1988377 | free | `β` |
-| ✓F13_wall_shear | 0.005218 | free | `q 0` |
-| ✓F14_reversed_wall_shear | −0.005157 | free | `q 0` |
+| ✓F12_separation(difference) | 0.00000014 | difference(printed−free) | `Checked.Records.printedFazioSeparation - β` |
+| ✓F13_wall_shear(difference) | 0.000003 | difference(printed−free) | `Checked.Records.printedFazioWall - q 0` |
+| ✓F14_reversed_wall_shear(difference) | 0.0000006 | difference(free−printed) | `q 0 - Checked.Records.printedFazioRevWall` |

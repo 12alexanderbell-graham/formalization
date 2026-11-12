@@ -999,6 +999,16 @@ noncomputable def cl (c y : ℝ) : ℝ := max (-c) (min c y)
 def RoundsTo (x d : ℝ) (k : ℕ) : Prop := |x - d| ≤ 1 / (2 * 10 ^ k)
 ```
 
+## `Records.printedFazioSeparation`
+
+Fazio (arXiv:1212.5057, 2012, Fig. 4 caption; arXiv:2011.07725, 2020, Fig. 7 caption): the printed value of the
+Falkner–Skan parameter of the solution with zero wall shear (blind second reading
+`Checked.Trust.SecondReading.fsSepPrintedFazio`).
+
+```lean
+noncomputable def printedFazioSeparation : ℝ := -(1988376 / 10000000)
+```
+
 ## `Sim.Duffing.IsDuffingSolution`
 
 `x` solves the Duffing initial value problem x'' + k·x + β·x³ = 0, x(0) = x₀, x'(0) = v₀ on

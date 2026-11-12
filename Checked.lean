@@ -44,6 +44,8 @@ import Checked.Trust.Transcriptions
 import Checked.Trust.SecondReadingFR
 import Checked.Trust.TranscriptionsFR
 import Checked.Trust.TranscriptionsRecords
+import Checked.Trust.TranscriptionsRecordsFS
+import Checked.Trust.SecondReadingFSFazioValues
 import Checked.Cosmography.B1Truncation
 import Checked.Cosmography.B1Separation
 import Checked.Cosmography.B1SepWitness

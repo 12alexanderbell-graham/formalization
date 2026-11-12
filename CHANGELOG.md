@@ -607,3 +607,9 @@
 ## 2026-11-12T0828Z (scheduled run)
 - Env: repo ok (add_repo not exposed; pre-cloned checkout); local Lean via elan; CI build artifact restored (judge tree in ≈ 3 min). LOCK of run 0628Z → auditor role until 08:41Z, then LOCK.
 - Part 3: blind red team AH (Sonnet) on the necessity witness layer: full CI 0/5 valid accepted, the necessity checks alone 4/5. Repairs: `carriesProof` (proof-carrying binder types → `subtype`), set membership split in `partsWalk`, redundancy label across hypotheses and parts (7 headlines relabelled). AFTER: N4 rejects d03–d05. `runs/2026-11-12T0828Z/t5/RESULTS.md`; PROMPT note "Judge the layer under test, not only CI".
+
+## 2026-11-12T1028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; pre-cloned checkout); local Lean via elan; CI build artifact restored (75 s; needs `pip install zstandard`). No LOCK at start.
+- Parts 2/5: findings F12 (Falkner–Skan separation parameter, Fazio 2012/2020), F13 (five tabulated attached-flow wall shears at β = −0.1988), F14 (Fazio's reverse-flow wall shear) verified, from candidates C-FS-SEP, C-FS-1988, C-FS-1988R; record headlines `Checked.Records.F12_separation`, `F13_wall_shear`, `F14_reversed_wall_shear` (printed − true differences against PRINTED definitions; one new blind reading); certified values 26 → 29.
+- CI: main's checked job of f789e4d hung 4 h in its build and held 0e262e6's checked job pending; cancelled; `timeout-minutes: 240` on the checked job (LEDGER, 39.5).
+

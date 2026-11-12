@@ -384,9 +384,9 @@ Checked.Records.F10_exceptions f8c180c0-doc8018801978463092988
 Checked.Records.F10_family_pole 77d6616e-doc9802536482937249793
 Checked.Records.F10_printed_pole 87fd43e-doc8506688851552309792
 Checked.Records.F11_sizes 1e36c7b0-doc4390042586132807648
-Checked.Records.F12_separation a17f6b11-doc8162910299867650669
-Checked.Records.F13_wall_shear f16ea78d-doc14113853095423408103
-Checked.Records.F14_reversed_wall_shear ed5050db-doc14677927002311240110
+Checked.Records.F12_separation ec0960b2-doc3761662717153290877
+Checked.Records.F13_wall_shear 5b5552c-doc8930264396750189349
+Checked.Records.F14_reversed_wall_shear fd2ef85b-doc7247524617672788833
 Checked.Records.F1_l0 86e62cc4-doc17214862890485777470
 Checked.Records.F1_m0_agrees 9bfdd380-doc13495434544363526396
 Checked.Records.F1_printedL0 427e763-doc3216406102202614421
@@ -399,6 +399,9 @@ Checked.Records.F9_values 78c54bea-doc13433309950998015723
 Checked.Records.RoundsTo 6490dd4a817db795-MATH
 Checked.Records.printedAvilesL0 6dacdea18180e5b5-PRINTED
 Checked.Records.printedCLSL0 956d2d8c9ee11cd9-PRINTED
+Checked.Records.printedFazioRevWall 44c3dcde333fda31-PRINTED
+Checked.Records.printedFazioSeparation 438df2d67a787317-PRINTED
+Checked.Records.printedFazioWall 6d03b48f8cb2e47d-PRINTED
 Checked.Sim.Duffing.IsDuffingSolution 9b62f53de9047025-doc13018569994916158289-PHYSICS
 Checked.Sim.Duffing.duffing_first_zero_sol 4c60f1ae-doc11947998396381678298
 Checked.Sim.Duffing.duffing_solution_exists 8984c4ba-doc12830420669646441606
@@ -2006,6 +2009,9 @@ doc:Checked.Records.RoundsTo -doc2357215725765789315
 doc:Checked.Records.exists_root_roundsTo -doc11421421922466462281
 doc:Checked.Records.printedAvilesL0 -doc1999228335981886063
 doc:Checked.Records.printedCLSL0 -doc957890880190524111
+doc:Checked.Records.printedFazioRevWall -doc14131159022952808169
+doc:Checked.Records.printedFazioSeparation -doc17093818041969740027
+doc:Checked.Records.printedFazioWall -doc16753243581527887286
 doc:Checked.Sim.ChebBound.Ts -doc11173002926551828956
 doc:Checked.Sim.ChebBound.Us -doc10100893633987733756
 doc:Checked.Sim.ChebBound.bound_of_eq -doc8787550957227205588
@@ -2589,9 +2595,11 @@ doc:Checked.Trust.SecondReading.demDL4 -doc13209254269752908774
 doc:Checked.Trust.SecondReading.demDLLast -doc1535430170866068384
 doc:Checked.Trust.SecondReading.demDLPrefactor -doc14846241798013484455
 doc:Checked.Trust.SecondReading.fr13Table -doc13377963916444384042
+doc:Checked.Trust.SecondReading.fsAttPrintedWallValueFazio -doc5951399026615453459
 doc:Checked.Trust.SecondReading.fsBetaRhs -doc17232666518317973516
 doc:Checked.Trust.SecondReading.fsNearSepWedgeRhs -doc18273160841430061268
 doc:Checked.Trust.SecondReading.fsRevPrintedWallFazio -doc12847465455260386031
+doc:Checked.Trust.SecondReading.fsRevPrintedWallValueFazio -doc17635549689190853361
 doc:Checked.Trust.SecondReading.fsSepOpenHalfLine -doc15241378809030958903
 doc:Checked.Trust.SecondReading.fsSepPrintedFazio -doc1748778183193303266
 doc:Checked.Trust.SecondReading.fsSepWindow -doc3704237396636913240
@@ -2772,6 +2780,9 @@ doc:Checked.Trust.Transcriptions.agree_printedDA4z -doc6488480901292970680
 doc:Checked.Trust.Transcriptions.agree_printedDA4 -doc11913558152364414575
 doc:Checked.Trust.Transcriptions.agree_printedDL4z -doc4014693041019672702
 doc:Checked.Trust.Transcriptions.agree_printedDen -doc7412902270519350903
+doc:Checked.Trust.Transcriptions.agree_printedFazioRevWall -doc12949900092283785285
+doc:Checked.Trust.Transcriptions.agree_printedFazioSeparation -doc3972752562668611664
+doc:Checked.Trust.Transcriptions.agree_printedFazioWall -doc10572360314258737962
 doc:Checked.Trust.Transcriptions.agree_printedQ2 -doc5486638264001484751
 doc:Checked.Trust.Transcriptions.agree_printedR -doc16504142929799147095
 doc:Checked.Trust.Transcriptions.agree_qL -doc3711902334818268103
@@ -3089,7 +3100,7 @@ moduledoc:Checked.Math.TFReduce -mdoc3146223978608859584
 moduledoc:Checked.Math.ThomasFermiExists -mdoc3187720628668602761
 moduledoc:Checked.Math.ThomasFermi -mdoc2131791644132145726
 moduledoc:Checked.Records.Basic -mdoc17748666938352798359
-moduledoc:Checked.Records.FalknerSkan -mdoc17725893492915324486
+moduledoc:Checked.Records.FalknerSkan -mdoc3824245152041396884
 moduledoc:Checked.Records.Findings -mdoc12674245471988407188
 moduledoc:Checked.Sim.ChebBound -mdoc2779961283632007385
 moduledoc:Checked.Sim.DuffingCell -mdoc7174413968324916952
@@ -3180,7 +3191,7 @@ moduledoc:Checked.Trust.NecessityJ -mdoc1488043631767461679
 moduledoc:Checked.Trust.NecessityK -mdoc6552524809572826252
 moduledoc:Checked.Trust.NecessityL -mdoc14468159082974997690
 moduledoc:Checked.Trust.NecessityM -mdoc9738669776155721230
-moduledoc:Checked.Trust.NecessityN -mdoc17239129158478424958
+moduledoc:Checked.Trust.NecessityN -mdoc7098328307445460454
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401
@@ -3195,6 +3206,7 @@ moduledoc:Checked.Trust.SecondReadingClaims -mdoc11105787854413030724
 moduledoc:Checked.Trust.SecondReadingFR13 -mdoc15889175085118273039
 moduledoc:Checked.Trust.SecondReadingFR -mdoc1417811703977418368
 moduledoc:Checked.Trust.SecondReadingFSBeta -mdoc14053753005707813791
+moduledoc:Checked.Trust.SecondReadingFSFazioValues -mdoc16185412152131079547
 moduledoc:Checked.Trust.SecondReadingFSFifth -mdoc12778037588537726726
 moduledoc:Checked.Trust.SecondReadingFSNearSep -mdoc2320962234623549223
 moduledoc:Checked.Trust.SecondReadingFSNeg -mdoc17694638445480914408
@@ -3224,6 +3236,7 @@ moduledoc:Checked.Trust.TranscriptionsFR13 -mdoc12203395201808648388
 moduledoc:Checked.Trust.TranscriptionsFR -mdoc11191104128708509847
 moduledoc:Checked.Trust.TranscriptionsL19 -mdoc8302513011491085895
 moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
+moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
 moduledoc:Checked.Trust.Witnesses -mdoc14438749219625166923
