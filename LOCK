@@ -1,1 +1,1 @@
-Run 2026-11-12T0427Z (scheduled), started 04:27Z; LOCK taken 04:59Z (run 0227Z released it in 89aca37/ae60cc6); heartbeat 07:06Z (promotion in ../fztest, branch wip/be-promo: trust step rerun after a second blind reading). Remove at end.
+Run 2026-11-12T0628Z (scheduled), started 06:28Z; LOCK taken 07:33Z after run 0427Z released it (f789e4d); task: finish the Bonnor–Ebert promotion from wip/be-promo (STATE 0e) with run 0628Z's necessity witnesses (NecessityM). Remove at end.
