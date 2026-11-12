@@ -387,6 +387,58 @@ theorem cubic_direction_h10 : necessity% Checked.Cosmography.B1Sep.cubic_directi
     by rw [sub_self, abs_zero]; norm_num, by rw [sub_self, abs_zero]; norm_num,
     by rw [sub_self, sub_self]; norm_num⟩
 
+theorem cubic_separation_h14 : necessity% Checked.Cosmography.B1Sep.cubic_separation 14 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7⟩ := exists_flatLCDM_on
+  have hsub : Icc t₃ t₀ ⊆ Icc t₇ t₀ := Icc_subset_Icc_left h73
+  have hp3 := (cubic_misses_z3 (1 / 5) (by norm_num) (by norm_num) a t₃ t₀ h30
+    (fun s hs => hpos s (hsub hs)) (fun s hs => hdiff s (hsub hs)) hH₀
+    (fun s hs => hH s (hsub hs)) hz3).1
+  have hp7 := (cubic_misses_z7 (1 / 5) (by norm_num) (by norm_num) a t₇ t₀ (le_trans h73 h30)
+    hpos hdiff hH₀ hH hz7).1
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7,
+    lusA2 (1 / 5), lusA3 (1 / 5), hubble a t₀,
+    5 * Real.logb 10 (lumDistFlat a t₀ t₇ / logPolyDL3 (lusA2 (1 / 5)) (lusA3 (1 / 5)) (hubble a t₀)
+      (redshift a t₀ t₇)), hH₀, hp3, hp7, by rw [sub_self, abs_zero]; norm_num, by rw [sub_self, sub_self]; norm_num⟩
+
+theorem cubic_separation_h15 : necessity% Checked.Cosmography.B1Sep.cubic_separation 15 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7⟩ := exists_flatLCDM_on
+  have hsub : Icc t₃ t₀ ⊆ Icc t₇ t₀ := Icc_subset_Icc_left h73
+  have hp3 := (cubic_misses_z3 (1 / 5) (by norm_num) (by norm_num) a t₃ t₀ h30
+    (fun s hs => hpos s (hsub hs)) (fun s hs => hdiff s (hsub hs)) hH₀
+    (fun s hs => hH s (hsub hs)) hz3).1
+  have hp7 := (cubic_misses_z7 (1 / 5) (by norm_num) (by norm_num) a t₇ t₀ (le_trans h73 h30)
+    hpos hdiff hH₀ hH hz7).1
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7,
+    lusA2 (1 / 5), lusA3 (1 / 5), hubble a t₀,
+    5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 (lusA2 (1 / 5)) (lusA3 (1 / 5)) (hubble a t₀)
+      (redshift a t₀ t₃)), hH₀, hp3, hp7, by rw [sub_self, abs_zero]; norm_num, by rw [sub_self, sub_self]; norm_num⟩
+
+theorem cubic_direction_h14 : necessity% Checked.Cosmography.B1Sep.cubic_direction 14 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7⟩ := exists_flatLCDM_on
+  have hsub : Icc t₃ t₀ ⊆ Icc t₇ t₀ := Icc_subset_Icc_left h73
+  have hp3 := (cubic_misses_z3 (1 / 5) (by norm_num) (by norm_num) a t₃ t₀ h30
+    (fun s hs => hpos s (hsub hs)) (fun s hs => hdiff s (hsub hs)) hH₀
+    (fun s hs => hH s (hsub hs)) hz3).1
+  have hp7 := (cubic_misses_z7 (1 / 5) (by norm_num) (by norm_num) a t₇ t₀ (le_trans h73 h30)
+    hpos hdiff hH₀ hH hz7).1
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7,
+    lusA2 (1 / 5), lusA3 (1 / 5), hubble a t₀,
+    5 * Real.logb 10 (lumDistFlat a t₀ t₇ / logPolyDL3 (lusA2 (1 / 5)) (lusA3 (1 / 5)) (hubble a t₀)
+      (redshift a t₀ t₇)), hH₀, hp3, hp7, by rw [sub_self, abs_zero]; norm_num, by rw [sub_self, sub_self]; norm_num⟩
+
+theorem cubic_direction_h15 : necessity% Checked.Cosmography.B1Sep.cubic_direction 15 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7⟩ := exists_flatLCDM_on
+  have hsub : Icc t₃ t₀ ⊆ Icc t₇ t₀ := Icc_subset_Icc_left h73
+  have hp3 := (cubic_misses_z3 (1 / 5) (by norm_num) (by norm_num) a t₃ t₀ h30
+    (fun s hs => hpos s (hsub hs)) (fun s hs => hdiff s (hsub hs)) hH₀
+    (fun s hs => hH s (hsub hs)) hz3).1
+  have hp7 := (cubic_misses_z7 (1 / 5) (by norm_num) (by norm_num) a t₇ t₀ (le_trans h73 h30)
+    hpos hdiff hH₀ hH hz7).1
+  exact ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7,
+    lusA2 (1 / 5), lusA3 (1 / 5), hubble a t₀,
+    5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 (lusA2 (1 / 5)) (lusA3 (1 / 5)) (hubble a t₀)
+      (redshift a t₀ t₃)), hH₀, hp3, hp7, by rw [sub_self, abs_zero]; norm_num, by rw [sub_self, sub_self]; norm_num⟩
+
 end B1Sep
 
 section B1Fit
