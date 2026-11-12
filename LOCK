@@ -1,0 +1,1 @@
+Run 2026-11-12T0227Z (scheduled), started 02:29Z; LOCK taken 02:35Z. Plan: repair the red trust step of CI 43128169409 (1727c31), then parts 1/3 by rotation. Remove at end.
