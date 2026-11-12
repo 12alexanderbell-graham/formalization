@@ -1,6 +1,10 @@
 # Run 2026-11-11T2228Z (scheduled)
 
-**THE RESULT:** part 1 (trust system, T2b hypothesis necessity), in auditor role while run 2026-11-11T2028Z holds the LOCK: the wall condition f(0) = 0 of the Blasius and Falkner–Skan β = 0 wall-shear headlines (their only open hypothesis) — in progress.
+**THE RESULT:** part 1 (trust system, T2b hypothesis necessity): **the wall condition f(0) = 0 is machine-checked NEEDED in 24 boundary-value headlines (34 hypotheses)** — Blasius, Falkner–Skan β = 0, and the Hiemenz, Homann, β = 1/2, 1/5, 1/10 window/equality headlines in the bound-free, bounded and monotone classes — by suction solutions certified with the program's own shooting stacks, now generic in the wall value f(0).
+
+**What a scientist can now trust without checking:** that none of these 24 theorems carries a decorative wall condition: for each, Lean exhibits a genuine solution of the same equation with f(0) ≠ 0 meeting every other hypothesis and violating the conclusion; the ten bounded-class headlines and the Blasius / β = 0 wall-shear headlines are now fully classified (every hypothesis needed or redundant).
+
+**Weakest unchecked step:** the far-field condition f' → 1 of the bound-free (`_limit_`) and monotone headlines stays open (a witness needs a global solution with f' unbounded); the suction windows are author-chosen (1.5–1.6 etc.), certified, not read blind (they are witnesses, not claims).
 
 ## Start
 - 22:27Z. Pre-cloned checkout detached with an unrelated stale local `main`; `git fetch` + `git checkout -B main origin/main` = e6c3f47.
@@ -19,3 +23,7 @@
   - `suction_profile`: scaled by c = √α (`BTail.scale`): a solution of the Blasius system on [0, ∞) with f(0) = 1/c, p(0) = 0, p → 1, q(0) = 1/c³, c² ≤ 2.
   - `blasius_wall_shear_h4 : necessity% Checked.Blasius.blasius_wall_shear 4` (q(0) = 1/c³ > 100/283 > 0.3320573362152) and `fs_zero_wall_shear_h4 : necessity% Checked.FalknerSkan.fs_zero_wall_shear 4` (`FSScale.scale` with factor √2/2: wall shear √2/c³ > 0.4696).
 - Effect once integrated (needs the LOCK, then a `Checked/Trust/` module, baseline lines `Blasius.blasius_wall_shear | 4` and `FalknerSkan.fs_zero_wall_shear | 4` removed, StatementDeps): both headlines fully classified (+2).
+
+- 22:52Z. **LOCK released by run 2028Z (53d4d4c); LOCK taken 22:53Z (647b974).**
+- 22:45–23:00Z. **Suction boundary-value problems for every positive-β stack** (scripts in `scripts/`): `gen_hiemenz_wc_s.py` / `gen_k_wc_s.py` (copies of the clamped cell generators with the start g(0) = S from `FS_S`), `emit_hiemenz_wc_s.py` (Checked cell modules), `port_suction_all.py` (ports `<P>ExFlow`, `<P>ExLimit`, `<P>ExAssemble` of the Hiemenz, Homann, K = 5, K = 10 stacks to a wall value a0 by asserted replacements; `no_eventS` also exports 0 ≤ p < 1, q > 0). Rows: Hiemenz a0 = 1/2, shooting interval (1.5, 1.6), 16 + 16 cells; Homann a0 = 1/10, (1.4, 1.5), 32 + 32; K = 5 a0 = 1/20, (1.65, 1.75), 32 + 32; K = 10 a0 = 1/100, (1.89, 1.95), 48 + 48 (the clamps |q| < 2 force small suction for large K; float shooting `runs/2026-11-11T2228Z/data/`). Every generated and ported module compiled first time (one `refine` arity fix in the Hiemenz assemble port).
+- Witnesses: `gen_witness.py` emits 25 (Homann form; β = 1/2, 1/5, 1/10 via `FSScale.scale` with c = √K); 7 Hiemenz by hand; all compiled first time. Promoted by `promote_suction.py`: `Checked/Suction/` (20 modules, no headline), `Checked/Trust/NecessityI.lean` (Blasius, β = 0), `NecessityJ.lean` (Hiemenz), `NecessityK.lean` (Homann and the three rows).
