@@ -167,6 +167,7 @@ import Work.Math.Gelfand
 import Work.Math.GExistsLeft
 import Work.Math.GExistsRight
 import Work.Math.GelfandExists
+import Work.Math.BonnorEbert
 import Work.Math.GelfandBlind
 import Work.Math.GelfandBlindClosed
 import Work.Math.RadialLaplacian
