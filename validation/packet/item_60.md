@@ -33,8 +33,8 @@ Program definitions in this claim:
 
 Falkner–Skan separation: for every solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0,
 p(0) = 0, wall shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M,
-`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, the value Fazio printed for that parameter
-(`printedFazioSeparation`) minus β rounds to `0.00000014` at eight decimals.
+`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`: `RoundsTo (printedFazioSeparation - β) 14e-8 8`, with
+`printedFazioSeparation` the value Fazio printed for that parameter.
 
 ## Formal statement (Lean 4)
 

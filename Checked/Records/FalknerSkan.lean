@@ -56,8 +56,8 @@ noncomputable def printedFazioRevWall : ℝ := -0.005158
 
 /-- Falkner–Skan separation: for every solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with f(0) = 0,
 p(0) = 0, wall shear q(0) = 0, p → 1, q > 0 on (0, ∞) and, for every M,
-`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, the value Fazio printed for that parameter
-(`printedFazioSeparation`) minus β rounds to `0.00000014` at eight decimals. -/
+`∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`: `RoundsTo (printedFazioSeparation - β) 14e-8 8`, with
+`printedFazioSeparation` the value Fazio printed for that parameter. -/
 theorem F12_separation {β : ℝ} {f p q : ℝ → ℝ}
     (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
     (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
@@ -77,8 +77,8 @@ theorem F12_separation {β : ℝ} {f p q : ℝ → ℝ}
 
 /-- Falkner–Skan with β = −1988/10000: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
 with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
-then the value Fazio printed for the normal-flow wall shear (`printedFazioWall`) minus q(0) rounds to `0.000003`
-at six decimals. -/
+then `RoundsTo (printedFazioWall - q 0) 3e-6 6`, with `printedFazioWall` the wall shear value Fazio printed
+for that β. -/
 theorem F13_wall_shear (f p q : ℝ → ℝ)
     (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
     (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
@@ -95,8 +95,8 @@ theorem F13_wall_shear (f p q : ℝ → ℝ)
 
 /-- Falkner–Skan with β = −1988/10000: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with
 f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
-whose wall shear q(0) minus the reverse-flow value Fazio printed (`printedFazioRevWall`) rounds to `0.0000006` at
-seven decimals. -/
+with `RoundsTo (q 0 - printedFazioRevWall) 6e-7 7`, with `printedFazioRevWall` a wall shear value Fazio printed
+for that β. -/
 theorem F14_reversed_wall_shear :
     ∃ f p q : ℝ → ℝ,
       (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
