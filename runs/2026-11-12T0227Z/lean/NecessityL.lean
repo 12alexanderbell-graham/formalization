@@ -818,4 +818,246 @@ theorem l19_sqg_curved_h13 : necessity% Checked.Cosmography.B1L19Curved.l19_sqg_
 
 end Curved
 
+section Radiation
+open Checked.Cosmography.B1 Checked.Cosmography.B1L19 Checked.Cosmography.B1Fit
+  Checked.Cosmography.BambaY
+
+/-! The expansion law is needed: the radiation-like model `a(t) = √t` (`H = 1/(2t)`, observed at
+`t₀ = 1`) meets every other hypothesis (positivity, differentiability, `H(t₀) = 1/2 > 0`, the source
+redshifts), and its luminosity distance is exactly `d_L = 2z`; with it the claimed residual
+differences fail. -/
+
+theorem rad_hasDeriv (t : ℝ) (ht : 0 < t) : HasDerivAt (fun s : ℝ => √s) (1 / (2 * √t)) t :=
+  Real.hasDerivAt_sqrt ht.ne'
+
+theorem rad_hubble (t : ℝ) (ht : 0 < t) : hubble (fun s : ℝ => √s) t = 1 / (2 * t) := by
+  unfold hubble
+  rw [(rad_hasDeriv t ht).deriv]
+  have h := Real.sqrt_pos.2 ht
+  have h2 := Real.mul_self_sqrt ht.le
+  field_simp
+  nlinarith
+
+theorem rad_pos (t₅ : ℝ) (h : 0 < t₅) : ∀ s ∈ Icc t₅ 1, 0 < (fun s : ℝ => √s) s :=
+  fun s hs => Real.sqrt_pos.2 (lt_of_lt_of_le h hs.1)
+
+theorem rad_diff (t₅ : ℝ) (h : 0 < t₅) : ∀ s ∈ Icc t₅ 1, DifferentiableAt ℝ (fun s : ℝ => √s) s :=
+  fun s hs => (rad_hasDeriv s (lt_of_lt_of_le h hs.1)).differentiableAt
+
+theorem rad_H0 : 0 < hubble (fun s : ℝ => √s) 1 := by rw [rad_hubble 1 one_pos]; norm_num
+
+theorem rad_dL (t : ℝ) (ht : 0 < t) (ht1 : t ≤ 1) :
+    lumDistFlat (fun s : ℝ => √s) 1 t = 2 * redshift (fun s : ℝ => √s) 1 t := by
+  have hint : ∫ s in t..1, 1 / (fun s : ℝ => √s) s = 2 * √1 - 2 * √t := by
+    have hderiv : ∀ x ∈ uIcc t 1, HasDerivAt (fun s : ℝ => 2 * √s) (1 / √x) x := by
+      intro x hx
+      rw [uIcc_of_le ht1] at hx
+      have hx0 : 0 < x := lt_of_lt_of_le ht hx.1
+      have := (rad_hasDeriv x hx0).const_mul 2
+      convert this using 1
+      have := Real.sqrt_pos.2 hx0
+      field_simp
+    have hcont : ContinuousOn (fun s : ℝ => 1 / √s) (uIcc t 1) := by
+      intro x hx
+      rw [uIcc_of_le ht1] at hx
+      have hx0 : 0 < x := lt_of_lt_of_le ht hx.1
+      exact (continuousAt_const.div Real.continuous_sqrt.continuousAt
+        (Real.sqrt_pos.2 hx0).ne').continuousWithinAt
+    exact intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv (hcont.intervalIntegrable)
+  have hs := Real.sqrt_pos.2 ht
+  simp only [lumDistFlat, comoving, redshift] at *
+  rw [hint, Real.sqrt_one]
+  field_simp
+  ring
+
+theorem rad_z (u : ℝ) (hu : 0 < u) : redshift (fun s : ℝ => √s) 1 (1 / u ^ 2) = u - 1 := by
+  simp only [redshift, Real.sqrt_one]
+  rw [Real.sqrt_div' 1 (sq_nonneg u), Real.sqrt_one, Real.sqrt_sq hu.le]
+  field_simp
+
+theorem t3_eq : (1 / 8 : ℝ) = 1 / (2 * √2) ^ 2 := by
+  rw [mul_pow, Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)]; norm_num
+
+theorem t5_eq : (1 / 32 : ℝ) = 1 / (4 * √2) ^ 2 := by
+  rw [mul_pow, Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)]; norm_num
+
+theorem rad_z3 : redshift (fun s : ℝ => √s) 1 (1 / 8) = 2 * √2 - 1 := by
+  rw [t3_eq]; exact rad_z _ (by positivity)
+
+theorem rad_z5 : redshift (fun s : ℝ => √s) 1 (1 / 32) = 4 * √2 - 1 := by
+  rw [t5_eq]; exact rad_z _ (by positivity)
+
+/-- `5 log₁₀ A − 5 log₁₀ B ≤ 5e/2.3` when `A/B ≤ 1 + e`. -/
+theorem five_logb_diff_le (A B e : ℝ) (hA : 0 < A) (hB : 0 < B) (he0 : 0 ≤ e) (he : A / B ≤ 1 + e) :
+    5 * Real.logb 10 A - 5 * Real.logb 10 B ≤ 5 * e / (23 / 10) := by
+  have hl := log_ten_ge
+  have hl0 : 0 < Real.log 10 := by linarith
+  have hAB : 0 < A / B := div_pos hA hB
+  have h1 : Real.log (A / B) ≤ A / B - 1 := Real.log_le_sub_one_of_pos hAB
+  rw [← mul_sub, ← Real.logb_div hA.ne' hB.ne', Real.logb]
+  have h2 : Real.log (A / B) / Real.log 10 ≤ e / (23 / 10) := by
+    rcases le_or_gt (Real.log (A / B)) 0 with h | h
+    · have : Real.log (A / B) / Real.log 10 ≤ 0 := div_nonpos_of_nonpos_of_nonneg h hl0.le
+      linarith [div_nonneg he0 (by norm_num : (0:ℝ) ≤ 23 / 10)]
+    · rw [div_le_div_iff₀ hl0 (by norm_num)]
+      nlinarith
+  linarith
+
+/-- The radiation model's residual difference for any quartic positive at both redshifts. -/
+theorem rad_diff_le (a₂ a₃ a₄ e : ℝ) (he0 : 0 ≤ e) (lumD : ℝ → ℝ)
+    (hd3 : lumD (1 / 8) = 2 * (2 * √2 - 1)) (hd5 : lumD (1 / 32) = 2 * (4 * √2 - 1))
+    (hQ3 : 0 < 3 / 2 * (Real.log 2 / Real.log 10) + a₂ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + a₃ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + a₄ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4)
+    (hQ5 : 0 < 5 / 2 * (Real.log 2 / Real.log 10) + a₂ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + a₃ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + a₄ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4)
+    (hX : (4 * √2 - 1) * (3 / 2 * (Real.log 2 / Real.log 10)
+        + a₂ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+        + a₃ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + a₄ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4)
+      ≤ (1 + e) * ((2 * √2 - 1) * (5 / 2 * (Real.log 2 / Real.log 10)
+        + a₂ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+        + a₃ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3
+        + a₄ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4))) :
+    5 * Real.logb 10 (lumD (1 / 32) / logPolyDL4 a₂ a₃ a₄ 1
+        (redshift (fun s : ℝ => √s) 1 (1 / 32)))
+      - 5 * Real.logb 10 (lumD (1 / 8) / logPolyDL4 a₂ a₃ a₄ 1
+        (redshift (fun s : ℝ => √s) 1 (1 / 8))) ≤ 5 * e / (23 / 10) := by
+  rw [rad_z3, rad_z5, lp4_eq _ _ _ _ _ _ x3_eq, lp4_eq _ _ _ _ _ _ x5_eq, hd3, hd5]
+  have hz3 := z3_pos
+  have hz5 := z5_pos
+  have hl0 : 0 < Real.log 10 := Real.log_pos (by norm_num)
+  set Q3 := 3 / 2 * (Real.log 2 / Real.log 10) + a₂ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + a₃ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + a₄ * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4
+  set Q5 := 5 / 2 * (Real.log 2 / Real.log 10) + a₂ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + a₃ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + a₄ * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4
+  apply five_logb_diff_le _ _ e (by positivity) (by positivity) he0
+  rw [div_div_div_eq, div_le_iff₀ (by positivity)]
+  rw [div_one]
+  nlinarith [mul_le_mul_of_nonneg_left hX (show (0:ℝ) ≤ 2 * Real.log 10 by linarith)]
+
+theorem chain_le (z5 Q3 u5 U3 z3 Q5 l3 L5 k : ℝ) (h1 : 0 ≤ z5) (h2 : z5 ≤ u5) (h3 : 0 ≤ Q3)
+    (h4 : Q3 ≤ U3) (h5 : l3 ≤ z3) (h6 : L5 ≤ Q5) (h7 : 0 ≤ l3) (h8 : 0 ≤ L5)
+    (h9 : u5 * U3 ≤ k * (l3 * L5)) (hk : 0 ≤ k) : z5 * Q3 ≤ k * (z3 * Q5) := by
+  have a1 : z5 * Q3 ≤ u5 * U3 := mul_le_mul h2 h4 h3 (le_trans h1 h2)
+  have a2 : l3 * L5 ≤ z3 * Q5 := mul_le_mul h5 h6 h8 (le_trans h7 h5)
+  nlinarith [mul_le_mul_of_nonneg_left a2 hk]
+
+theorem rad_lumDist (t : ℝ) (ht : 0 < t) (ht1 : t ≤ 1) :
+    Checked.Cosmography.BambaK.lumDist 0 (fun s : ℝ => √s) 1 t
+      = 2 * redshift (fun s : ℝ => √s) 1 t := by
+  rw [← rad_dL t ht ht1]
+  simp [Checked.Cosmography.BambaK.lumDist, lumDistFlat, Checked.Cosmography.Transverse.transverse]
+
+theorem rad_omega0 : Checked.Cosmography.BambaK.omega0 0 (fun s : ℝ => √s) 1 = 1 := by
+  simp [Checked.Cosmography.BambaK.omega0]
+
+theorem l19_sq_central_h8 : necessity% Checked.Cosmography.B1L19.l19_sq_central 8 := by
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  obtain ⟨q1, q2⟩ := sqrt2_bounds
+  have hQ3 : 0 < 3 / 2 * (Real.log 2 / Real.log 10) + (3.075) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4.466) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-3.716) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hQ5 : 3.2050 ≤ 5 / 2 * (Real.log 2 / Real.log 10) + (3.075) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4.466) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-3.716) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hU3 : 3 / 2 * (Real.log 2 / Real.log 10) + (3.075) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4.466) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-3.716) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 ≤ 1.3360 := by nlinarith
+  have hD := rad_diff_le (3.075) (4.466) (-3.716) (1 / 10) (by norm_num) (lumDistFlat (fun s : ℝ => √s) 1) (by rw [rad_dL _ (by norm_num) (by norm_num), rad_z3])
+    (by rw [rad_dL _ (by norm_num) (by norm_num), rad_z5]) hQ3 (by linarith)
+    (chain_le _ _ (4 * 1.41421357 - 1) 1.3360 _ _ (2 * 1.41421356 - 1) 3.2050 _ (by linarith) (by linarith)
+      hQ3.le hU3 (by linarith) hQ5 (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  refine ⟨1 / 5, by norm_num, by norm_num, fun s : ℝ => √s, 1 / 32, 1 / 8, 1, by norm_num, by norm_num,
+    rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, rad_z3, rad_z5, 1, one_pos, ?_⟩
+  norm_num at hD ⊢; linarith
+
+theorem l19_sqg_central_h8 : necessity% Checked.Cosmography.B1L19.l19_sqg_central 8 := by
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  obtain ⟨q1, q2⟩ := sqrt2_bounds
+  have hQ3 : 0 < 3 / 2 * (Real.log 2 / Real.log 10) + (3.205) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (3.564) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2.510) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hQ5 : 3.281 ≤ 5 / 2 * (Real.log 2 / Real.log 10) + (3.205) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (3.564) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2.510) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hU3 : 3 / 2 * (Real.log 2 / Real.log 10) + (3.205) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (3.564) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2.510) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 ≤ 1.3295 := by nlinarith
+  have hD := rad_diff_le (3.205) (3.564) (-2.510) (6 / 100) (by norm_num) (lumDistFlat (fun s : ℝ => √s) 1) (by rw [rad_dL _ (by norm_num) (by norm_num), rad_z3])
+    (by rw [rad_dL _ (by norm_num) (by norm_num), rad_z5]) hQ3 (by linarith)
+    (chain_le _ _ (4 * 1.41421357 - 1) 1.3295 _ _ (2 * 1.41421356 - 1) 3.281 _ (by linarith) (by linarith)
+      hQ3.le hU3 (by linarith) hQ5 (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  refine ⟨1 / 5, by norm_num, by norm_num, fun s : ℝ => √s, 1 / 32, 1 / 8, 1, by norm_num, by norm_num,
+    rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, rad_z3, rad_z5, 1, one_pos, ?_⟩
+  norm_num at hD ⊢; linarith
+
+theorem l19_sq_curved_h10 : necessity% Checked.Cosmography.B1L19Curved.l19_sq_curved 10 := by
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  obtain ⟨q1, q2⟩ := sqrt2_bounds
+  have hQ3 : 0 < 3 / 2 * (Real.log 2 / Real.log 10) + (3.075) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4.466) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-3.716) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hQ5 : 3.2050 ≤ 5 / 2 * (Real.log 2 / Real.log 10) + (3.075) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4.466) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-3.716) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hU3 : 3 / 2 * (Real.log 2 / Real.log 10) + (3.075) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4.466) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-3.716) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 ≤ 1.3360 := by nlinarith
+  have hD := rad_diff_le (3.075) (4.466) (-3.716) (1 / 10) (by norm_num) (Checked.Cosmography.BambaK.lumDist 0 (fun s : ℝ => √s) 1) (by rw [rad_lumDist _ (by norm_num) (by norm_num), rad_z3])
+    (by rw [rad_lumDist _ (by norm_num) (by norm_num), rad_z5]) hQ3 (by linarith)
+    (chain_le _ _ (4 * 1.41421357 - 1) 1.3360 _ _ (2 * 1.41421356 - 1) 3.2050 _ (by linarith) (by linarith)
+      hQ3.le hU3 (by linarith) hQ5 (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  refine ⟨1 / 5, 0, by norm_num, by norm_num, fun s : ℝ => √s, 1 / 32, 1 / 8, 1, by norm_num, by norm_num,
+    rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, by rw [rad_omega0], by rw [rad_omega0]; norm_num, rad_z3, rad_z5, 1, one_pos, ?_⟩
+  norm_num at hD ⊢; linarith
+
+theorem l19_sqg_curved_h10 : necessity% Checked.Cosmography.B1L19Curved.l19_sqg_curved 10 := by
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  obtain ⟨q1, q2⟩ := sqrt2_bounds
+  have hQ3 : 0 < 3 / 2 * (Real.log 2 / Real.log 10) + (3.205) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (3.564) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2.510) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hQ5 : 3.281 ≤ 5 / 2 * (Real.log 2 / Real.log 10) + (3.205) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (3.564) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2.510) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hU3 : 3 / 2 * (Real.log 2 / Real.log 10) + (3.205) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (3.564) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2.510) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 ≤ 1.3295 := by nlinarith
+  have hD := rad_diff_le (3.205) (3.564) (-2.510) (6 / 100) (by norm_num) (Checked.Cosmography.BambaK.lumDist 0 (fun s : ℝ => √s) 1) (by rw [rad_lumDist _ (by norm_num) (by norm_num), rad_z3])
+    (by rw [rad_lumDist _ (by norm_num) (by norm_num), rad_z5]) hQ3 (by linarith)
+    (chain_le _ _ (4 * 1.41421357 - 1) 1.3295 _ _ (2 * 1.41421356 - 1) 3.281 _ (by linarith) (by linarith)
+      hQ3.le hU3 (by linarith) hQ5 (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  refine ⟨1 / 5, 0, by norm_num, by norm_num, fun s : ℝ => √s, 1 / 32, 1 / 8, 1, by norm_num, by norm_num,
+    rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, by rw [rad_omega0], by rw [rad_omega0]; norm_num, rad_z3, rad_z5, 1, one_pos, ?_⟩
+  norm_num at hD ⊢; linarith
+
+theorem l19_sq_box_h8 : necessity% Checked.Cosmography.B1L19.l19_sq_box 8 := by
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  obtain ⟨q1, q2⟩ := sqrt2_bounds
+  have hQ3 : 0 < 3 / 2 * (Real.log 2 / Real.log 10) + (31 / 10) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hQ5 : 3.571 ≤ 5 / 2 * (Real.log 2 / Real.log 10) + (31 / 10) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hU3 : 3 / 2 * (Real.log 2 / Real.log 10) + (31 / 10) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 ≤ 1.3695 := by nlinarith
+  have hD := rad_diff_le (31 / 10) (4) (-2) (0) (by norm_num) (lumDistFlat (fun s : ℝ => √s) 1) (by rw [rad_dL _ (by norm_num) (by norm_num), rad_z3])
+    (by rw [rad_dL _ (by norm_num) (by norm_num), rad_z5]) hQ3 (by linarith)
+    (chain_le _ _ (4 * 1.41421357 - 1) 1.3695 _ _ (2 * 1.41421356 - 1) 3.571 _ (by linarith) (by linarith)
+      hQ3.le hU3 (by linarith) hQ5 (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  refine ⟨1 / 5, by norm_num, by norm_num, fun s : ℝ => √s, 1 / 32, 1 / 8, 1, by norm_num, by norm_num,
+    rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, rad_z3, rad_z5, 31 / 10, 4, -2, 1, one_pos, by norm_num, by norm_num, by norm_num, ?_, ?_⟩
+  · rw [rad_z5]
+    exact quartic_pos5 _ _ _ 1 one_pos (31 / 10) 4 (-2) le_rfl le_rfl le_rfl (by norm_num)
+      (by norm_num) (by norm_num) (by norm_num)
+  · norm_num at hD ⊢; linarith
+
+theorem l19_sqg_box_h8 : necessity% Checked.Cosmography.B1L19.l19_sqg_box 8 := by
+  obtain ⟨l1, l2, l3, l4, l5, l6, l7, l8⟩ := L_pows
+  obtain ⟨q1, q2⟩ := sqrt2_bounds
+  have hQ3 : 0 < 3 / 2 * (Real.log 2 / Real.log 10) + (31 / 10) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hQ5 : 3.571 ≤ 5 / 2 * (Real.log 2 / Real.log 10) + (31 / 10) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2) * (5 / 2 * (Real.log 2 / Real.log 10)) ^ 4 := by nlinarith
+  have hU3 : 3 / 2 * (Real.log 2 / Real.log 10) + (31 / 10) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 2
+      + (4) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 3 + (-2) * (3 / 2 * (Real.log 2 / Real.log 10)) ^ 4 ≤ 1.3695 := by nlinarith
+  have hD := rad_diff_le (31 / 10) (4) (-2) (0) (by norm_num) (lumDistFlat (fun s : ℝ => √s) 1) (by rw [rad_dL _ (by norm_num) (by norm_num), rad_z3])
+    (by rw [rad_dL _ (by norm_num) (by norm_num), rad_z5]) hQ3 (by linarith)
+    (chain_le _ _ (4 * 1.41421357 - 1) 1.3695 _ _ (2 * 1.41421356 - 1) 3.571 _ (by linarith) (by linarith)
+      hQ3.le hU3 (by linarith) hQ5 (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  refine ⟨1 / 5, by norm_num, by norm_num, fun s : ℝ => √s, 1 / 32, 1 / 8, 1, by norm_num, by norm_num,
+    rad_pos _ (by norm_num), rad_diff _ (by norm_num), rad_H0, rad_z3, rad_z5, 31 / 10, 4, -2, 1, one_pos, by norm_num, by norm_num, by norm_num, ?_, ?_⟩
+  · rw [rad_z5]
+    exact quartic_pos5 _ _ _ 1 one_pos (31 / 10) 4 (-2) le_rfl le_rfl le_rfl (by norm_num)
+      (by norm_num) (by norm_num) (by norm_num)
+  · norm_num at hD ⊢; linarith
+
+end Radiation
+
 end Checked.Trust.NCL
