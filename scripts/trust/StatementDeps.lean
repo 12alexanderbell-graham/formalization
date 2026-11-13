@@ -1092,7 +1092,12 @@ run_cmd do
         nCited := nCited + 1
         -- exempt: pure-mathematics lemmas whose statement uses no program definition
         let pure := ((deps env {} (env.find? thms[0]!).get!.type {}).toList.filter (reportable env)).isEmpty
-        unless headSet.contains thms[0]! || pure do
+        -- exempt (run 2026-11-13T2028Z): agreement theorems of `Checked.Trust.Transcriptions`, which the
+        -- generated Printed lines of FINDINGS.md cite (check_findings.py FB11, run 2026-11-13T1828Z). Every
+        -- theorem in that namespace is a checked agreement with a blind second reading or a blocking error
+        -- (`badAgree` above), so a cited one carries the T3 checks; it is not a headline.
+        let transcription := (`Checked.Trust.Transcriptions).isPrefixOf thms[0]!
+        unless headSet.contains thms[0]! || pure || transcription do
           errors := errors.push s!"STATE.md/FINDINGS.md cite {thms[0]!}, which is not in scripts/trust/headlines.txt (unregistered headlines escape every check)"
   logInfo m!"records: {nCited} theorem citations in STATE.md and FINDINGS.md checked against headlines.txt"
   -- certified numbers (run 2026-10-31T0228Z; red-team defects A06, B07 changed numbers in

@@ -27,7 +27,10 @@ from local_frozen_step import TRUST_STEP, step_block, step_commands  # noqa: E40
 def commands(yml):
     trust = [l.strip() for l in step_block(yml, TRUST_STEP).splitlines() if l.strip().startswith("python3")]
     frozen = [c for c in step_commands(yml) if c.startswith("python3")]
-    return ["python3 scripts/goal_guard.py", "python3 validation/make_packet.py --check"] + trust + frozen
+    # precheck_citations (run 2026-11-13T2028Z): the citation registry rule lives in StatementDeps (Lean); run 1828Z
+    # changed FINDINGS.md citations with Python checks only and every push from af2cc09 would have failed the trust step
+    return (["python3 scripts/goal_guard.py", "python3 validation/make_packet.py --check",
+             "python3 scripts/trust/precheck_citations.py"] + trust + frozen)
 
 
 def main():

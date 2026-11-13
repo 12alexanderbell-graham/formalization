@@ -1,3 +1,31 @@
 # Run 2026-11-13T2028Z (scheduled)
 
-(stub; filled at the end)
+**THE RESULT:** part 1 by rotation (parts 2/5 moved at 1640Z, part 3 at 1828Z; part 1 last as the main part at 1522Z) — the wall conditions of nine attached-boundary-layer claims are now shown, by machine-checked counterexamples, to carry the result: in the seven Ganapol-row windows β = −0.13 … −0.19, in the β = −0.1988 window and in the verified finding F13's record, dropping f(0) = 0 or p(0) = 0 admits a genuine Falkner–Skan solution of the same β with every other hypothesis met and a wall shear outside the window. The witnesses are translates of the reversed-flow solution of the same row, located by the certified cells of its existing tube (no new certificates). Plus a CI repair that would otherwise have turned main red (StatementDeps citation registry vs run 1828Z's generated Printed lines).
+
+**What can a scientist now trust without checking it themselves, that they could not before?** That the no-slip and no-transpiration wall conditions in these nine wall-shear claims are not decoration: each is needed, shown by a Checked theorem exhibiting a solution (blowing at the wall, or a wall moving downstream) whose wall shear leaves the stated window. Measure: open hypotheses 279 → 261 (needed 530 → 548) in the generated TRUST_MAP.
+
+**Weakest unchecked step:** hypothesis 8 (the fast-approach class "for every M, eventually M(1 − p) ≤ q") is still open in all nine; a witness needs an attached solution approaching the edge velocity algebraically, i.e. a global existence argument with a tail, not a finite certificate. CI has not yet judged this run's push (nor run 1640Z's promotion: 7911453's checked job was cancelled in favour of later pushes).
+
+## Start
+- 20:28Z. add_repo not exposed; pre-cloned checkout detached at 36d2a3d with a stale local main (diverged 54/50); `git checkout -B main origin/main` = 36d2a3d (shallow). No LOCK → taken (70e30b8).
+- CI at start: 43462297471 (c5c2a35, run 1522Z) **green on every job**; 43482419250 (7911453) work and nanoda 0, 1, 3 green, nanoda 2 still running, checked job cancelled (superseded); 43490025005 (af2cc09) red at goal guard only (stub README, fixed by 36d2a3d); 43490290696 (36d2a3d) pending.
+- Local Lean: elan + Mathlib cache ≈ 4 min; CI artifact `checked-build` of 43462297471 (c5c2a35) restored in 35 s; NegWallShearRowsTop and run 1640Z's 12 FSAtt modules built in 6.3 min; whole `lake build Checked` after the new modules ≈ 2 min incremental.
+
+## Bottleneck (and what a yes/no changes)
+- STATE 0h/0i: open hypotheses 4, 5 (wall conditions) and 8 (fast-approach class) of the attached-row windows; 4/5 were planned "by suction or moving-wall solutions", i.e. a new shooting stack with a wall parameter. Yes (a cheaper witness): 18 classifications without new certificates. No: record the cost of the suction port.
+
+## What we did
+1. **Idea.** The Falkner–Skan equation is autonomous in η. The reversed-flow solution of the same β (Checked existence, rows 13–19 and −0.1988) has p dipping below zero and returning, and f dipping below zero and returning. Translated to the return point of p it is a solution with p(0) = 0, f(0) < 0 (blowing); translated to the return point of f it has f(0) = 0, p(0) > 0 (wall moving downstream). The edge limit and the fast-approach class are invariant under translation; positivity of q after the point follows from the equation because β < 0 and −1 < p < 1 (`pos_after`: at a zero of q, q′ = −β(1 − p²) > 0). Numerically (scipy), q at the p-return is below every window and q at the f-return above it, by margins ≥ 0.014 (rows) and 6·10⁻⁵ (−0.1988).
+2. **Locating the points with certificates already in Checked.** `RAssemble.core_rev`'s solution is the rescaled clamped flow from (0, 0, a), a in the tube's interval, so every cell of the row's tube (`Checked/FSRev/R<k>Tube.lean`, weighted one-sided cells, radii ~10⁻¹⁰) encloses it. New `Checked/FSRev/RFlowCells.lean`: `core_rev_flow` (core_rev with a exposed), `chain_box` (every cell of a checked chain is entered at its ball), `cell_bounds`, `cell_start`, `qshift`/`sub_bounds` (Taylor-shifted cell polynomial on a sub-interval), `pos_after`, translates. Generator `scripts/gen_necY.py` (exact rationals) finds, per row, the cell where the component changes certified sign at the cell starts (or, at −0.1988, a sub-interval of h/64) and emits `Checked/Trust/NecessityY.lean`; every bound is re-decided by the kernel.
+3. **Result:** 18 `necessity%` theorems (`fs_neg_wall_shear_<k>_window_h4/_h5`, k = 13 … 19; `fs_neg_wall_shear_window_h4/_h5`; `F13_wall_shear_h4/_h5`), axioms propext, Classical.choice, Quot.sound only. Whole file 72 s.
+4. **CI repair found on the way:** the local StatementDeps run failed with 16 registry errors "STATE.md/FINDINGS.md cite Checked.Trust.Transcriptions.agree_…, which is not in headlines.txt": run 1828Z's generated Printed lines (FB11) cite agreement theorems; run 1828Z had no local Lean, so CI of af2cc09/36d2a3d would have failed at the trust step. Repair: cited theorems of `Checked.Trust.Transcriptions` are exempt (every theorem there is a checked blind-reading agreement or a blocking error). LEDGER line.
+
+## Not done / next
+- Hypothesis 8 in the nine headlines (algebraically decaying attached solutions: global existence).
+- The same translate trick for the other families with open wall conditions: `fs_separation_*` (4, 5), `fs_neg_reversed_printed_overshoots` (1, 4, 5) — check which reversed or attached solutions exist at those β.
+
+## Local checks and push
+- `lake build Checked` green on the restored build (incremental); `#print axioms` of two of the new theorems: propext, Classical.choice, Quot.sound.
+- `TRUST_RELOCK=1 lake env lean scripts/trust/StatementDeps.lean` exit 0 (needed 548, redundant 153, open 261; 279 headlines; NV 168/168); `Claims.lean`: CLAIMS.md unchanged (no new headline); `make_packet --check` up to date.
+- `records_check.py c5c2a35` (now including `precheck_citations.py`): 41 commands, 0 failed — after one repair: the first NecessityY module doc named β values that are no headline literals of the file (check_prose); reworded before the relock.
+- Final push removes the LOCK and starts the main run; it supersedes 36d2a3d's pending run (which would have failed at StatementDeps).

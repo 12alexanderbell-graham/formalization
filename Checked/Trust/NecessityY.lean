@@ -23,9 +23,14 @@ import Checked.FSRev.RThirteenSlow
 import Checked.FSRev.RThirteenTube
 import Checked.FalknerSkan.NegWallShearRows
 import Checked.FalknerSkan.NegWallShearRowsTop
+import Checked.FSRev.R1988Tube
+import Checked.FSRev.R1988Over
+import Checked.FSRev.R1988Slow
+import Checked.FalknerSkan.NegWallShear
+import Checked.Records.FalknerSkan
 
-/-! Hypothesis necessity for the attached Falkner–Skan window headlines of the decelerating rows read blind
-(β = −0.13 … −0.19): the two wall conditions are needed. Witness: the reversed-flow solution of the same row
+/-! Hypothesis necessity for the attached Falkner–Skan window headlines of the seven decelerating rows read blind,
+for the window headline near separation and for the record `F13_wall_shear`: the two wall conditions are needed. Witness: the reversed-flow solution of the same row
 (the construction behind the Checked reversed-flow existence headline, `RFlowCells.core_rev_flow`), translated
 along the half-line. Its velocity dips below zero and returns; translated to that return point it satisfies
 p(0) = 0 with f(0) < 0 (blowing at the wall) and every other hypothesis, and its wall shear lies below the
@@ -1403,5 +1408,287 @@ theorem fs_neg_wall_shear_19_window_h5 : necessity% Checked.FalknerSkan.NegWallS
     have hr : Real.sqrt (100 / 19 : ℝ) < ((2294159 / 1000000 : ℝ)) := (Real.sqrt_lt' (by norm_num)).2 (by norm_num)
     rw [div_lt_iff₀ hc] at h2
     nlinarith
+
+/-- Row 1988: every solution of the clamped field from (0, 0, α), α in the tube's ball, has a zero of
+p in [189/8192, 95/4096] (inside cell 2 of `Checked.FSRev.R1988Tube`) at which 5691/500000 ≤ q ≤ 11627/1000000. -/
+theorem cross_p_1988 {Y : ℝ → ℝ × ℝ × ℝ}
+    (hY : ∀ t ∈ Icc (0 : ℝ) (3 / 2 : ℝ), HasDerivWithinAt Y (vS (2500 / 497 : ℝ) t (Y t)) (Icc 0 (3 / 2 : ℝ)) t)
+    {α : ℝ} (h0 : Y 0 = (0, 0, α)) (hα : |α - (-11567095 / 1000000000)| ≤ 11 / 500000000) :
+    ∃ t ∈ Icc (189 / 8192 : ℝ) (95 / 4096 : ℝ), (Y t).2.1 = 0 ∧
+      (5691 / 500000 : ℝ) ≤ (Y t).2.2 ∧ (Y t).2.2 ≤ (11627 / 1000000 : ℝ) := by
+  have hX : (((3/2 : ℚ) : ℚ) : ℝ) = (3 / 2 : ℝ) := by norm_num
+  have hK : (((2500/497 : ℚ) : ℚ) : ℝ) = (2500 / 497 : ℝ) := by norm_num
+  have hs : SolC (((2500/497 : ℚ) : ℚ) : ℝ) (((3/2 : ℚ) : ℚ) : ℝ) 0 (fun t => (Y t).1) (fun t => (Y t).2.1) (fun t => (Y t).2.2) := by
+    rw [hX, hK]
+    exact ⟨fun t ht => (hY t ht).fst, fun t ht => (hY t ht).snd.fst, fun t ht => (hY t ht).snd.snd⟩
+  have z0 : ((Checked.FSRev.R1988Tube.c0.t0 : ℚ) : ℝ) = 0 := by simp [Checked.FSRev.R1988Tube.c0]
+  have b0 : InBox Checked.FSRev.R1988Tube.c0 (fun t => (Y t).1) (fun t => (Y t).2.1) (fun t => (Y t).2.2) := by
+    unfold InBox; simp only [z0, h0]
+    simp only [V, Checked.FSRev.R1988Tube.c0, List.headD_cons]; push_cast
+    have hα' := abs_le.1 hα
+    nlinarith [hα'.1, hα'.2]
+  obtain ⟨kc, xc⟩ := chain_box [Checked.FSRev.R1988Tube.c1, Checked.FSRev.R1988Tube.c2, Checked.FSRev.R1988Tube.c3, Checked.FSRev.R1988Tube.c4, Checked.FSRev.R1988Tube.c5, Checked.FSRev.R1988Tube.c6, Checked.FSRev.R1988Tube.c7] Checked.FSRev.R1988Tube.c0 Checked.FSRev.R1988Tube.seg0_ok hs b0 Checked.FSRev.R1988Tube.c2 (by simp)
+  have E1 : ((Checked.FSRev.R1988Tube.c2.t0 : ℚ) : ℝ) + (((61/8192 : ℚ) : ℚ) : ℝ) = (189 / 8192 : ℝ) := by norm_num [Checked.FSRev.R1988Tube.c2]
+  have E2 : ((Checked.FSRev.R1988Tube.c2.t0 : ℚ) : ℝ) + (((31/4096 : ℚ) : ℚ) : ℝ) = (95 / 4096 : ℝ) := by norm_num [Checked.FSRev.R1988Tube.c2]
+  have hb1 : ((61/8192 : ℚ) : ℚ) ≤ Checked.FSRev.R1988Tube.c2.h := by decide +kernel
+  have hb2 : ((31/4096 : ℚ) : ℚ) ≤ Checked.FSRev.R1988Tube.c2.h := by decide +kernel
+  have SA := sub_bounds Checked.FSRev.R1988Tube.c2 kc hs xc (61/8192 : ℚ) (61/8192 : ℚ) (by norm_num) le_rfl hb1 (189 / 8192 : ℝ) (by rw [E1]; exact ⟨le_rfl, le_rfl⟩)
+  have SB := sub_bounds Checked.FSRev.R1988Tube.c2 kc hs xc (31/4096 : ℚ) (31/4096 : ℚ) (by norm_num) le_rfl hb2 (95 / 4096 : ℝ) (by rw [E2]; exact ⟨le_rfl, le_rfl⟩)
+  have SQ := fun t (ht : t ∈ Icc (189 / 8192 : ℝ) (95 / 4096 : ℝ)) => sub_bounds Checked.FSRev.R1988Tube.c2 kc hs xc (61/8192 : ℚ) (31/4096 : ℚ) (by norm_num) (by norm_num) hb2 t (by rw [E1, E2]; exact ht)
+  have ni := (Rat.cast_lt (K := ℝ)).2 (show shi Checked.FSRev.R1988Tube.c2.pp (61/8192 : ℚ) ((61/8192 : ℚ) - (61/8192 : ℚ)) + Checked.FSRev.R1988Tube.c2.r2 < 0 by decide +kernel)
+  have nj := (Rat.cast_lt (K := ℝ)).2 (show 0 < slo Checked.FSRev.R1988Tube.c2.pp (31/4096 : ℚ) ((31/4096 : ℚ) - (31/4096 : ℚ)) - Checked.FSRev.R1988Tube.c2.r2 by decide +kernel)
+  rw [Rat.cast_zero] at ni nj
+  have nqa := (Rat.cast_le (K := ℝ)).2 (show (5691/500000 : ℚ) ≤ slo Checked.FSRev.R1988Tube.c2.pq (61/8192 : ℚ) ((31/4096 : ℚ) - (61/8192 : ℚ)) - Checked.FSRev.R1988Tube.c2.B by decide +kernel)
+  have nqb := (Rat.cast_le (K := ℝ)).2 (show shi Checked.FSRev.R1988Tube.c2.pq (61/8192 : ℚ) ((31/4096 : ℚ) - (61/8192 : ℚ)) + Checked.FSRev.R1988Tube.c2.B ≤ (11627/1000000 : ℚ) by decide +kernel)
+  have nqc : (((5691/500000 : ℚ) : ℚ) : ℝ) = (5691 / 500000 : ℝ) := by norm_num
+  have nqd : (((11627/1000000 : ℚ) : ℚ) : ℝ) = (11627 / 1000000 : ℝ) := by norm_num
+  have hpa : (Y (189 / 8192 : ℝ)).2.1 < 0 := by
+    linarith [SA.2.2.2.1]
+  have hpb : 0 < (Y (95 / 4096 : ℝ)).2.1 := by
+    linarith [SB.2.2.1]
+  have hcont : ContinuousOn (fun t => (Y t).2.1) (Icc (189 / 8192 : ℝ) (95 / 4096 : ℝ)) := by
+    intro t ht
+    have ht' : t ∈ Icc (0 : ℝ) (3 / 2) := ⟨by linarith [ht.1], by linarith [ht.2]⟩
+    exact ((hY t ht').continuousWithinAt.mono (fun x hx => ⟨by linarith [hx.1], by linarith [hx.2]⟩)).snd.fst
+  obtain ⟨t, ht, hz⟩ := cross (by norm_num) hcont hpa hpb
+  refine ⟨t, ht, hz, ?_⟩
+  have c := SQ t ht
+  exact ⟨by linarith [c.2.2.2.2.1], by linarith [c.2.2.2.2.2]⟩
+
+/-- Row 1988: every solution of the clamped field from (0, 0, α), α in the tube's ball, has a zero of
+the stream function in [141/4096, 143/4096] (inside cell 4 of `Checked.FSRev.R1988Tube`) at which 699/31250 ≤ q ≤ 11673/500000. -/
+theorem cross_g_1988 {Y : ℝ → ℝ × ℝ × ℝ}
+    (hY : ∀ t ∈ Icc (0 : ℝ) (3 / 2 : ℝ), HasDerivWithinAt Y (vS (2500 / 497 : ℝ) t (Y t)) (Icc 0 (3 / 2 : ℝ)) t)
+    {α : ℝ} (h0 : Y 0 = (0, 0, α)) (hα : |α - (-11567095 / 1000000000)| ≤ 11 / 500000000) :
+    ∃ t ∈ Icc (141 / 4096 : ℝ) (143 / 4096 : ℝ), (Y t).1 = 0 ∧
+      (699 / 31250 : ℝ) ≤ (Y t).2.2 ∧ (Y t).2.2 ≤ (11673 / 500000 : ℝ) := by
+  have hX : (((3/2 : ℚ) : ℚ) : ℝ) = (3 / 2 : ℝ) := by norm_num
+  have hK : (((2500/497 : ℚ) : ℚ) : ℝ) = (2500 / 497 : ℝ) := by norm_num
+  have hs : SolC (((2500/497 : ℚ) : ℚ) : ℝ) (((3/2 : ℚ) : ℚ) : ℝ) 0 (fun t => (Y t).1) (fun t => (Y t).2.1) (fun t => (Y t).2.2) := by
+    rw [hX, hK]
+    exact ⟨fun t ht => (hY t ht).fst, fun t ht => (hY t ht).snd.fst, fun t ht => (hY t ht).snd.snd⟩
+  have z0 : ((Checked.FSRev.R1988Tube.c0.t0 : ℚ) : ℝ) = 0 := by simp [Checked.FSRev.R1988Tube.c0]
+  have b0 : InBox Checked.FSRev.R1988Tube.c0 (fun t => (Y t).1) (fun t => (Y t).2.1) (fun t => (Y t).2.2) := by
+    unfold InBox; simp only [z0, h0]
+    simp only [V, Checked.FSRev.R1988Tube.c0, List.headD_cons]; push_cast
+    have hα' := abs_le.1 hα
+    nlinarith [hα'.1, hα'.2]
+  obtain ⟨kc, xc⟩ := chain_box [Checked.FSRev.R1988Tube.c1, Checked.FSRev.R1988Tube.c2, Checked.FSRev.R1988Tube.c3, Checked.FSRev.R1988Tube.c4, Checked.FSRev.R1988Tube.c5, Checked.FSRev.R1988Tube.c6, Checked.FSRev.R1988Tube.c7] Checked.FSRev.R1988Tube.c0 Checked.FSRev.R1988Tube.seg0_ok hs b0 Checked.FSRev.R1988Tube.c4 (by simp)
+  have E1 : ((Checked.FSRev.R1988Tube.c4.t0 : ℚ) : ℝ) + (((13/4096 : ℚ) : ℚ) : ℝ) = (141 / 4096 : ℝ) := by norm_num [Checked.FSRev.R1988Tube.c4]
+  have E2 : ((Checked.FSRev.R1988Tube.c4.t0 : ℚ) : ℝ) + (((15/4096 : ℚ) : ℚ) : ℝ) = (143 / 4096 : ℝ) := by norm_num [Checked.FSRev.R1988Tube.c4]
+  have hb1 : ((13/4096 : ℚ) : ℚ) ≤ Checked.FSRev.R1988Tube.c4.h := by decide +kernel
+  have hb2 : ((15/4096 : ℚ) : ℚ) ≤ Checked.FSRev.R1988Tube.c4.h := by decide +kernel
+  have SA := sub_bounds Checked.FSRev.R1988Tube.c4 kc hs xc (13/4096 : ℚ) (13/4096 : ℚ) (by norm_num) le_rfl hb1 (141 / 4096 : ℝ) (by rw [E1]; exact ⟨le_rfl, le_rfl⟩)
+  have SB := sub_bounds Checked.FSRev.R1988Tube.c4 kc hs xc (15/4096 : ℚ) (15/4096 : ℚ) (by norm_num) le_rfl hb2 (143 / 4096 : ℝ) (by rw [E2]; exact ⟨le_rfl, le_rfl⟩)
+  have SQ := fun t (ht : t ∈ Icc (141 / 4096 : ℝ) (143 / 4096 : ℝ)) => sub_bounds Checked.FSRev.R1988Tube.c4 kc hs xc (13/4096 : ℚ) (15/4096 : ℚ) (by norm_num) (by norm_num) hb2 t (by rw [E1, E2]; exact ht)
+  have ni := (Rat.cast_lt (K := ℝ)).2 (show shi Checked.FSRev.R1988Tube.c4.pg (13/4096 : ℚ) ((13/4096 : ℚ) - (13/4096 : ℚ)) + Checked.FSRev.R1988Tube.c4.r1 < 0 by decide +kernel)
+  have nj := (Rat.cast_lt (K := ℝ)).2 (show 0 < slo Checked.FSRev.R1988Tube.c4.pg (15/4096 : ℚ) ((15/4096 : ℚ) - (15/4096 : ℚ)) - Checked.FSRev.R1988Tube.c4.r1 by decide +kernel)
+  rw [Rat.cast_zero] at ni nj
+  have nqa := (Rat.cast_le (K := ℝ)).2 (show (699/31250 : ℚ) ≤ slo Checked.FSRev.R1988Tube.c4.pq (13/4096 : ℚ) ((15/4096 : ℚ) - (13/4096 : ℚ)) - Checked.FSRev.R1988Tube.c4.B by decide +kernel)
+  have nqb := (Rat.cast_le (K := ℝ)).2 (show shi Checked.FSRev.R1988Tube.c4.pq (13/4096 : ℚ) ((15/4096 : ℚ) - (13/4096 : ℚ)) + Checked.FSRev.R1988Tube.c4.B ≤ (11673/500000 : ℚ) by decide +kernel)
+  have nqc : (((699/31250 : ℚ) : ℚ) : ℝ) = (699 / 31250 : ℝ) := by norm_num
+  have nqd : (((11673/500000 : ℚ) : ℚ) : ℝ) = (11673 / 500000 : ℝ) := by norm_num
+  have hpa : (Y (141 / 4096 : ℝ)).1 < 0 := by
+    linarith [SA.2.1]
+  have hpb : 0 < (Y (143 / 4096 : ℝ)).1 := by
+    linarith [SB.1]
+  have hcont : ContinuousOn (fun t => (Y t).1) (Icc (141 / 4096 : ℝ) (143 / 4096 : ℝ)) := by
+    intro t ht
+    have ht' : t ∈ Icc (0 : ℝ) (3 / 2) := ⟨by linarith [ht.1], by linarith [ht.2]⟩
+    exact ((hY t ht').continuousWithinAt.mono (fun x hx => ⟨by linarith [hx.1], by linarith [hx.2]⟩)).fst
+  obtain ⟨t, ht, hz⟩ := cross (by norm_num) hcont hpa hpb
+  refine ⟨t, ht, hz, ?_⟩
+  have c := SQ t ht
+  exact ⟨by linarith [c.2.2.2.2.1], by linarith [c.2.2.2.2.2]⟩
+
+/-- In `fs_neg_wall_shear_window`, the wall condition f(0) = 0 is needed: the reversed-flow solution at the same β, translated to the point where its velocity returns to zero (f(0) < 0), meets every other hypothesis and has a wall shear below the values the conclusion allows. -/
+theorem fs_neg_wall_shear_window_h4 : necessity% Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window 4 := by
+  obtain ⟨a, hla, hah, A, B, C, hlim, hpb, hdec⟩ := core_rev_flow (K := 2500 / 497) (by norm_num) (by norm_num)
+    Checked.FSRev.R1988Over.chain Checked.FSRev.R1988Slow.chain Checked.FSRev.R1988Tube.tube
+  have hα : |a - (-11567095 / 1000000000)| ≤ 11 / 500000000 := by
+    rw [abs_le]; constructor <;> linarith
+  have hc : 0 < Real.sqrt (2500 / 497 : ℝ) := Real.sqrt_pos.2 (by norm_num)
+  have hβ : (-1 / (2500 / 497 : ℝ)) = (-1988 / 10000 : ℝ) := by norm_num
+  have hb : ∀ η ∈ Ici (0 : ℝ), -1 < (flowA (2500 / 497 : ℝ) a (η / Real.sqrt (2500 / 497 : ℝ))).2.1 ∧ (flowA (2500 / 497 : ℝ) a (η / Real.sqrt (2500 / 497 : ℝ))).2.1 < 1 :=
+    fun η hη => ⟨by linarith [(hpb η hη).1], (hpb η hη).2⟩
+  obtain ⟨t, ht, hz, hqL, hqU⟩ := cross_p_1988 (flow_sol (2500 / 497 : ℝ) a (3 / 2)) (flowA_zero _ _) hα
+  have ht0 : 0 ≤ t := le_trans (by norm_num) ht.1
+  have hs : 0 ≤ Real.sqrt (2500 / 497 : ℝ) * t := mul_nonneg hc.le ht0
+  have hst : Real.sqrt (2500 / 497 : ℝ) * t / Real.sqrt (2500 / 497 : ℝ) = t := by field_simp
+  have hq0 : 0 < (flowA (2500 / 497 : ℝ) a (Real.sqrt (2500 / 497 : ℝ) * t / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [hst]; exact div_pos (by linarith) hc
+  have hpos := pos_after (β := -1 / (2500 / 497 : ℝ)) (by norm_num) C hb hs hq0
+  have hC : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt (fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ))
+      (-((Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1) *
+          ((flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ))) -
+        (-1988 / 10000 : ℝ) * (1 - (flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1 ^ 2)) (Ici 0) η := by
+    intro η hη
+    have := shift_deriv hs C η hη
+    rw [hβ] at this
+    exact this
+  have hr : ((448561 / 200000 : ℝ)) < Real.sqrt (2500 / 497 : ℝ) := (Real.lt_sqrt (by norm_num)).2 (by norm_num)
+  have hx : (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) < (52181 / 10000000 : ℝ) := by
+    rw [div_lt_iff₀ hc]; nlinarith
+  have e : (flowA (2500 / 497 : ℝ) a ((0 + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ) = (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [zero_add, hst]
+  have A' := shift_deriv hs A
+  have B' := shift_deriv hs B
+  refine ⟨fun x => Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1,
+    fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1,
+    fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ),
+    A', B', hC, ?_, shift_lim _ hlim, ?_, shift_dec _ hdec, ?_⟩
+  · show (flowA (2500 / 497 : ℝ) a ((0 + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1 = 0
+    rw [zero_add, hst]; exact hz
+  · intro η hη
+    exact hpos (η + Real.sqrt (2500 / 497 : ℝ) * t) (by linarith [mem_Ici.1 hη])
+  · rintro ⟨h1, -⟩
+    beta_reduce at h1
+    rw [e] at h1
+    linarith
+
+/-- In `fs_neg_wall_shear_window`, the wall condition p(0) = 0 is needed: the reversed-flow solution at the same β, translated to the point where its stream function returns to zero (p(0) > 0), meets every other hypothesis and has a wall shear above the values the conclusion allows. -/
+theorem fs_neg_wall_shear_window_h5 : necessity% Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window 5 := by
+  obtain ⟨a, hla, hah, A, B, C, hlim, hpb, hdec⟩ := core_rev_flow (K := 2500 / 497) (by norm_num) (by norm_num)
+    Checked.FSRev.R1988Over.chain Checked.FSRev.R1988Slow.chain Checked.FSRev.R1988Tube.tube
+  have hα : |a - (-11567095 / 1000000000)| ≤ 11 / 500000000 := by
+    rw [abs_le]; constructor <;> linarith
+  have hc : 0 < Real.sqrt (2500 / 497 : ℝ) := Real.sqrt_pos.2 (by norm_num)
+  have hβ : (-1 / (2500 / 497 : ℝ)) = (-1988 / 10000 : ℝ) := by norm_num
+  have hb : ∀ η ∈ Ici (0 : ℝ), -1 < (flowA (2500 / 497 : ℝ) a (η / Real.sqrt (2500 / 497 : ℝ))).2.1 ∧ (flowA (2500 / 497 : ℝ) a (η / Real.sqrt (2500 / 497 : ℝ))).2.1 < 1 :=
+    fun η hη => ⟨by linarith [(hpb η hη).1], (hpb η hη).2⟩
+  obtain ⟨t, ht, hz, hqL, hqU⟩ := cross_g_1988 (flow_sol (2500 / 497 : ℝ) a (3 / 2)) (flowA_zero _ _) hα
+  have ht0 : 0 ≤ t := le_trans (by norm_num) ht.1
+  have hs : 0 ≤ Real.sqrt (2500 / 497 : ℝ) * t := mul_nonneg hc.le ht0
+  have hst : Real.sqrt (2500 / 497 : ℝ) * t / Real.sqrt (2500 / 497 : ℝ) = t := by field_simp
+  have hq0 : 0 < (flowA (2500 / 497 : ℝ) a (Real.sqrt (2500 / 497 : ℝ) * t / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [hst]; exact div_pos (by linarith) hc
+  have hpos := pos_after (β := -1 / (2500 / 497 : ℝ)) (by norm_num) C hb hs hq0
+  have hC : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt (fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ))
+      (-((Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1) *
+          ((flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ))) -
+        (-1988 / 10000 : ℝ) * (1 - (flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1 ^ 2)) (Ici 0) η := by
+    intro η hη
+    have := shift_deriv hs C η hη
+    rw [hβ] at this
+    exact this
+  have hr : Real.sqrt (2500 / 497 : ℝ) < ((280351 / 125000 : ℝ)) := (Real.sqrt_lt' (by norm_num)).2 (by norm_num)
+  have hx : (26091 / 5000000 : ℝ) < (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [lt_div_iff₀ hc]; nlinarith
+  have e : (flowA (2500 / 497 : ℝ) a ((0 + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ) = (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [zero_add, hst]
+  have A' := shift_deriv hs A
+  have B' := shift_deriv hs B
+  refine ⟨fun x => Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1,
+    fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1,
+    fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ),
+    A', B', hC, ?_, shift_lim _ hlim, ?_, shift_dec _ hdec, ?_⟩
+  · show Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((0 + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1 = 0
+    rw [zero_add, hst, hz, mul_zero]
+  · intro η hη
+    exact hpos (η + Real.sqrt (2500 / 497 : ℝ) * t) (by linarith [mem_Ici.1 hη])
+  · rintro ⟨-, h2⟩
+    beta_reduce at h2
+    rw [e] at h2
+    linarith
+
+/-- In `F13_wall_shear`, the wall condition f(0) = 0 is needed: the reversed-flow solution at the same β, translated to the point where its velocity returns to zero (f(0) < 0), meets every other hypothesis and has a wall shear below the values the conclusion allows. -/
+theorem F13_wall_shear_h4 : necessity% Checked.Records.F13_wall_shear 4 := by
+  obtain ⟨a, hla, hah, A, B, C, hlim, hpb, hdec⟩ := core_rev_flow (K := 2500 / 497) (by norm_num) (by norm_num)
+    Checked.FSRev.R1988Over.chain Checked.FSRev.R1988Slow.chain Checked.FSRev.R1988Tube.tube
+  have hα : |a - (-11567095 / 1000000000)| ≤ 11 / 500000000 := by
+    rw [abs_le]; constructor <;> linarith
+  have hc : 0 < Real.sqrt (2500 / 497 : ℝ) := Real.sqrt_pos.2 (by norm_num)
+  have hβ : (-1 / (2500 / 497 : ℝ)) = (-1988 / 10000 : ℝ) := by norm_num
+  have hb : ∀ η ∈ Ici (0 : ℝ), -1 < (flowA (2500 / 497 : ℝ) a (η / Real.sqrt (2500 / 497 : ℝ))).2.1 ∧ (flowA (2500 / 497 : ℝ) a (η / Real.sqrt (2500 / 497 : ℝ))).2.1 < 1 :=
+    fun η hη => ⟨by linarith [(hpb η hη).1], (hpb η hη).2⟩
+  obtain ⟨t, ht, hz, hqL, hqU⟩ := cross_p_1988 (flow_sol (2500 / 497 : ℝ) a (3 / 2)) (flowA_zero _ _) hα
+  have ht0 : 0 ≤ t := le_trans (by norm_num) ht.1
+  have hs : 0 ≤ Real.sqrt (2500 / 497 : ℝ) * t := mul_nonneg hc.le ht0
+  have hst : Real.sqrt (2500 / 497 : ℝ) * t / Real.sqrt (2500 / 497 : ℝ) = t := by field_simp
+  have hq0 : 0 < (flowA (2500 / 497 : ℝ) a (Real.sqrt (2500 / 497 : ℝ) * t / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [hst]; exact div_pos (by linarith) hc
+  have hpos := pos_after (β := -1 / (2500 / 497 : ℝ)) (by norm_num) C hb hs hq0
+  have hC : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt (fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ))
+      (-((Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1) *
+          ((flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ))) -
+        (-1988 / 10000 : ℝ) * (1 - (flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1 ^ 2)) (Ici 0) η := by
+    intro η hη
+    have := shift_deriv hs C η hη
+    rw [hβ] at this
+    exact this
+  have hr : ((448561 / 200000 : ℝ)) < Real.sqrt (2500 / 497 : ℝ) := (Real.lt_sqrt (by norm_num)).2 (by norm_num)
+  have hx : (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) < (2087 / 400000 : ℝ) := by
+    rw [div_lt_iff₀ hc]; nlinarith
+  have e : (flowA (2500 / 497 : ℝ) a ((0 + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ) = (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [zero_add, hst]
+  have A' := shift_deriv hs A
+  have B' := shift_deriv hs B
+  refine ⟨fun x => Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1,
+    fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1,
+    fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ),
+    A', B', hC, ?_, shift_lim _ hlim, ?_, shift_dec _ hdec, ?_⟩
+  · show (flowA (2500 / 497 : ℝ) a ((0 + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1 = 0
+    rw [zero_add, hst]; exact hz
+  · intro η hη
+    exact hpos (η + Real.sqrt (2500 / 497 : ℝ) * t) (by linarith [mem_Ici.1 hη])
+  · intro h
+    unfold Checked.Records.RoundsTo Checked.Records.printedFazioWall at h
+    beta_reduce at h
+    rw [e, abs_le] at h
+    obtain ⟨h1, h2⟩ := h
+    have hx' := hx
+    generalize (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) = x at h1 h2 hx'
+    norm_num at h1 h2
+    linarith
+
+/-- In `F13_wall_shear`, the wall condition p(0) = 0 is needed: the reversed-flow solution at the same β, translated to the point where its stream function returns to zero (p(0) > 0), meets every other hypothesis and has a wall shear above the values the conclusion allows. -/
+theorem F13_wall_shear_h5 : necessity% Checked.Records.F13_wall_shear 5 := by
+  obtain ⟨a, hla, hah, A, B, C, hlim, hpb, hdec⟩ := core_rev_flow (K := 2500 / 497) (by norm_num) (by norm_num)
+    Checked.FSRev.R1988Over.chain Checked.FSRev.R1988Slow.chain Checked.FSRev.R1988Tube.tube
+  have hα : |a - (-11567095 / 1000000000)| ≤ 11 / 500000000 := by
+    rw [abs_le]; constructor <;> linarith
+  have hc : 0 < Real.sqrt (2500 / 497 : ℝ) := Real.sqrt_pos.2 (by norm_num)
+  have hβ : (-1 / (2500 / 497 : ℝ)) = (-1988 / 10000 : ℝ) := by norm_num
+  have hb : ∀ η ∈ Ici (0 : ℝ), -1 < (flowA (2500 / 497 : ℝ) a (η / Real.sqrt (2500 / 497 : ℝ))).2.1 ∧ (flowA (2500 / 497 : ℝ) a (η / Real.sqrt (2500 / 497 : ℝ))).2.1 < 1 :=
+    fun η hη => ⟨by linarith [(hpb η hη).1], (hpb η hη).2⟩
+  obtain ⟨t, ht, hz, hqL, hqU⟩ := cross_g_1988 (flow_sol (2500 / 497 : ℝ) a (3 / 2)) (flowA_zero _ _) hα
+  have ht0 : 0 ≤ t := le_trans (by norm_num) ht.1
+  have hs : 0 ≤ Real.sqrt (2500 / 497 : ℝ) * t := mul_nonneg hc.le ht0
+  have hst : Real.sqrt (2500 / 497 : ℝ) * t / Real.sqrt (2500 / 497 : ℝ) = t := by field_simp
+  have hq0 : 0 < (flowA (2500 / 497 : ℝ) a (Real.sqrt (2500 / 497 : ℝ) * t / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [hst]; exact div_pos (by linarith) hc
+  have hpos := pos_after (β := -1 / (2500 / 497 : ℝ)) (by norm_num) C hb hs hq0
+  have hC : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt (fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ))
+      (-((Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1) *
+          ((flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ))) -
+        (-1988 / 10000 : ℝ) * (1 - (flowA (2500 / 497 : ℝ) a ((η + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1 ^ 2)) (Ici 0) η := by
+    intro η hη
+    have := shift_deriv hs C η hη
+    rw [hβ] at this
+    exact this
+  have hr : Real.sqrt (2500 / 497 : ℝ) < ((280351 / 125000 : ℝ)) := (Real.sqrt_lt' (by norm_num)).2 (by norm_num)
+  have hx : (10437 / 2000000 : ℝ) < (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [lt_div_iff₀ hc]; nlinarith
+  have e : (flowA (2500 / 497 : ℝ) a ((0 + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ) = (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) := by
+    rw [zero_add, hst]
+  have A' := shift_deriv hs A
+  have B' := shift_deriv hs B
+  refine ⟨fun x => Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1,
+    fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.1,
+    fun x => (flowA (2500 / 497 : ℝ) a ((x + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).2.2 / Real.sqrt (2500 / 497 : ℝ),
+    A', B', hC, ?_, shift_lim _ hlim, ?_, shift_dec _ hdec, ?_⟩
+  · show Real.sqrt (2500 / 497 : ℝ) * (flowA (2500 / 497 : ℝ) a ((0 + Real.sqrt (2500 / 497 : ℝ) * t) / Real.sqrt (2500 / 497 : ℝ))).1 = 0
+    rw [zero_add, hst, hz, mul_zero]
+  · intro η hη
+    exact hpos (η + Real.sqrt (2500 / 497 : ℝ) * t) (by linarith [mem_Ici.1 hη])
+  · intro h
+    unfold Checked.Records.RoundsTo Checked.Records.printedFazioWall at h
+    beta_reduce at h
+    rw [e, abs_le] at h
+    obtain ⟨h1, h2⟩ := h
+    have hx' := hx
+    generalize (flowA (2500 / 497 : ℝ) a t).2.2 / Real.sqrt (2500 / 497 : ℝ) = x at h1 h2 hx'
+    norm_num at h1 h2
+    linarith
 
 end Checked.Trust.NCY

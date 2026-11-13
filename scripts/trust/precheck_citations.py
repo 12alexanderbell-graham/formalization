@@ -70,6 +70,9 @@ for t in toks:
 PURE = {'Checked.Cosmography.BambaY.littleO_of_hasDerivAt', 'Checked.Math.LECell.tube_cell_t',
         'Checked.Sim.OneSided.onesided_cell'}
 bad -= PURE
+# agreement theorems of Checked.Trust.Transcriptions: exempt in the Lean check too (run 2026-11-13T2028Z; every
+# theorem there is a checked blind-reading agreement or a blocking error; run 1828Z's generated Printed lines cite them)
+bad = {n for n in bad if not n.startswith('Checked.Trust.Transcriptions.')}
 for n in sorted(bad):
     print(f'suspected: STATE.md/FINDINGS.md cite {n}, which is not in scripts/trust/headlines.txt')
 print(f'precheck_citations: {len(bad)} suspected')

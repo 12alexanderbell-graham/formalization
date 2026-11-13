@@ -147,6 +147,54 @@ theorem cell_start {K T : ℚ} (c : Cell) (hok : cellOK K T c = true) {g p q : �
   push_cast
   refine ⟨by linarith, by linarith, by linarith, by linarith⟩
 
+/-- Taylor shift over ℚ: the coefficients of τ ↦ p(a + τ). -/
+def qshift : List ℚ → ℚ → List ℚ
+  | [], _ => []
+  | c :: p, a => qadd [c] (qmul [a, 1] (qshift p a))
+
+theorem evalQ_qshift (p : List ℚ) (a : ℚ) (τ : ℝ) : evalQ (qshift p a) τ = evalQ p (a + τ) := by
+  induction p with
+  | nil => simp [qshift, evalQ]
+  | cons c p ih =>
+    simp only [qshift, evalQ_qadd, evalQ_qmul, ih]
+    simp only [evalQ]
+    push_cast; ring
+
+/-- Lower bound of p(a + τ) for τ ∈ [0, w]. -/
+def slo (p : List ℚ) (a w : ℚ) : ℚ := (qshift p a).headD 0 - w * qabs (qshift p a).tail w
+
+/-- Upper bound of p(a + τ) for τ ∈ [0, w]. -/
+def shi (p : List ℚ) (a w : ℚ) : ℚ := (qshift p a).headD 0 + w * qabs (qshift p a).tail w
+
+/-- Rational bounds of the three components on a sub-interval [t₀ + a, t₀ + b] of a checked cell. -/
+theorem sub_bounds {K T : ℚ} (c : Cell) (hok : cellOK K T c = true) {g p q : ℝ → ℝ}
+    (hs : SolC (K : ℝ) T 0 g p q) (h0 : InBox c g p q) (a b : ℚ) (ha : 0 ≤ a) (_hab : a ≤ b) (hb : b ≤ c.h)
+    (t : ℝ) (ht : t ∈ Icc ((c.t0 : ℝ) + a) ((c.t0 : ℝ) + b)) :
+    ((slo c.pg a (b - a) - c.r1 : ℚ) : ℝ) ≤ g t ∧ g t ≤ ((shi c.pg a (b - a) + c.r1 : ℚ) : ℝ) ∧
+    ((slo c.pp a (b - a) - c.r2 : ℚ) : ℝ) ≤ p t ∧ p t ≤ ((shi c.pp a (b - a) + c.r2 : ℚ) : ℝ) ∧
+    ((slo c.pq a (b - a) - c.B : ℚ) : ℝ) ≤ q t ∧ q t ≤ ((shi c.pq a (b - a) + c.B : ℚ) : ℝ) := by
+  have hc0 := (cellOK_basic c hok).1
+  have ha' : (0 : ℝ) ≤ a := by exact_mod_cast ha
+  have hb' : (b : ℝ) ≤ c.h := by exact_mod_cast hb
+  have ht' : t ∈ Icc (c.t0 : ℝ) (c.t0 + c.h) := ⟨by linarith [ht.1], by linarith [ht.2]⟩
+  obtain ⟨b1, b2, b3⟩ := encl c hok (hs.mono (by exact_mod_cast hc0)) h0 t ht'
+  have e : t - c.t0 = (a : ℝ) + (t - c.t0 - a) := by ring
+  rw [e, ← evalQ_qshift] at b1
+  rw [e, ← evalQ_qshift] at b2
+  rw [e, ← evalQ_qshift] at b3
+  have hτ0 : (0 : ℝ) ≤ t - c.t0 - a := by linarith [ht.1]
+  have hτ1 : t - c.t0 - a ≤ ((b - a : ℚ) : ℝ) := by push_cast; linarith [ht.2]
+  have lg := lower_q (qshift c.pg a) hτ0 hτ1
+  have ug := upper_q (qshift c.pg a) hτ0 hτ1
+  have lp := lower_q (qshift c.pp a) hτ0 hτ1
+  have up := upper_q (qshift c.pp a) hτ0 hτ1
+  have lq := lower_q (qshift c.pq a) hτ0 hτ1
+  have uq := upper_q (qshift c.pq a) hτ0 hτ1
+  simp only [slo, shi]
+  push_cast at lg ug lp up lq uq ⊢
+  have a1 := abs_le.1 b1; have a2 := abs_le.1 b2; have a3 := abs_le.1 b3
+  refine ⟨by linarith, by linarith, by linarith, by linarith, by linarith, by linarith⟩
+
 /-- Adverse pressure gradient (β < 0) and −1 < p < 1: once the shear is positive it stays positive. -/
 theorem pos_after {β : ℝ} (hβ : β < 0) {f p q : ℝ → ℝ}
     (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Ici 0) η)

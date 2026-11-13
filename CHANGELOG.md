@@ -693,3 +693,9 @@
 - Part 3 by rotation (STATE 0f, changed approach after four word-rule rounds): `check_findings.py` FB10/FB11/FB12 — the trusted part of a verified finding (Printed and Correct lines, certified blocks) is generated, author prose labelled under a fixed marker, headings labelled as the author's title; `FINDINGS.md` F1–F14 relaid out without rewording.
 - Blind red team AM: 6/6 accepted against the first version; repairs (not blind) → 2/6 (both headings). Selftest controls 29 → 45.
 - Next: CI read; part 3 later: generate headings, reader files for pre-route readings, records for F4–F7.
+
+## 2026-11-13T2028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; checkout reset to origin/main 36d2a3d); local Lean (elan, Mathlib cache, CI build artifact of c5c2a35 restored); CI 43462297471 (c5c2a35) green on every job; 7911453's checked job cancelled (superseded); 36d2a3d pending.
+- Part 1 by rotation: `Checked/Trust/NecessityY.lean` (generated, `runs/2026-11-13T2028Z/scripts/gen_necY.py`) + `Checked/FSRev/RFlowCells.lean` — f(0) = 0 and p(0) = 0 NEEDED in the seven attached-row windows β = −0.13 … −0.19, in `fs_neg_wall_shear_window` and in `F13_wall_shear` (18 classifications; open 279 → 261): translates of the reversed-flow solution of the same β, located by its tube's certified cells (sub-cell Taylor shift at −0.1988).
+- CI repair: StatementDeps' citation registry exempts the agreement theorems of `Checked.Trust.Transcriptions` (cited by run 1828Z's generated Printed lines; every push since af2cc09 would have failed the trust step); `precheck_citations.py` mirrors it and now runs in `records_check.py`.
+- Next: CI read; then parts 2/5 or 3 by rotation; hypothesis 8 of the nine needs an algebraically decaying attached solution.
