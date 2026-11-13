@@ -28,13 +28,9 @@ FREta.printedEta20_false_at | 1, 2, 3, 4
 FREta.printedEta30_false_at | 1, 2, 3, 4
 DemianskiZ.demDL4_fails_past | 1
 DemianskiZ.demDA4_fails_past | 1
-Fidelity.lumDistSpec2_pins | 2, 3, 4
 Fidelity.decelSpec_pins | 2, 3
-Fidelity.angDistSpec_pins | 2, 3, 4
 Fidelity.redshiftCore_pins | 2
 Fidelity.cosmoCoeffCore_pins | 2
-Fidelity.lumDistFlat_pins | 2, 3, 4
-Fidelity.comoving_pins | 2, 3, 4
 Fidelity.ricciSpec_pins | 2, 3, 4
 B1.lumDistFlat_flatLCDM | 1, 2, 3, 4
 B1.cubic_misses_z3 | 1, 2, 3, 4

@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 930 hypotheses in 160 headlines;
-495 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+507 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 140 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-295 open; headlines with every hypothesis classified: 56/160
+283 open; headlines with every hypothesis classified: 60/160
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -374,18 +374,18 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FREta.printedEta30_false_at` (4): open 1, 2, 3, 4
 - `DemianskiZ.demDL4_fails_past` (4): needed 4 (`demDL4_fails_past_h4`); redundant (each alone, not together) 2 (`demDL4_fails_past_r2`), 3 (`demDL4_fails_past_r3`); open 1
 - `DemianskiZ.demDA4_fails_past` (4): needed 4 (`demDA4_fails_past_h4`); redundant (each alone, not together) 2 (`demDA4_fails_past_r2`), 3 (`demDA4_fails_past_r3`); open 1
-- `Fidelity.lumDistSpec2_pins` (4): needed 1 (`lumDistSpec2_pins_h1`); open 2, 3, 4
+- `Fidelity.lumDistSpec2_pins` (4): needed 1 (`lumDistSpec2_pins_h1`), 2 (`lumDistSpec2_pins_h2`), 3 (`lumDistSpec2_pins_h3`), 4 (`lumDistSpec2_pins_h4`)
 - `Fidelity.hubbleSpec_pins` (3): needed 1 (`hubbleSpec_pins_h1`), 2 (`hubbleSpec_pins_h2`), 3 (`hubbleSpec_pins_h3`)
 - `Fidelity.decelSpec_pins` (5): needed 1 (`decelSpec_pins_h1`), 4 (`decelSpec_pins_h4`), 5 (`decelSpec_pins_h5`); open 2, 3
-- `Fidelity.angDistSpec_pins` (4): needed 1 (`angDistSpec_pins_h1`); open 2, 3, 4
+- `Fidelity.angDistSpec_pins` (4): needed 1 (`angDistSpec_pins_h1`), 2 (`angDistSpec_pins_h2`), 3 (`angDistSpec_pins_h3`), 4 (`angDistSpec_pins_h4`)
 - `Fidelity.flatLCDMSpec2_pins` (1): needed 1 (`flatLCDMSpec2_pins_h1`)
 - `Fidelity.redshiftCore_pins` (2): needed 1 (`redshiftCore_pins_h1`); open 2; shape: bundled 2
 - `Fidelity.cosmoCoeffCore_pins` (2): needed 1 (`cosmoCoeffCore_pins_h1`); open 2; shape: bundled 2
 - `Fidelity.yRedSpec_pins` (3): needed 1 (`yRedSpec_pins_h1`), 2 (`yRedSpec_pins_h2`), 3 (`yRedSpec_pins_h3`)
 - `Fidelity.omega0Spec_pins` (4): needed 1 (`omega0Spec_pins_h1`), 2 (`omega0Spec_pins_h2`), 4 (`omega0Spec_pins_h4`); redundant 3 (`omega0Spec_pins_r3`)
 - `Fidelity.curvKSpec_pins` (4): needed 1 (`curvKSpec_pins_h1`), 2 (`curvKSpec_pins_h2`), 4 (`curvKSpec_pins_h4`); redundant 3 (`curvKSpec_pins_r3`)
-- `Fidelity.lumDistFlat_pins` (4): needed 1 (`lumDistFlat_pins_h1`); open 2, 3, 4
-- `Fidelity.comoving_pins` (4): needed 1 (`comoving_pins_h1`); open 2, 3, 4
+- `Fidelity.lumDistFlat_pins` (4): needed 1 (`lumDistFlat_pins_h1`), 2 (`lumDistFlat_pins_h2`), 3 (`lumDistFlat_pins_h3`), 4 (`lumDistFlat_pins_h4`)
+- `Fidelity.comoving_pins` (4): needed 1 (`comoving_pins_h1`), 2 (`comoving_pins_h2`), 3 (`comoving_pins_h3`), 4 (`comoving_pins_h4`)
 - `Fidelity.flatCPL_pins` (1): needed 1 (`flatCPL_pins_h1`); shape: bundled 1
 - `Fidelity.ricciSpec_pins` (4): needed 1 (`ricciSpec_pins_h1`); open 2, 3, 4
 - `Fidelity.transverseSpec_pins` (1): needed 1 (`transverseSpec_pins_h1`)
