@@ -178,6 +178,8 @@ import Work.Math.BonnorEbertBlindClosed
 import Work.Math.BEEnd
 import Work.Math.BETail
 import Work.Math.BonnorEbertGlobal
+import Work.Math.BonnorEbertGlobalBlind
+import Work.Math.BonnorEbertGlobalBlindClosed
 import Work.Math.GelfandBlind
 import Work.Math.GelfandBlindClosed
 import Work.Math.RadialLaplacian
