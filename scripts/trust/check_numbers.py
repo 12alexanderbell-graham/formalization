@@ -83,6 +83,7 @@ anything inside `code`. Run after StatementDeps.lean (which writes the .tsv).
 import re
 import subprocess
 import sys
+from pathlib import Path
 from decimal import Decimal
 from fractions import Fraction
 
@@ -990,10 +991,33 @@ def check_refs(prose, rows, kinds):
     return errors
 
 
+def generated_printed_ok(text):
+    """{line} of verified findings' Printed lines that equal, character for character, what
+    check_findings.generated_printed writes from CLAIMS.md and the blind readings (FB10/FB11, run 2026-11-13T1828Z):
+    such a line quotes Lean definition bodies and a blind reader's words, not the author's, so its code spans are not
+    prose numbers. A line that differs from the generator is read like prose (and FB10 rejects it)."""
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import check_findings as CF  # noqa: E402
+        cb = CF.claims_blocks(open(CLAIMS, encoding="utf-8").read())
+    except (ImportError, OSError):
+        return set()
+    ok = set()
+    for k, body in CF.sections_full(text).items():
+        g = CF.generated_printed(k, body, cb)
+        if g in body.split("\n"):
+            ok.add(g)
+    return ok
+
+
 def blank_quotes(text):
     """the quoted Lean lines of the generated blocks are exact by G2; the number rules read the rest"""
     out, inside = [], False
+    gen = generated_printed_ok(text) if "- **Printed (generated" in text else set()
     for l in text.split("\n"):
+        if l in gen:
+            out.append(re.sub(r"`[^`]*`", lambda mm: " " * len(mm.group()), l))
+            continue
         if BLOCK_OPEN.match(l):
             inside = True
         elif l == BLOCK_CLOSE:

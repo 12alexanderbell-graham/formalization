@@ -61,10 +61,24 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        limit: Scope, Classification, Plain-words, Printed and Lean-evidence lines of a disclosed change are still
        the author's (AK d06).
 
-  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8 on FINDINGS.md (reads CLAIMS.md)
+  FB10 (run 2026-11-13T1828Z, after AK/AL: 24 of 24 wrong findings accepted across four word-rule rounds, all in
+       lines no rule can generate) the checked part of a verified finding is generated: below the heading exactly
+       the generated Printed line (FB11), the generated Correct line (FB9's generator; for a baselined finding with
+       no record the fixed NORECORD_CORRECT line), the certified blocks, then the fixed NOTES_MARKER; every author
+       line stands indented under the marker, labelled as prose no check reads. Both generated lines must equal the
+       generators' output now. `--write-layout F<k> …` rewrites sections into this layout without rewording.
+  FB11 the generated Printed line: each PRINTED definition of the finding's records (as CLAIMS.md lists it), its
+       body, the agreement theorem with its blind second reading, and the reader's own words about the source (the
+       module doc and definition doc of the earliest committed reader file under runs/, as first committed).
+       Known limits: the heading is author text (FB7 freezes it with disclosure); the notes can be false, but are
+       labelled; a reading older than the blind route has no reader file and is shown as such.
+
+  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10 on FINDINGS.md (reads CLAIMS.md)
   python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9
   python3 scripts/trust/check_findings.py --write-correct F<k> [F<j> …]   replace those findings' Correct lines by
                                                        the generated ones (an author edit: FB7 still wants a LEDGER line)
+  python3 scripts/trust/check_findings.py --write-layout F<k> [F<j> …]    FB10 layout for those findings (an author
+                                                       edit: FB7 still wants a LEDGER line)
   python3 scripts/trust/check_findings.py --selftest   controls only
 """
 import re
@@ -220,7 +234,9 @@ def check(findings, claims, baseline, phrases=()):
         cited = set(re.findall(r"`(?:[A-Za-z0-9_.]*\.)?([A-Za-z0-9_]+)`", prose)) | set(records)
         for line in prose.split("\n"):
             # every line that states the finding; the referee and audit lines report how it was checked
-            claimline = not (line.startswith("- **Referee") or line.startswith("- **Fidelity"))
+            # (FB10 layout: author bullets stand indented under the notes marker with the prefix '*(author)*')
+            bare = re.sub(r"^\s*- (?:\*\(author\)\* )?", "- ", line)
+            claimline = not (bare.startswith("- **Referee") or bare.startswith("- **Fidelity"))
             # code spans are not prose numbers
             s = re.sub(r"`[^`]*`", lambda mm: " " * len(mm.group()), line)
             for t in SRC.finditer(s):
@@ -391,7 +407,7 @@ def correct_lines(body):
                                                         flags=re.S | re.M))]
 
 
-def fb9(old, new, cb, phrases):
+def fb9(old, new, cb, phrases, norec=frozenset()):
     """FB9: a new or changed Correct line must be the generated one."""
     a, b = sections_full(old), sections_full(new)
     errs = []
@@ -399,6 +415,8 @@ def fb9(old, new, cb, phrases):
         if k in a and correct_lines(a[k]) == correct_lines(b[k]):
             continue
         g = generated_correct(k, b[k], cb, phrases)
+        if g is None and f"norecord {k}" in norec and correct_lines(b[k]) == [NORECORD_CORRECT]:
+            continue  # FB10: a baselined finding without a record says so in its generated line
         if g is None:
             errs.append(f"FB9 {k}: its Correct line is new or changed since BASE but the finding shows no record to "
                         f"generate it from: add the record first")
@@ -424,6 +442,228 @@ def write_correct(text, secs, cb, phrases):
             lines = body.split("\n")
             at = next((i + 1 for i, l in enumerate(lines) if l.startswith("- **Printed")), 1)
             nb = "\n".join(lines[:at] + [g] + lines[at:])
+        assert text.count(body) == 1
+        text = text.replace(body, nb)
+    return text
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# FB10, FB11 (run 2026-11-13T1828Z, part 3; after blind rounds AK and AL: every wrong verified finding CI still
+# accepted sat in a line no rule can generate — Scope, a printed attribution, Plain words, Lean-evidence prose —
+# and four word-rule rounds (AI, AJ, AK, AL) were each beaten 6/6 or 5/6 on the day they were run). The structural
+# repair is not another word rule: the part of a verified finding a reader is told to trust is GENERATED, and every
+# author sentence stands under a fixed label saying that nothing checks it.
+#   FB10 (layout, every verified finding, no base needed): outside the generated blocks, the top level of a section
+#        is exactly: the heading; the generated Printed line; the generated Correct line (or, for a finding of the
+#        norecord baseline, the fixed NORECORD_CORRECT line); the certified blocks; then the marker NOTES_MARKER.
+#        Every other line is blank or indented under the marker (author notes). The generated lines must equal what
+#        the generators produce from CLAIMS.md and the blind readings NOW (`--write-layout F<k>` rewrites them).
+#   FB11 (generated Printed line): for every PRINTED definition in the statement of a record of the finding, as
+#        CLAIMS.md lists it — its body, the agreement theorem with its blind second reading, and the description
+#        of the source the READER wrote (module doc and definition doc of the reader file under runs/, read from
+#        the commit that added that file, so a later edit of the reader file or of the Checked copy's docstrings
+#        changes nothing). A reading without a reader file under runs/ (older than the blind route) is shown as
+#        such. The author writes none of it.
+# Known limits (recorded): the heading is author text (frozen with disclosure by FB7, and the reading guide calls it
+# a title); the notes may be false, but they are labelled, and the labels cannot be removed (FB10).
+NOTES_MARKER = ("- **Unchecked notes** (author prose under rule FB10 of `scripts/trust/check_findings.py`: no check "
+                "reads what these lines claim; the heading is the author's title; trust only the generated lines and the "
+                "certified block above):")
+NORECORD_CORRECT = ("- **Correct (generated; do not edit):** no Lean record of this finding yet "
+                    "(`scripts/trust/findings_norecord_baseline.txt`): nothing in this finding is generated from Lean; "
+                    "its Lean theorems are named in the unchecked notes only.")
+PRINTED_GEN = re.compile(r"^- \*\*Printed \(generated\b")
+CORRECT_GEN = re.compile(r"^- \*\*Correct \(generated\b")
+
+
+def _git(*a):
+    r = subprocess.run(["git", *a], capture_output=True, text=True)
+    return r.stdout if r.returncode == 0 else None
+
+
+def printed_defs(block):
+    """[(displayed name, agreement theorem or None, body)] of the PRINTED definitions a CLAIMS block lists."""
+    out = []
+    for m in re.finditer(r"^- (?:`([^`]+)`|\*([^*]+)\*) — PRINTED(.*)$", block, re.M):
+        name = (m.group(1) or m.group(2)).split()[0]
+        ag = re.search(r"\(`([A-Za-z0-9_.']+\.agree_[A-Za-z0-9_']+)`\)", m.group(3))
+        body = re.search(r"is defined as (`[^`]*`|\*[^*]*\*)\s*$", m.group(3))
+        out.append((name, ag.group(1) if ag else None, body.group(1).strip("`*") if body else None))
+    return out
+
+
+_READER = {}
+
+
+def reader_of(agree):
+    """(second-reading full name, Checked module, reader file under runs/ or None, module doc, def doc) for an
+    agreement theorem `…Transcriptions.agree_X` whose statement is `X = Checked.Trust.SecondReading.Y`."""
+    if agree in _READER:
+        return _READER[agree]
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import check_provenance as P  # noqa: E402
+    short = agree.split(".")[-1]
+    target = None
+    for f in sorted(Path("Checked/Trust").glob("Transcriptions*.lean")):
+        m = re.search(r"theorem " + re.escape(short) + r"\s*:\s*[\w.']+\s*=\s*([\w.']+)", f.read_text())
+        if m:
+            target = m.group(1)
+            break
+    res = (target, None, None, None, None)
+    if target:
+        y = target.split(".")[-1]
+        for f in sorted(Path("Checked/Trust").glob("SecondReading*.lean")):
+            t = f.read_text()
+            if not re.search(r"\bdef " + re.escape(y) + r"\b", t):
+                continue
+            res = (target, str(f), None, None, None)
+            # the reading is the EARLIEST committed runs/ copy of the module's code: a reader file added later with
+            # the same code (e.g. a forged description) never replaces the original reader's words
+            dated = []
+            for c in P.runs_copies(P.code(t)):
+                add = (_git("log", "--format=%ct %H", "--diff-filter=A", "--", c) or "").split("\n")
+                add = [x.split() for x in add if x.strip()]
+                if add:
+                    dated.append((int(add[-1][0]), c, add[-1][1]))
+            for _, c, sha in sorted(dated):
+                orig = _git("show", f"{sha}:{c}")
+                if orig is None:
+                    continue
+                md = re.search(r"/-!(.*?)-/", orig, re.S)
+                dd = re.search(r"/--((?:(?!-/).)*?)-/\s*(?:@\[[^\]]*\]\s*)?(?:noncomputable\s+)?def " + re.escape(y)
+                               + r"\b", orig, re.S)
+                res = (target, str(f), c, md.group(1).strip() if md else None, dd.group(1).strip() if dd else None)
+                break
+            break
+    _READER[agree] = res
+    return res
+
+
+def _span(text):
+    """an author-free quotation as one code span (no check reads numbers inside code)."""
+    return "`" + re.sub(r"\s+", " ", text.replace("`", "ʹ")).strip() + "`"
+
+
+def generated_printed(sec, body, cb):
+    """The generated Printed line of section `sec` (FB11)."""
+    recs = [r for r, _, _ in record_items(body)]
+    seen, parts = set(), []
+    for rec in recs:
+        for name, agree, val in printed_defs(cb.get(rec, "")):
+            if name in seen:
+                continue
+            seen.add(name)
+            s = f"`{name}` := `{val}`" if val is not None else f"`{name}`"
+            if agree is None:
+                parts.append(s + " — no blind second reading agrees with it (UNREAD)")
+                continue
+            target, mod, rf, md, dd = reader_of(agree)
+            s += f", agreeing with the blind reading `{target}` (`{agree.split('.')[-1]}`)"
+            if rf is None:
+                s += ", whose reader file is not under runs/ (the reading predates the blind route): the source is not described by a reader"
+            else:
+                s += f"; the reader (file `{rf}`, as first committed) wrote"
+                if md:
+                    s += f" of the reading: {_span(md)}"
+                if dd:
+                    s += (" and" if md else "") + f" of this value: {_span(dd)}"
+                if not md and not dd:
+                    s += " no description of the source"
+            parts.append(s)
+    head = (f"- **Printed (generated by `python3 scripts/trust/check_findings.py --write-layout {sec}` from the records' "
+            f"PRINTED definitions and their blind readings; do not edit):** ")
+    if not parts:
+        return head + "no record of this finding contains a PRINTED definition: no printed value of it is bound to a blind reading."
+    return head + "; ".join(parts) + "."
+
+
+def fb10(text, cb, phrases, norec):
+    errs = []
+    for k, body in sections_full(text).items():
+        lines = body.rstrip("\n").split("\n")
+        state, inblk, seen = "top", False, []
+        for i, l in enumerate(lines[1:], 1):
+            if l.startswith("<!-- certified:"):
+                if state == "notes":
+                    errs.append(f"FB10 {k}: a generated block stands below the unchecked-notes marker")
+                inblk = True
+                continue
+            if inblk:
+                if l == "<!-- /certified -->":
+                    inblk = False
+                continue
+            if not l.strip():
+                continue
+            if state == "notes":
+                if not l.startswith("  "):
+                    errs.append(f"FB10 {k}: line '{l[:60]}' stands at top level below the unchecked-notes marker "
+                                f"(author notes are indented under it; the marker ends the checked part)")
+                continue
+            if l == NOTES_MARKER:
+                state = "notes"
+                seen.append("notes")
+            elif PRINTED_GEN.match(l):
+                seen.append("printed")
+                g = generated_printed(k, body, cb)
+                if l != g:
+                    errs.append(f"FB10 {k}: the Printed line is not the generated one (run `python3 "
+                                f"scripts/trust/check_findings.py --write-layout {k}`)")
+            elif CORRECT_GEN.match(l):
+                seen.append("correct")
+                g = NORECORD_CORRECT if f"norecord {k}" in norec else generated_correct(k, body, cb, phrases)
+                if l != g:
+                    errs.append(f"FB10 {k}: the Correct line is not the generated one (run `python3 "
+                                f"scripts/trust/check_findings.py --write-layout {k}`)")
+            else:
+                errs.append(f"FB10 {k}: '{l[:70]}' is author text in the checked part of a verified finding; it "
+                            f"belongs indented under the unchecked-notes marker (`--write-layout {k}` moves it)")
+        for part in ("printed", "correct", "notes"):
+            if seen.count(part) != 1:
+                errs.append(f"FB10 {k}: {seen.count(part)} {part} lines at top level (exactly one: generated "
+                            f"Printed, generated Correct, the unchecked-notes marker)")
+        if seen[:2] != ["printed", "correct"] and seen.count("printed") == 1 and seen.count("correct") == 1:
+            errs.append(f"FB10 {k}: order is heading, generated Printed, generated Correct, certified blocks, notes")
+    return errs
+
+
+def write_layout(text, secs, cb, phrases, norec):
+    """Rewrite sections into the FB10 layout: generated Printed and Correct lines, the certified blocks, then every
+    other line indented under the unchecked-notes marker (top-level author bullets get the prefix '*(author)*')."""
+    full = sections_full(text)
+    for k in secs:
+        body = full[k]
+        lines = body.rstrip("\n").split("\n")
+        head, blocks, notes, inblk = lines[0], [], [], False
+        old_notes = False
+        for l in lines[1:]:
+            if l.startswith("<!-- certified:"):
+                inblk = True
+                blocks.append(l)
+                continue
+            if inblk:
+                blocks.append(l)
+                inblk = l != "<!-- /certified -->"
+                continue
+            if l == NOTES_MARKER:
+                old_notes = True
+                continue
+            if not l.strip() or PRINTED_GEN.match(l) or CORRECT_GEN.match(l):
+                continue
+            if l.startswith("  "):
+                notes.append(l)
+            elif l.startswith("- "):
+                notes.append("  - *(author)* " + l[2:] if not l.startswith("- *(author)*") else "  " + l)
+            else:
+                notes.append("  " + l)
+        assert old_notes or notes, k
+        tmp = "\n".join([head] + blocks) + "\n"
+        pr = generated_printed(k, tmp, cb)
+        co = NORECORD_CORRECT if f"norecord {k}" in norec else generated_correct(k, tmp, cb, phrases)
+        assert co is not None, f"{k}: no record and not in the norecord baseline"
+        nb = "\n".join([head, pr, co] + blocks + [NOTES_MARKER] + notes) + "\n"
+        tail = body[len(body.rstrip("\n")):]
+        nb = nb + tail[1:] if tail.startswith("\n") else nb
         assert text.count(body) == 1
         text = text.replace(body, nb)
     return text
@@ -530,7 +770,36 @@ def selftest():
         if e:
             print("selftest: FB8/FB9 clean twin rejected:", e)
             fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4} controls, {fails} failing")
+    # FB10/FB11 controls (run 2026-11-13T1828Z): the generated layout passes; an author line in the checked part, an
+    # edited generated Printed or Correct line, a missing marker, an unindented line or a block below the marker fail.
+    cbs = claims_blocks(claims)
+    lay = write_layout(base9, ["F9"], cbs, ph, set())
+    marker_at = lay.index(NOTES_MARKER)
+    fb10_bad = [
+        lay.replace(NOTES_MARKER, "- **Scope:** every class\n" + NOTES_MARKER),
+        lay.replace("(UNREAD)", "(read blind)"),
+        lay.replace("lies above", "lies below"),
+        lay.replace(NOTES_MARKER + "\n", ""),
+        lay[:marker_at] + lay[marker_at:].replace("  - *(author)* **Referee", "- **Referee"),
+        lay.replace(blk, "").replace(tail, blk + tail),
+        lay.replace("- **Correct (generated", "- **Correct (generated from my reading", 1),
+    ]
+    if fb10(lay, cbs, ph, set()) or "no blind second reading agrees" not in lay or "*(author)* **Printed:**" not in lay:
+        print("selftest: FB10 clean layout rejected or generated wrongly:", fb10(lay, cbs, ph, set()))
+        fails += 1
+    if fb10(lay.replace("quotes 0.005226[src]", "quotes 0.005227[src]"), cbs, ph, set()):
+        print("selftest: FB10 rejects an edit of the unchecked notes")
+        fails += 1
+    for i, t in enumerate(fb10_bad):
+        if not any(x.startswith("FB10") for x in fb10(t, cbs, ph, set())):
+            print(f"selftest: FB10 control {i} not rejected")
+            fails += 1
+    nr = write_layout(base9.replace("<!-- certified: F9_r", "<!-- certified: F9_x").replace("Records.F9_r", "Records.F9_x"),
+                      ["F9"], cbs, ph, {"norecord F9"})
+    if NORECORD_CORRECT not in nr or fb10(nr, cbs, ph, {"norecord F9"}) or not fb10(nr, cbs, ph, set()):
+        print("selftest: FB10 norecord line wrong")
+        fails += 1
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3} controls, {fails} failing")
     return fails == 0
 
 
@@ -542,6 +811,11 @@ def main():
         return
     findings = open(FINDINGS, encoding="utf-8").read()
     claims = open(CLAIMS, encoding="utf-8").read()
+    if args and args[0] == "--write-layout":
+        out = write_layout(findings, args[1:], claims_blocks(claims), load_phrases(), load_baseline(NORECORD))
+        open(FINDINGS, "w", encoding="utf-8").write(out)
+        print(f"check_findings: FB10 layout written for {', '.join(args[1:])}")
+        return
     if args and args[0] == "--write-correct":
         out = write_correct(findings, args[1:], claims_blocks(claims), load_phrases())
         open(FINDINGS, "w", encoding="utf-8").write(out)
@@ -550,6 +824,7 @@ def main():
     baseline = load_baseline()
     norec = load_baseline(NORECORD)
     errs = check(findings, claims, baseline, load_phrases()) + fb8(findings, norec)
+    errs += fb10(findings, claims_blocks(claims), load_phrases(), norec)
     if "--base" in args:
         base = args[args.index("--base") + 1]
         try:
@@ -569,7 +844,7 @@ def main():
         try:
             oldf = subprocess.run(["git", "show", f"{base}:{FINDINGS}"], capture_output=True, text=True, check=True).stdout
             errs += fb7(oldf, findings, ledger_added_lines(base))
-            errs += fb9(oldf, findings, claims_blocks(claims), load_phrases())
+            errs += fb9(oldf, findings, claims_blocks(claims), load_phrases(), norec)
         except subprocess.CalledProcessError:
             errs.append(f"FB7: cannot read {FINDINGS} at {base}")
         try:
