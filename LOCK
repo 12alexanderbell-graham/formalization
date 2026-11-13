@@ -1,1 +1,1 @@
-Run 2026-11-13T1228Z (scheduled), started 12:28Z; task: STATE next step 0g (merge run 0828Z's wip/necessity-0828z promotion: MaxwellRightVdW, MaxwellRightPR, NecessityEta), then CI read. Remove at end.
+Run 2026-11-13T1522Z (scheduled, fired 15:22Z for the 14:27Z slot); took over the LOCK of run 2026-11-13T1228Z at 15:25Z (started 12:28Z, no push or heartbeat since, 177 min > 150; rule 48.4). Task: STATE next step 0g (promote run 0828Z's compiled scratch: MaxwellRightVdW, MaxwellRightPR, NecessityEta), then CI read of 028d5c4. Remove at end.
