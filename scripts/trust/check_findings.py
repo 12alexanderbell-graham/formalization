@@ -46,8 +46,24 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        silent. Known limit: the words of a new or disclosed finding are still the author's (the disclosure is what
        is checked, not the content).
 
-  python3 scripts/trust/check_findings.py              rules FB1–FB6 on FINDINGS.md (reads CLAIMS.md)
-  python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7
+  FB8  (run 2026-11-13T1028Z, after blind round AK: 6/6 accepted with disclosure — a new finding F15 with no record
+       and a "Checked, CI green" evidence line, a coefficient of a correct formula changed, a correct value moved, the
+       direction of a certified difference flipped, a correct published table declared wrong, a scope consequence
+       added; all disclosed by neutral LEDGER lines, as FB7 allows) every verified finding shows a generated block
+       of at least one record of its own (`F<k>_…`), unless baselined (`norecord F<k>`, shrink-only): a finding is
+       verified by a Lean record, never by prose that cites other theorems (AK d01).
+  FB9  with --base: a verified finding whose Correct line is new or differs from BASE has as its Correct line exactly
+       the line GENERATED from its records (`--write-correct F<k>` writes it): for each record, its quantifier, the
+       class phrases of FB6 the statement carries, and for every certified difference whose rounding interval
+       excludes 0 the direction (which side lies above), the size left to the certified block (AK d02–d05). The
+       author's words on that line can no longer change; unchanged legacy Correct lines stay frozen by FB7. Known
+       limit: Scope, Classification, Plain-words, Printed and Lean-evidence lines of a disclosed change are still
+       the author's (AK d06).
+
+  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8 on FINDINGS.md (reads CLAIMS.md)
+  python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9
+  python3 scripts/trust/check_findings.py --write-correct F<k> [F<j> …]   replace those findings' Correct lines by
+                                                       the generated ones (an author edit: FB7 still wants a LEDGER line)
   python3 scripts/trust/check_findings.py --selftest   controls only
 """
 import re
@@ -59,6 +75,7 @@ FINDINGS = "FINDINGS.md"
 CLAIMS = "CLAIMS.md"
 BASELINE = "scripts/trust/findings_baseline.txt"
 PHRASES = "scripts/trust/finding_class_phrases.txt"
+NORECORD = "scripts/trust/findings_norecord_baseline.txt"  # FB8, shrink-only
 DASHES = "−–—‐‑‒-"
 SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹"
 NUM = r"[" + DASHES + r"]?\d+(?:\.\d+)?(?:×10[⁻⁺]?[" + SUP + r"]+)?"
@@ -270,6 +287,138 @@ def check(findings, claims, baseline, phrases=()):
     return errs
 
 
+CORRECT = re.compile(r"^- \*\*Correct\b.*$", re.M)  # "Correct" and "Correct (…)", not "Correction"
+CERT_LINE = re.compile(r"^    - ([^:`]+): `(.+)` rounds to (\S+?)\[✓[^\]]*\] at (\d+) decimals?; role ([^.]+)\.$")
+ROLE_WORD = {"printed": "printed value", "derived": "value derived in Lean", "free": "value of the free quantity"}
+
+
+def sections_full(text):
+    """{F<k>: whole section text, generated blocks included} of the verified-findings section."""
+    i = text.find("\n## Verified findings")
+    if i < 0:
+        return {}
+    j = text.find("\n## ", i + 1)
+    scope = text[i:j if j >= 0 else len(text)]
+    return {m.group(1): m.group(0) for m in re.finditer(r"^### (F\d+)\b(.*?)(?=^### |\Z)", scope, re.S | re.M)}
+
+
+def split_top(expr):
+    """`A - B` split at its one top-level binary minus, else None."""
+    depth, cuts = 0, []
+    for i, c in enumerate(expr):
+        depth += {"(": 1, ")": -1}.get(c, 0)
+        if depth == 0 and expr[i:i + 3] == " - ":
+            cuts.append(i)
+    return (expr[:cuts[0]], expr[cuts[0] + 3:]) if len(cuts) == 1 else None
+
+
+def record_items(body):
+    """[(record, quantifier line, [(kind, expr, value, k, role)])] of the generated blocks of a section body."""
+    out = []
+    for line in body.splitlines():
+        m = re.match(r"^  - `Checked\.Records\.([A-Za-z0-9_]+)`, as Lean states it:$", line)
+        if m:
+            out.append([m.group(1), None, []])
+            continue
+        if out and out[-1][1] is None and line.startswith("    > **"):
+            out[-1][1] = line
+        m = CERT_LINE.match(line)
+        if out and m:
+            out[-1][2].append((m.group(1), m.group(2), m.group(3), int(m.group(4)), m.group(5)))
+    return [tuple(x) for x in out]
+
+
+def generated_correct(sec, body, cb, phrases):
+    """The generated Correct line of section `sec` (None if it shows no record)."""
+    clauses = []
+    for rec, quant, items in record_items(body):
+        q = quant or ""
+        if "**For every**" in q:
+            kind = "for every data meeting its hypotheses"
+        elif "there is" in cb.get(rec, "").split("**It holds that**")[-1].split("\nwhere\n")[0]:
+            kind = "there are data meeting its conditions"
+        else:
+            kind = "a statement about fixed values"
+        cls = [ph for atom, ph in phrases if atom in cb.get(rec, "")]
+        cls = list(dict.fromkeys(cls))
+        head = f"`{rec}` ({kind}" + (f"; class: {', '.join(cls)}" if cls else "") + ")"
+        facts = []
+        for knd, expr, val, k, role in items:
+            m = re.fullmatch(r"difference\((\w+)−(\w+)\)", role.strip())
+            if not m:
+                continue
+            v, _ = prose_value(val)
+            half = Fraction(1, 2) * Fraction(10) ** (-k)
+            parts = split_top(expr)
+            a = ROLE_WORD.get(m.group(1), m.group(1)) + (f" `{parts[0]}`" if parts else "")
+            b = ROLE_WORD.get(m.group(2), m.group(2)) + (f" `{parts[1]}`" if parts else "")
+            if v - half > 0:
+                facts.append(f"the {a} lies above the {b}")
+            elif v + half < 0:
+                facts.append(f"the {a} lies below the {b}")
+            else:
+                facts.append(f"the sign of the {a} minus the {b} is not fixed by the certified rounding")
+        clauses.append(head + ": " + ("; ".join(facts) + ", by the difference certified below" if facts
+                                      else "the certified values below"))
+    if not clauses:
+        return None
+    return (f"- **Correct (generated from the Lean records by `python3 scripts/trust/check_findings.py "
+            f"--write-correct {sec}`; do not edit):** " + "; ".join(clauses) + ".")
+
+
+def fb8(text, baseline):
+    errs = []
+    for sec, prose, records in verified_sections(text):
+        own = [r for r in records if r.startswith(sec + "_")]
+        if not own and f"norecord {sec}" not in baseline:
+            errs.append(f"FB8 {sec}: a verified finding with no generated block of a record of its own ({sec}_…): "
+                        f"a finding is verified by a Lean record in Checked/Records, not by prose citing theorems")
+    return errs
+
+
+def correct_lines(body):
+    return [l.rstrip() for l in CORRECT.findall(re.sub(r"^<!-- certified:.*?^<!-- /certified -->$", "", body,
+                                                        flags=re.S | re.M))]
+
+
+def fb9(old, new, cb, phrases):
+    """FB9: a new or changed Correct line must be the generated one."""
+    a, b = sections_full(old), sections_full(new)
+    errs = []
+    for k in sorted(b, key=lambda x: int(x[1:])):
+        if k in a and correct_lines(a[k]) == correct_lines(b[k]):
+            continue
+        g = generated_correct(k, b[k], cb, phrases)
+        if g is None:
+            errs.append(f"FB9 {k}: its Correct line is new or changed since BASE but the finding shows no record to "
+                        f"generate it from: add the record first")
+        elif correct_lines(b[k]) != [g]:
+            errs.append(f"FB9 {k}: its Correct line is new or changed since BASE and is not the generated one; run "
+                        f"`python3 scripts/trust/check_findings.py --write-correct {k}` (the line that states what is "
+                        f"correct is generated from the records, never rewritten by hand)")
+    return errs
+
+
+def write_correct(text, secs, cb, phrases):
+    full = sections_full(text)
+    for k in secs:
+        g = generated_correct(k, full[k], cb, phrases)
+        assert g is not None, f"{k} shows no record"
+        body = full[k]
+        cl = CORRECT.findall(re.sub(r"^<!-- certified:.*?^<!-- /certified -->$", "", body, flags=re.S | re.M))
+        if cl:
+            nb = body.replace(cl[0], g, 1)
+            for extra in cl[1:]:
+                nb = nb.replace(extra + "\n", "", 1)
+        else:  # after the heading's Printed line, else right after the heading
+            lines = body.split("\n")
+            at = next((i + 1 for i, l in enumerate(lines) if l.startswith("- **Printed")), 1)
+            nb = "\n".join(lines[:at] + [g] + lines[at:])
+        assert text.count(body) == 1
+        text = text.replace(body, nb)
+    return text
+
+
 def section_prose(text):
     """{F<k>: prose with generated blocks removed and trailing blanks stripped} of the verified-findings section."""
     return {k: "\n".join(l.rstrip() for l in prose.strip().splitlines()) for k, prose, _ in verified_sections(text)}
@@ -345,7 +494,32 @@ def selftest():
         if fb7(o, n, l):
             print("selftest: FB7 clean twin rejected:", fb7(o, n, l))
             fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok)} controls, {fails} failing")
+    # FB8 / FB9 controls (run 2026-11-13T1028Z, round AK): a new finding without a record of its own; a hand-written
+    # or flipped Correct line on a changed finding; clean twins: baselined legacy finding, generated line, unchanged line.
+    blk = ("<!-- certified: F9_r -->\n  - `Checked.Records.F9_r`, as Lean states it:\n    > **For every** `q : ℝ`:\n"
+           "    - difference: `pr - q 0` rounds to 0.000003[✓F9_r(difference)] at 6 decimals; role difference(printed−free).\n"
+           "<!-- /certified -->\n")
+    base9 = good.replace("<!-- certified: F9_r -->\n- block\n<!-- /certified -->\n", blk)
+    gen = generated_correct("F9", sections_full(base9)["F9"], claims_blocks(claims), ph)
+    if not gen or "printed value `pr` lies above the value of the free quantity `q 0`" not in gen or "decay class" not in gen:
+        print("selftest: FB9 generator wrong:", gen)
+        fails += 1
+    new9 = write_correct(base9, ["F9"], claims_blocks(claims), ph)
+    flip = new9.replace("lies above", "lies below")
+    hand = base9.replace("- **Correct:** too large in the decay class", "- **Correct:** too large by 3 units, decay class")
+    f15 = base9.replace(tail, "### F15 (y). new finding\n- **Correct:** z\n" + tail)
+    fb8_9 = [("FB8", fb8(f15, set())), ("FB9", fb9(base9, flip, claims_blocks(claims), ph)),
+             ("FB9", fb9(base9, hand, claims_blocks(claims), ph)), ("FB9", fb9(base9, f15, claims_blocks(claims), ph))]
+    for rule, e in fb8_9:
+        if not any(x.startswith(rule) for x in e):
+            print(f"selftest: {rule} control not rejected")
+            fails += 1
+    for e in [fb8(f15, {"norecord F15"}), fb8(base9, set()), fb9(base9, new9, claims_blocks(claims), ph),
+              fb9(base9, base9.replace("- **Referee:**", "- **Referee (re-read):**"), claims_blocks(claims), ph)]:
+        if e:
+            print("selftest: FB8/FB9 clean twin rejected:", e)
+            fails += 1
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4} controls, {fails} failing")
     return fails == 0
 
 
@@ -357,8 +531,14 @@ def main():
         return
     findings = open(FINDINGS, encoding="utf-8").read()
     claims = open(CLAIMS, encoding="utf-8").read()
+    if args and args[0] == "--write-correct":
+        out = write_correct(findings, args[1:], claims_blocks(claims), load_phrases())
+        open(FINDINGS, "w", encoding="utf-8").write(out)
+        print(f"check_findings: Correct line generated for {', '.join(args[1:])}")
+        return
     baseline = load_baseline()
-    errs = check(findings, claims, baseline, load_phrases())
+    norec = load_baseline(NORECORD)
+    errs = check(findings, claims, baseline, load_phrases()) + fb8(findings, norec)
     if "--base" in args:
         base = args[args.index("--base") + 1]
         try:
@@ -378,8 +558,15 @@ def main():
         try:
             oldf = subprocess.run(["git", "show", f"{base}:{FINDINGS}"], capture_output=True, text=True, check=True).stdout
             errs += fb7(oldf, findings, ledger_added_lines(base))
+            errs += fb9(oldf, findings, claims_blocks(claims), load_phrases())
         except subprocess.CalledProcessError:
             errs.append(f"FB7: cannot read {FINDINGS} at {base}")
+        try:
+            oldn = subprocess.run(["git", "show", f"{base}:{NORECORD}"], capture_output=True, text=True, check=True).stdout
+            for g in sorted(norec - load_baseline(text=oldn)):
+                errs.append(f"FB-base: {NORECORD} gained '{g}' since {base}: the baseline only shrinks")
+        except subprocess.CalledProcessError:
+            pass  # introduced with FB8 (run 2026-11-13T1028Z)
     for e in errs:
         print("::error::" + e)
     print(f"check_findings: {len(verified_sections(findings))} verified findings, {len(errs)} problems")
