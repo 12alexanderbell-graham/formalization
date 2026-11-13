@@ -1,6 +1,6 @@
 # Run 2026-11-13T0828Z
 
-Scheduled run. Started 08:28Z in auditor role: run 2026-11-13T0628Z holds the LOCK (heartbeat 07:07Z, last push 07:35Z, task: promotion of rows β = −0.02, −0.01 of Ganapol Table 7). Work picked disjoint from that task (PROMPT notes "A live LOCK is not idle time", "Read the LOCK line").
+Scheduled run. Started 08:28Z in auditor role (run 2026-11-13T0628Z held the LOCK, task: promotion of rows β = −0.02, −0.01); it released the LOCK at 08:30Z (5c06d2e); LOCK taken 08:47Z. Work picked disjoint from that run's rows.
 
 **THE RESULT:** part 1 (statement fidelity, T2b hypothesis necessity): the two open hypotheses of the van der Waals coexistence claim (`b > 0`, `b < v_l`) — scratch Lean in `lean/`.
 

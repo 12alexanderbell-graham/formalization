@@ -1,0 +1,1 @@
+Run 2026-11-13T0828Z (scheduled), started 08:28Z; LOCK taken 08:47Z (no LOCK at 5c06d2e). Task: part 1 (T2b) — the open hypotheses b > 0, b < v_l of vdW_coexistence_unique (Checked/Trust/, scratch in runs/2026-11-13T0828Z/lean/); then CI read of 5c06d2e. Remove at end.
