@@ -6,46 +6,52 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `Z : (ℝ → ℝ) → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
+**For every** `D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
 **assuming**
 
-1. `RedshiftSpecCore Z`
-2. `RayOK a t t₀`
+1. `LumDistSpec2 D`
+2. `t ≤ t₀`
+3. for every `s : ℝ`, if `s ∈ Set.Icc t t₀`, then `0 < a s`
+4. `ContinuousOn a (Set.Icc t t₀)`
 
 **then**
 
-- `Z a t₀ t = redshift a t₀ t`
+- `comoving a t₀ t = D 0 a t₀ t / (a t₀ * (1 + redshift a t₀ t))`
 
 Program definitions in this claim:
 
-- `RayOK a t t₀` — SPEC, not pinned, so only the formula shown is checked, not its name (for `a : ℝ → ℝ`, `t : ℝ`, `t₀ : ℝ`): means (for every `s : ℝ`, if `s ∈ Set.uIcc t t₀`, then `0 < a s`) and (`ContDiffOn ℝ 1 a (Set.uIcc t t₀)`)
-- `RedshiftSpecCore` — SPEC, not pinned: inductive type with constructors `RedshiftSpecCore.mk : ∀ {Z : (ℝ → ℝ) → ℝ → ℝ → ℝ}, (∀ (a : ℝ → ℝ) (t₀ t : ℝ), RayOK a t t₀ → 1 + Z a t₀ t = Real.exp (∫ (s : ℝ) in t..t₀, deriv a s / a s)) → (∀ (a : ℝ → ℝ) (t₀ t : ℝ), RayOK a t t₀ → 1 + Z a t₀ t = a t₀ / a t) → (∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → Z a t t = 0) → (∀ (a : ℝ → ℝ) (t t₁ t₀ : ℝ), RayOK a t t₁ → RayOK a t₁ t₀ → 1 + Z a t₀ t = (1 + Z a t₀ t₁) * (1 + Z a t₁ t)) → (∀ (a : ℝ → ℝ) (c t₀ t : ℝ), 0 < c → RayOK a t t₀ → Z (fun s => c * a s) t₀ t = Z a t₀ t) → (∀ (a : ℝ → ℝ) (τ t₀ t : ℝ), RayOK a (t + τ) (t₀ + τ) → Z (fun s => a (s + τ)) t₀ t = Z a (t₀ + τ) (t + τ)) → (∀ (a b : ℝ → ℝ) (t₀ t : ℝ), RayOK a t t₀ → Set.EqOn a b (Set.uIcc t t₀) → Z b t₀ t = Z a t₀ t) → (∀ (a : ℝ → ℝ) (t₀ t : ℝ), t < t₀ → RayOK a t t₀ → (∀ s ∈ Set.Ioo t t₀, 0 < deriv a s) → 0 < Z a t₀ t) → (∀ (A h t₀ t : ℝ), 0 < A → Z (fun s => A * Real.exp (h * s)) t₀ t = Real.exp (h * (t₀ - t)) - 1) → (∀ (p t₀ t : ℝ), 0 < t → 0 < t₀ → Z (fun s => s ^ p) t₀ t = t₀ ^ p / t ^ p - 1) → (∀ (t₀ t : ℝ), 0 < t → 0 < t₀ → Z (fun s => s) t₀ t = t₀ / t - 1) → (∀ (A t₀ t : ℝ), 0 < A → Z (fun x => A) t₀ t = 0) → Z (fun s => Real.exp s) 1 0 ≠ 1 → Z (fun s => Real.exp s) 1 0 ≠ Real.exp (-1) - 1 → RedshiftSpecCore Z`
+- `AngDistSpec` — SPEC, not pinned: inductive type with constructors `AngDistSpec.mk : ∀ {D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ}, (∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) → ContinuousOn a (Set.Icc t t₀) → D 0 a t₀ t = a t * ∫ (s : ℝ) in t..t₀, 1 / a s) → (∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) → ContinuousOn a (Set.Icc t t₀) → D 1 a t₀ t = a t * Real.sin (∫ (s : ℝ) in t..t₀, 1 / a s)) → (∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) → ContinuousOn a (Set.Icc t t₀) → D (-1) a t₀ t = a t * Real.sinh (∫ (s : ℝ) in t..t₀, 1 / a s)) → (∀ (c : ℝ), 0 < c → ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ), D (c ^ 2 * K) (fun s => c * a s) t₀ t = D K a t₀ t) → (∀ (τ K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ), D K (fun s => a (s + τ)) (t₀ - τ) (t - τ) = D K a t₀ t) → (∀ t ≤ 0, D 0 Real.exp 0 t = 1 - Real.exp t) → (∀ t ≤ 0, D 0 (fun s => Real.exp (-s)) 0 t = Real.exp (-t) - 1) → (∀ (t : ℝ), 0 < t → t ≤ 1 → D (-1) id 1 t = (1 - t ^ 2) / 2) → (∀ (R : ℝ), 0 < R → ∀ (t₀ t : ℝ), t ≤ t₀ → D 1 (fun x => R) t₀ t = R * Real.sin ((t₀ - t) / R)) → (∀ (R : ℝ), 0 < R → ∀ (t₀ t : ℝ), t ≤ t₀ → D 0 (fun x => R) t₀ t = t₀ - t) → AngDistSpec D`
+- `LumDistSpec` — SPEC, not pinned: inductive type with constructors `LumDistSpec.mk : ∀ {D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ}, (∀ t ≤ 0, D 0 Real.exp 0 t = (Real.exp (-t) - 1) * Real.exp (-t)) → (∀ (t : ℝ), 0 < t → t ≤ 1 → D (-1) id 1 t = ((1 / t) ^ 2 - 1) / 2) → (∀ (t₀ t : ℝ), t ≤ t₀ → D 1 (fun x => 1) t₀ t = Real.sin (t₀ - t)) → (∀ (c : ℝ), 0 < c → ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ), D (c ^ 2 * K) (fun s => c * a s) t₀ t = D K a t₀ t) → LumDistSpec D`
+- `LumDistSpec2` — SPEC, not pinned: inductive type with constructors `LumDistSpec2.mk : ∀ {D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ}, LumDistSpec D → (∃ DA, AngDistSpec DA ∧ ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) → ContinuousOn a (Set.Icc t t₀) → D K a t₀ t = (1 + redshift a t₀ t) ^ 2 * DA K a t₀ t) → LumDistSpec2 D`
+- `comoving a t₀ t` — **PINNED** (pin theorem `comoving_pins`): phrase (hand-written, linted): the comoving radial distance with the scale factor `a`, the observation time `t₀` and the emission time `t` (integral of one over the scale factor over cosmic time; integrated from emission time to observation time; units in which the speed of light is one); by definition, `comoving a t₀ t` is `∫ (s : ℝ) in t..t₀, 1 / a s`
 - `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): phrase (hand-written, linted): the cosmological redshift with the scale factor `a`, the observation time `t₀` and the emission time `t` (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide); by definition, `redshift a t₀ t` is `a t₀ / a t - 1`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «positive when emission precedes observation in an expanding universe» only assuming for every `s : ℝ`, `0 < a s`; `StrictMono a`; `t < t₀`, «one plus redshift is the scale factor at observation over that at emission», «zero when emission and observation coincide» only assuming `a t₀ ≠ 0`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** every `Z` obeying the integrated wavelength-stretching law equals `redshift`
-on every ray along which `a > 0` is `C¹`.
+**Pinning:** the comoving distance is the flat luminosity distance of any `D` meeting
+`LumDistSpec2`, divided by `a₀ (1 + z)`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem redshiftCore_pins (Z : (ℝ → ℝ) → ℝ → ℝ → ℝ) (h : RedshiftSpecCore Z) (a : ℝ → ℝ)
-    (t₀ t : ℝ) (hr : RayOK a t t₀) : Z a t₀ t = redshift a t₀ t := …
+theorem comoving_pins (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) (h : LumDistSpec2 D) (a : ℝ → ℝ)
+    (t₀ t : ℝ) (htt : t ≤ t₀) (hpos : ∀ s ∈ Set.Icc t t₀, 0 < a s)
+    (hcont : ContinuousOn a (Set.Icc t t₀)) :
+    comoving a t₀ t = D 0 a t₀ t / (a t₀ * (1 + redshift a t₀ t)) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.redshift`, `Fidelity.RayOK`, `Fidelity.RedshiftSpecCore`
+See GLOSSARY.md: `Cosmography.BambaY.comoving`, `Cosmography.redshift`, `Fidelity.AngDistSpec`, `Fidelity.LumDistSpec`, `Fidelity.LumDistSpec2`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: redshift.
+- Definitions pinned by a machine-checked specification: comoving, redshift.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `redshiftCore_pins`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `comoving_pins`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/RedshiftCoeffSpecs.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Fidelity/FlatPins.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 12

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/tmp/claude-0/wide/gen_wide.py", line 176, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/claude-0/wide/gen_wide.py", line 136, in main
+    assert mu * h < 1, (float(t0), float(mu))
+           ^^^^^^^^^^
+AssertionError: (1.0546875, 340.4083)

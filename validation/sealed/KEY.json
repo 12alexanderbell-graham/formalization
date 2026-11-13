@@ -93,19 +93,19 @@
   },
   {
    "item": 9,
-   "headline": "Checked.Cosmography.DemianskiZ.demDA4_fails_past"
+   "headline": "Checked.Cosmography.DemianskiZ.flat_corrections"
   },
   {
    "item": 12,
-   "headline": "Checked.Fidelity.redshiftCore_pins"
+   "headline": "Checked.Fidelity.comoving_pins"
   },
   {
    "item": 13,
-   "headline": "Checked.Data.FR13.fr13_minval68"
+   "headline": "Checked.Data.FR13.fr13_exists68"
   },
   {
    "item": 14,
-   "headline": "Checked.Records.F2_error"
+   "headline": "Checked.Records.F10_printed_pole"
   },
   {
    "item": 15,
@@ -113,7 +113,7 @@
   },
   {
    "item": 18,
-   "headline": "Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_window"
+   "headline": "Checked.FalknerSkan.Bounded.homann_exists_bounded"
   },
   {
    "item": 19,
@@ -125,7 +125,7 @@
   },
   {
    "item": 21,
-   "headline": "Checked.Cosmography.BambaZ.printedDL4z_fails_past"
+   "headline": "Checked.Cosmography.BambaZ.bambaDLzClaim_false"
   },
   {
    "item": 22,
@@ -173,7 +173,7 @@
   },
   {
    "item": 36,
-   "headline": "Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_9_exists"
+   "headline": "Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_15_exists"
   },
   {
    "item": 37,

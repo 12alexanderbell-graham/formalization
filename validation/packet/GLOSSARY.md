@@ -331,30 +331,15 @@ noncomputable def yred (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   redshift a t₀ t / (1 + redshift a t₀ t)
 ```
 
-## `Cosmography.BambaZ.DA1z`
+## `Cosmography.BambaZ.BambaDLzClaim`
 
-`D¹_A` as printed (Eq. (10.47)).
-
-```lean
-noncomputable def DA1z (q : ℝ) : ℝ := -(1 / 2) * (3 + q)
-```
-
-## `Cosmography.BambaZ.DA2z`
-
-`D²_A` as printed (Eq. (10.48)).
+Claim (10.38)–(10.44): printed `D⁰…D⁴_L`, remainder `o(z⁵)`, every `K`, every analytic,
+everywhere positive scale factor with `H₀ > 0`.
 
 ```lean
-noncomputable def DA2z (q j k : ℝ) : ℝ := (1 / 6) * (11 + 7 * q + 3 * q ^ 2 - j - k)
-```
-
-## `Cosmography.BambaZ.DA3z`
-
-`D³_A` as printed (Eq. (10.49)).
-
-```lean
-noncomputable def DA3z (q j s k : ℝ) : ℝ :=
-  -(1 / 24) * (50 + 46 * q + 39 * q ^ 2 + 15 * q ^ 3 - 13 * j - 10 * q * j - s
-    - 2 * k * (5 + 3 * q))
+def BambaDLzClaim : Prop :=
+  ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
+    (fun t => remLz printedDL4z K a t₀ t) =o[𝓝 t₀] (fun t => redshift a t₀ t ^ 5)
 ```
 
 ## `Cosmography.BambaZ.DL1z`
@@ -382,6 +367,22 @@ noncomputable def DL3z (q j s k : ℝ) : ℝ :=
   (1 / 24) * (2 - 2 * q - 15 * q ^ 2 - 15 * q ^ 3 + 5 * j + 10 * q * j + s + 2 * k * (1 + 3 * q))
 ```
 
+## `Cosmography.BambaZ.correctDA4z`
+
+Proposed correction of (10.50)–(10.51): add `k²/120`.
+
+```lean
+noncomputable def correctDA4z (q j s l k : ℝ) : ℝ := printedDA4z q j s l k + k ^ 2 / 120
+```
+
+## `Cosmography.BambaZ.correctDL4z`
+
+Proposed correction of (10.43)–(10.44): add `k²/120` (the `K²χ⁵/5!` term of `sin`/`sinh`).
+
+```lean
+noncomputable def correctDL4z (q j s l k : ℝ) : ℝ := printedDL4z q j s l k + k ^ 2 / 120
+```
+
 ## `Cosmography.BambaZ.curvK`
 
 `K c²/(H₀² a₀²)` (`c = 1`); the review's `Ω₀ = 1 + Kc²/(H₀²a₀²)` is `omega0`.
@@ -389,6 +390,17 @@ noncomputable def DL3z (q j s k : ℝ) : ℝ :=
 ```lean
 noncomputable def curvK (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : ℝ :=
   K / (hubble a t₀ ^ 2 * a t₀ ^ 2)
+```
+
+## `Cosmography.BambaZ.printedDA4z`
+
+`D⁴_A` as printed (Eqs. (10.50)–(10.51)), verbatim (`j² = j₀²`).
+
+```lean
+noncomputable def printedDA4z (q j s l k : ℝ) : ℝ :=
+  (1 / 120) * (274 + 326 * q + 411 * q ^ 2 + 315 * q ^ 3 + 105 * q ^ 4 - 210 * q * j
+    - 105 * q ^ 2 * j - 15 * q * s + -137 * j + 10 * j ^ 2 - 21 * s - l
+    - 5 * k * (17 + 20 * q + 9 * q ^ 2 - 2 * j))
 ```
 
 ## `Cosmography.BambaZ.printedDL4z`
@@ -400,19 +412,6 @@ noncomputable def printedDL4z (q j s l k : ℝ) : ℝ :=
   (1 / 120) * (-6 + 6 * q + 81 * q ^ 2 + 165 * q ^ 3 + 105 * q ^ 4 - 110 * q * j
     - 105 * q ^ 2 * j - 15 * q * s + -27 * j + 10 * j ^ 2 - 11 * s - l
     - 5 * k * (1 + 8 * q + 9 * q ^ 2 - 2 * j))
-```
-
-## `Cosmography.BambaZ.remAz`
-
-Remainder `H₀ d_A − z[1 + D¹_A z + … + D⁴ z⁴]`, printed `D¹…D³`, given `D⁴`.
-
-```lean
-noncomputable def remAz (D4 : ℝ → ℝ → ℝ → ℝ → ℝ → ℝ) (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
-  hubble a t₀ * angDist K a t₀ t -
-    seriesZ (DA1z (decel a t₀)) (DA2z (decel a t₀) (cosmoCoeff 3 a t₀) (curvK K a t₀))
-      (DA3z (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (curvK K a t₀))
-      (D4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) (curvK K a t₀))
-      (redshift a t₀ t)
 ```
 
 ## `Cosmography.BambaZ.remLz`
@@ -532,6 +531,17 @@ noncomputable def seriesQ (d2 q y : ℝ) : ℝ := y * (1 - q / 2 * y + d2 * y ^ 
 noncomputable def demDA4 (q j s l : ℝ) : ℝ :=
   (1 / 120) * (274 + 326 * q + 411 * q ^ 2 + 315 * q ^ 3 + 105 * q ^ 4 - 210 * q * j
     - 105 * q ^ 2 * j - 15 * q * s + 137 * j + 10 * j ^ 2 - 21 * s - l)
+```
+
+## `Cosmography.DemianskiZ.demDL4`
+
+`D⁴_L` as printed (Demianski et al. 2017, display after (17); Lusso et al. 2019, display after
+(6)), verbatim.
+
+```lean
+noncomputable def demDL4 (q j s l : ℝ) : ℝ :=
+  (1 / 120) * (-6 + 6 * q + 81 * q ^ 2 + 165 * q ^ 3 - 105 * q ^ 4 - 110 * q * j
+    + -105 * q ^ 2 * j - 15 * q * s - 27 * j + 10 * j ^ 2 - 11 * s - l)
 ```
 
 ## `Cosmography.FRCosmo.P0`
@@ -759,6 +769,42 @@ noncomputable def m16Table : Fin 30 → ℝ × ℝ × ℝ :=
     (1.965, 186.5, 50.4)]
 ```
 
+## `Fidelity.AngDistSpec`
+
+Specification of an angular-diameter-distance function `D K a t₀ t`.
+
+```lean
+structure AngDistSpec (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) : Prop where
+  /-- Flat FLRW: `d_A = a(t) χ`, `χ = ∫_t^{t₀} ds/a(s)` (Weinberg §1.4;
+  Hogg 1999, §§5–6: `d_A = d_M/(1+z)`). Positive continuous `a` on the past light cone. -/
+  flat : ∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) →
+    ContinuousOn a (Set.Icc t t₀) → D 0 a t₀ t = a t * ∫ s in t..t₀, 1 / a s
+  /-- Closed FLRW (`K = 1`): `d_A = a(t) sin χ`. -/
+  closed : ∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) →
+    ContinuousOn a (Set.Icc t t₀) → D 1 a t₀ t = a t * Real.sin (∫ s in t..t₀, 1 / a s)
+  /-- Open FLRW (`K = −1`): `d_A = a(t) sinh χ`. -/
+  «open» : ∀ (a : ℝ → ℝ) (t₀ t : ℝ), t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) →
+    ContinuousOn a (Set.Icc t t₀) → D (-1) a t₀ t = a t * Real.sinh (∫ s in t..t₀, 1 / a s)
+  /-- Normalization invariance: `a ↦ c a`, `K ↦ c² K` leaves `d_A` unchanged. -/
+  rescale : ∀ c : ℝ, 0 < c → ∀ K a t₀ t, D (c ^ 2 * K) (fun s => c * a s) t₀ t = D K a t₀ t
+  /-- Time-translation invariance. -/
+  translate : ∀ (τ K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ),
+    D K (fun s => a (s + τ)) (t₀ - τ) (t - τ) = D K a t₀ t
+  /-- Flat de Sitter (`a = eᵗ`, `t₀ = 0`, `H₀ = 1`): `d_A = z/(1+z) = 1 − eᵗ`
+  (bounded by the Hubble radius). -/
+  deSitter : ∀ t : ℝ, t ≤ 0 → D 0 Real.exp 0 t = 1 - Real.exp t
+  /-- Contracting de Sitter (`a = e^{−t}`, blueshift): `d_A = a(t)(1 − eᵗ) = e^{−t} − 1`. -/
+  deSitterContracting : ∀ t : ℝ, t ≤ 0 → D 0 (fun s => Real.exp (-s)) 0 t = Real.exp (-t) - 1
+  /-- Milne (`a = t`, `K = −1`, `t₀ = 1`): `d_A = t sinh(ln(1/t)) = (1 − t²)/2`, i.e.
+  `z(1 + z/2)/(1+z)²`. -/
+  milne : ∀ t : ℝ, 0 < t → t ≤ 1 → D (-1) id 1 t = (1 - t ^ 2) / 2
+  /-- Static closed universe of radius `R` (`a ≡ R`, `K = 1`): `d_A = R sin((t₀ − t)/R)`. -/
+  staticClosed : ∀ R : ℝ, 0 < R → ∀ t₀ t : ℝ, t ≤ t₀ →
+    D 1 (fun _ => R) t₀ t = R * Real.sin ((t₀ - t) / R)
+  /-- Static flat universe (`a ≡ R`): `d_A = t₀ − t` (Euclidean). -/
+  staticFlat : ∀ R : ℝ, 0 < R → ∀ t₀ t : ℝ, t ≤ t₀ → D 0 (fun _ => R) t₀ t = t₀ - t
+```
+
 ## `Fidelity.HubbleSpec`
 
 Specification of a Hubble-rate function `H a t` (scale factor `a`, cosmic time `t`).
@@ -789,67 +835,35 @@ structure HubbleSpec (H : (ℝ → ℝ) → ℝ → ℝ) : Prop where
     H (fun s => a (-s)) t = -H a (-t)
 ```
 
-## `Fidelity.RayOK`
+## `Fidelity.LumDistSpec`
 
-(Verbatim from the blind spec.) Physical hypotheses for a light ray between times `t` and
-`t₀`: the scale factor is positive and continuously differentiable on the closed interval between
-them.
+Specification of a luminosity-distance function `D K a t₀ t`.
 
 ```lean
-def RayOK (a : ℝ → ℝ) (t t₀ : ℝ) : Prop :=
-  (∀ s ∈ uIcc t t₀, 0 < a s) ∧ ContDiffOn ℝ 1 a (uIcc t t₀)
+structure LumDistSpec (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) : Prop where
+  /-- Flat de Sitter (`a = eᵗ`, `H₀ = 1`, `t₀ = 0`): `d_L = z(1+z)` with `1 + z = e^{−t}`. -/
+  deSitter : ∀ t ≤ 0, D 0 Real.exp 0 t = (Real.exp (-t) - 1) * Real.exp (-t)
+  /-- Milne (`a = t`, `K = −1`, `t₀ = 1`, `H₀ = 1`): `d_L = z(1 + z/2) = ((1+z)² − 1)/2`,
+  `1 + z = 1/t`. -/
+  milne : ∀ t, 0 < t → t ≤ 1 → D (-1) id 1 t = ((1 / t) ^ 2 - 1) / 2
+  /-- Static closed universe (`a ≡ 1`, `K = 1`): `d_L = sin χ`, `χ = t₀ − t`. -/
+  staticClosed : ∀ t₀ t, t ≤ t₀ → D 1 (fun _ => 1) t₀ t = Real.sin (t₀ - t)
+  /-- The normalization of `a` is unphysical: `a ↦ c a`, `K ↦ c² K` leaves `d_L` unchanged. -/
+  rescale : ∀ c : ℝ, 0 < c → ∀ K a t₀ t, D (c ^ 2 * K) (fun s => c * a s) t₀ t = D K a t₀ t
+
+/-! ## The program's definition meets the specification -/
 ```
 
-## `Fidelity.RedshiftSpecCore`
+## `Fidelity.LumDistSpec2`
 
-The fields of the blind `RedshiftSpec` proved below (verbatim). Not yet proved for
-`redshift` (omitted): `deriv_emission`, `deriv_observation`, `low_z`.
+Anchors plus Etherington distance duality `d_L = (1+z)² d_A`.
 
 ```lean
-structure RedshiftSpecCore (Z : (ℝ → ℝ) → ℝ → ℝ → ℝ) : Prop where
-  /-- **General (pinning) law: integrated wavelength stretching.** Along a radial null ray
-  `dλ/λ = (ȧ/a) dt`, hence `1 + z = λ_obs/λ_em = exp ∫_t^{t₀} H(s) ds`.
-  [Peebles §5; Weinberg §1.2; Ryden §3.5]. -/
-  integral_law : ∀ (a : ℝ → ℝ) (t₀ t : ℝ), RayOK a t t₀ →
-    1 + Z a t₀ t = Real.exp (∫ s in t..t₀, deriv a s / a s)
-  /-- **Ratio law** `1 + z = a(t₀)/a(t)` [Ryden eq. 3.46; Weinberg eq. 1.2.4]. -/
-  ratio_law : ∀ (a : ℝ → ℝ) (t₀ t : ℝ), RayOK a t t₀ →
-    1 + Z a t₀ t = a t₀ / a t
-  /-- No redshift when emission and observation coincide. -/
-  self_zero : ∀ (a : ℝ → ℝ) (t : ℝ), 0 < a t → Z a t t = 0
-  /-- **Composition**: redshift factors multiply along a ray passing an intermediate
-  observer at `t₁` [Weinberg §1.2]. -/
-  compose : ∀ (a : ℝ → ℝ) (t t₁ t₀ : ℝ), RayOK a t t₁ → RayOK a t₁ t₀ →
-    1 + Z a t₀ t = (1 + Z a t₀ t₁) * (1 + Z a t₁ t)
-  /-- **Normalization invariance**: only ratios of the scale factor are physical, so
-  `a ↦ c·a` (`c > 0`) leaves `z` unchanged [Ryden §3.5]. -/
-  rescale_invariant : ∀ (a : ℝ → ℝ) (c t₀ t : ℝ), 0 < c → RayOK a t t₀ →
-    Z (fun s => c * a s) t₀ t = Z a t₀ t
-  /-- **Time-translation covariance** (choice of time origin is unphysical). -/
-  time_translate : ∀ (a : ℝ → ℝ) (τ t₀ t : ℝ), RayOK a (t + τ) (t₀ + τ) →
-    Z (fun s => a (s + τ)) t₀ t = Z a (t₀ + τ) (t + τ)
-  /-- **Locality**: `z` depends only on the scale factor along the ray. -/
-  local_dep : ∀ (a b : ℝ → ℝ) (t₀ t : ℝ), RayOK a t t₀ → EqOn a b (uIcc t t₀) →
-    Z b t₀ t = Z a t₀ t
-  /-- **Expanding universe ⇒ redshift** (`z > 0` for past emission when `ȧ > 0`). -/
-  expanding_pos : ∀ (a : ℝ → ℝ) (t₀ t : ℝ), t < t₀ → RayOK a t t₀ →
-    (∀ s ∈ Ioo t t₀, 0 < deriv a s) → 0 < Z a t₀ t
-  /-- **Anchor: de Sitter** `a = A e^{ht}`: `1 + z = e^{h(t₀-t)}`. -/
-  de_sitter : ∀ (A h t₀ t : ℝ), 0 < A →
-    Z (fun s => A * Real.exp (h * s)) t₀ t = Real.exp (h * (t₀ - t)) - 1
-  /-- **Anchor: power law** `a = t^p` (e.g. matter `p = 2/3`, radiation `p = 1/2`),
-  for positive times: `1 + z = (t₀/t)^p`. -/
-  power_law : ∀ (p t₀ t : ℝ), 0 < t → 0 < t₀ →
-    Z (fun s => s ^ p) t₀ t = t₀ ^ p / t ^ p - 1
-  /-- **Anchor: Milne** `a = t`: `1 + z = t₀/t`. -/
-  milne : ∀ (t₀ t : ℝ), 0 < t → 0 < t₀ → Z (fun s => s) t₀ t = t₀ / t - 1
-  /-- **Anchor: static universe** `a = A`: no cosmological redshift. -/
-  static : ∀ (A t₀ t : ℝ), 0 < A → Z (fun _ => A) t₀ t = 0
-  /-- **Near-miss negative**: the linear Hubble law `z = H₀(t₀ - t)` is not exact
-  (de Sitter, `h = 1`, `t₀ - t = 1`: true `z = e - 1`, not `1`). -/
-  not_linear_hubble : Z (fun s => Real.exp s) 1 0 ≠ 1
-  /-- **Near-miss negative**: the ratio is not inverted (`z ≠ a(t)/a(t₀) - 1`). -/
-  not_inverted : Z (fun s => Real.exp s) 1 0 ≠ Real.exp (-1) - 1
+structure LumDistSpec2 (D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ) : Prop where
+  base : LumDistSpec D
+  etherington : ∃ DA : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ, AngDistSpec DA ∧
+    ∀ K (a : ℝ → ℝ) t₀ t, t ≤ t₀ → (∀ s ∈ Set.Icc t t₀, 0 < a s) →
+      ContinuousOn a (Set.Icc t t₀) → D K a t₀ t = (1 + redshift a t₀ t) ^ 2 * DA K a t₀ t
 ```
 
 ## `Records.RoundsTo`
@@ -858,22 +872,6 @@ structure RedshiftSpecCore (Z : (ℝ → ℝ) → ℝ → ℝ → ℝ) : Prop wh
 
 ```lean
 def RoundsTo (x d : ℝ) (k : ℕ) : Prop := |x - d| ≤ 1 / (2 * 10 ^ k)
-```
-
-## `Records.printedCLSL0`
-
-Capozziello, Lazkoz, Salzano 2011 (arXiv:1104.3096), Eq. (22): the printed flat matter + CPL
-`l₀`, written out (run 2026-11-08T0628Z: a named PRINTED definition replacing a `local notation`, so
-that the role of the certified numbers is read from Lean; blind second reading
-`Checked.Trust.SecondReading.clsL0`).
-
-```lean
-noncomputable def printedCLSL0 (Ω w₀ wₐ : ℝ) : ℝ :=
-  35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ
-    + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀
-    + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2
-    + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3
-    + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4
 ```
 
 ## `Records.printedFazioRevWall`
