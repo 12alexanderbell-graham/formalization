@@ -674,4 +674,5 @@
 ## 2026-11-13T1028Z (scheduled run)
 - Env: repo ok (add_repo not exposed; pre-cloned checkout reset to origin/main 4af3d97); local Lean installed (elan, Mathlib cache) but not needed (Python and records only); auditor role all run (LOCK of run 0828Z, heartbeat 09:38Z). CI: 94ff806 (43373750289) red only at StatementDeps (a cited non-headline `core_rev`, gone on main since); 5c06d2e running.
 - Part 3: blind red teams AK (main 4af3d97) and AL (against the repair) on new or disclosed verified findings, disclosure allowed: 6/6 and 6/6 wrong findings accepted. Repair `scripts/trust/check_findings.py` FB8 (record of its own; every heading `### F<k>`), FB9 (generated Correct line, `--write-correct`); AK 1/6, AL 5/6 after (not blind). `runs/2026-11-13T1028Z/t5/RESULTS.md`.
-- Next: blind-reader route for Scope/Printed lines of findings (STATE 0f).
+- LOCK of run 0828Z (heartbeat 09:38Z) taken over at 12:08Z (48.4, 150 min, no push); its compiled part-1 scratch is STATE 0g.
+- Next: promote run 0828Z's scratch (STATE 0g); blind-reader route for Scope/Printed lines of findings (STATE 0f).
