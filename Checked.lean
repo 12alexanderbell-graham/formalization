@@ -412,6 +412,7 @@ import Checked.FSRev.RInv
 import Checked.FSRev.RUnclamp
 import Checked.FSRev.RIdent
 import Checked.FSRev.RAssemble
+import Checked.FSRev.RFlowCells
 import Checked.FSRev.R1988Over
 import Checked.FSRev.R1988Slow
 import Checked.FSRev.R1988Tube
@@ -520,3 +521,4 @@ import Checked.Trust.MaxwellRightPR
 import Checked.Trust.NecessityEta
 import Checked.Trust.NecessityW
 import Checked.Trust.NecessityX
+import Checked.Trust.NecessityY
