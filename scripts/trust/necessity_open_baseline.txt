@@ -84,3 +84,7 @@ Records.F13_wall_shear | 4, 5, 8
 FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window | 4, 5, 8
 FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window | 4, 5, 8
 FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window | 4, 5, 8
+FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_13_window | 4, 5, 8
+FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_14_window | 4, 5, 8
+FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_window | 4, 5, 8
+FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_window | 4, 5, 8

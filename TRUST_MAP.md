@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 962 hypotheses in 164 headlines;
-526 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+530 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 153 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-283 open; headlines with every hypothesis classified: 63/164
+279 open; headlines with every hypothesis classified: 63/164
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -502,10 +502,10 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window` (8): needed 1 (`fs_neg_wall_shear_17_window_h1`), 2 (`fs_neg_wall_shear_17_window_h2`), 3 (`fs_neg_wall_shear_17_window_h3`), 7 (`fs_neg_wall_shear_17_window_h7`); redundant 6 (`fs_neg_wall_shear_17_window_r6`); open 4, 5, 8
 - `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window` (8): needed 1 (`fs_neg_wall_shear_18_window_h1`), 2 (`fs_neg_wall_shear_18_window_h2`), 3 (`fs_neg_wall_shear_18_window_h3`), 7 (`fs_neg_wall_shear_18_window_h7`); redundant 6 (`fs_neg_wall_shear_18_window_r6`); open 4, 5, 8
 - `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window` (8): needed 1 (`fs_neg_wall_shear_19_window_h1`), 2 (`fs_neg_wall_shear_19_window_h2`), 3 (`fs_neg_wall_shear_19_window_h3`), 7 (`fs_neg_wall_shear_19_window_h7`); redundant 6 (`fs_neg_wall_shear_19_window_r6`); open 4, 5, 8
-- `FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_13_window` (8): needed 1 (`fs_neg_wall_shear_13_window_h1`), 3 (`fs_neg_wall_shear_13_window_h3`), 7 (`fs_neg_wall_shear_13_window_h7`); redundant 6 (`fs_neg_wall_shear_13_window_r6`); open 2, 4, 5, 8
-- `FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_14_window` (8): needed 1 (`fs_neg_wall_shear_14_window_h1`), 3 (`fs_neg_wall_shear_14_window_h3`), 7 (`fs_neg_wall_shear_14_window_h7`); redundant 6 (`fs_neg_wall_shear_14_window_r6`); open 2, 4, 5, 8
-- `FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_window` (8): needed 1 (`fs_neg_wall_shear_15_window_h1`), 3 (`fs_neg_wall_shear_15_window_h3`), 7 (`fs_neg_wall_shear_15_window_h7`); redundant 6 (`fs_neg_wall_shear_15_window_r6`); open 2, 4, 5, 8
-- `FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_window` (8): needed 1 (`fs_neg_wall_shear_16_window_h1`), 3 (`fs_neg_wall_shear_16_window_h3`), 7 (`fs_neg_wall_shear_16_window_h7`); redundant 6 (`fs_neg_wall_shear_16_window_r6`); open 2, 4, 5, 8
+- `FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_13_window` (8): needed 1 (`fs_neg_wall_shear_13_window_h1`), 2 (`fs_neg_wall_shear_13_window_h2`), 3 (`fs_neg_wall_shear_13_window_h3`), 7 (`fs_neg_wall_shear_13_window_h7`); redundant 6 (`fs_neg_wall_shear_13_window_r6`); open 4, 5, 8
+- `FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_14_window` (8): needed 1 (`fs_neg_wall_shear_14_window_h1`), 2 (`fs_neg_wall_shear_14_window_h2`), 3 (`fs_neg_wall_shear_14_window_h3`), 7 (`fs_neg_wall_shear_14_window_h7`); redundant 6 (`fs_neg_wall_shear_14_window_r6`); open 4, 5, 8
+- `FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_window` (8): needed 1 (`fs_neg_wall_shear_15_window_h1`), 2 (`fs_neg_wall_shear_15_window_h2`), 3 (`fs_neg_wall_shear_15_window_h3`), 7 (`fs_neg_wall_shear_15_window_h7`); redundant 6 (`fs_neg_wall_shear_15_window_r6`); open 4, 5, 8
+- `FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_window` (8): needed 1 (`fs_neg_wall_shear_16_window_h1`), 2 (`fs_neg_wall_shear_16_window_h2`), 3 (`fs_neg_wall_shear_16_window_h3`), 7 (`fs_neg_wall_shear_16_window_h7`); redundant 6 (`fs_neg_wall_shear_16_window_r6`); open 4, 5, 8
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 

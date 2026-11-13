@@ -3,7 +3,7 @@ import Checked.Trust.NecessityR
 import Checked.FalknerSkan.NegWallShearRowsTop
 import Checked.FalknerSkan.NegReversedWallShearRows
 
-/-! Hypothesis necessity for the attached Falkner–Skan window headlines at the first four rows of the decelerating segment of a table read blind (run 2026-11-13T1640Z), by the profiles and the edge-limit lemma that serve the sibling rows: the Falkner–Skan equation and the relation between the stream function and the velocity are needed (explicit elementary profiles valid for every pressure-gradient coefficient), positivity of the shear is needed (the reversed-flow solution of the same row, a Checked existence headline, meets every other hypothesis and has negative wall shear), and the edge limit of the velocity is redundant (it follows from the other hypotheses for a decelerating stream). -/
+/-! Hypothesis necessity for the attached Falkner–Skan window headlines at the first four rows of the decelerating segment of a table read blind (run 2026-11-13T1640Z), by the profiles and the edge-limit lemma that serve the sibling rows: the Falkner–Skan equation and the relation between the stream function and the velocity are needed (explicit elementary profiles valid for every pressure-gradient coefficient), the relation between the velocity and the shear is needed (a velocity rising linearly to the edge value, its primitive, and the shear from the equation by an integrating factor), positivity of the shear is needed (the reversed-flow solution of the same row, a Checked existence headline, meets every other hypothesis and has negative wall shear), and the edge limit of the velocity is redundant (it follows from the other hypotheses for a decelerating stream). -/
 
 namespace Checked.Trust.NCX
 
@@ -112,5 +112,29 @@ theorem fs_neg_wall_shear_16_window_h7 :
   have h1 := h.1
   norm_num at h1 w2
   linarith
+
+/-- `p' = q` is needed in `fs_neg_wall_shear_13_window`. -/
+theorem fs_neg_wall_shear_13_window_h2 :
+    necessity% Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_13_window 2 :=
+  ⟨F2, P2, Q2 (-(-13 / 100)), hf2, hq2 _, F2_zero, P2_zero, P2_lim, Q2_pos _ (by norm_num),
+    P2_decay _ (by norm_num), notWin2 _ _ _ (by norm_num)⟩
+
+/-- `p' = q` is needed in `fs_neg_wall_shear_14_window`. -/
+theorem fs_neg_wall_shear_14_window_h2 :
+    necessity% Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_14_window 2 :=
+  ⟨F2, P2, Q2 (-(-14 / 100)), hf2, hq2 _, F2_zero, P2_zero, P2_lim, Q2_pos _ (by norm_num),
+    P2_decay _ (by norm_num), notWin2 _ _ _ (by norm_num)⟩
+
+/-- `p' = q` is needed in `fs_neg_wall_shear_15_window`. -/
+theorem fs_neg_wall_shear_15_window_h2 :
+    necessity% Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_window 2 :=
+  ⟨F2, P2, Q2 (-(-15 / 100)), hf2, hq2 _, F2_zero, P2_zero, P2_lim, Q2_pos _ (by norm_num),
+    P2_decay _ (by norm_num), notWin2 _ _ _ (by norm_num)⟩
+
+/-- `p' = q` is needed in `fs_neg_wall_shear_16_window`. -/
+theorem fs_neg_wall_shear_16_window_h2 :
+    necessity% Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_window 2 :=
+  ⟨F2, P2, Q2 (-(-16 / 100)), hf2, hq2 _, F2_zero, P2_zero, P2_lim, Q2_pos _ (by norm_num),
+    P2_decay _ (by norm_num), notWin2 _ _ _ (by norm_num)⟩
 
 end Checked.Trust.NCX
