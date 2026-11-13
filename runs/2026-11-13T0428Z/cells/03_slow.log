@@ -1,0 +1,19 @@
+progress cells 16 t0 0.1719 amp e^1.80
+progress cells 32 t0 0.4219 amp e^3.12
+progress cells 48 t0 0.6719 amp e^3.93
+progress cells 64 t0 0.9219 amp e^6.85
+progress cells 80 t0 1.1719 amp e^13.91
+progress cells 96 t0 1.4219 amp e^24.44
+progress cells 112 t0 1.6719 amp e^30.39
+progress cells 128 t0 1.9219 amp e^30.82
+progress cells 144 t0 2.1719 amp e^30.88
+progress cells 160 t0 2.4219 amp e^30.94
+progress cells 176 t0 2.6719 amp e^31.01
+progress cells 192 t0 2.9219 amp e^31.07
+progress cells 208 t0 3.1719 amp e^31.13
+progress cells 224 t0 3.4219 amp e^31.19
+progress cells 240 t0 3.6719 amp e^31.26
+progress cells 256 t0 3.9219 amp e^31.32
+progress cells 272 t0 4.1719 amp e^31.38
+end state g p q 2.8571745156946178 0.9999999997451601 5.372668623927244e-12 B 2.3552649978457827e-13
+cells 276 final B 2.36e-13 r2 1.67e-13 amp e^31.40 end g p q 2.8571745156946178 0.9999999997451601 5.372668623927244e-12 max eps 1.9e-28 mode slowL path margin 2.55e-10 end margin 5.14e-12 OK
