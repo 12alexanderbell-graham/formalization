@@ -4,6 +4,7 @@ import Checked.FalknerSkan.NegReversedWallShear
 import Checked.FSRev.RPrintedNV
 import Checked.FalknerSkan.NegWallShear
 import Checked.FalknerSkan.NegWallShearRows
+import Checked.FalknerSkan.NegWallShearRowsTop
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
 import Checked.FalknerSkan.SeparationPrinted
@@ -1093,6 +1094,29 @@ theorem fs_neg_wall_shear_18_window : nonvacuity% Checked.FalknerSkan.NegWallShe
 theorem fs_neg_wall_shear_19_window : nonvacuity% Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window := by
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
     Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+/-! Falkner–Skan attached rows read blind from the top of the decelerating segment of a table (run 2026-11-13T1640Z):
+the solution of each row's existence headline satisfies every hypothesis of that row's wall-shear window. -/
+
+theorem fs_neg_wall_shear_13_window : nonvacuity% Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_13_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_13_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+theorem fs_neg_wall_shear_14_window : nonvacuity% Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_14_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_14_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+theorem fs_neg_wall_shear_15_window : nonvacuity% Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_exists_decay
+  exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+theorem fs_neg_wall_shear_16_window : nonvacuity% Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_window := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
+    Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_exists_decay
   exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
 
 end Checked.Trust.NV
