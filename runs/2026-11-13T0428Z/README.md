@@ -15,6 +15,8 @@ Scheduled run. LOCK 7755b69 (04:29Z) → removed in the final commit.
 4. Run 0228Z's session, still alive, found the same root cause in parallel and committed cheaper chains (weights (2, 8), degree 14, 26 digits) to its own folder at 04:40Z, after these were compiled. Lesson in PROMPT: try weights before precision.
 5. Rows −0.02, −0.01 (`scripts/gen_rev_wide.py`, `FS_QCLAMP`; logs `wide/`): row −0.02 passes on all three chains with the clamp at 4 (w = (4, 32), step 1/128, degree 16, 30 digits; tube end time 3/2); row −0.01: over and slow (degree 18, 36 digits) pass, the tube not yet (μh ≥ 1 at step 1/256 with clamp 5–6; q + B above clamp 4).
 
+6. **Records check (tooling):** run 0228Z's final push a3f99fd fails check_status_lines S2 on one of its STATE status lines (written after its replica). Reworded here (65c12dc); new `scripts/trust/records_check.py <base>` runs every Lean-free CI command on the records as they stand (≈ 1.5 min; a3f99fd's STATE fails it, this run's passes); PROMPT note: run it after the last records edit.
+
 ## Verification
-- Local: see the final commit message (CI replica against 07b7a68, the newest fully green ancestor).
-- CI: read next run.
+- Local: full `lake build Checked` green (restored build of 07b7a68 + this run's modules); `Work.FalknerSkan.ReversedRowThree` and its blind closure build, axioms standard; StatementDeps with relock (269 headlines, 164/164 NV, open hypotheses 280), Claims (269), packet; every Python command of the trust step exit 0; `local_frozen_step.py 07b7a68`: 21 commands, 0 failed; `records_check.py 07b7a68` after the last records edit: 40 commands, 0 failed.
+- CI: the runs of 7d590d2, c144ae1, 65920cd, a3f99fd and of this run's pushes were still running at the end — read next run (a3f99fd expected red on S2).
