@@ -1,45 +1,43 @@
 # Item 15
 
-**Area:** Mathematics
+**Area:** Fluid mechanics
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
 
-1. `41 / 10 ≤ S`
-2. for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `HasDerivWithinAt w (φ s) (Set.Icc 0 S) s`
-3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
-4. for every `s : ℝ`, if `s ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Icc 0 S) s`
-5. `w 0 = 0`
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
 
 **then**
 
-- there is `s₁ : ℝ` such that (`4.071496844 ≤ s₁`) and (`s₁ ≤ 4.071496845`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `s ^ 2 * Real.exp (w s) ≤ s₁ ^ 2 * Real.exp (w s₁)`) and (`3.321992118 ≤ s₁ ^ 2 * Real.exp (w s₁)`) and (`s₁ ^ 2 * Real.exp (w s₁) ≤ 3.321992119`)
+1. `1.3119376938 < q 0`
+2. `q 0 < 1.3119376939`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Gelfand problem in the three-dimensional ball, radial branch: for every S ≥ 41/10 and every
-solution w of w'' + (2/s)w' + e^w = 0 on (0, S] with w(0) = 0, w differentiable on [0, S] with
-derivative φ and φ continuous at 0, there is a point s₁ between 4.071496844 and 4.071496845 at which
-s² e^{w(s)} attains its maximum over [0, S], and that maximum lies between 3.321992118 and
-3.321992119.
+Homann axisymmetric stagnation-point flow: every solution of f''' + 2 f f'' + 1 − f'² = 0 on [0, ∞) (f has derivative p, p has
+derivative q, q has derivative −2 f q − 1 + p², one-sided at 0) with f(0) = 0, p(0) = 0 and
+p(η) → 1 as η → ∞ has wall shear q(0) = f''(0) strictly between
+1.3119376938 and 1.3119376939.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem gelfand_ball_critical (S : ℝ) (hS : 41 / 10 ≤ S) (w φ : ℝ → ℝ)
-    (hw : ∀ s ∈ Icc (0 : ℝ) S, HasDerivWithinAt w (φ s) (Icc 0 S) s)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 S) 0)
-    (hφ : ∀ s ∈ Ioc (0 : ℝ) S,
-      HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Icc 0 S) s)
-    (h0 : w 0 = 0) :
-    ∃ s₁ : ℝ, 4.071496844 ≤ s₁ ∧ s₁ ≤ 4.071496845 ∧
-      (∀ s ∈ Icc 0 S, s ^ 2 * Real.exp (w s) ≤ s₁ ^ 2 * Real.exp (w s₁)) ∧
-      3.321992118 ≤ s₁ ^ 2 * Real.exp (w s₁) ∧ s₁ ^ 2 * Real.exp (w s₁) ≤ 3.321992119 := …
+theorem homann_limit_window (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
+    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
+    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Ici 0) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1)) :
+    1.3119376938 < q 0 ∧ q 0 < 1.3119376939 := …
 ```
 
 ## Definitions it uses
@@ -51,8 +49,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `gelfand_ball_critical`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `homann_limit_window`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/Gelfand.lean` (do not open it before submitting your answers).
+- Source file: `Checked/FalknerSkan/Limit.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 15

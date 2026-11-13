@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 279. Resting on no unpinned physics definition: 279.
-Non-vacuity (trust track T2): 168 headlines have hypotheses; 168 of them have a
+Headlines: 280. Resting on no unpinned physics definition: 280.
+Non-vacuity (trust track T2): 169 headlines have hypotheses; 169 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 962 hypotheses in 164 headlines;
-548 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-153 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-261 open; headlines with every hypothesis classified: 63/164
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 967 hypotheses in 165 headlines;
+552 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+154 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+261 open; headlines with every hypothesis classified: 64/165
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -208,6 +208,7 @@ the docstring says; universally bound parameters are not listed.
 | `Math.Gelfand.gelfand_ball_critical` | — | — | — | `gelfand_ball_critical` | — |
 | `Math.GelfandExists.exists_solution` | — | — | — | `gelfand_exists_solution` | — |
 | `Math.BonnorEbert.bonnor_ebert_critical` | — | — | — | `bonnor_ebert_critical` | — |
+| `Math.BonnorEbertMax.bonnor_ebert_max` | — | — | — | `bonnor_ebert_max` | — |
 | `Math.ThomasFermi.tf_initial_slope` | — | — | — | `tf_initial_slope` | — |
 | `Math.ThomasFermiExists.tf_exists` | — | — | — | unconditional | — |
 | `Math.GelfandPDE.gelfand_pde_radial_bound` | — | — | — | `gelfand_pde_radial_bound` | — |
@@ -451,6 +452,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Math.Gelfand.gelfand_ball_critical` (5): needed 1 (`gelfand_ball_critical_h1`), 2 (`gelfand_ball_critical_h2`), 4 (`gelfand_ball_critical_h4`), 5 (`gelfand_ball_critical_h5`); redundant 3 (`gelfand_ball_critical_r3`)
 - `Math.GelfandExists.exists_solution` (1): redundant 1 (`exists_solution_r1`)
 - `Math.BonnorEbert.bonnor_ebert_critical` (5): needed 1 (`bonnor_ebert_critical_h1`), 2 (`bonnor_ebert_critical_h2`), 4 (`bonnor_ebert_critical_h4`), 5 (`bonnor_ebert_critical_h5`); redundant 3 (`bonnor_ebert_critical_r3`)
+- `Math.BonnorEbertMax.bonnor_ebert_max` (5): needed 1 (`bonnor_ebert_max_h1`), 2 (`bonnor_ebert_max_h2`), 4 (`bonnor_ebert_max_h4`), 5 (`bonnor_ebert_max_h5`); redundant 3 (`bonnor_ebert_max_r3`)
 - `Math.ThomasFermi.tf_initial_slope` (6): needed 1 (`tf_initial_slope_h1`), 2 (`tf_initial_slope_h2`), 4 (`tf_initial_slope_h4`); redundant 3 (`tf_initial_slope_r3`); open 5, 6
 - `Math.GelfandPDE.gelfand_pde_radial_bound` (5): needed 2 (`gelfand_pde_radial_bound_h2`), 3 (`gelfand_pde_radial_bound_h3`), 5 (`gelfand_pde_radial_bound_h5`); open 1, 4
 - `Math.GelfandPDEExists.gelfand_pde_radial_exists` (2): needed 2 (`gelfand_pde_radial_exists_h2`); open 1

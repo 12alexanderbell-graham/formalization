@@ -212,6 +212,9 @@ import Checked.Math.BEQData
 import Checked.Math.BEChain
 import Checked.Math.BEMain
 import Checked.Math.BonnorEbert
+import Checked.Math.BEEnd
+import Checked.Math.BETail
+import Checked.Math.BonnorEbertMax
 import Checked.Trust.SecondReadingBE3
 import Checked.Math.TFReduce
 import Checked.Math.TFCell
@@ -522,3 +525,4 @@ import Checked.Trust.NecessityEta
 import Checked.Trust.NecessityW
 import Checked.Trust.NecessityX
 import Checked.Trust.NecessityY
+import Checked.Trust.NecessityZ

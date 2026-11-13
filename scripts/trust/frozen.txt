@@ -405,6 +405,7 @@ Checked.Homann.homann_exists 273d315f-doc3009616568739691773
 Checked.Homann.homann_over fdf52e42-doc13021469199748902275
 Checked.Homann.homann_under 2b238655-doc5097830784794214902
 Checked.Math.BonnorEbert.bonnor_ebert_critical cfe7915e-doc9077218428088810556
+Checked.Math.BonnorEbertMax.bonnor_ebert_max f9f17719-doc6363739176669171541
 Checked.Math.Gelfand.gelfand_ball_critical 8bc55514-doc3099962857817823782
 Checked.Math.GelfandExists.exists_solution 20e32e81-doc6694226507590696985
 Checked.Math.GelfandPDE.gelfand_pde_radial_bound a60a1dff-doc5938021182067386944
@@ -3531,9 +3532,12 @@ moduledoc:Checked.Homann.HmUData -mdoc7957932360403728042
 moduledoc:Checked.Homann.Homann -mdoc2051465372214870842
 moduledoc:Checked.Math.BECellQ -mdoc10997157589943964423
 moduledoc:Checked.Math.BEChain -mdoc4330682546558219368
+moduledoc:Checked.Math.BEEnd -mdoc4819347929467238744
 moduledoc:Checked.Math.BEMain -mdoc3459006954674770938
 moduledoc:Checked.Math.BEQData -mdoc5261983848398859491
 moduledoc:Checked.Math.BEStart -mdoc2603103045724268153
+moduledoc:Checked.Math.BETail -mdoc3852217132670055615
+moduledoc:Checked.Math.BonnorEbertMax -mdoc8203701529619995826
 moduledoc:Checked.Math.BonnorEbert -mdoc16108829127181183395
 moduledoc:Checked.Math.GCellQ -mdoc4960724099563984183
 moduledoc:Checked.Math.GCell -mdoc5299691976011732180
@@ -3698,6 +3702,7 @@ moduledoc:Checked.Trust.NecessityV -mdoc8897798300299112429
 moduledoc:Checked.Trust.NecessityW -mdoc6312914741354458293
 moduledoc:Checked.Trust.NecessityX -mdoc6115778442921724477
 moduledoc:Checked.Trust.NecessityY -mdoc5891376447689552911
+moduledoc:Checked.Trust.NecessityZ -mdoc18383527527713259113
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401

@@ -1,52 +1,54 @@
 # Item 39
 
-**Area:** Rigorous simulation
+**Area:** Mathematics
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `x : ℝ → ℝ`:
+**For every** `S : ℝ`, `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
 
-1. the position as function of time `x` is a Duffing oscillator initial value problem solution with the linear stiffness coefficient `k := 1`, the cubic stiffness coefficient `β := 1`, the initial position `x₀ := 1`, the initial velocity `v₀ := 0` and the final time of the interval `T := 6 / 5` (restoring force for positive stiffness, acceleration equals minus force terms; the second derivative plus `k := 1` times `x` plus `β := 1` times `x` cubed vanishes; `k := 1` is the linear stiffness and `β := 1` the cubic coefficient; `x₀ := 1` is the initial position and `v₀ := 0` the initial velocity; holds on the closed time interval from zero to `T := 6 / 5`; derivatives at the endpoints are one-sided)
+1. `68 / 5 ≤ S`
+2. for every `r : ℝ`, if `r ∈ Set.Icc 0 S`, then `HasDerivWithinAt θ (φ r) (Set.Icc 0 S) r`
+3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
+4. for every `r : ℝ`, if `r ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Set.Icc 0 S) r`
+5. `θ 0 = 2.2062008646`
 
 **then**
 
-1. for every `t : ℝ`, if `t ∈ Set.Icc 0 (1192005 / 1000000)`, then `0 < x t`
-2. `x (1192006 / 1000000) < 0`
-
-Program definitions in this claim:
-
-- `IsDuffingSolution k β x₀ v₀ T x` — **PINNED** (pin theorem `duffingSpec_pins`): phrase (hand-written, linted): the position as function of time `x` is a Duffing oscillator initial value problem solution with the linear stiffness coefficient `k`, the cubic stiffness coefficient `β`, the initial position `x₀`, the initial velocity `v₀` and the final time of the interval `T` (restoring force for positive stiffness, acceleration equals minus force terms; the second derivative plus `k` times `x` plus `β` times `x` cubed vanishes; `k` is the linear stiffness and `β` the cubic coefficient; `x₀` is the initial position and `v₀` the initial velocity; holds on the closed time interval from zero to `T`; derivatives at the endpoints are one-sided); by definition, means (`x 0 = x₀`) and (there is `v : ℝ → ℝ` such that (`v 0 = v₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt x (v t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt v (-k * x t - β * x t ^ 3) (Set.Icc 0 T) t`))). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «x₀ is the initial position and v₀ the initial velocity» only assuming `0 < T`; the position as function of time `x` is a Duffing oscillator initial value problem solution with the linear stiffness coefficient `k`, the cubic stiffness coefficient `β`, the initial position `x₀`, the initial velocity `v₀` and the final time of the interval `T` (restoring force for positive stiffness, acceleration equals minus force terms; the second derivative plus `k` times `x` plus `β` times `x` cubed vanishes; `k` is the linear stiffness and `β` the cubic coefficient; `x₀` is the initial position and `v₀` the initial velocity; holds on the closed time interval from zero to `T`; derivatives at the endpoints are one-sided)
+- there is `r : ℝ` such that (`r ∈ Set.Ioc 0 (68 / 5)`) and (`0 < φ r`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 r`, then `0 < θ s`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Certified first zero of the Duffing oscillator x'' + x + x³ = 0 released from rest at
-x = 1: every solution on the time interval [0, 6/5] (derivatives within the interval) is strictly
-positive at all times in [0, 1.192005] and strictly negative at time 1.192006, so its earliest
-zero lies strictly between 1.192005 and 1.192006. Proved by a validated enclosure of every
-solution (rational Taylor cells, exact defect bounds, energy box, Grönwall).
+Townes radial equation, undershoot: for every S ≥ 68/5 and every solution θ of
+θ'' + (1/r)θ' − θ + θ³ = 0 on (0, S] with θ(0) = 2.2062008646, θ differentiable on [0, S] with
+derivative φ and φ continuous at 0, there is r in (0, 68/5] with φ(r) > 0 and θ positive on
+[0, r].
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem duffing_first_zero_sol (x : ℝ → ℝ) (hx : IsDuffingSolution 1 1 1 0 (6 / 5) x) :
-    (∀ t ∈ Icc (0 : ℝ) (1192005 / 1000000), 0 < x t) ∧ x (1192006 / 1000000) < 0 := …
+theorem townes_under (S : ℝ) (hS : 68 / 5 ≤ S) (θ φ : ℝ → ℝ)
+    (hθ : ∀ r ∈ Icc (0 : ℝ) S, HasDerivWithinAt θ (φ r) (Icc 0 S) r)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 S) 0)
+    (hφ : ∀ r ∈ Ioc (0 : ℝ) S, HasDerivWithinAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) (Icc 0 S) r)
+    (h0 : θ 0 = 2.2062008646) :
+    ∃ r ∈ Ioc (0 : ℝ) (68 / 5), 0 < φ r ∧ ∀ s ∈ Icc 0 r, 0 < θ s := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Sim.Duffing.IsDuffingSolution`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsDuffingSolution.
+- Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `duffing_first_zero_sol`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsDuffingSolution: k = 1, β = 1, x₀ = 1, v₀ = 0, T = 6/5.
-- Source file: `Checked/Sim/Duffing.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `townes_under`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Townes/TownesShooting.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 39

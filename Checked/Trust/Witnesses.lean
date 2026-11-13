@@ -59,6 +59,7 @@ import Checked.Math.LEExists
 import Checked.Math.Gelfand
 import Checked.Math.GelfandExists
 import Checked.Math.BonnorEbert
+import Checked.Math.BonnorEbertMax
 import Checked.Math.ThomasFermi
 import Checked.Math.ThomasFermiExists
 import Checked.Math.GelfandPDE
@@ -728,6 +729,10 @@ theorem gelfand_exists_solution : nonvacuity% Checked.Math.GelfandExists.exists_
 constructed in `Checked.Math.GelfandExists.exists_solution` (the same equation in w = −ψ). -/
 
 theorem bonnor_ebert_critical : nonvacuity% Checked.Math.BonnorEbert.bonnor_ebert_critical := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.GelfandExists.exists_solution 7 (by norm_num)
+  exact ⟨7, le_rfl, w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+theorem bonnor_ebert_max : nonvacuity% Checked.Math.BonnorEbertMax.bonnor_ebert_max := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.GelfandExists.exists_solution 7 (by norm_num)
   exact ⟨7, le_rfl, w, φ, hw, hφ0, hφ, h0, trivial⟩
 

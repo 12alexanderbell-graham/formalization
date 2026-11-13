@@ -699,3 +699,8 @@
 - Part 1 by rotation: `Checked/Trust/NecessityY.lean` (generated, `runs/2026-11-13T2028Z/scripts/gen_necY.py`) + `Checked/FSRev/RFlowCells.lean` — f(0) = 0 and p(0) = 0 NEEDED in the seven attached-row windows β = −0.13 … −0.19, in `fs_neg_wall_shear_window` and in `F13_wall_shear` (18 classifications; open 279 → 261): translates of the reversed-flow solution of the same β, located by its tube's certified cells (sub-cell Taylor shift at −0.1988).
 - CI repair: StatementDeps' citation registry exempts the agreement theorems of `Checked.Trust.Transcriptions` (cited by run 1828Z's generated Printed lines; every push since af2cc09 would have failed the trust step); `precheck_citations.py` mirrors it and now runs in `records_check.py`.
 - Next: CI read; then parts 2/5 or 3 by rotation; hypothesis 8 of the nine needs an algebraically decaying attached solution.
+
+## 2026-11-13T2228Z (scheduled run)
+- Env: repo ok (add_repo not exposed; checkout reset to origin/main 3cd85d2); local Lean (elan, Mathlib cache, CI build artifact of c5c2a35 restored in 36 s; incremental `lake build Checked` ≈ 9 min); CI 43511962008 (3cd85d2) in progress all run (checked job started 21:59Z).
+- Parts 2/5 by rotation: **the Bonnor–Ebert critical mass is the strict maximum of the pressure-confined mass over every radius** — frozen, proved in Work in ≈ 25 min (Volterra's Lyapunov function in homology variables + convex-duality bound; state at radius 7 from the existing certified cells), blind restatement closed, referee STANDS, promoted (`Checked.Math.BonnorEbertMax.bonnor_ebert_max`, NV, literal readings, all five hypotheses classified in `Checked/Trust/NecessityZ.lean`).
+- Next: CI read; then parts 1 or 3 by rotation.
