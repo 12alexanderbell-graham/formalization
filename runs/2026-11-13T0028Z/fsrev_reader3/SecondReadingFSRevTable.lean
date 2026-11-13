@@ -1,0 +1,28 @@
+import Mathlib.Data.Real.Basic
+/-! Blind literal reading of tabulated Falkner–Skan wedge rows with decelerating outer stream, reversed-flow table (reader: Claude subagent; derivation and checks: sympy substitution of psi into the boundary-layer momentum equation with pressure gradient U U', numerically confirming residual proportional to f''' + f f'' + beta (1 - f'^2) with beta = 2m/(m+1)). -/
+namespace Checked.Trust.SecondReading
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowFourRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-4 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowFiveRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-5 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowSixRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-6 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowSevenRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-7 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowEightRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-8 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowNineRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-9 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowElevenRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-11 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowTwelveRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-12 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowThirteenRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-13 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowFourteenRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-14 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowFifteenRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-15 / 100) * (1 - p η ^ 2)
+/-- Falkner–Skan wedge flow at one row of the reversed-flow table (the row this definition's placeholder names in the brief): the right-hand side of q' (where p = f' and q = f'') at η. -/
+noncomputable def fsRevRowSixteenRhs (f p q : ℝ → ℝ) (η : ℝ) : ℝ := -(f η * q η) - (-16 / 100) * (1 - p η ^ 2)
+end Checked.Trust.SecondReading
