@@ -180,7 +180,7 @@ import Checked.Trust.SecondReadingFSWall
 import Checked.Trust.SecondReadingFSSepW
 import Checked.Trust.SecondReadingFSNearSep
 import Checked.Trust.SecondReadingFSAttRows
-import Checked.Trust.SecondReadingFSRevRows
+import Checked.Trust.SecondReadingFSRevTableRows
 import Checked.Trust.SecondReadingFSRevPrinted
 import Checked.Trust.SecondReadingFSSepPrinted
 import Checked.Trust.SecondReadingLE2
