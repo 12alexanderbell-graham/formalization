@@ -526,7 +526,15 @@ def reader_of(agree):
                 add = [x.split() for x in add if x.strip()]
                 if add:
                     dated.append((int(add[-1][0]), c, add[-1][1]))
-            for _, c, sha in sorted(dated):
+            # and it must be committed no later than the Checked module was first added (the reading precedes its
+            # copy): a reader file planted afterwards for a legacy reading with no runs/ copy never counts
+            # (ancestry, not commit dates, which an author can set)
+            madd = [x for x in (_git("log", "--format=%H", "--diff-filter=A", "--", str(f)) or "").split() if x]
+            first_mod = madd[-1] if madd else None
+            for when, c, sha in sorted(dated):
+                if first_mod is None or subprocess.run(["git", "merge-base", "--is-ancestor", sha, first_mod],
+                                                       capture_output=True).returncode != 0:
+                    continue
                 orig = _git("show", f"{sha}:{c}")
                 if orig is None:
                     continue
