@@ -387,6 +387,7 @@ import Checked.FSAtt.RNineteenHi
 import Checked.FSAtt.RNineteenCore
 import Checked.FalknerSkan.NegWallShearRows
 import Checked.FalknerSkan.NegReversedRows
+import Checked.FalknerSkan.NegReversedWallShearRows
 import Checked.FSRev.RBase
 import Checked.FSRev.RCell
 import Checked.FSRev.RInv

@@ -645,3 +645,9 @@
 - Parts 2/5: eleven more reversed-flow Falkner–Skan rows (β = −0.04 … −0.09, −0.11 … −0.14, −0.16) certified to ten decimals with existence, PROVED in Work, referee STANDS (all 19 rows of Ganapol 2010 Table 7 correct to 12 digits; 16 of 19 now machine-checked). New generic tube with free end time (`Checked/FSRev/RTubeA.lean`, `RAssembleA.lean`); 33 certificate modules.
 - Records: STATE "Last updated" and environment lines trimmed (oldest moved verbatim to `_archive/STATE_environment_history.md`).
 
+
+## 2026-11-13T0028Z (scheduled run)
+- Env: repo ok; local Lean (elan, Mathlib cache, CI build artifact of 43311405425 restored; run 2228Z's 38 FSRev modules built locally). CI 43311405425 (50d4d16) green on every job; 43333104273 (07b7a68) still running — read next run.
+- Parts 2/5: twelve reversed-flow Falkner–Skan rows of Ganapol 2010 Table 7 (β = −0.04 … −0.09, −0.11 … −0.16) promoted to Checked (`NegReversedWallShearRows`), β read blind from the typeset table (Sonnet reader, `SecondReadingFSRevTable`); 16 of 19 rows in Checked, PROVED once CI is green.
+- Part 3: blind red team AJ on the findings layer, **6/6 wrong findings accepted on main** against FB1–FB6 (all in finding prose no rule reads); repair `check_findings.py` FB7 (finding prose frozen against the CI base, disclosure in LEDGER required); AFTER 0/6 (not blind).
+- Records: PROMPT notes (FB7 route; table promotion with a restored CI build); STATE oldest environment line archived.

@@ -31,6 +31,10 @@ vacuity, junk values); Q3 is the source represented correctly; Q4 is every numbe
   `headlines.txt` (F0–F11, T1 fidelity pins, certified numbers, B1, chemistry).
 - 40 genuine items: one per group, the rest allocated in proportion to group size (largest
   remainder, ties broken by the seeded generator), drawn without replacement within groups.
+  When there are more than 40 groups, 40 groups are drawn by the seeded generator without
+  replacement with probability proportional to group size (Efraimidis–Spirakis keys), and one
+  item is drawn from each (amendment of 2026-11-13: with 51 groups the allocation above had
+  produced 51 genuine items, with 52 it produced 117; `make_packet.py` now enforces 40).
 - 8 planted control items (`controls.json`): copies of other headlines with one known material
   defect each, one per class the system is meant to stop: provenance, wrong number in the
   statement, statement contradicting the claim, overstated scope, wrong constant, vacuous

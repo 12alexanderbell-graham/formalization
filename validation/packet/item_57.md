@@ -1,72 +1,67 @@
 # Item 57
 
-**Area:** Falkner–Skan β = 1/10 in the class -1 <= f' <= 1
+**Area:** Chemistry
 
-**Source:** see the claim
+**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
+**For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
 
 **assuming**
 
-1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
-2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
-3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`
-4. `f 0 = 0`
-5. `p 0 = 0`
-6. `Filter.Tendsto p Filter.atTop (nhds 1)`
-7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)
-8. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₂ (p₂ η) (Set.Ici 0) η`
-9. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₂ (q₂ η) (Set.Ici 0) η`
-10. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - 1 / 10 * (1 - p₂ η ^ 2)) (Set.Ici 0) η`
-11. `f₂ 0 = 0`
-12. `p₂ 0 = 0`
-13. `Filter.Tendsto p₂ Filter.atTop (nhds 1)`
-14. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p₂ η`) and (`p₂ η ≤ 1`)
-15. `η ∈ Set.Ici 0`
+1. `0 < ac`
+2. `0 < b`
+3. `b < v`
+4. the isotherm pressure function of molar volume `p := cubicP R ac b 1 0 Tc` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical)
+5. `b < vl`
+6. the isotherm pressure function of molar volume `p := cubicP R (ac * (1 + (0.480 + 1.574 * 1 - 0.176 * 1 ^ 2) * (1 - √(7 / 10))) ^ 2) b 1 0 (7 / 10 * Tc)` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature)
 
 **then**
 
-1. `f η = f₂ η`
-2. `p η = p₂ η`
-3. `q η = q₂ η`
+1. `RoundsTo (ps / cubicP R ac b 1 0 Tc v) 102e-4 4`
+2. `RoundsTo (acentric ps (cubicP R ac b 1 0 Tc v)) 0.992 3`
+
+Program definitions in this claim:
+
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): phrase (hand-written, linted): the isotherm pressure function of molar volume `p` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical); by definition, means (`deriv p v = 0`) and (`deriv (deriv p) v = 0`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «first and second volume derivatives of pressure both vanish», «a mere stationary point is not critical»
+- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): phrase (hand-written, linted): the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature); by definition, means (`vl < vg`) and (`p vl = ps`) and (`p vg = ps`) and (`∫ (v : ℝ) in vl..vg, p v = ps * (vg - vl)`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «liquid volume is less than gas volume» only assuming the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature), «pressure equals the saturation pressure at both volumes» only assuming the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature), «equal areas between the isotherm and the saturation pressure line» only assuming the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature)
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `acentric ps pc` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_acentric`) (for `ps : ℝ`, `pc : ℝ`): is defined as `-Real.logb 10 (ps / pc) - 1`
+- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Falkner–Skan β = 1/10: for every solution (f, p, q) and every solution (f₂, p₂, q₂) of
-f''' + f f'' + (1 − f'²)/10 = 0 on [0, ∞) (derivatives one-sided at 0), both with f(0) = 0,
-p(0) = 0, p(η) → 1 as η → ∞ and −1 ≤ p ≤ 1 on [0, ∞): f η = f₂ η, p η = p₂ η and q η = q₂ η for
-every η ≥ 0.
+Soave–Redlich–Kwong fluid with Soave's κ(ω) correlation at ω = 1 (attraction a_c at T_c,
+a_c (1 + κ(1)(1 − √0.7))² at 0.7 T_c): at any critical point (v_c > b), every Maxwell coexistence
+state at T = 0.7 T_c with liquid volume above the co-volume b has pressure 0.0102 times the
+critical pressure (4 decimals) and acentric factor 0.992 (3 decimals), not the input value 1.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fs_tenth_bounded_equal (f p q f₂ p₂ q₂ : ℝ → ℝ)
-    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
-    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
-    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 / 10 * (1 - p η ^ 2)) (Ici 0) η)
-    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
-    (hb : ∀ η ∈ Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1)
-    (hf₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f₂ (p₂ η) (Ici 0) η)
-    (hp₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p₂ (q₂ η) (Ici 0) η)
-    (hq₂ : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - 1 / 10 * (1 - p₂ η ^ 2)) (Ici 0) η)
-    (hf₂0 : f₂ 0 = 0) (hp₂0 : p₂ 0 = 0) (hlim₂ : Tendsto p₂ atTop (𝓝 1))
-    (hb₂ : ∀ η ∈ Ici (0 : ℝ), -1 ≤ p₂ η ∧ p₂ η ≤ 1) :
-    ∀ η ∈ Ici (0 : ℝ), f η = f₂ η ∧ p η = p₂ η ∧ q η = q₂ η := …
+theorem srk_omega1_unique (R ac b Tc vc vl vg ps : ℝ) (hac : 0 < ac) (hb : 0 < b)
+    (hvc : b < vc)
+    (hc : IsCriticalIsotherm (cubicP R ac b 1 0 Tc) vc)
+    (hl : b < vl)
+    (h : IsMaxwellCoexistence
+      (cubicP R (ac * (1 + (0.480 + 1.574 * 1 - 0.176 * 1 ^ 2) *
+        (1 - Real.sqrt (7 / 10))) ^ 2) b 1 0 (7 / 10 * Tc)) vl vg ps) :
+    RoundsTo (ps / cubicP R ac b 1 0 Tc vc) 0.0102 4 ∧
+      RoundsTo (acentric ps (cubicP R ac b 1 0 Tc vc)) 0.992 3 := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.Coexistence.acentric`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: IsMaxwellCoexistence, IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fs_tenth_bounded_equal`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/TenthBounded.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `srk_omega1_unique`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 1, w = 0; RoundsTo: d = 0.0102, k = 4, d = 0.992, k = 3.
+- Source file: `Checked/Chemistry/SRKAcentric.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 57

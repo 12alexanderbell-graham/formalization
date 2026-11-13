@@ -1,43 +1,54 @@
 # Item 13
 
-**Area:** Rigorous simulation of a reaction network
+**Area:** Data claim
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `Ω : ℝ`:
 
-- there is `s : ℝ → ℝ` such that there is `e : ℝ → ℝ` such that there is `c : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that the substrate concentration over time `s`, the free enzyme concentration over time `e`, the complex concentration over time `c` and the product concentration over time `p` are a Michaelis Menten mass action initial value problem solution with the binding rate constant `k₁ := 1`, the unbinding rate constant `km₁ := 1`, the catalytic rate constant `k₂ := 1`, the initial substrate concentration `s₀ := 1`, the initial free enzyme concentration `e₀ := 1`, the initial complex concentration `c₀ := 0`, the initial product concentration `p₀ := 0` and the final time of the interval `T := 13 / 5` (binding consumes substrate and free enzyme, forms complex; mass action kinetics of E plus S reversibly forming complex C; `k₁ := 1` is the rate constant of E plus S forming C; `km₁ := 1` is the rate constant of C returning to E plus S; `k₂ := 1` is the rate constant of C forming E plus P; `s` `e` `c` `p` are concentrations of S E C and P; holds on the closed time interval from zero to `T := 13 / 5`)
+**assuming**
+
+1. `0 ≤ Ω`
+2. `Ω ≤ 1`
+3. for every `Ω' : ℝ`, if `Ω' ∈ Set.Icc 0 1`, then `margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω'`
+
+**then**
+
+1. `18.19 < margChiSq fr13Table 68 2.8 Ω`
+2. `margChiSq fr13Table 68 2.8 Ω < 18.21`
 
 Program definitions in this claim:
 
-- `IsMMSolution k₁ km₁ k₂ s₀ e₀ c₀ p₀ T s e c p` — **PINNED** (pin theorem `mmSpec_pins`): phrase (hand-written, linted): the substrate concentration over time `s`, the free enzyme concentration over time `e`, the complex concentration over time `c` and the product concentration over time `p` are a Michaelis Menten mass action initial value problem solution with the binding rate constant `k₁`, the unbinding rate constant `km₁`, the catalytic rate constant `k₂`, the initial substrate concentration `s₀`, the initial free enzyme concentration `e₀`, the initial complex concentration `c₀`, the initial product concentration `p₀` and the final time of the interval `T` (binding consumes substrate and free enzyme, forms complex; mass action kinetics of E plus S reversibly forming complex C; `k₁` is the rate constant of E plus S forming C; `km₁` is the rate constant of C returning to E plus S; `k₂` is the rate constant of C forming E plus P; `s` `e` `c` `p` are concentrations of S E C and P; holds on the closed time interval from zero to `T`); by definition, means (`s 0 = s₀`) and (`e 0 = e₀`) and (`c 0 = c₀`) and (`p 0 = p₀`) and (for every `t : ℝ`, if `t ∈ Set.Icc 0 T`, then (`HasDerivWithinAt s (-k₁ * e t * s t + km₁ * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt e (-k₁ * e t * s t + (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt c (k₁ * e t * s t - (km₁ + k₂) * c t) (Set.Icc 0 T) t`) and (`HasDerivWithinAt p (k₂ * c t) (Set.Icc 0 T) t`))
+- `chiSqHz tbl H₀ Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_chiSqHz`) (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `H₀ : ℝ`, `Ω : ℝ`): is defined as `∑ i, ((H₀ * √(Ω * (1 + (tbl i).1) ^ 3 + 1 - Ω) - (tbl i).2.1) / (tbl i).2.2) ^ 2`
+- `fr13Table` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_fr13Table`); its name is not checked: is defined as `![(70e-3, 69, 19.6), (0.100, 69, 12), (0.120, 68.6, 26.2), (0.170, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.200, 72.9, 29.6), (0.270, 77, 14), (0.280, 88.8, 36.6), (0.350, 76.3, 5.6), (0.352, 83, 14), (0.400, 95, 17), (0.440, 82.6, 7.8), (0.480, 97, 62), (0.593, 104, 13), (0.600, 87.9, 6.1), (0.680, 92, 8), (0.730, 97.3, 7.0), (0.781, 105, 12), (0.875, 125, 17), (0.880, 90, 40), (0.900, 117, 23), (1.037, 154, 20), (1.300, 168, 17), (1.430, 177, 18), (1.530, 140, 14), (1.750, 202, 40), (2.300, 224, 8)]`
+- `margChiSq tbl Hbar σ Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_margChiSq`) (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `Hbar : ℝ`, `σ : ℝ`, `Ω : ℝ`): is defined as `-2 * Real.log (∫ (H₀ : ℝ), Real.exp (-chiSqHz tbl H₀ Ω / 2) * (Real.exp (-(H₀ - Hbar) ^ 2 / (2 * σ ^ 2)) / √(2 * Real.pi * σ ^ 2)))`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-There is a solution of the mass-action rate equations of the Michaelis–Menten mechanism
-with k₁ = k₋₁ = k₂ = 1, [S]₀ = [E]₀ = 1, [C]₀ = [P]₀ = 0 on the time interval [0, 13/5]
-(derivatives within the interval).
+With the prior 68 ± 2.8, the smallest value over Ω in [0, 1] of the marginalised
+chi-square of the Farooq–Ratra 2013 table lies strictly between 18.19 and 18.21.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem mm_solution_exists :
-    ∃ s e c p : ℝ → ℝ, IsMMSolution 1 1 1 1 1 0 0 (13 / 5) s e c p := …
+theorem fr13_minval68 (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (hmin : ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω') :
+    18.19 < margChiSq fr13Table 68 2.8 Ω ∧ margChiSq fr13Table 68 2.8 Ω < 18.21 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Sim.MichaelisMenten.IsMMSolution`
+See GLOSSARY.md: `Data.FR13.fr13Table`, `Data.FR13.chiSqHz`, `Data.FR13.margChiSq`, `Data.FR13Certs.tbl`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsMMSolution.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsMMSolution: k₁ = 1, km₁ = 1, k₂ = 1, s₀ = 1, e₀ = 1, c₀ = 0, p₀ = 0, T = 13/5.
-- Source file: `Checked/Sim/MichaelisMenten.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): fr13Table².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fr13_minval68`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): margChiSq: Hbar = 68, σ = 2.8.
+- Source file: `Checked/Data/FR13.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 13

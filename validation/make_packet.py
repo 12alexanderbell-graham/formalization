@@ -265,6 +265,11 @@ def draw(groups, excluded, seed):
     rng = random.Random(seed)
     pop = [(g, [h for h in hs if h not in excluded]) for g, hs in groups]
     pop = [(g, hs) for g, hs in pop if hs]
+    if len(pop) > N_GENUINE:
+        # more groups than items (PROTOCOL.md §3 amendment, run 2026-11-13T0028Z): the allocation below would give
+        # negative remainders and a sample of the wrong size; draw N_GENUINE groups, weighted by size, one item each
+        keyed = sorted(pop, key=lambda gh: -(rng.random() ** (1.0 / len(gh[1]))))
+        return [(g, rng.choice(hs)) for g, hs in keyed[:N_GENUINE]]
     total = sum(len(hs) for _, hs in pop)
     # one per group first, then the rest proportional to group size (largest remainder), seeded
     alloc = {g: 1 for g, _ in pop}

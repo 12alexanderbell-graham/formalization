@@ -1,35 +1,31 @@
 # Item 22
 
-**Area:** Data claims
+**Area:** Falkner–Skan attached rows β = −0.17, −0.18, −0.19
 
 **Source:** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `N : ℝ`, `c : ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `3 < N`
-2. `N ≤ 31`
-3. `|c + 2 * 2 + 2 * 2 * (2 + 1) / (N - 2 - 1) - 32.42| ≤ 5e-3`
-
-**then**
-
-- `5e-3 < |c + 2 * Real.log N - 35.29|`
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -17 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Table 5, linear row (k = 2): for every N with 3 < N ≤ 31 and every value c of −2 ln L_max,
-if c + 4 + 12/(N − 3) is within 0.005 of the printed AICc 32.42, then c + 2 ln N differs from
-the printed BIC 35.29 by more than 0.005.
+Falkner–Skan with β = −17/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
+[0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem table5_line_inconsistent (N c : ℝ) (hN : 3 < N) (hN31 : N ≤ 31)
-    (hA : |c + 2 * 2 + 2 * 2 * (2 + 1) / (N - 2 - 1) - 32.42| ≤ 0.005) :
-    0.005 < |c + 2 * Real.log N - 35.29| := …
+theorem fs_neg_wall_shear_17_exists_decay :
+    ∃ f p q : ℝ → ℝ,
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-17 / 100) * (1 - p η ^ 2)) (Ici 0) η) ∧
+      f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
+      (∀ η ∈ Ici (0 : ℝ), 0 < q η) ∧
+      (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) := …
 ```
 
 ## Definitions it uses
@@ -41,8 +37,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `table5_line_inconsistent`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Data/Moresco16.lean` (do not open it before submitting your answers).
+- Source file: `Checked/FalknerSkan/NegWallShearRows.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 22

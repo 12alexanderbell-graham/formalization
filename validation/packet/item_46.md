@@ -1,45 +1,49 @@
 # Item 46
 
-**Area:** Mathematics
+**Area:** Chemistry
 
-**Source:** see the claim
+**Source:** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**It holds that**
+**For every** `u : ℝ`, `w : ℝ`:
 
-- there is `c : ℝ` such that (`c ∈ Set.Ioo 2.2062008646 2.2062008647`) and (there is `θ : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (`θ 0 = c`) and (`φ 0 = 0`) and (for every `r : ℝ`, if `r ∈ Set.Ici 0`, then `HasDerivWithinAt θ (φ r) (Set.Ici 0) r`) and (`ContinuousWithinAt φ (Set.Ici 0) 0`) and (for every `r : ℝ`, if `r ∈ Set.Ioi 0`, then `HasDerivAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) r`) and (for every `r : ℝ`, if `r ∈ Set.Ici 0`, then `0 < θ r`) and (for every `r : ℝ`, if `r ∈ Set.Ioi 0`, then `φ r < 0`) and (`Filter.Tendsto θ Filter.atTop (nhds 0)`))
+**assuming**
+
+1. `-2 < u`
+2. `0 < 1 + u + w`
+3. `u + w < -1`
+
+**then**
+
+- there is exactly one `x : ℝ` such that (`1 < x`) and (`critCubic u w x = 0`)
+
+Program definitions in this claim:
+
+- `critCubic u w x` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_critCubic`) (for `u : ℝ`, `w : ℝ`, `x : ℝ`): is defined as `x ^ 3 - 3 * x ^ 2 - 3 * (u + w) * x - (u ^ 2 + u * w - w)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Townes radial equation, existence: there is c in (2.2062008646, 2.2062008647) and a solution
-θ of θ'' + (1/r)θ' − θ + θ³ = 0 on (0, ∞) with θ(0) = c, derivative φ on [0, ∞) (one-sided at 0),
-φ(0) = 0 and φ continuous at 0, θ positive on [0, ∞), φ negative on (0, ∞) and θ(r) → 0 as
-r → ∞.
+The critical cubic has exactly one root above 1 (x = v_c/b > 1).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem townes_exists : ∃ c ∈ Ioo (2.2062008646 : ℝ) 2.2062008647, ∃ θ φ : ℝ → ℝ,
-    θ 0 = c ∧ φ 0 = 0 ∧
-    (∀ r ∈ Ici (0 : ℝ), HasDerivWithinAt θ (φ r) (Ici 0) r) ∧
-    ContinuousWithinAt φ (Ici 0) 0 ∧
-    (∀ r ∈ Ioi (0 : ℝ), HasDerivAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) r) ∧
-    (∀ r ∈ Ici (0 : ℝ), 0 < θ r) ∧ (∀ r ∈ Ioi (0 : ℝ), φ r < 0) ∧
-    Tendsto θ atTop (𝓝 0) := …
+theorem critCubic_existsUnique (u w : ℝ) (hu : -2 < u) (h1 : 0 < 1 + u + w) (h2 : u + w < -1) :
+    ∃! x : ℝ, 1 < x ∧ critCubic u w x = 0 := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Chemistry.CubicEOS.critCubic`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `critCubic_existsUnique`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Townes/TownesExists.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 46

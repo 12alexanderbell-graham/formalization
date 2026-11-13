@@ -308,3 +308,16 @@ Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_18_exists
 Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_18_two_decay
 Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_19_exists
 Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_19_two_decay
+# Falkner–Skan reversed-flow rows β = −0.04 … −0.09, −0.11 … −0.16 of Ganapol 2010 Table 7 (run 2026-11-13T0028Z; frozen cf66704 (run 2026-11-12T2228Z) and 33cd0de (row −0.15, run 2026-11-12T1828Z), proved on the reversed-flow stack generic in K, Checked/FSRev/; statements of the audited β = −1988/10000 reversed statement with β and window replaced; referee STANDS; β read blind in run 2026-11-13T0028Z)
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_4_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_5_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_6_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_7_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_8_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_9_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_11_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_12_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_13_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_14_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_15_exists
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_16_exists
