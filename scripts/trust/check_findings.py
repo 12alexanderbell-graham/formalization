@@ -184,7 +184,7 @@ def verified_sections(text):
     for m in re.finditer(r"^### (F\d+)\b(.*?)(?=^### |\Z)", scope, re.S | re.M):
         body = m.group(0)
         blocks = re.findall(r"^<!-- certified: ([A-Za-z0-9_ ]+?) -->$", body, re.M)
-        prose = re.sub(r"^<!-- certified:.*?^<!-- /certified -->$", "", body, flags=re.S | re.M)
+        prose = re.sub(r"^<!-- certified: [A-Za-z0-9_ ]+? -->$.*?^<!-- /certified -->$", "", body, flags=re.S | re.M)
         secs.append((m.group(1), prose, [r for b in blocks for r in b.split()]))
     return secs
 
@@ -358,7 +358,11 @@ def generated_correct(sec, body, cb, phrases):
             kind = "a statement about fixed values"
         cls = [ph for atom, ph in phrases if atom in cb.get(rec, "")]
         cls = list(dict.fromkeys(cls))
-        head = f"`{rec}` ({kind}" + (f"; class: {', '.join(cls)}" if cls else "") + ")"
+        # each class phrase stands with the Lean text it was registered for (run 2026-11-13T1828Z, round AM d01: the
+        # phrase is author words from a grow-only registry; the reader sees what Lean says next to it)
+        atoms = {ph: [a for a, p2 in phrases if p2 == ph and a in cb.get(rec, "")][0] for ph in cls}
+        head = f"`{rec}` ({kind}" + (f"; class: {', '.join(ph + ' (Lean: ' + _span(atoms[ph]) + ')' for ph in cls)}"
+                                     if cls else "") + ")"
         facts = []
         for knd, expr, val, k, role in items:
             m = re.fullmatch(r"difference\((\w+)−(\w+)\)", role.strip())
@@ -403,7 +407,7 @@ def fb8(text, baseline):
 
 
 def correct_lines(body):
-    return [l.rstrip() for l in CORRECT.findall(re.sub(r"^<!-- certified:.*?^<!-- /certified -->$", "", body,
+    return [l.rstrip() for l in CORRECT.findall(re.sub(r"^<!-- certified: [A-Za-z0-9_ ]+? -->$.*?^<!-- /certified -->$", "", body,
                                                         flags=re.S | re.M))]
 
 
@@ -433,7 +437,7 @@ def write_correct(text, secs, cb, phrases):
         g = generated_correct(k, full[k], cb, phrases)
         assert g is not None, f"{k} shows no record"
         body = full[k]
-        cl = CORRECT.findall(re.sub(r"^<!-- certified:.*?^<!-- /certified -->$", "", body, flags=re.S | re.M))
+        cl = CORRECT.findall(re.sub(r"^<!-- certified: [A-Za-z0-9_ ]+? -->$.*?^<!-- /certified -->$", "", body, flags=re.S | re.M))
         if cl:
             nb = body.replace(cl[0], g, 1)
             for extra in cl[1:]:
@@ -586,13 +590,41 @@ def generated_printed(sec, body, cb):
     return head + "; ".join(parts) + "."
 
 
+HEADING = re.compile(r"^### F\d+ (?:\(was [^()]*\)\. )?\*Author's title, unchecked:\* \S.*$")
+BLOCK_OPEN_EXACT = re.compile(r"^<!-- certified: [A-Za-z0-9_ ]+? -->$")
+
+
 def fb10(text, cb, phrases, norec):
     errs = []
+    # (round AM, run 2026-11-13T1828Z) fail closed around the sections: nothing but blank lines between
+    # '## Verified findings' and the first finding (d02), no finding key twice (d03), every heading labelled as the
+    # author's title (d04, d05: the heading is the one author line every reader reads)
+    i = text.find("\n## Verified findings")
+    if i >= 0:
+        j = text.find("\n## ", i + 1)
+        scope = text[i + 1:j if j >= 0 else len(text)]
+        first = re.search(r"^### ", scope, re.M)
+        pre = scope[:first.start() if first else len(scope)].split("\n")[1:]
+        for l in pre:
+            if l.strip():
+                errs.append(f"FB10: '{l[:60]}' stands between '## Verified findings' and the first finding: no text "
+                            f"outside a finding's section in the verified section")
+                break
+        keys = re.findall(r"^### (F\d+)\b", scope, re.M)
+        for k in sorted({x for x in keys if keys.count(x) > 1}):
+            errs.append(f"FB10: finding {k} has {keys.count(k)} sections (one section per finding)")
+        for h in re.findall(r"^### .*$", scope, re.M):
+            if not HEADING.match(h):
+                errs.append(f"FB10: heading '{h[:60]}' is not `### F<k> (was …). *Author's title, unchecked:* …`")
     for k, body in sections_full(text).items():
         lines = body.rstrip("\n").split("\n")
         state, inblk, seen = "top", False, []
         for i, l in enumerate(lines[1:], 1):
-            if l.startswith("<!-- certified:"):
+            if l.startswith("<!--") and not inblk and not BLOCK_OPEN_EXACT.match(l):
+                errs.append(f"FB10 {k}: '{l[:60]}' is an HTML comment that is not a generated-block opener "
+                            f"(round AM d06: a look-alike opener hid author lines from the rules)")
+                continue
+            if BLOCK_OPEN_EXACT.match(l) and not inblk:
                 if state == "notes":
                     errs.append(f"FB10 {k}: a generated block stands below the unchecked-notes marker")
                 inblk = True
@@ -635,6 +667,33 @@ def fb10(text, cb, phrases, norec):
     return errs
 
 
+def fb12(text, cb, phrases):
+    """FB12 (run 2026-11-13T1828Z, round AM d01: a registry line whose atom was a certified number of the conclusion put
+    a false class into the generated Correct line): a class phrase names the class of data a record speaks of. For a
+    record of a verified finding that states its atom: in a universal statement the atom must stand among the
+    assumptions (before '**then**'); in an existence statement inside its 'there is … such that' clause; a statement
+    about fixed values has no class, so no phrase may apply to it."""
+    errs = []
+    for k, body in sections_full(text).items():
+        for rec, quant, items in record_items(body):
+            blk = cb.get(rec, "")
+            stmt = blk.split("Program definitions in this claim")[0]
+            for atom, ph in phrases:
+                if atom not in blk:
+                    continue
+                if "**For every**" in stmt.split("**then**")[0] and "**then**" in stmt:
+                    ok = atom in stmt.split("**then**")[0]
+                elif "there is" in stmt:
+                    ok = any(atom in m.group(0) for m in re.finditer(r"there is .*", stmt))
+                else:
+                    ok = False
+                if not ok:
+                    errs.append(f"FB12 {k}: the class phrase '{ph}' applies to {rec} through an atom that is not part "
+                                f"of the class its statement speaks of (an assumption, or the condition of its "
+                                f"'there is'): {atom[:60]!r}")
+    return errs
+
+
 def write_layout(text, secs, cb, phrases, norec):
     """Rewrite sections into the FB10 layout: generated Printed and Correct lines, the certified blocks, then every
     other line indented under the unchecked-notes marker (top-level author bullets get the prefix '*(author)*')."""
@@ -644,8 +703,11 @@ def write_layout(text, secs, cb, phrases, norec):
         lines = body.rstrip("\n").split("\n")
         head, blocks, notes, inblk = lines[0], [], [], False
         old_notes = False
+        if not HEADING.match(head):
+            m = re.match(r"^(### F\d+ (?:\(was [^()]*\)\. )?)(.*)$", head)
+            head = m.group(1) + "*Author's title, unchecked:* " + m.group(2)
         for l in lines[1:]:
-            if l.startswith("<!-- certified:"):
+            if BLOCK_OPEN_EXACT.match(l) and not inblk:
                 inblk = True
                 blocks.append(l)
                 continue
@@ -807,7 +869,24 @@ def selftest():
     if NORECORD_CORRECT not in nr or fb10(nr, cbs, ph, {"norecord F9"}) or not fb10(nr, cbs, ph, set()):
         print("selftest: FB10 norecord line wrong")
         fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3} controls, {fails} failing")
+    # round AM repairs (run 2026-11-13T1828Z, not blind): text before the first finding (d02), a finding twice (d03),
+    # an unlabelled heading (d04/d05), a look-alike block opener hiding an author line (d06); FB12 (d01)
+    sec9 = lay[lay.index("### F9"):lay.index(tail)]
+    am_bad = [
+        lay.replace("## Verified findings\n", "## Verified findings\n\n**Index (generated):** every finding holds for every curvature.\n"),
+        lay.replace("### F9", sec9 + "### F9", 1),
+        lay.replace("*Author's title, unchecked:* ", ""),
+        lay.replace("<!-- certified: F9_r -->", "<!-- certified: F9_r. -->\n- **Uniqueness (generated):** unique\n<!-- /certified -->\n<!-- certified: F9_r -->"),
+    ]
+    for i, t in enumerate(am_bad):
+        if not any(x.startswith("FB10") for x in fb10(t, cbs, ph, set())):
+            print(f"selftest: FB10 round-AM control {i} not rejected")
+            fails += 1
+    cb12 = {"F9_r": cbs["F9_r"].replace("**then**", "**assuming**\n\n1. `0 < q`\n\n**then**")}
+    if fb12(lay, cb12, [("`0 < q`", "positive")]) or not fb12(lay, cb12, [("RoundsTo (q - -1988", "every curvature")]):
+        print("selftest: FB12 control wrong:", fb12(lay, cb12, ph))
+        fails += 1
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2} controls, {fails} failing")
     return fails == 0
 
 
@@ -833,6 +912,7 @@ def main():
     norec = load_baseline(NORECORD)
     errs = check(findings, claims, baseline, load_phrases()) + fb8(findings, norec)
     errs += fb10(findings, claims_blocks(claims), load_phrases(), norec)
+    errs += fb12(findings, claims_blocks(claims), load_phrases())
     if "--base" in args:
         base = args[args.index("--base") + 1]
         try:

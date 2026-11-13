@@ -244,7 +244,8 @@ def findings_heads():
     for l in (ROOT / "FINDINGS.md").read_text().splitlines():
         m = re.match(r"^### (F\d+)\b.*?\. (.*)$", l)
         if m:
-            out[m.group(1)] = m.group(2).strip().replace(
+            # the label FB10 of check_findings.py puts on every finding heading (run 2026-11-13T1828Z) is not source text
+            out[m.group(1)] = m.group(2).replace("*Author's title, unchecked:* ", "").strip().replace(
                 "Same review", "Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421")
     return out
 
