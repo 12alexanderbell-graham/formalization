@@ -7,7 +7,7 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 269. Resting on no unpinned physics definition: 269.
+Headlines: 271. Resting on no unpinned physics definition: 271.
 Non-vacuity (trust track T2): 164 headlines have hypotheses; 164 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
@@ -307,6 +307,8 @@ the docstring says; universally bound parameters are not listed.
 | `FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_15_exists` | — | — | — | unconditional | — |
 | `FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_16_exists` | — | — | — | unconditional | — |
 | `FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_3_exists` | — | — | — | unconditional | — |
+| `FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_2_exists` | — | — | — | unconditional | — |
+| `FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_1_exists` | — | — | — | unconditional | — |
 
 ## Hypothesis necessity, per headline
 

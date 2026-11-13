@@ -61,23 +61,23 @@
  "genuine": [
   {
    "item": 1,
-   "headline": "Checked.Records.F14_reversed_wall_shear"
+   "headline": "Checked.Records.F12_separation"
   },
   {
    "item": 2,
-   "headline": "Checked.Cosmography.B1.cubic_shape_miss"
+   "headline": "Checked.Cosmography.B1.lumDistFlat_flatLCDM"
   },
   {
    "item": 3,
-   "headline": "Checked.FalknerSkan.NegDecay.fs_neg_decay_max_shear"
+   "headline": "Checked.FalknerSkan.NegDecay.fs_neg_decay_equal"
   },
   {
    "item": 4,
-   "headline": "Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_18_two_decay"
+   "headline": "Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_18_exists"
   },
   {
    "item": 5,
-   "headline": "Checked.Cosmography.B1L19.l19_sqg_box"
+   "headline": "Checked.Cosmography.B1L19.l19_sq_central"
   },
   {
    "item": 6,
@@ -85,39 +85,39 @@
   },
   {
    "item": 7,
-   "headline": "Checked.FalknerSkan.MonotoneWindow.homann_monotone_window"
+   "headline": "Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window"
   },
   {
    "item": 8,
-   "headline": "Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_equal"
+   "headline": "Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_window"
   },
   {
    "item": 9,
-   "headline": "Checked.Cosmography.DemianskiZ.flat_corrections"
+   "headline": "Checked.Cosmography.DemianskiZ.demDL4_fails_past"
   },
   {
    "item": 12,
-   "headline": "Checked.Fidelity.comoving_pins"
+   "headline": "Checked.Fidelity.curvKSpec_pins"
   },
   {
    "item": 13,
-   "headline": "Checked.Data.FR13.fr13_exists68"
+   "headline": "Checked.Data.FR13.fr13_exists738"
   },
   {
    "item": 14,
-   "headline": "Checked.Records.F10_printed_pole"
+   "headline": "Checked.Records.F2_error"
   },
   {
    "item": 15,
-   "headline": "Checked.Math.GelfandExists.exists_solution"
+   "headline": "Checked.Math.Gelfand.gelfand_ball_critical"
   },
   {
    "item": 18,
-   "headline": "Checked.FalknerSkan.Bounded.homann_exists_bounded"
+   "headline": "Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_equal"
   },
   {
    "item": 19,
-   "headline": "Checked.Cosmography.CVdQ.dQ_y_third_order"
+   "headline": "Checked.Cosmography.CVdQ.printedQ2_fails_past"
   },
   {
    "item": 20,
@@ -125,7 +125,7 @@
   },
   {
    "item": 21,
-   "headline": "Checked.Cosmography.BambaZ.bambaDLzClaim_false"
+   "headline": "Checked.Cosmography.BambaZ.printedDL4z_fails_past"
   },
   {
    "item": 22,
@@ -141,31 +141,31 @@
   },
   {
    "item": 25,
-   "headline": "Checked.Cosmography.CPL.flatCPL_coeffs"
+   "headline": "Checked.Cosmography.CPL.clsL0Claim_false"
   },
   {
    "item": 27,
-   "headline": "Checked.Blasius.blasius_wall_shear"
+   "headline": "Checked.Blasius.blasius_exists"
   },
   {
    "item": 28,
-   "headline": "Checked.Cosmography.AvilesWitness.printedM0_false_at"
+   "headline": "Checked.Cosmography.Aviles.avilesM0Claim_false"
   },
   {
    "item": 29,
-   "headline": "Checked.FalknerSkan.Limit.homann_limit_window"
+   "headline": "Checked.FalknerSkan.Limit.hiemenz_limit_window"
   },
   {
    "item": 30,
-   "headline": "Checked.Cosmography.FREta.printedEta20_false_at"
+   "headline": "Checked.Cosmography.FREta.eta30_hasDerivAt"
   },
   {
    "item": 31,
-   "headline": "Checked.Cosmography.BambaA.bambaDA4ClaimPast_false"
+   "headline": "Checked.Cosmography.BambaA.bambaDA3ClaimPast_false"
   },
   {
    "item": 34,
-   "headline": "Checked.Cosmography.lookback_second_order"
+   "headline": "Checked.Cosmography.lookback_second_order_bigO"
   },
   {
    "item": 35,
@@ -173,23 +173,23 @@
   },
   {
    "item": 36,
-   "headline": "Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_15_exists"
+   "headline": "Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_12_exists"
   },
   {
    "item": 37,
-   "headline": "Checked.FalknerSkan.fs_zero_wall_shear"
+   "headline": "Checked.FalknerSkan.fs_half_exists"
   },
   {
    "item": 38,
-   "headline": "Checked.Sim.RobLong.rob_state1e11"
+   "headline": "Checked.Sim.RobLong.rob_exists_1e11"
   },
   {
    "item": 39,
-   "headline": "Checked.Chemistry.CubicEOS.exists_unique_critical"
+   "headline": "Checked.Chemistry.CubicEOS.isCritical_iff"
   },
   {
    "item": 40,
-   "headline": "Checked.Sim.Duffing.duffing_first_zero_sol"
+   "headline": "Checked.Sim.Duffing.duffing_solution_exists"
   },
   {
    "item": 41,
@@ -201,23 +201,23 @@
   },
   {
    "item": 43,
-   "headline": "Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_wall_shear_exists"
+   "headline": "Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots"
   },
   {
    "item": 44,
-   "headline": "Checked.Data.Moresco16.line_bic_exceeds"
+   "headline": "Checked.Data.Moresco16Min.chiSqOL_lt"
   },
   {
    "item": 45,
-   "headline": "Checked.Cosmography.BambaK.printedD3y_fails_past"
+   "headline": "Checked.Cosmography.BambaK.printedD4y_fails_past"
   },
   {
    "item": 47,
-   "headline": "Checked.Homann.homann_under"
+   "headline": "Checked.Homann.homann_over"
   },
   {
    "item": 48,
-   "headline": "Checked.FalknerSkan.LimitTenth.fs_tenth_limit_equal"
+   "headline": "Checked.FalknerSkan.LimitTenth.fs_tenth_limit_window"
   }
  ]
 }

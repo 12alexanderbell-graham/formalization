@@ -2,7 +2,11 @@
 
 Scheduled run. LOCK taken at the start → removed in the final commit.
 
-**THE RESULT:** parts 2/5 (in progress): rows β = −0.02 and −0.01 of Ganapol 2010 Table 7 — the reversed-flow Falkner–Skan stack with a wider clamp on the shear q.
+**THE RESULT:** parts 2/5. The last two rows of Ganapol 2010 Table 7 (reversed-flow Falkner–Skan, β = −0.02 and −0.01) are proved in Work and promoted to Checked (`fs_neg_reversed_wall_shear_2_exists`, `fs_neg_reversed_wall_shear_1_exists` in `Checked/FalknerSkan/NegReversedWallShearRows.lean`, β read blind in this run, referees STAND): the table is a set of Checked statements on 19 of its 19 rows, PROVED once CI is green on every job. The route is a new stack with the shear clamp as a parameter (`Checked/FSRevW/`), and a rule for choosing the one-sided weights from the coupling that turned a tube failing at every step size into a passing one.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** The reversed-flow wall shear of the Falkner–Skan boundary layer at β = −0.02 (−0.0651685856 < f''(0) < −0.0651685855) and β = −0.01 (−0.0423209261 < f''(0) < −0.0423209260), each with existence of a solution in the stated class, as Checked statements whose β was read blind from the published table (CI pending).
+
+**Weakest unchecked step:** CI has not judged this run's promotion nor run 0428Z's (row −0.03) — the local replica is the only judge so far; uniqueness of the reversed branch in its class is numerical only.
 
 ## Next run's starting point (kept current)
 - 07:07Z: rows −0.02 and −0.01 frozen (9b76e3f, b083cce), referees STAND, β read blind for both (readings 0c73472, 774c636); the shear-clamp-generic stack `Checked/FSRevW/` compiles; row −0.02 certificates built locally (WTwo*: tube 279 s, slow 738 s, over 789 s); Work proofs written by `scripts/make_row2.py prove` / `make_row1.py prove`; WOne* building. If this run vanished: build `Work.FalknerSkan.ReversedRowTwo`, `ReversedRowOne`, `ReversedRowsTwoOneBlindClosed`, then `scripts/promote_row2.py`, `scripts/promote_row1.py` (Checked.lean already lists the FSRevW modules), relock, LEDGER lines.

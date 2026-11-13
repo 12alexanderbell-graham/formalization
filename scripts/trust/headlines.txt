@@ -323,3 +323,7 @@ Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_15_exist
 Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_16_exists
 # Falkner–Skan reversed-flow row β = −0.03 of Ganapol 2010 Table 7 (run 2026-11-13T0228Z; frozen 41e05bf, proved on the reversed-flow stack generic in K, Checked/FSRev/RThree*; statement of the audited β = −1988/10000 reversed statement with β and window replaced; referee STANDS; β read blind in run 2026-11-13T0228Z)
 Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_3_exists
+# Falkner–Skan reversed-flow row β = −0.02 of Ganapol 2010 Table 7 (run 2026-11-13T0628Z; frozen 9b76e3f, proved on the reversed-flow stack with the shear clamp at 4, Checked/FSRevW/WTwo*; statement of the audited β = −1988/10000 reversed statement with β and window replaced; referee STANDS; β read blind in run 2026-11-13T0628Z)
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_2_exists
+# Falkner–Skan reversed-flow row β = −0.01 of Ganapol 2010 Table 7 (run 2026-11-13T0628Z; frozen b083cce, proved on the reversed-flow stack with the shear clamp at 4, Checked/FSRevW/WOne*; statement of the audited β = −1988/10000 reversed statement with β and window replaced; referee STANDS; β read blind in run 2026-11-13T0628Z)
+Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_1_exists
