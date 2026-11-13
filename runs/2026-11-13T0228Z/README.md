@@ -31,7 +31,8 @@
 - CI: this push's run judges NecessityT (read next run).
 
 ## Next-run starting point (kept current)
-- Row −0.03: if `runs/2026-11-13T0228Z/cells/03_over.json` and `03_slow.json` are committed (the generators run in this container only; uncommitted output is lost when the run ends), follow STATE "Exact next step" 0 (emit_rows → make_row3.py prove → promote_row3.py). If not, regenerate them detached at the start with `runs/2026-11-13T0228Z/scripts/chain.sh` (progress lines).
+- **Row −0.03 chains are committed and ready** (04:40Z, after the LOCK passed to run 0428Z): `runs/2026-11-13T0228Z/cells/03_over.json`, `03_slow.json` (weights w = (2, 8), step 1/64, degree 14, 26 digits; over end margin 5.4e-10, slow 5.4e-12, amplification e^16.8) and the tube `03_tube.json` (run 2228Z). Next: `python3 runs/2026-11-12T2228Z/scripts/emit_rows.py runs/2026-11-13T0228Z/cells 03` (check that the emitter passes the weights through: rows with w ≠ (1/2, 2) so far only had tubes), `python3 runs/2026-11-13T0228Z/scripts/make_row3.py prove Work/FalknerSkan/ReversedRowThree.lean 03`, build, then `promote_row3.py` (STATE Exact next step 0).
+- **Do not wait on `gen_rev.py` for hours** (root cause found 04:30Z with py-spy): its `sqrt_up` steps up from the float root by 1/D with D = 10^29, ≈ 10^13 steps per call once the ball grows; `runs/2026-11-13T0228Z/scripts/gen_rev_p.py` (exact `math.isqrt`, progress lines; driver `runs/2026-11-13T0228Z/scripts/chain.sh`) produces each chain in < 1 min. With the default weights (1/2, 2) row −0.03 FAILS (end ball 1.6e-6, `cells_failed_w_default/`): use `W="2 8"`. The same fix should unblock the rows the earlier runs called slow; worth a PROMPT note (not written: LOCK held by run 0428Z).
 
 ## LOCK
 - Taken cabe551 (02:54Z); removed in the final records commit. The session keeps the two row −0.03 generators running afterwards and, if they finish, commits only their output to `cells/` (run folder; no LOCK needed).
