@@ -1,5 +1,7 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import Checked.Math.BonnorEbert
+import Work.Math.BEEnd
+import Work.Math.BETail
 
 /-! Bonnor–Ebert sphere, `BonnorEbertGlobal` (FROZEN by run 2026-11-13T2228Z before proof).
 
@@ -33,6 +35,25 @@ theorem bonnor_ebert_global (S : ℝ) (hS : 7 ≤ S) (w φ : ℝ → ℝ)
           ξ₁ ^ 2 * (-φ ξ₁) * Real.exp (w ξ₁ / 2) / Real.sqrt (4 * Real.pi)) ∧
       1.1822265 ≤ ξ₁ ^ 2 * (-φ ξ₁) * Real.exp (w ξ₁ / 2) / Real.sqrt (4 * Real.pi) ∧
       ξ₁ ^ 2 * (-φ ξ₁) * Real.exp (w ξ₁ / 2) / Real.sqrt (4 * Real.pi) ≤ 1.1822266 := by
-  sorry
+  have hsub : Icc (0 : ℝ) 7 ⊆ Icc 0 S := Icc_subset_Icc le_rfl hS
+  have hw7 : ∀ s ∈ Icc (0 : ℝ) 7, HasDerivWithinAt w (φ s) (Icc 0 7) s :=
+    fun s hs => (hw s (hsub hs)).mono hsub
+  have hφ07 : ContinuousWithinAt φ (Icc 0 7) 0 := hφ0.mono hsub
+  have hφ7 : ∀ s ∈ Ioc (0 : ℝ) 7,
+      HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Icc 0 7) s :=
+    fun s hs => (hφ s ⟨hs.1, hs.2.trans hS⟩).mono hsub
+  obtain ⟨e1, e2, p1, p2⟩ := Work.Math.BEEnd.chain_end hw7 hφ07 hφ7 h0
+  have T := Work.Math.BETail.tail S hS w φ hw hφ e1 e2 p1 p2
+  obtain ⟨ξ, h1, h2, hmono, hanti, hm1, hm2, -, -⟩ :=
+    Checked.Math.BonnorEbert.bonnor_ebert_critical S hS w φ hw hφ0 hφ h0
+  refine ⟨ξ, h1, h2, ?_, hm1, hm2⟩
+  intro s hs hne
+  rcases lt_or_gt_of_ne hne with hlt | hgt
+  · exact hmono ⟨hs.1, hlt.le⟩ ⟨by linarith, le_rfl⟩ hlt
+  · rcases le_or_gt s 7 with h7 | h7
+    · exact hanti ⟨le_rfl, by linarith⟩ ⟨hgt.le, h7⟩ hgt
+    · exact lt_of_lt_of_le (T s ⟨h7.le, hs.2⟩) hm1
 
 end Work.Math.BonnorEbertGlobal
+
+#print axioms Work.Math.BonnorEbertGlobal.bonnor_ebert_global

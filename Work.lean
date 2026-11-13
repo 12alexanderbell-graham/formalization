@@ -175,6 +175,8 @@ import Work.Math.BEMain
 import Work.Math.BonnorEbert
 import Work.Math.BonnorEbertBlind
 import Work.Math.BonnorEbertBlindClosed
+import Work.Math.BEEnd
+import Work.Math.BETail
 import Work.Math.BonnorEbertGlobal
 import Work.Math.GelfandBlind
 import Work.Math.GelfandBlindClosed
