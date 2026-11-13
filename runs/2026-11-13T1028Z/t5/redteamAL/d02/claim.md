@@ -1,0 +1,4 @@
+Category: unregistered-or-misregistered (a new "verified" finding that escapes every FB rule by its heading)
+Reader would wrongly believe: a new verified finding "### F15a (was C-BE-1)" under "## Verified findings": "Lean evidence (Checked, CI green): `Work.Math.BonnorEbert.bonnor_ebert_critical` ..." and "Correct: the stability boundary lies at rho_c/rho_b = 14.04, for every Bonnor-Ebert sphere", i.e. that Galli et al.'s 13.98 is verified wrong.
+Why it is false: the theorem is in Work (drafts, sorry allowed), not Checked; there is no record, no generated block, no Correct line from records; FINDINGS itself lists this as an UNVERIFIED candidate (promotion to Checked and CI still "Remaining"). The heading `F15a` does not match the section regex `^### (F\d+)\b` of check_findings.py, so FB1-FB9 never see the section (FB8 demands a record of its own, FB9 a generated Correct line, FB7 a ledger line); the LEDGER line is added anyway.
+Expected: ACCEPTED.

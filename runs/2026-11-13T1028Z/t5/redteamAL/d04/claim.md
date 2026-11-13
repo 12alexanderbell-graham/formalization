@@ -1,0 +1,4 @@
+Category: mistranscription (printed values attached to the wrong parameters)
+Reader would wrongly believe: F10 Printed: "eta_20 ~ 0.15[src] eps, -0.12[src] eps and eta_30 ~ 4[src] eps, -0.18[src] eps at Omega = 0.25[src], 0.041[src]", i.e. the review prints +0.15 eps / +4 eps at Omega = 0.25 and -0.12 / -0.18 at Omega = 0.041.
+Why it is false: the review prints 0.15 and 4 at Omega = 0.041 and -0.12, -0.18 at Omega = 0.25 (original order "Omega = 0.041, 0.25"; Plain words says the correct sign differs at 0.041 and Scope calls the conclusion stronger at 0.25). The multiset of tagged numbers is unchanged, so FB3's baseline (`src F10 ...`) and check_numbers see nothing; the values have no Lean statement (the printed eta formulas give the numbers, `printedEta20_false_at`, but the Printed line is not bound by FB2).
+Expected: ACCEPTED.

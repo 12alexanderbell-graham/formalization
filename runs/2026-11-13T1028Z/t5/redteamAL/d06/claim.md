@@ -1,0 +1,4 @@
+Category: wrong-statement (uniqueness claimed; aimed at FB9)
+Reader would wrongly believe: F14 Scope: "the reverse-flow branch is unique, so its wall shear is the single value the printed number should have been". The Correct line is regenerated with `--write-correct F14` (legitimate under FB9), so it looks machine-bound.
+Why it is false: the Lean evidence line of F14 itself cites `fs_neg_wall_shear_two_decay` ("two solutions of that class with different wall shear: non-uniqueness just above separation"); the original Scope said uniqueness "is not proved and not needed". FB9 reads only the Correct line (and it is exactly the generated one); the Scope uniqueness claim is free prose, FB5 only reads parentheticals after a backticked headline.
+Expected: ACCEPTED (LEDGER line names `FINDINGS.md` and `F14`).
