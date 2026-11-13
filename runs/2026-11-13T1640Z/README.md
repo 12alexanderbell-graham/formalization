@@ -22,7 +22,11 @@
 5. Promotion (`scripts/promote_rows.py`, f29a4fe): rows −0.13, −0.14, −0.15, −0.16 → `Checked/FalknerSkan/NegWallShearRowsTop.lean` (eight headlines), `Checked/FSAtt/R…`, reading copies, NV witnesses, literal readings; `Checked/Trust/NecessityX.lean`: hypotheses 1, 2, 3 NEEDED and 6 REDUNDANT in the four windows by the coefficient-generic lemmas of NecessityQ/NecessityR, and 7 (0 < q) NEEDED by the reversed-flow headline of the same row (Table 7): 20 classifications. Local `lake build Checked` green.
 
 ## Local checks and push
-- (filled below)
+- Local: `lake build Checked` green (incremental on the restored CI build of 028d5c4; 12 FSAtt certificate modules ≈ 2 min each). StatementDeps with relock: 279 headlines, NV 168/168, necessity needed 530, redundant 153, open 279 (was 267 at start: + 3 open per new window). Claims, packet.
+- CI replica `local_frozen_step.py --trust 028d5c4`: first run red at check_necessity N1 (new windows' open hypotheses need lines in `necessity_open_baseline.txt`); while repairing, hypothesis 2 was classified as well (NecessityR's integrating-factor profile); second run: **trust step exit 0, frozen step 21 commands, 0 failed**.
+- Intermediate pushes carried `[skip ci]`; the final push (LOCK removed) starts the main run that judges the promotion. CI of c5c2a35 (43462297471) still running at 18:25Z (checked job building since 16:26Z; nanoda shard 0 green).
+- Lessons (PROMPT note): name table rows by a property visible on the whole page; the reversed-flow headline at the same β is the `0 < q` necessity witness; referee reports may have to come back as text. A new window headline needs both a LEDGER `open` line (N2) and a `necessity_open_baseline.txt` line (N1).
 
 ## Next start
-- (filled below)
+- CI read first: 43462297471 (c5c2a35) and the run of this run's final push. Green on every job → the eight `NegWallShearRowsTop` headlines PROVED; one L.2 line to Alexander (Ganapol 2010: Table 7 19/19 and Table 6's decelerating segment 7/7 Checked).
+- Then by rotation part 3 (STATE 0f) or part 1 (hypotheses 4, 5, 8 of the attached-row windows). Parts 2/5 later: Ganapol Table 5's near-separation rows (generator end condition, 12–13-decimal windows).
