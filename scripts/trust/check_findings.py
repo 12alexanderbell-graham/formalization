@@ -51,7 +51,8 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        direction of a certified difference flipped, a correct published table declared wrong, a scope consequence
        added; all disclosed by neutral LEDGER lines, as FB7 allows) every verified finding shows a generated block
        of at least one record of its own (`F<k>_…`), unless baselined (`norecord F<k>`, shrink-only): a finding is
-       verified by a Lean record, never by prose that cites other theorems (AK d01).
+       verified by a Lean record, never by prose that cites other theorems (AK d01). Every heading of level 3 or deeper
+       in "## Verified findings" must be `### F<k> …` (round AL d02: `### F15a` escaped every rule).
   FB9  with --base: a verified finding whose Correct line is new or differs from BASE has as its Correct line exactly
        the line GENERATED from its records (`--write-correct F<k>` writes it): for each record, its quantifier, the
        class phrases of FB6 the statement carries, and for every certified difference whose rounding interval
@@ -368,6 +369,15 @@ def generated_correct(sec, body, cb, phrases):
 
 def fb8(text, baseline):
     errs = []
+    # every heading of the verified-findings section is a finding heading the rules read (round AL d02: `### F15a`
+    # matched no `F\d+\b` and escaped FB1–FB9); fail closed on any other heading level-3 or deeper
+    i = text.find("\n## Verified findings")
+    if i >= 0:
+        j = text.find("\n## ", i + 1)
+        for h in re.findall(r"^#{3,} .*$", text[i:j if j >= 0 else len(text)], re.M):
+            if not re.match(r"^### F\d+(?:[ .:(]|$)", h):
+                errs.append(f"FB8: heading '{h[:60]}' in '## Verified findings' is not `### F<k> …`: every part of "
+                            f"the verified-findings section is a finding the rules read")
     for sec, prose, records in verified_sections(text):
         own = [r for r in records if r.startswith(sec + "_")]
         if not own and f"norecord {sec}" not in baseline:
@@ -508,7 +518,8 @@ def selftest():
     flip = new9.replace("lies above", "lies below")
     hand = base9.replace("- **Correct:** too large in the decay class", "- **Correct:** too large by 3 units, decay class")
     f15 = base9.replace(tail, "### F15 (y). new finding\n- **Correct:** z\n" + tail)
-    fb8_9 = [("FB8", fb8(f15, set())), ("FB9", fb9(base9, flip, claims_blocks(claims), ph)),
+    f15a = base9.replace(tail, "### F15a (y). new finding\n- **Correct:** z\n" + tail)
+    fb8_9 = [("FB8", fb8(f15, set())), ("FB8", fb8(f15a, set())), ("FB8", fb8(base9.replace("### F9", "#### F9"), set())), ("FB9", fb9(base9, flip, claims_blocks(claims), ph)),
              ("FB9", fb9(base9, hand, claims_blocks(claims), ph)), ("FB9", fb9(base9, f15, claims_blocks(claims), ph))]
     for rule, e in fb8_9:
         if not any(x.startswith(rule) for x in e):
