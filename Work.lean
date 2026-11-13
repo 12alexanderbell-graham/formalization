@@ -433,6 +433,8 @@ import Work.FalknerSkan.ReversedRows
 import Work.FalknerSkan.ReversedRowsBlindClosed
 import Work.FalknerSkan.ReversedTable
 import Work.FalknerSkan.ReversedTableBlindClosed
+import Work.FalknerSkan.ReversedRowThree
+import Work.FalknerSkan.ReversedRowThreeBlindClosed
 import Work.FSRev.RBase
 import Work.FSRev.RCell
 import Work.FSRev.RInv
