@@ -1,4 +1,8 @@
 import Mathlib
+import Checked.FSRevW.WAssemble
+import Checked.FSRevW.WOneOver
+import Checked.FSRevW.WOneSlow
+import Checked.FSRevW.WOneTube
 
 /-!
 # Falkner–Skan reversed-flow row β = −0.01 of Ganapol 2010 Table 7: wall-shear window of the second branch (FROZEN, run 2026-11-13T0628Z; statements unchanged, proofs added)
@@ -14,6 +18,22 @@ namespace Work.FalknerSkan.ReversedRowOne
 
 open Set Filter Topology
 
+theorem one_sqrtK_pos : 0 < Real.sqrt (100 / 1 : ℝ) := Real.sqrt_pos.2 (by norm_num)
+
+theorem one_hK : (-1 / (100 / 1 : ℝ)) = -1 / 100 := by norm_num
+
+theorem one_lo_bound : (-0.0423209261 : ℝ) < -(52901157573947 / 125000000000000) / Real.sqrt (100 / 1) := by
+  have hs := one_sqrtK_pos
+  have h : (52901157573947 / 125000000000000) / (0.0423209261 : ℝ) < Real.sqrt (100 / 1 : ℝ) := (Real.lt_sqrt (by norm_num)).2 (by norm_num)
+  rw [neg_div, neg_lt_neg_iff, div_lt_iff₀ hs]
+  rw [div_lt_iff₀ (by norm_num)] at h; linarith
+
+theorem one_hi_bound : -(105802315048947 / 250000000000000) / Real.sqrt (100 / 1) < (-0.0423209260 : ℝ) := by
+  have hs := one_sqrtK_pos
+  have h : Real.sqrt (100 / 1 : ℝ) < (105802315048947 / 250000000000000) / (0.0423209260 : ℝ) := (Real.sqrt_lt' (by norm_num)).2 (by norm_num)
+  rw [neg_div, neg_lt_neg_iff, lt_div_iff₀ hs]
+  rw [lt_div_iff₀ (by norm_num)] at h; linarith
+
 /-- Falkner–Skan with β = −1/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0
 on [0, ∞) with f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, eventually
 M (1 − p) ≤ q, whose wall value satisfies -0.0423209261 < q(0) < -0.0423209260 (reversed flow at the wall). -/
@@ -25,6 +45,16 @@ theorem fs_rev_one_exists :
       f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
       (∀ η ∈ Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1) ∧
       (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) ∧
-      -0.0423209261 < q 0 ∧ q 0 < -0.0423209260 := sorry
+      -0.0423209261 < q 0 ∧ q 0 < -0.0423209260 := by
+  obtain ⟨f, p, q, a1, a2, a3, a4, a5, a6, a7, a8, w1, w2⟩ :=
+    Checked.FSRevW.WAssemble.core_revW (Cq := 4) (K := 100 / 1) (by norm_num) (by norm_num) (L := 3 / 2) (by norm_num) (by norm_num)
+      Checked.FSRevW.WOneOver.chain Checked.FSRevW.WOneSlow.chain Checked.FSRevW.WOneTube.tube
+  refine ⟨f, p, q, a1, a2, fun η hη => ?_, a4, a5, a6,
+    fun η hη => ⟨by linarith [(a7 η hη).1], (a7 η hη).2.le⟩, a8, ?_, ?_⟩
+  · rw [← one_hK]; exact a3 η hη
+  · have e : (-52901157573947 / 125000000000000 : ℝ) / Real.sqrt (100 / 1) = -(52901157573947 / 125000000000000) / Real.sqrt (100 / 1) := by ring
+    linarith [one_lo_bound]
+  · have e : (-105802315048947 / 250000000000000 : ℝ) / Real.sqrt (100 / 1) = -(105802315048947 / 250000000000000) / Real.sqrt (100 / 1) := by ring
+    linarith [one_hi_bound]
 
 end Work.FalknerSkan.ReversedRowOne
