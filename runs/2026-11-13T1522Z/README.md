@@ -14,4 +14,9 @@ Scheduled run (14:27Z slot, fired 15:22Z). LOCK of run 2026-11-13T1228Z (taken 1
 3. Promotion (STATE 0g): `runs/2026-11-13T0828Z/lean/*.lean` → `Checked/Trust/MaxwellRightVdW.lean`, `MaxwellRightPR.lean`, `NecessityEta.lean` (byte-identical to `wip/necessity-0828z` 2bcc1a9b); LEDGER lines and PROMPT note copied verbatim from that branch; baseline lines removed as there. Built in 24 s on the restored build.
 4. New: `Checked/Trust/NecessityW.lean`, `rk_coexistence_exists_h3` (b = −1, R = 1, A = 4, T_c = 10/7; the isotherm 1/(v + 1) − 4/(v² − v) at 0.7 T_c takes a pressure in (3/50, 1/15) at most once above b: strictly decreasing on (−1, 0), equal to 1 and 1/2 at the poles by x/0 = 0, above 1/2 on (0, 1), below 1/17 on (1, ∞)). Compiled first try; axioms propext, Classical.choice, Quot.sound.
 5. `TRUST_RELOCK=1` StatementDeps (≈ 12 min): 930 hypotheses of 160 headlines, needed 514, redundant 149, open 267; frozen.txt +50 entries (new modules only).
-6. CI replica `local_frozen_step.py --trust 028d5c4` (see below).
+6. First CI replica `local_frozen_step.py --trust 028d5c4`: **red at check_prose rule 7** — 20 decimals/fractions in the module docs of the four new modules (run 0828Z's three had never been through StatementDeps/check_prose). Module docs rewritten in words, relock, `check_prose.py` 0 new problems.
+7. Second CI replica: trust step exit 0, frozen step 21 commands, 0 failed (base 028d5c4); check_necessity 63 fully classified, 267 open.
+8. Records: LEDGER (two lines copied from `wip/necessity-0828z`, two new), PROMPT notes (run 0828Z's route note; module docs carry no decimals or fractions), STATE, CHANGELOG, BLUEPRINT.
+
+## Next run's starting point
+- STATE "Exact next step" 0: CI read of this run's push; then by rotation parts 2/5 (last moved at 0628Z) or 3 (0f).
