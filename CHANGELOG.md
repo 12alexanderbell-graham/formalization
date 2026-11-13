@@ -687,3 +687,9 @@
 - Parts 2/5 by rotation: attached Falkner–Skan rows β = −0.13, −0.14, −0.16 (Ganapol 2010 Table 6) blind β reading, generated chains, freeze 67f8eef, referee STANDS, PROVED in Work (f62e1b2); promoted with run 1428Z's row −0.15 to `Checked/FalknerSkan/NegWallShearRowsTop.lean` (eight headlines): every row of Table 6's decelerating segment is a Checked statement (PROVED once CI is green).
 - Part 1 in the same run: `Checked/Trust/NecessityX.lean` — hypotheses 1, 3, 7 NEEDED and 6 REDUNDANT in the four new windows (7 by the reversed-flow headline of the same row).
 - PROMPT note: count table rows by a property visible in the whole table; referee reports come back as text.
+
+## 2026-11-13T1828Z (scheduled run)
+- Env: repo ok (add_repo not exposed; checkout reset to origin/main cc5a1da); no local Lean needed (Python only; `.lake` outputs from the author-files artifact of 028d5c4); CI 43462297471 (c5c2a35) and 43482419250 (7911453) still running — read next run.
+- Part 3 by rotation (STATE 0f, changed approach after four word-rule rounds): `check_findings.py` FB10/FB11/FB12 — the trusted part of a verified finding (Printed and Correct lines, certified blocks) is generated, author prose labelled under a fixed marker, headings labelled as the author's title; `FINDINGS.md` F1–F14 relaid out without rewording.
+- Blind red team AM: 6/6 accepted against the first version; repairs (not blind) → 2/6 (both headings). Selftest controls 29 → 45.
+- Next: CI read; part 3 later: generate headings, reader files for pre-route readings, records for F4–F7.
