@@ -20,3 +20,4 @@ Scheduled run. Started 10:28Z in auditor role (run 2026-11-13T0828Z held the LOC
 6. AFTER judges of both sets (`t5/after_ak_judge.txt`, `t5/after_al_judge.txt`), attribution by rerunning `check_findings.py --base 4af3d97` per defect; `t5/RESULTS.md`.
 7. Records: LEDGER (two lines), PROMPT note, STATE (trust-track bullet, next steps 0f and 0g), CHANGELOG, BLUEPRINT, this README.
 8. LOCK: run 0828Z's LOCK (heartbeat 09:38Z, no push since) reached 150 min at 12:08Z; taken over by rule 48.4 (that run's part-1 scratch, compiled but not promoted, is STATE next step 0g); the work branch `wip/findings-fb8-fb9` fast-forwarded into main and the LOCK removed in the final commit.
+9. CI: 5c06d2e (43393771934) green on every job (checked job + nanoda 4/4) → rows β = −0.03, −0.02, −0.01 PROVED: all 19 rows of Ganapol 2010 Table 7 are PROVED Checked statements (STATE item 0); Alexander told (L.2). This run's final push 028d5c4: CI 43422957898 started 12:10Z.
