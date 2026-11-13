@@ -19,4 +19,4 @@ Scheduled run. LOCK 7755b69 (04:29Z) → removed in the final commit.
 
 ## Verification
 - Local: full `lake build Checked` green (restored build of 07b7a68 + this run's modules); `Work.FalknerSkan.ReversedRowThree` and its blind closure build, axioms standard; StatementDeps with relock (269 headlines, 164/164 NV, open hypotheses 280), Claims (269), packet; every Python command of the trust step exit 0; `local_frozen_step.py 07b7a68`: 21 commands, 0 failed; `records_check.py 07b7a68` after the last records edit: 40 commands, 0 failed.
-- CI: the runs of 7d590d2, c144ae1, 65920cd, a3f99fd and of this run's pushes were still running at the end — read next run (a3f99fd expected red on S2).
+- CI: 43354856508 (7d590d2, run 0028Z's twelve Table 7 rows) **green on every job** (checked job done 05:21Z, nanoda 4/4) → those twelve headlines PROVED; Alexander told (L.2). The runs of c144ae1, 65920cd, a3f99fd and of this run's pushes were still running at the end — read next run (a3f99fd expected red on S2).
