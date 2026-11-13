@@ -1,5 +1,6 @@
 # Run 2026-11-13T0228Z: copy of runs/2026-11-11T1228Z/scripts/gen_rev.py with one progress line every 16 cells (flushed),
-# so a long chain shows where it is (run 0228Z waited > 75 min on two chains with empty logs). Output unchanged otherwise.
+# so a long chain shows where it is (run 0228Z waited > 75 min on two chains with empty logs), and an exact integer
+# square root in sqrt_up (the float-then-step loop was the bottleneck). Cells otherwise as the original.
 #!/usr/bin/env python3
 """Run 2026-11-11T1228Z: copy of runs/2026-11-09T1228Z/scripts/gen_low.py with the slow threshold THETA = env FS_THETA (default 11/30; 11/15 for K >= 5), the slowL end check 1/3 < p - r2 (as Lean endSL) and the optional fine start FS_HFINE of runs/2026-11-11T0828Z/scripts/gen_neg_wc_theta.py. Run 2026-11-09T1228Z variant (lower, reversed-flow branch): modes slowL (per cell p + r2 < 1 only; at the end 0 < p - r2, 0 < q - B, q + B < 3(1 - (p + r2)), g - r1 > 11/30) and tube (initial ball radius R0 = env FS_R0 around (0, 0, A); per cell -1/2 < p - r2; at the end 0 < g - r1, 0 < p - r2, p + r2 < 1, 0 < q - B). Base: run 2026-11-09T0828Z: ADVERSE-SIGN port of runs/2026-11-08T2028Z/scripts/gen_k_wc.py: field g''' + K g g'' - 1 + g'^2 = 0
 (F3 = -K y1 y3 + 1 - y2^2); one-sided corners with s = -(y2 + P2); modes over / slow (slow: per cell p + r2 < 1 and q - B > 0;
@@ -50,9 +51,15 @@ def up(x, D):
     n = x * D
     return Fr(-((-n.numerator) // n.denominator), D)
 def sqrt_up(x, D):
-    s = up(Fr(math.sqrt(float(x))) if x > 0 else Fr(0), D)
-    while s * s < x: s += Fr(1, D)
-    return s
+    # run 2026-11-13T0228Z: exact integer square root. The original stepped up from the float root by 1/D
+    # (`while s * s < x: s += Fr(1, D)`), about (float error) * D steps: with D = 10^29 that loop took minutes
+    # per cell once the ball grew (py-spy: all time in sqrt_up). Returns the least multiple of 1/D whose square is
+    # at least x (the original returned a multiple of 1/D at least that large); both are upper roots on the same grid.
+    if x <= 0: return Fr(0)
+    M = x * D * D
+    c = -((-M.numerator) // M.denominator)   # ceil(x D^2)
+    k = math.isqrt(c - 1) + 1                # least k with k^2 >= c
+    return Fr(k, D)
 
 def taylor(a, b, c, N, D):
     g, p, q = [a], [b], [c]
