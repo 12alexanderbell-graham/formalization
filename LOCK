@@ -1,1 +1,1 @@
-Run 2026-11-13T0828Z (scheduled), started 08:28Z; LOCK taken 08:47Z (no LOCK at 5c06d2e). Task: part 1 (T2b) — the open hypotheses b > 0, b < v_l of vdW_coexistence_unique (Checked/Trust/, scratch in runs/2026-11-13T0828Z/lean/); then CI read of 5c06d2e. Remove at end.
+Run 2026-11-13T0828Z (scheduled), started 08:28Z; LOCK taken 08:47Z (no LOCK at 5c06d2e); heartbeat 08:52Z: vdW 3, 4 and PR/PR78 5 REDUNDANT compiled (runs/2026-11-13T0828Z/lean/), full lake build Checked running on the restored 7d590d2 build, then StatementDeps/Claims, records. Remove at end.
