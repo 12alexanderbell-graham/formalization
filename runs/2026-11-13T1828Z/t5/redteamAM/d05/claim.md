@@ -1,0 +1,4 @@
+Category: wrong-statement (heading misstates a published source where FB11 has no reader description)
+Reader would wrongly believe: F3's heading, "Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v1, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴", i.e. that the misprinted Appendix A series is in v1 of the paper.
+Why it is false: Appendix A is absent from v1; the misprint is in v2 (the original heading said v2). The generated Printed line for `printedD4` (agreeing with `Checked.Trust.SecondReading.printedD4`) says "whose reader file is not under runs/ (the reading predates the blind route): the source is not described by a reader", so the version label exists only in the heading, which nothing generates or checks except FB7's disclosure rule.
+Expected: ACCEPTED (neutral LEDGER line naming FINDINGS.md and `F3`; validation packet regenerated with make_packet.py).
