@@ -6,9 +6,9 @@ import Checked.Cosmography.FREta
 (run 2026-11-13T0828Z)
 
 `Checked.Cosmography.FREta.printedEta20_false_at` and `printedEta30_false_at` refute the review's
-first-order coefficients (11.42), (11.43) at every Ω ∈ (0, 1) where the printed denominator is nonzero
+first-order coefficients of η₂₀ and η₃₀ at every Ω ∈ (0, 1) where the printed denominator is nonzero
 and `(54Ω² − 29Ω − 2)(27Ω² + 24Ω − 32) ≠ 0` (hypothesis 4). That condition is needed: at
-Ω₀ = 4(√7 − 1)/9 ≈ 0.731, a root of 27Ω² + 24Ω − 32, the printed and the correct coefficients agree
+Ω₀ = 4(√7 − 1)/9, a root of 27Ω² + 24Ω − 32, the printed and the correct coefficients agree
 (η₂₀: both are 0; η₃₀: their difference has the factor 27Ω² + 24Ω − 32), so the printed first-order
 statement holds there, while 0 < Ω₀ < 1 and the printed denominator is nonzero.
 

@@ -3570,13 +3570,13 @@ moduledoc:Checked.Trust.FormulationsD -mdoc7386803657877262644
 moduledoc:Checked.Trust.FormulationsE -mdoc2467640904656959187
 moduledoc:Checked.Trust.FormulationsM16 -mdoc11027901487961054669
 moduledoc:Checked.Trust.Formulations -mdoc3132082450200944994
-moduledoc:Checked.Trust.MaxwellRightPR -mdoc2437728869480348163
-moduledoc:Checked.Trust.MaxwellRightVdW -mdoc16139846926053730446
+moduledoc:Checked.Trust.MaxwellRightPR -mdoc8784771015198678900
+moduledoc:Checked.Trust.MaxwellRightVdW -mdoc13451965093958991469
 moduledoc:Checked.Trust.MaxwellRight -mdoc8367287905405943229
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
-moduledoc:Checked.Trust.NecessityEta -mdoc15723114596780333916
+moduledoc:Checked.Trust.NecessityEta -mdoc18282187098395309792
 moduledoc:Checked.Trust.NecessityE -mdoc11818550271791330910
 moduledoc:Checked.Trust.NecessityF -mdoc17051244676957586254
 moduledoc:Checked.Trust.NecessityG -mdoc16339050702225557435
@@ -3595,7 +3595,7 @@ moduledoc:Checked.Trust.NecessityS -mdoc14617194384596652583
 moduledoc:Checked.Trust.NecessityT -mdoc425031048942592772
 moduledoc:Checked.Trust.NecessityU -mdoc2950947031569687718
 moduledoc:Checked.Trust.NecessityV -mdoc8897798300299112429
-moduledoc:Checked.Trust.NecessityW -mdoc1871654267390824220
+moduledoc:Checked.Trust.NecessityW -mdoc6312914741354458293
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401

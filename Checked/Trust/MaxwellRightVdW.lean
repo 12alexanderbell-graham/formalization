@@ -14,8 +14,8 @@ For the van der Waals isotherm p(v) = c/(v − b) − a/v² (`cubicP R a b 0 0 T
 * if b < 0 and c < 0, no Maxwell coexistence state has v_l > b (`no_maxwell_neg`);
 * if b = 0 and c = 0, no Maxwell coexistence state has v_l > 0 (`no_maxwell_zero`).
 
-So in `Checked.Chemistry.Coexistence.vdW_coexistence_unique` (temperature 0.7 · 8a/(27Rb), hence
-c = 0.7 · 8a/(27b) has the sign of b) both `0 < b` (hypothesis 3) and `b < v_l` (hypothesis 4) are
+So in `Checked.Chemistry.Coexistence.vdW_coexistence_unique` (temperature seven tenths of 8a/(27Rb),
+hence c has the sign of b) both `0 < b` (hypothesis 3) and `b < v_l` (hypothesis 4) are
 redundant, each in the presence of the other hypotheses.
 
 Proof: on an interval avoiding the poles b and 0 where c (v − b) < 0, p'' = 2c/(v − b)³ − 6a/v⁴ < 0,

@@ -9,11 +9,11 @@ import Checked.Chemistry.PR78Acentric
 (run 2026-11-13T0828Z)
 
 For the Peng–Robinson isotherm p(v) = c/(v − b) − a/D(v), D(v) = v² + 2bv − b²
-(`cubicP R a b 2 (-1) T`, c = R T) with a > 0, b > 0, c > 0 and reduced temperature c b/a ≤ 1/10,
+(`cubicP R a b 2 (-1) T`, c = R T) with a > 0, b > 0, c > 0 and reduced temperature c b/a at most one tenth,
 every Maxwell coexistence state (v_l < v_g, p(v_l) = p(v_g) = p_s, ∫ p = p_s (v_g − v_l)) has
 v_l > b (`maxwell_right_pr`). So the hypothesis `b < v_l` of the PR (1976) and PR (1978)
-acentric-factor uniqueness theorems is redundant: at 0.7 T_c their reduced temperature is ≤ 0.074
-(`PRExists.theta_bounds`, `PR78Exists.theta_bounds`).
+acentric-factor uniqueness theorems is redundant: at their coexistence temperature the reduced
+temperature is below one tenth (`PRExists.theta_bounds`, `PR78Exists.theta_bounds`).
 
 Proof. Left of b the isotherm has three poles: b and the two zeros of D. If [v_l, v_g] contains one,
 p is not integrable there and Lean's integral is 0, so p_s = 0; but p has no zero at or left of b:

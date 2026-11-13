@@ -365,3 +365,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Findings layer: generated Correct lines (run 2026-11-13T1028Z)
 - `scripts/trust/check_findings.py` FB8 (each verified finding shows a record `F<k>_…` of its own; legacy F4–F7 in `findings_norecord_baseline.txt`; every heading in the section is `### F<k>`), FB9 (a new or changed Correct line equals `generated_correct`: quantifier, FB6 class phrases, direction of each certified difference; `--write-correct F<k>`).
 - Measured by blind rounds AK, AL (`runs/2026-11-13T1028Z/t5/`). Next: blind-reader route for Scope and printed-value attribution lines.
+
+## Necessity witnesses: cubic-EOS co-volume, printed η₂₀/η₃₀, RK existence (runs 2026-11-13T0828Z, 1522Z)
+- `Checked/Trust/MaxwellRightVdW.lean` (`maxwell_right`, `no_maxwell_neg`, `no_maxwell_zero`; `vdW_coexistence_unique_r3`, `_r4`), `MaxwellRightPR.lean` (`maxwell_right_pr`; `pr_omega1_unique_r5`, `pr78_omega1_unique_r5`), `NecessityEta.lean` (`printedEta20/30_false_at_h4`, `_r1`–`_r3`, `printedEta30_false_at_h1`), `NecessityW.lean` (`pW_anti`, `pW_neg`, `rk_coexistence_exists_h3`).

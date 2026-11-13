@@ -5,13 +5,15 @@ import Checked.Chemistry.RKAcentric
 # The co-volume sign in the Redlich–Kwong existence claim (run 2026-11-13T1522Z)
 
 Witness (`necessity%`) that hypothesis 3, `0 < b`, of
-`Checked.Chemistry.RKAcentric.rk_coexistence_exists` is needed. Data: b = −1, R = 1, A = 4,
-T_c = 10/7 (so 0.7 T_c = 1 and the attraction at 0.7 T_c is 4). The volume v_c = 1 is a zero of
-the attraction denominator v² − v; there the junk derivatives meet the critical-point condition
-(`Checked.Trust.NCB.crit_at_root`) and the "critical pressure" is (10/7)/2 = 5/7 (Lean's x/0 = 0).
-A ratio 0.087 to three decimals then needs a coexistence pressure p_s in (3/50, 1/15). The
-isotherm p(v) = 1/(v + 1) − 4/(v² − v) at 0.7 T_c takes such a value at no volume v ≥ 0
-(p(0) = 1 and p(1) = 1/2 by x/0 = 0; p > 1/2 on (0, 1); p < 1/17 on (1, ∞), since
+`Checked.Chemistry.RKAcentric.rk_coexistence_exists` is needed. Data: b = −1, R = 1, A = 4 and
+a critical temperature chosen so that the coexistence temperature of the claim is 1 (attraction 4
+there). The volume v_c = 1 is a zero of the attraction denominator v² − v; there the junk
+derivatives meet the critical-point condition (`Checked.Trust.NCB.crit_at_root`) and the "critical
+pressure" is the repulsion term alone (Lean's x/0 = 0). The certified pressure ratio of the claim
+then confines a coexistence pressure p_s to a narrow interval just below one sixteenth of the
+repulsion scale. The isotherm p(v) = 1/(v + 1) − 4/(v² − v) at the coexistence temperature takes
+such a value at no volume v ≥ 0 (at the poles 0 and 1 it is the repulsion term alone by x/0 = 0;
+between them it exceeds the repulsion term; beyond 1 it stays below one seventeenth, since
 v³ − 17v² + 84v + 68 > 0) and is strictly decreasing on (−1, 0), so two volumes above b = −1 with
 the same pressure p_s do not exist: no coexistence state, whatever the integral condition says.
 No integral and no non-integrability argument is used.

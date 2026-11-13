@@ -676,3 +676,8 @@
 - Part 3: blind red teams AK (main 4af3d97) and AL (against the repair) on new or disclosed verified findings, disclosure allowed: 6/6 and 6/6 wrong findings accepted. Repair `scripts/trust/check_findings.py` FB8 (record of its own; every heading `### F<k>`), FB9 (generated Correct line, `--write-correct`); AK 1/6, AL 5/6 after (not blind). `runs/2026-11-13T1028Z/t5/RESULTS.md`.
 - LOCK of run 0828Z (heartbeat 09:38Z) taken over at 12:08Z (48.4, 150 min, no push); its compiled part-1 scratch is STATE 0g.
 - Next: promote run 0828Z's scratch (STATE 0g); blind-reader route for Scope/Printed lines of findings (STATE 0f).
+
+## Necessity: run 0828Z's scratch promoted, RK existence co-volume (run 2026-11-13T1522Z)
+- New `Checked/Trust/MaxwellRightVdW.lean`, `MaxwellRightPR.lean`, `NecessityEta.lean` (run 0828Z's compiled scratch, module docs reworded without decimals/fractions for check_prose rule 7) and `NecessityW.lean` (`rk_coexistence_exists_h3`); `necessity_open_baseline.txt` 92 → 86 lines; TRUST_MAP open 280 → 267, fully classified 61 → 63.
+- LOCK of run 1228Z (no push for 177 min) taken over; CI 43422957898 (028d5c4) read green on every job.
+- Next: CI read of this push; then by rotation parts 2/5 or 3 (STATE 0f).
