@@ -430,6 +430,7 @@ import Work.FSAtt.RNinetyNineCore
 import Work.FalknerSkan.AttachedRows
 import Work.FalknerSkan.AttachedRowsBlindClosed
 import Work.FalknerSkan.AttachedRowsTop
+import Work.FalknerSkan.AttachedRowsTopBlindClosed
 import Work.FalknerSkan.ReversedRows
 import Work.FalknerSkan.ReversedRowsBlindClosed
 import Work.FalknerSkan.ReversedTable

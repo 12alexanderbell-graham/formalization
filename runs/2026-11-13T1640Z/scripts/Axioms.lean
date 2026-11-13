@@ -1,0 +1,7 @@
+import Work.FalknerSkan.AttachedRowsTopBlindClosed
+#print axioms Work.FalknerSkan.AttachedRowsTop.fs_att_thirteen_window
+#print axioms Work.FalknerSkan.AttachedRowsTop.fs_att_thirteen_exists_decay
+#print axioms Work.FalknerSkan.AttachedRowsTop.fs_att_fourteen_window
+#print axioms Work.FalknerSkan.AttachedRowsTop.fs_att_fourteen_exists_decay
+#print axioms Work.FalknerSkan.AttachedRowsTop.fs_att_sixteen_window
+#print axioms Work.FalknerSkan.AttachedRowsTop.fs_att_sixteen_exists_decay

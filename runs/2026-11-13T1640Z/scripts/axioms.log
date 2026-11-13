@@ -1,0 +1,12 @@
+'Work.FalknerSkan.AttachedRowsTop.fs_att_thirteen_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Work.FalknerSkan.AttachedRowsTop.fs_att_thirteen_exists_decay' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Work.FalknerSkan.AttachedRowsTop.fs_att_fourteen_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Work.FalknerSkan.AttachedRowsTop.fs_att_fourteen_exists_decay' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Work.FalknerSkan.AttachedRowsTop.fs_att_sixteen_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Work.FalknerSkan.AttachedRowsTop.fs_att_sixteen_exists_decay' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
