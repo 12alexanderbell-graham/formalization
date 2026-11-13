@@ -2599,6 +2599,12 @@ doc:Checked.Trust.NCV.lumDistSpec2_pins_h2 -doc6903808486873757997
 doc:Checked.Trust.NCV.lumDistSpec2_pins_h3 -doc5980772331021869308
 doc:Checked.Trust.NCV.lumDistSpec2_pins_h4 -doc163448166653109353
 doc:Checked.Trust.NCV.lumOff -doc17496401677065424430
+doc:Checked.Trust.NCW.RD -doc12690611393073224948
+doc:Checked.Trust.NCW.cornerD -doc9429733894772068713
+doc:Checked.Trust.NCW.ricciOff -doc1145128536976747577
+doc:Checked.Trust.NCW.ricciSpec_pins_h2 -doc10670319768067313656
+doc:Checked.Trust.NCW.ricciSpec_pins_h3 -doc5665971927882244175
+doc:Checked.Trust.NCW.ricciSpec_pins_h4 -doc1997389385836098264
 doc:Checked.Trust.NecessityM.e2_gt -doc7156091412783282893
 doc:Checked.Trust.NecessityM.gelfand_ball_critical_h5 -doc11881122222935074317
 doc:Checked.Trust.NecessityM.mass -doc14212066320530025749
@@ -3483,6 +3489,7 @@ moduledoc:Checked.Trust.NecessityR -mdoc3494977471395149620
 moduledoc:Checked.Trust.NecessityS -mdoc14617194384596652583
 moduledoc:Checked.Trust.NecessityT -mdoc425031048942592772
 moduledoc:Checked.Trust.NecessityU -mdoc2950947031569687718
+moduledoc:Checked.Trust.NecessityV -mdoc8897798300299112429
 moduledoc:Checked.Trust.Necessity -mdoc11949519970188970298
 moduledoc:Checked.Trust.NonVacuity -mdoc14784009400565753677
 moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401

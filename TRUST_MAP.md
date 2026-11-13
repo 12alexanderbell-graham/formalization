@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 930 hypotheses in 160 headlines;
-507 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+510 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 140 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-283 open; headlines with every hypothesis classified: 60/160
+280 open; headlines with every hypothesis classified: 61/160
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -387,7 +387,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Fidelity.lumDistFlat_pins` (4): needed 1 (`lumDistFlat_pins_h1`), 2 (`lumDistFlat_pins_h2`), 3 (`lumDistFlat_pins_h3`), 4 (`lumDistFlat_pins_h4`)
 - `Fidelity.comoving_pins` (4): needed 1 (`comoving_pins_h1`), 2 (`comoving_pins_h2`), 3 (`comoving_pins_h3`), 4 (`comoving_pins_h4`)
 - `Fidelity.flatCPL_pins` (1): needed 1 (`flatCPL_pins_h1`); shape: bundled 1
-- `Fidelity.ricciSpec_pins` (4): needed 1 (`ricciSpec_pins_h1`); open 2, 3, 4
+- `Fidelity.ricciSpec_pins` (4): needed 1 (`ricciSpec_pins_h1`), 2 (`ricciSpec_pins_h2`), 3 (`ricciSpec_pins_h3`), 4 (`ricciSpec_pins_h4`)
 - `Fidelity.transverseSpec_pins` (1): needed 1 (`transverseSpec_pins_h1`)
 - `Records.F1_l0` (2): needed 1 (`F1_l0_h1`); redundant (each alone, not together) 2 (`F1_l0_r2`); parts of 1 (4) needed 1 (`F1_l0_p1_1`), 4 (`F1_l0_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F1_l0_p1_2`), 3 (`F1_l0_p1_3`)
 - `Records.F2_toy` (2): needed 1 (`F2_toy_h1`); redundant (each alone, not together) 2 (`F2_toy_r2`); parts of 1 (4) needed 1 (`F2_toy_p1_1`), 4 (`F2_toy_p1_4`); parts of 1 (4) redundant (each alone, not together) 2 (`F2_toy_p1_2`), 3 (`F2_toy_p1_3`)

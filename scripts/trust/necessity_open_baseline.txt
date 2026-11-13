@@ -31,7 +31,6 @@ DemianskiZ.demDA4_fails_past | 1
 Fidelity.decelSpec_pins | 2, 3
 Fidelity.redshiftCore_pins | 2
 Fidelity.cosmoCoeffCore_pins | 2
-Fidelity.ricciSpec_pins | 2, 3, 4
 B1.lumDistFlat_flatLCDM | 1, 2, 3, 4
 B1.cubic_misses_z3 | 1, 2, 3, 4
 B1.cubic_misses_z7 | 1, 2, 3, 4
