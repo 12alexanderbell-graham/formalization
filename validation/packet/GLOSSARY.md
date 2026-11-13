@@ -341,29 +341,30 @@ noncomputable def yred (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   redshift a t₀ t / (1 + redshift a t₀ t)
 ```
 
-## `Cosmography.BambaZ.DL1z`
+## `Cosmography.BambaZ.DA1z`
 
-`D¹_L` as printed (Eq. (10.40)).
+`D¹_A` as printed (Eq. (10.47)).
 
 ```lean
-noncomputable def DL1z (q : ℝ) : ℝ := -(1 / 2) * (-1 + q)
+noncomputable def DA1z (q : ℝ) : ℝ := -(1 / 2) * (3 + q)
 ```
 
-## `Cosmography.BambaZ.DL2z`
+## `Cosmography.BambaZ.DA2z`
 
-`D²_L` as printed (Eq. (10.41)), `k = Kc²/(H₀²a₀²)`.
+`D²_A` as printed (Eq. (10.48)).
 
 ```lean
-noncomputable def DL2z (q j k : ℝ) : ℝ := -(1 / 6) * (1 - q - 3 * q ^ 2 + j + k)
+noncomputable def DA2z (q j k : ℝ) : ℝ := (1 / 6) * (11 + 7 * q + 3 * q ^ 2 - j - k)
 ```
 
-## `Cosmography.BambaZ.DL3z`
+## `Cosmography.BambaZ.DA3z`
 
-`D³_L` as printed (Eq. (10.42)).
+`D³_A` as printed (Eq. (10.49)).
 
 ```lean
-noncomputable def DL3z (q j s k : ℝ) : ℝ :=
-  (1 / 24) * (2 - 2 * q - 15 * q ^ 2 - 15 * q ^ 3 + 5 * j + 10 * q * j + s + 2 * k * (1 + 3 * q))
+noncomputable def DA3z (q j s k : ℝ) : ℝ :=
+  -(1 / 24) * (50 + 46 * q + 39 * q ^ 2 + 15 * q ^ 3 - 13 * j - 10 * q * j - s
+    - 2 * k * (5 + 3 * q))
 ```
 
 ## `Cosmography.BambaZ.curvK`
@@ -375,26 +376,26 @@ noncomputable def curvK (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : ℝ :=
   K / (hubble a t₀ ^ 2 * a t₀ ^ 2)
 ```
 
-## `Cosmography.BambaZ.printedDL4z`
+## `Cosmography.BambaZ.printedDA4z`
 
-`D⁴_L` as printed (Eqs. (10.43)–(10.44)), verbatim (`j² = j₀²`).
+`D⁴_A` as printed (Eqs. (10.50)–(10.51)), verbatim (`j² = j₀²`).
 
 ```lean
-noncomputable def printedDL4z (q j s l k : ℝ) : ℝ :=
-  (1 / 120) * (-6 + 6 * q + 81 * q ^ 2 + 165 * q ^ 3 + 105 * q ^ 4 - 110 * q * j
-    - 105 * q ^ 2 * j - 15 * q * s + -27 * j + 10 * j ^ 2 - 11 * s - l
-    - 5 * k * (1 + 8 * q + 9 * q ^ 2 - 2 * j))
+noncomputable def printedDA4z (q j s l k : ℝ) : ℝ :=
+  (1 / 120) * (274 + 326 * q + 411 * q ^ 2 + 315 * q ^ 3 + 105 * q ^ 4 - 210 * q * j
+    - 105 * q ^ 2 * j - 15 * q * s + -137 * j + 10 * j ^ 2 - 21 * s - l
+    - 5 * k * (17 + 20 * q + 9 * q ^ 2 - 2 * j))
 ```
 
-## `Cosmography.BambaZ.remLz`
+## `Cosmography.BambaZ.remAz`
 
-Remainder `H₀ d_L − z[1 + D¹_L z + … + D⁴ z⁴]`, printed `D¹…D³`, given `D⁴`.
+Remainder `H₀ d_A − z[1 + D¹_A z + … + D⁴ z⁴]`, printed `D¹…D³`, given `D⁴`.
 
 ```lean
-noncomputable def remLz (D4 : ℝ → ℝ → ℝ → ℝ → ℝ → ℝ) (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
-  hubble a t₀ * lumDist K a t₀ t -
-    seriesZ (DL1z (decel a t₀)) (DL2z (decel a t₀) (cosmoCoeff 3 a t₀) (curvK K a t₀))
-      (DL3z (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (curvK K a t₀))
+noncomputable def remAz (D4 : ℝ → ℝ → ℝ → ℝ → ℝ → ℝ) (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
+  hubble a t₀ * angDist K a t₀ t -
+    seriesZ (DA1z (decel a t₀)) (DA2z (decel a t₀) (cosmoCoeff 3 a t₀) (curvK K a t₀))
+      (DA3z (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (curvK K a t₀))
       (D4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) (curvK K a t₀))
       (redshift a t₀ t)
 ```
@@ -511,15 +512,25 @@ noncomputable def remainderQ (D2 : ℝ → ℝ → ℝ → ℝ) (a : ℝ → ℝ
 noncomputable def seriesQ (d2 q y : ℝ) : ℝ := y * (1 - q / 2 * y + d2 * y ^ 2)
 ```
 
-## `Cosmography.DemianskiZ.demDL4`
+## `Cosmography.DemianskiZ.demDA4`
 
-`D⁴_L` as printed (Demianski et al. 2017, display after (17); Lusso et al. 2019, display after
-(6)), verbatim.
+`D⁴_A` as printed (Demianski et al. 2017 (23)), verbatim.
 
 ```lean
-noncomputable def demDL4 (q j s l : ℝ) : ℝ :=
-  (1 / 120) * (-6 + 6 * q + 81 * q ^ 2 + 165 * q ^ 3 - 105 * q ^ 4 - 110 * q * j
-    + -105 * q ^ 2 * j - 15 * q * s - 27 * j + 10 * j ^ 2 - 11 * s - l)
+noncomputable def demDA4 (q j s l : ℝ) : ℝ :=
+  (1 / 120) * (274 + 326 * q + 411 * q ^ 2 + 315 * q ^ 3 + 105 * q ^ 4 - 210 * q * j
+    - 105 * q ^ 2 * j - 15 * q * s + 137 * j + 10 * j ^ 2 - 21 * s - l)
+```
+
+## `Cosmography.FRCosmo.FriedmannEq`
+
+Expansion-rate equation (11.1)–(11.2) at time `t`, multiplied by `3F′(R)`.
+
+```lean
+def FriedmannEq (Ω : ℝ) (a F : ℝ → ℝ) (t₀ t : ℝ) : Prop :=
+  3 * deriv F (curv a t) * hubble a t ^ 2 =
+    rhoM Ω a t₀ t + (F (curv a t) - curv a t * deriv F (curv a t)) / 2
+      - 3 * hubble a t * deriv (curv a) t * deriv^[2] F (curv a t)
 ```
 
 ## `Cosmography.FRCosmo.P0`
@@ -561,6 +572,24 @@ def Q0 (q j s l : ℝ) : ℝ :=
 def Q3 (q j s l : ℝ) : ℝ :=
   -(2 * (1 + q) * l + 2 * (j + q) * s - (2 * j + 4 * q ^ 2 + 12 * q + 6) * j
     - (30 * q ^ 3 + 84 * q ^ 2 + 78 * q + 24))
+```
+
+## `Cosmography.FRCosmo.curv`
+
+Ricci scalar of flat FLRW in the review's sign convention (11.6): `R = −6(Ḣ + 2H²)`.
+
+```lean
+noncomputable def curv (a : ℝ → ℝ) (t : ℝ) : ℝ :=
+  -6 * (deriv (hubble a) t + 2 * hubble a t ^ 2)
+```
+
+## `Cosmography.FRCosmo.rhoM`
+
+Dust density `ρ_M = 3H₀²Ω (a₀/a)³` (`κ² = 1`, text after (11.2)).
+
+```lean
+noncomputable def rhoM (Ω : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
+  3 * hubble a t₀ ^ 2 * Ω * (a t₀ / a t) ^ 3
 ```
 
 ## `Cosmography.FREta.correct30`
@@ -748,57 +777,42 @@ noncomputable def m16Table : Fin 30 → ℝ × ℝ × ℝ :=
     (1.965, 186.5, 50.4)]
 ```
 
-## `Fidelity.CurvKSpec`
+## `Fidelity.DustDensity`
 
-Specification of `k K a t₀ = K / (H₀ a₀)²` (with `c = 1`), the dimensionless curvature
-parameter, so that the curvature density parameter is `Ω_k = −k` and `Ω₀ = 1 − Ω_k = 1 + k`
-[Wei08, eq. (1.5.21) `Ω_K = −K/(a₀H₀)²`; Dod03, §2.4].
+Matter (dust) density at time `t`, for dust whose present (`t = t₀`) density parameter is
+`Ω`, measured relative to the **GR** critical density with `κ² = 1`, i.e.
+`ρ_crit = 3 H₀²` with `H₀ = ȧ(t₀)/a(t₀)` (from `3H² = κ²ρ`).
+
+Closed form: `ρ(t) = 3 H₀² Ω (a(t₀)/a(t))³`.
+Why: dust has `p = 0`; in metric F(R) gravity matter is minimally coupled, so `∇^μ T_μν = 0`
+still holds (the geometric side is identically divergence free by the generalized Bianchi
+identity), giving `ρ̇ + 3H(ρ + p) = 0`, i.e. `ρ a³ = const`, and `ρ(t₀) = Ω ρ_crit`.
+Note: `Ω` is *not* the fraction of the F(R) "effective" critical density `3F′(R₀)H₀²`;
+it is the GR-normalized parameter.
 
 ```lean
-structure CurvKSpec (k : ℝ → (ℝ → ℝ) → ℝ → ℝ) : Prop where
-  /-- Determining law `k = K / (H₀ a₀)²`. -/
-  law : ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 →
-    k K a t₀ = K / ((deriv a t₀ / a t₀) * a t₀) ^ 2
-  /-- Equivalent form: `k = K / ȧ(t₀)²`. -/
-  law_adot : ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ ≠ 0 → k K a t₀ = K / deriv a t₀ ^ 2
-  /-- Closure relation `Ω₀ = 1 − Ω_k = 1 + k`: if the total density obeys the Friedmann
-  equation `H₀² = (8πG/3)ρ − K/a₀²`, then `(8πG/3)ρ/H₀² = 1 + k` [Wei08, eq. (1.5.20)]. -/
-  friedmann : ∀ (G ρ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < G → 0 < a t₀ →
-    DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 →
-    (deriv a t₀ / a t₀) ^ 2 = 8 * Real.pi * G / 3 * ρ - K / a t₀ ^ 2 →
-    8 * Real.pi * G / 3 * ρ / (deriv a t₀ / a t₀) ^ 2 = 1 + k K a t₀
-  /-- Anchor: flat ⇒ `k = 0`. -/
-  flat : ∀ (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → k 0 a t₀ = 0
-  /-- Anchor: Milne `a = t`, `K = −1` ⇒ `k = −1` (`Ω_k = 1`). -/
-  milne : ∀ t₀ : ℝ, 0 < t₀ → k (-1) (fun s => s) t₀ = -1
-  /-- Anchor: closed de Sitter `a = cosh t`, `K = 1` ⇒ `k = 1 / sinh² t₀`. -/
-  closed_deSitter : ∀ t₀ : ℝ, t₀ ≠ 0 → k 1 Real.cosh t₀ = 1 / Real.sinh t₀ ^ 2
-  /-- Sign: `k` has the sign of `K` (closed `k > 0`, open `k < 0`). -/
-  pos_iff : ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → (0 < k K a t₀ ↔ 0 < K)
-  neg_iff : ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → (k K a t₀ < 0 ↔ K < 0)
-  /-- Linearity in `K` at fixed expansion history. -/
-  linear_K : ∀ (r K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → k (r * K) a t₀ = r * k K a t₀
-  /-- Rescaling invariance: `(K, a) ↦ (c² K, c · a)` leaves `k` unchanged (`c > 0`). -/
-  rescale : ∀ (c K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < c → 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → k (c ^ 2 * K) (fun s => c * a s) t₀ = k K a t₀
-  /-- Invariance under time translation. -/
-  shift_inv : ∀ (τ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ →
-    deriv a t₀ / a t₀ ≠ 0 → k K (fun s => a (s + τ)) (t₀ - τ) = k K a t₀
-  /-- Near miss (sign): `k ≠ Ω_k = −K/(H₀a₀)²` (Milne would give `+1`). -/
-  not_omega_k : k (-1) (fun s => s) 1 ≠ 1
-  /-- Near miss: `k ≠ K/H₀²` (missing `a₀`): `a = 2t`, `K = −4`, `t₀ = 1` has `k = −1`,
-  while `K/H₀² = −4`. -/
-  not_missing_a0 : k (-4) (fun s => 2 * s) 1 ≠ -4
-  /-- Anchor value for the preceding near miss. -/
-  value_2t : k (-4) (fun s => 2 * s) 1 = -1
+noncomputable def DustDensity (Ω : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
+  3 * (deriv a t₀ / a t₀) ^ 2 * Ω * (a t₀ / a t) ^ 3
+```
 
-/-! ## Proofs: y-redshift -/
+## `Fidelity.FRFirstEq`
+
+The 00 (Friedmann / constraint) component of the metric F(R) field equations in flat FLRW,
+dust source, `κ² = 1`, **negative-R convention** (de Sitter `R = −12H²`), at time `t`:
+
+`3 F′(R) H² = ρ + ½ (F(R) − R F′(R)) − 3 H F″(R) Ṙ`,
+
+with `H = ȧ/a`, `ρ = DustDensity Ω a t₀ t`, `R = R(t)` supplied by the caller (intended
+`R = Rc a`).  Derived from De Felice–Tsujikawa (2.15),
+`3F′H² = κ²ρ + ½(F′R_c − f) − 3H d(F′)/dt`, via `R = −R_c`, `F(R) = −f(−R)` (see module
+docstring).  Multiplied through by `F′` (no division by `F′`).
+Checks: `F = R` gives `3H² = ρ`; `F = R + 2Λ` gives `3H² = ρ + Λ` (ΛCDM).
+
+```lean
+def FRFirstEq (Ω : ℝ) (a F : ℝ → ℝ) (t₀ t : ℝ) (R : ℝ → ℝ) : Prop :=
+  3 * deriv F (R t) * (deriv a t / a t) ^ 2 =
+    DustDensity Ω a t₀ t + (F (R t) - R t * deriv F (R t)) / 2
+      - 3 * (deriv a t / a t) * deriv^[2] F (R t) * deriv R t
 ```
 
 ## `Fidelity.HubbleSpec`
@@ -837,32 +851,6 @@ structure HubbleSpec (H : (ℝ → ℝ) → ℝ → ℝ) : Prop where
 
 ```lean
 def RoundsTo (x d : ℝ) (k : ℕ) : Prop := |x - d| ≤ 1 / (2 * 10 ^ k)
-```
-
-## `Records.printedCLSL0`
-
-Capozziello, Lazkoz, Salzano 2011 (arXiv:1104.3096), Eq. (22): the printed flat matter + CPL
-`l₀`, written out (run 2026-11-08T0628Z: a named PRINTED definition replacing a `local notation`, so
-that the role of the certified numbers is read from Lean; blind second reading
-`Checked.Trust.SecondReading.clsL0`).
-
-```lean
-noncomputable def printedCLSL0 (Ω w₀ wₐ : ℝ) : ℝ :=
-  35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ
-    + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀
-    + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2
-    + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3
-    + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4
-```
-
-## `Records.printedFazioSeparation`
-
-Fazio (arXiv:1212.5057, 2012, Fig. 4 caption; arXiv:2011.07725, 2020, Fig. 7 caption): the printed value of the
-Falkner–Skan parameter of the solution with zero wall shear (blind second reading
-`Checked.Trust.SecondReading.fsSepPrintedFazio`).
-
-```lean
-noncomputable def printedFazioSeparation : ℝ := -(1988376 / 10000000)
 ```
 
 ## `Sim.Duffing.IsDuffingSolution`

@@ -6,48 +6,41 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `k : ℝ → (ℝ → ℝ) → ℝ → ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
-
-**assuming**
-
-1. `CurvKSpec k`
-2. `0 < a t₀`
-3. `DifferentiableAt ℝ a t₀`
-4. `deriv a t₀ / a t₀ ≠ 0`
+**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `F : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
 **then**
 
-- `k K a t₀ = curvK K a t₀`
+- (the metric F(R) gravity Friedmann equation with dust holds with the present matter density parameter `Ω`, the scale factor `a`, the gravity Lagrangian function of Ricci scalar `F`, the present time `t₀` and the time of evaluation `t` (negative Ricci scalar convention, minus the common one; constraint equation of metric F of R gravity in flat FLRW; dust source and kappa squared is one; negative Ricci scalar convention with R taken as curv of `a`; multiplied through by `F` prime with no division; derivatives of `F` are taken with respect to R)) if and only if (`FRFirstEq Ω a F t₀ t (curv a)`)
 
 Program definitions in this claim:
 
-- `CurvKSpec` — SPEC, not pinned: inductive type with constructors `CurvKSpec.mk : ∀ {k : ℝ → (ℝ → ℝ) → ℝ → ℝ}, (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → k K a t₀ = K / (deriv a t₀ / a t₀ * a t₀) ^ 2) → (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ ≠ 0 → k K a t₀ = K / deriv a t₀ ^ 2) → (∀ (G ρ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < G → 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → (deriv a t₀ / a t₀) ^ 2 = 8 * Real.pi * G / 3 * ρ - K / a t₀ ^ 2 → 8 * Real.pi * G / 3 * ρ / (deriv a t₀ / a t₀) ^ 2 = 1 + k K a t₀) → (∀ (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → k 0 a t₀ = 0) → (∀ (t₀ : ℝ), 0 < t₀ → k (-1) (fun s => s) t₀ = -1) → (∀ (t₀ : ℝ), t₀ ≠ 0 → k 1 Real.cosh t₀ = 1 / Real.sinh t₀ ^ 2) → (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → (0 < k K a t₀ ↔ 0 < K)) → (∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → (k K a t₀ < 0 ↔ K < 0)) → (∀ (r K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → k (r * K) a t₀ = r * k K a t₀) → (∀ (c K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < c → 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → k (c ^ 2 * K) (fun s => c * a s) t₀ = k K a t₀) → (∀ (τ K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), 0 < a t₀ → DifferentiableAt ℝ a t₀ → deriv a t₀ / a t₀ ≠ 0 → k K (fun s => a (s + τ)) (t₀ - τ) = k K a t₀) → k (-1) (fun s => s) 1 ≠ 1 → k (-4) (fun s => 2 * s) 1 ≠ -4 → k (-4) (fun s => 2 * s) 1 = -1 → CurvKSpec k`
-- `curvK K a t₀` — **PINNED** (pin theorem `curvKSpec_pins`): phrase (hand-written, linted): the dimensionless spatial curvature parameter with the spatial curvature constant `K`, the scale factor `a` and the observation time `t₀` (has sign of curvature constant, minus the curvature density parameter; total density parameter minus one; positive for closed and negative for open); by definition, `curvK K a t₀` is `K / (hubble a t₀ ^ 2 * a t₀ ^ 2)`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «total density parameter minus one», «positive for closed and negative for open» only assuming `hubble a t₀ ≠ 0`; `a t₀ ≠ 0`; `0 < K`, «positive for closed and negative for open» only assuming `hubble a t₀ ≠ 0`; `a t₀ ≠ 0`; `K < 0`
+- `DustDensity Ω a t₀ t` — SPEC, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`): is defined as `3 * (deriv a t₀ / a t₀) ^ 2 * Ω * (a t₀ / a t) ^ 3`
+- `FRFirstEq Ω a F t₀ t R` — SPEC, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`, `a : ℝ → ℝ`, `F : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`, `R : ℝ → ℝ`): means `3 * deriv F (R t) * (deriv a t / a t) ^ 2 = DustDensity Ω a t₀ t + (F (R t) - R t * deriv F (R t)) / 2 - 3 * (deriv a t / a t) * deriv^[2] F (R t) * deriv R t`
+- `FriedmannEq Ω a F t₀ t` — **PINNED** (pin theorem `friedmannEq_iff_blind`): phrase (hand-written, linted): the metric F(R) gravity Friedmann equation with dust holds with the present matter density parameter `Ω`, the scale factor `a`, the gravity Lagrangian function of Ricci scalar `F`, the present time `t₀` and the time of evaluation `t` (negative Ricci scalar convention, minus the common one; constraint equation of metric F of R gravity in flat FLRW; dust source and kappa squared is one; negative Ricci scalar convention with R taken as curv of `a`; multiplied through by `F` prime with no division; derivatives of `F` are taken with respect to R); by definition, means `3 * deriv F (curv a t) * hubble a t ^ 2 = Checked.Cosmography.FRCosmo.rhoM Ω a t₀ t + (F (curv a t) - curv a t * deriv F (curv a t)) / 2 - 3 * hubble a t * deriv (curv a) t * deriv^[2] F (curv a t)`
+- `curv a t` — **PINNED** (pin theorem `ricciSpec_pins`): phrase (hand-written, linted): the Ricci scalar of flat FLRW with the scale factor `a` and the cosmic time of evaluation `t` (negative convention, de Sitter has negative Ricci scalar; Ricci scalar of a spatially flat FLRW metric; negative convention so de Sitter has minus twelve times Hubble rate squared); by definition, `curv a t` is `-6 * (deriv (hubble a) t + 2 * hubble a t ^ 2)`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «negative convention, de Sitter has negative Ricci scalar» only assuming `c ≠ 0`; `H ≠ 0`, «negative convention so de Sitter has minus twelve times Hubble rate squared» only assuming `c ≠ 0`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**Pinning:** any `k` meeting `CurvKSpec` is `curvK` wherever `a₀ > 0`, `a` is
-differentiable at `t₀` and `H₀ ≠ 0`.
+The program's expansion-rate equation is the blind 00 equation with `R = curv a`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem curvKSpec_pins (k : ℝ → (ℝ → ℝ) → ℝ → ℝ) (h : CurvKSpec k) (K : ℝ) (a : ℝ → ℝ)
-    (t₀ : ℝ) (ha : 0 < a t₀) (hd : DifferentiableAt ℝ a t₀) (hH : deriv a t₀ / a t₀ ≠ 0) :
-    k K a t₀ = curvK K a t₀ := …
+theorem friedmannEq_iff_blind (Ω : ℝ) (a F : ℝ → ℝ) (t₀ t : ℝ) :
+    FriedmannEq Ω a F t₀ t ↔ FRFirstEq Ω a F t₀ t (curv a) := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaZ.curvK`, `Cosmography.hubble`, `Fidelity.CurvKSpec`
+See GLOSSARY.md: `Cosmography.FRCosmo.FriedmannEq`, `Cosmography.FRCosmo.curv`, `Cosmography.FRCosmo.rhoM`, `Cosmography.hubble`, `Fidelity.DustDensity`, `Fidelity.FRFirstEq`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: curvK.
+- Definitions pinned by a machine-checked specification: FriedmannEq, curv.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `curvKSpec_pins`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `friedmannEq_iff_blind`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/YOmegaKSpecs.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Fidelity/FRSpecs.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 12

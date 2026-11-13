@@ -368,3 +368,7 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Necessity witnesses: cubic-EOS co-volume, printed η₂₀/η₃₀, RK existence (runs 2026-11-13T0828Z, 1522Z)
 - `Checked/Trust/MaxwellRightVdW.lean` (`maxwell_right`, `no_maxwell_neg`, `no_maxwell_zero`; `vdW_coexistence_unique_r3`, `_r4`), `MaxwellRightPR.lean` (`maxwell_right_pr`; `pr_omega1_unique_r5`, `pr78_omega1_unique_r5`), `NecessityEta.lean` (`printedEta20/30_false_at_h4`, `_r1`–`_r3`, `printedEta30_false_at_h1`), `NecessityW.lean` (`pW_anti`, `pW_neg`, `rk_coexistence_exists_h3`).
+
+## Attached Falkner–Skan rows β = −0.13 … −0.16 (run 2026-11-13T1640Z)
+- Work: `Work/FalknerSkan/AttachedRowsTop.lean` (frozen 67f8eef), `Work/FalknerSkan/AttachedRowsTopBlindClosed.lean`, certificates `Work/FSAtt/R{Thirteen,Fourteen,Sixteen}{Lo,Hi,Core}.lean`; generators `runs/2026-11-13T1640Z/scripts/` (`rows.py`, `make_rows.py`, `make_closures.py`, `promote_rows.py`).
+- Checked: `Checked/FSAtt/R{Thirteen,Fourteen,Fifteen,Sixteen}{Lo,Hi,Core}.lean`, headlines `Checked/FalknerSkan/NegWallShearRowsTop.lean`, readings `Checked/Trust/SecondReadingFSAttRowsTop.lean`, `SecondReadingFSAttRowTop.lean`, necessity `Checked/Trust/NecessityX.lean` (namespace `Checked.Trust.NCX`), NV witnesses in `Checked/Trust/Witnesses.lean`.

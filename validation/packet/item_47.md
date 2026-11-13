@@ -6,38 +6,26 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `6 ≤ S`
-2. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt f (p η) (Set.Icc 0 S) η`
-3. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt p (q η) (Set.Icc 0 S) η`
-4. for every `η : ℝ`, if `η ∈ Set.Icc 0 S`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Icc 0 S) η`
-5. `f 0 = 0`
-6. `p 0 = 0`
-7. `q 0 = 1.3119376939`
-
-**then**
-
-- there is `η : ℝ` such that (`η ∈ Set.Ioc 0 6`) and (`1 < p η`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 η`, then `0 < q s`)
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`0.927680039 < q 0`) and (`q 0 < 0.927680040`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Homann axisymmetric stagnation-point flow, overshoot: for every S ≥ 6 and every solution of
-f''' + 2 f f'' + 1 − f'² = 0 on [0, S] (f has derivative p, p has derivative q, q has derivative
-−2 f q − 1 + p², within [0, S]) with f(0) = 0, p(0) = 0 and q(0) = 1.3119376939, there is
-η in (0, 6] with p(η) > 1 and q > 0 on [0, η].
+Falkner–Skan β = 1/2, existence: there is a solution f of f''' + f f'' + (1 − f'²)/2 = 0 on
+[0, ∞) (f has derivative p, p has derivative q, q has derivative −f q − (1 − p²)/2, one-sided
+at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value q(0) = f''(0) lies
+strictly between 0.927680039 and 0.927680040.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem homann_over (S : ℝ) (hS : 6 ≤ S) (f p q : ℝ → ℝ)
-    (hf : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt f (p η) (Icc 0 S) η)
-    (hp : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt p (q η) (Icc 0 S) η)
-    (hq : ∀ η ∈ Icc (0 : ℝ) S, HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Icc 0 S) η)
-    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hq0 : q 0 = 1.3119376939) :
-    ∃ η ∈ Ioc (0 : ℝ) 6, 1 < p η ∧ ∀ s ∈ Icc 0 η, 0 < q s := …
+theorem fs_half_exists : ∃ f p q : ℝ → ℝ,
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Ici 0) η) ∧
+    f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
+    0.927680039 < q 0 ∧ q 0 < 0.927680040 := …
 ```
 
 ## Definitions it uses
@@ -49,8 +37,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `homann_over`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Homann/Homann.lean` (do not open it before submitting your answers).
+- Source file: `Checked/FalknerSkan/FalknerSkan.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 47

@@ -681,3 +681,9 @@
 - New `Checked/Trust/MaxwellRightVdW.lean`, `MaxwellRightPR.lean`, `NecessityEta.lean` (run 0828Z's compiled scratch, module docs reworded without decimals/fractions for check_prose rule 7) and `NecessityW.lean` (`rk_coexistence_exists_h3`); `necessity_open_baseline.txt` 92 → 86 lines; TRUST_MAP open 280 → 267, fully classified 61 → 63.
 - LOCK of run 1228Z (no push for 177 min) taken over; CI 43422957898 (028d5c4) read green on every job.
 - Next: CI read of this push; then by rotation parts 2/5 or 3 (STATE 0f).
+
+## 2026-11-13T1640Z (scheduled run)
+- Env: repo ok (add_repo not exposed; checkout reset to origin/main ad2a969); local Lean (elan, Mathlib cache, CI build artifact of 028d5c4 restored); CI 43462297471 (c5c2a35) still running at the end — read next run.
+- Parts 2/5 by rotation: attached Falkner–Skan rows β = −0.13, −0.14, −0.16 (Ganapol 2010 Table 6) blind β reading, generated chains, freeze 67f8eef, referee STANDS, PROVED in Work (f62e1b2); promoted with run 1428Z's row −0.15 to `Checked/FalknerSkan/NegWallShearRowsTop.lean` (eight headlines): every row of Table 6's decelerating segment is a Checked statement (PROVED once CI is green).
+- Part 1 in the same run: `Checked/Trust/NecessityX.lean` — hypotheses 1, 3, 7 NEEDED and 6 REDUNDANT in the four new windows (7 by the reversed-flow headline of the same row).
+- PROMPT note: count table rows by a property visible in the whole table; referee reports come back as text.
