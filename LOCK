@@ -1,1 +1,1 @@
-Run 2026-11-13T0828Z (scheduled), started 08:28Z; LOCK taken 08:47Z (no LOCK at 5c06d2e); heartbeat 09:38Z: 12 hypotheses classified, compiled (MaxwellRightVdW, MaxwellRightPR, NecessityEta; scratch in runs/2026-11-13T0828Z/lean/); lake build Checked finishing (WTwoOver), then StatementDeps/Claims, records, final push. Remove at end.
+Run 2026-11-13T1028Z (scheduled), started 10:28Z; took over the LOCK of run 2026-11-13T0828Z at 12:08Z (heartbeat 09:38Z, 150 min with no push; rule 48.4); final records push next. Remove at end.
