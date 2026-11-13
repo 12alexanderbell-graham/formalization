@@ -37,8 +37,17 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        "Correct" line contains the phrase (d02: a class qualifier dropped from the prose that states the finding).
        Known limit: only registered atoms are read, and only the Correct line (Scope prose is free).
 
-  python3 scripts/trust/check_findings.py              rules FB1–FB5 on FINDINGS.md (reads CLAIMS.md)
-  python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA
+  FB7  (run 2026-11-13T0028Z, after blind round AJ: 6/6 accepted against FB1–FB6, every defect in prose no rule read
+       — a class widened in Scope, two printed values swapped between their sources or between their parameters, a
+       fraction of a correct formula changed, Lean coverage and uniqueness claimed in Scope) the prose of a verified
+       finding is frozen: with --base SHA, every section F<k> whose prose (generated blocks excluded, trailing
+       blanks ignored) differs from its text at SHA — changed, new or removed — needs a line added to LEDGER.md since
+       SHA that names `FINDINGS.md` and the finding in backticks (`F<k>`): a reworded finding is disclosed, never
+       silent. Known limit: the words of a new or disclosed finding are still the author's (the disclosure is what
+       is checked, not the content).
+
+  python3 scripts/trust/check_findings.py              rules FB1–FB6 on FINDINGS.md (reads CLAIMS.md)
+  python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7
   python3 scripts/trust/check_findings.py --selftest   controls only
 """
 import re
@@ -261,6 +270,30 @@ def check(findings, claims, baseline, phrases=()):
     return errs
 
 
+def section_prose(text):
+    """{F<k>: prose with generated blocks removed and trailing blanks stripped} of the verified-findings section."""
+    return {k: "\n".join(l.rstrip() for l in prose.strip().splitlines()) for k, prose, _ in verified_sections(text)}
+
+
+def fb7(old, new, ledger_added):
+    """FB7: changed, new or removed verified findings need a LEDGER line added since BASE naming FINDINGS.md and `F<k>`."""
+    a, b = section_prose(old), section_prose(new)
+    errs = []
+    for k in sorted(set(a) | set(b), key=lambda x: int(x[1:])):
+        if a.get(k) == b.get(k):
+            continue
+        what = "new" if k not in a else ("removed" if k not in b else "changed")
+        if not any("FINDINGS.md" in l and re.search(r"`" + k + r"`", l) for l in ledger_added):
+            errs.append(f"FB7: verified finding {k} is {what} since BASE (prose outside the generated blocks) and no "
+                        f"line added to LEDGER.md names `FINDINGS.md` and `{k}`: a finding's words change only disclosed")
+    return errs
+
+
+def ledger_added_lines(base):
+    out = subprocess.run(["git", "diff", "--unified=0", base, "--", "LEDGER.md"], capture_output=True, text=True).stdout
+    return [l[1:] for l in out.splitlines() if l.startswith("+") and not l.startswith("+++")]
+
+
 def selftest():
     claims = ("## `W`\n\nFull name `X.W`.\n\n**For every** `q : ℝ`:\n\n**assuming**\n\n1. `0 < q`\n\n**then**\n\n"
               "1. `52181e-7 < q`\n2. `q < 52182e-7`\n\nAuthor's paraphrase\n\n"
@@ -296,7 +329,23 @@ def selftest():
         if not any(x.startswith(rule) for x in e):
             print(f"selftest: {rule} control not rejected; errors: {e}")
             fails += 1
-    print(f"check_findings selftest: {len(bad) + 1} controls, {fails} failing")
+    # FB7 controls (diff rule): a reworded Scope line, a new finding, a removed one; clean twins: disclosed, or only
+    # the generated block changed.
+    led = ["- x — FINDINGS.md `F9` Scope reworded"]
+    fb7_bad = [(good, good.replace("too large in the decay class", "too large in every class"), []),
+               (good, good.replace(tail, "### F10 (y). new\n- **Correct:** z\n" + tail), led),
+               (good, head + tail, [])]
+    fb7_ok = [(good, good.replace("too large in the decay class", "too large in every class"), led),
+              (good, good.replace("- block\n", "- other block\n"), []), (good, good, [])]
+    for o, n, l in fb7_bad:
+        if not any(x.startswith("FB7") for x in fb7(o, n, l)):
+            print("selftest: FB7 control not rejected")
+            fails += 1
+    for o, n, l in fb7_ok:
+        if fb7(o, n, l):
+            print("selftest: FB7 clean twin rejected:", fb7(o, n, l))
+            fails += 1
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok)} controls, {fails} failing")
     return fails == 0
 
 
@@ -326,6 +375,11 @@ def main():
             lost = []
         for a, b in lost:
             errs.append(f"FB-base: {PHRASES} lost '{a} => {b}' since {base}: the registry only grows")
+        try:
+            oldf = subprocess.run(["git", "show", f"{base}:{FINDINGS}"], capture_output=True, text=True, check=True).stdout
+            errs += fb7(oldf, findings, ledger_added_lines(base))
+        except subprocess.CalledProcessError:
+            errs.append(f"FB7: cannot read {FINDINGS} at {base}")
     for e in errs:
         print("::error::" + e)
     print(f"check_findings: {len(verified_sections(findings))} verified findings, {len(errs)} problems")
