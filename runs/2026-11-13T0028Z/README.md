@@ -25,10 +25,13 @@
 3. **Blind red team AJ** (`t5/`, RESULTS.md): brief 3f66ca9 first, Sonnet on a read-only snapshot, Lean-free (FINDINGS/registries only), 5 min. BEFORE 6/6 ACCEPTED: F12 class widened in Scope, F13 printed values swapped between sources, F1 a coefficient of the correct formula changed, F4 Lean coverage of every curvature claimed, F14 uniqueness claimed, F10 printed values swapped between parameters. Repair: `check_findings.py` FB7 (prose of verified findings frozen against BASE; changed/new/removed needs a LEDGER line naming `FINDINGS.md` and `F<k>`), 6 new controls. AFTER: 0/6, each only by FB7 (not blind).
 
 ## Verification
-- (filled below)
+- Local CI replica on c39391f vs 50d4d16, the newest fully green ancestor (`scripts/trust/local_frozen_step.py --trust`): trust step (StatementDeps, Claims, every Python check) exit 0; frozen step 21 commands, 0 failed. goal_guard, make_packet --check (48 items), route_control, precheck_citations: green. No generated file changed by the replica.
+- The first two replica attempts failed honestly: check_blind_route B3 (date in a brief path, see Work 1) and check_brief_leak L1 (ordinals in the second brief). Both were fixed by new briefs and readers, not by changing the checks.
+- Axioms: the twelve headlines are the Work proofs of runs 2228Z/1828Z copied verbatim; CI's axiom audit judges them on the final push.
 
 ## LOCK
-- Taken 00:30Z (d118f4c); heartbeat 086cd55. Removed in the final commit.
+- Taken 00:30Z (d118f4c); heartbeat 086cd55, pushes dfe3ff3, a18caea, 627f3e7. Removed in the final commit.
 
 ## Next run's starting point
-- (see STATE "Exact next step")
+- Read CI: 43333104273 (07b7a68, still running at 02:50Z) and this run's final push. Green on every job → the twelve rows PROVED (STATE "Exact next step" 0).
+- Then part 1 by rotation, or finish Table 7 (rows −0.03 … −0.01), or the attached Table 6 rows at the same β.
