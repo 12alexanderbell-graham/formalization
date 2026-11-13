@@ -1,14 +1,36 @@
 # Run 2026-11-13T0228Z (scheduled)
 
-**THE RESULT:** parts 2/5 (in progress). Auditor role at start (run 0028Z holds the LOCK, heartbeat 01:12Z, last push 02:21Z): finishing Ganapol 2010 Table 7 — the certified chains of row β = −0.03 (over and slow at step 1/64, degree 14, 26 digits; the tube of run 2228Z passed), generated detached from 02:29Z.
+**THE RESULT:** part 1 (rotation; last at 1828Z) and parts 2/5. (1) Nine hypotheses of four Falkner–Skan headlines are shown NEEDED by machine-checked witnesses (`Checked/Trust/NecessityT.lean`): the coupling `p' = q` in the monotone-class Hiemenz and Homann windows, hypotheses 1–3 of `fs_neg_tenth_monotone_lt`, hypotheses 1, 4, 5, 9 of `fs_monotone_of_limit`; open hypotheses 304 → 295. (2) Row β = −0.03 of Ganapol 2010 Table 7 is frozen in Work (`Work/FalknerSkan/ReversedRowThree.lean`), refereed (STANDS) and its β read blind from the typeset table; its certificate chains were still generating when the records were written (see "Next-run starting point").
 
-**What can a scientist now trust without checking it themselves, that they could not before?** (filled at the end)
+**What can a scientist now trust without checking it themselves, that they could not before?** That in these four Falkner–Skan claims the coupling of velocity and shear, the equation itself, the sign of the pressure gradient and the restriction to the half-line each carry the result: dropping any one of them makes the claim false, by an explicit Lean counterexample, not by an expert's say-so.
 
-**Weakest unchecked step:** (filled at the end)
+**Weakest unchecked step:** the wall conditions f(0) = 0, p(0) = 0 and the far-field condition of these four claims are still open (no witness either way); row −0.03 is not yet proved (chains not finished); NecessityT is judged by the local CI replica only until the CI run of this push finishes.
 
 ## Start
-- 02:28Z. add_repo was not exposed; the pre-cloned checkout was detached and shallow with a stale local `main`; `git fetch --unshallow` + `git checkout -B main origin/main` = 627f3e7. LOCK held by run 2026-11-13T0028Z (started 00:28Z, < 150 min): auditor role (48.4), writing only in this folder (+ CHANGELOG append) until it is released.
-- elan installed (official installer).
+- 02:28Z. add_repo was not exposed; the pre-cloned checkout was detached and shallow with a stale local `main`; `git fetch --unshallow` + `git checkout -B main origin/main` = 627f3e7. LOCK held by run 2026-11-13T0028Z (started 00:28Z, < 150 min): auditor role (48.4) until it released the LOCK at 02:53Z; LOCK taken in cabe551.
+- elan installed (official installer); Mathlib cache ≈ 5 min. CI artifact `checked-build` of 43333104273 (07b7a68) restored in 43 s; incremental `lake build Checked` ≈ 1 min.
+
+## CI read
+- **43333104273 (07b7a68, run 2228Z's final push: 35 FSRev modules): success on every job** (checked job, nanoda 4/4, work).
+- The run of 7d590d2 (run 0028Z's final push: promotion of twelve Table 7 rows) was still running at 03:45Z — read next run.
+
+## Bottleneck (and what a yes/no changes)
+- Rotation: part 1 had not moved for three runs (2028Z, 2228Z, 0028Z); a fourth would trigger the LIII block rule. STATE named part 1 or finishing Table 7. Both were done in parallel: the row's chains are CPU-bound generators (detached), the necessity witnesses are Lean.
+- Part 1: a yes (witness) removes "maybe decorative" from a hypothesis a reader sees; a no would show it redundant (also a gain). Part 2/5: a yes adds the 17th of 19 rows.
+
+## Work
+1. **Row −0.03, freeze (auditor role, run folder first, then Work):** `runs/2026-11-13T0228Z/scripts/make_row3.py` (copy of run 2228Z's `make_table.py`, statement text unchanged) → `Work/FalknerSkan/ReversedRowThree.lean` (`fs_rev_three_exists`, window (−0.0825629652, −0.0825629651)), byte-identical to the run-folder freeze 5b588c7; closure of run 1228Z's blind restatement instantiated at the row (`ReversedRowThreeBlindClosed.lean`, compiles).
+2. **Blind β reading:** brief 026f636 alone (row named by the leading digits of its printed wall shear, not by its position — a position determines β in this table; leak checks B3/L1 run against the expected reading before commit: none), Sonnet reader 17059a3 (≈ 2 min; derived β = 2m/(m + 1) with sympy; read −3.00E−02 → `-3 / 100`). Agrees with the freeze.
+3. **Referee** (Sonnet, `referee/REPORT_row3.md`): own 40-digit Taylor integrator, η∞ = 20 and 25 agree to 20 digits: q(0) = −0.082562965118757909, margins 8.1e-11 / 1.9e-11; −1 ≤ f' ≤ 1; decay class holds (f''/(1 − f') ≈ η − 8.04); Ganapol prints −8.25629651188E−02 (correct to 12 digits). STANDS.
+4. **Chains:** `runs/2026-11-12T2228Z/scripts/chain.sh 03 over 5 64 14 26` and `… slow 17/4 64 14 26`, started 02:28Z detached; at 03:47Z both still running (amplification e^31.03, rising ≈ 0.004 per cell; `gen_rev.py` prints only at the end, so progress was read with `py-spy dump --locals`). Tube: run 2228Z's `03_tube.json` (copied).
+5. **Part 1, `Checked/Trust/NecessityT.lean`** (namespace `Checked.Trust.NCU`): scratch against Mathlib in the run folder during auditor time (`lean/ProfileT.lean`, `ProfileU.lean`), then nine witnesses compiled against the restored build: monotone windows 2 (overshooting velocity, shear from its own linear equation, wall value ≥ 2); `fs_neg_tenth_monotone_lt` 1, 3 (NecessityQ's profiles), 2 (`linQ` with adverse forcing); `fs_monotone_of_limit` 1 (reversed-flow solution), 4 (`linQ`, zero wall value), 5 (zero-shear profile), 9 (Hiemenz solution changed at negative heights). Baseline shrunk, relock, TRUST_MAP; CLAIMS unchanged.
+
+## Verification
+- Local: `lake build Checked` green; StatementDeps (relock) exit 0 (930 hypotheses, needed 495, redundant 140, open 295; 164/164 NV); Claims exit 0; `check_necessity.py --base 07b7a68` OK; `local_frozen_step.py 07b7a68`: 21 commands, 0 failed; goal guard ok; packet up to date.
+- CI: this push's run judges NecessityT (read next run).
 
 ## Next-run starting point (kept current)
-- Row −0.03 chains: `runs/2026-11-13T0228Z/cells/03_{over,slow}.{json,log}` (generator `runs/2026-11-12T2228Z/scripts/chain.sh 03 over 5 64 14 26`, `… slow 17/4 64 14 26`); tube `runs/2026-11-12T2228Z/cells/03_tube.json` (L = 7/4, w = (2, 8)).
+- Row −0.03: if `runs/2026-11-13T0228Z/cells/03_over.json` and `03_slow.json` are committed (the generators run in this container only; uncommitted output is lost when the run ends), follow STATE "Exact next step" 0 (emit_rows → make_row3.py prove → promote_row3.py). If not, regenerate them detached at the start with `runs/2026-11-13T0228Z/scripts/chain.sh` (progress lines).
+
+## LOCK
+- Taken cabe551 (02:54Z).
