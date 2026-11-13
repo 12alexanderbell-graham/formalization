@@ -651,3 +651,9 @@
 - Parts 2/5: twelve reversed-flow Falkner–Skan rows of Ganapol 2010 Table 7 (β = −0.04 … −0.09, −0.11 … −0.16) promoted to Checked (`NegReversedWallShearRows`), β read blind from the typeset table (Sonnet reader, `SecondReadingFSRevTableRows`); 16 of 19 rows in Checked, PROVED once CI is green.
 - Part 3: blind red team AJ on the findings layer, **6/6 wrong findings accepted on main** against FB1–FB6 (all in finding prose no rule reads); repair `check_findings.py` FB7 (finding prose frozen against the CI base, disclosure in LEDGER required); AFTER 0/6 (not blind).
 - Records: PROMPT notes (FB7 route; table promotion with a restored CI build); STATE oldest environment line archived.
+
+## 2026-11-13T0228Z (scheduled run)
+- Env: repo ok; local Lean (elan, Mathlib cache, CI build artifact of 43333104273 restored). Auditor role until run 0028Z released the LOCK at 02:53Z. CI 43333104273 (07b7a68): green on every job; the run of 7d590d2 still running — read next run.
+- Part 1 (rotation): `Checked/Trust/NecessityT.lean` — nine hypotheses NEEDED in four Falkner–Skan headlines (p' = q in the monotone Hiemenz/Homann windows by a shear solving its own linear equation with an integrating factor; `fs_neg_tenth_monotone_lt` 1, 2, 3; `fs_monotone_of_limit` 1, 4, 5, 9 by the certified reversed-flow and Hiemenz solutions and zero-shear profiles); open 304 → 295.
+- Parts 2/5: row β = −0.03 of Ganapol 2010 Table 7 frozen (`Work/FalknerSkan/ReversedRowThree.lean` + instantiated blind-restatement closure), referee STANDS (own 40-digit integrator; Ganapol correct to 12 digits), β read blind (row named by its printed wall shear, not its position); certificate chains (degree 14, 26 digits) still generating at the end of the run; promotion script ready.
+- Tooling (LIV): `runs/2026-11-13T0228Z/scripts/gen_rev_p.py` + `chain.sh` (progress lines for long chains).
