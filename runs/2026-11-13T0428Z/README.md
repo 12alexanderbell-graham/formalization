@@ -13,7 +13,7 @@ Scheduled run. LOCK 7755b69 (04:29Z) → removed in the final commit.
 2. Certificates emitted by `runs/2026-11-12T2228Z/scripts/emit_rows.py`, module docs name this generator; compiled first time (≈ 9 min each, two at a time). `make_row3.py prove`: diff = imports, four helper lemmas, proof. Axioms standard. Blind closure builds sorry-free.
 3. Promotion by `runs/2026-11-13T0228Z/scripts/promote_row3.py` (+ module doc names `ReversedRowThree.lean`; LEDGER). Relock, TRUST_MAP, CLAIMS, packet.
 4. Run 0228Z's session, still alive, found the same root cause in parallel and committed cheaper chains (weights (2, 8), degree 14, 26 digits) to its own folder at 04:40Z, after these were compiled. Lesson in PROMPT: try weights before precision.
-5. Rows −0.02, −0.01 (`scripts/gen_rev_wide.py`, `FS_QCLAMP`; logs `wide/`): over passes for both at w = (4, 32), step 1/128, degree 16, 30 digits (amp e^18, e^34); slow −0.02 passes; tube −0.02 fails at its end (ball 0.025); slow −0.01 end margin −1.3·10⁻¹⁰ (more digits); tube −0.01 μh ≥ 1 at step 1/128.
+5. Rows −0.02, −0.01 (`scripts/gen_rev_wide.py`, `FS_QCLAMP`; logs `wide/`): row −0.02 passes on all three chains with the clamp at 4 (w = (4, 32), step 1/128, degree 16, 30 digits; tube end time 3/2); row −0.01: over and slow (degree 18, 36 digits) pass, the tube not yet (μh ≥ 1 at step 1/256 with clamp 5–6; q + B above clamp 4).
 
 ## Verification
 - Local: see the final commit message (CI replica against 07b7a68, the newest fully green ancestor).

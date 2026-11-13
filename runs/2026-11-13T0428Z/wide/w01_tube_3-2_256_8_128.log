@@ -1,0 +1,26 @@
+progress cells 16 t0 0.0586 amp e^0.57
+progress cells 32 t0 0.1211 amp e^1.09
+progress cells 48 t0 0.1836 amp e^1.58
+progress cells 64 t0 0.2461 amp e^2.05
+progress cells 80 t0 0.3086 amp e^2.50
+progress cells 96 t0 0.3711 amp e^2.95
+progress cells 112 t0 0.4336 amp e^3.40
+progress cells 128 t0 0.4961 amp e^3.87
+progress cells 144 t0 0.5586 amp e^4.36
+progress cells 160 t0 0.6211 amp e^4.90
+progress cells 176 t0 0.6836 amp e^5.52
+progress cells 192 t0 0.7461 amp e^6.28
+progress cells 208 t0 0.8086 amp e^7.27
+progress cells 224 t0 0.8711 amp e^8.63
+progress cells 240 t0 0.9336 amp e^10.49
+progress cells 256 t0 0.9961 amp e^13.00
+progress cells 272 t0 1.0586 amp e^16.12
+progress cells 288 t0 1.1211 amp e^19.56
+Traceback (most recent call last):
+  File "/home/claude/formalization/runs/2026-11-13T0428Z/scripts/gen_rev_wide.py", line 177, in <module>
+    main()
+    ~~~~^^
+  File "/home/claude/formalization/runs/2026-11-13T0428Z/scripts/gen_rev_wide.py", line 144, in main
+    assert ok, (float(t0), [i for i, x in enumerate(conds) if not x])
+           ^^
+AssertionError: (1.140625, [24])

@@ -1,0 +1,14 @@
+progress cells 16 t0 0.0586 amp e^0.39
+progress cells 32 t0 0.1797 amp e^1.06
+progress cells 48 t0 0.3047 amp e^1.63
+progress cells 64 t0 0.4297 amp e^2.13
+progress cells 80 t0 0.5547 amp e^2.63
+progress cells 96 t0 0.6797 amp e^3.25
+progress cells 112 t0 0.8047 amp e^4.13
+progress cells 128 t0 0.9297 amp e^5.51
+progress cells 144 t0 1.0547 amp e^7.67
+progress cells 160 t0 1.1797 amp e^10.74
+progress cells 176 t0 1.3047 amp e^14.16
+progress cells 192 t0 1.4297 amp e^16.66
+end state g p q 0.204173769084716 0.9480240900378685 0.6856924920446004 B 0.016921950356710853
+cells 200 final B 0.0169 r2 0.00299 amp e^17.26 end g p q 0.204173769084716 0.9480240900378685 0.6856924920446004 max eps 1.34e-25 mode tube path margin 0.385 end margin 0.049 OK

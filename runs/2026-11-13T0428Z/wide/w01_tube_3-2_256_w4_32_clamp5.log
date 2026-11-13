@@ -1,0 +1,25 @@
+progress cells 16 t0 0.0586 amp e^0.65
+progress cells 32 t0 0.1211 amp e^1.22
+progress cells 48 t0 0.1836 amp e^1.71
+progress cells 64 t0 0.2461 amp e^2.14
+progress cells 80 t0 0.3086 amp e^2.51
+progress cells 96 t0 0.3711 amp e^2.86
+progress cells 112 t0 0.4336 amp e^3.17
+progress cells 128 t0 0.4961 amp e^3.48
+progress cells 144 t0 0.5586 amp e^3.82
+progress cells 160 t0 0.6211 amp e^4.25
+progress cells 176 t0 0.6836 amp e^4.84
+progress cells 192 t0 0.7461 amp e^5.68
+progress cells 208 t0 0.8086 amp e^6.90
+progress cells 224 t0 0.8711 amp e^8.67
+progress cells 240 t0 0.9336 amp e^11.19
+progress cells 256 t0 0.9961 amp e^14.64
+progress cells 272 t0 1.0586 amp e^19.04
+Traceback (most recent call last):
+  File "/home/claude/formalization/runs/2026-11-13T0428Z/scripts/gen_rev_wide.py", line 177, in <module>
+    main()
+    ~~~~^^
+  File "/home/claude/formalization/runs/2026-11-13T0428Z/scripts/gen_rev_wide.py", line 137, in main
+    assert mu * h < 1, (float(t0), float(mu))
+           ^^^^^^^^^^
+AssertionError: (1.078125, 327.4221)
