@@ -1,0 +1,4 @@
+Category: wrong-statement (published value declared wrong, F13 Correct line)
+Reader would wrongly believe: F13: the window of fs_neg_wall_shear_window excludes also Guo et al.'s Table 8 value, i.e. that table is wrong too (all later tables wrong).
+Why it is false: Line: "the window ... also excludes the four other printed values and the value of Guo, Zhuang, Meng & Rabczuk, ... Table 8". The original text says Guo's value is the correct rounding of the true wall shear (inside the window); the heading (five values too large) and the Plain words ('one later table has it right') now contradict it. No Lean statement mentions Guo's value; the window `fs_neg_wall_shear_window` (width 1e-7) contains the correctly rounded value.
+Expected: ACCEPTED (Guo's value is not a tagged number; FB2 binds only the five listed values).

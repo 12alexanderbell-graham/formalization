@@ -1,0 +1,12 @@
+# Red team AK report
+
+All six applied alone to a clean copy of 4af3d97, check_numbers --write and make_packet run, then scripts/trust/records_check.py 4af3d97 (all Lean-free CI commands incl. check_findings --base): only the 2 pre-existing failures of check_literals (stale .lake in snapshot, also failing on the clean tree) remain; so all 6 ACCEPTED. Each adds a neutral LEDGER line naming FINDINGS.md and F<k>.
+
+- d01 -> other (verified status / new finding) -> F15 (new): the Redlich–Kwong P_c coefficient misprint is a Checked, Lean-backed finding, and the corrected value 0.029894 follows from `rk_constants`. -> expected ACCEPTED (FB7 satisfied by the neutral LEDGER line; no record needed; decimals tagged [src]/[unc]).
+- d02 -> wrong-statement (Correct line of F9) -> F9 Correct: the true denominator R has 264q₀ (instead of 246q₀) in its last bracket. -> expected ACCEPTED (Correct-line formulas are not compared to Lean definitions; FB7 disclosed).
+- d03 -> wrong-number (Correct line of F3) -> F3 Correct: the true z⁵ coefficient of the lookback series is (7/4)q₀⁴ and the printed value is off by (7/4)q₀⁴. -> expected ACCEPTED (Correct line is free prose; FB6 has no atom for it).
+- d04 -> wrong-statement (direction, F14 Correct line) -> F14: the true reverse-flow wall shear lies below the printed −0.005158 (the printed value is too large). -> expected ACCEPTED (direction words in Correct are not read; roles only checked next to tagged numbers in prose, none here).
+- d05 -> wrong-statement (published value declared wrong, F13 Correct line) -> F13: the window of fs_neg_wall_shear_window excludes also Guo et al.'s Table 8 value, i.e. that table is wrong too (all later tables wrong). -> expected ACCEPTED (Guo's value is not a tagged number; FB2 binds only the five listed values).
+- d06 -> weakened/overstated scope (consequence for a published claim, F11 Scope line) -> F11: the formula error biases Lusso et al.'s reported q₀, j₀, s₀ and the >4σ claim is unsupported by the fit. -> expected ACCEPTED (Scope prose frozen only by disclosure, FB7).
+
+Misread lines are quoted in each dNN/claim.md. Weaknesses: new finding needs no record or Checked evidence (d01); Correct-line formulas/directions/class are never compared with Lean definitions or signs (d02,d03,d04); a published value can be added to the excluded set without a number (d05); Scope consequence claims unread (d06).
