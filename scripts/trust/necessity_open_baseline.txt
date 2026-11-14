@@ -2,14 +2,6 @@
 # A line shrinks when a witness (`necessity%`) or a redundancy proof (`dropped%`) lands, in the same commit.
 # A classified hypothesis never reopens (N2 --base); a new headline enters with open hypotheses only with a LEDGER line
 # naming it in backticks with `open <indices>`. Created run 2026-11-11T0028Z from the generated TRUST_MAP.md.
-CCS.printedD4_fails | 1
-BambaY.printedD2y_fails | 1
-BambaK.printedD3y_fails | 1
-BambaK.printedD4y_fails | 1
-BambaA.printedDA3_fails | 1
-BambaA.printedDA4_fails | 1
-FRCosmo.fR_values | 1
-FRCosmo.curv_derivs | 1, 2, 3
 FRCosmo.exists_LCDM_model | 1, 2
 FRCosmo.printedF0Mul_false_at | 1, 2
 FRCosmo.printedF0_false_at | 1, 2, 3
