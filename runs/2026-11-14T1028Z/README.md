@@ -26,3 +26,7 @@
 - STATE 0q. The second minimum (ξ ≈ 7849.6) by the same generator needs a tighter start (the ξ₃ windows are already limited to ≈ 4 digits by the enclosure inherited from radius 7).
 
 ## Local checks and push
+- `lake build Checked` green on the restored build (incremental; BEH2Data 86 s, BEH2Main 127 s); `#print axioms` of `Checked.Math.BonnorEbertMax2.bonnor_ebert_second_max`, of `NecessityAE.bonnor_ebert_second_max_h2`, `_h5` and of the blind closure: propext, Classical.choice, Quot.sound.
+- `TRUST_RELOCK=1 lake env lean scripts/trust/StatementDeps.lean` exit 0 (288 headlines; NV 171/171; necessity: needed 596 → 600, redundant 155 → 156, open 221 unchanged — the new headline enters fully classified) after one repair: the citation registry rejected a STATE mention of the non-headline lemma `neg_G` (reworded to the file path); `Claims.lean` regenerated CLAIMS.md (+1 claim); `make_packet.py` redrew the validation packet's sample (the new headline joins a stratum; mechanical, seed unchanged).
+- `records_check.py 96643b0`: 41 commands, 0 failed.
+- Final push removes the LOCK; its CI run judges the promotion and replaces the pending run of c3ca8a4 (whose content it contains).
