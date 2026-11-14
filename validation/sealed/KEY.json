@@ -77,7 +77,7 @@
   },
   {
    "item": 5,
-   "headline": "Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_17_two_decay"
+   "headline": "Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_19_exists"
   },
   {
    "item": 6,
@@ -85,7 +85,7 @@
   },
   {
    "item": 7,
-   "headline": "Checked.Cosmography.AvilesWitness.printedL0_false_at"
+   "headline": "Checked.Cosmography.Aviles.avilesM0Claim_false"
   },
   {
    "item": 8,
@@ -121,7 +121,7 @@
   },
   {
    "item": 20,
-   "headline": "Checked.Math.BonnorEbertMin2.bonnor_ebert_second_min"
+   "headline": "Checked.Cosmography.BambaA.angDist_y_fifth_order"
   },
   {
    "item": 21,
@@ -149,7 +149,7 @@
   },
   {
    "item": 28,
-   "headline": "Checked.Sim.Duffing.duffing_solution_exists"
+   "headline": "Checked.Sim.Duffing.duffing_first_zero_sol"
   },
   {
    "item": 29,
@@ -185,11 +185,11 @@
   },
   {
    "item": 39,
-   "headline": "Checked.Cosmography.BambaA.printedDA3_fails_past"
+   "headline": "Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots"
   },
   {
    "item": 40,
-   "headline": "Checked.FalknerSkan.NegReversedWallShear.fs_neg_wall_shear_two_decay"
+   "headline": "Checked.Math.BonnorEbertMin.bonnor_ebert_min"
   },
   {
    "item": 41,
@@ -213,11 +213,11 @@
   },
   {
    "item": 47,
-   "headline": "Checked.Homann.homann_under"
+   "headline": "Checked.Homann.homann_over"
   },
   {
    "item": 48,
-   "headline": "Checked.Sim.Robertson.rob_state40"
+   "headline": "Checked.Sim.Robertson.rob_exists"
   }
  ]
 }

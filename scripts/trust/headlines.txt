@@ -212,6 +212,7 @@ Checked.Math.BonnorEbertMax.bonnor_ebert_max
 Checked.Math.BonnorEbertMin.bonnor_ebert_min
 Checked.Math.BonnorEbertMax2.bonnor_ebert_second_max
 Checked.Math.BonnorEbertMin2.bonnor_ebert_second_min
+Checked.Math.BonnorEbertMax3.bonnor_ebert_third_max
 # Mathematics/physics: Thomas–Fermi equation of the neutral atom (run 2026-11-06T1828Z; existence and promotion 2028Z): initial slope, existence
 Checked.Math.ThomasFermi.tf_initial_slope
 Checked.Math.ThomasFermiExists.tf_exists

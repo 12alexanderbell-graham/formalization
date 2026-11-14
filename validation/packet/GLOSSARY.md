@@ -56,6 +56,18 @@ def AvilesL0Claim : Prop :=
     cosmoCoeff 5 a t₀ = 1 + 3 * Ω - 27 / 2 * Ω ^ 2
 ```
 
+## `Cosmography.Aviles.AvilesM0Claim`
+
+The printed claim for `m₀` (frozen verbatim from Eq. (15)).
+
+```lean
+def AvilesM0Claim : Prop :=
+  ∀ (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ → ContDiffAt ℝ 6 a t₀ →
+    cosmoCoeff 6 a t₀ = 1 - 27 / 2 * Ω ^ 2 - 81 * Ω ^ 2 - 81 / 2 * Ω ^ 3
+
+/-! ## Einstein–de Sitter: `a(t) = t^{2/3}` -/
+```
+
 ## `Cosmography.Aviles.IsFlatLCDM`
 
 Flat ΛCDM with matter fraction `Ω` at observation time `t₀` (Aviles et al., text before
@@ -160,6 +172,24 @@ noncomputable def angDist (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   lumDist K a t₀ t / (1 + redshift a t₀ t) ^ 2
 ```
 
+## `Cosmography.BambaA.correctDA3`
+
+Proposed correction of (10.61): add `q₀(Ω₀ − 1)/4`.
+
+```lean
+noncomputable def correctDA3 (q j s Ω : ℝ) : ℝ :=
+  printedDA3 q j s Ω + q * (Ω - 1) / 4
+```
+
+## `Cosmography.BambaA.correctDA4`
+
+Proposed correction of (10.62)–(10.63): add `(Ω₀ − 1)[(Ω₀ − 1) + 10j₀ − 45q₀² + 20q₀]/120`.
+
+```lean
+noncomputable def correctDA4 (q j s l Ω : ℝ) : ℝ :=
+  printedDA4 q j s l Ω + (Ω - 1) * ((Ω - 1) + 10 * j - 45 * q ^ 2 + 20 * q) / 120
+```
+
 ## `Cosmography.BambaA.printedDA3`
 
 `D³_{A,y}` as printed (Eq. (10.61)), verbatim.
@@ -167,6 +197,16 @@ noncomputable def angDist (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
 ```lean
 noncomputable def printedDA3 (q j s Ω : ℝ) : ℝ :=
   -(1 / 24) * (-2 * q + 3 * q ^ 2 + 15 * q ^ 3 - j - 10 * q * j - s + 2 * Ω)
+```
+
+## `Cosmography.BambaA.printedDA4`
+
+`D⁴_{A,y}` as printed (Eqs. (10.62)–(10.63)), verbatim (`j² = j₀²`).
+
+```lean
+noncomputable def printedDA4 (q j s l Ω : ℝ) : ℝ :=
+  -(1 / 120) * (1 - 6 * q + 9 * q ^ 2 - 15 * q ^ 3 - 105 * q ^ 4 + 10 * q * j + 105 * q ^ 2 * j
+    + 15 * q * s + -3 * j - 10 * j ^ 2 + s + l + 5 * Ω)
 ```
 
 ## `Cosmography.BambaA.remA`
