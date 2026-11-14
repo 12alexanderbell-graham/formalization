@@ -1,5 +1,6 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Work.Math.BEHMain
 
 /-! Bonnor–Ebert sphere, `BonnorEbertMin` (FROZEN by run 2026-11-14T0428Z before proof).
 
@@ -42,7 +43,7 @@ theorem bonnor_ebert_min (S : ℝ) (hS : 150 ≤ S) (w φ : ℝ → ℝ)
           s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi)) ∧
       0.694366 ≤ ξ₂ ^ 2 * (-φ ξ₂) * Real.exp (w ξ₂ / 2) / Real.sqrt (4 * Real.pi) ∧
       ξ₂ ^ 2 * (-φ ξ₂) * Real.exp (w ξ₂ / 2) / Real.sqrt (4 * Real.pi) ≤ 0.694367 ∧
-      2579.69 ≤ Real.exp (-w ξ₂) ∧ Real.exp (-w ξ₂) ≤ 2579.71 := by
-  sorry
+      2579.69 ≤ Real.exp (-w ξ₂) ∧ Real.exp (-w ξ₂) ≤ 2579.71 :=
+  Work.Math.BEHMain.main S hS w φ hw hφ0 hφ h0
 
 end Work.Math.BonnorEbertMin

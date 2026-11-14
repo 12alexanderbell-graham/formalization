@@ -180,7 +180,14 @@ import Work.Math.BETail
 import Work.Math.BonnorEbertGlobal
 import Work.Math.BonnorEbertGlobalBlind
 import Work.Math.BonnorEbertGlobalBlindClosed
+import Work.Math.BEHCell
+import Work.Math.BEHData
+import Work.Math.BEHChain
+import Work.Math.BEHTail
+import Work.Math.BEHMain
 import Work.Math.BonnorEbertMin
+import Work.Math.BonnorEbertMinBlind
+import Work.Math.BonnorEbertMinBlindClosed
 import Work.Math.GelfandBlind
 import Work.Math.GelfandBlindClosed
 import Work.Math.RadialLaplacian
