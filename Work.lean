@@ -188,7 +188,13 @@ import Work.Math.BEHMain
 import Work.Math.BonnorEbertMin
 import Work.Math.BonnorEbertMinBlind
 import Work.Math.BonnorEbertMinBlindClosed
+import Work.Math.BEH2Data
+import Work.Math.BEH2Chain
+import Work.Math.BEH2Tail
+import Work.Math.BEH2Main
 import Work.Math.BonnorEbertMax2
+import Work.Math.BonnorEbertMax2Blind
+import Work.Math.BonnorEbertMax2BlindClosed
 import Work.Math.GelfandBlind
 import Work.Math.GelfandBlindClosed
 import Work.Math.RadialLaplacian
