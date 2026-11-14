@@ -58,6 +58,10 @@ jobs:
           git config --global user.email ci@example.invalid
           git config --global user.name ci
           python3 scripts/trust/route_control.py
+      - name: FINDINGS.md rendered with a pinned CommonMark renderer has the structure the line rules assume; candidate pointers bound (FB21, FB22; blocking; run 2026-11-14T2028Z, see LEDGER)
+        run: |
+          for i in 1 2 3 4 5; do python3 -m pip install --user --break-system-packages markdown-it-py==4.2.0 && break; sleep 15; done
+          python3 scripts/trust/check_findings.py --render
 
   validation-packet:
     name: expert-validation packet is current, or frozen once sent (THE RESULT part 4; run 2026-10-31T0828Z, see LEDGER)
@@ -171,6 +175,9 @@ jobs:
           if grep -rnE '\b(sorry|admit|axiom|native_decide|implemented_by|debug\.skipKernelTC)\b' Checked Checked.lean; then
             echo "Forbidden token found in Checked"; exit 1
           fi
+      - name: Pinned Markdown renderer for check_findings.py FB21 (the check fails closed without it; run 2026-11-14T2028Z)
+        run: |
+          for i in 1 2 3 4 5; do python3 -m pip install --user --break-system-packages markdown-it-py==4.2.0 && break; sleep 15; done
       - name: Statement dependencies, trust map, non-vacuity witnesses, pin shape, frozen registry, unused hypotheses, records, certified numbers, prose/meaning (all blocking; runs 2028Z, 2228Z, 2026-10-31T0028Z, 0228Z, 1028Z, see LEDGER)
         run: |
           set -o pipefail

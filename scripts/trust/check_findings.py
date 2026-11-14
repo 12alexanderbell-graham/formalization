@@ -110,13 +110,21 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        with Cyrillic letters, so FB14's mark words missed it) FINDINGS.md holds no letter outside the Latin, Greek and
        mathematical alphabets and no invisible format character (Unicode category Cf), and FB14's marks of generated
        text are matched on the NFKC form with Greek look-alikes folded to Latin.
+  FB21 (run 2026-11-14T2028Z, part 3, after round AP: the line rules FB14/FB19 model a Markdown renderer and AP's
+       four valid defects lived where model and renderer differ) FINDINGS.md is rendered (markdown-it-py, pinned in
+       CI; CommonMark, and CommonMark with GFM tables and strikethrough) and the verified section's rendered block
+       structure must be the one the line model assumes; notes render nested under the marker with their own text,
+       start with '(author)' in emphasis, carry no generated mark in their decoded text; no inline HTML or image.
+  FB22 (same run, AP d05) a candidates line pointing to F<k> names only candidate ids listed in F<k>'s title note
+       '(was …)' (a change there is F<k> prose: FB7 wants a LEDGER line).
 
-  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18–FB20
+  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18–FB22
   python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9, FB15, FB17 (b)
   python3 scripts/trust/check_findings.py --write-correct F<k> [F<j> …]   replace those findings' Correct lines by
                                                        the generated ones (an author edit: FB7 still wants a LEDGER line)
   python3 scripts/trust/check_findings.py --write-layout F<k> [F<j> …]    FB10 layout for those findings (an author
                                                        edit: FB7 still wants a LEDGER line)
+  python3 scripts/trust/check_findings.py --render     FB21 and FB22 only (selftest first; no Lean output read)
   python3 scripts/trust/check_findings.py --selftest   controls only
 """
 import re
@@ -1312,12 +1320,222 @@ def selftest():
         ("FB20 rejects Greek physics symbols", bool(fb20("Ω₀, η₂₀, β, ε, ΛCDM, ℝ, 𝒫₀")), False),
         ("FB19/FB20 reject the clean frame", bool(fb14(fr) + fb20(fr)), False),
     ]
-    for what, got, want in ao + ap:
+    # FB21–FB22 (run 2026-11-14T2028Z, part 3): the rendered structure, independent of the line rules
+    R = "  - *(author)* **Referee"
+    aq = [
+        ("FB21 rejects the clean frame", bool(fb21(fr)), False),
+        ("FB21 accepts a lazy continuation under the marker (AP d01)", bool(fb21(fr.replace(mk, mk + "  Reading note: confirmed.\n", 1))), True),
+        ("FB21 accepts inline HTML in a note (AP d02)", bool(fb21(fr.replace(R, "  - *(author)* x </li></ul><p><b>C</b>\n" + R, 1))), True),
+        ("FB21 accepts a one-dash setext underline (AP d04)", bool(fb21(fr.replace(R, "  - *(author)* Correct\n  -\n" + R, 1))), True),
+        ("FB21 accepts a mark spelled with an entity", bool(fb21(fr.replace(R, "  - *(author)* (gen&#101;rated) x\n" + R, 1))), True),
+        ("FB21 accepts an image in a note", bool(fb21(fr.replace(R, "  - *(author)* ![Correct](https://x/y.png)\n" + R, 1))), True),
+        ("FB21 accepts a note without the (author) emphasis", bool(fb21(fr.replace(R, "  - **Correct:** x\n" + R, 1))), True),
+        ("FB21 accepts a lazy line joining a generated line", bool(fb21(fr.replace("\n- **Correct (generated", "\nand every model\n- **Correct (generated", 1))), True),
+        ("FB21 accepts a two-level nested note", bool(fb21(fr.replace(R, "    - *(author)* deeper\n" + R, 1))), True),
+        ("FB21 accepts a block quote in the notes", bool(fb21(fr.replace(R, "  > *(author)* quoted\n" + R, 1))), True),
+        ("FB21 accepts a reference definition in the notes", bool(fb21(fr.replace(R, "  [x]: https://e.org\n" + R, 1))), True),
+        ("FB21 accepts an unclosed fence above the verified section", bool(fb21(fr.replace("\n## Verified findings\n", "\n```\n## Verified findings\n", 1))), True),
+        ("FB21 passes with markdown-it-py missing (fail closed)", _fb21_closed(fr), True),
+        ("FB22 rejects the clean frame", bool(fb22(fr)), False),
+        ("FB22 accepts an unbound pointer (AP d05)", bool(fb22(fr.replace("### C-1 x\n", "### C-1 x\n| C77 | invented | — | → **F9** |\n", 1))), True),
+        ("FB22 rejects a pointer named in the title (was …)",
+         bool(fb22(fr.replace(mk + "  - *(author)* ", mk + "  - *(author)* (was C77) ", 1).replace("### C-1 x\n", "### C-1 x\n| C77 | y | — | → **F9** |\n", 1))), False),
+    ]
+    for what, got, want in ao + ap + aq:
         if got != want:
             print(f"selftest: control wrong: {what}")
             fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3 + len(ao) + len(ap)} controls, {fails} failing")
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3 + len(ao) + len(ap) + len(aq)} controls, {fails} failing")
     return fails == 0
+
+
+# FB21 (run 2026-11-14T2028Z, part 3; after blind round AP: FB14 and FB19 are line rules, a model of how a Markdown
+# renderer reads the notes, and AP's four valid defects lived where that model and the renderer differ). The page is
+# now rendered — markdown-it-py, CommonMark and CommonMark plus the GFM table and strikethrough rules — and the
+# renderer's block structure of the verified section must be exactly the structure the line model assumes:
+#   - the h1 and the three level-2 headings of the frame render as headings at their own lines;
+#   - in the verified section, outside the certified blocks, every non-blank line starts exactly one paragraph or
+#     heading of one line (no lazy continuation, setext heading, HTML block, code block, quote, table, rule or
+#     reference definition can form), and no other block token occurs;
+#   - a finding heading renders as an h3 whose text is its source line; a generated line and the notes marker render
+#     as top-level list items whose text is their source line; every note renders as a list item nested one level
+#     under the marker, whose text is its source line;
+#   - no inline HTML or image anywhere in the section, and the certified blocks' HTML comments render as the comments
+#     they are;
+#   - the rendered text of every note (entities and escapes decoded) starts with '(author)' in emphasis and carries
+#     no mark of generated text after folding (an entity such as `&#101;` would spell a mark the raw line lacks).
+# Fails closed: without markdown-it-py the check reports an error instead of passing.
+def _md_parsers():
+    from markdown_it import MarkdownIt
+    return [("CommonMark", MarkdownIt("commonmark")),
+            ("CommonMark+GFM tables/strikethrough", MarkdownIt("commonmark").enable(["table", "strikethrough"]))]
+
+
+def _inline_text(tok):
+    out = []
+    for c in tok.children or []:
+        if c.type in ("text", "code_inline"):
+            out.append(c.content)
+        elif c.type in ("softbreak", "hardbreak"):
+            out.append("\n")
+    return "".join(out)
+
+
+
+def _fb21_closed(text):
+    """FB21 control: with the renderer unavailable the check must report an error, not pass."""
+    global _md_parsers
+    real = _md_parsers
+
+    def broken():
+        raise ImportError("No module named 'markdown_it' (control)")
+    _md_parsers = broken
+    try:
+        return bool(fb21(text))
+    finally:
+        _md_parsers = real
+
+
+def fb21(text):
+    try:
+        parsers = _md_parsers()
+    except Exception as e:  # noqa: BLE001 - fail closed on any import problem
+        return [f"FB21: the rendering check cannot run ({e.__class__.__name__}: {e}); install markdown-it-py "
+                f"(CI pins it) — the check fails closed"]
+    lines = text.split("\n")
+    # the line model: role of every line of the verified section
+    try:
+        v0 = lines.index(FRAME[0])
+    except ValueError:
+        return ["FB21: no verified section to render (FB14 reports the frame)"]
+    v1 = next((i for i in range(v0 + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+    role, inblk, part = {}, False, None
+    for i in range(v0 + 1, v1):
+        l = lines[i]
+        if BLOCK_OPEN_EXACT.match(l):
+            inblk = True
+            role[i] = "cert"
+            continue
+        if l == "<!-- /certified -->":
+            inblk = False
+            role[i] = "cert"
+            continue
+        if inblk:
+            role[i] = "cert"
+            continue
+        if not l.strip():
+            role[i] = "blank"
+            continue
+        if l.startswith("### "):
+            part = "top"
+            role[i] = "heading"
+        elif l == NOTES_MARKER:
+            part = "notes"
+            role[i] = "marker"
+        elif part == "notes":
+            role[i] = "note"
+        else:
+            role[i] = "top"
+    errs = []
+    for pname, md in parsers:
+        toks = md.parse(text)
+        e = []
+        for want, i in [("h1", 0)] + [("h2", lines.index(h)) for h in FRAME if h in lines]:
+            if not any(t.type == "heading_open" and t.tag == want and t.map == [i, i + 1] and t.level == 0
+                       for t in toks):
+                e.append(f"line {i + 1} '{lines[i][:50]}' does not render as an {want} heading")
+        starts = {}
+        for k, t in enumerate(toks):
+            if not t.map or t.nesting == -1:
+                continue
+            a, b = t.map
+            if not (v0 < a < v1):
+                continue
+            if role.get(a) == "cert":
+                if t.type == "html_block" and (b != a + 1 or t.content.strip() != lines[a].strip()):
+                    e.append(f"line {a + 1}: the certified block's HTML comment does not render as itself")
+                continue
+            if t.type in ("bullet_list_open", "list_item_open", "inline"):
+                continue
+            if t.type in ("paragraph_open", "heading_open"):
+                starts.setdefault(a, []).append((k, t, b))
+                continue
+            e.append(f"line {a + 1} '{lines[a][:50]}' renders as a {t.type.replace('_open', '')} block, which the "
+                     f"layout of a verified finding does not have")
+        for i in range(v0 + 1, v1):
+            r = role[i]
+            if r in ("cert", "blank"):
+                continue
+            got = starts.get(i, [])
+            if len(got) != 1:
+                e.append(f"line {i + 1} '{lines[i][:50]}' ({r}) does not start exactly one block of its own when "
+                         f"rendered (lazy continuation or a construct the line rules do not model)")
+                continue
+            k, t, b = got[0]
+            inl = toks[k + 1]
+            src = lines[i]
+            if b != i + 1:
+                e.append(f"line {i + 1} '{src[:50]}' ({r}) renders as a block of {b - i} lines: the next line joins it")
+            if r == "heading":
+                ok = t.type == "heading_open" and t.tag == "h3" and t.level == 0 and inl.content == src[4:].strip()
+            elif r in ("top", "marker"):
+                ok = t.type == "paragraph_open" and t.level == 2 and inl.content == src[2:].strip()
+            else:
+                ok = t.type == "paragraph_open" and t.level == 4 and inl.content == src.strip()[2:].strip()
+            if not ok:
+                e.append(f"line {i + 1} '{src[:50]}' ({r}) does not render where the layout puts it (an h3 heading, a "
+                         f"top-level list item, or a list item nested under the notes marker) with its own text")
+        for k, t in enumerate(toks):
+            if t.type != "inline" or not t.map or not (v0 < t.map[0] < v1) or role.get(t.map[0]) == "cert":
+                continue
+            bad = [c.type for c in t.children or [] if c.type in ("html_inline", "image")]
+            if bad:
+                e.append(f"line {t.map[0] + 1} '{lines[t.map[0]][:50]}' renders {', '.join(sorted(set(bad)))}")
+            if role.get(t.map[0]) == "note":
+                ch = t.children or []
+                if not (len(ch) >= 3 and ch[0].type == "em_open" and ch[1].type == "text"
+                        and ch[1].content == "(author)" and ch[2].type == "em_close"):
+                    e.append(f"line {t.map[0] + 1}: the note does not render starting with '(author)' in emphasis")
+                if GEN_MARK.search(fold(_inline_text(t))):
+                    e.append(f"line {t.map[0] + 1}: the note's rendered text carries a mark of generated text")
+        errs += [f"FB21 ({pname}): {x}" for x in e]
+    return errs
+
+
+# FB22 (run 2026-11-14T2028Z, part 3; blind round AP d05: a candidates-table row "→ F1" attached an invented claim to a
+# verified finding, and the candidates section is free text no rule read). In the candidates section, a line that
+# points to a verified finding (an arrow followed, within the line, by `F<k>`) is bound: every candidate id on that line
+# (`C<n>` or `C-<NAME>`) is listed in F<k>'s title note as "(was …)". The title note is prose of F<k>, so changing it
+# needs FB7's LEDGER line naming F<k>: pointing a candidate at a finding is disclosed.
+CAND_ID = re.compile(r"\bC(?:\d+|-[A-Z0-9][A-Z0-9-]*)\b")
+
+
+def fb22(text):
+    lines = text.split("\n")
+    if FRAME[1] not in lines:
+        return []
+    c0 = lines.index(FRAME[1])
+    c1 = next((i for i in range(c0 + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+    was = {}
+    for sec, body, _ in verified_sections(text):
+        after = body.split(NOTES_MARKER + "\n", 1)
+        title = after[1].split("\n", 1)[0] if len(after) == 2 else ""
+        m = re.search(r"\(was ([^)]*)\)", title)
+        was[sec] = set(CAND_ID.findall(m.group(1))) if m else set()
+    errs = []
+    for i in range(c0 + 1, c1):
+        l = fold(lines[i])
+        if "→" not in l and "->" not in l and "⇒" not in l:
+            continue
+        tail = re.split(r"→|->|⇒", l, maxsplit=1)[1]
+        for k in sorted(set(re.findall(r"(?<![\w-])F(\d+)\b", tail)), key=int):
+            ids = set(CAND_ID.findall(l))
+            if not ids:
+                errs.append(f"FB22: line {i + 1} '{lines[i][:60]}' points to F{k} but names no candidate id")
+            elif not ids <= was.get(f"F{k}", set()):
+                errs.append(f"FB22: line {i + 1} '{lines[i][:60]}' points {', '.join(sorted(ids))} to F{k}, whose title "
+                            f"note lists '(was {', '.join(sorted(was.get(f'F{k}', set()))) or '—'})' (round AP d05)")
+    return errs
 
 
 def main():
@@ -1327,6 +1545,12 @@ def main():
     if args == ["--selftest"]:
         return
     findings = open(FINDINGS, encoding="utf-8").read()
+    if args == ["--render"]:  # FB21, FB22 alone (the goal-guard job: no Lean output needed)
+        errs = fb21(findings) + fb22(findings)
+        for e in errs:
+            print("::error::" + e)
+        print(f"check_findings --render: {len(errs)} problems")
+        sys.exit(1 if errs else 0)
     claims = open(CLAIMS, encoding="utf-8").read()
     if args and args[0] == "--write-layout":
         out = write_layout(findings, args[1:], claims_blocks(claims), load_phrases(), load_baseline(NORECORD))
@@ -1353,6 +1577,7 @@ def main():
         except FileNotFoundError:
             pass
     errs += fb17_plain(load_phrases()) + fb18(findings)
+    errs += fb21(findings) + fb22(findings)
     if "--base" in args:
         base = args[args.index("--base") + 1]
         try:
