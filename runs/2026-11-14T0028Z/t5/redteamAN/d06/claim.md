@@ -1,0 +1,4 @@
+Category: misleading-record
+Reader would wrongly believe: that finding F8 (curvature-squared size of the D⁴ terms, only sizes certified) has the Falkner-Skan record F12_separation and a blind-read printed value described by a reader. Heading: "### F8 — generated heading: records `F8_sizes`, `F12_separation`; printed values `printedFazioSeparation` (read blind; its source as the reader described it in the Printed line)"; Printed line quotes the Fazio Figure 4/7 caption description (β = −0.1988376) for F8.
+Why it is false: F8's only record is Checked.Records.F8_sizes (no PRINTED definition); F12_separation belongs to F12 (`printedFazioSeparation` vs a Falkner-Skan free quantity), unrelated to cosmography. Same generator weakness as d03 (a record-header line in the indented notes is read as a record) but a different finding and a different false generated claim (a printed value shown as blind-read in a finding that has none).
+Expected: ACCEPTED.
