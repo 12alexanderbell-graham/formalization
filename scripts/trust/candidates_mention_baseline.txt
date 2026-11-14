@@ -1,0 +1,18 @@
+# FB22 (run 2026-11-14T2028Z): candidates-section lines that mention a verified finding F<k> and were written before
+# FB22, exact text; shrink-only (check_findings.py --base). A new mention may only be a bare pointer row
+# `| C<n> | — | — | → **F<k>** |` whose ids are in F<k>'s title note "(was …)".
+| C1 | → **F5** (run 0828Z) | — | — |
+| C2 | Aviles et al. 2012 | — | → **F1** |
+| C5 | Bamba et al. 2012 | — | → **F4** |
+| C6 | Bamba et al. 2012 | — | → **F6** (run 1028Z) |
+| C7 | Bamba et al. 2012 | — | → **F7** (run 1028Z) |
+| C9 | Bamba et al. 2012 | — | → **F8** (run 1232Z) |
+| C10 | Bamba et al. 2012 (10.36), (10.37) | R⁴_D misses k²/120; R⁵_D (1/144 prefactor) has l₀ coefficient 24 (should be 1/5) and misses 15k²/720 | run 1028Z referee (`referee/rD.py`); extends F3 note on R⁵_D. SECOND ROUTE (run 1232Z referee, `runs/2026-10-30T1232Z/referee/rD_check.py`): R⁵_D has 24l₀/144 where l₀/720 is right and misses k²/48; same in CS 2009 Eq. (38) and in (10.29) = CS (30) (12l₀/72 should be l₀/10, a missing 1/5!). Next: Lean via `littleO_of_hasDerivAt` |
+| C8 | same, Eqs. (10.13), (10.19) (z(D) x⁵ coefficient, l₀ instead of l₀/120) and (10.29) | origin of the R⁵_D l₀ error (F3 notes); D⁴_z and μ-series M⁴ (10.68) use l₀/120 correctly | as C6 |
+| C11 | Bamba et al. 2012 (11.13) | — | → part of **F9** (run 1428Z; `printedR3Claim_false`) |
+| C13 | Bamba et al. 2012 (11.31) | — | → **F9** (run 1428Z) |
+| C14 | Bamba et al. 2012 (11.42)–(11.45) | — | → **F10** (run 1628Z) |
+| C15, C16 | Demianski et al. 2017 (1609.09631) D⁴_L, D⁴_A; Lusso et al. 2019 | — | → **F11** (run 1628Z) |
+| (F2 reprint) | same, (11.38) (p. 119); upstream 0802.1583 Eq. (40) | CPL l₀ w_a² term missing factor 9 = F2's error; already in Capozziello, Cardone, Salzano 2008 Eq. (40) (typeset confirmed v1, v2; F2 provenance corrected) | run 1232Z screen (cand4) |
+| C3 | Capozziello, Cardone, Salzano 2008 | — | → **F3** |
+| C4 | Capozziello, Lazkoz, Salzano 2011 | — | → **F2** |

@@ -117,6 +117,15 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        start with '(author)' in emphasis, carry no generated mark in their decoded text; no inline HTML or image.
   FB22 (same run, AP d05) a candidates line pointing to F<k> names only candidate ids listed in F<k>'s title note
        '(was …)' (a change there is F<k> prose: FB7 wants a LEDGER line).
+  After blind round AQ (same run; 5 valid wrong findings accepted against FB19–FB22): FB21 renders and checks the
+       WHOLE file — no link reference definition anywhere (d04 turned certified tags into links with hover titles),
+       every rendered heading is a frame heading, a finding heading or a `### C-` candidate heading at its own line
+       (d05: a setext h2 and an indented h3 in the candidates rendered a second verified section), no link in the
+       generated part; FB20: a non-ASCII Latin letter must be an ASCII letter with marks, and marks are matched after
+       NFKD with combining marks dropped (d03: U+0261, U+1D0F); FB22: no certified tag `[✓…]` in the candidates
+       section, and a line there that mentions F<k> is either grandfathered (exact text,
+       `scripts/trust/candidates_mention_baseline.txt`, shrink-only with --base) or a bare pointer row
+       `| C<n> | — | — | → **F<k>** |` bound to '(was …)' (d01 free cells, d02 another arrow).
 
   python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18–FB22
   python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9, FB15, FB17 (b)
@@ -823,7 +832,19 @@ ALLOWED_LETTER_SCRIPTS = ("LATIN", "GREEK", "MODIFIER", "DOUBLE-STRUCK", "MATHEM
 
 def fold(s):
     import unicodedata
-    return unicodedata.normalize("NFKC", s).translate(_GREEK_LOOK)
+    # NFKC, then (run 2026-11-14T2028Z, round AQ d03) NFKD with combining marks dropped, so accented look-alikes fold too
+    d = unicodedata.normalize("NFKD", unicodedata.normalize("NFKC", s))
+    return "".join(ch for ch in d if not unicodedata.combining(ch)).translate(_GREEK_LOOK)
+
+
+LATIN_EXTRA_OK = "ʹ"  # MODIFIER LETTER PRIME (a prime, not a look-alike of a letter)
+
+
+def _ascii_base(ch):
+    import unicodedata
+    d = unicodedata.normalize("NFKD", ch)
+    base = "".join(x for x in d if not unicodedata.combining(x))
+    return base.isascii() and base.isalpha()
 
 
 def fb20(text):
@@ -836,6 +857,10 @@ def fb20(text):
                 bad = "an invisible format character"
             elif ch.isalpha() and not unicodedata.name(ch, "?").startswith(ALLOWED_LETTER_SCRIPTS):
                 bad = "a letter outside the Latin, Greek and mathematical alphabets"
+            elif (ch.isalpha() and ord(ch) > 127 and unicodedata.name(ch, "?").startswith(("LATIN", "MODIFIER"))
+                  and ch not in LATIN_EXTRA_OK and not _ascii_base(ch)):
+                bad = ("a Latin letter that is neither ASCII nor an ASCII letter with marks (round AQ d03: U+0261, "
+                       "U+1D0F spelled the marks of generated text)")
             if bad and (bad, ch) not in seen:
                 seen.add((bad, ch))
                 errs.append(f"FB20: line {n} holds U+{ord(ch):04X} ({unicodedata.name(ch, '?')}), {bad} (round AP d03: "
@@ -1339,7 +1364,17 @@ def selftest():
         ("FB22 rejects the clean frame", bool(fb22(fr)), False),
         ("FB22 accepts an unbound pointer (AP d05)", bool(fb22(fr.replace("### C-1 x\n", "### C-1 x\n| C77 | invented | — | → **F9** |\n", 1))), True),
         ("FB22 rejects a pointer named in the title (was …)",
-         bool(fb22(fr.replace(mk + "  - *(author)* ", mk + "  - *(author)* (was C77) ", 1).replace("### C-1 x\n", "### C-1 x\n| C77 | y | — | → **F9** |\n", 1))), False),
+         bool(fb22(fr.replace(mk + "  - *(author)* ", mk + "  - *(author)* (was C77) ", 1).replace("### C-1 x\n", "### C-1 x\n| C77 | — | — | → **F9** |\n", 1))), False),
+        # round AQ (blind, against FB19–FB22): the shapes that passed, as controls of the repairs
+        ("FB22 accepts a pointer row with free cells (AQ d01)", bool(fb22(fr.replace(mk + "  - *(author)* ", mk + "  - *(author)* (was C77) ", 1).replace("### C-1 x\n", "### C-1 x\n| C77 | paper Table V wrong | — | → **F9** |\n", 1))), True),
+        ("FB22 accepts a certified tag in the candidates", bool(fb22(fr.replace("### C-1 x\n", "### C-1 x\n- value 0.5[✓F9_r]\n", 1))), True),
+        ("FB22 accepts a pointer by another arrow (AQ d02)", bool(fb22(fr.replace("### C-1 x\n", "### C-1 x\n| C78 | claim | => **F9** |\n", 1))), True),
+        ("FB22 accepts a mention without any arrow", bool(fb22(fr.replace("### C-1 x\n", "### C-1 x\n- C78: confirmed in F 9.\n", 1))), True),
+        ("FB20 accepts Latin look-alikes of the marks (AQ d03)", bool(fb20("  - *(author)* (\u0261enerated; d\u1d0f not edit)")), True),
+        ("FB20 rejects accented Latin letters", bool(fb20("Gonçalves, Ó Colgáin, Ḣ, Ṙ, ᵏ, ₐ, ʹ")), False),
+        ("FB21 accepts a link reference definition (AQ d04)", bool(fb21(fr.replace("### C-1 x\n", "### C-1 x\n\n[✓F9_r]: https://e.org \"Proved for every K\"\n", 1))), True),
+        ("FB21 accepts a setext h2 in the candidates (AQ d05)", bool(fb21(fr.replace("### C-1 x\n", "### C-1 x\n\nVerified findings (continued)\n---\n", 1))), True),
+        ("FB21 accepts an indented h3 in the candidates (AQ d05)", bool(fb21(fr.replace("### C-1 x\n", "### C-1 x\n\n   ### F15 — x\n", 1))), True),
     ]
     for what, got, want in ao + ap + aq:
         if got != want:
@@ -1438,8 +1473,30 @@ def fb21(text):
             role[i] = "top"
     errs = []
     for pname, md in parsers:
-        toks = md.parse(text)
+        env = {}
+        toks = md.parse(text, env)
         e = []
+        # round AQ d04: reference definitions anywhere turned the certified tags of generated blocks into links
+        for ref in sorted((env.get("references") or {})):
+            e.append(f"a link reference definition '[{ref}]' is defined (it can turn bracketed text anywhere in the "
+                     f"file, generated blocks included, into links)")
+        # round AQ d05: a setext or indented heading outside the verified section rendered a second verified section
+        try:
+            c0 = lines.index(FRAME[1])
+        except ValueError:
+            c0 = len(lines)
+        c1 = next((i for i in range(c0 + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+        for k, t in enumerate(toks):
+            if t.type != "heading_open":
+                continue
+            a = t.map[0] if t.map else -1
+            src = lines[a] if 0 <= a < len(lines) else ""
+            ok = t.map == [a, a + 1] and t.level == 0 and (
+                (t.tag == "h1" and a == 0) or (t.tag == "h2" and src in FRAME)
+                or (t.tag == "h3" and v0 < a < v1 and role.get(a) == "heading")
+                or (t.tag == "h3" and c0 < a < c1 and src.startswith("### C-") and toks[k + 1].content == src[4:].strip()))
+            if not ok:
+                e.append(f"line {a + 1} '{src[:50]}' renders as an {t.tag} heading that the fixed frame does not have")
         for want, i in [("h1", 0)] + [("h2", lines.index(h)) for h in FRAME if h in lines]:
             if not any(t.type == "heading_open" and t.tag == want and t.map == [i, i + 1] and t.level == 0
                        for t in toks):
@@ -1486,9 +1543,11 @@ def fb21(text):
                 e.append(f"line {i + 1} '{src[:50]}' ({r}) does not render where the layout puts it (an h3 heading, a "
                          f"top-level list item, or a list item nested under the notes marker) with its own text")
         for k, t in enumerate(toks):
-            if t.type != "inline" or not t.map or not (v0 < t.map[0] < v1) or role.get(t.map[0]) == "cert":
+            if t.type != "inline" or not t.map or not (v0 < t.map[0] < v1):
                 continue
-            bad = [c.type for c in t.children or [] if c.type in ("html_inline", "image")]
+            # no link in the generated part (heading, generated lines, certified blocks): round AQ d04
+            linkish = ("html_inline", "image") if role.get(t.map[0]) == "note" else ("html_inline", "image", "link_open")
+            bad = [c.type for c in t.children or [] if c.type in linkish]
             if bad:
                 e.append(f"line {t.map[0] + 1} '{lines[t.map[0]][:50]}' renders {', '.join(sorted(set(bad)))}")
             if role.get(t.map[0]) == "note":
@@ -1510,7 +1569,19 @@ def fb21(text):
 CAND_ID = re.compile(r"\bC(?:\d+|-[A-Z0-9][A-Z0-9-]*)\b")
 
 
-def fb22(text):
+CAND_BASELINE = "scripts/trust/candidates_mention_baseline.txt"  # FB22, shrink-only (run 2026-11-14T2028Z)
+CAND_POINTER = re.compile(r"^\| (C(?:\d+|-[A-Z0-9][A-Z0-9-]*)(?:, C(?:\d+|-[A-Z0-9][A-Z0-9-]*))*) \| — \| — \| → \*\*F(\d+)\*\* \|$")
+F_MENTION = re.compile(r"(?<![\w-])F\s*(\d+)\b")
+
+
+def fb22(text, baseline=None):
+    """Round AP d05, AQ d01/d02: in the candidates section (free, unverified text) (a) no certified-number tag
+    `[✓…]` (check_numbers does not read the section, so a tag there certifies nothing); (b) a line that mentions a
+    verified finding F<k> is either one of the grandfathered lines (exact text, shrink-only baseline) or a bare
+    pointer row `| C<n> | — | — | → **F<k>** |` whose ids are listed in F<k>'s title note "(was …)" — the source,
+    claim and every other word about F<k> stay in F<k>'s own section, under its generated layout."""
+    if baseline is None:
+        baseline = load_baseline(CAND_BASELINE)
     lines = text.split("\n")
     if FRAME[1] not in lines:
         return []
@@ -1524,17 +1595,25 @@ def fb22(text):
         was[sec] = set(CAND_ID.findall(m.group(1))) if m else set()
     errs = []
     for i in range(c0 + 1, c1):
-        l = fold(lines[i])
-        if "→" not in l and "->" not in l and "⇒" not in l:
+        raw = lines[i]
+        l = fold(raw)
+        if "[✓" in raw or "✓" in l:
+            errs.append(f"FB22: line {i + 1} '{raw[:60]}' carries a certified-number tag in the candidates section, "
+                        f"which no check reads (round AQ d01)")
+        ks = sorted(set(F_MENTION.findall(l)), key=int)
+        if not ks or raw.strip() in baseline:
             continue
-        tail = re.split(r"→|->|⇒", l, maxsplit=1)[1]
-        for k in sorted(set(re.findall(r"(?<![\w-])F(\d+)\b", tail)), key=int):
-            ids = set(CAND_ID.findall(l))
-            if not ids:
-                errs.append(f"FB22: line {i + 1} '{lines[i][:60]}' points to F{k} but names no candidate id")
-            elif not ids <= was.get(f"F{k}", set()):
-                errs.append(f"FB22: line {i + 1} '{lines[i][:60]}' points {', '.join(sorted(ids))} to F{k}, whose title "
-                            f"note lists '(was {', '.join(sorted(was.get(f'F{k}', set()))) or '—'})' (round AP d05)")
+        m = CAND_POINTER.match(raw)
+        if not m:
+            errs.append(f"FB22: line {i + 1} '{raw[:60]}' mentions verified finding(s) "
+                        f"{', '.join('F' + k for k in ks)}; a new line may only be a bare pointer row "
+                        f"`| C<n> | — | — | → **F<k>** |` (round AP d05, AQ d01, d02)")
+            continue
+        ids = set(CAND_ID.findall(m.group(1)))
+        k = m.group(2)
+        if not ids <= was.get(f"F{k}", set()):
+            errs.append(f"FB22: line {i + 1} '{raw[:60]}' points {', '.join(sorted(ids))} to F{k}, whose title note "
+                        f"lists '(was {', '.join(sorted(was.get(f'F{k}', set()))) or '—'})' (round AP d05)")
     return errs
 
 
@@ -1607,6 +1686,13 @@ def main():
             errs += fb9(oldf, findings, claims_blocks(claims), load_phrases(), norec)
         except subprocess.CalledProcessError:
             errs.append(f"FB7: cannot read {FINDINGS} at {base}")
+        try:
+            oldc = subprocess.run(["git", "show", f"{base}:{CAND_BASELINE}"], capture_output=True, text=True,
+                                  check=True).stdout
+            for g in sorted(load_baseline(CAND_BASELINE) - load_baseline(text=oldc)):
+                errs.append(f"FB-base: {CAND_BASELINE} gained '{g[:60]}' since {base}: the baseline only shrinks")
+        except subprocess.CalledProcessError:
+            pass  # introduced with FB22 (run 2026-11-14T2028Z)
         try:
             oldn = subprocess.run(["git", "show", f"{base}:{NORECORD}"], capture_output=True, text=True, check=True).stdout
             for g in sorted(norec - load_baseline(text=oldn)):

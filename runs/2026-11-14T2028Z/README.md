@@ -1,5 +1,23 @@
-# Run 2026-11-14T2028Z
+# Run 2026-11-14T2028Z (scheduled)
 
-(stub; filled at the end)
+**THE RESULT:** part 3 (rotation: parts 2/5 moved at 1828Z, part 3 at 1628Z, part 1 at 1428Z; part 1 next) — CI now renders the verified-findings page with a pinned CommonMark renderer and checks the rendered structure, not a line model of it (FB21), and binds candidate pointers to verified findings (FB22); a blind red team measured the result at once: 5 valid wrong findings accepted (2 through the candidates section's free cells, 1 through Latin look-alike letters, 2 through rendered constructs outside the region FB21 inspected: link reference definitions and headings elsewhere in the file) plus the known forged-route shape; the repairs make FB21 a whole-document whitelist of the rendered page.
 
-**THE RESULT:** pending.
+**What can a scientist now trust without checking it themselves, that they could not before?** That what they see on the rendered FINDINGS page has the structure the checks assume: every heading, generated line and certified block renders as itself at its own line, notes render only nested under the unchecked marker, no link, hover title, image or HTML reaches the generated part, no heading outside the fixed frame renders anywhere in the file, and a candidate row can point to a verified finding only as a bare, disclosed pointer. And: `bonnor_ebert_second_min` (the second minimum of the Bonnor–Ebert mass) is PROVED (CI 43611102762 green on every job).
+
+**Weakest unchecked step:** the renderer is markdown-it-py (CommonMark + GFM tables/strikethrough), not GitHub's cmark-gfm with its other extensions (footnotes, alerts, autolinks, math); and the repairs after round AQ were written after reading the defects (not blind). The forged blind route (d06) stays the documented residue.
+
+## Start
+- 20:28Z. add_repo not exposed; pre-cloned checkout detached with a stale local main of unrelated (shallow) history; `git checkout -B main origin/main` = 7c8a9b2, `git fetch --unshallow origin`. No LOCK → taken (b45ede1).
+- Local Lean: elan + Mathlib cache ≈ 3 min; `checked-build` of 43611102762 (fc559f2) restored (≈ 3 min; a second restore started by a shell slip was killed before it doubled the zip on disk); `lake build Checked` to 7c8a9b2 ≈ 4 min, green; `local_frozen_step.py --trust fc559f2` (StatementDeps ≈ 6 min, Claims ≈ 3 min): trust exit 0, frozen 21/21 on a219d2b.
+- CI at start: **43611102762 (fc559f2, `bonnor_ebert_second_min`) green on every job incl. the checked job (finished 19:57Z) and nanoda 4/4 → `bonnor_ebert_second_min` PROVED**; 43624324234 (0ed4bdf) in progress; 43634375412 (7c8a9b2, `bonnor_ebert_third_max`) pending.
+
+## Bottleneck (and what a yes/no changes)
+- STATE 0u / LEDGER experiment of run 1628Z: "line rules are a model of the renderer; the next blind round finds a valid defect only through rendering if CI does not render". Yes (a render check closes the rendering shapes) → the findings layer's remaining risk is the forged route; no → rendering needs a stronger model than structure of one section.
+
+## What we did
+1. **FB21** (`scripts/trust/check_findings.py`; a219d2b): FINDINGS.md rendered with markdown-it-py 4.2.0 (pinned in `lean.yml`; also run as `check_findings.py --render` in the goal-guard job, ≈ 1 min after a push); the verified section's rendered block structure must equal the line model's (one-line paragraphs and headings at every non-blank line, notes nested under the marker with their own text and '(author)' in emphasis, no inline HTML or image, no generated mark in decoded note text); fails closed. **FB22**: a candidates line pointing to F<k> names only ids in F<k>'s "(was …)". Independent of FB19/FB20 it catches AP d01–d05.
+2. **Blind round AQ** (Sonnet; brief b6676eb committed before the round; snapshot a219d2b with the .lake outputs of the local StatementDeps run; ≈ 13 min). Output committed verbatim (redteamAQ/). Judge `t5/judge_aq.sh` (every Python check of the goal guard, packet, trust and frozen steps). Results `t5/RESULTS.md`.
+3. **Repairs** (not blind): FB20 Latin rule (a non-ASCII Latin letter must be an ASCII letter with marks) and NFKD fold; FB21 over the whole document (no link reference definitions; every rendered heading is a frame heading, a finding heading or a candidate heading at its own line; no link in the generated part, certified blocks included); FB22 (no certified tag in the candidates section; a line that mentions a verified finding is a grandfathered line, `scripts/trust/candidates_mention_baseline.txt`, shrink-only, or a bare pointer row `| C<n> | — | — | → **F<k>** |` bound to "(was …)"). Controls 81 → 106.
+
+## Records
+STATE 0v, LEDGER (check change; evaluation of run 1628Z's experiment; new experiment), CHANGELOG, BLUEPRINT, PROMPT note.
