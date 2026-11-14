@@ -1,0 +1,10 @@
+# Blind restatement brief (run 2026-11-14T1028Z)
+
+You are formalizing one claim in Lean 4 + Mathlib. Do NOT read anything in the repository /home/claude/formalization (no `Checked/`, `Work/`, `runs/` other than your own output folder, no `*.md` files, no git history). Write your output only to `runs/2026-11-14T1028Z/blind/`. Do not compile; write carefully against current Mathlib names (`HasDerivWithinAt`, `HasDerivAt`, `deriv`, `ContDiffOn`, `IsMaxOn`, `Set.Icc`, `Set.Ici`, `Real.exp`, `Real.sqrt`, `Real.pi`).
+
+The claim (astrophysics: the Bonnor–Ebert sphere, a pressure-confined self-gravitating isothermal gas sphere):
+
+> Let ψ be the regular solution of the isothermal Lane–Emden (Emden–Chandrasekhar) equation (1/ξ²) d/dξ (ξ² dψ/dξ) = e^{−ψ} with ψ(0) = 0 and ψ'(0) = 0, so that the density is ρ = ρ_c e^{−ψ} and the centre-to-edge density contrast of the sphere truncated at radius ξ is e^{ψ(ξ)}. A sphere truncated at dimensionless radius ξ and confined by an external pressure has dimensionless mass m(ξ) = (4π)^{−1/2} e^{−ψ(ξ)/2} ξ² ψ'(ξ).
+> Claim: there are radii ξ₁, ξ₂, ξ₃ with 6.4507514 ≤ ξ₁ ≤ 6.4507515, 67.0075 ≤ ξ₂ ≤ 67.0076 and 733.5 ≤ ξ₃ ≤ 734 such that m(ξ) < m(ξ₁) for every radius ξ ≥ 0 other than ξ₁ (the critical sphere has the largest mass); m(ξ₂) < m(ξ) for every radius ξ ≥ ξ₁ other than ξ₂ (the first minimum is the smallest mass from the critical sphere on); and m(ξ) < m(ξ₃) for every radius ξ ≥ ξ₂ other than ξ₃ (among the spheres at least as centrally condensed as the first-minimum sphere, the sphere truncated at ξ₃ has the largest mass); moreover 0.8306 ≤ m(ξ₃) ≤ 0.8308 and 258300 ≤ e^{ψ(ξ₃)} ≤ 258800.
+
+Write `runs/2026-11-14T1028Z/blind/BonnorEbertMax2Blind.lean` (`import Mathlib`, any definitions you need, one theorem `blind_bonnor_ebert_second_max` stating the claim as faithfully as you can for every such solution ψ, `:= by sorry`) and a short `notes.md` listing every interpretive choice (how you state the solution and its regularity at ξ = 0, its domain, what you assume vs conclude). If your Write tool is refused, put both file contents in your final message. Always report both file contents in your final message.
