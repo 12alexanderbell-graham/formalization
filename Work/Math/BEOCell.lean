@@ -475,7 +475,16 @@ def InvProp (m : ℕ) (c : OCell) : Prop :=
   | 2 => hi (Checked.Math.BEHCell.gp ⟨0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, c.pu, c.pv⟩) c.h + 3 * c.B < 0
   | 3 => 0 < lo (Checked.Math.BEHCell.Gp ⟨0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, c.pu, c.pv⟩) c.h -
       (7 + 7 * c.UH + 3 * c.VH) * c.B
+  | 4 => hi (Checked.Math.BEHCell.Gp ⟨0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, c.pu, c.pv⟩) c.h +
+      (7 + 7 * c.UH + 3 * c.VH) * c.B < 0
   | _ => True
+
+/-- The invariant as a statement about the solution at radius t: `BEHCell.Inv`, and 4 =
+(6u − 2u² − 3uv + v < 0). -/
+def OInv (m : ℕ) (u v : ℝ → ℝ) (t : ℝ) : Prop :=
+  match m with
+  | 4 => 6 * u t - 2 * u t ^ 2 - 3 * (u t * v t) + v t < 0
+  | n => Inv n u v t
 
 instance (m : ℕ) (c : OCell) : Decidable (InvProp m c) := by
   unfold InvProp; split <;> infer_instance
@@ -496,7 +505,7 @@ theorem cell_facts {L T : ℚ} {m : ℕ} (c : OCell) (hok : cellOK L T m c = tru
     (hv : ∀ t ∈ Icc (c.t0 : ℝ) (c.t0 + c.h),
       HasDerivWithinAt v (v t * (u t - 1) / t) (Icc (L : ℝ) T) t)
     (h0 : Nw (u c.t0 - ((c.pu.headD 0 : ℚ) : ℝ)) (v c.t0 - ((c.pv.headD 0 : ℚ) : ℝ)) ≤ (c.δ : ℝ) ^ 2) :
-    (∀ t ∈ Icc (c.t0 : ℝ) (c.t0 + c.h), Inv m u v t) ∧
+    (∀ t ∈ Icc (c.t0 : ℝ) (c.t0 + c.h), OInv m u v t) ∧
     Nw (u (c.t0 + c.h) - ((qeval c.pu c.h : ℚ) : ℝ)) (v (c.t0 + c.h) - ((qeval c.pv c.h : ℚ) : ℝ))
       ≤ (c.Be : ℝ) ^ 2 := by
   have hok' := hok
@@ -553,8 +562,35 @@ theorem cell_facts {L T : ℚ} {m : ℕ} (c : OCell) (hok : cellOK L T m c = tru
     rw [← e] at d
     have := (abs_le.1 d).1
     linarith
+  | 4, kv =>
+    have rv : ((hi (Checked.Math.BEHCell.Gp ⟨0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, c.pu, c.pv⟩) c.h + (7 + 7 * c.UH + 3 * c.VH) * c.B : ℚ) : ℝ) < ((0 : ℚ) : ℝ) := by
+      exact_mod_cast kv
+    push_cast at rv
+    have hl := le_hi (Checked.Math.BEHCell.Gp ⟨0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, c.pu, c.pv⟩) hσ0 hσ1
+    rw [← Checked.Math.BEHCell.Gp_eval] at hl
+    show 6 * u t - 2 * u t ^ 2 - 3 * (u t * v t) + v t < 0
+    set p := evalQ c.pu (t - c.t0)
+    set q := evalQ c.pv (t - c.t0)
+    have e : (6 * u t - 2 * u t ^ 2 - 3 * (u t * v t) + v t) -
+        (6 * p - 2 * p ^ 2 - 3 * (p * q) + q) =
+        (6 - 2 * (u t + p) - 3 * v t) * (u t - p) + (1 - 3 * p) * (v t - q) := by ring
+    have c1 : |6 - 2 * (u t + p) - 3 * v t| ≤ 6 + 4 * c.UH + 3 * c.VH := by
+      rw [abs_le]; constructor <;> linarith
+    have c2 : |1 - 3 * p| ≤ 1 + 3 * c.UH := by rw [abs_le]; constructor <;> linarith
+    have d : |(6 - 2 * (u t + p) - 3 * v t) * (u t - p) + (1 - 3 * p) * (v t - q)| ≤
+        (7 + 7 * c.UH + 3 * c.VH) * c.B := by
+      calc _ ≤ |(6 - 2 * (u t + p) - 3 * v t) * (u t - p)| + |(1 - 3 * p) * (v t - q)| :=
+            abs_add_le _ _
+        _ = |6 - 2 * (u t + p) - 3 * v t| * |u t - p| + |1 - 3 * p| * |v t - q| := by
+            rw [abs_mul, abs_mul]
+        _ ≤ (6 + 4 * c.UH + 3 * c.VH) * c.B + (1 + 3 * c.UH) * c.B := by
+            gcongr <;> linarith [abs_nonneg (6 - 2 * (u t + p) - 3 * v t), abs_nonneg (1 - 3 * p)]
+        _ = (7 + 7 * c.UH + 3 * c.VH) * c.B := by ring
+    rw [← e] at d
+    have := (abs_le.1 d).2
+    linarith
   | 0, _ => trivial
-  | (n + 4), _ => trivial
+  | (n + 5), _ => trivial
 
 /-- The weighted squared norm over ℚ. -/
 def NwQ (e1 e2 : ℚ) : ℚ := 7 * e1 ^ 2 + (e1 + 2 * e2) ^ 2
@@ -592,7 +628,7 @@ theorem chain_gen {L T : ℚ} {m : ℕ} {term : OCell → Bool} {u v : ℝ → �
     (∀ t ∈ Icc (c.t0 : ℝ) T, HasDerivWithinAt v (v t * (u t - 1) / t) (Icc (L : ℝ) T) t) →
     Nw (u c.t0 - ((c.pu.headD 0 : ℚ) : ℝ)) (v c.t0 - ((c.pv.headD 0 : ℚ) : ℝ)) ≤ (c.δ : ℝ) ^ 2 →
     ∃ e : OCell, term e = true ∧ (c.t0 : ℝ) ≤ e.t0 + e.h ∧
-    (∀ t ∈ Icc (c.t0 : ℝ) (e.t0 + e.h), Inv m u v t) ∧
+    (∀ t ∈ Icc (c.t0 : ℝ) (e.t0 + e.h), OInv m u v t) ∧
     Nw (u (e.t0 + e.h) - ((qeval e.pu e.h : ℚ) : ℝ)) (v (e.t0 + e.h) - ((qeval e.pv e.h : ℚ) : ℝ))
       ≤ (e.Be : ℝ) ^ 2 := by
   intro l
@@ -644,7 +680,7 @@ theorem seg_q {L T : ℚ} {m : ℕ} {u v : ℝ → ℝ} (d : OCell) (l : List OC
     (hu : ∀ t ∈ Icc (c.t0 : ℝ) T, HasDerivWithinAt u (u t * (3 - u t - v t) / t) (Icc (L : ℝ) T) t)
     (hv : ∀ t ∈ Icc (c.t0 : ℝ) T, HasDerivWithinAt v (v t * (u t - 1) / t) (Icc (L : ℝ) T) t)
     (h0 : Nw (u c.t0 - ((c.pu.headD 0 : ℚ) : ℝ)) (v c.t0 - ((c.pv.headD 0 : ℚ) : ℝ)) ≤ (c.δ : ℝ) ^ 2) :
-    (c.t0 : ℝ) ≤ d.t0 ∧ (∀ t ∈ Icc (c.t0 : ℝ) d.t0, Inv m u v t) ∧
+    (c.t0 : ℝ) ≤ d.t0 ∧ (∀ t ∈ Icc (c.t0 : ℝ) d.t0, OInv m u v t) ∧
     Nw (u d.t0 - ((d.pu.headD 0 : ℚ) : ℝ)) (v d.t0 - ((d.pv.headD 0 : ℚ) : ℝ)) ≤ (d.δ : ℝ) ^ 2 := by
   obtain ⟨e, het, hce, hinv, hb⟩ := chain_gen l c hok hu hv h0
   obtain ⟨ke, kB0, kB, kN⟩ := of_decide_eq_true het
@@ -667,7 +703,7 @@ theorem end_q {L T te fu fv r : ℚ} {m : ℕ} {u v : ℝ → ℝ} (l : List OCe
     (hu : ∀ t ∈ Icc (c.t0 : ℝ) T, HasDerivWithinAt u (u t * (3 - u t - v t) / t) (Icc (L : ℝ) T) t)
     (hv : ∀ t ∈ Icc (c.t0 : ℝ) T, HasDerivWithinAt v (v t * (u t - 1) / t) (Icc (L : ℝ) T) t)
     (h0 : Nw (u c.t0 - ((c.pu.headD 0 : ℚ) : ℝ)) (v c.t0 - ((c.pv.headD 0 : ℚ) : ℝ)) ≤ (c.δ : ℝ) ^ 2) :
-    (∀ t ∈ Icc (c.t0 : ℝ) te, Inv m u v t) ∧ |u te - fu| ≤ r ∧ |v te - fv| ≤ r := by
+    (∀ t ∈ Icc (c.t0 : ℝ) te, OInv m u v t) ∧ |u te - fu| ≤ r ∧ |v te - fv| ≤ r := by
   obtain ⟨e, het, -, hinv, hb⟩ := chain_gen l c hok hu hv h0
   obtain ⟨ke, kB0, kE, kφ⟩ := of_decide_eq_true het
   have he : ((e.t0 + e.h : ℚ) : ℝ) = (te : ℝ) := by exact_mod_cast ke
