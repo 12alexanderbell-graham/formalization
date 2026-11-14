@@ -201,6 +201,7 @@ import Work.Math.BEOMain
 import Work.Math.BonnorEbertMin2
 import Work.Math.BonnorEbertMin2Blind
 import Work.Math.BonnorEbertMin2BlindClosed
+import Work.Math.BonnorEbertMax3
 import Work.Math.BonnorEbertMax2Blind
 import Work.Math.BonnorEbertMax2BlindClosed
 import Work.Math.GelfandBlind
