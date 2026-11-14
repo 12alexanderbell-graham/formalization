@@ -44,6 +44,11 @@ unz() {
   else python3 -c 'import sys, zstandard; zstandard.ZstdDecompressor().copy_stream(sys.stdin.buffer, sys.stdout.buffer)'
   fi
 }
+# Run 2026-11-14T1228Z: a fresh container has neither; the listing then failed only after the 2.5 GB download.
+# Install the Python module up front (robustness only; no check changes).
+if ! command -v zstd >/dev/null 2>&1 && ! python3 -c 'import zstandard' 2>/dev/null; then
+  pip install -q --break-system-packages zstandard >&2 || { echo "no zstd decompressor (install zstd or zstandard)" >&2; exit 5; }
+fi
 # Only .lake/build/... members are accepted (no absolute paths, no ..); a failed listing refuses.
 unzip -p "$zip" "$member" | unz | tar -tf - > "$tmp/members" || { echo "cannot list the artifact; refusing" >&2; exit 4; }
 [ -s "$tmp/members" ] || { echo "empty artifact; refusing" >&2; exit 4; }
