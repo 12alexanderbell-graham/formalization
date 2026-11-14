@@ -27,4 +27,4 @@
 
 ## Local checks and push
 - Local: `lake build Checked` green; StatementDeps exit 0 with relock (287 headlines, NV 170/170; hypothesis tally unchanged: needed 582, redundant 155, open 235); Claims exit 0; check_claim_vocab, check_prose, check_literals, check_numbers, check_findings, make_packet (packet regenerated: the new records change its items), precheck_citations green; `records_check.py 0935097` after the final commit (see the commit message).
-- CI read: 43551580603 (0935097) green on every job (checked job 04:14–07:05Z) → run 0228Z's necessity classifications stand in CI's TRUST_MAP. 43563791919 (96643b0, `bonnor_ebert_min`) was still pending; this run's push supersedes it and judges its content.
+- CI read: 43551580603 (0935097) green on every job (checked job 04:14–07:05Z) → run 0228Z's necessity classifications stand in CI's TRUST_MAP. 43563791919 (96643b0, `bonnor_ebert_min`) started at 07:05Z (in progress at the end); this run's push cb49239 queued behind it.

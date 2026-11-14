@@ -721,6 +721,6 @@
 - Next: CI read; then part 3 or part 1 by rotation; parts 2/5 later: the second maximum and the whole spiral with the same cells.
 
 ## 2026-11-14T0628Z (scheduled run)
-- Env: repo ok (add_repo not exposed; checkout reset to origin/main 96643b0); local Lean (elan, Mathlib cache, CI build artifact of 8e3a22d restored; `lake build Checked` green; StatementDeps relock, Claims). CI 43551580603 (0935097) checked job still building during the run; 43563791919 (96643b0) pending (superseded by this run's push, which contains it).
+- Env: repo ok (add_repo not exposed; checkout reset to origin/main 96643b0); local Lean (elan, Mathlib cache, CI build artifact of 8e3a22d restored; `lake build Checked` green; StatementDeps relock, Claims). CI 43551580603 (0935097) checked job still building during the run; 43563791919 (96643b0) in progress from 07:05Z; this run's push queued behind it.
 - Part 3 by rotation: **every verified finding has a Lean record** — `Checked.Records.F4_values`, `F5_values`, `F6_third`, `F6_fourth`, `F7_third`, `F7_fourth` (printed and corrected y-series coefficients in de Sitter through the pinned `decel`, `cosmoCoeff`, `omega0` and the PRINTED formulas; no hypotheses, no literal needing a reading); FINDINGS F4–F7 regenerated (heading, Printed, Correct, certified blocks); `findings_norecord_baseline.txt` empty.
 - Next: CI read; then part 1 or parts 2/5 by rotation; part 3 later: fresh blind readings with reader files for the legacy PRINTED definitions.
