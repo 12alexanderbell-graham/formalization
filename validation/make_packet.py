@@ -240,14 +240,25 @@ FIXED_SOURCES = {
 }
 
 def findings_heads():
-    out = {}
+    # the source of a finding: its author's title. Since run 2026-11-14T0028Z (check_findings.py FB13) the heading is
+    # generated and the title stands, unchanged, as the first unchecked note `*(author)* **Title** (was …): …`; an
+    # older layout kept it in the heading (after the label FB10 added at run 2026-11-13T1828Z)
+    out, sec = {}, None
     for l in (ROOT / "FINDINGS.md").read_text().splitlines():
-        m = re.match(r"^### (F\d+)\b.*?\. (.*)$", l)
+        m = re.match(r"^### (F\d+)\b(.*)$", l)
         if m:
-            # the label FB10 of check_findings.py puts on every finding heading (run 2026-11-13T1828Z) is not source text
-            out[m.group(1)] = m.group(2).replace("*Author's title, unchecked:* ", "").strip().replace(
-                "Same review", "Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421")
-    return out
+            sec = m.group(1)
+            m2 = re.match(r"^.*?\. (.*)$", m.group(2))
+            if m2 and " — generated heading " not in l:
+                out[sec] = m2.group(1).replace("*Author's title, unchecked:* ", "").strip()
+            continue
+        if l.startswith("## "):
+            sec = None
+        m = re.match(r"^  - \*\(author\)\* \*\*Title\*\*(?: \(was [^()]*\))?: (.*)$", l)
+        if m and sec and sec not in out:
+            out[sec] = m.group(1).strip()
+    return {k: v.replace("Same review", "Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), "
+                         "arXiv:1205.3421") for k, v in out.items()}
 
 FH = None
 def source_of(group, headline):

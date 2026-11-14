@@ -70,8 +70,15 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
   FB11 the generated Printed line: each PRINTED definition of the finding's records (as CLAIMS.md lists it), its
        body, the agreement theorem with its blind second reading, and the reader's own words about the source (the
        module doc and definition doc of the earliest committed reader file under runs/, as first committed).
-       Known limits: the heading is author text (FB7 freezes it with disclosure); the notes can be false, but are
-       labelled; a reading older than the blind route has no reader file and is shown as such.
+       Known limits: the notes can be false, but are labelled; a reading older than the blind route has no reader
+       file and is shown as such.
+  FB13 (run 2026-11-14T0028Z, after blind round AM d04/d05: a false heading — a correct value added to the wrong
+       ones, a misprint moved to another arXiv version — passed every rule, because the heading was the one author
+       line left at top level, and the line every reader reads first) the heading is GENERATED too: `### F<k> —
+       generated heading (do not edit): ` + the finding's records + each printed value with what binds it (read
+       blind and described by its reader / read blind, no reader description / unread), or the fixed no-record
+       heading. The author's title moves, unchanged, into the notes as the line `*(author)* **Title** (was …): …`
+       (validation/make_packet.py reads the source of a packet item from there). `--write-layout` moves it.
 
   python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10 on FINDINGS.md (reads CLAIMS.md)
   python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9
@@ -468,11 +475,15 @@ def write_correct(text, secs, cb, phrases):
 #        the commit that added that file, so a later edit of the reader file or of the Checked copy's docstrings
 #        changes nothing). A reading without a reader file under runs/ (older than the blind route) is shown as
 #        such. The author writes none of it.
-# Known limits (recorded): the heading is author text (frozen with disclosure by FB7, and the reading guide calls it
-# a title); the notes may be false, but they are labelled, and the labels cannot be removed (FB10).
+# Known limits (recorded): the notes may be false, but they are labelled, and the labels cannot be removed (FB10).
+# (Until run 2026-11-14T0028Z the heading was author text labelled as a title; FB13 generates it.)
 NOTES_MARKER = ("- **Unchecked notes** (author prose under rule FB10 of `scripts/trust/check_findings.py`: no check "
-                "reads what these lines claim; the heading is the author's title; trust only the generated lines and the "
-                "certified block above):")
+                "reads what these lines claim; the first of them is the author's title; trust only the generated heading, the "
+                "generated lines and the certified block above):")
+# the marker as written before FB13 (run 2026-11-13T1828Z); `--write-layout` replaces it, FB10 rejects it
+OLD_NOTES_MARKERS = ("- **Unchecked notes** (author prose under rule FB10 of `scripts/trust/check_findings.py`: no "
+                     "check reads what these lines claim; the heading is the author's title; trust only the generated "
+                     "lines and the certified block above):",)
 NORECORD_CORRECT = ("- **Correct (generated; do not edit):** no Lean record of this finding yet "
                     "(`scripts/trust/findings_norecord_baseline.txt`): nothing in this finding is generated from Lean; "
                     "its Lean theorems are named in the unchecked notes only.")
@@ -590,7 +601,38 @@ def generated_printed(sec, body, cb):
     return head + "; ".join(parts) + "."
 
 
-HEADING = re.compile(r"^### F\d+ (?:\(was [^()]*\)\. )?\*Author's title, unchecked:\* \S.*$")
+HEADING_OLD = re.compile(r"^### (F\d+) (?:(\(was [^()]*\))\. )?(?:\*Author's title, unchecked:\* )?(\S.*)$")
+HEADING_GEN = re.compile(r"^### F\d+ — generated heading \(do not edit\): \S.*$")
+TITLE_NOTE = re.compile(r"^  - \*\(author\)\* \*\*Title\*\*(?: (\(was [^()]*\)))?: (\S.*)$")
+NORECORD_HEAD = ("no Lean record of this finding yet (`scripts/trust/findings_norecord_baseline.txt`): nothing in it "
+                 "is generated from Lean")
+
+
+def generated_heading(sec, body, cb, norec=frozenset()):
+    """The generated heading of section `sec` (FB13): its records and how each printed value is bound."""
+    head = f"### {sec} — generated heading (do not edit): "
+    recs = [r for r, _, _ in record_items(body)]
+    if f"norecord {sec}" in norec or not recs:
+        return head + NORECORD_HEAD
+    seen, parts = set(), []
+    for rec in recs:
+        for name, agree, val in printed_defs(cb.get(rec, "")):
+            if name in seen:
+                continue
+            seen.add(name)
+            if agree is None:
+                parts.append(f"`{name}` (unread: no blind second reading agrees with it)")
+                continue
+            target, mod, rf, md, dd = reader_of(agree)
+            if rf is None:
+                parts.append(f"`{name}` (read blind; no reader file describes its source)")
+            elif md or dd:
+                parts.append(f"`{name}` (read blind; its source as the reader described it in the Printed line)")
+            else:
+                parts.append(f"`{name}` (read blind; the reader did not describe its source)")
+    s = "records " + ", ".join(f"`{r}`" for r in recs) + "; "
+    s += ("printed values " + ", ".join(parts)) if parts else "no printed value is bound to a blind reading"
+    return head + s
 BLOCK_OPEN_EXACT = re.compile(r"^<!-- certified: [A-Za-z0-9_ ]+? -->$")
 
 
@@ -614,10 +656,14 @@ def fb10(text, cb, phrases, norec):
         for k in sorted({x for x in keys if keys.count(x) > 1}):
             errs.append(f"FB10: finding {k} has {keys.count(k)} sections (one section per finding)")
         for h in re.findall(r"^### .*$", scope, re.M):
-            if not HEADING.match(h):
-                errs.append(f"FB10: heading '{h[:60]}' is not `### F<k> (was …). *Author's title, unchecked:* …`")
+            if not HEADING_GEN.match(h):
+                errs.append(f"FB13: heading '{h[:60]}' is not a generated heading `### F<k> — generated heading (do "
+                            f"not edit): …` (`--write-layout F<k>` moves an author title into the notes)")
     for k, body in sections_full(text).items():
         lines = body.rstrip("\n").split("\n")
+        if HEADING_GEN.match(lines[0]) and lines[0] != generated_heading(k, body, cb, norec):
+            errs.append(f"FB13 {k}: the heading is not the generated one (run `python3 scripts/trust/check_findings.py "
+                        f"--write-layout {k}`)")
         state, inblk, seen = "top", False, []
         for i, l in enumerate(lines[1:], 1):
             if l.startswith("<!--") and not inblk and not BLOCK_OPEN_EXACT.match(l):
@@ -703,9 +749,12 @@ def write_layout(text, secs, cb, phrases, norec):
         lines = body.rstrip("\n").split("\n")
         head, blocks, notes, inblk = lines[0], [], [], False
         old_notes = False
-        if not HEADING.match(head):
-            m = re.match(r"^(### F\d+ (?:\(was [^()]*\)\. )?)(.*)$", head)
-            head = m.group(1) + "*Author's title, unchecked:* " + m.group(2)
+        title = None
+        if not HEADING_GEN.match(head):
+            # FB13: the author's title moves, unchanged, into the notes (first line)
+            m = HEADING_OLD.match(head)
+            assert m and m.group(1) == k, head
+            title = "  - *(author)* **Title**" + (f" {m.group(2)}" if m.group(2) else "") + ": " + m.group(3)
         for l in lines[1:]:
             if BLOCK_OPEN_EXACT.match(l) and not inblk:
                 inblk = True
@@ -715,7 +764,7 @@ def write_layout(text, secs, cb, phrases, norec):
                 blocks.append(l)
                 inblk = l != "<!-- /certified -->"
                 continue
-            if l == NOTES_MARKER:
+            if l == NOTES_MARKER or l in OLD_NOTES_MARKERS:
                 old_notes = True
                 continue
             if not l.strip() or PRINTED_GEN.match(l) or CORRECT_GEN.match(l):
@@ -727,10 +776,13 @@ def write_layout(text, secs, cb, phrases, norec):
             else:
                 notes.append("  " + l)
         assert old_notes or notes, k
+        if title is not None:
+            notes.insert(0, title)
         tmp = "\n".join([head] + blocks) + "\n"
         pr = generated_printed(k, tmp, cb)
         co = NORECORD_CORRECT if f"norecord {k}" in norec else generated_correct(k, tmp, cb, phrases)
         assert co is not None, f"{k}: no record and not in the norecord baseline"
+        head = generated_heading(k, tmp, cb, norec)
         nb = "\n".join([head, pr, co] + blocks + [NOTES_MARKER] + notes) + "\n"
         tail = body[len(body.rstrip("\n")):]
         nb = nb + tail[1:] if tail.startswith("\n") else nb
@@ -875,18 +927,36 @@ def selftest():
     am_bad = [
         lay.replace("## Verified findings\n", "## Verified findings\n\n**Index (generated):** every finding holds for every curvature.\n"),
         lay.replace("### F9", sec9 + "### F9", 1),
-        lay.replace("*Author's title, unchecked:* ", ""),
+        lay.replace(generated_heading("F9", sections_full(lay)["F9"], cbs, set()), "### F9 (x). Paper: values too large"),
         lay.replace("<!-- certified: F9_r -->", "<!-- certified: F9_r. -->\n- **Uniqueness (generated):** unique\n<!-- /certified -->\n<!-- certified: F9_r -->"),
     ]
     for i, t in enumerate(am_bad):
-        if not any(x.startswith("FB10") for x in fb10(t, cbs, ph, set())):
+        if not any(x.startswith(("FB10", "FB13")) for x in fb10(t, cbs, ph, set())):
             print(f"selftest: FB10 round-AM control {i} not rejected")
+            fails += 1
+    # FB13 controls (run 2026-11-14T0028Z): the generated heading names the records and how each printed value is
+    # bound; the author's title stands verbatim as the first note. A heading with words added after the generated
+    # text, an old labelled author heading, a record name dropped, a binding upgraded ('unread' → 'read blind') fail.
+    gh = generated_heading("F9", sections_full(lay)["F9"], cbs, set())
+    if (not lay.startswith(head + gh + "\n") or "`F9_r`" not in gh or "unread" not in gh
+            or "  - *(author)* **Title**: (x). Paper: values at β = −0.1988[src=F9_r] too large\n" not in lay
+            or write_layout(lay, ["F9"], cbs, ph, set()) != lay):
+        print("selftest: FB13 heading or title note generated wrongly:", gh)
+        fails += 1
+    fb13_bad = [lay.replace(gh, gh + "; also refutes Guo et al. 2020"),
+                lay.replace(gh, "### F9 (x). *Author's title, unchecked:* Paper: values too large"),
+                lay.replace(gh, gh.replace("records `F9_r`", "records `F9_r`, `F9_s`")),
+                lay.replace(gh, gh.replace("(unread: no blind second reading agrees with it)",
+                                           "(read blind; its source as the reader described it in the Printed line)"))]
+    for i, t in enumerate(fb13_bad):
+        if not any(x.startswith("FB13") for x in fb10(t, cbs, ph, set())):
+            print(f"selftest: FB13 control {i} not rejected")
             fails += 1
     cb12 = {"F9_r": cbs["F9_r"].replace("**then**", "**assuming**\n\n1. `0 < q`\n\n**then**")}
     if fb12(lay, cb12, [("`0 < q`", "positive")]) or not fb12(lay, cb12, [("RoundsTo (q - -1988", "every curvature")]):
         print("selftest: FB12 control wrong:", fb12(lay, cb12, ph))
         fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2} controls, {fails} failing")
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad)} controls, {fails} failing")
     return fails == 0
 
 
