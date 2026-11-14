@@ -201,7 +201,13 @@ import Work.Math.BEOMain
 import Work.Math.BonnorEbertMin2
 import Work.Math.BonnorEbertMin2Blind
 import Work.Math.BonnorEbertMin2BlindClosed
+import Work.Math.BE3Data
+import Work.Math.BE3Chain
+import Work.Math.BE3Tail
+import Work.Math.BE3Main
 import Work.Math.BonnorEbertMax3
+import Work.Math.BonnorEbertMax3Blind
+import Work.Math.BonnorEbertMax3BlindClosed
 import Work.Math.BonnorEbertMax2Blind
 import Work.Math.BonnorEbertMax2BlindClosed
 import Work.Math.GelfandBlind

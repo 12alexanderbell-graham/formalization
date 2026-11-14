@@ -1,6 +1,7 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Checked.Math.BEOMain
+import Work.Math.BE3Main
 
 /-! Bonnor–Ebert sphere, `BonnorEbertMax3` (FROZEN by run 2026-11-14T1828Z before proof).
 
@@ -58,7 +59,9 @@ theorem bonnor_ebert_third_max (S : ℝ) (hS : 300000 ≤ S) (w φ : ℝ → ℝ
           ξ₅ ^ 2 * (-φ ξ₅) * Real.exp (w ξ₅ / 2) / Real.sqrt (4 * Real.pi)) ∧
       0.80091 ≤ ξ₅ ^ 2 * (-φ ξ₅) * Real.exp (w ξ₅ / 2) / Real.sqrt (4 * Real.pi) ∧
       ξ₅ ^ 2 * (-φ ξ₅) * Real.exp (w ξ₅ / 2) / Real.sqrt (4 * Real.pi) ≤ 0.800916 ∧
-      3556300000 ≤ Real.exp (-w ξ₅) ∧ Real.exp (-w ξ₅) ≤ 3558000000 := by
-  sorry
+      3556300000 ≤ Real.exp (-w ξ₅) ∧ Real.exp (-w ξ₅) ≤ 3558000000 :=
+  Work.Math.BE3Main.main S hS w φ hw hφ0 hφ h0
 
 end Work.Math.BonnorEbertMax3
+
+#print axioms Work.Math.BonnorEbertMax3.bonnor_ebert_third_max
