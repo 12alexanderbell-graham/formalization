@@ -101,7 +101,17 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
   FB18 (same round, d04: the reading guide's layout paragraph was reworded to call the Printed lines "confirmed
        against the source" and the notes referee-checked) the text above the first section equals PREAMBLE.
 
-  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18
+  FB19 (run 2026-11-14T1628Z, after blind round AP: d01, d02, d04 got false "Correct"/"confirmed" sentences rendered
+       outside the labelled notes or as part of the marker's own sentence — a lazy-continuation line under the marker,
+       inline HTML closing the notes list, a one-dash setext underline) the notes fail closed: every non-blank line
+       below the marker is exactly a one-line author bullet `  - *(author)* …`, and contains no HTML tag or HTML
+       comment opener (`<` followed by a letter, `/`, `!` or `?`).
+  FB20 (same round, d03: a look-alike of the generated Printed line in the notes spelled 'generated' and 'do not edit'
+       with Cyrillic letters, so FB14's mark words missed it) FINDINGS.md holds no letter outside the Latin, Greek and
+       mathematical alphabets and no invisible format character (Unicode category Cf), and FB14's marks of generated
+       text are matched on the NFKC form with Greek look-alikes folded to Latin.
+
+  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18–FB20
   python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9, FB15, FB17 (b)
   python3 scripts/trust/check_findings.py --write-correct F<k> [F<j> …]   replace those findings' Correct lines by
                                                        the generated ones (an author edit: FB7 still wants a LEDGER line)
@@ -797,6 +807,36 @@ def fb12(text, cb, phrases):
 FRAME = ("## Verified findings", "## Candidates under verification (UNVERIFIED, not findings)",
          "## Certified numbers (generated from the Lean records; do not edit)")
 GEN_MARK = re.compile(r"(?i)\(generated|generated heading|do not edit")
+# FB20 (run 2026-11-14T1628Z, round AP d03): marks are matched on a folded copy, so look-alike letters cannot hide them
+_GREEK_LOOK = str.maketrans("οανικρτυχΑΒΕΖΗΙΚΜΝΟΡΤΥΧϲјѕіԁ", "oavikptuxABEZHIKMNOPTYXcjsid")
+ALLOWED_LETTER_SCRIPTS = ("LATIN", "GREEK", "MODIFIER", "DOUBLE-STRUCK", "MATHEMATICAL", "SCRIPT", "BLACK-LETTER",
+                          "PLANCK", "ANGSTROM", "OHM", "KELVIN", "INFINITY", "NABLA", "PARTIAL", "ESTIMATED")
+
+
+def fold(s):
+    import unicodedata
+    return unicodedata.normalize("NFKC", s).translate(_GREEK_LOOK)
+
+
+def fb20(text):
+    import unicodedata
+    errs, seen = [], set()
+    for n, l in enumerate(text.split("\n"), 1):
+        for ch in l:
+            bad = None
+            if unicodedata.category(ch) == "Cf":
+                bad = "an invisible format character"
+            elif ch.isalpha() and not unicodedata.name(ch, "?").startswith(ALLOWED_LETTER_SCRIPTS):
+                bad = "a letter outside the Latin, Greek and mathematical alphabets"
+            if bad and (bad, ch) not in seen:
+                seen.add((bad, ch))
+                errs.append(f"FB20: line {n} holds U+{ord(ch):04X} ({unicodedata.name(ch, '?')}), {bad} (round AP d03: "
+                            f"look-alike letters hid the marks of generated text)")
+    return errs
+
+
+NOTE_LINE = re.compile(r"^  - \*\(author\)\* \S")
+HTML_TAG = re.compile(r"<[A-Za-z/!?]")
 
 
 def fb14(text):
@@ -835,14 +875,18 @@ def fb14(text):
                 continue
             if top:
                 continue  # FB10/FB13 own the top level of a verified finding
-            st = l.lstrip()
-            if l.startswith(" ") and (st.startswith(("#", "<", ">")) or re.match(r"^(=+|-{2,})\s*$", st)
-                                      or re.match(r"^- `Checked\.Records\.", st) or CERT_LINE.match(l)):
+            st = fold(l).lstrip()
+            if l.strip() and (not NOTE_LINE.match(l) or HTML_TAG.search(l)):
+                errs.append(f"FB19: line {n} '{l[:60]}' in the unchecked notes is not a one-line author bullet "
+                            f"`  - *(author)* …` free of HTML (round AP d01, d02, d04: a continuation line, inline HTML "
+                            f"or a setext underline rendered a note outside the labelled notes or as a heading)")
+            if l.startswith(" ") and (st.startswith(("#", "<", ">")) or re.match(r"^(=+|-{1,})\s*$", st)
+                                      or re.match(r"^- `Checked\.Records\.", st) or CERT_LINE.match(fold(l))):
                 errs.append(f"FB14: line {n} '{l[:60]}' in the unchecked notes would render or parse as a heading, "
                             f"quote, HTML or a generated-block line (round AN d03, d05, d06)")
         if sec is None and not (l.lstrip().startswith(("- ", "* ", "|")) or "generated heading" in l):
             continue  # the reading guide above the sections names the generated layout; no list item, table or heading
-        if GEN_MARK.search(l):
+        if GEN_MARK.search(fold(l)):
             errs.append(f"FB14: line {n} '{l[:60]}' carries a mark of generated text outside the generated lines and "
                         f"blocks (round AN d05)")
     return errs
@@ -1248,11 +1292,31 @@ def selftest():
         ("FB18 accepts a reworded guide", bool(fb18("# FINDINGS\n" + PREAMBLE.replace("author prose that no check reads",
                                                     "re-read by an independent referee") + "\n## Verified findings\n")), True),
     ]
-    for what, got, want in ao:
+    # FB19–FB20 (run 2026-11-14T1628Z, blind round AP)
+    mk = NOTES_MARKER + "\n"
+    ap = [
+        ("FB19 accepts a lazy continuation under the marker (AP d01)",
+         bool(fb14(fr.replace(mk, mk + "  Reading note: the Scope is confirmed by the certified record.\n", 1))), True),
+        ("FB19 accepts inline HTML in a note (AP d02)",
+         bool(fb14(fr.replace("  - *(author)* **Referee", "  - *(author)* x </li></ul><p><strong>Correct</strong>\n"
+                                                           "  - *(author)* **Referee", 1))), True),
+        ("FB19 accepts a one-dash setext underline (AP d04)",
+         bool(fb14(fr.replace("  - *(author)* **Referee", "  - *(author)* Correct, checked against Lean\n  -\n"
+                                                           "  - *(author)* **Referee", 1))), True),
+        ("FB20 accepts Cyrillic look-alikes of the generated marks (AP d03)",
+         bool(fb14(fr.replace("  - *(author)* **Referee", "  - *(author)* **Printed (g\u0435nerated; d\u043e not edit):** x\n"
+                                                           "  - *(author)* **Referee", 1)) + fb20("  - g\u0435nerated")), True),
+        ("FB20 accepts a Greek omicron in 'do not edit'",
+         bool(fb14(fr.replace("  - *(author)* **Referee", "  - *(author)* (d\u03bf not edit)\n  - *(author)* **Referee", 1))), True),
+        ("FB20 accepts a zero-width space", bool(fb20("gen\u200berated")), True),
+        ("FB20 rejects Greek physics symbols", bool(fb20("Ω₀, η₂₀, β, ε, ΛCDM, ℝ, 𝒫₀")), False),
+        ("FB19/FB20 reject the clean frame", bool(fb14(fr) + fb20(fr)), False),
+    ]
+    for what, got, want in ao + ap:
         if got != want:
             print(f"selftest: control wrong: {what}")
             fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3 + len(ao)} controls, {fails} failing")
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3 + len(ao) + len(ap)} controls, {fails} failing")
     return fails == 0
 
 
@@ -1280,6 +1344,7 @@ def main():
     errs += fb10(findings, claims_blocks(claims), load_phrases(), norec)
     errs += fb12(findings, claims_blocks(claims), load_phrases())
     errs += fb14(findings)
+    errs += fb20(findings)
     # FB16 on every file a findings rule or generator reads: FINDINGS.md, CLAIMS.md, LEDGER.md (FB7) and the registries
     from pathlib import Path
     for fn in [FINDINGS, CLAIMS, "LEDGER.md"] + sorted(str(x) for x in Path("scripts/trust").glob("*.txt")):

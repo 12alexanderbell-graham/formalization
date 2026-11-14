@@ -746,3 +746,9 @@
 - Parts 2/5 and 1: one-sided cells in a weighted norm (`Checked/Math/BEOCell.lean`) — the validated Bonnor–Ebert enclosure contracts (8·10⁻⁷ → 1·10⁻⁷ on [150, 20000]); LEDGER experiment of run 1028Z confirmed.
 - New headline `Checked.Math.BonnorEbertMin2.bonnor_ebert_second_min` (second minimum of the Bonnor–Ebert mass: ξ₄ ∈ [7849.5, 7849.75], m ∈ [0.787992, 0.787995], contrast ∈ [31193900, 31196100], strict minimum over [ξ₃, S]); frozen → Work proof → blind closure → referee STANDS → Checked with NV witness, literal readings, NecessityAF (fully classified).
 
+
+## 2026-11-14T1628Z (scheduled run)
+- Env: repo ok (pre-cloned shallow detached checkout; `git checkout -B main origin/main`, unshallowed); local Lean via elan + restored `checked-build` of c3ca8a4; disk allowance filled once (freed: Mathlib cache tarballs, stale check scratch repos). CI 43590961602 (071b543) green on every job at 16:40Z → `bonnor_ebert_second_max` PROVED; 43611102762 (fc559f2) in progress at the end. Alexander asked live for a status summary (answered).
+- Part 3: fresh blind readings (readers download the arXiv PDFs themselves) for the 13 pre-route PRINTED definitions behind F3–F7, F9, F10; 13 agreement theorems repointed, all closed by `ring` first time; FINDINGS headings/Printed lines regenerated: undescribed printed values 13 → 0. The Sec. X brief tripped check_brief_leak L3 (equation numbers and arXiv id contain coefficient digits): reading redone from a second brief, rule unchanged.
+- Blind red team AP (Sonnet) against FB10–FB18: 5 valid wrong findings accepted (4 rendering/look-alike differentials in the notes, 1 forged route); LEDGER experiment of run 1228Z survives. Repairs `check_findings.py` FB19 (notes = one-line author bullets, no HTML), FB20 (alphabet and format-character rule; generated marks matched on a folded copy), one-dash setext underline; 8 controls.
+- Next: CI read (fc559f2: `bonnor_ebert_second_min`); then parts 2/5 or part 1 by rotation.

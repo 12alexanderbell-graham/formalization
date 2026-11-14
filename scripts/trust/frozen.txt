@@ -3083,11 +3083,6 @@ doc:Checked.Trust.SecondReading.avilesL0 -doc1307880475566120595
 doc:Checked.Trust.SecondReading.avilesM0 -doc14627928303863984333
 doc:Checked.Trust.SecondReading.bamba12LCDMl0 -doc12501398861930459339
 doc:Checked.Trust.SecondReading.bamba12LCDMq0 -doc12501398861930459339
-doc:Checked.Trust.SecondReading.bamba12PrintedDA3y -doc16818619458123972512
-doc:Checked.Trust.SecondReading.bamba12PrintedDA4y -doc16818619458123972512
-doc:Checked.Trust.SecondReading.bamba12PrintedDL2y -doc16818619458123972512
-doc:Checked.Trust.SecondReading.bamba12PrintedDL3y -doc16818619458123972512
-doc:Checked.Trust.SecondReading.bamba12PrintedDL4y -doc16818619458123972512
 doc:Checked.Trust.SecondReading.bamba12PrintedEtaDen -doc12501398861930459339
 doc:Checked.Trust.SecondReading.bamba12PrintedP0 -doc12501398861930459339
 doc:Checked.Trust.SecondReading.bamba12PrintedQ0 -doc12501398861930459339
@@ -3105,6 +3100,11 @@ doc:Checked.Trust.SecondReading.bambaF0Norm -doc826340502239970354
 doc:Checked.Trust.SecondReading.bambaF0Sign -doc16309106037127375957
 doc:Checked.Trust.SecondReading.bambaJLCDM -doc6357448113160589362
 doc:Checked.Trust.SecondReading.bambaR3 -doc12218058858658860492
+doc:Checked.Trust.SecondReading.bambaYReadDA3 -doc17691906697890870856
+doc:Checked.Trust.SecondReading.bambaYReadDA4 -doc17691906697890870856
+doc:Checked.Trust.SecondReading.bambaYReadDL2 -doc17691906697890870856
+doc:Checked.Trust.SecondReading.bambaYReadDL3 -doc17691906697890870856
+doc:Checked.Trust.SecondReading.bambaYReadDL4 -doc17691906697890870856
 doc:Checked.Trust.SecondReading.beContrast -doc16363964487035410132
 doc:Checked.Trust.SecondReading.beDecreaseEnd -doc16532489407231177751
 doc:Checked.Trust.SecondReading.beDecreaseRange -doc9770628648679435329
@@ -3913,7 +3913,7 @@ moduledoc:Checked.Trust.SecondReadingFSTenth -mdoc9871297434382448959
 moduledoc:Checked.Trust.SecondReadingFSWall -mdoc9285180167247650877
 moduledoc:Checked.Trust.SecondReadingFalknerSkan -mdoc15589594309241309580
 moduledoc:Checked.Trust.SecondReadingFreshBambaFR -mdoc2015756320545706462
-moduledoc:Checked.Trust.SecondReadingFreshBambaY -mdoc2621629161011532278
+moduledoc:Checked.Trust.SecondReadingFreshBambaYb -mdoc15394960064282917514
 moduledoc:Checked.Trust.SecondReadingFreshCCS -mdoc11792258858914348696
 moduledoc:Checked.Trust.SecondReadingFreshCV -mdoc707537568342277201
 moduledoc:Checked.Trust.SecondReadingGelfandPDE -mdoc6784883769121500962

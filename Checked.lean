@@ -47,7 +47,7 @@ import Checked.Trust.TranscriptionsRecords
 import Checked.Trust.TranscriptionsRecordsFS
 import Checked.Trust.SecondReadingFSFazioWall
 import Checked.Trust.SecondReadingFreshBambaFR
-import Checked.Trust.SecondReadingFreshBambaY
+import Checked.Trust.SecondReadingFreshBambaYb
 import Checked.Trust.SecondReadingFreshCCS
 import Checked.Trust.SecondReadingFreshCV
 import Checked.Cosmography.B1Truncation
