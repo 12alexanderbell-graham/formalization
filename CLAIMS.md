@@ -5046,6 +5046,33 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π) has m(s) < m(ξ₁) for s in [0, S] with s ≠ ξ₁;
 > and m(ξ₁) lies between 1.1822265 and 1.1822266.
 
+## `bonnor_ebert_min`
+
+Full name `Checked.Math.BonnorEbertMin.bonnor_ebert_min`.
+
+**For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. `150 ≤ S`
+2. for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `HasDerivWithinAt w (φ s) (Set.Icc 0 S) s`
+3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
+4. for every `s : ℝ`, if `s ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Icc 0 S) s`
+5. `w 0 = 0`
+
+**then**
+
+- there is `ξ₁ : ℝ` such that there is `ξ₂ : ℝ` such that (`6.4507514 ≤ ξ₁`) and (`ξ₁ ≤ 6.4507515`) and (`67.0075 ≤ ξ₂`) and (`ξ₂ ≤ 67.0076`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then if `s ≠ ξ₁`, then `s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) < ξ₁ ^ 2 * -φ ξ₁ * Real.exp (w ξ₁ / 2) / √(4 * Real.pi)`) and (for every `s : ℝ`, if `s ∈ Set.Icc ξ₁ S`, then if `s ≠ ξ₂`, then `ξ₂ ^ 2 * -φ ξ₂ * Real.exp (w ξ₂ / 2) / √(4 * Real.pi) < s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi)`) and (`0.694366 ≤ ξ₂ ^ 2 * -φ ξ₂ * Real.exp (w ξ₂ / 2) / √(4 * Real.pi)`) and (`ξ₂ ^ 2 * -φ ξ₂ * Real.exp (w ξ₂ / 2) / √(4 * Real.pi) ≤ 0.694367`) and (`2579.69 ≤ Real.exp (-w ξ₂)`) and (`Real.exp (-w ξ₂) ≤ 2579.71`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Bonnor–Ebert sphere, min of the mass: for every S ≥ 150 and every solution w of
+> w'' + (2/s)w' + e^w = 0 on (0, S] with w(0) = 0, w differentiable on [0, S] with derivative φ and φ continuous
+> at 0, with m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π), there are ξ₁ between 6.4507514 and 6.4507515 and ξ₂
+> between 67.0075 and 67.0076 such that m(s) < m(ξ₁) for s in [0, S] with s ≠ ξ₁, m(ξ₂) < m(s) for s in [ξ₁, S]
+> with s ≠ ξ₂, m(ξ₂) lies between 0.694366 and 0.694367, and the density contrast e^{−w(ξ₂)} lies between
+> 2579.69 and 2579.71.
+
 ## `tf_initial_slope`
 
 Full name `Checked.Math.ThomasFermi.tf_initial_slope`.

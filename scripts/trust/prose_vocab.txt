@@ -50,6 +50,7 @@ gradient
 neg
 decay
 max
+min
 outside
 reversed
 lt

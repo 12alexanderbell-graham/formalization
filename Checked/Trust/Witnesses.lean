@@ -60,6 +60,7 @@ import Checked.Math.Gelfand
 import Checked.Math.GelfandExists
 import Checked.Math.BonnorEbert
 import Checked.Math.BonnorEbertMax
+import Checked.Math.BonnorEbertMin
 import Checked.Math.ThomasFermi
 import Checked.Math.ThomasFermiExists
 import Checked.Math.GelfandPDE
@@ -735,6 +736,10 @@ theorem bonnor_ebert_critical : nonvacuity% Checked.Math.BonnorEbert.bonnor_eber
 theorem bonnor_ebert_max : nonvacuity% Checked.Math.BonnorEbertMax.bonnor_ebert_max := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.GelfandExists.exists_solution 7 (by norm_num)
   exact ⟨7, le_rfl, w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+theorem bonnor_ebert_min : nonvacuity% Checked.Math.BonnorEbertMin.bonnor_ebert_min := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.GelfandExists.exists_solution 150 (by norm_num)
+  exact ⟨150, le_rfl, w, φ, hw, hφ0, hφ, h0, trivial⟩
 
 /-! Thomas–Fermi equation of the neutral atom (run 2026-11-06T1828Z, existence and promotion
 2028Z): the solution constructed in `Checked.Math.ThomasFermiExists.tf_exists` (shooting in t = √x

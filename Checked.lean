@@ -215,6 +215,12 @@ import Checked.Math.BonnorEbert
 import Checked.Math.BEEnd
 import Checked.Math.BETail
 import Checked.Math.BonnorEbertMax
+import Checked.Math.BEHCell
+import Checked.Math.BEHData
+import Checked.Math.BEHChain
+import Checked.Math.BEHTail
+import Checked.Math.BEHMain
+import Checked.Math.BonnorEbertMin
 import Checked.Trust.SecondReadingBE3
 import Checked.Math.TFReduce
 import Checked.Math.TFCell
@@ -529,3 +535,4 @@ import Checked.Trust.NecessityY
 import Checked.Trust.NecessityZ
 import Checked.Trust.NecessityAA
 import Checked.Trust.NecessityAB
+import Checked.Trust.NecessityAC

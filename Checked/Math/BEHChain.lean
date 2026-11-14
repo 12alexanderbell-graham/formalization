@@ -1,0 +1,133 @@
+import Checked.Math.BEHData
+
+/-! Bonnor–Ebert sphere, `BEHChain`: the cells of `BEHData` chained along every solution of the homology system that starts in the first cell's input box: the sign of 2u − v before and after the bracket cell of the first minimum of the mass, the bracket cell itself, and the state at the end radius. Promoted from `Work/Math/BEHChain.lean`. -/
+
+namespace Checked.Math.BEHChain
+open Set Checked.Sim Checked.Sim.QPoly Checked.Math.BEHCell Checked.Math.BEHData
+open Checked.Math.GCellQ (lo hi lo_le le_hi abs_link icc_glue)
+
+theorem br_u : decide ((932876650 / 1000000000 : ℚ) ≤ lo c104.pu c104.h - c104.B ∧
+    hi c104.pu c104.h + c104.B ≤ 932877060 / 1000000000) = true := by
+  decide +kernel
+
+set_option maxHeartbeats 4000000 in
+theorem chain {u v : ℝ → ℝ}
+    (hu : ∀ t ∈ Icc (7 : ℝ) 150,
+      HasDerivWithinAt u (u t * (3 - u t - v t) / t) (Icc ((7 : ℚ) : ℝ) ((150 : ℚ) : ℝ)) t)
+    (hv : ∀ t ∈ Icc (7 : ℝ) 150,
+      HasDerivWithinAt v (v t * (u t - 1) / t) (Icc ((7 : ℚ) : ℝ) ((150 : ℚ) : ℝ)) t)
+    (h0 : |u 7 - 577619974100737 / 500000000000000| ≤ 115479 / 1000000000000000)
+    (h0' : |v 7 - 494348330833 / 200000000000| ≤ 115479 / 1000000000000000) :
+    (∀ t ∈ Icc (7 : ℝ) (418797 / 6250), 2 * u t - v t < 0) ∧
+    (∀ t ∈ Icc (418797 / 6250 : ℝ) (3350379 / 50000),
+      0 < 6 * u t - 2 * u t ^ 2 - 3 * (u t * v t) + v t ∧
+      (932876650 / 1000000000 : ℝ) ≤ u t ∧ u t ≤ 932877060 / 1000000000) ∧
+    (∀ t ∈ Icc (3350379 / 50000 : ℝ) 150, 0 < 2 * u t - v t) ∧
+    |u 150 - 10525555455 / 10000000000| ≤ 2 / 10000000 ∧
+    |v 150 - 18654194232 / 10000000000| ≤ 2 / 10000000 := by
+  have hX : ((150 : ℚ) : ℝ) = 150 := by norm_num
+  have hu' : ∀ t ∈ Icc (c0.t0 : ℝ) ((150 : ℚ) : ℝ),
+      HasDerivWithinAt u (u t * (3 - u t - v t) / t) (Icc ((7 : ℚ) : ℝ) ((150 : ℚ) : ℝ)) t := by
+    rw [hX, show c0.t0 = 7 from rfl]; push_cast; exact hu
+  have hv' : ∀ t ∈ Icc (c0.t0 : ℝ) ((150 : ℚ) : ℝ),
+      HasDerivWithinAt v (v t * (u t - 1) / t) (Icc ((7 : ℚ) : ℝ) ((150 : ℚ) : ℝ)) t := by
+    rw [hX, show c0.t0 = 7 from rfl]; push_cast; exact hv
+  have a0 : |u (c0.t0 : ℝ) - ((c0.pu.headD 0 : ℚ) : ℝ)| ≤ (c0.δ : ℝ) := by
+    rw [show c0.t0 = 7 from rfl, show c0.pu.headD 0 = 577619974100737 / 500000000000000 from rfl,
+      show c0.δ = 115479 / 1000000000000000 from rfl]; push_cast; exact h0
+  have b0 : |v (c0.t0 : ℝ) - ((c0.pv.headD 0 : ℚ) : ℝ)| ≤ (c0.δ : ℝ) := by
+    rw [show c0.t0 = 7 from rfl, show c0.pv.headD 0 = 494348330833 / 200000000000 from rfl,
+      show c0.δ = 115479 / 1000000000000000 from rfl]; push_cast; exact h0'
+  have p0 : (c0.t0 : ℝ) ≤ (c0.t0 : ℝ) := le_rfl
+  obtain ⟨o0, i0, a1, b1⟩ := seg_q _ _ _ dec0_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, p0], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, p0], ht.2⟩) a0 b0
+  have p1 := p0.trans o0
+  have g0 := i0
+  obtain ⟨o1, i1, a2, b2⟩ := seg_q _ _ _ dec1_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, p1], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, p1], ht.2⟩) a1 b1
+  have p2 := p1.trans o1
+  have g1 := icc_glue g0 i1
+  obtain ⟨o2, i2, a3, b3⟩ := seg_q _ _ _ dec2_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, p2], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, p2], ht.2⟩) a2 b2
+  have p3 := p2.trans o2
+  have g2 := icc_glue g1 i2
+  obtain ⟨o3, i3, a4, b4⟩ := seg_q _ _ _ dec3_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, p3], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, p3], ht.2⟩) a3 b3
+  have p4 := p3.trans o3
+  have g3 := icc_glue g2 i3
+  obtain ⟨o4, i4, a5, b5⟩ := seg_q _ _ _ dec4_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, p4], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, p4], ht.2⟩) a4 b4
+  have p5 := p4.trans o4
+  have g4 := icc_glue g3 i4
+  obtain ⟨o5, i5, a6, b6⟩ := seg_q _ _ _ dec5_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, p5], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, p5], ht.2⟩) a5 b5
+  have p6 := p5.trans o5
+  have g5 := icc_glue g4 i5
+  obtain ⟨o6, i6, a7, b7⟩ := seg_q _ _ _ dec6_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, p6], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, p6], ht.2⟩) a6 b6
+  have p7 := p6.trans o6
+  have g6 := icc_glue g5 i6
+  -- the bracket cell
+  have hok := br_ok
+  have hok1 : decide (CellProp 7 150 c104) = true := by
+    simp only [cellOK, Bool.and_eq_true] at hok; exact hok.1
+  have hT104 : ((c104.t0 : ℚ) : ℝ) + ((c104.h : ℚ) : ℝ) ≤ ((150 : ℚ) : ℝ) := by
+    exact_mod_cast (show c104.t0 + c104.h ≤ 150 by decide +kernel)
+  have hub : ∀ t ∈ Icc (c104.t0 : ℝ) (c104.t0 + c104.h),
+      HasDerivWithinAt u (u t * (3 - u t - v t) / t) (Icc ((7 : ℚ) : ℝ) ((150 : ℚ) : ℝ)) t := fun t ht =>
+    hu' t ⟨by linarith [ht.1, p7], by linarith [ht.2, hT104]⟩
+  have hvb : ∀ t ∈ Icc (c104.t0 : ℝ) (c104.t0 + c104.h),
+      HasDerivWithinAt v (v t * (u t - 1) / t) (Icc ((7 : ℚ) : ℝ) ((150 : ℚ) : ℝ)) t := fun t ht =>
+    hv' t ⟨by linarith [ht.1, p7], by linarith [ht.2, hT104]⟩
+  have hcq := cell_q c104 hok1 hub hvb a7 b7
+  obtain ⟨hinvb, hend1, hend2⟩ := cell_facts c104 hok hub hvb a7 b7
+  obtain ⟨ke, kE, kφ⟩ := of_decide_eq_true br_link
+  have he : ((c104.t0 + c104.h : ℚ) : ℝ) = (c105.t0 : ℝ) := by exact_mod_cast ke
+  push_cast at he
+  rw [he] at hend1 hend2
+  have kE' : |((qeval c104.pu c104.h : ℚ) : ℝ) - ((c105.pu.headD 0 : ℚ) : ℝ)| + c104.B ≤ c105.δ := by
+    exact_mod_cast kE
+  have kφ' : |((qeval c104.pv c104.h : ℚ) : ℝ) - ((c105.pv.headD 0 : ℚ) : ℝ)| + c104.B ≤ c105.δ := by
+    exact_mod_cast kφ
+  have ai := abs_link hend1 kE'
+  have bi := abs_link hend2 kφ'
+  have hh104 : (0 : ℝ) < c104.h := by exact_mod_cast (show (0 : ℚ) < c104.h by decide +kernel)
+  have q0 : (c0.t0 : ℝ) ≤ c105.t0 := by rw [← he]; linarith [p7]
+  have r0 := q0
+  obtain ⟨n0, j0, ai1, bi1⟩ := seg_q _ _ _ inc0_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, r0], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, r0], ht.2⟩) ai bi
+  have r1 := r0.trans n0
+  have f0 := j0
+  obtain ⟨n1, j1, ai2, bi2⟩ := seg_q _ _ _ inc1_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, r1], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, r1], ht.2⟩) ai1 bi1
+  have r2 := r1.trans n1
+  have f1 := icc_glue f0 j1
+  obtain ⟨n2, j2, ai3, bi3⟩ := seg_q _ _ _ inc2_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, r2], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, r2], ht.2⟩) ai2 bi2
+  have r3 := r2.trans n2
+  have f2 := icc_glue f1 j2
+  obtain ⟨jl, kU, kV⟩ := end_q _ _ inc3_ok
+    (fun t ht => hu' t ⟨by linarith [ht.1, r3], ht.2⟩) (fun t ht => hv' t ⟨by linarith [ht.1, r3], ht.2⟩) ai3 bi3
+  have finc := icc_glue f2 jl
+  have e0 : (c0.t0 : ℝ) = 7 := by rw [show c0.t0 = 7 from rfl]; norm_num
+  have e104 : (c104.t0 : ℝ) = 418797 / 6250 := by rw [show c104.t0 = 418797 / 6250 from rfl]; norm_num
+  have e105 : (c105.t0 : ℝ) = 3350379 / 50000 := by rw [show c105.t0 = 3350379 / 50000 from rfl]; norm_num
+  have eh : (c104.t0 : ℝ) + c104.h = 3350379 / 50000 := by rw [he, e105]
+  have bu := of_decide_eq_true br_u
+  have bu1 : ((932876650 / 1000000000 : ℚ) : ℝ) ≤ ((lo c104.pu c104.h - c104.B : ℚ) : ℝ) := by exact_mod_cast bu.1
+  have bu2 : ((hi c104.pu c104.h + c104.B : ℚ) : ℝ) ≤ ((932877060 / 1000000000 : ℚ) : ℝ) := by exact_mod_cast bu.2
+  push_cast at bu1 bu2
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · intro t ht; rw [e0] at g6; exact g6 t ⟨ht.1, by rw [e104]; exact ht.2⟩
+  · intro t ht
+    have ht' : t ∈ Icc (c104.t0 : ℝ) (c104.t0 + c104.h) := ⟨by rw [e104]; exact ht.1, by rw [eh]; exact ht.2⟩
+    obtain ⟨c1, -⟩ := hcq t ht'
+    have l1 := lo_le c104.pu (h := c104.h) (σ := t - c104.t0) (by linarith [ht'.1]) (by linarith [ht'.2])
+    have l2 := le_hi c104.pu (h := c104.h) (σ := t - c104.t0) (by linarith [ht'.1]) (by linarith [ht'.2])
+    have c1' := abs_le.1 c1
+    exact ⟨hinvb t ht', by linarith [c1'.1], by linarith [c1'.2]⟩
+  · intro t ht; rw [e105] at finc; exact finc t ⟨ht.1, by rw [hX] at finc; exact ht.2⟩
+  · push_cast at kU; norm_num at kU ⊢; exact kU
+  · push_cast at kV; norm_num at kV ⊢; exact kV
+
+end Checked.Math.BEHChain

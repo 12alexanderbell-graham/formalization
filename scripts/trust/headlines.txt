@@ -202,6 +202,7 @@ Checked.Math.GelfandExists.exists_solution
 Checked.Math.BonnorEbert.bonnor_ebert_critical
 # Astrophysics: Bonnor–Ebert critical sphere as the maximum of the mass over every radius (run 2026-11-13T2228Z): Volterra's function beyond the certified cells
 Checked.Math.BonnorEbertMax.bonnor_ebert_max
+Checked.Math.BonnorEbertMin.bonnor_ebert_min
 # Mathematics/physics: Thomas–Fermi equation of the neutral atom (run 2026-11-06T1828Z; existence and promotion 2028Z): initial slope, existence
 Checked.Math.ThomasFermi.tf_initial_slope
 Checked.Math.ThomasFermiExists.tf_exists
