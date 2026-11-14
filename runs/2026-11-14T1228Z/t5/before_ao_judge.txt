@@ -1,0 +1,7 @@
+BEFORE clean: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED:
+BEFORE d01: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED:
+BEFORE d02: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED:
+BEFORE d03: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED:
+BEFORE d04: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED:
+BEFORE d05: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED:
+BEFORE d06: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED:

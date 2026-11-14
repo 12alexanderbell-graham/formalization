@@ -7,6 +7,8 @@ Builds scratch git repositories from this checkout's scripts/trust and registry 
   early  brief alone -> registry copy -> reading                           : must fail (registry before the reading)
   wide   brief alone -> reading together with a scripts/ change -> copy    : must fail (reading commit outside runs/<run>/)
   rejoin an excluded baseline line moved into the registry in one commit   : must fail (P12)
+  fb17*  the same sequences for a class phrase of check_findings.py FB17 (b) (run 2026-11-14T1228Z), plus a brief
+         that contains the phrase (leak) and a registry line with no reading at all (none): only fb17good passes
 usage: route_control.py   (exit 1 if any control misbehaves)"""
 import os, shutil, subprocess, sys, tempfile
 SRC = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
@@ -67,6 +69,36 @@ t = open(rp, encoding="utf-8").read()
 a = "CLAUSE | Checked.Chemistry.Coexistence.IsMaxwellCoexistence | equal areas between the isotherm and the saturation pressure line\n"
 open(rp, "w", encoding="utf-8").write(t.replace(a, a + line + "\n"))
 commit(d, "scripts"); r = route(d, b); cases["rejoin"] = ((r[0], r[1]), "p12")
+
+# FB17 (b) of check_findings.py (run 2026-11-14T1228Z, blind round AO d01, d03): a class phrase added to the registry
+# is a verbatim copy of a blind reading runs/<run>/<dir>/class_phrases_reading*.txt (brief -> reading -> copy)
+FR = "scripts/trust/finding_class_phrases.txt"
+FRUN = "runs/2099-01-01T0000Z/classes1"
+FLINE = "`Filter.Tendsto p Filter.atTop (nhds 1)` => far-field velocity one"
+
+
+def fbrief(d, leak=False): write(d, FRUN + "/brief.md", "brief" + (" far-field velocity one" if leak else "") + "\n")
+def freading(d): write(d, FRUN + "/class_phrases_reading.txt", FLINE + "\n")
+def fcopy(d): write(d, FR, FLINE + "\n", append=True)
+
+
+def froute(d, base):
+    code = ("import sys, subprocess; sys.path.insert(0,'scripts/trust'); import check_findings as cf; "
+            f"old = subprocess.run(['git','show','{base}:{FR}'],capture_output=True,text=True).stdout; "
+            "newp = sorted(set(cf.load_phrases()) - set(cf.load_phrases(text=old))); "
+            "print(len(cf.fb17_route(newp, cf.class_phrase_readings())), 0)")
+    out = sh(d, sys.executable, "-c", code)
+    return tuple(int(x) for x in out.stdout.split()) if out.returncode == 0 else (None, out.stderr)
+
+
+d, b = repo(); fbrief(d); commit(d, FRUN); freading(d); commit(d, FRUN); fcopy(d); commit(d, FR); cases["fb17good"] = (froute(d, b), False)
+d, b = repo(); fbrief(d); freading(d); fcopy(d); commit(d, FRUN, FR); cases["fb17same"] = (froute(d, b), True)
+d, b = repo(); fbrief(d); commit(d, FRUN); fcopy(d); commit(d, FR); freading(d); commit(d, FRUN); cases["fb17early"] = (froute(d, b), True)
+d, b = repo(); fbrief(d); commit(d, FRUN); freading(d); write(d, "scripts/x.txt", "x\n"); commit(d, FRUN, "scripts/x.txt")
+fcopy(d); commit(d, FR); cases["fb17wide"] = (froute(d, b), True)
+d, b = repo(); fbrief(d, leak=True); commit(d, FRUN); freading(d); commit(d, FRUN); fcopy(d); commit(d, FR); cases["fb17leak"] = (froute(d, b), True)
+d, b = repo(); fcopy(d); commit(d, FR); cases["fb17none"] = (froute(d, b), True)
+
 bad = 0
 for k, (r, must_fail) in cases.items():
     if must_fail == "p12":

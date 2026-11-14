@@ -1,0 +1,5 @@
+Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_exists_decay
+meaning: 451 entries written to .lake/meaning.jsonl
+hypothesis necessity: 977 hypotheses of 167 headlines; needed 600, redundant 156, no obligation 0, open 221
+SUMMARY: 288 headlines; 288 rest on no unpinned physics definition; non-vacuity: 171/171 conditional headlines witnessed.
+EXIT 0
