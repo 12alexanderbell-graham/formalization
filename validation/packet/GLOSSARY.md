@@ -56,18 +56,6 @@ def AvilesL0Claim : Prop :=
     cosmoCoeff 5 a t₀ = 1 + 3 * Ω - 27 / 2 * Ω ^ 2
 ```
 
-## `Cosmography.Aviles.AvilesM0Claim`
-
-The printed claim for `m₀` (frozen verbatim from Eq. (15)).
-
-```lean
-def AvilesM0Claim : Prop :=
-  ∀ (Ω : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), IsFlatLCDM Ω a t₀ → ContDiffAt ℝ 6 a t₀ →
-    cosmoCoeff 6 a t₀ = 1 - 27 / 2 * Ω ^ 2 - 81 * Ω ^ 2 - 81 / 2 * Ω ^ 3
-
-/-! ## Einstein–de Sitter: `a(t) = t^{2/3}` -/
-```
-
 ## `Cosmography.Aviles.IsFlatLCDM`
 
 Flat ΛCDM with matter fraction `Ω` at observation time `t₀` (Aviles et al., text before
@@ -857,14 +845,14 @@ noncomputable def printedCLSL0 (Ω w₀ wₐ : ℝ) : ℝ :=
     + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4
 ```
 
-## `Records.printedFazioWall`
+## `Records.printedFazioSeparation`
 
-Fazio (arXiv:1212.5057, 2012, p. 16): the printed missing initial condition d²f/dη²(0) of the normal-flow
-Falkner–Skan solution at the example parameter (blind second reading
-`Checked.Trust.SecondReading.fsAttPrintedWallValueFazio`).
+Fazio (arXiv:1212.5057, 2012, Fig. 4 caption; arXiv:2011.07725, 2020, Fig. 7 caption): the printed value of the
+Falkner–Skan parameter of the solution with zero wall shear (blind second reading
+`Checked.Trust.SecondReading.fsSepPrintedFazio`).
 
 ```lean
-noncomputable def printedFazioWall : ℝ := 0.005221
+noncomputable def printedFazioSeparation : ℝ := -(1988376 / 10000000)
 ```
 
 ## `Sim.Duffing.IsDuffingSolution`
