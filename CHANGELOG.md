@@ -728,4 +728,5 @@
 ## 2026-11-14T0828Z (scheduled run)
 - Env: repo ok (add_repo not exposed; checkout reset to origin/main aaa5d26); local Lean (elan, Mathlib cache, CI build artifact of 0935097 restored; `lake build Checked` green; StatementDeps relock, Claims). CI 43563791919 (96643b0, `bonnor_ebert_min`) still in its checked job for the whole run; 43572789731 (cb49239) pending behind it.
 - Part 1 by rotation: **smoothness NEEDED in the eleven past-only printed-coefficient cosmography headlines and in `lookback_second_order_bigO`** (`Checked/Trust/NecessityAD.lean`): kinked scale factors whose junk top derivative makes the printed coefficient right on the past side. Also both derivative hypotheses of the `decel` pin (`Fidelity.decelSpec_pins` 2, 3) NEEDED. Open 235 → 221; thirteen more headlines fully classified (65 → 78).
-- Next: CI read; then parts 2/5 or 3 by rotation; part 1 later: the two-sided companions (oscillating witness), algebraic-approach attached solution, separation profiles with transpiration.
+- CI read at the end: 43563791919 (96643b0) green on every job → `bonnor_ebert_min` PROVED (Alexander told).
+- Next: CI read of c3ca8a4; then parts 2/5 or 3 by rotation; part 1 later: the two-sided companions (oscillating witness), algebraic-approach attached solution, separation profiles with transpiration.
