@@ -6,7 +6,7 @@ import Checked.Trust.NecessityAD
 A kinked scale factor cannot show this (`Checked.Trust.NecessityAD` covers the past-only companion): `D³`
 contains `s₀`, so a kink below the fifth derivative changes a coefficient the printed series also uses, and a
 kink in the fifth derivative gives different top coefficients on the two sides. The witness here is
-`a = P + ε` with the quintic `P = 1 + t − t²/2 − (21/8) t⁵` and `ε(t) = t⁸ sin(1/t)` at `t₀ = 0`.
+`a = P + ε` with the quintic `P = 1 + t − t²/2 + c t⁵` (the polynomial of the past-only witness, `c` fixed by `l₀` below) and `ε(t) = t⁸ sin(1/t)` at `t₀ = 0`.
 The function `ε` has four derivatives everywhere, all `0` at `0` (each is `t² · (bounded)` near `0`), and its
 fourth derivative is `(1680 t⁴ − 180 t² + 1) sin(1/t) + (20 t − 840 t³) cos(1/t)`, which is not continuous at
 `0` (it equals `1680 t⁴ − 180 t² + 1` at `t = 1/(π/2 + 2πn)`). So `a` is not `C⁵` at `0`, Lean's fifth
@@ -303,7 +303,7 @@ theorem printedD4_fails_h1 : necessity% Checked.Cosmography.CCS.printedD4_fails 
 
 /-! ### `BambaY.printedD2y_fails` (flat `d_L(y)` to third order, top coefficient `j₀`)
 
-Witness `1 + t + (11/3) t³ + t⁴ sin(1/t)`: two derivatives everywhere, second derivative
+Witness `1 + t + c t³ + t⁴ sin(1/t)` (`c` fixed by `j₀` below): two derivatives everywhere, second derivative
 `(12 t² − 1) sin(1/t) − 6 t cos(1/t)` not continuous at `0`, so Lean's `j₀` is the junk `0`, `q₀ = 0`; the
 cubic's own `j₀ = 22` makes the correct `D²` equal the printed one at `j₀ = 0`. -/
 
