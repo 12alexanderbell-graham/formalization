@@ -24,22 +24,28 @@ if [ -e .lake/build ] && [ "${FORCE:-0}" != "1" ]; then
 fi
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
+# Disk (run 2026-11-14T0828Z): the build unpacks to ≈ 15 GB. The zip is never copied and the tarball is
+# streamed out of it (no unzipped copy), so the peak is the zip plus the build; a local zip is read in place.
 if [ -f "$src" ]; then
-  cp "$src" "$tmp/a.zip"
+  zip="$src"
 else
-  curl -sSfL --retry 5 -o "$tmp/a.zip" "$src"
+  zip="$tmp/a.zip"
+  curl -sSfL --retry 5 -o "$zip" "$src"
 fi
-unzip -q "$tmp/a.zip" -d "$tmp/x"
-tarball="$(find "$tmp/x" -name 'checked-build.tar.zst' | head -1)"
-[ -n "$tarball" ] || { echo "no checked-build.tar.zst in the artifact" >&2; exit 3; }
-# Decompressor: the zstd binary, else Python's `zstandard` (pip install --break-system-packages zstandard).
+member="$(unzip -Z1 "$zip" | grep -E '(^|/)checked-build\.tar\.zst$' | head -1)"
+[ -n "$member" ] || { echo "no checked-build.tar.zst in the artifact" >&2; exit 3; }
+avail_kb="$(df -Pk . | awk 'NR==2 {print $4}')"
+if [ "${avail_kb:-0}" -lt 16000000 ]; then
+  echo "warning: only $((avail_kb / 1000000)) GB free; the restored build needs about 15 GB (delete ~/.cache/mathlib and old zips first)" >&2
+fi
+# Decompressor (stdin to stdout): the zstd binary, else Python's `zstandard` (pip install --break-system-packages zstandard).
 unz() {
-  if command -v zstd >/dev/null 2>&1; then zstd -dc "$1"
-  else python3 -c 'import sys, zstandard; zstandard.ZstdDecompressor().copy_stream(open(sys.argv[1], "rb"), sys.stdout.buffer)' "$1"
+  if command -v zstd >/dev/null 2>&1; then zstd -dc
+  else python3 -c 'import sys, zstandard; zstandard.ZstdDecompressor().copy_stream(sys.stdin.buffer, sys.stdout.buffer)'
   fi
 }
 # Only .lake/build/... members are accepted (no absolute paths, no ..); a failed listing refuses.
-unz "$tarball" | tar -tf - > "$tmp/members" || { echo "cannot list the artifact; refusing" >&2; exit 4; }
+unzip -p "$zip" "$member" | unz | tar -tf - > "$tmp/members" || { echo "cannot list the artifact; refusing" >&2; exit 4; }
 [ -s "$tmp/members" ] || { echo "empty artifact; refusing" >&2; exit 4; }
 if grep -vE '^\.lake/build(/|$)' "$tmp/members" | grep -q . || grep -q '\.\./' "$tmp/members"; then
   echo "artifact contains paths outside .lake/build; refusing" >&2
@@ -47,6 +53,6 @@ if grep -vE '^\.lake/build(/|$)' "$tmp/members" | grep -q . || grep -q '\.\./' "
 fi
 rm -rf .lake/build
 mkdir -p .lake
-unz "$tarball" | tar -xf - --no-same-owner
+unzip -p "$zip" "$member" | unz | tar -xf - --no-same-owner
 echo "restored .lake/build from commit $(cat .lake/build/CHECKED_BUILD_COMMIT 2>/dev/null || echo '?')"
 echo "next: lake build Checked   (rebuilds only modules changed since that commit)"
