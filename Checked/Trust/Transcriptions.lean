@@ -6,6 +6,9 @@ import Checked.Cosmography.BambaCurved
 import Checked.Cosmography.BambaAngular
 import Checked.Cosmography.BambaZ
 import Checked.Cosmography.DemianskiZ
+import Checked.Trust.SecondReadingFreshCCS
+import Checked.Trust.SecondReadingFreshBambaY
+import Checked.Trust.SecondReadingFreshCV
 
 /-!
 # Two independent transcriptions agree (trust track T3, run 2026-10-30T2228Z)
@@ -34,9 +37,9 @@ theorem agree_D3 : Checked.Cosmography.CCS.D3 = Checked.Trust.SecondReading.D3 :
   simp only [Checked.Cosmography.CCS.D3, Checked.Trust.SecondReading.D3] <;> ring
 
 /-- `Checked.Cosmography.CCS.printedD4` agrees with the blind second reading. -/
-theorem agree_printedD4 : Checked.Cosmography.CCS.printedD4 = Checked.Trust.SecondReading.printedD4 := by
+theorem agree_printedD4 : Checked.Cosmography.CCS.printedD4 = Checked.Trust.SecondReading.ccs08PrintedD4z := by
   funext q j s l
-  simp only [Checked.Cosmography.CCS.printedD4, Checked.Trust.SecondReading.printedD4] <;> ring
+  simp only [Checked.Cosmography.CCS.printedD4, Checked.Trust.SecondReading.ccs08PrintedD4z] <;> ring
 
 /-- `Checked.Cosmography.BambaY.D1y` agrees with the blind second reading. -/
 theorem agree_D1y : Checked.Cosmography.BambaY.D1y = Checked.Trust.SecondReading.D1y := by
@@ -44,19 +47,19 @@ theorem agree_D1y : Checked.Cosmography.BambaY.D1y = Checked.Trust.SecondReading
   simp only [Checked.Cosmography.BambaY.D1y, Checked.Trust.SecondReading.D1y] <;> ring
 
 /-- `Checked.Cosmography.BambaY.printedD2y` agrees with the blind second reading. -/
-theorem agree_printedD2y : Checked.Cosmography.BambaY.printedD2y = Checked.Trust.SecondReading.printedD2y := by
+theorem agree_printedD2y : Checked.Cosmography.BambaY.printedD2y = Checked.Trust.SecondReading.bamba12PrintedDL2y := by
   funext q j Ω
-  simp only [Checked.Cosmography.BambaY.printedD2y, Checked.Trust.SecondReading.printedD2y] <;> ring
+  simp only [Checked.Cosmography.BambaY.printedD2y, Checked.Trust.SecondReading.bamba12PrintedDL2y] <;> ring
 
 /-- `Checked.Cosmography.BambaK.printedD3y` agrees with the blind second reading. -/
-theorem agree_printedD3y : Checked.Cosmography.BambaK.printedD3y = Checked.Trust.SecondReading.printedD3y := by
+theorem agree_printedD3y : Checked.Cosmography.BambaK.printedD3y = Checked.Trust.SecondReading.bamba12PrintedDL3y := by
   funext q j s Ω
-  simp only [Checked.Cosmography.BambaK.printedD3y, Checked.Trust.SecondReading.printedD3y] <;> ring
+  simp only [Checked.Cosmography.BambaK.printedD3y, Checked.Trust.SecondReading.bamba12PrintedDL3y] <;> ring
 
 /-- `Checked.Cosmography.BambaK.printedD4y` agrees with the blind second reading. -/
-theorem agree_printedD4y : Checked.Cosmography.BambaK.printedD4y = Checked.Trust.SecondReading.printedD4y := by
+theorem agree_printedD4y : Checked.Cosmography.BambaK.printedD4y = Checked.Trust.SecondReading.bamba12PrintedDL4y := by
   funext q j s l Ω
-  simp only [Checked.Cosmography.BambaK.printedD4y, Checked.Trust.SecondReading.printedD4y] <;> ring
+  simp only [Checked.Cosmography.BambaK.printedD4y, Checked.Trust.SecondReading.bamba12PrintedDL4y] <;> ring
 
 /-- `Checked.Cosmography.BambaA.DA1` agrees with the blind second reading. -/
 theorem agree_DA1 : Checked.Cosmography.BambaA.DA1 = Checked.Trust.SecondReading.DA1 := by
@@ -69,14 +72,14 @@ theorem agree_DA2 : Checked.Cosmography.BambaA.DA2 = Checked.Trust.SecondReading
   simp only [Checked.Cosmography.BambaA.DA2, Checked.Trust.SecondReading.DA2] <;> ring
 
 /-- `Checked.Cosmography.BambaA.printedDA3` agrees with the blind second reading. -/
-theorem agree_printedDA3 : Checked.Cosmography.BambaA.printedDA3 = Checked.Trust.SecondReading.printedDA3 := by
+theorem agree_printedDA3 : Checked.Cosmography.BambaA.printedDA3 = Checked.Trust.SecondReading.bamba12PrintedDA3y := by
   funext q j s Ω
-  simp only [Checked.Cosmography.BambaA.printedDA3, Checked.Trust.SecondReading.printedDA3] <;> ring
+  simp only [Checked.Cosmography.BambaA.printedDA3, Checked.Trust.SecondReading.bamba12PrintedDA3y] <;> ring
 
 /-- `Checked.Cosmography.BambaA.printedDA4` agrees with the blind second reading. -/
-theorem agree_printedDA4 : Checked.Cosmography.BambaA.printedDA4 = Checked.Trust.SecondReading.printedDA4 := by
+theorem agree_printedDA4 : Checked.Cosmography.BambaA.printedDA4 = Checked.Trust.SecondReading.bamba12PrintedDA4y := by
   funext q j s l Ω
-  simp only [Checked.Cosmography.BambaA.printedDA4, Checked.Trust.SecondReading.printedDA4] <;> ring
+  simp only [Checked.Cosmography.BambaA.printedDA4, Checked.Trust.SecondReading.bamba12PrintedDA4y] <;> ring
 
 /-- `Checked.Cosmography.BambaZ.DL1z` agrees with the blind second reading. -/
 theorem agree_DL1z : Checked.Cosmography.BambaZ.DL1z = Checked.Trust.SecondReading.DL1z := by
@@ -119,9 +122,9 @@ theorem agree_printedDA4z : Checked.Cosmography.BambaZ.printedDA4z = Checked.Tru
   simp only [Checked.Cosmography.BambaZ.printedDA4z, Checked.Trust.SecondReading.printedDA4z] <;> ring
 
 /-- `Checked.Cosmography.CVdQ.printedQ2` agrees with the blind second reading. -/
-theorem agree_printedQ2 : Checked.Cosmography.CVdQ.printedQ2 = Checked.Trust.SecondReading.printedQ2 := by
+theorem agree_printedQ2 : Checked.Cosmography.CVdQ.printedQ2 = Checked.Trust.SecondReading.cv07PrintedQ2 := by
   funext q j Ω
-  simp only [Checked.Cosmography.CVdQ.printedQ2, Checked.Trust.SecondReading.printedQ2] <;> ring
+  simp only [Checked.Cosmography.CVdQ.printedQ2, Checked.Trust.SecondReading.cv07PrintedQ2] <;> ring
 
 /-- `Checked.Cosmography.DemianskiZ.demDL4` agrees with the blind second reading. -/
 theorem agree_demDL4 : Checked.Cosmography.DemianskiZ.demDL4 = Checked.Trust.SecondReading.demDL4 := by
