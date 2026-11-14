@@ -752,3 +752,9 @@
 - Part 3: fresh blind readings (readers download the arXiv PDFs themselves) for the 13 pre-route PRINTED definitions behind F3–F7, F9, F10; 13 agreement theorems repointed, all closed by `ring` first time; FINDINGS headings/Printed lines regenerated: undescribed printed values 13 → 0. The Sec. X brief tripped check_brief_leak L3 (equation numbers and arXiv id contain coefficient digits): reading redone from a second brief, rule unchanged.
 - Blind red team AP (Sonnet) against FB10–FB18: 5 valid wrong findings accepted (4 rendering/look-alike differentials in the notes, 1 forged route); LEDGER experiment of run 1228Z survives. Repairs `check_findings.py` FB19 (notes = one-line author bullets, no HTML), FB20 (alphabet and format-character rule; generated marks matched on a folded copy), one-dash setext underline; 8 controls.
 - Next: CI read (fc559f2: `bonnor_ebert_second_min`); then parts 2/5 or part 1 by rotation.
+
+
+## 2026-11-14T1828Z (scheduled run)
+- Env: repo ok (pre-cloned shallow detached checkout; unshallowed, `git checkout -B main origin/main`); local Lean via elan + restored `checked-build` of 071b543 (disk allowance tight: zip and Mathlib cache deleted); CI 43611102762 (fc559f2) checked job running for the whole run, 43624324234 (0ed4bdf) pending.
+- Parts 2/5: new headline `Checked.Math.BonnorEbertMax3.bonnor_ebert_third_max` (third maximum of the Bonnor–Ebert mass: ξ₅ ∈ [84497, 84516], m ∈ [0.80091, 0.800916], contrast ∈ [3556300000, 3558000000], strict maximum over [ξ₄, S]); one-sided cells carried from 20000 to 300000 by a generator run (79 cells); Volterra tail from above; frozen → Work proof → blind closure → referee STANDS → Checked with NV witness, literal readings, NecessityAG (fully classified).
+- Next: CI read (fc559f2, 0ed4bdf, this run's final push); then part 1 or part 3 by rotation.
