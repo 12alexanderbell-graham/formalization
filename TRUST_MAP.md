@@ -7,7 +7,7 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 281. Resting on no unpinned physics definition: 281.
+Headlines: 287. Resting on no unpinned physics definition: 287.
 Non-vacuity (trust track T2): 170 headlines have hypotheses; 170 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
@@ -145,6 +145,12 @@ the docstring says; universally bound parameters are not listed.
 | `Records.F2_toy` | cosmoCoeff, IsFlatCPL | — | printedCLSL0² | `F2_toy` | IsFlatCPL: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100; RoundsTo: d = 0.809, k = 3, d = -0.906; cosmoCoeff: n = 5; printedCLSL0: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100 |
 | `Records.F2_error` | cosmoCoeff, IsFlatCPL | — | printedCLSL0² | `F2_error` | IsFlatCPL: Ω = 3/10, wₐ = -1/2; RoundsTo: d = 2.345, k = 3; cosmoCoeff: n = 5; printedCLSL0: Ω = 3/10, wₐ = -1/2 |
 | `Records.F3_D4_LCDM` | IsFlatLCDM, cosmoCoeff, decel | — | printedD4² | `F3_D4_LCDM` | IsFlatLCDM: Ω = 3/10; RoundsTo: d = 0.2153, k = 4, d = 0.4555, d = 0.24, k = 2, d = -0.55; cosmoCoeff: n = 3, n = 4, n = 5 |
+| `Records.F4_values` | cosmoCoeff, omega0, decel | — | printedD2y² | unconditional | RoundsTo: d = -2.8333, k = 4, d = 2.8333, d = -5.6667; decel: t = 0; cosmoCoeff: n = 3, t = 0; omega0: K = 1, t₀ = 0 |
+| `Records.F5_values` | cosmoCoeff, omega0, decel | — | printedQ2² | unconditional | RoundsTo: d = 0.4167, k = 4, d = 0.2083; decel: t = 0; cosmoCoeff: n = 3, t = 0; omega0: K = 1, t₀ = 0 |
+| `Records.F6_third` | cosmoCoeff, omega0, decel | — | printedD3y² | unconditional | RoundsTo: d = 4.1667, k = 4, d = 3.3333, d = 0.8333; decel: t = 0; cosmoCoeff: n = 3, t = 0, n = 4; omega0: K = 1, t₀ = 0 |
+| `Records.F6_fourth` | cosmoCoeff, omega0, decel | — | printedD4y² | unconditional | RoundsTo: d = 3.75, k = 2, d = 3.3417, k = 4, d = 0.4083; decel: t = 0; cosmoCoeff: n = 3, t = 0, n = 4, n = 5; omega0: K = 1, t₀ = 0 |
+| `Records.F7_third` | cosmoCoeff, omega0, decel | — | printedDA3² | unconditional | RoundsTo: d = -0.4167, k = 4, d = -1.6667, d = 1.25, k = 2; decel: t = 0; cosmoCoeff: n = 3, t = 0, n = 4; omega0: K = 5, t₀ = 0 |
+| `Records.F7_fourth` | cosmoCoeff, omega0, decel | — | printedDA4² | unconditional | RoundsTo: d = -0.2083, k = 4, d = -2.2917, d = 2.0833; decel: t = 0; cosmoCoeff: n = 3, t = 0, n = 4, n = 5; omega0: K = 5, t₀ = 0 |
 | `Records.F8_sizes` | — | — | — | unconditional | RoundsTo: d = 0.000013, k = 6, d = 0.56, k = 2, d = 6.7, k = 1 |
 | `Records.F9_values` | — | — | P0², Q0², printedR², jL², lL², qL², sL² | unconditional | RoundsTo: d = 0.0462, k = 4, d = -0.875, k = 3; qL: Ω = 1/4; sL: Ω = 1/4; lL: Ω = 1/4 |
 | `Records.F9_pole` | — | — | — | unconditional | RoundsTo: d = 0.538, k = 3 |

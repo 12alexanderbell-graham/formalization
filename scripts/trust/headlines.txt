@@ -122,6 +122,13 @@ Records.F1_m0_agrees
 Records.F2_toy
 Records.F2_error
 Records.F3_D4_LCDM
+# F4–F7 (run 2026-11-14T0628Z): printed and corrected y-series coefficients evaluated in de Sitter (a = exp, t₀ = 0), K = 0 or 1
+Records.F4_values
+Records.F5_values
+Records.F6_third
+Records.F6_fourth
+Records.F7_third
+Records.F7_fourth
 Records.F8_sizes
 Records.F9_values
 Records.F9_pole

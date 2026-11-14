@@ -430,6 +430,12 @@ Checked.Records.F1_printedL0 427e763-doc3216406102202614421
 Checked.Records.F2_error e2a0d806-doc4429113388589737741
 Checked.Records.F2_toy 77aad2ef-doc3983489604496042780
 Checked.Records.F3_D4_LCDM 28732c3c-doc9710593186470651274
+Checked.Records.F4_values d9551c88-doc4632103099065148089
+Checked.Records.F5_values 11a127d0-doc7962621668281178844
+Checked.Records.F6_fourth c06b20f8-doc3587109611889498741
+Checked.Records.F6_third 2911817d-doc10909365579609020585
+Checked.Records.F7_fourth bb565251-doc14056695187092976956
+Checked.Records.F7_third bd5b79de-doc2775194944915977357
 Checked.Records.F8_sizes 3f428489-doc2762880498692998171
 Checked.Records.F9_pole bbb3e2d3-doc16115897663067957623
 Checked.Records.F9_values 78c54bea-doc13433309950998015723
@@ -3672,7 +3678,7 @@ moduledoc:Checked.Math.ThomasFermiExists -mdoc3187720628668602761
 moduledoc:Checked.Math.ThomasFermi -mdoc2131791644132145726
 moduledoc:Checked.Records.Basic -mdoc17748666938352798359
 moduledoc:Checked.Records.FalknerSkan -mdoc3824245152041396884
-moduledoc:Checked.Records.Findings -mdoc12674245471988407188
+moduledoc:Checked.Records.Findings -mdoc8018823019213615537
 moduledoc:Checked.Sim.ChebBound -mdoc2779961283632007385
 moduledoc:Checked.Sim.DuffingCell -mdoc7174413968324916952
 moduledoc:Checked.Sim.DuffingCerts -mdoc13886189729831538209
