@@ -79,6 +79,16 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        blind and described by its reader / read blind, no reader description / unread), or the fixed no-record
        heading. The author's title moves, unchanged, into the notes as the line `*(author)* **Title** (was …): …`
        (validation/make_packet.py reads the source of a packet item from there). `--write-layout` moves it.
+  FB14 (run 2026-11-14T0028Z, after blind round AN: 6/6 accepted against FB10–FB13, all through the frame around
+       the generated part: a look-alike `## Verified findings index` before the section, a second verified section
+       after it, a heading and generated-looking lines indented in the notes, a record header in the notes that the
+       generators read) the frame of FINDINGS.md is fixed: `# FINDINGS`, then exactly the level-2 headings of FRAME in
+       order; level-3 headings only generated finding headings (verified section) and `### C-…` (candidates); the
+       generators read records only inside generated blocks; an unchecked note is not a heading, underline, HTML,
+       quote or generated-block line, and carries no mark of generated text ('(generated', 'do not edit').
+  FB15 (same round, d02: a new registry line put "every matter density Ω, every w₀ and wₐ" into F2's generated Correct
+       line for its C⁵ atom; the records fix Ω) with --base: a class phrase added to the registry since BASE has no
+       quantifier word and no symbol its atom does not contain.
 
   python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10 on FINDINGS.md (reads CLAIMS.md)
   python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9
@@ -181,12 +191,23 @@ def bounds(block):
     return universal, unique, then, q
 
 
+VERIFIED_HEAD = re.compile(r"^## Verified findings$", re.M)
+
+
+def verified_scope(text):
+    """The verified-findings section: from the line `## Verified findings` (exactly that line; round AN d01 put a
+    look-alike `## Verified findings index` first and every rule read only that) to the next level-2 heading."""
+    m = VERIFIED_HEAD.search(text)
+    if not m:
+        return None
+    j = text.find("\n## ", m.end())
+    return text[m.start() - 1 if m.start() else 0:j if j >= 0 else len(text)]
+
+
 def verified_sections(text):
-    i = text.find("\n## Verified findings")
-    if i < 0:
+    scope = verified_scope(text)
+    if scope is None:
         return []
-    j = text.find("\n## ", i + 1)
-    scope = text[i:j if j >= 0 else len(text)]
     secs = []
     for m in re.finditer(r"^### (F\d+)\b(.*?)(?=^### |\Z)", scope, re.S | re.M):
         body = m.group(0)
@@ -318,11 +339,9 @@ ROLE_WORD = {"printed": "printed value", "derived": "value derived in Lean", "fr
 
 def sections_full(text):
     """{F<k>: whole section text, generated blocks included} of the verified-findings section."""
-    i = text.find("\n## Verified findings")
-    if i < 0:
+    scope = verified_scope(text)
+    if scope is None:
         return {}
-    j = text.find("\n## ", i + 1)
-    scope = text[i:j if j >= 0 else len(text)]
     return {m.group(1): m.group(0) for m in re.finditer(r"^### (F\d+)\b(.*?)(?=^### |\Z)", scope, re.S | re.M)}
 
 
@@ -338,8 +357,18 @@ def split_top(expr):
 
 def record_items(body):
     """[(record, quantifier line, [(kind, expr, value, k, role)])] of the generated blocks of a section body."""
-    out = []
+    out, inblk = [], False
     for line in body.splitlines():
+        # only inside a generated block (round AN d03, d06: a record header indented in the unchecked notes made the
+        # generators list another finding's record and its printed values in the heading and the Printed line)
+        if BLOCK_OPEN_EXACT.match(line):
+            inblk = True
+            continue
+        if line == "<!-- /certified -->":
+            inblk = False
+            continue
+        if not inblk:
+            continue
         m = re.match(r"^  - `Checked\.Records\.([A-Za-z0-9_]+)`, as Lean states it:$", line)
         if m:
             out.append([m.group(1), None, []])
@@ -641,10 +670,9 @@ def fb10(text, cb, phrases, norec):
     # (round AM, run 2026-11-13T1828Z) fail closed around the sections: nothing but blank lines between
     # '## Verified findings' and the first finding (d02), no finding key twice (d03), every heading labelled as the
     # author's title (d04, d05: the heading is the one author line every reader reads)
-    i = text.find("\n## Verified findings")
-    if i >= 0:
-        j = text.find("\n## ", i + 1)
-        scope = text[i + 1:j if j >= 0 else len(text)]
+    scope = verified_scope(text)
+    if scope is not None:
+        scope = scope.lstrip("\n")
         first = re.search(r"^### ", scope, re.M)
         pre = scope[:first.start() if first else len(scope)].split("\n")[1:]
         for l in pre:
@@ -737,6 +765,97 @@ def fb12(text, cb, phrases):
                     errs.append(f"FB12 {k}: the class phrase '{ph}' applies to {rec} through an atom that is not part "
                                 f"of the class its statement speaks of (an assumption, or the condition of its "
                                 f"'there is'): {atom[:60]!r}")
+    return errs
+
+
+# FB14 (run 2026-11-14T0028Z, after blind round AN: 6/6 accepted against FB10–FB13 — a look-alike level-2 heading
+# before the verified section hid every finding from the rules (d01), a second verified section after the real one
+# was never read (d04), a heading and generated-looking lines indented in the notes rendered like a finding of their
+# own (d05), a record header indented in the notes fed another finding's record to the generators (d03, d06)): the
+# frame of FINDINGS.md is fixed and fails closed.
+#   - its headings are exactly: `# FINDINGS` once at the top; the level-2 headings of FRAME, each once and in that
+#     order; level 3 only `### F<k> — generated heading …` inside the verified section and `### C-…` inside the
+#     candidates section; no other line starts with `#`;
+#   - outside the top level of a verified section, no line carries the marks of generated text ('(generated',
+#     'generated heading', 'do not edit') except inside a generated block and the generated section at the end
+#     (above the sections, the reading guide's paragraphs may name the layout; a list item, table row or 'generated
+#     heading' there may not);
+#   - an unchecked note (indented under the marker) is not a heading, setext underline, HTML, a record header of a
+#     generated block, or a block of its own: after its indentation it starts with neither '#', '<', '>' nor a run of
+#     '=' or '-' alone, and it is not shaped like a line of a generated block.
+FRAME = ("## Verified findings", "## Candidates under verification (UNVERIFIED, not findings)",
+         "## Certified numbers (generated from the Lean records; do not edit)")
+GEN_MARK = re.compile(r"(?i)\(generated|generated heading|do not edit")
+
+
+def fb14(text):
+    errs = []
+    lines = text.split("\n")
+    if not lines or lines[0] != "# FINDINGS":
+        errs.append("FB14: FINDINGS.md must start with the line `# FINDINGS`")
+    h2 = [l for l in lines if l.startswith("## ")]
+    if h2 != list(FRAME):
+        errs.append(f"FB14: the level-2 headings of FINDINGS.md are {h2!r}; exactly {list(FRAME)!r}, in that order "
+                    f"(round AN d01/d04: a look-alike or second verified section escaped every rule)")
+    sec, inblk, top = None, False, True
+    for n, l in enumerate(lines, 1):
+        if l.startswith("## "):
+            sec, top = l, True
+            continue
+        if n > 1 and l.startswith("#") and not (sec == FRAME[0] and HEADING_GEN.match(l)) and not (
+                sec == FRAME[1] and l.startswith("### C-")):
+            errs.append(f"FB14: line {n} '{l[:60]}' is a heading outside the fixed frame of FINDINGS.md")
+        if sec == FRAME[2]:
+            continue  # the generated section (check_numbers.py G-rules)
+        if BLOCK_OPEN_EXACT.match(l):
+            inblk = True
+            continue
+        if l == "<!-- /certified -->":
+            inblk = False
+            continue
+        if inblk:
+            continue
+        if sec == FRAME[0]:
+            if l.startswith("### "):
+                top = True
+                continue
+            if l == NOTES_MARKER:
+                top = False
+                continue
+            if top:
+                continue  # FB10/FB13 own the top level of a verified finding
+            st = l.lstrip()
+            if l.startswith(" ") and (st.startswith(("#", "<", ">")) or re.match(r"^(=+|-{2,})\s*$", st)
+                                      or re.match(r"^- `Checked\.Records\.", st) or CERT_LINE.match(l)):
+                errs.append(f"FB14: line {n} '{l[:60]}' in the unchecked notes would render or parse as a heading, "
+                            f"quote, HTML or a generated-block line (round AN d03, d05, d06)")
+        if sec is None and not (l.lstrip().startswith(("- ", "* ", "|")) or "generated heading" in l):
+            continue  # the reading guide above the sections names the generated layout; no list item, table or heading
+        if GEN_MARK.search(l):
+            errs.append(f"FB14: line {n} '{l[:60]}' carries a mark of generated text outside the generated lines and "
+                        f"blocks (round AN d05)")
+    return errs
+
+
+# FB15 (run 2026-11-14T0028Z, round AN d02: a new registry line `ContDiffAt ℝ 5 a t₀ => every matter density Ω,
+# every w₀ and wₐ` put a false class into F2's generated Correct line; the records fix Ω and wₐ): a class phrase
+# added to the registry since BASE names the class the atom states, in words; it carries no quantifier word (the
+# generated line states the record's quantifier itself) and no symbol that its atom does not contain.
+QUANT_WORD = re.compile(r"(?i)(?<![-\w])(every|any|all|each|whatever|arbitrary|unrestricted)(?![-\w])")
+SYMBOL = re.compile(r"[^\W\d_]+[\w′'″₀-₉ₐ-ₜ⁰-⁹]*")
+
+
+def fb15(new_lines):
+    errs = []
+    for atom, ph in new_lines:
+        q = QUANT_WORD.search(ph)
+        if q:
+            errs.append(f"FB15: new class phrase '{ph}' says '{q.group(0)}': a class phrase names the class in words; "
+                        f"the generated Correct line states the record's quantifier itself")
+        for t in SYMBOL.findall(ph):
+            if (len(t) == 1 or not t.isascii() or not t.isalpha()) and t not in atom:
+                errs.append(f"FB15: new class phrase '{ph}' names the symbol '{t}', which its atom {atom!r} does not "
+                            f"contain (a phrase describes its atom, not other quantities of the record)")
     return errs
 
 
@@ -956,7 +1075,36 @@ def selftest():
     if fb12(lay, cb12, [("`0 < q`", "positive")]) or not fb12(lay, cb12, [("RoundsTo (q - -1988", "every curvature")]):
         print("selftest: FB12 control wrong:", fb12(lay, cb12, ph))
         fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad)} controls, {fails} failing")
+    # FB14 controls (run 2026-11-14T0028Z, round AN): the fixed frame passes; a look-alike section before (d01) or a
+    # second verified section after (d04), a heading or generated-looking line indented in the notes (d05), a record
+    # header in the notes (d03, d06: and the generators ignore it), a setext underline fail.
+    fr = lay.replace("# x\n", "# FINDINGS\n", 1).replace(tail, "\n" + FRAME[1] + "\n\n### C-1 x\n\n" + FRAME[2]
+                                                            + "\n- `x` (generated; do not edit)\n")
+    fb14_bad = [
+        fr.replace("\n## Verified findings\n", "\n## Verified findings index\n\n## Verified findings\n"),
+        fr.replace("\n" + FRAME[1], "\n## Verified findings (continued)\n\n" + sec9 + "\n" + FRAME[1]),
+        fr.replace("  - *(author)* **Referee", "  ### F15 — generated heading (do not edit): records `F15_x`\n  - *(author)* **Referee"),
+        fr.replace("  - *(author)* **Referee", "  - **Printed (generated by me):** x\n  - *(author)* **Referee"),
+        fr.replace("  - *(author)* **Referee", "  - `Checked.Records.F9_r`, as Lean states it:\n  - *(author)* **Referee"),
+        fr.replace("  - *(author)* **Referee", "  Printed values\n  ===\n  - *(author)* **Referee"),
+        fr.replace("  - *(author)* **Referee", "  <h3>F15</h3>\n  - *(author)* **Referee"),
+    ]
+    if fb14(fr) or fb10(fr, cbs, ph, set()):
+        print("selftest: FB14 clean frame rejected:", fb14(fr), fb10(fr, cbs, ph, set()))
+        fails += 1
+    for i, t in enumerate(fb14_bad):
+        if not fb14(t):
+            print(f"selftest: FB14 control {i} not rejected")
+            fails += 1
+    if not fb15([("`ContDiffAt ℝ 5 a t₀`", "every matter density Ω, every w₀ and wₐ")]) or not fb15(
+            [("`ContDiffAt ℝ 5 a t₀`", "matter density Ω")]) or fb15([("if `η ∈ Set.Ioi 0`, then `0 < q η`", "positive q")]):
+        print("selftest: FB15 controls wrong")
+        fails += 1
+    planted = fr.replace("  - *(author)* **Referee", "  - `Checked.Records.F2_x`, as Lean states it:\n  - *(author)* **Referee")
+    if [r for r, _, _ in record_items(sections_full(planted)["F9"])] != ["F9_r"]:
+        print("selftest: FB14 record_items reads a record header outside the generated blocks")
+        fails += 1
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3} controls, {fails} failing")
     return fails == 0
 
 
@@ -983,6 +1131,7 @@ def main():
     errs = check(findings, claims, baseline, load_phrases()) + fb8(findings, norec)
     errs += fb10(findings, claims_blocks(claims), load_phrases(), norec)
     errs += fb12(findings, claims_blocks(claims), load_phrases())
+    errs += fb14(findings)
     if "--base" in args:
         base = args[args.index("--base") + 1]
         try:
@@ -999,6 +1148,10 @@ def main():
             lost = []
         for a, b in lost:
             errs.append(f"FB-base: {PHRASES} lost '{a} => {b}' since {base}: the registry only grows")
+        try:
+            errs += fb15(sorted(set(load_phrases()) - set(load_phrases(text=oldp))))
+        except NameError:
+            pass
         try:
             oldf = subprocess.run(["git", "show", f"{base}:{FINDINGS}"], capture_output=True, text=True, check=True).stdout
             errs += fb7(oldf, findings, ledger_added_lines(base))
