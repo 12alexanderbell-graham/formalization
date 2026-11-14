@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 287. Resting on no unpinned physics definition: 287.
-Non-vacuity (trust track T2): 170 headlines have hypotheses; 170 of them have a
+Headlines: 288. Resting on no unpinned physics definition: 288.
+Non-vacuity (trust track T2): 171 headlines have hypotheses; 171 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 972 hypotheses in 166 headlines;
-596 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-155 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-221 open; headlines with every hypothesis classified: 78/166
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 977 hypotheses in 167 headlines;
+600 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+156 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+221 open; headlines with every hypothesis classified: 79/167
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -216,6 +216,7 @@ the docstring says; universally bound parameters are not listed.
 | `Math.BonnorEbert.bonnor_ebert_critical` | — | — | — | `bonnor_ebert_critical` | — |
 | `Math.BonnorEbertMax.bonnor_ebert_max` | — | — | — | `bonnor_ebert_max` | — |
 | `Math.BonnorEbertMin.bonnor_ebert_min` | — | — | — | `bonnor_ebert_min` | — |
+| `Math.BonnorEbertMax2.bonnor_ebert_second_max` | — | — | — | `bonnor_ebert_second_max` | — |
 | `Math.ThomasFermi.tf_initial_slope` | — | — | — | `tf_initial_slope` | — |
 | `Math.ThomasFermiExists.tf_exists` | — | — | — | unconditional | — |
 | `Math.GelfandPDE.gelfand_pde_radial_bound` | — | — | — | `gelfand_pde_radial_bound` | — |
@@ -461,6 +462,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Math.BonnorEbert.bonnor_ebert_critical` (5): needed 1 (`bonnor_ebert_critical_h1`), 2 (`bonnor_ebert_critical_h2`), 4 (`bonnor_ebert_critical_h4`), 5 (`bonnor_ebert_critical_h5`); redundant 3 (`bonnor_ebert_critical_r3`)
 - `Math.BonnorEbertMax.bonnor_ebert_max` (5): needed 1 (`bonnor_ebert_max_h1`), 2 (`bonnor_ebert_max_h2`), 4 (`bonnor_ebert_max_h4`), 5 (`bonnor_ebert_max_h5`); redundant 3 (`bonnor_ebert_max_r3`)
 - `Math.BonnorEbertMin.bonnor_ebert_min` (5): needed 1 (`bonnor_ebert_min_h1`), 2 (`bonnor_ebert_min_h2`), 4 (`bonnor_ebert_min_h4`), 5 (`bonnor_ebert_min_h5`); redundant 3 (`bonnor_ebert_min_r3`)
+- `Math.BonnorEbertMax2.bonnor_ebert_second_max` (5): needed 1 (`bonnor_ebert_second_max_h1`), 2 (`bonnor_ebert_second_max_h2`), 4 (`bonnor_ebert_second_max_h4`), 5 (`bonnor_ebert_second_max_h5`); redundant 3 (`bonnor_ebert_second_max_r3`)
 - `Math.ThomasFermi.tf_initial_slope` (6): needed 1 (`tf_initial_slope_h1`), 2 (`tf_initial_slope_h2`), 4 (`tf_initial_slope_h4`); redundant 3 (`tf_initial_slope_r3`); open 5, 6
 - `Math.GelfandPDE.gelfand_pde_radial_bound` (5): needed 2 (`gelfand_pde_radial_bound_h2`), 3 (`gelfand_pde_radial_bound_h3`), 5 (`gelfand_pde_radial_bound_h5`); open 1, 4
 - `Math.GelfandPDEExists.gelfand_pde_radial_exists` (2): needed 2 (`gelfand_pde_radial_exists_h2`); open 1

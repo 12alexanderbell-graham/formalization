@@ -51,6 +51,7 @@ neg
 decay
 max
 min
+second
 outside
 reversed
 lt

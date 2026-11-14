@@ -730,3 +730,8 @@
 - Part 1 by rotation: **smoothness NEEDED in the eleven past-only printed-coefficient cosmography headlines and in `lookback_second_order_bigO`** (`Checked/Trust/NecessityAD.lean`): kinked scale factors whose junk top derivative makes the printed coefficient right on the past side. Also both derivative hypotheses of the `decel` pin (`Fidelity.decelSpec_pins` 2, 3) NEEDED. Open 235 → 221; thirteen more headlines fully classified (65 → 78).
 - CI read at the end: 43563791919 (96643b0) green on every job → `bonnor_ebert_min` PROVED (Alexander told).
 - Next: CI read of c3ca8a4; then parts 2/5 or 3 by rotation; part 1 later: the two-sided companions (oscillating witness), algebraic-approach attached solution, separation profiles with transpiration.
+
+## 2026-11-14T1028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; checkout reset to origin/main 48e6826); local Lean (elan, Mathlib cache, CI build artifact of 96643b0 restored; `lake build Checked` green; StatementDeps relock). CI at the start: 43579906667 (4a73412) and 43572789731 (cb49239) in their checked jobs, 43581569718 (c3ca8a4) pending.
+- Parts 2/5 by rotation: **the second maximum of the Bonnor–Ebert mass** — frozen, proved, blind restatement closed, referee STANDS, promoted (`Checked.Math.BonnorEbertMax2.bonnor_ebert_second_max`: ξ₃ ∈ [733.5, 734], m(ξ₃) ∈ [0.8306, 0.8308], contrast ∈ [258300, 258800], strict maximum over [ξ₂, S] for every S ≥ 2000; NV, literal readings, all five hypotheses classified in `Checked/Trust/NecessityAE.lean`). 131 homology cells on [150, 2000], Volterra tail from above.
+- Next: CI read; then part 3 or part 1 by rotation; parts 2/5 later: the second minimum with a tighter start.

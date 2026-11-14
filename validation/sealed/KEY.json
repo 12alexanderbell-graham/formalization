@@ -61,7 +61,7 @@
  "genuine": [
   {
    "item": 1,
-   "headline": "Checked.Cosmography.BambaK.lumDist_y_fifth_order"
+   "headline": "Checked.Cosmography.BambaK.bambaD3yClaim_false"
   },
   {
    "item": 2,
@@ -77,11 +77,11 @@
   },
   {
    "item": 5,
-   "headline": "Checked.Hiemenz.hiemenz_under"
+   "headline": "Checked.Math.BonnorEbertMax.bonnor_ebert_max"
   },
   {
    "item": 6,
-   "headline": "Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window"
+   "headline": "Checked.FalknerSkan.Bounded.hiemenz_exists_bounded"
   },
   {
    "item": 7,
@@ -117,7 +117,7 @@
   },
   {
    "item": 19,
-   "headline": "Checked.Math.GelfandPDE.gelfand_pde_radial_bound"
+   "headline": "Checked.Hiemenz.hiemenz_exists"
   },
   {
    "item": 20,
@@ -133,7 +133,7 @@
   },
   {
    "item": 23,
-   "headline": "Checked.FalknerSkan.Bounded.hiemenz_exists_bounded"
+   "headline": "Checked.Math.GelfandPDE.gelfand_pde_radial_bound"
   },
   {
    "item": 24,
@@ -153,7 +153,7 @@
   },
   {
    "item": 29,
-   "headline": "Checked.Math.BonnorEbertMin.bonnor_ebert_min"
+   "headline": "Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay"
   },
   {
    "item": 30,
@@ -169,7 +169,7 @@
   },
   {
    "item": 35,
-   "headline": "Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay"
+   "headline": "Checked.Townes.Shooting.townes_under"
   },
   {
    "item": 36,
@@ -197,7 +197,7 @@
   },
   {
    "item": 42,
-   "headline": "Checked.Cosmography.CVdQ.dQ_y_third_order"
+   "headline": "Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window"
   },
   {
    "item": 43,
@@ -209,7 +209,7 @@
   },
   {
    "item": 45,
-   "headline": "Checked.Townes.Shooting.townes_under"
+   "headline": "Checked.Cosmography.CVdQ.dQ_y_third_order"
   },
   {
    "item": 47,
