@@ -193,6 +193,8 @@ import Work.Math.BEH2Chain
 import Work.Math.BEH2Tail
 import Work.Math.BEH2Main
 import Work.Math.BonnorEbertMax2
+import Work.Math.BEOCell
+import Work.Math.BonnorEbertMin2
 import Work.Math.BonnorEbertMax2Blind
 import Work.Math.BonnorEbertMax2BlindClosed
 import Work.Math.GelfandBlind
