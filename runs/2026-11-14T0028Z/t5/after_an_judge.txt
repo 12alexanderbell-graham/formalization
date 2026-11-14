@@ -1,0 +1,8 @@
+AFTER clean: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED:
+AFTER d01: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED: | check_findings.py :: check_findings selftest: 62 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 62 controls, 0 failing | check_prose.py --base "$BASE" :: 
+AFTER d02: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED: | check_findings.py --base "$BASE" :: check_findings selftest: 62 controls, 0 failing
+AFTER d03: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED: | check_findings.py :: check_findings selftest: 62 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 62 controls, 0 failing
+AFTER d04: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED: | check_findings.py :: check_findings selftest: 62 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 62 controls, 0 failing
+AFTER d05: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED: | check_findings.py :: check_findings selftest: 62 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 62 controls, 0 failing
+AFTER d06: CAUGHT | python3 scripts/goal_guard.py :: GOAL GUARD FAILED: | check_findings.py :: check_findings selftest: 62 controls, 0 failing | check_findings.py --base "$BASE" :: check_findings selftest: 62 controls, 0 failing
+DONE
