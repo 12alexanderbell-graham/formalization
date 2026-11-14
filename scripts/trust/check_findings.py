@@ -89,9 +89,20 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
   FB15 (same round, d02: a new registry line put "every matter density Ω, every w₀ and wₐ" into F2's generated Correct
        line for its C⁵ atom; the records fix Ω) with --base: a class phrase added to the registry since BASE has no
        quantifier word and no symbol its atom does not contain.
+  FB16 (run 2026-11-14T1228Z, after blind round AO: 4 of 4 valid wrong findings accepted against FB10–FB15; d06 hid
+       a block opener and a record header for a record that does not exist in one note line with U+2028 separators:
+       the generators split with str.splitlines(), every rule with "\n") every reader splits at "\n" only, and
+       FINDINGS.md, CLAIMS.md, LEDGER.md and the registries `scripts/trust/*.txt` contain no other line-break character.
+  FB17 (same round, d01–d03: registry phrases, the author's words, printed into generated Correct lines — a
+       quantifier FB15's list lacked, a Markdown link to a forged referee report, a phrase false of one of the
+       findings sharing the atom) (a) a class phrase is plain text (no link, emphasis, code, HTML or URL); (b) with
+       --base, a registry line added since BASE is a verbatim copy of a line of a blind reading
+       `runs/<run>/<dir>/class_phrases_reading*.txt` that passes brief → reading → copy (see `class_phrase_readings`).
+  FB18 (same round, d04: the reading guide's layout paragraph was reworded to call the Printed lines "confirmed
+       against the source" and the notes referee-checked) the text above the first section equals PREAMBLE.
 
-  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10 on FINDINGS.md (reads CLAIMS.md)
-  python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9
+  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18
+  python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9, FB15, FB17 (b)
   python3 scripts/trust/check_findings.py --write-correct F<k> [F<j> …]   replace those findings' Correct lines by
                                                        the generated ones (an author edit: FB7 still wants a LEDGER line)
   python3 scripts/trust/check_findings.py --write-layout F<k> [F<j> …]    FB10 layout for those findings (an author
@@ -223,7 +234,7 @@ def load_baseline(path=BASELINE, text=None):
             text = open(path, encoding="utf-8").read()
         except FileNotFoundError:
             text = ""
-    return {l.strip() for l in text.splitlines() if l.strip() and not l.startswith("#")}
+    return {l.strip() for l in text.split("\n") if l.strip() and not l.startswith("#")}
 
 
 def load_phrases(path=PHRASES, text=None):
@@ -233,7 +244,7 @@ def load_phrases(path=PHRASES, text=None):
         except FileNotFoundError:
             text = ""
     out = []
-    for l in text.splitlines():
+    for l in text.split("\n"):  # FB16: one line splitter for every reader (round AO d06)
         if l.strip() and not l.startswith("#") and " => " in l:
             a, b = l.rsplit(" => ", 1)
             out.append((a.strip(), b.strip()))
@@ -358,7 +369,7 @@ def split_top(expr):
 def record_items(body):
     """[(record, quantifier line, [(kind, expr, value, k, role)])] of the generated blocks of a section body."""
     out, inblk = [], False
-    for line in body.splitlines():
+    for line in body.split("\n"):  # FB16 (round AO d06): the same line splitting as FB10, FB14 and check_numbers
         # only inside a generated block (round AN d03, d06: a record header indented in the unchecked notes made the
         # generators list another finding's record and its printed values in the heading and the Printed line)
         if BLOCK_OPEN_EXACT.match(line):
@@ -841,7 +852,9 @@ def fb14(text):
 # every w₀ and wₐ` put a false class into F2's generated Correct line; the records fix Ω and wₐ): a class phrase
 # added to the registry since BASE names the class the atom states, in words; it carries no quantifier word (the
 # generated line states the record's quantifier itself) and no symbol that its atom does not contain.
-QUANT_WORD = re.compile(r"(?i)(?<![-\w])(every|any|all|each|whatever|arbitrary|unrestricted)(?![-\w])")
+QUANT_WORD = re.compile(r"(?i)(?<![-\w])(every|any|all|each|whatever|whichever|whoever|arbitrary|unrestricted|regardless|"
+                        r"irrespective|independent\w*|always|universal\w*|generic\w*|general\w*|uniform\w*|"
+                        r"unconditional\w*)(?![-\w])")
 SYMBOL = re.compile(r"[^\W\d_]+[\w′'″₀-₉ₐ-ₜ⁰-⁹]*")
 
 
@@ -857,6 +870,120 @@ def fb15(new_lines):
                 errs.append(f"FB15: new class phrase '{ph}' names the symbol '{t}', which its atom {atom!r} does not "
                             f"contain (a phrase describes its atom, not other quantities of the record)")
     return errs
+
+
+# FB16 (run 2026-11-14T1228Z, blind round AO d06: one note line of F14 carried a block opener, a record header and a
+# quantifier line separated by U+2028; the generators split FINDINGS.md with str.splitlines(), which breaks there, while
+# FB10, FB14 and check_numbers split at "\n" and saw one note line, so a record that does not exist entered F14's
+# generated heading and Correct line). Every reader here now splits at "\n" only, and the files the generators read
+# carry no other character that a line splitter or a renderer treats as a line break.
+LINE_BREAKS = "\r\v\f\x1c\x1d\x1e\x85  "
+
+
+def fb16(text, name):
+    errs = []
+    for n, l in enumerate(text.split("\n"), 1):
+        bad = sorted({f"U+{ord(c):04X}" for c in l if c in LINE_BREAKS})
+        if bad:
+            errs.append(f"FB16: {name} line {n} contains the line-break character(s) {', '.join(bad)}: only \\n ends a "
+                        f"line (round AO d06: a line separator hid a generated block from every rule but the generators)")
+    return errs
+
+
+# FB17 (run 2026-11-14T1228Z, blind round AO d01–d03: a registry phrase is printed into the GENERATED Correct line of
+# every finding whose record carries its atom, but its words were the author's: "valid whichever matter density is
+# chosen" for a fixed Ω (d01, a quantifier FB15's word list lacked), a Markdown link to a forged referee report under
+# runs/ (d02), "attached flow with no reversed region" for the far-field atom, printed into the reversed-flow finding
+# F14 (d03)). (a) every phrase is plain text: nothing Markdown or HTML renders as a link, emphasis, code, image or
+# tag, and no URL; (b) with --base, a registry line added since BASE is a verbatim copy of a line of a blind reading
+# `runs/<run>/<dir>/class_phrases_reading*.txt` (brief → reading → copy, as for second readings): a `*brief*.md` in
+# the same directory added in a strict ancestor of the commit adding the reading, never changed after it, not
+# containing the phrase, its commit touching nothing under scripts/, Checked/ or Work/; the reading's commit touching
+# nothing outside its directory; the registry at the reading's commit not yet containing the line. The author no
+# longer writes the words a generated line prints; what stays unchecked is that the reader was blind and right.
+PHRASE_ACTIVE = re.compile(r"[\[\]()*_`#|!~\\{}]|<[A-Za-z/!?]|&[A-Za-z#]\w*;|://|www\.", re.I)
+
+
+def fb17_plain(phrases):
+    errs = []
+    for a, ph in phrases:
+        m = PHRASE_ACTIVE.search(ph)
+        if m:
+            errs.append(f"FB17: class phrase '{ph}' (atom {a!r}) contains '{m.group(0)}': a phrase printed into a "
+                        f"generated line is plain text (no link, emphasis, code, HTML or URL; round AO d02)")
+    return errs
+
+
+def class_phrase_readings():
+    """{registry line: [reading file]} of the blind readings of class phrases that pass the route of FB17 (b)."""
+    from pathlib import Path
+    out = {}
+    for f in sorted(Path("runs").glob("*/**/class_phrases_reading*.txt")):
+        add = [x for x in (_git("log", "--format=%H", "--diff-filter=A", "--", str(f)) or "").split() if x]
+        if not add:
+            continue
+        cr = add[-1]
+        d = str(f.parent)
+        touched = [x for x in (_git("show", "--name-only", "--format=", cr) or "").split("\n") if x.strip()]
+        if not touched or any(not t.startswith(d + "/") for t in touched):
+            continue  # the reading's commit touches only its own directory
+        reading = (_git("show", f"{cr}:{f}") or "").split("\n")
+        old_lines = {l.strip() for l in (_git("show", f"{cr}:{PHRASES}") or "").split("\n")}
+        briefs = []
+        for b in sorted(f.parent.glob("*brief*.md")):
+            badd = [x for x in (_git("log", "--format=%H", "--diff-filter=A", "--", str(b)) or "").split() if x]
+            if not badd or badd[-1] == cr:
+                continue
+            cb = badd[-1]
+            if subprocess.run(["git", "merge-base", "--is-ancestor", cb, cr], capture_output=True).returncode != 0:
+                continue
+            if (_git("log", "--format=%H", f"{cr}..HEAD", "--", str(b)) or "").strip():
+                continue  # the brief changed after the reading
+            bt = [x for x in (_git("show", "--name-only", "--format=", cb) or "").split("\n") if x.strip()]
+            if any(t.startswith(("scripts/", "Checked/", "Work/")) or "class_phrases_reading" in t for t in bt):
+                continue
+            briefs.append((_git("show", f"{cb}:{b}") or "").lower())
+        if not briefs:
+            continue
+        for l in reading:
+            l = l.strip()
+            if " => " not in l or l.startswith("#") or l in old_lines:
+                continue
+            ph = l.rsplit(" => ", 1)[1].strip().lower()
+            if any(ph in bt for bt in briefs):
+                continue  # the brief handed the answer over
+            out.setdefault(l, []).append(str(f))
+    return out
+
+
+def fb17_route(new_lines, readings):
+    errs = []
+    for a, ph in new_lines:
+        line = f"{a} => {ph}"
+        if line not in readings:
+            errs.append(f"FB17: registry line '{line}' is new since BASE and is not a verbatim copy of a line of a blind "
+                        f"reading runs/<run>/<dir>/class_phrases_reading*.txt (brief → reading → copy; round AO d01, d03: "
+                        f"the author's own words entered generated Correct lines)")
+    return errs
+
+
+# FB18 (run 2026-11-14T1228Z, blind round AO d04: the reading guide's "Layout of a verified finding" paragraph, the text
+# that tells a reader what to trust, was read by no rule and was reworded to say the Printed lines are "confirmed
+# against the source" and the notes "re-read by an independent referee"). The text between `# FINDINGS` and the first
+# section is fixed: exactly PREAMBLE, changed only by changing this script.
+PREAMBLE = "\nVerified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each entry: source location, Lean evidence, classification, scope, plain-words explanation, prior-art check, referee result.\n\n**Reading guide (generated layout, rule G4 of `scripts/trust/check_numbers.py`):** a number is machine-checked only inside a block headed *Certified numbers (generated)*: there it stands next to the Lean statement that certifies it, quoted from CLAIMS.md. Every other sentence of this file is author prose: it may explain, but it carries no certified number and is not checked by Lean.\n\n**Layout of a verified finding (rules FB10 and FB13 of `scripts/trust/check_findings.py`, runs 2026-11-13T1828Z and 2026-11-14T0028Z):** a heading generated from the records (the finding's Lean records and, for each printed value, whether a blind reader read it and described its source), then two generated lines — *Printed*: the printed values its Lean records contain, each with the blind second reading it agrees with and the reader's own description of the source; *Correct*: what its records state, with quantifier, class and direction — then its certified blocks. Everything under **Unchecked notes**, the author's title first, is author prose that no check reads; a reader who checks nothing should rely on the generated part only.\n"
+
+
+def fb18(text):
+    lines = text.split("\n")
+    try:
+        i = lines.index(FRAME[0])
+    except ValueError:
+        return []  # FB14 reports the missing section
+    if "\n".join(lines[1:i]) != PREAMBLE:
+        return ["FB18: the text between `# FINDINGS` and `## Verified findings` (the reading guide) differs from PREAMBLE "
+                "of check_findings.py: what a reader is told to trust is fixed by the script (round AO d04)"]
+    return []
 
 
 def write_layout(text, secs, cb, phrases, norec):
@@ -1104,7 +1231,28 @@ def selftest():
     if [r for r, _, _ in record_items(sections_full(planted)["F9"])] != ["F9_r"]:
         print("selftest: FB14 record_items reads a record header outside the generated blocks")
         fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3} controls, {fails} failing")
+    # FB16–FB18 (run 2026-11-14T1228Z, blind round AO)
+    ao = [
+        ("FB16 accepts a U+2028 line", bool(fb16("a\u2028b", "x")), True),
+        ("FB16 rejects a clean text", bool(fb16("a\nb", "x")), False),
+        ("record_items splits at U+2028", record_items("  - note \u2028<!-- certified: F9_r -->\u2028  - `Checked.Records.F9_r`, "
+                                                       "as Lean states it:\u2028<!-- /certified -->") == [], True),
+        ("FB17 accepts a Markdown link", bool(fb17_plain([("a", "[re-read by a referee](runs/x/REPORT.md)")])), True),
+        ("FB17 accepts HTML", bool(fb17_plain([("a", "positive <b>for ever</b>")])), True),
+        ("FB17 rejects the registry's phrases", bool(fb17_plain([("a", "faster-than-every-exponential"), ("a", "f'' > 0"),
+                                                                  ("a", "−1 ≤ f' ≤ 1")])), False),
+        ("FB15 accepts 'whichever'", bool(fb15([("`Ω := 245 / 1000`", "valid whichever matter density is chosen")])), True),
+        ("FB17 accepts a new line with no reading", bool(fb17_route([("a", "b")], {})), True),
+        ("FB17 rejects a line copied from a reading", bool(fb17_route([("a", "b")], {"a => b": ["r"]})), False),
+        ("FB18 rejects the fixed preamble", bool(fb18("# FINDINGS\n" + PREAMBLE + "\n## Verified findings\n")), False),
+        ("FB18 accepts a reworded guide", bool(fb18("# FINDINGS\n" + PREAMBLE.replace("author prose that no check reads",
+                                                    "re-read by an independent referee") + "\n## Verified findings\n")), True),
+    ]
+    for what, got, want in ao:
+        if got != want:
+            print(f"selftest: control wrong: {what}")
+            fails += 1
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3 + len(ao)} controls, {fails} failing")
     return fails == 0
 
 
@@ -1132,6 +1280,14 @@ def main():
     errs += fb10(findings, claims_blocks(claims), load_phrases(), norec)
     errs += fb12(findings, claims_blocks(claims), load_phrases())
     errs += fb14(findings)
+    # FB16 on every file a findings rule or generator reads: FINDINGS.md, CLAIMS.md, LEDGER.md (FB7) and the registries
+    from pathlib import Path
+    for fn in [FINDINGS, CLAIMS, "LEDGER.md"] + sorted(str(x) for x in Path("scripts/trust").glob("*.txt")):
+        try:
+            errs += fb16(open(fn, encoding="utf-8").read(), fn)
+        except FileNotFoundError:
+            pass
+    errs += fb17_plain(load_phrases()) + fb18(findings)
     if "--base" in args:
         base = args[args.index("--base") + 1]
         try:
@@ -1149,7 +1305,10 @@ def main():
         for a, b in lost:
             errs.append(f"FB-base: {PHRASES} lost '{a} => {b}' since {base}: the registry only grows")
         try:
-            errs += fb15(sorted(set(load_phrases()) - set(load_phrases(text=oldp))))
+            newp = sorted(set(load_phrases()) - set(load_phrases(text=oldp)))
+            errs += fb15(newp)
+            if newp:
+                errs += fb17_route(newp, class_phrase_readings())
         except NameError:
             pass
         try:

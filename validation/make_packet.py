@@ -389,9 +389,12 @@ def main():
         defs += sorted(def_closure(idx, stmt.split(":", 1)[1] if c is None else stmt, full) - set(defs))
         glossary_names.update(defs)
         rel = p.relative_to(ROOT)
+        # run 2026-11-14T1228Z, blind round AO d05: the Source line copied the author's unchecked title note of a
+        # finding with no label, so a false title reached the experts as the item's source; it is labelled now
         src = (c or {}).get("source") or source_of(g, h)
         txt = [f"# Item {n:02d}", "",
-               f"**Area:** {g}", "", f"**Source:** {src}", "",
+               f"**Area:** {g}", "", f"**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** {src}",
+               "",
                "## Claim generated from the Lean statement (machine-produced; this is what was proved)", "", claim, "",
                "## Author's paraphrase (hand-written; checked only by prose rules)", "", doc or "(no docstring)", "",
                "## Formal statement (Lean 4)", "", "```lean", stmt, "```", ""]

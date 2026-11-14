@@ -2,7 +2,7 @@
 
 **Area:** Falkner–Skan attached rows β = −0.13, −0.14, −0.15, −0.16
 
-**Source:** see the claim
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 

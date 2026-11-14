@@ -2,7 +2,7 @@
 
 **Area:** F1
 
-**Source:** Aviles, Gruber, Luongo, Quevedo, PRD 86, 123516 (2012), arXiv:1204.2007 (v1 and v2), Eq. (15): misprinted ΛCDM l₀ and m₀
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** Aviles, Gruber, Luongo, Quevedo, PRD 86, 123516 (2012), arXiv:1204.2007 (v1 and v2), Eq. (15): misprinted ΛCDM l₀ and m₀
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 

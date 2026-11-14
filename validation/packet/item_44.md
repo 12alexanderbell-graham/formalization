@@ -2,7 +2,7 @@
 
 **Area:** F0
 
-**Source:** textbook definition of lookback time and the cosmographic parameters (e.g. Visser 2004, Class. Quantum Grav. 21, 2603)
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** textbook definition of lookback time and the cosmographic parameters (e.g. Visser 2004, Class. Quantum Grav. 21, 2603)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 

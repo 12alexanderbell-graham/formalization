@@ -2,7 +2,7 @@
 
 **Area:** Astrophysics
 
-**Source:** see the claim
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 

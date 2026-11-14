@@ -2,7 +2,7 @@
 
 **Area:** Falkner–Skan findings F12–F14
 
-**Source:** Fazio, arXiv:1212.5057v1 (2012), p. 16, and the values tabulated in Asaithambi, Fluids 6 (2021) 153, Table 2 (Asaithambi 2005, Zhang–Chen 2009, Salama 2004), and Zhu–Cheng–Wu (2009 preprint), Table 5: five printed values of the attached Falkner–Skan wall shear at β = −0.1988[src=F13_wall_shear] are too large in the fourth significant digit
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** Fazio, arXiv:1212.5057v1 (2012), p. 16, and the values tabulated in Asaithambi, Fluids 6 (2021) 153, Table 2 (Asaithambi 2005, Zhang–Chen 2009, Salama 2004), and Zhu–Cheng–Wu (2009 preprint), Table 5: five printed values of the attached Falkner–Skan wall shear at β = −0.1988[src=F13_wall_shear] are too large in the fourth significant digit
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 

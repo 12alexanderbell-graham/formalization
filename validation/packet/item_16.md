@@ -2,7 +2,7 @@
 
 **Area:** Certified numbers of the findings
 
-**Source:** Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v2, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** Capozziello, Cardone, Salzano, PRD 78, 063504 (2008), arXiv:0802.1583v2, App. A, Eq. (A2): lookback-distance z⁵ coefficient, 7/2 q₀⁴ should be 7/8 q₀⁴
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 

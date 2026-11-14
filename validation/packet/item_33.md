@@ -2,7 +2,7 @@
 
 **Area:** F1
 
-**Source:** arXiv:1903.11433, Eq. (21): misprinted flat ΛCDM l₀ (printed as 1 + 3Ω_m − (27/2)Ω_m²)
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** arXiv:1903.11433, Eq. (21): misprinted flat ΛCDM l₀ (printed as 1 + 3Ω_m − (27/2)Ω_m²)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
