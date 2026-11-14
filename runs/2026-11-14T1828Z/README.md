@@ -29,4 +29,8 @@
 - STATE 0u.
 
 ## Local checks and push
-- See the final commit message (filled below at the end of the run).
+- `lake build Checked` green (incremental on the restored build; BE3Data 47 s, BE3Main 94 s); `#print axioms` of `Work.Math.BonnorEbertMax3.bonnor_ebert_third_max` and of the blind closure: propext, Classical.choice, Quot.sound.
+- `TRUST_RELOCK=1 lake env lean scripts/trust/StatementDeps.lean` exit 0 (290 headlines; NV 173/173; necessity: needed 604 → 608, redundant 157 → 158, open 221 unchanged — the new headline enters fully classified); `Claims.lean` regenerated CLAIMS.md (290 claims); `make_packet.py` redrew the packet's sample (mechanical, seed unchanged).
+- `local_frozen_step.py --trust 071b543` (newest fully green main): trust step exit 0, frozen step 21 commands, 0 failed; `records_check.py 071b543` after the last record edit: 41 commands, 0 failed.
+- Float study for the next step: `study/focus_ball.py` (STATE 0u).
+- Final push removes the LOCK; its CI run judges the promotion (fc559f2's checked job still running at the end; 0ed4bdf's pending run is replaced by this push, which contains it).
