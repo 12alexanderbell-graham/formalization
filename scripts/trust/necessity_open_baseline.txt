@@ -14,7 +14,6 @@ FRCosmo.exists_LCDM_model | 1, 2
 FRCosmo.printedF0Mul_false_at | 1, 2
 FRCosmo.printedF0_false_at | 1, 2, 3
 FREta.eta_ratios | 1, 3, 4
-Fidelity.decelSpec_pins | 2, 3
 Fidelity.redshiftCore_pins | 2
 Fidelity.cosmoCoeffCore_pins | 2
 B1.lumDistFlat_flatLCDM | 1, 2, 3, 4

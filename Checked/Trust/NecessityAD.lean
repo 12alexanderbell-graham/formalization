@@ -1,5 +1,6 @@
 import Checked.Trust.NonVacuity
 import Checked.Trust.NecessityD
+import Checked.Trust.NecessityL
 
 /-! Hypothesis necessity for the smoothness hypothesis (hypothesis 1, `ContDiffAt`) of the past-only
 "printed coefficient fails" cosmography headlines (run 2026-11-14T0828Z; scratch
@@ -22,7 +23,14 @@ two-sided companions keep this hypothesis open (a kink gives different top coeff
 
 The two-sided `lookback_second_order_bigO` (`O(z³)`) is different: its only other hypotheses are `a(t₀) ≠ 0`
 and `ȧ(t₀) ≠ 0`, so the kinked `1 + t + t|t|` of `Checked.Trust.NCD` (junk `q₀ = 0`, remainder `t|t| + a z³`)
-shows smoothness needed there too. -/
+shows smoothness needed there too.
+
+`Fidelity.decelSpec_pins` (hypotheses 2 and 3, `ȧ = a'` near `t` and `a'` differentiable at `t` with
+derivative `a''`): `decelDiff` (`decel` where `a` is differentiable at `t`, `decel + 1` elsewhere) and
+`decelDiff2` (the same with `ȧ` in place of `a`) meet `DecelSpec`, because every clause of the specification
+concerns a scale factor whose derivative is given or nonzero; at `1 + |s|` and at `1 + s + s|s|` they differ
+from `decel` at `0`. So both hypotheses are needed: the specification pins `decel` only where the scale factor
+is twice differentiable. -/
 
 namespace Checked.Trust.NecessityAD
 open Set Filter Topology Asymptotics
@@ -528,5 +536,137 @@ theorem lookback_second_order_bigO_h1 :
   apply Checked.Trust.NCD.kink_not_littleO 0
   refine hg.congr' (Eventually.of_forall fun t => ?_) EventuallyEq.rfl
   ring
+
+/-! ### `Fidelity.decelSpec_pins`: the two derivative hypotheses -/
+open Classical in
+/-- `decel` where `a` is differentiable at `t`, `decel + 1` elsewhere. -/
+noncomputable def decelDiff (a : ℝ → ℝ) (t : ℝ) : ℝ :=
+  if DifferentiableAt ℝ a t then decel a t else decel a t + 1
+
+theorem decelDiff_spec : Checked.Fidelity.DecelSpec decelDiff := by
+  have M := Checked.Fidelity.decel_meets_spec
+  have D : ∀ (a : ℝ → ℝ) (t : ℝ), deriv a t ≠ 0 → decelDiff a t = decel a t := fun a t h => by
+    rw [decelDiff, ite_eq_left (differentiableAt_of_deriv_ne_zero h)]
+  refine ⟨fun a a' a'' t h1 h2 ha hd => ?_, fun h t hh => ?_, fun n t hn ht => ?_, fun t ht => ?_,
+    fun n t hn ht => ?_, fun c hc a t hd => ?_, fun τ a t hd => ?_, fun a t hd => ?_⟩
+  · rw [decelDiff, ite_eq_left (h1.self_of_nhds).differentiableAt]; exact M.formula a a' a'' t h1 h2 ha hd
+  · have hD : deriv (fun s => Real.exp (h * s)) t ≠ 0 := by
+      rw [(Checked.Fidelity.ms_hasDerivAt_expMul h t).deriv]
+      exact mul_ne_zero hh (Real.exp_pos _).ne'
+    rw [D _ _ hD]; exact M.deSitter h t hh
+  · rw [D _ _ (Checked.Trust.NCL.rpow_deriv_ne n t hn ht)]; exact M.powerLaw n t hn ht
+  · rw [D _ _ (Checked.Trust.NCL.rpow_deriv_ne _ t (by norm_num) ht)]; exact M.eds t ht
+  · have hD : deriv (fun s : ℝ => (-s) ^ n) t ≠ 0 := by
+      rw [deriv_comp_neg (fun s : ℝ => s ^ n) t]
+      exact neg_ne_zero.2 (Checked.Trust.NCL.rpow_deriv_ne n (-t) hn (by linarith))
+    rw [D _ _ hD]; exact M.crunch n t hn ht
+  · have hD : deriv (fun s => c * a s) t ≠ 0 := by
+      rw [deriv_const_mul_field']; exact mul_ne_zero hc.ne' hd
+    rw [D _ _ hD, D _ _ hd]; exact M.rescale c hc a t hd
+  · have hD : deriv (fun s => a (s + τ)) t ≠ 0 := by rw [deriv_comp_add_const]; exact hd
+    rw [D _ _ hD, D _ _ hd]; exact M.translate τ a t hd
+  · have hD : deriv (fun s => a (-s)) t ≠ 0 := by rw [deriv_comp_neg]; exact neg_ne_zero.2 hd
+    rw [D _ _ hD, D _ _ hd]; exact M.timeReverse a t hd
+
+/-- The derivative hypothesis `ȧ = a'` near `t` is needed in `decelSpec_pins`: `decelDiff` meets
+`DecelSpec` (every clause of the specification is about a scale factor differentiable at the time
+considered), and at `a = 1 + |s|`, `t = 0`, with `a' = 1`, `a'' = 0` (so `a'` has derivative `a''`,
+`a(0) > 0`, `a'(0) ≠ 0`), `a` is not differentiable at `0` and `decelDiff a 0 = decel a 0 + 1`. -/
+theorem decelSpec_pins_h2 : necessity% Checked.Fidelity.decelSpec_pins 2 := by
+  have hnd : ¬ DifferentiableAt ℝ (fun s : ℝ => 1 + |s|) 0 := fun h => by
+    apply not_differentiableAt_abs_zero
+    have := h.const_add (-1)
+    convert this using 1; funext s; ring
+  refine ⟨decelDiff, decelDiff_spec, fun s => 1 + |s|, fun _ => 1, 0, 0, hasDerivAt_const _ _,
+    by norm_num, one_ne_zero, ?_⟩
+  rw [decelDiff, ite_eq_right hnd]; norm_num
+
+
+theorem dmul_iff (c : ℝ) (hc : c ≠ 0) (f : ℝ → ℝ) (t : ℝ) :
+    DifferentiableAt ℝ (fun s => c * f s) t ↔ DifferentiableAt ℝ f t := by
+  refine ⟨fun h => ?_, fun h => h.const_mul c⟩
+  have := h.const_mul c⁻¹
+  convert this using 1; funext s; field_simp
+
+theorem dadd_iff (τ : ℝ) (f : ℝ → ℝ) (t : ℝ) :
+    DifferentiableAt ℝ (fun s => f (s + τ)) t ↔ DifferentiableAt ℝ f (t + τ) := by
+  refine ⟨fun h => ?_, fun h => h.comp t ((differentiableAt_id).add_const τ)⟩
+  have h2 : DifferentiableAt ℝ (fun s => s - τ) (t + τ) := differentiableAt_id.sub_const τ
+  have := (show DifferentiableAt ℝ (fun s => f (s + τ)) ((t + τ) - τ) by simpa using h).comp (t + τ) h2
+  convert this using 1; funext s; simp
+
+theorem dneg_iff (f : ℝ → ℝ) (t : ℝ) :
+    DifferentiableAt ℝ (fun s => -f (-s)) t ↔ DifferentiableAt ℝ f (-t) := by
+  refine ⟨fun h => ?_, fun h => (h.comp t differentiableAt_id.neg).neg⟩
+  have := ((show DifferentiableAt ℝ (fun s => -f (-s)) (-(-t)) by simpa using h).comp (-t)
+    differentiableAt_id.neg).neg
+  convert this using 1; funext s; simp
+
+open Classical in
+/-- `decel` where `ȧ` is differentiable at `t`, `decel + 1` elsewhere. -/
+noncomputable def decelDiff2 (a : ℝ → ℝ) (t : ℝ) : ℝ :=
+  if DifferentiableAt ℝ (deriv a) t then decel a t else decel a t + 1
+
+theorem rpow_d2 (n t : ℝ) (ht : 0 < t) : DifferentiableAt ℝ (deriv fun s : ℝ => s ^ n) t := by
+  have e : (fun s => n * s ^ (n - 1)) =ᶠ[𝓝 t] deriv fun s : ℝ => s ^ n := by
+    filter_upwards [lt_mem_nhds ht] with s hs
+    exact (Real.hasDerivAt_rpow_const (Or.inl hs.ne')).deriv.symm
+  exact ((Real.hasDerivAt_rpow_const (p := n - 1) (Or.inl ht.ne')).differentiableAt.const_mul n).congr_of_eventuallyEq e.symm
+
+theorem decelDiff2_spec : Checked.Fidelity.DecelSpec decelDiff2 := by
+  have M := Checked.Fidelity.decel_meets_spec
+  have D : ∀ (a : ℝ → ℝ) (t : ℝ), DifferentiableAt ℝ (deriv a) t → decelDiff2 a t = decel a t :=
+    fun a t h => by rw [decelDiff2, ite_eq_left h]
+  refine ⟨fun a a' a'' t h1 h2 ha hd => ?_, fun h t hh => ?_, fun n t hn ht => ?_, fun t ht => ?_,
+    fun n t hn ht => ?_, fun c hc a t hd => ?_, fun τ a t hd => ?_, fun a t hd => ?_⟩
+  · have e : deriv a =ᶠ[𝓝 t] a' := h1.mono fun s hs => hs.deriv
+    rw [D _ _ (h2.differentiableAt.congr_of_eventuallyEq e)]; exact M.formula a a' a'' t h1 h2 ha hd
+  · have e : deriv (fun s => Real.exp (h * s)) = fun s => h * Real.exp (h * s) :=
+      funext fun s => (Checked.Fidelity.ms_hasDerivAt_expMul h s).deriv
+    have hD : DifferentiableAt ℝ (deriv fun s => Real.exp (h * s)) t := by
+      rw [e]; fun_prop
+    rw [D _ _ hD]; exact M.deSitter h t hh
+  · rw [D _ _ (rpow_d2 n t ht)]; exact M.powerLaw n t hn ht
+  · rw [D _ _ (rpow_d2 _ t ht)]; exact M.eds t ht
+  · have e : deriv (fun s : ℝ => (-s) ^ n) = fun s => -deriv (fun s : ℝ => s ^ n) (-s) :=
+      funext fun s => deriv_comp_neg (fun s : ℝ => s ^ n) s
+    have hD : DifferentiableAt ℝ (deriv fun s : ℝ => (-s) ^ n) t := by
+      rw [e]; exact (dneg_iff _ t).2 (rpow_d2 n (-t) (by linarith))
+    rw [D _ _ hD]; exact M.crunch n t hn ht
+  · have e : deriv (fun s => c * a s) = fun s => c * deriv a s :=
+      funext fun s => by rw [deriv_const_mul_field']
+    have hM := M.rescale c hc a t hd
+    unfold decelDiff2
+    rw [e]
+    by_cases h : DifferentiableAt ℝ (deriv a) t
+    · rw [ite_eq_left h, ite_eq_left ((dmul_iff c hc.ne' _ t).2 h), hM]
+    · rw [ite_eq_right h, ite_eq_right (fun h' => h ((dmul_iff c hc.ne' _ t).1 h')), hM]
+  · have e : deriv (fun s => a (s + τ)) = fun s => deriv a (s + τ) :=
+      funext fun s => deriv_comp_add_const a τ s
+    have hM := M.translate τ a t hd
+    unfold decelDiff2
+    rw [e]
+    by_cases h : DifferentiableAt ℝ (deriv a) (t + τ)
+    · rw [ite_eq_left h, ite_eq_left ((dadd_iff τ _ t).2 h), hM]
+    · rw [ite_eq_right h, ite_eq_right (fun h' => h ((dadd_iff τ _ t).1 h')), hM]
+  · have e : deriv (fun s => a (-s)) = fun s => -deriv a (-s) :=
+      funext fun s => deriv_comp_neg a s
+    have hM := M.timeReverse a t hd
+    unfold decelDiff2
+    rw [e]
+    by_cases h : DifferentiableAt ℝ (deriv a) (-t)
+    · rw [ite_eq_left h, ite_eq_left ((dneg_iff _ t).2 h), hM]
+    · rw [ite_eq_right h, ite_eq_right (fun h' => h ((dneg_iff _ t).1 h')), hM]
+
+theorem decelSpec_pins_h3 : necessity% Checked.Fidelity.decelSpec_pins 3 := by
+  have hnd : ¬ DifferentiableAt ℝ (deriv (Checked.Trust.NCD.kink 0)) 0 := fun h => by
+    rw [Checked.Trust.NCD.kink_deriv] at h
+    apply not_differentiableAt_abs_zero
+    have := (h.const_add (-1)).const_mul (1 / 2 : ℝ)
+    convert this using 1; funext s; push_cast; ring
+  refine ⟨decelDiff2, decelDiff2_spec, Checked.Trust.NCD.kink 0, fun s => 1 + 2 * |s|, 0, 0,
+    Eventually.of_forall fun s => ?_, by simp [Checked.Trust.NCD.kink], by norm_num, ?_⟩
+  · convert Checked.Trust.NCD.kink_hasDerivAt 0 s using 1; push_cast; ring
+  · rw [decelDiff2, ite_eq_right hnd]; norm_num
 
 end Checked.Trust.NecessityAD
