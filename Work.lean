@@ -240,6 +240,7 @@ import Work.Math.GProfile
 import Work.Math.GelfandPDEExists
 import Work.Math.GelfandPDEExistsBlind
 import Work.Math.GelfandPDEExistsBlindClosed
+import Work.Math.GelfandPDEMany
 import Work.Sim.MMAudit
 import Work.Sim.OneSided
 import Work.Sim.RobCell
