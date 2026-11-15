@@ -126,14 +126,28 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        section, and a line there that mentions F<k> is either grandfathered (exact text,
        `scripts/trust/candidates_mention_baseline.txt`, shrink-only with --base) or a bare pointer row
        `| C<n> | — | — | → **F<k>** |` bound to '(was …)' (d01 free cells, d02 another arrow).
+  FB23 (run 2026-11-15T0428Z, part 3; FINDINGS.md is read on GitHub, whose renderer is cmark-gfm plus post-processing,
+       while FB21 renders with markdown-it-py) FINDINGS.md is also rendered with cmark-gfm itself (cmarkgfm, pinned in
+       CI; GitHub's extensions autolink, table, strikethrough, tagfilter, tasklist, footnotes) and must show what FB21
+       checked: the same headings at the same lines in the whole file, no footnote and no task-list box anywhere, and
+       in the verified section the same blocks (paragraphs aside) at the same lines, the same inline markup and the
+       same text per source line; no `$` or emoji shortcode in the verified section (GitHub renders them as math or
+       emoji after cmark-gfm). Fails closed without cmarkgfm. Written blind to round AR (in parallel with it).
+  After blind round AR (same run; 6/6 valid wrong findings accepted against FB19–FB22, `runs/2026-11-15T0428Z/t5/
+       RESULTS.md`): FB23 catches d03 (a footnote GitHub lifts to the page foot) and d04 (`$\textbf{…}$` math spelling
+       a generated-looking Correct line); FB21: the whole file holds no HTML but HTML comments (d05: raw `<h2>`/`<h3>`
+       in the candidates, an html_block to markdown-it, headings on GitHub); FB20: no combining mark (d06: U+034F,
+       combining class 0, survived the fold inside 'gen|erated'); FB22: a candidates line may mention a verified
+       finding — `F<k>` or a record name `F<k>_…` (d02) — only if grandfathered (d01: the bare pointer row's binding
+       to the title note "(was …)" was author prose).
 
-  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18–FB22
+  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18–FB23
   python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9, FB15, FB17 (b)
   python3 scripts/trust/check_findings.py --write-correct F<k> [F<j> …]   replace those findings' Correct lines by
                                                        the generated ones (an author edit: FB7 still wants a LEDGER line)
   python3 scripts/trust/check_findings.py --write-layout F<k> [F<j> …]    FB10 layout for those findings (an author
                                                        edit: FB7 still wants a LEDGER line)
-  python3 scripts/trust/check_findings.py --render     FB21 and FB22 only (selftest first; no Lean output read)
+  python3 scripts/trust/check_findings.py --render     FB21–FB23 only (selftest first; no Lean output read)
   python3 scripts/trust/check_findings.py --selftest   controls only
 """
 import re
@@ -855,6 +869,10 @@ def fb20(text):
             bad = None
             if unicodedata.category(ch) == "Cf":
                 bad = "an invisible format character"
+            elif unicodedata.category(ch) in ("Mn", "Mc", "Me"):
+                # round AR d06: U+034F COMBINING GRAPHEME JOINER (category Mn, combining class 0, so the fold kept it)
+                # split 'gen|erated' and 'do| not edit'; FINDINGS.md needs no combining mark (precomposed letters only)
+                bad = "a combining mark (round AR d06: an invisible mark split the marks of generated text)"
             elif ch.isalpha() and not unicodedata.name(ch, "?").startswith(ALLOWED_LETTER_SCRIPTS):
                 bad = "a letter outside the Latin, Greek and mathematical alphabets"
             elif (ch.isalpha() and ord(ch) > 127 and unicodedata.name(ch, "?").startswith(("LATIN", "MODIFIER"))
@@ -1363,8 +1381,18 @@ def selftest():
         ("FB21 passes with markdown-it-py missing (fail closed)", _fb21_closed(fr), True),
         ("FB22 rejects the clean frame", bool(fb22(fr)), False),
         ("FB22 accepts an unbound pointer (AP d05)", bool(fb22(fr.replace("### C-1 x\n", "### C-1 x\n| C77 | invented | — | → **F9** |\n", 1))), True),
-        ("FB22 rejects a pointer named in the title (was …)",
-         bool(fb22(fr.replace(mk + "  - *(author)* ", mk + "  - *(author)* (was C77) ", 1).replace("### C-1 x\n", "### C-1 x\n| C77 | — | — | → **F9** |\n", 1))), False),
+        # round AR d01: the "(was …)" binding was author prose; a new pointer row is now rejected even when named there
+        ("FB22 accepts a new pointer row named in the title (was …) (AR d01)",
+         bool(fb22(fr.replace(mk + "  - *(author)* ", mk + "  - *(author)* (was C77) ", 1).replace("### C-1 x\n", "### C-1 x\n| C77 | — | — | → **F9** |\n", 1))), True),
+        ("FB22 accepts a grandfathered mention line",
+         bool(fb22(fr.replace("### C-1 x\n", "### C-1 x\n| C77 | — | — | → **F9** |\n", 1), baseline={"| C77 | — | — | → **F9** |"})), False),
+        ("FB22 accepts a mention by record name (AR d02)",
+         bool(fb22(fr.replace("### C-1 x\n", "### C-1 x\n| C77 | certified by F9_values for every model | — | — |\n", 1))), True),
+        ("FB20 accepts a combining grapheme joiner inside a mark (AR d06)", bool(fb20("gen\u034ferated")), True),
+        ("FB20 accepts a combining acute", bool(fb20("e\u0301")), True),
+        ("FB21 accepts raw HTML headings in the candidates (AR d05)",
+         bool(fb21(fr.replace("### C-1 x\n", "### C-1 x\n\n<h2>Verified findings (addendum)</h2>\n<h3>F15</h3>\n\n", 1))), True),
+        ("FB21 accepts inline HTML in the candidates", bool(fb21(fr.replace("### C-1 x\n", "### C-1 x\nsee <b>F15</b> here\n", 1))), True),
         # round AQ (blind, against FB19–FB22): the shapes that passed, as controls of the repairs
         ("FB22 accepts a pointer row with free cells (AQ d01)", bool(fb22(fr.replace(mk + "  - *(author)* ", mk + "  - *(author)* (was C77) ", 1).replace("### C-1 x\n", "### C-1 x\n| C77 | paper Table V wrong | — | → **F9** |\n", 1))), True),
         ("FB22 accepts a certified tag in the candidates", bool(fb22(fr.replace("### C-1 x\n", "### C-1 x\n- value 0.5[✓F9_r]\n", 1))), True),
@@ -1376,11 +1404,24 @@ def selftest():
         ("FB21 accepts a setext h2 in the candidates (AQ d05)", bool(fb21(fr.replace("### C-1 x\n", "### C-1 x\n\nVerified findings (continued)\n---\n", 1))), True),
         ("FB21 accepts an indented h3 in the candidates (AQ d05)", bool(fb21(fr.replace("### C-1 x\n", "### C-1 x\n\n   ### F15 — x\n", 1))), True),
     ]
-    for what, got, want in ao + ap + aq:
+    # FB23 (run 2026-11-15T0428Z, part 3): GitHub's own renderer (cmark-gfm) must show what FB21 checked
+    C = "\n- **Correct (generated"
+    ar = [
+        ("FB23 rejects the clean frame", bool(fb23(fr)), False),
+        ("FB23 accepts a bare www autolink in a generated line", bool(fb23(fr.replace(C, "\n- **Correct (generated www.example.org", 1))), True),
+        ("FB23 accepts a bare https URL in a generated line", bool(fb23(fr.replace(C, "\n- **Correct (generated https://example.org/x", 1))), True),
+        ("FB23 accepts a footnote", bool(fb23(fr.replace(R, R + " [^1]", 1) + "\n[^1]: Checked in Lean.\n")), True),
+        ("FB23 accepts single-tilde strikethrough in a generated line", bool(fb23(fr.replace(C, "\n- ~**Correct (generated~", 1))), True),
+        ("FB23 accepts math in a note", bool(fb23(fr.replace(R, "  - *(author)* $x$\n" + R, 1))), True),
+        ("FB23 accepts an emoji shortcode in a note", bool(fb23(fr.replace(R, "  - *(author)* :white_check_mark:\n" + R, 1))), True),
+        ("FB23 accepts a task-list item in the notes", bool(fb23(fr.replace(R, "  - [x] *(author)* verified\n" + R, 1))), True),
+        ("FB23 passes with cmark-gfm missing (fail closed)", _fb23_closed(fr), True),
+    ]
+    for what, got, want in ao + ap + aq + ar:
         if got != want:
             print(f"selftest: control wrong: {what}")
             fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3 + len(ao) + len(ap) + len(aq)} controls, {fails} failing")
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3 + len(ao) + len(ap) + len(aq) + len(ar)} controls, {fails} failing")
     return fails == 0
 
 
@@ -1480,6 +1521,18 @@ def fb21(text):
         for ref in sorted((env.get("references") or {})):
             e.append(f"a link reference definition '[{ref}]' is defined (it can turn bracketed text anywhere in the "
                      f"file, generated blocks included, into links)")
+        # round AR d05: raw HTML `<h2>…</h2><h3>…` in the candidates section is an html_block to markdown-it (so the
+        # heading whitelist below never saw it) but GitHub renders the headings: the whole file holds no HTML except
+        # HTML comments (the certified blocks' markers)
+        for t in toks:
+            if t.type == "html_block" and HTML_TAG.search(re.sub(r"<!--.*?-->", "", t.content, flags=re.S)):
+                a = t.map[0] if t.map else -1
+                e.append(f"line {a + 1} '{lines[a][:50] if a >= 0 else ''}' is raw HTML (GitHub renders it; only "
+                         f"HTML comments are allowed)")
+            for c in (t.children or []) if t.type == "inline" else []:
+                if c.type == "html_inline" and not c.content.startswith("<!--"):
+                    a = t.map[0] if t.map else -1
+                    e.append(f"line {a + 1} '{lines[a][:50] if a >= 0 else ''}' holds inline HTML '{c.content[:30]}'")
         # round AQ d05: a setext or indented heading outside the verified section rendered a second verified section
         try:
             c0 = lines.index(FRAME[1])
@@ -1561,6 +1614,169 @@ def fb21(text):
     return errs
 
 
+# FB23 (run 2026-11-15T0428Z, part 3): a reader opens FINDINGS.md on GitHub, whose renderer is cmark-gfm (plus
+# post-processing: math, emoji), not markdown-it-py. GitHub's own library (cmarkgfm, pinned in CI) renders the file
+# and must show what FB21 checked: the same headings at the same lines in the whole file, no footnote and no task-list
+# box anywhere, and in the verified section the same blocks (paragraphs aside) at the same lines with the same inline
+# markup and the same text per source line; no `$` or emoji shortcode in the verified section. Fails closed.
+from html.parser import HTMLParser  # noqa: E402 - FB23
+
+GFM_EXT = ["autolink", "table", "strikethrough", "tagfilter", "tasklist"]
+
+
+def _gfm_html(text):
+    """GitHub's renderer: cmark-gfm (cmarkgfm==2024.11.20 in CI) with GitHub's extensions, source positions."""
+    import cmarkgfm
+    from cmarkgfm.cmark import Options as O
+    return cmarkgfm.markdown_to_html_with_extensions(
+        text, options=O.CMARK_OPT_SOURCEPOS | O.CMARK_OPT_FOOTNOTES | O.CMARK_OPT_UNSAFE, extensions=GFM_EXT)
+
+
+_MDIT_TAG = {"strong_open": "strong", "em_open": "em", "code_inline": "code", "s_open": "del", "link_open": "a",
+             "image": "img", "html_inline": "html"}
+_GFM_INLINE = {"strong", "em", "code", "del", "a", "img", "input", "sup", "br", "span", "b", "i", "s", "strike",
+               "u", "kbd", "sub", "mark", "q", "abbr", "small", "big", "font", "ins", "tt", "math"}
+MATH_OR_EMOJI = re.compile(r"\$|(?<![\w:]):[a-z0-9_+\-]+:(?![\w:])")
+
+
+class _Blocks(HTMLParser):
+    """Per block element carrying data-sourcepos: its tag, start/end line, inline tag sequence and text."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.blocks, self.stack, self.extra = [], [], []
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        sp = a.get("data-sourcepos")
+        if sp:
+            s, e = sp.split("-")
+            b = {"tag": tag, "a": int(s.split(":")[0]) - 1, "b": int(e.split(":")[0]) - 1, "inl": [], "text": [],
+                 "attrs": a}
+            self.blocks.append(b)
+            if tag not in ("input", "img", "br", "hr"):
+                self.stack.append((tag, b))
+        else:
+            blk = next((b for _, b in reversed(self.stack) if b is not None), None)
+            if blk is not None:
+                blk["inl"].append(tag)
+            else:
+                self.extra.append((tag, a))
+            if tag in ("section", "sup", "input", "img"):
+                self.extra.append((tag, a))
+            if tag not in ("input", "img", "br", "hr"):
+                self.stack.append((tag, None))
+
+    def handle_endtag(self, tag):
+        for k in range(len(self.stack) - 1, -1, -1):
+            if self.stack[k][0] == tag:
+                del self.stack[k:]
+                break
+
+    def handle_data(self, data):
+        for t, b in reversed(self.stack):
+            if b is not None:
+                b["text"].append(data)
+                break
+
+    def handle_comment(self, data):
+        self.extra.append(("!--", {"data": data}))
+
+
+def _ws(s):
+    return " ".join(s.split())
+
+
+def fb23(text):
+    """GitHub's renderer (cmark-gfm, as on github.com) must show what FB21 checked with markdown-it-py."""
+    try:
+        html = _gfm_html(text)
+        from markdown_it import MarkdownIt
+    except Exception as e:  # noqa: BLE001 - fail closed
+        return [f"FB23: the GitHub rendering check cannot run ({e.__class__.__name__}: {e}); install cmarkgfm "
+                f"(CI pins it) — the check fails closed"]
+    lines = text.split("\n")
+    p = _Blocks()
+    p.feed(html)
+    md = MarkdownIt("commonmark").enable(["table", "strikethrough"])
+    toks = md.parse(text)
+    errs = []
+    # (1) headings: the same headings at the same lines as markdown-it renders (FB21 whitelists those)
+    gh = sorted((b["tag"], b["a"]) for b in p.blocks if re.fullmatch(r"h[1-6]", b["tag"]))
+    mh = sorted((t.tag, t.map[0]) for t in toks if t.type == "heading_open" and t.map)
+    for x in sorted(set(gh) ^ set(mh)):
+        side = "GitHub" if x in gh else "markdown-it"
+        errs.append(f"FB23: line {x[1] + 1} '{lines[x[1]][:50]}' renders as an {x[0]} heading only on {side}")
+    # (2) nothing GitHub-only anywhere: footnotes, task-list boxes
+    for tag, a in p.extra:
+        if tag == "section" or tag == "sup" or "data-footnote-ref" in a or "data-footnotes" in a:
+            errs.append("FB23: GitHub renders a footnote (a footnote reference or definition is in the file)")
+            break
+    if any(t == "input" for t, _ in p.extra) or any(b["tag"] == "input" for b in p.blocks) or \
+            any("input" in b["inl"] for b in p.blocks):
+        errs.append("FB23: GitHub renders a task-list checkbox")
+    # (3) the verified section: same blocks, same inline structure, same text
+    try:
+        v0 = lines.index("## Verified findings")
+    except ValueError:
+        return errs + ["FB23: no verified section"]
+    v1 = next((i for i in range(v0 + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+    ins = lambda i: v0 < i < v1  # noqa: E731
+    # block structure (paragraphs aside: cmark omits <p> in tight list items, markdown-it hides it)
+    gs = sorted((b["tag"], b["a"]) for b in p.blocks if ins(b["a"]) and b["tag"] != "p")
+    ms = sorted((t.tag, t.map[0]) for t in toks if t.nesting == 1 and t.map and ins(t.map[0])
+                and t.tag not in ("p", ""))
+    for x in sorted(set(gs) ^ set(ms), key=lambda y: y[1]):
+        side = "only on GitHub" if x in gs else "only with markdown-it"
+        errs.append(f"FB23: line {x[1] + 1} '{lines[x[1]][:50]}' renders a <{x[0]}> block {side}")
+    if sorted(gs) != sorted(ms) and not (set(gs) ^ set(ms)):
+        errs.append("FB23: the verified section renders a different number of blocks on GitHub")
+    # what each source line's blocks show: inline markup and text, grouped by start line
+    gi, gt = {}, {}
+    for b in p.blocks:
+        if ins(b["a"]):
+            gi.setdefault(b["a"], []).extend(x for x in b["inl"] if x in _GFM_INLINE)
+            gt.setdefault(b["a"], []).extend(b["text"])
+    mi, mt = {}, {}
+    for t in toks:
+        if t.type != "inline" or not t.map or not ins(t.map[0]):
+            continue
+        i = t.map[0]
+        for c in t.children or []:
+            if c.type in _MDIT_TAG:
+                mi.setdefault(i, []).append(_MDIT_TAG[c.type])
+            if c.type in ("text", "code_inline", "html_inline"):
+                mt.setdefault(i, []).append(c.content)
+            elif c.type in ("softbreak", "hardbreak"):
+                mt.setdefault(i, []).append(" ")
+    for i in sorted(set(gi) | set(mi) | set(gt) | set(mt)):
+        if gi.get(i, []) != mi.get(i, []):
+            errs.append(f"FB23: line {i + 1} '{lines[i][:50]}' renders with inline markup {gi.get(i, [])} on "
+                        f"GitHub, {mi.get(i, [])} with markdown-it")
+        if _ws("".join(gt.get(i, []))) != _ws("".join(mt.get(i, []))):
+            errs.append(f"FB23: line {i + 1} '{lines[i][:50]}' shows different text on GitHub than with markdown-it")
+    # (4) GitHub post-processing that cmark-gfm does not do: math ($…$) and emoji shortcodes
+    for i in range(v0 + 1, v1):
+        if MATH_OR_EMOJI.search(lines[i]) and not lines[i].startswith("<!--"):
+            errs.append(f"FB23: line {i + 1} '{lines[i][:50]}' holds '$' or an emoji shortcode, which GitHub renders "
+                        f"as math or an emoji")
+    return errs
+
+
+def _fb23_closed(text):
+    """FB23 control: with cmark-gfm unavailable the check must report an error, not pass."""
+    global _gfm_html
+    real = _gfm_html
+
+    def broken(_t):
+        raise ImportError("No module named 'cmarkgfm' (control)")
+    _gfm_html = broken
+    try:
+        return bool(fb23(text))
+    finally:
+        _gfm_html = real
+
+
 # FB22 (run 2026-11-14T2028Z, part 3; blind round AP d05: a candidates-table row "→ F1" attached an invented claim to a
 # verified finding, and the candidates section is free text no rule read). In the candidates section, a line that
 # points to a verified finding (an arrow followed, within the line, by `F<k>`) is bound: every candidate id on that line
@@ -1571,15 +1787,15 @@ CAND_ID = re.compile(r"\bC(?:\d+|-[A-Z0-9][A-Z0-9-]*)\b")
 
 CAND_BASELINE = "scripts/trust/candidates_mention_baseline.txt"  # FB22, shrink-only (run 2026-11-14T2028Z)
 CAND_POINTER = re.compile(r"^\| (C(?:\d+|-[A-Z0-9][A-Z0-9-]*)(?:, C(?:\d+|-[A-Z0-9][A-Z0-9-]*))*) \| — \| — \| → \*\*F(\d+)\*\* \|$")
-F_MENTION = re.compile(r"(?<![\w-])F\s*(\d+)\b")
+F_MENTION = re.compile(r"(?<![\w-])F\s*(\d+)(?!\d)")  # round AR d02: `F4_values` is a mention of F4
 
 
 def fb22(text, baseline=None):
     """Round AP d05, AQ d01/d02: in the candidates section (free, unverified text) (a) no certified-number tag
     `[✓…]` (check_numbers does not read the section, so a tag there certifies nothing); (b) a line that mentions a
-    verified finding F<k> is either one of the grandfathered lines (exact text, shrink-only baseline) or a bare
-    pointer row `| C<n> | — | — | → **F<k>** |` whose ids are listed in F<k>'s title note "(was …)" — the source,
-    claim and every other word about F<k> stay in F<k>'s own section, under its generated layout."""
+    verified finding F<k> (or a record F<k>_…) is one of the grandfathered lines (exact text, shrink-only baseline);
+    since round AR (d01) no new pointer row either — the source, claim and every other word about F<k> stay in
+    F<k>'s own section, under its generated layout."""
     if baseline is None:
         baseline = load_baseline(CAND_BASELINE)
     lines = text.split("\n")
@@ -1603,17 +1819,12 @@ def fb22(text, baseline=None):
         ks = sorted(set(F_MENTION.findall(l)), key=int)
         if not ks or raw.strip() in baseline:
             continue
-        m = CAND_POINTER.match(raw)
-        if not m:
-            errs.append(f"FB22: line {i + 1} '{raw[:60]}' mentions verified finding(s) "
-                        f"{', '.join('F' + k for k in ks)}; a new line may only be a bare pointer row "
-                        f"`| C<n> | — | — | → **F<k>** |` (round AP d05, AQ d01, d02)")
-            continue
-        ids = set(CAND_ID.findall(m.group(1)))
-        k = m.group(2)
-        if not ids <= was.get(f"F{k}", set()):
-            errs.append(f"FB22: line {i + 1} '{raw[:60]}' points {', '.join(sorted(ids))} to F{k}, whose title note "
-                        f"lists '(was {', '.join(sorted(was.get(f'F{k}', set()))) or '—'})' (round AP d05)")
+        # round AR d01: a new bare pointer row was bound only to F<k>'s title note "(was …)", which is author prose;
+        # so no new line of the candidates section may mention a verified finding or its records at all: a promoted
+        # candidate's row is removed, and what F<k> verified is read in F<k>'s own generated layout
+        errs.append(f"FB22: line {i + 1} '{raw[:60]}' mentions verified finding(s) "
+                    f"{', '.join('F' + k for k in ks)} (or their records); a candidates line may mention a verified "
+                    f"finding only if grandfathered in {CAND_BASELINE} (round AP d05, AQ d01, d02, AR d01, d02)")
     return errs
 
 
@@ -1624,8 +1835,8 @@ def main():
     if args == ["--selftest"]:
         return
     findings = open(FINDINGS, encoding="utf-8").read()
-    if args == ["--render"]:  # FB21, FB22 alone (the goal-guard job: no Lean output needed)
-        errs = fb21(findings) + fb22(findings)
+    if args == ["--render"]:  # FB21–FB23 alone (the goal-guard job: no Lean output needed)
+        errs = fb21(findings) + fb22(findings) + fb23(findings)
         for e in errs:
             print("::error::" + e)
         print(f"check_findings --render: {len(errs)} problems")
@@ -1656,7 +1867,7 @@ def main():
         except FileNotFoundError:
             pass
     errs += fb17_plain(load_phrases()) + fb18(findings)
-    errs += fb21(findings) + fb22(findings)
+    errs += fb21(findings) + fb22(findings) + fb23(findings)
     if "--base" in args:
         base = args[args.index("--base") + 1]
         try:
