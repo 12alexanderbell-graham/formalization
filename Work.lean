@@ -226,6 +226,8 @@ import Work.Math.BonnorEbertMax2BlindClosed
 import Work.Math.GelfandBlind
 import Work.Math.GelfandExtremaMain
 import Work.Math.GelfandExtrema
+import Work.Math.GelfandExtremaBlind
+import Work.Math.GelfandExtremaBlindClosed
 import Work.Math.GelfandBlindClosed
 import Work.Math.RadialLaplacian
 import Work.Math.GContFrom
