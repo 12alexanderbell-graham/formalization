@@ -1,1 +1,1 @@
-Run 2026-11-15T0428Z (scheduled), started 04:28Z, heartbeat 05:08Z; task: part 3 blind round AR (brief 519e00c, snapshot = 519e00c) + FB23 (GitHub's cmark-gfm rendering) being written blind to it; CI of 4e046bb pending. Remove at end.
+Run 2026-11-15T0428Z (scheduled), started 04:28Z, heartbeat 05:45Z; task: part 3 round AR judged BEFORE (6/6 accepted, blind); repairs FB20-FB23 written, AFTER judge running; CI of 4e046bb checked job from 05:31Z. Remove at end.
