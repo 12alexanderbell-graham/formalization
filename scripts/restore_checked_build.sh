@@ -60,4 +60,12 @@ rm -rf .lake/build
 mkdir -p .lake
 unzip -p "$zip" "$member" | unz | tar -xf - --no-same-owner
 echo "restored .lake/build from commit $(cat .lake/build/CHECKED_BUILD_COMMIT 2>/dev/null || echo '?')"
+# Run 2026-11-15T0628Z: a local zip left in place after the restore took the disk allowance to 1.6 GB (runs 2028Z
+# and 2228Z of 2026-11-14 hit the same limit). DELETE_ZIP=1 removes a local zip once the restore has succeeded;
+# otherwise say so loudly. (A URL argument downloads into a temporary directory that is removed on exit.)
+if [ -f "$src" ]; then
+  if [ "${DELETE_ZIP:-0}" = "1" ]; then rm -f -- "$src"; echo "deleted the local zip $src"
+  else echo "reminder: delete the local zip $src now (about 2.5 GB), or pass DELETE_ZIP=1 next time" >&2
+  fi
+fi
 echo "next: lake build Checked   (rebuilds only modules changed since that commit)"
