@@ -4,7 +4,7 @@
 
 **What can a scientist now trust without checking it themselves, that they could not before?** That the page the program points them to for its verified findings (`VERIFIED_FINDINGS.md`) contains no sentence an author chose: every line is generated from the Lean records (statements, certified numbers, blind readings bound by agreement lemmas, class restrictions shown as the Lean hypotheses themselves), so no unchecked note can withdraw, extend or relabel a finding there. Measure: blind readers misled by an unchecked withdrawal line 6/6 on FINDINGS.md, 0 possible on the generated page (the defect files generate a byte-identical page); readers of the generated page alone 2/2 correct on every item; red team AU: 7 defects, all through the forged registry route, 3/3 readers repeated d01's false phrase before the fix; after it no defect's words reach the page.
 
-**Weakest unchecked step:** the blind readings bound to printed values are model readers whose source descriptions an author could forge only through the reader-file route (ancestry-locked, not independent of the program); F8 and F11 have records of sizes only, so the generated page cannot say what they refute. For the physics: CI 43721065108 (b7d5a44, `gelfand_extrema`) still running at the end of this run.
+**Weakest unchecked step:** the blind readings bound to printed values are model readers whose source descriptions an author could forge only through the reader-file route (ancestry-locked, not independent of the program); F8 and F11 have records of sizes only, so the generated page cannot say what they refute. For the physics: CI 43721065108 (b7d5a44) read green on every job incl. nanoda 4/4 at the end of this run → `Checked.Math.GelfandExtrema.gelfand_extrema` PROVED.
 
 ## Start
 - 16:28Z. add_repo not exposed; pre-cloned checkout had a stale local `main` (Nov 9, diverged); `git checkout -B main origin/main` at 878502b, unshallowed. No LOCK → taken (1c409a8).
@@ -22,4 +22,4 @@
 5. Local: records_check.py 0a52be0 (42 commands, 0 failed) before the AU fix; again at the end (see CHANGELOG).
 
 ## Next
-- STATE 1f: CI read (b7d5a44 → `gelfand_extrema` PROVED when green on every job; this run's push); then parts 2/5 by rotation.
+- STATE 1f: CI read (878502b, 82ebb61); then parts 2/5 by rotation.
