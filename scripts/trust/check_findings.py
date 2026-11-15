@@ -140,14 +140,29 @@ generated blocks excluded; a section is `### F<k> …` up to the next `### `):
        combining class 0, survived the fold inside 'gen|erated'); FB22: a candidates line may mention a verified
        finding — `F<k>` or a record name `F<k>_…` (d02) — only if grandfathered (d01: the bare pointer row's binding
        to the title note "(was …)" was author prose).
+  FB24 (run 2026-11-15T1028Z, part 3; written blind to round AS, in parallel with it; the residues named by the LEDGER
+       experiment of run 2026-11-15T0428Z) GitHub shows the RENDERED text, and post-processes cmark-gfm's output:
+       (a) the mark rule (FB14) holds on the visible text of every rendered block in the whole file and the mention
+       and certified-tag rules (FB22) on that of every candidates block (entities, escapes, comments and inline
+       markup cannot spell `F<k>`, '✓' or '(generated' where the raw line does not); (b) no '$', emoji shortcode,
+       fenced block with an info string (math, mermaid, geojson, topojson, stl) or alert (`> [!NOTE]` …) anywhere in
+       the file; (c) the candidates section renders with the same blocks, inline markup and text per source line on
+       GitHub as with markdown-it-py (which FB21/FB22 read). Fails closed. GitHub's file-view behaviour is stated
+       from knowledge (no web access); @mentions, #refs and SHAs are taken as not autolinked in file views.
+  FB25 (same run, after round AS: 6/6 valid wrong findings accepted against FB1–FB23, all in the candidates
+       section; FB24 caught the three that spelled an id through an entity or a comment, the other three named no
+       `F<k>`: a reworded protocol paragraph, a "retracted" row, link text over F2's anchor) the candidates heading
+       is followed by exactly CAND_BANNER, which labels the whole section as unchecked prose that says nothing
+       checked about any verified finding, and nothing in the section renders as a link (cmark-gfm or markdown-it).
+       Known limit: a false sentence there is still accepted; it stands labelled, as a false note does.
 
-  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18–FB23
+  python3 scripts/trust/check_findings.py              rules FB1–FB6, FB8, FB10, FB12, FB14, FB16, FB17 (a), FB18–FB25
   python3 scripts/trust/check_findings.py --base SHA   also: the baseline gained no line since SHA; FB7, FB9, FB15, FB17 (b)
   python3 scripts/trust/check_findings.py --write-correct F<k> [F<j> …]   replace those findings' Correct lines by
                                                        the generated ones (an author edit: FB7 still wants a LEDGER line)
   python3 scripts/trust/check_findings.py --write-layout F<k> [F<j> …]    FB10 layout for those findings (an author
                                                        edit: FB7 still wants a LEDGER line)
-  python3 scripts/trust/check_findings.py --render     FB21–FB23 only (selftest first; no Lean output read)
+  python3 scripts/trust/check_findings.py --render     FB21–FB24 only (selftest first; no Lean output read)
   python3 scripts/trust/check_findings.py --selftest   controls only
 """
 import re
@@ -1417,11 +1432,51 @@ def selftest():
         ("FB23 accepts a task-list item in the notes", bool(fb23(fr.replace(R, "  - [x] *(author)* verified\n" + R, 1))), True),
         ("FB23 passes with cmark-gfm missing (fail closed)", _fb23_closed(fr), True),
     ]
-    for what, got, want in ao + ap + aq + ar:
+    # FB24 (run 2026-11-15T1028Z, part 3; written blind to round AS): the rendered text GitHub shows, GitHub-only
+    # post-processing anywhere, and the candidates section block by block
+    K = "### C-1 x\n"
+    gb = {"| C2 | Aviles et al. 2012 | — | → **F1** |"}
+    as_ = [
+        ("FB24 rejects the clean frame", bool(fb24(fr, baseline=set())), False),
+        ("FB24 rejects a grandfathered mention row", bool(fb24(fr.replace(K, K + "\n| ID | S |\n|---|---|\n| C2 | Aviles et al. 2012 | — | → **F1** |\n", 1), baseline=gb)), False),
+        ("FB24 accepts an entity-spelled mention in the candidates", bool(fb24(fr.replace(K, K + "- C9: verified for every model in F&#57;.\n", 1), baseline=set())), True),
+        ("FB24 accepts a comment-split mention in the candidates", bool(fb24(fr.replace(K, K + "- C9: as F<!-- -->9 shows.\n", 1), baseline=set())), True),
+        ("FB24 accepts a code-split mention in the candidates", bool(fb24(fr.replace(K, K + "- C9: as F`9` shows.\n", 1), baseline=set())), True),
+        ("FB24 accepts a second mention smuggled into a grandfathered row's block", bool(fb24(fr.replace(K, K + "\n| ID | S |\n|---|---|\n| C2 | Aviles et al. 2012 | — | → **F1** |\n| C3 | F&#49; holds for all Ω | — | — |\n", 1), baseline=gb)), True),
+        ("FB24 accepts an entity-spelled certified tag in the candidates", bool(fb24(fr.replace(K, K + "- C9 &#10003;F9_r\n", 1), baseline=set())), True),
+        ("FB24 accepts an entity-spelled mark of generated text", bool(fb24(fr.replace(K, K + "- C9 (gene&#114;ated; do not edit) x\n", 1).replace("(generated; do not edit)\n", "x\n"), baseline=set())), True),
+        ("FB24 accepts a comment-split mark in a candidate heading", bool(fb24(fr.replace(K, "### C-1 x (gene<!-- -->rated)\n", 1), baseline=set())), True),
+        ("FB24 accepts '$' math in the candidates", bool(fb24(fr.replace(K, K + "- $\\textbf{Correct}$\n", 1), baseline=set())), True),
+        ("FB24 accepts an emoji shortcode in the candidates", bool(fb24(fr.replace(K, K + "- C9 :heavy_check_mark:\n", 1), baseline=set())), True),
+        ("FB24 accepts a mermaid block", bool(fb24(fr.replace(K, K + "\n```mermaid\ngraph TD; A[F9 verified]\n```\n", 1), baseline=set())), True),
+        ("FB24 accepts a math fence", bool(fb24(fr.replace(K, K + "\n~~~math\nx\n~~~\n", 1), baseline=set())), True),
+        ("FB24 accepts a GitHub alert", bool(fb24(fr.replace(K, K + "\n> [!IMPORTANT]\n> Verified.\n", 1), baseline=set())), True),
+        ("FB24 accepts a lazy GitHub alert in a list", bool(fb24(fr.replace(K, K + "\n- > [!NOTE]\n  > x\n", 1), baseline=set())), True),
+        ("FB24 rejects a plain code block and a rule in the candidates", bool(fb24(fr.replace(K, K + "\n    code\n\n---\n\n```\nx\n```\n", 1), baseline=set())), False),
+        ("FB24 accepts a GitHub-only www autolink in the candidates", bool(fb24(fr.replace(K, K + "- C9 see www.example.org\n", 1), baseline=set())), True),
+        ("FB24 accepts GitHub-only single-tilde strikethrough in the candidates", bool(fb24(fr.replace(K, K + "- C9 ~withdrawn~ open\n", 1), baseline=set())), True),
+        ("FB24 passes with cmark-gfm missing (fail closed)", _fb24_closed(fr), True),
+    ]
+    # FB25 (run 2026-11-15T1028Z, part 3; after round AS d02, d05, d06): the candidates section is labelled as a
+    # whole and links nowhere
+    fb = fr.replace(FRAME[1] + "\n\n", FRAME[1] + "\n\n" + CAND_BANNER + "\n\n", 1)
+    as_ += [
+        ("FB25 rejects the frame with the banner", bool(fb25(fb)), False),
+        ("FB25 accepts the frame without the banner", bool(fb25(fr)), True),
+        ("FB25 accepts a reworded banner", bool(fb25(fb.replace("that no check reads", "that the referee checked", 1))), True),
+        ("FB25 accepts the banner moved below a candidate", bool(fb25(fb.replace(CAND_BANNER + "\n\n" + K, K + "\n" + CAND_BANNER + "\n", 1))), True),
+        ("FB25 accepts a second copy of the banner", bool(fb25(fb.replace(K, K + "\n" + CAND_BANNER + "\n", 1))), True),
+        ("FB25 accepts a link to a finding's anchor", bool(fb25(fb.replace(K, K + "- C9 [certified for every w](#f2--generated)\n", 1))), True),
+        ("FB25 accepts a reference link", bool(fb25(fb.replace(K, K + "- C9 [certified][r]\n\n[r]: #f2\n", 1))), True),
+        ("FB25 accepts an angle autolink", bool(fb25(fb.replace(K, K + "- C9 <https://example.org/f2>\n", 1))), True),
+        ("FB25 accepts a GitHub-only www autolink", bool(fb25(fb.replace(K, K + "- C9 see www.example.org\n", 1))), True),
+        ("FB25 rejects a candidate with plain text", bool(fb25(fb.replace(K, K + "- C9 open, see run 1028Z\n", 1))), False),
+    ]
+    for what, got, want in ao + ap + aq + ar + as_:
         if got != want:
             print(f"selftest: control wrong: {what}")
             fails += 1
-    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3 + len(ao) + len(ap) + len(aq) + len(ar)} controls, {fails} failing")
+    print(f"check_findings selftest: {len(bad) + 1 + len(fb7_bad) + len(fb7_ok) + 1 + len(fb8_9) + 4 + len(fb10_bad) + 3 + len(am_bad) + 2 + 1 + len(fb13_bad) + len(fb14_bad) + 2 + 3 + len(ao) + len(ap) + len(aq) + len(ar) + len(as_)} controls, {fails} failing")
     return fails == 0
 
 
@@ -1763,6 +1818,158 @@ def fb23(text):
     return errs
 
 
+
+# FB24 (run 2026-11-15T1028Z, part 3; written blind to round AS, in parallel with it). The residues the LEDGER
+# experiment of run 2026-11-15T0428Z named: what GitHub SHOWS beyond what the line rules read. FB22 and FB14 read the
+# raw text of a line; GitHub shows its rendering, where `F&#52;`, `F<!-- -->4`, `F`4`` or `gene&#114;ated` spell a
+# mention or a mark the raw text lacks. And GitHub's file view post-processes cmark-gfm's output: math (`$…$`,
+# `$$…$$`, fenced `math`), diagrams and models from fenced blocks (`mermaid`, `geojson`, `topojson`, `stl`), alerts
+# (`> [!NOTE]` …), emoji shortcodes. Rules (cmark-gfm as FB23 renders it; fails closed without cmarkgfm):
+#   (a) rendered-text binding, whole file: for every rendered block, its visible text (entities and escapes decoded,
+#       HTML comments dropped, inline markup stripped, folded as FB20) carries no more marks of generated text
+#       (FB14's GEN_MARK) than the raw source lines of that block do; in the candidates section, the verified findings
+#       a rendered block mentions (F_MENTION, as FB22) are among those its grandfathered raw lines mention (counted
+#       with multiplicity), and no rendered block shows a certified tag '✓'.
+#   (b) GitHub-only rendering, whole file: no '$' and no emoji shortcode on any line (comment-opening lines aside, as
+#       FB23); no fenced code block with an info string (GitHub renders `math`, `mermaid`, `geojson`, `topojson`,
+#       `stl` as something other than code, and an info string is never needed here); no alert (a block quote whose
+#       text starts with '[!').
+#   (c) the candidates section renders with the same block structure (tables, rows, lists, quotes, headings, code;
+#       paragraphs, table head/body and cells aside), the same inline markup and the same text per source line on
+#       GitHub (cmark-gfm) as with markdown-it-py (HTML comments dropped on both sides): FB22 and FB21 read
+#       markdown-it's view, so a differential there could show GitHub's reader a mention or a block they never saw.
+# What GitHub does to a repository .md file beyond cmark-gfm is stated from knowledge, not from a fetched document (no
+# web access when this was written): math, mermaid/geojson/topojson/stl, alerts, emoji, heading anchors, relative-link
+# resolution, image proxying and HTML sanitisation; @mentions, #123 issue references and commit SHAs are, to our
+# knowledge, NOT autolinked in file views (only in issues, pull requests and comments), so they are not banned.
+# Known limits: marks are counted per rendered block against all its source lines (a mark written once in the raw
+# text of a multi-line block licenses one rendered occurrence anywhere in it); anchors and relative links are not
+# compared; GitHub's sanitiser is not modelled (FB21 already allows no HTML but comments).
+GH_ALERT = re.compile(r"^\s*\[!")
+GH_FENCE_INFO = re.compile(r'<pre data-sourcepos="(\d+):[^"]*"><code class="language-([^"]*)"')
+
+
+def _md_view(text):
+    """markdown-it-py's view for FB24 (c): block starts, inline markup and text per source line (comments dropped)."""
+    from markdown_it import MarkdownIt
+    return MarkdownIt("commonmark").enable(["table", "strikethrough"]).parse(text)
+
+
+def fb24(text, baseline=None):
+    """GitHub shows the rendered text: bind the mention and mark rules to it; no GitHub-only post-processing."""
+    try:
+        html = _gfm_html(text)
+        toks = _md_view(text)
+    except Exception as e:  # noqa: BLE001 - fail closed
+        return [f"FB24: the GitHub rendering check cannot run ({e.__class__.__name__}: {e}); install cmarkgfm and "
+                f"markdown-it-py (CI pins both) — the check fails closed"]
+    if baseline is None:
+        baseline = load_baseline(CAND_BASELINE)
+    from collections import Counter
+    lines = text.split("\n")
+    p = _Blocks()
+    p.feed(html)
+    errs = []
+    c0 = lines.index(FRAME[1]) if FRAME[1] in lines else len(lines)
+    c1 = next((i for i in range(c0 + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+    incand = lambda i: c0 < i < c1  # noqa: E731
+    # (a) the rendered text of every block, grouped by its source range
+    units = {}
+    for b in p.blocks:
+        t = "".join(b["text"])
+        if t.strip():
+            units.setdefault((b["a"], b["b"]), []).append(t)
+    for (a, b), ts in sorted(units.items()):
+        rend = fold(" ".join(ts))
+        raw = [lines[i] for i in range(a, min(b, len(lines) - 1) + 1)]
+        rawf = fold("\n".join(raw))
+        if len(GEN_MARK.findall(rend)) > len(GEN_MARK.findall(rawf)):
+            errs.append(f"FB24: line {a + 1} '{lines[a][:50]}' shows a mark of generated text on GitHub that its source "
+                        f"does not spell (an entity, escape, comment or markup splits it)")
+        if incand(a):
+            if "✓" in rend:
+                errs.append(f"FB24: line {a + 1} '{lines[a][:50]}' shows a certified tag '✓' on GitHub in the "
+                            f"candidates section, where no check reads it")
+            seen = Counter(F_MENTION.findall(rend))
+            allowed = Counter()
+            for l in raw:
+                if l.strip() in baseline:
+                    allowed.update(F_MENTION.findall(fold(l)))
+            extra = seen - allowed
+            if extra:
+                errs.append(f"FB24: line {a + 1} '{lines[a][:50]}' shows a mention of verified finding(s) "
+                            f"{', '.join('F' + k for k in sorted(extra, key=int))} on GitHub that no grandfathered "
+                            f"line of {CAND_BASELINE} carries (FB22 bound to the rendered text)")
+    # (b) GitHub-only post-processing
+    for i, l in enumerate(lines):
+        if MATH_OR_EMOJI.search(l) and not l.startswith("<!--"):
+            errs.append(f"FB24: line {i + 1} '{l[:50]}' holds '$' or an emoji shortcode, which GitHub renders as math "
+                        f"or an emoji")
+    for m in GH_FENCE_INFO.finditer(html):
+        errs.append(f"FB24: line {m.group(1)} opens a fenced block with info string '{m.group(2)[:20]}' (GitHub renders "
+                    f"math, mermaid, geojson, topojson and stl blocks as something other than code)")
+    for b in p.blocks:
+        if b["tag"] == "blockquote":
+            inner = [x for x in p.blocks if x is not b and b["a"] <= x["a"] <= b["b"] and "".join(x["text"]).strip()]
+            first = "".join(inner[0]["text"]) if inner else "".join(b["text"])
+            if GH_ALERT.match(first):
+                errs.append(f"FB24: line {b['a'] + 1} '{lines[b['a']][:50]}' is a GitHub alert ('[!…]' block quote)")
+    # (c) the candidates section: the same blocks, inline markup and text on GitHub as with markdown-it
+    skip = {"p", "thead", "tbody", "th", "td", ""}
+    gs = sorted((b["tag"], b["a"]) for b in p.blocks if incand(b["a"]) and b["tag"] not in skip)
+    leaf = {"fence": "pre", "code_block": "pre", "hr": "hr"}  # block tokens markdown-it emits without nesting
+    ms = sorted((leaf.get(t.type, t.tag), t.map[0]) for t in toks if t.map and incand(t.map[0])
+                and (t.nesting == 1 or t.type in leaf) and t.tag not in skip)
+    for x in sorted(set(gs) ^ set(ms), key=lambda y: y[1]):
+        side = "only on GitHub" if x in gs else "only with markdown-it"
+        errs.append(f"FB24: candidates line {x[1] + 1} '{lines[x[1]][:50]}' renders a <{x[0]}> block {side}")
+    if len(gs) != len(ms) and not (set(gs) ^ set(ms)):
+        errs.append("FB24: the candidates section renders a different number of blocks on GitHub")
+    gi, gt, mi, mt = {}, {}, {}, {}
+    for b in p.blocks:
+        if incand(b["a"]):
+            gi.setdefault(b["a"], []).extend(x for x in b["inl"] if x in _GFM_INLINE)
+            gt.setdefault(b["a"], []).extend(b["text"])
+    for t in toks:
+        if t.type in ("fence", "code_block") and t.map and incand(t.map[0]):  # cmark-gfm: <pre><code>
+            mi.setdefault(t.map[0], []).append("code")
+            mt.setdefault(t.map[0], []).append(t.content)
+            continue
+        if t.type != "inline" or not t.map or not incand(t.map[0]):
+            continue
+        i = t.map[0]
+        for ch in t.children or []:
+            if ch.type == "html_inline" and ch.content.startswith("<!--"):
+                continue
+            if ch.type in _MDIT_TAG:
+                mi.setdefault(i, []).append(_MDIT_TAG[ch.type])
+            if ch.type in ("text", "code_inline", "html_inline"):
+                mt.setdefault(i, []).append(ch.content)
+            elif ch.type in ("softbreak", "hardbreak"):
+                mt.setdefault(i, []).append(" ")
+    for i in sorted(set(gi) | set(mi) | set(gt) | set(mt)):
+        if gi.get(i, []) != mi.get(i, []):
+            errs.append(f"FB24: candidates line {i + 1} '{lines[i][:50]}' renders with inline markup {gi.get(i, [])} "
+                        f"on GitHub, {mi.get(i, [])} with markdown-it")
+        if _ws("".join(gt.get(i, []))) != _ws("".join(mt.get(i, []))):
+            errs.append(f"FB24: candidates line {i + 1} '{lines[i][:50]}' shows different text on GitHub than with "
+                        f"markdown-it")
+    return errs
+
+
+def _fb24_closed(text):
+    """FB24 control: with cmark-gfm unavailable the check must report an error, not pass."""
+    global _gfm_html
+    real = _gfm_html
+
+    def broken(_t):
+        raise ImportError("No module named 'cmarkgfm' (control)")
+    _gfm_html = broken
+    try:
+        return bool(fb24(text))
+    finally:
+        _gfm_html = real
+
 def _fb23_closed(text):
     """FB23 control: with cmark-gfm unavailable the check must report an error, not pass."""
     global _gfm_html
@@ -1788,6 +1995,60 @@ CAND_ID = re.compile(r"\bC(?:\d+|-[A-Z0-9][A-Z0-9-]*)\b")
 CAND_BASELINE = "scripts/trust/candidates_mention_baseline.txt"  # FB22, shrink-only (run 2026-11-14T2028Z)
 CAND_POINTER = re.compile(r"^\| (C(?:\d+|-[A-Z0-9][A-Z0-9-]*)(?:, C(?:\d+|-[A-Z0-9][A-Z0-9-]*))*) \| — \| — \| → \*\*F(\d+)\*\* \|$")
 F_MENTION = re.compile(r"(?<![\w-])F\s*(\d+)(?!\d)")  # round AR d02: `F4_values` is a mention of F4
+
+
+# FB25 (run 2026-11-15T1028Z, part 3, after blind round AS: 6/6 valid wrong findings accepted, all in the
+# candidates section, which a reader of the page meets right after the verified section. FB24, written blind to
+# the round, caught the three that spelled a verified finding's id through an entity or an HTML comment (d01, d03,
+# d04); the other three named no `F<k>` at all: a reworded protocol paragraph saying every verified finding passed
+# the whole protocol and holds for all parameters (d02), a row saying "the earlier Lean finding" on a printed term
+# was retracted (d05), and link text "certified in Lean for all w0, wa and Omega" pointing to F2's heading anchor
+# (d06). Free prose can describe a verified finding without naming it, so no word rule closes this (the lesson of
+# rounds F-T); the section is labelled as a whole, like the notes under NOTES_MARKER, and may not link anywhere.)
+#   (a) the candidates heading is followed by one blank line and exactly CAND_BANNER (fixed here, changed only by
+#       changing this script): everything in the section is unchecked author prose and says nothing checked about
+#       any verified finding;
+#   (b) nothing in the candidates section renders as a link (cmark-gfm, as GitHub shows it, or markdown-it): no
+#       inline or reference link, no autolink, no anchor into the verified section (d06).
+# Known limit: a false sentence about a verified finding in the candidates section is still accepted by every check;
+# it now stands under the banner that labels it unchecked, as a false note stands under NOTES_MARKER.
+CAND_BANNER = ("**Unchecked section (fixed text of rule FB25 in `scripts/trust/check_findings.py`):** everything below, "
+               "up to the certified numbers, is author prose about candidates that no check reads. It says nothing "
+               "checked about any verified finding above: what a verified finding verified is only its "
+               "heading line and its Printed and Correct lines (all three written by the generators) and its certified "
+               "blocks, and a sentence here that "
+               "seems to describe, extend, qualify or withdraw a verified finding is unchecked.")
+
+
+def fb25(text):
+    lines = text.split("\n")
+    if FRAME[1] not in lines:
+        return []
+    c0 = lines.index(FRAME[1])
+    c1 = next((i for i in range(c0 + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+    errs = []
+    if not (c0 + 2 < len(lines) and lines[c0 + 1] == "" and lines[c0 + 2] == CAND_BANNER):
+        errs.append("FB25: the candidates heading must be followed by a blank line and exactly CAND_BANNER (the fixed "
+                    "label of the section as unchecked prose; round AS d02, d05)")
+    if sum(1 for l in lines if CAND_BANNER in l) != 1 or lines.count(CAND_BANNER) != 1:
+        errs.append("FB25: CAND_BANNER must occur exactly once, as its own line")
+    try:
+        html = _gfm_html(text)
+        toks = _md_view(text)
+    except Exception as e:  # noqa: BLE001 - fail closed
+        return errs + [f"FB25: the link check cannot run ({e.__class__.__name__}: {e}); install cmarkgfm and "
+                       f"markdown-it-py (CI pins both) — the check fails closed"]
+    p = _Blocks()
+    p.feed(html)
+    for b in p.blocks:
+        if c0 < b["a"] < c1 and ("a" in b["inl"] or b["tag"] == "a"):
+            errs.append(f"FB25: line {b['a'] + 1} '{lines[b['a']][:50]}' renders a link on GitHub in the candidates "
+                        f"section (round AS d06: link text over an anchor of a verified finding)")
+    for tk in toks:
+        if tk.map and c0 < tk.map[0] < c1 and any(c.type == "link_open" for c in (tk.children or [])):
+            errs.append(f"FB25: line {tk.map[0] + 1} '{lines[tk.map[0]][:50]}' renders a link (markdown-it) in the "
+                        f"candidates section (round AS d06)")
+    return sorted(set(errs))
 
 
 def fb22(text, baseline=None):
@@ -1835,8 +2096,8 @@ def main():
     if args == ["--selftest"]:
         return
     findings = open(FINDINGS, encoding="utf-8").read()
-    if args == ["--render"]:  # FB21–FB23 alone (the goal-guard job: no Lean output needed)
-        errs = fb21(findings) + fb22(findings) + fb23(findings)
+    if args == ["--render"]:  # FB21–FB24 alone (the goal-guard job: no Lean output needed)
+        errs = fb21(findings) + fb22(findings) + fb23(findings) + fb24(findings) + fb25(findings)
         for e in errs:
             print("::error::" + e)
         print(f"check_findings --render: {len(errs)} problems")
@@ -1867,7 +2128,7 @@ def main():
         except FileNotFoundError:
             pass
     errs += fb17_plain(load_phrases()) + fb18(findings)
-    errs += fb21(findings) + fb22(findings) + fb23(findings)
+    errs += fb21(findings) + fb22(findings) + fb23(findings) + fb24(findings) + fb25(findings)
     if "--base" in args:
         base = args[args.index("--base") + 1]
         try:

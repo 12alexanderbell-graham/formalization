@@ -796,3 +796,9 @@
 - Parts 2/5 (rotation): new headline `Checked.Math.BonnorEbertMonotone.bonnor_ebert_extrema_monotone` — the every-extremum claim plus strict monotonicity of the mass on [0, ξ(0)] and between consecutive extrema (the sequence is every turning point). Frozen 63bd9eb, proved 51184eb (fork: `BEMonoExt`, `BEMonoMain`; no new certificates), blind restatement closed, referee STANDS, promoted (blind literal reading of the segments, NV, necessity 1/3/4 NEEDED, 2 REDUNDANT).
 - Annex LIV: PROMPT note (strengthening an audited headline in one run).
 - Next: CI read (this run's push → `bonnor_ebert_extrema_monotone` PROVED when green on every job); then part 3 by rotation.
+
+## 2026-11-15T1028Z (scheduled run)
+- Env: repo ok (stale local main reset, unshallowed); local Lean via elan + restored `checked-build` of 43674121946 (4e046bb); `lake build Checked` to main ≈ 6 min, StatementDeps ≈ 8 min, Claims ≈ 2 min (generated files unchanged). CI 43691560009 (813805f) in its frozen step, 43701382621 (ece084b, the `bonnor_ebert_extrema_monotone` promotion) pending — not yet PROVED.
+- Part 3 (rotation): blind round AS (Sonnet) against the findings layer: 6/6 valid wrong findings accepted, all candidates-section prose about a verified finding (LEDGER experiment of run 0428Z refuted). FB24 (written blind to the round in parallel: rendered text bound to the mention and mark rules, GitHub-only post-processing banned, candidates blocks compared) catches 3; FB25 (fixed banner labelling the candidates section unchecked; no links there) catches 1 and labels 2. Controls 121 → 150. LEDGER: experiment evaluated, new experiment.
+- Annex LIV: PROMPT note (free author prose regions are labelled as a whole, not word-ruled).
+- Next: CI read (ece084b → `bonnor_ebert_extrema_monotone` PROVED when green on every job); then parts 2/5 by rotation.
