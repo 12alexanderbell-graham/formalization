@@ -406,8 +406,26 @@ def reader_constants():
             if not sep:
                 continue
             binders = []
-            for g in re.findall(r"\(([^():]*):[^()]*\)", head):
-                binders += g.split()
+            # explicit binders `(a b : T)` whose type T may itself contain brackets (run 2026-11-15T1828Z: the
+            # former pattern `\(([^():]*):[^()]*\)` skipped `(u : EuclideanSpace ℝ (Fin 3) → ℝ)`, so such a
+            # binder was matched as a literal token instead of as the documented wildcard)
+            k = 0
+            while k < len(head):
+                if head[k] == "(":
+                    d, e = 0, k
+                    while e < len(head):
+                        d += head[e] == "("
+                        d -= head[e] == ")"
+                        if d == 0:
+                            break
+                        e += 1
+                    inner = head[k + 1:e]
+                    names, colon, _ = inner.partition(":")
+                    if colon and "(" not in names and ")" not in names:
+                        binders += names.split()
+                    k = e + 1
+                else:
+                    k += 1
             out[full] = (binders, lex(body), str(p.relative_to(ROOT)))
     return out
 

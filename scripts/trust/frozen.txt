@@ -417,6 +417,7 @@ Checked.Math.GelfandExists.exists_solution 20e32e81-doc6694226507590696985
 Checked.Math.GelfandExtrema.gelfand_extrema b0115572-doc11641840203187700132
 Checked.Math.GelfandPDE.gelfand_pde_radial_bound a60a1dff-doc5938021182067386944
 Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists e7c0952a-doc919232265670323521
+Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre 20391901-doc2389207363262481562
 Checked.Math.LEExists.exists_solution ecc72cdb-doc5231298389370609236
 Checked.Math.LaneEmden.laneEmden3_constants eab13068-doc10848305220804759138
 Checked.Math.LaneEmden2.laneEmden2_constants b478678a-doc18188547025909797225
@@ -2153,6 +2154,11 @@ doc:Checked.Math.GelfandExtremaMain.pos_of_one -doc17693087992636177959
 doc:Checked.Math.GelfandODEBound.glue_at -doc13792126414675860878
 doc:Checked.Math.GelfandODEBound.ode_bound -doc8692517583609526052
 doc:Checked.Math.GelfandPDEExists.contDiffOn_two_of_derivs -doc837781794778428185
+doc:Checked.Math.GelfandPDEManyMain.main_centre -doc7977428206343782954
+doc:Checked.Math.GelfandPDEManyMain.ne_of_centre -doc16804368682208362066
+doc:Checked.Math.GelfandPDEManyMain.ne_of_radius -doc4292582017505389844
+doc:Checked.Math.GelfandPDEManyMain.radial_global -doc14335080911322840917
+doc:Checked.Math.GelfandPDEManyMain.radial_of_radius -doc797826473249927293
 doc:Checked.Math.LE2Certs.chain -doc17865385483712904227
 doc:Checked.Math.LE2Certs.lastFacts -doc9038194999671110711
 doc:Checked.Math.LE2Exists.exists_right -doc14855440638880422014
@@ -3323,6 +3329,11 @@ doc:Checked.Trust.SecondReading.gelfandBranchLimit -doc4392500724470863860
 doc:Checked.Trust.SecondReading.gelfandCentre -doc14607809201003277988
 doc:Checked.Trust.SecondReading.gelfandDomain -doc4677687179150538001
 doc:Checked.Trust.SecondReading.gelfandLambda -doc9494125978743900681
+doc:Checked.Trust.SecondReading.gelfandManyCentreSeq -doc9134638507527401921
+doc:Checked.Trust.SecondReading.gelfandManyCentre -doc11837959924508445680
+doc:Checked.Trust.SecondReading.gelfandManyEqSingular -doc6107553908557791306
+doc:Checked.Trust.SecondReading.gelfandManyNearSingular -doc14371735003795226017
+doc:Checked.Trust.SecondReading.gelfandManyTwoRange -doc17979523718330575389
 doc:Checked.Trust.SecondReading.gelfandPdeBall -doc3250758133929245929
 doc:Checked.Trust.SecondReading.gelfandPdeClosedBall -doc15582754981140513120
 doc:Checked.Trust.SecondReading.gelfandPdeContinuous -doc11179903888660124943
@@ -3888,6 +3899,8 @@ moduledoc:Checked.Math.GelfandExtremaMain -mdoc451010646016397518
 moduledoc:Checked.Math.GelfandExtrema -mdoc10388665202515624349
 moduledoc:Checked.Math.GelfandODEBound -mdoc17242492181181850265
 moduledoc:Checked.Math.GelfandPDEExists -mdoc17071817608703752686
+moduledoc:Checked.Math.GelfandPDEManyCentre -mdoc186241413875161564
+moduledoc:Checked.Math.GelfandPDEManyMain -mdoc9787893681088942568
 moduledoc:Checked.Math.GelfandPDE -mdoc14480866702012150698
 moduledoc:Checked.Math.Gelfand -mdoc6633087666719473450
 moduledoc:Checked.Math.LE2Chain -mdoc6113618325832875974
@@ -4101,6 +4114,7 @@ moduledoc:Checked.Trust.SecondReadingFreshCCS -mdoc11792258858914348696
 moduledoc:Checked.Trust.SecondReadingFreshCV -mdoc707537568342277201
 moduledoc:Checked.Trust.SecondReadingGelfandExtrema -mdoc24434315250643379
 moduledoc:Checked.Trust.SecondReadingGelfandLimit -mdoc3837319596973125538
+moduledoc:Checked.Trust.SecondReadingGelfandMany -mdoc2301051030016199448
 moduledoc:Checked.Trust.SecondReadingGelfandPDE -mdoc6784883769121500962
 moduledoc:Checked.Trust.SecondReadingGelfand -mdoc12307442956037775381
 moduledoc:Checked.Trust.SecondReadingHiemenz -mdoc17248177210924213095
@@ -4124,4 +4138,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc17328635458492949413
+moduledoc:Checked.Trust.Witnesses -mdoc10164669514416829578

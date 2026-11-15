@@ -85,3 +85,7 @@ decreasing
 ball
 turning
 branch
+pde
+many
+distinct
+pairwise

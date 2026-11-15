@@ -7,8 +7,8 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 293. Resting on no unpinned physics definition: 293.
-Non-vacuity (trust track T2): 176 headlines have hypotheses; 176 of them have a
+Headlines: 294. Resting on no unpinned physics definition: 294.
+Non-vacuity (trust track T2): 177 headlines have hypotheses; 177 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
@@ -331,6 +331,7 @@ the docstring says; universally bound parameters are not listed.
 | `Math.BonnorEbertExtrema.bonnor_ebert_extrema` | — | — | — | `bonnor_ebert_extrema` | — |
 | `Math.BonnorEbertMonotone.bonnor_ebert_extrema_monotone` | — | — | — | `bonnor_ebert_extrema_monotone` | — |
 | `Math.GelfandExtrema.gelfand_extrema` | — | — | — | `gelfand_extrema` | — |
+| `Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre` | — | — | — | `gelfand_pde_radial_many_centre` | — |
 
 ## Hypothesis necessity, per headline
 

@@ -93,6 +93,7 @@ import Checked.FalknerSkan.NegDecay
 import Checked.FalknerSkan.NegTenth
 import Checked.FalknerSkan.NegWindow
 import Checked.Data.Moresco16Min
+import Checked.Math.GelfandPDEManyCentre
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -1174,5 +1175,12 @@ theorem gelfand_extrema :
     nonvacuity% Checked.Math.GelfandExtrema.gelfand_extrema := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! Gelfand problem in the ball as a PDE, multiplicity (run 2026-11-15T1828Z): the headline has no top-level
+hypotheses; its inner ones are met by N = 0 and by the parameter of the singular solution. -/
+
+theorem gelfand_pde_radial_many_centre :
+    nonvacuity% Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre :=
+  ⟨⟨0, trivial⟩, 2, le_rfl, by norm_num, trivial⟩
 
 end Checked.Trust.NV

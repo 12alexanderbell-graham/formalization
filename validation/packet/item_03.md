@@ -1,59 +1,45 @@
 # Item 03
 
-**Area:** Falkner–Skan attached rows β = −0.13, −0.14, −0.15, −0.16
+**Area:** F4–F7
 
-**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** Bamba, Capozziello, Nojiri, Odintsov, Astrophys. Space Sci. 342, 155 (2012), arXiv:1205.3421, Eqs. (10.38)–(10.51), verbatim from Capozziello & Salzano 2009 (arXiv:0902.0088) Eqs. (31)–(52): z-redshift d_L and d_A fourth-order coefficients D⁴_L, D⁴_A miss the curvature-squared term
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+**It holds that**
 
-**assuming**
+1. `RoundsTo (have k := 1 / 100; have z := 2; k ^ 2 * z ^ 4 / 120) 13e-6 6`
+2. `RoundsTo (100 * have z := 1; z ^ 5 / 120 / (z + z ^ 2 / 2)) 0.56 2`
+3. `RoundsTo (100 * have z := 2; z ^ 5 / 120 / (z + z ^ 2 / 2)) 6.7 1`
 
-1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
-2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
-3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -16 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`
-4. `f 0 = 0`
-5. `p 0 = 0`
-6. `Filter.Tendsto p Filter.atTop (nhds 1)`
-7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
-8. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`
+Program definitions in this claim:
 
-**then**
-
-1. `0.1907798552 < q 0`
-2. `q 0 < 0.1907798553`
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Falkner–Skan with β = −16/100: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
-with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
-then 0.1907798552 < q(0) < 0.1907798553.
+Size of the omitted `k²z⁴/120`: for `|k| = 0.01` at `z = 2` it is `1.3 × 10⁻⁵`. In Milne
+(`H₀d_L = z + z²/2` exactly) the omitted `z⁵/120` relative to `H₀d_L` is `0.56 %` at `z = 1` and
+`6.7 %` at `z = 2`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fs_neg_wall_shear_16_window (f p q : ℝ → ℝ)
-    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
-    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
-    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-16 / 100) * (1 - p η ^ 2)) (Ici 0) η)
-    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
-    (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
-    (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
-    0.1907798552 < q 0 ∧ q 0 < 0.1907798553 := …
+theorem F8_sizes :
+    RoundsTo (let k := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fs_neg_wall_shear_16_window`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/NegWallShearRowsTop.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): RoundsTo: d = 0.000013, k = 6, d = 0.56, k = 2, d = 6.7, k = 1.
+- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 03

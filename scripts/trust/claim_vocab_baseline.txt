@@ -1666,8 +1666,6 @@ checked.fidelity.mastereq_iff_blind|nameword:iff
 checked.fidelity.omega0spec_pins|fspan:h₀ ≠ 0
 checked.fidelity.redshiftcore_pins|nameword:core
 checked.fidelity.yredspec_pins|nameword:red
-checked.math.gelfandpde.gelfand_pde_radial_bound|nameword:pde
-checked.math.gelfandpdeexists.gelfand_pde_radial_exists|nameword:pde
 checked.math.laneemden.laneemden3_constants|numctx:0:before
 checked.math.leexists.exists_solution|nameword:le
 checked.math.thomasfermi.tf_initial_slope|nameword:fermi

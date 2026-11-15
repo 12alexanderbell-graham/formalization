@@ -823,3 +823,10 @@
 - Root-cause fix: `scripts/trust/route_control.py` leaked a ~110 MB scratch repository per call (20 GB, filled the red team's disk twice); removed at exit.
 - Annex LIV: PROMPT note (labels do not stop readers; validity by readers; no author words on the reader page; disk before red teams). LEDGER: evaluation, FB26, AU, experiment.
 - Next: CI read (878502b; 82ebb61); then parts 2/5 by rotation.
+
+## 2026-11-15T1828Z (scheduled run)
+- Env: repo ok (pre-cloned stale local main reset to origin/main); local Lean via elan + restored `checked-build` of 43721065108 (b7d5a44); StatementDeps relock and Claims locally. CI 43731774283 (878502b) and 43745518217 (82ebb61) still running at the end of the run (read next run).
+- Parts 2/5 (rotation): multiplicity of radial solutions of the Gelfand problem in the unit ball of ℝ³ (Joseph–Lundgren, dimension 3) promoted to Checked as `Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre`, no new certificates (the radial construction for every radius of the global solution + the IVT on the segments of `gelfand_extrema`).
+- Fidelity: the first freeze (`Work/Math/GelfandPDEMany.lean`) FELL to the referee — its distinctness (`Function.Injective u`, `u ≠ v`) compared functions outside the ball, where the solution class says nothing, so one solution altered there satisfied it; corrected freeze with distinct centre values, proved, blind restatement closed, blind literal reading (D, centre, singular parameter 2, nine-decimal λ* computed by the reader).
+- Annex LIV: PROMPT note (distinctness where the solution class looks; ask "copies of one object?" before freezing any multiplicity claim). LEDGER: new headline, fidelity catch, experiment.
+- Next: CI read; then part 1 by rotation.

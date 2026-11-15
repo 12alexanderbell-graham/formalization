@@ -276,6 +276,9 @@ import Checked.Math.GelfandPDE
 import Checked.Math.RadialC2
 import Checked.Math.GProfile
 import Checked.Math.GelfandPDEExists
+import Checked.Math.GelfandPDEManyMain
+import Checked.Math.GelfandPDEManyCentre
+import Checked.Trust.SecondReadingGelfandMany
 import Checked.Sim.QPoly
 import Checked.Sim.QResid
 import Checked.Sim.QResidRob

@@ -723,12 +723,16 @@ open StatementDeps in
 set_option maxHeartbeats 0 in
 run_cmd do
   let env ← getEnv
-  -- candidate non-vacuity witnesses: Checked theorems whose statement is an `∃` or `True`
+  -- candidate non-vacuity witnesses: Checked theorems whose statement is an `∃`, `True` or (run 2026-11-15T1828Z)
+  -- a conjunction: a headline with no top-level hypothesis whose conjuncts carry their own hypotheses
+  -- (`gelfand_pde_radial_many_centre`) has an obligation `(∃ …) ∧ ∃ …`, which the filter excluded, so no witness
+  -- could ever be found; a candidate must still state exactly the obligation (`t == ob` below)
   let nvCands : Array (Name × Expr) := env.constants.map₁.fold (init := #[]) fun acc n ci =>
     if isCheckedConst env n && !(privateToUserName n).isInternal then
       match ci with
       | .thmInfo t =>
-        if t.type.isAppOf ``Exists || t.type.isConstOf ``True then acc.push (n, t.type) else acc
+        if t.type.isAppOf ``Exists || t.type.isAppOf ``And || t.type.isConstOf ``True then acc.push (n, t.type)
+        else acc
       | _ => acc
     else acc
   -- transcriptions with a machine-checked independent second reading (trust track T3, run 2228Z):

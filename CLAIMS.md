@@ -7767,3 +7767,24 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > strictly increasing on [0, ζ(0)], strictly decreasing on [ζ(2k), ζ(2k+1)] and strictly increasing on
 > [ζ(2k+1), ζ(2k+2)] for every k.
 
+## `gelfand_pde_radial_many_centre`
+
+Full name `Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre`.
+
+**It holds that**
+
+1. there is `u : ℕ → EuclideanSpace ℝ (Fin 3) → ℝ` such that (`Function.Injective fun i => u i 0`) and (for every `i : ℕ`, (`ContDiffOn ℝ 2 (u i) (Metric.ball 0 1)`) and (`ContinuousOn (u i) (Metric.closedBall 0 1)`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u i x = 0`) and (there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u i x = g ‖x‖`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian (u i) x + 2 * Real.exp (u i x) = 0`))
+2. for every `N : ℕ`, there is `ε : ℝ` such that (`0 < ε`) and (for every `lam : ℝ`, if `|lam - 2| < ε`, then there is `u : Fin N → EuclideanSpace ℝ (Fin 3) → ℝ` such that (`Function.Injective fun i => u i 0`) and (for every `i : Fin N`, (`ContDiffOn ℝ 2 (u i) (Metric.ball 0 1)`) and (`ContinuousOn (u i) (Metric.closedBall 0 1)`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u i x = 0`) and (there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u i x = g ‖x‖`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian (u i) x + lam * Real.exp (u i x) = 0`)))
+3. for every `lam : ℝ`, if `2 ≤ lam`, then if `lam < 3.321992118`, then there is `u : EuclideanSpace ℝ (Fin 3) → ℝ` such that there is `v : EuclideanSpace ℝ (Fin 3) → ℝ` such that (`u 0 ≠ v 0`) and (`ContDiffOn ℝ 2 u (Metric.ball 0 1)`) and (`ContinuousOn u (Metric.closedBall 0 1)`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u x = 0`) and (there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `u x = g ‖x‖`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian u x + lam * Real.exp (u x) = 0`) and (`ContDiffOn ℝ 2 v (Metric.ball 0 1)`) and (`ContinuousOn v (Metric.closedBall 0 1)`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `v x = 0`) and (there is `g : ℝ → ℝ` such that for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.closedBall 0 1`, then `v x = g ‖x‖`) and (for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian v x + lam * Real.exp (v x) = 0`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Gelfand problem in the unit ball of three-dimensional space, radial solutions with distinct values at
+> the centre: there is a sequence of functions that are twice continuously differentiable on the open unit
+> ball, continuous on the closed unit ball, zero on the unit sphere and a function of ‖x‖ on the closed ball,
+> satisfy Δf + 2 e^f = 0 on the open ball (Δ is Mathlib's Laplacian) and have pairwise distinct values at the
+> centre; for every N there is ε > 0 such that for every lam with |lam − 2| < ε there are N such functions
+> satisfying Δf + lam e^f = 0 with pairwise distinct values at the centre; and for every lam with
+> 2 ≤ lam < 3.321992118 there are two such functions satisfying Δf + lam e^f = 0 with distinct values at the
+> centre.
+
