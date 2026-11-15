@@ -66,6 +66,7 @@ import Checked.Math.BonnorEbertMin2
 import Checked.Math.BonnorEbertMax3
 import Checked.Math.BonnorEbertExtrema
 import Checked.Math.BonnorEbertMonotone
+import Checked.Math.GelfandExtrema
 import Checked.Math.BEGlobalExists
 import Checked.Math.ThomasFermi
 import Checked.Math.ThomasFermiExists
@@ -1165,5 +1166,13 @@ theorem fs_neg_wall_shear_16_window : nonvacuity% Checked.FalknerSkan.NegWallShe
   obtain ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec⟩ :=
     Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_exists_decay
   exact ⟨f, p, q, hf, hp, hq, hf0, hp0, hlim, hpos, hdec, trivial⟩
+
+/-! Turning points of the radial Gelfand branch in the three-dimensional ball (run 2026-11-15T1228Z): the same
+global regular solution. -/
+
+theorem gelfand_extrema :
+    nonvacuity% Checked.Math.GelfandExtrema.gelfand_extrema := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 
 end Checked.Trust.NV

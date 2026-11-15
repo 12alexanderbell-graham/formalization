@@ -82,3 +82,6 @@ tends
 infinity
 segments
 decreasing
+ball
+turning
+branch

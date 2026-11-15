@@ -253,6 +253,10 @@ import Checked.Math.BEMonoMain
 import Checked.Math.BonnorEbertMonotone
 import Checked.Trust.SecondReadingBEAll
 import Checked.Trust.SecondReadingBEMono
+import Checked.Math.GelfandExtremaMain
+import Checked.Math.GelfandExtrema
+import Checked.Trust.SecondReadingGelfandExtrema
+import Checked.Trust.SecondReadingGelfandLimit
 import Checked.Math.TFReduce
 import Checked.Math.TFCell
 import Checked.Math.TFCellQ
@@ -587,3 +591,4 @@ import Checked.Trust.NecessityAK
 import Checked.Trust.NecessityAL
 import Checked.Trust.NecessityAM
 import Checked.Trust.NecessityAN
+import Checked.Trust.NecessityAO

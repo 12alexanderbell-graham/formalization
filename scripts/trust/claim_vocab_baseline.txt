@@ -901,8 +901,6 @@ Checked.Math.LEExists.exists_solution|headline
 Checked.Math.LEExists.exists_solution|together
 Checked.Math.LEExists.exists_solution|regular
 Checked.Math.LEExists.exists_solution|exists
-Checked.Math.Gelfand.gelfand_ball_critical|ball
-Checked.Math.Gelfand.gelfand_ball_critical|branch
 Checked.Math.Gelfand.gelfand_ball_critical|attains
 Checked.Math.Gelfand.gelfand_ball_critical|maximum
 Checked.Math.GelfandExists.exists_solution|exist
@@ -1668,7 +1666,6 @@ checked.fidelity.mastereq_iff_blind|nameword:iff
 checked.fidelity.omega0spec_pins|fspan:h₀ ≠ 0
 checked.fidelity.redshiftcore_pins|nameword:core
 checked.fidelity.yredspec_pins|nameword:red
-checked.math.gelfand.gelfand_ball_critical|nameword:ball
 checked.math.gelfandpde.gelfand_pde_radial_bound|nameword:pde
 checked.math.gelfandpdeexists.gelfand_pde_radial_exists|nameword:pde
 checked.math.laneemden.laneemden3_constants|numctx:0:before

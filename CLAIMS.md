@@ -7738,3 +7738,32 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > tends to infinity; m is strictly increasing on [0, ξ(0)]; and for every k, m is strictly decreasing on
 > [ξ(2k), ξ(2k+1)] and strictly increasing on [ξ(2k+1), ξ(2k+2)].
 
+## `gelfand_extrema`
+
+Full name `Checked.Math.GelfandExtrema.gelfand_extrema`.
+
+**For every** `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `s : ℝ`, if `s ∈ Set.Ici 0`, then `HasDerivWithinAt w (φ s) (Set.Ici 0) s`
+2. `ContinuousWithinAt φ (Set.Ici 0) 0`
+3. for every `s : ℝ`, if `s ∈ Set.Ioi 0`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Ici 0) s`
+4. `w 0 = 0`
+
+**then**
+
+- there is `ζ : ℕ → ℝ` such that (`StrictMono ζ`) and (`Filter.Tendsto ζ Filter.atTop Filter.atTop`) and (`4.071496844 ≤ ζ 0`) and (`ζ 0 ≤ 4.071496845`) and (`3.321992118 ≤ ζ 0 ^ 2 * Real.exp (w (ζ 0))`) and (`ζ 0 ^ 2 * Real.exp (w (ζ 0)) ≤ 3.321992119`) and (for every `s : ℝ`, if `s ∈ Set.Ici 0`, then if `s ≠ ζ 0`, then `s ^ 2 * Real.exp (w s) < ζ 0 ^ 2 * Real.exp (w (ζ 0))`) and (for every `k : ℕ`, for every `s : ℝ`, if `s ∈ Set.Ici (ζ (2 * k))`, then if `s ≠ ζ (2 * k + 1)`, then `ζ (2 * k + 1) ^ 2 * Real.exp (w (ζ (2 * k + 1))) < s ^ 2 * Real.exp (w s)`) and (for every `k : ℕ`, for every `s : ℝ`, if `s ∈ Set.Ici (ζ (2 * k + 1))`, then if `s ≠ ζ (2 * k + 2)`, then `s ^ 2 * Real.exp (w s) < ζ (2 * k + 2) ^ 2 * Real.exp (w (ζ (2 * k + 2)))`) and (for every `k : ℕ`, (`ζ (2 * k + 1) ^ 2 * Real.exp (w (ζ (2 * k + 1))) < 2`) and (`2 < ζ (2 * k) ^ 2 * Real.exp (w (ζ (2 * k)))`)) and (`Filter.Tendsto (fun s => s ^ 2 * Real.exp (w s)) Filter.atTop (nhds 2)`) and (`StrictMonoOn (fun s => s ^ 2 * Real.exp (w s)) (Set.Icc 0 (ζ 0))`) and (for every `k : ℕ`, `StrictAntiOn (fun s => s ^ 2 * Real.exp (w s)) (Set.Icc (ζ (2 * k)) (ζ (2 * k + 1)))`) and (for every `k : ℕ`, `StrictMonoOn (fun s => s ^ 2 * Real.exp (w s)) (Set.Icc (ζ (2 * k + 1)) (ζ (2 * k + 2)))`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Gelfand problem, turning points of the radial branch: for every
+> solution w of w'' + (2/s)w' + e^w = 0 on (0, ∞) with w(0) = 0, w differentiable on [0, ∞) with derivative
+> φ and φ continuous at 0, with λ(s) = s² e^{w(s)}, there is a strictly increasing sequence of radii
+> ζ(0) < ζ(1) < … tending to infinity, with ζ(0) between 4.071496844 and 4.071496845 and λ(ζ(0)) between
+> 3.321992118 and 3.321992119, such that λ(s) < λ(ζ(0)) for s ≥ 0 with s ≠ ζ(0); for every k,
+> λ(ζ(2k+1)) < λ(s) for s ≥ ζ(2k) with s ≠ ζ(2k+1), and λ(s) < λ(ζ(2k+2)) for s ≥ ζ(2k+1) with
+> s ≠ ζ(2k+2); for every k, λ(ζ(2k+1)) < 2 < λ(ζ(2k)); λ(s) tends to 2 as s tends to infinity; and λ is
+> strictly increasing on [0, ζ(0)], strictly decreasing on [ζ(2k), ζ(2k+1)] and strictly increasing on
+> [ζ(2k+1), ζ(2k+2)] for every k.
+
