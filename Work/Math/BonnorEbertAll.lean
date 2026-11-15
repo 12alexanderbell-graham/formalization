@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.BEAllMain
 
 /-! Bonnor–Ebert sphere, `BonnorEbertAll` (FROZEN by run 2026-11-15T0028Z before proof).
 
@@ -61,7 +62,9 @@ theorem bonnor_ebert_all_extrema (w φ : ℝ → ℝ)
         Real.sqrt (2 / Real.pi) <
           ξ (2 * k) ^ 2 * (-φ (ξ (2 * k))) * Real.exp (w (ξ (2 * k)) / 2) / Real.sqrt (4 * Real.pi)) ∧
       Tendsto (fun s => s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi)) atTop
-        (𝓝 (Real.sqrt (2 / Real.pi))) := by
-  sorry
+        (𝓝 (Real.sqrt (2 / Real.pi))) :=
+  Work.Math.BEAllMain.main w φ hw hφ0 hφ h0
 
 end Work.Math.BonnorEbertAll
+
+#print axioms Work.Math.BonnorEbertAll.bonnor_ebert_all_extrema
