@@ -10,6 +10,7 @@ Builds scratch git repositories from this checkout's scripts/trust and registry 
   fb17*  the same sequences for a class phrase of check_findings.py FB17 (b) (run 2026-11-14T1228Z), plus a brief
          that contains the phrase (leak) and a registry line with no reading at all (none): only fb17good passes
 usage: route_control.py   (exit 1 if any control misbehaves)"""
+import atexit
 import os, shutil, subprocess, sys, tempfile
 SRC = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 R = "scripts/trust/phrase_roles.txt"
@@ -21,8 +22,14 @@ def sh(cwd, *a):
     return subprocess.run(a, cwd=cwd, capture_output=True, text=True)
 
 
+_TMP = []  # run 2026-11-15T1628Z: each scratch repo is ~110 MB and was never removed; a T5 judge running this per
+# defect leaked ~1 GB per defect and filled the disk twice during blind round AU (180 dirs, 20 GB under /tmp)
+atexit.register(lambda: [shutil.rmtree(x, ignore_errors=True) for x in _TMP])
+
+
 def repo():
     d = tempfile.mkdtemp()
+    _TMP.append(d)
     shutil.copytree(os.path.join(SRC, "scripts"), os.path.join(d, "scripts"))
     shutil.copytree(os.path.join(SRC, "runs"), os.path.join(d, "runs"))
     for f in ("LEDGER.md",):
