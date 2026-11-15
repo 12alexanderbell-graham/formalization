@@ -50,20 +50,10 @@ FalknerSkan.Limit.fs_fifth_limit_equal | 6, 12
 FalknerSkan.LimitTenth.fs_tenth_limit_window | 6
 FalknerSkan.LimitTenth.fs_tenth_limit_equal | 6, 12
 FalknerSkan.Limit.fs_monotone_of_limit | 2, 3, 6, 7, 8
-FalknerSkan.NegDecay.fs_neg_decay_max_shear | 1, 6, 13, 15, 16
-FalknerSkan.NegDecay.fs_neg_decay_equal | 1, 18
+FalknerSkan.NegDecay.fs_neg_decay_max_shear | 1, 6, 13, 16
+FalknerSkan.NegDecay.fs_neg_decay_equal | 1
 FalknerSkan.SeparationEqual.fs_separation_equal | 4, 5, 8, 13, 14, 17
 FalknerSkan.SeparationPrinted.fs_separation_below_printed | 4, 5, 8, 9
-FalknerSkan.NegWindow.fs_neg_tenth_window | 8
-FalknerSkan.NegWallShear.fs_neg_wall_shear_window | 8
-FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt | 4, 6, 7
+FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt | 4, 7
 FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots | 4, 5
 Records.F12_separation | 4, 5, 8, 9
-Records.F13_wall_shear | 8
-FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window | 8
-FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window | 8
-FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window | 8
-FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_13_window | 8
-FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_14_window | 8
-FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_window | 8
-FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_window | 8
