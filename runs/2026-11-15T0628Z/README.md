@@ -25,7 +25,9 @@
 5. Integration: `Checked.lean` imports; `necessity_open_baseline.txt` (−12 lines/indices); `TRUST_RELOCK=1` StatementDeps; Claims; packet; local CI replica (see below).
 
 ## Local checks
-(filled in below at the records commit)
+- `lake build Checked` green (3605 jobs); every new module first or second compile.
+- `TRUST_RELOCK=1 lake env lean scripts/trust/StatementDeps.lean` (≈ 9 min): 291 headlines on pinned definitions, NV 174/174; hypothesis necessity 991 hypotheses, needed 633, redundant 162, open 196, fully classified 101/170. Claims (CLAIMS.md, PHRASE_LINES.md unchanged), packet unchanged.
+- `local_frozen_step.py --trust 80cabb8`, first pass: the trust step stopped at StatementDeps' registry check — STATE.md cited two helper names in backticks (`AAssemble.…` slow-class theorem, the core spec's composition law), which the registry reads as citations of unregistered headlines (PROMPT note of run 2026-11-04T0028Z: describe helpers in words). Repaired; the rest of the trust step then failed only `check_necessity` N4 (the shape baseline still listed `Fidelity.cosmoCoeffCore_pins`, now fully classified: line removed) and, locally, one `check_findings` control (cmarkgfm not installed: `pip install --break-system-packages cmarkgfm==2024.11.20`). After the repairs: the rest of the trust step and the frozen step vs 80cabb8 green (`bash -e`); full second pass of `local_frozen_step.py --trust 80cabb8` on the records commit: see the line below.
 
 ## Records
 STATE 1a, LEDGER, CHANGELOG, BLUEPRINT, PROMPT note (witnesses for selection hypotheses: start the existing event chain far from the critical value).

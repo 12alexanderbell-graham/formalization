@@ -1,7 +1,6 @@
 # Shrink-only (check_necessity.py N4, run 2026-11-11T0428Z): headlines whose assumptions the necessity
 # numbering does not reach or reaches only formally (TRUST_MAP.md "shape:" entries). `<headline> | <reasons>`.
 Fidelity.redshiftCore_pins | bundled 2
-Fidelity.cosmoCoeffCore_pins | bundled 2
 Chemistry.Coexistence.vdW_coexistence_unique | bundled 5
 Chemistry.RKAcentric.rk_coexistence_exists | bundled 6
 Chemistry.RKAcentric.rk_coexistence_unique | bundled 6, bundled 8
