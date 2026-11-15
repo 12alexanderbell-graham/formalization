@@ -362,4 +362,157 @@ theorem main :
     have := injU lam s1 s2 hlpos hs1.1 (lt_trans hz0 hs2.1) h
     linarith [hs1.2, hs2.1]
 
+/-- Distinct radii give distinct values at the centre. -/
+theorem ne_of_centre (W : ℝ → ℝ) (h0 : W 0 = 0) (lam s t : ℝ) (hs : 0 < s) (ht : 0 < t)
+    (hpos : 0 < lam)
+    (heq : W (s * ‖(0 : EuclideanSpace ℝ (Fin 3))‖) + Real.log (s ^ 2 / lam) =
+      W (t * ‖(0 : EuclideanSpace ℝ (Fin 3))‖) + Real.log (t ^ 2 / lam)) : s = t := by
+  simp only [norm_zero, mul_zero, h0, zero_add] at heq
+  have h2 : s ^ 2 / lam = t ^ 2 / lam :=
+    Real.log_injOn_pos (by simp only [mem_Ioi]; positivity) (by simp only [mem_Ioi]; positivity) heq
+  have h3 : s ^ 2 = t ^ 2 := by
+    field_simp at h2; linarith
+  nlinarith [sq_nonneg (s - t), sq_nonneg (s + t)]
+
+/-- The corrected statement: solutions told apart by their values at the centre. -/
+theorem main_centre :
+    (∃ u : ℕ → EuclideanSpace ℝ (Fin 3) → ℝ, Function.Injective (fun i => u i 0) ∧ ∀ i : ℕ,
+      ContDiffOn ℝ 2 (u i) (ball 0 1) ∧
+      ContinuousOn (u i) (closedBall 0 1) ∧
+      (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u i x = 0) ∧
+      (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u i x = g ‖x‖) ∧
+      (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ (u i) x + 2 * Real.exp (u i x) = 0)) ∧
+    (∀ N : ℕ, ∃ ε : ℝ, 0 < ε ∧ ∀ lam : ℝ, |lam - 2| < ε →
+      ∃ u : Fin N → EuclideanSpace ℝ (Fin 3) → ℝ, Function.Injective (fun i => u i 0) ∧ ∀ i : Fin N,
+        ContDiffOn ℝ 2 (u i) (ball 0 1) ∧
+        ContinuousOn (u i) (closedBall 0 1) ∧
+        (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u i x = 0) ∧
+        (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u i x = g ‖x‖) ∧
+        (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ (u i) x + lam * Real.exp (u i x) = 0)) ∧
+    (∀ lam : ℝ, 2 ≤ lam → lam < 3.321992118 →
+      ∃ u v : EuclideanSpace ℝ (Fin 3) → ℝ, u 0 ≠ v 0 ∧
+        (ContDiffOn ℝ 2 u (ball 0 1) ∧
+          ContinuousOn u (closedBall 0 1) ∧
+          (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u x = 0) ∧
+          (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u x = g ‖x‖) ∧
+          (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + lam * Real.exp (u x) = 0)) ∧
+        (ContDiffOn ℝ 2 v (ball 0 1) ∧
+          ContinuousOn v (closedBall 0 1) ∧
+          (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → v x = 0) ∧
+          (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, v x = g ‖x‖) ∧
+          (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ v x + lam * Real.exp (v x) = 0))) := by
+  obtain ⟨W, Φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  obtain ⟨ζ, hmono, -, hz0lo, -, hl0lo, -, -, -, -, hband, -, -, -, -⟩ :=
+    Checked.Math.GelfandExtrema.gelfand_extrema W Φ hw hφ0 hφ h0
+  set Λ : ℝ → ℝ := fun s => s ^ 2 * Real.exp (W s) with hΛ
+  have cW : ContinuousOn W (Ici 0) := fun t ht => (hw t ht).continuousWithinAt
+  have cΛ : ContinuousOn Λ (Ici 0) := (continuousOn_id.pow 2).mul cW.rexp
+  have hz0 : 0 < ζ 0 := by norm_num at hz0lo; linarith
+  have hzpos : ∀ k, 0 < ζ k := fun k => lt_of_lt_of_le hz0 (hmono.monotone (Nat.zero_le k))
+  -- the solution attached to a radius
+  set U : ℝ → ℝ → EuclideanSpace ℝ (Fin 3) → ℝ :=
+    fun lam s x => W (s * ‖x‖) + Real.log (s ^ 2 / lam) with hU
+  -- IVT on a segment [ζ k, ζ (k+1)]
+  have ivt : ∀ k : ℕ, ∀ lam : ℝ,
+      ((Λ (ζ k) < lam ∧ lam < Λ (ζ (k + 1))) ∨ (Λ (ζ (k + 1)) < lam ∧ lam < Λ (ζ k))) →
+      ∃ s ∈ Ioo (ζ k) (ζ (k + 1)), Λ s = lam := by
+    intro k lam h
+    have hle : ζ k ≤ ζ (k + 1) := hmono.monotone (Nat.le_succ k)
+    have c : ContinuousOn Λ (Icc (ζ k) (ζ (k + 1))) :=
+      cΛ.mono (fun t ht => le_trans (hzpos k).le ht.1)
+    rcases h with h | h
+    · exact intermediate_value_Ioo hle c h
+    · exact intermediate_value_Ioo' hle c h
+  -- the values at consecutive turning points straddle 2
+  have strad : ∀ k : ℕ,
+      (2 < Λ (ζ k) ∧ Λ (ζ (k + 1)) < 2) ∨ (Λ (ζ k) < 2 ∧ 2 < Λ (ζ (k + 1))) := by
+    intro k
+    obtain ⟨j, rfl | rfl⟩ := Nat.even_or_odd' k
+    · exact Or.inl ⟨(hband j).2, (hband j).1⟩
+    · right
+      refine ⟨(hband j).1, ?_⟩
+      have : 2 * j + 1 + 1 = 2 * (j + 1) := by ring
+      rw [this]; exact (hband (j + 1)).2
+  have hne : ∀ k, 0 < |Λ (ζ k) - 2| := by
+    intro k
+    rcases strad k with h | h
+    · exact abs_pos.2 (by linarith [h.1])
+    · exact abs_pos.2 (by linarith [h.1])
+  -- a radius on segment k for every λ closer to 2 than both ends
+  have seg : ∀ k : ℕ, ∀ lam : ℝ, |lam - 2| < |Λ (ζ k) - 2| → |lam - 2| < |Λ (ζ (k + 1)) - 2| →
+      ∃ s ∈ Ioo (ζ k) (ζ (k + 1)), Λ s = lam := by
+    intro k lam h1 h2
+    apply ivt
+    rcases strad k with h | h
+    · right
+      rw [abs_of_pos (by linarith [h.1] : (0 : ℝ) < Λ (ζ k) - 2)] at h1
+      rw [abs_of_neg (by linarith [h.2] : Λ (ζ (k + 1)) - 2 < 0)] at h2
+      constructor <;> linarith [le_abs_self (lam - 2), neg_abs_le (lam - 2)]
+    · left
+      rw [abs_of_neg (by linarith [h.1] : Λ (ζ k) - 2 < 0)] at h1
+      rw [abs_of_pos (by linarith [h.2] : (0 : ℝ) < Λ (ζ (k + 1)) - 2)] at h2
+      constructor <;> linarith [le_abs_self (lam - 2), neg_abs_le (lam - 2)]
+  -- radii on different segments are ordered
+  have sep : ∀ a b : ℕ, a < b → ∀ x y : ℝ, x ∈ Ioo (ζ a) (ζ (a + 1)) → y ∈ Ioo (ζ b) (ζ (b + 1)) →
+      x < y := fun a b hab x y hx hy =>
+    lt_trans hx.2 (lt_of_le_of_lt (hmono.monotone (Nat.succ_le_of_lt hab)) hy.1)
+  have solU : ∀ lam s : ℝ, 0 < lam → 0 < s → Λ s = lam →
+      ContDiffOn ℝ 2 (U lam s) (ball 0 1) ∧
+      ContinuousOn (U lam s) (closedBall 0 1) ∧
+      (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → U lam s x = 0) ∧
+      (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, U lam s x = g ‖x‖) ∧
+      (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ (U lam s) x + lam * Real.exp (U lam s x) = 0) :=
+    fun lam s hl hs hsl => radial_global W Φ hw hφ0 hφ h0 s lam hs hl hsl
+  have injU : ∀ lam s t : ℝ, 0 < lam → 0 < s → 0 < t → U lam s 0 = U lam t 0 → s = t :=
+    fun lam s t hl hs ht h => ne_of_centre W h0 lam s t hs ht hl h
+  refine ⟨?_, ?_, ?_⟩
+  · -- (i) λ = 2
+    have hk : ∀ k : ℕ, ∃ s ∈ Ioo (ζ k) (ζ (k + 1)), Λ s = 2 := fun k =>
+      seg k 2 (by simpa using hne k) (by simpa using hne (k + 1))
+    choose σ hσ hσΛ using hk
+    refine ⟨fun i => U 2 (σ i), ?_, fun i => solU 2 (σ i) two_pos
+      (lt_trans (hzpos i) (hσ i).1) (hσΛ i)⟩
+    intro i j hij
+    have := injU 2 (σ i) (σ j) two_pos (lt_trans (hzpos i) (hσ i).1)
+      (lt_trans (hzpos j) (hσ j).1) hij
+    rcases lt_trichotomy i j with h | h | h
+    · exact absurd this (sep i j h _ _ (hσ i) (hσ j)).ne
+    · exact h
+    · exact absurd this (sep j i h _ _ (hσ j) (hσ i)).ne'
+  · -- (ii) at least N near 2
+    intro N
+    set δ : ℝ := min 1 ((Finset.range (N + 1)).inf' ⟨0, by simp⟩ (fun k => |Λ (ζ k) - 2|)) with hδ
+    have hδpos : 0 < δ := lt_min one_pos ((Finset.lt_inf'_iff _).2 (fun k _ => hne k))
+    have hδle : ∀ k ≤ N, δ ≤ |Λ (ζ k) - 2| := fun k hk =>
+      (min_le_right _ _).trans (Finset.inf'_le _ (Finset.mem_range.2 (Nat.lt_succ_of_le hk)))
+    refine ⟨δ, hδpos, fun lam hl => ?_⟩
+    have hl1 : |lam - 2| < 1 := lt_of_lt_of_le hl (min_le_left _ _)
+    have hlpos : 0 < lam := by linarith [neg_abs_le (lam - 2)]
+    have hk : ∀ i : Fin N, ∃ s ∈ Ioo (ζ i) (ζ ((i : ℕ) + 1)), Λ s = lam := fun i =>
+      seg i lam (lt_of_lt_of_le hl (hδle i i.2.le)) (lt_of_lt_of_le hl (hδle (i + 1) i.2))
+    choose σ hσ hσΛ using hk
+    refine ⟨fun i => U lam (σ i), ?_, fun i => solU lam (σ i) hlpos
+      (lt_trans (hzpos i) (hσ i).1) (hσΛ i)⟩
+    intro i j hij
+    have := injU lam (σ i) (σ j) hlpos (lt_trans (hzpos i) (hσ i).1)
+      (lt_trans (hzpos j) (hσ j).1) hij
+    rcases lt_trichotomy (i : ℕ) j with h | h | h
+    · exact absurd this (sep i j h _ _ (hσ i) (hσ j)).ne
+    · exact Fin.ext h
+    · exact absurd this (sep j i h _ _ (hσ j) (hσ i)).ne'
+  · -- (iii) two solutions for 2 ≤ λ < 3.321992118
+    intro lam hl2 hlt
+    have hlpos : (0 : ℝ) < lam := by linarith
+    have hΛ0 : Λ 0 = 0 := by simp [hΛ]
+    have hmax : lam < Λ (ζ 0) := by simp only [hΛ]; linarith
+    have hmin : Λ (ζ 1) < 2 := (hband 0).1
+    have c0 : ContinuousOn Λ (Icc 0 (ζ 0)) := cΛ.mono (fun t ht => ht.1)
+    obtain ⟨s1, hs1, hs1Λ⟩ := intermediate_value_Ioo hz0.le c0 (show lam ∈ Ioo (Λ 0) (Λ (ζ 0)) from
+      ⟨by rw [hΛ0]; exact hlpos, hmax⟩)
+    obtain ⟨s2, hs2, hs2Λ⟩ := ivt 0 lam (Or.inr ⟨by linarith, hmax⟩)
+    refine ⟨U lam s1, U lam s2, fun h => ?_, solU lam s1 hlpos hs1.1 hs1Λ,
+      solU lam s2 hlpos (lt_trans hz0 hs2.1) hs2Λ⟩
+    have := injU lam s1 s2 hlpos hs1.1 (lt_trans hz0 hs2.1) h
+    linarith [hs1.2, hs2.1]
+
 end Work.Math.GelfandPDEManyMain
