@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.GelfandExtremaMain
 
 /-! Gelfand problem in the three-dimensional ball, `GelfandExtrema` (FROZEN by run 2026-11-15T1228Z
 before proof).
@@ -58,7 +59,7 @@ theorem gelfand_extrema (w φ : ℝ → ℝ)
       StrictMonoOn (fun s => s ^ 2 * Real.exp (w s)) (Icc 0 (ζ 0)) ∧
       (∀ k : ℕ, StrictAntiOn (fun s => s ^ 2 * Real.exp (w s)) (Icc (ζ (2 * k)) (ζ (2 * k + 1)))) ∧
       (∀ k : ℕ,
-        StrictMonoOn (fun s => s ^ 2 * Real.exp (w s)) (Icc (ζ (2 * k + 1)) (ζ (2 * k + 2)))) := by
-  sorry
+        StrictMonoOn (fun s => s ^ 2 * Real.exp (w s)) (Icc (ζ (2 * k + 1)) (ζ (2 * k + 2)))) :=
+  Work.Math.GelfandExtremaMain.main w φ hw hφ0 hφ h0
 
 end Work.Math.GelfandExtrema

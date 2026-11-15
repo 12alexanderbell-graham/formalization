@@ -1,1 +1,1 @@
-Run 2026-11-15T1228Z (scheduled), started 12:28Z, heartbeat 12:50Z; task: parts 2/5: Gelfand turning points (Work.Math.GelfandExtrema frozen, proof from gelfand_ball_critical + bonnor_ebert_extrema + Volterra); CI read of 0a52be0 pending. Remove at end.
+Run 2026-11-15T1228Z (scheduled), started 12:28Z, heartbeat 13:10Z; task: parts 2/5: gelfand_extrema proved in Work; blind closure, then promotion to Checked. Remove at end.
