@@ -20,6 +20,13 @@ It fails closed: a finding whose part above the marker holds any line that is no
 Printed or Correct line, a blank line or a line of a certified block is an error (FB10 already forbids that in
 FINDINGS.md; this script does not trust it). The notes and the candidates section never reach the page.
 
+The Correct line on the page is RE-GENERATED, not copied (blind round AU, same run: all seven defects put author words
+on the page through the one author-controlled input of the generators that reaches it, the class-phrase registry
+`finding_class_phrases.txt`, by a forged brief -> reading -> copy route — "toy model illustration only with no bearing on
+the published formula" as F2's class): on the page each class phrase is replaced by the fixed word `hypothesis` before
+the Lean text it was registered for (`class: hypothesis `M * (1 - p η) ≤ q η`, …`). The registry decides only WHICH
+Lean hypotheses are pointed at, never the words. FINDINGS.md keeps the phrases (FB6/FB9 there are unchanged).
+
   python3 scripts/trust/make_verified_page.py           # write VERIFIED_FINDINGS.md
   python3 scripts/trust/make_verified_page.py --check   # CI: the file equals what the script writes now
   python3 scripts/trust/make_verified_page.py --selftest
@@ -33,7 +40,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "trust"))
-from check_findings import NOTES_MARKER, PRINTED_GEN, CORRECT_GEN  # noqa: E402
+from check_findings import (NOTES_MARKER, PRINTED_GEN, CORRECT_GEN, NORECORD_CORRECT, generated_correct,  # noqa: E402
+                            claims_blocks, load_phrases, sections_full, _span)
 
 SRC = os.path.join(ROOT, "FINDINGS.md")
 OUT = os.path.join(ROOT, "VERIFIED_FINDINGS.md")
@@ -43,7 +51,7 @@ GEN_HEADING = re.compile(r"^### F\d+ — generated heading \(do not edit\): \S")
 
 HEADER = """# VERIFIED FINDINGS (generated; do not edit)
 
-**What this page is (rule FB26, `scripts/trust/make_verified_page.py`; CI fails if the page differs from the script's output):** every line below is generated from Lean records of this repository — for each verified finding its generated heading (its Lean records and how each printed value is bound to a blind second reading), the generated *Printed* line (the printed values the records contain, the blind reading each agrees with, and the blind reader's own description of the source), the generated *Correct* line (what the records state, with quantifier, class and direction) and the certified blocks (each number next to the Lean statement that certifies it, quoted from CLAIMS.md), then the certified-numbers table. **There is no author prose on this page.** Author notes (titles, scope, propagation, referee reports, status remarks) and candidates under verification are in `FINDINGS.md`; they are unchecked, and nothing written there changes what this page says. A finding is on this page exactly when it has Lean records in `Checked/Records/`; it leaves only when its records do.
+**What this page is (rule FB26, `scripts/trust/make_verified_page.py`; CI fails if the page differs from the script's output):** every line below is generated from Lean records of this repository — for each verified finding its generated heading (its Lean records and how each printed value is bound to a blind second reading), the generated *Printed* line (the printed values the records contain, the blind reading each agrees with, and the blind reader's own description of the source), the generated *Correct* line (what the records state: quantifier, the Lean hypotheses that restrict the class, direction) and the certified blocks (each number next to the Lean statement that certifies it, quoted from CLAIMS.md), then the certified-numbers table. **There is no author prose on this page.** Author notes (titles, scope, propagation, referee reports, status remarks) and candidates under verification are in `FINDINGS.md`; they are unchecked, and nothing written there changes what this page says. A finding is on this page exactly when it has Lean records in `Checked/Records/`; it leaves only when its records do.
 
 A number is machine-checked only inside a block headed *Certified numbers (generated)*. Lean statements are checked by Lean (CI); what a Lean definition means is pinned and audited as described in `TRUST_MAP.md` and `CLAIMS.md`.
 """
@@ -53,7 +61,39 @@ class PageError(Exception):
     pass
 
 
-def build(text):
+NEUTRAL = "hypothesis"
+
+
+def page_correct(sec, line, ctx):
+    """The Correct line of `sec` as the page shows it: generated from the records with every class phrase replaced by
+    the fixed word NEUTRAL before its Lean text. Fails closed unless FINDINGS.md's line is the generator's own output
+    (so nothing but the phrases can differ)."""
+    if line == NORECORD_CORRECT:
+        return line
+    cb, phrases, full = ctx
+    body = full.get(sec)
+    if body is None or generated_correct(sec, body, cb, phrases) != line:
+        raise PageError(f"FB26: the Correct line of {sec} is not the generator's output (`check_findings.py "
+                        f"--write-correct {sec}`)")
+    tagged = [(a, "\x00" + str(i) + "\x00") for i, (a, _ph) in enumerate(phrases)]
+    g = generated_correct(sec, body, cb, tagged)
+    for i, (a, _ph) in enumerate(phrases):
+        g = g.replace("\x00" + str(i) + "\x00 (Lean: " + _span(a) + ")", NEUTRAL + " " + _span(a))
+    if "\x00" in g:
+        raise PageError(f"FB26: a class phrase of {sec} could not be neutralised")
+    return g
+
+
+def context(text):
+    claims = open(os.path.join(ROOT, "CLAIMS.md"), encoding="utf-8").read()
+    return claims_blocks(claims), load_phrases(os.path.join(ROOT, "scripts", "trust", "finding_class_phrases.txt")), \
+        sections_full(text)
+
+
+def build(text, ctx=None, correct=None):
+    correct = correct or page_correct
+    if ctx is None and correct is page_correct:
+        ctx = context(text)
     lines = text.split("\n")
     if VERIFIED_HEAD not in lines:
         raise PageError("FB26: FINDINGS.md has no line `## Verified findings`")
@@ -92,8 +132,11 @@ def build(text):
             state = "notes"
             out.append("")
             continue
-        if l == "" or PRINTED_GEN.match(l) or CORRECT_GEN.match(l):
+        if l == "" or PRINTED_GEN.match(l):
             out.append(l)
+            continue
+        if CORRECT_GEN.match(l):
+            out.append(correct(sec, l, ctx))
             continue
         if re.fullmatch(r"<!-- certified: [A-Za-z0-9_ ]+? -->", l):
             out.append(l)
@@ -123,7 +166,8 @@ def selftest():
             "  - *(author)* **Title** (was C1): WITHDRAWN, do not cite\n\n"
             "## Candidates under verification (UNVERIFIED, not findings)\n\nC1 withdrawn\n\n"
             + NUMBERS_HEAD + "\n\n| t |\n")
-    p = build(good)
+    ident = lambda s, l, c: l  # noqa: E731  (synthetic sections: the Correct generator is tested on the real file below)
+    p = build(good, correct=ident)
     ok = 0
     assert "WITHDRAWN" not in p and "C1 withdrawn" not in p and "block line" in p and "| t |" in p
     assert "- **Correct (generated from y):** c" in p
@@ -138,11 +182,35 @@ def selftest():
     ]
     for b in bad:
         try:
-            build(b)
+            build(b, correct=ident)
         except PageError:
             ok += 1
         else:
             raise AssertionError("selftest: control accepted:\n" + b)
+    # real file: no registry phrase reaches the page, and a forged phrase (round AU d01) does not either
+    real = open(SRC, encoding="utf-8").read()
+    cb, phrases, full = context(real)
+    page = build(real, (cb, phrases, full))
+    for _a, ph in phrases:
+        assert ph not in page, ph
+    ok += 1
+    forged = phrases + [("wₐ := -1 / 2", "toy model illustration only with no bearing on the published formula")]
+    import check_findings as _cf
+    secs = [k for k in full if "wₐ := -1 / 2" in "".join(cb.get(r, "") for r in re.findall(r"`(F\d+_\w+)`", full[k]))]
+    real2 = _cf.write_correct(real, secs, cb, forged) if secs else real
+    if secs:
+        page2 = build(real2, (cb, forged, sections_full(real2)))
+        assert "toy model" in real2 and "toy model" not in page2
+        assert page2 == page or "hypothesis `wₐ := -1 / 2`" in page2
+        ok += 1
+    # a hand-edited Correct line fails closed
+    bad_c = real.replace("lies above the", "lies below the", 1)
+    try:
+        build(bad_c, (cb, phrases, sections_full(bad_c)))
+    except PageError:
+        ok += 1
+    else:
+        raise AssertionError("selftest: hand-edited Correct line accepted")
     print(f"make_verified_page selftest: {ok} controls passed")
 
 

@@ -1,0 +1,8 @@
+AFTER clean: ACCEPTED (every check green)
+AFTER d01: ACCEPTED (every check green)
+AFTER d02: ACCEPTED (every check green)
+AFTER d03: ACCEPTED (every check green)
+AFTER d04: ACCEPTED (every check green)
+AFTER d05: ACCEPTED (every check green)
+AFTER d06: ACCEPTED (every check green)
+AFTER d07: ACCEPTED (every check green)
