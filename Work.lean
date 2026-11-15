@@ -243,6 +243,8 @@ import Work.Math.GelfandPDEExistsBlindClosed
 import Work.Math.GelfandPDEManyMain
 import Work.Math.GelfandPDEMany
 import Work.Math.GelfandPDEManyCentre
+import Work.Math.GelfandPDEManyBlind
+import Work.Math.GelfandPDEManyBlindClosed
 import Work.Sim.MMAudit
 import Work.Sim.OneSided
 import Work.Sim.RobCell
