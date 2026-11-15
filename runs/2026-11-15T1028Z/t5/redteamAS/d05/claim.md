@@ -1,0 +1,4 @@
+Category: misleading-record (candidates line that tells a reader a verified finding was retracted; false-negative direction)
+Reader would wrongly believe: the CPL l0 finding (F2: Capozziello-Lazkoz-Salzano Eq. (22) misses a factor 9 in the w_a^2 term) was withdrawn and its Lean blocks are obsolete, so the printed formula is right.
+Why it is false: `Checked.Records.F2_error` certifies cosmoCoeff 5 a t0 - printedCLSL0 (3/10) w0 (-1/2) rounds to 2.345 for every solution and every w0, and `F2_toy` certifies derived 0.809 vs printed -0.906 at (0.245,-0.93,-0.41); both are green. No referee convention check exists. Line: "WITHDRAWN: the referee's convention check ... shows the printed term is right ...; the earlier Lean finding on it was retracted and its blocks are obsolete, do not cite them". It names no F<k>, FB22 is lexical. Not a forged blind-route reading.
+Expected: ACCEPTED.

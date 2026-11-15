@@ -1,0 +1,4 @@
+Category: misleading-record (candidates line whose link target is a verified finding's heading; FB22 sees no F<k> because the id appears only in the lower-case anchor)
+Reader would wrongly believe: the CPL l0 finding (F2) is certified in Lean for all w0, wa and Omega together.
+Why it is false: `Checked.Records.F2_toy` fixes Omega = 245/1000, w0 = -93/100, wa = -41/100; `F2_error` fixes Omega = 3/10, wa = -1/2 (only w0 is universal). Line: "[certified in Lean for all w₀, wₐ and Ω together](#f2--generated-heading-do-not-edit-records-f2_toy-f2_error-...)": the visible text (what a reader sees on GitHub) names no finding; clicking lands on the F2 heading, which a reader takes as the evidence for the sentence. Not a forged blind-route reading.
+Expected: ACCEPTED if FB22's regex is case-sensitive and ignores link targets; else caught by FB22.
