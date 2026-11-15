@@ -216,6 +216,8 @@ import Work.Math.BEAllMain
 import Work.Math.BEGlobalExists
 import Work.Math.BonnorEbertAllBlind
 import Work.Math.BonnorEbertAllBlindClosed
+import Work.Math.BEMonoExt
+import Work.Math.BEMonoMain
 import Work.Math.BonnorEbertMono
 import Work.Math.BonnorEbertMax2Blind
 import Work.Math.BonnorEbertMax2BlindClosed

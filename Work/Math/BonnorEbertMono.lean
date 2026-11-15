@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.BEMonoMain
 
 /-! Bonnor–Ebert sphere, `BonnorEbertMono` (FROZEN by run 2026-11-15T0828Z before proof).
 
@@ -61,7 +62,7 @@ theorem bonnor_ebert_extrema_monotone (w φ : ℝ → ℝ)
       (∀ k : ℕ, StrictAntiOn (fun s => s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi))
         (Icc (ξ (2 * k)) (ξ (2 * k + 1)))) ∧
       (∀ k : ℕ, StrictMonoOn (fun s => s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi))
-        (Icc (ξ (2 * k + 1)) (ξ (2 * k + 2)))) := by
-  sorry
+        (Icc (ξ (2 * k + 1)) (ξ (2 * k + 2)))) :=
+  Work.Math.BEMonoMain.main w φ hw hφ0 hφ h0
 
 end Work.Math.BonnorEbertMono
