@@ -1,1 +1,1 @@
-Run 2026-11-15T1228Z (scheduled), started 12:28Z, heartbeat 12:35Z; task: CI read (ece084b promotion of bonnor_ebert_extrema_monotone, 813805f, 0a52be0), then rotation work parts 2/5 (STATE 1c). Remove at end.
+Run 2026-11-15T1228Z (scheduled), started 12:28Z, heartbeat 12:50Z; task: parts 2/5: Gelfand turning points (Work.Math.GelfandExtrema frozen, proof from gelfand_ball_critical + bonnor_ebert_extrema + Volterra); CI read of 0a52be0 pending. Remove at end.
