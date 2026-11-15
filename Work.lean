@@ -208,6 +208,7 @@ import Work.Math.BE3Main
 import Work.Math.BonnorEbertMax3
 import Work.Math.BonnorEbertMax3Blind
 import Work.Math.BonnorEbertMax3BlindClosed
+import Work.Math.BonnorEbertAll
 import Work.Math.BonnorEbertMax2Blind
 import Work.Math.BonnorEbertMax2BlindClosed
 import Work.Math.GelfandBlind
