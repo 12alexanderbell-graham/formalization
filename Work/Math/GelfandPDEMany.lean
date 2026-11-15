@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.GelfandPDEManyMain
 
 /-! Gelfand problem in the three-dimensional ball as a PDE, `GelfandPDEMany` (FROZEN by run
 2026-11-15T1828Z before proof).
@@ -56,6 +57,6 @@ theorem gelfand_pde_radial_many :
           (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → v x = 0) ∧
           (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, v x = g ‖x‖) ∧
           (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ v x + lam * Real.exp (v x) = 0))) := by
-  sorry
+  exact Work.Math.GelfandPDEManyMain.main
 
 end Work.Math.GelfandPDEMany
