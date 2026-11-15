@@ -80,3 +80,5 @@ radii
 tending
 tends
 infinity
+segments
+decreasing

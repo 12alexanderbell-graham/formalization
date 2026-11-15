@@ -65,6 +65,7 @@ import Checked.Math.BonnorEbertMax2
 import Checked.Math.BonnorEbertMin2
 import Checked.Math.BonnorEbertMax3
 import Checked.Math.BonnorEbertExtrema
+import Checked.Math.BonnorEbertMonotone
 import Checked.Math.BEGlobalExists
 import Checked.Math.ThomasFermi
 import Checked.Math.ThomasFermiExists
@@ -766,6 +767,14 @@ whole half-line constructed in `Checked.Math.BEGlobalExists.exists_global`. -/
 
 theorem bonnor_ebert_extrema :
     nonvacuity% Checked.Math.BonnorEbertExtrema.bonnor_ebert_extrema := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! Extrema and monotone segments of the Bonnor–Ebert mass (run 2026-11-15T0828Z): the same global regular
+solution. -/
+
+theorem bonnor_ebert_extrema_monotone :
+    nonvacuity% Checked.Math.BonnorEbertMonotone.bonnor_ebert_extrema_monotone := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 

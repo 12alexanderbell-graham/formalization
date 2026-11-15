@@ -411,6 +411,7 @@ Checked.Math.BonnorEbertMax2.bonnor_ebert_second_max fb0de4ba-doc126637023295927
 Checked.Math.BonnorEbertMax3.bonnor_ebert_third_max c2d82791-doc9741152724523035015
 Checked.Math.BonnorEbertMin.bonnor_ebert_min 5e78febf-doc12077961383547148230
 Checked.Math.BonnorEbertMin2.bonnor_ebert_second_min 211dc9b5-doc6575042979500888613
+Checked.Math.BonnorEbertMonotone.bonnor_ebert_extrema_monotone 2b5ab476-doc9046362567395020306
 Checked.Math.Gelfand.gelfand_ball_critical 8bc55514-doc3099962857817823782
 Checked.Math.GelfandExists.exists_solution 20e32e81-doc6694226507590696985
 Checked.Math.GelfandPDE.gelfand_pde_radial_bound a60a1dff-doc5938021182067386944
@@ -2057,6 +2058,9 @@ doc:Checked.Math.BEHMain.mass_sq -doc17645900325885124946
 doc:Checked.Math.BEHTail.dual' -doc14855782013870464548
 doc:Checked.Math.BEHTail.uv_lower -doc13896862630335665559
 doc:Checked.Math.BEMain.gap_consts -doc5648584972411431393
+doc:Checked.Math.BEMonoExt.main_mono -doc1261049834865775939
+doc:Checked.Math.BEMonoExt.tmono -doc14413399287600917924
+doc:Checked.Math.BEMonoMain.main -doc14558445404575688019
 doc:Checked.Math.BEOCell.CellProp -doc8439648595753524900
 doc:Checked.Math.BEOCell.CornerOK -doc15883094205210544917
 doc:Checked.Math.BEOCell.F1 -doc2808020002498810138
@@ -3214,6 +3218,7 @@ doc:Checked.Trust.SecondReading.bambaYReadDL4 -doc17691906697890870856
 doc:Checked.Trust.SecondReading.beContrast -doc16363964487035410132
 doc:Checked.Trust.SecondReading.beDecreaseEnd -doc16532489407231177751
 doc:Checked.Trust.SecondReading.beDecreaseRange -doc9770628648679435329
+doc:Checked.Trust.SecondReading.beFallSegment -doc6178406005576290848
 doc:Checked.Trust.SecondReading.beFirstMax -doc15660434331803903124
 doc:Checked.Trust.SecondReading.beHalfLine -doc5429374877119021098
 doc:Checked.Trust.SecondReading.beMassSeq -doc3378226179832462934
@@ -3222,6 +3227,8 @@ doc:Checked.Trust.SecondReading.beMaxIndex -doc15972110435261407380
 doc:Checked.Trust.SecondReading.beMinIndex -doc16666314865958612039
 doc:Checked.Trust.SecondReading.beNextMaxIndex -doc9027613400166008215
 doc:Checked.Trust.SecondReading.beOpenHalfLine -doc946713235492566352
+doc:Checked.Trust.SecondReading.beRiseFromCentre -doc14967544683829119112
+doc:Checked.Trust.SecondReading.beRiseSegment -doc17412654891615027125
 doc:Checked.Trust.SecondReading.beSingularMass -doc6288022806669574417
 doc:Checked.Trust.SecondReading.blasiusEdge -doc4842813862602201423
 doc:Checked.Trust.SecondReading.blasiusHalfLineTyped -doc14410342809527929474
@@ -3820,6 +3827,8 @@ moduledoc:Checked.Math.BEHData -mdoc5588006431918139056
 moduledoc:Checked.Math.BEHMain -mdoc5428274480070179205
 moduledoc:Checked.Math.BEHTail -mdoc5407853731966454449
 moduledoc:Checked.Math.BEMain -mdoc3459006954674770938
+moduledoc:Checked.Math.BEMonoExt -mdoc12146443229283877220
+moduledoc:Checked.Math.BEMonoMain -mdoc11109674950125528803
 moduledoc:Checked.Math.BEOCell -mdoc10296272223523825802
 moduledoc:Checked.Math.BEOChain -mdoc11665787986294415851
 moduledoc:Checked.Math.BEOData -mdoc14381083565869455786
@@ -3835,6 +3844,7 @@ moduledoc:Checked.Math.BonnorEbertMax3 -mdoc1220700580447067900
 moduledoc:Checked.Math.BonnorEbertMax -mdoc8203701529619995826
 moduledoc:Checked.Math.BonnorEbertMin2 -mdoc1599833873984954130
 moduledoc:Checked.Math.BonnorEbertMin -mdoc8384588527723447329
+moduledoc:Checked.Math.BonnorEbertMonotone -mdoc9214320537386287552
 moduledoc:Checked.Math.BonnorEbert -mdoc16108829127181183395
 moduledoc:Checked.Math.GCellQ -mdoc4960724099563984183
 moduledoc:Checked.Math.GCell -mdoc5299691976011732180
@@ -3996,6 +4006,7 @@ moduledoc:Checked.Trust.NecessityAJ -mdoc13968657157140159979
 moduledoc:Checked.Trust.NecessityAK -mdoc76978342669904093
 moduledoc:Checked.Trust.NecessityAL -mdoc16478044032288737783
 moduledoc:Checked.Trust.NecessityAM -mdoc13195257273382644990
+moduledoc:Checked.Trust.NecessityAN -mdoc1027548183114469695
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
@@ -4031,6 +4042,7 @@ moduledoc:Checked.Trust.SecondFormulation -mdoc10887534755347747998
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
 moduledoc:Checked.Trust.SecondReadingBE3 -mdoc14632787277133674012
 moduledoc:Checked.Trust.SecondReadingBEAll -mdoc976914423985258474
+moduledoc:Checked.Trust.SecondReadingBEMono -mdoc1596193682468258235
 moduledoc:Checked.Trust.SecondReadingBlasius -mdoc10558104316128241795
 moduledoc:Checked.Trust.SecondReadingBound -mdoc13469660202480217973
 moduledoc:Checked.Trust.SecondReadingClaims -mdoc11105787854413030724
@@ -4081,4 +4093,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc17124907583117746808
+moduledoc:Checked.Trust.Witnesses -mdoc14755854629552174356
