@@ -27,3 +27,4 @@
 ## CI read
 - 43643096701 (80cabb8): green on every job → `bonnor_ebert_third_max` PROVED.
 - Final push: the promotion and records (LOCK removed in it); the Lean jobs judge it next run.
+- 04:04Z: local replica of the checked job's trust step on 4e046bb (`local_frozen_step.py --trust 80cabb8`): trust exit 0, frozen step 21/21, tree unchanged (generated files current). CI run 43674121946 (4e046bb) pending; read next run.
