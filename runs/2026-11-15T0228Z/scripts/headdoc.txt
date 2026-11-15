@@ -1,0 +1,7 @@
+/-- Bonnor–Ebert sphere, extrema of the mass: for every solution w of w'' + (2/s)w' + e^w = 0 on
+(0, ∞) with w(0) = 0, w differentiable on [0, ∞) with derivative φ and φ continuous at 0, with
+m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π), there is a strictly increasing sequence of radii ξ(0) < ξ(1) < …
+tending to infinity, with ξ(0) between 6.4507514 and 6.4507515, such that m(s) < m(ξ(0)) for s ≥ 0 with
+s ≠ ξ(0); for every k, m(ξ(2k+1)) < m(s) for s ≥ ξ(2k) with s ≠ ξ(2k+1), and m(s) < m(ξ(2k+2)) for
+s ≥ ξ(2k+1) with s ≠ ξ(2k+2); for every k, m(ξ(2k+1)) < √(2/π) < m(ξ(2k)); and m(s) tends to √(2/π) as
+s tends to infinity. -/

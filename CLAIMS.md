@@ -7683,3 +7683,30 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > Falkner–Skan with β = −16/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on
 > [0, ∞) with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`.
 
+## `bonnor_ebert_extrema`
+
+Full name `Checked.Math.BonnorEbertExtrema.bonnor_ebert_extrema`.
+
+**For every** `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `s : ℝ`, if `s ∈ Set.Ici 0`, then `HasDerivWithinAt w (φ s) (Set.Ici 0) s`
+2. `ContinuousWithinAt φ (Set.Ici 0) 0`
+3. for every `s : ℝ`, if `s ∈ Set.Ioi 0`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Ici 0) s`
+4. `w 0 = 0`
+
+**then**
+
+- there is `ξ : ℕ → ℝ` such that (`StrictMono ξ`) and (`Filter.Tendsto ξ Filter.atTop Filter.atTop`) and (`6.4507514 ≤ ξ 0`) and (`ξ 0 ≤ 6.4507515`) and (for every `s : ℝ`, if `s ∈ Set.Ici 0`, then if `s ≠ ξ 0`, then `s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) < ξ 0 ^ 2 * -φ (ξ 0) * Real.exp (w (ξ 0) / 2) / √(4 * Real.pi)`) and (for every `k : ℕ`, for every `s : ℝ`, if `s ∈ Set.Ici (ξ (2 * k))`, then if `s ≠ ξ (2 * k + 1)`, then `ξ (2 * k + 1) ^ 2 * -φ (ξ (2 * k + 1)) * Real.exp (w (ξ (2 * k + 1)) / 2) / √(4 * Real.pi) < s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi)`) and (for every `k : ℕ`, for every `s : ℝ`, if `s ∈ Set.Ici (ξ (2 * k + 1))`, then if `s ≠ ξ (2 * k + 2)`, then `s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) < ξ (2 * k + 2) ^ 2 * -φ (ξ (2 * k + 2)) * Real.exp (w (ξ (2 * k + 2)) / 2) / √(4 * Real.pi)`) and (for every `k : ℕ`, (`ξ (2 * k + 1) ^ 2 * -φ (ξ (2 * k + 1)) * Real.exp (w (ξ (2 * k + 1)) / 2) / √(4 * Real.pi) < √(2 / Real.pi)`) and (`√(2 / Real.pi) < ξ (2 * k) ^ 2 * -φ (ξ (2 * k)) * Real.exp (w (ξ (2 * k)) / 2) / √(4 * Real.pi)`)) and (`Filter.Tendsto (fun s => s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi)) Filter.atTop (nhds √(2 / Real.pi))`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Bonnor–Ebert sphere, extrema of the mass: for every solution w of w'' + (2/s)w' + e^w = 0 on
+> (0, ∞) with w(0) = 0, w differentiable on [0, ∞) with derivative φ and φ continuous at 0, with
+> m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π), there is a strictly increasing sequence of radii ξ(0) < ξ(1) < …
+> tending to infinity, with ξ(0) between 6.4507514 and 6.4507515, such that m(s) < m(ξ(0)) for s ≥ 0 with
+> s ≠ ξ(0); for every k, m(ξ(2k+1)) < m(s) for s ≥ ξ(2k) with s ≠ ξ(2k+1), and m(s) < m(ξ(2k+2)) for
+> s ≥ ξ(2k+1) with s ≠ ξ(2k+2); for every k, m(ξ(2k+1)) < √(2/π) < m(ξ(2k)); and m(s) tends to √(2/π) as
+> s tends to infinity.
+

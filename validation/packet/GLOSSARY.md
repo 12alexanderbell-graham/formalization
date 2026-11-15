@@ -468,6 +468,22 @@ noncomputable def printedD4 (q j s l : ℝ) : ℝ :=
     - 1 / 8 * q * s - s / 6 - l / 120
 ```
 
+## `Cosmography.CPL.CLSL0Claim`
+
+The printed claim for `l₀` (frozen verbatim from Eq. (22)).
+
+```lean
+def CLSL0Claim : Prop :=
+  ∀ (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), IsFlatCPL Ω w₀ wₐ a t₀ → ContDiffAt ℝ 5 a t₀ →
+    cosmoCoeff 5 a t₀ = 35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ
+      + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀
+      + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2
+      + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3
+      + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4
+
+set_option maxHeartbeats 8000000 in
+```
+
 ## `Cosmography.CPL.IsFlatCPL`
 
 Flat matter + CPL dark energy (Capozziello–Lazkoz–Salzano Eq. (17)) at observation time

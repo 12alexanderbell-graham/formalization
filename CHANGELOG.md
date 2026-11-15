@@ -773,3 +773,9 @@
 - Env: repo ok (stale local main reset); local Lean via elan + restored `checked-build` of 43634375412; CI 43643096701 (80cabb8) checked job and nanoda shard 2 still running at the end.
 - Parts 2/5: `Work/Math/BonnorEbertAll.lean` frozen and PROVED in Work (every extremum of the Bonnor–Ebert mass: infinitely many alternating strict extrema → ∞, band about √(2/π), limit √(2/π)); analytic tail `BEFocus` (by hand), `BEState300`, `BE3Ext`, `BEAllMain`, `BEGlobalExists` (forks); blind restatement closed; referee STANDS.
 - Message to Alexander: the Work result (L.2, major result; promotion pending).
+
+## 2026-11-15T0228Z (scheduled run)
+- Env: repo ok (pre-cloned detached checkout with a stale local main; `git checkout -B main origin/main`, unshallowed); local Lean via elan + restored `checked-build` of 43643096701 (80cabb8). One container interruption mid-run (background relock killed, rerun). CI 43643096701 (80cabb8) green on every job → **`bonnor_ebert_third_max` PROVED** (L.2 notification sent).
+- Parts 2/5: every extremum of the Bonnor–Ebert mass promoted to Checked as `Checked.Math.BonnorEbertExtrema.bonnor_ebert_extrema` (frozen Work statement unchanged; renamed because V8 rejects 'all' in a name): six modules by script, blind literal reading (three commits; √(2/π) re-derived by the reader), NV witness, `Checked/Trust/NecessityAJ.lean` (1, 3, 4 NEEDED, 2 REDUNDANT). Needed 617 → 620, redundant 159 → 160, headlines 290 → 291.
+- Annex LIV: `scripts/trust/check_freeze_name.py` + PROMPT note (name headlines for promotion at freeze time; the rename cost ≈ 25 min).
+- Next: CI read of this run's push (`bonnor_ebert_extrema` PROVED when green on every job); then part 3 or part 1 by rotation.

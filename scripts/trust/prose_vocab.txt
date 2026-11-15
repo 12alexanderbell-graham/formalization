@@ -72,3 +72,11 @@ density
 contrast
 rows
 top
+extremum
+extrema
+sequence
+increasing
+radii
+tending
+tends
+infinity

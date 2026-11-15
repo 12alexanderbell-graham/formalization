@@ -64,6 +64,8 @@ import Checked.Math.BonnorEbertMin
 import Checked.Math.BonnorEbertMax2
 import Checked.Math.BonnorEbertMin2
 import Checked.Math.BonnorEbertMax3
+import Checked.Math.BonnorEbertExtrema
+import Checked.Math.BEGlobalExists
 import Checked.Math.ThomasFermi
 import Checked.Math.ThomasFermiExists
 import Checked.Math.GelfandPDE
@@ -758,6 +760,14 @@ theorem bonnor_ebert_third_max :
     nonvacuity% Checked.Math.BonnorEbertMax3.bonnor_ebert_third_max := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.GelfandExists.exists_solution 300000 (by norm_num)
   exact ⟨300000, le_rfl, w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! Every extremum of the Bonnor–Ebert mass (run 2026-11-15T0228Z): the regular isothermal solution on the
+whole half-line constructed in `Checked.Math.BEGlobalExists.exists_global`. -/
+
+theorem bonnor_ebert_extrema :
+    nonvacuity% Checked.Math.BonnorEbertExtrema.bonnor_ebert_extrema := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 
 /-! Thomas–Fermi equation of the neutral atom (run 2026-11-06T1828Z, existence and promotion
 2028Z): the solution constructed in `Checked.Math.ThomasFermiExists.tf_exists` (shooting in t = √x
