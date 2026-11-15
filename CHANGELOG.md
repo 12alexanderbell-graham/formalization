@@ -768,3 +768,8 @@
 - Env: repo ok (pre-cloned detached checkout with an unrelated stale main; `git checkout -B main origin/main`, unshallowed); local Lean via elan + restored `checked-build` of fc559f2. CI: 7c8a9b2's checked job running (its nanoda shard 2 cancelled by the next push), 80cabb8's goal guard green incl. the new `--render` step, checked job queued.
 - Part 1: the smoothness hypothesis of the six two-sided "printed coefficient fails" cosmography headlines shown NEEDED (`Checked/Trust/NecessityAH.lean`: oscillating witnesses polynomial + t^{2k} sin(1/t) or t⁶ cos(1/t), junk top derivative; series theorems with the Taylor expansion as a hypothesis); `FRCosmo.curv_derivs` and `FRCosmo.fR_values` fully classified (`Checked/Trust/NecessityAI.lean`). Needed 608 → 617, redundant 158 → 159, open 221 → 211, fully classified 81 → 89 of 169.
 - Next: CI read (7c8a9b2 / 80cabb8: `bonnor_ebert_third_max`; this run's final push); then parts 2/5 or part 3 by rotation.
+
+## 2026-11-15T0028Z (scheduled run)
+- Env: repo ok (stale local main reset); local Lean via elan + restored `checked-build` of 43634375412; CI 43643096701 (80cabb8) checked job and nanoda shard 2 still running at the end.
+- Parts 2/5: `Work/Math/BonnorEbertAll.lean` frozen and PROVED in Work (every extremum of the Bonnor–Ebert mass: infinitely many alternating strict extrema → ∞, band about √(2/π), limit √(2/π)); analytic tail `BEFocus` (by hand), `BEState300`, `BE3Ext`, `BEAllMain`, `BEGlobalExists` (forks); blind restatement closed; referee STANDS.
+- Message to Alexander: the Work result (L.2, major result; promotion pending).
