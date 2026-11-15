@@ -62,6 +62,10 @@ jobs:
         run: |
           for i in 1 2 3 4 5; do python3 -m pip install --user --break-system-packages markdown-it-py==4.2.0 cmarkgfm==2024.11.20 && break; sleep 15; done
           python3 scripts/trust/check_findings.py --render
+      - name: The verified-findings page a reader reads is generated with no author prose (FB26; blocking; run 2026-11-15T1628Z, blind readers took an unchecked withdrawal note over the generated part 6/6, see LEDGER)
+        run: |
+          python3 scripts/trust/make_verified_page.py --selftest
+          python3 scripts/trust/make_verified_page.py --check
 
   validation-packet:
     name: expert-validation packet is current, or frozen once sent (THE RESULT part 4; run 2026-10-31T0828Z, see LEDGER)
@@ -187,6 +191,8 @@ jobs:
           # verified findings bound to Lean: blocks to their section, printed values to statements and windows,
           # spelled-out sizes, uniqueness words (run 2026-11-12T2028Z, blind red team AI; reads CLAIMS.md)
           python3 scripts/trust/check_findings.py
+          # the reader page VERIFIED_FINDINGS.md is FINDINGS.md's generated part only, current (FB26, run 2026-11-15T1628Z)
+          python3 scripts/trust/make_verified_page.py --check
           # meaning carried by prose and names: docstrings, names and statement shape checked against
           # what the statement reaches (run 2026-10-31T1028Z; reads .lake/meaning.jsonl)
           python3 scripts/trust/check_prose.py

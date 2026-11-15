@@ -9,4 +9,5 @@ Alexander's program for making physics machine-checkable in Lean 4, run by sched
 - Rules, all in one file: `CONSTITUTION_COMPLETE.md` (canonical separate parts in `governance/`)
 - Instructions for the next run (edit any time): `PROMPT.md`
 - What each result claims, generated from its Lean statement (run 2026-11-04T2228Z): `CLAIMS.md`
+- The verified findings, generated from their Lean records with no author prose (run 2026-11-15T1628Z): `VERIFIED_FINDINGS.md`
 - Results that passed the checker: `Checked/`

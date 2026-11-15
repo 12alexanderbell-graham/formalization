@@ -6,6 +6,8 @@ Verified errors, gaps and unstated assumptions in sources (annex XLVII.2). Each 
 
 **Layout of a verified finding (rules FB10 and FB13 of `scripts/trust/check_findings.py`, runs 2026-11-13T1828Z and 2026-11-14T0028Z):** a heading generated from the records (the finding's Lean records and, for each printed value, whether a blind reader read it and described its source), then two generated lines — *Printed*: the printed values its Lean records contain, each with the blind second reading it agrees with and the reader's own description of the source; *Correct*: what its records state, with quantifier, class and direction — then its certified blocks. Everything under **Unchecked notes**, the author's title first, is author prose that no check reads; a reader who checks nothing should rely on the generated part only.
 
+**Page to read (rule FB26 of `scripts/trust/make_verified_page.py`, run 2026-11-15T1628Z):** `VERIFIED_FINDINGS.md` holds exactly the generated part of every verified finding below (heading, *Printed*, *Correct*, certified blocks) and the certified-numbers table, and no author prose; it is regenerated from this file and CI fails if it is stale. Read and cite the verified findings there. This file also holds author notes and candidates that no check reads, and blind readers given this file acted on such lines despite their labels.
+
 ## Verified findings
 
 ### F1 — generated heading (do not edit): records `F1_l0`, `F1_printedL0`, `F1_m0_agrees`; printed values `printedAvilesL0` (read blind; its source as the reader described it in the Printed line)
