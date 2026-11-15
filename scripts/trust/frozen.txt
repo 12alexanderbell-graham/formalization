@@ -2636,11 +2636,13 @@ doc:Checked.Trust.NCAM.cosmoCoeffCore_pins_p2_3 -doc9980019916592965141
 doc:Checked.Trust.NCAM.kink0_not_C2 -doc11285212858364379580
 doc:Checked.Trust.NCAM.redshiftCore_pins_h2 -doc17138477305473539781
 doc:Checked.Trust.NCAM.redshiftCore_pins_p2_1 -doc6978232120377931742
+doc:Checked.Trust.NCAP.box_pos -doc16517434507335573023
 doc:Checked.Trust.NCAP.comoving_junk -doc2485201340548120144
 doc:Checked.Trust.NCAP.eds_deriv -doc2844407301925832049
 doc:Checked.Trust.NCAP.jb_bigO -doc14696961972054159968
 doc:Checked.Trust.NCAP.jb -doc3089500004966514995
 doc:Checked.Trust.NCAP.lumDistFlat_flatLCDM_h3 -doc9716672532719147057
+doc:Checked.Trust.NCAP.near_pos -doc3298718349047089315
 doc:Checked.Trust.NCAP.no_zero_core -doc661046758314696448
 doc:Checked.Trust.NCAP.not_ii -doc291389077166822199
 doc:Checked.Trust.NCAP.sign_curved -doc5146792009498741368
@@ -4033,7 +4035,7 @@ moduledoc:Checked.Trust.NecessityAL -mdoc16478044032288737783
 moduledoc:Checked.Trust.NecessityAM -mdoc13195257273382644990
 moduledoc:Checked.Trust.NecessityAN -mdoc1027548183114469695
 moduledoc:Checked.Trust.NecessityAO -mdoc16423579200605824169
-moduledoc:Checked.Trust.NecessityAP -mdoc11285395120084374590
+moduledoc:Checked.Trust.NecessityAP -mdoc6607793068637871632
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
