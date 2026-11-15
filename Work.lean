@@ -219,6 +219,8 @@ import Work.Math.BonnorEbertAllBlindClosed
 import Work.Math.BEMonoExt
 import Work.Math.BEMonoMain
 import Work.Math.BonnorEbertMono
+import Work.Math.BonnorEbertMonoBlind
+import Work.Math.BonnorEbertMonoBlindClosed
 import Work.Math.BonnorEbertMax2Blind
 import Work.Math.BonnorEbertMax2BlindClosed
 import Work.Math.GelfandBlind
