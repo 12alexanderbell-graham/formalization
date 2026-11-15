@@ -27,3 +27,4 @@
 ## CI read
 - 43643096701 (80cabb8): at 01:25Z checked job still in its Lean step (from 23:01Z; the 7c8a9b2 checked job took 3 h), nanoda shard 2 running; everything else green. Not yet green on every job → `bonnor_ebert_third_max` still waits (next run).
 - This run's 2d58f4f (Work proof) and the records push: judged next run.
+- 01:37Z: run 43663346445 (5bb7a03, includes the Work proof 2d58f4f): goal guard, packet, changes and **work job green** (Lean step 5 min: `Work.Math.BonnorEbertAll` and its modules built by CI); checked job and nanoda queued behind 80cabb8 (no Checked change in this run).
