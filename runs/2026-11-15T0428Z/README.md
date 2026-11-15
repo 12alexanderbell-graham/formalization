@@ -28,3 +28,6 @@
 
 ## Next
 - STATE 0z: CI read (4e046bb → `bonnor_ebert_extrema` PROVED when green on every job; this run's push needs cmarkgfm in CI's pip steps); then part 1 by rotation.
+
+## CI read
+- 43683607031 (145dfbd, this run's final push): goal guard green at 06:02Z, including the render step with FB21–FB23 (cmarkgfm 2024.11.20 installed by the pinned pip step); packet and changes green; the Lean jobs are queued behind 43674121946 (4e046bb), whose checked job started 05:31Z. Both read next run (STATE 0z).
