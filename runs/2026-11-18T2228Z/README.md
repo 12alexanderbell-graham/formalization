@@ -26,6 +26,8 @@
 ## CI read
 - 44385495297 (2788d1e) concluded success on every job at 23:07Z (leanchecker shard 2 last, ≈ 173 min of replay): `bonnor_ebert_count` PROVED (promotion 1515ba8 is an ancestor); its STATE heading carries the judged template; L.2 sent. The leanchecker experiment of run 1828Z: the checked job's build step fell from 154 to 14 min and no job hit its limit, but the shards are unbalanced (item 6 above).
 
+- Final push cf5003e: checked against 2788d1e, but 680a810 (run 2028Z) turned green at 23:07Z and became CI's base; against it the judged Bonnor–Ebert heading's word 'exact' is outside the mention vocabulary. Follow-up commit drops the word; records_check against 680a810; PROMPT note.
+
 ## Measure
 - Headlines 297 → 298. The Gelfand problem in the 3-D ball: radial solutions counted for every λ > 0 (before: λ ∈ (0, λ₁], λ ∈ [λ₂, λ*] and above λ*).
 - No new certificates: a whole-band theorem from three Checked headlines and one generic lemma.
