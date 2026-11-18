@@ -88,7 +88,7 @@ STATUS = re.compile(r"(?x)^(?:"
 # status templates: the forms a record may use; matched on the normalized line, removed before M2 (not M1)
 TEMPLATES = [
     r"\bproved \(ci \d{6,} of [0-9a-f]{7,40}(?:, a descendant(?: of [^,)]*)?,)? green on every job"
-    r"(?: incl\. the checked job(?: and nanoda \d/\d)?)?[^)]*\)",
+    r"(?: incl\. the checked job(?: and nanoda \d/\d)?)?(?:; read run \d{4}-\d\d-\d\dt\d{4}z)?[^)]*\)",
     r"\bproved once (?:a main run|ci) is green on every job(?: \(read next run\))?",
     r"\bci \d{6,} \([0-9a-f]{7,40}\)(?:'s checked job)? (?:pending|in progress)(?: behind \d{6,} \([0-9a-f]{7,40}\))?",
     r"\bpromoted to checked(?: \+ audited)?",
@@ -135,10 +135,15 @@ HARD = re.compile(r"(?x)^(?:withdr[ae]wn?|withdraw\w*|retract\w*|revok\w*|revoc\
 BANNERS = ["a withdrawn headline is not listed", "statuses written here (proved, withdrawn, …)"]  # banner sentences
 
 
+MIXED_OK = {"λcdm"}  # ΛCDM: the one mixed Greek–Latin word of the records (run 2026-11-18T2028Z)
+
+
 def mixed(line):
+    """red team M3 (run 2026-11-18T2028Z) A5: 'manγ_ϲentre' hid a name with Greek look-alikes, which M0 exempted;
+    a word mixing Latin with any other letter (Greek included) is flagged, except MIXED_OK"""
     t = norm(line)
     return sorted({w for w in re.findall(r"[^\W\d_]+", t)
-                   if re.search(r"[a-z]", w) and re.search(r"[^\x00-\x7f\u0370-\u03ff]", w)})
+                   if re.search(r"[a-z]", w) and re.search(r"[^\x00-\x7f]", w) and w not in MIXED_OK})
 
 FILES_FIXED = ["STATE.md", "README.md", "BLUEPRINT.md"]
 RUN_README = re.compile(r"^runs/[^/]+/README\.md$")
@@ -158,8 +163,16 @@ def unmark(t):
     return "".join(x if x.startswith("`") else re.sub(r"[*_~]", "", x) for x in parts)
 
 
+def canon(t):
+    """spelling and abbreviation variants of name words (red team M3, run 2026-11-18T2028Z: 'many center',
+    'third maximum of the Bonnor–Ebert mass' named `gelfand_pde_radial_many_centre`, `bonnor_ebert_third_max`)"""
+    t = re.sub(r"(?<![a-z])cent(?:er|re)(?=s?(?![a-z]))", "centre", t)
+    t = re.sub(r"(?<![a-z])maxim(?:um|a|al)(?![a-z])", "max", t)
+    return re.sub(r"(?<![a-z])minim(?:um|a|al)(?![a-z])", "min", t)
+
+
 def skel(s):
-    return re.sub(r"[^a-z0-9]", "", norm(s))
+    return re.sub(r"[^a-z0-9]", "", canon(norm(s)))
 
 
 def git(*args):
@@ -201,6 +214,17 @@ def headlines():
         for k in {skel(full.split(".")[-1]), skel(full_mod.get(full, "").split(".")[-1])}:
             if len(k) >= 6:
                 keys.setdefault(k, set()).add(full)
+    # red team M3 (run 2026-11-18T2028Z) A2: a distinctive part of a name ('radial many centre', `radial_many_centre`,
+    # 'many-centre') names the headline: every run of two or more consecutive name words whose skeleton has at least
+    # nine letters and occurs in no other headline's or module's name is a key too
+    others = {f: {skel(x.split(".")[-1]) for x in [f, full_mod.get(f, "")] if x} for f in fulls}
+    for f in fulls:
+        parts = [canon(norm(x)) for x in re.findall(r"[A-Z]+(?![a-z])|[A-Z]?[a-z]+|\d+", f.split(".")[-1].replace("'", ""))]
+        for i in range(len(parts)):
+            for j in range(i + 2, len(parts) + 1):
+                k = "".join(parts[i:j])
+                if len(k) >= 9 and not any(k in o for g, os in others.items() if g != f for o in os):
+                    keys.setdefault(k, set()).add(f)
     return keys, fulls, set(full_mod.values())
 
 
@@ -220,7 +244,7 @@ def name_tokens():
 
 def loose(text):
     """headlines whose name words all occur, but at most one, as words of the text (A5: 'Gelfand radial many centre')"""
-    ws = set(re.findall(r"[a-z0-9]+", norm(text)))
+    ws = set(re.findall(r"[a-z0-9]+", canon(norm(text))))
     return {f for f, toks in name_tokens().items()
             if len(toks - ws) <= (1 if len(toks) >= 5 else 0) and len(toks & ws) >= 3}
 
@@ -362,7 +386,9 @@ def ident(line):
     return re.sub(r"^(last updated|previous update):\s*", "", norm(line).strip())
 
 
-def run(base_files, head_files, vocab=None, obj=None):
+def run(base_files, head_files, vocab=None, obj=None, grand=None):
+    """grand = (idents of lines that existed before the last vocabulary rebuild, the vocabulary they were written
+    under): such a line, new since a base older than the rebuild, is read by M1 with that vocabulary too"""
     keys, fulls, modules = headlines()
     vocab = vocab if vocab is not None else load_vocab()
     obj = obj if obj is not None else load_obj()
@@ -394,10 +420,28 @@ def run(base_files, head_files, vocab=None, obj=None):
             ab = about(lines, i, bidx, chains, keys)
             if not ab:
                 continue
-            for e in check_line(l, fulls, modules, vocab, obj, path, ab):
+            v = vocab | grand[1] if grand and ident(l) in grand[0] else vocab
+            for e in check_line(l, fulls, modules, v, obj, path, ab):
                 short = ", ".join(sorted(f.split(".")[-1] for f in ab)[:4])
                 errors.append(f"{path}:{i + 1}: about {short}: {e}")
     return errors
+
+
+REBUILD_MARK = "# Rebuilt run 2026-11-18T2028Z"  # header line of the vocabulary's last rebuild (update on a rebuild)
+
+
+def grandfathered(base):
+    """lines written before the last vocabulary rebuild keep the vocabulary they were written under (run
+    2026-11-18T2028Z: the rebuild must not make records of earlier runs, never judged by CI under it, fail)"""
+    r = git("log", "--format=%H", "-S", REBUILD_MARK, "--", VOCAB).split()
+    if not r:
+        return None
+    rebuild = r[-1]
+    if subprocess.run(["git", "merge-base", "--is-ancestor", rebuild, base], cwd=ROOT).returncode == 0:
+        return None  # the base already has the rebuilt vocabulary
+    before = files_at(rebuild + "^")
+    idents = {ident(l) for txt in before.values() for l in txt.splitlines()}
+    return idents, load_vocab(git("show", f"{rebuild}^:{VOCAB}"))
 
 
 def m4(base):
@@ -518,13 +562,26 @@ def main(argv):
         return 0
     if "--base" in argv:
         base = argv[argv.index("--base") + 1]
+        green_base = base  # the newest green ancestor as given (check_stale_status needs it unmoved)
         # the rule binds from the commit that introduced this script: lines older than it are not new to the rule
         intro = git("log", "--diff-filter=A", "--format=%H", "--", "scripts/trust/check_headline_mentions.py").split()
         if intro and subprocess.run(["git", "merge-base", "--is-ancestor", base, intro[-1]], cwd=ROOT).returncode == 0:
             base = intro[-1]
         if selftest():
             return 1
-        errors = run(files_at(base), files_at(None)) + m4(base)
+        errors = run(files_at(base), files_at(None), grand=grandfathered(base)) + m4(base)
+        # run 2026-11-18T2028Z: stale pending statuses in STATE.md headings (check_stale_status.py; called from here so
+        # the workflow file, and with it the nanoda/leanchecker memo hash, need not change)
+        import check_stale_status
+        if check_stale_status.selftest():
+            errors.append("check_stale_status selftest failed")
+        heads_reg = check_stale_status.registered()
+        stale = check_stale_status.findings((ROOT / "STATE.md").read_text(encoding="utf-8"), heads_reg,
+                                            functools.lru_cache(maxsize=None)(check_stale_status.intro_commit),
+                                            lambda c: check_stale_status.is_ancestor(c, green_base))
+        errors += [f"STATE.md:{n}: STALE pending status (check_stale_status.py): {', '.join(h.split('.')[-1] for h in hs)} "
+                   f"entered the registry in an ancestor of the green base {green_base[:12]}: write the judged template "
+                   f"'PROVED (CI <run> of <sha>, a descendant, green on every job …)'" for n, _, hs in stale]
         for e in errors:
             print(e)
         print(f"check_headline_mentions (base {base[:12]}): {len(errors)} finding(s); {'FAIL' if errors else 'ok'}")

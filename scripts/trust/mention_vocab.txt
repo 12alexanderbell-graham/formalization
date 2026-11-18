@@ -74,6 +74,7 @@ astrophysics
 asymptotics
 at
 atom
+attached
 attop
 au
 aunclamp
@@ -558,6 +559,7 @@ gelfandpdecountvaluesmain
 gelfandpdeexists
 gelfandsingularlambda
 gen
+generic
 gfm
 gibbs
 gidas
@@ -1084,6 +1086,7 @@ printedl
 printedm
 printedq
 printedr
+problem
 product
 profile
 profiles
@@ -1196,6 +1199,7 @@ resp
 result
 results
 rev
+reverse
 rfl
 rhom
 ricci
@@ -1384,6 +1388,7 @@ stewartson's
 stiff
 stiffness
 strictantion
+strictly
 strictmono
 strictmonoon
 structure
