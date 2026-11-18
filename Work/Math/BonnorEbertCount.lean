@@ -5,8 +5,10 @@ import Checked.Math.BonnorEbertMin
 import Checked.Math.BonnorEbertMax2
 import Checked.Math.BonnorEbertMin2
 import Checked.Math.BonnorEbertMax3
+import Work.Math.BonnorEbertCountMain
 
-/-! Bonnor–Ebert sphere, `BonnorEbertCount` (FROZEN by run 2026-11-18T1628Z before proof).
+/-! Bonnor–Ebert sphere, `BonnorEbertCount` (FROZEN by run 2026-11-18T1628Z before proof; proved the same run, statement unchanged, route
+`Work/Math/BonnorEbertCountMain.lean`).
 
 Same equation and conventions as `Checked/Math/BonnorEbertMonotone.lean` (headline
 `bonnor_ebert_extrema_monotone`): the isothermal (Emden–Chandrasekhar) equation w'' + (2/s) w' + e^w = 0
@@ -96,7 +98,7 @@ theorem bonnor_ebert_count (w φ : ℝ → ℝ)
         {s ∈ Ici (0 : ℝ) | s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) = μ}.encard
           = ((2 * k + 3 : ℕ) : ℕ∞)) ∧
       {s ∈ Ici (0 : ℝ) | s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) =
-          Real.sqrt (2 / Real.pi)}.encard = ⊤ := by
-  sorry
+          Real.sqrt (2 / Real.pi)}.encard = ⊤ :=
+  Work.Math.BonnorEbertCountMain.main w φ hw hφ0 hφ h0
 
 end Work.Math.BonnorEbertCount

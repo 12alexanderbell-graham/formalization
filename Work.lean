@@ -526,3 +526,7 @@ import Work.FSRev.RPrintedNV
 import Work.FalknerSkan.Neg1988Rev
 import Work.FalknerSkan.Neg1988RevBlindClosed
 import Work.FalknerSkan.SepPrintedBlindClosed
+import Work.Math.BonnorEbertCountMain
+import Work.Math.BonnorEbertCount
+import Work.Math.BonnorEbertCountBlind
+import Work.Math.BonnorEbertCountBlindClosed
