@@ -845,3 +845,9 @@
 - Env: repo ok (checkout = origin/main c32a441); local Lean via elan + restored `checked-build` of 43755149508 (5c6a05b). CI 44217681379 (fa47717) green on every job (`NecessityAQ` judged); 44227663703 (c32a441) checked job cancelled while pending (superseded).
 - Parts 2/5 (rotation): uniqueness of the regular singular initial-value problem of the isothermal/Gelfand equation (`Checked/Math/IsoUniq.lean`) and **exact counts of radial solutions of the Gelfand problem in the 3-D ball** (`Checked.Math.GelfandPDECount.gelfand_pde_radial_count`: none above λ*, one at λ*, two on (λ₂, λ*), one on (0, λ₁), two at λ₁, three at λ₂). Referee STANDS-WITH-CORRECTIONS → re-frozen before any proof with the sharpness clauses; blind restatement closed; promoted with NV witness, literal readings, relock, Claims. No new certificates.
 - Next: CI read; then part 1 by rotation (STATE 1j).
+
+## 2026-11-18T0628Z (scheduled run)
+- Env: repo ok (checkout = origin/main 25fd5dd); local Lean via elan + restored `checked-build` of 44217681379 (fa47717). CI 44246499725 (25fd5dd, the `gelfand_pde_radial_count` promotion): every job but the checked job green or running; the checked job pending behind 44238855382 (543a0a0), whose checked job has been building since 04:47Z. Not judged this run.
+- Part 1 (rotation, trust track T2b): ten B1 hypotheses NEEDED in `Checked/Trust/NecessityAR.lean` — `fit_direction` 9, 10, 11, 12, 17, 18, 19 and `rl19_box_unmatched` 11 with the Einstein–de Sitter model (exact distances, cubics chosen by exact interval arithmetic), `l19_sq_curved` 2 and `l19_sqg_curved` 2 with the flat model at Ω = 100 (twenty-step certified integral bound). NEEDED 676 → 686, open 137 → 127.
+- Annex LIV: PROMPT notes (grep the notes by keyword; float-scan closed-form models first; `precheck_names.py` in the local check order), new `scripts/trust/precheck_names.py`.
+- Next: CI read; then part 3 by rotation (STATE 1k).
