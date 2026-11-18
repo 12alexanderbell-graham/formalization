@@ -546,6 +546,19 @@ run_cmd do
         | .ok hn => litBase := litBase.insert hn (((lits.splitOn " ").filter (· != "")).length)
         | .error e => errors := errors.push s!"literal_baseline.txt: {e}"
     | _ => errors := errors.push s!"literal_baseline.txt: malformed line {l}"
+  -- open fidelity objections (run 2026-11-18T0828Z, `scripts/trust/objections.txt`): printed in the Status line
+  let mut objections : NameMap (Array String) := {}
+  for l in ← readLines "scripts/trust/objections.txt" do
+    match (l.splitOn " | ").map (·.trimAscii.copy) with
+    | [h, run, path, summary] =>
+      match resolve cands h with
+      | .ok hn =>
+        unless (← System.FilePath.pathExists path) do
+          errors := errors.push s!"objections.txt: {path} does not exist"
+        objections := objections.insert hn (((objections.find? hn).getD #[]).push
+          s!"raised in run {run}, written in {code path}: «{summary}»")
+      | .error e => errors := errors.push s!"objections.txt: {e}"
+    | _ => errors := errors.push s!"objections.txt: malformed line {l}"
   let frozenNames : NameSet := (← readLines "scripts/trust/frozen.txt").foldl (init := {}) fun s l =>
     match l.splitOn " " with
     | n :: _ => s.insert n.toName
@@ -569,7 +582,10 @@ run_cmd do
     "**Fidelity record** (run 2026-11-18T0828Z): the Status line also lists, generated from Lean and the",
     "registries CI checks, what has been machine-checked about the statement's meaning: a non-vacuity witness,",
     "how many hypotheses are shown needed or redundant, blind second readings of its literals, and its freeze.",
-    "None of these proves that a statement matches its source; they are the record a fidelity objection meets.", "",
+    "None of these proves that a statement matches its source; they are the record a fidelity objection meets.",
+    "It opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection",
+    "to the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an",
+    "objection that is not shown there has not been recorded as one.", "",
     "Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);",
     "`√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =",
     "derivative; `iteratedDeriv n f x` = n-th derivative; `HasDerivAt f f' x` = f has derivative f' at",
@@ -583,6 +599,10 @@ run_cmd do
     "where f is not differentiable; an integral of a non-integrable function is 0. A claim that holds only",
     "because of one of these conventions says nothing about the mathematics outside the usual domain.", ""]
   let mut nDone := 0
+  -- reader page CLAIMS_READER.md (run 2026-11-18T0828Z, rule 2 of `runs/2026-11-18T0828Z/t5/reader_brief.md`): this
+  -- page without the author paraphrase blocks; `hdrEnd` = end of the header above, `paraSpans` = paraphrase blocks
+  let hdrEnd := out.size
+  let mut paraSpans : Array (Nat × Nat) := #[]
   for hn in hs do
     let ci := (env.find? hn).get!
     let doc := (← findDocString? env hn).getD ""
@@ -650,9 +670,13 @@ run_cmd do
     let basePart := match litBase.find? hn with
       | some m => s!"; {m} literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`)"
       | none => "; no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof)"
+    let objs := (objections.find? hn).getD #[]
+    let objPart := if objs.isEmpty
+      then "open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none"
+      else s!"OPEN FIDELITY OBJECTIONS on record (`scripts/trust/objections.txt`): {objs.size}: {"; ".intercalate objs.toList}"
     unless frozenNames.contains hn do
       errors := errors.push s!"{hn} has no fingerprint in scripts/trust/frozen.txt"
-    out := out.push s!"**Status (generated):** proved in module {code modName} of `Checked`; axioms, computed by Lean when this page was generated: {", ".intercalate (axs.toList.map fun a => code a.toString)}. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** {nvPart}; {necPart}; {litPart}{basePart}; the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources."
+    out := out.push s!"**Status (generated):** proved in module {code modName} of `Checked`; axioms, computed by Lean when this page was generated: {", ".intercalate (axs.toList.map fun a => code a.toString)}. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** {objPart}; {nvPart}; {necPart}; {litPart}{basePart}; the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources."
     out := out.push ""
     if !data.isEmpty then
       out := out.push s!"**For every** {", ".intercalate data.toList}:"
@@ -672,12 +696,49 @@ run_cmd do
       out := out.push ""
       out := out ++ defs
       out := out.push ""
+    let pStart := out.size
     out := out.push "Author's paraphrase (docstring; not generated, checked only by the prose rules):"
     out := out.push ""
     out := out ++ ((doc.trimAscii.copy.splitOn "\n").toArray.map fun l => "> " ++ l.trimAscii.copy)
     out := out.push ""
+    paraSpans := paraSpans.push (pStart, out.size)
     nDone := nDone + 1
   IO.FS.writeFile "CLAIMS.md" (String.intercalate "\n" out.toList ++ "\n")
+  -- CLAIMS_READER.md: a fixed header, then exactly the lines of CLAIMS.md after its header that lie in no paraphrase
+  -- block; the page README.md and STATE.md send readers to (goal guard). Blind readers of the paraphrase-free page
+  -- answered as accurately as readers of CLAIMS.md (0 errors each, 3 + 3 readers, run 2026-11-18T0828Z), and a
+  -- labelled author line that nothing generated contradicts misled readers whatever its label (runs
+  -- 2026-11-15T1628Z, 2026-11-18T0228Z, 2026-11-18T0828Z): on this page no author sentence stands next to a claim.
+  let mut rd : Array String := #[
+    "# CLAIMS, reader page (generated by `scripts/trust/Claims.lean`; do not edit by hand)", "",
+    "What each headline theorem claims, **generated mechanically from its Lean statement**: this is `CLAIMS.md`",
+    "without the authors' docstring paraphrases. Every sentence on this page is printed from Lean or is fixed",
+    "generator text, except the phrase of a pinned definition (`scripts/trust/phrases.txt`: frozen, linted in CI,",
+    "no formula in it, and always followed by the definition printed from Lean). **There is no author prose on",
+    "this page**, and nothing written elsewhere (a docstring, `STATE.md`, a run record) changes what it says. CI",
+    "regenerates it on every push and fails if the committed copy differs.", "",
+    "**Status:** every headline on this page carries a generated Status line (its `Checked` module and the axioms",
+    "Lean computes for it). A headline listed here is proved; a withdrawn headline is removed from `Checked` and",
+    "from this page. The Status line also carries the headline's **fidelity record**, generated from Lean and the",
+    "registries CI checks: a non-vacuity witness, how many hypotheses are shown needed or redundant, blind second",
+    "readings of its literals, and its freeze. None of these proves that a statement matches its source. The record",
+    "opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection to",
+    "the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an",
+    "objection that is not shown there has not been recorded as one.", ""]
+  -- the notation and total-function paragraphs of the header are copied (they are fixed generator text)
+  let notIdx := (out.toList.take hdrEnd).findIdx? (·.startsWith "Notation (Lean/Mathlib")
+  match notIdx with
+  | some i => rd := rd ++ (out.extract i hdrEnd)
+  | none => errors := errors.push "CLAIMS_READER.md: notation paragraph not found in the header"
+  let mut cur := hdrEnd
+  for (a, b) in paraSpans do
+    rd := rd ++ out.extract cur a
+    cur := b
+  rd := rd ++ out.extract cur out.size
+  for l in rd do
+    if l.startsWith "> " || l.startsWith "Author's paraphrase" then
+      errors := errors.push s!"CLAIMS_READER.md: a paraphrase line reached the reader page: {l}"
+  IO.FS.writeFile "CLAIMS_READER.md" (String.intercalate "\n" rd.toList ++ "\n")
   -- PHRASE_LINES.md (rule P13, run 2026-11-09T1828Z): every certified reader line with its theorem's generated claim
   let mut pout : Array String := #[
     "# PHRASE LINES (generated by `scripts/trust/Claims.lean`; do not edit by hand)", "",

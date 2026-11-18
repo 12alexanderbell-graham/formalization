@@ -44,6 +44,11 @@ need("STATE.md", UNCHECKED, head=6)
 STATUS_REF = "a headline's status of record is the generated Status line under it in `CLAIMS.md`"
 need("README.md", STATUS_REF, head=6)
 need("STATE.md", STATUS_REF, head=6)
+# the banner sends readers to the paraphrase-free generated page (run 2026-11-18T0828Z, runs/2026-11-18T0828Z/t5/READERS.md:
+# readers of the page without docstrings answered as accurately as readers of CLAIMS.md, 0 errors each)
+READER_REF = "**Read what a headline claims on `CLAIMS_READER.md`"
+need("README.md", READER_REF, head=6)
+need("STATE.md", READER_REF, head=6)
 
 for readme in sorted((root / "runs").glob("*/README.md")):
     run_id = readme.parent.name

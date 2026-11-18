@@ -1,0 +1,12 @@
+# Open fidelity objections against registered headlines (run 2026-11-18T0828Z; read by scripts/trust/Claims.lean, which
+# prints each headline's entries in its generated Status line on CLAIMS.md and CLAIMS_READER.md, and "none" otherwise).
+# Why: blind readers declined to cite a valid headline 6/6 over one hand-written line claiming a referee had found a
+# fidelity flaw, also when the generated page carried the headline's fidelity record (runs 2026-11-18T0228Z, 0828Z,
+# runs/2026-11-18T0828Z/t5/READERS.md): nothing generated spoke about objections. Rule (PROMPT working notes): every
+# objection to the meaning of a listed headline — a referee verdict other than STANDS on it, a blind restatement that
+# disagrees with it, a reader's or red team's report that it does not say what its source says — is entered here, in
+# the same push that first records it anywhere, and stays until the headline is re-frozen (its claim changes) or
+# withdrawn (removed from Checked and headlines.txt). A status sentence in prose is never the record of an objection.
+# Format: `<headline, unique suffix> | <run that raised it> | <repository path where it is written> | <one line>`.
+# Claims.lean fails if the headline does not resolve or the path does not exist. Started empty: objections raised
+# before this run were settled by re-freezes recorded in their run folders.
