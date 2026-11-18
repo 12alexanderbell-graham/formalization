@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+"""Check a commit message before committing (run 2026-11-18T1828Z, annex LIV; see LEDGER).
+
+Why: GitHub skips every workflow of a push whose head commit message contains a skip token
+ANYWHERE in it, even inside a quotation. Run 2026-11-18T1628Z's final commit 1473ec0 described the
+new PROMPT note "intermediate pushes [skip ci]" in its message, so the promotion of
+`bonnor_ebert_count` was pushed with no CI run at all and nobody noticed until the next run.
+
+Usage:
+  python3 scripts/check_commit_msg.py --final <message file>   # a push that must run CI: no skip token
+  python3 scripts/check_commit_msg.py --skip  <message file>   # an intermediate push: exactly the token
+  python3 scripts/check_commit_msg.py --selftest
+Exit 0 when the message is right for its kind, 1 otherwise.
+"""
+import re
+import sys
+
+# GitHub's documented skip tokens (case-insensitive), plus the trailer form.
+TOKENS = re.compile(
+    r"\[\s*(skip ci|ci skip|no ci|skip actions|actions skip)\s*\]|^skip-checks:\s*true\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+def check(kind: str, text: str) -> list[str]:
+    hits = [m.group(0) for m in TOKENS.finditer(text)]
+    if kind == "final" and hits:
+        return [f"skip token {h!r} in a message that must run CI: GitHub would skip the whole run "
+                f"(write 'skip-ci marker' or similar instead)" for h in hits]
+    if kind == "skip" and not hits:
+        return ["no skip token in an intermediate commit: this push would cancel pending CI jobs"]
+    return []
+
+
+def selftest() -> int:
+    cases = [
+        ("final", "Run X final: records\n\nCo-Authored-By: a", True),
+        ("final", "Run X final: PROMPT notes (intermediate pushes [skip ci]; …)", False),
+        ("final", "Run X final: notes [CI Skip] here", False),
+        ("final", "Run X final\n\nskip-checks: true\n", False),
+        ("final", "Run X final: intermediate pushes carry the skip-ci marker", True),
+        ("skip", "Run X: take LOCK [skip ci]", True),
+        ("skip", "Run X: take LOCK", False),
+    ]
+    bad = 0
+    for kind, text, ok in cases:
+        got = not check(kind, text)
+        if got != ok:
+            print(f"selftest FAILED: {kind} {text!r}: expected {'pass' if ok else 'fail'}")
+            bad += 1
+    print(f"selftest: {len(cases) - bad}/{len(cases)} controls behave")
+    return 1 if bad else 0
+
+
+def main(argv: list[str]) -> int:
+    if argv[1:] == ["--selftest"]:
+        return selftest()
+    if len(argv) != 3 or argv[1] not in ("--final", "--skip"):
+        print(__doc__)
+        return 2
+    with open(argv[2], encoding="utf-8") as f:
+        text = f.read()
+    errs = check(argv[1][2:], text)
+    for e in errs:
+        print(e)
+    return 1 if errs else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

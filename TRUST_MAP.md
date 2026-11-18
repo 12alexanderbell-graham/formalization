@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1003 hypotheses in 173 headlines;
-695 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-187 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-121 open; headlines with every hypothesis classified: 105/173
+697 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+199 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+107 open; headlines with every hypothesis classified: 111/173
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -459,12 +459,12 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Sim.Robertson.rob_state40` (1): needed 1 (`rob_state40_h1`); shape: bundled 1
 - `Sim.RobLong.rob_state1e11` (1): needed 1 (`rob_state1e11_h1`); shape: bundled 1
 - `Sim.RobLong.rob_printed_y3_low` (1): needed 1 (`rob_printed_y3_low_h1`); shape: bundled 1
-- `Data.FR13.fr13_bestfit68` (3): needed 3 (`fr13_bestfit68_h3`); open 1, 2
-- `Data.FR13.fr13_bestfit738` (3): needed 3 (`fr13_bestfit738_h3`); open 1, 2
-- `Data.FR13.fr13_minval68` (3): open 1, 2, 3
-- `Data.FR13.fr13_minval738` (3): open 1, 2, 3
-- `Data.FR13.fr13_zda68` (5): needed 3 (`fr13_zda68_h3`), 5 (`fr13_zda68_h5`); redundant 4 (`fr13_zda68_r4`); open 1, 2
-- `Data.FR13.fr13_zda738` (5): needed 3 (`fr13_zda738_h3`), 5 (`fr13_zda738_h5`); redundant 4 (`fr13_zda738_r4`); open 1, 2
+- `Data.FR13.fr13_bestfit68` (3): needed 3 (`fr13_bestfit68_h3`); redundant (each alone, not together) 1 (`fr13_bestfit68_r1`), 2 (`fr13_bestfit68_r2`)
+- `Data.FR13.fr13_bestfit738` (3): needed 3 (`fr13_bestfit738_h3`); redundant (each alone, not together) 1 (`fr13_bestfit738_r1`), 2 (`fr13_bestfit738_r2`)
+- `Data.FR13.fr13_minval68` (3): needed 3 (`fr13_minval68_h3`); redundant (each alone, not together) 1 (`fr13_minval68_r1`), 2 (`fr13_minval68_r2`)
+- `Data.FR13.fr13_minval738` (3): needed 3 (`fr13_minval738_h3`); redundant (each alone, not together) 1 (`fr13_minval738_r1`), 2 (`fr13_minval738_r2`)
+- `Data.FR13.fr13_zda68` (5): needed 3 (`fr13_zda68_h3`), 5 (`fr13_zda68_h5`); redundant (each alone, not together) 1 (`fr13_zda68_r1`), 2 (`fr13_zda68_r2`), 4 (`fr13_zda68_r4`)
+- `Data.FR13.fr13_zda738` (5): needed 3 (`fr13_zda738_h3`), 5 (`fr13_zda738_h5`); redundant (each alone, not together) 1 (`fr13_zda738_r1`), 2 (`fr13_zda738_r2`), 4 (`fr13_zda738_r4`)
 - `Math.LaneEmden.laneEmden3_constants` (4): needed 1 (`laneEmden3_constants_h1`), 3 (`laneEmden3_constants_h3`), 4 (`laneEmden3_constants_h4`); redundant 2 (`laneEmden3_constants_r2`)
 - `Math.Gelfand.gelfand_ball_critical` (5): needed 1 (`gelfand_ball_critical_h1`), 2 (`gelfand_ball_critical_h2`), 4 (`gelfand_ball_critical_h4`), 5 (`gelfand_ball_critical_h5`); redundant 3 (`gelfand_ball_critical_r3`)
 - `Math.GelfandExists.exists_solution` (1): redundant 1 (`exists_solution_r1`)

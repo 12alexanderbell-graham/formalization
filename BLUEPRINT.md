@@ -453,3 +453,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Necessity witnesses: a scale factor for every ΛCDM member; curved total density, law, farthest redshift, Ω ≤ 1 (run 2026-11-18T1228Z)
 - `Checked/Trust/NecessityAS.lean` (namespace `Checked.Trust.NCAS`): general model (`mclamp`, `mg`, `mph`, `mtau`, `mph_lower`, `mtau_strictMono`, `mtau_surj`, `mV`, `mV_deriv`, `ma`, `ma_deriv`, `ma_hubble`, `ma_hubble0`, `ma_law`, `ma_pos`, `ma_tau`, `ma_redshift`, `ma_comoving`); closed model m = 1/2, k = −1 (`y2_lower`, `g2_lo4`, `g2_lo2`, `g2_up`, `J2_lower`, `J2_upper`, `q_sq`, `q_sqg`, `final_arith`, `closed2_core`): `l19_sq_curved_h9`, `l19_sqg_curved_h9`; flat step sums (`fy_pos`, `fy_mono`, `fg_cont`, `fpiece_lo/up`, `fsplit_lo/up`, `fshift`, generated `fJ1_lo/up`, `fJ3_lo/up`, `Bh12_1`, `Bh12_3`): `rl19_box_unmatched_h12`; Einstein–de Sitter at z = 3, 7 (`resid_band100`, `s8_bd`, `log_4`, `log_8`, `ea37`, `Bsep3/7`, `Bdir3/7`): `cubic_separation_h8`, `cubic_direction_h8`; Ω = 3/2 (`gsplit_lo/up`, `gshift`, generated `gJ1/3/5_lo/up`, `Bh2_1/3/5`, `sa_ratio`): `fit_direction_h2`. Generators: `runs/2026-11-18T1228Z/scripts/gen_h12.py`, `emit_h12.py`, `gen_law8.py`, `gen_h2.py`, `emit_h2.py`; float scans `scan_*.py`.
+
+## Necessity witnesses: the Farooq–Ratra data headlines (run 2026-11-18T1828Z)
+- `Checked/Trust/NecessityAU.lean`: its lemmas and theorems are listed in the run README, section What we did.
+
+## Judge: the kernel replay in shards (run 2026-11-18T1828Z)
+- `scripts/leanchecker_shard.py` (module list, FNV-1a partition, selftest), job `leanchecker` of `.github/workflows/lean.yml`; `scripts/check_commit_msg.py` (skip marker in a commit message).

@@ -3135,6 +3135,14 @@ doc:Checked.Trust.NecessityAI.fR_values_h1 -doc17848126603417621390
 doc:Checked.Trust.NecessityAJ.cont_at_zero_Ici -doc13323435534244531424
 doc:Checked.Trust.NecessityAJ.scaled_hyps_Ici -doc12510005573696932766
 doc:Checked.Trust.NecessityAT.glob_of_count -doc13552631365569487006
+doc:Checked.Trust.NecessityAU.hi_bound -doc8134303413867951165
+doc:Checked.Trust.NecessityAU.lo_bound -doc9580170797237926968
+doc:Checked.Trust.NecessityAU.margChi_ge -doc2289219681735149646
+doc:Checked.Trust.NecessityAU.no_out68 -doc15919308748251066363
+doc:Checked.Trust.NecessityAU.no_out738 -doc2974180618395320208
+doc:Checked.Trust.NecessityAU.outside_ge -doc644975717034551066
+doc:Checked.Trust.NecessityAU.row_ge -doc8937377802425311866
+doc:Checked.Trust.NecessityAU.two_terms -doc6171737505095728775
 doc:Checked.Trust.NecessityEta.agree20_imp -doc9958743186863952861
 doc:Checked.Trust.NecessityEta.agree20 -doc9824130336149770711
 doc:Checked.Trust.NecessityEta.agree30_imp -doc6505485457868535128
@@ -4179,6 +4187,7 @@ moduledoc:Checked.Trust.NecessityAQ -mdoc17727107440579492857
 moduledoc:Checked.Trust.NecessityAR -mdoc16957390088669511268
 moduledoc:Checked.Trust.NecessityAS -mdoc14881184243503408912
 moduledoc:Checked.Trust.NecessityAT -mdoc7934159290509606337
+moduledoc:Checked.Trust.NecessityAU -mdoc16466541357201235469
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789

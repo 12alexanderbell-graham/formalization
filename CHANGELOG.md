@@ -882,3 +882,9 @@
 - Parts 2/5 (rotation): new headline `Checked.Math.BonnorEbertCount.bonnor_ebert_count` — the exact number of Bonnor–Ebert equilibria of every positive dimensionless mass (0 above the critical mass, 1 at it, 2k+2 / 2k+3 on the bands and at the extreme values, infinitely many at √(2/π)), with the first five extreme values enclosed. Frozen, referee STANDS, blind restatement closed, blind literal reading agrees, proved and promoted the same run; necessity fully classified (`NecessityAT`).
 - Annex LIV: PROMPT notes (intermediate pushes `[skip ci]`; exact counts from proved extrema); LEDGER entry and experiment.
 - Next: CI read; then part 1 by rotation (STATE 1p).
+
+## 2026-11-18T1828Z (scheduled run)
+- Env: repo ok (checkout = origin/main 1473ec0); local Lean (elan + Mathlib cache; `checked-build` of 44329974789 (7717f08) restored). CI 44329974789 (7717f08): checked job green, nanoda 2 and 3 cancelled while pending; 44352425786 (75a4b91) running; no CI run for 1473ec0 (its message quoted the skip marker).
+- Judge (annex LIV, integrity event 39.5): the leanchecker replay (140 of the checked job's 180 min, single-threaded) moved into a four-shard matrix job that partitions the Checked modules (`scripts/leanchecker_shard.py`), memoised like nanoda; branch trial 44373171551 first. `scripts/check_commit_msg.py` and a PROMPT note close the skip-marker trap.
+- Part 1 (rotation): `Checked/Trust/NecessityAU.lean` — the interval ends of the six Farooq–Ratra data headlines REDUNDANT (12), the minimiser condition of the two minimum-value headlines NEEDED (2); open 121 → 107.
+- Next: CI read (STATE 1q); then part 3 by rotation.
