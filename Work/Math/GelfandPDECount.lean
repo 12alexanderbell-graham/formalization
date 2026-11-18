@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.GelfandPDECountMain
 
 /-! Gelfand problem in the three-dimensional ball as a PDE, `GelfandPDECount`: exact counts of radial
 classical solutions (FROZEN by run 2026-11-18T0428Z before its proof; re-frozen the same run before any
@@ -115,7 +116,7 @@ theorem gelfand_pde_radial_count :
           (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → f x = 0) ∧
           (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = g ‖x‖) ∧
           (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ f x + lam2 * Real.exp (f x) = 0)) →
-            (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = u x) ∨ (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = v x) ∨ (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = w x)) := by
-  sorry
+            (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = u x) ∨ (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = v x) ∨ (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = w x)) :=
+  Work.Math.GelfandPDECountMain.main
 
 end Work.Math.GelfandPDECount
