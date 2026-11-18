@@ -5,8 +5,7 @@ import Checked.Math.GelfandPDECountValuesMain
 namespace Checked.Math.GelfandPDECountValues
 open Set Filter Topology InnerProductSpace Laplacian Metric
 
-/-- Gelfand problem in the unit ball of three-dimensional space, count of radial solutions with the band ends
-enclosed. A radial solution for the parameter lam is a function f that is twice continuously differentiable on
+/-- Gelfand problem in the unit ball of three-dimensional space, count of radial solutions. A radial solution for the parameter lam is a function f that is twice continuously differentiable on
 the open unit ball, continuous on the closed unit ball, zero on the unit sphere and a function of ‖x‖ on the
 closed ball, with Δf + lam e^f = 0 on the open ball (Δ is Mathlib's Laplacian). There are numbers lamStar
 between 3.321992118 and 3.321992119, lam1 between 1.664155 and 1.664157 and lam2 between 2.10852 and 2.10858
