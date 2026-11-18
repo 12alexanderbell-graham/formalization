@@ -1,7 +1,9 @@
 import Mathlib
 
 /-! Gelfand problem in the three-dimensional ball as a PDE, `GelfandPDECount`: exact counts of radial
-classical solutions (FROZEN by run 2026-11-18T0428Z before its proof). lamStar is the maximum of the branch
+classical solutions (FROZEN by run 2026-11-18T0428Z before its proof; re-frozen the same run before any
+proof with the two sharpness clauses at lam1 and lam2, after the referee showed that the first freeze left lam1
+and lam2 free inside 0 < lam1 < 2 < lam2 < lamStar, so its bands need not be the sharp ones). lamStar is the maximum of the branch
 parameter λ(s) = s² e^{W(s)} of the regular isothermal solution W, lam1 its first minimum, lam2 its second
 maximum (the turning points of `Checked.Math.GelfandExtrema.gelfand_extrema`).
 
@@ -27,7 +29,9 @@ with Δf + lam e^f = 0 on the open ball (Δ is Mathlib's Laplacian). There are n
 lam > lamStar there is no radial solution; for lam = lamStar there is one, and every radial solution equals it
 on the closed ball; for every lam with lam2 < lam < lamStar there are two with distinct values at the centre,
 and every radial solution equals one of them on the closed ball; for every lam with 0 < lam < lam1 there is
-one, and every radial solution equals it on the closed ball. -/
+one, and every radial solution equals it on the closed ball; for lam = lam1 there are two with distinct values
+at the centre and for lam = lam2 three with pairwise distinct values at the centre, and every radial solution
+equals one of them on the closed ball (so lam1 and lam2 are the ends of the bands). -/
 theorem gelfand_pde_radial_count :
     ∃ lamStar lam1 lam2 : ℝ, 3.321992118 ≤ lamStar ∧ lamStar ≤ 3.321992119 ∧
       0 < lam1 ∧ lam1 < 2 ∧ 2 < lam2 ∧ lam2 < lamStar ∧
@@ -76,7 +80,42 @@ theorem gelfand_pde_radial_count :
           (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → v x = 0) ∧
           (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, v x = g ‖x‖) ∧
           (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ v x + lam * Real.exp (v x) = 0)) →
-            ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, v x = u x) := by
+            ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, v x = u x) ∧
+      (∃ u v : EuclideanSpace ℝ (Fin 3) → ℝ, u 0 ≠ v 0 ∧ (ContDiffOn ℝ 2 u (ball 0 1) ∧
+          ContinuousOn u (closedBall 0 1) ∧
+          (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u x = 0) ∧
+          (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u x = g ‖x‖) ∧
+          (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + lam1 * Real.exp (u x) = 0)) ∧ (ContDiffOn ℝ 2 v (ball 0 1) ∧
+          ContinuousOn v (closedBall 0 1) ∧
+          (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → v x = 0) ∧
+          (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, v x = g ‖x‖) ∧
+          (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ v x + lam1 * Real.exp (v x) = 0)) ∧
+          ∀ f : EuclideanSpace ℝ (Fin 3) → ℝ, (ContDiffOn ℝ 2 f (ball 0 1) ∧
+          ContinuousOn f (closedBall 0 1) ∧
+          (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → f x = 0) ∧
+          (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = g ‖x‖) ∧
+          (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ f x + lam1 * Real.exp (f x) = 0)) →
+            (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = u x) ∨ (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = v x)) ∧
+      (∃ u v w : EuclideanSpace ℝ (Fin 3) → ℝ, u 0 ≠ v 0 ∧ u 0 ≠ w 0 ∧ v 0 ≠ w 0 ∧
+          (ContDiffOn ℝ 2 u (ball 0 1) ∧
+          ContinuousOn u (closedBall 0 1) ∧
+          (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u x = 0) ∧
+          (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u x = g ‖x‖) ∧
+          (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + lam2 * Real.exp (u x) = 0)) ∧ (ContDiffOn ℝ 2 v (ball 0 1) ∧
+          ContinuousOn v (closedBall 0 1) ∧
+          (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → v x = 0) ∧
+          (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, v x = g ‖x‖) ∧
+          (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ v x + lam2 * Real.exp (v x) = 0)) ∧ (ContDiffOn ℝ 2 w (ball 0 1) ∧
+          ContinuousOn w (closedBall 0 1) ∧
+          (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → w x = 0) ∧
+          (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, w x = g ‖x‖) ∧
+          (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ w x + lam2 * Real.exp (w x) = 0)) ∧
+          ∀ f : EuclideanSpace ℝ (Fin 3) → ℝ, (ContDiffOn ℝ 2 f (ball 0 1) ∧
+          ContinuousOn f (closedBall 0 1) ∧
+          (∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → f x = 0) ∧
+          (∃ g : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = g ‖x‖) ∧
+          (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ f x + lam2 * Real.exp (f x) = 0)) →
+            (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = u x) ∨ (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = v x) ∨ (∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, f x = w x)) := by
   sorry
 
 end Work.Math.GelfandPDECount
