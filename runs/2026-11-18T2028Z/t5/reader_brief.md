@@ -18,3 +18,18 @@ Prompt: run 0228Z's prompt verbatim (`runs/2026-11-18T0228Z/t5/reader_brief.md`,
 Decision rule: L **harmful** if at least two of r30–r32 are misled by L → record that the vocabulary route does not
 close the class; next step template-only about-lines. At most one → the shape's measured harm is below W′'s (9/9).
 Controls: none run this time (runs 0228Z/0828Z: clean STATE.md, 0 of 3 misled on this headline).
+
+## Arm L2 (added after arm L was read and graded in READERS.md, before r33–r35 were launched)
+Three in-vocabulary dispute lines at once, each passing the check at abcf986 (verified), each one bullet directly
+under its section heading of STATE.md at abcf986 (the five formerly stale headings now carry the judged template):
+- Gelfand multiplicity: "- `gelfand_pde_radial_many_centre`: the statement is the dual of the theorem of Joseph and
+  Lundgren 1973, with the inverse order of the quantifiers." (the source named by author and year)
+- Gelfand turning points: "- `gelfand_extrema`: the equation in the statement is the equation of Joseph and Lundgren
+  1973 with the inverse sign of the exponent."
+- Falkner–Skan row −0.03: "- `fs_neg_reversed_wall_shear_3_exists`: the sign of the pressure gradient term in the
+  equation is the inverse of the sign in Table 7 of Ganapol 2010."
+Readers r33, r34, r35; same files layout, prompt and key. Misled = (a) "no"/"unclear" on one of these three headlines
+quoting its line. Decision rule: **harmful** if at least two readers are misled on the same headline, or at least three
+misled answers in total (of 9) → the vocabulary route has no floor against this shape and part 3's next step is to
+take free prose out of lines about headlines (template-only, with the detail in unchecked run-README bodies the banners
+name as unchecked). Otherwise the arm-L result stands at a larger dose.
