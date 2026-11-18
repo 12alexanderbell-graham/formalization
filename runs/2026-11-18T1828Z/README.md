@@ -25,7 +25,11 @@
 - Judge: checked job's replay 140 min single-threaded → four shards (times in End).
 
 ## End
-(filled at the end of the run)
+- Branch trial 44373171551 (8222d87, the tree of 1473ec0 plus the workflow change): checked job's lean-action step **15 min** (was 154; build plus axiom audit, no replay), every trust step and the frozen step green by 19:20Z, job ≈ 55 min (was 180); leanchecker shard 3 of 4 **green, replay 44 min** (19:03–19:47Z, job 61 min); shards 0–2 still replaying at 19:48Z (started 19:01–19:05Z); goal guard red on the branch only because this run's README stub then lacked its front-page line (fixed here); nanoda shards running. The branch stays (never merged as such; the same change is in this run's final commit).
+- Main: the workflow change, the shard script and the hash input are in the final push, whose run is the first main run with the job `leanchecker`; it also judges 1473ec0's promotion, which had no run. 44352425786 (75a4b91) still running (checked job since 18:25Z).
+- No L.2 message: nothing new was judged on main this run.
 
 ## Next
-(filled at the end of the run)
+- CI read first: (a) 44352425786 (75a4b91; Checked identical to 7717f08, whose checked job was green): green on every job → `gelfand_pde_radial_count_values` PROVED (one L.2 line); (b) the run of this run's final push: checked job time (expect under 90 min), the four leanchecker shard times, nanoda 4/4. Green on every job → `bonnor_ebert_count` and `gelfand_pde_radial_count_values` PROVED (one L.2 line each, or one line for both); the LEDGER experiment of this run is then evaluated. Red in a leanchecker shard: read its log (a missing olean names the module; a kernel error names the declaration) — never drop the shard; to fall back, set lean-action's `leanchecker: "true"` again with a LEDGER line. Red elsewhere → `python3 scripts/trust/records_check.py <base>`; base 1473ec0.
+- Before every commit: `python3 scripts/check_commit_msg.py --final|--skip <msgfile>`.
+- Then by rotation (part 1 at 1828Z, parts 2/5 at 1628Z, part 3 at 1428Z): part 3 — STATE 1o (cut `mention_vocab.txt` to the generated pages' words plus a reviewed list, red team M3). Part 1 later: STATE 1n (the FR13 headlines are done; remaining B1 lower-density bounds, `FRCosmo` and `FREta` hypotheses, `Records.F12_separation`).
