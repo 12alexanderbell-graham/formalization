@@ -109,6 +109,24 @@ TEMPLATES = [
     r"^previous update:",
 ]
 TEMPLATE_RE = [re.compile(t) for t in TEMPLATES]
+NOT_CLAIMED = r"^\W*not claimed\b"
+assert NOT_CLAIMED in TEMPLATES
+
+# M0 (after red team M, A1): a word mixing ASCII letters with other letters left after folding ('radiał') is flagged
+# on every new line of a scanned file, so a look-alike missing from FOLD cannot hide a name.
+# M5 (after red team M, A2): withdrawal words are flagged on every new line of a scanned file, about a named headline
+# or not, unless an open objection is registered with that file as its path (a deny-list layer under the default flag).
+HARD = re.compile(r"(?x)^(?:withdr[ae]wn?|withdraw\w*|retract\w*|revok\w*|revoc\w*|rescind\w*|supersed\w*|"
+                  r"obsolete\w*|deprecat\w*|invalidat\w*|annul\w*|flaw\w*|disown\w*|repudiat\w*|recant\w*)$")
+
+
+BANNERS = ["a withdrawn headline is not listed", "statuses written here (proved, withdrawn, …)"]  # banner sentences
+
+
+def mixed(line):
+    t = norm(line)
+    return sorted({w for w in re.findall(r"[^\W\d_]+", t)
+                   if re.search(r"[a-z]", w) and re.search(r"[^\x00-\x7f\u0370-\u03ff]", w)})
 
 FILES_FIXED = ["STATE.md", "README.md", "BLUEPRINT.md"]
 RUN_README = re.compile(r"^runs/[^/]+/README\.md$")
@@ -168,6 +186,27 @@ def headlines():
     return keys, fulls, set(full_mod.values())
 
 
+@functools.lru_cache(maxsize=None)
+def name_tokens():
+    """full name -> its word set (snake_case, camelCase and digits split), for headlines of three or more words"""
+    _, fulls, _ = headlines()
+    out = {}
+    for f in fulls:
+        last = f.split(".")[-1]
+        parts = re.findall(r"[A-Z]+(?![a-z])|[A-Z]?[a-z]+|\d+", last.replace("'", ""))
+        toks = frozenset(norm(x) for x in parts if len(x) >= 2 and not x.isdigit())
+        if len(toks) >= 3:
+            out[f] = toks
+    return out
+
+
+def loose(text):
+    """headlines whose name words all occur, but at most one, as words of the text (A5: 'Gelfand radial many centre')"""
+    ws = set(re.findall(r"[a-z0-9]+", norm(text)))
+    return {f for f, toks in name_tokens().items()
+            if len(toks - ws) <= (1 if len(toks) >= 5 else 0) and len(toks & ws) >= 3}
+
+
 def blocks_of(lines):
     """block index per line (blank-line separated) and heading chain per line"""
     bidx, b, chain, chains, stack = [], 0, [], [], []
@@ -199,7 +238,7 @@ def about(lines, i, bidx, chains, keys):
                 break
             ctx.append(l)
     s = skel("\n".join(ctx))
-    return {f for k, fs in keys.items() if k in s for f in fs}
+    return {f for k, fs in keys.items() if k in s for f in fs} | loose("\n".join(ctx))
 
 
 _NAMECACHE = {}
@@ -253,7 +292,7 @@ def check_line(line, fulls, modules, vocab, open_obj, path, ab):
     errs = []
     keys = headlines()[0]
     s = skel(line)
-    direct = {f for k, fs in keys.items() if k in s for f in fs}
+    direct = {f for k, fs in keys.items() if k in s for f in fs} | loose(line)
     lic = {f for f in ab if path in open_obj.get(f, set())}
     if lic and all(path in open_obj.get(f, set()) for f in direct):
         return errs  # M3: every headline the line names has an open objection with this path, or it names none and
@@ -261,6 +300,8 @@ def check_line(line, fulls, modules, vocab, open_obj, path, ab):
     n = norm(line)
     stripped = n
     for r in TEMPLATE_RE:
+        if direct and r.pattern == NOT_CLAIMED:
+            continue  # red team M A8/A9: "Not claimed: `<headline>`" disowns a headline
         stripped = r.sub(" ", stripped)
     # identifiers in the original (camelCase split) before lower-casing
     raw = re.sub(r"`+([^`]+)`+", lambda m: " " + m.group(1) + " ", line)
@@ -311,6 +352,16 @@ def run(base_files, head_files, vocab=None, obj=None):
                 break
             if not l.strip() or norm(l).strip() in old:
                 continue
+            mx = mixed(l)
+            if mx:
+                errors.append(f"{path}:{i + 1}: M0 mixed-script words: {', '.join(mx[:6])}")
+            nl = norm(l)
+            for b in BANNERS:
+                nl = nl.replace(b, " ")
+            hard = sorted({w for w in tokens(nl) if HARD.match(w)})
+            if hard and not any(path in v for v in obj.values()):
+                errors.append(f"{path}:{i + 1}: M5 withdrawal words with no objection registered for this file: "
+                              f"{', '.join(hard)}")
             ab = about(lines, i, bidx, chains, keys)
             if not ab:
                 continue
@@ -362,6 +413,15 @@ def selftest():
         "- Note: the multiplicity result above is under a cloud; see the next line.",
         "- `gelfand_pde_radial_many_centre` (Gelfand, multiplicity) — retracted",
         "- `gelfand_pdе_radial_many_centre` superseded.",  # Cyrillic е
+        # red team M (run 2026-11-18T1428Z), class-A defects that passed 6f2918f3
+        "**Withdrawn:** a referee found a fidelity flaw; `gelfand_pde_radiał_many_centre` is no longer PROVED and must "
+        "not be cited.",
+        "The Gelfand radial multiplicity theorem in the ball was withdrawn by a referee; do not cite it.",
+        "Gelfand radial many centre theorem is replaced by a weaker one",
+        "Gelfand radial many centre: older theorem, the newer one is stronger.",
+        "Not claimed: `gelfand_pde_radial_many_centre`.",
+        "Not claimed: the multiplicity count of `gelfand_pde_radial_many_centre`, which is the statement of the paper.",
+        "- `gelfand_pde_radial_many_centre`: the quantifiers are the other way round from the paper theorem.",
     ]
     # known limit (recorded, not a control): a status in ordinary in-vocabulary words, e.g.
     # "`gelfand_pde_radial_many_centre`: the quantifiers are the other way round from the paper's theorem." passes
@@ -416,6 +476,10 @@ def main(argv):
         return 0
     if "--base" in argv:
         base = argv[argv.index("--base") + 1]
+        # the rule binds from the commit that introduced this script: lines older than it are not new to the rule
+        intro = git("log", "--diff-filter=A", "--format=%H", "--", "scripts/trust/check_headline_mentions.py").split()
+        if intro and subprocess.run(["git", "merge-base", "--is-ancestor", base, intro[-1]], cwd=ROOT).returncode == 0:
+            base = intro[-1]
         if selftest():
             return 1
         errors = run(files_at(base), files_at(None)) + m4(base)

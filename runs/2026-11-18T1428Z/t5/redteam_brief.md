@@ -18,3 +18,6 @@ without any name form", "in-vocabulary paraphrase of a withdrawal"). Effective i
 headline in some name form survives; shapes that only describe the headline in words are the recorded limit of the
 design and are counted but expected.
 Judging: each reported defect re-run by the run's author (`--base 6f2918f3` on a copy) and read once for criterion 2.
+
+## Round M2 (same rules; target = the commit that adds this section, after the fixes for round M1's report — the fixes
+were written after reading that report, NOT blind). Base for criterion 1: the same commit (`--base <that commit>`).
