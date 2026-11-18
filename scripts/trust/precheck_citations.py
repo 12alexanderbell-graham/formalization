@@ -66,6 +66,25 @@ for t in toks:
         tt = t.rstrip('.,;:')
         if tt not in decls and not any(d.endswith('.' + tt) for d in decls):
             bad.add(tt + ' (no such constant: module or namespace name?)')
+# The Lean check also rejects ANY dotted token (not a file name) whose prefix is an existing Checked namespace
+# but which names no constant (red team D, defect D08). Run 2026-11-18T1228Z: STATE.md backticked `Data.FR13`
+# (a module, not a constant); this script only looked at `Checked.`-prefixed tokens, reported 0, and the
+# relock failed after ten minutes. Mirror of StatementDeps.lean's rule, over the approximate declaration set.
+FILE_EXT = ('.lean', '.md', '.txt', '.py', '.png')
+for t in toks:
+    variants = [t]
+    m = re.match(r'^(.*)\[(.*)\](.*)$', t)
+    if m: variants = [m.group(1) + m.group(3), m.group(1) + m.group(2) + m.group(3)]
+    for v in variants:
+        if '.' not in v or '/' in v or v.endswith(FILE_EXT):
+            continue
+        pre = '.'.join(v.split('.')[:-1])
+        if not pre:
+            continue
+        ns_exists = any(d.startswith(pre + '.') or ('.' + pre + '.') in d for d in decls)
+        any_hit = any(d == v or d.endswith('.' + v) for d in decls)
+        if ns_exists and not any_hit:
+            bad.add(v + ' (no such constant, namespace ' + pre + ' exists: module or namespace name?)')
 # pure-mathematics lemmas (no program definition in the statement): exempt in the Lean check too
 PURE = {'Checked.Cosmography.BambaY.littleO_of_hasDerivAt', 'Checked.Math.LECell.tube_cell_t',
         'Checked.Sim.OneSided.onesided_cell'}

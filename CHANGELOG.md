@@ -864,3 +864,9 @@
 - Annex LIV: PROMPT note (values at turning points from sign-invariant chains; blind compile repairs); LEDGER experiment.
 - Next: CI read; then part 1 by rotation (STATE 1m).
 
+
+## 2026-11-18T1228Z (scheduled run)
+- Env: repo ok (checkout = origin/main a736a0b); local Lean via elan + restored `checked-build` of 44261574038 (adcb9a6). CI 44300401557 (a736a0b, promotion of `gelfand_pde_radial_count_values`): checked job pending behind 44275141268 (7d5b41c) during the whole run; not judged.
+- Part 1 (rotation, trust track T2b): six B1 hypotheses NEEDED in `Checked/Trust/NecessityAS.lean` — `l19_sq_curved` 9, `l19_sqg_curved` 9 (closed universe of total density two), `rl19_box_unmatched` 12 (flat, matter density 11/20), `cubic_separation` 8, `cubic_direction` 8 (Einstein–de Sitter read with Ω = 1/5), `fit_direction` 2 (flat negative-Λ model at Ω = 3/2) — on a new general model: a scale factor for any member of the ΛCDM family, as the inverse of its cosmic-time integral (`NCAS.ma`). NEEDED 686 → 692, open 127 → 121.
+- Annex LIV: PROMPT note (counter-models for any ΛCDM member; law witnesses from closed-form models read with the claim's density; `resid_band100`); `precheck_citations.py` mirrors StatementDeps' dotted-name rule; LEDGER evaluation (run 0628Z) and experiment.
+- Next: CI read; then part 3 by rotation (STATE 1n).
