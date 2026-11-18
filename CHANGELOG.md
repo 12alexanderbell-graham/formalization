@@ -830,3 +830,8 @@
 - Fidelity: the first freeze (`Work/Math/GelfandPDEMany.lean`) FELL to the referee — its distinctness (`Function.Injective u`, `u ≠ v`) compared functions outside the ball, where the solution class says nothing, so one solution altered there satisfied it; corrected freeze with distinct centre values, proved, blind restatement closed, blind literal reading (D, centre, singular parameter 2, nine-decimal λ* computed by the reader).
 - Annex LIV: PROMPT note (distinctness where the solution class looks; ask "copies of one object?" before freezing any multiplicity claim). LEDGER: new headline, fidelity catch, experiment.
 - Next: CI read; then part 1 by rotation.
+
+## 2026-11-18T0028Z (scheduled run)
+- Env: repo ok (checkout = origin/main at start, unshallowed); local Lean via elan + restored `checked-build` of 43755149508 (5c6a05b). CI 43755149508 (5c6a05b) green on every job → `gelfand_pde_radial_many_centre` PROVED (L.2 notification).
+- Part 1 (rotation, trust track T2b): eleven density-range hypotheses of the B1 family classified in `Checked/Trust/NecessityAQ.lean` with no certified integral — the bridge `lumDistFlat_flatLCDM` holds for every Ω ≥ 0 (upper bound REDUNDANT) and fails at Ω = −1 (a bounce resting at its minimum; lower bound NEEDED); the upper density bound NEEDED in `cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss` (Ω = 2) and `cubic_separation`, `cubic_direction` (Ω = 3/2) and the four flat Lusso et al. 2019 headlines (Ω = 10), from the closed-form flat model sin^{2/3} with negative cosmological constant and one- or two-step bounds of its increasing integrand. NEEDED 666 → 676, REDUNDANT 185 → 186, open 148 → 137.
+- Next: CI read; then parts 2/5 by rotation.

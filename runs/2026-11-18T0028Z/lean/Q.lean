@@ -1,4 +1,5 @@
 import Checked.Trust.NecessityAP
+import Checked.Cosmography.B1Separation
 
 namespace Checked.Trust.NCAQ
 
@@ -339,5 +340,317 @@ theorem cubic_misses_z7_h2 : necessity% Checked.Cosmography.B1.cubic_misses_z7 2
   have := five_logb_nonpos _ ((3 * Real.log 2 + 5 / 3 * (3 * Real.log 2) ^ 3) / (2 / 3)) hd0
     (by linarith) (by linarith)
   linarith
+
+
+/-! ## Generic closed-form model with `Ω > 1` and interval bounds of the integrand -/
+
+/-- Observation time with `Ω cos² t₀ = 1`. -/
+noncomputable def tO (Ω : ℝ) : ℝ := Real.arccos (1 / √Ω)
+
+/-- Source time with `1 + z = Z`. -/
+noncomputable def tS (Ω Z : ℝ) : ℝ := Real.arcsin (Real.sin (tO Ω) / Z ^ (3 / 2 : ℝ))
+
+theorem tO_props (Ω : ℝ) (hΩ : 1 < Ω) :
+    0 < tO Ω ∧ tO Ω < π / 2 ∧ Ω * Real.cos (tO Ω) ^ 2 = 1 := by
+  have hs : 1 < √Ω := by rw [show (1:ℝ) = √1 by simp]; exact Real.sqrt_lt_sqrt (by norm_num) hΩ
+  have hx0 : 0 < 1 / √Ω := by positivity
+  have hx1 : 1 / √Ω < 1 := by rw [div_lt_one (by positivity)]; exact hs
+  refine ⟨Real.arccos_pos.2 hx1, Real.arccos_lt_pi_div_two.2 hx0, ?_⟩
+  rw [tO, Real.cos_arccos (by linarith) hx1.le, div_pow, Real.sq_sqrt (by linarith)]
+  field_simp
+
+theorem tS_props (Ω Z : ℝ) (hΩ : 1 < Ω) (hZ : 1 ≤ Z) :
+    0 < tS Ω Z ∧ tS Ω Z ≤ tO Ω ∧ redshift sa (tO Ω) (tS Ω Z) = Z - 1 := by
+  obtain ⟨h0, h1, -⟩ := tO_props Ω hΩ
+  exact sa_source (tO Ω) Z h0 h1 hZ
+
+theorem tS_anti (Ω Z₁ Z₂ : ℝ) (hΩ : 1 < Ω) (hZ : 1 ≤ Z₁) (h12 : Z₁ ≤ Z₂) :
+    tS Ω Z₂ ≤ tS Ω Z₁ := by
+  obtain ⟨h0, h1, -⟩ := tO_props Ω hΩ
+  have hT := sin_pos_of _ h0 h1
+  apply Real.arcsin_le_arcsin
+  apply div_le_div_of_nonneg_left hT.le (Real.rpow_pos_of_pos (by linarith) _)
+  exact Real.rpow_le_rpow (by linarith) h12 (by norm_num)
+
+/-- The bridge in the model: `d_L = Z/H₀ · ∫_{1/√Z}^1 g`. -/
+theorem sa_dL (Ω Z : ℝ) (hΩ : 1 < Ω) (hZ : 1 ≤ Z) :
+    lumDistFlat sa (tO Ω) (tS Ω Z) = Z / hubble sa (tO Ω) *
+      ∫ v in √(1 / Z)..1, 2 / √(Ω + (1 - Ω) * v ^ 6) := by
+  obtain ⟨h0, h1, hc⟩ := tO_props Ω hΩ
+  obtain ⟨ht0, htt, hz⟩ := tS_props Ω Z hΩ hZ
+  obtain ⟨hp, hd, hH₀, hH⟩ := sa_hyps Ω (tO Ω) (tS Ω Z) h0 h1 hc ht0
+  have hbr := bridge Ω (by linarith) sa _ _ htt hp hd hH₀ hH
+  rw [ratio_of_z sa _ _ (Z - 1) (hp _ ⟨le_rfl, htt⟩) (hp _ ⟨htt, le_rfl⟩) hz, hz] at hbr
+  rw [hbr]; ring_nf
+
+theorem g_mono (Ω v w : ℝ) (hΩ : 1 ≤ Ω) (hv : 0 ≤ v) (hvw : v ≤ w) (hw : w ≤ 1) :
+    2 / √(Ω + (1 - Ω) * v ^ 6) ≤ 2 / √(Ω + (1 - Ω) * w ^ 6) := by
+  have hw6 : w ^ 6 ≤ 1 := pow_le_one₀ (by linarith) hw
+  have h66 : v ^ 6 ≤ w ^ 6 := pow_le_pow_left₀ hv hvw 6
+  have hpw : 0 < Ω + (1 - Ω) * w ^ 6 := by nlinarith
+  apply div_le_div_of_nonneg_left (by norm_num) (Real.sqrt_pos.2 hpw)
+  apply Real.sqrt_le_sqrt; nlinarith
+
+theorem g_ge (Ω v : ℝ) (hΩ : 1 ≤ Ω) (hv : 0 ≤ v) (hv1 : v ≤ 1) :
+    2 / √Ω ≤ 2 / √(Ω + (1 - Ω) * v ^ 6) := by
+  have h6 : 0 ≤ v ^ 6 := by positivity
+  have h61 : v ^ 6 ≤ 1 := pow_le_one₀ hv hv1
+  have hp : 0 < Ω + (1 - Ω) * v ^ 6 := by nlinarith
+  apply div_le_div_of_nonneg_left (by norm_num) (Real.sqrt_pos.2 hp)
+  apply Real.sqrt_le_sqrt; nlinarith
+
+theorem g_one (Ω : ℝ) : 2 / √(Ω + (1 - Ω) * (1:ℝ) ^ 6) = 2 := by norm_num
+
+theorem g_cont (Ω p q : ℝ) (hΩ : 1 ≤ Ω) (hp : 0 ≤ p) (hq : q ≤ 1) :
+    ContinuousOn (fun v : ℝ => 2 / √(Ω + (1 - Ω) * v ^ 6)) (Icc p q) := by
+  intro v hv
+  have h6 : v ^ 6 ≤ 1 := pow_le_one₀ (by linarith [hv.1]) (by linarith [hv.2])
+  apply ContinuousAt.continuousWithinAt
+  apply continuousAt_const.div
+  · exact (by fun_prop : Continuous fun v : ℝ => Ω + (1 - Ω) * v ^ 6).continuousAt.sqrt
+  · exact (Real.sqrt_pos.2 (by nlinarith)).ne'
+
+theorem int_piece (Ω p q : ℝ) (hΩ : 1 ≤ Ω) (hp : 0 ≤ p) (hpq : p ≤ q) (hq : q ≤ 1) :
+    (q - p) * (2 / √(Ω + (1 - Ω) * p ^ 6)) ≤ ∫ v in p..q, 2 / √(Ω + (1 - Ω) * v ^ 6) ∧
+      ∫ v in p..q, 2 / √(Ω + (1 - Ω) * v ^ 6) ≤ (q - p) * (2 / √(Ω + (1 - Ω) * q ^ 6)) := by
+  have hi : IntervalIntegrable (fun v : ℝ => 2 / √(Ω + (1 - Ω) * v ^ 6)) volume p q :=
+    (g_cont Ω p q hΩ hp hq).intervalIntegrable_of_Icc hpq
+  constructor
+  · have := intervalIntegral.integral_mono_on hpq
+      (intervalIntegrable_const : IntervalIntegrable (fun _ => 2 / √(Ω + (1 - Ω) * p ^ 6)) volume p q) hi
+      (fun v hv => g_mono Ω p v hΩ hp hv.1 (le_trans hv.2 hq))
+    rwa [intervalIntegral.integral_const, smul_eq_mul] at this
+  · have := intervalIntegral.integral_mono_on hpq hi
+      (intervalIntegrable_const : IntervalIntegrable (fun _ => 2 / √(Ω + (1 - Ω) * q ^ 6)) volume p q)
+      (fun v hv => g_mono Ω v q hΩ (le_trans hp hv.1) hv.2 hq)
+    rwa [intervalIntegral.integral_const, smul_eq_mul] at this
+
+theorem int_split (Ω p q : ℝ) (hΩ : 1 ≤ Ω) (hp : 0 ≤ p) (hpq : p ≤ q) (hq : q ≤ 1) :
+    ∫ v in p..1, 2 / √(Ω + (1 - Ω) * v ^ 6) =
+      (∫ v in p..q, 2 / √(Ω + (1 - Ω) * v ^ 6)) + ∫ v in q..1, 2 / √(Ω + (1 - Ω) * v ^ 6) :=
+  (intervalIntegral.integral_add_adjacent_intervals
+    ((g_cont Ω p q hΩ hp hq).intervalIntegrable_of_Icc hpq)
+    ((g_cont Ω q 1 hΩ (le_trans hp hpq) le_rfl).intervalIntegrable_of_Icc hq)).symm
+
+theorem sqrt8_bounds : (35 / 100 : ℝ) ≤ √(1 / 8) ∧ √(1 / 8 : ℝ) ≤ 354 / 1000 := by
+  constructor
+  · rw [show (35 / 100 : ℝ) = √((35 / 100) ^ 2) from (Real.sqrt_sq (by norm_num)).symm]
+    exact Real.sqrt_le_sqrt (by norm_num)
+  · rw [show (354 / 1000 : ℝ) = √((354 / 1000) ^ 2) from (Real.sqrt_sq (by norm_num)).symm]
+    exact Real.sqrt_le_sqrt (by norm_num)
+
+theorem sqrt4 : √(1 / 4 : ℝ) = 1 / 2 := by
+  rw [show (1 / 4 : ℝ) = (1 / 2) ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]
+
+/-- `J₇ ≤ (2 − 2 v₇) J₃` and `J₇ ≥ J₃ + (1/2 − v₇) g(v₇)` for every `Ω ≥ 1`, with
+`J_Z = ∫_{1/√Z}^1 g`. -/
+theorem J73 (Ω : ℝ) (hΩ : 1 ≤ Ω) :
+    let J3 := ∫ v in √(1 / 4 : ℝ)..1, 2 / √(Ω + (1 - Ω) * v ^ 6)
+    let J7 := ∫ v in √(1 / 8 : ℝ)..1, 2 / √(Ω + (1 - Ω) * v ^ 6)
+    0 < J3 ∧ J3 ≤ 1 ∧ J7 ≤ (2 - 2 * (35 / 100)) * J3 ∧
+      J3 + (1 / 2 - 354 / 1000) * (2 / √Ω) ≤ J7 := by
+  intro J3 J7
+  obtain ⟨h35, h354⟩ := sqrt8_bounds
+  have hs := int_split Ω (√(1 / 8)) (1 / 2) hΩ (Real.sqrt_nonneg _) (by linarith) (by norm_num)
+  have hJ3 : J3 = ∫ v in (1 / 2 : ℝ)..1, 2 / √(Ω + (1 - Ω) * v ^ 6) := by simp only [J3, sqrt4]
+  obtain ⟨hA, hB⟩ := int_piece Ω (1 / 2) 1 hΩ (by norm_num) (by norm_num) le_rfl
+  obtain ⟨hC, hD⟩ := int_piece Ω (√(1 / 8)) (1 / 2) hΩ (Real.sqrt_nonneg _) (by linarith) (by norm_num)
+  rw [g_one] at hB
+  have hc0 : 0 < 2 / √(Ω + (1 - Ω) * (1 / 2 : ℝ) ^ 6) := by
+    have := g_ge Ω (1 / 2) hΩ (by norm_num) (by norm_num); have : 0 < 2 / √Ω := by positivity
+    linarith
+  have hg7 := g_ge Ω (√(1 / 8)) hΩ (Real.sqrt_nonneg _) (by linarith)
+  have hsq : 0 < 2 / √Ω := by have : 0 < Ω := by linarith
+                              positivity
+  refine ⟨by rw [hJ3]; nlinarith, by rw [hJ3]; linarith, ?_, ?_⟩
+  · show J7 ≤ _; simp only [J7]; rw [hs, ← hJ3]
+    nlinarith
+  · show _ ≤ J7; simp only [J7]; rw [hs, ← hJ3]
+    nlinarith
+
+theorem logb_div' (x y : ℝ) (hx : 0 < x) (hy : 0 < y) :
+    5 * Real.logb 10 x - 5 * Real.logb 10 y = 5 * Real.logb 10 (x / y) := by
+  rw [Real.logb_div hx.ne' hy.ne']; ring
+
+/-- Without `Ω ≤ 2/5`: at `Ω = 2` the miss at `z = 7` is below the miss at `z = 3`. -/
+theorem cubic_shape_miss_h2 : necessity% Checked.Cosmography.B1.cubic_shape_miss 2 := by
+  have hΩ : (1:ℝ) < 2 := by norm_num
+  obtain ⟨h0, h1, hc⟩ := tO_props 2 hΩ
+  obtain ⟨ht7, h7O, hz7⟩ := tS_props 2 8 hΩ (by norm_num)
+  obtain ⟨ht3, h3O, hz3⟩ := tS_props 2 4 hΩ (by norm_num)
+  have h73 := tS_anti 2 4 8 hΩ (by norm_num) (by norm_num)
+  obtain ⟨hp, hd, hH₀, hH⟩ := sa_hyps 2 (tO 2) (tS 2 8) h0 h1 hc ht7
+  refine ⟨2, by norm_num, sa, tS 2 8, tS 2 4, tO 2, h73, h3O, hp, hd, hH₀, hH,
+    by rw [hz3]; norm_num, by rw [hz7]; norm_num, ?_⟩
+  rw [hz3, hz7, show (8:ℝ) - 1 = 7 by norm_num, show (4:ℝ) - 1 = 3 by norm_num,
+    poly_eq 2 _ 7 hH₀.ne', poly_eq 2 _ 3 hH₀.ne', Qc_two, Qc_two, log8, log4,
+    sa_dL 2 8 hΩ (by norm_num), sa_dL 2 4 hΩ (by norm_num)]
+  obtain ⟨hJ3p, -, hJ7u, hJ7l⟩ := J73 2 (by norm_num)
+  have hs2 : (0:ℝ) < 2 / √2 := by positivity
+  set J3 := ∫ v in √(1 / 4 : ℝ)..1, 2 / √(2 + (1 - 2) * v ^ 6)
+  set J7 := ∫ v in √(1 / 8 : ℝ)..1, 2 / √(2 + (1 - 2) * v ^ 6)
+  set H := hubble sa (tO 2)
+  set l := Real.log 2
+  have hl := Real.log_two_gt_d9
+  have hJ7p : 0 < J7 := by nlinarith
+  have hHp : 0 < H := hH₀
+  have hQ3 : 0 < 2 * l + 5 / 3 * (2 * l) ^ 3 := by positivity
+  have hQ7 : 0 < 3 * l + 5 / 3 * (3 * l) ^ 3 := by positivity
+  have e7 : 8 / H * J7 / ((3 * l + 5 / 3 * (3 * l) ^ 3) / H) = 8 * J7 / (3 * l + 5 / 3 * (3 * l) ^ 3) := by
+    field_simp
+  have e3 : 4 / H * J3 / ((2 * l + 5 / 3 * (2 * l) ^ 3) / H) = 4 * J3 / (2 * l + 5 / 3 * (2 * l) ^ 3) := by
+    field_simp
+  rw [e7, e3]
+  have hx7 : 0 < 8 * J7 / (3 * l + 5 / 3 * (3 * l) ^ 3) := by positivity
+  have hx3 : 0 < 4 * J3 / (2 * l + 5 / 3 * (2 * l) ^ 3) := by positivity
+  rw [logb_div' _ _ hx7 hx3, not_lt]
+  have hle : 8 * J7 / (3 * l + 5 / 3 * (3 * l) ^ 3) / (4 * J3 / (2 * l + 5 / 3 * (2 * l) ^ 3)) ≤ 1 := by
+    rw [div_le_one hx3, div_le_div_iff₀ hQ7 hQ3]
+    have hl2 : (0.69 : ℝ) ≤ l := by linarith
+    have key : 8 * ((2 - 2 * (35 / 100)) * J3) * (2 * l + 5 / 3 * (2 * l) ^ 3) ≤
+        4 * J3 * (3 * l + 5 / 3 * (3 * l) ^ 3) := by
+      have e : 4 * J3 * (3 * l + 5 / 3 * (3 * l) ^ 3) - 8 * ((2 - 2 * (35 / 100)) * J3) *
+          (2 * l + 5 / 3 * (2 * l) ^ 3) = J3 * l * (-(44 / 5) + 124 / 3 * l ^ 2) := by
+        ring
+      rw [← sub_nonneg, e]
+      apply mul_nonneg (mul_nonneg hJ3p.le (by linarith))
+      nlinarith
+    calc 8 * J7 * (2 * l + 5 / 3 * (2 * l) ^ 3)
+        ≤ 8 * ((2 - 2 * (35 / 100)) * J3) * (2 * l + 5 / 3 * (2 * l) ^ 3) := by gcongr
+      _ ≤ 4 * J3 * (3 * l + 5 / 3 * (3 * l) ^ 3) := key
+  have := Real.logb_nonpos (b := 10) (by norm_num) (by positivity) hle
+  linarith
+
+
+theorem Qc_32 (u : ℝ) : Qc (3 / 2) u = u + 3 / 8 * u ^ 2 + 67 / 96 * u ^ 3 := by unfold Qc; ring
+
+theorem log10_gt : (2.27 : ℝ) < Real.log 10 := by
+  have h8 : Real.log 10 = Real.log 8 + Real.log (5 / 4) := by
+    rw [← Real.log_mul (by norm_num) (by norm_num)]; norm_num
+  have h8' : Real.log 8 = 3 * Real.log 2 := by
+    rw [show (8:ℝ) = 2 ^ 3 by norm_num, Real.log_pow]; norm_num
+  have h54 := Real.one_sub_inv_le_log_of_pos (show (0:ℝ) < 5 / 4 by norm_num)
+  have := Real.log_two_gt_d9
+  norm_num at h54
+  linarith
+
+theorem logb_small (x : ℝ) (h1 : 98 / 100 ≤ x) (h2 : x ≤ 104 / 100) :
+    |5 * Real.logb 10 x| ≤ 1 / 10 := by
+  have hx : 0 < x := by linarith
+  have hl10 := log10_gt
+  have hu := Real.log_le_sub_one_of_pos hx
+  have hd := Real.one_sub_inv_le_log_of_pos hx
+  have hinv : x⁻¹ ≤ 100 / 98 := by rw [inv_le_comm₀ hx (by norm_num)]; norm_num; linarith
+  rw [abs_le, Real.logb]
+  constructor
+  · rw [show -(1 / 10 : ℝ) = 5 * (-(1 / 50)) by norm_num]
+    apply mul_le_mul_of_nonneg_left _ (by norm_num)
+    rw [le_div_iff₀ (by linarith)]; nlinarith
+  · rw [show (1 / 10 : ℝ) = 5 * (1 / 50) by norm_num]
+    apply mul_le_mul_of_nonneg_left _ (by norm_num)
+    rw [div_le_iff₀ (by linarith)]; nlinarith
+
+/-- At `Ω = 3/2` the ΛCDM-implied cubic misses the exact distance modulus at `z = 3` and at
+`z = 7` by amounts within 0.1 mag of each other. -/
+theorem misses_32 :
+    let Ω : ℝ := 3 / 2
+    let H := hubble sa (tO Ω)
+    |5 * Real.logb 10 (lumDistFlat sa (tO Ω) (tS Ω 8) / logPolyDL3 (lusA2 Ω) (lusA3 Ω) H 7) -
+      5 * Real.logb 10 (lumDistFlat sa (tO Ω) (tS Ω 4) / logPolyDL3 (lusA2 Ω) (lusA3 Ω) H 3)| ≤ 1 / 10 := by
+  intro Ω H
+  have hΩ : (1:ℝ) < 3 / 2 := by norm_num
+  obtain ⟨h0, h1, hc⟩ := tO_props (3 / 2) hΩ
+  have hHp : 0 < H := sa_H0 _ h0 h1
+  rw [poly_eq _ _ 7 hHp.ne', poly_eq _ _ 3 hHp.ne', Qc_32, Qc_32, log8, log4,
+    sa_dL (3 / 2) 8 hΩ (by norm_num), sa_dL (3 / 2) 4 hΩ (by norm_num)]
+  obtain ⟨hJ3p, hJ31, hJ7u, hJ7l⟩ := J73 (3 / 2) (by norm_num)
+  have hsq : √(3 / 2 : ℝ) ≤ 12248 / 10000 := by
+    rw [show (12248 / 10000 : ℝ) = √((12248 / 10000) ^ 2) from (Real.sqrt_sq (by norm_num)).symm]
+    exact Real.sqrt_le_sqrt (by norm_num)
+  have hg : (16329 / 10000 : ℝ) ≤ 2 / √(3 / 2) := by
+    rw [le_div_iff₀ (by positivity)]; linarith
+  set J3 := ∫ v in √(1 / 4 : ℝ)..1, 2 / √(3 / 2 + (1 - 3 / 2) * v ^ 6)
+  set J7 := ∫ v in √(1 / 8 : ℝ)..1, 2 / √(3 / 2 + (1 - 3 / 2) * v ^ 6)
+  set l := Real.log 2
+  have hl := Real.log_two_gt_d9
+  have hl' := Real.log_two_lt_d9
+  have hJ7a : (1 + 2384 / 10000) * J3 ≤ J7 := by nlinarith
+  have hJ7p : 0 < J7 := by nlinarith
+  set Q3 := 2 * l + 3 / 8 * (2 * l) ^ 2 + 67 / 96 * (2 * l) ^ 3
+  set Q7 := 3 * l + 3 / 8 * (3 * l) ^ 2 + 67 / 96 * (3 * l) ^ 3
+  have hQ3 : 0 < Q3 := by positivity
+  have hQ7 : 0 < Q7 := by positivity
+  have e7 : 8 / H * J7 / (Q7 / H) = 8 * J7 / Q7 := by field_simp
+  have e3 : 4 / H * J3 / (Q3 / H) = 4 * J3 / Q3 := by field_simp
+  rw [e7, e3]
+  have hx7 : 0 < 8 * J7 / Q7 := by positivity
+  have hx3 : 0 < 4 * J3 / Q3 := by positivity
+  rw [logb_div' _ _ hx7 hx3]
+  have hr : 8 * J7 / Q7 / (4 * J3 / Q3) = 2 * J7 * Q3 / (J3 * Q7) := by field_simp; ring
+  rw [hr]
+  have hl1 : (0.6931 : ℝ) ≤ l := by linarith
+  have hl2 : l ≤ (0.6932 : ℝ) := by linarith
+  have hlo : 98 / 100 * Q7 ≤ 2 * (1 + 2384 / 10000) * Q3 := by
+    simp only [Q3, Q7]; nlinarith [mul_pos (show (0:ℝ) < l by linarith) (show (0:ℝ) < l by linarith)]
+  have hhi : 2 * (2 - 2 * (35 / 100)) * Q3 ≤ 104 / 100 * Q7 := by
+    simp only [Q3, Q7]; nlinarith [mul_pos (show (0:ℝ) < l by linarith) (show (0:ℝ) < l by linarith)]
+  apply logb_small
+  · rw [le_div_iff₀ (by positivity)]
+    nlinarith [mul_le_mul_of_nonneg_left hJ7a (show (0:ℝ) ≤ 2 * Q3 by positivity),
+      mul_le_mul_of_nonneg_left hlo hJ3p.le]
+  · rw [div_le_iff₀ (by positivity)]
+    nlinarith [mul_le_mul_of_nonneg_left hJ7u (show (0:ℝ) ≤ 2 * Q3 by positivity),
+      mul_le_mul_of_nonneg_left hhi hJ3p.le]
+
+/-- The common data of the two `Ω = 3/2` witnesses. -/
+theorem data_32 :
+    let Ω : ℝ := 3 / 2
+    1 / 5 ≤ Ω ∧ tS Ω 8 ≤ tS Ω 4 ∧ tS Ω 4 ≤ tO Ω ∧
+      (∀ s ∈ Set.Icc (tS Ω 8) (tO Ω), 0 < sa s) ∧
+      (∀ s ∈ Set.Icc (tS Ω 8) (tO Ω), DifferentiableAt ℝ sa s) ∧ 0 < hubble sa (tO Ω) ∧
+      (∀ s ∈ Set.Icc (tS Ω 8) (tO Ω),
+        hubble sa s = hubble sa (tO Ω) * √(Ω * (1 + redshift sa (tO Ω) s) ^ 3 + 1 - Ω)) ∧
+      redshift sa (tO Ω) (tS Ω 4) = 3 ∧ redshift sa (tO Ω) (tS Ω 8) = 7 ∧
+      0 < logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble sa (tO Ω)) 3 ∧
+      0 < logPolyDL3 (lusA2 Ω) (lusA3 Ω) (hubble sa (tO Ω)) 7 := by
+  intro Ω
+  have hΩ : (1:ℝ) < 3 / 2 := by norm_num
+  obtain ⟨h0, h1, hc⟩ := tO_props (3 / 2) hΩ
+  obtain ⟨ht7, -, hz7⟩ := tS_props (3 / 2) 8 hΩ (by norm_num)
+  obtain ⟨-, h3O, hz3⟩ := tS_props (3 / 2) 4 hΩ (by norm_num)
+  obtain ⟨hp, hd, hH₀, hH⟩ := sa_hyps (3 / 2) (tO (3 / 2)) (tS (3 / 2) 8) h0 h1 hc ht7
+  have hl := Real.log_two_gt_d9
+  refine ⟨by norm_num, tS_anti _ 4 8 hΩ (by norm_num) (by norm_num), h3O, hp, hd, hH₀, hH,
+    by rw [hz3]; norm_num, by rw [hz7]; norm_num, ?_, ?_⟩
+  · rw [poly_eq _ _ 3 hH₀.ne', Qc_32, log4]; apply div_pos _ hH₀; positivity
+  · rw [poly_eq _ _ 7 hH₀.ne', Qc_32, log8]; apply div_pos _ hH₀; positivity
+
+theorem half_abs (x y : ℝ) (h : |y - x| ≤ 1 / 10) :
+    |x - (x + y) / 2| ≤ 1 / 20 ∧ |y - (x + y) / 2| ≤ 1 / 20 := by
+  rw [abs_le] at h ⊢; rw [abs_le]; constructor <;> constructor <;> linarith [h.1, h.2]
+
+/-- Without `Ω ≤ 2/5`: at `Ω = 3/2` the ΛCDM-implied cubic itself matches both distance moduli
+within 0.05 mag up to a common offset, at distance zero from the ΛCDM-implied point. -/
+theorem cubic_separation_h2 : necessity% Checked.Cosmography.B1Sep.cubic_separation 2 := by
+  obtain ⟨h1, h73, h3O, hp, hd, hH₀, hH, hz3, hz7, hp3, hp7⟩ := data_32
+  have hm := misses_32
+  simp only at hm
+  obtain ⟨hm3, hm7⟩ := half_abs _ _ hm
+  refine ⟨3 / 2, h1, sa, tS (3 / 2) 8, tS (3 / 2) 4, tO (3 / 2), h73, h3O, hp, hd, hH₀, hH, hz3, hz7,
+    lusA2 (3 / 2), lusA3 (3 / 2), hubble sa (tO (3 / 2)), _, hH₀, by rwa [hz3], by rwa [hz7],
+    by rw [hz3]; exact hm3, by rw [hz7]; exact hm7, ?_⟩
+  simp only [sub_self]; norm_num
+
+/-- Without `Ω ≤ 2/5`: the same `Ω = 3/2` data, where the ΛCDM-implied point is not on the
+strict side of the direction line. -/
+theorem cubic_direction_h2 : necessity% Checked.Cosmography.B1Sep.cubic_direction 2 := by
+  obtain ⟨h1, h73, h3O, hp, hd, hH₀, hH, hz3, hz7, hp3, hp7⟩ := data_32
+  have hm := misses_32
+  simp only at hm
+  obtain ⟨hm3, hm7⟩ := half_abs _ _ hm
+  refine ⟨3 / 2, h1, sa, tS (3 / 2) 8, tS (3 / 2) 4, tO (3 / 2), h73, h3O, hp, hd, hH₀, hH, hz3, hz7,
+    lusA2 (3 / 2), lusA3 (3 / 2), hubble sa (tO (3 / 2)), _, hH₀, by rwa [hz3], by rwa [hz7],
+    by rw [hz3]; exact hm3, by rw [hz7]; exact hm7, ?_⟩
+  simp
 
 end Checked.Trust.NCAQ
