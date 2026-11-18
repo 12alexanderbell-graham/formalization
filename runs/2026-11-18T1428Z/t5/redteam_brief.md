@@ -21,3 +21,9 @@ Judging: each reported defect re-run by the run's author (`--base 6f2918f3` on a
 
 ## Round M2 (same rules; target = the commit that adds this section, after the fixes for round M1's report — the fixes
 were written after reading that report, NOT blind). Base for criterion 1: the same commit (`--base <that commit>`).
+
+## Round M3 (run 2026-11-18T2028Z; same rules; target = cd66956b, the rebuilt vocabulary and the template-free-part fix,
+written before this round and blind to it). Base for criterion 1: `--base cd66956b`. One fresh Sonnet subagent,
+≈ 15 minutes, scratch worktree of cd66956b, nothing committed. Measure as above; in addition the run records which
+class-A shapes use only vocabulary words (the evaluation criterion of run 1428Z's LEDGER experiment: it holds if M3
+finds no in-vocabulary shape that names a headline).
