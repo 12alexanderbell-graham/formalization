@@ -27,7 +27,8 @@
 - Bonnor–Ebert: number of equilibria known for every mass (before: extrema and monotone segments only).
 
 ## End
-- See the final commit message for CI and local checks.
+- CI: 44329974789 (7717f08) checked job still in its build step at 17:50Z (started 15:28Z); its nanoda shards 2 and 3 were cancelled by this run's mid-run push 75a4b91 (PROMPT note, LEDGER experiment). Nothing judged this run; no L.2 message (the promotion of run 1028Z and this run's promotion wait for a main run green on every job).
+- Local: `lake build Checked` (3636 jobs), Work modules and blind closure compiled, axioms propext/Classical.choice/Quot.sound; StatementDeps relock (twice), Claims (CLAIMS.md, CLAIMS_READER.md), validation packet up to date, `records_check.py 7717f08` (43 commands, 0 failed), goal guard, check_headline_mentions.
 
 ## Next
 - CI read first: 44329974789 (7717f08; checked job running since 15:28Z, nanoda shards 2 and 3 cancelled by this run's mid-run push 75a4b91) and the run of this run's final push (promotion of `bonnor_ebert_count`: new Checked modules `BonnorEbertCountMain` (≈ 35 s locally), `BonnorEbertCount`, `SecondReadingBECount`, `NecessityAT`, Witnesses; nanoda must replay them). Green on every job for a736a0b or a descendant → `gelfand_pde_radial_count_values` PROVED (one L.2 line to Alexander); green for this run's final push → `bonnor_ebert_count` PROVED (one L.2 line). Red → `python3 scripts/trust/records_check.py <base>` or `local_frozen_step.py --trust <base>`; base 7717f08. Push intermediate commits with `[skip ci]` (PROMPT note of this run).
