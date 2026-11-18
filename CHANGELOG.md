@@ -851,3 +851,9 @@
 - Part 1 (rotation, trust track T2b): ten B1 hypotheses NEEDED in `Checked/Trust/NecessityAR.lean` — `fit_direction` 9, 10, 11, 12, 17, 18, 19 and `rl19_box_unmatched` 11 with the Einstein–de Sitter model (exact distances, cubics chosen by exact interval arithmetic), `l19_sq_curved` 2 and `l19_sqg_curved` 2 with the flat model at Ω = 100 (twenty-step certified integral bound). NEEDED 676 → 686, open 137 → 127.
 - Annex LIV: PROMPT notes (grep the notes by keyword; float-scan closed-form models first; `precheck_names.py` in the local check order), new `scripts/trust/precheck_names.py`.
 - Next: CI read; then part 3 by rotation (STATE 1k).
+
+## 2026-11-18T0828Z (scheduled run)
+- Env: repo ok (checkout = origin/main adcb9a6); local Lean via elan + restored `checked-build` of 44238855382 (543a0a0, green on every job). CI 44246499725 (25fd5dd): checked job cancelled while pending (superseded); `gelfand_pde_radial_count` not yet judged.
+- Part 3 (rotation): generated fidelity record in every Status line of CLAIMS.md; paraphrase-free generated reader page `CLAIMS_READER.md` (CI-checked; banners point to it); open-objection registry `scripts/trust/objections.txt` printed first in each record. Measured with 12 pre-registered blind readers: reader page 0 errors (= CLAIMS.md 0); a hand-written fidelity withdrawal still misled 3/3 with the record and 3/3 with the registry.
+- Annex LIV: PROMPT note; LEDGER evaluation (run 0228Z's experiment) and experiment.
+- Next: CI read; then parts 2/5 by rotation (STATE 1l).

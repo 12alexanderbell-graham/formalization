@@ -551,7 +551,8 @@ run_cmd do
   for l in ← readLines "scripts/trust/objections.txt" do
     match (l.splitOn " | ").map (·.trimAscii.copy) with
     | [h, run, path, summary] =>
-      match resolve cands h with
+      -- resolved among the registered headlines only (a suffix may also name a witness theorem, e.g. in `Checked.Trust.NV`)
+      match resolve hs h with
       | .ok hn =>
         unless (← System.FilePath.pathExists path) do
           errors := errors.push s!"objections.txt: {path} does not exist"
