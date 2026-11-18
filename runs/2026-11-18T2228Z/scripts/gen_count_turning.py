@@ -10,7 +10,8 @@ def N(mu):
             f"          (∃ h : ℝ → ℝ, ∀ x ∈ closedBall (0 : {E}) 1, u x = h ‖x‖) ∧\n"
             f"          (∀ x ∈ ball (0 : {E}) 1, Δ u x + {mu} * Real.exp (u x) = 0)) ∧\n"
             f"          ∀ x : closedBall (0 : {E}) 1, g x = u x}}.encard")
-stmt = f"""theorem gelfand_pde_radial_count_turning :
+name = sys.argv[3] if len(sys.argv) > 3 else "gelfand_pde_radial_count_turning"
+stmt = f"""theorem {name} :
     ∃ lamT : ℕ → ℝ,
       3.321992118 ≤ lamT 0 ∧ lamT 0 ≤ 3.321992119 ∧
       1.664155 ≤ lamT 1 ∧ lamT 1 ≤ 1.664157 ∧ 2.10852 ≤ lamT 2 ∧ lamT 2 ≤ 2.10858 ∧

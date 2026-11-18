@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.GelfandPDECountTurningMain
 
 /-! Gelfand problem in the three-dimensional ball as a PDE, `GelfandPDECountTurning`: the exact number of radial
 classical solutions for every positive parameter (FROZEN by run 2026-11-18T2228Z before its proof). The parent
@@ -93,6 +94,6 @@ theorem gelfand_pde_radial_count_turning :
           (∃ h : ℝ → ℝ, ∀ x ∈ closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, u x = h ‖x‖) ∧
           (∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + 2 * Real.exp (u x) = 0)) ∧
           ∀ x : closedBall (0 : EuclideanSpace ℝ (Fin 3)) 1, g x = u x}.encard = ⊤ :=
-  sorry
+  Work.Math.GelfandPDECountTurningMain.main
 
 end Work.Math.GelfandPDECountTurning
