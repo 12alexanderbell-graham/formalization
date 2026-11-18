@@ -26,7 +26,9 @@
 - Headlines 295 → 296.
 
 ## End
-- (filled at the end of the run)
+- CI 44261574038 (adcb9a6, a descendant of the promotion 25fd5dd): **green on every job** (checked job 08:26–11:55Z, nanoda 4/4): `gelfand_pde_radial_count` PROVED; `Checked/Trust/NecessityAR.lean` judged. 44275141268 (7d5b41c) pending, superseded by this run's final push. L.2 message sent (both Gelfand results).
+- Local: `lake build Checked` (all 3630 jobs), StatementDeps relock three times (the third after the headline docstring lost 'band ends enclosed', check_claim_vocab V1; PROMPT note), Claims, validation packet regenerated (not sent), `records_check.py 7d5b41c` (42 commands, 0 failed).
+- Not done: the new headline's own PROVED status waits for CI on the final push (checked job ≈ 3 h at present load).
 
 ## Next
 - STATE 1m.
