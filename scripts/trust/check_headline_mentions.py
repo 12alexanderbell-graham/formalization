@@ -421,11 +421,20 @@ def run(base_files, head_files, vocab=None, obj=None, grand=None):
             ab = about(lines, i, bidx, chains, keys)
             if not ab:
                 continue
-            v = vocab | grand[1] if grand and ident(l) in grand[0] else vocab
+            v = vocab | grand[1] if grand and gident(l) in grand[0] else vocab
             for e in check_line(l, fulls, modules, v, obj, path, ab):
                 short = ", ".join(sorted(f.split(".")[-1] for f in ab)[:4])
                 errors.append(f"{path}:{i + 1}: about {short}: {e}")
     return errors
+
+
+def gident(line):
+    """identity for the vocabulary grandfather rule: the line with its status-template spans removed, so a heading
+    whose only change is its status template (pending -> judged) keeps the vocabulary it was written under"""
+    t = ident(line)
+    for r in TEMPLATE_RE:
+        t = r.sub(" ", t)
+    return re.sub(r"\s+", " ", t).strip()
 
 
 REBUILD_MARK = "# Rebuilt run 2026-11-18T2028Z"  # header line of the vocabulary's last rebuild (update on a rebuild)
@@ -441,7 +450,7 @@ def grandfathered(base):
     if subprocess.run(["git", "merge-base", "--is-ancestor", rebuild, base], cwd=ROOT).returncode == 0:
         return None  # the base already has the rebuilt vocabulary
     before = files_at(rebuild + "^")
-    idents = {ident(l) for txt in before.values() for l in txt.splitlines()}
+    idents = {gident(l) for txt in before.values() for l in txt.splitlines()}
     return idents, load_vocab(git("show", f"{rebuild}^:{VOCAB}"))
 
 

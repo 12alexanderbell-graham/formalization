@@ -30,4 +30,5 @@ def main():
     print(f"seven runs 5c6a05b..d25cb3f: {tot} flagged lines, {len(vocab)} vocabulary words")
     print("most frequent unknown words:", ", ".join(f"{w} {n}" for w, n in words.most_common(60)))
 
-main()
+if __name__ == "__main__":
+    main()
