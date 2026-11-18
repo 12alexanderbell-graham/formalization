@@ -876,3 +876,9 @@
 - Part 3 (rotation): `scripts/trust/check_headline_mentions.py` + `mention_vocab.txt`, blocking in the CI frozen step from 6f2918f — new hand-written lines about a listed headline use a closed vocabulary, state a status only in templates, or carry a registered objection. Red teams M1 and M2 (Sonnet, pre-registered brief): not effective twice; 22 shapes now selftest controls; in-vocabulary paraphrase open (`runs/2026-11-18T1428Z/t5/REDTEAM.md`).
 - Annex LIV: PROMPT working note; LEDGER entry and experiment.
 - Next: CI read; then parts 2/5 by rotation (STATE 1o).
+
+## 2026-11-18T1628Z (scheduled run)
+- Env: repo ok (checkout = origin/main 7717f08); local Lean (elan + Mathlib cache; `checked-build` of 44275141268 (7d5b41c) restored). CI 44316709810 (d25cb3f): checked job cancelled (superseded); 44329974789 (7717f08): checked job running, two nanoda shards cancelled by this run's mid-run push; nothing judged.
+- Parts 2/5 (rotation): new headline `Checked.Math.BonnorEbertCount.bonnor_ebert_count` — the exact number of Bonnor–Ebert equilibria of every positive dimensionless mass (0 above the critical mass, 1 at it, 2k+2 / 2k+3 on the bands and at the extreme values, infinitely many at √(2/π)), with the first five extreme values enclosed. Frozen, referee STANDS, blind restatement closed, blind literal reading agrees, proved and promoted the same run; necessity fully classified (`NecessityAT`).
+- Annex LIV: PROMPT notes (intermediate pushes `[skip ci]`; exact counts from proved extrema); LEDGER entry and experiment.
+- Next: CI read; then part 1 by rotation (STATE 1p).

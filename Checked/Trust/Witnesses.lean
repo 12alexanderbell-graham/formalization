@@ -95,6 +95,7 @@ import Checked.FalknerSkan.NegWindow
 import Checked.Data.Moresco16Min
 import Checked.Math.GelfandPDEManyCentre
 import Checked.Math.GelfandPDECount
+import Checked.Math.BonnorEbertCount
 import Checked.Math.GelfandPDECountValues
 
 /-!
@@ -1198,5 +1199,13 @@ headline has no top-level hypotheses. -/
 theorem gelfand_pde_radial_count_values :
     nonvacuity% Checked.Math.GelfandPDECountValues.gelfand_pde_radial_count_values :=
   trivial
+
+/-! Exact number of Bonnor–Ebert radii of a given mass (run 2026-11-18T1628Z): the same global regular
+solution. -/
+
+theorem bonnor_ebert_count :
+    nonvacuity% Checked.Math.BonnorEbertCount.bonnor_ebert_count := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 
 end Checked.Trust.NV

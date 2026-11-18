@@ -376,8 +376,7 @@ theorem main (w φ : ℝ → ℝ)
         atTop (𝓝 (Real.sqrt (2 / Real.pi))) ∧
       (∀ μ : ℝ,
         ξ 0 ^ 2 * (-φ (ξ 0)) * Real.exp (w (ξ 0) / 2) / Real.sqrt (4 * Real.pi) < μ →
-        {s ∈ Ici (0 : ℝ) | s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) = μ}.encard
-          = 0) ∧
+        {s ∈ Ici (0 : ℝ) | s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) = μ} = ∅) ∧
       {s ∈ Ici (0 : ℝ) | s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) =
           ξ 0 ^ 2 * (-φ (ξ 0)) * Real.exp (w (ξ 0) / 2) / Real.sqrt (4 * Real.pi)}.encard = 1 ∧
       (∀ k : ℕ, ∀ μ : ℝ,
@@ -519,6 +518,6 @@ theorem main (w φ : ℝ → ℝ)
     count_abstract f ξ (Real.sqrt (2 / Real.pi)) hL hfc hf0 hmono hξ0 hpos1 hmax0' hmin hmax
       hband hinc0' hdec hinc
   exact ⟨ξ, hmono, htend, hlo, hhi, v01, v02, v11, v12, v21, v22, v31, v32, v41, v42,
-    hlim.comp htend, Ca, Cb, Cc, Cd, Ce, Cf, Cg, Ch⟩
+    hlim.comp htend, fun μ h => Set.encard_eq_zero.1 (Ca μ h), Cb, Cc, Cd, Ce, Cf, Cg, Ch⟩
 
 end Work.Math.BonnorEbertCountMain

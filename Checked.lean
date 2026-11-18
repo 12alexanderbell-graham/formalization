@@ -288,6 +288,9 @@ import Checked.Math.GLamChain
 import Checked.Math.GLamBands
 import Checked.Math.GelfandPDECountValuesMain
 import Checked.Math.GelfandPDECountValues
+import Checked.Math.BonnorEbertCountMain
+import Checked.Math.BonnorEbertCount
+import Checked.Trust.SecondReadingBECount
 import Checked.Sim.QPoly
 import Checked.Sim.QResid
 import Checked.Sim.QResidRob
@@ -608,3 +611,4 @@ import Checked.Trust.NecessityAP
 import Checked.Trust.NecessityAQ
 import Checked.Trust.NecessityAR
 import Checked.Trust.NecessityAS
+import Checked.Trust.NecessityAT

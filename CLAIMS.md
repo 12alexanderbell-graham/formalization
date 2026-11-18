@@ -8436,3 +8436,35 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > distinct values at the centre for lam = lam1, and three with pairwise distinct values at the centre for
 > lam = lam2, and in both cases every radial solution f equals one of them on the closed ball.
 
+## `bonnor_ebert_count`
+
+Full name `Checked.Math.BonnorEbertCount.bonnor_ebert_count`.
+
+**Status (generated):** proved in module `Checked.Math.BonnorEbertCount` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.bonnor_ebert_count` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 4 numbered; 3 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 22 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+
+**For every** `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `s : ℝ`, if `s ∈ Set.Ici 0`, then `HasDerivWithinAt w (φ s) (Set.Ici 0) s`
+2. `ContinuousWithinAt φ (Set.Ici 0) 0`
+3. for every `s : ℝ`, if `s ∈ Set.Ioi 0`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Ici 0) s`
+4. `w 0 = 0`
+
+**then**
+
+- there is `ξ : ℕ → ℝ` such that (`StrictMono ξ`) and (`Filter.Tendsto ξ Filter.atTop Filter.atTop`) and (`6.4507514 ≤ ξ 0`) and (`ξ 0 ≤ 6.4507515`) and (`1.1822265 ≤ ξ 0 ^ 2 * -φ (ξ 0) * Real.exp (w (ξ 0) / 2) / √(4 * Real.pi)`) and (`ξ 0 ^ 2 * -φ (ξ 0) * Real.exp (w (ξ 0) / 2) / √(4 * Real.pi) ≤ 1.1822266`) and (`0.694366 ≤ ξ 1 ^ 2 * -φ (ξ 1) * Real.exp (w (ξ 1) / 2) / √(4 * Real.pi)`) and (`ξ 1 ^ 2 * -φ (ξ 1) * Real.exp (w (ξ 1) / 2) / √(4 * Real.pi) ≤ 0.694367`) and (`0.8306 ≤ ξ 2 ^ 2 * -φ (ξ 2) * Real.exp (w (ξ 2) / 2) / √(4 * Real.pi)`) and (`ξ 2 ^ 2 * -φ (ξ 2) * Real.exp (w (ξ 2) / 2) / √(4 * Real.pi) ≤ 0.8308`) and (`0.787992 ≤ ξ 3 ^ 2 * -φ (ξ 3) * Real.exp (w (ξ 3) / 2) / √(4 * Real.pi)`) and (`ξ 3 ^ 2 * -φ (ξ 3) * Real.exp (w (ξ 3) / 2) / √(4 * Real.pi) ≤ 0.787995`) and (`0.80091 ≤ ξ 4 ^ 2 * -φ (ξ 4) * Real.exp (w (ξ 4) / 2) / √(4 * Real.pi)`) and (`ξ 4 ^ 2 * -φ (ξ 4) * Real.exp (w (ξ 4) / 2) / √(4 * Real.pi) ≤ 0.800916`) and (`Filter.Tendsto (fun k => ξ k ^ 2 * -φ (ξ k) * Real.exp (w (ξ k) / 2) / √(4 * Real.pi)) Filter.atTop (nhds √(2 / Real.pi))`) and (for every `μ : ℝ`, if `ξ 0 ^ 2 * -φ (ξ 0) * Real.exp (w (ξ 0) / 2) / √(4 * Real.pi) < μ`, then `{s | s ∈ Set.Ici 0 ∧ s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) = μ} = ∅`) and (`{s | s ∈ Set.Ici 0 ∧ s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) = ξ 0 ^ 2 * -φ (ξ 0) * Real.exp (w (ξ 0) / 2) / √(4 * Real.pi)}.encard = 1`) and (for every `k : ℕ`, for every `μ : ℝ`, if `ξ (2 * k + 2) ^ 2 * -φ (ξ (2 * k + 2)) * Real.exp (w (ξ (2 * k + 2)) / 2) / √(4 * Real.pi) < μ`, then if `μ < ξ (2 * k) ^ 2 * -φ (ξ (2 * k)) * Real.exp (w (ξ (2 * k)) / 2) / √(4 * Real.pi)`, then `{s | s ∈ Set.Ici 0 ∧ s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) = μ}.encard = ↑(2 * k + 2)`) and (for every `k : ℕ`, `{s | s ∈ Set.Ici 0 ∧ s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) = ξ (2 * k + 2) ^ 2 * -φ (ξ (2 * k + 2)) * Real.exp (w (ξ (2 * k + 2)) / 2) / √(4 * Real.pi)}.encard = ↑(2 * k + 3)`) and (for every `μ : ℝ`, if `0 < μ`, then if `μ < ξ 1 ^ 2 * -φ (ξ 1) * Real.exp (w (ξ 1) / 2) / √(4 * Real.pi)`, then `{s | s ∈ Set.Ici 0 ∧ s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) = μ}.encard = 1`) and (for every `k : ℕ`, `{s | s ∈ Set.Ici 0 ∧ s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) = ξ (2 * k + 1) ^ 2 * -φ (ξ (2 * k + 1)) * Real.exp (w (ξ (2 * k + 1)) / 2) / √(4 * Real.pi)}.encard = ↑(2 * k + 2)`) and (for every `k : ℕ`, for every `μ : ℝ`, if `ξ (2 * k + 1) ^ 2 * -φ (ξ (2 * k + 1)) * Real.exp (w (ξ (2 * k + 1)) / 2) / √(4 * Real.pi) < μ`, then if `μ < ξ (2 * k + 3) ^ 2 * -φ (ξ (2 * k + 3)) * Real.exp (w (ξ (2 * k + 3)) / 2) / √(4 * Real.pi)`, then `{s | s ∈ Set.Ici 0 ∧ s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) = μ}.encard = ↑(2 * k + 3)`) and (`{s | s ∈ Set.Ici 0 ∧ s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) = √(2 / Real.pi)}.encard = ⊤`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Bonnor–Ebert sphere, number of radii of a given mass: for every solution w of
+> w'' + (2/s)w' + e^w = 0 on (0, ∞) with w(0) = 0, w differentiable on [0, ∞) with derivative φ and φ
+> continuous at 0, with m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π), there is a strictly increasing sequence of radii
+> ξ(0) < ξ(1) < … tending to infinity, with ξ(0) between 6.4507514 and 6.4507515, m(ξ(0)) between 1.1822265
+> and 1.1822266, m(ξ(1)) between 0.694366 and 0.694367, m(ξ(2)) between 0.8306 and 0.8308, m(ξ(3)) between
+> 0.787992 and 0.787995 and m(ξ(4)) between 0.80091 and 0.800916, and m(ξ(k)) tending to √(2/π), such that,
+> with N(μ) the number of radii s ≥ 0 with m(s) = μ: no radius s ≥ 0 has m(s) = μ for μ > m(ξ(0));
+> N(m(ξ(0))) = 1; for every k, N(μ) = 2k + 2 for m(ξ(2k+2)) < μ < m(ξ(2k)) and N(m(ξ(2k+2))) = 2k + 3;
+> N(μ) = 1 for 0 < μ < m(ξ(1)); for every k, N(m(ξ(2k+1))) = 2k + 2 and N(μ) = 2k + 3 for
+> m(ξ(2k+1)) < μ < m(ξ(2k+3)); and N(√(2/π)) = ⊤.
+

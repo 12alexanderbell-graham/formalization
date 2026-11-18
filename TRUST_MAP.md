@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 296. Resting on no unpinned physics definition: 296.
-Non-vacuity (trust track T2): 177 headlines have hypotheses; 177 of them have a
+Headlines: 297. Resting on no unpinned physics definition: 297.
+Non-vacuity (trust track T2): 178 headlines have hypotheses; 178 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 999 hypotheses in 172 headlines;
-692 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-186 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-121 open; headlines with every hypothesis classified: 104/172
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1003 hypotheses in 173 headlines;
+695 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+187 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+121 open; headlines with every hypothesis classified: 105/173
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -334,6 +334,7 @@ the docstring says; universally bound parameters are not listed.
 | `Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre` | — | — | — | `gelfand_pde_radial_many_centre` | — |
 | `Math.GelfandPDECount.gelfand_pde_radial_count` | — | — | — | unconditional | — |
 | `Math.GelfandPDECountValues.gelfand_pde_radial_count_values` | — | — | — | unconditional | — |
+| `Math.BonnorEbertCount.bonnor_ebert_count` | — | — | — | `bonnor_ebert_count` | — |
 
 ## Hypothesis necessity, per headline
 
@@ -531,6 +532,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Math.BonnorEbertExtrema.bonnor_ebert_extrema` (4): needed 1 (`bonnor_ebert_extrema_h1`), 3 (`bonnor_ebert_extrema_h3`), 4 (`bonnor_ebert_extrema_h4`); redundant 2 (`bonnor_ebert_extrema_r2`)
 - `Math.BonnorEbertMonotone.bonnor_ebert_extrema_monotone` (4): needed 1 (`bonnor_ebert_extrema_monotone_h1`), 3 (`bonnor_ebert_extrema_monotone_h3`), 4 (`bonnor_ebert_extrema_monotone_h4`); redundant 2 (`bonnor_ebert_extrema_monotone_r2`)
 - `Math.GelfandExtrema.gelfand_extrema` (4): needed 1 (`gelfand_extrema_h1`), 3 (`gelfand_extrema_h3`), 4 (`gelfand_extrema_h4`); redundant 2 (`gelfand_extrema_r2`)
+- `Math.BonnorEbertCount.bonnor_ebert_count` (4): needed 1 (`bonnor_ebert_count_h1`), 3 (`bonnor_ebert_count_h3`), 4 (`bonnor_ebert_count_h4`); redundant 2 (`bonnor_ebert_count_r2`)
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 

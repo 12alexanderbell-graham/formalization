@@ -39,7 +39,7 @@ theorem blind_closed (w φ : ℝ → ℝ) (h : IsSolution w φ) :
   obtain ⟨ξ, hm, ht, a0, b0, a1, b1, a2, b2, a3, b3, a4, b4, a5, b5, hl, ca, cb, cc, cd, ce, cf, cg,
       ch⟩ := Work.Math.BonnorEbertCount.bonnor_ebert_count w φ (fun s hs => h.hasDeriv s hs)
       h.cont0 hφ h.w_zero
-  exact ⟨ξ, hm, ht, ⟨a0, b0⟩, ⟨a1, b1⟩, ⟨a2, b2⟩, ⟨a3, b3⟩, ⟨a4, b4⟩, ⟨a5, b5⟩, hl, ca, cb, cc,
+  exact ⟨ξ, hm, ht, ⟨a0, b0⟩, ⟨a1, b1⟩, ⟨a2, b2⟩, ⟨a3, b3⟩, ⟨a4, b4⟩, ⟨a5, b5⟩, hl, fun μ h => Set.encard_eq_zero.2 (ca μ h), cb, cc,
     cd, ce, cf, cg, ch⟩
 
 end Work.Math.BonnorEbertCountBlindClosed

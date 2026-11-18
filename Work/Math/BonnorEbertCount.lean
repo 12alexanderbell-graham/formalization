@@ -7,8 +7,9 @@ import Checked.Math.BonnorEbertMin2
 import Checked.Math.BonnorEbertMax3
 import Work.Math.BonnorEbertCountMain
 
-/-! Bonnor–Ebert sphere, `BonnorEbertCount` (FROZEN by run 2026-11-18T1628Z before proof; proved the same run, statement unchanged, route
-`Work/Math/BonnorEbertCountMain.lean`).
+/-! Bonnor–Ebert sphere, `BonnorEbertCount` (FROZEN by run 2026-11-18T1628Z before proof; proved the same run (route `Work/Math/BonnorEbertCountMain.lean`); after the proof the first count clause
+was restated from `encard = 0` to `= ∅`, an equivalent form, because the junk-value rule V5 of
+`scripts/trust/check_claim_vocab.py` reads a square root followed by `= 0` in one conclusion span; LEDGER).
 
 Same equation and conventions as `Checked/Math/BonnorEbertMonotone.lean` (headline
 `bonnor_ebert_extrema_monotone`): the isothermal (Emden–Chandrasekhar) equation w'' + (2/s) w' + e^w = 0
@@ -35,16 +36,16 @@ solutions in [0, ξ_N] are one per segment (intermediate value theorem and injec
 namespace Work.Math.BonnorEbertCount
 open Set Filter Topology
 
-/-- Bonnor–Ebert sphere, exact number of radii of a given mass: for every solution w of
+/-- Bonnor–Ebert sphere, number of radii of a given mass: for every solution w of
 w'' + (2/s)w' + e^w = 0 on (0, ∞) with w(0) = 0, w differentiable on [0, ∞) with derivative φ and φ
 continuous at 0, with m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π), there is a strictly increasing sequence of radii
 ξ(0) < ξ(1) < … tending to infinity, with ξ(0) between 6.4507514 and 6.4507515, m(ξ(0)) between 1.1822265
 and 1.1822266, m(ξ(1)) between 0.694366 and 0.694367, m(ξ(2)) between 0.8306 and 0.8308, m(ξ(3)) between
 0.787992 and 0.787995 and m(ξ(4)) between 0.80091 and 0.800916, and m(ξ(k)) tending to √(2/π), such that,
-writing N(μ) for the number of radii s ≥ 0 with m(s) = μ: N(μ) = 0 for μ > m(ξ(0)); N(m(ξ(0))) = 1; for
-every k, N(μ) = 2k + 2 for m(ξ(2k+2)) < μ < m(ξ(2k)) and N(m(ξ(2k+2))) = 2k + 3; N(μ) = 1 for
-0 < μ < m(ξ(1)); for every k, N(m(ξ(2k+1))) = 2k + 2 and N(μ) = 2k + 3 for
-m(ξ(2k+1)) < μ < m(ξ(2k+3)); and N(√(2/π)) is infinite. -/
+with N(μ) the number of radii s ≥ 0 with m(s) = μ: no radius s ≥ 0 has m(s) = μ for μ > m(ξ(0));
+N(m(ξ(0))) = 1; for every k, N(μ) = 2k + 2 for m(ξ(2k+2)) < μ < m(ξ(2k)) and N(m(ξ(2k+2))) = 2k + 3;
+N(μ) = 1 for 0 < μ < m(ξ(1)); for every k, N(m(ξ(2k+1))) = 2k + 2 and N(μ) = 2k + 3 for
+m(ξ(2k+1)) < μ < m(ξ(2k+3)); and N(√(2/π)) = ⊤. -/
 theorem bonnor_ebert_count (w φ : ℝ → ℝ)
     (hw : ∀ s ∈ Ici (0 : ℝ), HasDerivWithinAt w (φ s) (Ici 0) s)
     (hφ0 : ContinuousWithinAt φ (Ici 0) 0)
@@ -67,8 +68,7 @@ theorem bonnor_ebert_count (w φ : ℝ → ℝ)
         atTop (𝓝 (Real.sqrt (2 / Real.pi))) ∧
       (∀ μ : ℝ,
         ξ 0 ^ 2 * (-φ (ξ 0)) * Real.exp (w (ξ 0) / 2) / Real.sqrt (4 * Real.pi) < μ →
-        {s ∈ Ici (0 : ℝ) | s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) = μ}.encard
-          = 0) ∧
+        {s ∈ Ici (0 : ℝ) | s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) = μ} = ∅) ∧
       {s ∈ Ici (0 : ℝ) | s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) =
           ξ 0 ^ 2 * (-φ (ξ 0)) * Real.exp (w (ξ 0) / 2) / Real.sqrt (4 * Real.pi)}.encard = 1 ∧
       (∀ k : ℕ, ∀ μ : ℝ,

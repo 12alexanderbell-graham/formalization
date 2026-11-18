@@ -405,6 +405,7 @@ Checked.Homann.homann_exists 273d315f-doc3009616568739691773
 Checked.Homann.homann_over fdf52e42-doc13021469199748902275
 Checked.Homann.homann_under 2b238655-doc5097830784794214902
 Checked.Math.BonnorEbert.bonnor_ebert_critical cfe7915e-doc9077218428088810556
+Checked.Math.BonnorEbertCount.bonnor_ebert_count 4e80781f-doc13121829876782781386
 Checked.Math.BonnorEbertExtrema.bonnor_ebert_extrema 999b056c-doc11517187027473480962
 Checked.Math.BonnorEbertMax.bonnor_ebert_max f9f17719-doc6363739176669171541
 Checked.Math.BonnorEbertMax2.bonnor_ebert_second_max fb0de4ba-doc12663702329592789055
@@ -2101,6 +2102,8 @@ doc:Checked.Math.BEOMain.main -doc6268730587207004740
 doc:Checked.Math.BEOMain.win_C -doc16356849750727773916
 doc:Checked.Math.BEOMain.win_M -doc14996125190601909739
 doc:Checked.Math.BEOTail.uv_lower2 -doc11540362218821937014
+doc:Checked.Math.BonnorEbertCountMain.count_abstract -doc10321223623607443773
+doc:Checked.Math.BonnorEbertCountMain.shiftSeq -doc3538185091093244679
 doc:Checked.Math.GCell.box -doc13997350109791766934
 doc:Checked.Math.GCell.cell -doc6124411505368476458
 doc:Checked.Math.GCell.exp_sol -doc3631106083092817629
@@ -3131,6 +3134,7 @@ doc:Checked.Trust.NecessityAI.curv_derivs_r1 -doc2713590215668726977
 doc:Checked.Trust.NecessityAI.fR_values_h1 -doc17848126603417621390
 doc:Checked.Trust.NecessityAJ.cont_at_zero_Ici -doc13323435534244531424
 doc:Checked.Trust.NecessityAJ.scaled_hyps_Ici -doc12510005573696932766
+doc:Checked.Trust.NecessityAT.glob_of_count -doc13552631365569487006
 doc:Checked.Trust.NecessityEta.agree20_imp -doc9958743186863952861
 doc:Checked.Trust.NecessityEta.agree20 -doc9824130336149770711
 doc:Checked.Trust.NecessityEta.agree30_imp -doc6505485457868535128
@@ -3345,20 +3349,31 @@ doc:Checked.Trust.SecondReading.bambaYReadDL2 -doc17691906697890870856
 doc:Checked.Trust.SecondReading.bambaYReadDL3 -doc17691906697890870856
 doc:Checked.Trust.SecondReading.bambaYReadDL4 -doc17691906697890870856
 doc:Checked.Trust.SecondReading.beContrast -doc16363964487035410132
+doc:Checked.Trust.SecondReading.beCountAboveCritical -doc17599134416839139232
+doc:Checked.Trust.SecondReading.beCountAtMax -doc8879212523627859033
+doc:Checked.Trust.SecondReading.beCountAtMin -doc12653250744879203728
+doc:Checked.Trust.SecondReading.beCountBelowFirstMin -doc1915231569646826532
+doc:Checked.Trust.SecondReading.beCountFallBand -doc8252738023252284533
+doc:Checked.Trust.SecondReading.beCountRiseBand -doc17105665134402497009
 doc:Checked.Trust.SecondReading.beDecreaseEnd -doc16532489407231177751
 doc:Checked.Trust.SecondReading.beDecreaseRange -doc9770628648679435329
 doc:Checked.Trust.SecondReading.beFallSegment -doc6178406005576290848
 doc:Checked.Trust.SecondReading.beFirstMax -doc15660434331803903124
+doc:Checked.Trust.SecondReading.beFirstMinRadius -doc5322301811612173073
 doc:Checked.Trust.SecondReading.beHalfLine -doc5429374877119021098
 doc:Checked.Trust.SecondReading.beMassSeq -doc3378226179832462934
 doc:Checked.Trust.SecondReading.beMass -doc8150524139383411235
 doc:Checked.Trust.SecondReading.beMaxIndex -doc15972110435261407380
 doc:Checked.Trust.SecondReading.beMinIndex -doc16666314865958612039
 doc:Checked.Trust.SecondReading.beNextMaxIndex -doc9027613400166008215
+doc:Checked.Trust.SecondReading.beNextMinIndex -doc14643034582208113876
 doc:Checked.Trust.SecondReading.beOpenHalfLine -doc946713235492566352
 doc:Checked.Trust.SecondReading.beRiseFromCentre -doc14967544683829119112
 doc:Checked.Trust.SecondReading.beRiseSegment -doc17412654891615027125
+doc:Checked.Trust.SecondReading.beSecondMaxRadius -doc11142134783642598667
+doc:Checked.Trust.SecondReading.beSecondMinRadius -doc1903835562236803092
 doc:Checked.Trust.SecondReading.beSingularMass -doc6288022806669574417
+doc:Checked.Trust.SecondReading.beThirdMaxRadius -doc16335711745806211931
 doc:Checked.Trust.SecondReading.blasiusEdge -doc4842813862602201423
 doc:Checked.Trust.SecondReading.blasiusHalfLineTyped -doc14410342809527929474
 doc:Checked.Trust.SecondReading.blasiusHalfLine -doc5073422301478383058
@@ -3974,6 +3989,8 @@ moduledoc:Checked.Math.BEQData -mdoc5261983848398859491
 moduledoc:Checked.Math.BEStart -mdoc2603103045724268153
 moduledoc:Checked.Math.BEState300 -mdoc16200356126842154058
 moduledoc:Checked.Math.BETail -mdoc3852217132670055615
+moduledoc:Checked.Math.BonnorEbertCountMain -mdoc14655374769641588396
+moduledoc:Checked.Math.BonnorEbertCount -mdoc12006586048350912356
 moduledoc:Checked.Math.BonnorEbertExtrema -mdoc766148252231320731
 moduledoc:Checked.Math.BonnorEbertMax2 -mdoc10514145405777886643
 moduledoc:Checked.Math.BonnorEbertMax3 -mdoc1220700580447067900
@@ -4161,6 +4178,7 @@ moduledoc:Checked.Trust.NecessityAP -mdoc6607793068637871632
 moduledoc:Checked.Trust.NecessityAQ -mdoc17727107440579492857
 moduledoc:Checked.Trust.NecessityAR -mdoc16957390088669511268
 moduledoc:Checked.Trust.NecessityAS -mdoc14881184243503408912
+moduledoc:Checked.Trust.NecessityAT -mdoc7934159290509606337
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
@@ -4196,6 +4214,7 @@ moduledoc:Checked.Trust.SecondFormulation -mdoc10887534755347747998
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
 moduledoc:Checked.Trust.SecondReadingBE3 -mdoc14632787277133674012
 moduledoc:Checked.Trust.SecondReadingBEAll -mdoc976914423985258474
+moduledoc:Checked.Trust.SecondReadingBECount -mdoc10532163440858416569
 moduledoc:Checked.Trust.SecondReadingBEMono -mdoc1596193682468258235
 moduledoc:Checked.Trust.SecondReadingBlasius -mdoc10558104316128241795
 moduledoc:Checked.Trust.SecondReadingBound -mdoc13469660202480217973
@@ -4250,4 +4269,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc12605858715207067162
+moduledoc:Checked.Trust.Witnesses -mdoc11922690694103385582
