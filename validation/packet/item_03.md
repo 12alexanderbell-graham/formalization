@@ -6,6 +6,8 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 1. `RoundsTo (have k := 1 / 100; have z := 2; k ^ 2 * z ^ 4 / 120) 13e-6 6`

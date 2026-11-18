@@ -769,6 +769,8 @@ def claim_sections(claims_text):
                 continue
             if l.startswith("Author's paraphrase"):
                 break
+            if l.startswith("**Status (generated):**"):
+                continue  # generated status (run 2026-11-18T0228Z): module and axiom names, not the statement
             if part == "stmt" and l.strip():
                 stmt.append(l)
             elif part == "defs" and l.startswith("- ") and not l.startswith("- `RoundsTo "):

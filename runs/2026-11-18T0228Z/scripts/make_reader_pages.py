@@ -48,7 +48,7 @@ g = re.sub(r"Author's paraphrase \(docstring; not generated, checked only by the
 pre = re.compile(r"The author's docstring follows,\s+labelled as a paraphrase: \*\*where the paraphrase and the generated\s+claim differ, the generated\s+claim is what was proved\.\*\*")
 assert pre.search(g), "preamble sentence moved"
 g = pre.sub("Author docstrings are not shown on this page.", g)
-assert "paraphrase" not in g, "paraphrase left"
+assert "> Status:" not in g and "(docstring; not generated" not in g, "paraphrase left"
 (out / "claims_generated.md").write_text(g)
 
 # W' in STATE.md

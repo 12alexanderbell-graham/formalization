@@ -146,7 +146,10 @@ def sections(path=None):
         for l in lines:
             if l.startswith("> ") or l == ">":
                 para.append(l[2:])
-            elif not l.startswith("Author's paraphrase"):
+            elif not l.startswith("Author's paraphrase") and not l.startswith("**Status (generated):**"):
+                # the generated Status line (run 2026-11-18T0228Z) is fixed generator text (withdrawn, registry,
+                # prose, ...) plus module and axiom names: it contributes no claim vocabulary, else a paraphrase
+                # could say "withdrawn" because the Status line does
                 gen.append(l)
         # the certificate note after a phrase (rule P13 of check_claims.py, run 2026-11-09T1828Z) repeats reader lines
         # already in the phrase and adds fixed generator words and hypotheses of certificate theorems: it contributes

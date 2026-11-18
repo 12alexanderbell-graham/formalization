@@ -39,6 +39,11 @@ need("STATE.md", "THE RESULT")
 UNCHECKED = "> **Unchecked prose.** This file is written by hand; no script checks what its sentences claim."
 need("README.md", UNCHECKED, head=6)
 need("STATE.md", UNCHECKED, head=6)
+# the banner names the generated status of record (run 2026-11-18T0228Z, runs/2026-11-18T0228Z/t5/READERS.md: a
+# withdrawal line in STATE.md misled 3/3 blind readers while CLAIMS.md said nothing about status)
+STATUS_REF = "a headline's status of record is the generated Status line under it in `CLAIMS.md`"
+need("README.md", STATUS_REF, head=6)
+need("STATE.md", STATUS_REF, head=6)
 
 for readme in sorted((root / "runs").glob("*/README.md")):
     run_id = readme.parent.name

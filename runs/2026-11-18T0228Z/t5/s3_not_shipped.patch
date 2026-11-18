@@ -1,0 +1,76 @@
+diff --git a/scripts/trust/check_status_lines.py b/scripts/trust/check_status_lines.py
+index a477020b..b2756dbe 100644
+--- a/scripts/trust/check_status_lines.py
++++ b/scripts/trust/check_status_lines.py
+@@ -23,6 +23,16 @@ S2 (run 2026-11-07T1428Z, after judging blind red team R d05 on main — not bli
+     citations were genuine. Since blind red team S d04 (read, not blind): also precise…, non-… ("radial or
+     non-radial"), arbitrary, generic, independent.
+ 
++S3 (run 2026-11-18T0228Z, `runs/2026-11-18T0228Z/t5/READERS.md`): a line of STATE.md or README.md that names a
++    registered headline (backticked, full name or unique suffix) may not withdraw it in words (WITHDRAW below:
++    withdrawn, retracted, superseded, obsolete, revoked, no longer PROVED, not PROVED, must not / do not / cannot be
++    cited, …). A registered headline is withdrawn only by removing it from `Checked` and `scripts/trust/headlines.txt`,
++    which removes it from CLAIMS.md; a sentence that says otherwise is false by construction. Measured: one such
++    bullet ("**Withdrawn (…):** … `gelfand_pde_radial_many_centre` is no longer PROVED and must not be cited …")
++    passed every check and made 3/3 blind readers decline to cite the valid headline (2/3 even with the generated
++    Status line in CLAIMS.md naming the rule). Limit: a deny-list (a withdrawal in other words still passes; run
++    records and FINDINGS.md are not read here).
++
+ Limits: a deny-list (a claim-changing word outside NARROW still passes); words outside the bold status (a bullet can still say "CI green" falsely: the CI run ID it cites is the
+ evidence a reader can follow), other files (README.md, run records), statuses other than PROVED.
+ """
+@@ -38,6 +48,34 @@ NARROW = re.compile(r"(?i)^(?:unique\w*|exactly|only|sole\w*|none|nothing|settle
+                     r"universal\w*|precise\w*|non-(?!vacuity|vacuous|increasing|decreasing|negative|positive|zero|empty)\w+|arbitrar\w*|generic\w*|independen\w*)$")
+ 
+ 
++WITHDRAW = re.compile(r"(?i)\b(?:withdraw\w*|retract\w*|supersed\w*|obsolete|revok\w*|rescind\w*|"
++                      r"no\s+longer\s+(?:PROVED|proved|valid|holds?|stands?)|not\s+(?:PROVED|proved)\b|"
++                      r"(?:must|should|do|does|can)\s*(?:not|n't)\s+(?:be\s+)?(?:cite|cited|relied|rely|used)\b|"
++                      r"cannot\s+(?:be\s+)?(?:cite|cited|relied|rely)\b)")
++
++
++def s3_errors(name, text, heads):
++    """S3: lines naming a registered headline that withdraw it in words"""
++    out = []
++    for i, line in enumerate(text.splitlines(), 1):
++        spans = []
++        flat = re.sub(r"`[^`]*`", lambda m: spans.append(m.group(0)) or f" \x00{len(spans) - 1}\x00 ", line)
++        # clause by clause (sentence end, `;`, brackets, the end of a bold label): a withdrawal word must share its
++        # clause with the headline name ("if that CI run was superseded) … `h` PROVED" is two clauses)
++        for clause in re.split(r"\.\s|;|\(|\)|\*\*", flat):
++            cited = [spans[int(k)].strip("`") for k in re.findall(r"\x00(\d+)\x00", clause)]
++            hit = sorted({c for c in cited for h in heads
++                          if len(c) > 3 and (c == h or c.endswith("." + h) or h.endswith("." + c.split("Checked.", 1)[-1])
++                                             or h == c.split("Checked.", 1)[-1])})
++            w = WITHDRAW.search(re.sub(r"\x00\d+\x00", " ", clause)) if hit else None
++            if w:
++                out.append(f"S3: {name}:{i}: says '{w.group(0)}' in a clause naming the registered headline {hit[0]}: a "
++                           f"registered headline is withdrawn only by removing it from Checked and "
++                           f"scripts/trust/headlines.txt (then CLAIMS.md drops it), never in prose")
++                break
++    return out
++
++
+ def s2_words(line, heads):
+     """S2: NARROW words of a status bullet that none of its cited headlines' generated claims contains"""
+     import check_claim_vocab as V
+@@ -86,6 +124,19 @@ def main():
+             errors.append(f"S2: STATE.md:{i}: status '{status}' says {', '.join(repr(b) for b in bad)}, which the generated "
+                           f"claims of the headlines it cites do not contain (CLAIMS.md): a status line may not claim more "
+                           f"than its headlines")
++    for f in ("STATE.md", "README.md"):
++        errors += s3_errors(f, (ROOT / f).read_text(encoding="utf-8"), heads)
++    # S3 controls (run 2026-11-18T0228Z): the measured defect must fire; a clean status line and a refutation headline's
++    # own wording must not
++    ctl_heads = {"Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre", "Checked.Cosmography.Aviles.avilesL0Claim_false"}
++    ctl_bad = ("- **Withdrawn (2026-11-18, after the CI read):** a referee found a fidelity flaw in the frozen statement; "
++               "`gelfand_pde_radial_many_centre` is no longer PROVED and must not be cited until it is re-frozen.")
++    ctl_ok = ("- **PROVED** `Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre` (CI green); "
++              "`avilesL0Claim_false` refutes the printed formula; the first freeze `Work.Math.GelfandPDEMany.x` was withdrawn.")
++    if not s3_errors("ctl", ctl_bad, ctl_heads):
++        errors.append("S3: check_status_lines accepted its control defect (the rule is dead)")
++    if s3_errors("ctl", ctl_ok, ctl_heads):
++        errors.append(f"S3: check_status_lines rejected the clean control: {s3_errors('ctl', ctl_ok, ctl_heads)}")
+     for e in errors:
+         print("  " + e)
+     print(f"check_status_lines: {'FAIL' if errors else 'ok'}")

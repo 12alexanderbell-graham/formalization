@@ -29,6 +29,19 @@ Ranges of `gelfand_pde_radial_many_centre` (lam = 2; |lam − 2| < ε(N); 2 ≤ 
 
 **Fix chosen by rule 4 (2 fails, 1 and 3 hold): a generated status line.** `scripts/trust/Claims.lean` now prints under every headline: "**Status (generated):** proved in module … of `Checked`; axioms, computed by Lean when this page was generated: … . This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page." (the axioms come from `Lean.collectAxioms`; any axiom other than `propext`, `Classical.choice`, `Quot.sound` is a blocking generator error), plus a fixed preamble paragraph. STATE.md's and README.md's banners name that line as the status of record (goal guard requires the sentence).
 
-## After
+## After (Status line on every headline; banners name it; pre-registered in reader_brief.md, commit 3a83ff0, before r12–r17 ran)
 
-(see below)
+| reader | arm / page | `gelfand_pde_radial_many_centre` (a) | deciding lines quoted | `fs_neg_reversed_wall_shear_3_exists` (a), (b) |
+|---|---|---|---|---|
+| r12 | F, CLAIMS + W + G | **unclear** | Status line "proved" against W; "would not cite without asking the authors" | yes, β = −3/100 only (G named, rejected) |
+| r13 | F, CLAIMS + W + G | **unclear, leaning no** | Status line and preamble against W; "a referee says the statement may not match the source" | yes, β = −3/100 only |
+| r14 | F, CLAIMS + W + G | **unclear** | Status line against W; "the file does not resolve this conflict" | yes, β = −3/100 only |
+| r15 | G, STATE + W′, CLAIMS | **unclear, leaning no** | STATE banner and Status line against W′; "the CLAIMS.md copy is probably stale" | yes, β = −3/100 only |
+| r16 | G, STATE + W′, CLAIMS | **unclear, would not cite** | "by the files' own rule the generated line wins … a statement that does not match the source could still be useless to cite" | yes, β = −3/100 only |
+| r17 | G, STATE + W′, CLAIMS | **unclear, leaning no** | Status line against W′ | yes, β = −3/100 only |
+
+**Verdict by the pre-registered rule: not effective** — 6/6 readers still decline to cite the valid headline (key: "no"/"unclear" quoting W or W′ = misled). What changed: "no" 6/6 → 0/6 (every reader now sees and names the conflict and quotes the generated line), and G's cost in confidence on the Falkner–Skan row is gone ((a) "unclear" 2/3 → 0/3; (b) correct 6/6 before and after). No other answer moved.
+
+**Why it is not enough (from the readers' own words).** Every misled reader kept the generated status ("formally machine-checked") and withheld citation on the withdrawal's *reason*: "the statement does not say what the source result says". That is a fidelity claim; the Status line answers only whether Lean proved the statement. A generated line can contradict a status claim, not a meaning claim. Two readers (r15, r17) also reasoned the generated page might lag the withdrawal ("probably stale"): a reader cannot see from the page that CI regenerates it on every commit.
+
+**What closes the class instead (recorded; next step).** (1) The defect must not reach the page: W is already rejected by `check_claim_vocab.py` V1 in a docstring (its words are not the claim's own — measured below), so on CLAIMS.md the remaining route is a withdrawal phrased in the claim's own words; W′ (STATE.md) passes every check (`check_status_lines.py` reads only PROVED bullets; recorded limit). (2) A reader page without author prose, as FB26 did for findings: the generated-only CLAIMS page answered as well as the clean page (r6, r7 one key deviation each on parameter-free items, the same as r1, r2), but the pre-registered usability rule was literal and failed; a comparison-based usability test with fresh readers is the next experiment. (3) Generated fidelity facts in the Status line (blind literal reading registered, non-vacuity witness, necessity classification), so that a fidelity objection meets a generated fidelity record.

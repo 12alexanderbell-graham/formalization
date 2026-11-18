@@ -6,6 +6,8 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
+**Status (generated):** proved in module `Checked.Cosmography.DemianskiZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**

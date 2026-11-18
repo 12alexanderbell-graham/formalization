@@ -6,6 +6,8 @@
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
+**Status (generated):** proved in module `Checked.Data.Moresco16` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `a : ℝ` such that there is `b : ℝ` such that (`chiSqLine a b < 27.972`) and (for every `N : ℝ`, if `0 < N`, then if `N ≤ 35`, then `chiSqLine a b + 2 * Real.log N < 35.285`)

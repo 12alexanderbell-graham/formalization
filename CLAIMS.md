@@ -11,6 +11,11 @@ Lean, all others with their full definition. The author's docstring follows,
 labelled as a paraphrase: **where the paraphrase and the generated claim differ, the generated
 claim is what was proved.** CI fails if this file differs from the generator's output.
 
+**Status** (run 2026-11-18T0228Z): every headline on this page carries a generated Status line
+(its `Checked` module and the axioms Lean computes for it). A headline listed here is proved; a
+withdrawn headline is removed from `Checked` and from this page. No hand-written text (a
+paraphrase, `STATE.md`, a run record) can withdraw, suspend or qualify a headline listed here.
+
 Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);
 `√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =
 derivative; `iteratedDeriv n f x` = n-th derivative; `HasDerivAt f f' x` = f has derivative f' at
@@ -28,6 +33,8 @@ because of one of these conventions says nothing about the mathematics outside t
 ## `lookback_second_order`
 
 Full name `Checked.Cosmography.lookback_second_order`.
+
+**Status (generated):** proved in module `Checked.Cosmography.Lookback` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -57,6 +64,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.lookback_second_order_bigO`.
 
+**Status (generated):** proved in module `Checked.Cosmography.LookbackThird` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -83,6 +92,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `flatLCDM_coeffs`
 
 Full name `Checked.Cosmography.Aviles.flatLCDM_coeffs`.
+
+**Status (generated):** proved in module `Checked.Cosmography.LCDMCoefficients` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -116,6 +127,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.Aviles.avilesL0Claim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.LCDMCoefficients` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`AvilesL0Claim`)
@@ -135,6 +148,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.Aviles.avilesM0Claim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.LCDMCoefficients` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`AvilesM0Claim`)
@@ -153,6 +168,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `AvilesWitness.printedL0_false_at`
 
 Full name `Checked.Cosmography.AvilesWitness.printedL0_false_at`.
+
+**Status (generated):** proved in module `Checked.Cosmography.LCDMWitness` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`:
 
@@ -177,6 +194,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedM0_false_at`
 
 Full name `Checked.Cosmography.AvilesWitness.printedM0_false_at`.
+
+**Status (generated):** proved in module `Checked.Cosmography.LCDMWitness` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`:
 
@@ -203,6 +222,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `flatCPL_coeffs`
 
 Full name `Checked.Cosmography.CPL.flatCPL_coeffs`.
+
+**Status (generated):** proved in module `Checked.Cosmography.CPLCoefficients` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -234,6 +255,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.CPL.printedL0_ne`.
 
+**Status (generated):** proved in module `Checked.Cosmography.CPLCoefficients` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -259,6 +282,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.CPL.clsL0Claim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.CPLCoefficients` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`CLSL0Claim`)
@@ -278,6 +303,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.CPLExistence.exists_flatCPL`.
 
+**Status (generated):** proved in module `Checked.Cosmography.CPLExistence` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`:
 
 **then**
@@ -295,6 +322,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `CPLExistence.printedL0_false_at`
 
 Full name `Checked.Cosmography.CPLExistence.printedL0_false_at`.
+
+**Status (generated):** proved in module `Checked.Cosmography.CPLExistence` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`:
 
@@ -320,6 +349,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.CPLExistence.exists_local_model`.
 
+**Status (generated):** proved in module `Checked.Cosmography.CPLExistence` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `E : ℝ → ℝ`:
 
 **assuming**
@@ -337,6 +368,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `lookback_fifth_order`
 
 Full name `Checked.Cosmography.CCS.lookback_fifth_order`.
+
+**Status (generated):** proved in module `Checked.Cosmography.CCSLookback` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -372,6 +405,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.CCS.printedD4_fails`.
 
+**Status (generated):** proved in module `Checked.Cosmography.CCSLookback` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -405,6 +440,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedD4_fails_past`
 
 Full name `Checked.Cosmography.CCS.printedD4_fails_past`.
+
+**Status (generated):** proved in module `Checked.Cosmography.CCSLookback` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -440,6 +477,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.CCS.ccsD4Claim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.CCSLookback` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`CCSD4Claim`)
@@ -466,6 +505,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.CCS.ccsD4ClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.CCSLookback` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`CCSD4ClaimPast`)
@@ -491,6 +532,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `lumDist_y_third_order`
 
 Full name `Checked.Cosmography.BambaY.lumDist_y_third_order`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaDLy` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -524,6 +567,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedD2y_fails`
 
 Full name `Checked.Cosmography.BambaY.printedD2y_fails`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaDLy` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -560,6 +605,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaY.printedD2y_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaDLy` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -594,6 +641,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaY.bambaD2yClaim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaDLy` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaD2yClaim`)
@@ -619,6 +668,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaY.bambaD2yClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaDLy` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaD2yClaimPast`)
@@ -643,6 +694,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `dQ_y_third_order`
 
 Full name `Checked.Cosmography.CVdQ.dQ_y_third_order`.
+
+**Status (generated):** proved in module `Checked.Cosmography.CVdQ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -676,6 +729,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedQ2_fails_past`
 
 Full name `Checked.Cosmography.CVdQ.printedQ2_fails_past`.
+
+**Status (generated):** proved in module `Checked.Cosmography.CVdQ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -712,6 +767,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.CVdQ.cvdQClaim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.CVdQ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`CVdQClaim`)
@@ -738,6 +795,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.CVdQ.cvdQClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.CVdQ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`CVdQClaimPast`)
@@ -763,6 +822,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `lumDist_y_fifth_order`
 
 Full name `Checked.Cosmography.BambaK.lumDist_y_fifth_order`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -802,6 +863,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaK.printedD3y_fails`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -839,6 +902,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaK.printedD3y_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -874,6 +939,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedD4y_fails`
 
 Full name `Checked.Cosmography.BambaK.printedD4y_fails`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -915,6 +982,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaK.printedD4y_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -953,6 +1022,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaK.bambaD3yClaim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaD3yClaim`)
@@ -982,6 +1053,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaK.bambaD3yClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaD3yClaimPast`)
@@ -1009,6 +1082,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `bambaD4yClaim_false`
 
 Full name `Checked.Cosmography.BambaK.bambaD4yClaim_false`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -1041,6 +1116,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaK.bambaD4yClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaD4yClaimPast`)
@@ -1071,6 +1148,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaK.milne_printedD3y_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`(fun t => remK correctD2y printedD3y (fun x x_1 x_2 x_3 x_4 => 0) (-1) (fun t => t) 1 t) =o[nhdsWithin 1 (Set.Iio 1)] fun t => yred (fun t => t) 1 t ^ 4`)
@@ -1099,6 +1178,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `milne_printedD4y_fails_past`
 
 Full name `Checked.Cosmography.BambaK.milne_printedD4y_fails_past`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaCurved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -1130,6 +1211,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.Transverse.transverse_expansion`.
 
+**Status (generated):** proved in module `Checked.Cosmography.Transverse` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `K : ℝ`:
 
 **then**
@@ -1147,6 +1230,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `angDist_y_fifth_order`
 
 Full name `Checked.Cosmography.BambaA.angDist_y_fifth_order`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -1185,6 +1270,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaA.printedDA3_fails`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -1221,6 +1308,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaA.printedDA3_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -1255,6 +1344,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedDA4_fails`
 
 Full name `Checked.Cosmography.BambaA.printedDA4_fails`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -1295,6 +1386,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaA.printedDA4_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -1332,6 +1425,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaA.bambaDA3Claim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaDA3Claim`)
@@ -1360,6 +1455,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaA.bambaDA3ClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaDA3ClaimPast`)
@@ -1386,6 +1483,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `bambaDA4Claim_false`
 
 Full name `Checked.Cosmography.BambaA.bambaDA4Claim_false`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -1417,6 +1516,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaA.bambaDA4ClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaDA4ClaimPast`)
@@ -1446,6 +1547,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaA.milne_printedDA4_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaAngular` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`(fun t => remA correctDA3 printedDA4 (-1) (fun t => t) 1 t) =o[nhdsWithin 1 (Set.Iio 1)] fun t => yred (fun t => t) 1 t ^ 5`)
@@ -1473,6 +1576,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `lumDist_z_fifth_order`
 
 Full name `Checked.Cosmography.BambaZ.lumDist_z_fifth_order`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -1510,6 +1615,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `angDist_z_fifth_order`
 
 Full name `Checked.Cosmography.BambaZ.angDist_z_fifth_order`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -1549,6 +1656,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaZ.printedDL4z_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -1585,6 +1694,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedDA4z_fails_past`
 
 Full name `Checked.Cosmography.BambaZ.printedDA4z_fails_past`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -1623,6 +1734,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaZ.bambaDLzClaim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaDLzClaim`)
@@ -1653,6 +1766,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaZ.bambaDLzClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaDLzClaimPast`)
@@ -1681,6 +1796,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `bambaDAzClaim_false`
 
 Full name `Checked.Cosmography.BambaZ.bambaDAzClaim_false`.
+
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -1712,6 +1829,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaZ.bambaDAzClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`BambaDAzClaimPast`)
@@ -1741,6 +1860,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaZ.milne_printedDL4z_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`(fun t => remLz printedDL4z (-1) (fun t => t) 1 t) =o[nhdsWithin 1 (Set.Iio 1)] fun t => redshift (fun t => t) 1 t ^ 5`)
@@ -1769,6 +1890,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.BambaZ.printed_flat_eq`.
 
+**Status (generated):** proved in module `Checked.Cosmography.BambaZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`:
 
 **then**
@@ -1790,6 +1913,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fR_values`
 
 Full name `Checked.Cosmography.FRCosmo.fR_values`.
+
+**Status (generated):** proved in module `Checked.Cosmography.FRCosmo` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `F : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -1828,6 +1953,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FRCosmo.curv_derivs`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FRCosmo` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -1861,6 +1988,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FRCosmo.exists_LCDM_model`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FRCosmo` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`:
 
 **assuming**
@@ -1890,6 +2019,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FRCosmo.printedR3Claim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FRCosmo` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`PrintedR3Claim`)
@@ -1911,6 +2042,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedF0Mul_false_at`
 
 Full name `Checked.Cosmography.FRCosmo.printedF0Mul_false_at`.
+
+**Status (generated):** proved in module `Checked.Cosmography.FRCosmo` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`:
 
@@ -1944,6 +2077,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FRCosmo.printedF0ClaimMul_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FRCosmo` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`PrintedF0ClaimMul`)
@@ -1971,6 +2106,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedF0_false_at`
 
 Full name `Checked.Cosmography.FRCosmo.printedF0_false_at`.
+
+**Status (generated):** proved in module `Checked.Cosmography.FRCosmo` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`:
 
@@ -2006,6 +2143,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FRCosmo.printedF0Claim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FRCosmo` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`PrintedF0Claim`)
@@ -2033,6 +2172,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `eta_ratios`
 
 Full name `Checked.Cosmography.FREta.eta_ratios`.
+
+**Status (generated):** proved in module `Checked.Cosmography.FREta` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `F : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -2075,6 +2216,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FREta.eta20_hasDerivAt`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FREta` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`:
 
 **assuming**
@@ -2109,6 +2252,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FREta.eta30_hasDerivAt`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FREta` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`:
 
 **assuming**
@@ -2142,6 +2287,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedEta20_false_at`
 
 Full name `Checked.Cosmography.FREta.printedEta20_false_at`.
+
+**Status (generated):** proved in module `Checked.Cosmography.FREta` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`:
 
@@ -2180,6 +2327,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FREta.printedEta30_false_at`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FREta` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`:
 
 **assuming**
@@ -2216,6 +2365,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FREta.printedEta20Claim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FREta` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`PrintedEta20Claim`)
@@ -2245,6 +2396,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `printedEta30Claim_false`
 
 Full name `Checked.Cosmography.FREta.printedEta30Claim_false`.
+
+**Status (generated):** proved in module `Checked.Cosmography.FREta` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -2276,6 +2429,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.FREta.eta_numbers`.
 
+**Status (generated):** proved in module `Checked.Cosmography.FREta` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 1. `correct20 (41 / 1000) ∈ Set.Ioo (-0.25) (-0.24)`
@@ -2296,6 +2451,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `flat_corrections`
 
 Full name `Checked.Cosmography.DemianskiZ.flat_corrections`.
+
+**Status (generated):** proved in module `Checked.Cosmography.DemianskiZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `q : ℝ`, `j : ℝ`, `s : ℝ`, `l : ℝ`:
 
@@ -2321,6 +2478,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `demDL4_fails_past`
 
 Full name `Checked.Cosmography.DemianskiZ.demDL4_fails_past`.
+
+**Status (generated):** proved in module `Checked.Cosmography.DemianskiZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -2359,6 +2518,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.DemianskiZ.demDA4_fails_past`.
 
+**Status (generated):** proved in module `Checked.Cosmography.DemianskiZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -2396,6 +2557,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.DemianskiZ.demDLzClaim_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.DemianskiZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`DemDLzClaim`)
@@ -2426,6 +2589,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.DemianskiZ.demDLzClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.DemianskiZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`DemDLzClaimPast`)
@@ -2454,6 +2619,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `demDAzClaim_false`
 
 Full name `Checked.Cosmography.DemianskiZ.demDAzClaim_false`.
+
+**Status (generated):** proved in module `Checked.Cosmography.DemianskiZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -2484,6 +2651,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.DemianskiZ.demDAzClaimPast_false`.
 
+**Status (generated):** proved in module `Checked.Cosmography.DemianskiZ` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - it is false that (`DemDAzClaimPast`)
@@ -2512,6 +2681,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `lumDistSpec2_pins`
 
 Full name `Checked.Fidelity.lumDistSpec2_pins`.
+
+**Status (generated):** proved in module `Checked.Fidelity.Pins` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
@@ -2543,6 +2714,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.hubbleSpec_pins`.
 
+**Status (generated):** proved in module `Checked.Fidelity.Pins` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `H : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `t : ℝ`:
 
 **assuming**
@@ -2568,6 +2741,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `decelSpec_pins`
 
 Full name `Checked.Fidelity.decelSpec_pins`.
+
+**Status (generated):** proved in module `Checked.Fidelity.Pins` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Q : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `a' : ℝ → ℝ`, `a'' : ℝ`, `t : ℝ`:
 
@@ -2597,6 +2772,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.angDistSpec_pins`.
 
+**Status (generated):** proved in module `Checked.Fidelity.Pins` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
 **assuming**
@@ -2625,6 +2802,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.flatLCDMSpec2_pins`.
 
+**Status (generated):** proved in module `Checked.Fidelity.FriedmannLCDM` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `P : ℝ → (ℝ → ℝ) → ℝ → Prop`:
 
 **assuming**
@@ -2651,6 +2830,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.isFlatLCDM_iff_friedmann`.
 
+**Status (generated):** proved in module `Checked.Fidelity.FriedmannLCDM` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **then**
@@ -2670,6 +2851,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `redshiftCore_pins`
 
 Full name `Checked.Fidelity.redshiftCore_pins`.
+
+**Status (generated):** proved in module `Checked.Fidelity.RedshiftCoeffSpecs` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Z : (ℝ → ℝ) → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
@@ -2697,6 +2880,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.cosmoCoeffCore_pins`.
 
+**Status (generated):** proved in module `Checked.Fidelity.RedshiftCoeffSpecs` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `C : ℕ → (ℝ → ℝ) → ℝ → ℝ`, `n : ℕ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -2723,6 +2908,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.yRedSpec_pins`.
 
+**Status (generated):** proved in module `Checked.Fidelity.YOmegaKSpecs` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Y : (ℝ → ℝ) → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
 **assuming**
@@ -2747,6 +2934,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `omega0Spec_pins`
 
 Full name `Checked.Fidelity.omega0Spec_pins`.
+
+**Status (generated):** proved in module `Checked.Fidelity.YOmegaKSpecs` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `O : ℝ → (ℝ → ℝ) → ℝ → ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -2775,6 +2964,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.curvKSpec_pins`.
 
+**Status (generated):** proved in module `Checked.Fidelity.YOmegaKSpecs` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `k : ℝ → (ℝ → ℝ) → ℝ → ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -2801,6 +2992,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `lumDistFlat_pins`
 
 Full name `Checked.Fidelity.lumDistFlat_pins`.
+
+**Status (generated):** proved in module `Checked.Fidelity.FlatPins` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
@@ -2832,6 +3025,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.comoving_pins`.
 
+**Status (generated):** proved in module `Checked.Fidelity.FlatPins` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `D : ℝ → (ℝ → ℝ) → ℝ → ℝ → ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
 **assuming**
@@ -2862,6 +3057,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.flatCPL_pins`.
 
+**Status (generated):** proved in module `Checked.Fidelity.FriedmannCPL` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `P : ℝ → ℝ → ℝ → (ℝ → ℝ) → ℝ → Prop`:
 
 **assuming**
@@ -2885,6 +3082,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.isFlatCPL_iff_friedmannCPL`.
 
+**Status (generated):** proved in module `Checked.Fidelity.FriedmannCPL` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **then**
@@ -2904,6 +3103,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `ricciSpec_pins`
 
 Full name `Checked.Fidelity.ricciSpec_pins`.
+
+**Status (generated):** proved in module `Checked.Fidelity.FRSpecs` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Rc : (ℝ → ℝ) → ℝ → ℝ`, `a : ℝ → ℝ`, `a' : ℝ → ℝ`, `a'' : ℝ → ℝ`, `t : ℝ`:
 
@@ -2932,6 +3133,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.friedmannEq_iff_blind`.
 
+**Status (generated):** proved in module `Checked.Fidelity.FRSpecs` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `F : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
 **then**
@@ -2953,6 +3156,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Fidelity.masterEq_iff_blind`.
 
+**Status (generated):** proved in module `Checked.Fidelity.FRSpecs` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `F : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
 
 **then**
@@ -2973,6 +3178,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `transverseSpec_pins`
 
 Full name `Checked.Fidelity.transverseSpec_pins`.
+
+**Status (generated):** proved in module `Checked.Fidelity.TransverseSpec` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `S : ℝ → ℝ → ℝ`:
 
@@ -2996,6 +3203,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F1_l0`
 
 Full name `Checked.Records.F1_l0`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -3022,6 +3231,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F1_printedL0`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - `RoundsTo (printedAvilesL0 (3 / 10)) 0.685 3`
@@ -3038,6 +3249,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F1_m0_agrees`
 
 Full name `Checked.Records.F1_m0_agrees`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -3057,6 +3270,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F2_toy`
 
 Full name `Checked.Records.F2_toy`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -3086,6 +3301,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F2_error`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `w₀ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -3112,6 +3329,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F3_D4_LCDM`
 
 Full name `Checked.Records.F3_D4_LCDM`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
 
@@ -3145,6 +3364,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F4_values`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 1. `RoundsTo (printedD2y (decel Real.exp 0) (cosmoCoeff 3 Real.exp 0) (omega0 1 Real.exp 0)) (-2.8333) 4`
@@ -3168,6 +3389,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F5_values`
 
 Full name `Checked.Records.F5_values`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -3193,6 +3416,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F6_third`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 1. `RoundsTo (printedD3y (decel Real.exp 0) (cosmoCoeff 3 Real.exp 0) (cosmoCoeff 4 Real.exp 0) (omega0 1 Real.exp 0)) 4.1667 4`
@@ -3216,6 +3441,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F6_fourth`
 
 Full name `Checked.Records.F6_fourth`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -3241,6 +3468,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F7_third`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 1. `RoundsTo (printedDA3 (decel Real.exp 0) (cosmoCoeff 3 Real.exp 0) (cosmoCoeff 4 Real.exp 0) (omega0 5 Real.exp 0)) (-0.4167) 4`
@@ -3264,6 +3493,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F7_fourth`
 
 Full name `Checked.Records.F7_fourth`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -3289,6 +3520,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F8_sizes`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 1. `RoundsTo (have k := 1 / 100; have z := 2; k ^ 2 * z ^ 4 / 120) 13e-6 6`
@@ -3308,6 +3541,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F9_values`
 
 Full name `Checked.Records.F9_values`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -3334,6 +3569,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F9_pole`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `r : ℝ` such that (`RoundsTo r 0.538 3`) and (`243 * r ^ 4 + 540 * r ^ 3 - 6264 * r ^ 2 + 9360 * r - 3328 = 0`)
@@ -3349,6 +3586,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F10_eta`
 
 Full name `Checked.Records.F10_eta`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -3372,6 +3611,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F10_printed_pole`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `r : ℝ` such that (`RoundsTo r 0.176 3`) and (`printedDen r = 0`)
@@ -3388,6 +3629,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F10_exceptions`
 
 Full name `Checked.Records.F10_exceptions`.
+
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -3410,6 +3653,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F10_family_pole`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `ε : ℝ` such that (`RoundsTo ε 32e-3 3`) and (`Jfam (41 / 1000) ε = 0`)
@@ -3429,6 +3674,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F11_sizes`.
 
+**Status (generated):** proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 1. `RoundsTo (-210 * have q₀ := -4 / 5; q₀ ^ 4) (-86) 0`
@@ -3446,6 +3693,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `F12_separation`
 
 Full name `Checked.Records.F12_separation`.
+
+**Status (generated):** proved in module `Checked.Records.FalknerSkan` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `β : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -3481,6 +3730,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F13_wall_shear`.
 
+**Status (generated):** proved in module `Checked.Records.FalknerSkan` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -3514,6 +3765,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Records.F14_reversed_wall_shear`.
 
+**Status (generated):** proved in module `Checked.Records.FalknerSkan` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1988 / 10000 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`RoundsTo (q 0 - printedFazioRevWall) 6e-7 7`)
@@ -3533,6 +3786,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `lumDistFlat_flatLCDM`
 
 Full name `Checked.Cosmography.B1.lumDistFlat_flatLCDM`.
+
+**Status (generated):** proved in module `Checked.Cosmography.B1Truncation` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t : ℝ`, `t₀ : ℝ`:
 
@@ -3564,6 +3819,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `cubic_misses_z3`
 
 Full name `Checked.Cosmography.B1.cubic_misses_z3`.
+
+**Status (generated):** proved in module `Checked.Cosmography.B1Truncation` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t : ℝ`, `t₀ : ℝ`:
 
@@ -3602,6 +3859,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.B1.cubic_misses_z7`.
 
+**Status (generated):** proved in module `Checked.Cosmography.B1Truncation` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t : ℝ`, `t₀ : ℝ`:
 
 **assuming**
@@ -3636,6 +3895,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `cubic_shape_miss`
 
 Full name `Checked.Cosmography.B1.cubic_shape_miss`.
+
+**Status (generated):** proved in module `Checked.Cosmography.B1Truncation` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₇ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`:
 
@@ -3675,6 +3936,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `cubic_separation`
 
 Full name `Checked.Cosmography.B1Sep.cubic_separation`.
+
+**Status (generated):** proved in module `Checked.Cosmography.B1Separation` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₇ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `H : ℝ`, `c : ℝ`:
 
@@ -3720,6 +3983,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `cubic_direction`
 
 Full name `Checked.Cosmography.B1Sep.cubic_direction`.
+
+**Status (generated):** proved in module `Checked.Cosmography.B1Separation` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₇ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `H : ℝ`, `c : ℝ`:
 
@@ -3768,6 +4033,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fit_direction`
 
 Full name `Checked.Cosmography.B1Fit.fit_direction`.
+
+**Status (generated):** proved in module `Checked.Cosmography.B1Fit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₁ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `H : ℝ`, `c : ℝ`:
 
@@ -3821,6 +4088,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.B1FitRL19.rl19_box_unmatched`.
 
+**Status (generated):** proved in module `Checked.Cosmography.B1FitRL19` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₁ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `H : ℝ`, `c : ℝ`:
 
 **assuming**
@@ -3868,6 +4137,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.B1L19.l19_sq_central`.
 
+**Status (generated):** proved in module `Checked.Cosmography.B1L19` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `H : ℝ`:
 
 **assuming**
@@ -3910,6 +4181,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.B1L19.l19_sqg_central`.
 
+**Status (generated):** proved in module `Checked.Cosmography.B1L19` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `H : ℝ`:
 
 **assuming**
@@ -3951,6 +4224,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `l19_sq_box`
 
 Full name `Checked.Cosmography.B1L19.l19_sq_box`.
+
+**Status (generated):** proved in module `Checked.Cosmography.B1L19` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `a₄ : ℝ`, `H : ℝ`:
 
@@ -3998,6 +4273,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.B1L19.l19_sqg_box`.
 
+**Status (generated):** proved in module `Checked.Cosmography.B1L19` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `a₄ : ℝ`, `H : ℝ`:
 
 **assuming**
@@ -4043,6 +4320,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `l19_sq_curved`
 
 Full name `Checked.Cosmography.B1L19Curved.l19_sq_curved`.
+
+**Status (generated):** proved in module `Checked.Cosmography.B1L19Curved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `H : ℝ`:
 
@@ -4090,6 +4369,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Cosmography.B1L19Curved.l19_sqg_curved`.
 
+**Status (generated):** proved in module `Checked.Cosmography.B1L19Curved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `H : ℝ`:
 
 **assuming**
@@ -4136,6 +4417,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Chemistry.CubicEOS.isCritical_iff`.
 
+**Status (generated):** proved in module `Checked.Chemistry.CubicEOS` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`:
 
 **assuming**
@@ -4161,6 +4444,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Chemistry.CubicEOS.critCubic_existsUnique`.
 
+**Status (generated):** proved in module `Checked.Chemistry.CubicEOS` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `u : ℝ`, `w : ℝ`:
 
 **assuming**
@@ -4183,6 +4468,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `exists_unique_critical`
 
 Full name `Checked.Chemistry.CubicEOS.exists_unique_critical`.
+
+**Status (generated):** proved in module `Checked.Chemistry.CubicEOS` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`:
 
@@ -4211,6 +4498,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Chemistry.CubicEOS.vdW_constants`.
 
+**Status (generated):** proved in module `Checked.Chemistry.CubicEOS` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
 
 **assuming**
@@ -4238,6 +4527,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `rk_constants`
 
 Full name `Checked.Chemistry.CubicEOS.rk_constants`.
+
+**Status (generated):** proved in module `Checked.Chemistry.CubicEOS` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
 
@@ -4269,6 +4560,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Chemistry.CubicEOS.pr_constants`.
 
+**Status (generated):** proved in module `Checked.Chemistry.CubicEOS` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `T : ℝ`, `v : ℝ`:
 
 **assuming**
@@ -4298,6 +4591,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `vdW_coexistence_exists`
 
 Full name `Checked.Chemistry.Coexistence.vdW_coexistence_exists`.
+
+**Status (generated):** proved in module `Checked.Chemistry.Coexistence` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `R : ℝ`, `a : ℝ`, `b : ℝ`:
 
@@ -4329,6 +4624,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Chemistry.Coexistence.vdW_coexistence_unique`.
 
+**Status (generated):** proved in module `Checked.Chemistry.Coexistence` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
 
 **assuming**
@@ -4358,6 +4655,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `rk_coexistence_exists`
 
 Full name `Checked.Chemistry.RKAcentric.rk_coexistence_exists`.
+
+**Status (generated):** proved in module `Checked.Chemistry.RKAcentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `R : ℝ`, `A : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`):
 
@@ -4392,6 +4691,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `rk_coexistence_unique`
 
 Full name `Checked.Chemistry.RKAcentric.rk_coexistence_unique`.
+
+**Status (generated):** proved in module `Checked.Chemistry.RKAcentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `R : ℝ`, `A : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
 
@@ -4430,6 +4731,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Chemistry.PRAcentric.pr_omega1_exists`.
 
+**Status (generated):** proved in module `Checked.Chemistry.PRAcentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`):
 
 **assuming**
@@ -4461,6 +4764,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `pr_omega1_unique`
 
 Full name `Checked.Chemistry.PRAcentric.pr_omega1_unique`.
+
+**Status (generated):** proved in module `Checked.Chemistry.PRAcentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
 
@@ -4498,6 +4803,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Chemistry.PR78Acentric.pr78_omega1_exists`.
 
+**Status (generated):** proved in module `Checked.Chemistry.PR78Acentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`):
 
 **assuming**
@@ -4529,6 +4836,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `pr78_omega1_unique`
 
 Full name `Checked.Chemistry.PR78Acentric.pr78_omega1_unique`.
+
+**Status (generated):** proved in module `Checked.Chemistry.PR78Acentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
 
@@ -4566,6 +4875,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Chemistry.SRKAcentric.srk_omega1_exists`.
 
+**Status (generated):** proved in module `Checked.Chemistry.SRKAcentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`):
 
 **assuming**
@@ -4597,6 +4908,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `srk_omega1_unique`
 
 Full name `Checked.Chemistry.SRKAcentric.srk_omega1_unique`.
+
+**Status (generated):** proved in module `Checked.Chemistry.SRKAcentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
 
@@ -4633,6 +4946,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Sim.Duffing.duffing_first_zero_sol`.
 
+**Status (generated):** proved in module `Checked.Sim.Duffing` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `x : ℝ → ℝ`:
 
 **assuming**
@@ -4660,6 +4975,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Sim.Duffing.duffing_solution_exists`.
 
+**Status (generated):** proved in module `Checked.Sim.Duffing` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `x : ℝ → ℝ` such that the position as function of time `x` is a Duffing oscillator initial value problem solution with the linear stiffness coefficient `k := 1`, the cubic stiffness coefficient `β := 1`, the initial position `x₀ := 1`, the initial velocity `v₀ := 0` and the final time of the interval `T := 6 / 5` (restoring force for positive stiffness, acceleration equals minus force terms; the second derivative plus `k := 1` times `x` plus `β := 1` times `x` cubed vanishes; `k := 1` is the linear stiffness and `β := 1` the cubic coefficient; `x₀ := 1` is the initial position and `v₀ := 0` the initial velocity; holds on the closed time interval from zero to `T := 6 / 5`; derivatives at the endpoints are one-sided)
@@ -4676,6 +4993,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `mm_half_conversion`
 
 Full name `Checked.Sim.MichaelisMenten.mm_half_conversion`.
+
+**Status (generated):** proved in module `Checked.Sim.MichaelisMenten` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `s : ℝ → ℝ`, `e : ℝ → ℝ`, `c : ℝ → ℝ`, `p : ℝ → ℝ`:
 
@@ -4704,6 +5023,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Sim.MichaelisMenten.mm_solution_exists`.
 
+**Status (generated):** proved in module `Checked.Sim.MichaelisMenten` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `s : ℝ → ℝ` such that there is `e : ℝ → ℝ` such that there is `c : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that the substrate concentration over time `s`, the free enzyme concentration over time `e`, the complex concentration over time `c` and the product concentration over time `p` are a Michaelis Menten mass action initial value problem solution with the binding rate constant `k₁ := 1`, the unbinding rate constant `km₁ := 1`, the catalytic rate constant `k₂ := 1`, the initial substrate concentration `s₀ := 1`, the initial free enzyme concentration `e₀ := 1`, the initial complex concentration `c₀ := 0`, the initial product concentration `p₀ := 0` and the final time of the interval `T := 13 / 5` (binding consumes substrate and free enzyme, forms complex; mass action kinetics of E plus S reversibly forming complex C; `k₁ := 1` is the rate constant of E plus S forming C; `km₁ := 1` is the rate constant of C returning to E plus S; `k₂ := 1` is the rate constant of C forming E plus P; `s` `e` `c` `p` are concentrations of S E C and P; holds on the closed time interval from zero to `T := 13 / 5`)
@@ -4721,6 +5042,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `rob_state40`
 
 Full name `Checked.Sim.Robertson.rob_state40`.
+
+**Status (generated):** proved in module `Checked.Sim.Robertson` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `y₁ : ℝ → ℝ`, `y₂ : ℝ → ℝ`, `y₃ : ℝ → ℝ`:
 
@@ -4752,6 +5075,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Sim.Robertson.rob_exists`.
 
+**Status (generated):** proved in module `Checked.Sim.Robertson` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `y₁ : ℝ → ℝ` such that there is `y₂ : ℝ → ℝ` such that there is `y₃ : ℝ → ℝ` such that the concentration of species A over time `y₁`, the concentration of species B over time `y₂` and the concentration of species C over time `y₃` are a Robertson chemical kinetics initial value problem solution with the rate constant of the first reaction `k₁ := 1 / 25`, the rate constant of the second reaction `k₂ := 10000`, the rate constant of the third reaction `k₃ := 30000000`, the initial concentration of species A `a₀ := 1`, the initial concentration of species B `b₀ := 0`, the initial concentration of species C `c₀ := 0` and the final time of the interval `T := 40` (A converts to B with rate constant `k₁ := 1 / 25`; B plus C gives A plus C with rate constant `k₂ := 10000`; two B give B plus C with rate constant `k₃ := 30000000`; `y₁` `y₂` `y₃` are concentrations of A B C; holds on the closed time interval from zero to `T := 40`)
@@ -4768,6 +5093,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `rob_state1e11`
 
 Full name `Checked.Sim.RobLong.rob_state1e11`.
+
+**Status (generated):** proved in module `Checked.Sim.RobLong` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `y₁ : ℝ → ℝ`, `y₂ : ℝ → ℝ`, `y₃ : ℝ → ℝ`:
 
@@ -4800,6 +5127,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Sim.RobLong.rob_printed_y3_low`.
 
+**Status (generated):** proved in module `Checked.Sim.RobLong` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `y₁ : ℝ → ℝ`, `y₂ : ℝ → ℝ`, `y₃ : ℝ → ℝ`:
 
 **assuming**
@@ -4825,6 +5154,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Sim.RobLong.rob_exists_1e11`.
 
+**Status (generated):** proved in module `Checked.Sim.RobLong` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `y₁ : ℝ → ℝ` such that there is `y₂ : ℝ → ℝ` such that there is `y₃ : ℝ → ℝ` such that the concentration of species A over time `y₁`, the concentration of species B over time `y₂` and the concentration of species C over time `y₃` are a Robertson chemical kinetics initial value problem solution with the rate constant of the first reaction `k₁ := 1 / 25`, the rate constant of the second reaction `k₂ := 10000`, the rate constant of the third reaction `k₃ := 30000000`, the initial concentration of species A `a₀ := 1`, the initial concentration of species B `b₀ := 0`, the initial concentration of species C `c₀ := 0` and the final time of the interval `T := 100000000000` (A converts to B with rate constant `k₁ := 1 / 25`; B plus C gives A plus C with rate constant `k₂ := 10000`; two B give B plus C with rate constant `k₃ := 30000000`; `y₁` `y₂` `y₃` are concentrations of A B C; holds on the closed time interval from zero to `T := 100000000000`)
@@ -4841,6 +5172,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fr13_bestfit68`
 
 Full name `Checked.Data.FR13.fr13_bestfit68`.
+
+**Status (generated):** proved in module `Checked.Data.FR13` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`:
 
@@ -4871,6 +5204,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.FR13.fr13_bestfit738`.
 
+**Status (generated):** proved in module `Checked.Data.FR13` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`:
 
 **assuming**
@@ -4900,6 +5235,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.FR13.fr13_exists68`.
 
+**Status (generated):** proved in module `Checked.Data.FR13` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `Ω : ℝ` such that (`Ω ∈ Set.Icc 0 1`) and (for every `Ω' : ℝ`, if `Ω' ∈ Set.Icc 0 1`, then `margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω'`)
@@ -4919,6 +5256,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.FR13.fr13_exists738`.
 
+**Status (generated):** proved in module `Checked.Data.FR13` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `Ω : ℝ` such that (`Ω ∈ Set.Icc 0 1`) and (for every `Ω' : ℝ`, if `Ω' ∈ Set.Icc 0 1`, then `margChiSq fr13Table 73.8 2.4 Ω ≤ margChiSq fr13Table 73.8 2.4 Ω'`)
@@ -4937,6 +5276,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fr13_minval68`
 
 Full name `Checked.Data.FR13.fr13_minval68`.
+
+**Status (generated):** proved in module `Checked.Data.FR13` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`:
 
@@ -4966,6 +5307,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.FR13.fr13_minval738`.
 
+**Status (generated):** proved in module `Checked.Data.FR13` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`:
 
 **assuming**
@@ -4993,6 +5336,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fr13_zda68`
 
 Full name `Checked.Data.FR13.fr13_zda68`.
+
+**Status (generated):** proved in module `Checked.Data.FR13` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `Ω : ℝ`, `z : ℝ`:
 
@@ -5025,6 +5370,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.FR13.fr13_zda738`.
 
+**Status (generated):** proved in module `Checked.Data.FR13` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `Ω : ℝ`, `z : ℝ`:
 
 **assuming**
@@ -5056,6 +5403,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.LaneEmden.laneEmden3_constants`.
 
+**Status (generated):** proved in module `Checked.Math.LaneEmden` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
@@ -5081,6 +5430,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.LEExists.exists_solution`.
 
+**Status (generated):** proved in module `Checked.Math.LEExists` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `θ : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 7`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 7) ξ`) and (`ContinuousWithinAt φ (Set.Icc 0 7) 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 7`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 3) (Set.Icc 0 7) ξ`) and (`θ 0 = 1`)
@@ -5095,6 +5446,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `gelfand_ball_critical`
 
 Full name `Checked.Math.Gelfand.gelfand_ball_critical`.
+
+**Status (generated):** proved in module `Checked.Math.Gelfand` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
@@ -5122,6 +5475,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.GelfandExists.exists_solution`.
 
+**Status (generated):** proved in module `Checked.Math.GelfandExists` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `S : ℝ`:
 
 **assuming**
@@ -5141,6 +5496,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `bonnor_ebert_critical`
 
 Full name `Checked.Math.BonnorEbert.bonnor_ebert_critical`.
+
+**Status (generated):** proved in module `Checked.Math.BonnorEbert` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
@@ -5168,6 +5525,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.BonnorEbertMax.bonnor_ebert_max`.
 
+**Status (generated):** proved in module `Checked.Math.BonnorEbertMax` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
@@ -5193,6 +5552,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `bonnor_ebert_min`
 
 Full name `Checked.Math.BonnorEbertMin.bonnor_ebert_min`.
+
+**Status (generated):** proved in module `Checked.Math.BonnorEbertMin` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
@@ -5221,6 +5582,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.BonnorEbertMax2.bonnor_ebert_second_max`.
 
+**Status (generated):** proved in module `Checked.Math.BonnorEbertMax2` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
@@ -5247,6 +5610,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `bonnor_ebert_second_min`
 
 Full name `Checked.Math.BonnorEbertMin2.bonnor_ebert_second_min`.
+
+**Status (generated):** proved in module `Checked.Math.BonnorEbertMin2` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
@@ -5275,6 +5640,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `bonnor_ebert_third_max`
 
 Full name `Checked.Math.BonnorEbertMax3.bonnor_ebert_third_max`.
+
+**Status (generated):** proved in module `Checked.Math.BonnorEbertMax3` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
@@ -5305,6 +5672,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.ThomasFermi.tf_initial_slope`.
 
+**Status (generated):** proved in module `Checked.Math.ThomasFermi` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `y : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
@@ -5331,6 +5700,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.ThomasFermiExists.tf_exists`.
 
+**Status (generated):** proved in module `Checked.Math.ThomasFermiExists` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `y : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (for every `x : ℝ`, if `0 ≤ x`, then `HasDerivWithinAt y (φ x) (Set.Ici 0) x`) and (for every `x : ℝ`, if `0 < x`, then `HasDerivAt φ (y x ^ (3 / 2) / √x) x`) and (`ContinuousWithinAt φ (Set.Ici 0) 0`) and (`y 0 = 1`) and (for every `x : ℝ`, if `0 ≤ x`, then `0 < y x`) and (`Filter.Tendsto y Filter.atTop (nhds 0)`)
@@ -5343,6 +5714,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `gelfand_pde_radial_bound`
 
 Full name `Checked.Math.GelfandPDE.gelfand_pde_radial_bound`.
+
+**Status (generated):** proved in module `Checked.Math.GelfandPDE` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `lam : ℝ`, `u : EuclideanSpace ℝ (Fin 3) → ℝ`:
 
@@ -5369,6 +5742,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists`.
 
+**Status (generated):** proved in module `Checked.Math.GelfandPDEExists` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `lam : ℝ`:
 
 **assuming**
@@ -5390,6 +5765,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `townes_under`
 
 Full name `Checked.Townes.Shooting.townes_under`.
+
+**Status (generated):** proved in module `Checked.Townes.TownesShooting` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `S : ℝ`, `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
@@ -5416,6 +5793,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Townes.Shooting.townes_over`.
 
+**Status (generated):** proved in module `Checked.Townes.TownesShooting` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `S : ℝ`, `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
@@ -5441,6 +5820,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Townes.Exists.townes_exists`.
 
+**Status (generated):** proved in module `Checked.Townes.TownesExists` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `c : ℝ` such that (`c ∈ Set.Ioo 2.2062008646 2.2062008647`) and (there is `θ : ℝ → ℝ` such that there is `φ : ℝ → ℝ` such that (`θ 0 = c`) and (`φ 0 = 0`) and (for every `r : ℝ`, if `r ∈ Set.Ici 0`, then `HasDerivWithinAt θ (φ r) (Set.Ici 0) r`) and (`ContinuousWithinAt φ (Set.Ici 0) 0`) and (for every `r : ℝ`, if `r ∈ Set.Ioi 0`, then `HasDerivAt φ (-(1 / r * φ r) + θ r - θ r ^ 3) r`) and (for every `r : ℝ`, if `r ∈ Set.Ici 0`, then `0 < θ r`) and (for every `r : ℝ`, if `r ∈ Set.Ioi 0`, then `φ r < 0`) and (`Filter.Tendsto θ Filter.atTop (nhds 0)`))
@@ -5455,6 +5836,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `blasius_wall_shear`
 
 Full name `Checked.Blasius.blasius_wall_shear`.
+
+**Status (generated):** proved in module `Checked.Blasius.Blasius` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -5483,6 +5866,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Blasius.blasius_exists`.
 
+**Status (generated):** proved in module `Checked.Blasius.BlasiusExists` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η / 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`)
@@ -5496,6 +5881,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `hiemenz_under`
 
 Full name `Checked.Hiemenz.hiemenz_under`.
+
+**Status (generated):** proved in module `Checked.Hiemenz.Hiemenz` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -5524,6 +5911,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Hiemenz.hiemenz_over`.
 
+**Status (generated):** proved in module `Checked.Hiemenz.Hiemenz` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -5551,6 +5940,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Hiemenz.hiemenz_exists`.
 
+**Status (generated):** proved in module `Checked.Hiemenz.Hiemenz` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`1.2325876568 < q 0`) and (`q 0 < 1.2325876569`)
@@ -5565,6 +5956,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `homann_under`
 
 Full name `Checked.Homann.homann_under`.
+
+**Status (generated):** proved in module `Checked.Homann.Homann` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -5593,6 +5986,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Homann.homann_over`.
 
+**Status (generated):** proved in module `Checked.Homann.Homann` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `S : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -5620,6 +6015,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Homann.homann_exists`.
 
+**Status (generated):** proved in module `Checked.Homann.Homann` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`1.3119376938 < q 0`) and (`q 0 < 1.3119376939`)
@@ -5634,6 +6031,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `table5_oL_inconsistent`
 
 Full name `Checked.Data.Moresco16.table5_oL_inconsistent`.
+
+**Status (generated):** proved in module `Checked.Data.Moresco16` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `N : ℝ`, `c : ℝ`:
 
@@ -5657,6 +6056,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.Moresco16.table5_pw_inconsistent`.
 
+**Status (generated):** proved in module `Checked.Data.Moresco16` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `N : ℝ`, `c : ℝ`:
 
 **assuming**
@@ -5678,6 +6079,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `table5_line_inconsistent`
 
 Full name `Checked.Data.Moresco16.table5_line_inconsistent`.
+
+**Status (generated):** proved in module `Checked.Data.Moresco16` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `N : ℝ`, `c : ℝ`:
 
@@ -5701,6 +6104,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.Moresco16.oL_bic_exceeds`.
 
+**Status (generated):** proved in module `Checked.Data.Moresco16` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `H0 : ℝ` such that there is `Ωm : ℝ` such that there is `ΩΛ : ℝ` such that (`0 ≤ Ωm`) and (`Ωm ≤ 1`) and (`Ωm ≤ 2 * ΩΛ`) and (`2 * ΩΛ ≤ 15.625 * Ωm`) and (for every `i : Fin 30`, `0 < e2OL Ωm ΩΛ (m16Table i).1`) and (`chiSqOL H0 Ωm ΩΛ < 14.975`) and (for every `N : ℝ`, if `0 < N`, then if `N ≤ 35`, then `chiSqOL H0 Ωm ΩΛ + 3 * Real.log N < 25.705`)
@@ -5721,6 +6126,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.Moresco16.line_bic_exceeds`.
 
+**Status (generated):** proved in module `Checked.Data.Moresco16` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `a : ℝ` such that there is `b : ℝ` such that (`chiSqLine a b < 27.972`) and (for every `N : ℝ`, if `0 < N`, then if `N ≤ 35`, then `chiSqLine a b + 2 * Real.log N < 35.285`)
@@ -5738,6 +6145,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `chiSqOL_ge`
 
 Full name `Checked.Data.Moresco16Min.chiSqOL_ge`.
+
+**Status (generated):** proved in module `Checked.Data.Moresco16Min` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `H0 : ℝ`, `Ωm : ℝ`, `ΩΛ : ℝ`:
 
@@ -5766,6 +6175,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.Moresco16Min.chiSqOL_lt`.
 
+**Status (generated):** proved in module `Checked.Data.Moresco16Min` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `H0 : ℝ` such that there is `Ωm : ℝ` such that there is `ΩΛ : ℝ` such that (`0 ≤ Ωm`) and (`Ωm ≤ 1`) and (`Ωm ≤ 2 * ΩΛ`) and (`2 * ΩΛ ≤ 15.625 * Ωm`) and (for every `i : Fin 30`, `0 < e2OL Ωm ΩΛ (m16Table i).1`) and (`chiSqOL H0 Ωm ΩΛ < 14.9675`)
@@ -5784,6 +6195,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `chiSqOL_glb_prior`
 
 Full name `Checked.Data.Moresco16Min.chiSqOL_glb_prior`.
+
+**Status (generated):** proved in module `Checked.Data.Moresco16Min` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -5805,6 +6218,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Data.Moresco16Min.chiSqOL_glb_wide`.
 
+**Status (generated):** proved in module `Checked.Data.Moresco16Min` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `m : ℝ` such that (`IsGLB {x | ∃ H0 Ωm ΩΛ, Ωm ≤ 1 ∧ 0 ≤ ΩΛ ∧ (∀ (i : Fin 30), 0 ≤ e2OL Ωm ΩΛ (m16Table i).1) ∧ x = chiSqOL H0 Ωm ΩΛ} m`) and (`|m - 14.967| ≤ 5e-4`)
@@ -5823,6 +6238,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `table5_oL_aicc_unattainable`
 
 Full name `Checked.Data.Moresco16Min.table5_oL_aicc_unattainable`.
+
+**Status (generated):** proved in module `Checked.Data.Moresco16Min` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `N : ℝ`, `H0 : ℝ`, `Ωm : ℝ`, `ΩΛ : ℝ`:
 
@@ -5854,6 +6271,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.LaneEmden2.laneEmden2_constants`.
 
+**Status (generated):** proved in module `Checked.Math.LaneEmden2` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
@@ -5878,6 +6297,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.fs_half_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.FalknerSkan` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`0.927680039 < q 0`) and (`q 0 < 0.927680040`)
@@ -5892,6 +6313,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_zero_wall_shear`
 
 Full name `Checked.FalknerSkan.fs_zero_wall_shear`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.FalknerSkan` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -5919,6 +6342,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `hiemenz_monotone_window`
 
 Full name `Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.MonotoneWindow` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -5948,6 +6373,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.MonotoneWindow.homann_monotone_window`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.MonotoneWindow` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -5976,6 +6403,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.MonotoneExists.hiemenz_exists_monotone`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.MonotoneExists` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (`1.2325876568 < q 0`) and (`q 0 < 1.2325876569`)
@@ -5991,6 +6420,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.MonotoneExists.homann_exists_monotone`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.MonotoneExists` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (`1.3119376938 < q 0`) and (`q 0 < 1.3119376939`)
@@ -6005,6 +6436,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `hiemenz_bounded_window`
 
 Full name `Checked.FalknerSkan.Bounded.hiemenz_bounded_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.Bounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -6034,6 +6467,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.Bounded.homann_bounded_window`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.Bounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -6061,6 +6496,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `hiemenz_bounded_equal`
 
 Full name `Checked.FalknerSkan.Bounded.hiemenz_bounded_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.Bounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6098,6 +6535,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.Bounded.homann_bounded_equal`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.Bounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
 **assuming**
@@ -6134,6 +6573,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.Bounded.hiemenz_exists_bounded`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.Bounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`0 ≤ p η`) and (`p η < 1`)) and (`1.2325876568 < q 0`) and (`q 0 < 1.2325876569`)
@@ -6149,6 +6590,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.Bounded.homann_exists_bounded`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.Bounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`0 ≤ p η`) and (`p η < 1`)) and (`1.3119376938 < q 0`) and (`q 0 < 1.3119376939`)
@@ -6163,6 +6606,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_half_bounded_window`
 
 Full name `Checked.FalknerSkan.HalfBounded.fs_half_bounded_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.HalfBounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -6191,6 +6636,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_half_bounded_equal`
 
 Full name `Checked.FalknerSkan.HalfBounded.fs_half_bounded_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.HalfBounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6229,6 +6676,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.HalfBounded.fs_half_exists_bounded`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.HalfBounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`0 ≤ p η`) and (`p η < 1`)) and (`0.927680039 < q 0`) and (`q 0 < 0.927680040`)
@@ -6243,6 +6692,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_fifth_bounded_window`
 
 Full name `Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.FifthBounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -6271,6 +6722,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_fifth_bounded_equal`
 
 Full name `Checked.FalknerSkan.FifthBounded.fs_fifth_bounded_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.FifthBounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6309,6 +6762,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.FifthBounded.fs_fifth_exists_bounded`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.FifthBounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 5 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`0 ≤ p η`) and (`p η < 1`)) and (`0.6867081809 < q 0`) and (`q 0 < 0.6867081811`)
@@ -6323,6 +6778,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_tenth_bounded_window`
 
 Full name `Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.TenthBounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -6351,6 +6808,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_tenth_bounded_equal`
 
 Full name `Checked.FalknerSkan.TenthBounded.fs_tenth_bounded_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.TenthBounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6389,6 +6848,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.TenthBounded.fs_tenth_exists_bounded`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.TenthBounded` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`0 ≤ p η`) and (`p η < 1`)) and (`0.5870352191 < q 0`) and (`q 0 < 0.5870352193`)
@@ -6403,6 +6864,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `hiemenz_limit_window`
 
 Full name `Checked.FalknerSkan.Limit.hiemenz_limit_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.Limit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -6430,6 +6893,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `hiemenz_limit_equal`
 
 Full name `Checked.FalknerSkan.Limit.hiemenz_limit_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.Limit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6466,6 +6931,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.Limit.homann_limit_window`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.Limit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -6492,6 +6959,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `homann_limit_equal`
 
 Full name `Checked.FalknerSkan.Limit.homann_limit_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.Limit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6528,6 +6997,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.Limit.fs_half_limit_window`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.Limit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -6554,6 +7025,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_half_limit_equal`
 
 Full name `Checked.FalknerSkan.Limit.fs_half_limit_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.Limit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6590,6 +7063,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.Limit.fs_fifth_limit_window`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.Limit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -6616,6 +7091,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_fifth_limit_equal`
 
 Full name `Checked.FalknerSkan.Limit.fs_fifth_limit_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.Limit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6652,6 +7129,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.LimitTenth.fs_tenth_limit_window`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.LimitTenth` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -6678,6 +7157,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_tenth_limit_equal`
 
 Full name `Checked.FalknerSkan.LimitTenth.fs_tenth_limit_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.LimitTenth` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6714,6 +7195,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.Limit.fs_monotone_of_limit`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.Limit` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `β : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `η : ℝ`:
 
 **assuming**
@@ -6742,6 +7225,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_decay_max_shear`
 
 Full name `Checked.FalknerSkan.NegDecay.fs_neg_decay_max_shear`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegDecay` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `β : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`:
 
@@ -6777,6 +7262,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_decay_equal`
 
 Full name `Checked.FalknerSkan.NegDecay.fs_neg_decay_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegDecay` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `β : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`, `η : ℝ`:
 
@@ -6817,6 +7304,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegTenth` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
@@ -6829,6 +7318,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_tenth_outside_decay`
 
 Full name `Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegOutside` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -6844,6 +7335,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_tenth_window`
 
 Full name `Checked.FalknerSkan.NegWindow.fs_neg_tenth_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWindow` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -6873,6 +7366,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWindow` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -6898,6 +7393,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversed.fs_neg_tenth_reversed`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversed` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1 / 10 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-0.1405462131 < q 0`) and (`q 0 < -0.1405462129`)
@@ -6911,6 +7408,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_tenth_two_decay`
 
 Full name `Checked.FalknerSkan.NegReversed.fs_neg_tenth_two_decay`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversed` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -6927,6 +7426,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.Separation.fs_separation_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.Separation` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `β : ℝ` such that (`β ∈ Set.Ioo (-(1988377351 / 10000000000)) (-(1988377350 / 10000000000))`) and (there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`q 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ioi 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`))
@@ -6940,6 +7441,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_separation_equal`
 
 Full name `Checked.FalknerSkan.SeparationEqual.fs_separation_equal`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.SeparationEqual` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `β₁ : ℝ`, `β₂ : ℝ`, `f₁ : ℝ → ℝ`, `p₁ : ℝ → ℝ`, `q₁ : ℝ → ℝ`, `f₂ : ℝ → ℝ`, `p₂ : ℝ → ℝ`, `q₂ : ℝ → ℝ`:
 
@@ -6979,6 +7482,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.SeparationPrinted` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `β : ℝ`, `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -7008,6 +7513,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_window`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShear` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
@@ -7036,6 +7543,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWallShear.fs_neg_wall_shear_exists_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShear` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1988 / 10000 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
@@ -7048,6 +7557,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_wall_shear_exists`
 
 Full name `Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_wall_shear_exists`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShear` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7062,6 +7573,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_printed_overshoots`
 
 Full name `Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShear` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -7088,6 +7601,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedWallShear.fs_neg_wall_shear_two_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShear` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that there is `f₂ : ℝ → ℝ` such that there is `p₂ : ℝ → ℝ` such that there is `q₂ : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1988 / 10000 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f₂ (p₂ η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p₂ (q₂ η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q₂ (-(f₂ η * q₂ η) - -1988 / 10000 * (1 - p₂ η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`f₂ 0 = 0`) and (`p₂ 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`Filter.Tendsto p₂ Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p₂ η`) and (`p₂ η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p₂ η) ≤ q₂ η`) and (`q 0 ≠ q₂ 0`)
@@ -7102,6 +7617,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_17_window`
 
 Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -7131,6 +7648,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_exists_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -17 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
@@ -7143,6 +7662,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_18_window`
 
 Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -7172,6 +7693,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_exists_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -18 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
@@ -7184,6 +7707,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_19_window`
 
 Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -7213,6 +7738,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_19_exists_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -19 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
@@ -7225,6 +7752,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_wall_shear_17_exists`
 
 Full name `Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_17_exists`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7239,6 +7768,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_17_two_decay`
 
 Full name `Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_17_two_decay`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7255,6 +7786,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_18_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -18 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-976920602e-10 < q 0`) and (`q 0 < -976920601e-10`)
@@ -7268,6 +7801,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_18_two_decay`
 
 Full name `Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_18_two_decay`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7284,6 +7819,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_19_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -19 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-713359061e-10 < q 0`) and (`q 0 < -713359060e-10`)
@@ -7297,6 +7834,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_19_two_decay`
 
 Full name `Checked.FalknerSkan.NegReversedRows.fs_neg_wall_shear_19_two_decay`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7313,6 +7852,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_4_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -4 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-966367875e-10 < q 0`) and (`q 0 < -966367874e-10`)
@@ -7326,6 +7867,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_wall_shear_5_exists`
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_5_exists`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7341,6 +7884,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_6_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -6 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-0.1179241111 < q 0`) and (`q 0 < -0.1179241110`)
@@ -7354,6 +7899,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_wall_shear_7_exists`
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_7_exists`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7369,6 +7916,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_8_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -8 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-0.1322276544 < q 0`) and (`q 0 < -0.1322276543`)
@@ -7382,6 +7931,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_wall_shear_9_exists`
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_9_exists`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7397,6 +7948,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_11_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -11 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-0.1425079104 < q 0`) and (`q 0 < -0.1425079103`)
@@ -7410,6 +7963,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_wall_shear_12_exists`
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_12_exists`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7425,6 +7980,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_13_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -13 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-0.1417095022 < q 0`) and (`q 0 < -0.1417095021`)
@@ -7438,6 +7995,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_wall_shear_14_exists`
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_14_exists`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7453,6 +8012,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_15_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -15 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-0.1334212379 < q 0`) and (`q 0 < -0.1334212378`)
@@ -7466,6 +8027,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_wall_shear_16_exists`
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_16_exists`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7481,6 +8044,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_3_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -3 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-825629652e-10 < q 0`) and (`q 0 < -825629651e-10`)
@@ -7494,6 +8059,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_reversed_wall_shear_2_exists`
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_2_exists`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 
@@ -7509,6 +8076,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegReversedWallShearRows.fs_neg_reversed_wall_shear_1_exists`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -1 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-423209261e-10 < q 0`) and (`q 0 < -423209260e-10`)
@@ -7522,6 +8091,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_13_window`
 
 Full name `Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_13_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRowsTop` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -7551,6 +8122,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_13_exists_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRowsTop` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -13 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
@@ -7563,6 +8136,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_14_window`
 
 Full name `Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_14_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRowsTop` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -7592,6 +8167,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_14_exists_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRowsTop` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -14 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
@@ -7604,6 +8181,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_15_window`
 
 Full name `Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRowsTop` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -7633,6 +8212,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_exists_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRowsTop` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -15 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
@@ -7645,6 +8226,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `fs_neg_wall_shear_16_window`
 
 Full name `Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_window`.
+
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRowsTop` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
@@ -7674,6 +8257,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_16_exists_decay`.
 
+**Status (generated):** proved in module `Checked.FalknerSkan.NegWallShearRowsTop` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **It holds that**
 
 - there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -16 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`)
@@ -7686,6 +8271,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `bonnor_ebert_extrema`
 
 Full name `Checked.Math.BonnorEbertExtrema.bonnor_ebert_extrema`.
+
+**Status (generated):** proved in module `Checked.Math.BonnorEbertExtrema` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
@@ -7713,6 +8300,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `bonnor_ebert_extrema_monotone`
 
 Full name `Checked.Math.BonnorEbertMonotone.bonnor_ebert_extrema_monotone`.
+
+**Status (generated):** proved in module `Checked.Math.BonnorEbertMonotone` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **For every** `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
@@ -7742,6 +8331,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 
 Full name `Checked.Math.GelfandExtrema.gelfand_extrema`.
 
+**Status (generated):** proved in module `Checked.Math.GelfandExtrema` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
+
 **For every** `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
@@ -7770,6 +8361,8 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 ## `gelfand_pde_radial_many_centre`
 
 Full name `Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre`.
+
+**Status (generated):** proved in module `Checked.Math.GelfandPDEManyCentre` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page.
 
 **It holds that**
 

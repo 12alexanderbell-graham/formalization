@@ -108,9 +108,29 @@ def main():
         bad.append("D1: check_claim_vocab accepted its control defect (the rule is dead)")
     if any(k.endswith("|dup") for k in run_vocab(*other, {"first", "second"}, extra=[first])):
         bad.append("D1: check_claim_vocab rejected the clean control")
+    # G1 (run 2026-11-18T0228Z): the generated Status line under each headline is fixed generator text; parsed by the
+    # real check_claim_vocab.sections(), it must lend no vocabulary to the paraphrase ("withdrawn" stays a V1 word)
+    import tempfile
+    status = ("**Status (generated):** proved in module `Checked.Ctl` of `Checked`; axioms, computed by Lean when this "
+              "page was generated: `propext`. This status is decided by Lean and the registry "
+              "`scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from "
+              "`Checked` and the registry, which removes it from this page.")
+    for label, must, para in [("G1 status words", True, "For every `lam` there is a function `u`; withdrawn by the registry."),
+                              ("G1 clean", False, "For every `lam` there is a function `u`.")]:
+        page = (f"# CLAIMS\n\n## `ctl_g1`\n\nFull name `Checked.Ctl.ctl_g1`.\n\n{status}\n\n{GELFAND}\n\n"
+                "Author's paraphrase (docstring; not generated, checked only by the prose rules):\n\n> " + para + "\n")
+        with tempfile.TemporaryDirectory() as td:
+            f = Path(td) / "CLAIMS.md"
+            f.write_text(page, encoding="utf-8")
+            secs = V.sections(f)
+        keys = run_vocab(*secs[0], {"ctl", "g1"}) if len(secs) == 1 else ["parse"]
+        if must and not keys:
+            bad.append(f"{label}: the Status line lent its words to the paraphrase (check_claim_vocab accepted the control)")
+        if not must and keys:
+            bad.append(f"{label}: check_claim_vocab rejected the clean control: {keys[:3]}")
     for b in bad:
         print("  " + b)
-    print(f"prose_rule_controls: {len(CASES) + 4} controls; {'FAIL' if bad else 'ok'}")
+    print(f"prose_rule_controls: {len(CASES) + 6} controls; {'FAIL' if bad else 'ok'}")
     return 1 if bad else 0
 
 

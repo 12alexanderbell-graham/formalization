@@ -33,6 +33,12 @@ pinned definition is now printed from Lean right after its phrase, and phrases c
 formula a reader sees in a generated claim is printed by Lean.
 The author's docstring is shown last, labelled as an unchecked paraphrase.
 
+Status line (run 2026-11-18T0228Z, `runs/2026-11-18T0228Z/t5/READERS.md`): under every headline, its module and the
+axioms `Lean.collectAxioms` returns (any axiom beyond `propext`, `Classical.choice`, `Quot.sound` is a blocking
+error), and the rule that a headline is withdrawn only by leaving `Checked` and the registry. Blind readers took a
+hand-written withdrawal over a silent generated page 6/6; with the line, 0/6 answered "no" and 6/6 "unclear".
+`check_claim_vocab.py` and `check_numbers.py` skip the line (control G1 in `controls/prose_rule_controls.py`).
+
 After blind red team J (run 2026-11-04T2228Z, `runs/2026-11-04T2228Z/t5/RESULTS.md`; designed after
 reading it): leading data binders that fill slots of pinned definitions are renamed to the slot
 name (author's name shown) unless they are a decorated form of it (`t₀`, `v₁`, `v'`); omitted proofs are
@@ -502,6 +508,10 @@ run_cmd do
     "Lean, all others with their full definition. The author's docstring follows,",
     "labelled as a paraphrase: **where the paraphrase and the generated claim differ, the generated",
     "claim is what was proved.** CI fails if this file differs from the generator's output.", "",
+    "**Status** (run 2026-11-18T0228Z): every headline on this page carries a generated Status line",
+    "(its `Checked` module and the axioms Lean computes for it). A headline listed here is proved; a",
+    "withdrawn headline is removed from `Checked` and from this page. No hand-written text (a",
+    "paraphrase, `STATE.md`, a run record) can withdraw, suspend or qualify a headline listed here.", "",
     "Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);",
     "`√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =",
     "derivative; `iteratedDeriv n f x` = n-th derivative; `HasDerivAt f f' x` = f has derivative f' at",
@@ -530,6 +540,19 @@ run_cmd do
     out := out.push s!"## {code (tidy ctx hn.toString)}"
     out := out.push ""
     out := out.push s!"Full name {code hn.toString}."
+    out := out.push ""
+    -- generated status (run 2026-11-18T0228Z, `runs/2026-11-18T0228Z/t5/READERS.md`): blind readers dropped a
+    -- valid headline 3/3 when one labelled paraphrase line (or one STATE.md line) said it was withdrawn,
+    -- because nothing generated said anything about status; this line is computed here, so a status
+    -- sentence in author prose now contradicts a generated line
+    let axs := (← collectAxioms hn).qsort (fun a b => a.toString < b.toString)
+    for ax in axs do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        errors := errors.push s!"{hn} uses the non-standard axiom {ax}"
+    let modName := match env.getModuleIdxFor? hn with
+      | some i => env.header.moduleNames[i.toNat]!.toString
+      | none => "?"
+    out := out.push s!"**Status (generated):** proved in module {code modName} of `Checked`; axioms, computed by Lean when this page was generated: {", ".intercalate (axs.toList.map fun a => code a.toString)}. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page."
     out := out.push ""
     if !data.isEmpty then
       out := out.push s!"**For every** {", ".intercalate data.toList}:"
