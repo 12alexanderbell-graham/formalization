@@ -857,3 +857,10 @@
 - Part 3 (rotation): generated fidelity record in every Status line of CLAIMS.md; paraphrase-free generated reader page `CLAIMS_READER.md` (CI-checked; banners point to it); open-objection registry `scripts/trust/objections.txt` printed first in each record. Measured with 12 pre-registered blind readers: reader page 0 errors (= CLAIMS.md 0); a hand-written fidelity withdrawal still misled 3/3 with the record and 3/3 with the registry.
 - Annex LIV: PROMPT note; LEDGER evaluation (run 0228Z's experiment) and experiment.
 - Next: CI read; then parts 2/5 by rotation (STATE 1l).
+
+## 2026-11-18T1028Z (scheduled run)
+- Env: repo ok (checkout = origin/main 7d5b41c); local Lean via elan + restored `checked-build` of 44238855382 (543a0a0). CI 44261574038 (adcb9a6, a descendant of the `gelfand_pde_radial_count` promotion): checked job and one nanoda shard still running at the end (see run README).
+- Parts 2/5 (rotation): `gelfand_pde_radial_count_values` — the radial Gelfand count with λ₁ ∈ [1.664155, 1.664157], λ₂ ∈ [2.10852, 2.10858]; frozen, refereed (STANDS), blind restatement closed, proved and promoted in this run. New certified homology cells to s ≈ 429 (`GLamCell`, `GLamData`, `GLamChain`, `GLamBands`).
+- Annex LIV: PROMPT note (values at turning points from sign-invariant chains; blind compile repairs); LEDGER experiment.
+- Next: CI read; then part 1 by rotation (STATE 1m).
+

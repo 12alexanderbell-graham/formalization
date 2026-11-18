@@ -172,24 +172,6 @@ noncomputable def angDist (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   lumDist K a t₀ t / (1 + redshift a t₀ t) ^ 2
 ```
 
-## `Cosmography.BambaA.correctDA3`
-
-Proposed correction of (10.61): add `q₀(Ω₀ − 1)/4`.
-
-```lean
-noncomputable def correctDA3 (q j s Ω : ℝ) : ℝ :=
-  printedDA3 q j s Ω + q * (Ω - 1) / 4
-```
-
-## `Cosmography.BambaA.correctDA4`
-
-Proposed correction of (10.62)–(10.63): add `(Ω₀ − 1)[(Ω₀ − 1) + 10j₀ − 45q₀² + 20q₀]/120`.
-
-```lean
-noncomputable def correctDA4 (q j s l Ω : ℝ) : ℝ :=
-  printedDA4 q j s l Ω + (Ω - 1) * ((Ω - 1) + 10 * j - 45 * q ^ 2 + 20 * q) / 120
-```
-
 ## `Cosmography.BambaA.printedDA3`
 
 `D³_{A,y}` as printed (Eq. (10.61)), verbatim.
@@ -197,16 +179,6 @@ noncomputable def correctDA4 (q j s l Ω : ℝ) : ℝ :=
 ```lean
 noncomputable def printedDA3 (q j s Ω : ℝ) : ℝ :=
   -(1 / 24) * (-2 * q + 3 * q ^ 2 + 15 * q ^ 3 - j - 10 * q * j - s + 2 * Ω)
-```
-
-## `Cosmography.BambaA.printedDA4`
-
-`D⁴_{A,y}` as printed (Eqs. (10.62)–(10.63)), verbatim (`j² = j₀²`).
-
-```lean
-noncomputable def printedDA4 (q j s l Ω : ℝ) : ℝ :=
-  -(1 / 120) * (1 - 6 * q + 9 * q ^ 2 - 15 * q ^ 3 - 105 * q ^ 4 + 10 * q * j + 105 * q ^ 2 * j
-    + 15 * q * s + -3 * j - 10 * j ^ 2 + s + l + 5 * Ω)
 ```
 
 ## `Cosmography.BambaA.remA`
@@ -466,22 +438,6 @@ noncomputable def printedD4 (q j s l : ℝ) : ℝ :=
   1 + 2 * q + 3 * q ^ 2 + 5 / 2 * q ^ 3 + 7 / 2 * q ^ 4
     - 5 / 3 * q * j - 7 / 8 * q ^ 2 * j - j + j ^ 2 / 12
     - 1 / 8 * q * s - s / 6 - l / 120
-```
-
-## `Cosmography.CPL.CLSL0Claim`
-
-The printed claim for `l₀` (frozen verbatim from Eq. (22)).
-
-```lean
-def CLSL0Claim : Prop :=
-  ∀ (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), IsFlatCPL Ω w₀ wₐ a t₀ → ContDiffAt ℝ 5 a t₀ →
-    cosmoCoeff 5 a t₀ = 35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ
-      + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀
-      + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2
-      + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3
-      + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4
-
-set_option maxHeartbeats 8000000 in
 ```
 
 ## `Cosmography.CPL.IsFlatCPL`
@@ -901,14 +857,14 @@ noncomputable def printedCLSL0 (Ω w₀ wₐ : ℝ) : ℝ :=
     + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4
 ```
 
-## `Records.printedFazioSeparation`
+## `Records.printedFazioWall`
 
-Fazio (arXiv:1212.5057, 2012, Fig. 4 caption; arXiv:2011.07725, 2020, Fig. 7 caption): the printed value of the
-Falkner–Skan parameter of the solution with zero wall shear (blind second reading
-`Checked.Trust.SecondReading.fsSepPrintedFazio`).
+Fazio (arXiv:1212.5057, 2012, p. 16): the printed missing initial condition d²f/dη²(0) of the normal-flow
+Falkner–Skan solution at the example parameter (blind second reading
+`Checked.Trust.SecondReading.fsAttPrintedWallValueFazio`).
 
 ```lean
-noncomputable def printedFazioSeparation : ℝ := -(1988376 / 10000000)
+noncomputable def printedFazioWall : ℝ := 0.005221
 ```
 
 ## `Sim.Duffing.IsDuffingSolution`

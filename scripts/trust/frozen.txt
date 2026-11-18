@@ -417,6 +417,7 @@ Checked.Math.GelfandExists.exists_solution 20e32e81-doc6694226507590696985
 Checked.Math.GelfandExtrema.gelfand_extrema b0115572-doc11641840203187700132
 Checked.Math.GelfandPDE.gelfand_pde_radial_bound a60a1dff-doc5938021182067386944
 Checked.Math.GelfandPDECount.gelfand_pde_radial_count 2806c1f6-doc2308684125015040648
+Checked.Math.GelfandPDECountValues.gelfand_pde_radial_count_values 6fe0a668-doc3810217505372985852
 Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists e7c0952a-doc919232265670323521
 Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre 20391901-doc2389207363262481562
 Checked.Math.LEExists.exists_solution ecc72cdb-doc5231298389370609236
@@ -2143,6 +2144,18 @@ doc:Checked.Math.GExistsRight.cl -doc3189299857124427131
 doc:Checked.Math.GExistsRight.exp_sub_le_of_le -doc13016419762842257852
 doc:Checked.Math.GFinal.assemble -doc10282427302849201804
 doc:Checked.Math.GFinal.f_sub_ge -doc11317784061502851710
+doc:Checked.Math.GLamBands.hom_at -doc8788400794832427349
+doc:Checked.Math.GLamBands.no_both -doc12834186465591148302
+doc:Checked.Math.GLamCell.VInv -doc5281444727561035517
+doc:Checked.Math.GLamCell.VI -doc13387807791673723954
+doc:Checked.Math.GLamCell.VProp -doc3525483160477048763
+doc:Checked.Math.GLamCell.kInv -doc524219305809764593
+doc:Checked.Math.GLamCell.kProp -doc1168604612995538699
+doc:Checked.Math.GLamCell.vcellOK -doc5933824609801872588
+doc:Checked.Math.GLamCell.vcell_facts -doc15127390009535578113
+doc:Checked.Math.GLamCell.vchainTo -doc13708115052229149603
+doc:Checked.Math.GLamCell.vend_q -doc6509622599421496281
+doc:Checked.Math.GLamCell.vseg_q -doc17050485013891009176
 doc:Checked.Math.GStart.bound_from_zero -doc5841036185472480130
 doc:Checked.Math.GStart.core -doc353306928131072233
 doc:Checked.Math.GStart.start -doc4392185193793442409
@@ -3948,6 +3961,10 @@ moduledoc:Checked.Math.GExistsLeft -mdoc10896001833152126805
 moduledoc:Checked.Math.GExistsRight -mdoc14476559950163731548
 moduledoc:Checked.Math.GFinal -mdoc18125489419812701498
 moduledoc:Checked.Math.GHelp -mdoc14035110245589245639
+moduledoc:Checked.Math.GLamBands -mdoc8141691583653189459
+moduledoc:Checked.Math.GLamCell -mdoc16851620207577240713
+moduledoc:Checked.Math.GLamChain -mdoc907002863329798644
+moduledoc:Checked.Math.GLamData -mdoc315284894028594011
 moduledoc:Checked.Math.GProfile -mdoc1761583255844940667
 moduledoc:Checked.Math.GQData -mdoc2170081636409644080
 moduledoc:Checked.Math.GStart -mdoc921360220793371404
@@ -3956,6 +3973,8 @@ moduledoc:Checked.Math.GelfandExtremaMain -mdoc451010646016397518
 moduledoc:Checked.Math.GelfandExtrema -mdoc10388665202515624349
 moduledoc:Checked.Math.GelfandODEBound -mdoc17242492181181850265
 moduledoc:Checked.Math.GelfandPDECountMain -mdoc15433464297724928386
+moduledoc:Checked.Math.GelfandPDECountValuesMain -mdoc1228825129750883574
+moduledoc:Checked.Math.GelfandPDECountValues -mdoc7897219441425687065
 moduledoc:Checked.Math.GelfandPDECount -mdoc6900168613117905941
 moduledoc:Checked.Math.GelfandPDEExists -mdoc17071817608703752686
 moduledoc:Checked.Math.GelfandPDEManyCentre -mdoc186241413875161564
@@ -4200,4 +4219,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc14875514195442853702
+moduledoc:Checked.Trust.Witnesses -mdoc12605858715207067162

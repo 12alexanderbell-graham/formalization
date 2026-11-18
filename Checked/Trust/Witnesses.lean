@@ -95,6 +95,7 @@ import Checked.FalknerSkan.NegWindow
 import Checked.Data.Moresco16Min
 import Checked.Math.GelfandPDEManyCentre
 import Checked.Math.GelfandPDECount
+import Checked.Math.GelfandPDECountValues
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -1189,6 +1190,13 @@ hypotheses. -/
 
 theorem gelfand_pde_radial_count :
     nonvacuity% Checked.Math.GelfandPDECount.gelfand_pde_radial_count :=
+  trivial
+
+/-! Gelfand problem in the ball as a PDE, exact counts with numerical band ends (run 2026-11-18T1028Z): the
+headline has no top-level hypotheses. -/
+
+theorem gelfand_pde_radial_count_values :
+    nonvacuity% Checked.Math.GelfandPDECountValues.gelfand_pde_radial_count_values :=
   trivial
 
 end Checked.Trust.NV

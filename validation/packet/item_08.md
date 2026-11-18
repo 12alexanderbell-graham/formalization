@@ -1,47 +1,65 @@
 # Item 08
 
-**Area:** Fluid mechanics
+**Area:** Falkner–Skan attached rows β = −0.13, −0.14, −0.15, −0.16
 
 **Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** proved in module `Checked.FalknerSkan.MonotoneWindow` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.homann_monotone_window` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 7 numbered; 4 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 2 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 6 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** proved in module `Checked.Math.BonnorEbertExtrema` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.bonnor_ebert_extrema` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 4 numbered; 3 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 11 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+**For every** `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
 
-1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
-2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
-3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`
-4. `f 0 = 0`
-5. `p 0 = 0`
-6. `Filter.Tendsto p Filter.atTop (nhds 1)`
-7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
+1. for every `s : ℝ`, if `s ∈ Set.Ici 0`, then `HasDerivWithinAt w (φ s) (Set.Ici 0) s`
+2. `ContinuousWithinAt φ (Set.Ici 0) 0`
+3. for every `s : ℝ`, if `s ∈ Set.Ioi 0`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Ici 0) s`
+4. `w 0 = 0`
 
 **then**
 
-1. `1.3119376938 < q 0`
-2. `q 0 < 1.3119376939`
+- there is `ξ : ℕ → ℝ` such that (`StrictMono ξ`) and (`Filter.Tendsto ξ Filter.atTop Filter.atTop`) and (`6.4507514 ≤ ξ 0`) and (`ξ 0 ≤ 6.4507515`) and (for every `s : ℝ`, if `s ∈ Set.Ici 0`, then if `s ≠ ξ 0`, then `s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) < ξ 0 ^ 2 * -φ (ξ 0) * Real.exp (w (ξ 0) / 2) / √(4 * Real.pi)`) and (for every `k : ℕ`, for every `s : ℝ`, if `s ∈ Set.Ici (ξ (2 * k))`, then if `s ≠ ξ (2 * k + 1)`, then `ξ (2 * k + 1) ^ 2 * -φ (ξ (2 * k + 1)) * Real.exp (w (ξ (2 * k + 1)) / 2) / √(4 * Real.pi) < s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi)`) and (for every `k : ℕ`, for every `s : ℝ`, if `s ∈ Set.Ici (ξ (2 * k + 1))`, then if `s ≠ ξ (2 * k + 2)`, then `s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) < ξ (2 * k + 2) ^ 2 * -φ (ξ (2 * k + 2)) * Real.exp (w (ξ (2 * k + 2)) / 2) / √(4 * Real.pi)`) and (for every `k : ℕ`, (`ξ (2 * k + 1) ^ 2 * -φ (ξ (2 * k + 1)) * Real.exp (w (ξ (2 * k + 1)) / 2) / √(4 * Real.pi) < √(2 / Real.pi)`) and (`√(2 / Real.pi) < ξ (2 * k) ^ 2 * -φ (ξ (2 * k)) * Real.exp (w (ξ (2 * k)) / 2) / √(4 * Real.pi)`)) and (`Filter.Tendsto (fun s => s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi)) Filter.atTop (nhds √(2 / Real.pi))`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Homann axisymmetric stagnation-point flow: every solution of f''' + 2 f f'' + 1 − f'² = 0 on
-[0, ∞) (f has derivative p, p has derivative q, q has derivative −2 f q − 1 + p², one-sided at 0)
-with f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and q > 0 on [0, ∞) has wall shear q(0) = f''(0)
-strictly between 1.3119376938 and 1.3119376939.
+Bonnor–Ebert sphere, extrema of the mass: for every solution w of w'' + (2/s)w' + e^w = 0 on
+(0, ∞) with w(0) = 0, w differentiable on [0, ∞) with derivative φ and φ continuous at 0, with
+m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π), there is a strictly increasing sequence of radii ξ(0) < ξ(1) < …
+tending to infinity, with ξ(0) between 6.4507514 and 6.4507515, such that m(s) < m(ξ(0)) for s ≥ 0 with
+s ≠ ξ(0); for every k, m(ξ(2k+1)) < m(s) for s ≥ ξ(2k) with s ≠ ξ(2k+1), and m(s) < m(ξ(2k+2)) for
+s ≥ ξ(2k+1) with s ≠ ξ(2k+2); for every k, m(ξ(2k+1)) < √(2/π) < m(ξ(2k)); and m(s) tends to √(2/π) as
+s tends to infinity.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem homann_monotone_window (f p q : ℝ → ℝ)
-    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
-    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
-    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Ici 0) η)
-    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
-    (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η) :
-    1.3119376938 < q 0 ∧ q 0 < 1.3119376939 := …
+theorem bonnor_ebert_extrema (w φ : ℝ → ℝ)
+    (hw : ∀ s ∈ Ici (0 : ℝ), HasDerivWithinAt w (φ s) (Ici 0) s)
+    (hφ0 : ContinuousWithinAt φ (Ici 0) 0)
+    (hφ : ∀ s ∈ Ioi (0 : ℝ),
+      HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Ici 0) s)
+    (h0 : w 0 = 0) :
+    ∃ ξ : ℕ → ℝ, StrictMono ξ ∧ Tendsto ξ atTop atTop ∧
+      6.4507514 ≤ ξ 0 ∧ ξ 0 ≤ 6.4507515 ∧
+      (∀ s ∈ Ici (0 : ℝ), s ≠ ξ 0 →
+        s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) <
+          ξ 0 ^ 2 * (-φ (ξ 0)) * Real.exp (w (ξ 0) / 2) / Real.sqrt (4 * Real.pi)) ∧
+      (∀ k : ℕ, ∀ s ∈ Ici (ξ (2 * k)), s ≠ ξ (2 * k + 1) →
+        ξ (2 * k + 1) ^ 2 * (-φ (ξ (2 * k + 1))) * Real.exp (w (ξ (2 * k + 1)) / 2) /
+            Real.sqrt (4 * Real.pi) <
+          s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi)) ∧
+      (∀ k : ℕ, ∀ s ∈ Ici (ξ (2 * k + 1)), s ≠ ξ (2 * k + 2) →
+        s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) <
+          ξ (2 * k + 2) ^ 2 * (-φ (ξ (2 * k + 2))) * Real.exp (w (ξ (2 * k + 2)) / 2) /
+            Real.sqrt (4 * Real.pi)) ∧
+      (∀ k : ℕ,
+        ξ (2 * k + 1) ^ 2 * (-φ (ξ (2 * k + 1))) * Real.exp (w (ξ (2 * k + 1)) / 2) /
+            Real.sqrt (4 * Real.pi) < Real.sqrt (2 / Real.pi) ∧
+        Real.sqrt (2 / Real.pi) <
+          ξ (2 * k) ^ 2 * (-φ (ξ (2 * k))) * Real.exp (w (ξ (2 * k)) / 2) / Real.sqrt (4 * Real.pi)) ∧
+      Tendsto (fun s => s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi)) atTop
+        (𝓝 (Real.sqrt (2 / Real.pi))) := …
 ```
 
 ## Definitions it uses
@@ -53,8 +71,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `homann_monotone_window`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `bonnor_ebert_extrema`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/MonotoneWindow.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Math/BonnorEbertExtrema.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 08

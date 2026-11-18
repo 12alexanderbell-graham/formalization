@@ -65,7 +65,7 @@
   },
   {
    "item": 2,
-   "headline": "Checked.Math.LaneEmden.laneEmden3_constants"
+   "headline": "Checked.FalknerSkan.MonotoneWindow.homann_monotone_window"
   },
   {
    "item": 3,
@@ -77,7 +77,7 @@
   },
   {
    "item": 5,
-   "headline": "Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_19_exists"
+   "headline": "Checked.FalknerSkan.NegReversedRows.fs_neg_reversed_wall_shear_18_exists"
   },
   {
    "item": 6,
@@ -89,7 +89,7 @@
   },
   {
    "item": 8,
-   "headline": "Checked.FalknerSkan.MonotoneWindow.homann_monotone_window"
+   "headline": "Checked.Math.BonnorEbertExtrema.bonnor_ebert_extrema"
   },
   {
    "item": 9,
@@ -117,11 +117,11 @@
   },
   {
    "item": 19,
-   "headline": "Checked.Hiemenz.hiemenz_exists"
+   "headline": "Checked.Hiemenz.hiemenz_under"
   },
   {
    "item": 20,
-   "headline": "Checked.Cosmography.BambaA.angDist_y_fifth_order"
+   "headline": "Checked.Cosmography.BambaA.printedDA3_fails_past"
   },
   {
    "item": 21,
@@ -137,15 +137,15 @@
   },
   {
    "item": 24,
-   "headline": "Checked.Cosmography.B1L19.l19_sqg_box"
+   "headline": "Checked.Cosmography.B1L19.l19_sq_central"
   },
   {
    "item": 25,
-   "headline": "Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window"
+   "headline": "Checked.FalknerSkan.NegWallShearRows.fs_neg_wall_shear_18_exists_decay"
   },
   {
    "item": 27,
-   "headline": "Checked.Records.F12_separation"
+   "headline": "Checked.Records.F13_wall_shear"
   },
   {
    "item": 28,
@@ -161,7 +161,7 @@
   },
   {
    "item": 31,
-   "headline": "Checked.Cosmography.CPL.clsL0Claim_false"
+   "headline": "Checked.Cosmography.CPLExistence.printedL0_false_at"
   },
   {
    "item": 34,
@@ -181,11 +181,11 @@
   },
   {
    "item": 38,
-   "headline": "Checked.Data.FR13.fr13_zda68"
+   "headline": "Checked.Data.FR13.fr13_minval738"
   },
   {
    "item": 39,
-   "headline": "Checked.FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots"
+   "headline": "Checked.FalknerSkan.NegReversedWallShear.fs_neg_wall_shear_two_decay"
   },
   {
    "item": 40,
@@ -201,7 +201,7 @@
   },
   {
    "item": 43,
-   "headline": "Checked.FalknerSkan.NegWallShearRowsTop.fs_neg_wall_shear_15_exists_decay"
+   "headline": "Checked.Math.LaneEmden.laneEmden3_constants"
   },
   {
    "item": 44,
@@ -213,7 +213,7 @@
   },
   {
    "item": 47,
-   "headline": "Checked.Homann.homann_over"
+   "headline": "Checked.Homann.homann_under"
   },
   {
    "item": 48,
