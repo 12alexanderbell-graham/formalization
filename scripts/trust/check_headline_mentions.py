@@ -106,6 +106,7 @@ TEMPLATES = [
     r"\bopen fidelity objections\b",
     r"\bno new certificates?\b",
     r"^last updated:",
+    r"\bgreen on every job for [0-9a-f]{7,40} or a descendant\s*(?:→|->)\s*\S+ proved\b",
     r"^previous update:",
 ]
 TEMPLATE_RE = [re.compile(t) for t in TEMPLATES]
@@ -134,10 +135,16 @@ RUN_README = re.compile(r"^runs/[^/]+/README\.md$")
 
 def norm(s):
     s = html.unescape(html.unescape(s))
-    s = re.sub(r"<[^>]*>", " ", s)
+    s = re.sub(r"<[^>]*>", "", s)  # red team M2 A1: with<b></b>drawn
     s = unicodedata.normalize("NFKD", unicodedata.normalize("NFKC", s))
     s = "".join(ch for ch in s if unicodedata.category(ch) not in ("Cf", "Mn", "Me", "Cc") or ch in "\n\t")
     return s.lower().translate(FOLD)
+
+
+def unmark(t):
+    """markdown emphasis characters deleted outside code spans (red team M2 A1: n*o*t, **With**drawn, with_drawn_)"""
+    parts = re.split(r"(`+[^`]+`+)", t)
+    return "".join(x if x.startswith("`") else re.sub(r"[*_~]", "", x) for x in parts)
 
 
 def skel(s):
@@ -263,7 +270,7 @@ def _exists(c):
 def words(line, fulls, modules):
     """the line's prose: code spans naming a headline, module, path or dotted Lean name removed"""
     nf, short, nm = _names(fulls, modules)
-    t = norm(line)
+    t = unmark(norm(line))
 
     def drop_code(m):
         c = m.group(1).strip()
@@ -335,27 +342,35 @@ def load_obj():
     return out
 
 
+def ident(line):
+    """identity of a line for 'new': the STATE.md update prefixes are dropped, so moving the last update line to
+    'Previous update' is no new line"""
+    return re.sub(r"^(last updated|previous update):\s*", "", norm(line).strip())
+
+
 def run(base_files, head_files, vocab=None, obj=None):
     keys, fulls, modules = headlines()
     vocab = vocab if vocab is not None else load_vocab()
     obj = obj if obj is not None else load_obj()
-    old = {norm(l).strip() for txt in base_files.values() for l in txt.splitlines()}
+    old = {ident(l) for txt in base_files.values() for l in txt.splitlines()}
     errors = []
     for path, txt in sorted(head_files.items()):
         lines = txt.splitlines()
         bidx, chains = blocks_of(lines)
         front = len(lines)
         if RUN_README.match(path):  # run records: the front page (above the first level-2 heading)
-            front = next((i for i, l in enumerate(lines) if l.startswith("## ")), len(lines))
+            # the first standard section heading (red team M2 A4: an inserted "## Correction" moved the boundary)
+            std = [i for i, l in enumerate(lines) if re.match(r"^## (Start|Bottleneck|What we did)\b", l)]
+            front = std[0] if std else next((i for i, l in enumerate(lines) if l.startswith("## ")), len(lines))
         for i, l in enumerate(lines):
             if i >= front:
                 break
-            if not l.strip() or norm(l).strip() in old:
+            if not l.strip() or ident(l) in old:
                 continue
             mx = mixed(l)
             if mx:
                 errors.append(f"{path}:{i + 1}: M0 mixed-script words: {', '.join(mx[:6])}")
-            nl = norm(l)
+            nl = unmark(norm(l))
             for b in BANNERS:
                 nl = nl.replace(b, " ")
             hard = sorted({w for w in tokens(nl) if HARD.match(w)})
@@ -422,6 +437,14 @@ def selftest():
         "Not claimed: `gelfand_pde_radial_many_centre`.",
         "Not claimed: the multiplicity count of `gelfand_pde_radial_many_centre`, which is the statement of the paper.",
         "- `gelfand_pde_radial_many_centre`: the quantifiers are the other way round from the paper theorem.",
+        # red team M2 (run 2026-11-18T1428Z), against aa07d9ee
+        "- **With**drawn: a referee found a f*law* in `gelfand_pde_radial_many_centre`; do n*o*t ci*te* it.",
+        "- `gelfand_pde_radial_many_centre` is with_drawn_ from the list.",
+        "- `gelfand_pde_radial_many_centre` is with<b></b>drawn.",
+        "- `gelfand_pde_radial_many_centre` is a lie.",
+        "- `gelfand_pde_radial_many_centre` is gone.",
+        "- `gelfand_pde_radial_many_centre` is out of date.",
+        "- `gelfand_pde_radial_many_centre`: off the table, drop it.",
     ]
     # known limit (recorded, not a control): a status in ordinary in-vocabulary words, e.g.
     # "`gelfand_pde_radial_many_centre`: the quantifiers are the other way round from the paper's theorem." passes
