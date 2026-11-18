@@ -888,3 +888,9 @@
 - Judge (annex LIV, integrity event 39.5): the leanchecker replay (140 of the checked job's 180 min, single-threaded) moved into a four-shard matrix job that partitions the Checked modules (`scripts/leanchecker_shard.py`), memoised like nanoda; branch trial 44373171551 first. `scripts/check_commit_msg.py` and a PROMPT note close the skip-marker trap.
 - Part 1 (rotation): `Checked/Trust/NecessityAU.lean` — the interval ends of the six Farooq–Ratra data headlines REDUNDANT (12), the minimiser condition of the two minimum-value headlines NEEDED (2); open 121 → 107.
 - Next: CI read (STATE 1q); then part 3 by rotation.
+
+## 2026-11-18T2028Z (scheduled run)
+- Env: repo ok (checkout = origin/main 2788d1e); no local Lean (no `.lean` change; Python checks only). CI: 44352425786 (75a4b91) checked job running; 44385495297 (2788d1e) leanchecker shard 3 green (38-min replay), the other shards and nanoda running, checked job pending.
+- Part 3 (rotation): `scripts/trust/mention_vocab.txt` rebuilt from the generated pages plus a blind-reviewed list (4,445 → 1,619 words); a template free-part hole closed in `check_headline_mentions.py`; red team M3: 5 mechanisms, 4 closed after the report; reader test L: the surviving in-vocabulary shape misled 0/3 readers. Run 1428Z's experiment does not hold (an in-vocabulary shape that names a headline survived).
+- New `scripts/trust/check_stale_status.py` (run from `check_headline_mentions.py --base`): STATE.md headings still waiting for CI after a green-on-every-job run judged them fail CI; five such headings corrected (CI 44275141268 of 7d5b41c).
+- Next: CI read (STATE 1r); then parts 2/5 by rotation.

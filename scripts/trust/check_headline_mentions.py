@@ -37,6 +37,7 @@ existing records minus STATUS); files outside the list (LEDGER.md, CHANGELOG.md,
 
 Usage: check_headline_mentions.py --base SHA      check lines new since SHA (CI: base of the push)
        check_headline_mentions.py --selftest      controls (W′ of run 0228Z and its S3 bypass shapes must fail)
+       check_headline_mentions.py --words LINE    (authoring aid) the words of a draft line outside the vocabulary
        check_headline_mentions.py --seed-vocab    (maintenance) print the vocabulary of the current records minus STATUS
 """
 import functools
@@ -508,8 +509,18 @@ def selftest():
         "- PROVED (CI 44261574038 of adcb9a6 green on every job, but do not cite it).",
         "- `gelfand_pde_radial_many_centre`: PROVED (CI 44261574038 of adcb9a6, a descendant of a commit that is not to "
         "be cited, green on every job).",
+        # red team M3 (run 2026-11-18T2028Z), against cd66956b; mechanism 4 (in-vocabulary dispute) is a recorded limit
+        "The third maximum of the Bonnor–Ebert mass result is no longer to be cited: a referee found that it does not "
+        "say what the paper says.",
+        "The radial many centre theorem is struck off by the referee; do not cite it.",
+        "The `radial_many_centre` theorem is dead and must not be relied on.",
+        "The many-centre theorem is wrong: do not cite or rely on it; it does not say what the paper says.",
+        "The Gelfand radial many center theorem is no longer to be cited.",
+        "The `pde_radial_manγ_ϲentre` theorem (Gelfand PDE) is no longer to be cited: a referee found a fault.",
     ]
-    # known limit (recorded, not a control): a status in ordinary in-vocabulary words, e.g.
+    # known limit (recorded, not a control; red team M3 mechanism 4, reader test L of run 2026-11-18T2028Z misled 0/3):
+    # "`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem, with the inverse order of the
+    # quantifiers." passes. Earlier recorded limit: a status in ordinary in-vocabulary words, e.g.
     # "`gelfand_pde_radial_many_centre`: the quantifiers are the other way round from the paper's theorem." passes
     goods = [
         "- Not claimed: the number of radial solutions for λ between λ₁ and λ₂.",  # run 2026-11-18T2028Z: vocabulary rebuilt
@@ -530,6 +541,13 @@ def selftest():
         e = run(base, new)
         if e:
             print(f"selftest FAIL: correct line flagged: {g}: {e}")
+            fails += 1
+    # red team M3 (run 2026-11-18T2028Z): the same lines appended at the end of README.md, away from any name context
+    for d in defects[-6:]:
+        new = dict(head)
+        new["README.md"] = head["README.md"].rstrip("\n") + "\n\n" + d + "\n"
+        if not run(base, new):
+            print(f"selftest FAIL: defect passed at the end of README.md: {d}")
             fails += 1
     # M3: a registered objection with this file as its path licenses the line
     keys, fulls, _ = headlines()
@@ -557,6 +575,13 @@ def seed():
 def main(argv):
     if "--selftest" in argv:
         return selftest()
+    if "--words" in argv:  # (authoring aid, run 2026-11-18T2028Z) words of a draft line outside the vocabulary / STATUS
+        keys, fulls, modules = headlines()
+        t = words(norm(" ".join(argv[argv.index("--words") + 1:])), fulls, modules)
+        print("not in vocabulary:", " ".join(sorted({w for w in tokens(t) if len(w) > 1 and w not in load_vocab()
+                                                      and not STATUS.match(w)})) or "-")
+        print("STATUS words:", " ".join(sorted({w for w in tokens(t) if STATUS.match(w)})) or "-")
+        return 0
     if "--seed-vocab" in argv:
         seed()
         return 0

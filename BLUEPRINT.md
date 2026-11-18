@@ -459,3 +459,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Judge: the kernel replay in shards (run 2026-11-18T1828Z)
 - `scripts/leanchecker_shard.py` (module list, FNV-1a partition, selftest), job `leanchecker` of `.github/workflows/lean.yml`; `scripts/check_commit_msg.py` (skip marker in a commit message).
+
+## Hand-written status lines (run 2026-11-18T2028Z)
+- `scripts/trust/check_stale_status.py` (pending status headings of STATE.md against the green base), called by `scripts/trust/check_headline_mentions.py --base`; the rebuilt `scripts/trust/mention_vocab.txt` and its inputs, reviews and cost replay in `runs/2026-11-18T2028Z/vocab/`.

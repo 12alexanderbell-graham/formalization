@@ -1,3 +1,34 @@
 # Run 2026-11-18T2028Z (scheduled)
 
-**THE RESULT:** part 3 by rotation (stub; front page follows in the final commit).
+**THE RESULT:** part 3 by rotation (STATE 1o). The rule that keeps hand-written status sentences off the pages a reader is pointed to was measured again: its vocabulary was cut to a third, attacked by a fresh red team, and the surviving shape was read by three blind readers; a new check keeps the PROVED headings of STATE.md in step with the judge.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** That a heading of STATE.md saying a promotion waits for CI is current: CI now fails when a run green on every job has judged that promotion and the heading still waits (five such headings, up to a week old, were corrected).
+
+**Weakest unchecked step:** a hand-written line can still state a mismatch between a headline and its source with vocabulary words and no status word (red team M3 mechanism 4); measured harm 0 of 3 readers, against 9 of 9 for the sentence W′ of runs 0228Z and 0828Z.
+
+## Start
+- 20:28Z. add_repo not exposed; checkout detached at 2788d1e = origin/main; `git checkout -B main origin/main`. No LOCK → taken (f9db565). No local Lean this run (Python only: no `.lean` file changes).
+- CI at start: 44352425786 (75a4b91) checked job running since 18:25Z (old single-threaded replay), nanoda 4/4 green; 44385495297 (2788d1e, first main run with the four leanchecker shards) nanoda and leanchecker shards running, checked job pending behind 75a4b91's.
+
+## Bottleneck (and what a yes/no changes)
+- Run 1428Z's experiment: the vocabulary of `scripts/trust/check_headline_mentions.py` (4,445 words) is the attack surface; does a vocabulary cut to the generated pages' words plus a reviewed technical list stop in-vocabulary shapes that name a headline, at under 20 rephrased lines per run? Yes → the default-flag rule closes the class it was built for; no → the vocabulary route has a measured floor and the next defence is measured by readers, not by more word lists.
+
+## What we did
+1. Vocabulary rebuilt (`runs/2026-11-18T2028Z/vocab/`): words of CLAIMS_READER.md and TRUST_MAP.md (796) plus words used at least twice by the records' lines about headlines, minus run 1428Z's held-out list (2,427 candidates), reviewed by two blind Sonnet reviewers under `review_brief.md` (committed 07e1e39 first; 1,614 kept). Cost on the seven runs 5c6a05b..d25cb3f (`measure.py`): 61 → 75 flagged lines.
+2. Hole found while rebuilding (not by a red team): STATUS words inside the free part of a status template ("PROVED (CI … green on every job, but do not cite it)") passed M2, and M1 skips STATUS words. Fix: each template match is reduced to the words that are not literal words of that template, and M1 and M2 read the rest; two controls.
+3. Red team M3 (Sonnet, round registered 9be2b8a, target cd66956b): five mechanisms, all class A (`t5/m3_lines.txt`, `t5/judge_m3.py`): a description without a name form; a distinctive part of a name; a spelling variant; an in-vocabulary dispute with the full name and no status word; Greek look-alikes. Verdict: not effective; the experiment does not hold. Fixes (not blind): name keys from distinctive runs of name words, centre/center and maximum/minimum folds, Greek letters in M0; 7 of 10 reported lines now flagged, six are selftest controls (also at the end of README.md, away from any name context).
+4. Reader test L (`t5/reader_brief.md` 7fc41eb, `t5/READERS.md`): the surviving in-vocabulary line under the Gelfand multiplicity heading misled 0/3 blind readers (one lowered its fidelity trust); two readers named the stale "PROVED once a main run is green on every job (read next run)" heading of that section as why STATE.md's status words are not to be trusted.
+5. `scripts/trust/check_stale_status.py` (3 controls), run inside `check_headline_mentions.py --base` (the workflow file and the nanoda/leanchecker memo hash unchanged): a STATE.md level-2 heading with the pending template is stale once every headline named in its section entered the registry in an ancestor of the green base. It finds exactly the five stale headings at 2788d1e (green base 7d5b41c, 44275141268 green on every job); they now carry the judged template. Lines older than the vocabulary rebuild keep the vocabulary they were written under (M1 only).
+
+## Measure
+- Red team: M1 4 + M2 4 mechanisms (run 1428Z) → M3 5 mechanisms, of which one in-vocabulary with the full name (survives) and one name-free description (recorded limit).
+- Readers: in-vocabulary dispute line 0/3 misled (withdrawal sentence W′: 9/9, runs 0228Z, 0828Z).
+- Cost: 75 flagged lines on seven runs (≈ 11 per run); vocabulary 4,445 → 1,619 words.
+- Stale pending statuses in STATE.md: 5 → 0, now blocking.
+
+## End
+- CI: see the final commit message and STATE 1r (read at the end of the run).
+
+## Next
+- CI read first: 44352425786 (75a4b91) and the run of this run's final push (no Lean change; it replaces 2788d1e's pending checked job and reuses 2788d1e's nanoda and leanchecker passes on the same input hash). Green on every job for 75a4b91 → `gelfand_pde_radial_count_values` PROVED; green for this push → `bonnor_ebert_count` PROVED as well; each: one L.2 line and the judged template in its STATE.md heading (`check_stale_status.py` now fails CI otherwise). The leanchecker experiment of run 1828Z is evaluated from the same run (shard 3 of 2788d1e: 38-min replay).
+- Then by rotation (part 3 at 2028Z, part 1 at 1828Z, parts 2/5 at 1628Z): parts 2/5 — as in section Next of `runs/2026-11-18T1628Z/README.md`. Part 3 next: the in-vocabulary dispute shape at scale (reader test with three such lines on three headlines, and a line naming the source by author and year), and whether hand-written headings should carry status at all (generate the heading status from CLAIMS.md and the CI record instead).
