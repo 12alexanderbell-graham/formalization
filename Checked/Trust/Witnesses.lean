@@ -97,6 +97,7 @@ import Checked.Math.GelfandPDEManyCentre
 import Checked.Math.GelfandPDECount
 import Checked.Math.BonnorEbertCount
 import Checked.Math.GelfandPDECountValues
+import Checked.Math.GelfandPDECountTurning
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -1207,5 +1208,12 @@ theorem bonnor_ebert_count :
     nonvacuity% Checked.Math.BonnorEbertCount.bonnor_ebert_count := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! Number of radial solutions of the Gelfand problem for every positive parameter (run 2026-11-18T2228Z): a
+closed statement, no hypotheses. -/
+
+theorem gelfand_pde_radial_count_turning :
+    nonvacuity% Checked.Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning :=
+  trivial
 
 end Checked.Trust.NV

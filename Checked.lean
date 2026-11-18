@@ -288,6 +288,9 @@ import Checked.Math.GLamChain
 import Checked.Math.GLamBands
 import Checked.Math.GelfandPDECountValuesMain
 import Checked.Math.GelfandPDECountValues
+import Checked.Math.GelfandPDECountTurningMain
+import Checked.Math.GelfandPDECountTurning
+import Checked.Trust.SecondReadingGelfandCount
 import Checked.Math.BonnorEbertCountMain
 import Checked.Math.BonnorEbertCount
 import Checked.Trust.SecondReadingBECount

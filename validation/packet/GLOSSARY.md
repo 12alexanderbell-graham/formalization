@@ -499,34 +499,6 @@ noncomputable def demDL4 (q j s l : ℝ) : ℝ :=
     + -105 * q ^ 2 * j - 15 * q * s - 27 * j + 10 * j ^ 2 - 11 * s - l)
 ```
 
-## `Cosmography.FRCosmo.FriedmannEq`
-
-Expansion-rate equation (11.1)–(11.2) at time `t`, multiplied by `3F′(R)`.
-
-```lean
-def FriedmannEq (Ω : ℝ) (a F : ℝ → ℝ) (t₀ t : ℝ) : Prop :=
-  3 * deriv F (curv a t) * hubble a t ^ 2 =
-    rhoM Ω a t₀ t + (F (curv a t) - curv a t * deriv F (curv a t)) / 2
-      - 3 * hubble a t * deriv (curv a) t * deriv^[2] F (curv a t)
-```
-
-## `Cosmography.FRCosmo.IsFRCosmo`
-
-The setting of Eqs. (11.14)–(11.24): metric `F(R)` gravity with dust, flat FLRW, Newton's
-constant today (11.17), cubic truncation of `F` at `R₀` (11.19).
-
-```lean
-structure IsFRCosmo (Ω : ℝ) (a F : ℝ → ℝ) (t₀ : ℝ) : Prop where
-  pos : 0 < a t₀
-  expanding : 0 < hubble a t₀
-  smooth_a : ContDiffAt ℝ 5 a t₀
-  smooth_F : ContDiff ℝ 4 F
-  friedmann : FriedmannEq Ω a F t₀ t₀
-  master : ∀ᶠ t in 𝓝 t₀, MasterEq Ω a F t₀ t
-  newton : deriv F (curv a t₀) = 1
-  cubic : deriv^[4] F (curv a t₀) = 0
-```
-
 ## `Cosmography.FRCosmo.MasterEq`
 
 Master equation (11.5) at time `t`, multiplied by `−2F′(R)`.
@@ -558,14 +530,6 @@ def P0 (q j s l : ℝ) : ℝ :=
 def P2 (q j s : ℝ) : ℝ := 9 * s + 6 * j + 9 * q ^ 2 + 66 * q + 42
 ```
 
-## `Cosmography.FRCosmo.P3`
-
-`P₃` (11.29), verbatim.
-
-```lean
-def P3 (q j s l : ℝ) : ℝ := 3 * l + 3 * s - 9 * (q + 4) * j - (45 * q ^ 2 + 78 * q + 12)
-```
-
 ## `Cosmography.FRCosmo.Q0`
 
 `Q₀` (11.26), verbatim.
@@ -587,28 +551,6 @@ def Q2 (q j s : ℝ) : ℝ :=
   -(6 * (q + 1) * s + (2 * j - 2 * (1 - q)) * j + 6 * q ^ 3 + 50 * q ^ 2 + 74 * q + 32)
 ```
 
-## `Cosmography.FRCosmo.Q3`
-
-`Q₃` (11.30), verbatim.
-
-```lean
-def Q3 (q j s l : ℝ) : ℝ :=
-  -(2 * (1 + q) * l + 2 * (j + q) * s - (2 * j + 4 * q ^ 2 + 12 * q + 6) * j
-    - (30 * q ^ 3 + 84 * q ^ 2 + 78 * q + 24))
-```
-
-## `Cosmography.FRCosmo.correctR`
-
-Proposed correction of (11.31) (derived in `runs/2026-10-30T1428Z/scripts/derive_fr.py`):
-the bracket enters with a minus sign, `+18` is `−18`, and `180 q₀²` is missing.
-
-```lean
-def correctR (q j s l : ℝ) : ℝ :=
-  (j - q - 2) * l - (3 * s - 2 * j + 6 * q ^ 2 + 50 * q + 40) * s
-    - ((3 * q + 10) * j + 11 * q ^ 2 + 4 * q - 18) * j
-    - (3 * q ^ 4 + 34 * q ^ 3 + 180 * q ^ 2 + 246 * q + 104)
-```
-
 ## `Cosmography.FRCosmo.curv`
 
 Ricci scalar of flat FLRW in the review's sign convention (11.6): `R = −6(Ḣ + 2H²)`.
@@ -627,6 +569,24 @@ noncomputable def rhoM (Ω : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
   3 * hubble a t₀ ^ 2 * Ω * (a t₀ / a t) ^ 3
 ```
 
+## `Cosmography.FREta.PrintedEta20Claim`
+
+Printed (11.42) as a first-order statement, for every `0 < Ω < 1` where it is defined.
+
+```lean
+def PrintedEta20Claim : Prop :=
+  ∀ Ω : ℝ, 0 < Ω → Ω < 1 → printedDen Ω ≠ 0 → HasDerivAt (eta20 Ω) (printed20 Ω) 0
+```
+
+## `Cosmography.FREta.eta20`
+
+`η₂₀` on the common-`ε` family (11.41).
+
+```lean
+noncomputable def eta20 (Ω ε : ℝ) : ℝ :=
+  eta20Of Ω (qL Ω * (1 + ε)) (jL * (1 + ε)) (sL Ω * (1 + ε)) (lL Ω * (1 + ε))
+```
+
 ## `Cosmography.FREta.eta20Of`
 
 `F″(R₀)H₀⁴/F(R₀)` from (11.21), (11.23): `(P₂Ω + Q₂)/(36(P₀Ω + Q₀))` (`R` cancels).
@@ -636,13 +596,53 @@ noncomputable def eta20Of (Ω q j s l : ℝ) : ℝ :=
   (P2 q j s * Ω + Q2 q j s) / (36 * (P0 q j s l * Ω + Q0 q j s l))
 ```
 
-## `Cosmography.FREta.eta30Of`
+## `Cosmography.FREta.jL`
 
-`F‴(R₀)H₀⁶/F(R₀)` from (11.21), (11.24): `(P₃Ω + Q₃)/(216(j₀ − q₀ − 2)(P₀Ω + Q₀))`.
+ΛCDM jerk (11.39).
 
 ```lean
-noncomputable def eta30Of (Ω q j s l : ℝ) : ℝ :=
-  (P3 q j s l * Ω + Q3 q j s l) / (216 * (j - q - 2) * (P0 q j s l * Ω + Q0 q j s l))
+def jL : ℝ := 1
+```
+
+## `Cosmography.FREta.lL`
+
+ΛCDM lerk (11.39).
+
+```lean
+noncomputable def lL (Ω : ℝ) : ℝ := 1 + 3 * Ω + 27 / 2 * Ω ^ 2
+```
+
+## `Cosmography.FREta.printed20`
+
+Coefficient of `ε` printed in (11.42), verbatim.
+
+```lean
+noncomputable def printed20 (Ω : ℝ) : ℝ :=
+  (64 - 6 * Ω * (9 * Ω + 8)) / printedDen Ω * (1 / 27)
+```
+
+## `Cosmography.FREta.printedDen`
+
+Denominator printed in (11.42)–(11.43), verbatim.
+
+```lean
+def printedDen (Ω : ℝ) : ℝ := (3 * (9 * Ω + 74) * Ω - 556) * Ω ^ 2 + 16
+```
+
+## `Cosmography.FREta.qL`
+
+ΛCDM deceleration parameter (11.39).
+
+```lean
+noncomputable def qL (Ω : ℝ) : ℝ := 3 / 2 * Ω - 1
+```
+
+## `Cosmography.FREta.sL`
+
+ΛCDM snap (11.39).
+
+```lean
+noncomputable def sL (Ω : ℝ) : ℝ := 1 - 9 / 2 * Ω
 ```
 
 ## `Cosmography.Transverse.transverse`

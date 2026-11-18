@@ -21,18 +21,17 @@ is a bijection from the radii onto the counted set. -/
 namespace Work.Math.GelfandPDECountTurning
 open Set Filter Topology InnerProductSpace Laplacian Metric
 
-/-- Gelfand problem in the unit ball of three-dimensional space, number of radial solutions for every
-positive parameter. A radial solution for the parameter lam is a function u that is twice continuously
-differentiable on the open unit ball, continuous on the closed unit ball, zero on the unit sphere and a
-function of ‖x‖ on the closed ball, with Δu + lam e^u = 0 on the open ball (Δ is Mathlib's Laplacian); the
-number of radial solutions for lam is the number of functions g on the closed ball such that g agrees on the
-closed ball with some radial solution for lam. There is a sequence lamT of parameters, with lamT 0 between
-3.321992118 and 3.321992119, lamT 1 between 1.664155 and 1.664157 and lamT 2 between 2.10852 and 2.10858,
-lamT (2k) strictly decreasing in k, lamT (2k+1) strictly increasing in k, lamT (2k+1) < 2 < lamT (2k) for
-every k, and lamT k tending to 2, such that: for lam > lamT 0 the number is 0; for lam = lamT 0 it is 1; for
-every k, it is 2k + 2 for lamT (2k+2) < lam < lamT (2k) and 2k + 3 for lam = lamT (2k+2); it is 1 for
-0 < lam < lamT 1; for every k, it is 2k + 2 for lam = lamT (2k+1) and 2k + 3 for
-lamT (2k+1) < lam < lamT (2k+3); and it is ⊤ for lam = 2. -/
+/-- Gelfand problem in the unit ball of three-dimensional space, number of radial solutions. A radial solution
+for the parameter lam is a function u that is twice continuously differentiable on the open unit ball, continuous on
+the closed unit ball, zero on the unit sphere and a function of ‖x‖ on the closed ball, with Δu + lam e^u = 0 on
+the open ball (Δ is Mathlib's Laplacian); N(lam) is the number of functions g on the closed ball such that
+g x = u x on the closed ball for a radial solution u for lam. There is a sequence `lamT` of parameters, with
+`lamT 0` between 3.321992118 and 3.321992119, `lamT 1` between 1.664155 and 1.664157 and `lamT 2` between 2.10852
+and 2.10858, `lamT (2 * k)` strictly decreasing in k, `lamT (2 * k + 1)` strictly increasing in k,
+`lamT (2 * k + 1)` < 2 < `lamT (2 * k)` for every k, and `lamT` tending to 2, such that: N(lam) = 0 for
+lam > `lamT 0`; N(`lamT 0`) = 1; for every k, N(lam) = 2k + 2 for `lamT (2 * k + 2)` < lam < `lamT (2 * k)` and
+N(`lamT (2 * k + 2)`) = 2k + 3; N(lam) = 1 for 0 < lam < `lamT 1`; for every k, N(`lamT (2 * k + 1)`) = 2k + 2
+and N(lam) = 2k + 3 for `lamT (2 * k + 1)` < lam < `lamT (2 * k + 3)`; and N(2) = ⊤. -/
 theorem gelfand_pde_radial_count_turning :
     ∃ lamT : ℕ → ℝ,
       3.321992118 ≤ lamT 0 ∧ lamT 0 ≤ 3.321992119 ∧

@@ -443,6 +443,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Generated status on the claims page (run 2026-11-18T0228Z)
 - `scripts/trust/Claims.lean`: Status line per headline (`collectAxioms`, module via `Environment.getModuleIdxFor?`; non-standard axiom = generator error); preamble paragraph. Parsers skipping it: `check_claim_vocab.sections`, `check_numbers.claim_sections`; control G1 in `scripts/trust/controls/prose_rule_controls.py`. Goal guard `STATUS_REF`. Reader test: `runs/2026-11-18T0228Z/t5/` (`reader_brief.md`, `READERS.md`, `S3_ADVERSARY.md`, `s3_not_shipped.patch`), pages by `runs/2026-11-18T0228Z/scripts/make_reader_pages.py`.
 
+## Gelfand problem in the 3-D ball: the number of radial solutions in every band (run 2026-11-18T2228Z)
+- `Checked/Math/GelfandPDECountTurningMain.lean`, `Checked/Math/GelfandPDECountTurning.lean`, `Checked/Trust/SecondReadingGelfandCount.lean`; scripts in `runs/2026-11-18T2228Z/scripts/`; the proof: `runs/2026-11-18T2228Z/README.md`.
+
 ## Fidelity record, reader page, objection registry (run 2026-11-18T0828Z)
 - `scripts/trust/Claims.lean`: the Status line carries a generated fidelity record — open objections (`scripts/trust/objections.txt`, resolved among registered headlines; a missing path or unresolved headline is a generator error), NV witness (same rule as StatementDeps; missing = error), necessity counts (`Checked.Trust.numHyps`, `necObligation`, `dropObligation`, exact-type match on Checked theorems), literal readings (`literal_readings.txt`), grandfathered literals (`literal_baseline.txt`), freeze (`frozen.txt`; missing = error), CI regeneration.
 - `CLAIMS_READER.md`: written by the same script, CLAIMS.md's lines after its header minus the paraphrase spans, fixed header; a `> ` or paraphrase-label line on it is a generator error. CI: stale or untracked copy fails the trust step; author-files tarball includes it. Goal guard `READER_REF` (README/STATE banners).

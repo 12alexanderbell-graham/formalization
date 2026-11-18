@@ -894,3 +894,9 @@
 - Part 3 (rotation): `scripts/trust/mention_vocab.txt` rebuilt from the generated pages plus a blind-reviewed list (4,445 → 1,619 words); a template free-part hole closed in `check_headline_mentions.py`; red team M3: 5 mechanisms, 4 closed after the report; reader test L: the surviving in-vocabulary shape misled 0/3 readers. Run 1428Z's experiment does not hold (an in-vocabulary shape that names a headline survived).
 - New `scripts/trust/check_stale_status.py` (run from `check_headline_mentions.py --base`): STATE.md headings still waiting for CI after a green-on-every-job run judged them fail CI; five such headings corrected (CI 44275141268 of 7d5b41c).
 - Next: CI read (STATE 1r); then parts 2/5 by rotation.
+
+## 2026-11-18T2228Z (scheduled run)
+- Env: repo ok (checkout = origin/main 680a810); local Lean (elan + cache, `checked-build` of 2788d1e restored). CI: 44385495297 (2788d1e) green on every job at 23:07Z → `bonnor_ebert_count` PROVED (L.2 sent); 44401158771 (680a810) pending.
+- Judge (integrity event 39.5): leanchecker shard 2 ≈ 4× slower than the others; job limit 240 → 350 min, per-group replay times printed (LEDGER experiment: rebalance).
+- Parts 2/5 (rotation): the number of radial solutions of the Gelfand problem in the 3-D ball for every positive parameter — frozen, referee STANDS, proved, blind restatement closed, blind literal reading agrees, promoted to Checked (`Checked/Math/GelfandPDECountTurning.lean`); no new certificates.
+- Next: CI read (STATE 1s); then part 1 by rotation.

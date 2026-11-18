@@ -15,6 +15,13 @@ unimported file would have no olean and fail the shard, never pass silently). Sh
 FNV-1a hash (as in scripts/nanoda/ShardMain.lean) is i mod K, so the K shards partition the module list:
 K green shards replay every module the single `leanchecker Checked` call replayed.
 
+Timing (run 2026-11-18T2228Z, annex LIV): the shard's modules are replayed in consecutive groups of GROUP modules
+(one leanchecker call per group, same modules, same order), and each group's wall time is printed
+(`leanchecker-time <seconds> <modules>`). Why: in branch trial 44373171551 shard 2 replayed for 182 min and shards
+0, 1, 3 for 44-48 min (job limit 240 min); olean sizes do not predict the difference, so the partition can only be
+balanced on measured times, which one call per shard does not report. Every module of the shard is still replayed and
+any failing group fails the shard.
+
 Usage:
   python3 scripts/leanchecker_shard.py I K           # run leanchecker on shard I of K (needs `lake build Checked`)
   python3 scripts/leanchecker_shard.py --list I K    # print the modules of shard I
@@ -22,6 +29,9 @@ Usage:
 """
 import subprocess
 import sys
+import time
+
+GROUP = 8
 
 
 def modules() -> list[str]:
@@ -80,10 +90,14 @@ def main(argv: list[str]) -> int:
         print(f"shard {i} of {k} is empty")
         return 1
     print(f"leanchecker shard {i} of {k}: {len(mods)} of {len(modules())} modules", flush=True)
-    r = subprocess.run(["lake", "env", "leanchecker", *mods])
-    if r.returncode != 0:
-        print(f"leanchecker shard {i} of {k} FAILED (exit {r.returncode})")
-        return 1
+    for g in range(0, len(mods), GROUP):
+        group = mods[g:g + GROUP]
+        t0 = time.monotonic()
+        r = subprocess.run(["lake", "env", "leanchecker", *group])
+        print(f"leanchecker-time {time.monotonic() - t0:.0f} {' '.join(group)}", flush=True)
+        if r.returncode != 0:
+            print(f"leanchecker shard {i} of {k} FAILED (exit {r.returncode}) in the group {' '.join(group)}")
+            return 1
     print(f"leanchecker: Checked shard {i} of {k} passed ({len(mods)} modules)")
     return 0
 

@@ -418,6 +418,7 @@ Checked.Math.GelfandExists.exists_solution 20e32e81-doc6694226507590696985
 Checked.Math.GelfandExtrema.gelfand_extrema b0115572-doc11641840203187700132
 Checked.Math.GelfandPDE.gelfand_pde_radial_bound a60a1dff-doc5938021182067386944
 Checked.Math.GelfandPDECount.gelfand_pde_radial_count 2806c1f6-doc2308684125015040648
+Checked.Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning 606a68c8-doc4698414674050155471
 Checked.Math.GelfandPDECountValues.gelfand_pde_radial_count_values 6fe0a668-doc18004585916351417238
 Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists e7c0952a-doc919232265670323521
 Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre 20391901-doc2389207363262481562
@@ -2172,6 +2173,7 @@ doc:Checked.Math.GelfandODEBound.glue_at -doc13792126414675860878
 doc:Checked.Math.GelfandODEBound.ode_bound -doc8692517583609526052
 doc:Checked.Math.GelfandPDECountMain.profile -doc15687506241397926389
 doc:Checked.Math.GelfandPDECountMain.reduce -doc8225150379569561145
+doc:Checked.Math.GelfandPDECountTurningMain.cset -doc9921152399923914502
 doc:Checked.Math.GelfandPDEExists.contDiffOn_two_of_derivs -doc837781794778428185
 doc:Checked.Math.GelfandPDEManyMain.main_centre -doc7977428206343782954
 doc:Checked.Math.GelfandPDEManyMain.ne_of_centre -doc16804368682208362066
@@ -3448,6 +3450,20 @@ doc:Checked.Trust.SecondReading.fsnWallValue -doc1506167832583762852
 doc:Checked.Trust.SecondReading.fsnWedgeRhs -doc5799622157327961115
 doc:Checked.Trust.SecondReading.fstWedgeRhs -doc10752257543309622845
 doc:Checked.Trust.SecondReading.fstWedgeShear -doc13371578096198461676
+doc:Checked.Trust.SecondReading.gcCountAtMax -doc7459063206279179991
+doc:Checked.Trust.SecondReading.gcCountAtMin -doc591906127071968972
+doc:Checked.Trust.SecondReading.gcCountFallBand -doc6013210209542127359
+doc:Checked.Trust.SecondReading.gcCountRiseBand -doc1823235874123403375
+doc:Checked.Trust.SecondReading.gcFirstMax -doc16695405867071851097
+doc:Checked.Trust.SecondReading.gcFirstMin -doc3522539646440959199
+doc:Checked.Trust.SecondReading.gcLimit -doc6999739092651746570
+doc:Checked.Trust.SecondReading.gcMaxIndex -doc3754639882142566106
+doc:Checked.Trust.SecondReading.gcMinIndex -doc17331639843348469752
+doc:Checked.Trust.SecondReading.gcNextMaxIndex -doc18194054581374924244
+doc:Checked.Trust.SecondReading.gcNextMinIndex -doc10031248347113263934
+doc:Checked.Trust.SecondReading.gcSecondMax -doc6821303507653179868
+doc:Checked.Trust.SecondReading.gcSeparate -doc3403177635570159967
+doc:Checked.Trust.SecondReading.gcSingularEq -doc5112140974787970557
 doc:Checked.Trust.SecondReading.gelfandBranchLimit -doc4392500724470863860
 doc:Checked.Trust.SecondReading.gelfandCentre -doc14607809201003277988
 doc:Checked.Trust.SecondReading.gelfandDomain -doc4677687179150538001
@@ -4028,6 +4044,8 @@ moduledoc:Checked.Math.GelfandExtremaMain -mdoc451010646016397518
 moduledoc:Checked.Math.GelfandExtrema -mdoc10388665202515624349
 moduledoc:Checked.Math.GelfandODEBound -mdoc17242492181181850265
 moduledoc:Checked.Math.GelfandPDECountMain -mdoc15433464297724928386
+moduledoc:Checked.Math.GelfandPDECountTurningMain -mdoc17271368788129181268
+moduledoc:Checked.Math.GelfandPDECountTurning -mdoc15229035847137259508
 moduledoc:Checked.Math.GelfandPDECountValuesMain -mdoc1228825129750883574
 moduledoc:Checked.Math.GelfandPDECountValues -mdoc7897219441425687065
 moduledoc:Checked.Math.GelfandPDECount -mdoc6900168613117905941
@@ -4252,6 +4270,7 @@ moduledoc:Checked.Trust.SecondReadingFreshBambaFR -mdoc2015756320545706462
 moduledoc:Checked.Trust.SecondReadingFreshBambaYb -mdoc15394960064282917514
 moduledoc:Checked.Trust.SecondReadingFreshCCS -mdoc11792258858914348696
 moduledoc:Checked.Trust.SecondReadingFreshCV -mdoc707537568342277201
+moduledoc:Checked.Trust.SecondReadingGelfandCount -mdoc9587221048182838540
 moduledoc:Checked.Trust.SecondReadingGelfandExtrema -mdoc24434315250643379
 moduledoc:Checked.Trust.SecondReadingGelfandLimit -mdoc3837319596973125538
 moduledoc:Checked.Trust.SecondReadingGelfandMany -mdoc2301051030016199448
@@ -4278,4 +4297,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc11922690694103385582
+moduledoc:Checked.Trust.Witnesses -mdoc4499674034105226025

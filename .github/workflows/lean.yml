@@ -367,7 +367,10 @@ jobs:
     needs: changes
     if: needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    # 240 -> 350 (run 2026-11-18T2228Z; robustness, no check changes): shard 2 replayed for 182 min in trial 44373171551
+    # and over 180 min on main 44385495297 while the other shards took 44-48 min; the partition is balanced on measured
+    # times (printed per group by scripts/leanchecker_shard.py) in a later run. GitHub's hosted-runner limit is 360.
+    timeout-minutes: 350
     strategy:
       fail-fast: false
       matrix:
