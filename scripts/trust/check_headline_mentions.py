@@ -87,7 +87,8 @@ STATUS = re.compile(r"(?x)^(?:"
 
 # status templates: the forms a record may use; matched on the normalized line, removed before M2 (not M1)
 TEMPLATES = [
-    r"\bproved \(ci \d{6,} of [0-9a-f]{7,40}(?:, a descendant(?: of [^,)]*)?,)? green on every job[^)]*\)",
+    r"\bproved \(ci \d{6,} of [0-9a-f]{7,40}(?:, a descendant(?: of [^,)]*)?,)? green on every job"
+    r"(?: incl\. the checked job(?: and nanoda \d/\d)?)?[^)]*\)",
     r"\bproved once (?:a main run|ci) is green on every job(?: \(read next run\))?",
     r"\bci \d{6,} \([0-9a-f]{7,40}\)(?:'s checked job)? (?:pending|in progress)(?: behind \d{6,} \([0-9a-f]{7,40}\))?",
     r"\bpromoted to checked(?: \+ audited)?",
@@ -110,6 +111,16 @@ TEMPLATES = [
     r"^previous update:",
 ]
 TEMPLATE_RE = [re.compile(t) for t in TEMPLATES]
+
+
+def _literal_words(pat):
+    """the words a template spells out literally (escapes and character classes removed)"""
+    p = re.sub(r"\\[A-Za-z]", " ", pat)
+    p = re.sub(r"\[[^\]]*\]", " ", p)
+    return frozenset(re.findall(r"[a-z]+", p))
+
+
+TEMPLATE_LIT = {t: _literal_words(t) for t in TEMPLATES}
 NOT_CLAIMED = r"^\W*not claimed\b"
 assert NOT_CLAIMED in TEMPLATES
 
@@ -305,18 +316,21 @@ def check_line(line, fulls, modules, vocab, open_obj, path, ab):
         return errs  # M3: every headline the line names has an open objection with this path, or it names none and
         # one headline it is about has one
     n = norm(line)
-    stripped = n
+    # Each template match is reduced to its words that are NOT literal words of that template; M1 and M2 read the
+    # rest (run 2026-11-18T2028Z: before, M2 read nothing of a match, so a STATUS word inside a template's free part —
+    # "green on every job, but … do not cite it)" — passed M2, and M1 skips STATUS words; and M1 read the template's
+    # own words, which the rebuilt vocabulary does not hold).
+    free = n
     for r in TEMPLATE_RE:
         if direct and r.pattern == NOT_CLAIMED:
             continue  # red team M A8/A9: "Not claimed: `<headline>`" disowns a headline
-        stripped = r.sub(" ", stripped)
-    # identifiers in the original (camelCase split) before lower-casing
-    raw = re.sub(r"`+([^`]+)`+", lambda m: " " + m.group(1) + " ", line)
-    del raw
-    t_all = words(n, fulls, modules)
-    t_stat = words(stripped, fulls, modules)
-    unknown = sorted({w for w in tokens(t_all) if len(w) > 1 and w not in vocab and not STATUS.match(w)})
-    status = sorted({w for w in tokens(t_stat) if STATUS.match(w)})
+        lit = TEMPLATE_LIT[r.pattern]
+        free = r.sub(lambda m: " " + " ".join(w for w in re.findall(r"[^\W_]+", m.group(0))
+                                              if w not in lit and not re.search(r"\d", w)
+                                              and not re.fullmatch(r"[0-9a-f]{7,40}", w)) + " ", free)
+    t_free = words(free, fulls, modules)
+    unknown = sorted({w for w in tokens(t_free) if len(w) > 1 and w not in vocab and not STATUS.match(w)})
+    status = sorted({w for w in tokens(t_free) if STATUS.match(w)})
     if unknown:
         errs.append(f"M1 words not in {VOCAB}: {', '.join(unknown[:12])}")
     if status:
@@ -445,11 +459,16 @@ def selftest():
         "- `gelfand_pde_radial_many_centre` is gone.",
         "- `gelfand_pde_radial_many_centre` is out of date.",
         "- `gelfand_pde_radial_many_centre`: off the table, drop it.",
+        # run 2026-11-18T2028Z (found by the author while rebuilding the vocabulary, not by a red team): STATUS words
+        # inside the free part of a template passed M2, and M1 skips STATUS words
+        "- PROVED (CI 44261574038 of adcb9a6 green on every job, but do not cite it).",
+        "- `gelfand_pde_radial_many_centre`: PROVED (CI 44261574038 of adcb9a6, a descendant of a commit that is not to "
+        "be cited, green on every job).",
     ]
     # known limit (recorded, not a control): a status in ordinary in-vocabulary words, e.g.
     # "`gelfand_pde_radial_many_centre`: the quantifiers are the other way round from the paper's theorem." passes
     goods = [
-        "- Not claimed: exact counts for λ in [λ₁, λ₂] other than at the ends.",
+        "- Not claimed: the number of radial solutions for λ between λ₁ and λ₂.",  # run 2026-11-18T2028Z: vocabulary rebuilt
         "- Promoted to Checked + AUDITED; PROVED (CI 44261574038 of adcb9a6 green on every job incl. the checked job).",
     ]
     fails = 0
