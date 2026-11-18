@@ -1,0 +1,10 @@
+The third maximum of the Bonnor–Ebert mass result is no longer to be cited: a referee found that it does not say what the paper says.
+The radial many centre theorem is no longer to be cited; a referee found that it does not say what the paper says.
+The radial many centre theorem is struck off by the referee; do not cite it.
+The `radial_many_centre` theorem is dead and must not be relied on.
+The many-centre theorem is wrong: do not cite or rely on it; it does not say what the paper says.
+The Gelfand radial many center theorem is no longer to be cited.
+`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem, with the inverse order of the quantifiers.
+`gelfand_pde_radial_many_centre`: the quantifiers of the statement are the inverse of the paper theorem, dual to it.
+`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem.
+The `pde_radial_manγ_ϲentre` theorem (Gelfand PDE) is no longer to be cited: a referee found a fault; it does not say what the paper says.
