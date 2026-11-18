@@ -89,3 +89,5 @@ pde
 many
 distinct
 pairwise
+count
+lamstar

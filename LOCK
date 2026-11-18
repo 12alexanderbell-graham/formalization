@@ -1,1 +1,0 @@
-Run 2026-11-18T0428Z (scheduled), started 04:28Z; task: CI read (44227663703 of c32a441, pending at start; 44217681379 of fa47717 in progress), then parts 2/5 by rotation (STATE 1i/1g: uniqueness of the regular singular IVP w'' + (2/s)w' + e^w = 0 near s = 0, joined to BEGlobalExists, toward exact Gelfand counts). Remove at end.

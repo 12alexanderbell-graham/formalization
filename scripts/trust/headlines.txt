@@ -353,3 +353,4 @@ Checked.Math.BonnorEbertExtrema.bonnor_ebert_extrema
 Checked.Math.BonnorEbertMonotone.bonnor_ebert_extrema_monotone
 Checked.Math.GelfandExtrema.gelfand_extrema
 Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre
+Checked.Math.GelfandPDECount.gelfand_pde_radial_count
