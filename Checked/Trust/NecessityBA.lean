@@ -6,10 +6,13 @@ import Checked.Trust.HzWallUS
 import Checked.Trust.HzWallUP
 import Checked.Trust.HmWallUS
 import Checked.Trust.HmWallUP
+import Checked.Trust.HzGAssemble
+import Checked.Trust.HmGAssemble
+import Checked.FalknerSkan.MonotoneWindow
 import Checked.Hiemenz.Hiemenz
 import Checked.Homann.Homann
 import Checked.Trust.NonVacuity
-/-! Necessity of the wall conditions (f and its derivative vanish at the wall) in the four Hiemenz and Homann shooting headlines `Checked.Hiemenz.hiemenz_over`, `Checked.Hiemenz.hiemenz_under`, `Checked.Homann.homann_over` and `Checked.Homann.homann_under`. At the upper wall shear of a bracket, a wall value of f of one tenth (`HzWallS`, `HmWallS`) or a negative wall velocity (minus one twentieth, `HzWallP`; minus one tenth, `HmWallP`) gives a solution on the whole certified window whose velocity stays below one there, so it never overshoots. At the lower wall shear, a negative wall value of f (minus one hundredth, `HzWallUS`; minus one fiftieth, `HmWallUS`) or a positive wall velocity (one hundredth, `HzWallUP`; one fiftieth, `HmWallUP`) gives a solution whose shear stays positive on the whole window, so it never undershoots. Each solution is the clamped flow on the window (Picard–Lindelöf, `ncba_local_sol`, `ncba_local_solHm`), equal to the unclamped field because the certified cells keep every clamp inactive. Module `NecessityBA`. -/
+/-! Necessity of the wall conditions (f and its derivative vanish at the wall) in the four Hiemenz and Homann shooting headlines `Checked.Hiemenz.hiemenz_over`, `Checked.Hiemenz.hiemenz_under`, `Checked.Homann.homann_over` and `Checked.Homann.homann_under`. At the upper wall shear of a bracket, a wall value of f of one tenth (`HzWallS`, `HmWallS`) or a negative wall velocity (minus one twentieth, `HzWallP`; minus one tenth, `HmWallP`) gives a solution on the whole certified window whose velocity stays below one there, so it never overshoots. At the lower wall shear, a negative wall value of f (minus one hundredth, `HzWallUS`; minus one fiftieth, `HmWallUS`) or a positive wall velocity (one hundredth, `HzWallUP`; one fiftieth, `HmWallUP`) gives a solution whose shear stays positive on the whole window, so it never undershoots. Each solution is the clamped flow on the window (Picard–Lindelöf, `ncba_local_sol`, `ncba_local_solHm`), equal to the unclamped field because the certified cells keep every clamp inactive. The wall velocity is also needed in the monotone window headlines `Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window` and `homann_monotone_window`: with a wall velocity of one tenth each boundary-value problem has a monotone solution (`HzGAssemble.exists_bvpG`, `HmGAssemble.exists_bvpG`, the suction stacks ported to a free wall velocity) whose wall shear lies below the window. Module `NecessityBA`. -/
 
 namespace Checked.Trust.NCBA
 open Set Checked.Hiemenz.HExBase Checked.Hiemenz.HExFlow Checked.Hiemenz.HCellWC
@@ -194,5 +197,25 @@ theorem homann_under_h6 : necessity% Checked.Homann.homann_under 6 := by
     by simp [hY0], by simp [hY0], ?_⟩
   rintro ⟨η, hη, h1, -⟩
   linarith [hQ η ⟨hη.1.le, hη.2⟩]
+
+/-- The wall velocity p(0) = 0 is needed in the monotone Hiemenz window: with p(0) = 1/10 there is a
+monotone solution (q > 0, p → 1) with wall shear between 1.1 and 1.2, below the window. -/
+theorem hiemenz_monotone_window_h5 :
+    necessity% Checked.FalknerSkan.MonotoneWindow.hiemenz_monotone_window 5 := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, -, hl, -, hhi, hc⟩ := Checked.Trust.HzGAssemble.exists_bvpG
+  refine ⟨f, p, q, hf, hp, hq, hf0, hl, fun η hη => (hc η hη).2.2, ?_⟩
+  rintro ⟨h1, -⟩
+  norm_num at hhi h1
+  linarith
+
+/-- The wall velocity p(0) = 0 is needed in the monotone Homann window: with p(0) = 1/10 there is a
+monotone solution (q > 0, p → 1) with wall shear between 1.18 and 1.28, below the window. -/
+theorem homann_monotone_window_h5 :
+    necessity% Checked.FalknerSkan.MonotoneWindow.homann_monotone_window 5 := by
+  obtain ⟨f, p, q, hf, hp, hq, hf0, -, hl, -, hhi, hc⟩ := Checked.Trust.HmGAssemble.exists_bvpG
+  refine ⟨f, p, q, hf, hp, hq, hf0, hl, fun η hη => (hc η hη).2.2, ?_⟩
+  rintro ⟨h1, -⟩
+  norm_num at hhi h1
+  linarith
 
 end Checked.Trust.NCBA
