@@ -147,6 +147,7 @@ import Work.Math.LE2QData
 import Work.Math.LE2Last
 import Work.Math.LE2Chain
 import Work.Math.LaneEmden2BlindClosed
+import Work.Math.LaneEmden4BlindClosed
 import Work.Math.LE2ExistsLeft
 import Work.Math.LE2ExistsStart
 import Work.Math.LE2ExistsCell
