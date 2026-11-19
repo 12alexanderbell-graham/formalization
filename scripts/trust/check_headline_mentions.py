@@ -452,6 +452,19 @@ M8_DOC_RE = re.compile(r"(?x)(?<![\w'’])(?:articles?|arxiv|authors?(?:['’]s)
 M8_KIND_RE = re.compile(r"(?<![\w'’])(?:the|this|that|these|those)\s+(?:[^\W\d_]+\s+){0,2}?"
                         r"(?:theorems?|lemmas?|propositions?|corollar(?:y|ies))(?![\w'’])(?!\s*zzheadlinespan\b)")
 M8_HEAD_SPAN = "zzheadlinespan"
+# M9 (run 2026-11-19T2028Z, part 3; decision rule pre-registered in runs/2026-11-19T2028Z/t5/reader_brief_EF.md before
+# its readers ran). Reader test EF (nine blind Sonnet readers, blind grader, runs/2026-11-19T2028Z/t5/READERS_EF.md):
+# lines that compare a statement with 'the formula' (a reference the reader cannot see) left an unrejected fidelity
+# doubt in 2 of 3 readers ("the sentences do not say which 'formula' they mean, and I could not check them"); the same
+# lines with no reference 0 of 3 (and 0 of 3 in test LN); with a model eponym ('to Gelfand') 1 of 3. So a determiner
+# (the, this, that, these, those) with up to two words before one of the nouns that denote a formula or result outside
+# the statement names a source for M6, unless a code span follows the noun (the content is shown) or the noun is the
+# statement's own ('the equation in the statement', 'the formula of the statement'). Binds from its own commit.
+M9_REF_RE = re.compile(r"(?<![\w'’])(?:the|this|that|these|those)\s+(?:[^\W\d_]+\s+){0,2}?"
+                       r"(?:formulas?|formulae|equations?|expressions?|results?|versions?|derivations?|definitions?|"
+                       r"notations?|specifications?|glossar(?:y|ies))(?![\w'’])"
+                       r"(?!\s*(?:zzheadlinespan|zzcodespan)\b)"
+                       r"(?!\s+(?:in|of|from)\s+(?:the|this|its|our)\s+(?:lean\s+)?(?:statements?|claims?|zzheadlinespan)\b)")
 
 
 def _m8_texts(line):
@@ -461,8 +474,9 @@ def _m8_texts(line):
     return [m6_text(line), joined]
 
 
-def m8_names(line):
-    """M8: the line points at a document, its parts or its authors by a vocabulary word, or at a result by its kind"""
+def m8_names(line, m9=True):
+    """M8: the line points at a document, its parts or its authors by a vocabulary word, or at a result by its kind;
+    M9 (m9=True): or at a formula or result outside the statement by a determiner and its kind"""
     keys, fulls, modules = headlines()
     for raw in _m8_texts(line):
         t = words(unmark(norm(raw)), fulls, modules)
@@ -474,6 +488,14 @@ def m8_names(line):
         k = re.sub(r"[^\w'’]+", " ", unmark(norm(k)).replace("`", " "))
         if M8_KIND_RE.search(k):
             return True
+        if m9:
+            # M9: every code span becomes a marker word (a listed headline's its own marker)
+            k9 = re.sub(r"`([^`]*)`", lambda m: f" {M8_HEAD_SPAN} " if any(
+                f == m.group(1).strip() or f.endswith("." + m.group(1).strip()) for f in fulls) else " zzcodespan ",
+                re.sub(r"\bTHE RESULT\b", " zzprogram ", raw))  # the program's own plan (TARGETS.md), in capitals
+            k9 = re.sub(r"[^\w'’]+", " ", unmark(norm(k9)).replace("`", " "))
+            if M9_REF_RE.search(k9):
+                return True
     return False
 
 
@@ -504,7 +526,7 @@ def _names_source(line, m8_on=True):
     r = source_names_re()
     if r and r.search(raw):
         return True
-    return m8_on and m8_names(line)
+    return bool(m8_on) and m8_names(line, m9=(m8_on != "m8only"))
 
 
 CITE = re.compile(r"(?:[A-ZÀ-Þ][\w'’\-–]+(?:\s*(?:,|and|&)\s*[A-ZÀ-Þ][\w'’\-–]+)*(?:\s+et\.?\s+al\.?)?,?\s*[(\[]?"
@@ -622,7 +644,7 @@ def ident(line):
     return re.sub(r"^(last updated|previous update):\s*", "", norm(m6_text(line)).strip())
 
 
-def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m8_pre=None):
+def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m8_pre=None, m9_pre=None):
     """grand = (idents of lines that existed before the last vocabulary rebuild, the vocabulary they were written
     under): such a line, new since a base older than the rebuild, is read by M1 with that vocabulary too"""
     keys, fulls, modules = headlines()
@@ -659,7 +681,8 @@ def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m
             v = vocab | grand[1] if grand and gident(l) in grand[0] else vocab
             for e in check_line(l, fulls, modules, v, obj, path, ab,
                                 m6_on=not (m6_pre and ident(l) in m6_pre),
-                                m8_on=not (m8_pre and ident(l) in m8_pre)):
+                                m8_on=(False if (m8_pre and ident(l) in m8_pre) else
+                                       "m8only" if (m9_pre and ident(l) in m9_pre) else True)):
                 short = ", ".join(sorted(f.split(".")[-1] for f in ab)[:4])
                 errors.append(f"{path}:{i + 1}: about {short}: {e}")
     return errors
@@ -707,6 +730,18 @@ def m8_grandfathered(base):
     """M8 binds from the commit that introduced it (run 2026-11-19T1428Z): lines that existed in its parent are not
     read by M8"""
     r = git("log", "--format=%H", "-S", "def m8_names(", "--", "scripts/trust/check_headline_mentions.py").split()
+    if not r:
+        return None
+    intro = r[-1]
+    if subprocess.run(["git", "merge-base", "--is-ancestor", intro, base], cwd=ROOT).returncode == 0:
+        return None
+    return {ident(l) for txt in files_at(intro + "^").values() for l in txt.splitlines()}
+
+
+def m9_grandfathered(base):
+    """M9 binds from the commit that introduced it (run 2026-11-19T2028Z): lines that existed in its parent are not
+    read by M9 (M8 still reads them)"""
+    r = git("log", "--format=%H", "-S", "M9_REF_RE = re.compile(", "--", "scripts/trust/check_headline_mentions.py").split()
     if not r:
         return None
     intro = r[-1]
@@ -833,6 +868,18 @@ M8_RT_LINES = [
     "`fs_neg_reversed_wall_shear_3_exists`: <!-- Wikipedia --> the sign of the shear at the wall is the inverse of the "
     "table.",
 ]
+# M9 (run 2026-11-19T2028Z): reader test EF arm F (2 of 3 blind readers kept an unrejected fidelity doubt), and the
+# markup forms red team M6r found for M8, applied to the M9 nouns
+M9_LINES = [
+    "- `gelfand_pde_radial_many_centre`: the statement has the inverse order of the quantifiers of the formula.",
+    "- `gelfand_extrema`: the equation in the statement has the inverse sign of the exponent of the formula.",
+    "- `fs_neg_reversed_wall_shear_3_exists`: the sign of the pressure gradient term in the equation is the inverse of "
+    "the formula.",
+    "`gelfand_extrema` sign in tension with the definition.",
+    "`gelfand_extrema` sign in tension with the <b>formula</b>.",
+    "`gelfand_extrema` sign in tension with the fo<!---->rmula.",
+    "`gelfand_extrema` sign in tension with the original result.",
+]
 # recorded limits of M8 (red team M6r, not controls): eponyms of models in headline names used as a source
 # ("in tension with Gelfand / Emden / Kamenetskii / Eddington's") and words that are not document words ("in tension
 # with the formula / the equation / the definition / the notation / the specification / the glossary"); the last kind
@@ -908,7 +955,7 @@ def selftest():
         "of the sign in Table 7 of Ganapol 2010.",
         "- `gelfand_pde_radial_many_centre`: the statement is the dual of the theorem of Joseph and Lundgren.",
         "- `gelfand_extrema`: Joseph and Lundgren (1973) have `+e^w` in the equation of the statement.",
-    ] + M4_LINES + M8_LINES + M8_RT_LINES
+    ] + M4_LINES + M8_LINES + M8_RT_LINES + M9_LINES
     # known limit (recorded, not a control; red team M3 mechanism 4, reader test L of run 2026-11-18T2028Z misled 0/3):
     # "`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem, with the inverse order of the
     # quantifiers." passes. Earlier recorded limit: a status in ordinary in-vocabulary words, e.g.
@@ -921,6 +968,9 @@ def selftest():
         # M8 (run 2026-11-19T1428Z): a bare pointer at the source passes; a theorem named by its code span is ours
         "- `gelfand_pde_radial_many_centre` (table).",
         "- `gelfand_extrema`: the theorem `gelfand_extrema` is in Lean.",
+        # M9 (run 2026-11-19T2028Z): the statement's own equation, and a formula shown as a code span, are not a source
+        "- `gelfand_extrema`: the sign of the exponent in the equation of the statement is positive.",
+        "- `gelfand_extrema`: the sign is the inverse of the result `lam`.",
     ]
     fails = 0
     base = dict(head)
@@ -1019,7 +1069,7 @@ def main(argv):
             return 1
         bf, hf = files_at(base), files_at(None)
         errors = run(bf, hf, grand=grandfathered(base), m6_pre=m6_grandfathered(base),
-                     m8_pre=m8_grandfathered(base)) + m4(base)
+                     m8_pre=m8_grandfathered(base), m9_pre=m9_grandfathered(base)) + m4(base)
         errors += m7(bf, hf) if m7_binds(base) else []
         # run 2026-11-18T2028Z: stale pending statuses in STATE.md headings (check_stale_status.py; called from here so
         # the workflow file, and with it the nanoda/leanchecker memo hash, need not change)
