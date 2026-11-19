@@ -1,0 +1,33 @@
+STATE.md|`gelfand_pde_radial_many_centre` has the inverse order of the quantifiers of the theorem of J. and L. 19 73.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 1 973.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 19·73.
+STATE.md|`gelfand_extrema` has the reverse sign of the constant of the theorem of `Joseph and Lundgren 1973`.
+STATE.md|`gelfand_pde_radial_many_centre` has the inverse order of the quantifiers of the theorem of `Joseph and Lundgren 1973`.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of `Joseph` and `Lundgren`.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 1973-74.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 1973-01.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L.1973.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 1973-.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 1973ab.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 1973-1973.
+STATE.md|`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. one nine seven three.
+STATE.md|`gelfand_pde_radial_many_centre` has the inverse order of the quantifiers of the Gelfand theorem.
+README.md|`fs_neg_reversed_wall_shear_3_exists` has the inverse sign of the wall shear of table seven.
+README.md|`fs_neg_reversed_wall_shear_3_exists` has the inverse sign of the wall shear of `Ganapol 2010 Table 7`.
+README.md|`fs_neg_reversed_wall_shear_3_exists` has the inverse sign of the wall shear of G. 20 10 table seven.
+README.md|`fs_neg_reversed_wall_shear_3_exists` has the inverse sign of the wall shear of `Ganapol` 20 10.
+README.md|`fs_neg_reversed_wall_shear_3_exists` has the inverse sign of the wall shear of the table.
+README.md|`fs_neg_reversed_wall_shear_3_exists` has the reverse sign of the wall shear of table seven of `Ganapol 2010`.
+README.md|`fs_neg_reversed_wall_shear_3_exists` has the reverse sign of the wall shear of the Falkner and Skan solution.
+README.md|`chiSqOL_ge` has the inverse sign of the value of the table of M. 20 16.
+README.md|`table5_oL_aicc_unattainable` has the inverse order of the values of the table of M. 20 16.
+README.md|`table5_oL_aicc_unattainable` has the reverse order of the data of table five of `Moresco 2016`.
+README.md|`fr13_minval68` has the inverse sign of the value of F. and R. 20 13.
+README.md|`fr13_minval68` has the inverse sign of the value of `Farooq and Ratra 2013`.
+README.md|The constant of `fr13_minval68` is the inverse of the constant of `Farooq and Ratra 2013`.
+BLUEPRINT.md|`fr13_minval68` has the inverse sign of the value of the `Farooq` data.
+STATE.md|<span title="Joseph and Lundgren 1973">`gelfand_pde_radial_many_centre` has the inverse order of the quantifiers of the theorem.</span>
+STATE.md|<!-- `gelfand_extrema` has the inverse order of the quantifiers of the theorem of Joseph and Lundgren 1973 -->
+STATE.md|The statement <span title="Joseph and Lundgren 1973">`gelfand_extrema` has the inverse order of the quantifiers of the theorem</span>.
+STATE.md|`gelfand_extrema` has a strictly positive upper bound where the theorem of `Joseph and Lundgren 1973` has the dual.

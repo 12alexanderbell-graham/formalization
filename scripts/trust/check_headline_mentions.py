@@ -173,7 +173,8 @@ def canon(t):
 
 
 def skel(s):
-    return re.sub(r"[^a-z0-9]", "", canon(norm(s)))
+    # red team M4 (run 2026-11-19T0228Z): names inside HTML comments and attributes count (m6_text reads them)
+    return re.sub(r"[^a-z0-9]", "", canon(norm(m6_text(s))))
 
 
 def git(*args):
@@ -331,7 +332,7 @@ def tokens(t):
     return out
 
 
-def check_line(line, fulls, modules, vocab, open_obj, path, ab):
+def check_line(line, fulls, modules, vocab, open_obj, path, ab, m6_on=True):
     errs = []
     keys = headlines()[0]
     s = skel(line)
@@ -360,7 +361,8 @@ def check_line(line, fulls, modules, vocab, open_obj, path, ab):
         errs.append(f"M1 words not in {VOCAB}: {', '.join(unknown[:12])}")
     if status:
         errs.append(f"M2 status words outside a template: {', '.join(status[:12])}")
-    errs += m6(line, t_free)
+    if m6_on:
+        errs += m6(line, t_free)
     return errs
 
 
@@ -412,16 +414,43 @@ def surnames():
                      if l.strip() and not l.startswith("#")) if p.exists() else frozenset()
 
 
+def m6_text(line):
+    """the line as M6 reads it (red team M4, run 2026-11-19T0228Z): HTML comments and tags are read as text, not
+    deleted (a citation in a title attribute or a comment hid from norm())"""
+    s = html.unescape(html.unescape(line))
+    return re.sub(r"<!--|-->|[<>]|=[\"']", " ", s)
+
+
+DIGIT_WORD = r"(?:zero|oh|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|" \
+             r"sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred)"
+NUMWORD_RE = re.compile(r"(?x)\b(?:tables?|tab|eqs?|equations?|figs?|figures?|secs?|sections?|theorems?|lemmas?|"
+                        r"propositions?|corollar(?:y|ies)|appendix|rows?|columns?)\s+" + DIGIT_WORD + r"\b|"
+                        r"\b(?:" + DIGIT_WORD + r"[\s-]+){2,}" + DIGIT_WORD + r"\b|\b(?:eighteen|nineteen|twenty)[\s-]+"
+                        + DIGIT_WORD + r"\b")
+INITIAL_RE = re.compile(r"(?<![^\W\d_])[A-Z]\.(?=\s*(?:and\b|&|,|[A-Z]\.|\d|\(?(?:18|19|20)))")
+_DATE2 = re.compile(r"\b20[2-9]\d-\d\d-\d\d(?:t\d{4}z)?\b|\b\d{7,}\b")
+
+
 def names_source(line):
-    t = re.sub(r"`+[^`]+`+", " ", unmark(norm(line)))
-    t = _DATE.sub(" ", t)
-    if SRC_RE.search(t):
+    """M6's source detector (run 2026-11-19T0228Z; hardened after red team M4 the same run, not blind): code spans that
+    are not a headline, module or path are read; separators inside a digit run are dropped before the year test;
+    initials, number words after 'table' etc. and spelled-out years name a source too"""
+    raw = m6_text(line)
+    if INITIAL_RE.search(raw):
+        return True
+    keys, fulls, modules = headlines()
+    t = words(unmark(norm(raw)), fulls, modules)
+    t = _DATE2.sub(" ", t)
+    t2 = re.sub(r"(?<=\d)[\s.·'’_-]+(?=\d)", "", t)
+    if re.search(r"(?<!\d)(?:1[89]|20)\d\d(?!\d)", t2):
+        return True
+    if SRC_RE.search(t) or NUMWORD_RE.search(t):
         return True
     ws = {w.replace("’", "'") for w in re.findall(r"[^\W\d_]+(?:['’][^\W\d_]+)?", t)}
     if {w[:-2] if w.endswith("'s") else w for w in ws} & surnames():
         return True
     r = source_names_re()
-    return bool(r and r.search(re.sub(r"`+[^`]+`+", " ", line)))
+    return bool(r and r.search(raw))
 
 
 CITE = re.compile(r"(?:[A-ZÀ-Þ][\w'’\-–]+(?:\s*(?:,|and|&)\s*[A-ZÀ-Þ][\w'’\-–]+)*(?:\s+et\.?\s+al\.?)?,?\s*[(\[]?"
@@ -431,17 +460,20 @@ CITE = re.compile(r"(?:[A-ZÀ-Þ][\w'’\-–]+(?:\s*(?:,|and|&)\s*[A-ZÀ-Þ][\w
 def m6(line, t_free):
     if not names_source(line):
         return []
-    # citation spans are read from the raw line (capitals), then the line goes through the same reduction as M1
-    raw = CITE.sub(" ", re.sub(r"`+[^`]+`+", lambda m: m.group(0), line))
+    # citation spans are read from the raw line (capitals; inside code spans too), then the line goes through the same
+    # reduction as M1, with code spans that are not names kept as words and HTML read as text
+    raw = CITE.sub(" ", m6_text(line))
     keys, fulls, modules = headlines()
-    n = norm(raw)
+    n = unmark(norm(raw))
     for r in TEMPLATE_RE:
         n = r.sub(" ", n)
-    t = _DATE.sub(" ", words(n, fulls, modules))
+    t = _DATE2.sub(" ", words(n, fulls, modules))
     t = re.sub(r"\b\d+(?:\.\d+)*\b", " ", t)
-    extra = sorted({w for w in tokens(t) if len(w) > 1 and w not in SRC_OK and w not in surnames()
+    extra = sorted({w for w in tokens(t) if (len(w) > 1 or w.isupper()) and w not in SRC_OK and w not in surnames()
                     and not (w.endswith("'s") and w[:-2] in surnames())})
     sym = sorted(set(FORMULA.findall(t)))
+    if INITIAL_RE.search(m6_text(line)):
+        extra = sorted(set(extra) | {"(initials)"})
     errs = []
     if extra:
         errs.append(f"M6 a line naming a source and a listed headline carries words beyond the citation: "
@@ -472,10 +504,12 @@ def load_obj():
 def ident(line):
     """identity of a line for 'new': the STATE.md update prefixes are dropped, so moving the last update line to
     'Previous update' is no new line"""
-    return re.sub(r"^(last updated|previous update):\s*", "", norm(line).strip())
+    # red team M4 (run 2026-11-19T0228Z): norm() deletes HTML, so a line that is one HTML comment had the identity of a
+    # blank line and was never new; the identity reads tags and comments as text
+    return re.sub(r"^(last updated|previous update):\s*", "", norm(m6_text(line)).strip())
 
 
-def run(base_files, head_files, vocab=None, obj=None, grand=None):
+def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None):
     """grand = (idents of lines that existed before the last vocabulary rebuild, the vocabulary they were written
     under): such a line, new since a base older than the rebuild, is read by M1 with that vocabulary too"""
     keys, fulls, modules = headlines()
@@ -510,7 +544,8 @@ def run(base_files, head_files, vocab=None, obj=None, grand=None):
             if not ab:
                 continue
             v = vocab | grand[1] if grand and gident(l) in grand[0] else vocab
-            for e in check_line(l, fulls, modules, v, obj, path, ab):
+            for e in check_line(l, fulls, modules, v, obj, path, ab,
+                                m6_on=not (m6_pre and ident(l) in m6_pre)):
                 short = ", ".join(sorted(f.split(".")[-1] for f in ab)[:4])
                 errors.append(f"{path}:{i + 1}: about {short}: {e}")
     return errors
@@ -542,6 +577,18 @@ def grandfathered(base):
     return idents, load_vocab(git("show", f"{rebuild}^:{VOCAB}"))
 
 
+def m6_grandfathered(base):
+    """M6 binds from the commit that introduced it (run 2026-11-19T0228Z): lines that existed in its parent are not
+    read by M6 (they were written, and judged by CI, before the rule)"""
+    r = git("log", "--format=%H", "-S", "def m6(", "--", "scripts/trust/check_headline_mentions.py").split()
+    if not r:
+        return None
+    intro = r[-1]
+    if subprocess.run(["git", "merge-base", "--is-ancestor", intro, base], cwd=ROOT).returncode == 0:
+        return None
+    return {ident(l) for txt in files_at(intro + "^").values() for l in txt.splitlines()}
+
+
 def m4(base):
     errs = []
     diff = git("diff", f"{base}..HEAD", "--", VOCAB)
@@ -560,6 +607,36 @@ def m4(base):
         if not any(l.startswith("+") and "check_headline_mentions" in l for l in ledger.splitlines()):
             errs.append("M4 STATUS/TEMPLATES of check_headline_mentions.py changed without an added LEDGER line naming it")
     return errs
+
+
+# red team M4 (run 2026-11-19T0228Z, runs/2026-11-19T0228Z/t5/m4_lines.txt): the lines that passed a75aa502 and are
+# flagged after the hardening of the same run (not blind); each is a defect control under the Gelfand heading
+M4_LINES = [
+    "`gelfand_pde_radial_many_centre` has the inverse order of the quantifiers of the theorem of J. and L. 19 73.",
+    "`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L.",
+    "`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 1 973.",
+    "`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 19·73.",
+    "`gelfand_extrema` has the reverse sign of the constant of the theorem of `Joseph and Lundgren 1973`.",
+    "`gelfand_extrema` has the inverse order of the quantifiers of the theorem of `Joseph` and `Lundgren`.",
+    "`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 1973-74.",
+    "`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L.1973.",
+    "`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. 1973ab.",
+    "`gelfand_extrema` has the inverse order of the quantifiers of the theorem of J. and L. one nine seven three.",
+    "`fs_neg_reversed_wall_shear_3_exists` has the inverse sign of the wall shear of table seven.",
+    "`fs_neg_reversed_wall_shear_3_exists` has the inverse sign of the wall shear of `Ganapol 2010 Table 7`.",
+    "`fs_neg_reversed_wall_shear_3_exists` has the inverse sign of the wall shear of `Ganapol` 20 10.",
+    "`table5_oL_aicc_unattainable` has the reverse order of the data of table five of `Moresco 2016`.",
+    "`fr13_minval68` has the inverse sign of the value of F. and R. 20 13.",
+    "The constant of `fr13_minval68` is the inverse of the constant of `Farooq and Ratra 2013`.",
+    "`fr13_minval68` has the inverse sign of the value of the `Farooq` data.",
+    '<span title="Joseph and Lundgren 1973">`gelfand_pde_radial_many_centre` has the inverse order of the quantifiers '
+    'of the theorem.</span>',
+    "<!-- `gelfand_extrema` has the inverse order of the quantifiers of the theorem of Joseph and Lundgren 1973 -->",
+    "`gelfand_extrema` has a strictly positive upper bound where the theorem of `Joseph and Lundgren 1973` has the dual.",
+]
+# recorded limits of M6 (red team M4; not controls): a source described generically ("of the table", "of the Gelfand
+# theorem"), a name outside source_surnames.txt ("the Falkner and Skan solution"), the citation on a neighbouring line,
+# and every line that names no source (class b), e.g. "`gelfand_extrema` has the inverse sign of the exponent."
 
 
 def selftest():
@@ -624,7 +701,7 @@ def selftest():
         "of the sign in Table 7 of Ganapol 2010.",
         "- `gelfand_pde_radial_many_centre`: the statement is the dual of the theorem of Joseph and Lundgren.",
         "- `gelfand_extrema`: Joseph and Lundgren (1973) have `+e^w` in the equation of the statement.",
-    ]
+    ] + M4_LINES
     # known limit (recorded, not a control; red team M3 mechanism 4, reader test L of run 2026-11-18T2028Z misled 0/3):
     # "`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem, with the inverse order of the
     # quantifiers." passes. Earlier recorded limit: a status in ordinary in-vocabulary words, e.g.
@@ -703,7 +780,7 @@ def main(argv):
             base = intro[-1]
         if selftest():
             return 1
-        errors = run(files_at(base), files_at(None), grand=grandfathered(base)) + m4(base)
+        errors = run(files_at(base), files_at(None), grand=grandfathered(base), m6_pre=m6_grandfathered(base)) + m4(base)
         # run 2026-11-18T2028Z: stale pending statuses in STATE.md headings (check_stale_status.py; called from here so
         # the workflow file, and with it the nanoda/leanchecker memo hash, need not change)
         import check_stale_status
