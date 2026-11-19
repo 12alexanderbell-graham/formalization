@@ -165,7 +165,16 @@ import Work.Math.LaneEmden32BlindClosed
 import Work.Math.LE32ExistsLeft
 import Work.Math.LE32ExistsRight
 import Work.Math.LE32Exists
+import Work.Math.LE52Cell
+import Work.Math.LE52CellQ
+import Work.Math.LE52Glue
+import Work.Math.LE52QData
+import Work.Math.LE52Chain
 import Work.Math.LaneEmden52
+import Work.Math.LaneEmden52BlindClosed
+import Work.Math.LE52ExistsLeft
+import Work.Math.LE52ExistsRight
+import Work.Math.LE52Exists
 import Work.Math.LE4Start
 import Work.Math.LE4QData
 import Work.Math.LE4Last
