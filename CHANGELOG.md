@@ -959,3 +959,9 @@
 - CI: 44577216209 (1b242fe, promotion of `laneEmden52_constants`): checked job and leanchecker 4/4 green, nanoda running at start; final read in the run README.
 - Part 1 (rotation, T2b): ten hypotheses NEEDED (`Checked/Trust/NecessityBA.lean`): the wall conditions of the four Hiemenz/Homann shooting statements (certified cells over the whole window from perturbed starts) and the wall velocity of the two monotone windows (suction stacks ported to a free wall velocity). Open 89 → 79; four more statements fully classified.
 - Next: CI read (STATE 2c); then part 3 by rotation.
+
+## 2026-11-19T2028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main 7681007); local Lean via elan + restored CI build of e42bd17; lean4export and nanoda built locally; Sonnet subagents for nine blind readers and a blind grader.
+- Judge repair (integrity event 39.5): nanoda checked every declaration on one worker of a 4-core runner; `scripts/nanoda_shard.sh` now uses every core, behind planted good/bad controls run in the same configuration (`scripts/nanoda/controls/`). Pushed with CI (83df9c6) to measure it.
+- Part 3 (rotation, T5): reader test EF on the two recorded limits of M8: 'the formula' as the reference 2/3 readers misled on fidelity → rule M9; a model eponym 1/3 → recorded, open; N baseline 0/3.
+- Next: CI read (STATE 2d); then parts 2/5 by rotation.

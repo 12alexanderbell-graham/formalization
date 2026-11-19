@@ -485,6 +485,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Hypothesis witnesses, F(R) model and positivity (run 2026-11-19T1228Z)
 - Modules: run README `runs/2026-11-19T1228Z/README.md`, section What we did.
 
+## Rule M9 and reader test EF; nanoda in parallel (run 2026-11-19T2028Z)
+- `scripts/trust/check_headline_mentions.py` (M9), `runs/2026-11-19T2028Z/t5/`; `scripts/nanoda_shard.sh`, `scripts/nanoda/controls/`.
+
 ## Wall conditions of the stagnation-point shooting statements, hypothesis witnesses (run 2026-11-19T1828Z)
 - `Checked/Trust/NecessityBA.lean`; helper modules `Checked/Trust/HzWall*.lean`, `HmWall*.lean`, `HzG*.lean`, `HmG*.lean`; scripts `runs/2026-11-19T1828Z/scripts/`.
 
