@@ -483,6 +483,65 @@ def m6(line, t_free):
     return errs
 
 
+# M7 (run 2026-11-19T0828Z, part 3; runs/2026-11-19T0828Z/t5/READERS_LN.md, READERS_L2R.md, READERS_L2S.md): a line
+# relating a headline to a NAMED source left a fidelity doubt in 9/9 blind readers, the same line with no source in 0/3,
+# and no page-side evidence (the blind readings printed on the claims page) moved them. M6 is the guard; its detector
+# reads a year-less source only through source_surnames.txt ("the sign of Ganapol's table"). M7 keeps that list closed:
+# an author-year citation on a new line of any scanned record (whole run READMEs included) whose author surname is not
+# in source_surnames.txt fails; add the surname (grow-only, with a LEDGER line naming source_surnames).
+M7_NOT_NAMES = frozenset("""run runs ledger the on one see table tables eq equation section fig figure theorem lemma
+appendix and et al jan feb mar apr may jun jul aug sep sept oct nov dec january february march april june july august
+september october november december
+bonnor ebert gelfand gel'fand peng robinson redlich kwong soave van der waals maxwell hartree eddington falkner skan
+lane emden blasius michaelis menten duffing friedmann einstein sitter thomas fermi bratu liouville robertson
+alexander""".split())
+M7_YEAR = re.compile(r"(?<![\w.\-])(?:18|19|20)\d\d[a-z]?(?![\w\-])")
+M7_LINK = frozenset("and & , et al al. et. ( [ – - of".split())
+
+
+def m7_missing(line):
+    """surnames of the author-year citations of LINE that source_surnames.txt lacks (acronyms, tokens with digits and
+    month or record words are not surnames)"""
+    raw = re.sub(r"\b20[2-9]\d-\d\d-\d\d(?:T\d{4}Z)?\b", " ", m6_text(line))
+    raw = re.sub(r"`[^`]*`", " ", raw)
+    out = []
+    for m in M7_YEAR.finditer(raw):
+        # the citation is the run of capitalised words (joined by and, &, commas, dashes, et al.) right before the year
+        toks = re.findall(r"[^\s,()\[\]–]+|[,()\[\]–]", raw[max(0, m.start() - 160):m.start()])[::-1]
+        names = []
+        for t in toks[:12]:
+            if t.lower() in M7_LINK or t in ",()[]–":
+                continue
+            if re.fullmatch(r"[A-ZÀ-Þ][^\W\d_]*(?:['’][^\W\d_]+)?(?:-[A-ZÀ-Þ][^\W\d_]*)*", t):
+                names.append(t)
+                continue
+            break
+        for tok in names:
+            for part in tok.split("-"):
+                base = re.sub(r"['’]s$", "", part)
+                if len(base) < 2 or base.isupper() or base.lower() in M7_NOT_NAMES or norm(base) in M7_NOT_NAMES:
+                    continue
+                if base.lower() in surnames() or norm(base) in surnames():
+                    continue
+                out.append(base)
+    return out
+
+
+def m7(base_files, head_files):
+    old = {ident(l) for txt in base_files.values() for l in txt.splitlines()}
+    errs = []
+    for path, txt in sorted(head_files.items()):
+        for i, l in enumerate(txt.splitlines()):
+            if not l.strip() or ident(l) in old:
+                continue
+            miss = sorted(set(m7_missing(l)))
+            if miss:
+                errs.append(f"{path}:{i + 1}: M7 an author-year citation names a surname not in "
+                            f"scripts/trust/source_surnames.txt (add it with a LEDGER line naming source_surnames): "
+                            f"{', '.join(miss)}")
+    return errs
+
+
 def load_vocab(text=None):
     text = text if text is not None else (ROOT / VOCAB).read_text(encoding="utf-8")
     return {l.strip() for l in text.splitlines() if l.strip() and not l.startswith("#")}
@@ -587,6 +646,14 @@ def m6_grandfathered(base):
     if subprocess.run(["git", "merge-base", "--is-ancestor", intro, base], cwd=ROOT).returncode == 0:
         return None
     return {ident(l) for txt in files_at(intro + "^").values() for l in txt.splitlines()}
+
+
+def m7_binds(base):
+    """M7 binds from the commit that introduced it: for an older base, lines written before it are not re-read"""
+    r = git("log", "--format=%H", "-S", "def m7(", "--", "scripts/trust/check_headline_mentions.py").split()
+    if not r:
+        return True  # uncommitted: the working tree introduces it
+    return subprocess.run(["git", "merge-base", "--is-ancestor", r[-1], base], cwd=ROOT).returncode == 0
 
 
 def m4(base):
@@ -747,7 +814,29 @@ def selftest():
     if run(base, new, obj={full: {"STATE.md"}}):
         print("selftest FAIL: registered objection did not license the line (M3)")
         fails += 1
-    print(f"check_headline_mentions selftest: {len(defects)} defects, {len(goods)} correct lines, M3; "
+    # M7 (run 2026-11-19T0828Z): an author-year citation with a surname outside source_surnames.txt fails anywhere in a
+    # scanned record (a run README body too); listed surnames, record dates and model names pass
+    m7_bad = ["- The reversed-flow rows agree with Quixote and Panza 1999 to eight digits.",
+              "- Detail: the constants follow Sancho et al. (2003), Table 2.",
+              "- The sign is the one of Rocinante-Dulcinea 2011."]
+    m7_good = ["- The rows agree with Ganapol 2010 Table 7 and Joseph and Lundgren 1973.",
+               "- Run 2026-11-19T0828Z read CI 44478483601 on 2026-11-19.",
+               "- The Peng–Robinson 1976 form and the Lane–Emden equation (Chandrasekhar 1939)."]
+    rr = "runs/2026-11-19T0828Z/README.md"
+    for d in m7_bad:
+        new = dict(head)
+        new[rr] = head.get(rr, "# Run\n").rstrip("\n") + "\n\n## Start\n" + d + "\n"
+        if not m7(head, new):
+            print(f"selftest FAIL: M7 defect passed in a run README body: {d}")
+            fails += 1
+    for g in m7_good:
+        new = dict(head)
+        new[rr] = head.get(rr, "# Run\n").rstrip("\n") + "\n\n## Start\n" + g + "\n"
+        if m7(head, new):
+            print(f"selftest FAIL: M7 flagged a correct line: {g}: {m7(head, new)}")
+            fails += 1
+    print(f"check_headline_mentions selftest: {len(defects)} defects, {len(goods)} correct lines, M3, "
+          f"M7 {len(m7_bad)}+{len(m7_good)}; "
           f"{'FAIL' if fails else 'ok'}")
     return 1 if fails else 0
 
@@ -784,7 +873,9 @@ def main(argv):
             base = intro[-1]
         if selftest():
             return 1
-        errors = run(files_at(base), files_at(None), grand=grandfathered(base), m6_pre=m6_grandfathered(base)) + m4(base)
+        bf, hf = files_at(base), files_at(None)
+        errors = run(bf, hf, grand=grandfathered(base), m6_pre=m6_grandfathered(base)) + m4(base)
+        errors += m7(bf, hf) if m7_binds(base) else []
         # run 2026-11-18T2028Z: stale pending statuses in STATE.md headings (check_stale_status.py; called from here so
         # the workflow file, and with it the nanoda/leanchecker memo hash, need not change)
         import check_stale_status

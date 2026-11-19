@@ -81,3 +81,20 @@ visser
 vooren
 walmsley
 weinberg
+# Added run 2026-11-19T0828Z (M7 closure: author-year citations of the records whose surname was missing; LEDGER).
+brown
+chandrasekhar
+chen
+cohen
+guo
+hartman
+li
+liu
+mania
+planck
+wei
+wu
+yang
+yap
+yu
+zhang
