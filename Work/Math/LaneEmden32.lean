@@ -86,11 +86,10 @@ theorem core (θ φ : ℝ → ℝ)
     norm_num at ho1
     nlinarith
 
-/-- Lane–Emden equation of index 3/2: for every solution θ of θ'' + (2/ξ)θ' + θ ^ (3/2) = 0 on
-(0, 4] with θ(0) = 1, θ differentiable on [0, 4] with derivative φ, and φ continuous at 0, there is
-a first zero ξ₁ of θ with 3.65375373 ≤ ξ₁ ≤ 3.65375374 (θ > 0 before it), at which −ξ₁² θ'(ξ₁) lies
-between 2.71405511 and 2.71405513 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 5.99070450 and
-5.99070453. -/
+/-- Lane–Emden equation θ'' + (2/ξ)θ' + θ ^ (3/2) = 0: for every solution θ on (0, 4] with
+θ(0) = 1, θ differentiable on [0, 4] with derivative φ, and φ continuous at 0, there is a zero ξ₁ of
+θ with 3.65375373 ≤ ξ₁ ≤ 3.65375374 and θ > 0 on [0, ξ₁), at which −ξ₁² θ'(ξ₁) lies between
+2.71405511 and 2.71405513 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 5.99070450 and 5.99070453. -/
 theorem laneEmden32_constants (θ φ : ℝ → ℝ)
     (hθ : ∀ ξ ∈ Icc (0 : ℝ) 4, HasDerivWithinAt θ (φ ξ) (Icc 0 4) ξ)
     (hφ0 : ContinuousWithinAt φ (Icc 0 4) 0)

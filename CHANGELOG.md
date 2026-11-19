@@ -929,3 +929,9 @@
 - Part 3 (rotation): reader tests LN, L2R, L2S (`runs/2026-11-19T0828Z/t5/`, briefs committed before their readers): lines naming a source planted a false fidelity doubt in 9/9 readers, the same lines without a source in 0/3, control 0/3; the blind readings of the source printed on the claims page (Claims.lean) were used by no reader. Rule M7 closes the surname list of M6 (16 surnames added).
 - CI: 44478483601 (9594da2, repaired judge) green on every job except nanoda shard 1 (running at 10:04Z); leanchecker replay 34–61 min per shard (experiment of run 0628Z met); nanoda unbalanced (60–137+ min). Promotions still waiting on that one shard.
 - Next: CI read (STATE 1x); then parts 2/5 by rotation.
+
+## 2026-11-19T1028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; shallow session clone reset to origin/main a5b8314); local Lean via elan + restored CI build of 9594da2; Sonnet subagents for referee, blind restatement and blind literal reading.
+- CI: 44478483601 (9594da2) concluded green on every job (nanoda shard 1 at 10:52Z) → `gelfand_pde_radial_count_turning` and `laneEmden4_constants` PROVED; Alexander told.
+- Parts 2/5 (rotation): Lane–Emden polytrope of index three halves frozen (a27bcab), proved (5f1b1f0), audited (referee STANDS, blind restatement closed, blind literal reading agrees), existence proved, promoted to Checked: `Checked.Math.LaneEmden32.laneEmden32_constants`. New simulator pieces: the power as a square root cubed (equal to Mathlib's real power everywhere), square-root certificates and crude cells at the zero, singular start generic in the nonlinearity.
+- Next: CI read of the promotion (STATE 1y); then part 1 by rotation.

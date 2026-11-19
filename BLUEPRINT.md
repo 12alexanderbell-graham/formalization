@@ -479,6 +479,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Reader tests of lines naming a source; source readings on the claims page; surname closure (run 2026-11-19T0828Z)
 - `runs/2026-11-19T0828Z/t5/` (briefs, page builders `make_pages*.py`, answers, results `READERS_LN.md`, `READERS_L2R.md`, `READERS_L2S.md`); `scripts/trust/Claims.lean` (source readings at the head of the Status line); `scripts/trust/check_headline_mentions.py` rule M7 (`m7`, `m7_missing`, `m7_binds`, `M7_NOT_NAMES`) and `scripts/trust/source_surnames.txt`.
 
+## Polytrope of index three halves (run 2026-11-19T1028Z)
+- Modules, scripts and audit files: run README `runs/2026-11-19T1028Z/README.md`, section Start and What we did.
+
 ## Polytrope of index four (run 2026-11-19T0428Z)
 - Modules, scripts and audit files: run README `runs/2026-11-19T0428Z/README.md`, section Start and What we did.
 

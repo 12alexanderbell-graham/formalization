@@ -4,6 +4,7 @@ import Mathlib.Analysis.Calculus.ContDiff.Operations
 import Checked.Math.LaneEmden
 import Checked.Math.LaneEmden2
 import Checked.Math.LaneEmden4
+import Checked.Math.LaneEmden32
 import Checked.Math.Gelfand
 import Checked.Math.GelfandExists
 import Checked.Math.GelfandPDE
@@ -314,6 +315,12 @@ theorem laneEmden4_constants_r2 : dropped% Checked.Math.LaneEmden4.laneEmden4_co
   refine Checked.Math.LaneEmden4.laneEmden4_constants θ φ h1 ?_ h3 h4
   exact cont_at_zero_of_continuous 16 (by norm_num) 1 θ φ (fun y => -y ^ 4) (by fun_prop) h1
     (fun ξ hξ => (h3 ξ hξ).congr_deriv (by push_cast; ring))
+
+theorem laneEmden32_constants_r2 : dropped% Checked.Math.LaneEmden32.laneEmden32_constants 2 := by
+  intro θ φ h1 h3 h4
+  refine Checked.Math.LaneEmden32.laneEmden32_constants θ φ h1 ?_ h3 h4
+  exact cont_at_zero_of_continuous 4 (by norm_num) 1 θ φ (fun y => -y ^ ((3 : ℝ) / 2))
+    (by fun_prop) h1 (fun ξ hξ => (h3 ξ hξ).congr_deriv (by push_cast; ring))
 
 theorem gelfand_ball_critical_r3 : dropped% Checked.Math.Gelfand.gelfand_ball_critical 3 := by
   intro S hS w φ h1 h3 h4
