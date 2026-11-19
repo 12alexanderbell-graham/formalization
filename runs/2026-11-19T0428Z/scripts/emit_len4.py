@@ -20,6 +20,8 @@ import gen_len4 as G
 N = NIDX
 NS = f'Work.Math.LE{N}Certs'
 TS = f'({T.numerator} / {T.denominator})' if T.denominator != 1 else f'{T.numerator}'
+# run 2026-11-19T0428Z: an integer T must be written as segOK writes it (q(T) = '(15 : ℚ)'), not '15/1'
+TQ = f'{T.numerator}/{T.denominator}' if T.denominator != 1 else f'{T.numerator}'
 
 
 def q(x):
@@ -308,11 +310,11 @@ theorem chain {{θ φ : ℝ → ℝ}}
     (∀ t ∈ Ioc (0 : ℝ) {r(A_HI)}, φ t < 0) ∧ 0 < θ {r(A_LO)} ∧ θ {r(A_HI)} < 0 ∧
       ∀ t ∈ Icc {r(A_LO)} {r(A_HI)}, {r(OL)} ≤ -(t ^ 2 * φ t) ∧ -(t ^ 2 * φ t) ≤ {r(OH)} := by
   obtain ⟨n0, a0', b0'⟩ := startI hθ hφ0 hφ h0
-  have hX : (({T.numerator}/{T.denominator} : ℚ) : ℝ) = {TS} := by norm_num
-  have hθ' : ∀ t ∈ Icc (0 : ℝ) (({T.numerator}/{T.denominator} : ℚ) : ℝ), HasDerivWithinAt θ (φ t) (Icc 0 (({T.numerator}/{T.denominator} : ℚ) : ℝ)) t := by
+  have hX : (({TQ} : ℚ) : ℝ) = {TS} := by norm_num
+  have hθ' : ∀ t ∈ Icc (0 : ℝ) (({TQ} : ℚ) : ℝ), HasDerivWithinAt θ (φ t) (Icc 0 (({TQ} : ℚ) : ℝ)) t := by
     rw [hX]; exact hθ
-  have hφ' : ∀ t ∈ Ioc (0 : ℝ) (({T.numerator}/{T.denominator} : ℚ) : ℝ),
-      HasDerivWithinAt φ (-(2 / t * φ t) - θ t ^ {N}) (Icc 0 (({T.numerator}/{T.denominator} : ℚ) : ℝ)) t := by
+  have hφ' : ∀ t ∈ Ioc (0 : ℝ) (({TQ} : ℚ) : ℝ),
+      HasDerivWithinAt φ (-(2 / t * φ t) - θ t ^ {N}) (Icc 0 (({TQ} : ℚ) : ℝ)) t := by
     rw [hX]; exact hφ
   have p0 : (0 : ℝ) < ({Q}.c0.t0 : ℝ) := by rw [{Q}.c0_t0]; norm_num
   have a0 : |θ ({Q}.c0.t0 : ℝ) - (({Q}.c0.pt.headD 0 : ℚ) : ℝ)| ≤ ({Q}.c0.δ : ℝ) := by
