@@ -19,7 +19,7 @@ Prints GitHub step outputs:
                         skipped (shown as skipped). Anything else runs every job.
   checked_hash=<sha256> SHA-256 over the paths and contents of every tracked file that decides what
                         nanoda checks (Checked/**, Checked.lean, lakefile.toml, lake-manifest.json,
-                        lean-toolchain, scripts/nanoda_checked.sh, scripts/nanoda_shard.sh, scripts/nanoda/, the workflow file, scripts/leanchecker_shard.py). The nanoda and
+                        lean-toolchain, scripts/nanoda_checked.sh, scripts/nanoda_shard.sh, scripts/nanoda/, the workflow file, scripts/leanchecker_shard.py, scripts/leanchecker_exact.lean). The nanoda and
                         leanchecker jobs memoise a pass under this hash.
 
 Fail-closed: if the API cannot be read after 5 attempts (transient 5xx/429/timeouts retried) or no green ancestor is found among the last 3000 commits,
@@ -38,7 +38,8 @@ import urllib.request
 
 HASHED = ["Checked", "Checked.lean", "lakefile.toml", "lake-manifest.json", "lean-toolchain",
           "scripts/nanoda_checked.sh", "scripts/nanoda_shard.sh", "scripts/nanoda", ".github/workflows/lean.yml",
-          "scripts/leanchecker_shard.py"]  # run 2026-11-18T1828Z: the leanchecker shards memoise on this hash too
+          "scripts/leanchecker_shard.py",  # run 2026-11-18T1828Z: the leanchecker shards memoise on this hash too
+          "scripts/leanchecker_exact.lean"]  # run 2026-11-19T0628Z: exact replay of the root module
 WORKFLOW = "lean.yml"
 PAGES = 10          # 10 x 100 most recent successful runs
 MAX_ANCESTORS = 3000

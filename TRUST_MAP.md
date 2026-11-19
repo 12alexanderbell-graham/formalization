@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1007 hypotheses in 174 headlines;
-702 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+703 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 210 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-95 open; headlines with every hypothesis classified: 115/174
+94 open; headlines with every hypothesis classified: 115/174
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -398,7 +398,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FRCosmo.exists_LCDM_model` (2): redundant (each alone, not together) 1 (`exists_LCDM_model_r1`), 2 (`exists_LCDM_model_r2`)
 - `FRCosmo.printedF0Mul_false_at` (2): redundant 1 (`printedF0Mul_false_at_r1`); open 2
 - `FRCosmo.printedF0_false_at` (3): redundant 1 (`printedF0_false_at_r1`); open 2, 3
-- `FREta.eta_ratios` (4): redundant 2 (`eta_ratios_r2`); open 1, 3, 4
+- `FREta.eta_ratios` (4): needed 1 (`eta_ratios_h1`); redundant 2 (`eta_ratios_r2`); open 3, 4
 - `FREta.eta20_hasDerivAt` (2): needed 1 (`eta20_hasDerivAt_h1`), 2 (`eta20_hasDerivAt_h2`)
 - `FREta.eta30_hasDerivAt` (2): needed 1 (`eta30_hasDerivAt_h1`), 2 (`eta30_hasDerivAt_h2`)
 - `FREta.printedEta20_false_at` (4): needed 4 (`printedEta20_false_at_h4`); redundant (each alone, not together) 1 (`printedEta20_false_at_r1`), 2 (`printedEta20_false_at_r2`), 3 (`printedEta20_false_at_r3`)

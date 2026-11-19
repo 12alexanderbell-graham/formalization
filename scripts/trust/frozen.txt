@@ -3188,6 +3188,7 @@ doc:Checked.Trust.NecessityAV.neg_row -doc2560623697569096073
 doc:Checked.Trust.NecessityAV.regA -doc8251044973880953529
 doc:Checked.Trust.NecessityAV.regB -doc13904449851322434292
 doc:Checked.Trust.NecessityAV.regC -doc5726806988466800829
+doc:Checked.Trust.NecessityAX.eta_ratios_h1 -doc11294249962120213215
 doc:Checked.Trust.NecessityEta.agree20_imp -doc9958743186863952861
 doc:Checked.Trust.NecessityEta.agree20 -doc9824130336149770711
 doc:Checked.Trust.NecessityEta.agree30_imp -doc6505485457868535128
@@ -4276,6 +4277,7 @@ moduledoc:Checked.Trust.NecessityAVFar -mdoc64813553613406936
 moduledoc:Checked.Trust.NecessityAVJunk -mdoc3576144076365383759
 moduledoc:Checked.Trust.NecessityAV -mdoc17725697613546823224
 moduledoc:Checked.Trust.NecessityAW -mdoc4164478090305437009
+moduledoc:Checked.Trust.NecessityAX -mdoc14657107248555442069
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789

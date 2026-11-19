@@ -1,5 +1,29 @@
-# Run 2026-11-19T0628Z (stub)
+# Run 2026-11-19T0628Z
 
-**THE RESULT:** in progress.
+**THE RESULT:** part 1 by rotation (STATE 1v) and a repair of the judge. The kernel replay no longer checks the whole library twice inside one of its four shards, and no later push cancels a shard that is waiting to start, so a main run can again be green on every job and the two promotions now waiting can be judged. Part 1: one more hypothesis of a cosmography statement is shown NEEDED by a Lean theorem.
 
-Started 06:28Z. LOCK taken. Task: CI read, then part 1 by rotation (STATE 1v).
+**What can a scientist now trust without checking it themselves, that they could not before?** That a promotion to Checked is judged within hours of its push: the replay of each shard is about 51 min instead of over 3 h for one of them, and every shard of a judged push runs to the end. One more hypothesis of the F(R) cosmography statements carries a Lean theorem that it is needed.
+
+**Weakest unchecked step:** the shard times are predictions from earlier logs; the next main run's logs measure them.
+
+## Start
+- 06:28Z. Local main was a stale divergent clone (kept as the local branch `stale-local-main`); `git checkout -B main origin/main` at 37e93d9, `git fetch --unshallow`. No LOCK → taken (84b17e5).
+- Local Lean: elan + `lake exe cache get` ≈ 3 min; `checked-build` of 44451569867 (2957da6, 2.6 GB) downloaded in ≈ 2 min (in the background: a foreground curl hit the 2-min tool limit), restored with DELETE_ZIP=1 (3.8 GB left); `lake build Checked` with the LE4 modules ≈ 9 min.
+- CI at start: 44451569867 (2957da6): checked job green; leanchecker 1, 2, 3 green in 42, 49, 37 min; leanchecker 0 replaying since 03:45Z (2 h 45 min); nanoda 0, 1 green (1 h 48 min, 1 h 55 min); nanoda 2 cancelled at 06:00Z after 2.5 h pending (the push of 37e93d9); nanoda 3 running. 44468949087 (37e93d9) pending. Nothing judged on main since 680a810.
+
+## Bottleneck (and what a yes/no changes)
+- Two promotions (`gelfand_pde_radial_count_turning`, cf5003e; `laneEmden4_constants`, 37e93d9) wait for a main run green on every job, and none has been green for seven hours. Question: is the slow shard a property of its modules (rebalance) or of the judge? A judge defect → fix it and every later promotion is judged in hours; modules → the measured rebalancing of run 0228Z should have worked, and it did not.
+
+## What we did
+1. Read the shard logs (`runs/2026-11-19T0628Z/ci_logs/`, the `leanchecker-time` lines of the four shards of 44424316043 and shards 1-3 of 44451569867). One group of eight modules took 10,159 s of shard 2's 14,091 s in 44424316043; the other shards total 2,890-3,182 s. The same eight modules sit in shards 0-3 of 44451569867, and only shard 0 (holding `Checked` and `Checked.Blasius.Blasius`) was slow.
+2. Root cause from the toolchain source (`src/lean/LeanChecker.lean`, `checkOlean`): `leanchecker M` replays every module whose name has M as a component prefix (`target.isPrefixOf m`). `Checked` is a prefix of all 659 other modules, so its shard replayed the whole library again. The previous rebalancing spread that group's time evenly over 182 modules (the shard was still running), so its input was wrong.
+3. Fix (integrity event 39.5, LEDGER): `scripts/leanchecker_exact.lean` replays exactly the modules named in `LEANCHECKER_EXACT` with the toolchain's own `replayFromImports` (`import LeanChecker`); `scripts/leanchecker_shard.py` sends every prefix module (only `Checked`) there, the rest to leanchecker as before; selftest with planted prefix controls. Local: exact replay of `Checked` 6 s, of a Mathlib module 3 s; a missing module and an unset variable exit 1; a three-module trial shard passes through both paths. Times regenerated (`scripts/times_from_logs2.py`, `Checked` 6 s) and reassigned: predicted 3,086-3,088 s per shard. `scripts/ci_changes.py` hashes the new file (memo key).
+4. Concurrency (same LEDGER entry): the leanchecker and nanoda shards' groups are per commit, not per ref; a later push no longer cancels a pending shard. Cancelled 44451569867 by hand (it could not be green once nanoda 2 was cancelled, and its shard 0 held 37e93d9's shard 0 pending).
+5. Part 1: `Checked/Trust/NecessityAX.lean`, `eta_ratios_h1`: the F(R) setting (hypothesis 1 of `Checked.Cosmography.FREta.eta_ratios`) is NEEDED: the scale factor of the matter-plus-constant model at matter density −1 (`NecessityAW.facts_nonpos`: q = −5/2, j = 1, s = 11/2, l = 23/2) with F ≡ 1 and density parameter 0: F(R₀) = 1, the corrected R = −711/16, j − q − 2 = 3/2, F'' = 0 while the first printed ratio is (−45/4)/(36 · (−3015/32)) ≠ 0. Negative result for hypotheses 3 and 4 (sympy): in the flat ΛCDM family the corrected R is −9Ω²(27Ω² + 60Ω + 112)/16 and j − q − 2 = −3Ω/2, so both vanish only at Ω = 0 (de Sitter), together; a witness for either needs a non-ΛCDM scale factor or a non-affine F. Measure: NEEDED +1, open 95 → 94.
+
+## CI read
+- See Start. 44468949087 (37e93d9) started its jobs after the cancellation; its leanchecker shard 0 still holds `Checked` under the old script (expected ≈ 3.5 h). This run's final push carries the repair and, being a descendant of both promotions, judges them if green on every job.
+
+## Next
+- CI read first: the run of this run's final push (repair + NecessityAX) and 44468949087 (37e93d9). Green on every job for either → both promotions PROVED: one L.2 line and the judged template in both STATE.md headings (`check_stale_status.py`). Read the leanchecker shard times of the final push's run (target: every shard under 75 min; the experiment in LEDGER) and the nanoda shard times (they share the leanchecker assignment; if unbalanced, measure nanoda's own times).
+- Then by rotation: part 3 as in section Next of `runs/2026-11-19T0228Z/README.md`; parts 2/5 as in section Next of `runs/2026-11-19T0428Z/README.md`. Part 1 later: `eta_ratios` 3 and 4 and `printedF0Mul_false_at` 2 / `printedF0_false_at` 2, 3 all need a model outside flat ΛCDM with affine F (a scale factor with an F built along its curvature from the master equation, or a proof that the relation holds in every model there); `Records.F12_separation` 4, 5, 8, 9; the B1 lower density bounds.

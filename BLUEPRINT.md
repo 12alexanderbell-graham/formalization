@@ -478,3 +478,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Polytrope of index four (run 2026-11-19T0428Z)
 - Modules, scripts and audit files: run README `runs/2026-11-19T0428Z/README.md`, section Start and What we did.
+
+## Shards of the kernel jobs (run 2026-11-19T0628Z)
+- `scripts/leanchecker_exact.lean`, `scripts/leanchecker_shard.py`, `runs/2026-11-19T0628Z/scripts/times_from_logs2.py`.
+
+## F(R) ratios, hypothesis witnesses (run 2026-11-19T0628Z)
+- `Checked/Trust/NecessityAX.lean`: `eta_ratios_h1`.

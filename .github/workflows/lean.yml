@@ -364,8 +364,13 @@ jobs:
     # Four green shards replay every module the single call replayed. A shard's pass is memoised on the exact
     # input hash (as the nanoda shards are), so a later run on identical input does not re-check.
     name: leanchecker shard ${{ matrix.shard }} of 4 (kernel replay of every Checked module; memoised on the exact input hash)
+    # Run 2026-11-19T0628Z (annex LIV, integrity event 39.5, see LEDGER): the group is per commit, no longer per ref.
+    # Per ref, a shard of hours held the next commit's shard pending and the push after that cancelled it, so no main
+    # run was green on every job from 680a810 (2026-11-18 23:07Z) to 37e93d9 (44451569867: nanoda 2 cancelled while
+    # pending 2.5 h). Every shard of every judged push now runs to completion (queued for a runner if need be);
+    # nothing is checked less: the same jobs run on the same input.
     concurrency:
-      group: lean-judge-leanchecker-${{ matrix.shard }}-${{ github.ref }}
+      group: lean-judge-leanchecker-${{ matrix.shard }}-${{ github.sha }}
       cancel-in-progress: false
     needs: changes
     if: needs.changes.outputs.lock_only != 'true'
@@ -449,8 +454,13 @@ jobs:
     # lean-toolchain, the nanoda scripts and this workflow (scripts/ci_changes.py) plus the shard index; a later run on
     # identical input prints the run that passed and does not re-check. Any change to those files changes the key.
     name: nanoda shard ${{ matrix.shard }} of 4 (independent type check of Checked; memoised on the exact input hash)
+    # Run 2026-11-19T0628Z (annex LIV, integrity event 39.5, see LEDGER): the group is per commit, no longer per ref.
+    # Per ref, a shard of hours held the next commit's shard pending and the push after that cancelled it, so no main
+    # run was green on every job from 680a810 (2026-11-18 23:07Z) to 37e93d9 (44451569867: nanoda 2 cancelled while
+    # pending 2.5 h). Every shard of every judged push now runs to completion (queued for a runner if need be);
+    # nothing is checked less: the same jobs run on the same input.
     concurrency:
-      group: lean-judge-nanoda-${{ matrix.shard }}-${{ github.ref }}
+      group: lean-judge-nanoda-${{ matrix.shard }}-${{ github.sha }}
       cancel-in-progress: false
     needs: changes
     if: needs.changes.outputs.lock_only != 'true'
