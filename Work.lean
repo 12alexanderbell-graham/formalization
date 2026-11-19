@@ -154,6 +154,12 @@ import Work.Math.LE2ExistsCell
 import Work.Math.LE2ExistsData
 import Work.Math.LE2Exists
 import Work.Math.LaneEmden4
+import Work.Math.LEGStart
+import Work.Math.LE32Cell
+import Work.Math.LE32CellQ
+import Work.Math.LE32Glue
+import Work.Math.LE32QData
+import Work.Math.LE32Chain
 import Work.Math.LaneEmden32
 import Work.Math.LE4Start
 import Work.Math.LE4QData

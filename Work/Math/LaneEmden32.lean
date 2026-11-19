@@ -1,4 +1,5 @@
 import Mathlib
+import Work.Math.LE32Chain
 
 /-!
 # Mathematics (THE RESULT parts 1 and 5): the constants of the Lane–Emden polytrope of index three halves
@@ -18,6 +19,11 @@ printed in its statement. θ'(0) = 0 is not assumed. The power is Mathlib's real
 for a negative base it returns zero at this exponent, so past the zero of θ the hypothesis reads
 θ'' + (2/ξ) θ' = 0; the conclusions concern [0, ξ₁], where θ is not negative. Only Mathlib
 definitions occur in the statement. Existence of such a θ is a separate theorem (to do).
+
+**Proof** (run 2026-11-19T1028Z, statement unchanged): the validated simulator of index three
+halves (`Work.Math.LE32Cell`, `Work.Math.LE32CellQ`, `Work.Math.LE32Glue`; data and chain generated
+by `runs/2026-11-19T1028Z/scripts/emit_le32.py`) encloses every solution up to a bracket of the
+zero; the real power is rewritten as `√θ ^ 3` (`Work.Math.LE32Cell.rpow32_eq`).
 -/
 
 namespace Work.Math.LaneEmden32
@@ -38,6 +44,50 @@ theorem laneEmden32_constants (θ φ : ℝ → ℝ)
       2.71405511 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.71405513 ∧
       5.99070450 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
       ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 5.99070453 := by
-  sorry
+  have hφg : ∀ ξ ∈ Ioc (0 : ℝ) 4,
+      HasDerivWithinAt φ (-(2 / ξ * φ ξ) - Work.Math.LE32Cell.g32 (θ ξ)) (Icc 0 4) ξ :=
+    fun ξ hξ => by rw [← Work.Math.LE32Cell.rpow32_eq]; exact hφ ξ hξ
+  obtain ⟨hneg, hlo, hhi, hom⟩ := Work.Math.LE32Certs.chain hθ hφ0 hφg h0
+  have hcont : ContinuousOn θ (Icc 0 4) := fun x hx => (hθ x hx).continuousWithinAt
+  have hanti : StrictAntiOn θ (Icc 0 (3653753737 / 1000000000 : ℝ)) := by
+    apply strictAntiOn_of_deriv_neg (convex_Icc 0 _)
+      (hcont.mono (Icc_subset_Icc le_rfl (by norm_num)))
+    intro x hx
+    rw [interior_Icc] at hx
+    have hx4 : x ∈ Ioo (0 : ℝ) 4 := ⟨hx.1, by linarith [hx.2]⟩
+    have hd : HasDerivAt θ (φ x) x :=
+      (hθ x (Ioo_subset_Icc_self hx4)).hasDerivAt (Icc_mem_nhds hx4.1 hx4.2)
+    rw [hd.deriv]
+    exact hneg x ⟨hx.1, hx.2.le⟩
+  obtain ⟨ξ₁, hξ₁, hz⟩ : ∃ ξ₁ ∈ Icc (730750747 / 200000000 : ℝ) (3653753737 / 1000000000),
+      θ ξ₁ = 0 := by
+    have := intermediate_value_Icc' (show (730750747 / 200000000 : ℝ) ≤ 3653753737 / 1000000000
+      by norm_num) (hcont.mono (Icc_subset_Icc (by norm_num) (by norm_num)))
+    exact this ⟨hhi.le, hlo.le⟩
+  obtain ⟨ho1, ho2⟩ := hom ξ₁ hξ₁
+  have ha : (3.65375373 : ℝ) ≤ ξ₁ := by norm_num at hξ₁ ⊢; linarith [hξ₁.1]
+  have hb : ξ₁ ≤ (3.65375374 : ℝ) := by norm_num at hξ₁ ⊢; linarith [hξ₁.2]
+  have ha' : (730750747 / 200000000 : ℝ) ≤ ξ₁ := hξ₁.1
+  have hb' : ξ₁ ≤ (3653753737 / 1000000000 : ℝ) := hξ₁.2
+  have hω1 : (2.71405511 : ℝ) ≤ -(ξ₁ ^ 2 * φ ξ₁) := by norm_num at ho1 ⊢; linarith
+  have hω2 : -(ξ₁ ^ 2 * φ ξ₁) ≤ (2.71405513 : ℝ) := by norm_num at ho2 ⊢; linarith
+  have hξ0 : 0 ≤ ξ₁ := by linarith
+  have hωpos : 0 < 3 * -(ξ₁ ^ 2 * φ ξ₁) := by linarith
+  refine ⟨ξ₁, ha, hb, hz, fun ξ hξ => ?_, hω1, hω2, ?_, ?_⟩
+  · have hlt := hanti ⟨hξ.1, le_trans hξ.2.le hξ₁.2⟩ ⟨by linarith [hξ₁.1], hξ₁.2⟩ hξ.2
+    rw [hz] at hlt
+    exact hlt
+  · rw [le_div_iff₀ hωpos]
+    have h3 : (730750747 / 200000000 : ℝ) ^ 3 ≤ ξ₁ ^ 3 := pow_le_pow_left₀ (by norm_num) ha' 3
+    have n : (5.99070450 : ℝ) * (3 * (2714055121 / 1000000000)) ≤ (730750747 / 200000000) ^ 3 := by
+      norm_num
+    norm_num at ho2
+    nlinarith
+  · rw [div_le_iff₀ hωpos]
+    have h3 : ξ₁ ^ 3 ≤ (3653753737 / 1000000000 : ℝ) ^ 3 := pow_le_pow_left₀ hξ0 hb' 3
+    have n : (3653753737 / 1000000000 : ℝ) ^ 3 ≤ 5.99070453 * (3 * (2714055119 / 1000000000)) := by
+      norm_num
+    norm_num at ho1
+    nlinarith
 
 end Work.Math.LaneEmden32
