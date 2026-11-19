@@ -676,7 +676,11 @@ run_cmd do
       | some (.defnInfo d) => return s!"{code (tidy ctx rn.toString)} := {code (← ppE ctx d.value)}"
       | _ => return code (tidy ctx rn.toString)
     let litPart := if rdrs.isEmpty then "statement literals: no blind second reading registered"
-      else s!"statement literals: {rdrs.size} definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`){srcPart}; the readings, as each reader wrote them from the source without seeing the statement: {"; ".intercalate rdrTxt.toList}"
+      else s!"statement literals: {rdrs.size} definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`){srcPart} (printed at the head of this line)"
+    -- test L2R (same run, `runs/2026-11-19T0828Z/t5/READERS_L2R.md`): printed at the end of this line, no reader saw
+    -- them (3/3 kept the doubt); they now open the line, before the kernel status every reader quotes
+    let srcHead := if rdrs.isEmpty then ""
+      else s!"**The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** {"; ".intercalate rdrTxt.toList}. "
     let basePart := match litBase.find? hn with
       | some m => s!"; {m} literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`)"
       | none => "; no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof)"
@@ -686,7 +690,7 @@ run_cmd do
       else s!"OPEN FIDELITY OBJECTIONS on record (`scripts/trust/objections.txt`): {objs.size}: {"; ".intercalate objs.toList}"
     unless frozenNames.contains hn do
       errors := errors.push s!"{hn} has no fingerprint in scripts/trust/frozen.txt"
-    out := out.push s!"**Status (generated):** proved in module {code modName} of `Checked`; axioms, computed by Lean when this page was generated: {", ".intercalate (axs.toList.map fun a => code a.toString)}. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** {objPart}; {nvPart}; {necPart}; {litPart}{basePart}; the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources."
+    out := out.push s!"**Status (generated):** {srcHead}the statement is proved in module {code modName} of `Checked`; axioms, computed by Lean when this page was generated: {", ".intercalate (axs.toList.map fun a => code a.toString)}. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** {objPart}; {nvPart}; {necPart}; {litPart}{basePart}; the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources."
     out := out.push ""
     if !data.isEmpty then
       out := out.push s!"**For every** {", ".intercalate data.toList}:"
