@@ -661,3 +661,7 @@ Checked.Trust.TranscriptionsM16 0
 Checked.Trust.TranscriptionsRecords 0
 Checked.Trust.TranscriptionsRecordsFS 3
 Checked.Trust.Witnesses 1
+Checked.Math.LE72QDataP0 0
+Checked.Math.LE72QDataP1 0
+Checked.Math.LE72QDataP2 0
+Checked.Math.LE72QData 0

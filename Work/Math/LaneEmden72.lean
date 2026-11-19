@@ -10,8 +10,8 @@ import Work.Math.LE72Chain
 first zero ξ₁, the mass factor −ξ₁ ^ 2 θ'(ξ₁) and the central concentration ξ₁ ^ 3/(3 · mass
 factor) are the entries of that row. Indices two, three, four, three halves and five halves are certified
 (`Checked.Math.LaneEmden2`, `Checked.Math.LaneEmden`, `Checked.Math.LaneEmden4`,
-`Checked.Math.LaneEmden32`, `Checked.Math.LaneEmden72`); θ ^ (7/2) has no polynomial Taylor recursion
-and is not smooth at the zero of θ (its fourth derivative in θ blows up there).
+`Checked.Math.LaneEmden32`, `Checked.Math.LaneEmden52`); θ ^ (7/2) has no polynomial Taylor recursion
+and is not smooth at the zero of θ (its fourth derivative in θ is unbounded there).
 
 **What is stated** (frozen before proof, run 2026-11-19T2228Z): `laneEmden72_constants`, for every
 θ, φ satisfying the hypotheses, the bounds on ξ₁, the mass factor and the central concentration
@@ -25,7 +25,7 @@ definitions occur in the statement. Existence of such a θ:
 namespace Work.Math.LaneEmden72
 open Set
 
-/-- The program's argument on [0, 134/25] (helper). -/
+/-- The program's argument on [0, 477/50] (helper). -/
 theorem core (θ φ : ℝ → ℝ)
     (hθ : ∀ ξ ∈ Icc (0 : ℝ) (477 / 50), HasDerivWithinAt θ (φ ξ) (Icc 0 (477 / 50)) ξ)
     (hφ0 : ContinuousWithinAt φ (Icc 0 (477 / 50)) 0)
@@ -82,11 +82,10 @@ theorem core (θ φ : ℝ → ℝ)
     norm_num at ho1
     nlinarith
 
-/-- Lane–Emden equation of index 7/2: for every solution θ of θ'' + (2/ξ)θ' + θ ^ (7/2) = 0 on
-(0, 10] with θ(0) = 1, θ differentiable on [0, 10] with derivative φ, and φ continuous at 0, there is
-a first zero ξ₁ of θ with 9.53580534 ≤ ξ₁ ≤ 9.53580535 (θ > 0 before it), at which −ξ₁² θ'(ξ₁) lies
-between 1.89055709 and 1.89055710 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 152.8836627 and
-152.8836632. -/
+/-- Lane–Emden equation θ'' + (2/ξ)θ' + θ ^ (7/2) = 0: for every solution θ on (0, 10] with
+θ(0) = 1, θ differentiable on [0, 10] with derivative φ, and φ continuous at 0, there is a zero ξ₁ of
+θ with 9.53580534 ≤ ξ₁ ≤ 9.53580535 and θ > 0 on [0, ξ₁), at which −ξ₁² θ'(ξ₁) lies between
+1.89055709 and 1.89055710 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 152.8836627 and 152.8836632. -/
 theorem laneEmden72_constants (θ φ : ℝ → ℝ)
     (hθ : ∀ ξ ∈ Icc (0 : ℝ) 10, HasDerivWithinAt θ (φ ξ) (Icc 0 10) ξ)
     (hφ0 : ContinuousWithinAt φ (Icc 0 10) 0)

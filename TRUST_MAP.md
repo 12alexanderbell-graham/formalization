@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 301. Resting on no unpinned physics definition: 301.
-Non-vacuity (trust track T2): 181 headlines have hypotheses; 181 of them have a
+Headlines: 302. Resting on no unpinned physics definition: 302.
+Non-vacuity (trust track T2): 182 headlines have hypotheses; 182 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1015 hypotheses in 176 headlines;
-719 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-217 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-79 open; headlines with every hypothesis classified: 124/176
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1019 hypotheses in 177 headlines;
+722 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+218 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+79 open; headlines with every hypothesis classified: 125/177
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -248,6 +248,7 @@ the docstring says; universally bound parameters are not listed.
 | `Math.LaneEmden4.laneEmden4_constants` | — | — | — | `laneEmden4_constants` | — |
 | `Math.LaneEmden32.laneEmden32_constants` | — | — | — | `laneEmden32_constants` | — |
 | `Math.LaneEmden52.laneEmden52_constants` | — | — | — | `laneEmden52_constants` | — |
+| `Math.LaneEmden72.laneEmden72_constants` | — | — | — | `laneEmden72_constants` | — |
 | `FalknerSkan.fs_half_exists` | — | — | — | unconditional | — |
 | `FalknerSkan.fs_zero_wall_shear` | — | — | — | `fs_zero_wall_shear` | — |
 | `FalknerSkan.MonotoneWindow.hiemenz_monotone_window` | — | — | — | `hiemenz_monotone_window` | — |
@@ -497,6 +498,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Math.LaneEmden4.laneEmden4_constants` (4): needed 1 (`laneEmden4_constants_h1`), 3 (`laneEmden4_constants_h3`), 4 (`laneEmden4_constants_h4`); redundant 2 (`laneEmden4_constants_r2`)
 - `Math.LaneEmden32.laneEmden32_constants` (4): needed 1 (`laneEmden32_constants_h1`), 3 (`laneEmden32_constants_h3`), 4 (`laneEmden32_constants_h4`); redundant 2 (`laneEmden32_constants_r2`)
 - `Math.LaneEmden52.laneEmden52_constants` (4): needed 1 (`laneEmden52_constants_h1`), 3 (`laneEmden52_constants_h3`), 4 (`laneEmden52_constants_h4`); redundant 2 (`laneEmden52_constants_r2`)
+- `Math.LaneEmden72.laneEmden72_constants` (4): needed 1 (`laneEmden72_constants_h1`), 3 (`laneEmden72_constants_h3`), 4 (`laneEmden72_constants_h4`); redundant 2 (`laneEmden72_constants_r2`)
 - `FalknerSkan.fs_zero_wall_shear` (6): needed 1 (`fs_zero_wall_shear_h1`), 2 (`fs_zero_wall_shear_h2`), 3 (`fs_zero_wall_shear_h3`), 4 (`fs_zero_wall_shear_h4`), 5 (`fs_zero_wall_shear_h5`), 6 (`fs_zero_wall_shear_h6`)
 - `FalknerSkan.MonotoneWindow.hiemenz_monotone_window` (7): needed 1 (`hiemenz_monotone_window_h1`), 2 (`hiemenz_monotone_window_h2`), 3 (`hiemenz_monotone_window_h3`), 4 (`hiemenz_monotone_window_h4`), 5 (`hiemenz_monotone_window_h5`); redundant 7 (`hiemenz_limit_window`); open 6
 - `FalknerSkan.MonotoneWindow.homann_monotone_window` (7): needed 1 (`homann_monotone_window_h1`), 2 (`homann_monotone_window_h2`), 3 (`homann_monotone_window_h3`), 4 (`homann_monotone_window_h4`), 5 (`homann_monotone_window_h5`); redundant 7 (`homann_limit_window`); open 6

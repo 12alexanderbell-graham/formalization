@@ -5149,6 +5149,25 @@ Full name `Checked.Math.LaneEmden52.laneEmden52_constants`.
 
 - there is `ξ₁ : ℝ` such that (`5.35527545 ≤ ξ₁`) and (`ξ₁ ≤ 5.35527546`) and (`θ ξ₁ = 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ico 0 ξ₁`, then `0 < θ ξ`) and (`2.18719956 ≤ -(ξ₁ ^ 2 * φ ξ₁)`) and (`-(ξ₁ ^ 2 * φ ξ₁) ≤ 2.18719957`) and (`23.40646222 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁))`) and (`ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 23.40646231`)
 
+## `laneEmden72_constants`
+
+Full name `Checked.Math.LaneEmden72.laneEmden72_constants`.
+
+**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.le72Rhs` := `fun θ φ ξ => -(2 / ξ * φ ξ) - θ ξ ^ (7 / 2)`; `Checked.Trust.SecondReading.le72RangeTyped` := `Set.Icc 0 10`; `Checked.Trust.SecondReading.le72Range` := `Set.Icc 0 10`; `Checked.Trust.SecondReading.le72RangeOpen` := `Set.Ioc 0 10`; `Checked.Trust.SecondReading.le72ContCentre` := `fun φ => ContinuousWithinAt φ (Set.Icc 0 10) 0`; `Checked.Trust.SecondReading.le72Centre` := `fun θ => θ 0 = 1`; `Checked.Trust.SecondReading.le72Before` := `fun θ x => ∀ ξ ∈ Set.Ico 0 x, 0 < θ ξ`; `Checked.Trust.SecondReading.le72Zero` := `fun x => 9.53580534 ≤ x ∧ x ≤ 9.53580535`; `Checked.Trust.SecondReading.le72Mass` := `fun x φ => 1.89055709 ≤ -(x ^ 2 * φ x) ∧ -(x ^ 2 * φ x) ≤ 1.89055710`; `Checked.Trust.SecondReading.le72Conc` := `fun x φ => 152.8836627 ≤ x ^ 3 / (3 * -(x ^ 2 * φ x)) ∧ x ^ 3 / (3 * -(x ^ 2 * φ x)) ≤ 152.8836632`. the statement is proved in module `Checked.Math.LaneEmden72` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.laneEmden72_constants` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 4 numbered; 3 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 10 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+
+**For every** `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 10`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 10) ξ`
+2. `ContinuousWithinAt φ (Set.Icc 0 10) 0`
+3. for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 10`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ (7 / 2)) (Set.Icc 0 10) ξ`
+4. `θ 0 = 1`
+
+**then**
+
+- there is `ξ₁ : ℝ` such that (`9.53580534 ≤ ξ₁`) and (`ξ₁ ≤ 9.53580535`) and (`θ ξ₁ = 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ico 0 ξ₁`, then `0 < θ ξ`) and (`1.89055709 ≤ -(ξ₁ ^ 2 * φ ξ₁)`) and (`-(ξ₁ ^ 2 * φ ξ₁) ≤ 1.89055710`) and (`152.8836627 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁))`) and (`ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 152.8836632`)
+
 ## `fs_half_exists`
 
 Full name `Checked.FalknerSkan.fs_half_exists`.

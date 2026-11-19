@@ -965,3 +965,9 @@
 - Judge repair (integrity event 39.5): nanoda checked every declaration on one worker of a 4-core runner; `scripts/nanoda_shard.sh` now uses every core, behind planted good/bad controls run in the same configuration (`scripts/nanoda/controls/`). Pushed with CI (83df9c6) to measure it.
 - Part 3 (rotation, T5): reader test EF on the two recorded limits of M8: 'the formula' as the reference 2/3 readers misled on fidelity → rule M9; a model eponym 1/3 → recorded, open; N baseline 0/3.
 - Next: CI read (STATE 2d); then parts 2/5 by rotation.
+
+## 2026-11-19T2228Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main 1870169); local Lean via elan + restored CI build of 83df9c6 (8 GB memory, no swap); Sonnet subagents for referee, blind restatement and blind literal reading; Opus subagents for existence and blind closure.
+- CI: 44611137609 (83df9c6) concluded green on every job; nanoda workers cut shard 1 from 196 to 81 min (experiment target 75 min not met).
+- Parts 2/5 (rotation): Lane–Emden polytrope of index seven halves frozen (6d28b0b), proved (fe3ecf5), audited (referee STANDS, blind restatement closed, blind literal reading agrees), existence proved, promoted to Checked: `Checked.Math.LaneEmden72.laneEmden72_constants`.
+- Next: CI read of the promotion (STATE 2e); nanoda shard 1 per-module times; then part 1 by rotation.
