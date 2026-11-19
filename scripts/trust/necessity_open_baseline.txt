@@ -18,10 +18,6 @@ B1L19Curved.l19_sq_curved | 1, 8
 B1L19Curved.l19_sqg_curved | 1, 8
 Math.GelfandPDE.gelfand_pde_radial_bound | 1, 4
 Math.GelfandPDEExists.gelfand_pde_radial_exists | 1
-Hiemenz.hiemenz_under | 5, 6
-Hiemenz.hiemenz_over | 5, 6
-Homann.homann_under | 5, 6
-Homann.homann_over | 5, 6
 FalknerSkan.MonotoneWindow.hiemenz_monotone_window | 5, 6
 FalknerSkan.MonotoneWindow.homann_monotone_window | 5, 6
 FalknerSkan.Limit.hiemenz_limit_window | 6

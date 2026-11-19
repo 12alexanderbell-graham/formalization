@@ -653,3 +653,12 @@ import Checked.Trust.NecessityAW
 import Checked.Trust.NecessityAX
 import Checked.Trust.NecessityAY
 import Checked.Trust.NecessityAZ
+import Checked.Trust.HzWallS
+import Checked.Trust.HzWallP
+import Checked.Trust.HzWallUS
+import Checked.Trust.HzWallUP
+import Checked.Trust.HmWallS
+import Checked.Trust.HmWallP
+import Checked.Trust.HmWallUS
+import Checked.Trust.HmWallUP
+import Checked.Trust.NecessityBA
