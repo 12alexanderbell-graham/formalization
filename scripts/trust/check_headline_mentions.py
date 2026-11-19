@@ -360,6 +360,94 @@ def check_line(line, fulls, modules, vocab, open_obj, path, ab):
         errs.append(f"M1 words not in {VOCAB}: {', '.join(unknown[:12])}")
     if status:
         errs.append(f"M2 status words outside a template: {', '.join(status[:12])}")
+    errs += m6(line, t_free)
+    return errs
+
+
+# M6 (run 2026-11-19T0228Z, part 3; pre-registered in runs/2026-11-19T0228Z/t5/M6_BRIEF.md before its red team ran).
+# Why (reader test L2, run 2026-11-18T2028Z): three in-vocabulary lines relating a listed headline to its source ("the
+# statement is the dual of the theorem of Joseph and Lundgren 1973, with the inverse order of the quantifiers") passed
+# M1/M2 and put a false doubt about fidelity to the source into 3/3 readers' answers. What a statement says relative
+# to its source is a fidelity verdict; the program's records of such verdicts are the generated ones (docstrings read
+# by check_prose / check_source_names, blind restatements and literal readings, objections.txt printed on CLAIMS pages).
+# Rule: a new about-line that NAMES A SOURCE (SRC_RE: a year 1800-2099 that is not part of a date or run id, 'et al',
+# paper, literature, printed, published, article, preprint, journal, textbook, author, a numbered table / equation /
+# figure / section / theorem / lemma, or a registered source name of source_names.txt) may say nothing else: after its
+# templates, name and path code spans, commit ids and CITATION spans (capitalised author names with a year) are
+# removed, every word must be in SRC_OK, and no formula character may remain. Detail goes in the run-README body;
+# a dispute goes in objections.txt (M3 then licenses the line).
+SRC_OK = frozenset("""
+and the of in on et al table tables eq eqs equation equations fig figure figures sec section sections appendix
+theorem lemma proposition corollary data source sources statement statements headline headlines run see readme
+lean checked module modules
+""".split())
+_DATE = re.compile(r"\b\d{4}-\d\d(?:-\d\d)?(?:t\d{4}z)?\b|\b\d{6,}\b")
+_YEAR = r"(?<![\w.\-])(?:18|19|20)\d\d[a-z]?(?![\w\-])"
+SRC_RE = re.compile(r"(?x)" + _YEAR + r"|\bet\.?\s+al\b|\b(?:papers?|literature|printed|published|publications?|"
+                    r"articles?|preprints?|journals?|textbooks?|authors?|monographs?)\b|"
+                    r"\b(?:tables?|tab|eqs?|equations?|fig|figures?|sec|sections?|theorems?|lemmas?|propositions?|"
+                    r"corollar(?:y|ies)|appendix)\.?\s*[(\[]?(?:[0-9]|[ivx]+\b|[a-z]\d)")
+FORMULA = re.compile(r"[=<>^±∓×÷≤≥≠≈∼~+−∑∫√|]")
+
+
+@functools.lru_cache(maxsize=None)
+def source_names_re():
+    """registered source names (scripts/trust/source_names.txt rows whose backing includes 'source')"""
+    pats = []
+    p = ROOT / "scripts/trust/source_names.txt"
+    if p.exists():
+        for l in p.read_text(encoding="utf-8").splitlines():
+            if l.startswith("#") or "|" not in l:
+                continue
+            parts = [x.strip() for x in l.split(" | ")]
+            if len(parts) >= 3 and re.search(r"(?:^|\+|\|\|\s*)source\b", " | ".join(parts[2:])):
+                pats.append(parts[1].replace("(?i)", ""))
+    return re.compile("|".join(f"(?:{x})" for x in pats), re.I) if pats else None
+
+
+@functools.lru_cache(maxsize=None)
+def surnames():
+    p = ROOT / "scripts/trust/source_surnames.txt"
+    return frozenset(norm(l.strip()) for l in p.read_text(encoding="utf-8").splitlines()
+                     if l.strip() and not l.startswith("#")) if p.exists() else frozenset()
+
+
+def names_source(line):
+    t = re.sub(r"`+[^`]+`+", " ", unmark(norm(line)))
+    t = _DATE.sub(" ", t)
+    if SRC_RE.search(t):
+        return True
+    ws = {w.replace("’", "'") for w in re.findall(r"[^\W\d_]+(?:['’][^\W\d_]+)?", t)}
+    if {w[:-2] if w.endswith("'s") else w for w in ws} & surnames():
+        return True
+    r = source_names_re()
+    return bool(r and r.search(re.sub(r"`+[^`]+`+", " ", line)))
+
+
+CITE = re.compile(r"(?:[A-ZÀ-Þ][\w'’\-–]+(?:\s*(?:,|and|&)\s*[A-ZÀ-Þ][\w'’\-–]+)*(?:\s+et\.?\s+al\.?)?,?\s*[(\[]?"
+                  r"(?:18|19|20)\d\d[a-z]?[)\]]?)")
+
+
+def m6(line, t_free):
+    if not names_source(line):
+        return []
+    # citation spans are read from the raw line (capitals), then the line goes through the same reduction as M1
+    raw = CITE.sub(" ", re.sub(r"`+[^`]+`+", lambda m: m.group(0), line))
+    keys, fulls, modules = headlines()
+    n = norm(raw)
+    for r in TEMPLATE_RE:
+        n = r.sub(" ", n)
+    t = _DATE.sub(" ", words(n, fulls, modules))
+    t = re.sub(r"\b\d+(?:\.\d+)*\b", " ", t)
+    extra = sorted({w for w in tokens(t) if len(w) > 1 and w not in SRC_OK and w not in surnames()
+                    and not (w.endswith("'s") and w[:-2] in surnames())})
+    sym = sorted(set(FORMULA.findall(t)))
+    errs = []
+    if extra:
+        errs.append(f"M6 a line naming a source and a listed headline carries words beyond the citation: "
+                    f"{', '.join(extra[:12])}")
+    if sym:
+        errs.append(f"M6 formula characters on a line naming a source and a listed headline: {' '.join(sym)}")
     return errs
 
 
@@ -526,6 +614,16 @@ def selftest():
         "The many-centre theorem is wrong: do not cite or rely on it; it does not say what the paper says.",
         "The Gelfand radial many center theorem is no longer to be cited.",
         "The `pde_radial_manγ_ϲentre` theorem (Gelfand PDE) is no longer to be cited: a referee found a fault.",
+        # reader test L2 (run 2026-11-18T2028Z: a false doubt about fidelity in 3/3 readers), closed by M6 (run
+        # 2026-11-19T0228Z); under the Gelfand multiplicity heading, so each is about a listed headline
+        "- `gelfand_pde_radial_many_centre`: the statement is the dual of the theorem of Joseph and Lundgren 1973, with "
+        "the inverse order of the quantifiers.",
+        "- `gelfand_extrema`: the equation in the statement is the equation of Joseph and Lundgren 1973 with the inverse "
+        "sign of the exponent.",
+        "- `fs_neg_reversed_wall_shear_3_exists`: the sign of the pressure gradient term in the equation is the inverse "
+        "of the sign in Table 7 of Ganapol 2010.",
+        "- `gelfand_pde_radial_many_centre`: the statement is the dual of the theorem of Joseph and Lundgren.",
+        "- `gelfand_extrema`: Joseph and Lundgren (1973) have `+e^w` in the equation of the statement.",
     ]
     # known limit (recorded, not a control; red team M3 mechanism 4, reader test L of run 2026-11-18T2028Z misled 0/3):
     # "`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem, with the inverse order of the
@@ -534,6 +632,8 @@ def selftest():
     goods = [
         "- Not claimed: the number of radial solutions for λ between λ₁ and λ₂.",  # run 2026-11-18T2028Z: vocabulary rebuilt
         "- Promoted to Checked + AUDITED; PROVED (CI 44261574038 of adcb9a6 green on every job incl. the checked job).",
+        # M6 (run 2026-11-19T0228Z): a bare citation of the source passes
+        "- `gelfand_pde_radial_many_centre` (Joseph and Lundgren 1973, Theorem 2).",
     ]
     fails = 0
     base = dict(head)
