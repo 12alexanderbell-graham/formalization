@@ -666,8 +666,17 @@ run_cmd do
     let rdrs := (litReaders.find? hn).getD #[]
     let srcs := (litSources.find? hn).getD #[]
     let srcPart := if srcs.isEmpty then "" else s!" (source names backed by the readers: {", ".intercalate srcs.toList})"
+    -- the readings themselves (run 2026-11-19T0828Z, part 3, `runs/2026-11-19T0828Z/t5/READERS_LN.md`): blind
+    -- readers carried a doubt from a hand-written line relating a statement to a NAMED source 3/3 (arm L2) and
+    -- from the same relation with no source 0/3 (arm N): they refuted what they could test against the
+    -- generated statement and kept what needed the source, which the page did not show. Printing each blind
+    -- reader's definition, as the reader wrote it from the source, puts the source's own form on the page
+    let rdrTxt ← liftTermElabM <| rdrs.mapM fun rn => do
+      match (← getEnv).find? rn with
+      | some (.defnInfo d) => return s!"{code (tidy ctx rn.toString)} := {code (← ppE ctx d.value)}"
+      | _ => return code (tidy ctx rn.toString)
     let litPart := if rdrs.isEmpty then "statement literals: no blind second reading registered"
-      else s!"statement literals: {rdrs.size} definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`){srcPart}"
+      else s!"statement literals: {rdrs.size} definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`){srcPart}; the readings, as each reader wrote them from the source without seeing the statement: {"; ".intercalate rdrTxt.toList}"
     let basePart := match litBase.find? hn with
       | some m => s!"; {m} literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`)"
       | none => "; no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof)"

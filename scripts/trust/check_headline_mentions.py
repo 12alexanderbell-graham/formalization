@@ -637,6 +637,10 @@ M4_LINES = [
 # recorded limits of M6 (red team M4; not controls): a source described generically ("of the table", "of the Gelfand
 # theorem"), a name outside source_surnames.txt ("the Falkner and Skan solution"), the citation on a neighbouring line,
 # and every line that names no source (class b), e.g. "`gelfand_extrema` has the inverse sign of the exponent."
+# Measured (run 2026-11-19T0828Z, runs/2026-11-19T0828Z/t5/READERS_LN.md, nine blind readers, blind grader): class b
+# left a fidelity doubt in 0/3 readers (each refuted the line from the generated statement), the source-naming lines in
+# 3/3, a control 0/3: the named source, which the reader cannot see, carries the harm; the generic description of a
+# source ("of the table") is in that class and stays open here.
 
 
 def selftest():
