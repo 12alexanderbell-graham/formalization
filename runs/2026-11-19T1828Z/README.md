@@ -30,6 +30,7 @@
 ## End
 - 19:2xZ. 44577216209 (1b242fe): nanoda shards 1–3 still running (since 17:38–17:41Z); not judged in this run. A float scan for hypothesis 6 (p → 1) of the monotone windows: above the window the solutions exist to η = 60 with q > 0 and p growing like e^{aη} (q(0) = 1.24: p(60) ≈ 730), so hypothesis 6 is likely NEEDED, but a Lean witness needs global existence without clamps.
 - See the final commit message for the local checks run before the push.
+- The final commit 88d46d6 carried only the LOCK removal (a `git add` that named the already removed LOCK aborted, and the commit ran anyway); the records followed in e42bd17 (final (2)), and the CI run of 88d46d6 (44598081581) was cancelled by hand (its tree had a stale relock and could not be green). Fix (annex LIV): `scripts/check_commit_msg.py --final` now also fails on unstaged tracked files or an empty index (controls: an unstaged change fails, the staged tree passes). The run to read for this run is 44598131615 (e42bd17).
 
 ## Next
 - CI read first: 44577216209 (1b242fe, promotion of `laneEmden52_constants`) once nanoda shards 1–3 end, or the run of this run's final push (a descendant: ten new Trust helper modules, `NecessityBA`). Green on every job → `laneEmden52_constants` PROVED: the judged template in its STATE.md heading (`check_stale_status.py`) and one L.2 line to Alexander. Red → `python3 scripts/trust/records_check.py <base>` or `local_frozen_step.py --trust <base>`.

@@ -11,8 +11,16 @@ Usage:
   python3 scripts/check_commit_msg.py --skip  <message file>   # an intermediate push: exactly the token
   python3 scripts/check_commit_msg.py --selftest
 Exit 0 when the message is right for its kind, 1 otherwise.
+
+--final also checks the index (run 2026-11-19T1828Z, annex LIV): run it AFTER `git add`. It fails when a
+tracked file has unstaged changes or nothing is staged. Why: that run's final commit 88d46d6 carried only
+the LOCK removal, because one `git add` naming the already removed LOCK aborted the whole add and the
+commit ran anyway; the relock, TRUST_MAP and every record went out one commit later and the CI run of
+88d46d6 had to be cancelled. CHECK_COMMIT_MSG_NO_INDEX=1 skips this part (message-only check).
 """
+import os
 import re
+import subprocess
 import sys
 
 # GitHub's documented skip tokens (case-insensitive), plus the trailer form.
@@ -52,6 +60,21 @@ def selftest() -> int:
     return 1 if bad else 0
 
 
+def index_errors() -> list[str]:
+    """A final commit carries the whole work: nothing unstaged in tracked files, something staged."""
+    errs = []
+    unstaged = subprocess.run(["git", "diff", "--name-only"], capture_output=True, text=True)
+    if unstaged.returncode != 0:
+        return [f"git diff failed: {unstaged.stderr.strip()}"]
+    if unstaged.stdout.strip():
+        errs.append("final commit: tracked files with unstaged changes (git add them first): "
+                    + ", ".join(unstaged.stdout.split()[:10]))
+    staged = subprocess.run(["git", "diff", "--cached", "--quiet"])
+    if staged.returncode == 0:
+        errs.append("final commit: nothing staged")
+    return errs
+
+
 def main(argv: list[str]) -> int:
     if argv[1:] == ["--selftest"]:
         return selftest()
@@ -61,6 +84,8 @@ def main(argv: list[str]) -> int:
     with open(argv[2], encoding="utf-8") as f:
         text = f.read()
     errs = check(argv[1][2:], text)
+    if argv[1] == "--final" and os.environ.get("CHECK_COMMIT_MSG_NO_INDEX") != "1":
+        errs += index_errors()
     for e in errs:
         print(e)
     return 1 if errs else 0
