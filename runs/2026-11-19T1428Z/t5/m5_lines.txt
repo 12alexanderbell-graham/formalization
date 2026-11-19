@@ -1,0 +1,18 @@
+STATE.md ||| - ||| `gelfand_extrema`: the order of the quantifiers is the inverse of the Wikipedia statement. ||| Wikipedia as source ||| quantifier order of formal statement is the inverse of the published one
+STATE.md ||| - ||| `gelfand_pde_radial_many_centre`: the Wikipedia page has three solutions on the ball, the statement has two. ||| Wikipedia page + count ||| formal count (two) differs from the source (three)
+STATE.md ||| - ||| `fs_neg_reversed_wall_shear_3_exists`: the sign of the wall shear is the inverse of the table in the arXiv data. ||| arXiv data + unnumbered 'the table' ||| wall shear sign is opposite to the source table
+STATE.md ||| - ||| `bonnor_ebert_count`: the number of maxima is two where the Wikipedia page has three. ||| Wikipedia page ||| different count of maxima than the source
+STATE.md ||| - ||| `laneEmden4_constants`: the first constant is the inverse of the value on the Wikipedia page, with the exponent four. ||| Wikipedia page + constant ||| constant is the reciprocal of the source value
+STATE.md ||| - ||| `fr13_minval68`: the minimum is the value of the arXiv data with the inverse sign, with the bound upper. ||| arXiv data ||| minimum has opposite sign / upper vs lower bound relative to the source
+STATE.md ||| - ||| `fr13_minval68`: the minimum in the table of the arXiv data has the inverse sign. ||| unnumbered table of arXiv data ||| sign of the minimum is wrong relative to the source table
+STATE.md ||| - ||| `gelfand_extrema`: the number of roots on the ball in the Wikipedia page is three, in the statement two. ||| Wikipedia page ||| fewer roots/extrema in the formal statement than the source
+STATE.md ||| - ||| `laneEmden4_constants`: the Python code of the software has the inverse constant. ||| software/code as source ||| constant is the reciprocal of the reference implementation's
+STATE.md ||| - ||| The statement is the dual of the arXiv section on the ball, with the inverse order of the quantifiers. ||| arXiv section, unnamed headline (heading context) ||| statement is the dual of the source theorem, quantifiers swapped
+STATE.md ||| - ||| The boundary in the statement is a ball, in the arXiv data a box. ||| arXiv data ||| domain differs (ball vs box)
+STATE.md ||| - ||| The Bonnor Ebert page has the sign of the acceleration inverse to the statement. ||| 'Bonnor Ebert page' (model name not a surname) ||| sign convention reversed relative to the source
+STATE.md ||| - ||| For all solutions the Wikipedia page has an upper bound; the statement has the dual order of quantifiers. ||| Wikipedia page ||| bound direction and quantifier order differ
+STATE.md ||| - ||| The page on the ball has three solutions where the statement has two. ||| bare 'the page' ||| count differs from the page's
+STATE.md ||| - ||| `fs_neg_reversed_wall_shear_3_exists`: <!-- Wikipedia --> the sign of the shear at the wall is the inverse of the table. ||| HTML comment with Wikipedia ||| sign opposite to the source table
+STATE.md ||| - ||| `fs_neg_reversed_wall_shear_3_exists`: <abbr title="Wikipedia">W</abbr> the sign of the wall shear is the inverse in the table. ||| HTML abbr/title markup ||| sign opposite to the source table
+STATE.md ||| - ||| The Wikipedia page lists the minimum of the bounded branch; the statement is for the maximum. ||| Wikipedia page ||| extremum type differs (min vs max)
+README.md ||| - ||| The value of the constant in the statement is the inverse of the value in the Wikipedia article. ||| (README; 'article' may flag) ||| constant reciprocal

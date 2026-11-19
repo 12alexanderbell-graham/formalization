@@ -479,6 +479,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Reader tests of lines naming a source; source readings on the claims page; surname closure (run 2026-11-19T0828Z)
 - `runs/2026-11-19T0828Z/t5/` (briefs, page builders `make_pages*.py`, answers, results `READERS_LN.md`, `READERS_L2R.md`, `READERS_L2S.md`); `scripts/trust/Claims.lean` (source readings at the head of the Status line); `scripts/trust/check_headline_mentions.py` rule M7 (`m7`, `m7_missing`, `m7_binds`, `M7_NOT_NAMES`) and `scripts/trust/source_surnames.txt`.
 
+## Sources pointed at without a name (run 2026-11-19T1428Z)
+- `scripts/trust/check_headline_mentions.py` rule M8 (`m8_names`, `_m8_texts`, `M8_DOC_RE`, `M8_KIND_RE`, `m8_vocab_names`, `M8_EPONYMS`, `m8_grandfathered`, controls `M8_LINES`, `M8_RT_LINES`) and `scripts/trust/source_surnames.txt`; brief, red-team lines, judge and cost replay in `runs/2026-11-19T1428Z/t5/` (`M8_BRIEF.md`, `m5_lines.txt`, `m6r_lines.txt`, `judge_lines.py`, `cost_m8.py`).
+
 ## Hypothesis witnesses, F(R) model and positivity (run 2026-11-19T1228Z)
 - Modules: run README `runs/2026-11-19T1228Z/README.md`, section What we did.
 

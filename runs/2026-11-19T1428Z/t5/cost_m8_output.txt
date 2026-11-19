@@ -1,0 +1,131 @@
+09350977 'Run 2026-11-14T0228Z final: part 1 — 26 ': 0
+96643b0b 'Run 2026-11-14T0428Z final: parts 2/5 — ': 5
+    STATE.md:160: about bonnor_ebert_extrema, bonnor_ebert_extrema_monotone, bonnor_ebert_max, bonnor_ebert_min: M6 a line naming a source and a listed headline carries words beyond the citation: absolute, an, around, at, below, beyond, bound, box, bracket, cell, cells, constant
+    STATE.md:160: about bonnor_ebert_extrema, bonnor_ebert_extrema_monotone, bonnor_ebert_max, bonnor_ebert_min: M6 formula characters on a line naming a source and a listed headline: = ^ − ≥
+    STATE.md:162: about bonnor_ebert_critical, bonnor_ebert_extrema, bonnor_ebert_extrema_monotone, bonnor_ebert_max: M6 a line naming a source and a listed headline carries words beyond the citation: are, certified, digits, enclosures, first, found, is, it, kind, mass, minimum, new
+    runs/2026-11-14T0428Z/README.md:3: about bonnor_ebert_critical, bonnor_ebert_max, bonnor_ebert_min: M6 a line naming a source and a listed headline carries words beyond the citation: all, are, at, before, below, beyond, blind, bonnor, by, centre, certified, classified
+    runs/2026-11-14T0428Z/README.md:5: about bonnor_ebert_critical, bonnor_ebert_max, bonnor_ebert_min: M6 a line naming a source and a listed headline carries words beyond the citation: as, at, attained, between, bonnor, both, centrally, condensed, confined, contrast, critical, density
+cb49239f 'Run 2026-11-14T0628Z final: part 3 — eve': 0
+4a73412e 'Run 2026-11-14T0828Z final: part 1 — smo': 1
+    runs/2026-11-14T0828Z/README.md:7: about bonnor_ebert_min, bonnor_ebert_second_min, lookback_second_order, lookback_second_order_bigO: M6 a line naming a source and a listed headline carries words beyond the citation: among, an, are, at, but, ci, companions, end, hypotheses, hypothesis, is, needed
+c3ca8a4d 'Run 2026-11-14T0828Z final 2: part 1 — b': 1
+    runs/2026-11-14T0828Z/README.md:7: about bonnor_ebert_min, bonnor_ebert_second_min, decelSpec_pins, lookback_second_order: M6 a line naming a source and a listed headline carries words beyond the citation: among, an, are, at, but, ci, companions, end, hypotheses, hypothesis, is, needed
+071b5432 'Run 2026-11-14T1028Z final: parts 2/5 — ': 4
+    STATE.md:161: about bonnor_ebert_extrema, bonnor_ebert_max, bonnor_ebert_min, bonnor_ebert_second_max: M6 a line naming a source and a listed headline carries words beyond the citation: are, at, beyond, certified, enclosure, enclosures, extrema, first, for, found, from, grows
+    runs/2026-11-14T0828Z/README.md:7: about decelSpec_pins, lookback_second_order, lookback_second_order_bigO, printedD2y_fails_past: M6 a line naming a source and a listed headline carries words beyond the citation: among, an, are, at, ci, companions, end, final, hypotheses, hypothesis, needed, needs
+    runs/2026-11-14T1028Z/README.md:3: about bonnor_ebert_extrema, bonnor_ebert_max, bonnor_ebert_min, bonnor_ebert_second_max: M6 a line naming a source and a listed headline carries words beyond the citation: above, all, are, at, before, beyond, blind, bonnor, by, centre, certified, classified
+    runs/2026-11-14T1028Z/README.md:5: about bonnor_ebert_extrema, bonnor_ebert_max, bonnor_ebert_min, bonnor_ebert_second_max: M6 a line naming a source and a listed headline carries words beyond the citation: as, at, attained, between, centrally, condensed, confined, contrast, density, dimensionless, 
+fde80922 'Run 2026-11-14T1228Z final: part 3 — bli': 1
+    BLUEPRINT.md:386: about F13_wall_shear, fs_neg_wall_shear_13_window, fs_neg_wall_shear_14_window, fs_neg_wall_shear_15_window: M6 a line naming a source and a listed headline carries words beyond the citation: ao, blind, break, brief, but, character, claims, class, controls, copied, dir, fb
+fc559f2f 'Run 2026-11-14T1428Z final: parts 2/5 an': 0
+83092e71 'Run 2026-11-14T1628Z final: part 3 — eve': 0
+055ab993 'Run 2026-11-14T1628Z final 2: FINDINGS F': 0
+0ed4bdf3 'Run 2026-11-14T1628Z final 3: FINDINGS F': 0
+7c8a9b28 'Run 2026-11-14T1828Z final: parts 2/5 — ': 1
+    runs/2026-11-14T1828Z/README.md:5: about bonnor_ebert_extrema, bonnor_ebert_max, bonnor_ebert_min, bonnor_ebert_second_max: M6 a line naming a source and a listed headline carries words beyond the citation: as, at, attained, between, centrally, condensed, confined, dimensionless, every, exactly, flo
+80cabb89 'Run 2026-11-14T2028Z final: part 3 — CI ': 7
+    BLUEPRINT.md:393: about printedQ2_fails_past: M6 a line naming a source and a listed headline carries words beyond the citation: findings, is, layer, page, rendered
+    STATE.md:13: about ccsD4Claim_false, gelfand_ball_critical, mm_half_conversion, printedF0Claim_false: M6 a line naming a source and a listed headline carries words beyond the citation: accepted, after, alerts, alikes, also, aq, are, as, ascii, autolinks, bare, binds
+    STATE.md:13: about ccsD4Claim_false, gelfand_ball_critical, mm_half_conversion, printedF0Claim_false: M6 formula characters on a line naming a source and a listed headline: + =
+    STATE.md:5: about bonnor_ebert_max, bonnor_ebert_min, bonnor_ebert_second_max, bonnor_ebert_second_min: M6 a line naming a source and a listed headline carries words beyond the citation: accepted, after, against, alikes, aq, as, at, bare, blind, block, bound, by
+    runs/2026-11-14T2028Z/README.md:5: about bonnor_ebert_min, bonnor_ebert_second_min: M6 a line naming a source and a listed headline carries words beyond the citation: anywhere, as, assume, at, bare, block, bonnor, can, candidate, certified, checks, ci
+    runs/2026-11-14T2028Z/README.md:7: about bonnor_ebert_min, bonnor_ebert_second_min: M6 a line naming a source and a listed headline carries words beyond the citation: after, alerts, aq, autolinks, blind, cmark, commonmark, defects, documented, extensions, footnotes, forged
+    runs/2026-11-14T2028Z/README.md:7: about bonnor_ebert_min, bonnor_ebert_second_min: M6 formula characters on a line naming a source and a listed headline: +
+cc780103 'Run 2026-11-14T2228Z final: part 1 — hyp': 1
+    runs/2026-11-14T2228Z/README.md:11: about curv_derivs, fR_values: M6 a line naming a source and a listed headline carries words beyond the citation: are, at, but, checks, ci, copies, core, end, has, jobs, judged, lemmas
+5bb7a03a 'Run 2026-11-15T0028Z final: parts 2/5 — ': 0
+4e046bb6 'Run 2026-11-15T0228Z final: parts 2/5 — ': 2
+    STATE.md:510: about bonnor_ebert_extrema, bonnor_ebert_max, bonnor_ebert_third_max, curv_derivs: M6 a line naming a source and a listed headline carries words beyond the citation: all, blind, bonnor, by, carries, ci, classified, derived, ebert, every, evidence, extrema
+    STATE.md:510: about bonnor_ebert_extrema, bonnor_ebert_max, bonnor_ebert_third_max, curv_derivs: M6 formula characters on a line naming a source and a listed headline: √
+145dfbdc 'Run 2026-11-15T0428Z final: part 3 — bli': 2
+    runs/2026-11-15T0428Z/README.md:3: about printedF0Claim_false, printedR3Claim_false: M6 a line naming a source and a listed headline carries words beyond the citation: accepted, after, against, also, ar, as, before, blind, both, by, catching, caught
+    runs/2026-11-15T0428Z/README.md:7: about bonnor_ebert_extrema, printedF0Claim_false, printedR3Claim_false: M6 a line naming a source and a listed headline carries words beyond the citation: acceptance, after, ar, before, blind, by, caught, checkfindings, controls, false, findings, forged
+813805fa 'Run 2026-11-15T0628Z final: part 1 — hyp': 1
+    STATE.md:514: about bonnor_ebert_extrema, bonnor_ebert_max, bonnor_ebert_third_max, curv_derivs: M6 a line naming a source and a listed headline carries words beyond the citation: algebraically, an, are, by, certified, ci, class, classified, comparison, decay, decelerating, domain
+ece084b9 'Run 2026-11-15T0828Z final: parts 2/5 — ': 3
+    BLUEPRINT.md:344: about bonnor_ebert_critical, bonnor_ebert_extrema, bonnor_ebert_extrema_monotone, exists_unique_critical: M6 a line naming a source and a listed headline carries words beyond the citation: assembly, between, brackets, by, chain, conjuncts, every, extrema, extremum, first, from, ide
+    BLUEPRINT.md:344: about bonnor_ebert_critical, bonnor_ebert_extrema, bonnor_ebert_extrema_monotone, exists_unique_critical: M6 formula characters on a line naming a source and a listed headline: + = −
+    runs/2026-11-15T0828Z/README.md:5: about bonnor_ebert_critical, bonnor_ebert_extrema, bonnor_ebert_extrema_monotone: M6 a line naming a source and a listed headline carries words beyond the citation: alternately, any, before, between, bonnor, but, by, centre, certified, conditions, confined, consecu
+0a52be0b 'Run 2026-11-15T1028Z final: part 3 — bli': 5
+    BLUEPRINT.md:396: about printedQ2_fails_past: M6 a line naming a source and a listed headline carries words beyond the citation: bound, candidates, findings, labelled, layer, rendered, text
+    BLUEPRINT.md:397: about printedQ2_fails_past: M6 a line naming a source and a listed headline carries words beyond the citation: about, alert, an, any, anywhere, as, banner, blind, block, blocks, by, cand
+    STATE.md:13: about fs_neg_decay_equal, fs_neg_decay_max_shear, fs_neg_tenth_exists_decay, fs_neg_tenth_monotone_lt: M6 a line naming a source and a listed headline carries words beyond the citation: about, accepted, after, alert, all, an, anchor, any, anywhere, as, banner, before
+    STATE.md:5: about bonnor_ebert_extrema, bonnor_ebert_extrema_monotone: M6 a line naming a source and a listed headline carries words beyond the citation: accepted, after, against, all, as, at, banner, before, blind, bound, but, by
+    runs/2026-11-15T1028Z/README.md:5: about bonnor_ebert_extrema, bonnor_ebert_extrema_monotone: M6 a line naming a source and a listed headline carries words beyond the citation: after, alerts, anywhere, appear, can, candidates, cannot, certified, checks, comment, diagrams, displays
+b7d5a445 'Run 2026-11-15T1228Z final: parts 2/5 — ': 3
+    STATE.md:5: about bonnor_ebert_critical, bonnor_ebert_extrema, bonnor_ebert_extrema_monotone, bonnor_ebert_max: M6 a line naming a source and a listed headline carries words beyond the citation: above, alternating, ball, below, between, blind, branch, by, ci, classified, closed, each
+    runs/2026-11-15T1228Z/README.md:5: about bonnor_ebert_critical, bonnor_ebert_extrema, bonnor_ebert_extrema_monotone, bonnor_ebert_max: M6 a line naming a source and a listed headline carries words beyond the citation: above, as, ball, before, below, between, branch, conditions, consecutive, decreasi
+    runs/2026-11-15T1228Z/README.md:5: about bonnor_ebert_critical, bonnor_ebert_extrema, bonnor_ebert_extrema_monotone, bonnor_ebert_max: M6 formula characters on a line naming a source and a listed headline: + = ^
+878502ba 'Run 2026-11-15T1428Z final: part 1 (T2b)': 5
+    BLUEPRINT.md:430: about cosmoCoeffCore_pins, fit_direction, redshiftCore_pins, rl19_box_unmatched: M6 a line naming a source and a listed headline carries words beyond the citation: below, bigo, by, cm, comoving, core, curved, density, deriv, eds, factor, flat
+    BLUEPRINT.md:430: about cosmoCoeffCore_pins, fit_direction, redshiftCore_pins, rl19_box_unmatched: M6 formula characters on a line naming a source and a listed headline: +
+    runs/2026-11-15T1428Z/README.md:5: about gelfand_extrema: M6 a line naming a source and a listed headline carries words beyond the citation: about, already, assumptions, bearing, being, claim, claims, computed, depends, differentiability, distance, does
+    runs/2026-11-15T1428Z/README.md:7: about gelfand_extrema: M6 a line naming a source and a listed headline carries words beyond the citation: are, at, bounds, certified, ci, density, each, false, family, fit, has, hypotheses
+    runs/2026-11-15T1428Z/README.md:7: about gelfand_extrema: M6 formula characters on a line naming a source and a listed headline: =
+82ebb616 'Run 2026-11-15T1628Z final: part 3 — bli': 0
+5c6a05ba 'Run 2026-11-15T1828Z final: parts 2/5 — ': 8
+    STATE.md:168: about gelfand_extrema, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 a line naming a source and a listed headline carries words beyond the citation: an, at, axioms, ball, centre, choice, class, classical, dimensional, distinct, every, f
+    STATE.md:168: about gelfand_extrema, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 formula characters on a line naming a source and a listed headline: + = | − ≤
+    STATE.md:169: about gelfand_extrema, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 a line naming a source and a listed headline carries words beyond the citation: any, between, built, by, centre, come, consecutive, construction, every, extended, from
+    STATE.md:169: about gelfand_extrema, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 formula characters on a line naming a source and a listed headline: + = ^
+    STATE.md:5: about gelfand_extrema, gelfand_pde_radial_count_values, gelfand_pde_radial_many_centre: M6 a line naming a source and a listed headline carries words beyond the citation: at, ball, blind, by, centre, certified, ci, claim, class, classical, close, closed
+    STATE.md:5: about gelfand_extrema, gelfand_pde_radial_count_values, gelfand_pde_radial_many_centre: M6 formula characters on a line naming a source and a listed headline: =
+    runs/2026-11-15T1828Z/README.md:5: about gelfand_ball_critical, gelfand_pde_radial_count_values, gelfand_pde_radial_many_centre: M6 a line naming a source and a listed headline carries words beyond the citation: above, among, at, ball, centre, classical, close, distinct, enough, every, existence, ex
+    runs/2026-11-15T1828Z/README.md:5: about gelfand_ball_critical, gelfand_pde_radial_count_values, gelfand_pde_radial_many_centre: M6 formula characters on a line naming a source and a listed headline: =
+fa47717b 'Run 2026-11-18T0028Z final: part 1 (T2b)': 4
+    STATE.md:706: about fit_direction, gelfand_extrema, gelfand_pde_radial_count_turning, gelfand_pde_radial_many_centre: M6 a line naming a source and a listed headline carries words beyond the citation: as, at, banner, base, bounds, by, check, ci, claims, closed, coefficient, counts
+    STATE.md:706: about fit_direction, gelfand_extrema, gelfand_pde_radial_count_turning, gelfand_pde_radial_many_centre: M6 formula characters on a line naming a source and a listed headline: + = ^ ≈
+    runs/2026-11-18T0028Z/README.md:7: about cubic_direction, cubic_misses_z3, cubic_misses_z7, cubic_separation: M6 a line naming a source and a listed headline carries words beyond the citation: are, bounds, ci, claims, computed, curved, density, every, exists, false, favoured, has
+    runs/2026-11-18T0028Z/README.md:7: about cubic_direction, cubic_misses_z3, cubic_misses_z7, cubic_separation: M6 formula characters on a line naming a source and a listed headline: = − ≤
+c32a4410 'Run 2026-11-18T0228Z final: part 3 — thr': 9
+    BLUEPRINT.md:439: about cubic_direction, cubic_misses_z3, cubic_misses_z7, cubic_separation: M6 a line naming a source and a listed headline carries words beyond the citation: claims, generated, page, status
+    BLUEPRINT.md:440: about cubic_direction, cubic_misses_z3, cubic_misses_z7, cubic_separation: M6 a line naming a source and a listed headline carries words beyond the citation: axiom, by, collectaxioms, control, environment, error, generator, getmoduleidxfor, goal, guard, it, line
+    BLUEPRINT.md:440: about cubic_direction, cubic_misses_z3, cubic_misses_z7, cubic_separation: M6 formula characters on a line naming a source and a listed headline: =
+    STATE.md:14: about fit_direction, gelfand_ball_critical, gelfand_pde_radial_bound, gelfand_pde_radial_many_centre: M6 a line naming a source and a listed headline carries words beyond the citation: about, acceptance, adversary, after, an, answers, any, are, as, axioms, back, banner
+    STATE.md:14: about fit_direction, gelfand_ball_critical, gelfand_pde_radial_bound, gelfand_pde_radial_many_centre: M6 formula characters on a line naming a source and a listed headline: ≈
+    STATE.md:3: about cubic_direction, cubic_misses_z3, cubic_misses_z7, cubic_separation: M6 a line naming a source and a listed headline carries words beyond the citation: are, as, axioms, by, certified, checks, claim, disagree, docstrings, every, far, file
+    STATE.md:539: about bonnor_ebert_extrema: M6 a line naming a source and a listed headline carries words beyond the citation: axioms, blind, but, check, claims, each, every, generated, hand, is, listed, longer
+    STATE.md:712: about fit_direction, gelfand_pde_radial_count_turning, gelfand_pde_radial_many_centre, l19_sq_curved: M6 a line naming a source and a listed headline carries words beyond the citation: after, again, already, also, arm, as, at, base, based, blind, bounds, by
+    STATE.md:712: about fit_direction, gelfand_pde_radial_count_turning, gelfand_pde_radial_many_centre, l19_sq_curved: M6 formula characters on a line naming a source and a listed headline: + = ^
+25fd5dd9 'Run 2026-11-18T0428Z final: parts 2/5 — ': 8
+    STATE.md:170: about gelfand_extrema, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 a line naming a source and a listed headline carries words beyond the citation: agree, any, are, as, at, axioms, ball, before, centre, choice, class, classical
+    STATE.md:170: about gelfand_extrema, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 formula characters on a line naming a source and a listed headline: + =
+    STATE.md:172: about gelfand_extrema, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 a line naming a source and a listed headline carries words beyond the citation: agree, are, as, at, audit, ball, band, bands, blind, bounds, by, certified
+    STATE.md:172: about gelfand_extrema, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 formula characters on a line naming a source and a listed headline: ≈
+    runs/2026-11-18T0428Z/README.md:3: about bonnor_ebert_second_max, gelfand_ball_critical, gelfand_pde_radial_bound, gelfand_pde_radial_count: M6 a line naming a source and a listed headline carries words beyond the citation: agree, are, as, at, ball, blind, by, claimed, classical, closed, closure, co
+    runs/2026-11-18T0428Z/README.md:5: about bonnor_ebert_second_max, gelfand_ball_critical, gelfand_pde_radial_bound, gelfand_pde_radial_count: M6 a line naming a source and a listed headline carries words beyond the citation: above, at, before, below, between, bound, bounds, but, classical, constructe
+    runs/2026-11-18T0428Z/README.md:7: about bonnor_ebert_second_max, gelfand_ball_critical, gelfand_pde_radial_bound, gelfand_pde_radial_count: M6 a line naming a source and a listed headline carries words beyond the citation: also, are, at, band, but, by, ci, computation, enclosed, ends, float, from
+    runs/2026-11-18T0428Z/README.md:7: about bonnor_ebert_second_max, gelfand_ball_critical, gelfand_pde_radial_bound, gelfand_pde_radial_count: M6 formula characters on a line naming a source and a listed headline: ≈
+adcb9a69 'Run 2026-11-18T0628Z final: part 1 (T2b)': 7
+    BLUEPRINT.md:440: about cubic_direction, cubic_misses_z3, cubic_misses_z7, cubic_separation: M6 a line naming a source and a listed headline carries words beyond the citation: curved, fit, law, necessity, pair, redshifts, residuals, witnesses
+    BLUEPRINT.md:441: about cubic_direction, cubic_misses_z3, cubic_misses_z7, cubic_separation: M6 a line naming a source and a listed headline carries words beyond the citation: anti, band, bc, bd, bounds, box, bracket, concl, curved, de, direction, dl
+    BLUEPRINT.md:441: about cubic_direction, cubic_misses_z3, cubic_misses_z7, cubic_separation: M6 formula characters on a line naming a source and a listed headline: =
+    STATE.md:14: about fit_direction, gelfand_ball_critical, gelfand_pde_radial_bound, gelfand_pde_radial_many_centre: M6 a line naming a source and a listed headline carries words beyond the citation: against, among, another, at, bounds, box, classified, closed, coefficient, conditions, cubic, curvatur
+    STATE.md:14: about fit_direction, gelfand_ball_critical, gelfand_pde_radial_bound, gelfand_pde_radial_many_centre: M6 formula characters on a line naming a source and a listed headline: + = − √ ≈ ≤
+    runs/2026-11-18T0628Z/README.md:7: about fit_direction, l19_sq_curved, l19_sqg_curved, rl19_box_unmatched: M6 a line naming a source and a listed headline carries words beyond the citation: against, allowed, are, been, best, bounds, box, building, but, ci, closed, coefficient
+    runs/2026-11-18T0628Z/README.md:7: about fit_direction, l19_sq_curved, l19_sqg_curved, rl19_box_unmatched: M6 formula characters on a line naming a source and a listed headline: = ≈
+7d5b41c3 'Run 2026-11-18T0828Z final: part 3 — gen': 0
+a736a0bd 'Run 2026-11-18T1028Z final: parts 2/5 — ': 3
+    runs/2026-11-18T1028Z/README.md:3: about bonnor_ebert_second_max, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 a line naming a source and a listed headline carries words beyond the citation: above, all, any, at, ball, band, before, blind, both, by, 
+    runs/2026-11-18T1028Z/README.md:3: about bonnor_ebert_second_max, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 formula characters on a line naming a source and a listed headline: =
+    runs/2026-11-18T1028Z/README.md:5: about bonnor_ebert_second_max, gelfand_pde_radial_count, gelfand_pde_radial_count_turning, gelfand_pde_radial_count_values: M6 a line naming a source and a listed headline carries words beyond the citation: an, as, assumption, at, ball, branch, but, changes, count,
+d25cb3f0 'Run 2026-11-18T1228Z final: part 1 (T2b)': 2
+    runs/2026-11-18T1228Z/README.md:7: about cubic_direction, cubic_separation, fit_direction, l19_sq_curved: M6 a line naming a source and a listed headline carries words beyond the citation: against, attempted, best, bound, bounds, box, coefficient, conditions, curved, density, except, family
+    runs/2026-11-18T1228Z/README.md:7: about cubic_direction, cubic_separation, fit_direction, l19_sq_curved: M6 formula characters on a line naming a source and a listed headline: = ≈ ≥
+7717f087 'Run 2026-11-18T1428Z final: part 3 — blo': 1
+    STATE.md:14: about cubic_direction, cubic_separation, fit_direction, gelfand_ball_critical: M6 a line naming a source and a listed headline carries words beyond the citation: about, at, before, blind, blocking, change, check, ci, control, cost, descriptions, each
+1473ec06 'Run 2026-11-18T1628Z final: parts 2/5 — ': 0
+2788d1e5 'Run 2026-11-18T1828Z final: part 1 and a': 0
+680a8109 'Run 2026-11-18T2028Z final: part 3 — (1)': 0
+cf5003e9 'Run 2026-11-18T2228Z final: parts 2/5 — ': 0
+f29517eb 'Run 2026-11-18T2228Z final (follow-up): ': 0
+a0899c31 'Run 2026-11-19T0028Z final: part 1 — eve': 0
+0e95c46f 'Run 2026-11-19T0028Z final (2): part 1 c': 0
+2957da6b 'Run 2026-11-19T0228Z final: part 3 and a': 0
+37e93d9a 'Run 2026-11-19T0428Z final: parts 2/5 — ': 0
+9594da2e 'Run 2026-11-19T0628Z final: judge repair': 0
+a5b8314d 'Run 2026-11-19T0828Z final: part 3 by ro': 0
+68c077a3 'Run 2026-11-19T1028Z final: parts 2/5 by': 0
+7c527214 'Run 2026-11-19T1228Z final: part 1 by ro': 0
+73af250a 'Run 2026-11-19T1228Z final (2): records ': 0
+46 runs, 84 lines flagged by M8 only

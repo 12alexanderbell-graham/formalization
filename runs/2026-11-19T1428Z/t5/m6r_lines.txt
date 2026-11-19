@@ -1,0 +1,34 @@
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with that lemma. ||| a ||| 'that/this/a + theorem|lemma|corollary' (M8_KIND_RE needs 'the') ||| STATE says the sign of the maxima/minima clashes with a cited lemma
+STATE.md ||| - ||| `gelfand_pde_radial_many_centre` values in tension with this theorem. ||| a ||| 'this theorem' (demonstrative, not 'the') ||| the count of centres conflicts with a published theorem
+STATE.md ||| - ||| `bonnor_ebert_count` in tension with the above theorem. ||| a ||| 'the above theorem' (word between 'the' and kind) ||| the Bonnor-Ebert count contradicts the known theorem
+STATE.md ||| - ||| `laneEmden4_constants` constant in tension with the first lemma. ||| a ||| 'the first lemma' ||| the constants differ from a lemma's constants
+STATE.md ||| - ||| `fr13_minval68` value in tension with the **theorem**. ||| a ||| markdown emphasis between 'the' and theorem (KIND_RE runs on norm() without unmark) ||| the minimum value contradicts the theorem
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the <b>theorem</b>. ||| a ||| HTML tag between 'the' and 'theorem' ||| sign clashes with the theorem
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the (theorem). ||| a ||| punctuation/paren between 'the' and kind ||| sign clashes with the theorem
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the/theorem. ||| a ||| slash joiner 'the/theorem' ||| sign clashes with the theorem
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the theo<!---->rem. ||| a ||| HTML comment splits word (m6_text turns it to spaces; M1 sees the joined vocab word) ||| sign clashes with the theorem
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the ta<!---->ble. ||| a ||| comment splits 'table' ||| sign clashes with the table
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the au<!---->thors. ||| a ||| comment splits 'authors' ||| sign differs from the authors'
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the<!---->ir values. ||| a ||| comment splits pronoun 'their' ||| values differ from the authors' values
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with wh<!---->ose values. ||| a ||| comment splits 'whose' ||| as above
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with Cant<!---->era. ||| a ||| comment splits software name ||| sign differs from Cantera's output
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with arx<!---->iv. ||| a ||| comment splits 'arxiv' ||| sign differs from the arXiv paper
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the wi<!---->kipedia. ||| a ||| comment splits 'wikipedia' ||| sign differs from Wikipedia
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the ti<!---->tle. ||| a ||| comment splits 'title' ||| sign differs from the source's title statement
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the d<!---->ocumentation. ||| a ||| comment splits 'documentation' ||| sign differs from documentation
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the pa<span></span>per. ||| a ||| empty span tag splits 'paper' ||| sign differs from the paper
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the &theorem. ||| a ||| stray ampersand ||| sign clashes with the theorem
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the [theorem](x). ||| a ||| markdown link text ||| sign clashes with the theorem
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the theorem `lam`. ||| a ||| code span after kind is exempted (meant for own headlines) ||| sign clashes with the theorem
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the glossary. ||| b ||| 'glossary' ||| tension with a reference glossary
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the specification. ||| b ||| 'specification' ||| tension with the published specification
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the definition. ||| b ||| 'definition' ||| tension with the standard definition
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the notation. ||| b ||| 'notation' ||| convention differs from source
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the formula. ||| b ||| 'formula' ||| differs from the standard formula
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the equation. ||| b ||| 'the equation' ||| differs from the source equation
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with Kamenetskii. ||| a ||| vocab surname not in surnames list ||| differs from Frank-Kamenetskii
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with Emden. ||| a ||| vocab surname Emden ||| differs from Emden's source
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with Eddington's. ||| a ||| vocab surname Eddington's ||| differs from Eddington
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with Gelfand. ||| a ||| vocab surname Gelfand ||| differs from Gelfand's result
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the docstring. ||| b ||| 'docstring' ||| differs from documentation text
+STATE.md ||| - ||| `gelfand_extrema` sign in tension with the readme. ||| b ||| 'readme' ||| differs from a readme

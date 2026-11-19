@@ -941,3 +941,9 @@
 - CI at start: 44521044439 (68c077a, promotion of `laneEmden32_constants`) running (checked job past its trust step, kernel shards running).
 - Part 1 (rotation, T2b): a closed-form model of the metric F(R) setting outside flat ΛCDM (scale factor t², F built along its curvature from the master equation, smooth continuation) → `printedF0Mul_false_at` 2 and `printedF0_false_at` 2, 3 REDUNDANT; `tf_initial_slope` 5 (positivity) and 6 (limit at infinity) each REDUNDANT from the other hypotheses (`Checked/Trust/NecessityAY.lean`, `NecessityAZ.lean`).
 - Next: CI read (STATE 1z); then part 3 by rotation.
+
+## 2026-11-19T1428Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main 73af250, unshallowed); no local Lean needed (Python checks only); Sonnet subagents for two red teams.
+- CI at start: 44521044439 (68c077a, promotion of `laneEmden32_constants`) green on every job except nanoda shard 1 (running).
+- Part 3 (rotation, T5): rule M8 of `check_headline_mentions.py`: a source pointed at by a document word, an author pronoun, a vocabulary name or the kind of result is a source for M6; pre-registered with two red teams. Held-out red team M5: 16/17 flagged (EFFECTIVE); adversarial red team M6r: 22 gaps closed, 12 shapes recorded as limits. Cost 0 lines since M6.
+- Next: CI read (STATE 2a); then parts 2/5 by rotation.

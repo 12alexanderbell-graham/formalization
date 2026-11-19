@@ -445,19 +445,45 @@ _DATE2 = re.compile(r"\b20[2-9]\d-\d\d-\d\d(?:t\d{4}z)?\b|\b\d{7,}\b")
 M8_DOC_RE = re.compile(r"(?x)(?<![\w'’])(?:articles?|arxiv|authors?(?:['’]s)?|documentation|footnotes?|pages?|"
                        r"papers?(?:['’]s)?|paragraphs?|tables?(?:['’]s)?|tabulated|tabulations?|tbl|texts?|titles?|"
                        r"wikipedia|their|theirs|them|themselves|they|who|whose|typeset|sources?|"
-                       r"cantera(?:['’]s)?|dwsim|pychemqt|prd)(?![\w'’])")
-M8_KIND_RE = re.compile(r"(?<![\w'’])the\s+(?:theorems?|lemmas?|propositions?|corollar(?:y|ies))(?![\w'’])(?!\s*`)")
+                       r"cantera(?:['’]s)?|dwsim|pychemqt|prd|software)(?![\w'’])")
+# hardened after red team M6r (run 2026-11-19T1428Z, not blind): a determiner (the, this, that, these, those) with up
+# to two words between it and the kind, markup and punctuation between them read as spaces, and only a listed
+# headline's own code span right after the kind exempts it (any code span did)
+M8_KIND_RE = re.compile(r"(?<![\w'’])(?:the|this|that|these|those)\s+(?:[^\W\d_]+\s+){0,2}?"
+                        r"(?:theorems?|lemmas?|propositions?|corollar(?:y|ies))(?![\w'’])(?!\s*zzheadlinespan\b)")
+M8_HEAD_SPAN = "zzheadlinespan"
+
+
+def _m8_texts(line):
+    """the two readings of a line M8 checks: HTML read as text (m6_text) and HTML removed (red team M6r: a word split
+    by an empty comment or tag, 'ta<!---->ble', is one word on the rendered page and to M1)"""
+    joined = re.sub(r"<!--.*?-->|<[^>]*>", "", html.unescape(html.unescape(line)), flags=re.S)
+    return [m6_text(line), joined]
 
 
 def m8_names(line):
     """M8: the line points at a document, its parts or its authors by a vocabulary word, or at a result by its kind"""
-    raw = m6_text(line)
     keys, fulls, modules = headlines()
-    t = words(unmark(norm(raw)), fulls, modules)
-    return bool(M8_DOC_RE.search(t) or M8_KIND_RE.search(norm(raw)))
+    for raw in _m8_texts(line):
+        t = words(unmark(norm(raw)), fulls, modules)
+        if M8_DOC_RE.search(t):
+            return True
+        # code spans that are a listed headline become one marker word; markup and punctuation become spaces
+        k = re.sub(r"`([^`]*)`", lambda m: f" {M8_HEAD_SPAN} " if any(
+            f == m.group(1).strip() or f.endswith("." + m.group(1).strip()) for f in fulls) else f" {m.group(1)} ", raw)
+        k = re.sub(r"[^\w'’]+", " ", unmark(norm(k)).replace("`", " "))
+        if M8_KIND_RE.search(k):
+            return True
+    return False
 
 
 def names_source(line, m8_on=True):
+    """M6's detector on both readings of the line (run 2026-11-19T1428Z, red team M6r: 'pa<span></span>per')"""
+    joined = re.sub(r"<!--.*?-->|<[^>]*>", "", html.unescape(html.unescape(line)), flags=re.S)
+    return _names_source(line, m8_on) or (joined != line and _names_source(joined, m8_on))
+
+
+def _names_source(line, m8_on=True):
     """M6's source detector (run 2026-11-19T0228Z; hardened after red team M4 the same run, not blind): code spans that
     are not a headline, module or path are read; separators inside a digit run are dropped before the year test;
     initials, number words after 'table' etc. and spelled-out years name a source too"""
@@ -783,6 +809,34 @@ M8_LINES = [
     "- `fs_neg_reversed_wall_shear_3_exists`: the tabulated wall shear has the inverse sign.",
     "- `gelfand_extrema`: the statement is the dual of the theorem, with the inverse order of the quantifiers.",
 ]
+# red teams M5 (held-out, against 73af250a: 16 of its 17 class-A lines flagged by M8 as committed in 6140a8b8) and
+# M6r (against 6140a8b8; 22 detector gaps closed after the report, not blind); runs/2026-11-19T1428Z/t5/
+M8_RT_LINES = [
+    "`laneEmden4_constants`: the Python code of the software has the inverse constant.",
+    "`gelfand_extrema` sign in tension with that lemma.",
+    "`gelfand_pde_radial_many_centre` values in tension with this theorem.",
+    "`bonnor_ebert_count` in tension with the above theorem.",
+    "`laneEmden4_constants` constant in tension with the first lemma.",
+    "`fr13_minval68` value in tension with the **theorem**.",
+    "`gelfand_extrema` sign in tension with the <b>theorem</b>.",
+    "`gelfand_extrema` sign in tension with the (theorem).",
+    "`gelfand_extrema` sign in tension with the/theorem.",
+    "`gelfand_extrema` sign in tension with the theo<!---->rem.",
+    "`gelfand_extrema` sign in tension with the ta<!---->ble.",
+    "`gelfand_extrema` sign in tension with the<!---->ir values.",
+    "`gelfand_extrema` sign in tension with Cant<!---->era.",
+    "`gelfand_extrema` sign in tension with the pa<span></span>per.",
+    "`gelfand_extrema` sign in tension with the &theorem.",
+    "`gelfand_extrema` sign in tension with the [theorem](x).",
+    "`gelfand_extrema` sign in tension with the theorem `lam`.",
+    "`gelfand_extrema`: the order of the quantifiers is the inverse of the Wikipedia statement.",
+    "`fs_neg_reversed_wall_shear_3_exists`: <!-- Wikipedia --> the sign of the shear at the wall is the inverse of the "
+    "table.",
+]
+# recorded limits of M8 (red team M6r, not controls): eponyms of models in headline names used as a source
+# ("in tension with Gelfand / Emden / Kamenetskii / Eddington's") and words that are not document words ("in tension
+# with the formula / the equation / the definition / the notation / the specification / the glossary"); the last kind
+# names no source a reader cannot see (reader test LN, class b: 0/3 misled)
 # recorded limits of M6 (red team M4; not controls): a source described generically ("of the table", "of the Gelfand
 # theorem"), a name outside source_surnames.txt ("the Falkner and Skan solution"), the citation on a neighbouring line,
 # and every line that names no source (class b), e.g. "`gelfand_extrema` has the inverse sign of the exponent."
@@ -854,7 +908,7 @@ def selftest():
         "of the sign in Table 7 of Ganapol 2010.",
         "- `gelfand_pde_radial_many_centre`: the statement is the dual of the theorem of Joseph and Lundgren.",
         "- `gelfand_extrema`: Joseph and Lundgren (1973) have `+e^w` in the equation of the statement.",
-    ] + M4_LINES + M8_LINES
+    ] + M4_LINES + M8_LINES + M8_RT_LINES
     # known limit (recorded, not a control; red team M3 mechanism 4, reader test L of run 2026-11-18T2028Z misled 0/3):
     # "`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem, with the inverse order of the
     # quantifiers." passes. Earlier recorded limit: a status in ordinary in-vocabulary words, e.g.
