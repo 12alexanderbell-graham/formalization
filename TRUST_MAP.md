@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1015 hypotheses in 176 headlines;
-709 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+719 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 217 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-89 open; headlines with every hypothesis classified: 120/176
+79 open; headlines with every hypothesis classified: 124/176
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -484,10 +484,10 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Townes.Shooting.townes_under` (5): needed 1 (`townes_under_h1`), 2 (`townes_under_h2`), 4 (`townes_under_h4`), 5 (`townes_under_h5`); redundant 3 (`townes_under_r3`)
 - `Townes.Shooting.townes_over` (5): needed 1 (`townes_over_h1`), 2 (`townes_over_h2`), 4 (`townes_over_h4`), 5 (`townes_over_h5`); redundant 3 (`townes_over_r3`)
 - `Blasius.blasius_wall_shear` (6): needed 1 (`blasius_wall_shear_h1`), 2 (`blasius_wall_shear_h2`), 3 (`blasius_wall_shear_h3`), 4 (`blasius_wall_shear_h4`), 5 (`blasius_wall_shear_h5`), 6 (`blasius_wall_shear_h6`)
-- `Hiemenz.hiemenz_under` (7): needed 1 (`hiemenz_under_h1`), 2 (`hiemenz_under_h2`), 3 (`hiemenz_under_h3`), 4 (`hiemenz_under_h4`), 7 (`hiemenz_under_h7`); open 5, 6
-- `Hiemenz.hiemenz_over` (7): needed 1 (`hiemenz_over_h1`), 2 (`hiemenz_over_h2`), 3 (`hiemenz_over_h3`), 4 (`hiemenz_over_h4`), 7 (`hiemenz_over_h7`); open 5, 6
-- `Homann.homann_under` (7): needed 1 (`homann_under_h1`), 2 (`homann_under_h2`), 3 (`homann_under_h3`), 4 (`homann_under_h4`), 7 (`homann_under_h7`); open 5, 6
-- `Homann.homann_over` (7): needed 1 (`homann_over_h1`), 2 (`homann_over_h2`), 3 (`homann_over_h3`), 4 (`homann_over_h4`), 7 (`homann_over_h7`); open 5, 6
+- `Hiemenz.hiemenz_under` (7): needed 1 (`hiemenz_under_h1`), 2 (`hiemenz_under_h2`), 3 (`hiemenz_under_h3`), 4 (`hiemenz_under_h4`), 5 (`hiemenz_under_h5`), 6 (`hiemenz_under_h6`), 7 (`hiemenz_under_h7`)
+- `Hiemenz.hiemenz_over` (7): needed 1 (`hiemenz_over_h1`), 2 (`hiemenz_over_h2`), 3 (`hiemenz_over_h3`), 4 (`hiemenz_over_h4`), 5 (`hiemenz_over_h5`), 6 (`hiemenz_over_h6`), 7 (`hiemenz_over_h7`)
+- `Homann.homann_under` (7): needed 1 (`homann_under_h1`), 2 (`homann_under_h2`), 3 (`homann_under_h3`), 4 (`homann_under_h4`), 5 (`homann_under_h5`), 6 (`homann_under_h6`), 7 (`homann_under_h7`)
+- `Homann.homann_over` (7): needed 1 (`homann_over_h1`), 2 (`homann_over_h2`), 3 (`homann_over_h3`), 4 (`homann_over_h4`), 5 (`homann_over_h5`), 6 (`homann_over_h6`), 7 (`homann_over_h7`)
 - `Data.Moresco16.table5_oL_inconsistent` (3): needed 1 (`table5_oL_inconsistent_h1`), 2 (`table5_oL_inconsistent_h2`), 3 (`table5_oL_inconsistent_h3`)
 - `Data.Moresco16.table5_pw_inconsistent` (3): needed 1 (`table5_pw_inconsistent_h1`), 2 (`table5_pw_inconsistent_h2`), 3 (`table5_pw_inconsistent_h3`)
 - `Data.Moresco16.table5_line_inconsistent` (3): needed 1 (`table5_line_inconsistent_h1`), 2 (`table5_line_inconsistent_h2`), 3 (`table5_line_inconsistent_h3`)
@@ -498,8 +498,8 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Math.LaneEmden32.laneEmden32_constants` (4): needed 1 (`laneEmden32_constants_h1`), 3 (`laneEmden32_constants_h3`), 4 (`laneEmden32_constants_h4`); redundant 2 (`laneEmden32_constants_r2`)
 - `Math.LaneEmden52.laneEmden52_constants` (4): needed 1 (`laneEmden52_constants_h1`), 3 (`laneEmden52_constants_h3`), 4 (`laneEmden52_constants_h4`); redundant 2 (`laneEmden52_constants_r2`)
 - `FalknerSkan.fs_zero_wall_shear` (6): needed 1 (`fs_zero_wall_shear_h1`), 2 (`fs_zero_wall_shear_h2`), 3 (`fs_zero_wall_shear_h3`), 4 (`fs_zero_wall_shear_h4`), 5 (`fs_zero_wall_shear_h5`), 6 (`fs_zero_wall_shear_h6`)
-- `FalknerSkan.MonotoneWindow.hiemenz_monotone_window` (7): needed 1 (`hiemenz_monotone_window_h1`), 2 (`hiemenz_monotone_window_h2`), 3 (`hiemenz_monotone_window_h3`), 4 (`hiemenz_monotone_window_h4`); redundant 7 (`hiemenz_limit_window`); open 5, 6
-- `FalknerSkan.MonotoneWindow.homann_monotone_window` (7): needed 1 (`homann_monotone_window_h1`), 2 (`homann_monotone_window_h2`), 3 (`homann_monotone_window_h3`), 4 (`homann_monotone_window_h4`); redundant 7 (`homann_limit_window`); open 5, 6
+- `FalknerSkan.MonotoneWindow.hiemenz_monotone_window` (7): needed 1 (`hiemenz_monotone_window_h1`), 2 (`hiemenz_monotone_window_h2`), 3 (`hiemenz_monotone_window_h3`), 4 (`hiemenz_monotone_window_h4`), 5 (`hiemenz_monotone_window_h5`); redundant 7 (`hiemenz_limit_window`); open 6
+- `FalknerSkan.MonotoneWindow.homann_monotone_window` (7): needed 1 (`homann_monotone_window_h1`), 2 (`homann_monotone_window_h2`), 3 (`homann_monotone_window_h3`), 4 (`homann_monotone_window_h4`), 5 (`homann_monotone_window_h5`); redundant 7 (`homann_limit_window`); open 6
 - `FalknerSkan.Bounded.hiemenz_bounded_window` (7): needed 1 (`hiemenz_bounded_window_h1`), 2 (`hiemenz_bounded_window_h2`), 3 (`hiemenz_bounded_window_h3`), 4 (`hiemenz_bounded_window_h4`), 5 (`hiemenz_bounded_window_h5`); redundant (each alone, not together) 6 (`hiemenz_bounded_window_r6`), 7 (`hiemenz_limit_window`); parts of 7 (2) redundant (each alone, not together) 1 (`hiemenz_bounded_window_p7_1`), 2 (`hiemenz_bounded_window_p7_2`)
 - `FalknerSkan.Bounded.homann_bounded_window` (7): needed 1 (`homann_bounded_window_h1`), 2 (`homann_bounded_window_h2`), 3 (`homann_bounded_window_h3`), 4 (`homann_bounded_window_h4`), 5 (`homann_bounded_window_h5`); redundant (each alone, not together) 6 (`homann_bounded_window_r6`), 7 (`homann_limit_window`); parts of 7 (2) redundant (each alone, not together) 1 (`homann_bounded_window_p7_1`), 2 (`homann_bounded_window_p7_2`)
 - `FalknerSkan.Bounded.hiemenz_bounded_equal` (15): needed 1 (`hiemenz_bounded_equal_h1`), 2 (`hiemenz_bounded_equal_h2`), 3 (`hiemenz_bounded_equal_h3`), 4 (`hiemenz_bounded_equal_h4`), 5 (`hiemenz_bounded_equal_h5`), 8 (`hiemenz_bounded_equal_h8`), 9 (`hiemenz_bounded_equal_h9`), 10 (`hiemenz_bounded_equal_h10`), 11 (`hiemenz_bounded_equal_h11`), 12 (`hiemenz_bounded_equal_h12`), 15 (`hiemenz_bounded_equal_h15`); redundant (each alone, not together) 6 (`hiemenz_bounded_equal_r6`), 7 (`hiemenz_bounded_equal_r7`), 13 (`hiemenz_bounded_equal_r13`), 14 (`hiemenz_bounded_equal_r14`); parts of 7 (2) redundant (each alone, not together) 1 (`hiemenz_bounded_equal_p7_1`), 2 (`hiemenz_bounded_equal_p7_2`); parts of 14 (2) redundant (each alone, not together) 1 (`hiemenz_bounded_equal_p14_1`), 2 (`hiemenz_bounded_equal_p14_2`)

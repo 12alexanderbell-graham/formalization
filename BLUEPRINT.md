@@ -485,6 +485,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Hypothesis witnesses, F(R) model and positivity (run 2026-11-19T1228Z)
 - Modules: run README `runs/2026-11-19T1228Z/README.md`, section What we did.
 
+## Wall conditions of the stagnation-point shooting statements, hypothesis witnesses (run 2026-11-19T1828Z)
+- `Checked/Trust/NecessityBA.lean`; helper modules `Checked/Trust/HzWall*.lean`, `HmWall*.lean`, `HzG*.lean`, `HmG*.lean`; scripts `runs/2026-11-19T1828Z/scripts/`.
+
 ## Polytrope of index five halves (run 2026-11-19T1628Z)
 - Modules, scripts and audit files: run README `runs/2026-11-19T1628Z/README.md`, section Start and What we did.
 
