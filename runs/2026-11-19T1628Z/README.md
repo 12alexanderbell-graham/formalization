@@ -23,10 +23,11 @@
 - Values (reference `scripts/ref52.py`; referee and reader agree to 35 digits): ξ₁ = 5.3552754590107794599, ω = 2.1871995655170789532, ρ_c/ρ̄ = 23.406462267062708503.
 
 ## Measure
-- Certified rows of the polytrope table: indices two, three, four, three halves → plus five halves. Fractional-index route: the second fractional index needed one new lemma file (three lemmas) and string changes elsewhere; freeze 16:3xZ → Work proof 16:5xZ (experiment of run 1028Z: met). Necessity: four hypotheses of the new headline classified (3 NEEDED, 1 REDUNDANT); NEEDED 706 → 709, REDUNDANT 216 → 217, open 89; StatementDeps 301 headlines, NV 181/181.
+- Certified rows of the polytrope table: indices two, three, four, three halves → plus five halves. Fractional-index route: the second fractional index needed one new lemma file (three lemmas) and string changes elsewhere; freeze 16:3xZ → Work proof with existence and blind closure 16:5xZ, promotion with relock and Claims by 17:30Z (experiment of run 1028Z: met). Necessity: four hypotheses of the new headline classified (3 NEEDED, 1 REDUNDANT); NEEDED 706 → 709, REDUNDANT 216 → 217, open 89; StatementDeps 301 headlines, NV 181/181.
 
 ## CI read
 - 44521044439 (68c077a): concluded success, every job green incl. the checked job and nanoda 4/4 → `laneEmden32_constants` PROVED.
+- 44535193737 (7c52721, `NecessityAY`, `NecessityAZ`) at 17:3xZ: every job green except nanoda shard 1 (checking since 14:06Z, past 3 h); 44535498718 (73af250) and 44548457011 (ab284de) running. Nanoda shard 1 is the slow shard again (part 3's next step: a timing line in `scripts/nanoda_shard.sh`, then reassign).
 
 ## End
 - See the final commit message for the local checks run before the push.
