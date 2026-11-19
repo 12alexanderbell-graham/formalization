@@ -1,6 +1,37 @@
 # Run 2026-11-19T0828Z
 
-**THE RESULT:** (stub; written at the end of the run)
+**THE RESULT:** part 3 by rotation (STATE 1w): measured trust. Three pre-registered blind reader tests (15 readers, blind graders) located what makes a hand-written line about a checked statement plant a false fidelity doubt: naming a source the reader cannot see (9 of 9 readers kept the doubt), not the claimed relation itself (0 of 3 when no source is named, each refuted it from the generated statement). Printing the source's own form, as read blind, on the claims page did not help (6 of 6 kept the doubt). So the guard is keeping such lines off the records, and the list it reads is now closed by a new blocking rule (M7). The judge's run of the previous push (the repaired kernel shards) is green on every job but one, still running at the end of this run.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** That a record line in this repository cannot name an author by year unless that author is on the list the source-naming rule reads, so a line that ties a checked statement to a named source is held to the bare citation whichever cited author it names; and, for every statement with blind readings, the claims page now shows the source's own form as the blind reader wrote it.
+
+**Weakest unchecked step:** sources described without a name ("of the table", "the classical theorem") are still not read as sources by M6 (recorded limit; the reader tests say such lines would carry the same harm).
 
 ## Start
-- 08:28Z. Local main reset to origin/main 9594da2 (the local clone was behind). No LOCK → taken.
+- 08:28Z. Local main was behind origin; reset to origin/main 9594da2. No LOCK → taken (d467a6d).
+- Local Lean: elan + `lake exe cache get` (≈ 3 min, background); `checked-build` of 44478483601 (9594da2, 2.7 GB) downloaded in ≈ 2 min and restored (`restore_checked_build.sh`, DELETE_ZIP=1; 3 GB disk left); `lake build Checked` replayed in < 2 min.
+- CI at start: 44478483601 (9594da2, the repaired judge, a descendant of both pending promotions): checked job green (07:18–08:20Z), leanchecker shards 0 and 1 green, 2 and 3 and nanoda 0–3 running. 44468949087 (37e93d9) running under the old script.
+
+## Bottleneck (and what a yes/no changes)
+- Part 3 (section Next of `runs/2026-11-19T0228Z/README.md`): does a line relating a statement to its source harm readers only when the source is named (then M6, the rule on source-naming lines, is the right cut), or also without a source (then every line about a statement needs a rule on its relation content)? Run 0228Z's test N could not decide: its key mixed quoting a line with believing it.
+
+## What we did
+1. **Reader test LN** (`t5/reader_brief_LN.md`, 1006bec, before any reader; `t5/make_pages.py`): STATE.md and CLAIMS_READER.md at 1006bec; arms C (no line), L2 (three relation lines naming a source, verbatim from run 2026-11-18T2028Z), N (the same with no source, verbatim from run 0228Z); two STATE bullets describing earlier reader tests dropped from every arm; nine Sonnet readers in one message; a single fidelity key; blind Sonnet grader under shuffled labels. Result (`t5/READERS_LN.md`): C 0/3, L2 3/3, N 0/3 carry an unrejected fidelity doubt; the grader agreed on every reader; citation 0/27 misled. Decision: the named source is the active ingredient; M6's cut is the measured one.
+2. **Source readings on the claims page** (`scripts/trust/Claims.lean`): the Status line of every statement with registered blind literal readings prints the readings (`<reader def> := <body>`, each body occurs in the statement). Test L2R (`t5/reader_brief_L2R.md`, e5372b5; readings at the end of the line): 3/3 kept the doubt. Test L2S (`t5/reader_brief_L2S.md`, 834585a; readings opening the line): 3/3 kept the doubt; no reader of the six used the readings (`t5/READERS_L2R.md`, `t5/READERS_L2S.md`). Decision: not effective; the readings stay on the page as evidence (no check changed; CLAIMS.md, CLAIMS_READER.md, packet regenerated).
+3. **Rule M7** (`scripts/trust/check_headline_mentions.py`): M6 reads a source named without a year only through `scripts/trust/source_surnames.txt`, generated once in run 0228Z; 16 cited authors were missing (the source of the polytrope constants among them). M7 fails a new line of any scanned record, run README bodies included, whose author-year citation names a surname outside the list (dates, acronyms and model or equation names pass); 16 surnames added; selftest 3 + 3; replay over every scanned record: 0 findings.
+4. **Experiment read** (run 0628Z, exact replay of the root module): leanchecker replay steps of 44478483601: 34, 47, 57, 61 min (target < 75 min met); no shard cancelled while pending. Nanoda shards (they share the leanchecker assignment): 60 min (shard 0), 90 (shard 3), 107 (shard 2), shard 1 still checking after 2 h 22 min at 10:04Z: unbalanced. Each nanoda shard checks its constants with all their dependencies, so nanoda needs its own measured times (its log prints none yet).
+
+## Measure
+- Readers, source-naming relation lines: 9/9 kept a false fidelity doubt (L2, L2R, L2S); source-free: 0/3; control: 0/3; citation 0/36 misled.
+- Page-side fix (source readings on the claims page): 0/6 readers used it; not effective.
+- M6 surname list: 16 cited authors missing → 0 (closed by M7). Cost: 0 lines on the replayed records after the additions.
+
+## CI read
+- 44478483601 (9594da2, the repaired judge; it judges the promotions of cf5003e and 37e93d9, both ancestors): every job green at 10:04Z except nanoda shard 1 (running since 07:42Z). Leanchecker replay steps 34, 47, 57, 61 min. No status changed this run; nothing to tell Alexander yet.
+- 44468949087 (37e93d9) still running under the old script (its shard 0 replays the whole library); superseded by 44478483601 for both promotions.
+
+## End
+- Local before the final push: `lake build Checked` (restored build), StatementDeps (no relock; 299 headlines, NV 179/179), Claims twice (CLAIMS.md, CLAIMS_READER.md), `validation/make_packet.py`, `check_headline_mentions.py --selftest` (55 defects, 3 correct lines, M3, M7 3+3) and `--base 680a810` (0 findings), `records_check.py 680a810` (43 commands, 0 failed), check_status_lines, goal guard. 680a810 is still the newest green main run.
+
+## Next
+- CI read first: the run of this run's final push (no Lean module change; Claims.lean output, `check_headline_mentions.py` M7). 44478483601 (9594da2): green on every job once nanoda shard 1 ends green → `gelfand_pde_radial_count_turning` (cf5003e) and `laneEmden4_constants` (37e93d9) PROVED: the judged template in both STATE.md headings ('PROVED (CI 44478483601 of 9594da2, a descendant, green on every job incl. the checked job and nanoda 4/4; read run …)', `check_stale_status.py`) and one L.2 line to Alexander. The run of this push has the same input hash (no Checked, nanoda or workflow change), so its kernel shards reuse the recorded passes. Then measure nanoda's own shard times (time per shard in the four logs of 44478483601; add a timing line to `scripts/nanoda_shard.sh` only in a push that must rerun nanoda anyway).
+- Then by rotation (part 3 at 0828Z, part 1 at 0628Z, parts 2/5 at 0428Z): parts 2/5 as in section Next of `runs/2026-11-19T0428Z/README.md`; part 1 as in section Next of `runs/2026-11-19T0628Z/README.md`. Part 3 next: M6's other open limit, sources described without a name ("of the table", "the classical theorem"): pre-register a red team against M6 + M7 (harness `runs/2026-11-19T0228Z/t5/try_line.py`), then a rule that reads a definite reference to a document in a line about a statement as a source mention, with its cost on the replayed records.

@@ -923,3 +923,9 @@
 - Judge (integrity event 39.5): `leanchecker Checked` replays every module with that prefix, so the shard holding the root module replayed the whole library twice over (10,159 s in one group); the root is now replayed exactly (`scripts/leanchecker_exact.lean`, the toolchain's `replayFromImports`); times regenerated and reassigned (≈ 51 min per shard predicted); the kernel shards' concurrency groups are per commit, so a later push no longer cancels a pending shard.
 - Part 1 (rotation): `Checked/Trust/NecessityAX.lean` — the F(R) setting is NEEDED in `FREta.eta_ratios` (open 95 → 94); hypotheses 3 and 4 need a model outside flat ΛCDM with affine F (both quantities vanish there only at de Sitter, together).
 - Next: CI read (STATE 1w); then part 3 by rotation.
+
+## 2026-11-19T0828Z (scheduled run)
+- Env: repo ok (add_repo not exposed; session clone reset to origin/main 9594da2); local Lean via elan + restored CI build of 9594da2; Sonnet subagents for 15 blind readers and 3 blind graders.
+- Part 3 (rotation): reader tests LN, L2R, L2S (`runs/2026-11-19T0828Z/t5/`, briefs committed before their readers): lines naming a source planted a false fidelity doubt in 9/9 readers, the same lines without a source in 0/3, control 0/3; the blind readings of the source printed on the claims page (Claims.lean) were used by no reader. Rule M7 closes the surname list of M6 (16 surnames added).
+- CI: 44478483601 (9594da2, repaired judge) green on every job except nanoda shard 1 (running at 10:04Z); leanchecker replay 34–61 min per shard (experiment of run 0628Z met); nanoda unbalanced (60–137+ min). Promotions still waiting on that one shard.
+- Next: CI read (STATE 1x); then parts 2/5 by rotation.
