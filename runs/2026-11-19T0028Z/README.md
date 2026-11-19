@@ -1,3 +1,36 @@
-# Run 2026-11-19T0028Z (scheduled)
+# Run 2026-11-19T0028Z
 
-Stub: started 00:28Z. Part 1 by rotation. Records follow.
+**THE RESULT:** part 1 by rotation (STATE 1n; trust track T2b, hypothesis necessity, data claims). Every hypothesis of the two Moresco et al. 2016 minimum statements of `Checked/Data/Moresco16Min.lean` is now classified in Lean (eight hypotheses, open since run 2026-11-05T0628Z): the three conditions on the parameters of the lower bound of the chi-square are REDUNDANT, and in the statement about the printed model-comparison value the same three are REDUNDANT and the two bounds on the number of data points NEEDED. New module `Checked/Trust/NecessityAV.lean` with three certificate modules.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** That the certified smallest chi-square of the open-universe fit of Moresco et al. 2016 is the smallest over every value of the two density parameters, not only over the region the statement names, and with the square root of a negative squared expansion factor read as Lean reads it: no point outside that region fits the thirty measurements better (kernel-checked, generated certificates). And that the claim that the printed model-comparison value cannot be reached really uses its range of data-point counts: with four or with one hundred data points it fails.
+
+**Weakest unchecked step:** the certificates are kernel-checked locally; CI has not judged this push (section End). The minimum itself and the statements are unchanged from run 2026-11-05T0628Z (referee and blind restatement then).
+
+## Start
+- 00:28Z. add_repo not exposed; checkout detached at f29517e = origin/main; `git checkout -B main origin/main`. No LOCK → taken (7e9e717).
+- CI at start: 44424316043 (cf5003e, promotion of the Gelfand count for every positive parameter): checked job ran 23:52–00:50Z and FAILED only in the step 'Frozen statements …', whose last command `check_headline_mentions.py --base 680a810` flagged the word 'exact' in STATE.md line 179 (the judged heading of the Bonnor–Ebert count): the failure run 2228Z's follow-up f29517e already fixed. Every Lean, trust, frozen-registry and necessity check before it was green. Its leanchecker and nanoda shards were still running at 00:52Z. 44425068034 (f29517e) pending behind it.
+- Local Lean: elan + `lake exe cache get` ≈ 3 min; `checked-build` of 44401158771 (680a810) ≈ 2 min download, restored with DELETE_ZIP=1; `lake build Checked` (the 2228Z Gelfand modules) ≈ 3 min.
+
+## Bottleneck (and what a yes/no changes)
+- Part 1 by rotation (STATE 1n). The two Moresco et al. 2016 minimum statements had all eight of their parameter hypotheses open: the referee of run 2026-11-05T0628Z found in floats that none is needed for the bound, but nothing in Lean said so, so a reader could not tell whether the certified minimum depends on the region. Question: does the existing box certificate (`Moresco16Min.box_boundQ`) extend to the unbounded regions outside, and to points where a squared expansion factor is negative? Yes → both statements fully classified; no → the region is part of the claim and must be named as such.
+
+## What we did
+1. Float scan (scratchpad): minimum chi-square with Ωm > 1 (other hypotheses kept) 29.4, with ΩΛ < 0 29.1, with a negative squared factor somewhere 110; the global minimum is the interior point. So all three are REDUNDANT in floats, as the referee found.
+2. `far_hi` (`NecessityAVFar.lean`): if the squared factor at row a is at least q² with 63.712 q ≥ H_a + 3.87 σ_a, then for H₀ ≤ 63.712 the prior term alone is at least 14.977 and above it row a alone is. This closes every unbounded part with one row of the nonnegativity condition (LP certificate, linarith).
+3. Regions A (Ωm ≥ 1, ΩΛ ≥ 0) and B (Ωm ≤ 1, ΩΛ ≤ 0): root boxes [1, 13/5] × [0, 17/4] and [−3/2, 1] × [−2, 0] from an LP of the region minus the far parts; bisection with leaves vacuous / far / `box_boundQ` (194 and 133 leaves, `runs/2026-11-19T0028Z/scripts/gen_red.py`, `emit_red.py`). Compiled first time (85 s and 112 s).
+4. Hypothesis 3 (no sign condition): `NecessityAVJunk.lean` — `chi_ge_quad` (the quadratic in H₀ with the squared factors in place of the squares of their roots is a lower bound for every sign), `box_boundQJ` (the box certificate needs only each squared factor ≥ −s_i² at the corners), `neg_row` (a row with H²/σ² ≥ 14.9665 and squared factor ≤ 0 contributes its whole term), `hy_boxQ` (corner check over ℚ gives the nonnegativity condition on a box, so `chiSqOL_ge` itself closes such boxes). Region [−3/5, 1] × [0, 13/4], 49 leaves (`gen_junk.py`, `emit_junk.py`); outside it row z = 1.75 has squared factor ≤ 0.
+5. `NecessityAV.lean`: `chiSqOL_ge_r1`, `_r2`, `_r3` and `table5_oL_aicc_unattainable_r3`, `_r4`, `_r5` (REDUNDANT); `table5_oL_aicc_unattainable_h1` (N = 4: the correction divides by zero) and `_h2` (N = 100), both at the point of `chiSqOL_lt` (NEEDED). Axioms propext, Classical.choice, Quot.sound.
+6. Open baseline: both lines removed (nothing open). StatementDeps relock, Claims, `records_check.py`.
+
+## Measure
+- Necessity (TRUST_MAP): REDUNDANT 199 → 205, NEEDED 697 → 699, open 107 → 99; headlines fully classified 111/173 → 113/173. Every data-claim headline (Farooq–Ratra, Moresco et al.) is now fully classified.
+- Time: float scan and LP 10 min; regions A and B 15 min (first compile); hypothesis 3 tools and cover 20 min (two compiles).
+
+## End
+- CI of 44424316043 (cf5003e): checked job red only in `check_headline_mentions` (fixed by f29517e); leanchecker shard 3 green in 48 min (163 modules, 21 groups, 2890 s; largest group 520 s, Falkner–Skan reversed-flow and separation modules); shards 0–2 and nanoda still running at 01:00Z. 44425068034 (f29517e) waits behind it and judges the Gelfand count promotion. The final push of this run adds six Checked modules (local build ≈ 4 min on 2 cores); its run replays them in the leanchecker and nanoda shards.
+- No L.2 message: nothing new was judged on main this run.
+
+## Next
+- CI read first: 44425068034 (f29517e, a descendant of the promotion cf5003e) and the run of this run's final push. Green on every job for either → `Checked.Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning` PROVED: one L.2 line and the judged template in its STATE.md heading (`check_stale_status.py`). Red → `python3 scripts/trust/records_check.py <base>` or `local_frozen_step.py --trust <base>`; base 680a810 (newest green at 01:05Z). Then the LEDGER experiment of run 2228Z: read the `leanchecker-time` lines of shards 0–2 of 44424316043 (shard 3: 2890 s) and rebalance the partition.
+- Before every commit: `python3 scripts/check_commit_msg.py --final|--skip <msgfile>`; right before the final push run `records_check.py` against the newest green main run.
+- Then by rotation (part 1 at 0028Z, parts 2/5 at 2228Z, part 3 at 2028Z): part 3 — as in section Next of `runs/2026-11-18T2028Z/README.md`. Parts 2/5 — as in section Next of `runs/2026-11-18T2228Z/README.md`. Part 1 later: `FRCosmo.exists_LCDM_model` 1, 2 (witness models outside (0, 1): sin^{2/3} for Ω > 1 as in `Checked/Trust/NecessityAQ.lean`, Einstein–de Sitter at Ω = 1, de Sitter and a cosh-type model for Ω ≤ 0; check `MasterEq` and the smoothness fields of `IsFRCosmo` for each, or show the hypothesis NEEDED where `IsFlatLCDM` fails); `FRCosmo.printedF0_false_at`, `printedF0Mul_false_at`; `FREta.eta_ratios` 1, 3, 4; `Records.F12_separation` 4, 5, 8, 9; the B1 lower density bounds (the float scans of runs 0028Z and 1228Z say the conclusions still hold below them: candidates for REDUNDANT by extending the integral bounds).

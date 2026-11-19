@@ -460,6 +460,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Necessity witnesses: the Farooq–Ratra data headlines (run 2026-11-18T1828Z)
 - `Checked/Trust/NecessityAU.lean`: its lemmas and theorems are listed in the run README, section What we did.
 
+## Necessity witnesses: the Moresco et al. 2016 minimum statements (run 2026-11-19T0028Z)
+- `Checked/Trust/NecessityAV.lean` (`regA`, `regB`, `regC`, `aicc_of`, the `_r`/`_h` theorems), `NecessityAVFar.lean` (`far_hi`), `NecessityAVJunk.lean` (`term_ge`, `chi_ge_quad`, `tangent_j`, `ge_of_point_j`, `aff_box`, `BoxOKJ`, `box_boundQJ`, `neg_row`, `CornersOK`, `hy_boxQ`), `NecessityAVCertsA`/`B`/`C.lean` (generated covers; generators in `runs/2026-11-19T0028Z/scripts/`).
+
 ## Judge: the kernel replay in shards (run 2026-11-18T1828Z)
 - `scripts/leanchecker_shard.py` (module list, FNV-1a partition, selftest), job `leanchecker` of `.github/workflows/lean.yml`; `scripts/check_commit_msg.py` (skip marker in a commit message).
 

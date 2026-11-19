@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1003 hypotheses in 173 headlines;
-697 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-199 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-107 open; headlines with every hypothesis classified: 111/173
+699 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+205 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+99 open; headlines with every hypothesis classified: 113/173
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -488,8 +488,8 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Data.Moresco16.table5_oL_inconsistent` (3): needed 1 (`table5_oL_inconsistent_h1`), 2 (`table5_oL_inconsistent_h2`), 3 (`table5_oL_inconsistent_h3`)
 - `Data.Moresco16.table5_pw_inconsistent` (3): needed 1 (`table5_pw_inconsistent_h1`), 2 (`table5_pw_inconsistent_h2`), 3 (`table5_pw_inconsistent_h3`)
 - `Data.Moresco16.table5_line_inconsistent` (3): needed 1 (`table5_line_inconsistent_h1`), 2 (`table5_line_inconsistent_h2`), 3 (`table5_line_inconsistent_h3`)
-- `Data.Moresco16Min.chiSqOL_ge` (3): open 1, 2, 3
-- `Data.Moresco16Min.table5_oL_aicc_unattainable` (5): open 1, 2, 3, 4, 5
+- `Data.Moresco16Min.chiSqOL_ge` (3): redundant (each alone, not together) 1 (`chiSqOL_ge_r1`), 2 (`chiSqOL_ge_r2`), 3 (`chiSqOL_ge_r3`)
+- `Data.Moresco16Min.table5_oL_aicc_unattainable` (5): needed 1 (`table5_oL_aicc_unattainable_h1`), 2 (`table5_oL_aicc_unattainable_h2`); redundant (each alone, not together) 3 (`table5_oL_aicc_unattainable_r3`), 4 (`table5_oL_aicc_unattainable_r4`), 5 (`table5_oL_aicc_unattainable_r5`)
 - `Math.LaneEmden2.laneEmden2_constants` (4): needed 1 (`laneEmden2_constants_h1`), 3 (`laneEmden2_constants_h3`), 4 (`laneEmden2_constants_h4`); redundant 2 (`laneEmden2_constants_r2`)
 - `FalknerSkan.fs_zero_wall_shear` (6): needed 1 (`fs_zero_wall_shear_h1`), 2 (`fs_zero_wall_shear_h2`), 3 (`fs_zero_wall_shear_h3`), 4 (`fs_zero_wall_shear_h4`), 5 (`fs_zero_wall_shear_h5`), 6 (`fs_zero_wall_shear_h6`)
 - `FalknerSkan.MonotoneWindow.hiemenz_monotone_window` (7): needed 1 (`hiemenz_monotone_window_h1`), 2 (`hiemenz_monotone_window_h2`), 3 (`hiemenz_monotone_window_h3`), 4 (`hiemenz_monotone_window_h4`); redundant 7 (`hiemenz_limit_window`); open 5, 6
