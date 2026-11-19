@@ -935,3 +935,9 @@
 - CI: 44478483601 (9594da2) concluded green on every job (nanoda shard 1 at 10:52Z) → `gelfand_pde_radial_count_turning` and `laneEmden4_constants` PROVED; Alexander told.
 - Parts 2/5 (rotation): Lane–Emden polytrope of index three halves frozen (a27bcab), proved (5f1b1f0), audited (referee STANDS, blind restatement closed, blind literal reading agrees), existence proved, promoted to Checked: `Checked.Math.LaneEmden32.laneEmden32_constants`. New simulator pieces: the power as a square root cubed (equal to Mathlib's real power everywhere), square-root certificates and crude cells at the zero, singular start generic in the nonlinearity.
 - Next: CI read of the promotion (STATE 1y); then part 1 by rotation.
+
+## 2026-11-19T1228Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main 68c077a); local Lean via elan + restored CI build of a5b8314.
+- CI at start: 44521044439 (68c077a, promotion of `laneEmden32_constants`) running (checked job past its trust step, kernel shards running).
+- Part 1 (rotation, T2b): a closed-form model of the metric F(R) setting outside flat ΛCDM (scale factor t², F built along its curvature from the master equation, smooth continuation) → `printedF0Mul_false_at` 2 and `printedF0_false_at` 2, 3 REDUNDANT; `tf_initial_slope` 5 (positivity) and 6 (limit at infinity) each REDUNDANT from the other hypotheses (`Checked/Trust/NecessityAY.lean`, `NecessityAZ.lean`).
+- Next: CI read (STATE 1z); then part 3 by rotation.

@@ -3246,6 +3246,18 @@ doc:Checked.Trust.NecessityAV.regA -doc8251044973880953529
 doc:Checked.Trust.NecessityAV.regB -doc13904449851322434292
 doc:Checked.Trust.NecessityAV.regC -doc5726806988466800829
 doc:Checked.Trust.NecessityAX.eta_ratios_h1 -doc11294249962120213215
+doc:Checked.Trust.NecessityAY.cA -doc13460159878619401235
+doc:Checked.Trust.NecessityAY.cC -doc4752789574284987286
+doc:Checked.Trust.NecessityAY.cF -doc3968852855819366758
+doc:Checked.Trust.NecessityAY.gy -doc15153714738750418587
+doc:Checked.Trust.NecessityAY.plA -doc4722973604662718137
+doc:Checked.Trust.NecessityAY.plF -doc12461914063887017321
+doc:Checked.Trust.NecessityAY.pl_div_false -doc17911618713047017453
+doc:Checked.Trust.NecessityAY.pl_mul_false -doc17031894238874160610
+doc:Checked.Trust.NecessityAY.uL -doc10406929312206867543
+doc:Checked.Trust.NecessityAY.uR -doc9340885907585046523
+doc:Checked.Trust.NecessityAZ.tf_lim -doc7896645023895032452
+doc:Checked.Trust.NecessityAZ.tf_pos -doc18398380971242720623
 doc:Checked.Trust.NecessityEta.agree20_imp -doc9958743186863952861
 doc:Checked.Trust.NecessityEta.agree20 -doc9824130336149770711
 doc:Checked.Trust.NecessityEta.agree30_imp -doc6505485457868535128
@@ -4355,6 +4367,8 @@ moduledoc:Checked.Trust.NecessityAVJunk -mdoc3576144076365383759
 moduledoc:Checked.Trust.NecessityAV -mdoc17725697613546823224
 moduledoc:Checked.Trust.NecessityAW -mdoc4164478090305437009
 moduledoc:Checked.Trust.NecessityAX -mdoc14657107248555442069
+moduledoc:Checked.Trust.NecessityAY -mdoc9941568458712156432
+moduledoc:Checked.Trust.NecessityAZ -mdoc12352498391759611196
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
