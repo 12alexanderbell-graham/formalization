@@ -906,3 +906,9 @@
 - Part 1 (rotation): `Checked/Trust/NecessityAV.lean` and five helper modules — every hypothesis of the two Moresco et al. 2016 minimum statements classified (6 REDUNDANT, 2 NEEDED); `Checked/Trust/NecessityAW.lean` — witness models for every density make both density bounds of `FRCosmo.exists_LCDM_model` and the lower bound of two refutations REDUNDANT (4); open hypotheses 107 → 95.
 - Annex LIV: PROMPT note (region and sign hypotheses of a certified bound), LEDGER experiment.
 - Next: CI read (STATE 1t); then part 3 by rotation.
+
+## 2026-11-19T0228Z (scheduled run)
+- Env: repo ok (checkout = origin/main 0e95c46, unshallowed); local Lean (elan + cache, `checked-build` of cf5003e restored). CI: 44425068034 (f29517e) and 44434727803 (a0899c3) cancelled by later pushes; 44424316043 (cf5003e) leanchecker 2 and nanoda 2 past 3 h; 44437864726 (0e95c46) checked job green, shards running; nothing judged on main.
+- Part 3 (rotation): rule M6 in `check_headline_mentions.py` (a line naming a paper beside a listed headline carries only the citation; `source_surnames.txt`), pre-registered; red team M4 33 passing lines → NOT EFFECTIVE; hardened to 3 (recorded limits); reader test N (relation lines naming no source: citation 0/9, refuted 3/3).
+- Judge (integrity event 39.5): `scripts/nanoda/shard_assignment.txt` balances the leanchecker and nanoda shards on measured times (predicted ≈ 89 min per leanchecker shard vs 185+ min for shard 2).
+- Next: CI read (STATE 1u); then parts 2/5 by rotation.
