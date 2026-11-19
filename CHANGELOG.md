@@ -912,3 +912,8 @@
 - Part 3 (rotation): rule M6 in `check_headline_mentions.py` (a line naming a paper beside a listed headline carries only the citation; `source_surnames.txt`), pre-registered; red team M4 33 passing lines → NOT EFFECTIVE; hardened to 3 (recorded limits); reader test N (relation lines naming no source: citation 0/9, refuted 3/3).
 - Judge (integrity event 39.5): `scripts/nanoda/shard_assignment.txt` balances the leanchecker and nanoda shards on measured times (predicted ≈ 89 min per leanchecker shard vs 185+ min for shard 2).
 - Next: CI read (STATE 1u); then parts 2/5 by rotation.
+
+## 2026-11-19T0428Z (scheduled run)
+- Env: repo ok (local main was a stale divergent clone; `git checkout -B main origin/main` at 2957da6); local Lean (elan + cache, `checked-build` of 2957da6 restored). CI: 44451569867 (2957da6) checked job green, leanchecker 1 and 3 green, shards 0 and 2 and nanoda running; 44437864726 (0e95c46) nanoda 2 running; nothing judged on main.
+- Parts 2/5 (rotation): Lane–Emden index four promoted to Checked (`Checked.Math.LaneEmden4.laneEmden4_constants`: first zero, mass factor, density ratio for every solution on [0, 16]; existence `Checked.Math.LE4Exists.exists_solution`). Frozen before proof; referee STANDS; blind restatement closed; blind literal reading agrees. The open "needs weighted one-sided cells" was a precision cost: the index-generic generator at Taylor order 12 and 1e-21 rationals closes it.
+- Next: CI read (STATE 1v); then part 1 by rotation.

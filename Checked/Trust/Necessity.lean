@@ -8,6 +8,7 @@ import Checked.FalknerSkan.FalknerSkan
 import Checked.Blasius.Blasius
 import Checked.Math.LaneEmden
 import Checked.Math.LaneEmden2
+import Checked.Math.LaneEmden4
 import Checked.Math.ThomasFermi
 import Checked.Townes.TownesShooting
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
@@ -1298,6 +1299,25 @@ theorem laneEmden2_constants_h1 : necessity% Checked.Math.LaneEmden2.laneEmden2_
     norm_num at h
 
 theorem laneEmden2_constants_h4 : necessity% Checked.Math.LaneEmden2.laneEmden2_constants 4 := by
+  refine ⟨fun _ => 0, fun _ => 0, fun ξ _ => hasDerivWithinAt_const _ _ _, continuousWithinAt_const,
+    fun ξ _ => (hasDerivWithinAt_const _ _ _).congr_deriv (by ring), ?_⟩
+  rintro ⟨ξ₁, h1, -, -, hpos, -⟩
+  exact lt_irrefl _ (hpos 0 ⟨le_rfl, by linarith⟩)
+
+theorem laneEmden4_constants_h3 : necessity% Checked.Math.LaneEmden4.laneEmden4_constants 3 := by
+  refine ⟨fun _ => 1, fun _ => 0, fun ξ _ => hasDerivWithinAt_const _ _ _, continuousWithinAt_const, rfl, ?_⟩
+  rintro ⟨ξ₁, -, -, h, -⟩
+  norm_num at h
+
+theorem laneEmden4_constants_h1 : necessity% Checked.Math.LaneEmden4.laneEmden4_constants 1 := by
+  refine ⟨fun _ => 1, fun ξ => -(ξ / 3), (continuous_id.div_const 3).neg.continuousWithinAt,
+    fun ξ hξ => ?_, rfl, ?_⟩
+  · have hξ0 : ξ ≠ 0 := (mem_Ioc.mp hξ).1.ne'
+    exact (((hasDerivAt_id' ξ).div_const 3).neg.hasDerivWithinAt).congr_deriv (by field_simp; ring)
+  · rintro ⟨ξ₁, -, -, h, -⟩
+    norm_num at h
+
+theorem laneEmden4_constants_h4 : necessity% Checked.Math.LaneEmden4.laneEmden4_constants 4 := by
   refine ⟨fun _ => 0, fun _ => 0, fun ξ _ => hasDerivWithinAt_const _ _ _, continuousWithinAt_const,
     fun ξ _ => (hasDerivWithinAt_const _ _ _).congr_deriv (by ring), ?_⟩
   rintro ⟨ξ₁, h1, -, -, hpos, -⟩

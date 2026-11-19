@@ -69,9 +69,9 @@ theorem core (θ φ : ℝ → ℝ)
     have n : (14.97154636 : ℝ) ^ 3 ≤ 622.407886 * (3 * 1.79722991) := by norm_num
     linarith
 
-/-- Lane–Emden equation of index 4: for every solution θ of θ'' + (2/ξ)θ' + θ⁴ = 0 on (0, 16] with
-θ(0) = 1, θ differentiable on [0, 16] with derivative φ, and φ continuous at 0, there is a first
-zero ξ₁ of θ with 14.97154634 ≤ ξ₁ ≤ 14.97154636 (θ > 0 before it), at which −ξ₁² θ'(ξ₁) lies
+/-- Lane–Emden equation θ'' + (2/ξ)θ' + θ⁴ = 0: for every solution θ on (0, 16] with
+θ(0) = 1, θ differentiable on [0, 16] with derivative φ, and φ continuous at 0, there is a
+zero ξ₁ of θ with 14.97154634 ≤ ξ₁ ≤ 14.97154636 and θ > 0 on [0, ξ₁), at which −ξ₁² θ'(ξ₁) lies
 between 1.79722991 and 1.79722992 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 622.407879 and
 622.407886. -/
 theorem laneEmden4_constants (θ φ : ℝ → ℝ)

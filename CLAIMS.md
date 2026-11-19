@@ -6301,6 +6301,33 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > 4.3528745959 ≤ ξ₁ ≤ 4.3528745960, at which −ξ₁² θ'(ξ₁) lies between 2.4110460120 and 2.4110460122
 > and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 11.402542860 and 11.402542864.
 
+## `laneEmden4_constants`
+
+Full name `Checked.Math.LaneEmden4.laneEmden4_constants`.
+
+**Status (generated):** proved in module `Checked.Math.LaneEmden4` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.laneEmden4_constants` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 4 numbered; 3 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 10 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+
+**For every** `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 16`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 16) ξ`
+2. `ContinuousWithinAt φ (Set.Icc 0 16) 0`
+3. for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 16`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ 4) (Set.Icc 0 16) ξ`
+4. `θ 0 = 1`
+
+**then**
+
+- there is `ξ₁ : ℝ` such that (`14.97154634 ≤ ξ₁`) and (`ξ₁ ≤ 14.97154636`) and (`θ ξ₁ = 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ico 0 ξ₁`, then `0 < θ ξ`) and (`1.79722991 ≤ -(ξ₁ ^ 2 * φ ξ₁)`) and (`-(ξ₁ ^ 2 * φ ξ₁) ≤ 1.79722992`) and (`622.407879 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁))`) and (`ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 622.407886`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Lane–Emden equation θ'' + (2/ξ)θ' + θ⁴ = 0: for every solution θ on (0, 16] with
+> θ(0) = 1, θ differentiable on [0, 16] with derivative φ, and φ continuous at 0, there is a
+> zero ξ₁ of θ with 14.97154634 ≤ ξ₁ ≤ 14.97154636 and θ > 0 on [0, ξ₁), at which −ξ₁² θ'(ξ₁) lies
+> between 1.79722991 and 1.79722992 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 622.407879 and
+> 622.407886.
+
 ## `fs_half_exists`
 
 Full name `Checked.FalknerSkan.fs_half_exists`.

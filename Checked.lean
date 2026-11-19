@@ -149,6 +149,16 @@ import Checked.Math.LE2ExistsStart
 import Checked.Math.LE2ExistsCell
 import Checked.Math.LE2ExistsData
 import Checked.Math.LE2Exists
+import Checked.Math.LE4Start
+import Checked.Math.LE4QData
+import Checked.Math.LE4Last
+import Checked.Math.LE4Chain
+import Checked.Math.LaneEmden4
+import Checked.Math.LE4ExistsLeft
+import Checked.Math.LE4ExistsStart
+import Checked.Math.LE4ExistsCell
+import Checked.Math.LE4ExistsData
+import Checked.Math.LE4Exists
 import Checked.Trust.SecondFormulation
 import Checked.Trust.SecondFormulationCosmo
 import Checked.Trust.Formulations
@@ -193,6 +203,7 @@ import Checked.Trust.SecondReadingFSRevRowOne
 import Checked.Trust.SecondReadingFSRevPrinted
 import Checked.Trust.SecondReadingFSSepPrinted
 import Checked.Trust.SecondReadingLE2
+import Checked.Trust.SecondReadingLE4
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
 import Checked.Trust.FormulationsD
