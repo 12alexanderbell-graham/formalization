@@ -947,3 +947,9 @@
 - CI at start: 44521044439 (68c077a, promotion of `laneEmden32_constants`) green on every job except nanoda shard 1 (running).
 - Part 3 (rotation, T5): rule M8 of `check_headline_mentions.py`: a source pointed at by a document word, an author pronoun, a vocabulary name or the kind of result is a source for M6; pre-registered with two red teams. Held-out red team M5: 16/17 flagged (EFFECTIVE); adversarial red team M6r: 22 gaps closed, 12 shapes recorded as limits. Cost 0 lines since M6.
 - Next: CI read (STATE 2a); then parts 2/5 by rotation.
+
+## 2026-11-19T1628Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main ab284de); local Lean via elan + restored CI build of ab284de; Sonnet subagents for referee, blind restatement and blind literal reading.
+- CI: 44521044439 (68c077a) concluded green on every job (nanoda shard 1 at 15:49Z) → `laneEmden32_constants` PROVED; Alexander told.
+- Parts 2/5 (rotation): Lane–Emden polytrope of index five halves frozen (1ed85a2), proved (207a1f2), audited (referee STANDS, blind restatement closed, blind literal reading agrees), existence proved, promoted to Checked: `Checked.Math.LaneEmden52.laneEmden52_constants`. The fractional-index simulator carried to a new power by one lemma file and string changes.
+- Next: CI read of the promotion (STATE 2b); then part 1 by rotation.

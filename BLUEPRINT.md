@@ -485,6 +485,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Hypothesis witnesses, F(R) model and positivity (run 2026-11-19T1228Z)
 - Modules: run README `runs/2026-11-19T1228Z/README.md`, section What we did.
 
+## Polytrope of index five halves (run 2026-11-19T1628Z)
+- Modules, scripts and audit files: run README `runs/2026-11-19T1628Z/README.md`, section Start and What we did.
+
 ## Polytrope of index three halves (run 2026-11-19T1028Z)
 - Modules, scripts and audit files: run README `runs/2026-11-19T1028Z/README.md`, section Start and What we did.
 

@@ -59,6 +59,8 @@ import Checked.Math.LaneEmden4
 import Checked.Math.LE4Exists
 import Checked.Math.LaneEmden32
 import Checked.Math.LE32Exists
+import Checked.Math.LaneEmden52
+import Checked.Math.LE52Exists
 import Checked.Math.LEExists
 import Checked.Math.Gelfand
 import Checked.Math.GelfandExists
@@ -745,6 +747,14 @@ Picard–Lindelöf for the clamped field after, clamps inactive by the energy, g
 
 theorem laneEmden32_constants : nonvacuity% Checked.Math.LaneEmden32.laneEmden32_constants := by
   obtain ⟨θ, φ, hθ, hφ0, hφ, h0⟩ := Checked.Math.LE32Exists.exists_solution
+  exact ⟨θ, φ, hθ, hφ0, hφ, h0, trivial⟩
+
+/-! Lane–Emden equation of index five halves (run 2026-11-19T1628Z): the solution on the claim's
+range constructed in `Checked.Math.LE52Exists.exists_solution` (fixed point at the centre,
+Picard–Lindelöf for the clamped field after, clamps inactive by the energy, glued). -/
+
+theorem laneEmden52_constants : nonvacuity% Checked.Math.LaneEmden52.laneEmden52_constants := by
+  obtain ⟨θ, φ, hθ, hφ0, hφ, h0⟩ := Checked.Math.LE52Exists.exists_solution
   exact ⟨θ, φ, hθ, hφ0, hφ, h0, trivial⟩
 
 /-! Gelfand problem in the three-dimensional ball (run 2026-11-06T1228Z, promoted 1428Z): the radial

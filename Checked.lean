@@ -169,6 +169,15 @@ import Checked.Math.LaneEmden32
 import Checked.Math.LE32ExistsLeft
 import Checked.Math.LE32ExistsRight
 import Checked.Math.LE32Exists
+import Checked.Math.LE52Cell
+import Checked.Math.LE52CellQ
+import Checked.Math.LE52Glue
+import Checked.Math.LE52QData
+import Checked.Math.LE52Chain
+import Checked.Math.LaneEmden52
+import Checked.Math.LE52ExistsLeft
+import Checked.Math.LE52ExistsRight
+import Checked.Math.LE52Exists
 import Checked.Trust.SecondFormulation
 import Checked.Trust.SecondFormulationCosmo
 import Checked.Trust.Formulations
@@ -215,6 +224,7 @@ import Checked.Trust.SecondReadingFSSepPrinted
 import Checked.Trust.SecondReadingLE2
 import Checked.Trust.SecondReadingLE4
 import Checked.Trust.SecondReadingLE32
+import Checked.Trust.SecondReadingLE52
 import Checked.Trust.TranscriptionsClaims
 import Checked.Trust.SecondFormulationD
 import Checked.Trust.FormulationsD

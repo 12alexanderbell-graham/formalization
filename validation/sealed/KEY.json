@@ -61,7 +61,7 @@
  "genuine": [
   {
    "item": 1,
-   "headline": "Checked.Cosmography.BambaK.bambaD3yClaim_false"
+   "headline": "Checked.FalknerSkan.NegTenth.fs_neg_tenth_exists_decay"
   },
   {
    "item": 2,
@@ -153,7 +153,7 @@
   },
   {
    "item": 29,
-   "headline": "Checked.FalknerSkan.NegOutside.fs_neg_tenth_outside_decay"
+   "headline": "Checked.Townes.Shooting.townes_over"
   },
   {
    "item": 30,
@@ -169,7 +169,7 @@
   },
   {
    "item": 35,
-   "headline": "Checked.Townes.Shooting.townes_under"
+   "headline": "Checked.Cosmography.CVdQ.dQ_y_third_order"
   },
   {
    "item": 36,
@@ -209,7 +209,7 @@
   },
   {
    "item": 45,
-   "headline": "Checked.Cosmography.CVdQ.dQ_y_third_order"
+   "headline": "Checked.Math.LaneEmden2.laneEmden2_constants"
   },
   {
    "item": 47,

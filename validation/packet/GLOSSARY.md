@@ -196,18 +196,6 @@ noncomputable def remA (D3 : ℝ → ℝ → ℝ → ℝ → ℝ) (D4 : ℝ → 
           (omega0 K a t₀) * yred a t₀ t ^ 4)
 ```
 
-## `Cosmography.BambaK.BambaD3yClaim`
-
-Claim (10.55), charitable: corrected `D²`, printed `D³`, series to `y³`, remainder `o(y⁴)`,
-for every `K` and every analytic, everywhere positive scale factor with `H₀ > 0`.
-
-```lean
-def BambaD3yClaim : Prop :=
-  ∀ (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ), ContDiff ℝ ω a → (∀ t, 0 < a t) → 0 < hubble a t₀ →
-    (fun t => remK correctD2y printedD3y (fun _ _ _ _ _ => 0) K a t₀ t)
-      =o[𝓝 t₀] (fun t => yred a t₀ t ^ 4)
-```
-
 ## `Cosmography.BambaK.lumDist`
 
 Luminosity distance in FLRW with curvature constant `K`: `d_L = a₀ (1 + z) S_K(χ)`
@@ -225,40 +213,6 @@ noncomputable def lumDist (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
 ```lean
 noncomputable def omega0 (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : ℝ :=
   1 + K / (hubble a t₀ ^ 2 * a t₀ ^ 2)
-```
-
-## `Cosmography.BambaK.printedD3y`
-
-`D³_{L,y}` as printed (Eq. (10.55)), verbatim.
-
-```lean
-noncomputable def printedD3y (q j s Ω : ℝ) : ℝ :=
-  (1 / 24) * (52 - 20 * q + 21 * q ^ 2 - 15 * q ^ 3 - 7 * j + 10 * q * j + s - 2 * Ω * (1 + 3 * q))
-```
-
-## `Cosmography.BambaK.remK`
-
-Remainder `H₀ d_L − y[1 + D¹y + D²y² + D³y³ + D⁴y⁴]` for curvature `K`, with the
-coefficients given as functions of the model's `(q₀, j₀, s₀, l₀, Ω₀)`.
-
-```lean
-noncomputable def remK (D2 : ℝ → ℝ → ℝ → ℝ) (D3 : ℝ → ℝ → ℝ → ℝ → ℝ)
-    (D4 : ℝ → ℝ → ℝ → ℝ → ℝ → ℝ) (K : ℝ) (a : ℝ → ℝ) (t₀ t : ℝ) : ℝ :=
-  hubble a t₀ * lumDist K a t₀ t -
-    seriesY4 (decel a t₀)
-      (D2 (decel a t₀) (cosmoCoeff 3 a t₀) (omega0 K a t₀))
-      (D3 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (omega0 K a t₀))
-      (D4 (decel a t₀) (cosmoCoeff 3 a t₀) (cosmoCoeff 4 a t₀) (cosmoCoeff 5 a t₀) (omega0 K a t₀))
-      (yred a t₀ t)
-```
-
-## `Cosmography.BambaK.seriesY4`
-
-`y [1 + D¹ y + D² y² + D³ y³ + D⁴ y⁴]`.
-
-```lean
-noncomputable def seriesY4 (q d2 d3 d4 y : ℝ) : ℝ :=
-  y * (1 + D1y q * y + d2 * y ^ 2 + d3 * y ^ 3 + d4 * y ^ 4)
 ```
 
 ## `Cosmography.BambaY.D1y`
