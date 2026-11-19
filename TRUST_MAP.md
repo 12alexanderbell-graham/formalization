@@ -14,8 +14,8 @@ obligation computed from the statement by `Checked.Trust.nvObligation`); the oth
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1003 hypotheses in 173 headlines;
 699 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-205 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-99 open; headlines with every hypothesis classified: 113/173
+209 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+95 open; headlines with every hypothesis classified: 114/173
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -394,9 +394,9 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `BambaZ.printedDA4z_fails_past` (4): needed 1 (`printedDA4z_fails_past_h1`), 3 (`printedDA4z_fails_past_h3`), 4 (`printedDA4z_fails_past_h4`); redundant 2 (`printedDA4z_fails_past_r2`)
 - `FRCosmo.fR_values` (1): needed 1 (`fR_values_h1`)
 - `FRCosmo.curv_derivs` (3): needed 2 (`curv_derivs_h2`), 3 (`curv_derivs_h3`); redundant 1 (`curv_derivs_r1`)
-- `FRCosmo.exists_LCDM_model` (2): open 1, 2
-- `FRCosmo.printedF0Mul_false_at` (2): open 1, 2
-- `FRCosmo.printedF0_false_at` (3): open 1, 2, 3
+- `FRCosmo.exists_LCDM_model` (2): redundant (each alone, not together) 1 (`exists_LCDM_model_r1`), 2 (`exists_LCDM_model_r2`)
+- `FRCosmo.printedF0Mul_false_at` (2): redundant 1 (`printedF0Mul_false_at_r1`); open 2
+- `FRCosmo.printedF0_false_at` (3): redundant 1 (`printedF0_false_at_r1`); open 2, 3
 - `FREta.eta_ratios` (4): redundant 2 (`eta_ratios_r2`); open 1, 3, 4
 - `FREta.eta20_hasDerivAt` (2): needed 1 (`eta20_hasDerivAt_h1`), 2 (`eta20_hasDerivAt_h2`)
 - `FREta.eta30_hasDerivAt` (2): needed 1 (`eta30_hasDerivAt_h1`), 2 (`eta30_hasDerivAt_h2`)

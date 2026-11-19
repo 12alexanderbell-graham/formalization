@@ -4223,6 +4223,7 @@ moduledoc:Checked.Trust.NecessityAVCertsC -mdoc16484443900907060195
 moduledoc:Checked.Trust.NecessityAVFar -mdoc64813553613406936
 moduledoc:Checked.Trust.NecessityAVJunk -mdoc3576144076365383759
 moduledoc:Checked.Trust.NecessityAV -mdoc17725697613546823224
+moduledoc:Checked.Trust.NecessityAW -mdoc4164478090305437009
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789

@@ -903,6 +903,6 @@
 
 ## 2026-11-19T0028Z (scheduled run)
 - Env: repo ok (checkout = origin/main f29517e); local Lean (elan + cache, `checked-build` of 680a810 restored). CI: 44424316043 (cf5003e) checked job red only in `check_headline_mentions` (fixed by f29517e, whose run 44425068034 judges the Gelfand count promotion); leanchecker shard 3 48 min.
-- Part 1 (rotation): `Checked/Trust/NecessityAV.lean` and five helper modules — every hypothesis of the two Moresco et al. 2016 minimum statements classified (6 REDUNDANT, 2 NEEDED); open hypotheses 107 → 99.
+- Part 1 (rotation): `Checked/Trust/NecessityAV.lean` and five helper modules — every hypothesis of the two Moresco et al. 2016 minimum statements classified (6 REDUNDANT, 2 NEEDED); `Checked/Trust/NecessityAW.lean` — witness models for every density make both density bounds of `FRCosmo.exists_LCDM_model` and the lower bound of two refutations REDUNDANT (4); open hypotheses 107 → 95.
 - Annex LIV: PROMPT note (region and sign hypotheses of a certified bound), LEDGER experiment.
 - Next: CI read (STATE 1t); then part 3 by rotation.
