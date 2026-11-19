@@ -165,6 +165,7 @@ import Work.Math.LaneEmden32BlindClosed
 import Work.Math.LE32ExistsLeft
 import Work.Math.LE32ExistsRight
 import Work.Math.LE32Exists
+import Work.Math.LaneEmden52
 import Work.Math.LE4Start
 import Work.Math.LE4QData
 import Work.Math.LE4Last
