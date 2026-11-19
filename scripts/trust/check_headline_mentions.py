@@ -332,7 +332,7 @@ def tokens(t):
     return out
 
 
-def check_line(line, fulls, modules, vocab, open_obj, path, ab, m6_on=True):
+def check_line(line, fulls, modules, vocab, open_obj, path, ab, m6_on=True, m8_on=True):
     errs = []
     keys = headlines()[0]
     s = skel(line)
@@ -362,7 +362,7 @@ def check_line(line, fulls, modules, vocab, open_obj, path, ab, m6_on=True):
     if status:
         errs.append(f"M2 status words outside a template: {', '.join(status[:12])}")
     if m6_on:
-        errs += m6(line, t_free)
+        errs += m6(line, t_free, m8_on=m8_on)
     return errs
 
 
@@ -431,7 +431,33 @@ INITIAL_RE = re.compile(r"(?<![^\W\d_])[A-Z]\.(?=\s*(?:and\b|&|,|[A-Z]\.|\d|\(?(
 _DATE2 = re.compile(r"\b20[2-9]\d-\d\d-\d\d(?:t\d{4}z)?\b|\b\d{7,}\b")
 
 
-def names_source(line):
+# M8 (run 2026-11-19T1428Z, part 3; pre-registered in runs/2026-11-19T1428Z/t5/M8_BRIEF.md before its red teams ran).
+# Why: M6 reads a source only through a year, a source word, a numbered table/equation, a listed surname or a
+# registered source name. M1 confines an about-line to the closed vocabulary of scripts/trust/mention_vocab.txt, so the
+# ways to point at a document WITHOUT those are the vocabulary words that denote a document, its parts or its authors.
+# They were read off the whole vocabulary (1,626 words) by hand: a document or its part (article, page, paper,
+# paragraph, footnote, table, tabulated, text, title, typeset, documentation, arxiv, wikipedia, source), the authors
+# (author, they, them, their, themselves, who, whose), software whose output a statement is compared with (Cantera,
+# DWSIM, pychemqt) and a journal (PRD). An about-line holding one of them names a source for M6. Also: 'the theorem /
+# lemma / proposition / corollary' not followed by a code span (a result that is not one of ours, named by its kind).
+# The vocabulary's personal names that were missing from source_surnames.txt were added (M8 also keeps the list
+# closed for new vocabulary words: m8_vocab_names in m4).
+M8_DOC_RE = re.compile(r"(?x)(?<![\w'’])(?:articles?|arxiv|authors?(?:['’]s)?|documentation|footnotes?|pages?|"
+                       r"papers?(?:['’]s)?|paragraphs?|tables?(?:['’]s)?|tabulated|tabulations?|tbl|texts?|titles?|"
+                       r"wikipedia|their|theirs|them|themselves|they|who|whose|typeset|sources?|"
+                       r"cantera(?:['’]s)?|dwsim|pychemqt|prd)(?![\w'’])")
+M8_KIND_RE = re.compile(r"(?<![\w'’])the\s+(?:theorems?|lemmas?|propositions?|corollar(?:y|ies))(?![\w'’])(?!\s*`)")
+
+
+def m8_names(line):
+    """M8: the line points at a document, its parts or its authors by a vocabulary word, or at a result by its kind"""
+    raw = m6_text(line)
+    keys, fulls, modules = headlines()
+    t = words(unmark(norm(raw)), fulls, modules)
+    return bool(M8_DOC_RE.search(t) or M8_KIND_RE.search(norm(raw)))
+
+
+def names_source(line, m8_on=True):
     """M6's source detector (run 2026-11-19T0228Z; hardened after red team M4 the same run, not blind): code spans that
     are not a headline, module or path are read; separators inside a digit run are dropped before the year test;
     initials, number words after 'table' etc. and spelled-out years name a source too"""
@@ -450,15 +476,17 @@ def names_source(line):
     if {w[:-2] if w.endswith("'s") else w for w in ws} & surnames():
         return True
     r = source_names_re()
-    return bool(r and r.search(raw))
+    if r and r.search(raw):
+        return True
+    return m8_on and m8_names(line)
 
 
 CITE = re.compile(r"(?:[A-ZÀ-Þ][\w'’\-–]+(?:\s*(?:,|and|&)\s*[A-ZÀ-Þ][\w'’\-–]+)*(?:\s+et\.?\s+al\.?)?,?\s*[(\[]?"
                   r"(?:18|19|20)\d\d[a-z]?[)\]]?)")
 
 
-def m6(line, t_free):
-    if not names_source(line):
+def m6(line, t_free, m8_on=True):
+    if not names_source(line, m8_on):
         return []
     # citation spans are read from the raw line (capitals; inside code spans too), then the line goes through the same
     # reduction as M1, with code spans that are not names kept as words and HTML read as text
@@ -568,7 +596,7 @@ def ident(line):
     return re.sub(r"^(last updated|previous update):\s*", "", norm(m6_text(line)).strip())
 
 
-def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None):
+def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m8_pre=None):
     """grand = (idents of lines that existed before the last vocabulary rebuild, the vocabulary they were written
     under): such a line, new since a base older than the rebuild, is read by M1 with that vocabulary too"""
     keys, fulls, modules = headlines()
@@ -604,7 +632,8 @@ def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None):
                 continue
             v = vocab | grand[1] if grand and gident(l) in grand[0] else vocab
             for e in check_line(l, fulls, modules, v, obj, path, ab,
-                                m6_on=not (m6_pre and ident(l) in m6_pre)):
+                                m6_on=not (m6_pre and ident(l) in m6_pre),
+                                m8_on=not (m8_pre and ident(l) in m8_pre)):
                 short = ", ".join(sorted(f.split(".")[-1] for f in ab)[:4])
                 errors.append(f"{path}:{i + 1}: about {short}: {e}")
     return errors
@@ -648,12 +677,53 @@ def m6_grandfathered(base):
     return {ident(l) for txt in files_at(intro + "^").values() for l in txt.splitlines()}
 
 
+def m8_grandfathered(base):
+    """M8 binds from the commit that introduced it (run 2026-11-19T1428Z): lines that existed in its parent are not
+    read by M8"""
+    r = git("log", "--format=%H", "-S", "def m8_names(", "--", "scripts/trust/check_headline_mentions.py").split()
+    if not r:
+        return None
+    intro = r[-1]
+    if subprocess.run(["git", "merge-base", "--is-ancestor", intro, base], cwd=ROOT).returncode == 0:
+        return None
+    return {ident(l) for txt in files_at(intro + "^").values() for l in txt.splitlines()}
+
+
 def m7_binds(base):
     """M7 binds from the commit that introduced it: for an older base, lines written before it are not re-read"""
     r = git("log", "--format=%H", "-S", "def m7(", "--", "scripts/trust/check_headline_mentions.py").split()
     if not r:
         return True  # uncommitted: the working tree introduces it
     return subprocess.run(["git", "merge-base", "--is-ancestor", r[-1], base], cwd=ROOT).returncode == 0
+
+
+# M8 (vocabulary names): a word that enters mention_vocab.txt and is written as a name in the records (capitalised
+# inside a sentence, not an acronym) must be a listed source surname or one of these eponyms of a concept, model or
+# method (classified by hand, run 2026-11-19T1428Z; grow with a LEDGER line naming check_headline_mentions)
+M8_EPONYMS = frozenset("""banach chebyshev clenshaw crocco frank gibbs gronwall hiemenz hubble jordan lindelof lipschitz
+lyapunov milne picard radau ricci riemann rolle sylvester taylor townes volterra euclidean gaussian hamiltonian jacobian
+laplacian eddington greek latin
+claude github lean mathlib opus python sonnet webfetch commonmark gui ici lt pi pr prop quot sec en eds ch apoly cq
+eqs""".split())
+
+
+def m8_vocab_names(added, files):
+    """added vocabulary words written as names in FILES (capitalised mid-sentence at least twice and at least four
+    times as often as in lower case, never all capitals) that are neither listed surnames nor M8_EPONYMS"""
+    cap, low = {}, {}
+    want = set(added)
+    for txt in files.values():
+        t = re.sub(r"`[^`]*`", " ", txt)
+        for m in re.finditer(r"(?<![\w.\-/])([^\W\d_][\w'’]*)", t):
+            w = m.group(1)
+            if w.isupper() or any(c.isupper() for c in w[1:]) or not w.isascii() or re.search(r"[.!?:#*\-]\s*$|^\s*$|\n", t[max(0, m.start() - 2):m.start()]):
+                continue
+            k = re.sub(r"'s$", "", norm(w).replace("’", "'"))
+            if k in want or k + "'s" in want:
+                d = cap if w[0].isupper() else low
+                d[k] = d.get(k, 0) + 1
+    return sorted(k for k in cap if cap[k] >= 2 and cap[k] >= 4 * low.get(k, 0) and k not in surnames()
+                  and k not in M7_NOT_NAMES and k not in M8_EPONYMS and not M8_DOC_RE.fullmatch(k))
 
 
 def m4(base):
@@ -665,6 +735,10 @@ def m4(base):
         ledger = git("diff", f"{base}..HEAD", "--", "LEDGER.md")
         if not any(l.startswith("+") and "mention_vocab" in l for l in ledger.splitlines()):
             errs.append(f"M4 {VOCAB} grew ({len(added)} words) without an added LEDGER line naming mention_vocab")
+        names = m8_vocab_names(added, files_at(None))
+        if names:
+            errs.append(f"M8 words written as names entered {VOCAB} without a listing in "
+                        f"scripts/trust/source_surnames.txt or M8_EPONYMS: {', '.join(names)}")
         bad = [w for w in added if STATUS.match(w)]
         if bad:
             errs.append(f"M4 status words may never enter {VOCAB}: {', '.join(bad)}")
@@ -700,6 +774,14 @@ M4_LINES = [
     'of the theorem.</span>',
     "<!-- `gelfand_extrema` has the inverse order of the quantifiers of the theorem of Joseph and Lundgren 1973 -->",
     "`gelfand_extrema` has a strictly positive upper bound where the theorem of `Joseph and Lundgren 1973` has the dual.",
+]
+# M8 (run 2026-11-19T1428Z, written before its red teams): sources pointed at without a name, year or numbered part;
+# each passed M1-M7 at 73af250a
+M8_LINES = [
+    "- `gelfand_extrema`: the statement has the inverse sign of the exponent of the Gidas Nirenberg theorem.",
+    "- `gelfand_extrema`: the statement has the inverse sign of the exponent in their table.",
+    "- `fs_neg_reversed_wall_shear_3_exists`: the tabulated wall shear has the inverse sign.",
+    "- `gelfand_extrema`: the statement is the dual of the theorem, with the inverse order of the quantifiers.",
 ]
 # recorded limits of M6 (red team M4; not controls): a source described generically ("of the table", "of the Gelfand
 # theorem"), a name outside source_surnames.txt ("the Falkner and Skan solution"), the citation on a neighbouring line,
@@ -772,7 +854,7 @@ def selftest():
         "of the sign in Table 7 of Ganapol 2010.",
         "- `gelfand_pde_radial_many_centre`: the statement is the dual of the theorem of Joseph and Lundgren.",
         "- `gelfand_extrema`: Joseph and Lundgren (1973) have `+e^w` in the equation of the statement.",
-    ] + M4_LINES
+    ] + M4_LINES + M8_LINES
     # known limit (recorded, not a control; red team M3 mechanism 4, reader test L of run 2026-11-18T2028Z misled 0/3):
     # "`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem, with the inverse order of the
     # quantifiers." passes. Earlier recorded limit: a status in ordinary in-vocabulary words, e.g.
@@ -782,6 +864,9 @@ def selftest():
         "- Promoted to Checked + AUDITED; PROVED (CI 44261574038 of adcb9a6 green on every job incl. the checked job).",
         # M6 (run 2026-11-19T0228Z): a bare citation of the source passes
         "- `gelfand_pde_radial_many_centre` (Joseph and Lundgren 1973, Theorem 2).",
+        # M8 (run 2026-11-19T1428Z): a bare pointer at the source passes; a theorem named by its code span is ours
+        "- `gelfand_pde_radial_many_centre` (table).",
+        "- `gelfand_extrema`: the theorem `gelfand_extrema` is in Lean.",
     ]
     fails = 0
     base = dict(head)
@@ -835,6 +920,11 @@ def selftest():
         if m7(head, new):
             print(f"selftest FAIL: M7 flagged a correct line: {g}: {m7(head, new)}")
             fails += 1
+    # M8 vocabulary names: a new vocabulary word written as a name must be listed
+    if m8_vocab_names(["zzquixote", "zzpanza"], {"x.md": "We read Zzquixote here and Zzquixote there; zzpanza, zzpanza."}) \
+            != ["zzquixote"]:
+        print("selftest FAIL: M8 vocabulary names")
+        fails += 1
     print(f"check_headline_mentions selftest: {len(defects)} defects, {len(goods)} correct lines, M3, "
           f"M7 {len(m7_bad)}+{len(m7_good)}; "
           f"{'FAIL' if fails else 'ok'}")
@@ -874,7 +964,8 @@ def main(argv):
         if selftest():
             return 1
         bf, hf = files_at(base), files_at(None)
-        errors = run(bf, hf, grand=grandfathered(base), m6_pre=m6_grandfathered(base)) + m4(base)
+        errors = run(bf, hf, grand=grandfathered(base), m6_pre=m6_grandfathered(base),
+                     m8_pre=m8_grandfathered(base)) + m4(base)
         errors += m7(bf, hf) if m7_binds(base) else []
         # run 2026-11-18T2028Z: stale pending statuses in STATE.md headings (check_stale_status.py; called from here so
         # the workflow file, and with it the nanoda/leanchecker memo hash, need not change)
