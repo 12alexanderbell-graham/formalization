@@ -172,6 +172,8 @@ import Work.Math.LE52QData
 import Work.Math.LE52Chain
 import Work.Math.LaneEmden52
 import Work.Math.LaneEmden72
+import Work.Math.LaneEmden72BlindClosed
+import Work.Math.LE72Exists
 import Work.Math.LaneEmden52BlindClosed
 import Work.Math.LE52ExistsLeft
 import Work.Math.LE52ExistsRight
