@@ -29,32 +29,28 @@ zero; the real power is rewritten as `√θ ^ 3` (`Work.Math.LE32Cell.rpow32_eq`
 namespace Work.Math.LaneEmden32
 open Set
 
-/-- Lane–Emden equation of index 3/2: for every solution θ of θ'' + (2/ξ)θ' + θ ^ (3/2) = 0 on
-(0, 4] with θ(0) = 1, θ differentiable on [0, 4] with derivative φ, and φ continuous at 0, there is
-a first zero ξ₁ of θ with 3.65375373 ≤ ξ₁ ≤ 3.65375374 (θ > 0 before it), at which −ξ₁² θ'(ξ₁) lies
-between 2.71405511 and 2.71405513 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 5.99070450 and
-5.99070453. -/
-theorem laneEmden32_constants (θ φ : ℝ → ℝ)
-    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 4, HasDerivWithinAt θ (φ ξ) (Icc 0 4) ξ)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 4) 0)
-    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 4,
-      HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ ((3 : ℝ) / 2)) (Icc 0 4) ξ)
+/-- The program's argument on [0, 183/50] (helper). -/
+theorem core (θ φ : ℝ → ℝ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) (183 / 50), HasDerivWithinAt θ (φ ξ) (Icc 0 (183 / 50)) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 (183 / 50)) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) (183 / 50),
+      HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ ((3 : ℝ) / 2)) (Icc 0 (183 / 50)) ξ)
     (h0 : θ 0 = 1) :
     ∃ ξ₁ : ℝ, 3.65375373 ≤ ξ₁ ∧ ξ₁ ≤ 3.65375374 ∧ θ ξ₁ = 0 ∧ (∀ ξ ∈ Ico 0 ξ₁, 0 < θ ξ) ∧
       2.71405511 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.71405513 ∧
       5.99070450 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
       ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 5.99070453 := by
-  have hφg : ∀ ξ ∈ Ioc (0 : ℝ) 4,
-      HasDerivWithinAt φ (-(2 / ξ * φ ξ) - Work.Math.LE32Cell.g32 (θ ξ)) (Icc 0 4) ξ :=
+  have hφg : ∀ ξ ∈ Ioc (0 : ℝ) (183 / 50),
+      HasDerivWithinAt φ (-(2 / ξ * φ ξ) - Work.Math.LE32Cell.g32 (θ ξ)) (Icc 0 (183 / 50)) ξ :=
     fun ξ hξ => by rw [← Work.Math.LE32Cell.rpow32_eq]; exact hφ ξ hξ
   obtain ⟨hneg, hlo, hhi, hom⟩ := Work.Math.LE32Certs.chain hθ hφ0 hφg h0
-  have hcont : ContinuousOn θ (Icc 0 4) := fun x hx => (hθ x hx).continuousWithinAt
+  have hcont : ContinuousOn θ (Icc 0 (183 / 50)) := fun x hx => (hθ x hx).continuousWithinAt
   have hanti : StrictAntiOn θ (Icc 0 (3653753737 / 1000000000 : ℝ)) := by
     apply strictAntiOn_of_deriv_neg (convex_Icc 0 _)
       (hcont.mono (Icc_subset_Icc le_rfl (by norm_num)))
     intro x hx
     rw [interior_Icc] at hx
-    have hx4 : x ∈ Ioo (0 : ℝ) 4 := ⟨hx.1, by linarith [hx.2]⟩
+    have hx4 : x ∈ Ioo (0 : ℝ) (183 / 50) := ⟨hx.1, by linarith [hx.2]⟩
     have hd : HasDerivAt θ (φ x) x :=
       (hθ x (Ioo_subset_Icc_self hx4)).hasDerivAt (Icc_mem_nhds hx4.1 hx4.2)
     rw [hd.deriv]
@@ -89,5 +85,24 @@ theorem laneEmden32_constants (θ φ : ℝ → ℝ)
       norm_num
     norm_num at ho1
     nlinarith
+
+/-- Lane–Emden equation of index 3/2: for every solution θ of θ'' + (2/ξ)θ' + θ ^ (3/2) = 0 on
+(0, 4] with θ(0) = 1, θ differentiable on [0, 4] with derivative φ, and φ continuous at 0, there is
+a first zero ξ₁ of θ with 3.65375373 ≤ ξ₁ ≤ 3.65375374 (θ > 0 before it), at which −ξ₁² θ'(ξ₁) lies
+between 2.71405511 and 2.71405513 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 5.99070450 and
+5.99070453. -/
+theorem laneEmden32_constants (θ φ : ℝ → ℝ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 4, HasDerivWithinAt θ (φ ξ) (Icc 0 4) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 4) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 4,
+      HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ ((3 : ℝ) / 2)) (Icc 0 4) ξ)
+    (h0 : θ 0 = 1) :
+    ∃ ξ₁ : ℝ, 3.65375373 ≤ ξ₁ ∧ ξ₁ ≤ 3.65375374 ∧ θ ξ₁ = 0 ∧ (∀ ξ ∈ Ico 0 ξ₁, 0 < θ ξ) ∧
+      2.71405511 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 2.71405513 ∧
+      5.99070450 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
+      ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 5.99070453 := by
+  have hsub : Icc (0 : ℝ) (183 / 50) ⊆ Icc 0 4 := Icc_subset_Icc le_rfl (by norm_num)
+  exact core θ φ (fun ξ hξ => (hθ ξ (hsub hξ)).mono hsub) (hφ0.mono hsub)
+    (fun ξ hξ => (hφ ξ ⟨hξ.1, by linarith [hξ.2]⟩).mono hsub) h0
 
 end Work.Math.LaneEmden32

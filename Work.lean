@@ -161,6 +161,7 @@ import Work.Math.LE32Glue
 import Work.Math.LE32QData
 import Work.Math.LE32Chain
 import Work.Math.LaneEmden32
+import Work.Math.LaneEmden32BlindClosed
 import Work.Math.LE4Start
 import Work.Math.LE4QData
 import Work.Math.LE4Last

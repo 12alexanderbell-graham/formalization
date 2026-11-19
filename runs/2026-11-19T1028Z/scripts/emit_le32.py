@@ -54,9 +54,9 @@ body = list(range(n - 1))
 segs = [body[i:i + SEG] for i in range(0, len(body), SEG)]
 for k, sg in enumerate(segs):
     d = sg[-1] + 1
-    L.append(f"theorem seg{k}_ok : segOK (4 : ℚ) false true c{d} [" + ", ".join(f"c{i}" for i in sg) +
+    L.append(f"theorem seg{k}_ok : segOK (183 / 50 : ℚ) false true c{d} [" + ", ".join(f"c{i}" for i in sg) +
              "] = true := by\n  decide +kernel\n")
-L.append(f"theorem last_cell_ok : cellOK (4 : ℚ) c{last['i']} = true := by\n  decide +kernel\n")
+L.append(f"theorem last_cell_ok : cellOK (183 / 50 : ℚ) c{last['i']} = true := by\n  decide +kernel\n")
 L.append(f"theorem last_ok : lastOK c{last['i']} {q(G.W_LO)} {q(G.W_HI)} = true := by\n  decide +kernel\n")
 L.append("theorem link0 : |qeval sd.P sd.ξ0 - c0.pt.headD 0| + sd.ξ0 ^ 2 / 6 * (sd.L * sd.η + sd.R) ≤ c0.δ ∧\n"
          "    |qeval (Checked.Sim.QPoly.qderiv sd.P) sd.ξ0 - c0.pp.headD 0| + sd.ξ0 / 3 * (sd.L * sd.η + sd.R) ≤ c0.δ := by\n  decide +kernel\n")
@@ -81,19 +81,19 @@ C.append(f"open Set Checked.Sim Checked.Sim.QPoly {cq} {glue} {'Work' if PFX == 
 lo, hi = last['t0'], last['t0'] + last['h']
 C.append("/-- Chaining of the start and all cells. -/")
 C.append("theorem chain {θ φ : ℝ → ℝ}")
-C.append("    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 4, HasDerivWithinAt θ (φ ξ) (Icc 0 4) ξ)")
-C.append("    (hφ0 : ContinuousWithinAt φ (Icc 0 4) 0)")
-C.append("    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 4, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - g32 (θ ξ)) (Icc 0 4) ξ)")
+C.append("    (hθ : ∀ ξ ∈ Icc (0 : ℝ) (183 / 50), HasDerivWithinAt θ (φ ξ) (Icc 0 (183 / 50)) ξ)")
+C.append("    (hφ0 : ContinuousWithinAt φ (Icc 0 (183 / 50)) 0)")
+C.append("    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) (183 / 50), HasDerivWithinAt φ (-(2 / ξ * φ ξ) - g32 (θ ξ)) (Icc 0 (183 / 50)) ξ)")
 C.append("    (h0 : θ 0 = 1) :")
 C.append(f"    (∀ t ∈ Ioc (0 : ℝ) {r(hi)}, φ t < 0) ∧ 0 < θ {r(lo)} ∧ θ {r(hi)} < 0 ∧")
 C.append(f"      ∀ t ∈ Icc {r(lo)} {r(hi)}, ({r(G.W_LO)}) ≤ -(t ^ 2 * φ t) ∧ -(t ^ 2 * φ t) ≤ {r(G.W_HI)} := by")
-C.append(f"""  have hX : ((4 : ℚ) : ℝ) = 4 := by norm_num
-  have hθ' : ∀ t ∈ Icc (0 : ℝ) ((4 : ℚ) : ℝ), HasDerivWithinAt θ (φ t) (Icc 0 ((4 : ℚ) : ℝ)) t := by
+C.append(f"""  have hX : ((183 / 50 : ℚ) : ℝ) = 183 / 50 := by norm_num
+  have hθ' : ∀ t ∈ Icc (0 : ℝ) ((183 / 50 : ℚ) : ℝ), HasDerivWithinAt θ (φ t) (Icc 0 ((183 / 50 : ℚ) : ℝ)) t := by
     rw [hX]; exact hθ
-  have hφ' : ∀ t ∈ Ioc (0 : ℝ) ((4 : ℚ) : ℝ),
-      HasDerivWithinAt φ (-(2 / t * φ t) - g32 (θ t)) (Icc 0 ((4 : ℚ) : ℝ)) t := by
+  have hφ' : ∀ t ∈ Ioc (0 : ℝ) ((183 / 50 : ℚ) : ℝ),
+      HasDerivWithinAt φ (-(2 / t * φ t) - g32 (θ t)) (Icc 0 ((183 / 50 : ℚ) : ℝ)) t := by
     rw [hX]; exact hφ
-  have hξX : ((({D}.sd.ξ0 : ℚ)) : ℝ) ≤ 4 := by rw [{D}.sd_ξ0]; norm_num
+  have hξX : ((({D}.sd.ξ0 : ℚ)) : ℝ) ≤ 183 / 50 := by rw [{D}.sd_ξ0]; norm_num
   obtain ⟨n0, a0', b0'⟩ := start32 {D}.sd {D}.sd_ok hξX hθ hφ0 hφ h0
   obtain ⟨l1, l2⟩ := {D}.link0
   have l1' : |((qeval {D}.sd.P {D}.sd.ξ0 : ℚ) : ℝ) - (({D}.c0.pt.headD 0 : ℚ) : ℝ)| +
@@ -118,7 +118,7 @@ li = last['i']
 C.append(f"""  have pL : (0 : ℝ) < ({D}.c{li}.t0 : ℝ) := by rw [{D}.last_t0]; norm_num
   have hE : (({D}.c{li}.t0 : ℚ) : ℝ) + (({D}.c{li}.h : ℚ) : ℝ) = {r(hi)} := by
     rw [{D}.last_t0, {D}.last_h]; norm_num
-  obtain ⟨e1, e2, e3, e4⟩ := last32 (T := 4) {D}.c{li} _ _ {D}.last_cell_ok {D}.last_ok (θ := θ) (φ := φ)
+  obtain ⟨e1, e2, e3, e4⟩ := last32 (T := (183 / 50 : ℚ)) {D}.c{li} _ _ {D}.last_cell_ok {D}.last_ok (θ := θ) (φ := φ)
     (fun t ht => hθ' t ⟨by linarith [ht.1], by linarith [ht.2, hE]⟩)
     (fun t ht => hφ' t ⟨by linarith [ht.1], by linarith [ht.2, hE]⟩) a{K} b{K}
   have hS : (({D}.c{li}.t0 : ℚ) : ℝ) = {r(lo)} := by rw [{D}.last_t0]; norm_num

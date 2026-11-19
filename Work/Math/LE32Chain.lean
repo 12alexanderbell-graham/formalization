@@ -7,19 +7,19 @@ open Set Checked.Sim Checked.Sim.QPoly Work.Math.LE32CellQ Work.Math.LE32Glue Wo
 
 /-- Chaining of the start and all cells. -/
 theorem chain {θ φ : ℝ → ℝ}
-    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 4, HasDerivWithinAt θ (φ ξ) (Icc 0 4) ξ)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 4) 0)
-    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 4, HasDerivWithinAt φ (-(2 / ξ * φ ξ) - g32 (θ ξ)) (Icc 0 4) ξ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) (183 / 50), HasDerivWithinAt θ (φ ξ) (Icc 0 (183 / 50)) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 (183 / 50)) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) (183 / 50), HasDerivWithinAt φ (-(2 / ξ * φ ξ) - g32 (θ ξ)) (Icc 0 (183 / 50)) ξ)
     (h0 : θ 0 = 1) :
     (∀ t ∈ Ioc (0 : ℝ) (3653753737/1000000000 : ℝ), φ t < 0) ∧ 0 < θ (730750747/200000000 : ℝ) ∧ θ (3653753737/1000000000 : ℝ) < 0 ∧
       ∀ t ∈ Icc (730750747/200000000 : ℝ) (3653753737/1000000000 : ℝ), ((2714055119/1000000000 : ℝ)) ≤ -(t ^ 2 * φ t) ∧ -(t ^ 2 * φ t) ≤ (2714055121/1000000000 : ℝ) := by
-  have hX : ((4 : ℚ) : ℝ) = 4 := by norm_num
-  have hθ' : ∀ t ∈ Icc (0 : ℝ) ((4 : ℚ) : ℝ), HasDerivWithinAt θ (φ t) (Icc 0 ((4 : ℚ) : ℝ)) t := by
+  have hX : ((183 / 50 : ℚ) : ℝ) = 183 / 50 := by norm_num
+  have hθ' : ∀ t ∈ Icc (0 : ℝ) ((183 / 50 : ℚ) : ℝ), HasDerivWithinAt θ (φ t) (Icc 0 ((183 / 50 : ℚ) : ℝ)) t := by
     rw [hX]; exact hθ
-  have hφ' : ∀ t ∈ Ioc (0 : ℝ) ((4 : ℚ) : ℝ),
-      HasDerivWithinAt φ (-(2 / t * φ t) - g32 (θ t)) (Icc 0 ((4 : ℚ) : ℝ)) t := by
+  have hφ' : ∀ t ∈ Ioc (0 : ℝ) ((183 / 50 : ℚ) : ℝ),
+      HasDerivWithinAt φ (-(2 / t * φ t) - g32 (θ t)) (Icc 0 ((183 / 50 : ℚ) : ℝ)) t := by
     rw [hX]; exact hφ
-  have hξX : (((Work.Math.LE32QData.sd.ξ0 : ℚ)) : ℝ) ≤ 4 := by rw [Work.Math.LE32QData.sd_ξ0]; norm_num
+  have hξX : (((Work.Math.LE32QData.sd.ξ0 : ℚ)) : ℝ) ≤ 183 / 50 := by rw [Work.Math.LE32QData.sd_ξ0]; norm_num
   obtain ⟨n0, a0', b0'⟩ := start32 Work.Math.LE32QData.sd Work.Math.LE32QData.sd_ok hξX hθ hφ0 hφ h0
   obtain ⟨l1, l2⟩ := Work.Math.LE32QData.link0
   have l1' : |((qeval Work.Math.LE32QData.sd.P Work.Math.LE32QData.sd.ξ0 : ℚ) : ℝ) - ((Work.Math.LE32QData.c0.pt.headD 0 : ℚ) : ℝ)| +
@@ -59,7 +59,7 @@ theorem chain {θ φ : ℝ → ℝ}
   have pL : (0 : ℝ) < (Work.Math.LE32QData.c105.t0 : ℝ) := by rw [Work.Math.LE32QData.last_t0]; norm_num
   have hE : ((Work.Math.LE32QData.c105.t0 : ℚ) : ℝ) + ((Work.Math.LE32QData.c105.h : ℚ) : ℝ) = (3653753737/1000000000 : ℝ) := by
     rw [Work.Math.LE32QData.last_t0, Work.Math.LE32QData.last_h]; norm_num
-  obtain ⟨e1, e2, e3, e4⟩ := last32 (T := 4) Work.Math.LE32QData.c105 _ _ Work.Math.LE32QData.last_cell_ok Work.Math.LE32QData.last_ok (θ := θ) (φ := φ)
+  obtain ⟨e1, e2, e3, e4⟩ := last32 (T := (183 / 50 : ℚ)) Work.Math.LE32QData.c105 _ _ Work.Math.LE32QData.last_cell_ok Work.Math.LE32QData.last_ok (θ := θ) (φ := φ)
     (fun t ht => hθ' t ⟨by linarith [ht.1], by linarith [ht.2, hE]⟩)
     (fun t ht => hφ' t ⟨by linarith [ht.1], by linarith [ht.2, hE]⟩) a7 b7
   have hS : ((Work.Math.LE32QData.c105.t0 : ℚ) : ℝ) = (730750747/200000000 : ℝ) := by rw [Work.Math.LE32QData.last_t0]; norm_num
