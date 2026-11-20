@@ -281,6 +281,9 @@ import Work.Math.GelfandPDECountTurningBlindClosed
 import Work.Math.GelfandPDECountTurningValues
 import Work.Math.GelfandPDECountTurningValuesBlind
 import Work.Math.GelfandPDECountTurningValuesBlindClosed
+import Work.Math.GelfandPDEBound
+import Work.Math.GelfandPDEBoundBlind
+import Work.Math.GelfandPDEBoundBlindClosed
 import Work.Math.GContract
 import Work.Math.GCData
 import Work.Math.BonnorEbertAllBlind

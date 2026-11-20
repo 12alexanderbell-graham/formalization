@@ -20,6 +20,6 @@ theorem gelfand_pde_bound (lam : ℝ) (u : EuclideanSpace ℝ (Fin 3) → ℝ)
     (hb : ∀ x : EuclideanSpace ℝ (Fin 3), ‖x‖ = 1 → u x = 0)
     (hpde : ∀ x ∈ ball (0 : EuclideanSpace ℝ (Fin 3)) 1, Δ u x + lam * Real.exp (u x) = 0) :
     lam ≤ 3.321992119 := by
-  sorry
+  exact Checked.Math.GSymFree.bound_no_radial lam u hu hc hb hpde
 
 end Work.Math.GelfandPDEBound
