@@ -7,7 +7,7 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 304. Resting on no unpinned physics definition: 304.
+Headlines: 305. Resting on no unpinned physics definition: 305.
 Non-vacuity (trust track T2): 184 headlines have hypotheses; 184 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
@@ -342,6 +342,7 @@ the docstring says; universally bound parameters are not listed.
 | `Math.BonnorEbertCount.bonnor_ebert_count` | — | — | — | `bonnor_ebert_count` | — |
 | `Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning` | — | — | — | unconditional | — |
 | `Math.GelfandTurningValues.gelfand_turning_values` | — | — | — | `gelfand_turning_values` | — |
+| `Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values` | — | — | — | unconditional | — |
 
 ## Hypothesis necessity, per headline
 

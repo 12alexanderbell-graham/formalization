@@ -419,6 +419,7 @@ Checked.Math.GelfandExtrema.gelfand_extrema b0115572-doc11641840203187700132
 Checked.Math.GelfandPDE.gelfand_pde_radial_bound a60a1dff-doc5938021182067386944
 Checked.Math.GelfandPDECount.gelfand_pde_radial_count 2806c1f6-doc2308684125015040648
 Checked.Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning 606a68c8-doc4698414674050155471
+Checked.Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values 6be4612a-doc13367130333711919223
 Checked.Math.GelfandPDECountValues.gelfand_pde_radial_count_values 6fe0a668-doc18004585916351417238
 Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists e7c0952a-doc919232265670323521
 Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre 20391901-doc2389207363262481562
@@ -4473,6 +4474,7 @@ moduledoc:Checked.Math.GelfandLam3 -mdoc5093041509294523175
 moduledoc:Checked.Math.GelfandODEBound -mdoc17242492181181850265
 moduledoc:Checked.Math.GelfandPDECountMain -mdoc15433464297724928386
 moduledoc:Checked.Math.GelfandPDECountTurningMain -mdoc17271368788129181268
+moduledoc:Checked.Math.GelfandPDECountTurningValues -mdoc17201338932121939264
 moduledoc:Checked.Math.GelfandPDECountTurning -mdoc15229035847137259508
 moduledoc:Checked.Math.GelfandPDECountValuesMain -mdoc1228825129750883574
 moduledoc:Checked.Math.GelfandPDECountValues -mdoc7897219441425687065
@@ -4820,4 +4822,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc10120696897702228919
+moduledoc:Checked.Trust.Witnesses -mdoc13998431274126824037

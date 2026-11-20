@@ -1019,3 +1019,10 @@
 - The judge: the nanoda profile showed each shard re-checking the proofs of other shards' Checked theorems (about half its time); the exporter now gives those theorems as assumed statements, each checked once in its own shard. Trial CI 44756096899: nanoda 4/4, slowest shard 24 min (was over 83).
 - Part 3 (rotation, T5): reader test WP on the records as they stand, five headlines drawn at random: S 1/6 misled (a true limitation line), G 0/3; recorded. Stale dated necessity lines met by 5 of 6 readers, rejected by the banner → experiment.
 - Next: CI read of the final push (nanoda with the new export on main); re-profile; then parts 2/5 by rotation.
+
+## 2026-11-20T1628Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main 92745f5); local Lean via elan + restored CI build of 92745f5 (second restore streamed: the first filled the disk allowance); one Sonnet subagent (blind restatement).
+- CI: 44764592207 (92745f5, nanoda with assumed theorems) green on every job in 39 min; slowest nanoda shard 26 min. No reassignment needed.
+- Parts 2/5 (rotation): the count of radial Gelfand solutions for every positive parameter with the fourth turning value enclosed, frozen, blind-restated and closed, proved and promoted: `Checked.Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values`. Float study: a quadratic norm in which the homology cells contract from s ≈ 100 on (next method step).
+- Restore script streams a URL (no zip on disk).
+- Next: CI read of the promotion (STATE 2n); then part 1 by rotation.

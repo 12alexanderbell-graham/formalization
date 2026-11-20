@@ -109,6 +109,7 @@ import Checked.Math.GelfandPDECount
 import Checked.Math.BonnorEbertCount
 import Checked.Math.GelfandPDECountValues
 import Checked.Math.GelfandPDECountTurning
+import Checked.Math.GelfandPDECountTurningValues
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -1273,6 +1274,13 @@ closed statement, no hypotheses. -/
 
 theorem gelfand_pde_radial_count_turning :
     nonvacuity% Checked.Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning :=
+  trivial
+
+/-! Number of radial solutions of the Gelfand problem with the fourth turning value enclosed (run 2026-11-20T1628Z):
+a closed statement, no hypotheses. -/
+
+theorem gelfand_pde_radial_count_turning_values :
+    nonvacuity% Checked.Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values :=
   trivial
 
 end Checked.Trust.NV

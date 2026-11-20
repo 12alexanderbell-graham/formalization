@@ -10,7 +10,7 @@
 #   1. GitHub MCP: actions_list list_workflow_runs (branch main) → newest run whose checked job got past
 #      the build; actions_list list_workflow_run_artifacts <run id> → id of `checked-build`;
 #      actions_get download_workflow_run_artifact <artifact id> → a short-lived URL.
-#   2. scripts/restore_checked_build.sh '<URL>'      (or a local path to the downloaded .zip)
+#   2. scripts/restore_checked_build.sh '<URL>'      (streamed; or a local path to the downloaded .zip)
 #   3. lake build Checked    (rebuilds only what changed since the artifact's commit)
 #
 # Refuses to overwrite an existing .lake/build unless FORCE=1 (a run's own newer build is worth more).
@@ -24,6 +24,50 @@ if [ -e .lake/build ] && [ "${FORCE:-0}" != "1" ]; then
 fi
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
+# Run 2026-11-20T1628Z (annex LIV): with a URL and STREAM=1 (the default for URLs) the zip never touches the disk.
+# The first restore of that run filled the container's allowance (the 2.8 GB zip plus the 17 GB build, beside the
+# Mathlib packages) and left truncated .olean files that lake then failed to read. The artifact zip holds one
+# stored member `checked-build.tar.zst` (method 0, data-descriptor flag), so its bytes start right after the local
+# header: read the header with a range request, stream from that offset into zstd and tar, extract only
+# .lake/build/... members (GNU tar skips members with `..`), and refuse the result if it holds a symlink or an
+# empty .olean. STREAM=0 keeps the old download-then-unzip route.
+if [ ! -f "$src" ] && [ "${STREAM:-1}" = "1" ]; then
+  if ! python3 -c 'import zstandard' 2>/dev/null; then
+    pip install -q --break-system-packages zstandard >&2 || { echo "no zstandard module" >&2; exit 5; }
+  fi
+  off="$(curl -sSfL --retry 5 -r 0-29 "$src" | python3 -c '
+import sys, struct
+b = sys.stdin.buffer.read()
+assert b[:4] == b"PK\x03\x04", "not a zip local header"
+_, flag, method = struct.unpack("<HHH", b[4:10])
+n, e = struct.unpack("<HH", b[26:30])
+assert method == 0, "member is compressed (method %d): use STREAM=0" % method
+print(30 + n + e)')" || { echo "cannot read the zip header; use STREAM=0" >&2; exit 4; }
+  rm -rf .lake/build
+  mkdir -p .lake
+  set +o pipefail
+  curl -sSfL --retry 5 -r "$off"- "$src" | python3 -c '
+import sys, zstandard
+d = zstandard.ZstdDecompressor().stream_reader(sys.stdin.buffer, read_across_frames=False)
+o = sys.stdout.buffer
+try:
+    while True:
+        c = d.read(1 << 20)
+        if not c:
+            break
+        o.write(c)
+except zstandard.ZstdError:
+    pass  # the zip trailer after the frame; tar below decides whether the archive was complete
+' | tar -xf - --no-same-owner --wildcards '.lake/build/*' && rc=0 || rc=$?
+  set -o pipefail
+  [ "$rc" = "0" ] || { echo "tar failed ($rc); .lake/build is incomplete, remove it" >&2; exit 4; }
+  if find .lake/build -type l | grep -q . || find .lake/build -name '*.olean' -size 0 | grep -q .; then
+    echo "restored build holds a symlink or an empty .olean; refusing (remove .lake/build)" >&2; exit 4
+  fi
+  echo "restored .lake/build (streamed) from commit $(cat .lake/build/CHECKED_BUILD_COMMIT 2>/dev/null || echo '?')"
+  echo "next: lake build --no-build Checked (lists what is missing), then lake build Checked"
+  exit 0
+fi
 # Disk (run 2026-11-14T0828Z): the build unpacks to ≈ 15 GB. The zip is never copied and the tarball is
 # streamed out of it (no unzipped copy), so the peak is the zip plus the build; a local zip is read in place.
 if [ -f "$src" ]; then

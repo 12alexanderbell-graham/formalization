@@ -1,6 +1,35 @@
 # Run 2026-11-20T1628Z
 
-THE RESULT: stub; filled at the end of the run.
+**THE RESULT:** parts 2 and 5 by rotation (STATE 2m → parts 2/5 as in section Next of `runs/2026-11-20T1028Z/README.md`, the number of radial solutions of the Gelfand problem). The Lean theorem of this run and its statement are in section What we did.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** The number of radial solutions of the Gelfand problem in the three-dimensional ball for every positive parameter, with the branch parameter at its fourth extremum in a window, from one kernel theorem: three solutions for every parameter between the first two minima of the branch, both of which are in windows.
+
+**Weakest unchecked step:** The window of the fourth extremum is set by the cell bound at the equilibrium of the homology system (section What we did).
 
 ## Start
-- Lock taken 16:28Z. Rotation: parts 2/5.
+- 16:28Z. Local main was a stale divergent clone (fa47717, kept as branch `local-main-backup`); `git checkout -B main origin/main` at 92745f5. No LOCK → taken (02bc997).
+- CI at start: 44764592207 (92745f5, run 1428Z's final push) green on every job; read in section CI read.
+- Local Lean: elan + Mathlib cache; `checked-build` of 44764592207 restored. The first restore ran out of the disk allowance (the zip and the build together); the second streamed the zip's stored member straight into tar (no zip on disk; the restore script's notes updated in section Next).
+
+## Bottleneck (and what a yes/no changes)
+- The headline of run 1028Z encloses four turning values of the branch parameter, but the count headline of run 2026-11-18T2228Z encloses only three of its band ends, so the band with exactly three solutions had one open end. Can the count carry the new value with no new certificate? Yes → the band of three is enclosed at both ends from the kernel. No → a new route.
+- Then: what limits the next turning value? If the cell bound can contract near the focus, one method step gives the fifth turning value and a far narrower fourth.
+
+## CI read
+- 44764592207 (92745f5, run 1428Z's final push: nanoda with assumed theorems on main): green on every job, 15:34Z → 16:13Z (39 min). nanoda check 1249 / 1140 / 1584 / 1199 s (shards 0-3), leanchecker replay 1268 / 1697 / 1823 / 1542 s, checked job 33 min, build steps 4-6 min. Slowest nanoda over fastest: 1.39 (below the 1.5 that would call for a refit, section Next of run 1428Z), so no reassignment. LEDGER experiment of run 1428Z (nanoda under 30 min, whole run under 60 min): met on the first of the two runs it names.
+
+## What we did
+- **Freeze** 0316b53: `Work.Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values`, the statement of `gelfand_pde_radial_count_turning` with `1.9637 ≤ lamT 3 ∧ lamT 3 ≤ 1.9707` added after the window of `lamT 2` (docstring: the parent's, with the window of `lamT 3` added).
+- **Blind restatement** (brief 4d647da committed alone, Sonnet, output committed as written): radial as `‖x‖ = ‖y‖ → u x = u y` on the closed ball, counted as the image of the solution set under restriction to the closed ball; copied to `Work/Math/GelfandPDECountTurningValuesBlind.lean` with one compile repair (`open Laplacian`, as in runs 2026-11-18T1028Z and 2228Z) and closed in Lean from the frozen statement (`Work/Math/GelfandPDECountTurningValuesBlindClosed.lean`, the blind statement copied as the closure's statement).
+- **Proof** 94a8b7e (statement byte-identical; axioms propext, Classical.choice, Quot.sound): the route of `GelfandPDECountTurningMain.main` (`cset_encard`, `BonnorEbertCountMain.count_abstract`) with the turning sequence of `gelfand_turning_values` instead of `gelfand_extrema`; no new certificate. The referee of run 1028Z (own 50-digit integrator, λ₃ = 1.967465558668593) covers the only new number.
+- **Promotion:** `Checked/Math/GelfandPDECountTurningValues.lean`; non-vacuity witness (a closed statement, `trivial`); no hypotheses, so no necessity entries; literal readings: the registered count readings of `gelfand_pde_radial_count_turning` (`gcCount*`, same counts and indices), the new decimals certified targets.
+- **Float study for a contracting cell** (`scripts/contracting_norm_study.py`, scipy DOP853 at 1e-13): in log radius the homology system u' = u(3 − u − v), v' = v(u − 1) has Jacobian [[3 − 2u − v, −u], [v, u − 1]]; with P = [[3/2, 1/2], [1/2, 1]] (the solution of JᵀP + PJ = −I at the focus (1, 2)) the logarithmic norm of the Jacobian in the norm √(xᵀPx) along the regular solution is −0.276 at the focus, at most −0.021 on [50, 70000] and at most −0.22 on [100, 70000] (at most +0.039 earlier, near the first turning point). So the error of an enclosure in this norm shrinks at least like (t₁/t₀)^(−0.2) from s = 100 on, where the max-norm cells of `BEHCell` grow it like (t₁/t₀)²·². The v = 2 crossings are near 4.1, 37.5, 428.1, 4522.0 and 48843.3 (λ = 2u there: the fifth turning value near 2.00998).
+
+## Measure
+- Band ends of the radial Gelfand count enclosed in one kernel theorem: 3 → 4 (the band of exactly three solutions now enclosed at both ends: (1.664157, 1.9637) inside it).
+- Judge: whole run 39 min (was 112 min on 44731005521, the last promotion); slowest nanoda shard 26 min (was 60 min).
+
+## Next
+- CI read first: the run of this run's final push (a promotion: new Checked module, Witnesses). Green on every job → PROVED: the judged template in its STATE.md heading (`check_stale_status.py`) and the second reading of the LEDGER experiment of run 1428Z (nanoda under 30 min, whole promotion run under 60 min). Red → `python3 scripts/trust/records_check.py <base>`.
+- Then by rotation (parts 2/5 at 1628Z, part 3 at 1428Z, part 1 at 1228Z): part 1 as in section Next of `runs/2026-11-20T1228Z/README.md`; part 3 as in section Next of `runs/2026-11-20T1428Z/README.md`. **Parts 2/5 next:** the contracting cell: a cell lemma for the homology system in the norm √(xᵀPx) above, with the cell's logarithmic norm bounded on its box over the rationals (μ P − sym(P J) positive semidefinite: trace and determinant, the determinant quadratic in (u, v), bounded by interval arithmetic) and the enclosure radius propagated by e^{μ Δτ} plus the defect; then a chain from s ≈ 100 (radius of `GLamChain` there) to s ≈ 50000 for the fifth turning value and a narrow fourth.
+- Restoring the judge's build: the artifact zip holds one stored member (`checked-build.tar.zst`, data-descriptor flag, offset 51); `curl -r 51- <URL> | python3 zstd stream_reader(read_across_frames=False) | tar -x --wildcards '.lake/build/*'` needs no zip on disk (the zip plus the build exceeded this container's allowance). The tail of the zip after the frame makes the decompressor exit with an error after tar has finished: check `find .lake/build -size 0` and `lake build --no-build Checked`.
