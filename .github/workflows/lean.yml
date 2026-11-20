@@ -106,9 +106,23 @@ jobs:
             if "$HOME/.elan/bin/elan" toolchain install "$(cat lean-toolchain)"; then break; fi
             echo "toolchain download failed (attempt $i of 10); retrying in 30 s"; sleep 30
           done
+      # Run 2026-11-20T1228Z (annex LIV; robustness/speed only, no check changes; see LEDGER): this job restores the
+      # lake cache but no longer saves it. lean-action saves `.lake` under one key per commit and the first job to
+      # finish its build wins the key; that was always this job (≈ 5 min), whose `.lake` holds only what Work imports,
+      # so the ≈ 85 Checked modules Work does not import (the kernel-decided data modules among them) were never in
+      # the cache and all nine judge jobs rebuilt them on every push, one at a time (LEAN_NUM_THREADS=1): 24-33 min of
+      # each job's 60-100 min (CI 44698202534: 83-88 modules, build steps 1427-1952 s, the lake cache of every commit
+      # saved by `work`). Now a job that builds all of Checked saves the key. Same restore key as lean-action's own.
+      - name: Restore the lake cache (restore only; the judge jobs save it)
+        uses: actions/cache/restore@v4
+        with:
+          path: ./.lake
+          key: lake-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain') }}-${{ hashFiles('lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: lake-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain') }}-${{ hashFiles('lake-manifest.json') }}
       - uses: leanprover/lean-action@v1.7.0
         with:
           use-mathlib-cache: "true"
+          use-github-cache: "false"
           build-args: "Work"
       - name: Closed audits stay closed (blocking; run 2026-11-04T1028Z, red team G, see LEDGER)
         env:

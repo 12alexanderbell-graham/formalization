@@ -1,0 +1,50 @@
+name: nanoda profile (measurement only)
+# Run 2026-11-20T1228Z (annex LIV; see LEDGER). Not part of the judge: no push or pull_request trigger, nothing
+# here decides a status. It times every declaration nanoda checks in each shard of the judge's own export
+# (scripts/nanoda/profile/profile_shard.sh) and sums the times per module, so that nanoda can get a shard
+# assignment balanced on its own times (CI 44698202534: nanoda shards 1878 / 3837 / 2479 / 2188 s at
+# 222-237 k declarations each, while the assignment is balanced on leanchecker times).
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  profile:
+    name: nanoda profile shard ${{ matrix.shard }} of 4
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    steps:
+      - uses: actions/checkout@v5
+      - name: Free disk and add swap
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          sudo fallocate -l 8G /extra-swap && sudo chmod 600 /extra-swap && sudo mkswap /extra-swap && sudo swapon /extra-swap || echo "swap not added"
+          df -h / ; free -h
+      - name: Pre-install the pinned Lean toolchain with retries
+        run: |
+          printf 'retry = 12\nretry-delay = 15\nretry-connrefused\n' >> "$HOME/.curlrc"
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o "$RUNNER_TEMP/elan-init.sh" || true
+          sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain none || true
+          for i in $(seq 1 10); do
+            if "$HOME/.elan/bin/elan" toolchain install "$(cat lean-toolchain)"; then break; fi
+            echo "toolchain download failed (attempt $i of 10); retrying in 30 s"; sleep 30
+          done
+      - uses: leanprover/lean-action@v1.7.0
+        env:
+          LEAN_NUM_THREADS: "1"
+        with:
+          use-mathlib-cache: "true"
+          build-args: "Checked"
+      - name: Profiled nanoda check of this shard (measurement only)
+        run: scripts/nanoda/profile/profile_shard.sh ${{ matrix.shard }} 4
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nanoda-profile-shard-${{ matrix.shard }}
+          path: |
+            _ndprof/shard*.txt
+          retention-days: 14
