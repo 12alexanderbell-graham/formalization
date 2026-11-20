@@ -274,4 +274,37 @@ theorem contract_boot {a b μ κ η ρ a₀ a₁ b₀ b₁ : ℝ} (hκ : 0 < κ)
   intro t ht
   exact sub b ⟨ht.1.trans ht.2, le_rfl⟩ (fun s hs => by linarith [hpos s ⟨hs.1, hs.2.le⟩]) t ht
 
+/-- With a negative constant the Grönwall bound stays below the larger of its start and ε / (−K). -/
+theorem gb_le_max {δ K ε x : ℝ} (hK : K < 0) (hx : 0 ≤ x) :
+    gronwallBound δ K ε x ≤ max δ (ε / -K) := by
+  rw [gronwallBound_of_K_ne_0 hK.ne]
+  beta_reduce
+  have hE0 : 0 < Real.exp (K * x) := Real.exp_pos _
+  have hE1 : Real.exp (K * x) ≤ 1 := Real.exp_le_one_iff.2 (mul_nonpos_of_nonpos_of_nonneg hK.le hx)
+  have e : δ * Real.exp (K * x) + ε / K * (Real.exp (K * x) - 1) =
+      δ * Real.exp (K * x) + ε / -K * (1 - Real.exp (K * x)) := by
+    rw [div_neg]; ring
+  rw [e]
+  have m1 := le_max_left δ (ε / -K)
+  have m2 := le_max_right δ (ε / -K)
+  nlinarith [mul_le_mul_of_nonneg_left m1 hE0.le, mul_le_mul_of_nonneg_left m2 (sub_nonneg.2 hE1)]
+
+/-- The end value of the Grönwall bound with a negative constant, by e^{Kx} ≤ 1 / (1 − Kx). -/
+theorem gb_end {δ K ε x : ℝ} (hK : K < 0) (hx : 0 ≤ x) (hδ : 0 ≤ δ) (hε : 0 ≤ ε) :
+    gronwallBound δ K ε x ≤ δ / (1 - K * x) + ε / -K := by
+  rw [gronwallBound_of_K_ne_0 hK.ne]
+  beta_reduce
+  have hKx : K * x ≤ 0 := mul_nonpos_of_nonpos_of_nonneg hK.le hx
+  have hd : 0 < 1 - K * x := by linarith
+  have hE0 : 0 < Real.exp (K * x) := Real.exp_pos _
+  have hE : Real.exp (K * x) * (1 - K * x) ≤ 1 := by
+    have h1 := Real.add_one_le_exp (-(K * x))
+    have h2 : Real.exp (K * x) * Real.exp (-(K * x)) = 1 := by rw [← Real.exp_add]; simp
+    nlinarith
+  have hE' : Real.exp (K * x) ≤ 1 / (1 - K * x) := by rw [le_div_iff₀ hd]; linarith
+  have hc : 0 ≤ ε / -K := div_nonneg hε (by linarith)
+  have e : ε / K * (Real.exp (K * x) - 1) = ε / -K * (1 - Real.exp (K * x)) := by rw [div_neg]; ring
+  rw [e, div_eq_mul_one_div δ]
+  nlinarith [mul_le_mul_of_nonneg_left hE' hδ, mul_nonneg hc hE0.le]
+
 end Work.Math.GContract
