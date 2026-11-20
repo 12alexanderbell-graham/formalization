@@ -971,3 +971,9 @@
 - CI: 44611137609 (83df9c6) concluded green on every job; nanoda workers cut shard 1 from 196 to 81 min (experiment target 75 min not met).
 - Parts 2/5 (rotation): Lane–Emden polytrope of index seven halves frozen (6d28b0b), proved (fe3ecf5), audited (referee STANDS, blind restatement closed, blind literal reading agrees), existence proved, promoted to Checked: `Checked.Math.LaneEmden72.laneEmden72_constants`.
 - Next: CI read of the promotion (STATE 2e); nanoda shard 1 per-module times; then part 1 by rotation.
+
+## 2026-11-20T0028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main d363b3d); local Lean via elan + restored CI build of 1870169.
+- CI: 44640560624 (d363b3d, promotion of `laneEmden72_constants`) read in the run README.
+- Part 1 (rotation, T2b): eighteen hypotheses NEEDED (`Checked/Trust/NecessityBB.lean`): the condition at infinity of twelve boundary-layer statements through one new global solution with wall shear ten (`Checked/Trust/ExpFlow.lean`, a growing clamp and continuous induction), and the wall velocity of `fs_monotone_of_limit`. Open 79 → 61; twelve more statements fully classified.
+- Next: CI read (STATE 2f); then part 3 by rotation.
