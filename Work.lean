@@ -175,6 +175,7 @@ import Work.Math.LaneEmden72
 import Work.Math.LaneEmden92
 import Work.Math.LaneEmden72BlindClosed
 import Work.Math.LE72Exists
+import Work.Math.LE92Exists
 import Work.Math.LaneEmden52BlindClosed
 import Work.Math.LE52ExistsLeft
 import Work.Math.LE52ExistsRight
