@@ -1,0 +1,7 @@
+- `FREta.eta_ratios` (4): needed 1; redundant 2; open 3, 4
+- `Records.F12_separation` (9): needed 1, 2, 3, 6; redundant 7; open 4, 5, 8, 9
+- `B1Sep.cubic_direction` (15): needed 2, 3, 4, 8, 9, 10, 14, 15; redundant (each alone, not together) 5, 6, 7; open 1, 11, 12, 13
+- `B1L19Curved.l19_sq_curved` (13): needed 2, 3, 4, 9, 10, 11, 12, 13; redundant (each alone, not together) 5, 6, 7; open 1, 8
+- `FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt` (7): needed 1, 2, 3, 5; redundant 6; open 4, 7
+- `FalknerSkan.SeparationPrinted.fs_separation_below_printed` (9): needed 1, 2, 3, 6; redundant 7; open 4, 5, 8, 9
+- `FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots` (6): needed 1, 2, 3, 6; open 4, 5
