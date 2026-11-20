@@ -436,4 +436,119 @@ example : decide (CCProp ⟨1 / 10, 1 / 1000000, 97 / 100000000, 0, -1 / 5, 1 / 
 
 end CCell
 
+/-- Linking two cells: Q of a sum is at most (1 + θ) Q of the first part plus (1 + 1/θ) Q of the second
+(the rounding of the next cell's start). -/
+theorem Q_add_le {θ : ℝ} (hθ : 0 < θ) (a₁ a₂ b₁ b₂ : ℝ) :
+    Q (a₁ + b₁) (a₂ + b₂) ≤ (1 + θ) * Q a₁ a₂ + (1 + 1 / θ) * Q b₁ b₂ := by
+  have h := cross_le hθ a₁ a₂ b₁ b₂
+  have e : Q (a₁ + b₁) (a₂ + b₂) =
+      Q a₁ a₂ + 2 * ((3 / 2 * a₁ + 1 / 2 * a₂) * b₁ + (1 / 2 * a₁ + a₂) * b₂) + Q b₁ b₂ := by
+    unfold Q; ring
+  rw [e]
+  have : Q b₁ b₂ / θ = 1 / θ * Q b₁ b₂ := by ring
+  nlinarith
+
+section Chain
+open Checked.Sim Checked.Sim.QPoly
+
+/-- Q over the rationals. -/
+def Qq (e₁ e₂ : ℚ) : ℚ := 3 / 2 * e₁ ^ 2 + e₁ * e₂ + e₂ ^ 2
+
+/-- The link from cell `c` to the next cell `d` (θ = 1/1000): `d`'s start bound covers `c`'s end bound and the
+rounding of `d`'s start values against `c`'s polynomials at its end. -/
+def LinkProp (c d : CCell) : Prop :=
+  (1 + 1 / 1000) * c.B + (1 + 1000) * Qq (d.pu.headD 0 - qeval c.pu c.h) (d.pv.headD 0 - qeval c.pv c.h) ≤ d.δ
+
+instance (c d : CCell) : Decidable (LinkProp c d) := by unfold LinkProp; infer_instance
+
+/-- Total log-radius length of a list of cells. -/
+def totalH : List CCell → ℚ
+  | [] => 0
+  | c :: cs => c.h + totalH cs
+
+/-- A chain of contracting cells, checked as one Boolean: every cell and every link. -/
+def chainOK : List CCell → Bool
+  | [] => true
+  | [c] => decide (CCProp c)
+  | c :: d :: cs => decide (CCProp c) && decide (LinkProp c d) && chainOK (d :: cs)
+
+/-- The last cell of a nonempty chain. -/
+def lastC : List CCell → CCell → CCell
+  | [], c => c
+  | d :: cs, _ => lastC cs d
+
+theorem evalQ_headD (p : List ℚ) : evalQ p 0 = ((p.headD 0 : ℚ) : ℝ) := by
+  cases p <;> simp [evalQ]
+
+theorem Qq_cast (a b : ℚ) : ((Qq a b : ℚ) : ℝ) = Q a b := by unfold Qq Q; push_cast; ring
+
+theorem totalH_nonneg : ∀ cs : List CCell, chainOK cs = true → 0 ≤ totalH cs
+  | [], _ => by simp [totalH]
+  | [c], h => by
+      have := (of_decide_eq_true (by simpa [chainOK] using h) : CCProp c).1
+      simp [totalH]; linarith
+  | c :: d :: cs, h => by
+      simp only [chainOK, Bool.and_eq_true, decide_eq_true_eq] at h
+      have := totalH_nonneg (d :: cs) h.2
+      have := h.1.1.1
+      show (0 : ℚ) ≤ c.h + totalH (d :: cs); linarith
+
+/-- A chain of contracting cells: every solution of the homology field in log radius on the chain's range
+whose error against the first cell has Q at most its `δ` has Q of the error at most the last cell's `B` at the
+end of the chain. -/
+theorem chain_q : ∀ (cs : List CCell) (c : CCell), chainOK (c :: cs) = true → ∀ {τ₀ : ℝ} {u v : ℝ → ℝ},
+    (∀ t ∈ Icc τ₀ (τ₀ + totalH (c :: cs)),
+      HasDerivWithinAt u (F1 (u t) (v t)) (Icc τ₀ (τ₀ + totalH (c :: cs))) t) →
+    (∀ t ∈ Icc τ₀ (τ₀ + totalH (c :: cs)),
+      HasDerivWithinAt v (F2 (u t) (v t)) (Icc τ₀ (τ₀ + totalH (c :: cs))) t) →
+    Q (u τ₀ - evalQ c.pu 0) (v τ₀ - evalQ c.pv 0) ≤ c.δ →
+    Q (u (τ₀ + totalH (c :: cs)) - evalQ (lastC cs c).pu (lastC cs c).h)
+      (v (τ₀ + totalH (c :: cs)) - evalQ (lastC cs c).pv (lastC cs c).h) ≤ (lastC cs c).B
+  | [], c, hok, τ₀, u, v, hu, hv, h0 => by
+      have e : ((totalH [c] : ℚ) : ℝ) = (c.h : ℝ) := by simp [totalH]
+      rw [e] at hu hv ⊢
+      exact ccell_q c (by simpa [chainOK] using hok) hu hv h0
+  | d :: ds, c, hok, τ₀, u, v, hu, hv, h0 => by
+      simp only [chainOK, Bool.and_eq_true, decide_eq_true_eq] at hok
+      obtain ⟨⟨hc, hl⟩, hrest⟩ := hok
+      unfold LinkProp at hl
+      have hT : ((totalH (c :: d :: ds) : ℚ) : ℝ) = (c.h : ℝ) + ((totalH (d :: ds) : ℚ) : ℝ) := by
+        simp only [totalH]; push_cast; ring
+      have hnn : (0 : ℝ) ≤ ((totalH (d :: ds) : ℚ) : ℝ) := by exact_mod_cast totalH_nonneg _ hrest
+      have hh : (0 : ℝ) < c.h := by exact_mod_cast hc.1
+      rw [hT] at hu hv ⊢
+      have sub1 : Icc τ₀ (τ₀ + (c.h : ℝ)) ⊆ Icc τ₀ (τ₀ + ((c.h : ℝ) + totalH (d :: ds))) :=
+        Icc_subset_Icc_right (by linarith)
+      have sub2 : Icc (τ₀ + c.h) (τ₀ + c.h + ((totalH (d :: ds) : ℚ) : ℝ)) ⊆
+          Icc τ₀ (τ₀ + ((c.h : ℝ) + totalH (d :: ds))) :=
+        Icc_subset_Icc (by linarith) (by linarith)
+      have end1 := ccell_q c (by simpa using hc) (τ₀ := τ₀)
+        (fun t ht => (hu t (sub1 ht)).mono sub1) (fun t ht => (hv t (sub1 ht)).mono sub1) h0
+      have link : Q (u (τ₀ + c.h) - evalQ d.pu 0) (v (τ₀ + c.h) - evalQ d.pv 0) ≤ d.δ := by
+        have hq := Q_add_le (θ := 1 / 1000) (by norm_num)
+          (u (τ₀ + c.h) - evalQ c.pu c.h) (v (τ₀ + c.h) - evalQ c.pv c.h)
+          (evalQ c.pu c.h - evalQ d.pu 0) (evalQ c.pv c.h - evalQ d.pv 0)
+        have hL : ((1 + 1 / 1000 : ℚ) : ℝ) * c.B +
+            ((1 + 1000 : ℚ) : ℝ) * ((Qq (d.pu.headD 0 - qeval c.pu c.h) (d.pv.headD 0 - qeval c.pv c.h) : ℚ) : ℝ)
+            ≤ d.δ := by exact_mod_cast hl
+        rw [Qq_cast] at hL
+        have hr : Q (evalQ c.pu c.h - evalQ d.pu 0) (evalQ c.pv c.h - evalQ d.pv 0) =
+            Q (((d.pu.headD 0 - qeval c.pu c.h : ℚ) : ℝ)) (((d.pv.headD 0 - qeval c.pv c.h : ℚ) : ℝ)) := by
+          rw [evalQ_headD, evalQ_headD]; push_cast; rw [qeval_cast, qeval_cast]; unfold Q; ring
+        have e1 : u (τ₀ + c.h) - evalQ c.pu c.h + (evalQ c.pu c.h - evalQ d.pu 0) =
+            u (τ₀ + c.h) - evalQ d.pu 0 := by ring
+        have e2 : v (τ₀ + c.h) - evalQ c.pv c.h + (evalQ c.pv c.h - evalQ d.pv 0) =
+            v (τ₀ + c.h) - evalQ d.pv 0 := by ring
+        rw [e1, e2, hr] at hq
+        have hQr := Q_nonneg (((d.pu.headD 0 - qeval c.pu c.h : ℚ) : ℝ)) (((d.pv.headD 0 - qeval c.pv c.h : ℚ) : ℝ))
+        push_cast at hL hq
+        nlinarith
+      have ih := chain_q ds d (by simpa using hrest) (τ₀ := τ₀ + c.h)
+        (fun t ht => (hu t (sub2 ht)).mono sub2) (fun t ht => (hv t (sub2 ht)).mono sub2) link
+      have e3 : τ₀ + c.h + ((totalH (d :: ds) : ℚ) : ℝ) = τ₀ + ((c.h : ℝ) + totalH (d :: ds)) := by ring
+      rw [e3] at ih
+      simpa [lastC] using ih
+
+end Chain
+
 end Work.Math.GContract
