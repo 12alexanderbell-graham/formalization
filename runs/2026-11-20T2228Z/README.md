@@ -28,8 +28,10 @@
 ## Measure
 - Listed headlines: 305 → 306; the Gelfand statement for every classical solution is now on the claims page with a blind restatement closed in Lean, a referee verdict and a non-vacuity witness. Necessity: NEEDED +3, open +1 (disclosed in LEDGER).
 
+- **Second relock, and a tool for it:** the first records_check failed V1 of `check_claim_vocab.py` on the frozen docstring ('classical', 'symmetry', words copied into the parent's docstring and never tested) and `check_literals` rule 1 on the parent's reading `gelfandPdeClosedBall` (its body matched the parent only through the radial hypothesis). The Checked docstring's first clause was reworded (statement unchanged; LEDGER), the reading left out (`gelfandPdeContinuous` covers the closed ball), and StatementDeps + Claims run again (≈ 20 min). `scripts/trust/check_freeze_name.py --file` now also lists such docstring words at freeze time (`DOCWORD`; control: it names exactly 'classical' and 'symmetry' on this run's freeze and passes the reworded docstring; advisory: it flags 49 of the 155 listed headlines it parses, whose words reach the generated claim through definitions). PROMPT working note; LEDGER experiment.
+
 ## Local checks
-- See section End.
+- `lake build Checked` (restored build of ecc9fc7; 3755 jobs), `lake build Work.Math.GelfandPDEBoundBlindClosed`, `#print axioms` of the headline and the blind closure, `precheck_names.py`, `check_prose.py`, `precheck_citations.py`, `check_status_lines.py`, `TRUST_RELOCK=1 … StatementDeps.lean` twice (306 headlines, NV 185/185, necessity 750 / 223 / 58 open), `Claims.lean` twice (after the last registry edit), `validation/make_packet.py --check`, `check_headline_mentions.py --base ecc9fc7`, `records_check.py ecc9fc7` (43 commands, 0 failed).
 
 ## Next
 - CI read first: the run of this run's final push (new Checked modules `GelfandPDEBound`, `NecessityBH`; `Witnesses` changed). Green on every job → `gelfand_pde_bound` PROVED: the judged template in its STATE.md heading (`check_stale_status.py`) and one L.2 line to Alexander. Red → `python3 scripts/trust/records_check.py <base>`.
