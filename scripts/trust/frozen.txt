@@ -3143,6 +3143,13 @@ doc:Checked.Trust.NCBB.hiemenz_limit_window_h6 -doc12827513569002997114
 doc:Checked.Trust.NCBB.hiemenz_monotone_window_h6 -doc2446017102178573330
 doc:Checked.Trust.NCBB.homann_limit_window_h6 -doc8464380214218101847
 doc:Checked.Trust.NCBB.homann_monotone_window_h6 -doc16761166098413704636
+doc:Checked.Trust.NCBC.fs_monotone_of_limit_h3 -doc17932830406380256824
+doc:Checked.Trust.NCBC.ncbcF -doc751077290965590750
+doc:Checked.Trust.NCBC.ncbcL_pos -doc1951829284130965174
+doc:Checked.Trust.NCBC.ncbcPhi1 -doc3145512150734274651
+doc:Checked.Trust.NCBC.ncbcPhi2 -doc569496444905324032
+doc:Checked.Trust.NCBC.ncbcPhi -doc307260018825302433
+doc:Checked.Trust.NCBC.ncbcW -doc3953743601817725205
 doc:Checked.Trust.NCD.angDist_y_fifth_order_h1 -doc16486664563679115488
 doc:Checked.Trust.NCD.angDist_z_fifth_order_h1 -doc16370387082780242572
 doc:Checked.Trust.NCD.comoving_bounds -doc938577579625317224
@@ -4680,6 +4687,7 @@ moduledoc:Checked.Trust.NecessityAY -mdoc9941568458712156432
 moduledoc:Checked.Trust.NecessityAZ -mdoc12352498391759611196
 moduledoc:Checked.Trust.NecessityBA -mdoc17584371830933612219
 moduledoc:Checked.Trust.NecessityBB -mdoc10511725379398550321
+moduledoc:Checked.Trust.NecessityBC -mdoc7298588574602827268
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
