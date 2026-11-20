@@ -1013,3 +1013,9 @@
 - The judge first (PROMPT note of run 0828Z): every judge job rebuilt the same 85 Checked modules on every push because the lake cache key of each commit was saved by the `work` job; the work job now restores without saving. leanchecker groups three at a time (a group failing beside others must pass alone). nanoda profile workflow (measurement only) dispatched: CI 44736861516.
 - Part 1 (rotation, T2b): hypothesis 1 (0 < λ) of `gelfand_pde_radial_exists` REDUNDANT (`Checked/Trust/NecessityBE.lean`; `Checked/Math/GNeg*.lean`: a radial solution for every λ ≤ 0 by a clamped profile of the opposite-sign equation and scaling). Open 60 → 59.
 - Next: CI read (STATE 2l); nanoda's own assignment from the profile; then part 3 by rotation.
+
+## 2026-11-20T1428Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main 00fa92a); elan for lean4export; cargo for nanoda; nine Sonnet readers and one Sonnet grader.
+- The judge: the nanoda profile showed each shard re-checking the proofs of other shards' Checked theorems (about half its time); the exporter now gives those theorems as assumed statements, each checked once in its own shard. Trial CI 44756096899: nanoda 4/4, slowest shard 24 min (was over 83).
+- Part 3 (rotation, T5): reader test WP on the records as they stand, five headlines drawn at random: S 1/6 misled (a true limitation line), G 0/3; recorded. Stale dated necessity lines met by 5 of 6 readers, rejected by the banner → experiment.
+- Next: CI read of the final push (nanoda with the new export on main); re-profile; then parts 2/5 by rotation.

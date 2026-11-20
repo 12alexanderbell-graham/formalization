@@ -13,12 +13,20 @@
 # nproc). The same declarations are checked by the same checker; before the shard, the planted controls of
 # scripts/nanoda/controls/ run with the same configuration: the good export must pass, the export with one false
 # literal must be rejected. Each phase prints its wall time (`nanoda-time ...`) for balancing the shards.
+# Assumed theorems of other shards (run 2026-11-20T1428Z, annex LIV, integrity event 39.5; see LEDGER and the doc of
+# scripts/nanoda/ShardMain.lean): the per-declaration profile (CI 44736861516) showed about half of every shard's work
+# was re-checking other shards' Checked proofs reached as dependencies. The export now gives a non-internal theorem of
+# another shard's Checked module as an axiom (same name and type), lists its name in _nanoda_assumed.txt, and nanoda
+# admits exactly those names besides the four standard axioms (permitted_axioms). Each such theorem is exported in
+# full and checked in its own shard, so the four green shards still check every declaration of the default list.
+# Tested on Init (scripts/nanoda/assume_test/): the union of fully exported declarations is identical with and
+# without assumption, every assumed theorem is a full theorem of another shard, all shards pass.
 # Usage: scripts/nanoda_shard.sh I K
 set -euo pipefail
 I="$1"; K="$2"
 THREADS="${NANODA_THREADS:-$(nproc)}"
 MODULE_NAME="Checked"
-rm -rf _lean4export _nanoda_lib _nanoda_export.txt _nanoda_config.json _nanoda_ctl_*.json _nanoda_ctl_*.out
+rm -rf _lean4export _nanoda_lib _nanoda_export.txt _nanoda_assumed.txt _nanoda_config.json _nanoda_ctl_*.json _nanoda_ctl_*.out
 LEAN4EXPORT_REV="v4.35.0"   # 5a9a355dc6c5fd82b69058d433e2ae2e8dfbf8fe
 NANODA_REV="8de7e0c4ed3052745a7f8725164efd9e76d84c56"   # nanoda_lib master, 2026-10-29
 git clone --depth 1 --branch "$LEAN4EXPORT_REV" https://github.com/leanprover/lean4export.git _lean4export
@@ -29,12 +37,18 @@ printf '\n[[lean_exe]]\nname = "exportshard"\nroot = "ShardMain"\nsupportInterpr
 git clone https://github.com/ammkrn/nanoda_lib.git _nanoda_lib
 (cd _nanoda_lib && git checkout --quiet "$NANODA_REV")
 (cd _nanoda_lib && cargo build --release)
-write_config() {  # write_config <export file> <config file>: the one nanoda configuration of this script
+write_config() {  # write_config <export file> <config file> [<assumed-names file>]: the one nanoda configuration
+# of this script; the optional third argument adds the names of the theorems the export assumes from other shards
+PERMITTED=$(python3 -c 'import json, sys
+names = ["propext", "Classical.choice", "Quot.sound", "Lean.trustCompiler"]
+if len(sys.argv) > 1:
+    names += [l.rstrip("\n") for l in open(sys.argv[1], encoding="utf-8") if l.strip()]
+print(json.dumps(names))' ${3:+"$3"})
 cat > "$2" <<CFG
 {
     "export_file_path": "$1",
     "use_stdin": false,
-    "permitted_axioms": ["propext", "Classical.choice", "Quot.sound", "Lean.trustCompiler"],
+    "permitted_axioms": $PERMITTED,
     "unpermitted_axiom_hard_error": false,
     "nat_extension": true,
     "string_extension": true,
@@ -56,12 +70,13 @@ if "$NANODA" _nanoda_ctl_bad.json > _nanoda_ctl_bad.out 2>&1; then
 fi
 echo "nanoda control: the planted false export was rejected as required ($(grep -m1 -o 'panicked at.*' _nanoda_ctl_bad.out || head -c 200 _nanoda_ctl_bad.out))"
 t0=$(date +%s)
-lake env _lean4export/.lake/build/bin/exportshard "$MODULE_NAME" "$I" "$K" > _nanoda_export.txt
+lake env _lean4export/.lake/build/bin/exportshard "$MODULE_NAME" "$I" "$K" _nanoda_assumed.txt > _nanoda_export.txt
 t1=$(date +%s)
 echo "Export lines: $(wc -l < _nanoda_export.txt)"
 echo "Export header: $(head -c 300 _nanoda_export.txt)"
 echo "nanoda-time export $((t1 - t0)) s shard $I of $K"
-write_config _nanoda_export.txt _nanoda_config.json
+echo "Assumed theorems of other shards (checked there): $(wc -l < _nanoda_assumed.txt)"
+write_config _nanoda_export.txt _nanoda_config.json _nanoda_assumed.txt
 echo "nanoda workers: $THREADS (nproc $(nproc))"
 "$NANODA" _nanoda_config.json
 t2=$(date +%s)

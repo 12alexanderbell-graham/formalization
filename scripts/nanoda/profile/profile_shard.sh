@@ -25,14 +25,17 @@ python3 scripts/nanoda/profile/patch_nanoda_profile.py _nanoda_lib
 lake env lean --run scripts/nanoda/profile/ModuleOf.lean > _ndprof/modof.txt
 echo "constants with modules: $(wc -l < _ndprof/modof.txt)"
 t0=$(date +%s)
-lake env _lean4export/.lake/build/bin/exportshard Checked "$I" "$K" > _nanoda_export.txt
+lake env _lean4export/.lake/build/bin/exportshard Checked "$I" "$K" _ndprof/assumed.txt > _nanoda_export.txt
 t1=$(date +%s)
 echo "nanoda-time export $((t1 - t0)) s shard $I of $K"
+# the judge's own export since run 2026-11-20T1428Z: theorems of other shards' Checked modules assumed (ShardMain doc)
+PERMITTED=$(python3 -c 'import json, sys
+print(json.dumps(["propext", "Classical.choice", "Quot.sound", "Lean.trustCompiler"] + [l.rstrip("\n") for l in open(sys.argv[1], encoding="utf-8") if l.strip()]))' _ndprof/assumed.txt)
 cat > _nanoda_config.json <<CFG
 {
     "export_file_path": "_nanoda_export.txt",
     "use_stdin": false,
-    "permitted_axioms": ["propext", "Classical.choice", "Quot.sound", "Lean.trustCompiler"],
+    "permitted_axioms": $PERMITTED,
     "unpermitted_axiom_hard_error": false,
     "nat_extension": true,
     "string_extension": true,
@@ -46,4 +49,5 @@ echo "nanoda-time check $((t2 - t1)) s shard $I of $K workers $THREADS (profiled
 grep -v '^ndprof ' _ndprof/shard${I}_raw.txt | head -20 || true
 python3 scripts/nanoda/profile/aggregate.py _ndprof/shard${I}_raw.txt _ndprof/modof.txt > _ndprof/shard${I}.txt
 head -40 _ndprof/shard${I}.txt
-grep "^ndprof " _ndprof/shard${I}_raw.txt | sort -rn -k2 | head -40
+# (run 2026-11-20T1428Z: under pipefail, head closing the pipe failed the step after every output was written)
+grep "^ndprof " _ndprof/shard${I}_raw.txt | sort -rn -k2 | head -40 || true

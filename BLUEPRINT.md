@@ -488,6 +488,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Rule M9 and reader test EF; nanoda in parallel (run 2026-11-19T2028Z)
 - `scripts/trust/check_headline_mentions.py` (M9), `runs/2026-11-19T2028Z/t5/`; `scripts/nanoda_shard.sh`, `scripts/nanoda/controls/`.
 
+## nanoda with assumed theorems of other shards; reader test WP (run 2026-11-20T1428Z)
+- `scripts/nanoda/ShardMain.lean`, `scripts/nanoda_shard.sh`, `scripts/nanoda/assume_test/`, `runs/2026-11-20T1428Z/ndprof/`; part 3: `runs/2026-11-20T1428Z/t5/`.
+
 ## The judge's lake cache, parallel leanchecker, nanoda profile; Gelfand existence for every non-positive parameter (run 2026-11-20T1228Z)
 - `.github/workflows/lean.yml`, `scripts/leanchecker_shard.py`, `.github/workflows/nanoda-profile.yml`, `scripts/nanoda/profile/`; part 1: `Checked/Math/GNegLeft.lean`, `Checked/Math/GNegRight.lean`, `Checked/Math/GNegProfile.lean`, `Checked/Math/GNegExists.lean`, `Checked/Trust/NecessityBE.lean`, `Work/Math/GelfandNegExists.lean`.
 
