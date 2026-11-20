@@ -1,0 +1,29 @@
+STATE.md ||| Mathematics: multiplicity of radial solutions of the Gelfand problem ||| - In `gelfand_pde_radial_many_centre` the nonlinearity is Gelfand with a rescaled radius. ||| eponym
+STATE.md ||| Mathematics: multiplicity of radial solutions of the Gelfand problem ||| - `gelfand_pde_radial_many_centre` is a Gelfand problem in a ball of radius two. ||| eponym
+STATE.md ||| Mathematics: multiplicity of radial solutions of the Gelfand problem ||| - The solution of `gelfand_pde_radial_many_centre` is normalisation of Emden. ||| eponym
+STATE.md ||| Mathematics: multiplicity of radial solutions of the Gelfand problem ||| - `gelfand_pde_radial_many_centre` is the dual of the physical problem, with radius rescaled. ||| determiner+noun
+STATE.md ||| Mathematics: multiplicity of radial solutions of the Gelfand problem ||| - `gelfand_pde_radial_many_centre` is the inverse of the model, in a ball of radius two. ||| determiner+noun
+STATE.md ||| Mathematics: multiplicity of radial solutions of the Gelfand problem ||| - `gelfand_pde_radial_many_centre` is a ball of dimension two, as in the theory. ||| determiner+noun
+STATE.md ||| Mathematics: multiplicity of radial solutions of the Gelfand problem ||| - In `gelfand_pde_radial_many_centre` the parameter is scaled by two, as in the model. ||| determiner+noun
+STATE.md ||| Mathematics: multiplicity of radial solutions of the Gelfand problem ||| - `gelfand_pde_radial_many_centre` is the dimensionless problem, rescaled, with unit ball. ||| determiner+noun
+STATE.md ||| Mathematics: multiplicity of radial solutions of the Gelfand problem ||| - `gelfand_pde_radial_many_centre` has the reverse sign of the exponential nonlinearity in the model. ||| determiner+noun
+STATE.md ||| Mathematics: every turning point of the radial Gelfand branch ||| - `gelfand_extrema` is in Emden scaling, with the unit radius rescaled. ||| eponym
+STATE.md ||| Mathematics: every turning point of the radial Gelfand branch ||| - `gelfand_extrema` is in Frank Kamenetskii scaling. ||| eponym
+STATE.md ||| Mathematics: every turning point of the radial Gelfand branch ||| - `gelfand_extrema` is in Blasius scaling. ||| eponym
+STATE.md ||| Mathematics: every turning point of the radial Gelfand branch ||| - `gelfand_extrema` has the first branch of the method, in ball dimension three. ||| determiner+noun
+STATE.md ||| Mathematics: every turning point of the radial Gelfand branch ||| - `gelfand_extrema` is the Hartree problem. ||| eponym
+STATE.md ||| Mathematics: every turning point of the radial Gelfand branch ||| - `gelfand_extrema` is a Crocco problem, rescaled. ||| eponym
+STATE.md ||| Mathematics: every turning point of the radial Gelfand branch ||| - `gelfand_extrema` is a Taylor scaling of the branch. ||| eponym
+STATE.md ||| Mathematics: every turning point of the radial Gelfand branch ||| - `gelfand_extrema` is in Milne scaling, with ball of radius two. ||| eponym
+STATE.md ||| Mathematics: every turning point of the radial Gelfand branch ||| - `gelfand_extrema` is in Volterra scaling, with unit ball. ||| eponym
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` is in Blasius scaling, rescaled. ||| eponym
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` is in Hartree scaling. ||| eponym
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` has Falkner Skan normalisation, rescaled. ||| eponym
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` is Hiemenz scaled. ||| eponym
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` is the Falkner Skan problem with rescaled scaling. ||| eponym
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` is in the Thomas Fermi scaling. ||| eponym
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` has wall shear of the model with inverse sign. ||| determiner+noun
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` is a Crocco problem, rescaled. ||| eponym
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` has the rows of the data. ||| determiner+noun
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` is a Gelfand problem, rescaled. ||| eponym
+STATE.md ||| Fluid mechanics: reversed-flow row β = −0.03 of Ganapol 2010 Table 7 ||| - `fs_neg_reversed_wall_shear_3_exists` is in Emden scaling. ||| eponym
