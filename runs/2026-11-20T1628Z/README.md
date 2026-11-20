@@ -18,6 +18,8 @@
 ## CI read
 - 44764592207 (92745f5, run 1428Z's final push: nanoda with assumed theorems on main): green on every job, 15:34Z → 16:13Z (39 min). nanoda check 1249 / 1140 / 1584 / 1199 s (shards 0-3), leanchecker replay 1268 / 1697 / 1823 / 1542 s, checked job 33 min, build steps 4-6 min. Slowest nanoda over fastest: 1.39 (below the 1.5 that would call for a refit, section Next of run 1428Z), so no reassignment. LEDGER experiment of run 1428Z (nanoda under 30 min, whole run under 60 min): met on the first of the two runs it names.
 
+- 44782494045 (db908ef, this run's promotion push): 12 of 13 jobs green (nanoda 4/4, leanchecker 4/4, work job); the checked job failed only on the stale CLAIMS.md (`##[error]CLAIMS.md in the repository is stale`), fixed in db461e2, whose run 44787418295 was in progress at the end of this run.
+
 ## What we did
 - **Freeze** 0316b53: `Work.Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values`, the statement of `gelfand_pde_radial_count_turning` with `1.9637 ≤ lamT 3 ∧ lamT 3 ≤ 1.9707` added after the window of `lamT 2` (docstring: the parent's, with the window of `lamT 3` added).
 - **Blind restatement** (brief 4d647da committed alone, Sonnet, output committed as written): radial as `‖x‖ = ‖y‖ → u x = u y` on the closed ball, counted as the image of the solution set under restriction to the closed ball; copied to `Work/Math/GelfandPDECountTurningValuesBlind.lean` with one compile repair (`open Laplacian`, as in runs 2026-11-18T1028Z and 2228Z) and closed in Lean from the frozen statement (`Work/Math/GelfandPDECountTurningValuesBlindClosed.lean`, the blind statement copied as the closure's statement).
