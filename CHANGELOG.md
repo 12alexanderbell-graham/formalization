@@ -1033,3 +1033,8 @@
 - Part 1 (rotation): hypotheses 1 (C² on the open ball) and 4 (radial symmetry) of `gelfand_pde_radial_bound` REDUNDANT (`Checked/Trust/NecessityBF.lean`, `NecessityBG.lean`): the bound λ ≤ 3.321992119 holds for every classical solution in the ball, by the minimal solution (`Checked/Math/GMaxPrinciple.lean`, `GRadialPoisson.lean`, `GSymFree.lean`; three Opus subagents).
 - Next: CI read of the final push; then part 3 by rotation.
 
+## 2026-11-20T2028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main c4715c6); no local Lean (no `.lean` change; `.lake` output of StatementDeps from the author-files artifact of 44804429541); one Sonnet subagent (held-out writer).
+- CI: 44804429541 (3ff128b) green on every job in 51 min; nothing to promote.
+- Part 3 (rotation): `scripts/trust/check_stale_necessity.py` — a hand-written 'open' line about a numbered hypothesis that TRUST_MAP.md classifies fails CI (STATE.md, README.md, BLUEPRINT.md; run by check_necessity_prose.py). 22 stale items fixed; old next-step items 1g … 0 moved to `_archive/`. Held-out writer test SN: recall 6/16 blind, 16/16 after widening (not blind), 0/10 false positives.
+- Next: CI read of the final push; then parts 2/5 by rotation.

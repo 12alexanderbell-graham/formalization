@@ -21,6 +21,8 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 ROOT = Path(__file__).resolve().parents[2]
 BASELINE = ROOT / "scripts/trust/necessity_prose_baseline.txt"
 WORDS = re.compile(
@@ -86,7 +88,11 @@ def main():
           f"{len(problems)} problems")
     for pr in problems:
         print("  " + pr)
-    return 1 if problems else 0
+    # run 2026-11-20T2028Z: hand-written 'open' lines in STATE.md, README.md, BLUEPRINT.md that TRUST_MAP.md has
+    # since classified (rules S-N1, S-N2; selftest first, fails closed on an unparsable TRUST_MAP.md)
+    import check_stale_necessity
+    stale = check_stale_necessity.main([])
+    return 1 if problems or stale else 0
 
 
 if __name__ == "__main__":

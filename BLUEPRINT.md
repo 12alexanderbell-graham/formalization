@@ -306,7 +306,7 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - Existence: `SBase` (field `vS K`, events `Over`, `SlowS`, `ChainK`) → `SCellWC` (`CellProp K`, rational coefficient) + chains `SOverLo`, `SSlowHi` (generator `runs/2026-11-11T0232Z/scripts/gen_sep_wc.py`, emitter `emit_sep_wc.py`) → `SFlow` (`flowK`, `flowK_cont` in K) → `SUnclamp` (q(0) = 0) → `SAssemble.core_sep` → `Separation.fs_separation_exists`.
 - Uniqueness: `UCrocco` (β-form Crocco map, q > 0 only on (0, E)) → `UCompare` (`SolB`, `start` by z², `no_cross_s`, `stepS`) → `UPair.sep_core` → `SeparationUnique.fs_separation_unique`.
 - Audits: `SepBlindClosed.lean`, `SepUniqueBlindClosed.lean`.
-- Promoted (same run): `Checked/FSSep/*` (+ `SSlowSol` for necessity), `Checked/FalknerSkan/{Separation,SeparationEqual}.lean`; reading `Checked/Trust/SecondReadingFSSepW.lean`; necessity `Checked/Trust/NecessityC.lean`. Next: the 16 open hypotheses of `fs_separation_equal`; β-form endpoint events.
+- Modules: `Checked/FalknerSkan/Separation.lean`, `Checked/FalknerSkan/SeparationEqual.lean`, `Checked/Trust/SecondReadingFSSepW.lean`, `Checked/Trust/NecessityC.lean`.
 
 ## Hypothesis necessity: shape of the statement (run 2026-11-11T0428Z)
 - `scripts/trust/StatementDeps.lean` `necConjuncts` (conclusion conjuncts through `let` and program definitions) → `necShape` (`conclusion`, `subtype`, `bundled i`, `restated i`) → `shape:` entry of each TRUST_MAP.md necessity line, excluded from the fully-classified tally → `scripts/trust/check_necessity.py` N4 with `scripts/trust/necessity_shape_baseline.txt` (shrink-only). Blind measurement: `runs/2026-11-11T0428Z/t5/` (red team AF). Next: per-conjunct necessity for the bundled predicates.
@@ -488,6 +488,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Rule M9 and reader test EF; nanoda in parallel (run 2026-11-19T2028Z)
 - `scripts/trust/check_headline_mentions.py` (M9), `runs/2026-11-19T2028Z/t5/`; `scripts/nanoda_shard.sh`, `scripts/nanoda/controls/`.
+
+## Hypothesis lines of the records checked against the trust map (run 2026-11-20T2028Z)
+- `scripts/trust/check_stale_necessity.py` (run by `scripts/trust/check_necessity_prose.py`), `runs/2026-11-20T2028Z/t5/`, `_archive/STATE_steps_2026-11-09_to_2026-11-15.md`.
 
 ## The Gelfand bound without the C² and without the symmetry hypothesis (run 2026-11-20T1828Z)
 - `Checked/Trust/NecessityBF.lean`, `Checked/Trust/NecessityBG.lean`, `Checked/Math/GMaxPrinciple.lean`, `Checked/Math/GRadialPoisson.lean`, `Checked/Math/GSymFree.lean`; Work originals `Work/Math/GMaxPrinciple.lean`, `GRadialPoisson.lean`, `GSymFree.lean`.

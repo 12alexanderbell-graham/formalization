@@ -1,7 +1,36 @@
 # Run 2026-11-20T2028Z
 
-**THE RESULT:** part 3 by rotation (STATE 2o). Stub; filled at the end of the run.
+**THE RESULT:** part 3 by rotation (STATE 2o). The check of this run and its measure are in section What we did.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** That no hand-written line of STATE.md, README.md or BLUEPRINT.md calls a numbered hypothesis open after `TRUST_MAP.md` has classified it: CI fails on such a line (section What we did).
+
+**Weakest unchecked step:** a line that describes a hypothesis in words instead of its number (four of four such lines of the held-out test passed the check).
 
 ## Start
-- 20:28Z. Local main was the stale divergent clone; `git checkout -B main origin/main` at c4715c6. No LOCK → taken.
-- CI at start: 44804429541 (3ff128b, run 1828Z's final push) in progress.
+- 20:28Z. Local main was the stale divergent clone (fa47717); `git checkout -B main origin/main` at c4715c6. No LOCK → taken (df1b478).
+- Env: repo ok (add_repo not exposed; the session clone was present); no local Lean this run (no `.lean` file changes; records_check's Lean-free commands run, see Local checks); one Sonnet subagent (held-out writer).
+- CI at start: 44804429541 (3ff128b, run 1828Z's final push) in progress; read in section CI read.
+
+## Bottleneck (and what a yes/no changes)
+- Test WP (run 1428Z): 5 of 6 blind readers met a hand-written STATE.md line calling a hypothesis open that `TRUST_MAP.md` had classified since, and rejected STATE.md's words for it. Can a script find such lines from the generated table, at a cost a run can pay? Yes → the stale lines are rewritten now and new ones fail CI in the run that classifies the hypothesis. No (too many misses or false alarms) → the shapes that defeat it are recorded and the lines are rewritten by hand.
+
+## CI read
+- 44804429541 (3ff128b, run 1828Z's final push: `NecessityBF`, `NecessityBG`, `GMaxPrinciple`, `GRadialPoisson`, `GSymFree`): **green on every job**, 19:41Z → 20:32Z (51 min). nanoda check 22.2 / 19.5 / 29.3 / 25.7 min (shards 0-3; ratio 1.50, at the 1.5 refit threshold of run 1428Z's Next), leanchecker replay 23.7 / 20.9 / 37.1 / 29.8 min. No headline changed: nothing to promote. LEDGER experiment of run 1428Z (nanoda under 30 min, whole run under 60 min), third reading: met (slowest nanoda 29.3 min, whole run 51 min).
+
+## What we did
+- **`scripts/trust/check_stale_necessity.py`** (run by `check_necessity_prose.py`, i.e. by the CI trust step after TRUST_MAP.md is regenerated, and by `records_check.py`; 26 planted controls run first; fails closed when TRUST_MAP.md has no parsable necessity section). In STATE.md, README.md and BLUEPRINT.md, inside an open scope (a clause with an open or to-do word, or the rest of a line after a label such as 'Not yet:', 'Next:', 'Part 1:', 'Open in …:'), a numbered hypothesis that TRUST_MAP.md lists NEEDED or REDUNDANT is stale: S-N1a (a headline name followed by numbers), S-N1b ('hypothesis N of' + names), S-N1c (numbers with no name in the clause: the line's single headline, else the headlines of the module paths on the line, else every headline named in the section, all of which must classify it), S-N2 ('the N open hypotheses of `x`' against TRUST_MAP's count). A list stated as classified ('1 NEEDED', 'witnesses for hypotheses 2, 3') is not read as open.
+- **Cost on the records as they stood (measured before binding):** first version 14 items on 8 lines (7 STATE.md, 1 BLUEPRINT.md); after the held-out widening 8 more items on 6 lines, 5 of them old 'Exact next step' items of 2026-11-13/14. Every hit read by hand: all true (the hypothesis had been classified since). Run records (dated history, not bound): 33 items.
+- **Rewrites:** 6 lines replaced by '- **Hypotheses:** each hypothesis of … is listed in `TRUST_MAP.md` (per headline).' or the Trust-track template; STATE.md line 304 of c4715c6 deleted (it read: "Not yet: uniqueness of the reverse-flow branch; necessity of hypotheses 1, 4, 5 …"; hypothesis 1 is NEEDED since; the uniqueness of the reverse-flow branch still has no Lean theorem — recorded here because no line in the mention vocabulary can say 'not yet'). **Items 1g to 0 and the numbered list below item 0 of STATE.md's 'Exact next step' (runs 2026-11-09 to 2026-11-15, 41 lines) moved verbatim to `_archive/STATE_steps_2026-11-09_to_2026-11-15.md`** (five of them were stale; each rewrite of an old line is a new line for `check_headline_mentions.py`, and the items were superseded by the newer ones). Every rewrite of an old line had to pass the mention vocabulary: about 25 minutes and 9 attempts for 8 lines (words that failed: open, necessity, generated, same, work, them, older, archive, file).
+- **Held-out writer test SN** (brief `t5/BRIEF_SN.md`, committed first 7e11121; writer output `t5/writer_SN.json` committed alone 24b6933; score `t5/score_SN.py`): a Sonnet writer, not shown the check, wrote 20 stale and 10 true lines over seven headlines of an excerpt of TRUST_MAP.md. **Blind: recall 6/16 (lines naming the hypothesis by number), 0/4 by description, false positives 0/10** — below the pre-registered 0.8. Missed shapes: other open words (unresolved, undone, not yet checked, still to be shown, remaining), plan items ('Next: classify 4, 6', 'decide whether hypothesis 7 … can be dropped'), a separator between the name and the numbers ('`x`: hypotheses 1, 5, 8'), section-scoped lines with 'hypotheses N'. Added in this run (rule as registered: regular-expression shapes, no new false positive): **after, NOT blind: recall 16/16, by description 0/4, false positives 0/10**; on the run records two new false-positive shapes appeared ('open baseline updated (… 2, 3 removed)', 'witnesses for hypotheses 2, 3, 6, … 1, 4, 5 disclosed open') and were excluded with controls.
+
+## Measure
+- Stale hand-written 'open' necessity items in STATE.md, README.md, BLUEPRINT.md: 22 → 0, and CI now fails on a new one. Held-out writer recall (by number): 6/16 blind with the first version; 16/16 after (not blind).
+
+## Local checks
+- `check_necessity_prose.py` (with the new check), `check_headline_mentions.py --base 3ff128b`, `check_stale_status.py --base 3ff128b`, goal guard, `check_status_lines.py`; the Lean-free commands of `records_check.py` against base 3ff128b (no `.lean` file changed, so `.lake` output of StatementDeps is not needed by the checks this run touches; commands that read it are listed in section End).
+
+## Next
+- CI read first: the run of this run's final push (scripts and records only; the kernel shards are memoised on unchanged input). Green on every job → nothing to promote. Red in the checked job's trust step → `check_necessity_prose.py` output (a stale line or a TRUST_MAP parse failure).
+- A held-out test of the after-version (a new writer, the same brief with other headlines) gives the blind figure for the widened rules.
+- Description-only lines ('the last hypothesis of `x` is still unresolved'): the check does not read them; a reader test would say whether they matter.
+- Then by rotation (part 3 at 2028Z, part 1 at 1828Z, parts 2/5 at 1628Z): parts 2/5 as in section Next of `runs/2026-11-20T1628Z/README.md` (the contracting cell) or the symmetry-free bound as a headline (section Next of `runs/2026-11-20T1828Z/README.md`); part 1 as in section Next of `runs/2026-11-20T1828Z/README.md`. The judge: nanoda ratio 1.50 on 44804429541, at the refit threshold: re-read on the next run with all four shards running; refit if above 1.5 twice.
