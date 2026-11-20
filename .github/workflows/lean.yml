@@ -446,7 +446,11 @@ jobs:
         if: steps.memo.outputs.cache-hit != 'true'
         env:
           LEAN_NUM_THREADS: "1"
+          # Run 2026-11-20T1228Z (annex LIV, see LEDGER; scripts/leanchecker_shard.py): three groups at a time on the
+          # 4-core runner, each the same leanchecker command; a group failing beside others must pass alone.
+          LEANCHECKER_JOBS: "3"
         run: |
+          free -h
           python3 scripts/leanchecker_shard.py --selftest
           python3 scripts/leanchecker_shard.py ${{ matrix.shard }} 4
           echo "run ${{ github.run_id }} (commit ${{ github.sha }}, ref ${{ github.ref }}) at $(date -u +%FT%TZ)" > leanchecker-pass.txt

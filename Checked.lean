@@ -350,6 +350,10 @@ import Checked.Math.GelfandPDECountValuesMain
 import Checked.Math.GelfandPDECountValues
 import Checked.Math.GLam3Data
 import Checked.Math.GLam3Chain
+import Checked.Math.GNegExists
+import Checked.Math.GNegProfile
+import Checked.Math.GNegRight
+import Checked.Math.GNegLeft
 import Checked.Math.GelfandLam3
 import Checked.Math.GelfandTurningValues
 import Checked.Math.GelfandPDECountTurningMain
@@ -708,3 +712,4 @@ import Checked.Trust.ExpFlow
 import Checked.Trust.NecessityBB
 import Checked.Trust.NecessityBC
 import Checked.Trust.NecessityBD
+import Checked.Trust.NecessityBE

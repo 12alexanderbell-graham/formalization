@@ -14,8 +14,8 @@ obligation computed from the statement by `Checked.Trust.nvObligation`); the oth
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1027 hypotheses in 179 headlines;
 747 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-220 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-60 open; headlines with every hypothesis classified: 139/179
+221 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+59 open; headlines with every hypothesis classified: 140/179
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -483,7 +483,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Math.BonnorEbertMax3.bonnor_ebert_third_max` (5): needed 1 (`bonnor_ebert_third_max_h1`), 2 (`bonnor_ebert_third_max_h2`), 4 (`bonnor_ebert_third_max_h4`), 5 (`bonnor_ebert_third_max_h5`); redundant 3 (`bonnor_ebert_third_max_r3`)
 - `Math.ThomasFermi.tf_initial_slope` (6): needed 1 (`tf_initial_slope_h1`), 2 (`tf_initial_slope_h2`), 4 (`tf_initial_slope_h4`); redundant (each alone, not together) 3 (`tf_initial_slope_r3`), 5 (`tf_initial_slope_r5`), 6 (`tf_initial_slope_r6`)
 - `Math.GelfandPDE.gelfand_pde_radial_bound` (5): needed 2 (`gelfand_pde_radial_bound_h2`), 3 (`gelfand_pde_radial_bound_h3`), 5 (`gelfand_pde_radial_bound_h5`); open 1, 4
-- `Math.GelfandPDEExists.gelfand_pde_radial_exists` (2): needed 2 (`gelfand_pde_radial_exists_h2`); open 1
+- `Math.GelfandPDEExists.gelfand_pde_radial_exists` (2): needed 2 (`gelfand_pde_radial_exists_h2`); redundant 1 (`gelfand_pde_radial_exists_r1`)
 - `Townes.Shooting.townes_under` (5): needed 1 (`townes_under_h1`), 2 (`townes_under_h2`), 4 (`townes_under_h4`), 5 (`townes_under_h5`); redundant 3 (`townes_under_r3`)
 - `Townes.Shooting.townes_over` (5): needed 1 (`townes_over_h1`), 2 (`townes_over_h2`), 4 (`townes_over_h4`), 5 (`townes_over_h5`); redundant 3 (`townes_over_r3`)
 - `Blasius.blasius_wall_shear` (6): needed 1 (`blasius_wall_shear_h1`), 2 (`blasius_wall_shear_h2`), 3 (`blasius_wall_shear_h3`), 4 (`blasius_wall_shear_h4`), 5 (`blasius_wall_shear_h5`), 6 (`blasius_wall_shear_h6`)

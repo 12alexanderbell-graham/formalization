@@ -1007,3 +1007,9 @@
 - CI: 44714500005 (3f2d000, rule M11) green on every job.
 - Parts 2/5 (rotation): the radial Gelfand branch's fourth turning value λ₃ ∈ [1.9637, 1.9707] (98 new homology cells from s ≈ 429 to 4700), frozen, proved, refereed (STANDS, λ₃ = 1.9674656), and the turning sequence with its first four values promoted: `Checked.Math.GelfandTurningValues.gelfand_turning_values`. Weighted cells analysed: no gain at this focus; next a contracting cell.
 - Next: CI read of the promotion (STATE 2k); the judge's nanoda per-module times; then part 1 by rotation.
+
+## 2026-11-20T1228Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main dc283aa); local Lean via elan + restored CI build of 3f2d000; cargo for nanoda; one Opus subagent (Lean).
+- The judge first (PROMPT note of run 0828Z): every judge job rebuilt the same 85 Checked modules on every push because the lake cache key of each commit was saved by the `work` job; the work job now restores without saving. leanchecker groups three at a time (a group failing beside others must pass alone). nanoda profile workflow (measurement only) dispatched: CI 44736861516.
+- Part 1 (rotation, T2b): hypothesis 1 (0 < λ) of `gelfand_pde_radial_exists` REDUNDANT (`Checked/Trust/NecessityBE.lean`; `Checked/Math/GNeg*.lean`: a radial solution for every λ ≤ 0 by a clamped profile of the opposite-sign equation and scaling). Open 60 → 59.
+- Next: CI read (STATE 2l); nanoda's own assignment from the profile; then part 3 by rotation.

@@ -266,6 +266,10 @@ import Work.Math.GLam3Chain
 import Work.Math.GelfandLam3
 import Work.Math.GelfandTurningValues
 import Work.Math.GelfandTurningBlindClosed
+import Work.Math.GelfandNegLeft
+import Work.Math.GelfandNegRight
+import Work.Math.GelfandNegProfile
+import Work.Math.GelfandNegExists
 import Work.Math.GelfandPDECountValuesMain
 import Work.Math.GelfandPDECountValues
 import Work.Math.GelfandPDECountValuesBlind

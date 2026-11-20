@@ -37,12 +37,21 @@ three 37-49 min). A module whose name is a prefix of another module's (`prefix_m
 replayed exactly by scripts/leanchecker_exact.lean, which calls the toolchain's own `replayFromImports` (the function
 leanchecker calls per module). The set of modules each shard replays is unchanged; nothing is replayed twice.
 
+Groups in parallel (run 2026-11-20T1228Z, annex LIV, see LEDGER): the groups ran one leanchecker process at a time
+on a 4-core runner (leanchecker replays on one thread), and leanchecker shard 3 became the slowest judge job (4061 s,
+CI 44698202534). LEANCHECKER_JOBS (default 1; the workflow sets 3) groups now run at once, each the same
+`lake env leanchecker <group>` command on the same modules; the shard passes only if every group exits 0, and a
+group that fails beside others is replayed again alone and must pass alone (a process killed for memory is not a
+kernel verdict; a rejected declaration fails alone too).
+
 Usage:
   python3 scripts/leanchecker_shard.py I K           # run leanchecker on shard I of K (needs `lake build Checked`)
   python3 scripts/leanchecker_shard.py --assign K    # regenerate scripts/nanoda/shard_assignment.txt from the times
   python3 scripts/leanchecker_shard.py --list I K    # print the modules of shard I
   python3 scripts/leanchecker_shard.py --selftest    # the K lists partition the module list, none empty
 """
+import concurrent.futures
+import os
 import subprocess
 import sys
 import time
@@ -205,23 +214,42 @@ def main(argv: list[str]) -> int:
         # the toolchain's own replayFromImports (scripts/leanchecker_exact.lean): `leanchecker Checked` would replay
         # every module of the library (run 2026-11-19T0628Z, see LEDGER).
         t0 = time.monotonic()
-        import os
         env = dict(os.environ, LEANCHECKER_EXACT=" ".join(exact))
         r = subprocess.run(["lake", "env", "lean", "scripts/leanchecker_exact.lean"], env=env)
         print(f"leanchecker-time {time.monotonic() - t0:.0f} {' '.join(exact)}", flush=True)
         if r.returncode != 0:
             print(f"leanchecker shard {i} of {k} FAILED (exit {r.returncode}) in the exact replay of {' '.join(exact)}")
             return 1
-    for g in range(0, len(rest), GROUP):
-        group = rest[g:g + GROUP]
-        if any(p in pre for p in group):  # never reached: kept so a later edit cannot pass a prefix module
-            print(f"leanchecker shard {i} of {k} FAILED: a prefix module in a leanchecker group")
-            return 1
+    groups = [rest[g:g + GROUP] for g in range(0, len(rest), GROUP)]
+    if any(p in pre for group in groups for p in group):  # never reached: kept so a later edit cannot pass a prefix module
+        print(f"leanchecker shard {i} of {k} FAILED: a prefix module in a leanchecker group")
+        return 1
+
+    def replay(group):
         t0 = time.monotonic()
         r = subprocess.run(["lake", "env", "leanchecker", *group])
-        print(f"leanchecker-time {time.monotonic() - t0:.0f} {' '.join(group)}", flush=True)
-        if r.returncode != 0:
-            print(f"leanchecker shard {i} of {k} FAILED (exit {r.returncode}) in the group {' '.join(group)}")
+        return r.returncode, time.monotonic() - t0
+
+    jobs = max(1, int(os.environ.get("LEANCHECKER_JOBS", "1")))
+    print(f"leanchecker groups: {len(groups)} of up to {GROUP} modules, {jobs} at a time", flush=True)
+    failed = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as ex:
+        futs = {ex.submit(replay, group): group for group in groups}
+        for fut in concurrent.futures.as_completed(futs):
+            group = futs[fut]
+            rc, dt = fut.result()
+            print(f"leanchecker-time {dt:.0f} {' '.join(group)}", flush=True)
+            if rc != 0:
+                failed.append((group, rc))
+    for group, rc in failed:
+        # A group that failed beside others is replayed again alone, the same command; the shard passes only if this
+        # replay passes (exit 0). Why: a process killed for memory (exit 137) beside its siblings is not a kernel
+        # verdict; a declaration the kernel rejects fails here again.
+        print(f"leanchecker group failed with exit {rc} beside others; replaying it alone: {' '.join(group)}", flush=True)
+        rc2, dt = replay(group)
+        print(f"leanchecker-time-alone {dt:.0f} {' '.join(group)}", flush=True)
+        if rc2 != 0:
+            print(f"leanchecker shard {i} of {k} FAILED (exit {rc2}) in the group {' '.join(group)}")
             return 1
     print(f"leanchecker: Checked shard {i} of {k} passed ({len(mods)} modules)")
     return 0
