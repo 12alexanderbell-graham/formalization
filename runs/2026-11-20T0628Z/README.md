@@ -23,10 +23,12 @@
 - Necessity: NEEDED 743 → 744, open 61 → 60 (StatementDeps of the final tree).
 
 ## CI read
-- (pending)
+- 44682554465 (6b8fc4c, promotion of `laneEmden92_constants`) concluded green on every job at 07:36Z: checked job, work job, leanchecker 4/4 (replay 51, 63, 61, 63 min), nanoda 4/4 (check step 36, 82, 55, 43 min; shard 1 again the slowest, 67 min in 44640560624) → PROVED; STATE heading with the judged template; Alexander told (L.2).
 
 ## End
-- (pending)
+- Local before the final push: `lake build Checked` (3735 jobs), StatementDeps relock (303 headlines, NV 183/183; necessity NEEDED 743 → 744, REDUNDANT 219, open 61 → 60; frozen registry: new entries only), Claims (303 generated claims), open baseline updated, validation packet (unchanged), check_prose, precheck_citations, check_status_lines, goal guard, check_necessity and check_headline_mentions `--base 6b8fc4c`, records_check.py 6b8fc4c (see the final commit message).
 
 ## Next
-- (pending)
+- CI read first: the run of this run's final push (one new Trust module `NecessityBC`; no headline changed). Green on every job → nothing to promote; red → `python3 scripts/trust/records_check.py <base>` or `local_frozen_step.py --trust <base>`.
+- The judge (from runs 0028Z and 0228Z, not done this run): nanoda shard 1 per-module times, then rebalance on nanoda's own times; refresh `scripts/nanoda/shard_times.txt` from the newest four leanchecker logs.
+- Then by rotation (part 1 at 0628Z, parts 2/5 at 0428Z, part 3 at 0228Z): part 3 as in section Next of `runs/2026-11-20T0228Z/README.md`; parts 2/5 as in section Next of `runs/2026-11-20T0428Z/README.md`. Part 1 later: the remaining hypotheses of `fs_monotone_of_limit` all need a solution of the full system on the whole half-line: 8 (no condition at infinity) a solution from zero or negative wall shear (it turns over below −1 and then grows: certified cells over the turn, then the `ExpFlow` region), 6 (a wall value of f) a second solution branch with suction or blowing (no reliable float witness yet: scan for solutions with p(L) = 1 and q(L) ≈ 0 at two lengths L, not a sign change of p(L) − 1), 2 (β > 1) a non-monotone solution of the strongly favourable problem; no other open hypothesis of TRUST_MAP leaves a function free when dropped (checked this run: every other open first-order equation keeps its own derivative hypothesis, and the rest are wall values, ranges, positivity or limits); `eta_ratios` 3, 4 and the B1 lower density bounds as in section Next of `runs/2026-11-19T1228Z/README.md`.

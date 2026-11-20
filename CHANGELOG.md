@@ -989,3 +989,9 @@
 - CI: 44667501738 (fc55e07) concluded green on every job.
 - Parts 2/5 (rotation): Lane–Emden polytrope of index nine halves frozen (7251607), proved (5048d50), audited (referee STANDS, blind restatement closed, blind literal reading agrees), existence proved, promoted to Checked: `Checked.Math.LaneEmden92.laneEmden92_constants`. New simulator step: validated cells in a weighted norm (`LE92Cell.cell`), which removes the exponential growth of the enclosure on long ranges.
 - Next: CI read of the promotion (STATE 2h); judge shard times; then part 1 by rotation.
+
+## 2026-11-20T0628Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone unshallowed and reset to origin/main 6b8fc4c); local Lean via elan + restored CI build of fc55e07.
+- CI: 44682554465 (6b8fc4c, promotion of `laneEmden92_constants`) read in the run README.
+- Part 1 (rotation, T2b): hypothesis 3 (f has derivative p) of `fs_monotone_of_limit` NEEDED (`Checked/Trust/NecessityBC.lean`): with f free, the third equation is solved for f wherever the shear is not zero; a rational profile with zero wall shear that dips to −2 and tends to 1 meets every other hypothesis. Open 61 → 60.
+- Next: CI read (STATE 2i); then part 3 by rotation.

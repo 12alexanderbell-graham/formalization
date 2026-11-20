@@ -491,6 +491,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Rule M10, reader test EP2 and red team M9h (run 2026-11-20T0228Z)
 - `scripts/trust/check_headline_mentions.py` (M10), `runs/2026-11-20T0228Z/t5/`.
 
+## First equation of a boundary-layer monotone statement, hypothesis witness (run 2026-11-20T0628Z)
+- `Checked/Trust/NecessityBC.lean`; scratch `runs/2026-11-20T0628Z/lean/FreeF.lean`; scan `runs/2026-11-20T0628Z/scripts/scan/`.
+
 ## Condition at infinity of the boundary-layer statements, hypothesis witnesses (run 2026-11-20T0028Z)
 - `Checked/Trust/NecessityBB.lean`; helper module `Checked/Trust/ExpFlow.lean`; script `runs/2026-11-20T0028Z/scripts/emit_ncbb.py`.
 
