@@ -1,0 +1,27 @@
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has half the constant of the physical problem. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the exponent of the physical problem in the square root. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the inverse order of the quantifiers of the real problem. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the inverse of the model in the boundary condition. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the parameter of the model in the unit ball with half the radius. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the sign of the derivative inverse to the real problem. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the dimension three of the theory with the radial variable inverse. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the data of the model with the sign inverse. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the scaling of the physical problem inverse in the parameter. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has a boundary condition inverse to the method. ||| unnamed
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the Gelfand problem with the inverse order of the quantifiers. ||| eponym
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the Gelfand model with the inverse sign of the constant. ||| eponym
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has half the solutions of the Gelfand problem. ||| eponym
+STATE.md ||| multiplicity of radial solutions ||| - `gelfand_pde_radial_many_centre` has the parameter of the Gelfand model with half the radius. ||| eponym
+STATE.md ||| every turning point of the radial Gelfand branch ||| - `gelfand_extrema` has an order of the quantifiers inverse to the method. ||| unnamed
+STATE.md ||| every turning point of the radial Gelfand branch ||| - `gelfand_extrema` has half the solutions of the real problem. ||| unnamed
+STATE.md ||| every turning point of the radial Gelfand branch ||| - `gelfand_extrema` has the inverse of the model in the boundary condition. ||| unnamed
+STATE.md ||| every turning point of the radial Gelfand branch ||| - `gelfand_extrema` has data of the model with the parameter in the unit ball. ||| unnamed
+STATE.md ||| every turning point of the radial Gelfand branch ||| - `gelfand_extrema` has the branch of the theory with the point in the extrema. ||| unnamed
+STATE.md ||| every turning point of the radial Gelfand branch ||| - `gelfand_extrema` has the Gelfand problem with the inverse sign of the derivative. ||| eponym
+STATE.md ||| every turning point of the radial Gelfand branch ||| - `gelfand_extrema` has half the points of the Gelfand branch. ||| eponym
+STATE.md ||| reversed-flow row β = −0.03 ||| - `fs_neg_reversed_wall_shear_3_exists` has the sign of the wall shear inverse to the physical problem. ||| unnamed
+STATE.md ||| reversed-flow row β = −0.03 ||| - `fs_neg_reversed_wall_shear_3_exists` has half the parameter of the real problem. ||| unnamed
+STATE.md ||| reversed-flow row β = −0.03 ||| - `fs_neg_reversed_wall_shear_3_exists` has the flow of the model with the sign inverse. ||| unnamed
+STATE.md ||| reversed-flow row β = −0.03 ||| - `fs_neg_reversed_wall_shear_3_exists` has the scaling of the Falkner–Skan model with the inverse sign. ||| eponym
+STATE.md ||| reversed-flow row β = −0.03 ||| - `fs_neg_reversed_wall_shear_3_exists` has the boundary condition inverse to the theory. ||| unnamed
+STATE.md ||| reversed-flow row β = −0.03 ||| - `fs_neg_reversed_wall_shear_3_exists` has half the shear of the physical problem. ||| unnamed

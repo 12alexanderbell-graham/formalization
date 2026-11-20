@@ -508,7 +508,8 @@ M10_GREEK = re.compile(r"[α-ωΑ-Ω]")
 # 'problem(s)' after a qualifier) names a source for M6, unless a code span follows or the noun is the statement's own
 # ('the model in the statement'). A named model ('the Gelfand model', 'the de Sitter model') is M10's case and passes
 # here. Binds from its own commit.
-M11_QUAL = r"(?:physical|original|standard|usual|classical|underlying|textbook|published|reference|common|known)"
+# hardened after red team M11h (same run, not blind): 'the real problem' passed M11 in 4 of 20 unnamed-reference lines
+M11_QUAL = r"(?:physical|original|standard|usual|classical|underlying|textbook|published|reference|common|known|real|actual|true)"
 M11_REF_RE = re.compile(r"(?<![\w'’])(?:the|this|that|these|those)\s+(?:" + M11_QUAL + r"\s+)?"
                         r"(?:models?|theor(?:y|ies)|methods?|data|literature|textbooks?|references?|conventions?|"
                         r"physics)(?![\w'’])"
@@ -1026,6 +1027,11 @@ M11_LINES = [
     "- `gelfand_extrema` has the first branch of the method, in ball dimension three.",
     "- `fs_neg_reversed_wall_shear_3_exists` has wall shear of the model with inverse sign.",
     "- `fs_neg_reversed_wall_shear_3_exists` has the rows of the data.",
+    # red team M11h (same run): the qualifier 'real'
+    "- `gelfand_pde_radial_many_centre` has the inverse order of the quantifiers of the real problem.",
+    "- `gelfand_pde_radial_many_centre` has the sign of the derivative inverse to the real problem.",
+    "- `gelfand_extrema` has half the solutions of the real problem.",
+    "- `fs_neg_reversed_wall_shear_3_exists` has half the parameter of the real problem.",
 ]
 # recorded limits of M8 (red team M6r, not controls): eponyms of models in headline names used as a source
 # ("in tension with Gelfand / Emden / Kamenetskii / Eddington's") and words that are not document words ("in tension

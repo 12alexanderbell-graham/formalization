@@ -1,0 +1,28 @@
+FLAG unnamed  - `gelfand_pde_radial_many_centre` has half the constant of the physical problem.
+FLAG unnamed  - `gelfand_pde_radial_many_centre` has the exponent of the physical problem in the square root.
+PASS unnamed  - `gelfand_pde_radial_many_centre` has the inverse order of the quantifiers of the real problem.
+FLAG unnamed  - `gelfand_pde_radial_many_centre` has the inverse of the model in the boundary condition.
+FLAG unnamed  - `gelfand_pde_radial_many_centre` has the parameter of the model in the unit ball with half the radius.
+PASS unnamed  - `gelfand_pde_radial_many_centre` has the sign of the derivative inverse to the real problem.
+FLAG unnamed  - `gelfand_pde_radial_many_centre` has the dimension three of the theory with the radial variable inverse.
+FLAG unnamed  - `gelfand_pde_radial_many_centre` has the data of the model with the sign inverse.
+FLAG unnamed  - `gelfand_pde_radial_many_centre` has the scaling of the physical problem inverse in the parameter.
+FLAG unnamed  - `gelfand_pde_radial_many_centre` has a boundary condition inverse to the method.
+PASS eponym   - `gelfand_pde_radial_many_centre` has the Gelfand problem with the inverse order of the quantifiers.
+PASS eponym   - `gelfand_pde_radial_many_centre` has the Gelfand model with the inverse sign of the constant.
+PASS eponym   - `gelfand_pde_radial_many_centre` has half the solutions of the Gelfand problem.
+PASS eponym   - `gelfand_pde_radial_many_centre` has the parameter of the Gelfand model with half the radius.
+FLAG unnamed  - `gelfand_extrema` has an order of the quantifiers inverse to the method.
+PASS unnamed  - `gelfand_extrema` has half the solutions of the real problem.
+FLAG unnamed  - `gelfand_extrema` has the inverse of the model in the boundary condition.
+FLAG unnamed  - `gelfand_extrema` has data of the model with the parameter in the unit ball.
+FLAG unnamed  - `gelfand_extrema` has the branch of the theory with the point in the extrema.
+PASS eponym   - `gelfand_extrema` has the Gelfand problem with the inverse sign of the derivative.
+PASS eponym   - `gelfand_extrema` has half the points of the Gelfand branch.
+FLAG unnamed  - `fs_neg_reversed_wall_shear_3_exists` has the sign of the wall shear inverse to the physical problem.
+PASS unnamed  - `fs_neg_reversed_wall_shear_3_exists` has half the parameter of the real problem.
+FLAG unnamed  - `fs_neg_reversed_wall_shear_3_exists` has the flow of the model with the sign inverse.
+PASS eponym   - `fs_neg_reversed_wall_shear_3_exists` has the scaling of the Falkner–Skan model with the inverse sign.
+FLAG unnamed  - `fs_neg_reversed_wall_shear_3_exists` has the boundary condition inverse to the theory.
+FLAG unnamed  - `fs_neg_reversed_wall_shear_3_exists` has half the shear of the physical problem.
+Counter({('unnamed', 'FLAG'): 16, ('eponym', 'PASS'): 7, ('unnamed', 'PASS'): 4})

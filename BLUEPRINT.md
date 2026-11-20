@@ -488,6 +488,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Rule M9 and reader test EF; nanoda in parallel (run 2026-11-19T2028Z)
 - `scripts/trust/check_headline_mentions.py` (M9), `runs/2026-11-19T2028Z/t5/`; `scripts/nanoda_shard.sh`, `scripts/nanoda/controls/`.
 
+## Rule M11, reader tests ND and DN, red team M10h (run 2026-11-20T0828Z)
+- `scripts/trust/check_headline_mentions.py` (M11), `runs/2026-11-20T0828Z/t5/`.
+
 ## Rule M10, reader test EP2 and red team M9h (run 2026-11-20T0228Z)
 - `scripts/trust/check_headline_mentions.py` (M10), `runs/2026-11-20T0228Z/t5/`.
 

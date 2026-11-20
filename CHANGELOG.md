@@ -995,3 +995,9 @@
 - CI: 44682554465 (6b8fc4c, promotion of `laneEmden92_constants`) read in the run README.
 - Part 1 (rotation, T2b): hypothesis 3 (f has derivative p) of `fs_monotone_of_limit` NEEDED (`Checked/Trust/NecessityBC.lean`): with f free, the third equation is solved for f wherever the shear is not zero; a rational profile with zero wall shear that dips to −2 and tends to 1 meets every other hypothesis. Open 61 → 60.
 - Next: CI read (STATE 2i); then part 3 by rotation.
+
+## 2026-11-20T0828Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main e2eaeee); no Lean change; elan + restored CI build of 6b8fc4c for the end checks.
+- CI: 44698202534 (e2eaeee, run 0628Z's `NecessityBC`) green on every job.
+- Part 3 (rotation, T5): reader test ND (plain false descriptions of a statement at double dose: 0/6 misled, control 0/3, harmless); held-out red team M10h (29 lines with a reference pass M1–M9; M10 flags 14/20 eponym lines, 0/9 determiner + noun lines); reader test DN ('to the model': 4/6 unrejected fidelity doubt, control 0/3) → rule M11 of `check_headline_mentions.py` (an unnamed reference by determiner + noun names a source for M6); reader test EN ('to the Gelfand problem', the shape M10 exempts: 0/6, control 0/3, harmless); held-out red team M11h: M11 flags 16/20 unnamed references (effective), hardened for the four that passed ('the real problem').
+- Next: CI read (STATE 2j); the judge's nanoda shard 1; then parts 2/5 by rotation.

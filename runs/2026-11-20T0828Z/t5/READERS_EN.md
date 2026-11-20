@@ -23,3 +23,11 @@ Reading across tests EP2, DN, EN (the same three sentences, only the reference c
 'to the model' 4/6, 'to the Gelfand problem' 0/6, no reference 1/3 and (double dose) 0/6. Every EN reader that named
 the lines compared them with the standard form of the named problem and rejected them: a reference the reader can
 identify and check is not where the harm is; an unidentified one ('the model', a bare name read as a source) is.
+
+# Red team M11h: results (brief BRIEF_M11h.md, committed ccdb477 before it ran)
+One Sonnet subagent at 15b2aa9 (rules M1–M10), ≈ 2 min: 27 class-A lines (`m11h_lines.txt`), 27/27 pass at the target.
+On main at ccdb477 (rules M1–M11; `m11h_judged_main.txt`): unnamed references 16/20 flagged = **80 % → M11 EFFECTIVE
+(registered rule)**; the four that pass all use 'the real problem'. Eponym + model noun 0/7 flagged (the shape test EN
+measured harmless, 0/6). Hardened after the red team (not blind): 'real', 'actual', 'true' added to `M11_QUAL`, the
+four lines are selftest controls (103 → 107 defects); cost unchanged (0 findings since M10's commit, 8 on all record
+lines).
