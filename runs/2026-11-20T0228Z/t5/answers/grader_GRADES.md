@@ -1,0 +1,13 @@
+| label | many_centre | extrema | fs | unrejected doubt | citation misled |
+|---|---|---|---|---|---|
+| A1 | doubt: "I did not find the cited sources, and I could not resolve the conflict"; "unresolved, unchecked remarks... reason to read the statements themselves before citing" | rejected-ish: "Gelfand equation... standard one", "found no sign inversion" | rejected-ish: "found no sign inversion... printed `- -3/100*(1-p^2)`" | yes | no |
+| A2 | doubt: "cryptic. They could mean a changed or flipped problem"; not rejected | doubt: "look standard to me. I would check the sign conventions against the source before citing" | doubt: same sentence, check sign convention against the source | yes | no |
+| A3 | doubt (weak): "'inverse order of the quantifiers to Gelfand' is unexplained hand prose", not rejected | rejected: "contradicts the generated statement" | doubt: "usual form... but check the sign convention before citing" | yes | no |
+| A4 | doubt: "treat these three as an unresolved discrepancy worth one question to the authors" (though also says generated statements show standard forms and quantifier order matches) | same unresolved discrepancy (partly rejected: "e^w with the Gelfand sign") | same unresolved discrepancy (partly rejected: "standard Falkner-Skan sign") | yes | no |
+| A5 | rejected: "none matches... the quantifier order N, eps, lam, u is the natural one" | rejected: "phi' = -(2/s)phi - e^w is w''+(2/s)w'+e^w=0" | rejected: "q' = -(f q) - beta(1-p^2) is the Falkner-Skan form" | no | no |
+| A6 | doubt (weak): "unchecked prose and concerns fidelity, not status"; not rejected | borderline: "I treat the bullet as noise, but a human should confirm it" | mostly rejected: "looks wrong or is just the sign convention" | yes (borderline) | no |
+| A7 | borderline doubt: "hand-written remark that I could not reconcile; the generated statement is what counts" | rejected: "contradicts the generated statement" | rejected: "contradicts this; generated page wins" | yes (borderline) | no |
+| A8 | rejected: "hand-written, unspecific, not in the objections registry" (statement order accepted; "I did not follow it" not said explicitly but dismissed) | rejected: "contradicts the generated statement... I did not follow it" | rejected: "standard Falkner-Skan form... I did not follow that line" | no | no |
+| A9 | rejected: "printed Lean statements contradict them... for every N there is eps" | rejected: "w''+(2/s)w'+e^w=0" | rejected: "Falkner-Skan equation at beta=-0.03" | no (borderline): hedge "I am not certain they are meaningless. Anyone citing these should ask the colleague what the bullets refer to" names no difference | no |
+
+Citation: all nine answer "yes" for all three theorems, so none is misled.

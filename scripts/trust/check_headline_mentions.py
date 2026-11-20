@@ -467,6 +467,67 @@ M9_REF_RE = re.compile(r"(?<![\w'’])(?:the|this|that|these|those)\s+(?:[^\W\d_
                        r"(?!\s+(?:in|of|from)\s+(?:the|this|its|our)\s+(?:lean\s+)?(?:statements?|claims?|zzheadlinespan)\b)")
 
 
+# M10 (run 2026-11-20T0228Z, part 3; decision rule pre-registered in runs/2026-11-20T0228Z/t5/BRIEF_EP2_M9h.md before its
+# readers ran, as written in the LEDGER experiment of run 2026-11-19T2028Z). Reader test EP2 (nine blind Sonnet readers,
+# blind grader, runs/2026-11-20T0228Z/t5/READERS_EP2.md): lines that compare a statement with a model eponym used as the
+# reference ("the inverse order of the quantifiers to Gelfand", "the inverse of Falkner–Skan") left an unrejected
+# fidelity doubt in 5 of 6 readers ("I would check the sign conventions against the source before citing"); the same
+# lines with no reference 1 of 3 (blind grader; 0 of 3 by the run). So on a line about a listed headline, a model eponym
+# (one name or a hyphenated pair, Falkner–Skan, Bonnor–Ebert) that is not directly followed by a noun of M10_NOUNS (the
+# eponym used as a model's name: "the Gelfand problem", "the Falkner–Skan equation") names a source for M6. Names joined
+# by 'and', 'or' or a slash are one group, judged by the word after the last ("the Hiemenz and Homann problems").
+# Binds from its own commit.
+M10_EPONYMS = frozenset("""bonnor ebert gelfand gel'fand peng robinson redlich kwong soave waals maxwell hartree eddington
+falkner skan lane emden blasius michaelis menten duffing friedmann einstein sitter thomas fermi bratu liouville robertson
+homann hiemenz joseph lundgren kamenetskii frank townes chandrasekhar banach chebyshev clenshaw crocco gibbs gronwall
+hubble jordan lindelof lipschitz lyapunov milne picard radau ricci riemann rolle sylvester taylor volterra euclidean
+gaussian hamiltonian jacobian laplacian""".split())
+M10_JOIN = frozenset("de van der von and or".split())  # inside a group: de Sitter, van der Waals; joined names
+M10_NOUNS = frozenset("""equation equations problem problems model models branch branches mass masses function functions
+constant constants solution solutions polytrope polytropes sphere spheres flow flows layer layers boundary wall shear
+row rows count counts critical coexistence rate rates field fields state states parameter parameters polynomial
+polynomials expansion expansions prior soliton solitons oscillator oscillators mechanism network family families law
+laws integral integrals inequality inequalities bound bounds transformation transformations variable variables step
+steps recursion construction gluing argument arguments method methods iteration estimate estimates norm norms series
+cell cells certificate certificates chain chains stack stacks integrator integrators factor factors coefficient
+coefficients acentric value values number numbers quantity quantities radius radii temperature temperatures pressure
+pressures profile profiles centre density densities energy case cases setting type separation extrema extremum turning
+uniqueness existence window windows spiral cosmology universe metric fluid fluids kinetics reaction reactions
+approximation limit limits point points stagnation initial slope gas isotherm isotherms inverse operator operators matrix matrices space spaces measure
+measures domain domains condition conditions sequence sequences curve curves invariant invariants test tests system
+systems pair pairs trio core cores atom atoms ansatz scale exponent exponents index""".split())
+M10_GREEK = re.compile(r"[α-ωΑ-Ω]")
+
+
+def m10_eponym_ref(k):
+    """M10 on a reduced line (code spans as marker words, markup and punctuation as spaces, lower case): True if a
+    model eponym group is not directly followed by a noun of M10_NOUNS (or a Greek letter or one-letter symbol)"""
+    ws = k.split()
+    i, n = 0, len(ws)
+    while i < n:
+        w = ws[i][:-2] if ws[i].endswith(("'s", "’s")) else ws[i]
+        if w not in M10_EPONYMS:
+            i += 1
+            continue
+        j = i + 1  # extend the group over names, possessives and joiners followed by a name
+        while j < n:
+            x = ws[j][:-2] if ws[j].endswith(("'s", "’s")) else ws[j]
+            if x in M10_EPONYMS:
+                j += 1
+            elif x in M10_JOIN and j + 1 < n and any(
+                    (y[:-2] if y.endswith(("'s", "’s")) else y) in M10_EPONYMS for y in ws[j + 1:j + 4]
+                    if y not in M10_JOIN) and all(y in M10_JOIN or (y[:-2] if y.endswith(("'s", "’s")) else y)
+                                                  in M10_EPONYMS for y in ws[j + 1:j + 2]):
+                j += 1
+            else:
+                break
+        nxt = ws[j] if j < n else ""
+        if not (nxt in M10_NOUNS or (len(nxt) == 1 and nxt.isalpha()) or M10_GREEK.fullmatch(nxt or "x")):
+            return True
+        i = j
+    return False
+
+
 def _m8_texts(line):
     """the two readings of a line M8 checks: HTML read as text (m6_text) and HTML removed (red team M6r: a word split
     by an empty comment or tag, 'ta<!---->ble', is one word on the rendered page and to M1)"""
@@ -474,9 +535,10 @@ def _m8_texts(line):
     return [m6_text(line), joined]
 
 
-def m8_names(line, m9=True):
+def m8_names(line, m9=True, m10=True):
     """M8: the line points at a document, its parts or its authors by a vocabulary word, or at a result by its kind;
-    M9 (m9=True): or at a formula or result outside the statement by a determiner and its kind"""
+    M9 (m9=True): or at a formula or result outside the statement by a determiner and its kind;
+    M10 (m10=True): or at a model by its eponym used as the reference (not followed by a noun of the model)"""
     keys, fulls, modules = headlines()
     for raw in _m8_texts(line):
         t = words(unmark(norm(raw)), fulls, modules)
@@ -495,6 +557,8 @@ def m8_names(line, m9=True):
                 re.sub(r"\bTHE RESULT\b", " zzprogram ", raw))  # the program's own plan (TARGETS.md), in capitals
             k9 = re.sub(r"[^\w'’]+", " ", unmark(norm(k9)).replace("`", " "))
             if M9_REF_RE.search(k9):
+                return True
+            if m10 and m10_eponym_ref(k9):
                 return True
     return False
 
@@ -526,7 +590,7 @@ def _names_source(line, m8_on=True):
     r = source_names_re()
     if r and r.search(raw):
         return True
-    return bool(m8_on) and m8_names(line, m9=(m8_on != "m8only"))
+    return bool(m8_on) and m8_names(line, m9=(m8_on not in ("m8only",)), m10=(m8_on is True))
 
 
 CITE = re.compile(r"(?:[A-ZÀ-Þ][\w'’\-–]+(?:\s*(?:,|and|&)\s*[A-ZÀ-Þ][\w'’\-–]+)*(?:\s+et\.?\s+al\.?)?,?\s*[(\[]?"
@@ -644,7 +708,7 @@ def ident(line):
     return re.sub(r"^(last updated|previous update):\s*", "", norm(m6_text(line)).strip())
 
 
-def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m8_pre=None, m9_pre=None):
+def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m8_pre=None, m9_pre=None, m10_pre=None):
     """grand = (idents of lines that existed before the last vocabulary rebuild, the vocabulary they were written
     under): such a line, new since a base older than the rebuild, is read by M1 with that vocabulary too"""
     keys, fulls, modules = headlines()
@@ -682,7 +746,8 @@ def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m
             for e in check_line(l, fulls, modules, v, obj, path, ab,
                                 m6_on=not (m6_pre and ident(l) in m6_pre),
                                 m8_on=(False if (m8_pre and ident(l) in m8_pre) else
-                                       "m8only" if (m9_pre and ident(l) in m9_pre) else True)):
+                                       "m8only" if (m9_pre and ident(l) in m9_pre) else
+                                       "m9only" if (m10_pre and ident(l) in m10_pre) else True)):
                 short = ", ".join(sorted(f.split(".")[-1] for f in ab)[:4])
                 errors.append(f"{path}:{i + 1}: about {short}: {e}")
     return errors
@@ -742,6 +807,18 @@ def m9_grandfathered(base):
     """M9 binds from the commit that introduced it (run 2026-11-19T2028Z): lines that existed in its parent are not
     read by M9 (M8 still reads them)"""
     r = git("log", "--format=%H", "-S", "M9_REF_RE = re.compile(", "--", "scripts/trust/check_headline_mentions.py").split()
+    if not r:
+        return None
+    intro = r[-1]
+    if subprocess.run(["git", "merge-base", "--is-ancestor", intro, base], cwd=ROOT).returncode == 0:
+        return None
+    return {ident(l) for txt in files_at(intro + "^").values() for l in txt.splitlines()}
+
+
+def m10_grandfathered(base):
+    """M10 binds from the commit that introduced it (run 2026-11-20T0228Z): lines that existed in its parent are not
+    read by M10 (M8 and M9 still read them as before)"""
+    r = git("log", "--format=%H", "-S", "M10_EPONYMS = frozenset(", "--", "scripts/trust/check_headline_mentions.py").split()
     if not r:
         return None
     intro = r[-1]
@@ -880,6 +957,18 @@ M9_LINES = [
     "`gelfand_extrema` sign in tension with the fo<!---->rmula.",
     "`gelfand_extrema` sign in tension with the original result.",
 ]
+# M10 (run 2026-11-20T0228Z): reader test EP2 arm EP (5 of 6 blind readers kept an unrejected fidelity doubt), and the
+# same shape with another model eponym, a possessive and markup inside the name
+M10_LINES = [
+    "- `gelfand_pde_radial_many_centre`: the statement has the inverse order of the quantifiers to Gelfand.",
+    "- `gelfand_extrema`: the equation in the statement has the inverse sign of the exponent to Gelfand.",
+    "- `fs_neg_reversed_wall_shear_3_exists`: the sign of the pressure gradient term in the equation is the inverse of "
+    "Falkner–Skan.",
+    "`gelfand_extrema` sign in tension with Bonnor–Ebert.",
+    "`gelfand_extrema` sign in tension with Gelfand's.",
+    "`gelfand_extrema` sign in tension with Gel<!---->fand.",
+    "`gelfand_extrema` sign in tension with Emden and Chandrasekhar.",
+]
 # recorded limits of M8 (red team M6r, not controls): eponyms of models in headline names used as a source
 # ("in tension with Gelfand / Emden / Kamenetskii / Eddington's") and words that are not document words ("in tension
 # with the formula / the equation / the definition / the notation / the specification / the glossary"); the last kind
@@ -955,7 +1044,7 @@ def selftest():
         "of the sign in Table 7 of Ganapol 2010.",
         "- `gelfand_pde_radial_many_centre`: the statement is the dual of the theorem of Joseph and Lundgren.",
         "- `gelfand_extrema`: Joseph and Lundgren (1973) have `+e^w` in the equation of the statement.",
-    ] + M4_LINES + M8_LINES + M8_RT_LINES + M9_LINES
+    ] + M4_LINES + M8_LINES + M8_RT_LINES + M9_LINES + M10_LINES
     # known limit (recorded, not a control; red team M3 mechanism 4, reader test L of run 2026-11-18T2028Z misled 0/3):
     # "`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem, with the inverse order of the
     # quantifiers." passes. Earlier recorded limit: a status in ordinary in-vocabulary words, e.g.
@@ -971,6 +1060,9 @@ def selftest():
         # M9 (run 2026-11-19T2028Z): the statement's own equation, and a formula shown as a code span, are not a source
         "- `gelfand_extrema`: the sign of the exponent in the equation of the statement is positive.",
         "- `gelfand_extrema`: the sign is the inverse of the result `lam`.",
+        # M10 (run 2026-11-20T0228Z): an eponym used as the name of a model, followed by its noun or a symbol
+        "- `gelfand_extrema`: the Gelfand problem in the 3-D ball, Falkner–Skan β = 1/2.",
+        "- `gelfand_extrema`: the de Sitter model and the van der Waals equation.",
     ]
     fails = 0
     base = dict(head)
@@ -1069,7 +1161,8 @@ def main(argv):
             return 1
         bf, hf = files_at(base), files_at(None)
         errors = run(bf, hf, grand=grandfathered(base), m6_pre=m6_grandfathered(base),
-                     m8_pre=m8_grandfathered(base), m9_pre=m9_grandfathered(base)) + m4(base)
+                     m8_pre=m8_grandfathered(base), m9_pre=m9_grandfathered(base),
+                     m10_pre=m10_grandfathered(base)) + m4(base)
         errors += m7(bf, hf) if m7_binds(base) else []
         # run 2026-11-18T2028Z: stale pending statuses in STATE.md headings (check_stale_status.py; called from here so
         # the workflow file, and with it the nanoda/leanchecker memo hash, need not change)

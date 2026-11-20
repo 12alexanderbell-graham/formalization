@@ -977,3 +977,9 @@
 - CI: 44640560624 (d363b3d, promotion of `laneEmden72_constants`) read in the run README.
 - Part 1 (rotation, T2b): eighteen hypotheses NEEDED (`Checked/Trust/NecessityBB.lean`): the condition at infinity of twelve boundary-layer statements through one new global solution with wall shear ten (`Checked/Trust/ExpFlow.lean`, a growing clamp and continuous induction), and the wall velocity of `fs_monotone_of_limit`. Open 79 → 61; twelve more statements fully classified.
 - Next: CI read (STATE 2f); then part 3 by rotation.
+
+## 2026-11-20T0228Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main 0792b21); local Lean via elan + restored CI build of d363b3d.
+- CI: 44655372746 (0792b21) read in the run README.
+- Part 3 (rotation, T5): reader test EP2 (brief 548ea21 before the readers; nine blind readers, blind grader): a model eponym as the reference left a fidelity doubt in 5/6 readers (fresh baseline 1/3) → rule M10 of `check_headline_mentions.py`. Held-out red team M9h against M9: 21 accepted lines, one with a reference (flagged), inconclusive; plain false descriptions recorded as a limit.
+- Next: CI read (STATE 2g); then parts 2/5 by rotation.
