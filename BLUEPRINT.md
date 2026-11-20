@@ -488,6 +488,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Rule M9 and reader test EF; nanoda in parallel (run 2026-11-19T2028Z)
 - `scripts/trust/check_headline_mentions.py` (M9), `runs/2026-11-19T2028Z/t5/`; `scripts/nanoda_shard.sh`, `scripts/nanoda/controls/`.
 
+## Fourth extremum of the radial Gelfand branch parameter (run 2026-11-20T1028Z)
+- `Checked/Math/GLam3Data.lean`, `Checked/Math/GLam3Chain.lean`, `Checked/Math/GelfandLam3.lean`, `Checked/Math/GelfandTurningValues.lean`, `Checked/Trust/NecessityBD.lean`, `Work/Math/GelfandTurningBlindClosed.lean`, `runs/2026-11-20T1028Z/scripts/`.
+
 ## Rule M11, reader tests ND and DN, red team M10h (run 2026-11-20T0828Z)
 - `scripts/trust/check_headline_mentions.py` (M11), `runs/2026-11-20T0828Z/t5/`.
 

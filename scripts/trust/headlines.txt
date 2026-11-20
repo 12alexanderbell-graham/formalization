@@ -362,3 +362,4 @@ Checked.Math.GelfandPDECount.gelfand_pde_radial_count
 Checked.Math.GelfandPDECountValues.gelfand_pde_radial_count_values
 Checked.Math.BonnorEbertCount.bonnor_ebert_count
 Checked.Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning
+Checked.Math.GelfandTurningValues.gelfand_turning_values

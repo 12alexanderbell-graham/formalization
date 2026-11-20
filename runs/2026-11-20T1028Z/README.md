@@ -1,3 +1,39 @@
 # Run 2026-11-20T1028Z
 
-**THE RESULT:** stub (run in progress).
+**THE RESULT:** parts 2 and 5 by rotation (STATE 2j → parts 2/5 as in section Next of `runs/2026-11-20T0428Z/README.md`, the next extremum of the Gelfand branch). The Lean theorem of this run and its statement are in section What we did.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** The value of the branch parameter of the radial Gelfand problem at its fourth extremum (near radius 4532), in a window of width seven thousandths, from one kernel theorem with the first three values.
+
+**Weakest unchecked step:** the window of the fourth value is wide: the cell bound grows with the Lipschitz constant (like the square of the radius ratio) while the solution approaches the singular one (section Measure); and the two slowest judge jobs (68 min each) bound every promotion.
+
+## Start
+- 10:28Z. Local main was a stale divergent clone (fa47717); `git fetch --unshallow origin && git checkout -B main origin/main` at 3f2d000. No LOCK → taken (77a01eb).
+- CI at start: 44714500005 (3f2d000, run 0828Z's final push) in progress; read in section CI read.
+- Local Lean: elan + Mathlib cache ≈ 3 min; `checked-build` of 44698202534 (e2eaeee) restored (FORCE=1; zip deleted after).
+
+## Bottleneck (and what a yes/no changes)
+- Parts 2/5: λ₃, the value at the fourth turning point (s ≈ 4532), recorded as blocked since run 2026-11-18T1028Z; the LEDGER experiment of run 0428Z proposed porting the weight of `LE92Cell.cell` to `GLamCell`. Does the chain reach s ≈ 4532 at all, with or without weights? Yes → λ₃ enclosed and the turning sequence with four values promoted this run; no → record where it breaks.
+
+## What we did
+- **Weights, analysed before coding:** in s-log form the homology system has Jacobian [[−1, −1], [2, 0]] at the equilibrium (u, v) = (1, 2) (eigenvalues (−1 ± i√7)/2: a stable focus). A cell's Lipschitz constant in the weighted max norm max(|Δu|, w|Δv|) is max(1 + 1/w, 2w)/t, smallest at w = 1 (value 2/t): the diagonal weight cannot lower it, unlike Lane–Emden, where θ' = φ forced K ≥ 1 and a large w removed it. So the experiment's premise does not apply here (section Measure).
+- **The unweighted chain does reach the fourth turning point:** `scripts/gen_gl.py` (run 2026-11-18T1028Z's generator, extended: START=end starts from the end box of `GLamChain` at 8579/20 with radius 649/125000000; segments v > 2 on [8579/20, 4380], u < 1 on [4380, 4700], v < 2 at 4700): 98 cells, radius 5.2 · 10⁻⁶ → 9.9 · 10⁻⁴ (growth like t^2.2), margin of v − 2 against the radius closes the bracket at [4380, 4700]; u on the bracket in [0.981860, 0.985319], so λ₃ = 2u ∈ [1.963720, 1.970638]. Emitter `scripts/emit_gl3.py` → `Work/Math/GLam3Data.lean` (nine kernel-decided segments, 59 s), `GLam3Chain.lean`.
+- **Freeze** 990425a: `Work.Math.GelfandLam3.lam3_band` (the hypotheses of `GLamBands.bands`; λ(ζ 3) ∈ [1.9637, 1.9707]). **Proof** f2e300b (statement and docstring byte-identical; axioms propext, Classical.choice, Quot.sound): the route of `bands`, continued by `GLam3Chain`, IVT on v − 2 over the bracket, identification of the zero with ζ 3 by strict monotonicity at two points, λ = 2u. Compiled first time.
+- **Referee** (Sonnet, brief committed with the freeze; `referee/REPORT.md`): STANDS. Own 50-digit Taylor integrator (orders 30–50, steps s/4 – s/16, agreement 10⁻²²): ζ₃ = 4532.148619116816, λ₃ = 1.967465558668593, margins 3.8 · 10⁻³ / 3.1 · 10⁻³; u on the bracket in [0.98321, 0.98432]; v − 2 ≥ 2.0 · 10⁻⁴ at 428.95 (the tightest point of the interface with `GLamChain`); ζ forced to be the turning sequence by the monotonicity pattern.
+- **Headline** frozen 6fe57ea, proved (one step from `GelfandExtremaMain.main`, `GLamBands.bands`, `lam3_band`): `gelfand_turning_values` — the conclusion of `gelfand_extrema` with λ(ζ 1), λ(ζ 2), λ(ζ 3) enclosed. **Blind restatement** (Sonnet, brief committed first, output committed before its copy): λ as a named function, two-sided derivative of φ for s > 0, windows as `Set.Icc`; closed in Lean from the program's statement (`Work/Math/GelfandTurningBlindClosed.lean`, verbatim copy, compiled).
+- **Promotion** (`scripts/promote_turning.py`): `Checked/Math/{GLam3Data, GLam3Chain, GelfandLam3, GelfandTurningValues}.lean`; non-vacuity witness (the global regular solution, as for `gelfand_extrema`); necessity `Checked/Trust/NecessityBD.lean` (hypotheses 1, 3, 4 NEEDED and 2 REDUNDANT, each from the witness of `NecessityAO` for `gelfand_extrema`, whose conclusion the new one contains); literal readings: the registered Gelfand readings of `gelfand_extrema` (same hypotheses and solution class), the new decimals certified targets, and a blind reading of the turning-point indices (brief e6e92ff alone, reading alone, copy `Checked/Trust/SecondReadingGelfandTurns.lean`: ζ 1, ζ 2, ζ 3, agreeing with the statement). First `records_check` caught V14 (the docstring said 'first four turning values'): reworded before the relock, statement unchanged.
+- **The judge (deferred item):** times of 44698202534 (full replay of every shard): leanchecker 3248 / 3876 / 2777 / 4061 s, nanoda check 1878 / 3837 / 2479 / 2188 s (+ export 182–252 s). The two slowest jobs are equal (leanchecker 3 and nanoda 1, ≈ 68 min each), so refreshing the leanchecker times alone (the cheap half) would not shorten the judge; the item that moves it is nanoda's own per-module times, not done (section Next).
+
+## Measure
+- Parts 2/5: turning values of the Gelfand branch certified 3 → 4 (λ*, λ₁, λ₂, now λ₃ ∈ [1.9637, 1.9707]); longest certified Gelfand chain s ≈ 429 → 4700.
+- Experiment of run 0428Z (weighted cells for the long Gelfand chain): **not met as posed, and not needed** — the optimal diagonal weight at this focus is one (the Lipschitz constant 2/t cannot be lowered by weighting), and the unweighted chain closes at the default precision with radius 9.9 · 10⁻⁴; the precision limit is the growth like t^2.2 of a Lipschitz enclosure around an orbit whose true deviations decay like t^(−1/2). New experiment (LEDGER): a contracting cell (one-sided bound in a quadratic norm adapted to the focus, as `OneSided`/`RobShear` did for Robertson) for the homology system.
+
+## CI read
+- 44714500005 (3f2d000, run 0828Z's final push, rule M11) concluded green on every job (10:53Z).
+
+## End
+- Local before the final push: lake build Checked (3741 jobs, restored build of e2eaeee), StatementDeps relock (304 headlines, non-vacuity 184/184; necessity NEEDED 744 → 747, REDUNDANT 219 → 220, open 60; frozen registry new entries and the Witnesses module doc), Claims (304 generated claims), validation packet, check_prose, precheck_citations, check_status_lines, goal guard, check_literals, check_literal_targets, check_provenance, records_check.py 3f2d000.
+
+## Next
+- CI read first: the run of this run's final push (promotion of `gelfand_turning_values`: four new Checked modules, `NecessityBD`, Witnesses). Green on every job → PROVED: the judged template in its STATE.md heading (`check_stale_status.py`) and one L.2 line to Alexander. Red → `python3 scripts/trust/records_check.py <base>` or `local_frozen_step.py --trust <base>`.
+- The judge: nanoda's own per-module times for shard 1 (build lean4export and nanoda locally, export module groups with `exportshard`, time each), then a nanoda-specific assignment; leanchecker times can be refreshed from `ci_logs` of 44698202534 at the same time.
+- Then by rotation (parts 2/5 at 1028Z, part 3 at 0828Z, part 1 at 0628Z): part 1 as in section Next of `runs/2026-11-20T0628Z/README.md`; part 3 as in section Next of `runs/2026-11-20T0828Z/README.md`. Parts 2/5 later: the count of radial solutions on (λ₁, λ₃) (exactly three; `count_abstract` with the turning values); a contracting cell for the homology focus, which would sharpen λ₃ and reach λ₄ (s ≈ 48978); index one half and other indices below one of Lane–Emden.

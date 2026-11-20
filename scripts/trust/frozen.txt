@@ -422,6 +422,7 @@ Checked.Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning 606a68c8-do
 Checked.Math.GelfandPDECountValues.gelfand_pde_radial_count_values 6fe0a668-doc18004585916351417238
 Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists e7c0952a-doc919232265670323521
 Checked.Math.GelfandPDEManyCentre.gelfand_pde_radial_many_centre 20391901-doc2389207363262481562
+Checked.Math.GelfandTurningValues.gelfand_turning_values 5025637b-doc410961441259660603
 Checked.Math.LEExists.exists_solution ecc72cdb-doc5231298389370609236
 Checked.Math.LaneEmden.laneEmden3_constants eab13068-doc10848305220804759138
 Checked.Math.LaneEmden2.laneEmden2_constants b478678a-doc18188547025909797225
@@ -2174,6 +2175,7 @@ doc:Checked.Math.GelfandExtremaMain.flip_neg -doc6629632256430476318
 doc:Checked.Math.GelfandExtremaMain.g_ineq -doc6154168891124465626
 doc:Checked.Math.GelfandExtremaMain.no_two_neg -doc12156407784155615570
 doc:Checked.Math.GelfandExtremaMain.pos_of_one -doc17693087992636177959
+doc:Checked.Math.GelfandLam3.lam3_band -doc3304890484692801134
 doc:Checked.Math.GelfandODEBound.glue_at -doc13792126414675860878
 doc:Checked.Math.GelfandODEBound.ode_bound -doc8692517583609526052
 doc:Checked.Math.GelfandPDECountMain.profile -doc15687506241397926389
@@ -3813,6 +3815,7 @@ doc:Checked.Trust.SecondReading.gcSingularEq -doc5112140974787970557
 doc:Checked.Trust.SecondReading.gelfandBranchLimit -doc4392500724470863860
 doc:Checked.Trust.SecondReading.gelfandCentre -doc14607809201003277988
 doc:Checked.Trust.SecondReading.gelfandDomain -doc4677687179150538001
+doc:Checked.Trust.SecondReading.gelfandFourthTurn -doc9819427999069566011
 doc:Checked.Trust.SecondReading.gelfandLambda -doc9494125978743900681
 doc:Checked.Trust.SecondReading.gelfandManyCentreSeq -doc9134638507527401921
 doc:Checked.Trust.SecondReading.gelfandManyCentre -doc11837959924508445680
@@ -3828,7 +3831,9 @@ doc:Checked.Trust.SecondReading.gelfandPdeSpace -doc1289880227499434498
 doc:Checked.Trust.SecondReading.gelfandPunctured -doc4233402393511561255
 doc:Checked.Trust.SecondReading.gelfandRegular -doc4487870984541246346
 doc:Checked.Trust.SecondReading.gelfandRhs -doc2581911638099147568
+doc:Checked.Trust.SecondReading.gelfandSecondTurn -doc9836415648042557803
 doc:Checked.Trust.SecondReading.gelfandSingularLambda -doc13234288345430794879
+doc:Checked.Trust.SecondReading.gelfandThirdTurn -doc17211252788128596330
 doc:Checked.Trust.SecondReading.hiemenzEdge -doc5277131715699708145
 doc:Checked.Trust.SecondReading.hiemenzHalfLineTyped -doc6397876041360754509
 doc:Checked.Trust.SecondReading.hiemenzHalfLine -doc7026245887610182530
@@ -4428,6 +4433,8 @@ moduledoc:Checked.Math.GExistsLeft -mdoc10896001833152126805
 moduledoc:Checked.Math.GExistsRight -mdoc14476559950163731548
 moduledoc:Checked.Math.GFinal -mdoc18125489419812701498
 moduledoc:Checked.Math.GHelp -mdoc14035110245589245639
+moduledoc:Checked.Math.GLam3Chain -mdoc9027290705067828913
+moduledoc:Checked.Math.GLam3Data -mdoc7687652874619690209
 moduledoc:Checked.Math.GLamBands -mdoc8141691583653189459
 moduledoc:Checked.Math.GLamCell -mdoc16851620207577240713
 moduledoc:Checked.Math.GLamChain -mdoc907002863329798644
@@ -4438,6 +4445,7 @@ moduledoc:Checked.Math.GStart -mdoc921360220793371404
 moduledoc:Checked.Math.GelfandExists -mdoc8945188894183197377
 moduledoc:Checked.Math.GelfandExtremaMain -mdoc451010646016397518
 moduledoc:Checked.Math.GelfandExtrema -mdoc10388665202515624349
+moduledoc:Checked.Math.GelfandLam3 -mdoc5093041509294523175
 moduledoc:Checked.Math.GelfandODEBound -mdoc17242492181181850265
 moduledoc:Checked.Math.GelfandPDECountMain -mdoc15433464297724928386
 moduledoc:Checked.Math.GelfandPDECountTurningMain -mdoc17271368788129181268
@@ -4449,6 +4457,7 @@ moduledoc:Checked.Math.GelfandPDEExists -mdoc17071817608703752686
 moduledoc:Checked.Math.GelfandPDEManyCentre -mdoc186241413875161564
 moduledoc:Checked.Math.GelfandPDEManyMain -mdoc9787893681088942568
 moduledoc:Checked.Math.GelfandPDE -mdoc14480866702012150698
+moduledoc:Checked.Math.GelfandTurningValues -mdoc3087630414115615338
 moduledoc:Checked.Math.Gelfand -mdoc6633087666719473450
 moduledoc:Checked.Math.IsoUniq -mdoc1584206284113283458
 moduledoc:Checked.Math.LE2Chain -mdoc6113618325832875974
@@ -4688,6 +4697,7 @@ moduledoc:Checked.Trust.NecessityAZ -mdoc12352498391759611196
 moduledoc:Checked.Trust.NecessityBA -mdoc17584371830933612219
 moduledoc:Checked.Trust.NecessityBB -mdoc10511725379398550321
 moduledoc:Checked.Trust.NecessityBC -mdoc7298588574602827268
+moduledoc:Checked.Trust.NecessityBD -mdoc12211134365467938193
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
@@ -4757,6 +4767,7 @@ moduledoc:Checked.Trust.SecondReadingGelfandExtrema -mdoc24434315250643379
 moduledoc:Checked.Trust.SecondReadingGelfandLimit -mdoc3837319596973125538
 moduledoc:Checked.Trust.SecondReadingGelfandMany -mdoc2301051030016199448
 moduledoc:Checked.Trust.SecondReadingGelfandPDE -mdoc6784883769121500962
+moduledoc:Checked.Trust.SecondReadingGelfandTurns -mdoc8129828666590392780
 moduledoc:Checked.Trust.SecondReadingGelfand -mdoc12307442956037775381
 moduledoc:Checked.Trust.SecondReadingHiemenz -mdoc17248177210924213095
 moduledoc:Checked.Trust.SecondReadingHomann -mdoc6777464133851707264
@@ -4784,4 +4795,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc1374808532187647462
+moduledoc:Checked.Trust.Witnesses -mdoc10120696897702228919

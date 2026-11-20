@@ -77,6 +77,7 @@ import Checked.Math.BonnorEbertMax3
 import Checked.Math.BonnorEbertExtrema
 import Checked.Math.BonnorEbertMonotone
 import Checked.Math.GelfandExtrema
+import Checked.Math.GelfandTurningValues
 import Checked.Math.BEGlobalExists
 import Checked.Math.ThomasFermi
 import Checked.Math.ThomasFermiExists
@@ -1227,6 +1228,14 @@ global regular solution. -/
 
 theorem gelfand_extrema :
     nonvacuity% Checked.Math.GelfandExtrema.gelfand_extrema := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! The first four turning values of the radial Gelfand branch (run 2026-11-20T1028Z): the same global regular
+solution. -/
+
+theorem gelfand_turning_values :
+    nonvacuity% Checked.Math.GelfandTurningValues.gelfand_turning_values := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 

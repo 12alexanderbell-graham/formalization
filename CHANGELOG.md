@@ -1001,3 +1001,9 @@
 - CI: 44698202534 (e2eaeee, run 0628Z's `NecessityBC`) green on every job.
 - Part 3 (rotation, T5): reader test ND (plain false descriptions of a statement at double dose: 0/6 misled, control 0/3, harmless); held-out red team M10h (29 lines with a reference pass M1–M9; M10 flags 14/20 eponym lines, 0/9 determiner + noun lines); reader test DN ('to the model': 4/6 unrejected fidelity doubt, control 0/3) → rule M11 of `check_headline_mentions.py` (an unnamed reference by determiner + noun names a source for M6); reader test EN ('to the Gelfand problem', the shape M10 exempts: 0/6, control 0/3, harmless); held-out red team M11h: M11 flags 16/20 unnamed references (effective), hardened for the four that passed ('the real problem').
 - Next: CI read (STATE 2j); the judge's nanoda shard 1; then parts 2/5 by rotation.
+
+## 2026-11-20T1028Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main 3f2d000); local Lean via elan + restored CI build of e2eaeee; Sonnet subagents for referee and blind restatement.
+- CI: 44714500005 (3f2d000, rule M11) green on every job.
+- Parts 2/5 (rotation): the radial Gelfand branch's fourth turning value λ₃ ∈ [1.9637, 1.9707] (98 new homology cells from s ≈ 429 to 4700), frozen, proved, refereed (STANDS, λ₃ = 1.9674656), and the turning sequence with its first four values promoted: `Checked.Math.GelfandTurningValues.gelfand_turning_values`. Weighted cells analysed: no gain at this focus; next a contracting cell.
+- Next: CI read of the promotion (STATE 2k); the judge's nanoda per-module times; then part 1 by rotation.

@@ -11,7 +11,7 @@ fourth. -/
 namespace Work.Math.GelfandTurningValues
 open Set Filter Topology
 
-/-- Gelfand problem, the first four turning values of the radial branch: for every
+/-- Gelfand problem, turning values of the radial branch: for every
 solution w of w'' + (2/s)w' + e^w = 0 on (0, ∞) with w(0) = 0, w differentiable on [0, ∞) with derivative
 φ and φ continuous at 0, with λ(s) = s² e^{w(s)}, there is a strictly increasing sequence of radii
 ζ(0) < ζ(1) < … tending to infinity, with ζ(0) between 4.071496844 and 4.071496845, λ(ζ(0)) between
