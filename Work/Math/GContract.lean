@@ -1,4 +1,5 @@
 import Mathlib
+import Checked.Trust.ExpFlow
 
 open Set
 
@@ -208,5 +209,69 @@ theorem contract {a b μ κ η a₀ a₁ b₀ b₁ : ℝ} (hκ : 0 < κ) {u v p 
     nlinarith
   intro t ht
   exact le_gronwallBound_of_liminf_deriv_right_le hcont hslope le_rfl hbound t ht
+
+/-- A point within ρ of an inner box point moves the midpoint by at most ρ when Q of the error is below 2ρ². -/
+theorem mid_in {ρ x y lo hi : ℝ} (hρ : 0 < ρ) (hy : lo + ρ ≤ y ∧ y ≤ hi - ρ) (e₂ : ℝ)
+    (hQ : Q (x - y) e₂ ≤ 2 * ρ ^ 2) : lo ≤ (x + y) / 2 ∧ (x + y) / 2 ≤ hi := by
+  have h1 := Q_ge (x - y) e₂
+  have h2 : (x - y) ^ 2 ≤ (2 * ρ) ^ 2 := by nlinarith [sq_nonneg e₂]
+  have h3 : |x - y| ≤ 2 * ρ := abs_le_of_sq_le_sq' h2 (by linarith) |> fun h => abs_le.2 h
+  have := abs_le.1 h3
+  constructor <;> linarith [hy.1, hy.2, this.1, this.2]
+
+theorem mid_in' {ρ x y lo hi : ℝ} (hρ : 0 < ρ) (hy : lo + ρ ≤ y ∧ y ≤ hi - ρ) (e₁ : ℝ)
+    (hQ : Q e₁ (x - y) ≤ 2 * ρ ^ 2) : lo ≤ (x + y) / 2 ∧ (x + y) / 2 ≤ hi := by
+  have h1 := Q_ge e₁ (x - y)
+  have h2 : (x - y) ^ 2 ≤ (2 * ρ) ^ 2 := by nlinarith [sq_nonneg e₁]
+  have h3 : |x - y| ≤ 2 * ρ := abs_le_of_sq_le_sq' h2 (by linarith) |> fun h => abs_le.2 h
+  have := abs_le.1 h3
+  constructor <;> linarith [hy.1, hy.2, this.1, this.2]
+
+/-- The contracting cell with its a-priori box: if the approximation stays at distance ρ inside the box and the
+Grönwall bound stays below 2ρ², the solution's midpoints never leave the box and the bound holds on the cell. -/
+theorem contract_boot {a b μ κ η ρ a₀ a₁ b₀ b₁ : ℝ} (hκ : 0 < κ) (hρ : 0 < ρ) {u v p q p' q' : ℝ → ℝ}
+    (hu : ∀ t ∈ Icc a b, HasDerivWithinAt u (F1 (u t) (v t)) (Icc a b) t)
+    (hv : ∀ t ∈ Icc a b, HasDerivWithinAt v (F2 (u t) (v t)) (Icc a b) t)
+    (hp : ∀ t ∈ Icc a b, HasDerivWithinAt p (p' t) (Icc a b) t)
+    (hq : ∀ t ∈ Icc a b, HasDerivWithinAt q (q' t) (Icc a b) t)
+    (hdp : ∀ t ∈ Ico a b, |p' t - F1 (p t) (q t)| ≤ η)
+    (hdq : ∀ t ∈ Ico a b, |q' t - F2 (p t) (q t)| ≤ η)
+    (hpin : ∀ t ∈ Icc a b, (a₀ + ρ ≤ p t ∧ p t ≤ a₁ - ρ) ∧ (b₀ + ρ ≤ q t ∧ q t ≤ b₁ - ρ))
+    (hG : ∀ t ∈ Icc a b,
+      gronwallBound (Q (u a - p a) (v a - q a)) (2 * μ + κ) (4 * η ^ 2 / κ) (t - a) < 2 * ρ ^ 2)
+    (h00 : cornerOK μ a₀ b₀) (h01 : cornerOK μ a₀ b₁) (h10 : cornerOK μ a₁ b₀) (h11 : cornerOK μ a₁ b₁) :
+    ∀ t ∈ Icc a b, Q (u t - p t) (v t - q t) ≤
+      gronwallBound (Q (u a - p a) (v a - q a)) (2 * μ + κ) (4 * η ^ 2 / κ) (t - a) := by
+  have hab : ∀ c ∈ Icc a b, Icc a c ⊆ Icc a b := fun c hc => Icc_subset_Icc_right hc.2
+  -- the bound on a sub-cell [a, c] once the midpoints stay in the box before c
+  have sub : ∀ c ∈ Icc a b, (∀ s ∈ Ico a c, Q (u s - p s) (v s - q s) ≤ 2 * ρ ^ 2) →
+      ∀ t ∈ Icc a c, Q (u t - p t) (v t - q t) ≤
+        gronwallBound (Q (u a - p a) (v a - q a)) (2 * μ + κ) (4 * η ^ 2 / κ) (t - a) := by
+    intro c hc hs
+    refine contract (a₀ := a₀) (a₁ := a₁) (b₀ := b₀) (b₁ := b₁) hκ
+      (fun t ht => (hu t (hab c hc ht)).mono (hab c hc)) (fun t ht => (hv t (hab c hc ht)).mono (hab c hc))
+      (fun t ht => (hp t (hab c hc ht)).mono (hab c hc)) (fun t ht => (hq t (hab c hc ht)).mono (hab c hc))
+      (fun t ht => hdp t ⟨ht.1, lt_of_lt_of_le ht.2 hc.2⟩)
+      (fun t ht => hdq t ⟨ht.1, lt_of_lt_of_le ht.2 hc.2⟩) ?_ h00 h01 h10 h11
+    intro t ht
+    have htb : t ∈ Icc a b := ⟨ht.1, (le_of_lt ht.2).trans hc.2⟩
+    exact ⟨mid_in hρ (hpin t htb).1 _ (hs t ht), mid_in' hρ (hpin t htb).2 _ (hs t ht)⟩
+  have hcont : ContinuousOn (fun t => 2 * ρ ^ 2 - Q (u t - p t) (v t - q t)) (Icc a b) := by
+    intro t ht
+    have e1 := ((hu t ht).continuousWithinAt.sub (hp t ht).continuousWithinAt)
+    have e2 := ((hv t ht).continuousWithinAt.sub (hq t ht).continuousWithinAt)
+    exact continuousWithinAt_const.sub
+      ((((e1.pow 2).const_smul (3 / 2 : ℝ)).add (e1.mul e2)).add (e2.pow 2) |>.congr
+        (fun y _ => by simp [Q, smul_eq_mul]) (by simp [Q, smul_eq_mul]))
+  have hpos : ∀ t ∈ Icc a b, 0 < 2 * ρ ^ 2 - Q (u t - p t) (v t - q t) := by
+    by_cases hab' : a ≤ b
+    · refine Checked.Trust.ExpFlow.cont_ind hcont ?_ ?_
+      · have := hG a ⟨le_rfl, hab'⟩; rw [sub_self, gronwallBound_x0] at this; linarith
+      · intro t ht hs
+        have := sub t ⟨ht.1.le, ht.2⟩ (fun s hs' => by linarith [hs s hs']) t ⟨ht.1.le, le_rfl⟩
+        linarith [hG t ⟨ht.1.le, ht.2⟩]
+    · intro t ht; exact absurd (ht.1.trans ht.2) hab'
+  intro t ht
+  exact sub b ⟨ht.1.trans ht.2, le_rfl⟩ (fun s hs => by linarith [hpos s ⟨hs.1, hs.2.le⟩]) t ht
 
 end Work.Math.GContract
