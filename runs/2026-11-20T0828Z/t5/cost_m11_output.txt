@@ -1,0 +1,11 @@
+M10 commit fc55e070
+all record lines: M6 findings with M11 1429 without 1421 M11-only: 8
+M11-only findings on lines written since M10's commit: 0
+   BLUEPRINT.md:426: about cosmoCoeffCore_pins, curv_derivs, fR_values, printedD2y_fails: M6 a line naming a source and a listed headline carries words beyond the citation: bundle, cosmocoeff, curv, dece
+   BLUEPRINT.md:426: about cosmoCoeffCore_pins, curv_derivs, fR_values, printedD2y_fails: M6 formula characters on a line naming a source and a listed headline: + = | −
+   STATE.md:408: about blasius_exists, blasius_wall_shear: M6 a line naming a source and a listed headline carries words beyond the citation: export, from, literal, not, nv, promotion, readings, size, vo
+   runs/2026-11-04T0628Z/README.md:11: about duffing_first_zero_sol, duffing_solution_exists: M6 a line naming a source and a listed headline carries words beyond the citation: another, any, as, been, bo
+   runs/2026-11-04T0628Z/README.md:11: about duffing_first_zero_sol, duffing_solution_exists: M6 formula characters on a line naming a source and a listed headline: =
+   runs/2026-11-04T0828Z/README.md:24: about mm_half_conversion, mm_solution_exists: M6 a line naming a source and a listed headline carries words beyond the citation: be, cell, chaotic, constant, contra
+   runs/2026-11-04T0828Z/README.md:24: about mm_half_conversion, mm_solution_exists: M6 formula characters on a line naming a source and a listed headline: ^
+   runs/2026-11-15T0428Z/README.md:9: about bonnor_ebert_extrema, printedF0Claim_false, printedF0_false_at, printedL0_false_at: M6 a line naming a source and a listed headline carries words beyond the ci

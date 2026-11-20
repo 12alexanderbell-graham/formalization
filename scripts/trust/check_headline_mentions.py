@@ -497,6 +497,31 @@ approximation limit limits point points stagnation initial slope gas isotherm is
 measures domain domains condition conditions sequence sequences curve curves invariant invariants test tests system
 systems pair pairs trio core cores atom atoms ansatz scale exponent exponents index""".split())
 M10_GREEK = re.compile(r"[α-ωΑ-Ω]")
+# M11 (run 2026-11-20T0828Z, part 3; decision rule pre-registered in runs/2026-11-20T0828Z/t5/BRIEF_DN.md before its
+# readers ran). Held-out red team M10h (runs/2026-11-20T0828Z/t5/READERS_ND_M10h.md) got nine lines past M1-M10 that
+# point at an unnamed reference by a determiner and a noun ('as in the model', 'the inverse of the theory', 'of the
+# method', 'the dual of the physical problem', 'the rows of the data'); reader test DN (nine blind Sonnet readers,
+# blind grader, runs/2026-11-20T0828Z/t5/READERS_DN.md): test EP2's lines with 'to the model' in place of the eponym
+# left an unrejected fidelity doubt in 4 of 6 readers ("I would still check the models (the sign of e^w, the β term,
+# the quantifier order) before citing"), a control with no line 0 of 3. So on a line about a listed headline, a
+# determiner (the, this, that, these, those), optionally one qualifier of M11_QUAL, and a noun of M11_NOUNS (or
+# 'problem(s)' after a qualifier) names a source for M6, unless a code span follows or the noun is the statement's own
+# ('the model in the statement'). A named model ('the Gelfand model', 'the de Sitter model') is M10's case and passes
+# here. Binds from its own commit.
+M11_QUAL = r"(?:physical|original|standard|usual|classical|underlying|textbook|published|reference|common|known)"
+M11_REF_RE = re.compile(r"(?<![\w'’])(?:the|this|that|these|those)\s+(?:" + M11_QUAL + r"\s+)?"
+                        r"(?:models?|theor(?:y|ies)|methods?|data|literature|textbooks?|references?|conventions?|"
+                        r"physics)(?![\w'’])"
+                        r"|(?<![\w'’])(?:the|this|that|these|those)\s+" + M11_QUAL + r"\s+(?:problems?|forms?|cases?)"
+                        r"(?![\w'’])")
+M11_OWN_RE = re.compile(r"\s*(?:zzheadlinespan|zzcodespan)\b"
+                        r"|\s+(?:in|of|from)\s+(?:the|this|its|our)\s+(?:lean\s+)?(?:statements?|claims?|zzheadlinespan)\b")
+
+
+def m11_ref(k):
+    """M11 on a reduced line (as M9 reads it): True if a determiner + reference noun points at an unnamed model,
+    theory, method, data or convention outside the statement"""
+    return any(not M11_OWN_RE.match(k, m.end()) for m in M11_REF_RE.finditer(k))
 
 
 def m10_eponym_ref(k):
@@ -535,10 +560,11 @@ def _m8_texts(line):
     return [m6_text(line), joined]
 
 
-def m8_names(line, m9=True, m10=True):
+def m8_names(line, m9=True, m10=True, m11=True):
     """M8: the line points at a document, its parts or its authors by a vocabulary word, or at a result by its kind;
     M9 (m9=True): or at a formula or result outside the statement by a determiner and its kind;
-    M10 (m10=True): or at a model by its eponym used as the reference (not followed by a noun of the model)"""
+    M10 (m10=True): or at a model by its eponym used as the reference (not followed by a noun of the model);
+    M11 (m11=True): or at an unnamed model, theory, method, data or convention by a determiner and its noun"""
     keys, fulls, modules = headlines()
     for raw in _m8_texts(line):
         t = words(unmark(norm(raw)), fulls, modules)
@@ -559,6 +585,8 @@ def m8_names(line, m9=True, m10=True):
             if M9_REF_RE.search(k9):
                 return True
             if m10 and m10_eponym_ref(k9):
+                return True
+            if m10 and m11 and m11_ref(k9):
                 return True
     return False
 
@@ -590,7 +618,8 @@ def _names_source(line, m8_on=True):
     r = source_names_re()
     if r and r.search(raw):
         return True
-    return bool(m8_on) and m8_names(line, m9=(m8_on not in ("m8only",)), m10=(m8_on is True))
+    return bool(m8_on) and m8_names(line, m9=(m8_on not in ("m8only",)), m10=(m8_on in (True, "m10only")),
+                                     m11=(m8_on is True))
 
 
 CITE = re.compile(r"(?:[A-ZÀ-Þ][\w'’\-–]+(?:\s*(?:,|and|&)\s*[A-ZÀ-Þ][\w'’\-–]+)*(?:\s+et\.?\s+al\.?)?,?\s*[(\[]?"
@@ -708,7 +737,8 @@ def ident(line):
     return re.sub(r"^(last updated|previous update):\s*", "", norm(m6_text(line)).strip())
 
 
-def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m8_pre=None, m9_pre=None, m10_pre=None):
+def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m8_pre=None, m9_pre=None, m10_pre=None,
+        m11_pre=None):
     """grand = (idents of lines that existed before the last vocabulary rebuild, the vocabulary they were written
     under): such a line, new since a base older than the rebuild, is read by M1 with that vocabulary too"""
     keys, fulls, modules = headlines()
@@ -747,7 +777,8 @@ def run(base_files, head_files, vocab=None, obj=None, grand=None, m6_pre=None, m
                                 m6_on=not (m6_pre and ident(l) in m6_pre),
                                 m8_on=(False if (m8_pre and ident(l) in m8_pre) else
                                        "m8only" if (m9_pre and ident(l) in m9_pre) else
-                                       "m9only" if (m10_pre and ident(l) in m10_pre) else True)):
+                                       "m9only" if (m10_pre and ident(l) in m10_pre) else
+                                       "m10only" if (m11_pre and ident(l) in m11_pre) else True)):
                 short = ", ".join(sorted(f.split(".")[-1] for f in ab)[:4])
                 errors.append(f"{path}:{i + 1}: about {short}: {e}")
     return errors
@@ -819,6 +850,18 @@ def m10_grandfathered(base):
     """M10 binds from the commit that introduced it (run 2026-11-20T0228Z): lines that existed in its parent are not
     read by M10 (M8 and M9 still read them as before)"""
     r = git("log", "--format=%H", "-S", "M10_EPONYMS = frozenset(", "--", "scripts/trust/check_headline_mentions.py").split()
+    if not r:
+        return None
+    intro = r[-1]
+    if subprocess.run(["git", "merge-base", "--is-ancestor", intro, base], cwd=ROOT).returncode == 0:
+        return None
+    return {ident(l) for txt in files_at(intro + "^").values() for l in txt.splitlines()}
+
+
+def m11_grandfathered(base):
+    """M11 binds from the commit that introduced it (run 2026-11-20T0828Z): lines that existed in its parent are not
+    read by M11 (M8, M9 and M10 still read them as before)"""
+    r = git("log", "--format=%H", "-S", "M11_REF_RE = re.compile(", "--", "scripts/trust/check_headline_mentions.py").split()
     if not r:
         return None
     intro = r[-1]
@@ -969,6 +1012,21 @@ M10_LINES = [
     "`gelfand_extrema` sign in tension with Gel<!---->fand.",
     "`gelfand_extrema` sign in tension with Emden and Chandrasekhar.",
 ]
+# M11 (run 2026-11-20T0828Z): reader test DN arm DN (4 of 6 blind readers kept an unrejected fidelity doubt), and the
+# nine determiner + noun lines of held-out red team M10h that passed M1-M10
+M11_LINES = [
+    "- `gelfand_pde_radial_many_centre`: the statement has the inverse order of the quantifiers to the model.",
+    "- `gelfand_extrema`: the equation in the statement has the inverse sign of the exponent to the model.",
+    "- `fs_neg_reversed_wall_shear_3_exists`: the pressure gradient term has the inverse sign to the model.",
+    "- `gelfand_pde_radial_many_centre` is the dual of the physical problem, with radius rescaled.",
+    "- `gelfand_pde_radial_many_centre` is the inverse of the model, in a ball of radius two.",
+    "- `gelfand_pde_radial_many_centre` is a ball of dimension two, as in the theory.",
+    "- In `gelfand_pde_radial_many_centre` the parameter is scaled by two, as in the model.",
+    "- `gelfand_pde_radial_many_centre` has the reverse sign of the exponential nonlinearity in the model.",
+    "- `gelfand_extrema` has the first branch of the method, in ball dimension three.",
+    "- `fs_neg_reversed_wall_shear_3_exists` has wall shear of the model with inverse sign.",
+    "- `fs_neg_reversed_wall_shear_3_exists` has the rows of the data.",
+]
 # recorded limits of M8 (red team M6r, not controls): eponyms of models in headline names used as a source
 # ("in tension with Gelfand / Emden / Kamenetskii / Eddington's") and words that are not document words ("in tension
 # with the formula / the equation / the definition / the notation / the specification / the glossary"); the last kind
@@ -1044,7 +1102,7 @@ def selftest():
         "of the sign in Table 7 of Ganapol 2010.",
         "- `gelfand_pde_radial_many_centre`: the statement is the dual of the theorem of Joseph and Lundgren.",
         "- `gelfand_extrema`: Joseph and Lundgren (1973) have `+e^w` in the equation of the statement.",
-    ] + M4_LINES + M8_LINES + M8_RT_LINES + M9_LINES + M10_LINES
+    ] + M4_LINES + M8_LINES + M8_RT_LINES + M9_LINES + M10_LINES + M11_LINES
     # known limit (recorded, not a control; red team M3 mechanism 4, reader test L of run 2026-11-18T2028Z misled 0/3):
     # "`gelfand_pde_radial_many_centre`: the statement is the dual of the paper theorem, with the inverse order of the
     # quantifiers." passes. Earlier recorded limit: a status in ordinary in-vocabulary words, e.g.
@@ -1063,6 +1121,9 @@ def selftest():
         # M10 (run 2026-11-20T0228Z): an eponym used as the name of a model, followed by its noun or a symbol
         "- `gelfand_extrema`: the Gelfand problem in the 3-D ball, Falkner–Skan β = 1/2.",
         "- `gelfand_extrema`: the de Sitter model and the van der Waals equation.",
+        # M11 (run 2026-11-20T0828Z): a named model, and the statement's own model, are not an unnamed reference
+        "- `gelfand_extrema`: the Gelfand model in the 3-D ball.",
+        "- `gelfand_extrema`: the sign of the exponent in the model of the statement is positive.",
     ]
     fails = 0
     base = dict(head)
@@ -1162,7 +1223,7 @@ def main(argv):
         bf, hf = files_at(base), files_at(None)
         errors = run(bf, hf, grand=grandfathered(base), m6_pre=m6_grandfathered(base),
                      m8_pre=m8_grandfathered(base), m9_pre=m9_grandfathered(base),
-                     m10_pre=m10_grandfathered(base)) + m4(base)
+                     m10_pre=m10_grandfathered(base), m11_pre=m11_grandfathered(base)) + m4(base)
         errors += m7(bf, hf) if m7_binds(base) else []
         # run 2026-11-18T2028Z: stale pending statuses in STATE.md headings (check_stale_status.py; called from here so
         # the workflow file, and with it the nanoda/leanchecker memo hash, need not change)
