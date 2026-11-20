@@ -1,5 +1,6 @@
 import Mathlib
 import Checked.Trust.ExpFlow
+import Checked.Math.GCellQ
 
 open Set
 
@@ -306,5 +307,133 @@ theorem gb_end {δ K ε x : ℝ} (hK : K < 0) (hx : 0 ≤ x) (hδ : 0 ≤ δ) (h
   have e : ε / K * (Real.exp (K * x) - 1) = ε / -K * (1 - Real.exp (K * x)) := by rw [div_neg]; ring
   rw [e, div_eq_mul_one_div δ]
   nlinarith [mul_le_mul_of_nonneg_left hE' hδ, mul_nonneg hc hE0.le]
+
+section CCell
+open Checked.Sim Checked.Sim.QPoly Checked.Math.GCellQ
+
+/-- A contracting cell in log radius: length `h`, start bound `δ` and end bound `B` of Q of the error, defect
+bound `η`, constants `μ` (corner check) and `κ` (Cauchy–Schwarz split), inner margin `ρ`, box
+`[a₀, a₁] × [b₀, b₁]` of midpoints, Taylor polynomials `pu`, `pv` in the offset from the cell's start. -/
+structure CCell where
+  h : ℚ
+  δ : ℚ
+  B : ℚ
+  η : ℚ
+  μ : ℚ
+  κ : ℚ
+  ρ : ℚ
+  a₀ : ℚ
+  a₁ : ℚ
+  b₀ : ℚ
+  b₁ : ℚ
+  pu : List ℚ
+  pv : List ℚ
+
+/-- pu′ − pu (3 − pu − pv), computed. -/
+def cdu (c : CCell) : List ℚ := qsub (qderiv c.pu) (qmul c.pu (qsub (qsub [3] c.pu) c.pv))
+/-- pv′ − pv (pu − 1), computed. -/
+def cdv (c : CCell) : List ℚ := qsub (qderiv c.pv) (qmul c.pv (qsub c.pu [1]))
+
+/-- Every condition of a contracting cell, one proposition over the rationals. -/
+def CCProp (c : CCell) : Prop :=
+  0 < c.h ∧ 0 < c.κ ∧ 0 < c.ρ ∧ 0 ≤ c.δ ∧ 0 ≤ c.η ∧ 2 * c.μ + c.κ < 0 ∧
+  qabs (cdu c) c.h ≤ c.η ∧ qabs (cdv c) c.h ≤ c.η ∧
+  c.a₀ + c.ρ ≤ lo c.pu c.h ∧ hi c.pu c.h ≤ c.a₁ - c.ρ ∧
+  c.b₀ + c.ρ ≤ lo c.pv c.h ∧ hi c.pv c.h ≤ c.b₁ - c.ρ ∧
+  c.δ < 2 * c.ρ ^ 2 ∧ 4 * c.η ^ 2 / c.κ / -(2 * c.μ + c.κ) < 2 * c.ρ ^ 2 ∧
+  c.δ / (1 - (2 * c.μ + c.κ) * c.h) + 4 * c.η ^ 2 / c.κ / -(2 * c.μ + c.κ) ≤ c.B ∧
+  cornerQ c.μ c.a₀ c.b₀ ∧ cornerQ c.μ c.a₀ c.b₁ ∧ cornerQ c.μ c.a₁ c.b₀ ∧ cornerQ c.μ c.a₁ c.b₁
+
+instance (c : CCell) : Decidable (CCProp c) := by unfold CCProp; infer_instance
+
+/-- One contracting cell from its Boolean check: every solution of the homology field in log radius whose
+error against the cell's polynomials has Q at most `δ` at the start has Q of the error at most `B` at the end
+(and below 2ρ² on the whole cell). -/
+theorem ccell_q (c : CCell) (hok : decide (CCProp c) = true) {τ₀ : ℝ} {u v : ℝ → ℝ}
+    (hu : ∀ t ∈ Icc τ₀ (τ₀ + c.h), HasDerivWithinAt u (F1 (u t) (v t)) (Icc τ₀ (τ₀ + c.h)) t)
+    (hv : ∀ t ∈ Icc τ₀ (τ₀ + c.h), HasDerivWithinAt v (F2 (u t) (v t)) (Icc τ₀ (τ₀ + c.h)) t)
+    (h0 : Q (u τ₀ - evalQ c.pu 0) (v τ₀ - evalQ c.pv 0) ≤ c.δ) :
+    Q (u (τ₀ + c.h) - evalQ c.pu c.h) (v (τ₀ + c.h) - evalQ c.pv c.h) ≤ c.B := by
+  obtain ⟨k0, k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11, k12, k13, k14, k15, k16, k17, k18⟩ :
+    CCProp c := of_decide_eq_true hok
+  have r : ∀ {a b : ℚ}, a ≤ b → (a : ℝ) ≤ (b : ℝ) := fun h => by exact_mod_cast h
+  have rl : ∀ {a b : ℚ}, a < b → (a : ℝ) < (b : ℝ) := fun h => by exact_mod_cast h
+  have hh := rl k0; have hκ := rl k1; have hρ := rl k2; have hδ := r k3; have hη := r k4
+  have hK := rl k5; have r6 := r k6; have r7 := r k7; have r8 := r k8; have r9 := r k9
+  have r10 := r k10; have r11 := r k11; have r12 := rl k12; have r13 := rl k13; have r14 := r k14
+  push_cast at hh hκ hρ hδ hη hK r12 r13 r14
+  set p : ℝ → ℝ := fun t => evalQ c.pu (t - τ₀) with hp
+  set q : ℝ → ℝ := fun t => evalQ c.pv (t - τ₀) with hq
+  have hs : ∀ t ∈ Icc τ₀ (τ₀ + c.h), (0 : ℝ) ≤ t - τ₀ ∧ t - τ₀ ≤ c.h := fun t ht =>
+    ⟨by linarith [ht.1], by linarith [ht.2]⟩
+  have dp : ∀ t ∈ Icc τ₀ (τ₀ + c.h),
+      HasDerivWithinAt p (evalQ (qderiv c.pu) (t - τ₀)) (Icc τ₀ (τ₀ + c.h)) t := by
+    intro t _
+    have := (hasDerivAt_evalQ c.pu (t - τ₀)).comp t ((hasDerivAt_id t).sub_const τ₀)
+    rw [dEvalQ_eq, mul_one] at this; exact this.hasDerivWithinAt
+  have dq : ∀ t ∈ Icc τ₀ (τ₀ + c.h),
+      HasDerivWithinAt q (evalQ (qderiv c.pv) (t - τ₀)) (Icc τ₀ (τ₀ + c.h)) t := by
+    intro t _
+    have := (hasDerivAt_evalQ c.pv (t - τ₀)).comp t ((hasDerivAt_id t).sub_const τ₀)
+    rw [dEvalQ_eq, mul_one] at this; exact this.hasDerivWithinAt
+  have ddu : ∀ t ∈ Ico τ₀ (τ₀ + c.h), |evalQ (qderiv c.pu) (t - τ₀) - F1 (p t) (q t)| ≤ c.η := by
+    intro t ht
+    have e : evalQ (qderiv c.pu) (t - τ₀) - F1 (p t) (q t) = evalQ (cdu c) (t - τ₀) := by
+      simp only [cdu, evalQ_qsub, evalQ_qmul, F1, hp, hq]; simp [evalQ]
+    rw [e]
+    have hs' := hs t (Ico_subset_Icc_self ht)
+    exact (abs_le_qabs _ hs'.1 hs'.2).trans r6
+  have ddv : ∀ t ∈ Ico τ₀ (τ₀ + c.h), |evalQ (qderiv c.pv) (t - τ₀) - F2 (p t) (q t)| ≤ c.η := by
+    intro t ht
+    have e : evalQ (qderiv c.pv) (t - τ₀) - F2 (p t) (q t) = evalQ (cdv c) (t - τ₀) := by
+      simp only [cdv, evalQ_qsub, evalQ_qmul, F2, hp, hq]; simp [evalQ]
+    rw [e]
+    have hs' := hs t (Ico_subset_Icc_self ht)
+    exact (abs_le_qabs _ hs'.1 hs'.2).trans r7
+  have hpin : ∀ t ∈ Icc τ₀ (τ₀ + c.h), ((c.a₀ : ℝ) + c.ρ ≤ p t ∧ p t ≤ (c.a₁ : ℝ) - c.ρ) ∧
+      ((c.b₀ : ℝ) + c.ρ ≤ q t ∧ q t ≤ (c.b₁ : ℝ) - c.ρ) := by
+    intro t ht
+    obtain ⟨s0, s1⟩ := hs t ht
+    have l1 := lo_le c.pu s0 s1; have u1 := le_hi c.pu s0 s1
+    have l2 := lo_le c.pv s0 s1; have u2 := le_hi c.pv s0 s1
+    push_cast at r8 r9 r10 r11
+    exact ⟨⟨by linarith, by linarith⟩, ⟨by linarith, by linarith⟩⟩
+  set K : ℝ := 2 * c.μ + c.κ
+  set C : ℝ := 4 * (c.η : ℝ) ^ 2 / c.κ
+  have hδ0 : Q (u τ₀ - p τ₀) (v τ₀ - q τ₀) ≤ c.δ := by simpa [hp, hq] using h0
+  have hQ0 := Q_nonneg (u τ₀ - p τ₀) (v τ₀ - q τ₀)
+  have hC : 0 ≤ C := by positivity
+  have hG : ∀ t ∈ Icc τ₀ (τ₀ + c.h),
+      gronwallBound (Q (u τ₀ - p τ₀) (v τ₀ - q τ₀)) K C (t - τ₀) < 2 * (c.ρ : ℝ) ^ 2 := by
+    intro t ht
+    have := gb_le_max (δ := Q (u τ₀ - p τ₀) (v τ₀ - q τ₀)) (ε := C) hK (hs t ht).1
+    refine lt_of_le_of_lt this (max_lt (by linarith) ?_)
+    simpa [C, K] using r13
+  have main := contract_boot (a₀ := c.a₀) (a₁ := c.a₁) (b₀ := c.b₀) (b₁ := c.b₁) (μ := c.μ) hκ hρ hu hv dp dq
+    ddu ddv hpin hG (cornerQ_real k15) (cornerQ_real k16) (cornerQ_real k17) (cornerQ_real k18)
+    (τ₀ + c.h) ⟨by linarith, le_rfl⟩
+  have hend := gb_end (δ := Q (u τ₀ - p τ₀) (v τ₀ - q τ₀)) (ε := C) hK (by linarith : (0 : ℝ) ≤ τ₀ + c.h - τ₀)
+    hQ0 hC
+  have hd : 0 < 1 - K * (τ₀ + c.h - τ₀) := by
+    have : K * (τ₀ + c.h - τ₀) < 0 := mul_neg_of_neg_of_pos hK (by linarith)
+    linarith
+  have hmono : Q (u τ₀ - p τ₀) (v τ₀ - q τ₀) / (1 - K * (τ₀ + c.h - τ₀)) ≤
+      (c.δ : ℝ) / (1 - K * (τ₀ + c.h - τ₀)) := div_le_div_of_nonneg_right hδ0 hd.le
+  have e2 : τ₀ + c.h - τ₀ = (c.h : ℝ) := by ring
+  rw [e2] at hmono
+  have fin : (c.δ : ℝ) / (1 - K * c.h) + C / -K ≤ c.B := by simpa [C, K] using r14
+  have main' : Q (u (τ₀ + c.h) - p (τ₀ + c.h)) (v (τ₀ + c.h) - q (τ₀ + c.h)) ≤
+      gronwallBound (Q (u τ₀ - p τ₀) (v τ₀ - q τ₀)) K C c.h := by
+    rw [e2] at main; exact main
+  have : Q (u (τ₀ + c.h) - p (τ₀ + c.h)) (v (τ₀ + c.h) - q (τ₀ + c.h)) ≤ c.B := by
+    rw [e2] at hend; linarith
+  simpa [hp, hq] using this
+
+/-- A cell on the equilibrium solution (constant polynomials, defect zero): Q of the error shrinks from 10⁻⁶ to
+below 97 · 10⁻⁸ over a log-radius length of one tenth. -/
+example : decide (CCProp ⟨1 / 10, 1 / 1000000, 97 / 100000000, 0, -1 / 5, 1 / 100, 1 / 200,
+    99 / 100, 101 / 100, 198 / 100, 202 / 100, [1], [2]⟩) = true := by decide +kernel
+
+end CCell
 
 end Work.Math.GContract
