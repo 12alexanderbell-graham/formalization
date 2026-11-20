@@ -11,23 +11,23 @@ first zero ξ₁, the mass factor −ξ₁ ^ 2 θ'(ξ₁) and the central concen
 factor) are the entries of that row. Indices two, three, four, three halves, five halves and seven
 halves are certified (`Checked.Math.LaneEmden2`, `Checked.Math.LaneEmden`, `Checked.Math.LaneEmden4`,
 `Checked.Math.LaneEmden32`, `Checked.Math.LaneEmden52`, `Checked.Math.LaneEmden72`); θ ^ (9/2) has no
-polynomial Taylor recursion and is not smooth at the zero of θ (its fifth derivative in θ blows up
-there). The first zero lies near 31.8, three times further out than at index seven halves.
+polynomial Taylor recursion and is not smooth at the zero of θ (its fifth derivative in θ is unbounded
+there). The first zero lies about three times further out than at index seven halves.
 
 **What is stated** (frozen before proof, run 2026-11-20T0428Z): `laneEmden92_constants`, for every
 θ, φ satisfying the hypotheses, the bounds on ξ₁, the mass factor and the central concentration
 printed in its statement. θ'(0) = 0 is not assumed. The power is Mathlib's real power `Real.rpow`;
 for a negative base it returns zero at this exponent, so past the zero of θ the hypothesis reads
 θ'' + (2/ξ) θ' = 0; the conclusions concern [0, ξ₁], where θ is not negative. Only Mathlib
-definitions occur in the statement. Existence of such a θ: `Work.Math.LE92Exists.exists_solution`
-(checked in a separate module).
-Reference (floating point, not evidence): `runs/2026-11-20T0428Z/scripts/ref92.py` (40 digits) and
+definitions occur in the statement. Existence of such a θ:
+`Work.Math.LE92Exists.exists_solution` (checked in a separate module).
+Reference (floating point, not evidence): `runs/2026-11-20T0428Z/scripts/ref92.py` and
 `ref92b.py` (a second integrator).
 
-**Proof.** A chain of 146 validated cells from the singular start at ξ = 1/2 to the bracket
-[31.8364631, 31.8364634] of the zero (`Work.Math.LE92Certs.chain`), in the weighted norm
-max(|Δθ|, w |Δφ|) with w = 1, 4, 10, 20 from ξ = 0, 4, 8, 16 (`Work.Math.LE92Cell.cell`): in the
-unweighted max norm the enclosure grows like e^ξ and reaches 3 · 10⁻⁴ at the zero.
+**Proof.** A chain of validated cells from the singular start to a bracket of the zero
+(`Work.Math.LE92Certs.chain`), in the norm that weighs φ by a weight growing along the chain
+(`Work.Math.LE92Cell.cell`): in the unweighted norm the enclosure grows exponentially along the
+range and no longer decides the sign of θ at the ends of the bracket.
 -/
 
 namespace Work.Math.LaneEmden92
@@ -89,11 +89,10 @@ theorem core (θ φ : ℝ → ℝ)
     norm_num at ho1
     nlinarith
 
-/-- Lane–Emden equation of index 9/2: for every solution θ of θ'' + (2/ξ)θ' + θ ^ (9/2) = 0 on
-(0, 32] with θ(0) = 1, θ differentiable on [0, 32] with derivative φ, and φ continuous at 0, there is
-a first zero ξ₁ of θ with 31.836463 ≤ ξ₁ ≤ 31.836464 (θ > 0 before it), at which −ξ₁² θ'(ξ₁) lies
-between 1.7377988 and 1.7377989 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 6189.4730 and
-6189.4733. -/
+/-- Lane–Emden equation θ'' + (2/ξ)θ' + θ ^ (9/2) = 0: for every solution θ on (0, 32] with
+θ(0) = 1, θ differentiable on [0, 32] with derivative φ, and φ continuous at 0, there is a zero ξ₁ of
+θ with 31.836463 ≤ ξ₁ ≤ 31.836464 and θ > 0 on [0, ξ₁), at which −ξ₁² θ'(ξ₁) lies between
+1.7377988 and 1.7377989 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 6189.4730 and 6189.4733. -/
 theorem laneEmden92_constants (θ φ : ℝ → ℝ)
     (hθ : ∀ ξ ∈ Icc (0 : ℝ) 32, HasDerivWithinAt θ (φ ξ) (Icc 0 32) ξ)
     (hφ0 : ContinuousWithinAt φ (Icc 0 32) 0)

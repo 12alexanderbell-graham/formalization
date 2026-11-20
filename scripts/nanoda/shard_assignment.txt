@@ -665,3 +665,8 @@ Checked.Math.LE72QDataP0 0
 Checked.Math.LE72QDataP1 0
 Checked.Math.LE72QDataP2 0
 Checked.Math.LE72QData 0
+Checked.Math.LE92QDataP0 0
+Checked.Math.LE92QDataP1 0
+Checked.Math.LE92QDataP2 0
+Checked.Math.LE92QDataP3 0
+Checked.Math.LE92QData 0

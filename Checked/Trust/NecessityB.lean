@@ -7,6 +7,7 @@ import Checked.Math.LaneEmden4
 import Checked.Math.LaneEmden32
 import Checked.Math.LaneEmden52
 import Checked.Math.LaneEmden72
+import Checked.Math.LaneEmden92
 import Checked.Math.Gelfand
 import Checked.Math.GelfandExists
 import Checked.Math.GelfandPDE
@@ -334,6 +335,12 @@ theorem laneEmden72_constants_r2 : dropped% Checked.Math.LaneEmden72.laneEmden72
   intro θ φ h1 h3 h4
   refine Checked.Math.LaneEmden72.laneEmden72_constants θ φ h1 ?_ h3 h4
   exact cont_at_zero_of_continuous 10 (by norm_num) 1 θ φ (fun y => -y ^ ((7 : ℝ) / 2))
+    (by fun_prop) h1 (fun ξ hξ => (h3 ξ hξ).congr_deriv (by push_cast; ring))
+
+theorem laneEmden92_constants_r2 : dropped% Checked.Math.LaneEmden92.laneEmden92_constants 2 := by
+  intro θ φ h1 h3 h4
+  refine Checked.Math.LaneEmden92.laneEmden92_constants θ φ h1 ?_ h3 h4
+  exact cont_at_zero_of_continuous 32 (by norm_num) 1 θ φ (fun y => -y ^ ((9 : ℝ) / 2))
     (by fun_prop) h1 (fun ξ hξ => (h3 ξ hξ).congr_deriv (by push_cast; ring))
 
 theorem gelfand_ball_critical_r3 : dropped% Checked.Math.Gelfand.gelfand_ball_critical 3 := by

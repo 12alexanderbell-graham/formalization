@@ -983,3 +983,9 @@
 - CI: 44655372746 (0792b21) read in the run README.
 - Part 3 (rotation, T5): reader test EP2 (brief 548ea21 before the readers; nine blind readers, blind grader): a model eponym as the reference left a fidelity doubt in 5/6 readers (fresh baseline 1/3) → rule M10 of `check_headline_mentions.py`. Held-out red team M9h against M9: 21 accepted lines, one with a reference (flagged), inconclusive; plain false descriptions recorded as a limit.
 - Next: CI read (STATE 2g); then parts 2/5 by rotation.
+
+## 2026-11-20T0428Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main fc55e07); local Lean via elan + restored CI build of 0792b21; Sonnet subagents for referee, blind restatement and blind literal reading; Opus subagents for existence and blind closure.
+- CI: 44667501738 (fc55e07) concluded green on every job.
+- Parts 2/5 (rotation): Lane–Emden polytrope of index nine halves frozen (7251607), proved (5048d50), audited (referee STANDS, blind restatement closed, blind literal reading agrees), existence proved, promoted to Checked: `Checked.Math.LaneEmden92.laneEmden92_constants`. New simulator step: validated cells in a weighted norm (`LE92Cell.cell`), which removes the exponential growth of the enclosure on long ranges.
+- Next: CI read of the promotion (STATE 2h); judge shard times; then part 1 by rotation.
