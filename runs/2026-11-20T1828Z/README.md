@@ -16,6 +16,7 @@
 
 ## CI read
 - 44787418295 (db461e2, run 1628Z's final push: CLAIMS.md regenerated after the promotion of `gelfand_pde_radial_count_turning_values`): **green on every job**, 17:52Z → 18:36Z (44 min); checked job 17:54Z → 18:36Z; nanoda shard 2 check 30.7 min and leanchecker shards 0 / 2 replay 17.8 / 33.4 min (the other shards memoised on the passes of 44782494045, whose kernel jobs ran on the same Lean sources). → `gelfand_pde_radial_count_turning_values` PROVED; STATE heading written with the judged template. LEDGER experiment of run 1428Z (nanoda under 30 min, whole promotion run under 60 min), second reading: whole run met (44 min), slowest nanoda shard 30.7 min, at the threshold.
+- 44804429541 (3ff128b, this run's final push): work job green; checked job green on every blocking check (statement dependencies, frozen registry; 20:08Z); kernel shards (leanchecker 4, nanoda 4) still running at 20:15Z, all on new input (Checked.lean changed). Read by the next run.
 
 ## What we did
 - **Hypothesis 1 of `gelfand_pde_radial_bound` REDUNDANT** (`Checked/Trust/NecessityBF.lean`, `gelfand_pde_radial_bound_r1 : dropped% Checked.Math.GelfandPDE.gelfand_pde_radial_bound 1`; written and compiled in this run, ≈ 25 min; axioms propext, Classical.choice, Quot.sound). The argument, in plain words:
