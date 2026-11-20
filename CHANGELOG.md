@@ -1038,3 +1038,9 @@
 - CI: 44804429541 (3ff128b) green on every job in 51 min; nothing to promote.
 - Part 3 (rotation): `scripts/trust/check_stale_necessity.py` — a hand-written 'open' line about a numbered hypothesis that TRUST_MAP.md classifies fails CI (STATE.md, README.md, BLUEPRINT.md; run by check_necessity_prose.py). 22 stale items fixed; old next-step items 1g … 0 moved to `_archive/`. Held-out writer test SN: recall 6/16 blind, 16/16 after widening (not blind), 0/10 false positives.
 - Next: CI read of the final push; then parts 2/5 by rotation.
+
+## 2026-11-20T2228Z (scheduled run)
+- Env: repo ok (add_repo not exposed; worked on branch run-main tracking origin/main ecc9fc7); local Lean installed with elan, judge's build restored by streaming; subagents: one Sonnet (blind restatement), one Opus (referee).
+- CI: 44818441588 (ecc9fc7) green on every job; nothing to promote.
+- Parts 2/5 (rotation): new headline `Checked.Math.GelfandPDEBound.gelfand_pde_bound` (every classical solution of the Gelfand problem in the 3-D ball, no symmetry hypothesis, has λ ≤ 3.321992119): freeze, blind restatement closed, referee STANDS, proof from `GSymFree.bound_no_radial`, promoted with NV witness, literal readings and necessity 2, 3, 4 NEEDED (`NecessityBH`); 1 open.
+- Next: CI read of the final push; then part 1 by rotation.

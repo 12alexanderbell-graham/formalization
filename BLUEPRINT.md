@@ -446,6 +446,7 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Gelfand problem in the 3-D ball: the number of radial solutions in every band (run 2026-11-18T2228Z)
 - `Checked/Math/GelfandPDECountTurningMain.lean`, `Checked/Math/GelfandPDECountTurning.lean`, `Checked/Trust/SecondReadingGelfandCount.lean`; scripts in `runs/2026-11-18T2228Z/scripts/`; the proof: `runs/2026-11-18T2228Z/README.md`.
 - Run 2026-11-20T1628Z: `Checked/Math/GelfandPDECountTurningValues.lean` (the number of radial solutions with the branch parameter at its fourth extremum in a window, from `gelfand_turning_values`); the proof: `runs/2026-11-20T1628Z/README.md`.
+- Run 2026-11-20T2228Z: `Checked/Math/GelfandPDEBound.lean` (the Gelfand bound for every solution, from `Checked.Math.GSymFree.bound_no_radial`), `Checked/Trust/NecessityBH.lean`; the proof: `runs/2026-11-20T2228Z/README.md`.
 
 ## Fidelity record, reader page, objection registry (run 2026-11-18T0828Z)
 - `scripts/trust/Claims.lean`: the Status line carries a generated fidelity record — open objections (`scripts/trust/objections.txt`, resolved among registered headlines; a missing path or unresolved headline is a generator error), NV witness (same rule as StatementDeps; missing = error), necessity counts (`Checked.Trust.numHyps`, `necObligation`, `dropObligation`, exact-type match on Checked theorems), literal readings (`literal_readings.txt`), grandfathered literals (`literal_baseline.txt`), freeze (`frozen.txt`; missing = error), CI regeneration.

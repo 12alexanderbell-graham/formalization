@@ -16,7 +16,13 @@ Reports, per name word (split as check_claim_vocab.py splits names):
   NEW       a word that is not a FUNCTION word and not in scripts/trust/prose_vocab.txt: passes V13 only if the
             generated claim contains it (Lean identifiers such as `StrictMono` count, split), otherwise it needs
             a prose_vocab.txt line with a LEDGER line.
-Exit status 1 if any STRENGTH word is found (NEW words are advisory). Not a CI check: the binding checks
+With --file, also (run 2026-11-20T2228Z, annex LIV; see LEDGER) the headline docstring's words are read as V1 reads
+the paraphrase CLAIMS.md will print, against a proxy of the generated claim (the words of the identifiers in the
+statement's own source):
+  DOCWORD   a docstring word that is not a FUNCTION word, not in prose_vocab.txt and not a word of an identifier of
+            the statement: V1 fails at promotion unless the generated claim happens to contain it — reword it
+            before freezing (run 2026-11-20T2228Z: 'classical', 'symmetry' cost a second ten-minute relock).
+Exit status 1 if any STRENGTH word is found (NEW and DOCWORD are advisory). Not a CI check: the binding checks
 are V8/V13 of check_claim_vocab.py on the promoted headline.
 """
 import re
@@ -35,6 +41,35 @@ def names_in(path):
     ns = re.findall(r"^namespace\s+(\S+)", text, re.M)
     prefix = ns[0] + "." if ns else ""
     return [prefix + n for n in re.findall(r"^\s*(?:theorem|lemma)\s+(\S+)", text, re.M)]
+
+
+def docs_in(path):
+    """(theorem name, docstring, statement source) for every documented theorem of the file."""
+    text = Path(path).read_text()
+    ns = re.findall(r"^namespace\s+(\S+)", text, re.M)
+    prefix = ns[0] + "." if ns else ""
+    out = []
+    for m in re.finditer(r"/--(.*?)-/\s*(?:@\[[^\]]*\]\s*)?(?:theorem|lemma)\s+(\S+)(.*?):=", text, re.S):
+        out.append((prefix + m.group(2), m.group(1), m.group(3)))
+    return out
+
+
+def doc_words(doc, stmt, vocab):
+    # words Claims.lean's templates print in every generated claim ('for every', 'there is', 'assuming', 'then')
+    proxy = {"every", "there", "is", "assuming", "then", "such", "that", "if", "not", "for"}
+    for ident in re.findall(r"[A-Za-z][A-Za-z0-9_.']*", stmt):
+        for comp in ident.split("."):
+            proxy |= {V.norm(w) for w in V.split_ident(comp)}
+            proxy.add(V.norm(comp))
+    bad = []
+    for w in V.words(doc):
+        if len(w) <= 1 or w in bad:
+            continue
+        f = V.forms(w)
+        if f & proxy or f & V.FUNCTION or f & vocab:
+            continue
+        bad.append(w)
+    return bad
 
 
 def main(argv):
@@ -59,6 +94,10 @@ def main(argv):
         status = "STRENGTH " + ",".join(sorted(set(strength))) if strength else "ok"
         extra = ("; NEW " + ",".join(sorted(set(new)))) if new else ""
         print(f"{full}: {status}{extra}")
+    if argv[0] == "--file":
+        for full, doc, stmt in docs_in(argv[1]):
+            dw = doc_words(doc, stmt, vocab)
+            print(f"{full}: docstring " + ("ok" if not dw else "DOCWORD " + ",".join(dw)))
     return 1 if bad else 0
 
 

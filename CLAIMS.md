@@ -8680,3 +8680,28 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > N(`lamT (2 * k + 2)`) = 2k + 3; N(lam) = 1 for 0 < lam < `lamT 1`; for every k, N(`lamT (2 * k + 1)`) = 2k + 2
 > and N(lam) = 2k + 3 for `lamT (2 * k + 1)` < lam < `lamT (2 * k + 3)`; and N(2) = ⊤.
 
+## `gelfand_pde_bound`
+
+Full name `Checked.Math.GelfandPDEBound.gelfand_pde_bound`.
+
+**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.gelfandPdeSpace` := `EuclideanSpace ℝ (Fin 3)`; `Checked.Trust.SecondReading.gelfandPdeBall` := `Metric.ball 0 1`; `Checked.Trust.SecondReading.gelfandPdeRegular` := `fun u => ContDiffOn ℝ 2 u (Metric.ball 0 1)`; `Checked.Trust.SecondReading.gelfandPdeContinuous` := `fun u => ContinuousOn u (Metric.closedBall 0 1)`. the statement is proved in module `Checked.Math.GelfandPDEBound` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.gelfand_pde_bound` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 4 numbered; 3 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 0 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 1 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 4 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+
+**For every** `lam : ℝ`, `u : EuclideanSpace ℝ (Fin 3) → ℝ`:
+
+**assuming**
+
+1. `ContDiffOn ℝ 2 u (Metric.ball 0 1)`
+2. `ContinuousOn u (Metric.closedBall 0 1)`
+3. for every `x : EuclideanSpace ℝ (Fin 3)`, if `‖x‖ = 1`, then `u x = 0`
+4. for every `x : EuclideanSpace ℝ (Fin 3)`, if `x ∈ Metric.ball 0 1`, then `Laplacian.laplacian u x + lam * Real.exp (u x) = 0`
+
+**then**
+
+- `lam ≤ 3.321992119`
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Gelfand problem in the unit ball of three-dimensional space: if u is twice continuously differentiable on the open unit ball, continuous on the closed unit ball
+> and zero on the unit sphere, and Δu + λ eᵘ = 0 on the open ball (Δ is Mathlib's Laplacian), then
+> λ ≤ 3.321992119.
+

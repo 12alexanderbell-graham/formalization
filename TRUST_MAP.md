@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 305. Resting on no unpinned physics definition: 305.
-Non-vacuity (trust track T2): 184 headlines have hypotheses; 184 of them have a
+Headlines: 306. Resting on no unpinned physics definition: 306.
+Non-vacuity (trust track T2): 185 headlines have hypotheses; 185 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1027 hypotheses in 179 headlines;
-747 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1031 hypotheses in 180 headlines;
+750 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 223 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-57 open; headlines with every hypothesis classified: 141/179
+58 open; headlines with every hypothesis classified: 141/180
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -343,6 +343,7 @@ the docstring says; universally bound parameters are not listed.
 | `Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning` | — | — | — | unconditional | — |
 | `Math.GelfandTurningValues.gelfand_turning_values` | — | — | — | `gelfand_turning_values` | — |
 | `Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values` | — | — | — | unconditional | — |
+| `Math.GelfandPDEBound.gelfand_pde_bound` | — | — | — | `gelfand_pde_bound` | — |
 
 ## Hypothesis necessity, per headline
 
@@ -547,6 +548,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Math.GelfandExtrema.gelfand_extrema` (4): needed 1 (`gelfand_extrema_h1`), 3 (`gelfand_extrema_h3`), 4 (`gelfand_extrema_h4`); redundant 2 (`gelfand_extrema_r2`)
 - `Math.BonnorEbertCount.bonnor_ebert_count` (4): needed 1 (`bonnor_ebert_count_h1`), 3 (`bonnor_ebert_count_h3`), 4 (`bonnor_ebert_count_h4`); redundant 2 (`bonnor_ebert_count_r2`)
 - `Math.GelfandTurningValues.gelfand_turning_values` (4): needed 1 (`gelfand_turning_values_h1`), 3 (`gelfand_turning_values_h3`), 4 (`gelfand_turning_values_h4`); redundant 2 (`gelfand_turning_values_r2`)
+- `Math.GelfandPDEBound.gelfand_pde_bound` (4): needed 2 (`gelfand_pde_bound_h2`), 3 (`gelfand_pde_bound_h3`), 4 (`gelfand_pde_bound_h4`); open 1
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 

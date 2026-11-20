@@ -110,6 +110,7 @@ import Checked.Math.BonnorEbertCount
 import Checked.Math.GelfandPDECountValues
 import Checked.Math.GelfandPDECountTurning
 import Checked.Math.GelfandPDECountTurningValues
+import Checked.Math.GelfandPDEBound
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -1282,5 +1283,13 @@ a closed statement, no hypotheses. -/
 theorem gelfand_pde_radial_count_turning_values :
     nonvacuity% Checked.Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values :=
   trivial
+
+/-! Gelfand bound with no symmetry hypothesis (run 2026-11-20T2228Z): the radial solution at the lower end of the
+window of the critical parameter (`gelfand_pde_radial_exists`). -/
+
+theorem gelfand_pde_bound : nonvacuity% Checked.Math.GelfandPDEBound.gelfand_pde_bound := by
+  obtain ⟨u, hu, hc, hb, -, hpde⟩ :=
+    Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists 3.321992118 (by norm_num) le_rfl
+  exact ⟨3.321992118, u, hu, hc, hb, hpde, trivial⟩
 
 end Checked.Trust.NV

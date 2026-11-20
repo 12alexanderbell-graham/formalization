@@ -417,6 +417,7 @@ Checked.Math.Gelfand.gelfand_ball_critical 8bc55514-doc3099962857817823782
 Checked.Math.GelfandExists.exists_solution 20e32e81-doc6694226507590696985
 Checked.Math.GelfandExtrema.gelfand_extrema b0115572-doc11641840203187700132
 Checked.Math.GelfandPDE.gelfand_pde_radial_bound a60a1dff-doc5938021182067386944
+Checked.Math.GelfandPDEBound.gelfand_pde_bound 5c0dc55-doc13173350117191519451
 Checked.Math.GelfandPDECount.gelfand_pde_radial_count 2806c1f6-doc2308684125015040648
 Checked.Math.GelfandPDECountTurning.gelfand_pde_radial_count_turning 606a68c8-doc4698414674050155471
 Checked.Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values 6be4612a-doc13367130333711919223
@@ -3535,6 +3536,9 @@ doc:Checked.Trust.NecessityBF.nbf_diff_of_lap -doc3243403802071331896
 doc:Checked.Trust.NecessityBF.nbf_hasDerivAt_punct -doc17693677521726441380
 doc:Checked.Trust.NecessityBF.nbf_lap_eq -doc3893298269405763216
 doc:Checked.Trust.NecessityBG.gelfand_pde_radial_bound_r4 -doc1320974938978748449
+doc:Checked.Trust.NecessityBH.gelfand_pde_bound_h2 -doc6338698529969769870
+doc:Checked.Trust.NecessityBH.gelfand_pde_bound_h3 -doc4955523389404440778
+doc:Checked.Trust.NecessityBH.gelfand_pde_bound_h4 -doc11920278759697110423
 doc:Checked.Trust.NecessityEta.agree20_imp -doc9958743186863952861
 doc:Checked.Trust.NecessityEta.agree20 -doc9824130336149770711
 doc:Checked.Trust.NecessityEta.agree30_imp -doc6505485457868535128
@@ -4496,6 +4500,7 @@ moduledoc:Checked.Math.GelfandExtremaMain -mdoc451010646016397518
 moduledoc:Checked.Math.GelfandExtrema -mdoc10388665202515624349
 moduledoc:Checked.Math.GelfandLam3 -mdoc5093041509294523175
 moduledoc:Checked.Math.GelfandODEBound -mdoc17242492181181850265
+moduledoc:Checked.Math.GelfandPDEBound -mdoc13223252088678893887
 moduledoc:Checked.Math.GelfandPDECountMain -mdoc15433464297724928386
 moduledoc:Checked.Math.GelfandPDECountTurningMain -mdoc17271368788129181268
 moduledoc:Checked.Math.GelfandPDECountTurningValues -mdoc17201338932121939264
@@ -4751,6 +4756,7 @@ moduledoc:Checked.Trust.NecessityBD -mdoc12211134365467938193
 moduledoc:Checked.Trust.NecessityBE -mdoc2102603889233900104
 moduledoc:Checked.Trust.NecessityBF -mdoc7052207223869207022
 moduledoc:Checked.Trust.NecessityBG -mdoc17581360668635163336
+moduledoc:Checked.Trust.NecessityBH -mdoc2405557393983363570
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
@@ -4848,4 +4854,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc13998431274126824037
+moduledoc:Checked.Trust.Witnesses -mdoc8270678206796739882
