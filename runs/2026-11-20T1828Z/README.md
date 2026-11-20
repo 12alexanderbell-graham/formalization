@@ -1,6 +1,42 @@
 # Run 2026-11-20T1828Z
 
-THE RESULT: stub; filled at the end of the run.
+**THE RESULT:** part 1 by rotation (STATE 2n). The Lean theorems of this run and their statements are in section What we did.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** That the bound on the parameter of the Gelfand problem in the ball costs nothing in symmetry or in regularity: for each of those two hypotheses a kernel theorem shows the bound with that hypothesis removed (section What we did; `TRUST_MAP.md` lists both).
+
+**Weakest unchecked step:** the bound with the symmetry hypothesis removed is a theorem in `Checked/Trust` with no blind restatement or referee of its own (section Next).
 
 ## Start
-- Lock taken 18:28Z. Rotation: part 1.
+- 18:28Z. Local main was the stale divergent clone (fa47717, also on `origin/wip/leanchecker-shards`); `git checkout -B main origin/main` at 6efb709. No LOCK → taken (5726432).
+- CI at start: 44787418295 (db461e2, run 1628Z's final push) in progress; read in section CI read.
+- Local Lean: elan + Mathlib cache (≈ 3 min); `checked-build` of 44787418295 (db461e2) restored by streaming (`FORCE=1`, 2.6 GB of the disk allowance left afterwards); `lake build Checked` 3748 jobs.
+
+## Bottleneck (and what a yes/no changes)
+- Two hypotheses of `gelfand_pde_radial_bound` are open: C² on the open ball (1) and radial symmetry (4). Is the C² hypothesis load-bearing, or does the pointwise equation with Mathlib's Laplacian already force enough regularity? Yes (redundant) → the bound holds for a wider class with no new certificate, and the PDE statement's only open hypothesis is symmetry. No → a junk-value witness, a fidelity gap in the PDE statements of the Gelfand family.
+
+## CI read
+- 44787418295 (db461e2, run 1628Z's final push: CLAIMS.md regenerated after the promotion of `gelfand_pde_radial_count_turning_values`): **green on every job**, 17:52Z → 18:36Z (44 min); checked job 17:54Z → 18:36Z; nanoda shard 2 check 30.7 min and leanchecker shards 0 / 2 replay 17.8 / 33.4 min (the other shards memoised on the passes of 44782494045, whose kernel jobs ran on the same Lean sources). → `gelfand_pde_radial_count_turning_values` PROVED; STATE heading written with the judged template. LEDGER experiment of run 1428Z (nanoda under 30 min, whole promotion run under 60 min), second reading: whole run met (44 min), slowest nanoda shard 30.7 min, at the threshold.
+
+## What we did
+- **Hypothesis 1 of `gelfand_pde_radial_bound` REDUNDANT** (`Checked/Trust/NecessityBF.lean`, `gelfand_pde_radial_bound_r1 : dropped% Checked.Math.GelfandPDE.gelfand_pde_radial_bound 1`; written and compiled in this run, ≈ 25 min; axioms propext, Classical.choice, Quot.sound). The argument, in plain words:
+  1. With λ > 0 the equation gives Δu(x) = −λe^{u(x)} ≠ 0 at every x of the open ball. Mathlib's Laplacian is the trace of `fderiv ℝ (fderiv ℝ u)`, which is zero where `fderiv ℝ u` is not differentiable; so H = `fderiv ℝ u` is differentiable on the open ball (`nbf_diff_of_lap`, via `nbf_lap_eq`, the Laplacian in the standard basis).
+  2. Let f(r) = u(r e) on an axis and ψ(r) = H(r e)(e), ψ₂(r) = H′(r e)(e)(e): ψ has derivative ψ₂ on (−1, 1). Where u is differentiable at r e, f′(r) = ψ(r); by radial symmetry, u is differentiable at a point of norm r ∈ (0, 1) iff f is differentiable at r (`hup`, `hdown`).
+  3. A radius r ∈ (0, 1) where f is not differentiable: H vanishes on the whole sphere of radius r (junk derivative), so along the curves (r cos t) e + (r sin t) eⱼ in the sphere the tangential second derivatives H′(r e)(eⱼ)(eⱼ) are zero, and ψ₂(r) = Δu(r e) ≠ 0 (`htan`, `hrad2`).
+  4. If such radii accumulated at r, the slopes of ψ at r would be zero along them (ψ = 0 there), so ψ₂(r) = 0: impossible. So r is isolated, f has derivative ψ on a punctured neighbourhood, f and ψ are continuous at r, and the derivative-limit theorem (`nbf_hasDerivAt_punct`, from Mathlib's `hasDerivWithinAt_Ici_of_tendsto_deriv` and the `Iic` version) makes f differentiable at r after all. Hence f is differentiable on (0, 1), by evenness on (−1, 0), and at 0 by the same limit theorem.
+  5. Then f′ = ψ, f″ = ψ₂ on (−1, 1), ψ(0) = 0 by evenness, the radial equation holds on (0, 1) by `RadialLaplacian.laplacian_radial` (u equals f(‖·‖) near each point), and `GelfandODEBound.ode_bound` gives λ ≤ 3.321992119, as in the original proof.
+- **Hypothesis 4 of `gelfand_pde_radial_bound` (radial symmetry) REDUNDANT** (`Checked/Trust/NecessityBG.lean`, `gelfand_pde_radial_bound_r4 : dropped% Checked.Math.GelfandPDE.gelfand_pde_radial_bound 4`, from `Checked.Math.GSymFree.bound_no_radial`; axioms propext, Classical.choice, Quot.sound). By the minimal solution instead of the Gidas–Ni–Nirenberg theorem; three modules, each written by an Opus subagent from a plan written in this run (≈ 3, 4 and 6 min), each compiled and axiom-checked here, then promoted by `runs/2026-11-20T1828Z/scripts/promote_gsym.py` (namespaces, imports, module docs only):
+  1. `Checked/Math/GMaxPrinciple.lean`, `superharmonic_nonneg`: a C² function on the open unit ball of three-dimensional space, continuous on the closed ball, nonnegative on the sphere, with Δv ≤ 0 on the open ball, is nonnegative on the closed ball (w = v − ε‖x‖², Δ‖x‖² = 6; at an interior minimum each coordinate second derivative is nonnegative, by Mathlib's second-derivative test).
+  2. `Checked/Math/GRadialPoisson.lean`: the radial Dirichlet solution operator P h r = (1/r − 1)∫₀^r t²h + ∫_r^1 (t − t²)h, and `lift`: for continuous h with |h t − h 0| ≤ C t on [0, 1], x ↦ P h ‖x‖ is C² on the open ball (at the centre by `RadialC2.contDiffAt_zero_radial`), continuous on the closed ball, zero on the sphere, with Laplacian −h(‖x‖); `P_mono`.
+  3. `Checked/Math/GSymFree.lean`, `bound_no_radial`: for any solution u (λ > 0), u ≥ 0 by (1); the iterates w₀ = 0, w_{n+1} = P(λ e^{w_n}) are radial, increasing, and below u (comparison: Δ(u − W_{n+1}) = λ(e^{w_n} − e^u) ≤ 0, then (1)); they are uniformly Lipschitz and quadratic at the centre with the constant λ e^M (M the maximum of u), so their limit w is continuous and satisfies w = P(λ e^w) by dominated convergence; x ↦ w(‖x‖) is then a radial classical solution with the same λ (by (2)), and `gelfand_pde_radial_bound` applies to it.
+
+## Measure
+- Necessity of `gelfand_pde_radial_bound`: needed 2, 3, 5; redundant 1, 4 (both new); open none (was 1, 4): the headline is fully classified. Totals in section End.
+- PROVED headlines judged by CI: + `gelfand_pde_radial_count_turning_values`.
+
+## End
+- Local before the final push: lake build Checked (3753 jobs, restored build of db461e2); StatementDeps relock twice (after `NecessityBF`, then after the three helper modules and `NecessityBG`): 305 headlines, NV 184/184; necessity NEEDED 747, REDUNDANT 221 → 223, open 59 → 57; frozen registry new entries only; open baseline line of `gelfand_pde_radial_bound` removed (N1); Claims (305 claims; the Status line of `gelfand_pde_radial_bound` changes: its new redundancy entries); validation packet regenerated (item 6 prints that Status line); check_prose, check_necessity_prose, check_status_lines, precheck_names, precheck_citations, check_headline_mentions --base 6efb709 (three front-page lines rewritten in its vocabulary after a first failure); records_check.py 6efb709 (43 commands, 0 failed).
+
+## Next
+- CI read first: the run of this run's final push (new Trust modules `NecessityBF`, `NecessityBG`, new Checked helper modules `GMaxPrinciple`, `GRadialPoisson`, `GSymFree`; no headline changed). Green on every job → nothing to promote; red → `python3 scripts/trust/records_check.py <base>`.
+- Parts 2/5 candidate (the symmetry-free bound as a headline of its own): "every classical solution of Δu + λeᵘ = 0 in the unit ball of three-dimensional space, zero on the sphere, has λ ≤ 3.321992119", frozen from `Checked.Math.GSymFree.bound_no_radial`, with blind restatement, referee and the necessity of its own hypotheses (C² on the ball is now the only regularity; whether it too is redundant without symmetry is open: the one-dimensional argument of `NecessityBF` used radial symmetry). The same route gives the existence side for every solution (the minimal solution) and is the start of a count of all solutions, which needs symmetry of every solution (Gidas–Ni–Nirenberg) and is not covered by this route.
+- Part 1 next: the other open hypotheses as in section Next of `runs/2026-11-20T0628Z/README.md` (whole-half-line solutions of the boundary-layer system), `eta_ratios` 3, 4 and the B1 lower density bounds as in section Next of `runs/2026-11-19T1228Z/README.md`.

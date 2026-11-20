@@ -489,6 +489,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Rule M9 and reader test EF; nanoda in parallel (run 2026-11-19T2028Z)
 - `scripts/trust/check_headline_mentions.py` (M9), `runs/2026-11-19T2028Z/t5/`; `scripts/nanoda_shard.sh`, `scripts/nanoda/controls/`.
 
+## The Gelfand bound without the C² and without the symmetry hypothesis (run 2026-11-20T1828Z)
+- `Checked/Trust/NecessityBF.lean`, `Checked/Trust/NecessityBG.lean`, `Checked/Math/GMaxPrinciple.lean`, `Checked/Math/GRadialPoisson.lean`, `Checked/Math/GSymFree.lean`; Work originals `Work/Math/GMaxPrinciple.lean`, `GRadialPoisson.lean`, `GSymFree.lean`.
+
 ## nanoda with assumed theorems of other shards; reader test WP (run 2026-11-20T1428Z)
 - `scripts/nanoda/ShardMain.lean`, `scripts/nanoda_shard.sh`, `scripts/nanoda/assume_test/`, `runs/2026-11-20T1428Z/ndprof/`; part 3: `runs/2026-11-20T1428Z/t5/`.
 

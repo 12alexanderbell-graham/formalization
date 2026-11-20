@@ -354,6 +354,9 @@ import Checked.Math.GNegExists
 import Checked.Math.GNegProfile
 import Checked.Math.GNegRight
 import Checked.Math.GNegLeft
+import Checked.Math.GMaxPrinciple
+import Checked.Math.GRadialPoisson
+import Checked.Math.GSymFree
 import Checked.Math.GelfandLam3
 import Checked.Math.GelfandTurningValues
 import Checked.Math.GelfandPDECountTurningMain
@@ -714,3 +717,5 @@ import Checked.Trust.NecessityBB
 import Checked.Trust.NecessityBC
 import Checked.Trust.NecessityBD
 import Checked.Trust.NecessityBE
+import Checked.Trust.NecessityBF
+import Checked.Trust.NecessityBG

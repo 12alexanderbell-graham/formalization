@@ -1026,3 +1026,10 @@
 - Parts 2/5 (rotation): the count of radial Gelfand solutions for every positive parameter with the fourth turning value enclosed, frozen, blind-restated and closed, proved and promoted: `Checked.Math.GelfandPDECountTurningValues.gelfand_pde_radial_count_turning_values`. Float study: a quadratic norm in which the homology cells contract from s ≈ 100 on (next method step).
 - Restore script streams a URL (no zip on disk).
 - Next: CI read of the promotion (STATE 2n); then part 1 by rotation.
+
+## 2026-11-20T1828Z (scheduled run)
+- Env: repo ok (add_repo not exposed; stale session clone reset to origin/main 6efb709); local Lean via elan + restored CI build of db461e2 (streamed); one Opus subagent (weak maximum principle).
+- CI: 44787418295 (db461e2) green on every job in 44 min → `gelfand_pde_radial_count_turning_values` PROVED.
+- Part 1 (rotation): hypotheses 1 (C² on the open ball) and 4 (radial symmetry) of `gelfand_pde_radial_bound` REDUNDANT (`Checked/Trust/NecessityBF.lean`, `NecessityBG.lean`): the bound λ ≤ 3.321992119 holds for every classical solution in the ball, by the minimal solution (`Checked/Math/GMaxPrinciple.lean`, `GRadialPoisson.lean`, `GSymFree.lean`; three Opus subagents).
+- Next: CI read of the final push; then part 3 by rotation.
+
