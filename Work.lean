@@ -278,6 +278,9 @@ import Work.Math.GelfandPDECountTurningMain
 import Work.Math.GelfandPDECountTurning
 import Work.Math.GelfandPDECountTurningBlind
 import Work.Math.GelfandPDECountTurningBlindClosed
+import Work.Math.GelfandPDECountTurningValues
+import Work.Math.GelfandPDECountTurningValuesBlind
+import Work.Math.GelfandPDECountTurningValuesBlindClosed
 import Work.Math.BonnorEbertAllBlind
 import Work.Math.BonnorEbertAllBlindClosed
 import Work.Math.BEMonoExt
