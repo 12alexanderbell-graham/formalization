@@ -1,0 +1,212 @@
+[
+ {
+  "id": "s01",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "- **Necessity:** hypothesis 2 of `FREta.eta_ratios` still unclassified; 1 not yet shown needed."
+ },
+ {
+  "id": "s02",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Not yet: show hypothesis 6 of `Records.F12_separation` needed or redundant."
+ },
+ {
+  "id": "s03",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Next: decide whether hypothesis 7 of `Records.F12_separation` can be dropped; 4, 5, 8, 9 also open."
+ },
+ {
+  "id": "s04",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Part 1: classify hypotheses 5, 6, 7 of `B1Sep.cubic_direction` (all open so far)."
+ },
+ {
+  "id": "s05",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "- Open: `B1Sep.cubic_direction` 1, 8, 11, 12, 13 - 8 still to be shown needed."
+ },
+ {
+  "id": "s06",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "`B1L19Curved.l19_sq_curved`: hypotheses 1, 5, 8 unresolved; test each by dropping it."
+ },
+ {
+  "id": "s07",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "- **Open items:** `fs_neg_tenth_monotone_lt` 4, 5, 7 (5 not yet classified)."
+ },
+ {
+  "id": "s08",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Next: try removing hypothesis 6 from `FalknerSkan.SeparationPrinted.fs_separation_below_printed` to see whether it is needed; 7 too."
+ },
+ {
+  "id": "s09",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Not yet: `fs_neg_reversed_printed_overshoots` hypotheses 3 and 4 - neither shown needed or redundant."
+ },
+ {
+  "id": "s10",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Remaining across `FREta.eta_ratios` and `Records.F12_separation`: 3, 4 and 4, 5, 6, 8, 9 respectively still open."
+ },
+ {
+  "id": "s11",
+  "kind": "STALE",
+  "section_headline": "B1Sep.cubic_direction",
+  "by_number": true,
+  "line": "- **Necessity:** hypotheses 2, 3, 4 not yet checked; 5, 6, 7 unresolved."
+ },
+ {
+  "id": "s12",
+  "kind": "STALE",
+  "section_headline": "FREta.eta_ratios",
+  "by_number": true,
+  "line": "Not yet: hypothesis 1 (still open) and hypothesis 2."
+ },
+ {
+  "id": "s13",
+  "kind": "STALE",
+  "section_headline": "B1L19Curved.l19_sq_curved",
+  "by_number": true,
+  "line": "Next: settle 9, 10, 11 - all open."
+ },
+ {
+  "id": "s14",
+  "kind": "STALE",
+  "section_headline": "FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt",
+  "by_number": true,
+  "line": "Part 2: classify 4, 6, 7 (6 still undone)."
+ },
+ {
+  "id": "s15",
+  "kind": "STALE",
+  "section_headline": "Records.F12_separation",
+  "by_number": true,
+  "line": "- Still to be shown: that 7 is redundant."
+ },
+ {
+  "id": "s16",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": false,
+  "line": "Not yet: in `FREta.eta_ratios`, the second hypothesis has not been classified; we do not know if it can be dropped."
+ },
+ {
+  "id": "s17",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": false,
+  "line": "Next: `FalknerSkan.SeparationPrinted.fs_separation_below_printed` - the very first hypothesis is not yet shown needed."
+ },
+ {
+  "id": "s18",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": false,
+  "line": "- **Open:** the final hypothesis of `B1L19Curved.l19_sq_curved` is still to be shown needed."
+ },
+ {
+  "id": "s19",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": false,
+  "line": "Not yet: `FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots` - the last hypothesis is still unresolved."
+ },
+ {
+  "id": "s20",
+  "kind": "STALE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Part 1: `FalknerSkan.SeparationPrinted.fs_separation_below_printed` - classify 4, 5, 6, 8, 9 (all open)."
+ },
+ {
+  "id": "t01",
+  "kind": "TRUE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "- **Open:** `FREta.eta_ratios` 3, 4; 1 needed, 2 redundant."
+ },
+ {
+  "id": "t02",
+  "kind": "TRUE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Not yet: `Records.F12_separation` 4, 5, 8, 9 still open."
+ },
+ {
+  "id": "t03",
+  "kind": "TRUE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Next: classify 1, 11, 12, 13 of `B1Sep.cubic_direction`; 5, 6, 7 are redundant each alone, not together."
+ },
+ {
+  "id": "t04",
+  "kind": "TRUE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Part 1: `B1L19Curved.l19_sq_curved` hypotheses 1 and 8 remain open."
+ },
+ {
+  "id": "t05",
+  "kind": "TRUE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "`fs_neg_tenth_monotone_lt`: needed 1, 2, 3, 5; 6 redundant; 4, 7 open."
+ },
+ {
+  "id": "t06",
+  "kind": "TRUE",
+  "section_headline": "FalknerSkan.SeparationPrinted.fs_separation_below_printed",
+  "by_number": true,
+  "line": "- **Necessity:** 4, 5, 8, 9 not yet classified."
+ },
+ {
+  "id": "t07",
+  "kind": "TRUE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Not yet: in `fs_neg_reversed_printed_overshoots`, the fourth and fifth hypotheses are unclassified."
+ },
+ {
+  "id": "t08",
+  "kind": "TRUE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "Still open: `FREta.eta_ratios` 3, 4 and `FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt` 4, 7."
+ },
+ {
+  "id": "t09",
+  "kind": "TRUE",
+  "section_headline": null,
+  "by_number": true,
+  "line": "- Settled: `Records.F12_separation` 7 is redundant; 1, 2, 3, 6 needed."
+ },
+ {
+  "id": "t10",
+  "kind": "TRUE",
+  "section_headline": "B1Sep.cubic_direction",
+  "by_number": true,
+  "line": "Open: 1, 11, 12, 13 only."
+ }
+]
