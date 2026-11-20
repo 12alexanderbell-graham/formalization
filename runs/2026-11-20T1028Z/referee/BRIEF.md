@@ -1,0 +1,13 @@
+# Referee brief (run 2026-11-20T1028Z): the fourth turning point of the radial Gelfand branch in the 3-D ball
+
+You are an independent referee. Do NOT read `Checked/`, `Work/`, other `runs/` folders, `*.md` files of the repository or git history. Read only `runs/2026-11-20T1028Z/lean/GelfandLam3.lean` (the frozen Lean statement, proof `sorry`, with the planned route in its module doc) and this brief. Scripts you write go to `runs/2026-11-20T1028Z/referee/scripts/`. Do not run Lean. Python with scipy/numpy/mpmath is available. Web: arxiv.org/pdf only if you look up prior art (no ar5iv, no e-print). Aim to finish within 15 minutes. Put your whole report in your final message.
+
+Facts machine-checked elsewhere (take as given): for the regular solution W of w'' + (2/s)w' + e^w = 0, w(0) = 0, λ(s) = s² e^{W(s)} has a strictly increasing sequence of turning points ζ₀ < ζ₁ < … (zeros of 2 + sW'(s)) with λ increasing on [0, ζ₀], then alternately decreasing on [ζ_{2k}, ζ_{2k+1}] and increasing on [ζ_{2k+1}, ζ_{2k+2}]; ζ₀ ∈ [4.071496844, 4.071496845]; λ(ζ₁) ∈ [1.664155, 1.664157], λ(ζ₂) ∈ [2.10852, 2.10858].
+
+Tasks:
+1. **Attack the statement**: does it say what the module doc says (λ at ζ 3, the fourth turning point, lies in [1.9637, 1.9707])? Is the sequence ζ forced to be the turning sequence by the hypotheses (could another sequence satisfy them and make the conclusion a statement about something else)? Vacuity, junk values, decimal literals (Lean reads `1.9637` as a real via OfScientific), quantifiers.
+2. **Independent high-precision computation** (mpmath ≥ 30 digits, your own integrator with an error estimate, e.g. a Taylor series at the centre and then a high-order method or the homology system s u' = u(3 − u − v), s v' = v(u − 1) in t = log s; check by halving the step or raising the order): ζ₃ and λ₃ = λ(ζ₃) to at least 10 digits. Is λ₃ inside [1.9637, 1.9707], and with what margins? Also u on [4380, 4700] (u = s e^W/(−W'), v = −sW'): is u < 1 there, v > 2 on [428.95, 4380], v(4700) < 2? Report min/max of u on [4380, 4700].
+3. **Route** (by hand): λ = u v and λ' = λ (2 − v)/s, so turning points are zeros of v − 2 and λ = 2u there; v' = v(u − 1)/s, so u < 1 on the bracket makes v strictly decreasing there and the zero unique in it. Any gap in identifying the zero in [4380, 4700] with ζ₃ given only the monotonicity pattern of λ along ζ?
+4. Prior art (brief, optional): printed values of the turning points of λ for the 3-D Gelfand / isothermal sphere problem (Chandrasekhar's isothermal sphere, Bonnor–Ebert); does any source print λ at the fourth turning point?
+
+Verdict: STANDS / STANDS-WITH-CORRECTIONS / FALLS, one line, first.
