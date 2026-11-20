@@ -45,6 +45,13 @@ theorem gelfand_turning_values (w φ : ℝ → ℝ)
       (∀ k : ℕ, StrictAntiOn (fun s => s ^ 2 * Real.exp (w s)) (Icc (ζ (2 * k)) (ζ (2 * k + 1)))) ∧
       (∀ k : ℕ,
         StrictMonoOn (fun s => s ^ 2 * Real.exp (w s)) (Icc (ζ (2 * k + 1)) (ζ (2 * k + 2)))) := by
-  sorry
+  obtain ⟨ζ, hm, ht, hz0lo, hz0hi, hl0lo, hl0hi, hmax0, hmin, hmax, h2, hlim, hinc0, hanti, hmono⟩ :=
+    Checked.Math.GelfandExtremaMain.main w φ hw hφ0 hφ h0
+  obtain ⟨b1, b2, b3, b4⟩ :=
+    Work.Math.GLamBands.bands w φ hw hφ0 hφ h0 ζ hm hz0lo hz0hi hinc0 hanti hmono
+  obtain ⟨c1, c2⟩ :=
+    Work.Math.GelfandLam3.lam3_band w φ hw hφ0 hφ h0 ζ hm hz0lo hz0hi hinc0 hanti hmono
+  exact ⟨ζ, hm, ht, hz0lo, hz0hi, hl0lo, hl0hi, b1, b2, b3, b4, c1, c2, hmax0, hmin, hmax, h2, hlim,
+    hinc0, hanti, hmono⟩
 
 end Work.Math.GelfandTurningValues

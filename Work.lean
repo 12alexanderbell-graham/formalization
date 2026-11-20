@@ -264,6 +264,7 @@ import Work.Math.GLamBands
 import Work.Math.GLam3Data
 import Work.Math.GLam3Chain
 import Work.Math.GelfandLam3
+import Work.Math.GelfandTurningValues
 import Work.Math.GelfandPDECountValuesMain
 import Work.Math.GelfandPDECountValues
 import Work.Math.GelfandPDECountValuesBlind
