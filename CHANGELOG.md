@@ -1088,3 +1088,10 @@
 - Parts 2/5 (rotation): `gelfand_pde_radial_count_turning_values_five` (the radial count with `lamT 3`, `lamT 4` enclosed) frozen, blind restatement closed, proved by re-route, promoted; `gelfand_turning_values_seven` (λ at the sixth and seventh turning points, [1.996901, 1.997023] and [2.000873, 2.000980]) by 62 generated contracting cells (`gen_seg7.py`) and a route continued from `lam34_band`, frozen, blind restatement closed, referee STANDS (own 40-digit values), two blind literal readings, promoted with necessity `NecessityBM`.
 - Annex LIV: experiment of run 0428Z (a new turning point costs data, no new lemma) evaluated: met; PROMPT working note; LEDGER experiment.
 - Next: CI read of the final push; then part 1 by rotation.
+
+## 2026-11-21T1228Z (scheduled run)
+- Env: repo ok (session clone present, stale shallow main reset by hand, then `scripts/start_run.sh`); local Lean installed with elan, judge's build of 308b378 restored by streaming; no subagents.
+- CI: 44900695787 (12580d3) green on every job → `gelfand_turning_values_seven` and `gelfand_pde_radial_count_turning_values_five` PROVED (STATE headings updated).
+- Part 1 (rotation, T2b): `fit_direction` 1 REDUNDANT (last open hypothesis of that headline); `rl19_box_unmatched` 1, 14, 15 REDUNDANT and 16 NEEDED (`Checked/Trust/NecessityBN.lean`); no certified integral except the existing enclosures at Ω = 1/5.
+- Annex LIV: PROMPT working note (corollary headlines inherit necessity theorems), LEDGER experiment.
+- Next: CI read of the final push; then part 3 by rotation.
