@@ -70,7 +70,9 @@ This script guards them:
   check_claims.py --generate rewrite every phrase of phrases.txt from the registry (P11)
   check_claims.py --base B   a phrase changed or removed since commit B needs a LEDGER.md line
                              added since B naming the definition (as check_relock.py does for
-                             frozen fingerprints)
+                             frozen fingerprints); O1 (run 2026-11-21T1428Z, after blind red team
+                             AV): an objections.txt line removed since B needs its headline re-frozen
+                             or withdrawn
 
 Why: a wrong phrase would put false meaning into every generated claim that uses the definition
 (e.g. calling `angDist` a luminosity distance), exactly the class the generated claims remove.
@@ -1180,9 +1182,77 @@ def registry_removals(base, old_text=None, new_text=None, new_phr=None):
     return bad
 
 
+OBJ = "scripts/trust/objections.txt"
+HEADS = "scripts/trust/headlines.txt"
+FROZEN = "scripts/trust/frozen.txt"
+
+
+def _suffix(name, h):
+    return name == h or name.endswith("." + h)
+
+
+def objection_removals(base, old_obj=None, new_obj=None, old_frozen=None, new_frozen=None, new_heads=None):
+    """O1 (--base; run 2026-11-21T1428Z, after blind red team AV): an open objection leaves objections.txt only as its
+    header says it may: the headline was re-frozen (its frozen.txt fingerprint changed since `base`) or withdrawn
+    (no longer in headlines.txt). The page prints no objection text since that run (an entry can only lower trust), so
+    deleting the line is the one way left to lift a recorded doubt; it now needs one of those two events."""
+    def rd(path, text, at):
+        if text is not None:
+            return text
+        if at is None:
+            return (ROOT / path).read_text(encoding="utf-8") if (ROOT / path).exists() else ""
+        o = git("show", f"{at}:{path}")
+        return o.stdout if o.returncode == 0 else ""
+    old_obj, new_obj = rd(OBJ, old_obj, base), rd(OBJ, new_obj, None)
+    old_frozen, new_frozen = rd(FROZEN, old_frozen, base), rd(FROZEN, new_frozen, None)
+    new_heads = rd(HEADS, new_heads, None)
+    def lines(t):
+        return [l.strip() for l in t.splitlines() if l.strip() and not l.lstrip().startswith("#")]
+    def fp(t):
+        d = {}
+        for l in lines(t):
+            x = l.split()
+            if len(x) >= 2:
+                d[x[0]] = x[1]
+        return d
+    have = set(lines(new_obj))
+    heads = lines(new_heads)
+    of, nf = fp(old_frozen), fp(new_frozen)
+    bad = []
+    for l in lines(old_obj):
+        if l in have:
+            continue
+        h = l.split(" | ")[0].strip()
+        withdrawn = not any(_suffix(n.split()[0], h) for n in heads)
+        refrozen = any(_suffix(n, h) and nf.get(n) != v for n, v in of.items())
+        if not (withdrawn or refrozen):
+            bad.append(f"{OBJ}: open objection removed since {base} while {h} is still listed with the same frozen "
+                       f"fingerprint (O1: only a re-freeze or a withdrawal settles it): {l}")
+    return bad
+
+
+def _controls_o1():
+    obj = "A.f | 2026-01-01T0000Z | LEDGER.md | the statement drops a condition of the source\n"
+    fz = "A.f abc\nA.g def\n"
+    hd = "A.f\nA.g\n"
+    removed = objection_removals("B", obj, "", fz, fz, hd)
+    refrozen = objection_removals("B", obj, "", fz, "A.f xyz\nA.g def\n", hd)
+    withdrawn = objection_removals("B", obj, "", fz, "A.g def\n", "A.g\n")
+    kept = objection_removals("B", obj, obj, fz, fz, hd)
+    return len(removed) == 1 and not refrozen and not withdrawn and not kept
+
+
 def base_check(base):
     if not base or set(base) == {"0"} or git("cat-file", "-e", base + "^{commit}").returncode:
         base = "HEAD~1"
+    if not _controls_o1():
+        print("::error::check_claims O1 controls failed")
+        return 1
+    ob1 = objection_removals(base)
+    for b in ob1:
+        print("OBJECTIONS:", b)
+    if ob1:
+        return 1
     rb = roles_route(base) + baseline_reentry(base) + certs_base(base)
     for b in rb:
         print("PHRASE ROLES:", b)

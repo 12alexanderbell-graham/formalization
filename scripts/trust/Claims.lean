@@ -556,8 +556,13 @@ run_cmd do
       | .ok hn =>
         unless (← System.FilePath.pathExists path) do
           errors := errors.push s!"objections.txt: {path} does not exist"
+        -- run 2026-11-21T1428Z (blind red team AV, 5/5 accepted): the summary was printed here verbatim, the one piece
+        -- of author prose on a page that says it has none, and every defect of the round used it (a 'verdict STANDS,
+        -- objection closed' summary, readings the record denies, counts the same line contradicts). An entry now
+        -- lowers trust and never raises it: the page shows that an objection is on record and where its text is.
+        if summary.isEmpty then errors := errors.push s!"objections.txt: empty summary in {l}"
         objections := objections.insert hn (((objections.find? hn).getD #[]).push
-          s!"raised in run {run}, written in {code path}: «{summary}»")
+          s!"raised in run {run}, its text written in {code path} (author prose, not printed on this page)")
       | .error e => errors := errors.push s!"objections.txt: {e}"
     | _ => errors := errors.push s!"objections.txt: malformed line {l}"
   let frozenNames : NameSet := (← readLines "scripts/trust/frozen.txt").foldl (init := {}) fun s l =>
@@ -586,7 +591,8 @@ run_cmd do
     "None of these proves that a statement matches its source; they are the record a fidelity objection meets.",
     "It opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection",
     "to the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an",
-    "objection that is not shown there has not been recorded as one.", "",
+    "objection that is not shown there has not been recorded as one. An objection's own words are author prose and",
+    "are not printed: the record shows that it is open and where it is written; no entry can mark it settled.", "",
     "Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);",
     "`√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =",
     "derivative; `iteratedDeriv n f x` = n-th derivative; `HasDerivAt f f' x` = f has derivative f' at",
@@ -738,7 +744,8 @@ run_cmd do
     "readings of its literals, and its freeze. None of these proves that a statement matches its source. The record",
     "opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection to",
     "the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an",
-    "objection that is not shown there has not been recorded as one.", ""]
+    "objection that is not shown there has not been recorded as one. An objection's own words are author prose and",
+    "are not printed: the record shows that it is open and where it is written; no entry can mark it settled.", ""]
   -- the notation and total-function paragraphs of the header are copied (they are fixed generator text)
   let notIdx := (out.toList.take hdrEnd).findIdx? (·.startsWith "Notation (Lean/Mathlib")
   match notIdx with

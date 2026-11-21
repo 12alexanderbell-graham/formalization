@@ -14,7 +14,8 @@ registries CI checks: a non-vacuity witness, how many hypotheses are shown neede
 readings of its literals, and its freeze. None of these proves that a statement matches its source. The record
 opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection to
 the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an
-objection that is not shown there has not been recorded as one.
+objection that is not shown there has not been recorded as one. An objection's own words are author prose and
+are not printed: the record shows that it is open and where it is written; no entry can mark it settled.
 
 Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);
 `√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =

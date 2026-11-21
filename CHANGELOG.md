@@ -1096,3 +1096,10 @@
 - Annex LIV: PROMPT working note (corollary headlines inherit necessity theorems), LEDGER experiment.
 - Next: CI read of the final push; then part 3 by rotation.
 - Second push: `rl19_box_unmatched` 13 REDUNDANT (`bn_a3_large`: every matching cubic has a₃ > 169/100 for Ω ∈ [0, 1]; generated cells `Checked/Trust/NecessityBNCerts.lean`).
+
+## 2026-11-21T1428Z (scheduled run)
+- Env: repo ok (session clone on the stale divergent main, reset by `scripts/start_run.sh`); local Lean (elan), judge's build of a684bfc restored by streaming; subagents: one Sonnet red team, ten Sonnet readers.
+- CI: 44908281464 (a684bfc) and 44911180559 (9ac0ae3) green on every job; nothing to promote.
+- Part 3 (rotation, T5): blind round AV, the first against CLAIMS_READER.md: 5/5 defects accepted by every check, all through the objection summary printed verbatim; 2/5 valid by blind readers (fabricated doubts on valid headlines), false reassurances 0/3. Fix: `Claims.lean` prints only that an objection is open and where (an entry can only lower trust); `check_claims.py --base` O1 (an objection leaves the registry only with a re-freeze or a withdrawal).
+- Annex LIV: PROMPT working note (attack the reader page itself; list the registry text a generator prints), LEDGER experiment (a second round on the page).
+- Next: CI read of the final push; then part 1 by rotation.
