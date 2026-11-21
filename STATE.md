@@ -188,7 +188,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 - **Hypotheses:** each hypothesis of each headline of this section is listed in `TRUST_MAP.md` (per headline).
 - **Not yet:** −0.15 in Checked (blind reading done: `runs/2026-11-12T1428Z/fsatt_reader2/`, brief c19a35e, reading 09b9aba; copy + promotion next), −0.195/−0.198 in Checked (no printed β to read: decide a reading route), necessity of the eight window hypotheses, Ganapol's near-separation rows (finer start cells).
 
-## Mathematics: the Gelfand bound in the three-dimensional ball for every solution (THE RESULT parts 2 and 5; run 2026-11-20T2228Z): promoted to Checked + AUDITED (`Checked/Math/GelfandPDEBound.lean`, headline `Checked.Math.GelfandPDEBound.gelfand_pde_bound`); PROVED once a main run is green on every job
+## Mathematics: the Gelfand bound in the three-dimensional ball for every solution (THE RESULT parts 2 and 5; run 2026-11-20T2228Z): promoted to Checked + AUDITED (`Checked/Math/GelfandPDEBound.lean`, headline `Checked.Math.GelfandPDEBound.gelfand_pde_bound`); PROVED (CI 44838711468 of bab83b4 green on every job incl. the checked job and nanoda 4/4; read run 2026-11-21T0028Z)
 - Statement and proof: `runs/2026-11-20T2228Z/README.md` and LEDGER.
 - **Hypotheses:** each hypothesis of each headline of this section is listed in `TRUST_MAP.md` (per headline).
 
