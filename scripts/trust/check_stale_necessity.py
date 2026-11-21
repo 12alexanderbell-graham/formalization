@@ -24,7 +24,12 @@ its last component when that is unique among the headlines with a necessity entr
 Lines of the reading guide (the banner) and lines that cite their own classification are not exempt: rewrite a stale
 line, e.g. drop the item or write 'classified since (TRUST_MAP.md)' without the number.
 
-Limits: a word list for the scope; a hypothesis described without its number ('the wall condition of `x`') is not
+Rules S-N4, S-N5 (run 2026-11-21T0228Z; see their block below): the default inverted. Every hypothesis number a line
+attaches to a headline is flagged when TRUST_MAP classifies it, unless the line states that same classification;
+ordinal descriptions ('the last hypothesis of `x`') are read as numbers. Blind held-out recall of the word rules:
+6/16 (test SN), 8/17 (SN2); of S-N4 as frozen before its test: 15/16 (SN3), false positives 0/10 in each test.
+
+Limits: a hypothesis described by its content without its number ('the wall condition of `x`') is not
 read; bundled hypotheses count as classified when TRUST_MAP lists them NEEDED or REDUNDANT as a bundle (the page a
 reader checks shows them so).
 
@@ -220,6 +225,180 @@ def scan_line(line, trust, resolve, section_heads=()):
     return stale
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# Rules S-N4 and S-N5 (run 2026-11-21T0228Z): the default inverted. Two held-out writers (tests SN and SN2) put
+# stale lines past the word rules above blind, 6/16 and 8/17: each round of open words and shapes added after
+# reading one writer missed half of the next writer's lines. S-N4 does not look for open words. It finds every
+# hypothesis number a line attaches to a headline with a necessity entry and flags each classified one unless the
+# line states that same classification: the list is followed by its own word (`x` 2, 3 NEEDED), or its clause or
+# sentence states it (needed / refutes / cannot be dropped / witnesses for; redundant) with no plan or open word and
+# not the other classification. Blind figure (test SN3, frozen prototype `runs/2026-11-21T0228Z/t5/sn4_proto.py`,
+# brief registered first): recall 15/16, false positives 0/10 (word rules: 10/16, 0/10).
+# S-N5 (written after SN3, NOT blind): an ordinal description ('the first hypothesis', 'the last two hypotheses',
+# 'the second-to-last hypothesis of `x`') is read as the numbers it names (11 of 11 description lines of the three
+# writers were ordinal). Still not read: a description by content ('the density bound of `x`').
+NUMR = r"\d{1,2}(?:\s*(?:/|,\s*and|,|and|&|or|–|-(?=\d{1,2}\b))\s*\d{1,2})*"
+CUE = re.compile(r"hypothes|necessity|necessar|needed|redundan|\bopen\b|classif|unresolved|undone|unchecked|dropp?|"
+                 r"remov|\bprove\b", re.IGNORECASE)
+AGREE = re.compile(r"\s*(?:\([^)]*\)\s*)?(?:(?:is|are|both|each|all|now|shown|also|already|were|was)\s+)*"
+                   r"(NEEDED|REDUNDANT|needed|redundant)\b")
+PLAN = re.compile(r"\b(?:show|shows|showing|whether|need to|needs to|decide|determine|check|test|tested|testing|"
+                  r"classify|settle|resolve|work out|try|to be|if|still|not yet|open|unclassified|unresolved|"
+                  r"unchecked|undone|next|todo|to do|pending|remain|prove)\b", re.IGNORECASE)
+MATH_BEFORE = re.compile(r"(?:[−+\-/^{=≥≤<>·×*(\[≈~]|\b(?:was|were|previously|formerly|about|other|another)|\bof\s+[a-zα-ω]|"
+                         r"\b(?:β|η|Ω|λ|v|x|t|K|k|q|p|f)\s*(?:=|≥|≤|<|>))\s*$")
+MATH_AFTER = re.compile(r"\s*(?:[/^{}·×*−+=]|\s[a-zα-ω]\b(?!\w))|\s+(?:min|minutes?|s|h|hours?|seconds?|digits|days?|GB|MB|"
+                        r"times|cells|steps|modules|headlines|lines|runs|jobs|commands|files|items|words|readers|of\s+\d)\b")
+NOUN_BEFORE = re.compile(r"\b(?:Tables?|Eqs?|Figs?|Figure|rows?|runs?|[Pp]arts?|items?|steps?|rounds?|pages?|order|"
+                         r"index|[Ss]ections?|lines?|shards?|levels?|digits|degree|[Cc]hapter|[Aa]ppendix|[nNK]|β|"
+                         r"of order)\.?\s*$")
+ORD = {"first": 1, "second": 2, "third": 3, "fourth": 4, "fifth": 5, "sixth": 6, "seventh": 7, "eighth": 8,
+       "ninth": 9, "tenth": 10}
+CNT = {"two": 2, "three": 3, "four": 4}
+PORD = re.compile(r"\bthe\s+(?:very\s+)?(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|last|final|"
+                  r"second[- ]to[- ]last|next[- ]to[- ]last|penultimate)(?:\s+(two|three|four))?\s+(hypothes(?:is|es))\b",
+                  re.IGNORECASE)
+
+
+def _in_code(line, pos):
+    return line[:pos].count("`") % 2 == 1
+
+
+def _nums(s):
+    out = []
+    for a, b in re.findall(r"(\d+)(?:\s*[–-]\s*(\d+))?", s):
+        out += list(range(int(a), int(b) + 1)) if b and 0 <= int(b) - int(a) < 50 else [int(a)]
+    return out
+
+
+def ordinals(line, trust, resolve, section_heads):
+    """S-N5: the line with each ordinal description of hypotheses replaced by their numbers"""
+    def sub(m):
+        word, cnt = m.group(1).lower().replace(" ", "-"), m.group(2)
+        k = CNT[cnt.lower()] if cnt else 1
+        if word in ORD:
+            idx = list(range(ORD[word], ORD[word] + k)) if word == "first" else [ORD[word]]
+        else:
+            a, b = next((a, b) for a, b in clauses(line) if a <= m.start() <= b)
+            after = CODE.search(line, m.end(), b)
+            if after and re.match(r"\s*(?:of|in|for)\s+$", line[m.end():after.start()]):
+                h = resolve(after.group(1))
+            else:
+                cl = {h for c in CODE.finditer(line[a:b]) if (h := resolve(c.group(1)))}
+                ln = {h for c in CODE.finditer(line) if (h := resolve(c.group(1)))}
+                one = cl if len(cl) == 1 else ln if len(ln) == 1 else set(section_heads) if len(section_heads) == 1 else set()
+                h = next(iter(one)) if one else None
+            if h is None:
+                return m.group(0)
+            n = trust[h]["n"]
+            last = n if word in ("last", "final") else n - 1
+            idx = list(range(last - k + 1, last + 1))
+        idx = [i for i in idx if i >= 1]
+        if not idx:
+            return m.group(0)
+        return ("hypotheses " if len(idx) > 1 else "hypothesis ") + ", ".join(map(str, idx))
+    return PORD.sub(sub, line)
+
+
+def refs4(line, trust, resolve, section_heads):
+    """(headline, number, start, end) of every hypothesis number the line attaches to a headline with an entry"""
+    out = []
+    names = [(m.start(), m.end(), resolve(m.group(1))) for m in CODE.finditer(line)]
+    for a, b in clauses(line):
+        cl = line[a:b]
+        hs = [(s, e, h) for s, e, h in names if a <= s < b and h]
+        others = [1 for s, e, h in names if a <= s < b and not h]
+        cue = CUE.search(cl)
+        for m in re.finditer(r"(?<![\w.\-/−])(" + NUMR + r")(?![\w%]|\.\d|\s*(?:→|->|≤|<|>|=|×|\*|\^))", cl):
+            s = a + m.start()
+            e = s + len(m.group(1))
+            if NOUN_BEFORE.search(line[:s]) or MATH_BEFORE.search(line[:s]) or MATH_AFTER.match(line, e) \
+                    or _in_code(line, s):
+                continue  # a number of a formula, a table, a run or of code: not a hypothesis
+            before = [(st, en, h) for st, en, h in hs if en <= s]
+            after = [(st, en, h) for st, en, h in hs if st >= e]
+            if before and re.match(r"^\s*`?[:–—-]?\s*(?:hypothes(?:is|es)\s+)?$", line[before[-1][1]:s]):
+                own = [before[-1][2]]  # `x` 4, 5 / `x`: hypotheses 4, 5
+            elif after and re.match(r"^\s*(?:(?:is|are)\s+)?(?:(?:needed|redundant|open)\s+)?(?:of|in|for|from)\s+"
+                                    r"(?:the\s+\w+\s+)?$", line[e:after[0][0]]):
+                own = [after[0][2]]  # 4, 5 of `x` / 16 is redundant in `x`
+            elif re.search(r"hypothes(?:is|es)\s+$", line[a:s]) or cue:
+                if hs:
+                    own = [hs[0][2]] if len({h for _, _, h in hs}) == 1 else []
+                elif others:
+                    own = []  # the clause names something that is not a headline: referent unknown
+                else:
+                    own = list(section_heads) if len(section_heads) == 1 else []
+            else:
+                own = []
+            for h in own:
+                for i in _nums(m.group(1)):
+                    if 1 <= i <= trust[h]["n"]:
+                        out.append((h, i, s, e))
+    return out
+
+
+def scan_line4(line, trust, resolve, section_heads=()):
+    """S-N4 (and S-N5 through `ordinals`): [(name, hypothesis, rule, why)]"""
+    line = ordinals(line, trust, resolve, section_heads)
+    out, seen = [], set()
+    rs = refs4(line, trust, resolve, section_heads)
+    for h, i, s, e in rs:  # a hypothesis stated with its own word anywhere on the line counts as stated
+        d = trust[h]
+        ag = AGREE.match(line, e)
+        a = next(a for a, b in clauses(line) if a <= s <= b)
+        if ag and ag.group(1).lower() == ("needed" if i in d["needed"] else "redundant" if i in d["redundant"] else "")\
+                and not PLAN.search(line[a:s]):
+            seen.add((h, i))
+    for h, i, s, e in rs:
+        d = trust[h]
+        cls = "needed" if i in d["needed"] else "redundant" if i in d["redundant"] else None
+        if cls is None or (h, i) in seen:
+            continue
+        a, b = next((a, b) for a, b in clauses(line) if a <= s <= b)
+        ag = AGREE.match(line, e)
+        if ag and ag.group(1).lower() == cls and not PLAN.search(line[a:s]):
+            continue  # `x` 2, 3 NEEDED
+        if re.search(r"(?:witness(?:es)?\s+(?:for|of)|(?<!to be )(?<!to )\bshown|\bproved|\bclassified|\bremoved|"
+                     r"\bclosed)\b[^;]{0,40}$", line[a:s], re.IGNORECASE) and not PLAN.search(line[a:s]):
+            continue  # witnesses for hypotheses 2, 3
+        ev = {"needed": r"\bneeded\b|\bnecessary\b|refut|cannot be dropped|\bwitness", "redundant": r"\bredundant\b"}[cls]
+        other = {"needed": r"\bredundant\b", "redundant": r"\bneeded\b|\bnecessary\b|refut|cannot be dropped"}[cls]
+        sa = max([0] + [m.end() for m in re.finditer(r"\.\s+(?=[A-Z(`*])", line[:s])])
+        nx = re.search(r"\.\s+(?=[A-Z(`*])|\.$", line[s:])
+        sentence = line[sa:s + nx.start()] if nx else line[sa:]
+        if any(re.search(ev, sp, re.IGNORECASE) and not PLAN.search(sp) and not re.search(other, sp, re.IGNORECASE)
+               for sp in (line[a:b], sentence)):
+            continue  # the clause or its sentence states this classification, and no other, and no plan
+        seen.add((h, i))
+        out.append((h, i, "S-N4", f"TRUST_MAP.md: hypothesis {i} of `{h}` is {cls.upper()}; the line does not "
+                                  f"state it so"))
+    return out
+
+
+# Rule S-N3 (run 2026-11-21T0228Z, NOT blind; planned in brief SN2): a clause that names exactly one headline whose
+# TRUST_MAP entry has NO open hypothesis, and calls something about its hypotheses open or to be decided, is stale
+# whatever words describe the hypothesis ('two hypotheses of `x` are open: C² on the open ball and radial
+# symmetry', run 2026-11-20T1828Z, true then, stale since). Cost when introduced: 0 lines of the three files; 6 lines
+# of dated run records (not read), 4 of them stale plans.
+HYPW = re.compile(r"hypothes|assumption|\bcondition|necessity|redundan|\bneeded\b|droppable|can be dropped", re.IGNORECASE)
+OPENW3 = re.compile(r"\b(?:open|unclassified|unresolved|undone|not yet|still to be shown|remaining|classify|settle|"
+                    r"decide whether|whether|to be shown|unknown|unchecked)\b", re.IGNORECASE)
+
+
+def scan_line3(line, trust, resolve):
+    out = []
+    for a, b in clauses(line):
+        cl = line[a:b]
+        hs = {h for m in CODE.finditer(cl) if (h := resolve(m.group(1)))}
+        if len(hs) == 1:
+            h = next(iter(hs))
+            if not trust[h]["open"] and HYPW.search(cl) and OPENW3.search(cl):
+                out.append((h, None, "S-N3", f"TRUST_MAP.md: `{h}` has no open hypothesis (all {trust[h]['n']} "
+                                             f"classified)"))
+    return out
+
+
 def scan(text, trust):
     resolve = resolver(trust)
     out = []
@@ -230,7 +409,11 @@ def scan(text, trust):
             end = next((k for k in range(n, len(lines)) if lines[k].startswith("## ")), len(lines))
             sec = "\n".join(lines[n - 1:end])
             heads = sorted({h for c in CODE.findall(sec) if (h := resolve(c))})
-        for item in scan_line(line, trust, resolve, heads):
+        items = scan_line(line, trust, resolve, heads)
+        got = {(h, i) for h, i, _, _ in items}
+        items += [x for x in scan_line4(line, trust, resolve, heads) if (x[0], x[1]) not in got]
+        items += [x for x in scan_line3(line, trust, resolve) if x[0] not in {y[0] for y in items}]
+        for item in items:
             out.append((n, *item))
     return out
 
@@ -277,8 +460,43 @@ def selftest():
         ("- witnesses for hypotheses 1, 6 (`N.lean`), 4, 7 disclosed open", []),     # classified by context
         ("- open baseline updated (`mono_lt` 1, 6 removed)", []),                    # not an open claim
     ]
+    cases4 = [  # S-N4 / S-N5 (run 2026-11-21T0228Z): no open word needed; a stated classification passes
+        ("- Need to show `mono_lt` 6 redundant.", [("FS.mono_lt", 6)]),             # plan verb before an agreeing word
+        ("Part 2: check whether 6 is redundant in `mono_lt`.", [("FS.mono_lt", 6)]),  # number before 'in `x`'
+        ("Next: `mono_lt` - prove 1 necessary; also `sep_equal` hypothesis 1.", [("FS.mono_lt", 1), ("FS.sep_equal", 1)]),
+        ("- **Redundancy:** `mono_lt` hyps 6 not yet tested.", [("FS.mono_lt", 6)]),
+        ("Not yet: `mono_lt` 1-3 by profiles.", [("FS.mono_lt", 1)]),                # hyphen range; 2, 3 have no entry
+        ("Not yet: the sixth hypothesis of `mono_lt`.", [("FS.mono_lt", 6)]),         # S-N5 ordinal
+        ("- `mono_lt`: the very first hypothesis is still unclassified.", [("FS.mono_lt", 1)]),
+        ("Open: whether the second-to-last hypothesis of `mono_lt` can go.", [("FS.mono_lt", 6)]),
+        ("- `mono_lt`: 1 NEEDED, 6 REDUNDANT; 4, 7 open.", []),                       # agreeing statement
+        ("- `mono_lt` 1 and 6: both shown, 1 needed and 6 redundant (witnesses in `N.lean`).", []),
+        ("- the last hypothesis of `mono_lt` is still open.", []),                     # 7 is open
+        ("- velocity 1 − e^{−η} for `mono_lt` (Table 6, row 1, run 6).", []),         # formula, table, row, run
+        ("- Next: `mono_lt` 4 and 7 (both open).", []),
+        ("- with zero wall value it refutes `mono_lt` (hypothesis 1).", []),           # refutation states NEEDED
+        ("- push (`mono_lt`: six new modules, data ≈ 2 min); the other 6 disclosed open.", []),  # durations, counts
+        ("- Next: hypothesis 1 of `mono_lt` takes 6 min; then 6 of `mono_lt`.", [("FS.mono_lt", 1), ("FS.mono_lt", 6)]),
+    ]
+    cases3 = [  # S-N3: `core_pins` has no open hypothesis
+        ("- the bundled condition of `core_pins` is still open.", [("Fid.core_pins", None)]),
+        ("- `core_pins`: whether the second condition can be dropped.", [("Fid.core_pins", None)]),
+        ("- `core_pins` fully classified; `mono_lt` 4 and 7 open.", []),
+        ("- the wall condition of `mono_lt` is open.", []),                           # `mono_lt` has open ones
+        ("- Next: promote `core_pins` to the reader page.", []),                     # no hypothesis word
+    ]
     fails = 0
     resolve = resolver(trust)
+    for text, want in cases3:
+        got = [(h, i) for h, i, _, _ in scan_line3(text, trust, resolve)]
+        if got != want:
+            print(f"selftest FAIL (S-N3): {text!r}: expected {want}, got {got}")
+            fails += 1
+    for text, want in cases4:
+        got = [(h, i) for h, i, _, _ in scan_line4(text, trust, resolve)]
+        if got != want:
+            print(f"selftest FAIL (S-N4): {text!r}: expected {want}, got {got}")
+            fails += 1
     for text, want in cases:
         got = [(h, i) for h, i, _, _ in scan_line(text, trust, resolve)]
         if got != want:
@@ -289,7 +507,7 @@ def selftest():
         if got != want:
             print(f"selftest FAIL (section): {text!r}: expected {want}, got {got}")
             fails += 1
-    print(f"check_stale_necessity selftest: {len(cases) + len(cases_d)} controls; {'FAIL' if fails else 'ok'}")
+    print(f"check_stale_necessity selftest: {len(cases) + len(cases_d) + len(cases4) + len(cases3)} controls; {'FAIL' if fails else 'ok'}")
     return 1 if fails else 0
 
 
@@ -306,7 +524,7 @@ def main(argv):
         got = scan(p.read_text(encoding="utf-8"), trust)
         total += len(got)
         for n, h, i, how, why in got:
-            what = f"hypothesis {i} of `{h}`" if i else f"the open count of `{h}`"
+            what = f"hypothesis {i} of `{h}`" if i else (f"the hypotheses of `{h}`" if how == "S-N3" else f"the open count of `{h}`")
             print(f"{f}:{n}: {how} STALE: called open, {why}. Rewrite the line (drop the item, or say it was "
                   f"classified since, without its number).  [{what}]")
     print(f"check_stale_necessity ({', '.join(files)}): {total} finding(s); {'FAIL' if total else 'ok'}")

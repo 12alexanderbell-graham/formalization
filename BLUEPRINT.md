@@ -496,6 +496,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Hypotheses of four statements of the B1 family; the start of a run (run 2026-11-21T0028Z)
 - `Checked/Trust/NecessityBI.lean`, `scripts/start_run.sh`; the proof: `runs/2026-11-21T0028Z/README.md`.
 
+## Hypothesis lines of the records, default inverted (run 2026-11-21T0228Z)
+- `scripts/trust/check_stale_necessity.py` (rules S-N3, S-N4, S-N5), `runs/2026-11-21T0228Z/t5/` (held-out writers SN2, SN3; scorers).
+
 ## The Gelfand bound without the C² and without the symmetry hypothesis (run 2026-11-20T1828Z)
 - `Checked/Trust/NecessityBF.lean`, `Checked/Trust/NecessityBG.lean`, `Checked/Math/GMaxPrinciple.lean`, `Checked/Math/GRadialPoisson.lean`, `Checked/Math/GSymFree.lean`; Work originals `Work/Math/GMaxPrinciple.lean`, `GRadialPoisson.lean`, `GSymFree.lean`.
 

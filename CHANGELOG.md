@@ -1051,3 +1051,10 @@
 - Part 1 (rotation): hypothesis 1 (`0 ≤ Ω`) of the four flat L19 headlines REDUNDANT (`Checked/Trust/NecessityBI.lean`); the C² hypothesis of `gelfand_pde_bound` studied, gap in the planned route recorded.
 - Annex LIV: `scripts/start_run.sh` (stale clone, elan, cache), PROMPT note, LEDGER experiment.
 - Next: CI read of the final push; then parts 2/5 by rotation.
+
+## 2026-11-21T0228Z (scheduled run)
+- Env: repo ok (session clone present, stale main reset by `scripts/start_run.sh`); local Lean installed (no `.lean` change; `.lake` outputs from the author-files artifact); subagents: two Sonnet (held-out writers).
+- CI: 44849818184 (3dd65c8) green on every job (44 min; nanoda ratio 1.37); nothing to promote.
+- Part 3 (rotation): held-out test SN2 of `check_stale_necessity.py`: blind recall 8/17 (second miss below 0.8). Root cause: a rule that looks for open words; new rule S-N4 inverts the default (every classified hypothesis a line names is flagged unless the line states its classification), frozen and tested blind on a third writer SN3: recall 15/16, false positives 0/10 (old rule 10/16). After SN3 (not blind): S-N5 (ordinal descriptions), S-N3 (no open hypothesis left); controls 26 → 47; 0 lines on the records.
+- Annex LIV: PROMPT working note (invert the default after two blind misses), LEDGER experiment.
+- Next: CI read of the final push; then parts 2/5 by rotation.
