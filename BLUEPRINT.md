@@ -493,6 +493,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Hypothesis lines of the records checked against the trust map (run 2026-11-20T2028Z)
 - `scripts/trust/check_stale_necessity.py` (run by `scripts/trust/check_necessity_prose.py`), `runs/2026-11-20T2028Z/t5/`, `_archive/STATE_steps_2026-11-09_to_2026-11-15.md`.
 
+## Hypotheses of one statement of the B1 family; content descriptions in the records (run 2026-11-21T0828Z)
+- `Checked/Trust/NecessityBL.lean`, `scripts/trust/check_stale_necessity.py` (S-N6), `runs/2026-11-21T0828Z/t5/`, `_archive/STATE_steps_2026-11-18_to_2026-11-20.md`; the proof: `runs/2026-11-21T0828Z/README.md`.
+
 ## Hypotheses of five statements of the B1 family on the third-order polynomial (run 2026-11-21T0628Z)
 - `Checked/Trust/NecessityBK.lean`, `Checked/Trust/NecessityBKCerts.lean`; the proof: `runs/2026-11-21T0628Z/README.md`.
 

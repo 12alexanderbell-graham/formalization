@@ -1073,3 +1073,11 @@
 - Part 1 (rotation, T2b): hypothesis 1 (`1/5 ≤ Ω`) of `cubic_direction` NEEDED (de Sitter counter-example), of `cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss`, `cubic_separation` REDUNDANT; hypotheses 11, 13 of `cubic_direction` NEEDED, 12 REDUNDANT (`Checked/Trust/NecessityBK.lean`, `NecessityBKCerts.lean`).
 - Annex LIV: PROMPT working note (degenerate data first for sign and half-plane conclusions), LEDGER experiment.
 - Next: CI read of the final push; then parts 2/5 by rotation.
+
+## 2026-11-21T0828Z (scheduled run)
+- Env: repo ok (session clone present, stale shallow main reset by hand, then `scripts/start_run.sh`); local Lean installed with elan, judge's build restored by streaming; two held-out Sonnet writers.
+- CI: 44879898559 (4fed7f6) green on every job; nothing to promote.
+- Part 3 (rotation, T5): rule S-N6 of `check_stale_necessity.py` (a hypothesis described by content in an open scope must carry its number); held-out writers SN6 (blind 6/16) and SN7 (blind 16/16 after S-N6b); STATE lines rewritten, next-step items 2f–1h archived verbatim.
+- Part 1 (T2b): hypotheses 13, 14, 15, 16 of `fit_direction` REDUNDANT (`Checked/Trust/NecessityBL.lean`), no certified integral.
+- Annex LIV: PROMPT working note, LEDGER experiment.
+- Next: CI read of the final push; then parts 2/5 by rotation.
