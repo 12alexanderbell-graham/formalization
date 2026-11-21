@@ -419,8 +419,18 @@ HYPC = re.compile(r"hypothes|assumption|\bconditions?\b|\bbounds?\b|\branges?\b|
 GENERIC6 = re.compile(r"\b(?:the|its|their|all|any)\s+(?:\d+\s+)?(?:open|remaining|unclassified|other)\s+"
                       r"(?:hypothes(?:is|es)|assumptions?|conditions?)\b(?:\s+(?:of|in|for)\b)?", re.IGNORECASE)
 PLAN6 = re.compile(r"\b(?:open|unclassified|unresolved|undone|not yet|still to be shown|remaining|classify|settle|"
-                   r"decide whether|whether|to be shown|unknown|unchecked|next|later|todo|to do|pending|"
-                   r"no witness|witness search|needs?|scan first)\b", re.IGNORECASE)
+                   r"decide|decided|undecided|verdict|whether|to be shown|unknown|unchecked|next|later|todo|to do|"
+                   r"pending|no witness|witness search|needs?|scan first|try|attempt|plan|maybe|check)\b|\?",
+                   re.IGNORECASE)
+
+# S-N6b (same run, after the held-out writer SN6 scored 6/16 blind with HYPC alone, NOT blind): the writer described
+# hypotheses by formulas in code spans (`Ω ≤ 1`, `q₁ 0 = 0`) and by necessity words alone ('a witness that the source
+# redshifts of `x` cannot be dropped'); any necessity cue or a formula span now counts as a description.
+CUE6 = re.compile(r"\bneed(?:ed|s)?\b|necess|redundan|\bdrop|droppable|witness|classif|\bmatter|can go|\bremov|"
+                  r"\bequations?\b|\blimits?\b|\bdecay\b|\binitial\b|\bwall\b|\brelation\b|\bredshifts?\b|"
+                  r"\bpositiv|\bdifferentiab|\bfits?\b|\bnormali[sz]ation\b|\bsources?\b|\blaw\b|→|\bgrowth\b",
+                  re.IGNORECASE)
+FORMULA6 = re.compile(r"`[^`]*[=≤≥<>→∈]['^`]*`|`[^`]*\s[^`]*`")
 
 
 def scan_line6(line, trust, resolve, section_heads=()):
@@ -446,7 +456,8 @@ def scan_line6(line, trust, resolve, section_heads=()):
             if not hs and lab and ca >= lab.end() and len(line_names) == 1 and not CODE.search(cl):
                 hs = set(line_names)  # 'Open there: f(0) = 0, the decay class' after the line's one headline
             rest = GENERIC6.sub(" ", cl)
-            if not hs or not HYPC.search(rest) or not (PLAN6.search(line[a:b]) or (lab and a == lab.end())):
+            if not hs or not (HYPC.search(rest) or CUE6.search(rest) or FORMULA6.search(rest)) \
+                    or not (PLAN6.search(line[a:b]) or (lab and a == lab.end())):
                 continue
             for h in sorted(hs):
                 if h in seen or h in numbered or not trust[h]["open"]:
@@ -559,6 +570,11 @@ def selftest():
         ("- **Hypotheses:** each hypothesis of each headline of this section is listed in `TRUST_MAP.md` (per "
          "headline).", []),
         ("- the positivity of the scale factor in `mono_lt` has no witness yet.", [("FS.mono_lt", None)]),
+        # S-N6b, from held-out writer SN6 (runs/2026-11-21T0828Z/t5/LINES_SN6.md, lines 8, 4, 16, 24)
+        ("- Open: whether `Ω ≤ 1` is needed in `mono_lt`.", [("FS.mono_lt", None)]),
+        ("- Not yet: a witness that the source redshifts of `mono_lt` cannot be dropped.", [("FS.mono_lt", None)]),
+        ("- Is the limit of p at infinity redundant in `mono_lt`? Still open.", [("FS.mono_lt", None)]),
+        ("- Docs tidy for `mono_lt`; no change to its hypotheses.", []),
     ]
     fails = 0
     resolve = resolver(trust)
