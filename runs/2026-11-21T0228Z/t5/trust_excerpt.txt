@@ -1,0 +1,8 @@
+- `B1.cubic_misses_z3` (8): needed 2, 3, 7, 8; redundant (each alone, not together) 4, 5, 6; open 1
+- `B1Fit.fit_direction` (19): needed 2, 3, 4, 5, 9, 10, 11, 12, 17, 18, 19; redundant (each alone, not together) 6, 7, 8; open 1, 13, 14, 15, 16
+- `B1FitRL19.rl19_box_unmatched` (20): needed 3, 4, 5, 11, 12; redundant (each alone, not together) 6, 7, 8, 17, 18, 19, 20; open 1, 2, 9, 10, 13, 14, 15, 16
+- `FalknerSkan.Limit.fs_monotone_of_limit` (9): needed 1, 3, 4, 5, 7, 9; open 2, 6, 8
+- `FalknerSkan.NegDecay.fs_neg_decay_max_shear` (16): needed 2, 3, 4, 5, 8, 9, 10, 11, 12, 14; redundant (each alone, not together) 7, 15; open 1, 6, 13, 16
+- `FalknerSkan.SeparationEqual.fs_separation_equal` (18): needed 1, 2, 3, 6, 9, 10, 11, 12, 15, 18; redundant (each alone, not together) 7, 16; open 4, 5, 8, 13, 14, 17
+- `Math.GelfandPDEBound.gelfand_pde_bound` (4): needed 2, 3, 4; open 1
+- `B1L19.l19_sq_central` (11): needed 2, 3, 4, 8, 9, 10, 11; redundant (each alone, not together) 1, 5, 6, 7
