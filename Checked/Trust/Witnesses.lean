@@ -110,6 +110,7 @@ import Checked.Math.BonnorEbertCount
 import Checked.Math.GelfandPDECountValues
 import Checked.Math.GelfandPDECountTurning
 import Checked.Math.GelfandPDECountTurningValues
+import Checked.Math.GelfandPDECountTurningValuesFive
 import Checked.Math.GelfandPDEBound
 import Checked.Math.GelfandTurningValuesFive
 
@@ -1300,5 +1301,12 @@ theorem gelfand_pde_bound : nonvacuity% Checked.Math.GelfandPDEBound.gelfand_pde
   obtain ⟨u, hu, hc, hb, -, hpde⟩ :=
     Checked.Math.GelfandPDEExists.gelfand_pde_radial_exists 3.321992118 (by norm_num) le_rfl
   exact ⟨3.321992118, u, hu, hc, hb, hpde, trivial⟩
+
+/-! Number of radial solutions of the Gelfand problem with the fourth and fifth turning values enclosed (run
+2026-11-21T1028Z): a closed statement, no hypotheses. -/
+
+theorem gelfand_pde_radial_count_turning_values_five :
+    nonvacuity% Checked.Math.GelfandPDECountTurningValuesFive.gelfand_pde_radial_count_turning_values_five :=
+  trivial
 
 end Checked.Trust.NV
