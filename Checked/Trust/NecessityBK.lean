@@ -8,7 +8,8 @@ import Checked.Trust.NecessityBKCerts
 
 Run 2026-11-21T0628Z. `B1.cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss`, `B1Sep.cubic_separation` and
 `B1Sep.cubic_direction` assume flat ΛCDM with matter density between one fifth and two fifths. Their first
-hypothesis, the lower density bound, is REDUNDANT in the first four and NEEDED in the last.
+hypothesis, the lower density bound, is REDUNDANT in the first four and NEEDED in the last; the other open
+hypotheses of the last are classified too.
 
 * **NEEDED in `cubic_direction`** (`cubic_direction_h1`): in de Sitter space (density zero, `a = exp`) the
   distances to the two sources are twelve and fifty-six over the Hubble rate; a cubic whose values at the two
@@ -17,6 +18,14 @@ hypothesis, the lower density bound, is REDUNDANT in the first four and NEEDED i
   Near that cubic the side is set by the sign of five halves of the ΛCDM polynomial at the nearer source minus
   its value at the farther one, which is negative for every density below about sixteen hundredths: the bound is
   not a convenience of the proof.
+* **`cubic_direction`, the rest of its open hypotheses** (`bk_dir_iff`: the conclusion is the sign of the cubic's
+  values at the two sources against five halves and one of the ΛCDM-implied ones; `bk_cubic'`: a cubic with any
+  two values there). Without the positive normalisation (`cubic_direction_h11`, NEEDED) a negative normalisation
+  with both values negative, and without the positive value at the farther source (`cubic_direction_h13`,
+  NEEDED) a negative value there, each of the size the two residuals need, in the model of density one fifth of
+  the non-vacuity witness (`bk_model`: its distance ratio is at least twenty-seven tenths). The positive value at
+  the nearer source is REDUNDANT (`cubic_direction_r12`): if it fails, the farther value is positive and the
+  direction holds outright.
 * **REDUNDANT in the other four, densities from zero to one fifth**: enclosures of the two distance integrals on
   five density pieces (`Checked/Trust/NecessityBKCerts.lean`, the method of `B1Truncation`), then the steps of
   the headlines' own proofs with the density bounded above only (`bk_z3_of`, `bk_z7_of`, `bk_shape_of`,
@@ -90,22 +99,34 @@ theorem cubic_direction_h1 : necessity% Checked.Cosmography.B1Sep.cubic_directio
   have e73 : -Real.log 8 ≤ -Real.log 4 := by
     have := Real.log_le_log h4 (by norm_num : (4:ℝ) ≤ 8); linarith
   have e30 : -Real.log 4 ≤ 0 := by have := Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4); linarith
-  have hX : lumDistFlat Real.exp 0 (-Real.log 8)
-        / logPolyDL3 (Real.log 10 * bkB2) (Real.log 10 ^ 2 * bkB3) 1 (redshift Real.exp 0 (-Real.log 8))
-      = lumDistFlat Real.exp 0 (-Real.log 4)
-        / logPolyDL3 (Real.log 10 * bkB2) (Real.log 10 ^ 2 * bkB3) 1 (redshift Real.exp 0 (-Real.log 4)) := by
-    rw [hz3, hz7, hP3, hP7, hD3, hD7]
-    field_simp
-    ring
+  have hH : (0:ℝ) < 9 * Real.log 2 ^ 3 / 1000 := by positivity
+  have hX3 : lumDistFlat Real.exp 0 (-Real.log 4)
+      / logPolyDL3 (Real.log 10 * bkB2) (Real.log 10 ^ 2 * bkB3) (9 * Real.log 2 ^ 3 / 1000)
+        (redshift Real.exp 0 (-Real.log 4)) = 1 := by
+    rw [hz3, poly_gen _ _ _ _ hH.ne', log4, mul_div_cancel_left₀ _ (Real.log_pos (by norm_num : (1:ℝ) < 10)).ne',
+      mul_div_cancel_left₀ _ (pow_ne_zero 2 (Real.log_pos (by norm_num : (1:ℝ) < 10)).ne'), bk_P 2, hD3]
+    field_simp; ring
+  have hX7 : lumDistFlat Real.exp 0 (-Real.log 8)
+      / logPolyDL3 (Real.log 10 * bkB2) (Real.log 10 ^ 2 * bkB3) (9 * Real.log 2 ^ 3 / 1000)
+        (redshift Real.exp 0 (-Real.log 8)) = 1 := by
+    rw [hz7, poly_gen _ _ _ _ hH.ne', log8, mul_div_cancel_left₀ _ (Real.log_pos (by norm_num : (1:ℝ) < 10)).ne',
+      mul_div_cancel_left₀ _ (pow_ne_zero 2 (Real.log_pos (by norm_num : (1:ℝ) < 10)).ne'), bk_P 3, hD7]
+    field_simp; ring
+  have hq3 : 0 < logPolyDL3 (Real.log 10 * bkB2) (Real.log 10 ^ 2 * bkB3) (9 * Real.log 2 ^ 3 / 1000)
+      (redshift Real.exp 0 (-Real.log 4)) := by
+    have h := hX3; rw [div_eq_one_iff_eq] at h
+    · rw [← h, hD3]; norm_num
+    · intro h0; rw [h0, div_zero] at hX3; norm_num at hX3
+  have hq7 : 0 < logPolyDL3 (Real.log 10 * bkB2) (Real.log 10 ^ 2 * bkB3) (9 * Real.log 2 ^ 3 / 1000)
+      (redshift Real.exp 0 (-Real.log 8)) := by
+    have h := hX7; rw [div_eq_one_iff_eq] at h
+    · rw [← h, hD7]; norm_num
+    · intro h0; rw [h0, div_zero] at hX7; norm_num at hX7
   refine ⟨0, by norm_num, Real.exp, -Real.log 8, -Real.log 4, 0, e73, e30,
     fun s _ => Real.exp_pos s, fun s _ => Real.differentiableAt_exp, by rw [hH0]; norm_num, ?_, hz3, hz7,
-    Real.log 10 * bkB2, Real.log 10 ^ 2 * bkB3, 1,
-    5 * Real.logb 10 (lumDistFlat Real.exp 0 (-Real.log 4)
-        / logPolyDL3 (Real.log 10 * bkB2) (Real.log 10 ^ 2 * bkB3) 1 (redshift Real.exp 0 (-Real.log 4))),
-    one_pos, ?_, ?_, by simp, by rw [hX]; simp, ?_⟩
+    Real.log 10 * bkB2, Real.log 10 ^ 2 * bkB3, 9 * Real.log 2 ^ 3 / 1000, 0,
+    hH, hq3, hq7, by rw [hX3]; simp, by rw [hX7]; simp, ?_⟩
   · intro s _; rw [Checked.Trust.NecessityAW.hubble_exp]; simp
-  · rw [hz3, hP3]; positivity
-  · rw [hz7, hP7]; positivity
   · rw [not_lt]
     unfold lusA2 lusA3 bkB2 bkB3
     have hlb : Real.logb 10 2 = Real.log 2 / Real.log 10 := rfl
@@ -757,5 +778,151 @@ theorem cubic_separation_r1 : dropped% Checked.Cosmography.B1Sep.cubic_separatio
     have hmin : (-1 / 511 : ℝ) ≤ Ω := by nlinarith
     exact fin (544 / 81) (33 / 10) _ _ (by linarith) (by linarith) (by linarith) (by norm_num)
       (bksep_linn Ω hmin h0.le) (bksep_mqn Ω hmin h0.le) (by norm_num) bksep_ddn
+
+/-! ## `cubic_direction`: the sign of the normalisation and the positivity of the two polynomial values -/
+
+/-- The direction conclusion is the sign of `P₇ − (5/2) P₃ − Q₇ + (5/2) Q₃` (polynomial values of the cubic and of
+the ΛCDM-implied cubic at `u = 2 ln 2` and `u = 3 ln 2`). -/
+theorem bk_dir_iff (Ω a₂ a₃ : ℝ) :
+    a₂ - lusA2 Ω < 7 * Real.logb 10 2 * (a₃ - lusA3 Ω) ↔
+      0 < (3 * Real.log 2 + a₂ / Real.log 10 * (3 * Real.log 2) ^ 2
+          + a₃ / Real.log 10 ^ 2 * (3 * Real.log 2) ^ 3)
+        - 5 / 2 * (2 * Real.log 2 + a₂ / Real.log 10 * (2 * Real.log 2) ^ 2
+          + a₃ / Real.log 10 ^ 2 * (2 * Real.log 2) ^ 3)
+        - Qc Ω (3 * Real.log 2) + 5 / 2 * Qc Ω (2 * Real.log 2) := by
+  set l := Real.log 10 with hl
+  set ℓ := Real.log 2 with hℓ
+  have hl0 : 0 < l := Real.log_pos (by norm_num)
+  have hℓ0 : 0 < ℓ := Real.log_pos (by norm_num)
+  have hlb : Real.logb 10 2 = ℓ / l := rfl
+  rw [hlb]
+  have e : (3 * ℓ + a₂ / l * (3 * ℓ) ^ 2 + a₃ / l ^ 2 * (3 * ℓ) ^ 3)
+        - 5 / 2 * (2 * ℓ + a₂ / l * (2 * ℓ) ^ 2 + a₃ / l ^ 2 * (2 * ℓ) ^ 3)
+        - Qc Ω (3 * ℓ) + 5 / 2 * Qc Ω (2 * ℓ)
+      = ℓ ^ 2 / l * (7 * (ℓ / l) * (a₃ - lusA3 Ω) - (a₂ - lusA2 Ω)) := by
+    unfold Qc lusA2 lusA3; field_simp; ring
+  rw [e]
+  constructor
+  · intro h; exact mul_pos (by positivity) (by linarith)
+  · intro h
+    have := (pos_iff_pos_of_mul_pos h).1 (by positivity)
+    linarith
+
+/-- A cubic with prescribed values at `u = 2 ln 2` and `u = 3 ln 2`. -/
+theorem bk_cubic (p3 p7 : ℝ) : ∃ b₂ b₃ : ℝ,
+    2 * Real.log 2 + b₂ * (2 * Real.log 2) ^ 2 + b₃ * (2 * Real.log 2) ^ 3 = p3 ∧
+    3 * Real.log 2 + b₂ * (3 * Real.log 2) ^ 2 + b₃ * (3 * Real.log 2) ^ 3 = p7 := by
+  have hℓ : Real.log 2 ≠ 0 := (Real.log_pos (by norm_num)).ne'
+  refine ⟨(27 * (p3 - 2 * Real.log 2) - 8 * (p7 - 3 * Real.log 2)) / (36 * Real.log 2 ^ 2),
+    (4 * (p7 - 3 * Real.log 2) - 9 * (p3 - 2 * Real.log 2)) / (36 * Real.log 2 ^ 3), ?_, ?_⟩
+  · field_simp; ring
+  · field_simp; ring
+
+/-- The same, as the coefficients of `logPolyDL3` (in units of powers of `ln 10`). -/
+theorem bk_cubic' (p3 p7 H : ℝ) (hH : H ≠ 0) : ∃ a₂ a₃ : ℝ,
+    logPolyDL3 a₂ a₃ H 3 = p3 / H ∧ logPolyDL3 a₂ a₃ H 7 = p7 / H ∧
+    2 * Real.log 2 + a₂ / Real.log 10 * (2 * Real.log 2) ^ 2
+      + a₃ / Real.log 10 ^ 2 * (2 * Real.log 2) ^ 3 = p3 ∧
+    3 * Real.log 2 + a₂ / Real.log 10 * (3 * Real.log 2) ^ 2
+      + a₃ / Real.log 10 ^ 2 * (3 * Real.log 2) ^ 3 = p7 := by
+  obtain ⟨b₂, b₃, h3, h7⟩ := bk_cubic p3 p7
+  have hl : Real.log 10 ≠ 0 := (Real.log_pos (by norm_num)).ne'
+  have e2 : Real.log 10 * b₂ / Real.log 10 = b₂ := mul_div_cancel_left₀ _ hl
+  have e3 : Real.log 10 ^ 2 * b₃ / Real.log 10 ^ 2 = b₃ := mul_div_cancel_left₀ _ (pow_ne_zero 2 hl)
+  refine ⟨Real.log 10 * b₂, Real.log 10 ^ 2 * b₃, ?_, ?_, ?_, ?_⟩
+  · rw [poly_gen _ _ _ _ hH, log4, e2, e3, h3]
+  · rw [poly_gen _ _ _ _ hH, log8, e2, e3, h7]
+  · rw [e2, e3, h3]
+  · rw [e2, e3, h7]
+
+/-- The model of the non-vacuity witness (`a = sinh(3t/2)^{2/3}`, density one fifth) with `d_L H₀` enclosed at
+both sources from the headline module's own bounds. -/
+theorem bk_model : ∃ (a : ℝ → ℝ) (t₇ t₃ t₀ : ℝ), t₇ ≤ t₃ ∧ t₃ ≤ t₀ ∧
+      (∀ s ∈ Set.Icc t₇ t₀, 0 < a s) ∧ (∀ s ∈ Set.Icc t₇ t₀, DifferentiableAt ℝ a s) ∧
+      0 < hubble a t₀ ∧
+      (∀ s ∈ Set.Icc t₇ t₀,
+        hubble a s = hubble a t₀ * √(1 / 5 * (1 + redshift a t₀ s) ^ 3 + 1 - 1 / 5)) ∧
+      redshift a t₀ t₃ = 3 ∧ redshift a t₀ t₇ = 7 ∧
+      0 < lumDistFlat a t₀ t₃ ∧ 0 < lumDistFlat a t₀ t₇ ∧
+      (27 / 10 : ℝ) * lumDistFlat a t₀ t₃ ≤ lumDistFlat a t₀ t₇ := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7⟩ := exists_flatLCDM_on
+  have hsub : Set.Icc t₃ t₀ ⊆ Set.Icc t₇ t₀ := Set.Icc_subset_Icc_left h73
+  have hb3 := bk_br3 (1 / 5) (by norm_num) (by norm_num) a t₃ t₀ h30 (fun s hs => hpos s (hsub hs))
+    (fun s hs => hdiff s (hsub hs)) hH₀ (fun s hs => hH s (hsub hs)) hz3
+  have hb7 := bk_br7 (1 / 5) (by norm_num) (by norm_num) a t₇ t₀ (le_trans h73 h30) hpos hdiff hH₀ hH hz7
+  have hl3 := J3_lower0 (1 / 5) (by norm_num) (by norm_num)
+  have hu3 := J3_upper0 (1 / 5) le_rfl (by norm_num)
+  have hl7 := (J7_lower (1 / 5) le_rfl (by norm_num)).1 (by norm_num)
+  have h3 : 0 < lumDistFlat a t₀ t₃ * hubble a t₀ := by rw [hb3]; norm_num at hl3 ⊢; linarith
+  have h7 : 0 < lumDistFlat a t₀ t₇ * hubble a t₀ := by rw [hb7]; norm_num at hl7 ⊢; linarith
+  refine ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7,
+    pos_of_mul_pos_left h3 hH₀.le, pos_of_mul_pos_left h7 hH₀.le, ?_⟩
+  have key : (27 / 10 : ℝ) * (lumDistFlat a t₀ t₃ * hubble a t₀) ≤ lumDistFlat a t₀ t₇ * hubble a t₀ := by
+    rw [hb3, hb7]; norm_num at hl7 hu3 ⊢; linarith
+  have : (27 / 10 : ℝ) * lumDistFlat a t₀ t₃ * hubble a t₀ ≤ lumDistFlat a t₀ t₇ * hubble a t₀ := by
+    linarith
+  exact le_of_mul_le_mul_right this hH₀
+
+theorem bk_Q15 : 5 / 2 * Qc (1 / 5) (2 * Real.log 2) - Qc (1 / 5) (3 * Real.log 2) ≤ 1 := by
+  have h1 := Qc_mono (1 / 5) (2 * Real.log 2) (2 * 0.6931471808) (by norm_num) (by norm_num) (by positivity)
+    (by linarith [Real.log_two_lt_d9])
+  have h2 := Qc_mono (1 / 5) (3 * 0.6931471803) (3 * Real.log 2) (by norm_num) (by norm_num) (by norm_num)
+    (by linarith [Real.log_two_gt_d9])
+  unfold Qc at h1 h2 ⊢; norm_num at h1 h2 ⊢; linarith
+
+/-- Without `0 < H`: a negative normalisation, with both polynomial values negative and in the ratio of the
+model's distances (density one fifth). -/
+theorem cubic_direction_h11 : necessity% Checked.Cosmography.B1Sep.cubic_direction 11 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7, hd3, hd7, hr⟩ := bk_model
+  set r := lumDistFlat a t₀ t₇ / lumDistFlat a t₀ t₃ with hrdef
+  have hr27 : 27 / 10 ≤ r := by rw [hrdef, le_div_iff₀ hd3]; linarith
+  obtain ⟨a₂, a₃, e3, e7, P3, P7⟩ := bk_cubic' (-10) (-10 * r) (-1) (by norm_num)
+  have hX : lumDistFlat a t₀ t₇ / logPolyDL3 a₂ a₃ (-1) 7 = lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ (-1) 3 := by
+    rw [e3, e7, hrdef]; field_simp
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7,
+    a₂, a₃, -1, 5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ (-1) 3),
+    by rw [hz3, e3]; norm_num, by rw [hz7, e7]; nlinarith, by rw [hz3]; simp, by rw [hz7, hX]; simp, ?_⟩
+  rw [bk_dir_iff, P3, P7, not_lt]
+  have := bk_Q15
+  nlinarith
+
+/-- Without `0 < P(z = 7)`: a negative polynomial value at the farther source of the size the matching needs
+(the logarithm of `Real.logb` reads its absolute value). -/
+theorem cubic_direction_h13 : necessity% Checked.Cosmography.B1Sep.cubic_direction 13 := by
+  obtain ⟨a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7, hd3, hd7, hr⟩ := bk_model
+  set r := lumDistFlat a t₀ t₇ / lumDistFlat a t₀ t₃ with hrdef
+  have hr0 : 0 < r := div_pos hd7 hd3
+  set H := hubble a t₀
+  obtain ⟨a₂, a₃, e3, e7, P3, P7⟩ := bk_cubic' 1 (-r) H hH₀.ne'
+  have hX : lumDistFlat a t₀ t₇ / logPolyDL3 a₂ a₃ H 7 = -(lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H 3) := by
+    rw [e3, e7, hrdef]; field_simp
+  refine ⟨1 / 5, by norm_num, by norm_num, a, t₇, t₃, t₀, h73, h30, hpos, hdiff, hH₀, hH, hz3, hz7,
+    a₂, a₃, H, 5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H 3),
+    hH₀, by rw [hz3, e3]; positivity, by rw [hz3]; simp, by rw [hz7, hX, Real.logb_neg_eq_logb]; simp, ?_⟩
+  rw [bk_dir_iff, P3, P7, not_lt]
+  have := bk_Q15
+  nlinarith
+
+/-- Without `0 < P(z = 3)`: if the polynomial value at the nearer source is not positive, the value at the
+farther one is, and the direction holds outright. -/
+theorem cubic_direction_r12 : dropped% Checked.Cosmography.B1Sep.cubic_direction 12 := by
+  intro Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hdiff hH₀ hH hz3 hz7 a₂ a₃ H c hHp hp7 hm3 hm7
+  rcases lt_or_ge 0 (logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) with hp3 | hp3
+  · exact cubic_direction Ω h1 h2 a t₇ t₃ t₀ h73 h30 hpos hdiff hH₀ hH hz3 hz7 a₂ a₃ H c hHp hp3 hp7
+      hm3 hm7
+  rw [hz3, poly_gen _ _ _ _ hHp.ne', log4] at hp3
+  rw [hz7, poly_gen _ _ _ _ hHp.ne', log8] at hp7
+  have q3 : 2 * Real.log 2 + a₂ / Real.log 10 * (2 * Real.log 2) ^ 2
+      + a₃ / Real.log 10 ^ 2 * (2 * Real.log 2) ^ 3 ≤ 0 := by
+    by_contra hc; push Not at hc; have := div_pos hc hHp; linarith
+  have q7 : 0 < 3 * Real.log 2 + a₂ / Real.log 10 * (3 * Real.log 2) ^ 2
+      + a₃ / Real.log 10 ^ 2 * (3 * Real.log 2) ^ 3 := (div_pos_iff_of_pos_right hHp).1 hp7
+  rw [bk_dir_iff]
+  have hm := dir_mq Ω h1 h2
+  have hQ2 : Qc Ω (2 * 0.6931471803) ≤ Qc Ω (2 * Real.log 2) :=
+    Qc_mono Ω _ _ h1 h2 (by norm_num) (by linarith [Real.log_two_gt_d9])
+  have hQ3 : Qc Ω (3 * Real.log 2) ≤ Qc Ω (3 * 0.6931471808) :=
+    Qc_mono Ω _ _ h1 h2 (by positivity) (by linarith [Real.log_two_lt_d9])
+  linarith
 
 end Checked.Trust.NCBK

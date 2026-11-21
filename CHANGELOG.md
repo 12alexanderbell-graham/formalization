@@ -1066,3 +1066,10 @@
 - Annex LIV: PROMPT working note, LEDGER experiment (per-cell predicates on generated chains).
 - Next: CI read of the final push; then part 1 by rotation.
 
+
+## 2026-11-21T0628Z (scheduled run)
+- Env: repo ok (session clone present, stale shallow main reset by hand, then `scripts/start_run.sh`); local Lean installed with elan, judge's build restored by streaming; no subagents.
+- CI: 44871838539 (8c99e44) green on every job → `gelfand_turning_values_five` PROVED (STATE heading, L.2 line).
+- Part 1 (rotation, T2b): hypothesis 1 (`1/5 ≤ Ω`) of `cubic_direction` NEEDED (de Sitter counter-example), of `cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss`, `cubic_separation` REDUNDANT; hypotheses 11, 13 of `cubic_direction` NEEDED, 12 REDUNDANT (`Checked/Trust/NecessityBK.lean`, `NecessityBKCerts.lean`).
+- Annex LIV: PROMPT working note (degenerate data first for sign and half-plane conclusions), LEDGER experiment.
+- Next: CI read of the final push; then parts 2/5 by rotation.

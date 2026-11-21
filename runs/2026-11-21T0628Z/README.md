@@ -1,6 +1,35 @@
 # Run 2026-11-21T0628Z
 
-**THE RESULT:** part 1 by rotation (STATE 2t). (stub; filled at the end of the run)
+**THE RESULT:** part 1 by rotation (STATE 2t; next step STATE 2u). The Lean theorems of this run and their statements are in section What we did.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** For five statements of the B1 family (the third-order polynomial of Risaliti & Lusso 2019 against exact flat ΛCDM), what their lower density bound costs: for four a kernel theorem shows the statement with that hypothesis removed, and for the fifth a kernel theorem gives data meeting every other hypothesis with the conclusion false; that fifth statement now has every hypothesis classified (section What we did; `TRUST_MAP.md`).
+
+**Weakest unchecked step:** the remaining open hypotheses of the B1 family (`TRUST_MAP.md`, per headline), and whether the referee's reading of the direction statement is the one a scientist would take.
 
 ## Start
-- 06:28Z. Session clone on the stale divergent main (fa47717); reset to origin/main 8c99e44 by hand, then `scripts/start_run.sh`. No LOCK → taken.
+- 06:28Z. Session clone on the stale divergent main (fa47717) and shallow; reset to origin/main 8c99e44 by hand, then `scripts/start_run.sh` (elan, toolchain v4.35.0, Mathlib cache). No LOCK → taken (f9912db).
+- Env: repo ok (add_repo not exposed; the session clone was present). Local Lean; judge build of 44871838539 (8c99e44) restored by streaming; `lake build Checked` 3763 jobs replayed. No subagents.
+- CI at start: 44871838539 (8c99e44, run 0428Z's final push) green on every job (13/13, incl. the checked job, leanchecker 4/4 and nanoda 4/4) → `gelfand_turning_values_five` PROVED: judged template in its STATE heading; L.2 line sent.
+
+## Bottleneck (and what a yes/no changes)
+- Section Next of run 2026-11-21T0028Z: the lower density bound `1/5 ≤ Ω` of `B1.cubic_misses_z3`, `cubic_misses_z7`, `cubic_shape_miss`, `B1Sep.cubic_separation`, `cubic_direction`, open since 2026-11-18 and listed in STATE as "REDUNDANT-by-extension candidates". Can each statement be proved without it, or refuted? Yes → five fewer open hypotheses and a statement whose density range is known to matter or not.
+
+## What we did
+- **`cubic_direction` hypothesis 1 NEEDED** (`Checked/Trust/NecessityBK.lean`, `cubic_direction_h1`). Before writing any Lean, the float scan of the margins (`scripts/scan_low.py`) showed every miss growing as the density falls, as STATE expected; but the direction statement is a half-plane, and its proof needs five halves of the ΛCDM polynomial at u = 2 ln 2 to exceed its value at u = 3 ln 2, which fails below Ω ≈ 0.1576 (−0.61 at Ω = 0). Near the cubic that vanishes at both sources (allowed: the positivity hypotheses are strict but the values can be arbitrarily small) the direction is set by that sign, so the statement is false there. Witness: de Sitter space `a = exp` with Ω = 0 (`exp_model`), sources at t = −ln 4, −ln 8 (`bk_redshift`, distances 12 and 56 by `bk_comoving`, `bk_lumdist`), normalisation H = 9ℓ³/1000, offset c = 0, the cubic b₂ = −5/(6ℓ) − 31ℓ/1000, b₃ = 1/(6ℓ²) + 29/1000 in u = ln(1+z), ℓ = ln 2: its values at the two sources are 108ℓ³/1000 and 504ℓ³/1000, in the ratio 14/3 of the distances (`bk_P`, `bk_poly`), so with that H the cubic's distance equals the exact one at both sources (both residuals zero), and a₂ − a₂^ΛCDM − 7 log₁₀2 (a₃ − a₃^ΛCDM) = (ln 10/ℓ)(49ℓ²/6 − 234ℓ²/1000 − 3ℓ/2 − 2) ≥ 0.
+- **`cubic_direction` hypotheses 11, 13 NEEDED, 12 REDUNDANT** (same module). `bk_dir_iff`: the conclusion holds iff P₇ − (5/2)P₃ − Q₇ + (5/2)Q₃ > 0 (P the cubic's values in u = ln(1+z) at the two sources, Q the ΛCDM-implied ones); `bk_cubic'`: a cubic with any two prescribed values (a 2×2 system in b₂, b₃ with determinant 36ℓ⁵). `bk_model`: the non-vacuity model (a = sinh(3t/2)^{2/3}, Ω = 1/5) with d_L(z=7) ≥ 2.7 d_L(z=3) from `J3_upper0`, `J7_lower`. 11 (0 < H): H = −1, P₃ = −10, P₇ = −10r with r = d_L(7)/d_L(3), so both residuals are equal and the sign expression is 10(5/2 − r) + (5/2)Q₃ − Q₇ ≤ −2 + 1 (`bk_Q15`). 13 (0 < logPoly at z = 7): P₃ = 1, P₇ = −r (Lean's logarithm reads |x|, `Real.logb_neg_eq_logb`), sign expression −r − 5/2 + 1 < 0. 12 (0 < logPoly at z = 3) REDUNDANT: if P₃ ≤ 0 then P₇ > 0 and the expression exceeds (5/2)Q₃ − Q₇ > 0 (`dir_mq`).
+- **The other four: hypothesis 1 REDUNDANT** (`cubic_misses_z3_r1`, `cubic_misses_z7_r1`, `cubic_shape_miss_r1`, `cubic_separation_r1`).
+  - The headlines' proof steps restated with the density bounded above only (`bk_Qc_pos`, `bk_Qc_mono`: the ΛCDM polynomial is positive and increasing in u for every Ω ≤ 2/5), from bounds of d_L H₀ instead of the integrals (`bk_z3_of`, `bk_z7_of`, `bk_shape_of`, `bk_match`, `bk_case` = `B1Sep.case_step` without the lower bound).
+  - 0 ≤ Ω < 1/5: enclosures of J₃, J₇ on five density pieces (0, 1/50, 1/20, 1/10, 3/20, 1/5) in `Checked/Trust/NecessityBKCerts.lean`, generated by `scripts/emit_bkcerts.py` (the 2026-10-31 generator `emit_b1.py` with new pieces; lower bounds 40 cells, upper bounds 80 cells; margins in its comments, smallest 0.165 for z = 3 on the last piece); per-piece constants of the separation step by `scripts/emit_bksep.py` (ρ from 2.60 to 2.96, m from 0.64 to 2.78). One piece [0, 1/20] was too wide for the upper bound of J₃ (shape margin −0.45); split at 1/50.
+  - Ω < 0: a radicand of the law negative at a source admits no model (`bi_unreach`); otherwise `bk_far` (new: the intermediate value theorem gives the time with a = w²a₀, the bridge `bi_bridge` from it, the comparison `bi_lower` with the empty model, and monotone comoving distance) gives d_L H₀ ≥ (1+z)(1/w² − 1): w = 5/9 at z = 3 (≥ 224/25), w = 9/25 at z = 7 (≥ 4352/81); `bk_up3` bounds d_L H₀ at z = 3 by 4 · 33/10 (`bi_upper` and the radicand at v = 1/2 for Ω ≥ −1/511).
+- Local: `lake build Checked` (3765 jobs), `#print axioms` of the eight theorems: propext, Classical.choice, Quot.sound.
+
+## Measure
+- Necessity (TRUST_MAP after this run's relock): NEEDED 753 → 756, REDUNDANT 228 → 233, open 54 → 46; headlines with every hypothesis classified 146 → 151 of 181 (the five of this run). `cubic_direction` is the first B1 headline whose stated density range is shown to matter at its lower end: the statement is false for densities below about 0.158.
+
+## Next
+- CI read first: the run of this run's final push (two new Trust modules `NecessityBKCerts`, `NecessityBK`; no headline changed). Green on every job → nothing to promote; red → `python3 scripts/trust/records_check.py <base>`.
+- Part 1 next: the curved pair `l19_sq_curved`, `l19_sqg_curved` (1, 8), then `fit_direction` and `rl19_box_unmatched` (`TRUST_MAP.md`). For each half-plane or sign conclusion, compute the degenerate data first (as here: the limit where the positive values tend to zero).
+- Parts 2/5 next: as in section Next of `runs/2026-11-21T0428Z/README.md`.
+
+## End
+- (filled at the end of the run)
