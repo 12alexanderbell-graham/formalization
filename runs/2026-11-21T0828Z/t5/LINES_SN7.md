@@ -1,0 +1,24 @@
+- Open: the time ordering t₃ ≤ t₁ of `rl19_box_unmatched` (is it needed? not decided)
+- `eta_ratios`: the FR-cosmology structure hypothesis is NEEDED, dropping it makes the statement false.
+- Part 1 later: the matching at the far source of `l19_sq_curved`.
+- To do: the wall condition q 0 = -5158e-6 of `fs_neg_reversed_printed_overshoots` is still unclassified.
+- Not yet: a witness for the source redshift at t₅ in `rl19_box_unmatched`.
+- Next: promote `fs_neg_reversed_printed_overshoots` to the reader page.
+- Check whether `0 < H` can be dropped from `rl19_box_unmatched` (try the other direction first).
+- `l19_sq_curved`: the lower bound 1/10 ≤ Ω is still open.
+- Open: whether the nonvanishing of F (curv a t₀) can go from `eta_ratios`?
+- Next: try to drop Ω ≤ 1 from `l19_sq_curved`; also the Friedmann-type hubble relation on the window is not yet classified.
+- `fs_neg_reversed_printed_overshoots` 4 and 5 are open.
+- To do: the p-derivative equation of `fs_neg_reversed_printed_overshoots` (HasDerivWithinAt p (q η)) still to be decided.
+- Plan: check the ordering t₁ ≤ t₀ in `rl19_box_unmatched` and the nonvanishing of F (curv) in `eta_ratios`.
+- The open hypotheses of `l19_sq_curved` still need triage before the next pass.
+- Not yet: does `rl19_box_unmatched` need differentiability of a on the window? (parentheses: to be decided)
+- Open: the structure hypothesis IsFRCosmo of `eta_ratios` still lacks a witness.
+- `rl19_box_unmatched` 13 and 16 are open.
+- Next: the derivative equation for f of `fs_neg_reversed_printed_overshoots` and the ordering t₅ ≤ t₃ of `l19_sq_curved`.
+- The time orderings of `rl19_box_unmatched` t₃ ≤ t₁ and t₁ ≤ t₀ are NEEDED.
+- Not yet: whether the upper bound omega0 ≤ 11/10 of `l19_sq_curved` can be dropped.
+- To do: positivity of the Hubble rate at t₀ in `l19_sq_curved` (hubble a t₀ > 0), still to be decided.
+- Part 1 later: positivity of a on the window for `rl19_box_unmatched`, whether it can be dropped.
+- Open: the logPolyDL3 positivity at the far source in `rl19_box_unmatched` is unclassified.
+- `eta_ratios`: only the bounds are left, the 3 and 4 nonvanishing conditions are open.
