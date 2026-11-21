@@ -29,8 +29,9 @@ attaches to a headline is flagged when TRUST_MAP classifies it, unless the line 
 ordinal descriptions ('the last hypothesis of `x`') are read as numbers. Blind held-out recall of the word rules:
 6/16 (test SN), 8/17 (SN2); of S-N4 as frozen before its test: 15/16 (SN3), false positives 0/10 in each test.
 
-Limits: a hypothesis described by its content without its number ('the wall condition of `x`') is not
-read; bundled hypotheses count as classified when TRUST_MAP lists them NEEDED or REDUNDANT as a bundle (the page a
+Rule S-N6 (run 2026-11-21T0828Z; its block below): a hypothesis described by its content without its number ('the wall
+condition of `x`') in an open scope is flagged whatever the description, so the line must carry numbers.
+Limits: a classification stated by content ('the decay hypotheses of `x` NEEDED') is not read; bundled hypotheses count as classified when TRUST_MAP lists them NEEDED or REDUNDANT as a bundle (the page a
 reader checks shows them so).
 
 Run by `check_necessity_prose.py` (CI trust step, after TRUST_MAP.md is regenerated; also by records_check.py).
@@ -399,6 +400,64 @@ def scan_line3(line, trust, resolve):
     return out
 
 
+# Rule S-N6 (run 2026-11-21T0828Z, part 3; the limit 'a description by content' of the rules above). Measured first
+# (`runs/2026-11-21T0828Z/scripts/measure_content_mentions.py`): of 13 lines of STATE.md, BLUEPRINT.md and the last
+# run records that describe a hypothesis of a headline with open hypotheses by its content, 4 called classified
+# hypotheses open ('Still open in B1: ... time orderings, positivity of the scale factor, and the coefficient/residual
+# conditions of `fit_direction`': 3-6 and 17-19 of it were classified; 'Open there: ... the decay class'). A content
+# description cannot be compared with TRUST_MAP by a word rule (the held-out writer tests of run 2026-11-21T0228Z), so
+# the default is inverted once more: in an OPEN SCOPE (open word or scope label, as S-N1), a clause or label scope that
+# describes a hypothesis (HYPC: a hypothesis or condition word, or a content noun such as bound, range, ordering, class,
+# positivity) of a headline with a necessity entry, and attaches no hypothesis number to that headline, is flagged:
+# write the number(s) (then S-N4 compares them with TRUST_MAP) or drop the item. Not flagged: the generic 'the open /
+# remaining hypotheses of `x`' (true while `x` has any, S-N2/S-N3 read the rest), a clause that attaches a number to
+# that headline (S-N4 reads it), and a headline with no open hypothesis (S-N3). Lines that state a classification by
+# content ('the decay hypotheses of `x` NEEDED') are not read by any rule (limit).
+HYPC = re.compile(r"hypothes|assumption|\bconditions?\b|\bbounds?\b|\branges?\b|\borderings?\b|\bclass\b|"
+                  r"positivity|\bpremis|\brequirements?\b|\bconstraints?\b|\bregularity\b|\bsymmetry\b|\bdomain\b",
+                  re.IGNORECASE)
+GENERIC6 = re.compile(r"\b(?:the|its|their|all|any)\s+(?:\d+\s+)?(?:open|remaining|unclassified|other)\s+"
+                      r"(?:hypothes(?:is|es)|assumptions?|conditions?)\b(?:\s+(?:of|in|for)\b)?", re.IGNORECASE)
+PLAN6 = re.compile(r"\b(?:open|unclassified|unresolved|undone|not yet|still to be shown|remaining|classify|settle|"
+                   r"decide whether|whether|to be shown|unknown|unchecked|next|later|todo|to do|pending|"
+                   r"no witness|witness search|needs?|scan first)\b", re.IGNORECASE)
+
+
+def scan_line6(line, trust, resolve, section_heads=()):
+    """S-N6: [(name, None, 'S-N6', why)] for open-scope content descriptions of hypotheses without numbers"""
+    line = ordinals(line, trust, resolve, section_heads)
+    numbered = {h for h, i, s, e in refs4(line, trust, resolve, section_heads)}
+    line_names = {h for m in CODE.finditer(line) if (h := resolve(m.group(1)))}
+    scopes = []
+    lab = LABEL.search(line)
+    if lab:
+        scopes.append((lab.end(), len(line)))
+    for a, b in clauses(line):
+        if PLAN6.search(line[a:b]):
+            scopes.append((a, b))
+    out, seen = [], set()
+    for a, b in scopes:
+        for ca, cb in clauses(line):  # a label scope is read clause by clause
+            ca, cb = max(a, ca), min(b, cb)
+            if ca >= cb:
+                continue
+            cl = line[ca:cb]
+            hs = {h for m in CODE.finditer(cl) if (h := resolve(m.group(1)))}
+            if not hs and lab and ca >= lab.end() and len(line_names) == 1 and not CODE.search(cl):
+                hs = set(line_names)  # 'Open there: f(0) = 0, the decay class' after the line's one headline
+            rest = GENERIC6.sub(" ", cl)
+            if not hs or not HYPC.search(rest) or not (PLAN6.search(line[a:b]) or (lab and a == lab.end())):
+                continue
+            for h in sorted(hs):
+                if h in seen or h in numbered or not trust[h]["open"]:
+                    continue
+                seen.add(h)
+                op = ", ".join(map(str, sorted(trust[h]["open"])))
+                out.append((h, None, "S-N6", f"a hypothesis of `{h}` described by its content in an open scope, with "
+                                             f"no number; TRUST_MAP.md lists open {op}"))
+    return out
+
+
 def scan(text, trust):
     resolve = resolver(trust)
     out = []
@@ -413,6 +472,7 @@ def scan(text, trust):
         got = {(h, i) for h, i, _, _ in items}
         items += [x for x in scan_line4(line, trust, resolve, heads) if (x[0], x[1]) not in got]
         items += [x for x in scan_line3(line, trust, resolve) if x[0] not in {y[0] for y in items}]
+        items += [x for x in scan_line6(line, trust, resolve, heads) if x[0] not in {y[0] for y in items}]
         for item in items:
             out.append((n, *item))
     return out
@@ -485,8 +545,28 @@ def selftest():
         ("- the wall condition of `mono_lt` is open.", []),                           # `mono_lt` has open ones
         ("- Next: promote `core_pins` to the reader page.", []),                     # no hypothesis word
     ]
+    cases6 = [  # S-N6 (run 2026-11-21T0828Z): content descriptions in an open scope need numbers
+        ("- the wall condition of `mono_lt` is open.", [("FS.mono_lt", None)]),
+        ("Still open: the time orderings and the residual conditions of `sep_equal`.", [("FS.sep_equal", None)]),
+        ("- Next: the density bound of `mono_lt` and of `sep_equal`.", [("FS.mono_lt", None), ("FS.sep_equal", None)]),
+        ("- p' = q NEEDED in both profiles of `sep_equal`. Open there: f(0) = 0, the decay class.", [("FS.sep_equal", None)]),
+        ("- `sep_equal` 1 NEEDED. Open there: the decay class (`N.lean`).", []),         # a name in the scope: not the line's
+        ("- Part 1 next: the open hypotheses of `mono_lt` (scan first).", []),           # generic description
+        ("- Next: `mono_lt` 4 and 7 (the wall conditions, both open).", []),             # numbered: S-N4 reads it
+        ("- the decay conditions of `sep_equal` NEEDED (`N.lean`).", []),                 # no open scope (limit)
+        ("- the bundled condition of `core_pins` is still open.", []),                    # no open hypothesis: S-N3
+        ("- Next: promote `mono_lt` to the reader page.", []),                            # no hypothesis description
+        ("- **Hypotheses:** each hypothesis of each headline of this section is listed in `TRUST_MAP.md` (per "
+         "headline).", []),
+        ("- the positivity of the scale factor in `mono_lt` has no witness yet.", [("FS.mono_lt", None)]),
+    ]
     fails = 0
     resolve = resolver(trust)
+    for text, want in cases6:
+        got = [(h, i) for h, i, _, _ in scan_line6(text, trust, resolve)]
+        if got != want:
+            print(f"selftest FAIL (S-N6): {text!r}: expected {want}, got {got}")
+            fails += 1
     for text, want in cases3:
         got = [(h, i) for h, i, _, _ in scan_line3(text, trust, resolve)]
         if got != want:
@@ -507,7 +587,7 @@ def selftest():
         if got != want:
             print(f"selftest FAIL (section): {text!r}: expected {want}, got {got}")
             fails += 1
-    print(f"check_stale_necessity selftest: {len(cases) + len(cases_d) + len(cases4) + len(cases3)} controls; {'FAIL' if fails else 'ok'}")
+    print(f"check_stale_necessity selftest: {len(cases) + len(cases_d) + len(cases4) + len(cases3) + len(cases6)} controls; {'FAIL' if fails else 'ok'}")
     return 1 if fails else 0
 
 
@@ -524,7 +604,11 @@ def main(argv):
         got = scan(p.read_text(encoding="utf-8"), trust)
         total += len(got)
         for n, h, i, how, why in got:
-            what = f"hypothesis {i} of `{h}`" if i else (f"the hypotheses of `{h}`" if how == "S-N3" else f"the open count of `{h}`")
+            what = f"hypothesis {i} of `{h}`" if i else (f"the hypotheses of `{h}`" if how in ("S-N3", "S-N6") else f"the open count of `{h}`")
+            if how == "S-N6":
+                print(f"{f}:{n}: {how} UNREADABLE: {why}. Write the hypothesis numbers (S-N4 then compares them with "
+                      f"TRUST_MAP.md) or drop the item.  [{what}]")
+                continue
             print(f"{f}:{n}: {how} STALE: called open, {why}. Rewrite the line (drop the item, or say it was "
                   f"classified since, without its number).  [{what}]")
     print(f"check_stale_necessity ({', '.join(files)}): {total} finding(s); {'FAIL' if total else 'ok'}")
