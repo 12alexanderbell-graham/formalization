@@ -1,0 +1,24 @@
+- Open (`fit_direction`): do the three magnitude fits |5 log10(dL/D) - c| ≤ 1/20 matter at all? No verdict yet.
+- The source redshifts of `fit_direction` are NEEDED on the page; nothing more to do there.
+- Next: decide the initial condition on p (p 0 = 0) in `fs_neg_tenth_monotone_lt`.
+- Not yet: a witness that the source redshifts of `fit_direction` cannot be dropped.
+- Not yet: whether `q₁ 0 = 0` is needed in `fs_separation_equal`.
+- Next: promote `fs_separation_equal` to the reader page.
+- Open: the derivative equations for f, p, q in `fs_neg_tenth_monotone_lt` and `F12_separation` are still to be decided.
+- Open: whether `Ω ≤ 1` is needed in `fit_direction`.
+- Open: the growth bound M * (1 - p₁ η) ≤ q₁ η in `fs_separation_equal` (can it be dropped?).
+- `fs_neg_tenth_monotone_lt` 4 and 7 are open.
+- Check whether `0 < hubble a t₀` can be dropped from `fit_direction` (still unclassified).
+- To do: find a witness for the q 0 = 0 condition of `F12_separation`.
+- To do: the ODE chain for the first solution in `fs_separation_equal` (needed or not?), no witness yet.
+- `fit_direction`: positivity of `a` and its differentiability on the window are REDUNDANT, each alone.
+- Next: the time orderings of `fit_direction` (t₅ ≤ t₃ ≤ t₁ ≤ t₀), decide which can go.
+- Is the limit of p at infinity redundant in `fs_neg_tenth_monotone_lt`? Still open.
+- The open hypotheses of `F12_separation` come after the reader page.
+- Try to drop the limits of p₁ and p₂ at infinity from `fs_separation_equal`; not classified yet.
+- Part 1 later: the relation giving hubble a s in terms of redshift in `fit_direction` is still undecided.
+- Whether `0 ≤ Ω` can be dropped from `fit_direction` is open.
+- Part 1 later: p → 1 at infinity in `F12_separation` (maybe droppable?), plan a check.
+- Try to drop the positivity and differentiability of `a` on [t₅, t₀] in `fit_direction`; not yet attempted.
+- `F12_separation` 4, 5, 8 and 9 are open.
+- Docs tidy for `fs_neg_tenth_monotone_lt`; no change to its hypotheses.
