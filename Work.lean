@@ -58,6 +58,8 @@ import Work.Cosmography.B1FitRL19
 import Work.Cosmography.B1FitRL19Blind
 import Work.Cosmography.B1FitRL19Audit
 import Work.Cosmography.B1A3Bound
+import Work.Cosmography.B1A3BoundBlind
+import Work.Cosmography.B1A3BoundAudit
 import Work.Cosmography.B1L19Certs
 import Work.Cosmography.B1L19
 import Work.Cosmography.B1L19Blind

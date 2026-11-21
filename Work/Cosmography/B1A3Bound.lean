@@ -1,4 +1,5 @@
 import Checked.Cosmography.B1FitRL19
+import Checked.Cosmography.B1A3Tools
 
 /-! B1 at fit level, `B1A3Bound`: a lower bound on the third coefficient of every cubic log-polynomial that matches an
 exact flat ΛCDM distance modulus over the quasar range (FROZEN by run 2026-11-21T1628Z before its proof).
@@ -38,7 +39,9 @@ theorem third_coefficient_lower_bound (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : �
       ≤ 1 / 20)
     (hm₅ : |5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c|
       ≤ 1 / 20) :
-    13 / 5 < a₃ := by
-  sorry
+    13 / 5 < a₃ :=
+  Checked.Cosmography.B1A3Tools.a3_bound_gen Ω hΩ₀ hΩ₁ a t₅ t₅ t₃ t₁ t₀ ⟨le_trans h₅₃ h₃₁, h₁₀⟩
+    ⟨h₅₃, le_trans h₃₁ h₁₀⟩ ⟨le_rfl, le_trans h₅₃ (le_trans h₃₁ h₁₀)⟩ hpos hdiff hH₀ hH hz₁ hz₃ hz₅
+    a₂ a₃ H c hHp hp₁ hp₃ hp₅ hm₁ hm₃ hm₅
 
 end Work.Cosmography.B1A3Bound

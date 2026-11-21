@@ -2,8 +2,8 @@
 # Fresh tangent lower certs L1, L5 (at the cell midpoint) and chord upper certs U1, U3 on each cell.
 import sys
 from gen_fit import *
-TAU = F(sys.argv[1]) if len(sys.argv) > 1 else F(472, 1000)
-N = int(sys.argv[2]) if len(sys.argv) > 2 else 20
+TAU = F(sys.argv[1]) if (len(sys.argv) > 1 and __name__ == "__main__") else F(491, 1000)
+N = int(sys.argv[2]) if (len(sys.argv) > 2 and __name__ == "__main__") else 20
 MM = F(333, 1000); DEL = F(1, 1000)
 PAIRS = [[(3,1),(3,5)], [(1,5),(3,5)], [(3,1),(1,5)]]
 def A3p(): return [F(7,6), F(-2), F(9,8)]
