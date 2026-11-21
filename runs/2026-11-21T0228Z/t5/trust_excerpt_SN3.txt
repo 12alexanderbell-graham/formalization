@@ -1,0 +1,8 @@
+- `B1.cubic_misses_z7` (8): needed 2, 3, 7, 8; redundant (each alone, not together) 4, 5, 6; open 1
+- `B1.cubic_shape_miss` (10): needed 2, 3, 4, 8, 9, 10; redundant (each alone, not together) 5, 6, 7; open 1
+- `B1Sep.cubic_separation` (15): needed 2, 3, 4, 8, 9, 10, 14, 15; redundant (each alone, not together) 5, 6, 7, 11, 12, 13; open 1
+- `B1L19Curved.l19_sqg_curved` (13): needed 2, 3, 4, 9, 10, 11, 12, 13; redundant (each alone, not together) 5, 6, 7; open 1, 8
+- `FalknerSkan.NegDecay.fs_neg_decay_equal` (18): needed 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18; redundant (each alone, not together) 7, 15; open 1
+- `Math.GelfandPDE.gelfand_pde_radial_bound` (5): needed 2, 3, 5; redundant (each alone, not together) 1, 4
+- `Chemistry.RKAcentric.rk_coexistence_exists` (6): needed 3, 4, 5, 6; redundant (each alone, not together) 1, 2
+- `Math.ThomasFermi.tf_initial_slope` (6): needed 1, 2, 4; redundant (each alone, not together) 3, 5, 6
