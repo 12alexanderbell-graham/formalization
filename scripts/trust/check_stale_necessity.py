@@ -420,7 +420,7 @@ GENERIC6 = re.compile(r"\b(?:the|its|their|all|any)\s+(?:\d+\s+)?(?:open|remaini
                       r"(?:hypothes(?:is|es)|assumptions?|conditions?)\b(?:\s+(?:of|in|for)\b)?", re.IGNORECASE)
 PLAN6 = re.compile(r"\b(?:open|unclassified|unresolved|undone|not yet|still to be shown|remaining|classify|settle|"
                    r"decide|decided|undecided|verdict|whether|to be shown|unknown|unchecked|next|later|todo|to do|"
-                   r"pending|no witness|witness search|needs?|scan first|try|attempt|plan|maybe|check)\b|\?",
+                   r"pending|no witness|witness search|scan first|try|attempt|plan|maybe|check)\b|\?",
                    re.IGNORECASE)
 
 # S-N6b (same run, after the held-out writer SN6 scored 6/16 blind with HYPC alone, NOT blind): the writer described
@@ -459,9 +459,11 @@ def scan_line6(line, trust, resolve, section_heads=()):
             if not hs or not (HYPC.search(rest) or CUE6.search(rest) or FORMULA6.search(rest)) \
                     or not (PLAN6.search(line[a:b]) or (lab and a == lab.end())):
                 continue
+            gen = {resolve(m.group(1)) for g in GENERIC6.finditer(cl)
+                   for m in [re.match(r"\s*`([A-Za-z_][\w.']*)`", cl[g.end():])] if m}
             for h in sorted(hs):
-                if h in seen or h in numbered or not trust[h]["open"]:
-                    continue
+                if h in seen or h in numbered or not trust[h]["open"] or h in gen:
+                    continue  # 'the open hypotheses of `x` still need triage' refers to whatever is open (SN7 line 14)
                 seen.add(h)
                 op = ", ".join(map(str, sorted(trust[h]["open"])))
                 out.append((h, None, "S-N6", f"a hypothesis of `{h}` described by its content in an open scope, with "
@@ -575,6 +577,9 @@ def selftest():
         ("- Not yet: a witness that the source redshifts of `mono_lt` cannot be dropped.", [("FS.mono_lt", None)]),
         ("- Is the limit of p at infinity redundant in `mono_lt`? Still open.", [("FS.mono_lt", None)]),
         ("- Docs tidy for `mono_lt`; no change to its hypotheses.", []),
+        ("- The open hypotheses of `mono_lt` still need triage before the next pass.", []),  # SN7 line 14
+        ("- `mono_lt`: the lower bound 1/10 ≤ Ω is still open.", [("FS.mono_lt", None)]),   # SN7 line 8: number asked
+        ("- the curved pair needs `Ω ≤ 1`; `mono_lt` needs its middle source (a cubic at 0.004 mag).", []),  # a NEEDED claim
     ]
     fails = 0
     resolve = resolver(trust)
