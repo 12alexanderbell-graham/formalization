@@ -1,6 +1,6 @@
 # Run 2026-11-21T0428Z
 
-**THE RESULT:** parts 2/5 by rotation (STATE 2s). The Lean theorem of this run and its statement are in section What we did.
+**THE RESULT:** parts 2/5 by rotation (STATE 2s; next step STATE 2t). The Lean theorem of this run and its statement are in section What we did.
 
 **What can a scientist now trust without checking it themselves, that they could not before?** The value of the branch parameter of the radial Gelfand problem in the three-dimensional ball at its fifth extremum, and a value at its fourth extremum about eighty times narrower than before, both in one headline of the claims page with a blind restatement closed in Lean, a referee and a blind literal reading (section What we did).
 
@@ -34,4 +34,4 @@
 - Parts 2/5 next: the same generator with more segments gives the sixth and seventh turning values (ζ₅ ≈ 525620, ζ₆ ≈ 5652734 by the referee; each turning point is one bracket and one sign segment more, ≈ 24 cells each); the count headline `gelfand_pde_radial_count_turning_values` can then gain band ends from `gelfand_turning_values_five` (`count_abstract` as in run 2026-11-20T1628Z).
 
 ## End
-- Local: lake build Checked, StatementDeps relock, Claims, records_check (section End lines added at the end of the run).
+- Local: lake build Checked (3763 jobs; restored build of 55f887d), `precheck_names.py`, `check_prose.py`, `check_status_lines.py`, StatementDeps relock (307 headlines, NV 186/186; NEEDED 750 → 753, REDUNDANT 227 → 228, open 54; frozen registry new entries and the Witnesses module doc), Claims (307), `check_claim_vocab.py`, `check_headline_mentions.py --base 55f887d` (one BLUEPRINT heading reworded for M1), `check_stale_necessity.py`, goal guard, `records_check.py 55f887d` (43 commands, 0 failed, on the WIP commit faa92bc). Records: STATE 2t + heading + daily review + Trust track line, LEDGER, CHANGELOG, BLUEPRINT, PROMPT working note; LOCK removed.
