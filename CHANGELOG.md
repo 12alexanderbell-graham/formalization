@@ -1044,3 +1044,10 @@
 - CI: 44818441588 (ecc9fc7) green on every job; nothing to promote.
 - Parts 2/5 (rotation): new headline `Checked.Math.GelfandPDEBound.gelfand_pde_bound` (every classical solution of the Gelfand problem in the 3-D ball, no symmetry hypothesis, has λ ≤ 3.321992119): freeze, blind restatement closed, referee STANDS, proof from `GSymFree.bound_no_radial`, promoted with NV witness, literal readings and necessity 2, 3, 4 NEEDED (`NecessityBH`); 1 open.
 - Next: CI read of the final push; then part 1 by rotation.
+
+## 2026-11-21T0028Z (scheduled run)
+- Env: repo ok (session clone present, stale main reset to origin/main); local Lean installed with elan, judge's build restored by streaming; no subagents.
+- CI: 44838711468 (bab83b4) green on every job → `gelfand_pde_bound` PROVED (STATE heading; L.2 line sent).
+- Part 1 (rotation): hypothesis 1 (`0 ≤ Ω`) of the four flat L19 headlines REDUNDANT (`Checked/Trust/NecessityBI.lean`); the C² hypothesis of `gelfand_pde_bound` studied, gap in the planned route recorded.
+- Annex LIV: `scripts/start_run.sh` (stale clone, elan, cache), PROMPT note, LEDGER experiment.
+- Next: CI read of the final push; then parts 2/5 by rotation.
