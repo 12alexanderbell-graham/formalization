@@ -25,7 +25,7 @@ Part 3's measured surface. Ten part-3 runs since 2026-11-18 wrote rules for hand
 - First blind measurement on the claims page: one input field, found in fourteen minutes; every reader declined to cite in every arm (the generated frame decided citation, the author text decided belief).
 
 ## Next
-- CI read first: the run of this run's final push (Claims.lean and check_claims.py changed: the checked job's trust step regenerates CLAIMS.md; the frozen step runs O1 with its controls). Green on every job → nothing to promote. Red at the stale-CLAIMS step → `lake env lean scripts/trust/Claims.lean` and compare; red at `check_claims.py --base` → its O1 output.
+- CI read first: 44921930069, the run of this run's final push c7d06a1 (in progress at 16:01Z; Claims.lean and check_claims.py changed: the checked job's trust step regenerates CLAIMS.md; the frozen step runs O1 with its controls). Green on every job → nothing to promote. Red at the stale-CLAIMS step → `lake env lean scripts/trust/Claims.lean` and compare; red at `check_claims.py --base` → its O1 output.
 - Part 3 next: the LEDGER experiment of this run — a second blind round on CLAIMS_READER.md with this fix, naming `literal_readings.txt` `source=`, `def_kinds.txt`, `pins.txt`, `headlines.txt` as untested and allowing one StatementDeps run (`judge_av.sh` reruns it when a defect touches its inputs).
 - Part 1 next: as in section Next of `runs/2026-11-21T1228Z/README.md`.
 - Parts 2/5 next: as in section Next of `runs/2026-11-21T1028Z/README.md`.
