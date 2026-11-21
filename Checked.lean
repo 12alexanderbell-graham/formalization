@@ -313,6 +313,8 @@ import Checked.Math.BonnorEbertMonotone
 import Checked.Trust.SecondReadingBEAll
 import Checked.Trust.SecondReadingGelfandTurns
 import Checked.Trust.SecondReadingGelfandFifthTurn
+import Checked.Trust.SecondReadingGelfandSixthTurn
+import Checked.Trust.SecondReadingGelfandSeventhTurn
 import Checked.Trust.SecondReadingBEMono
 import Checked.Math.GelfandExtremaMain
 import Checked.Math.GelfandExtrema
@@ -365,6 +367,9 @@ import Checked.Math.GSeg
 import Checked.Math.GSegData
 import Checked.Math.GelfandLam4
 import Checked.Math.GelfandTurningValuesFive
+import Checked.Math.GSegData7
+import Checked.Math.GelfandLam6
+import Checked.Math.GelfandTurningValuesSeven
 import Checked.Math.GelfandPDECountTurningMain
 import Checked.Math.GelfandPDECountTurning
 import Checked.Math.GelfandPDECountTurningValues
@@ -730,6 +735,7 @@ import Checked.Trust.NecessityBG
 import Checked.Trust.NecessityBH
 import Checked.Trust.NecessityBI
 import Checked.Trust.NecessityBJ
+import Checked.Trust.NecessityBM
 import Checked.Trust.NecessityBKCerts
 import Checked.Trust.NecessityBK
 import Checked.Trust.NecessityBL

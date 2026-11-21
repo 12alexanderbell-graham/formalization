@@ -111,6 +111,7 @@ import Checked.Math.GelfandPDECountValues
 import Checked.Math.GelfandPDECountTurning
 import Checked.Math.GelfandPDECountTurningValues
 import Checked.Math.GelfandPDECountTurningValuesFive
+import Checked.Math.GelfandTurningValuesSeven
 import Checked.Math.GelfandPDEBound
 import Checked.Math.GelfandTurningValuesFive
 
@@ -1308,5 +1309,13 @@ theorem gelfand_pde_bound : nonvacuity% Checked.Math.GelfandPDEBound.gelfand_pde
 theorem gelfand_pde_radial_count_turning_values_five :
     nonvacuity% Checked.Math.GelfandPDECountTurningValuesFive.gelfand_pde_radial_count_turning_values_five :=
   trivial
+
+/-! The first seven turning values of the radial Gelfand branch (run 2026-11-21T1028Z): the same global regular
+solution. -/
+
+theorem gelfand_turning_values_seven :
+    nonvacuity% Checked.Math.GelfandTurningValuesSeven.gelfand_turning_values_seven := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 
 end Checked.Trust.NV

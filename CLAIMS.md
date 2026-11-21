@@ -8762,3 +8762,36 @@ Author's paraphrase (docstring; not generated, checked only by the prose rules):
 > N(`lamT (2 * k + 2)`) = 2k + 3; N(lam) = 1 for 0 < lam < `lamT 1`; for every k, N(`lamT (2 * k + 1)`) = 2k + 2
 > and N(lam) = 2k + 3 for `lamT (2 * k + 1)` < lam < `lamT (2 * k + 3)`; and N(2) = ⊤.
 
+## `gelfand_turning_values_seven`
+
+Full name `Checked.Math.GelfandTurningValuesSeven.gelfand_turning_values_seven`.
+
+**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.gelfandRhs` := `fun s w φ => -(2 / s * φ s) - Real.exp (w s)`; `Checked.Trust.SecondReading.gelfandCentre` := `fun w => w 0 = 0`; `Checked.Trust.SecondReading.gelfandLambda` := `fun s w => s ^ 2 * Real.exp (w s)`; `Checked.Trust.SecondReading.beHalfLine` := `Set.Ici 0`; `Checked.Trust.SecondReading.beOpenHalfLine` := `Set.Ioi 0`; `Checked.Trust.SecondReading.beFirstMax` := `fun ξ => ξ 0`; `Checked.Trust.SecondReading.beMaxIndex` := `fun k => 2 * k`; `Checked.Trust.SecondReading.beMinIndex` := `fun k => 2 * k + 1`; `Checked.Trust.SecondReading.beNextMaxIndex` := `fun k => 2 * k + 2`; `Checked.Trust.SecondReading.beRiseFromCentre` := `fun ξ => Set.Icc 0 (ξ 0)`; `Checked.Trust.SecondReading.beFallSegment` := `fun ξ k => Set.Icc (ξ (2 * k)) (ξ (2 * k + 1))`; `Checked.Trust.SecondReading.beRiseSegment` := `fun ξ k => Set.Icc (ξ (2 * k + 1)) (ξ (2 * k + 2))`; `Checked.Trust.SecondReading.gelfandSingularLambda` := `2`; `Checked.Trust.SecondReading.gelfandBranchLimit` := `fun w => Filter.Tendsto (fun s => s ^ 2 * Real.exp (w s)) Filter.atTop (nhds 2)`; `Checked.Trust.SecondReading.gelfandSecondTurn` := `fun ζ => ζ 1`; `Checked.Trust.SecondReading.gelfandThirdTurn` := `fun ζ => ζ 2`; `Checked.Trust.SecondReading.gelfandFourthTurn` := `fun ζ => ζ 3`; `Checked.Trust.SecondReading.gelfandFifthTurn` := `fun ζ => ζ 4`; `Checked.Trust.SecondReading.gelfandSixthTurn` := `fun ζ => ζ 5`; `Checked.Trust.SecondReading.gelfandSeventhTurn` := `fun ζ => ζ 6`. the statement is proved in module `Checked.Math.GelfandTurningValuesSeven` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.gelfand_turning_values_seven` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 4 numbered; 3 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 20 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+
+**For every** `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
+
+**assuming**
+
+1. for every `s : ℝ`, if `s ∈ Set.Ici 0`, then `HasDerivWithinAt w (φ s) (Set.Ici 0) s`
+2. `ContinuousWithinAt φ (Set.Ici 0) 0`
+3. for every `s : ℝ`, if `s ∈ Set.Ioi 0`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Ici 0) s`
+4. `w 0 = 0`
+
+**then**
+
+- there is `ζ : ℕ → ℝ` such that (`StrictMono ζ`) and (`Filter.Tendsto ζ Filter.atTop Filter.atTop`) and (`4.071496844 ≤ ζ 0`) and (`ζ 0 ≤ 4.071496845`) and (`3.321992118 ≤ ζ 0 ^ 2 * Real.exp (w (ζ 0))`) and (`ζ 0 ^ 2 * Real.exp (w (ζ 0)) ≤ 3.321992119`) and (`1.664155 ≤ ζ 1 ^ 2 * Real.exp (w (ζ 1))`) and (`ζ 1 ^ 2 * Real.exp (w (ζ 1)) ≤ 1.664157`) and (`2.10852 ≤ ζ 2 ^ 2 * Real.exp (w (ζ 2))`) and (`ζ 2 ^ 2 * Real.exp (w (ζ 2)) ≤ 2.10858`) and (`1.967422 ≤ ζ 3 ^ 2 * Real.exp (w (ζ 3))`) and (`ζ 3 ^ 2 * Real.exp (w (ζ 3)) ≤ 1.967510`) and (`2.009926 ≤ ζ 4 ^ 2 * Real.exp (w (ζ 4))`) and (`ζ 4 ^ 2 * Real.exp (w (ζ 4)) ≤ 2.010028`) and (`1.996901 ≤ ζ 5 ^ 2 * Real.exp (w (ζ 5))`) and (`ζ 5 ^ 2 * Real.exp (w (ζ 5)) ≤ 1.997023`) and (`2.000873 ≤ ζ 6 ^ 2 * Real.exp (w (ζ 6))`) and (`ζ 6 ^ 2 * Real.exp (w (ζ 6)) ≤ 2.000980`) and (for every `s : ℝ`, if `s ∈ Set.Ici 0`, then if `s ≠ ζ 0`, then `s ^ 2 * Real.exp (w s) < ζ 0 ^ 2 * Real.exp (w (ζ 0))`) and (for every `k : ℕ`, for every `s : ℝ`, if `s ∈ Set.Ici (ζ (2 * k))`, then if `s ≠ ζ (2 * k + 1)`, then `ζ (2 * k + 1) ^ 2 * Real.exp (w (ζ (2 * k + 1))) < s ^ 2 * Real.exp (w s)`) and (for every `k : ℕ`, for every `s : ℝ`, if `s ∈ Set.Ici (ζ (2 * k + 1))`, then if `s ≠ ζ (2 * k + 2)`, then `s ^ 2 * Real.exp (w s) < ζ (2 * k + 2) ^ 2 * Real.exp (w (ζ (2 * k + 2)))`) and (for every `k : ℕ`, (`ζ (2 * k + 1) ^ 2 * Real.exp (w (ζ (2 * k + 1))) < 2`) and (`2 < ζ (2 * k) ^ 2 * Real.exp (w (ζ (2 * k)))`)) and (`Filter.Tendsto (fun s => s ^ 2 * Real.exp (w s)) Filter.atTop (nhds 2)`) and (`StrictMonoOn (fun s => s ^ 2 * Real.exp (w s)) (Set.Icc 0 (ζ 0))`) and (for every `k : ℕ`, `StrictAntiOn (fun s => s ^ 2 * Real.exp (w s)) (Set.Icc (ζ (2 * k)) (ζ (2 * k + 1)))`) and (for every `k : ℕ`, `StrictMonoOn (fun s => s ^ 2 * Real.exp (w s)) (Set.Icc (ζ (2 * k + 1)) (ζ (2 * k + 2)))`)
+
+Author's paraphrase (docstring; not generated, checked only by the prose rules):
+
+> Gelfand problem, turning values of the radial branch: for every
+> solution w of w'' + (2/s)w' + e^w = 0 on (0, ∞) with w(0) = 0, w differentiable on [0, ∞) with derivative
+> φ and φ continuous at 0, with λ(s) = s² e^{w(s)}, there is a strictly increasing sequence of radii
+> ζ(0) < ζ(1) < … tending to infinity, with ζ(0) between 4.071496844 and 4.071496845, λ(ζ(0)) between
+> 3.321992118 and 3.321992119, λ(ζ(1)) between 1.664155 and 1.664157, λ(ζ(2)) between 2.10852 and 2.10858,
+> λ(ζ(3)) between 1.967422 and 1.967510, λ(ζ(4)) between 2.009926 and 2.010028, λ(ζ(5)) between 1.996901 and 1.997023
+> and λ(ζ(6)) between 2.000873 and 2.000980, such that λ(s) < λ(ζ(0)) for s ≥ 0 with s ≠ ζ(0); for every k,
+> λ(ζ(2k+1)) < λ(s) for s ≥ ζ(2k) with s ≠ ζ(2k+1), and λ(s) < λ(ζ(2k+2)) for s ≥ ζ(2k+1) with
+> s ≠ ζ(2k+2); for every k, λ(ζ(2k+1)) < 2 < λ(ζ(2k)); λ(s) tends to 2 as s tends to infinity; and λ is
+> strictly increasing on [0, ζ(0)], strictly decreasing on [ζ(2k), ζ(2k+1)] and strictly increasing on
+> [ζ(2k+1), ζ(2k+2)] for every k.
+
