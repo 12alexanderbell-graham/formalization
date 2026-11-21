@@ -3449,6 +3449,47 @@ Program definitions in this claim:
 - `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): phrase (hand-written, linted): the luminosity distance in flat FLRW with the scale factor `a`, the observation time `t₀` and the emission time `t` (units in which the speed of light is one); by definition, `lumDistFlat a t₀ t` is `a t₀ * (1 + redshift a t₀ t) * comoving a t₀ t`
 - `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): phrase (hand-written, linted): the cosmological redshift with the scale factor `a`, the observation time `t₀` and the emission time `t` (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide); by definition, `redshift a t₀ t` is `a t₀ / a t - 1`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «positive when emission precedes observation in an expanding universe» only assuming for every `s : ℝ`, `0 < a s`; `StrictMono a`; `t < t₀`, «one plus redshift is the scale factor at observation over that at emission», «zero when emission and observation coincide» only assuming `a t₀ ≠ 0`
 
+## `third_coefficient_lower_bound`
+
+Full name `Checked.Cosmography.B1A3Bound.third_coefficient_lower_bound`.
+
+**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.b1a3zNear` := `√2 - 1`; `Checked.Trust.SecondReading.b1a3zMid` := `2 * √2 - 1`; `Checked.Trust.SecondReading.b1a3zFar` := `4 * √2 - 1`; `Checked.Trust.SecondReading.b1a3Residual` := `fun d c => |5 * Real.logb 10 d - c| ≤ 1 / 20`; `Checked.Trust.SecondReading.b1a3Law` := `fun Ω a t₀ s => Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω`. the statement is proved in module `Checked.Cosmography.B1A3Bound` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.third_coefficient_lower_bound` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 19 numbered; 7 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 6 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 6 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 5 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+
+**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₁ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `H : ℝ`, `c : ℝ`:
+
+**assuming**
+
+1. `0 ≤ Ω`
+2. `Ω ≤ 1`
+3. `t₅ ≤ t₃`
+4. `t₃ ≤ t₁`
+5. `t₁ ≤ t₀`
+6. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `0 < a s`
+7. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `DifferentiableAt ℝ a s`
+8. `0 < hubble a t₀`
+9. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
+10. `redshift a t₀ t₁ = √2 - 1`
+11. `redshift a t₀ t₃ = 2 * √2 - 1`
+12. `redshift a t₀ t₅ = 4 * √2 - 1`
+13. `0 < H`
+14. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)`
+15. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)`
+16. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)`
+17. `|5 * Real.logb 10 (lumDistFlat a t₀ t₁ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₁)) - c| ≤ 1 / 20`
+18. `|5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c| ≤ 1 / 20`
+19. `|5 * Real.logb 10 (lumDistFlat a t₀ t₅ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₅)) - c| ≤ 1 / 20`
+
+**then**
+
+- `13 / 5 < a₃`
+
+Program definitions in this claim:
+
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): phrase (hand-written, linted): the Hubble rate with the scale factor `a` and the cosmic time of evaluation `t` (logarithmic derivative of the scale factor with respect to cosmic time; positive for expansion and negative for contraction); by definition, `hubble a t` is `deriv a t / a t`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «logarithmic derivative of the scale factor with respect to cosmic time» only assuming `0 < a t`; `DifferentiableAt ℝ a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `0 < deriv a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `deriv a t < 0`
+- `logPolyDL3 a₂ a₃ H₀ z` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_logPolyDL3`); its name is not checked (for `a₂ : ℝ`, `a₃ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3)`
+- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): phrase (hand-written, linted): the luminosity distance in flat FLRW with the scale factor `a`, the observation time `t₀` and the emission time `t` (units in which the speed of light is one); by definition, `lumDistFlat a t₀ t` is `a t₀ * (1 + redshift a t₀ t) * comoving a t₀ t`
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): phrase (hand-written, linted): the cosmological redshift with the scale factor `a`, the observation time `t₀` and the emission time `t` (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide); by definition, `redshift a t₀ t` is `a t₀ / a t - 1`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «positive when emission precedes observation in an expanding universe» only assuming for every `s : ℝ`, `0 < a s`; `StrictMono a`; `t < t₀`, «one plus redshift is the scale factor at observation over that at emission», «zero when emission and observation coincide» only assuming `a t₀ ≠ 0`
+
 ## `l19_sq_central`
 
 Full name `Checked.Cosmography.B1L19.l19_sq_central`.

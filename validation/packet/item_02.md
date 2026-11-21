@@ -1,60 +1,55 @@
 # Item 02
 
-**Area:** Fluid mechanics
+**Area:** Chemistry
 
-**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.homannRhs` := `fun f p q η => -(2 * f η * q η) - 1 + p η ^ 2`; `Checked.Trust.SecondReading.homannHalfLineTyped` := `Set.Ici 0`; `Checked.Trust.SecondReading.homannHalfLine` := `Set.Ici 0`; `Checked.Trust.SecondReading.homannWall` := `fun g => g 0 = 0`; `Checked.Trust.SecondReading.homannEdge` := `nhds 1`; `Checked.Trust.SecondReading.homannShear` := `fun q => 1.3119376938 < q 0 ∧ q 0 < 1.3119376939`. the statement is proved in module `Checked.FalknerSkan.MonotoneWindow` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.homann_monotone_window` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 7 numbered; 6 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 6 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** the statement is proved in module `Checked.Chemistry.CubicEOS` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.exists_unique_critical` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 5 numbered; 5 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 0 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: no blind second reading registered; 6 literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
+**For every** `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`:
 
 **assuming**
 
-1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
-2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
-3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`
-4. `f 0 = 0`
-5. `p 0 = 0`
-6. `Filter.Tendsto p Filter.atTop (nhds 1)`
-7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
+1. `0 < R`
+2. `0 < a`
+3. `0 < b`
+4. `-2 < u`
+5. `0 < 1 + u + w`
 
 **then**
 
-1. `1.3119376938 < q 0`
-2. `q 0 < 1.3119376939`
+- there is exactly one `p : ℝ × ℝ` such that (`0 < p.1`) and (`b < p.2`) and (the isotherm pressure function of molar volume `p := cubicP R a b u w p.1` satisfies the critical point condition of an isotherm with the molar volume at the point `v := p.2` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical))
+
+Program definitions in this claim:
+
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): phrase (hand-written, linted): the isotherm pressure function of molar volume `p` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical); by definition, means (`deriv p v = 0`) and (`deriv (deriv p) v = 0`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «first and second volume derivatives of pressure both vanish», «a mere stationary point is not critical»
+- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Homann axisymmetric stagnation-point flow: every solution of f''' + 2 f f'' + 1 − f'² = 0 on
-[0, ∞) (f has derivative p, p has derivative q, q has derivative −2 f q − 1 + p², one-sided at 0)
-with f(0) = 0, p(0) = 0, p(η) → 1 as η → ∞ and q > 0 on [0, ∞) has wall shear q(0) = f''(0)
-strictly between 1.3119376938 and 1.3119376939.
+Existence and uniqueness of the critical point (T, v) of the generalized cubic EOS.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem homann_monotone_window (f p q : ℝ → ℝ)
-    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
-    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
-    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Ici 0) η)
-    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
-    (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η) :
-    1.3119376938 < q 0 ∧ q 0 < 1.3119376939 := …
+theorem exists_unique_critical (R a b u w : ℝ) (hR : 0 < R) (ha : 0 < a) (hb : 0 < b)
+    (hu : -2 < u) (h1 : 0 < 1 + u + w) :
+    ∃! p : ℝ × ℝ, 0 < p.1 ∧ b < p.2 ∧ IsCriticalIsotherm (cubicP R a b u w p.1) p.2 := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.CubicEOS.cubicP`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `homann_monotone_window`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `exists_unique_critical`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/MonotoneWindow.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Chemistry/CubicEOS.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 02

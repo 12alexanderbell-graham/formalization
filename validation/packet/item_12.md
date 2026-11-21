@@ -1,46 +1,47 @@
 # Item 12
 
-**Area:** Fluid mechanics
+**Area:** T1 fidelity
 
-**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.fskWedgeRhs` := `fun f p q η => -(f η * q η) - 1 / 2 * (1 - p η ^ 2)`; `Checked.Trust.SecondReading.fskHalfLineTyped` := `Set.Ici 0`; `Checked.Trust.SecondReading.fskHalfLine` := `Set.Ici 0`; `Checked.Trust.SecondReading.fskWall` := `fun g => g 0 = 0`; `Checked.Trust.SecondReading.fskEdge` := `nhds 1`; `Checked.Trust.SecondReading.fskWedgeShear` := `fun q => 0.927680039 < q 0 ∧ q 0 < 0.927680040`. the statement is proved in module `Checked.FalknerSkan.FalknerSkan` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: nothing to witness (the statement has no hypothesis to meet); hypotheses: none numbered; statement literals: 6 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** the statement is proved in module `Checked.Fidelity.FriedmannCPL` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.isFlatCPL_iff_friedmannCPL` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: none numbered; statement literals: no blind second reading registered; no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**It holds that**
+**For every** `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`:
 
-- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`0.927680039 < q 0`) and (`q 0 < 0.927680040`)
+**then**
+
+- (the scale factor `a` obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter `Ω`, the present dark energy equation of state `w₀`, the equation of state evolution parameter `wₐ` and the observation time `t₀` (spatially flat universe with dust and separately conserved dark energy; redshift z is measured from `t₀`; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding)) if and only if (`FriedmannCPL Ω w₀ wₐ a t₀`)
+
+Program definitions in this claim:
+
+- `FriedmannCPL Ω w₀ wₐ a t₀` — SPEC, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`): means there is `ρm : ℝ → ℝ` such that there is `ρde : ℝ → ℝ` such that (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ (deriv a t / a t) ^ 2 = ρm t + ρde t ∧ ρm t * a t ^ 3 = ρm t₀ * a t₀ ^ 3 ∧ HasDerivAt ρde (-(3 * (deriv a t / a t) * (1 + (w₀ + wₐ * (1 - a t / a t₀))) * ρde t)) t`) and (`0 < deriv a t₀`) and (`Ω = ρm t₀ / (deriv a t₀ / a t₀) ^ 2`)
+- `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): phrase (hand-written, linted): the scale factor `a` obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter `Ω`, the present dark energy equation of state `w₀`, the equation of state evolution parameter `wₐ` and the observation time `t₀` (spatially flat universe with dust and separately conserved dark energy; redshift z is measured from `t₀`; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding); by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + (1 - Ω) * (1 + redshift a t₀ t) ^ (3 * (1 + w₀ + wₐ)) * Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «present Hubble rate is positive so the universe is expanding» only assuming the scale factor `a` obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter `Ω`, the present dark energy equation of state `w₀`, the equation of state evolution parameter `wₐ` and the observation time `t₀` (spatially flat universe with dust and separately conserved dark energy; redshift z is measured from `t₀`; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Falkner–Skan β = 1/2, existence: there is a solution f of f''' + f f'' + (1 − f'²)/2 = 0 on
-[0, ∞) (f has derivative p, p has derivative q, q has derivative −f q − (1 − p²)/2, one-sided
-at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value q(0) = f''(0) lies
-strictly between 0.927680039 and 0.927680040.
+**The program's flat CPL predicate equals the blind first-principles formulation**, for
+every `Ω, w₀, wₐ`, every scale factor and every `t₀`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fs_half_exists : ∃ f p q : ℝ → ℝ,
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 / 2 * (1 - p η ^ 2)) (Ici 0) η) ∧
-    f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-    0.927680039 < q 0 ∧ q 0 < 0.927680040 := …
+theorem isFlatCPL_iff_friedmannCPL (Ω w₀ wₐ : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) :
+    IsFlatCPL Ω w₀ wₐ a t₀ ↔ FriedmannCPL Ω w₀ wₐ a t₀ := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Cosmography.CPL.IsFlatCPL`, `Cosmography.hubble`, `Cosmography.redshift`, `Fidelity.FriedmannCPL`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: IsFlatCPL.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `isFlatCPL_iff_friedmannCPL`.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/FalknerSkan.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Fidelity/FriedmannCPL.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 12

@@ -1,89 +1,61 @@
 # Item 08
 
-**Area:** B1
+**Area:** Falkner–Skan attached rows β = −0.13, −0.14, −0.15, −0.16
 
-**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** Risaliti & Lusso, Nat. Astron. 3, 272 (2019); Lusso et al., A&A 628, L4 (2019), Eq. (8): third-order log-polynomial distance and its ΛCDM-implied coefficients
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** the statement is proved in module `Checked.Cosmography.B1Separation` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.cubic_direction` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 15 numbered; 11 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 4 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: no blind second reading registered; 20 literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.fsAttTopFourthRhs` := `fun f p q η => -(f η * q η) - -16 / 100 * (1 - p η ^ 2)`; `Checked.Trust.SecondReading.fskHalfLineTyped` := `Set.Ici 0`; `Checked.Trust.SecondReading.fskHalfLine` := `Set.Ici 0`; `Checked.Trust.SecondReading.fskWall` := `fun g => g 0 = 0`; `Checked.Trust.SecondReading.fskEdge` := `nhds 1`; `Checked.Trust.SecondReading.fsnDefectBelow` := `fun M p q η => M * (1 - p η) ≤ q η`; `Checked.Trust.SecondReading.fsnWallValue` := `fun q => q 0`. the statement is proved in module `Checked.FalknerSkan.NegWallShearRowsTop` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.fs_neg_wall_shear_16_window` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 8 numbered; 7 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 7 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `t₇ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `a₂ : ℝ`, `a₃ : ℝ`, `H : ℝ`, `c : ℝ`:
+**For every** `f : ℝ → ℝ`, `p : ℝ → ℝ`, `q : ℝ → ℝ`:
 
 **assuming**
 
-1. `1 / 5 ≤ Ω`
-2. `Ω ≤ 2 / 5`
-3. `t₇ ≤ t₃`
-4. `t₃ ≤ t₀`
-5. for every `s : ℝ`, if `s ∈ Set.Icc t₇ t₀`, then `0 < a s`
-6. for every `s : ℝ`, if `s ∈ Set.Icc t₇ t₀`, then `DifferentiableAt ℝ a s`
-7. `0 < hubble a t₀`
-8. for every `s : ℝ`, if `s ∈ Set.Icc t₇ t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)`
-9. `redshift a t₀ t₃ = 3`
-10. `redshift a t₀ t₇ = 7`
-11. `0 < H`
-12. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)`
-13. `0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₇)`
-14. `|5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c| ≤ 1 / 20`
-15. `|5 * Real.logb 10 (lumDistFlat a t₀ t₇ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₇)) - c| ≤ 1 / 20`
+1. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`
+2. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`
+3. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -16 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`
+4. `f 0 = 0`
+5. `p 0 = 0`
+6. `Filter.Tendsto p Filter.atTop (nhds 1)`
+7. for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `0 < q η`
+8. for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`
 
 **then**
 
-- `a₂ - lusA2 Ω < 7 * Real.logb 10 2 * (a₃ - lusA3 Ω)`
-
-Program definitions in this claim:
-
-- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): phrase (hand-written, linted): the Hubble rate with the scale factor `a` and the cosmic time of evaluation `t` (logarithmic derivative of the scale factor with respect to cosmic time; positive for expansion and negative for contraction); by definition, `hubble a t` is `deriv a t / a t`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «logarithmic derivative of the scale factor with respect to cosmic time» only assuming `0 < a t`; `DifferentiableAt ℝ a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `0 < deriv a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `deriv a t < 0`
-- `logPolyDL3 a₂ a₃ H₀ z` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_logPolyDL3`); its name is not checked (for `a₂ : ℝ`, `a₃ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3)`
-- `lumDistFlat a t₀ t` — **PINNED** (pin theorem `lumDistFlat_pins`): phrase (hand-written, linted): the luminosity distance in flat FLRW with the scale factor `a`, the observation time `t₀` and the emission time `t` (units in which the speed of light is one); by definition, `lumDistFlat a t₀ t` is `a t₀ * (1 + redshift a t₀ t) * comoving a t₀ t`
-- `lusA2 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA2`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 * (3 / 2 - 3 / 4 * Ω)`
-- `lusA3 Ω` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_lusA3`); its name is not checked (for `Ω : ℝ`): is defined as `Real.log 10 ^ 2 * (9 / 8 * Ω ^ 2 - 2 * Ω + 7 / 6)`
-- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): phrase (hand-written, linted): the cosmological redshift with the scale factor `a`, the observation time `t₀` and the emission time `t` (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide); by definition, `redshift a t₀ t` is `a t₀ / a t - 1`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «positive when emission precedes observation in an expanding universe» only assuming for every `s : ℝ`, `0 < a s`; `StrictMono a`; `t < t₀`, «one plus redshift is the scale factor at observation over that at emission», «zero when emission and observation coincide» only assuming `a t₀ ≠ 0`
+1. `0.1907798552 < q 0`
+2. `q 0 < 0.1907798553`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-**B1 direction.** In every flat ΛCDM model with `Ω ∈ [0.2, 0.4]` (sources at `z = 3`, `z = 7`;
-hypotheses as in `cubic_separation`), every cubic log-polynomial that agrees with exact flat ΛCDM (`Ω ∈ [0.2, 0.4]`) within 0.05 mag at `z = 3` and `z = 7` up to a common
-offset lies strictly on one side of a line through the ΛCDM-implied point:
-`a₂ − lusA2 Ω < 7 log₁₀2 · (a₃ − lusA3 Ω)` (slope `7 log₁₀ 2 ≈ 2.107`). Truncation can move a
-matching cubic only towards smaller `a₂` / larger `a₃` relative to that line.
-
-FROZEN (annex 40.1) in run 2026-10-31T0828Z before proof work (added after the referee's
-direction remark, `runs/2026-10-31T0828Z/referee_b1sep.md`).
+Falkner–Skan with β = −16/100: if (f, p, q) is a solution of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞)
+with f(0) = 0, p(0) = 0, p → 1, q > 0 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`,
+then 0.1907798552 < q(0) < 0.1907798553.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem cubic_direction (Ω : ℝ) (hΩ₁ : 1 / 5 ≤ Ω) (hΩ₂ : Ω ≤ 2 / 5)
-    (a : ℝ → ℝ) (t₇ t₃ t₀ : ℝ) (h₇₃ : t₇ ≤ t₃) (h₃₀ : t₃ ≤ t₀)
-    (hpos : ∀ s ∈ Set.Icc t₇ t₀, 0 < a s)
-    (hdiff : ∀ s ∈ Set.Icc t₇ t₀, DifferentiableAt ℝ a s)
-    (hH₀ : 0 < hubble a t₀)
-    (hH : ∀ s ∈ Set.Icc t₇ t₀,
-      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω))
-    (hz₃ : redshift a t₀ t₃ = 3) (hz₇ : redshift a t₀ t₇ = 7)
-    (a₂ a₃ H c : ℝ) (hHp : 0 < H)
-    (hp₃ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₃))
-    (hp₇ : 0 < logPolyDL3 a₂ a₃ H (redshift a t₀ t₇))
-    (hm₃ : |5 * Real.logb 10 (lumDistFlat a t₀ t₃ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₃)) - c|
-      ≤ 1 / 20)
-    (hm₇ : |5 * Real.logb 10 (lumDistFlat a t₀ t₇ / logPolyDL3 a₂ a₃ H (redshift a t₀ t₇)) - c|
-      ≤ 1 / 20) :
-    a₂ - lusA2 Ω < 7 * Real.logb 10 2 * (a₃ - lusA3 Ω) := …
+theorem fs_neg_wall_shear_16_window (f p q : ℝ → ℝ)
+    (hf : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η)
+    (hp : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η)
+    (hq : ∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-16 / 100) * (1 - p η ^ 2)) (Ici 0) η)
+    (hf0 : f 0 = 0) (hp0 : p 0 = 0) (hlim : Tendsto p atTop (𝓝 1))
+    (hpos : ∀ η ∈ Ici (0 : ℝ), 0 < q η)
+    (hdec : ∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) :
+    0.1907798552 < q 0 ∧ q 0 < 0.1907798553 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.BambaY.lumDistFlat`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1.logPolyDL3`, `Cosmography.B1.lusA2`, `Cosmography.B1.lusA3`, `Cosmography.BambaY.comoving`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: lumDistFlat, hubble, redshift.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL3², lusA2², lusA3².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `cubic_direction`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): redshift(t₃) = 3; redshift(t₇) = 7.
-- Source file: `Checked/Cosmography/B1Separation.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `fs_neg_wall_shear_16_window`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/FalknerSkan/NegWallShearRowsTop.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 08

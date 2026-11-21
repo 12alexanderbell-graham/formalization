@@ -1103,3 +1103,10 @@
 - Part 3 (rotation, T5): blind round AV, the first against CLAIMS_READER.md: 5/5 defects accepted by every check, all through the objection summary printed verbatim; 2/5 valid by blind readers (fabricated doubts on valid headlines), false reassurances 0/3. Fix: `Claims.lean` prints only that an objection is open and where (an entry can only lower trust); `check_claims.py --base` O1 (an objection leaves the registry only with a re-freeze or a withdrawal).
 - Annex LIV: PROMPT working note (attack the reader page itself; list the registry text a generator prints), LEDGER experiment (a second round on the page).
 - Next: CI read of the final push; then part 1 by rotation.
+
+## 2026-11-21T1628Z (scheduled run)
+- Env: repo ok (session clone on the stale divergent main, reset by `scripts/start_run.sh`); local Lean (elan), judge's build of c7d06a1 restored by streaming; subagents: one Sonnet blind restater, one Opus referee.
+- CI: 44921930069 (c7d06a1) green on every check step; nothing to promote.
+- Parts 2/5 (rotation): new headline `Checked.Cosmography.B1A3Bound.third_coefficient_lower_bound` (every cubic log-polynomial matching flat ΛCDM, Ω ∈ [0, 1], within 0.05 mag at 1 + z = √2, 2√2, 4√2 has a₃ > 13/5, whatever a₂; infimum ≈ 2.6435 by referee), freeze → blind restatement (closed in Lean) → referee STANDS WITH CAVEATS → proof by seven new generated cells → Checked, NV witness, six hypotheses REDUNDANT and seven NEEDED (`NecessityBO`), six open (disclosed).
+- Annex LIV: LEDGER experiment (exact-rational emulation of the certificate before choosing the constant); PROMPT working note.
+- Next: CI read of the final push; then part 1 by rotation.

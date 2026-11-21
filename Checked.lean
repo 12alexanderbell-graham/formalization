@@ -58,6 +58,12 @@ import Checked.Cosmography.B1FitCerts
 import Checked.Cosmography.B1Fit
 import Checked.Cosmography.B1FitWitness
 import Checked.Cosmography.B1FitRL19
+import Checked.Cosmography.B1A3Certs
+import Checked.Cosmography.B1A3Tools
+import Checked.Cosmography.B1A3Bound
+import Checked.Trust.SecondReadingB1A3
+import Checked.Trust.SecondReadingB1A3Law
+import Checked.Trust.SecondReadingB1A3Residual
 import Checked.Cosmography.B1L19Certs
 import Checked.Cosmography.B1L19
 import Checked.Cosmography.B1L19CurvedTools
@@ -741,3 +747,4 @@ import Checked.Trust.NecessityBK
 import Checked.Trust.NecessityBL
 import Checked.Trust.NecessityBNCerts
 import Checked.Trust.NecessityBN
+import Checked.Trust.NecessityBO

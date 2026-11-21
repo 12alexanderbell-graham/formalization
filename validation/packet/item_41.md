@@ -1,58 +1,59 @@
 # Item 41
 
-**Area:** Certified numbers of the findings
+**Area:** Mathematics
 
-**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** Capozziello, Lazkoz, Salzano, PRD 84, 124061 (2011), arXiv:1104.3096 (v1 and v2), Eq. (22): flat matter + CPL l₀, w_a² term missing a factor 9
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** the statement is proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.F2_toy` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 2 numbered; 1 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: no blind second reading registered; 13 literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.le72Rhs` := `fun θ φ ξ => -(2 / ξ * φ ξ) - θ ξ ^ (7 / 2)`; `Checked.Trust.SecondReading.le72RangeTyped` := `Set.Icc 0 10`; `Checked.Trust.SecondReading.le72Range` := `Set.Icc 0 10`; `Checked.Trust.SecondReading.le72RangeOpen` := `Set.Ioc 0 10`; `Checked.Trust.SecondReading.le72ContCentre` := `fun φ => ContinuousWithinAt φ (Set.Icc 0 10) 0`; `Checked.Trust.SecondReading.le72Centre` := `fun θ => θ 0 = 1`; `Checked.Trust.SecondReading.le72Before` := `fun θ x => ∀ ξ ∈ Set.Ico 0 x, 0 < θ ξ`; `Checked.Trust.SecondReading.le72Zero` := `fun x => 9.53580534 ≤ x ∧ x ≤ 9.53580535`; `Checked.Trust.SecondReading.le72Mass` := `fun x φ => 1.89055709 ≤ -(x ^ 2 * φ x) ∧ -(x ^ 2 * φ x) ≤ 1.89055710`; `Checked.Trust.SecondReading.le72Conc` := `fun x φ => 152.8836627 ≤ x ^ 3 / (3 * -(x ^ 2 * φ x)) ∧ x ^ 3 / (3 * -(x ^ 2 * φ x)) ≤ 152.8836632`. the statement is proved in module `Checked.Math.LaneEmden72` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.laneEmden72_constants` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 4 numbered; 3 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 10 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
+**For every** `θ : ℝ → ℝ`, `φ : ℝ → ℝ`:
 
 **assuming**
 
-1. the scale factor `a` obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter `Ω := 245 / 1000`, the present dark energy equation of state `w₀ := -93 / 100`, the equation of state evolution parameter `wₐ := -41 / 100` and the observation time `t₀` (spatially flat universe with dust and separately conserved dark energy; redshift z is measured from `t₀`; `Ω := 245 / 1000` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding)
-2. `ContDiffAt ℝ 5 a t₀`
+1. for every `ξ : ℝ`, if `ξ ∈ Set.Icc 0 10`, then `HasDerivWithinAt θ (φ ξ) (Set.Icc 0 10) ξ`
+2. `ContinuousWithinAt φ (Set.Icc 0 10) 0`
+3. for every `ξ : ℝ`, if `ξ ∈ Set.Ioc 0 10`, then `HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ (7 / 2)) (Set.Icc 0 10) ξ`
+4. `θ 0 = 1`
 
 **then**
 
-1. `RoundsTo (cosmoCoeff 5 a t₀) 0.809 3`
-2. `RoundsTo (printedCLSL0 (245 / 1000) (-93 / 100) (-41 / 100)) (-0.906) 3`
-
-Program definitions in this claim:
-
-- `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): phrase (hand-written, linted): the scale factor `a` obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter `Ω`, the present dark energy equation of state `w₀`, the equation of state evolution parameter `wₐ` and the observation time `t₀` (spatially flat universe with dust and separately conserved dark energy; redshift z is measured from `t₀`; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding); by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + (1 - Ω) * (1 + redshift a t₀ t) ^ (3 * (1 + w₀ + wₐ)) * Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «present Hubble rate is positive so the universe is expanding» only assuming the scale factor `a` obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter `Ω`, the present dark energy equation of state `w₀`, the equation of state evolution parameter `wₐ` and the observation time `t₀` (spatially flat universe with dust and separately conserved dark energy; redshift z is measured from `t₀`; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding)
-- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): phrase (hand-written, linted): the cosmographic coefficient with the derivative order of the coefficient `n`, the scale factor `a` and the time of evaluation `t` (`n`-th time derivative of the scale factor over the scale factor divided by the `n`-th power of the Hubble rate; orders 0 and 1 coefficients are one; The order 2 coefficient is minus the deceleration parameter usually written q; The order 3 coefficient is the jerk parameter usually written j; The order 4 coefficient is the snap parameter usually written s; The order 5 coefficient is the lerk parameter usually written l); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «orders 0 and 1 coefficients are one» only assuming `a t ≠ 0`; `deriv a t ≠ 0`, «The order 2 coefficient is minus the deceleration parameter usually written q» only assuming `a t ≠ 0`
-- `printedCLSL0 Ω w₀ wₐ` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedCLSL0`); its name is not checked (for `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`): is defined as `35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀ + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2 + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3 + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4`
+- there is `ξ₁ : ℝ` such that (`9.53580534 ≤ ξ₁`) and (`ξ₁ ≤ 9.53580535`) and (`θ ξ₁ = 0`) and (for every `ξ : ℝ`, if `ξ ∈ Set.Ico 0 ξ₁`, then `0 < θ ξ`) and (`1.89055709 ≤ -(ξ₁ ^ 2 * φ ξ₁)`) and (`-(ξ₁ ^ 2 * φ ξ₁) ≤ 1.89055710`) and (`152.8836627 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁))`) and (`ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 152.8836632`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The paper's toy model `(Ω, w₀, wₐ) = (0.245, −0.93, −0.41)`: in every flat matter + CPL model
-with these parameters `l₀ = 0.809`, while the printed formula gives `−0.906`.
+Lane–Emden equation θ'' + (2/ξ)θ' + θ ^ (7/2) = 0: for every solution θ on (0, 10] with
+θ(0) = 1, θ differentiable on [0, 10] with derivative φ, and φ continuous at 0, there is a zero ξ₁ of
+θ with 9.53580534 ≤ ξ₁ ≤ 9.53580535 and θ > 0 on [0, ξ₁), at which −ξ₁² θ'(ξ₁) lies between
+1.89055709 and 1.89055710 and ξ₁³/(3 · (−ξ₁² θ'(ξ₁))) lies between 152.8836627 and 152.8836632.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem F2_toy (a : ℝ → ℝ) (t₀ : ℝ)
-    (hL : CPL.IsFlatCPL (245 / 1000) (-93 / 100) (-41 / 100) a t₀)
-    (hs : ContDiffAt ℝ 5 a t₀) :
-    RoundsTo (cosmoCoeff 5 a t₀) 0.809 3 ∧
-      RoundsTo (printedCLSL0 (245 / 1000) (-93 / 100) (-41 / 100)) (-0.906) 3 := …
+theorem laneEmden72_constants (θ φ : ℝ → ℝ)
+    (hθ : ∀ ξ ∈ Icc (0 : ℝ) 10, HasDerivWithinAt θ (φ ξ) (Icc 0 10) ξ)
+    (hφ0 : ContinuousWithinAt φ (Icc 0 10) 0)
+    (hφ : ∀ ξ ∈ Ioc (0 : ℝ) 10,
+      HasDerivWithinAt φ (-(2 / ξ * φ ξ) - θ ξ ^ ((7 : ℝ) / 2)) (Icc 0 10) ξ)
+    (h0 : θ 0 = 1) :
+    ∃ ξ₁ : ℝ, 9.53580534 ≤ ξ₁ ∧ ξ₁ ≤ 9.53580535 ∧ θ ξ₁ = 0 ∧ (∀ ξ ∈ Ico 0 ξ₁, 0 < θ ξ) ∧
+      1.89055709 ≤ -(ξ₁ ^ 2 * φ ξ₁) ∧ -(ξ₁ ^ 2 * φ ξ₁) ≤ 1.89055710 ∧
+      152.8836627 ≤ ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ∧
+      ξ₁ ^ 3 / (3 * -(ξ₁ ^ 2 * φ ξ₁)) ≤ 152.8836632 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.CPL.IsFlatCPL`, `Records.printedCLSL0`, `Cosmography.hubble`, `Cosmography.redshift`, `Records.RoundsTo`
+Only Mathlib notions.
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: cosmoCoeff, IsFlatCPL.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): printedCLSL0².
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `F2_toy`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatCPL: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100; RoundsTo: d = 0.809, k = 3, d = -0.906; cosmoCoeff: n = 5; printedCLSL0: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100.
-- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `laneEmden72_constants`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
+- Source file: `Checked/Math/LaneEmden72.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 41

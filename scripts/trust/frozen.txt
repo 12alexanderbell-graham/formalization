@@ -41,6 +41,7 @@ Checked.Cosmography.B1.logPolyDL3 de85466a389577a8-PRINTED
 Checked.Cosmography.B1.lumDistFlat_flatLCDM e42d16c7-doc4090693389596683798
 Checked.Cosmography.B1.lusA2 37d0e0a185ad599d-PRINTED
 Checked.Cosmography.B1.lusA3 29255de2ffbc4f30-PRINTED
+Checked.Cosmography.B1A3Bound.third_coefficient_lower_bound 851458a7-doc7221222904041243472
 Checked.Cosmography.B1Fit.fit_direction c75b5b83-doc6678170621305247766
 Checked.Cosmography.B1FitRL19.rl19_box_unmatched ae1742ad-doc3185745054540232100
 Checked.Cosmography.B1L19.l19_sq_box 2b33d0f1-doc8305842349686319595
@@ -623,6 +624,8 @@ doc:Checked.Cosmography.B1.lusA2 -doc2075799409665230411
 doc:Checked.Cosmography.B1.lusA3 -doc14911085308549427262
 doc:Checked.Cosmography.B1.ratio_of_z -doc15618563157702543525
 doc:Checked.Cosmography.B1.tangent_le -doc8416583015289996755
+doc:Checked.Cosmography.B1A3Certs.a3c_core -doc15443716449543586729
+doc:Checked.Cosmography.B1A3Tools.a3_of -doc10481864912828650908
 doc:Checked.Cosmography.B1Fit.Qf -doc7735673566024319255
 doc:Checked.Cosmography.B1Fit.cell_lower -doc4134890953118167794
 doc:Checked.Cosmography.B1Fit.cell_upper -doc14165668673646429675
@@ -3561,6 +3564,7 @@ doc:Checked.Trust.NCY.fs_neg_wall_shear_19_window_h4 -doc6485966246635950360
 doc:Checked.Trust.NCY.fs_neg_wall_shear_19_window_h5 -doc6832305556947087110
 doc:Checked.Trust.NCY.fs_neg_wall_shear_window_h4 -doc15975633882956233865
 doc:Checked.Trust.NCY.fs_neg_wall_shear_window_h5 -doc2096356200021269989
+doc:Checked.Trust.NV.third_coefficient_lower_bound -doc10324086157733254372
 doc:Checked.Trust.NecessityAD.G3_vals -doc16636300122014240117
 doc:Checked.Trust.NecessityAD.G -doc17203557371291365003
 doc:Checked.Trust.NecessityAD.PQ -doc220270746030996985
@@ -3845,6 +3849,14 @@ doc:Checked.Trust.SecondReading.Q2 -doc3627235151727589907
 doc:Checked.Trust.SecondReading.Q3 -doc6837567394327879275
 doc:Checked.Trust.SecondReading.avilesL0 -doc1307880475566120595
 doc:Checked.Trust.SecondReading.avilesM0 -doc14627928303863984333
+doc:Checked.Trust.SecondReading.b1a3Law -doc10159391750887079511
+doc:Checked.Trust.SecondReading.b1a3Modulus -doc4919734022828177580
+doc:Checked.Trust.SecondReading.b1a3Radicand -doc7880733807724380838
+doc:Checked.Trust.SecondReading.b1a3Residual -doc6041665980529956776
+doc:Checked.Trust.SecondReading.b1a3Window -doc14814045362038645623
+doc:Checked.Trust.SecondReading.b1a3zFar -doc7897613447369083699
+doc:Checked.Trust.SecondReading.b1a3zMid -doc2058130248066931442
+doc:Checked.Trust.SecondReading.b1a3zNear -doc6490679020172568398
 doc:Checked.Trust.SecondReading.bamba12LCDMl0 -doc12501398861930459339
 doc:Checked.Trust.SecondReading.bamba12LCDMq0 -doc12501398861930459339
 doc:Checked.Trust.SecondReading.bamba12PrintedEtaDen -doc12501398861930459339
@@ -4258,6 +4270,9 @@ moduledoc:Checked.Chemistry.RKReduced -mdoc17799278113134051071
 moduledoc:Checked.Chemistry.SRKAcentric -mdoc10014022841654797209
 moduledoc:Checked.Chemistry.SRKExists -mdoc3884952771135478019
 moduledoc:Checked.Chemistry.SRKReduced -mdoc9042682352091611011
+moduledoc:Checked.Cosmography.B1A3Bound -mdoc11575283044345811384
+moduledoc:Checked.Cosmography.B1A3Certs -mdoc5844856341294599014
+moduledoc:Checked.Cosmography.B1A3Tools -mdoc2896370147656758284
 moduledoc:Checked.Cosmography.B1FitCerts -mdoc15271504134962391150
 moduledoc:Checked.Cosmography.B1FitRL19 -mdoc10767267510000138633
 moduledoc:Checked.Cosmography.B1FitTools -mdoc15374319093865975066
@@ -4894,6 +4909,7 @@ moduledoc:Checked.Trust.NecessityBL -mdoc11145663684537588731
 moduledoc:Checked.Trust.NecessityBM -mdoc7439109589628246309
 moduledoc:Checked.Trust.NecessityBNCerts -mdoc15674884772573931956
 moduledoc:Checked.Trust.NecessityBN -mdoc15823890581229043997
+moduledoc:Checked.Trust.NecessityBO -mdoc15435330886995344031
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
@@ -4926,6 +4942,9 @@ moduledoc:Checked.Trust.PhraseCerts -mdoc12711690909403030401
 moduledoc:Checked.Trust.SecondFormulationCosmo -mdoc14861710477027291596
 moduledoc:Checked.Trust.SecondFormulationM16 -mdoc8057426027505603843
 moduledoc:Checked.Trust.SecondFormulation -mdoc10887534755347747998
+moduledoc:Checked.Trust.SecondReadingB1A3Law -mdoc10357057087451065427
+moduledoc:Checked.Trust.SecondReadingB1A3Residual -mdoc12051084975054283442
+moduledoc:Checked.Trust.SecondReadingB1A3 -mdoc12093738785444203892
 moduledoc:Checked.Trust.SecondReadingB1 -mdoc6364613568952889673
 moduledoc:Checked.Trust.SecondReadingBE3 -mdoc14632787277133674012
 moduledoc:Checked.Trust.SecondReadingBEAll -mdoc976914423985258474

@@ -15,11 +15,12 @@ cubic near two and sixty-four hundredths, at density one. The route is the proof
 namespace Work.Cosmography.B1A3Bound
 open Checked.Cosmography Checked.Cosmography.BambaY Checked.Cosmography.B1
 
-/-- For every density `Ω ∈ [0, 1]`, if the scale factor `a` has Hubble rate `hubble a t₀ * √(Ω * (1 + z) ^ 3 + 1 - Ω)`
-between the emission time `t₅` and the observation time `t₀` and the log-polynomial luminosity distance
-`logPolyDL3 a₂ a₃ H` (with `H > 0`) is positive at the three redshifts `√2 - 1`, `2 * √2 - 1`, `4 * √2 - 1` and has
-`5 * Real.logb 10` of the ratio of the flat luminosity distance to it within `1 / 20` of one value `c` at each of
-them, then its third coefficient is `a₃ > 13 / 5`, for every second coefficient `a₂`. -/
+/-- For every density `Ω` with `0 ≤ Ω` and `Ω ≤ 1`, if the scale factor `a` has Hubble rate
+`hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + 1 - Ω)` between the emission time `t₅` and the
+observation time `t₀` and the log-polynomial luminosity distance `logPolyDL3 a₂ a₃ H` (with `0 < H`) is positive at
+the three redshifts `√2 - 1`, `2 * √2 - 1`, `4 * √2 - 1` and has `5 * Real.logb 10` of the ratio of the flat
+luminosity distance to it within `1 / 20` of one value `c` at the three redshifts, then its third coefficient
+satisfies `13 / 5 < a₃`, for every second coefficient `a₂`. -/
 theorem third_coefficient_lower_bound (Ω : ℝ) (hΩ₀ : 0 ≤ Ω) (hΩ₁ : Ω ≤ 1)
     (a : ℝ → ℝ) (t₅ t₃ t₁ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₁ : t₃ ≤ t₁) (h₁₀ : t₁ ≤ t₀)
     (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)

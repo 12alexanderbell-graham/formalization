@@ -114,6 +114,7 @@ import Checked.Math.GelfandPDECountTurningValuesFive
 import Checked.Math.GelfandTurningValuesSeven
 import Checked.Math.GelfandPDEBound
 import Checked.Math.GelfandTurningValuesFive
+import Checked.Cosmography.B1A3Bound
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -501,6 +502,15 @@ theorem cubic_direction : nonvacuity% Checked.Cosmography.B1Sep.cubic_direction 
 and the cubic `a₂ = 7/4, a₃ = 25/4, H = 1` (`Checked.Cosmography.B1FitWitness.hyps_satisfiable`). -/
 
 theorem fit_direction : nonvacuity% Checked.Cosmography.B1Fit.fit_direction := by
+  obtain ⟨Ω, a, t₅, t₃, t₁, t₀, a₂, a₃, H, c, h0, h1, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3,
+    hz5, hHp, hp1, hp3, hp5, hm1, hm3, hm5⟩ := Checked.Cosmography.B1FitWitness.hyps_satisfiable
+  exact ⟨Ω, h0, h1, a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3, hz5, a₂, a₃,
+    H, c, hHp, hp1, hp3, hp5, hm1, hm3, hm5, trivial⟩
+
+/-- B1 third coefficient (run 2026-11-21T1628Z): the hypotheses are those of `fit_direction`, and the same data meet
+them (`Checked.Cosmography.B1FitWitness.hyps_satisfiable`). -/
+theorem third_coefficient_lower_bound :
+    nonvacuity% Checked.Cosmography.B1A3Bound.third_coefficient_lower_bound := by
   obtain ⟨Ω, a, t₅, t₃, t₁, t₀, a₂, a₃, H, c, h0, h1, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3,
     hz5, hHp, hp1, hp3, hp5, hm1, hm3, hm5⟩ := Checked.Cosmography.B1FitWitness.hyps_satisfiable
   exact ⟨Ω, h0, h1, a, t₅, t₃, t₁, t₀, h53, h31, h10, hpos, hdiff, hH0, hH, hz1, hz3, hz5, a₂, a₃,

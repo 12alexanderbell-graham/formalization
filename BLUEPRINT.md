@@ -493,6 +493,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Hypothesis lines of the records checked against the trust map (run 2026-11-20T2028Z)
 - `scripts/trust/check_stale_necessity.py` (run by `scripts/trust/check_necessity_prose.py`), `runs/2026-11-20T2028Z/t5/`, `_archive/STATE_steps_2026-11-09_to_2026-11-15.md`.
 
+## A bound on a₃ of the B1 family (run 2026-11-21T1628Z)
+- `Checked/Cosmography/B1A3Bound.lean`, `Checked/Cosmography/B1A3Tools.lean`, `Checked/Cosmography/B1A3Certs.lean`, `Checked/Trust/NecessityBO.lean`, `Work/Cosmography/B1A3Bound.lean`, `Work/Cosmography/B1A3BoundBlind.lean`, `Work/Cosmography/B1A3BoundAudit.lean`, `runs/2026-11-21T1628Z/scripts/`, `runs/2026-11-21T1628Z/referee_b1a3.md`.
+
 ## The generated claims page attacked blind; objection text off the page (run 2026-11-21T1428Z)
 - `scripts/trust/Claims.lean` (objection entries print run and path only), `scripts/trust/check_claims.py` (O1), `runs/2026-11-21T1428Z/t5/` (brief, red team output, judge, readers, results).
 

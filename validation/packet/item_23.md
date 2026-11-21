@@ -1,46 +1,86 @@
 # Item 23
 
-**Area:** Fluid mechanics
+**Area:** B1 fourth order
 
 **Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.hiemenzRhs` := `fun f p q η => -(f η * q η) - 1 + p η ^ 2`; `Checked.Trust.SecondReading.hiemenzHalfLineTyped` := `Set.Ici 0`; `Checked.Trust.SecondReading.hiemenzHalfLine` := `Set.Ici 0`; `Checked.Trust.SecondReading.hiemenzWall` := `fun g => g 0 = 0`; `Checked.Trust.SecondReading.hiemenzEdge` := `nhds 1`; `Checked.Trust.SecondReading.hiemenzShear` := `fun q => 1.2325876568 < q 0 ∧ q 0 < 1.2325876569`. the statement is proved in module `Checked.Hiemenz.Hiemenz` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: nothing to witness (the statement has no hypothesis to meet); hypotheses: none numbered; statement literals: 6 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** the statement is proved in module `Checked.Cosmography.B1L19Curved` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.l19_sq_curved` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 13 numbered; 8 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 3 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 2 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: no blind second reading registered; 25 literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**It holds that**
+**For every** `Ω : ℝ`, `K : ℝ`, `a : ℝ → ℝ`, `t₅ : ℝ`, `t₃ : ℝ`, `t₀ : ℝ`, `H : ℝ`:
 
-- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`1.2325876568 < q 0`) and (`q 0 < 1.2325876569`)
+**assuming**
+
+1. `1 / 10 ≤ Ω`
+2. `Ω ≤ 1`
+3. `t₅ ≤ t₃`
+4. `t₃ ≤ t₀`
+5. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `0 < a s`
+6. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `DifferentiableAt ℝ a s`
+7. `0 < hubble a t₀`
+8. `1 ≤ omega0 K a t₀`
+9. `omega0 K a t₀ ≤ 11 / 10`
+10. for every `s : ℝ`, if `s ∈ Set.Icc t₅ t₀`, then `hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3 + (1 - omega0 K a t₀) * (1 + redshift a t₀ s) ^ 2 + omega0 K a t₀ - Ω)`
+11. `redshift a t₀ t₃ = 2 * √2 - 1`
+12. `redshift a t₀ t₅ = 4 * √2 - 1`
+13. `0 < H`
+
+**then**
+
+- `1 / 4 < 5 * Real.logb 10 (lumDist K a t₀ t₅ / logPolyDL4 3.075 4.466 (-3.716) H (redshift a t₀ t₅)) - 5 * Real.logb 10 (lumDist K a t₀ t₃ / logPolyDL4 3.075 4.466 (-3.716) H (redshift a t₀ t₃))`
+
+Program definitions in this claim:
+
+- `hubble a t` — **PINNED** (pin theorem `hubbleSpec_pins`): phrase (hand-written, linted): the Hubble rate with the scale factor `a` and the cosmic time of evaluation `t` (logarithmic derivative of the scale factor with respect to cosmic time; positive for expansion and negative for contraction); by definition, `hubble a t` is `deriv a t / a t`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «logarithmic derivative of the scale factor with respect to cosmic time» only assuming `0 < a t`; `DifferentiableAt ℝ a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `0 < deriv a t`, «positive for expansion and negative for contraction» only assuming `0 < a t`; `deriv a t < 0`
+- `logPolyDL4 a₂ a₃ a₄ H₀ z` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_logPolyDL4`); its name is not checked (for `a₂ : ℝ`, `a₃ : ℝ`, `a₄ : ℝ`, `H₀ : ℝ`, `z : ℝ`): is defined as `Real.log 10 / H₀ * (Real.logb 10 (1 + z) + a₂ * Real.logb 10 (1 + z) ^ 2 + a₃ * Real.logb 10 (1 + z) ^ 3 + a₄ * Real.logb 10 (1 + z) ^ 4)`
+- `lumDist K a t₀ t` — **PINNED** (pin theorem `lumDistSpec2_pins`): phrase (hand-written, linted): the luminosity distance in FLRW with curvature with the spatial curvature constant `K`, the scale factor `a`, the observation time `t₀` and the emission time `t` (positive curvature constant means closed, negative means open; units in which the speed of light is one; positive `K` is closed and negative `K` is open); by definition, `lumDist K a t₀ t` is `a t₀ * (1 + redshift a t₀ t) * transverse K (comoving a t₀ t)`
+- `omega0 K a t₀` — **PINNED** (pin theorem `omega0Spec_pins`): phrase (hand-written, linted): the present total density parameter Ω0 with the spatial curvature constant `K`, the scale factor `a` and the observation time `t₀` (one plus curvature term, positive curvature constant gives above one; total density parameter and not the matter fraction alone; equals one for zero curvature); by definition, `omega0 K a t₀` is `1 + K / (hubble a t₀ ^ 2 * a t₀ ^ 2)`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «one plus curvature term, positive curvature constant gives above one», «one plus curvature term, positive curvature constant gives above one» only assuming `0 < K`; `hubble a t₀ ≠ 0`; `a t₀ ≠ 0`, «equals one for zero curvature»
+- `redshift a t₀ t` — **PINNED** (pin theorem `redshiftCore_pins`): phrase (hand-written, linted): the cosmological redshift with the scale factor `a`, the observation time `t₀` and the emission time `t` (positive when emission precedes observation in an expanding universe; one plus redshift is the scale factor at observation over that at emission; negative redshift is blueshift; zero when emission and observation coincide); by definition, `redshift a t₀ t` is `a t₀ / a t - 1`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «positive when emission precedes observation in an expanding universe» only assuming for every `s : ℝ`, `0 < a s`; `StrictMono a`; `t < t₀`, «one plus redshift is the scale factor at observation over that at emission», «zero when emission and observation coincide» only assuming `a t₀ ≠ 0`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Hiemenz stagnation-point flow, existence: there is a solution of f''' + f f'' + 1 − f'² = 0
-on [0, ∞) (f has derivative p, p has derivative q, q has derivative −f q − 1 + p², one-sided
-at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value q(0) = f''(0) lies
-strictly between 1.2325876568 and 1.2325876569.
+**Lusso et al. 2019, SNe + quasars, central fit, closed or flat curvature.** For every matter density
+`Ω ∈ [1/10, 1]`, every curvature constant `K` whose total density parameter `Ω₀ = 1 + K/(H₀²a₀²)`
+lies in `[1, 11/10]`, and every scale factor obeying
+`H = H₀ √(Ω(1+z)³ + (1 − Ω₀)(1+z)² + Ω₀ − Ω)` (with `H₀ > 0`) on the whole interval back to the
+farther source, with sources at `1 + z = 2√2` and `1 + z = 4√2`, and every normalisation `H > 0`,
+the quartic log-polynomial distance with the printed central coefficients `a₂ = 3.075`,
+`a₃ = 4.466`, `a₄ = −3.716` has a residual distance modulus `5 log₁₀(d_L / D_L)` against the exact
+luminosity distance `d_L` (`lumDist K`) that exceeds at `1 + z = 4√2` the one at `1 + z = 2√2` by
+more than 1/4 mag.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem hiemenz_exists : ∃ f p q : ℝ → ℝ,
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
-    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - 1 + p η ^ 2) (Ici 0) η) ∧
-    f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-    1.2325876568 < q 0 ∧ q 0 < 1.2325876569 := …
+theorem l19_sq_curved (Ω K : ℝ) (hΩ₀ : 1 / 10 ≤ Ω) (hΩ₁ : Ω ≤ 1)
+    (a : ℝ → ℝ) (t₅ t₃ t₀ : ℝ) (h₅₃ : t₅ ≤ t₃) (h₃₀ : t₃ ≤ t₀)
+    (hpos : ∀ s ∈ Set.Icc t₅ t₀, 0 < a s)
+    (hdiff : ∀ s ∈ Set.Icc t₅ t₀, DifferentiableAt ℝ a s)
+    (hH₀ : 0 < hubble a t₀)
+    (hK₀ : 1 ≤ omega0 K a t₀) (hK₁ : omega0 K a t₀ ≤ 11 / 10)
+    (hH : ∀ s ∈ Set.Icc t₅ t₀,
+      hubble a s = hubble a t₀ * √(Ω * (1 + redshift a t₀ s) ^ 3
+        + (1 - omega0 K a t₀) * (1 + redshift a t₀ s) ^ 2 + omega0 K a t₀ - Ω))
+    (hz₃ : redshift a t₀ t₃ = 2 * √2 - 1) (hz₅ : redshift a t₀ t₅ = 4 * √2 - 1)
+    (H : ℝ) (hHp : 0 < H) :
+    1 / 4 < 5 * Real.logb 10 (lumDist K a t₀ t₅
+        / logPolyDL4 3.075 4.466 (-3.716) H (redshift a t₀ t₅))
+      - 5 * Real.logb 10 (lumDist K a t₀ t₃
+        / logPolyDL4 3.075 4.466 (-3.716) H (redshift a t₀ t₃)) := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Cosmography.BambaK.lumDist`, `Cosmography.BambaK.omega0`, `Cosmography.hubble`, `Cosmography.redshift`, `Cosmography.B1L19.logPolyDL4`, `Cosmography.BambaY.comoving`, `Cosmography.Transverse.transverse`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Hiemenz/Hiemenz.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: lumDist, omega0, hubble, redshift.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): logPolyDL4².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `l19_sq_curved`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): logPolyDL4: a₂ = 3.075, a₃ = 4.466, a₄ = -3.716; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1.
+- Source file: `Checked/Cosmography/B1L19Curved.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 23

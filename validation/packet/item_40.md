@@ -1,55 +1,33 @@
 # Item 40
 
-**Area:** Astrophysics
+**Area:** Fluid mechanics
 
 **Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.gelfandRhs` := `fun s w φ => -(2 / s * φ s) - Real.exp (w s)`; `Checked.Trust.SecondReading.gelfandCentre` := `fun w => w 0 = 0`; `Checked.Trust.SecondReading.gelfandRegular` := `fun φ S => ContinuousWithinAt φ (Set.Icc 0 S) 0`; `Checked.Trust.SecondReading.gelfandDomain` := `fun S => Set.Icc 0 S`; `Checked.Trust.SecondReading.gelfandPunctured` := `fun S => Set.Ioc 0 S`; `Checked.Trust.SecondReading.beMass` := `fun s w φ => s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi)`. the statement is proved in module `Checked.Math.BonnorEbertMin` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.bonnor_ebert_min` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 5 numbered; 4 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 6 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.homannRhs` := `fun f p q η => -(2 * f η * q η) - 1 + p η ^ 2`; `Checked.Trust.SecondReading.homannHalfLineTyped` := `Set.Ici 0`; `Checked.Trust.SecondReading.homannHalfLine` := `Set.Ici 0`; `Checked.Trust.SecondReading.homannWall` := `fun g => g 0 = 0`; `Checked.Trust.SecondReading.homannEdge` := `nhds 1`; `Checked.Trust.SecondReading.homannShear` := `fun q => 1.3119376938 < q 0 ∧ q 0 < 1.3119376939`. the statement is proved in module `Checked.Homann.Homann` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: nothing to witness (the statement has no hypothesis to meet); hypotheses: none numbered; statement literals: 6 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**For every** `S : ℝ`, `w : ℝ → ℝ`, `φ : ℝ → ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `150 ≤ S`
-2. for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then `HasDerivWithinAt w (φ s) (Set.Icc 0 S) s`
-3. `ContinuousWithinAt φ (Set.Icc 0 S) 0`
-4. for every `s : ℝ`, if `s ∈ Set.Ioc 0 S`, then `HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Set.Icc 0 S) s`
-5. `w 0 = 0`
-
-**then**
-
-- there is `ξ₁ : ℝ` such that there is `ξ₂ : ℝ` such that (`6.4507514 ≤ ξ₁`) and (`ξ₁ ≤ 6.4507515`) and (`67.0075 ≤ ξ₂`) and (`ξ₂ ≤ 67.0076`) and (for every `s : ℝ`, if `s ∈ Set.Icc 0 S`, then if `s ≠ ξ₁`, then `s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi) < ξ₁ ^ 2 * -φ ξ₁ * Real.exp (w ξ₁ / 2) / √(4 * Real.pi)`) and (for every `s : ℝ`, if `s ∈ Set.Icc ξ₁ S`, then if `s ≠ ξ₂`, then `ξ₂ ^ 2 * -φ ξ₂ * Real.exp (w ξ₂ / 2) / √(4 * Real.pi) < s ^ 2 * -φ s * Real.exp (w s / 2) / √(4 * Real.pi)`) and (`0.694366 ≤ ξ₂ ^ 2 * -φ ξ₂ * Real.exp (w ξ₂ / 2) / √(4 * Real.pi)`) and (`ξ₂ ^ 2 * -φ ξ₂ * Real.exp (w ξ₂ / 2) / √(4 * Real.pi) ≤ 0.694367`) and (`2579.69 ≤ Real.exp (-w ξ₂)`) and (`Real.exp (-w ξ₂) ≤ 2579.71`)
+- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (`1.3119376938 < q 0`) and (`q 0 < 1.3119376939`)
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Bonnor–Ebert sphere, min of the mass: for every S ≥ 150 and every solution w of
-w'' + (2/s)w' + e^w = 0 on (0, S] with w(0) = 0, w differentiable on [0, S] with derivative φ and φ continuous
-at 0, with m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π), there are ξ₁ between 6.4507514 and 6.4507515 and ξ₂
-between 67.0075 and 67.0076 such that m(s) < m(ξ₁) for s in [0, S] with s ≠ ξ₁, m(ξ₂) < m(s) for s in [ξ₁, S]
-with s ≠ ξ₂, m(ξ₂) lies between 0.694366 and 0.694367, and the density contrast e^{−w(ξ₂)} lies between
-2579.69 and 2579.71.
+Homann axisymmetric stagnation-point flow, existence: there is a solution of
+f''' + 2 f f'' + 1 − f'² = 0 on [0, ∞) (f has derivative p, p has derivative q, q has derivative
+−2 f q − 1 + p², one-sided at 0) with f(0) = 0, p(0) = 0 and p(η) → 1 as η → ∞ whose wall value
+q(0) = f''(0) lies strictly between 1.3119376938 and 1.3119376939.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem bonnor_ebert_min (S : ℝ) (hS : 150 ≤ S) (w φ : ℝ → ℝ)
-    (hw : ∀ s ∈ Icc (0 : ℝ) S, HasDerivWithinAt w (φ s) (Icc 0 S) s)
-    (hφ0 : ContinuousWithinAt φ (Icc 0 S) 0)
-    (hφ : ∀ s ∈ Ioc (0 : ℝ) S,
-      HasDerivWithinAt φ (-(2 / s * φ s) - Real.exp (w s)) (Icc 0 S) s)
-    (h0 : w 0 = 0) :
-    ∃ ξ₁ ξ₂ : ℝ, 6.4507514 ≤ ξ₁ ∧ ξ₁ ≤ 6.4507515 ∧ 67.0075 ≤ ξ₂ ∧ ξ₂ ≤ 67.0076 ∧
-      (∀ s ∈ Icc (0 : ℝ) S, s ≠ ξ₁ →
-        s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi) <
-          ξ₁ ^ 2 * (-φ ξ₁) * Real.exp (w ξ₁ / 2) / Real.sqrt (4 * Real.pi)) ∧
-      (∀ s ∈ Icc ξ₁ S, s ≠ ξ₂ →
-        ξ₂ ^ 2 * (-φ ξ₂) * Real.exp (w ξ₂ / 2) / Real.sqrt (4 * Real.pi) <
-          s ^ 2 * (-φ s) * Real.exp (w s / 2) / Real.sqrt (4 * Real.pi)) ∧
-      0.694366 ≤ ξ₂ ^ 2 * (-φ ξ₂) * Real.exp (w ξ₂ / 2) / Real.sqrt (4 * Real.pi) ∧
-      ξ₂ ^ 2 * (-φ ξ₂) * Real.exp (w ξ₂ / 2) / Real.sqrt (4 * Real.pi) ≤ 0.694367 ∧
-      2579.69 ≤ Real.exp (-w ξ₂) ∧ Real.exp (-w ξ₂) ≤ 2579.71 := …
+theorem homann_exists : ∃ f p q : ℝ → ℝ,
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
+    (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(2 * f η * q η) - 1 + p η ^ 2) (Ici 0) η) ∧
+    f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
+    1.3119376938 < q 0 ∧ q 0 < 1.3119376939 := …
 ```
 
 ## Definitions it uses
@@ -61,8 +39,8 @@ Only Mathlib notions.
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
 - Definitions pinned by a machine-checked specification: —.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `bonnor_ebert_min`.
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
 - Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Math/BonnorEbertMin.lean` (do not open it before submitting your answers).
+- Source file: `Checked/Homann/Homann.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 40

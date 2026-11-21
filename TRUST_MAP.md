@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 309. Resting on no unpinned physics definition: 309.
-Non-vacuity (trust track T2): 187 headlines have hypotheses; 187 of them have a
+Headlines: 310. Resting on no unpinned physics definition: 310.
+Non-vacuity (trust track T2): 188 headlines have hypotheses; 188 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1039 hypotheses in 182 headlines;
-760 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-243 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-36 open; headlines with every hypothesis classified: 153/182
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1058 hypotheses in 183 headlines;
+767 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+249 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+42 open; headlines with every hypothesis classified: 153/183
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -170,6 +170,7 @@ the docstring says; universally bound parameters are not listed.
 | `B1Sep.cubic_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `cubic_direction` | redshift(t₃) = 3; redshift(t₇) = 7 |
 | `B1Fit.fit_direction` | lumDistFlat, hubble, redshift | — | logPolyDL3², lusA2², lusA3² | `fit_direction` | redshift(t₁) = √2 - 1; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
 | `B1FitRL19.rl19_box_unmatched` | lumDistFlat, hubble, redshift | — | logPolyDL3² | `rl19_box_unmatched` | redshift(t₁) = √2 - 1; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
+| `B1A3Bound.third_coefficient_lower_bound` | lumDistFlat, hubble, redshift | — | logPolyDL3² | `third_coefficient_lower_bound` | redshift(t₁) = √2 - 1; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
 | `B1L19.l19_sq_central` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sq_central` | logPolyDL4: a₂ = 3.075, a₃ = 4.466, a₄ = -3.716; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
 | `B1L19.l19_sqg_central` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sqg_central` | logPolyDL4: a₂ = 3.205, a₃ = 3.564, a₄ = -2.510; redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
 | `B1L19.l19_sq_box` | lumDistFlat, hubble, redshift | — | logPolyDL4² | `l19_sq_box` | redshift(t₃) = 2 * √2 - 1; redshift(t₅) = 4 * √2 - 1 |
@@ -444,6 +445,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `B1Sep.cubic_direction` (15): needed 1 (`cubic_direction_h1`), 2 (`cubic_direction_h2`), 3 (`cubic_direction_h3`), 4 (`cubic_direction_h4`), 8 (`cubic_direction_h8`), 9 (`cubic_direction_h9`), 10 (`cubic_direction_h10`), 11 (`cubic_direction_h11`), 13 (`cubic_direction_h13`), 14 (`cubic_direction_h14`), 15 (`cubic_direction_h15`); redundant (each alone, not together) 5 (`cubic_direction_r5`), 6 (`cubic_direction_r6`), 7 (`cubic_direction_r7`), 12 (`cubic_direction_r12`)
 - `B1Fit.fit_direction` (19): needed 2 (`fit_direction_h2`), 3 (`fit_direction_h3`), 4 (`fit_direction_h4`), 5 (`fit_direction_h5`), 9 (`fit_direction_h9`), 10 (`fit_direction_h10`), 11 (`fit_direction_h11`), 12 (`fit_direction_h12`), 17 (`fit_direction_h17`), 18 (`fit_direction_h18`), 19 (`fit_direction_h19`); redundant (each alone, not together) 1 (`fit_direction_r1`), 6 (`fit_direction_r6`), 7 (`fit_direction_r7`), 8 (`fit_direction_r8`), 13 (`fit_direction_r13`), 14 (`fit_direction_r14`), 15 (`fit_direction_r15`), 16 (`fit_direction_r16`)
 - `B1FitRL19.rl19_box_unmatched` (20): needed 3 (`rl19_box_unmatched_h3`), 4 (`rl19_box_unmatched_h4`), 5 (`rl19_box_unmatched_h5`), 11 (`rl19_box_unmatched_h11`), 12 (`rl19_box_unmatched_h12`), 16 (`rl19_box_unmatched_h16`); redundant (each alone, not together) 1 (`rl19_box_unmatched_r1`), 6 (`rl19_box_unmatched_r6`), 7 (`rl19_box_unmatched_r7`), 8 (`rl19_box_unmatched_r8`), 13 (`rl19_box_unmatched_r13`), 14 (`rl19_box_unmatched_r14`), 15 (`rl19_box_unmatched_r15`), 17 (`rl19_box_unmatched_r17`), 18 (`rl19_box_unmatched_r18`), 19 (`rl19_box_unmatched_r19`), 20 (`rl19_box_unmatched_r20`); open 2, 9, 10
+- `B1A3Bound.third_coefficient_lower_bound` (19): needed 3 (`third_coefficient_lower_bound_h3`), 4 (`third_coefficient_lower_bound_h4`), 5 (`third_coefficient_lower_bound_h5`), 11 (`third_coefficient_lower_bound_h11`), 12 (`third_coefficient_lower_bound_h12`), 18 (`third_coefficient_lower_bound_h18`), 19 (`third_coefficient_lower_bound_h19`); redundant (each alone, not together) 6 (`third_coefficient_lower_bound_r6`), 7 (`third_coefficient_lower_bound_r7`), 8 (`third_coefficient_lower_bound_r8`), 13 (`third_coefficient_lower_bound_r13`), 14 (`third_coefficient_lower_bound_r14`), 16 (`third_coefficient_lower_bound_r16`); open 1, 2, 9, 10, 15, 17
 - `B1L19.l19_sq_central` (11): needed 2 (`l19_sq_central_h2`), 3 (`l19_sq_central_h3`), 4 (`l19_sq_central_h4`), 8 (`l19_sq_central_h8`), 9 (`l19_sq_central_h9`), 10 (`l19_sq_central_h10`), 11 (`l19_sq_central_h11`); redundant (each alone, not together) 1 (`l19_sq_central_r1`), 5 (`l19_sq_central_r5`), 6 (`l19_sq_central_r6`), 7 (`l19_sq_central_r7`)
 - `B1L19.l19_sqg_central` (11): needed 2 (`l19_sqg_central_h2`), 3 (`l19_sqg_central_h3`), 4 (`l19_sqg_central_h4`), 8 (`l19_sqg_central_h8`), 9 (`l19_sqg_central_h9`), 10 (`l19_sqg_central_h10`), 11 (`l19_sqg_central_h11`); redundant (each alone, not together) 1 (`l19_sqg_central_r1`), 5 (`l19_sqg_central_r5`), 6 (`l19_sqg_central_r6`), 7 (`l19_sqg_central_r7`)
 - `B1L19.l19_sq_box` (15): needed 2 (`l19_sq_box_h2`), 3 (`l19_sq_box_h3`), 4 (`l19_sq_box_h4`), 8 (`l19_sq_box_h8`), 9 (`l19_sq_box_h9`), 10 (`l19_sq_box_h10`), 11 (`l19_sq_box_h11`), 12 (`l19_sq_box_h12`), 13 (`l19_sq_box_h13`), 14 (`l19_sq_box_h14`), 15 (`l19_sq_box_h15`); redundant (each alone, not together) 1 (`l19_sq_box_r1`), 5 (`l19_sq_box_r5`), 6 (`l19_sq_box_r6`), 7 (`l19_sq_box_r7`)

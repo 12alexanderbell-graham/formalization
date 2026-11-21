@@ -1,48 +1,58 @@
 # Item 21
 
-**Area:** T1 fidelity
+**Area:** Certified numbers of the findings
 
-**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** standard FLRW cosmology definitions (e.g. Weinberg, Cosmology, 2008; Hogg 1999, astro-ph/9905116); the specification each definition is pinned by is in the statement
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** Capozziello, Lazkoz, Salzano, PRD 84, 124061 (2011), arXiv:1104.3096 (v1 and v2), Eq. (22): flat matter + CPL l₀, w_a² term missing a factor 9
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** the statement is proved in module `Checked.Fidelity.FRSpecs` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.masterEq_iff_blind` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: none numbered; statement literals: no blind second reading registered; no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** the statement is proved in module `Checked.Records.Findings` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.F2_toy` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 2 numbered; 1 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: no blind second reading registered; 13 literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**For every** `Ω : ℝ`, `a : ℝ → ℝ`, `F : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`:
+**For every** `a : ℝ → ℝ`, `t₀ : ℝ`:
+
+**assuming**
+
+1. the scale factor `a` obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter `Ω := 245 / 1000`, the present dark energy equation of state `w₀ := -93 / 100`, the equation of state evolution parameter `wₐ := -41 / 100` and the observation time `t₀` (spatially flat universe with dust and separately conserved dark energy; redshift z is measured from `t₀`; `Ω := 245 / 1000` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding)
+2. `ContDiffAt ℝ 5 a t₀`
 
 **then**
 
-- (the metric F(R) gravity second equation with dust holds with the present matter density parameter `Ω`, the scale factor `a`, the gravity Lagrangian function of Ricci scalar `F`, the present time `t₀` and the time of evaluation `t` (negative Ricci scalar convention, minus the common one; Hubble rate derivative equation of metric F of R gravity; flat FLRW with dust source and kappa squared is one; negative Ricci scalar convention with R taken as curv of `a`; multiplied through by minus two `F` prime with no division)) if and only if (`FRSecondEq Ω a F t₀ t (curv a)`)
+1. `RoundsTo (cosmoCoeff 5 a t₀) 0.809 3`
+2. `RoundsTo (printedCLSL0 (245 / 1000) (-93 / 100) (-41 / 100)) (-0.906) 3`
 
 Program definitions in this claim:
 
-- `DustDensity Ω a t₀ t` — SPEC, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`, `a : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`): is defined as `3 * (deriv a t₀ / a t₀) ^ 2 * Ω * (a t₀ / a t) ^ 3`
-- `FRSecondEq Ω a F t₀ t R` — SPEC, not pinned, so only the formula shown is checked, not its name (for `Ω : ℝ`, `a : ℝ → ℝ`, `F : ℝ → ℝ`, `t₀ : ℝ`, `t : ℝ`, `R : ℝ → ℝ`): means `-2 * deriv F (R t) * deriv (fun s => deriv a s / a s) t = DustDensity Ω a t₀ t + deriv^[3] F (R t) * deriv R t ^ 2 + deriv^[2] F (R t) * deriv^[2] R t - deriv a t / a t * deriv^[2] F (R t) * deriv R t`
-- `MasterEq Ω a F t₀ t` — **PINNED** (pin theorem `masterEq_iff_blind`): phrase (hand-written, linted): the metric F(R) gravity second equation with dust holds with the present matter density parameter `Ω`, the scale factor `a`, the gravity Lagrangian function of Ricci scalar `F`, the present time `t₀` and the time of evaluation `t` (negative Ricci scalar convention, minus the common one; Hubble rate derivative equation of metric F of R gravity; flat FLRW with dust source and kappa squared is one; negative Ricci scalar convention with R taken as curv of `a`; multiplied through by minus two `F` prime with no division); by definition, means `-2 * deriv F (curv a t) * deriv (hubble a) t = Checked.Cosmography.FRCosmo.rhoM Ω a t₀ t + deriv^[2] (curv a) t * deriv^[2] F (curv a t) + deriv (curv a) t * (deriv (curv a) t * deriv^[3] F (curv a t) - hubble a t * deriv^[2] F (curv a t))`
-- `curv a t` — **PINNED** (pin theorem `ricciSpec_pins`): phrase (hand-written, linted): the Ricci scalar of flat FLRW with the scale factor `a` and the cosmic time of evaluation `t` (negative convention, de Sitter has negative Ricci scalar; Ricci scalar of a spatially flat FLRW metric; negative convention so de Sitter has minus twelve times Hubble rate squared); by definition, `curv a t` is `-6 * (deriv (hubble a) t + 2 * hubble a t ^ 2)`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «negative convention, de Sitter has negative Ricci scalar» only assuming `c ≠ 0`; `H ≠ 0`, «negative convention so de Sitter has minus twelve times Hubble rate squared» only assuming `c ≠ 0`
+- `IsFlatCPL Ω w₀ wₐ a t₀` — **PINNED** (pin theorem `flatCPL_pins`): phrase (hand-written, linted): the scale factor `a` obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter `Ω`, the present dark energy equation of state `w₀`, the equation of state evolution parameter `wₐ` and the observation time `t₀` (spatially flat universe with dust and separately conserved dark energy; redshift z is measured from `t₀`; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding); by definition, means (`0 < hubble a t₀`) and (`∀ᶠ (t : ℝ) in nhds t₀, 0 < a t ∧ DifferentiableAt ℝ a t ∧ hubble a t = hubble a t₀ * √(Ω * (1 + redshift a t₀ t) ^ 3 + (1 - Ω) * (1 + redshift a t₀ t) ^ (3 * (1 + w₀ + wₐ)) * Real.exp (-(3 * wₐ * redshift a t₀ t) / (1 + redshift a t₀ t)))`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «present Hubble rate is positive so the universe is expanding» only assuming the scale factor `a` obeys the flat matter plus CPL dark energy Friedmann expansion law with the present matter density parameter `Ω`, the present dark energy equation of state `w₀`, the equation of state evolution parameter `wₐ` and the observation time `t₀` (spatially flat universe with dust and separately conserved dark energy; redshift z is measured from `t₀`; `Ω` is the present matter density parameter; holds on a whole neighbourhood of `t₀`; present Hubble rate is positive so the universe is expanding)
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `cosmoCoeff n a t` — **PINNED** (pin theorem `cosmoCoeffCore_pins`): phrase (hand-written, linted): the cosmographic coefficient with the derivative order of the coefficient `n`, the scale factor `a` and the time of evaluation `t` (`n`-th time derivative of the scale factor over the scale factor divided by the `n`-th power of the Hubble rate; orders 0 and 1 coefficients are one; The order 2 coefficient is minus the deceleration parameter usually written q; The order 3 coefficient is the jerk parameter usually written j; The order 4 coefficient is the snap parameter usually written s; The order 5 coefficient is the lerk parameter usually written l); by definition, `cosmoCoeff n a t` is `iteratedDeriv n a t / (a t * hubble a t ^ n)`. Phrase lines proved in Lean (statements in PHRASE_LINES.md): «orders 0 and 1 coefficients are one» only assuming `a t ≠ 0`; `deriv a t ≠ 0`, «The order 2 coefficient is minus the deceleration parameter usually written q» only assuming `a t ≠ 0`
+- `printedCLSL0 Ω w₀ wₐ` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_printedCLSL0`); its name is not checked (for `Ω : ℝ`, `w₀ : ℝ`, `wₐ : ℝ`): is defined as `35 / 2 + (1 - Ω) / 4 * (213 + (7 - Ω) * wₐ) * wₐ + (1 - Ω) / 4 * (489 + 9 * (82 - 21 * Ω) * wₐ) * w₀ + 9 / 2 * (1 - Ω) * (67 - 21 * Ω + 3 / 2 * (23 - 11 * Ω) * wₐ) * w₀ ^ 2 + 27 / 4 * (1 - Ω) * (47 - 24 * Ω) * w₀ ^ 3 + 81 / 2 * (1 - Ω) * (3 - 2 * Ω) * w₀ ^ 4`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-The program's master equation is the blind `Ḣ` equation with `R = curv a`.
+The paper's toy model `(Ω, w₀, wₐ) = (0.245, −0.93, −0.41)`: in every flat matter + CPL model
+with these parameters `l₀ = 0.809`, while the printed formula gives `−0.906`.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem masterEq_iff_blind (Ω : ℝ) (a F : ℝ → ℝ) (t₀ t : ℝ) :
-    MasterEq Ω a F t₀ t ↔ FRSecondEq Ω a F t₀ t (curv a) := …
+theorem F2_toy (a : ℝ → ℝ) (t₀ : ℝ)
+    (hL : CPL.IsFlatCPL (245 / 1000) (-93 / 100) (-41 / 100) a t₀)
+    (hs : ContDiffAt ℝ 5 a t₀) :
+    RoundsTo (cosmoCoeff 5 a t₀) 0.809 3 ∧
+      RoundsTo (printedCLSL0 (245 / 1000) (-93 / 100) (-41 / 100)) (-0.906) 3 := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Cosmography.FRCosmo.MasterEq`, `Cosmography.FRCosmo.curv`, `Cosmography.FRCosmo.rhoM`, `Cosmography.hubble`, `Fidelity.DustDensity`, `Fidelity.FRSecondEq`
+See GLOSSARY.md: `Cosmography.Aviles.cosmoCoeff`, `Cosmography.CPL.IsFlatCPL`, `Records.printedCLSL0`, `Cosmography.hubble`, `Cosmography.redshift`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: MasterEq, curv.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `masterEq_iff_blind`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/Fidelity/FRSpecs.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: cosmoCoeff, IsFlatCPL.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): printedCLSL0².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `F2_toy`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): IsFlatCPL: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100; RoundsTo: d = 0.809, k = 3, d = -0.906; cosmoCoeff: n = 5; printedCLSL0: Ω = 245/1000, w₀ = -93/100, wₐ = -41/100.
+- Source file: `Checked/Records/Findings.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 21

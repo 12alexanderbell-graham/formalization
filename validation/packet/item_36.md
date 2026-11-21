@@ -1,48 +1,65 @@
 # Item 36
 
-**Area:** Falkner–Skan reversed-flow rows β = −0.04 … −0.09, −0.11 … −0.16 of Ganapol 2010 Table 7
+**Area:** Chemistry
 
-**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.fsRevRowElevenRhs` := `fun f p q η => -(f η * q η) - -11 / 100 * (1 - p η ^ 2)`; `Checked.Trust.SecondReading.fskHalfLineTyped` := `Set.Ici 0`; `Checked.Trust.SecondReading.fskHalfLine` := `Set.Ici 0`; `Checked.Trust.SecondReading.fskWall` := `fun g => g 0 = 0`; `Checked.Trust.SecondReading.fskEdge` := `nhds 1`; `Checked.Trust.SecondReading.fsnDefectBelow` := `fun M p q η => M * (1 - p η) ≤ q η`; `Checked.Trust.SecondReading.stagSpeedBounded` := `fun p η => -1 ≤ p η ∧ p η ≤ 1`; `Checked.Trust.SecondReading.fsnWallValue` := `fun q => q 0`. the statement is proved in module `Checked.FalknerSkan.NegReversedWallShearRows` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: nothing to witness (the statement has no hypothesis to meet); hypotheses: none numbered; statement literals: 8 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.kappaPR76` := `fun ω => 0.37464 + 1.54226 * ω - 0.26992 * ω ^ 2`. the statement is proved in module `Checked.Chemistry.PRAcentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.pr_omega1_exists` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 4 numbered; 4 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 0 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 1 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); 15 literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**It holds that**
+**For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`):
 
-- there is `f : ℝ → ℝ` such that there is `p : ℝ → ℝ` such that there is `q : ℝ → ℝ` such that (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt f (p η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt p (q η) (Set.Ici 0) η`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then `HasDerivWithinAt q (-(f η * q η) - -11 / 100 * (1 - p η ^ 2)) (Set.Ici 0) η`) and (`f 0 = 0`) and (`p 0 = 0`) and (`Filter.Tendsto p Filter.atTop (nhds 1)`) and (for every `η : ℝ`, if `η ∈ Set.Ici 0`, then (`-1 ≤ p η`) and (`p η ≤ 1`)) and (for every `M : ℝ`, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`) and (`-0.1425079104 < q 0`) and (`q 0 < -0.1425079103`)
+**assuming**
+
+1. `0 < ac`
+2. `0 < b`
+3. `b < v`
+4. the isotherm pressure function of molar volume `p := cubicP R ac b 2 (-1) Tc` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical)
+
+**then**
+
+- there is `vl : ℝ` such that there is `vg : ℝ` such that there is `ps : ℝ` such that (`b < vl`) and (the isotherm pressure function of molar volume `p := cubicP R (ac * (1 + (0.37464 + 1.54226 * 1 - 0.26992 * 1 ^ 2) * (1 - √(7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature)) and (`RoundsTo (ps / cubicP R ac b 2 (-1) Tc v) 114e-4 4`) and (`RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc v)) 0.942 3`)
+
+Program definitions in this claim:
+
+- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): phrase (hand-written, linted): the isotherm pressure function of molar volume `p` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical); by definition, means (`deriv p v = 0`) and (`deriv (deriv p) v = 0`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «first and second volume derivatives of pressure both vanish», «a mere stationary point is not critical»
+- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): phrase (hand-written, linted): the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature); by definition, means (`vl < vg`) and (`p vl = ps`) and (`p vg = ps`) and (`∫ (v : ℝ) in vl..vg, p v = ps * (vg - vl)`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «liquid volume is less than gas volume» only assuming the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature), «pressure equals the saturation pressure at both volumes» only assuming the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature), «equal areas between the isotherm and the saturation pressure line» only assuming the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature)
+- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
+- `acentric ps pc` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_acentric`) (for `ps : ℝ`, `pc : ℝ`): is defined as `-Real.logb 10 (ps / pc) - 1`
+- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Falkner–Skan with β = −11/100: there is a solution (f, p, q) of f''' + f f'' + β(1 − f'²) = 0 on [0, ∞) with
-f(0) = 0, p(0) = 0, p → 1, −1 ≤ p ≤ 1 on [0, ∞) and, for every M, `∀ᶠ (η : ℝ) in Filter.atTop, M * (1 - p η) ≤ q η`, with
-−0.1425079104 < q(0) < −0.1425079103.
+Peng–Robinson fluid with Soave's temperature function and the published κ(ω) at ω = 1: at
+any critical point (v_c > b) there is a Maxwell coexistence state at T = 0.7 T_c with liquid
+volume above the co-volume b, and its pressure is 0.0114 times the critical pressure
+(4 decimals) and its acentric factor 0.942 (3 decimals).
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem fs_neg_reversed_wall_shear_11_exists :
-    ∃ f p q : ℝ → ℝ,
-      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
-      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
-      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - (-11 / 100) * (1 - p η ^ 2)) (Ici 0) η) ∧
-      f 0 = 0 ∧ p 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
-      (∀ η ∈ Ici (0 : ℝ), -1 ≤ p η ∧ p η ≤ 1) ∧
-      (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) ∧
-      -0.1425079104 < q 0 ∧ q 0 < -0.1425079103 := …
+theorem pr_omega1_exists (R ac b Tc vc : ℝ) (hac : 0 < ac) (hb : 0 < b) (hvc : b < vc)
+    (hc : IsCriticalIsotherm (cubicP R ac b 2 (-1) Tc) vc) :
+    ∃ vl vg ps, b < vl ∧
+      IsMaxwellCoexistence
+        (cubicP R (ac * (1 + (0.37464 + 1.54226 * 1 - 0.26992 * 1 ^ 2) * (1 - Real.sqrt (7 / 10))) ^ 2)
+          b 2 (-1) (7 / 10 * Tc)) vl vg ps ∧
+      RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 0.0114 4 ∧
+      RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 0.942 3 := …
 ```
 
 ## Definitions it uses
 
-Only Mathlib notions.
+See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.Coexistence.acentric`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: —.
+- Definitions pinned by a machine-checked specification: IsMaxwellCoexistence, IsCriticalIsotherm.
 - Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): —.
-- Source file: `Checked/FalknerSkan/NegReversedWallShearRows.lean` (do not open it before submitting your answers).
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `pr_omega1_exists`.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 2, w = -1; RoundsTo: d = 0.0114, k = 4, d = 0.942, k = 3.
+- Source file: `Checked/Chemistry/PRAcentric.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 36

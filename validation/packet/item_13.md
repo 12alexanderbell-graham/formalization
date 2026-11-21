@@ -1,70 +1,46 @@
 # Item 13
 
-**Area:** Chemistry
+**Area:** Data claim
 
-**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** generalized two-parameter cubic equation of state: van der Waals (1873), Redlich & Kwong, Chem. Rev. 44, 233 (1949), Soave, Chem. Eng. Sci. 27, 1197 (1972), Peng & Robinson, Ind. Eng. Chem. Fundam. 15, 59 (1976)
+**Source (hand-written: the author's title of the finding or a fixed source line; no check reads it):** see the claim
 
 ## Claim generated from the Lean statement (machine-produced; this is what was proved)
 
-**Status (generated):** **The source's own form, as a blind reader wrote it from the source without seeing this statement (each body occurs in the statement below, `check_literals.py`):** `Checked.Trust.SecondReading.kappaPR78` := `fun ω => 0.379642 + 1.48503 * ω - 0.164423 * ω ^ 2 + 16666e-6 * ω ^ 3`. the statement is proved in module `Checked.Chemistry.PR78Acentric` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: the Checked theorem `Checked.Trust.NV.pr78_omega1_unique` states the obligation `Checked.Trust.nvObligation` computes from the statement (data exist that meet its hypotheses); hypotheses: 6 numbered; 5 shown needed (a Checked example meets every other hypothesis and the conclusion fails), 1 shown redundant (the statement is proved without it, one at a time), 0 with no obligation (instance or proof used as data), 0 open (per hypothesis: `TRUST_MAP.md`, section "Hypothesis necessity"); statement literals: 1 definitions written by a blind second reader of the source are registered for this statement in `scripts/trust/literal_readings.txt` and occur in it (`check_literals.py`) (printed at the head of this line); 15 literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
+**Status (generated):** the statement is proved in module `Checked.Data.FR13` of `Checked`; axioms, computed by Lean when this page was generated: `Classical.choice`, `Quot.sound`, `propext`. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none; non-vacuity: nothing to witness (the statement has no hypothesis to meet); hypotheses: none numbered; statement literals: no blind second reading registered; 8 literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`); the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources.
 
-**For every** `R : ℝ`, `ac : ℝ`, `b : ℝ`, `Tc : ℝ`, `v : ℝ` (renamed by the generator after the pinned slot it fills; the statement calls it `vc`), `vl : ℝ`, `vg : ℝ`, `ps : ℝ`:
+**It holds that**
 
-**assuming**
-
-1. `0 < ac`
-2. `0 < b`
-3. `b < v`
-4. the isotherm pressure function of molar volume `p := cubicP R ac b 2 (-1) Tc` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical)
-5. `b < vl`
-6. the isotherm pressure function of molar volume `p := cubicP R (ac * (1 + (0.379642 + 1.48503 * 1 - 0.164423 * 1 ^ 2 + 16666e-6 * 1 ^ 3) * (1 - √(7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature)
-
-**then**
-
-1. `RoundsTo (ps / cubicP R ac b 2 (-1) Tc v) 100e-4 4`
-2. `RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc v)) 1.000 3`
+- there is `Ω : ℝ` such that (`Ω ∈ Set.Icc 0 1`) and (for every `Ω' : ℝ`, if `Ω' ∈ Set.Icc 0 1`, then `margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω'`)
 
 Program definitions in this claim:
 
-- `IsCriticalIsotherm p v` — **PINNED** (pin theorem `criticalSpec_pins`): phrase (hand-written, linted): the isotherm pressure function of molar volume `p` satisfies the critical point condition of an isotherm with the molar volume at the point `v` (pressure as a function of molar volume at fixed temperature; first and second volume derivatives of pressure both vanish; a mere stationary point is not critical); by definition, means (`deriv p v = 0`) and (`deriv (deriv p) v = 0`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «first and second volume derivatives of pressure both vanish», «a mere stationary point is not critical»
-- `IsMaxwellCoexistence p vl vg ps` — **PINNED** (pin theorem `maxwellSpec_pins`): phrase (hand-written, linted): the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature); by definition, means (`vl < vg`) and (`p vl = ps`) and (`p vg = ps`) and (`∫ (v : ℝ) in vl..vg, p v = ps * (vg - vl)`). Phrase lines proved in Lean (statements in PHRASE_LINES.md): «liquid volume is less than gas volume» only assuming the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature), «pressure equals the saturation pressure at both volumes» only assuming the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature), «equal areas between the isotherm and the saturation pressure line» only assuming the isotherm pressure function of molar volume `p` satisfies the Maxwell equal area coexistence condition with the liquid molar volume `vl`, the gas molar volume `vg` and the saturation pressure `ps` (liquid volume is less than gas volume; pressure equals the saturation pressure at both volumes; equal areas between the isotherm and the saturation pressure line; pressure is a function of molar volume at fixed temperature)
-- `RoundsTo x d k` — MATH, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_RoundsTo`) (for `x : ℝ`, `d : ℝ`, `k : ℕ`): means `|x - d| ≤ 1 / (2 * 10 ^ k)`
-- `acentric ps pc` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_acentric`) (for `ps : ℝ`, `pc : ℝ`): is defined as `-Real.logb 10 (ps / pc) - 1`
-- `cubicP R a b u w T v` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_cubicP`) (for `R : ℝ`, `a : ℝ`, `b : ℝ`, `u : ℝ`, `w : ℝ`, `T : ℝ`, `v : ℝ`): is defined as `R * T / (v - b) - a / (v ^ 2 + u * b * v + w * b ^ 2)`
+- `chiSqHz tbl H₀ Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_chiSqHz`) (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `H₀ : ℝ`, `Ω : ℝ`): is defined as `∑ i, ((H₀ * √(Ω * (1 + (tbl i).1) ^ 3 + 1 - Ω) - (tbl i).2.1) / (tbl i).2.2) ^ 2`
+- `fr13Table` — PRINTED, not pinned; an independent blind second reading of the source agrees with this transcription (`Checked.Trust.Transcriptions.agree_fr13Table`); its name is not checked: is defined as `![(70e-3, 69, 19.6), (0.100, 69, 12), (0.120, 68.6, 26.2), (0.170, 83, 8), (0.179, 75, 4), (0.199, 75, 5), (0.200, 72.9, 29.6), (0.270, 77, 14), (0.280, 88.8, 36.6), (0.350, 76.3, 5.6), (0.352, 83, 14), (0.400, 95, 17), (0.440, 82.6, 7.8), (0.480, 97, 62), (0.593, 104, 13), (0.600, 87.9, 6.1), (0.680, 92, 8), (0.730, 97.3, 7.0), (0.781, 105, 12), (0.875, 125, 17), (0.880, 90, 40), (0.900, 117, 23), (1.037, 154, 20), (1.300, 168, 17), (1.430, 177, 18), (1.530, 140, 14), (1.750, 202, 40), (2.300, 224, 8)]`
+- `margChiSq tbl Hbar σ Ω` — FORMULA, not pinned; name and body agree with a blind second formulation (`Checked.Trust.Formulations.agree_margChiSq`) (for `n : ℕ`, `tbl : Fin n → ℝ × ℝ × ℝ`, `Hbar : ℝ`, `σ : ℝ`, `Ω : ℝ`): is defined as `-2 * Real.log (∫ (H₀ : ℝ), Real.exp (-chiSqHz tbl H₀ Ω / 2) * (Real.exp (-(H₀ - Hbar) ^ 2 / (2 * σ ^ 2)) / √(2 * Real.pi * σ ^ 2)))`
 
 ## Author's paraphrase (hand-written; checked only by prose rules)
 
-Peng–Robinson fluid with Soave's temperature function and the revised (1978) κ(ω) correlation at
-ω = 1 (attraction a_c at T_c, a_c (1 + κ(1)(1 − √0.7))² at 0.7 T_c): at any critical point
-(v_c > b), every Maxwell coexistence state at T = 0.7 T_c with liquid volume above the co-volume
-b has pressure 0.0100 times the critical pressure (4 decimals) and acentric factor 1.000
-(3 decimals), the input value.
+With the prior 68 ± 2.8, the marginalised chi-square of the Farooq–Ratra 2013 table attains
+its smallest value over Ω in [0, 1]: there is a minimiser.
 
 ## Formal statement (Lean 4)
 
 ```lean
-theorem pr78_omega1_unique (R ac b Tc vc vl vg ps : ℝ) (hac : 0 < ac) (hb : 0 < b)
-    (hvc : b < vc)
-    (hc : IsCriticalIsotherm (cubicP R ac b 2 (-1) Tc) vc)
-    (hl : b < vl)
-    (h : IsMaxwellCoexistence
-      (cubicP R (ac * (1 + (0.379642 + 1.48503 * 1 - 0.164423 * 1 ^ 2 + 0.016666 * 1 ^ 3) *
-        (1 - Real.sqrt (7 / 10))) ^ 2) b 2 (-1) (7 / 10 * Tc)) vl vg ps) :
-    RoundsTo (ps / cubicP R ac b 2 (-1) Tc vc) 0.0100 4 ∧
-      RoundsTo (acentric ps (cubicP R ac b 2 (-1) Tc vc)) 1.000 3 := …
+theorem fr13_exists68 : ∃ Ω ∈ Set.Icc (0 : ℝ) 1,
+    ∀ Ω' ∈ Set.Icc (0 : ℝ) 1, margChiSq fr13Table 68 2.8 Ω ≤ margChiSq fr13Table 68 2.8 Ω' := …
 ```
 
 ## Definitions it uses
 
-See GLOSSARY.md: `Chemistry.Coexistence.IsMaxwellCoexistence`, `Chemistry.CubicEOS.IsCriticalIsotherm`, `Chemistry.Coexistence.acentric`, `Chemistry.CubicEOS.cubicP`, `Records.RoundsTo`
+See GLOSSARY.md: `Data.FR13.fr13Table`, `Data.FR13.chiSqHz`, `Data.FR13.margChiSq`, `Data.FR13Certs.tbl`
 
 ## What the system checked mechanically
 
 - Proof checked by the Lean kernel in CI (Lean 4 + Mathlib), standard axioms only.
-- Definitions pinned by a machine-checked specification: IsMaxwellCoexistence, IsCriticalIsotherm.
-- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): —.
-- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): `pr78_omega1_unique`.
-- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): cubicP: u = 2, w = -1; RoundsTo: d = 0.0100, k = 4, d = 1.000, k = 3.
-- Source file: `Checked/Chemistry/PR78Acentric.lean` (do not open it before submitting your answers).
+- Definitions pinned by a machine-checked specification: —.
+- Printed formulas used (transcriptions; ² = machine-checked agreement with a blind second reading): fr13Table².
+- Non-vacuity (all hypotheses satisfiable at once, machine-checked witness): unconditional.
+- Parameters the statement fixes to numbers (generated from the statement; the claim is proved for these values only): margChiSq: Hbar = 68, σ = 2.8.
+- Source file: `Checked/Data/FR13.lean` (do not open it before submitting your answers).
 
 ## Your answers: use ANSWER_FORM.md, item 13
