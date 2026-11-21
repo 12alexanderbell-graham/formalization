@@ -28,7 +28,8 @@
 
 ## Next
 - CI read first: the run of this run's final push (two new Trust modules `NecessityBKCerts`, `NecessityBK`; no headline changed). Green on every job → nothing to promote; red → `python3 scripts/trust/records_check.py <base>`.
-- Part 1 next: the curved pair `l19_sq_curved`, `l19_sqg_curved` (1, 8), then `fit_direction` and `rl19_box_unmatched` (`TRUST_MAP.md`). For each half-plane or sign conclusion, compute the degenerate data first (as here: the limit where the positive values tend to zero).
+- Part 1 next, `fit_direction` (open 1, 13, 14, 15, 16), degenerate data computed this run (`scripts/scan_fit_direction.py`, floats, Ω = 0, 0.3, 1): with three sources the cubic matching the three distances exactly is unique for each sign pattern of its values (Lean's logarithm reads |x|), and no pattern that a dropped hypothesis newly allows exists with the right sign of the scale (all values negative for 13; a negative value at the nearest or the farthest source for 14, 16), except a negative value at the middle source (15), where the conclusion holds with margin 17–19; a zero value at one source (the residual there is |c|) needs a negative scale at the nearest and farthest sources and gives margin 17–18 at the middle one. So 13–16 look REDUNDANT, by the certified enclosures of `fit_direction_gen` showing the matching forces the signs; 1 (0 ≤ Ω) looks REDUNDANT on [−1/180, 0] (margin 24 at Ω = 0; below −1/180 no model reaches the farthest source), by `bk_far`/`bi_upper`-type enclosures.
+- Part 1 next, then: the curved pair `l19_sq_curved`, `l19_sqg_curved` (1, 8), then `fit_direction` and `rl19_box_unmatched` (`TRUST_MAP.md`). For each half-plane or sign conclusion, compute the degenerate data first (as here: the limit where the positive values tend to zero).
 - Parts 2/5 next: as in section Next of `runs/2026-11-21T0428Z/README.md`.
 
 ## End
