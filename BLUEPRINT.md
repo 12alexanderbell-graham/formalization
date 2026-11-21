@@ -494,7 +494,7 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 - `scripts/trust/check_stale_necessity.py` (run by `scripts/trust/check_necessity_prose.py`), `runs/2026-11-20T2028Z/t5/`, `_archive/STATE_steps_2026-11-09_to_2026-11-15.md`.
 
 ## Hypotheses of two statements of the B1 family (run 2026-11-21T1228Z)
-- `Checked/Trust/NecessityBN.lean`, `runs/2026-11-21T1228Z/scripts/`; the proof: `runs/2026-11-21T1228Z/README.md`.
+- `Checked/Trust/NecessityBN.lean`, `Checked/Trust/NecessityBNCerts.lean`, `runs/2026-11-21T1228Z/scripts/`; the proof: `runs/2026-11-21T1228Z/README.md`.
 
 ## Extrema of the radial Gelfand branch parameter after the fifth; band values of the number of radial solutions (run 2026-11-21T1028Z)
 - `Checked/Math/GSegData7.lean`, `Checked/Math/GelfandLam6.lean`, `Checked/Math/GelfandTurningValuesSeven.lean`, `Checked/Math/GelfandPDECountTurningValuesFive.lean`, `Checked/Trust/NecessityBM.lean`, `Checked/Trust/SecondReadingGelfandSixthTurn.lean`, `Checked/Trust/SecondReadingGelfandSeventhTurn.lean`, `Work/Math/GelfandTurningSevenBlindClosed.lean`, `Work/Math/GelfandPDECountTurningValuesFiveBlindClosed.lean`, `runs/2026-11-21T1028Z/scripts/`.

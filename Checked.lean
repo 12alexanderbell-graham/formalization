@@ -739,4 +739,5 @@ import Checked.Trust.NecessityBM
 import Checked.Trust.NecessityBKCerts
 import Checked.Trust.NecessityBK
 import Checked.Trust.NecessityBL
+import Checked.Trust.NecessityBNCerts
 import Checked.Trust.NecessityBN

@@ -1095,3 +1095,4 @@
 - Part 1 (rotation, T2b): `fit_direction` 1 REDUNDANT (last open hypothesis of that headline); `rl19_box_unmatched` 1, 14, 15 REDUNDANT and 16 NEEDED (`Checked/Trust/NecessityBN.lean`); no certified integral except the existing enclosures at Ω = 1/5.
 - Annex LIV: PROMPT working note (corollary headlines inherit necessity theorems), LEDGER experiment.
 - Next: CI read of the final push; then part 3 by rotation.
+- Second push: `rl19_box_unmatched` 13 REDUNDANT (`bn_a3_large`: every matching cubic has a₃ > 169/100 for Ω ∈ [0, 1]; generated cells `Checked/Trust/NecessityBNCerts.lean`).
