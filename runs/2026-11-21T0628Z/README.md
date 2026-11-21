@@ -32,4 +32,4 @@
 - Parts 2/5 next: as in section Next of `runs/2026-11-21T0428Z/README.md`.
 
 ## End
-- (filled at the end of the run)
+- Local: `lake build Checked` (3765 jobs; restored build of 8c99e44), `#print axioms` of the eight theorems, `precheck_names.py`, `check_status_lines.py`, `precheck_citations.py`, `TRUST_RELOCK=1 … StatementDeps.lean` (307 headlines, NV 186/186; necessity 756 / 233 / 46 open; a first relock before the hypotheses 11–13 was stopped), `Claims.lean` (307), `check_prose.py`, `check_claim_vocab.py`, `check_headline_mentions.py --base 8c99e44` (front-page lines reworded: no headline name), `check_stale_necessity.py`, `validation/make_packet.py` (items 08, 32 regenerated after Claims), `records_check.py 8c99e44`. Records: STATE 2u + daily review + Trust track line + judged heading, LEDGER, CHANGELOG, BLUEPRINT, PROMPT working note; LOCK removed.
