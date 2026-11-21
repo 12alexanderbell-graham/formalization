@@ -1,4 +1,7 @@
 import Mathlib
+import Checked.Math.GelfandExtremaMain
+import Checked.Math.GLamBands
+import Work.Math.GelfandLam6
 
 /-! Gelfand problem in the three-dimensional ball, `GelfandTurningValuesSeven`: the turning sequence of the radial solution branch of `Checked.Math.GelfandExtrema.gelfand_extrema`, with the value of the branch parameter enclosed at its first seven turning points (the seven values of the conclusion). Frozen by run 2026-11-21T1028Z before its proof; the planned route is `Checked.Math.GelfandExtremaMain.main`, `Checked.Math.GLamBands.bands` and `Work.Math.GelfandLam6.lam3456_band`. -/
 
@@ -43,6 +46,13 @@ theorem gelfand_turning_values_seven (w φ : ℝ → ℝ)
       (∀ k : ℕ, StrictAntiOn (fun s => s ^ 2 * Real.exp (w s)) (Icc (ζ (2 * k)) (ζ (2 * k + 1)))) ∧
       (∀ k : ℕ,
         StrictMonoOn (fun s => s ^ 2 * Real.exp (w s)) (Icc (ζ (2 * k + 1)) (ζ (2 * k + 2)))) := by
-  sorry
+  obtain ⟨ζ, hm, ht, hz0lo, hz0hi, hl0lo, hl0hi, hmax0, hmin, hmax, h2, hlim, hinc0, hanti, hmono⟩ :=
+    Checked.Math.GelfandExtremaMain.main w φ hw hφ0 hφ h0
+  obtain ⟨b1, b2, b3, b4⟩ :=
+    Checked.Math.GLamBands.bands w φ hw hφ0 hφ h0 ζ hm hz0lo hz0hi hinc0 hanti hmono
+  obtain ⟨⟨c1, c2⟩, ⟨d1, d2⟩, ⟨f1, f2⟩, ⟨g1, g2⟩⟩ :=
+    Work.Math.GelfandLam6.lam3456_band w φ hw hφ0 hφ h0 ζ hm hz0lo hz0hi hinc0 hanti hmono
+  exact ⟨ζ, hm, ht, hz0lo, hz0hi, hl0lo, hl0hi, b1, b2, b3, b4, c1, c2, d1, d2, f1, f2, g1, g2, hmax0, hmin, hmax,
+    h2, hlim, hinc0, hanti, hmono⟩
 
 end Work.Math.GelfandTurningValuesSeven

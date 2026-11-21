@@ -294,6 +294,10 @@ import Work.Math.GSegData
 import Work.Math.GelfandLam4
 import Work.Math.GelfandTurningValuesFive
 import Work.Math.GelfandTurningFiveBlindClosed
+import Work.Math.GSegData7
+import Work.Math.GelfandLam6
+import Work.Math.GelfandTurningValuesSeven
+import Work.Math.GelfandTurningSevenBlindClosed
 import Work.Math.BonnorEbertAllBlind
 import Work.Math.BonnorEbertAllBlindClosed
 import Work.Math.BEMonoExt
