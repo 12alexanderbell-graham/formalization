@@ -1,8 +1,37 @@
 # Run 2026-11-21T0428Z
 
-**THE RESULT:** parts 2/5 by rotation (STATE 2s). Stub; filled at the end of the run.
+**THE RESULT:** parts 2/5 by rotation (STATE 2s). The Lean theorem of this run and its statement are in section What we did.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** The value of the branch parameter of the radial Gelfand problem in the three-dimensional ball at its fifth extremum, and a value at its fourth extremum about eighty times narrower than before, both in one headline of the claims page with a blind restatement closed in Lean, a referee and a blind literal reading (section What we did).
+
+**Weakest unchecked step:** whether the referee's and the blind restater's reading of the claim is the one a scientist would take (both are model readings; the claims page prints the generated statement).
 
 ## Start
-- 04:28Z. Local main was the stale divergent clone (fa47717); reset to origin/main 55f887d (`git checkout -B main origin/main`; every local commit is on an origin branch). No LOCK → taken.
-- Env: repo ok (add_repo not exposed; the session clone was present). Local Lean: `scripts/start_run.sh` (elan, toolchain v4.35.0, Mathlib cache); judge build of 44857993723 (55f887d) restored by streaming.
+- 04:28Z. Local main was the stale divergent clone (fa47717); `scripts/start_run.sh` reset it to origin/main 55f887d (every local commit is on an origin branch). No LOCK → taken (35d488d).
+- Env: repo ok (add_repo not exposed; the session clone was present). Local Lean: `scripts/start_run.sh` (elan, toolchain v4.35.0, Mathlib cache); judge build of 44857993723 (55f887d) restored by streaming. Subagents: Sonnet (blind restatement, blind literal reader), Opus (referee).
 - CI at start: 44857993723 (55f887d, run 0228Z's final push) green on every job; nothing to promote.
+
+## Bottleneck (and what a yes/no changes)
+- Section Next of run 2026-11-20T1628Z planned the contracting cell for the homology focus: steps (1)-(4) and a decided chain to s ≈ 52122 were in `Work/Math/GContract.lean` and `GCData.lean`, but the cells gave a bound only at each cell's end and the chain had no link to the turning points. Can the contracting cells carry the sign facts an identification of turning points needs, and so reach the fifth turning value? Yes → a new value and a sharper fourth one through the whole pipeline. No → the step that blocks is recorded.
+
+## What we did
+- **In-cell facts for contracting cells** (`Work/Math/GSeg.lean`, then `Checked/Math/GSeg.lean`): `ccell_in` (inside a cell, Q of the error is at most the start bound plus the Grönwall floor 4η²/κ/(−(2μ + κ)), from `gb_le_max`), `link_q`, `seg_all` (a chain with a Boolean property checked on every cell gives a relation on its whole range), three rational predicates (`vLtP`, `vGtP`, `uInP`: v below / above a level, u inside an interval, each with the in-cell error squared below the margin squared), `log_radius` (the homology system in the radius becomes u' = u(3 − u − v), v' = v(u − 1) in log radius), and exponential bounds from partial sums (`exp_ge_sum`, `exp_le_pow4`).
+- **Data** (`runs/2026-11-21T0428Z/scripts/gen_seg.py` → `Work/Math/GSegData.lean`, then `Checked/Math/GSegData.lean`): 63 contracting cells from the end box of `GLamChain` at radius 8579/20 (start values its centre, start bound 3.5 r²) in six segments: A (24 cells, no predicate), P (v > 2), C3 (u ∈ [0.983711, 0.983755], bracket of log-radius width 1/1250 around the fourth turning point), B (34 cells, v < 2), C4 (u ∈ [1.004963, 1.005014], width 1/250 around the fifth), D (v > 2). Cell lengths halve until the predicate holds; Q bound ≈ 2.8e-11 at the fourth turning point and 8.5e-12 at the fifth (max-norm radius ≈ 7e-6, 4e-6). Kernel decisions ≈ 55 s.
+- **The two values** (`Work/Math/GelfandLam4.lean`, `lam34_band`): the route of `lam3_band` up to the zero z₃ of v − 2 in [4380, 4700] identified with ζ 3; then segments A–D in log radius moved to the radius; 4380 ≤ (8579/20)e^{5893/2500} and (8579/20)e^{1179/500} ≤ 4700 from partial sums; the zero in the first bracket equals z₃ (v strictly decreasing on [4380, 4700]); the zero z₄ in the second bracket by IVT; v < 2 on (z₃, z₄) from C3, B, C4 (the referee's route condition: no other zero of v − 2 between the brackets); ζ 4 = z₄ by `no_both`; λ = 2u at both zeros. λ(ζ 3) ∈ [1.967422, 1.967510] (before: [1.9637, 1.9707]), λ(ζ 4) ∈ [2.009926, 2.010028]. Axioms propext, Classical.choice, Quot.sound.
+- **Freeze** 07b6f56: `Work.Math.GelfandTurningValuesFive.gelfand_turning_values_five`, the statement of `gelfand_turning_values` with the fourth band replaced and the fifth added (the route files were written and compiled before this freeze; the headline statement was frozen before its proof).
+- **Blind restatement** (Sonnet, brief in the freeze commit, output committed alone d351fce): `blind_gelfand_turning_five`, copied with no repair to `Work/Math/GelfandTurningFiveBlindClosed.lean` and closed from the frozen statement.
+- **Referee** (Opus; `referee/REPORT.md`, relayed: its Write was refused): STANDS. Own 35-digit Taylor integration (three runs, orders 40/50/60) and a DOP853 cross-check: λ₃ = 1.96746555866859268, λ₄ = 2.00997640496697766, margins 4.4e-5 / 5.0e-5; the statement would still hold with bands one tenth as wide. It named one condition on the proof (certify v < 2 between the brackets); the proof certifies it (segment B and the monotone brackets). Prior art from memory: no printed λ at the fourth and fifth turning points known to it.
+- **Proof** fd82592 (statement and docstring byte-identical to the freeze): `main`, `bands`, `lam34_band`; axioms propext, Classical.choice, Quot.sound.
+- **Blind literal reading** (brief 96b1585 alone, reading 2577bc3 alone, Sonnet: D = 4): `Checked/Trust/SecondReadingGelfandFifthTurn.lean`, `gelfandFifthTurn ζ := ζ 4`, registered with the parent's readings.
+- **Promotion** (`runs/2026-11-21T0428Z/scripts/promote_five.py`): `Checked/Math/{GContract, GSeg, GSegData, GelfandLam4, GelfandTurningValuesFive}.lean` with specific Mathlib imports; NV witness `Checked.Trust.NV.gelfand_turning_values_five` (the global regular solution); necessity `Checked/Trust/NecessityBJ.lean` (1, 3, 4 NEEDED from `NecessityAO`; 2 REDUNDANT by `cont_at_zero_Ici`), as for the parent.
+
+## Measure
+- Listed headlines: 306 → 307. The fourth turning value's band narrowed from width 7.0e-3 to 8.8e-5; the fifth turning value enclosed for the first time (width 1.0e-4).
+- Method: contracting cells (error shrinking along the solution, μ ≈ −0.28 per unit log radius) replace the unweighted cells whose radius grew from 5.2e-6 to 9.9e-4 over the same range; the reach is now limited by the generator's range, not by error growth.
+
+## Next
+- CI read first: the run of this run's final push (new Checked modules `GContract`, `GSeg`, `GSegData`, `GelfandLam4`, `GelfandTurningValuesFive`, `SecondReadingGelfandFifthTurn`, `NecessityBJ`; `Witnesses` changed). Green on every job → `gelfand_turning_values_five` PROVED: the judged template in its STATE.md heading (`check_stale_status.py`) and one L.2 line to Alexander. Red → `python3 scripts/trust/records_check.py <base>`.
+- Parts 2/5 next: the same generator with more segments gives the sixth and seventh turning values (ζ₅ ≈ 525620, ζ₆ ≈ 5652734 by the referee; each turning point is one bracket and one sign segment more, ≈ 24 cells each); the count headline `gelfand_pde_radial_count_turning_values` can then gain band ends from `gelfand_turning_values_five` (`count_abstract` as in run 2026-11-20T1628Z).
+
+## End
+- Local: lake build Checked, StatementDeps relock, Claims, records_check (section End lines added at the end of the run).

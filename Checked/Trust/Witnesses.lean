@@ -111,6 +111,7 @@ import Checked.Math.GelfandPDECountValues
 import Checked.Math.GelfandPDECountTurning
 import Checked.Math.GelfandPDECountTurningValues
 import Checked.Math.GelfandPDEBound
+import Checked.Math.GelfandTurningValuesFive
 
 /-!
 # Non-vacuity witnesses for the headline theorems (trust track T2, run 2026-10-30T2228Z)
@@ -1238,6 +1239,14 @@ solution. -/
 
 theorem gelfand_turning_values :
     nonvacuity% Checked.Math.GelfandTurningValues.gelfand_turning_values := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! The first five turning values of the radial Gelfand branch (run 2026-11-21T0428Z): the same global regular
+solution. -/
+
+theorem gelfand_turning_values_five :
+    nonvacuity% Checked.Math.GelfandTurningValuesFive.gelfand_turning_values_five := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 

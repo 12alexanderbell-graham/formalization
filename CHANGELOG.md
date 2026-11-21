@@ -1058,3 +1058,11 @@
 - Part 3 (rotation): held-out test SN2 of `check_stale_necessity.py`: blind recall 8/17 (second miss below 0.8). Root cause: a rule that looks for open words; new rule S-N4 inverts the default (every classified hypothesis a line names is flagged unless the line states its classification), frozen and tested blind on a third writer SN3: recall 15/16, false positives 0/10 (old rule 10/16). After SN3 (not blind): S-N5 (ordinal descriptions), S-N3 (no open hypothesis left); controls 26 → 47; 0 lines on the records.
 - Annex LIV: PROMPT working note (invert the default after two blind misses), LEDGER experiment.
 - Next: CI read of the final push; then parts 2/5 by rotation.
+
+## 2026-11-21T0428Z (scheduled run)
+- Env: repo ok (session clone present, stale main reset by `scripts/start_run.sh`); local Lean installed with elan, judge's build restored by streaming; subagents: Sonnet (blind restatement, blind literal reader), Opus (referee).
+- CI: 44857993723 (55f887d) green on every job; nothing to promote.
+- Parts 2/5 (rotation): contracting homology cells with in-cell bounds and per-cell predicates (`Checked/Math/GSeg.lean`, `GSegData.lean`); new headline `Checked.Math.GelfandTurningValuesFive.gelfand_turning_values_five` (λ at the fourth turning point in [1.967422, 1.967510], at the fifth in [2.009926, 2.010028]): freeze, blind restatement closed, referee STANDS, blind literal reading, proof, promoted with NV witness and necessity (`NecessityBJ`).
+- Annex LIV: PROMPT working note, LEDGER experiment (per-cell predicates on generated chains).
+- Next: CI read of the final push; then part 1 by rotation.
+

@@ -496,6 +496,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Hypotheses of four statements of the B1 family; the start of a run (run 2026-11-21T0028Z)
 - `Checked/Trust/NecessityBI.lean`, `scripts/start_run.sh`; the proof: `runs/2026-11-21T0028Z/README.md`.
 
+## Fifth extremum of the radial Gelfand branch parameter (run 2026-11-21T0428Z)
+- `Checked/Math/GContract.lean`, `Checked/Math/GSeg.lean`, `Checked/Math/GSegData.lean`, `Checked/Math/GelfandLam4.lean`, `Checked/Math/GelfandTurningValuesFive.lean`, `Checked/Trust/NecessityBJ.lean`, `Checked/Trust/SecondReadingGelfandFifthTurn.lean`, `Work/Math/GelfandTurningFiveBlindClosed.lean`, `runs/2026-11-21T0428Z/scripts/`.
+
 ## Hypothesis lines of the records, default inverted (run 2026-11-21T0228Z)
 - `scripts/trust/check_stale_necessity.py` (rules S-N3, S-N4, S-N5), `runs/2026-11-21T0228Z/t5/` (held-out writers SN2, SN3; scorers).
 
