@@ -1110,3 +1110,10 @@
 - Parts 2/5 (rotation): new headline `Checked.Cosmography.B1A3Bound.third_coefficient_lower_bound` (every cubic log-polynomial matching flat ΛCDM, Ω ∈ [0, 1], within 0.05 mag at 1 + z = √2, 2√2, 4√2 has a₃ > 13/5, whatever a₂; infimum ≈ 2.6435 by referee), freeze → blind restatement (closed in Lean) → referee STANDS WITH CAVEATS → proof by seven new generated cells → Checked, NV witness, six hypotheses REDUNDANT and seven NEEDED (`NecessityBO`), six open (disclosed).
 - Annex LIV: LEDGER experiment (exact-rational emulation of the certificate before choosing the constant); PROMPT working note.
 - Next: CI read of the final push; then part 1 by rotation.
+
+## 2026-11-25T0028Z (scheduled run)
+- Env: repo ok (session clone = origin/main; stale LOCK of run 2026-11-21T1828Z, four days, taken over); local Lean (elan), judge's build of 3a2c1fc restored by streaming; no subagents.
+- CI: 44939209059 (3a2c1fc) green on every Lean and kernel job; goal guard red (a final commit message said 'remove LOCK' while another run held it); `third_coefficient_lower_bound` waits for a run green on every job.
+- Part 1 (rotation): every hypothesis of `third_coefficient_lower_bound` classified (2, 9, 10, 17 NEEDED; 1, 15 REDUNDANT; 2 and 9 from run 1828Z's unrecorded generator, recovered), and `rl19_box_unmatched` 10 REDUNDANT, 9 (the law) NEEDED by a coasting / square-root scale factor with closed-form distances. Trust map open 42 → 34.
+- Annex LIV: `scripts/start_run.sh` lists the leftovers of a LOCK holder without a run README; LEDGER experiment.
+- Next: CI read of this run's push; then part 3 by rotation.

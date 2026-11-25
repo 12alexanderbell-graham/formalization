@@ -33,6 +33,17 @@ git log --oneline -1 | cut -c1-120
 
 echo "== LOCK (48.4)"
 if [ -f LOCK ]; then cat LOCK; else echo "no LOCK"; fi
+# Run 2026-11-25T0028Z (annex LIV): run 2026-11-21T1828Z died holding the LOCK with a compiled-looking witness
+# generator and its output in its runs folder and no README; for four days nothing pointed at it. When the LOCK's
+# run has no run README, list what it left so the next run can recover it instead of redoing it.
+if [ -f LOCK ]; then
+  lrun="$(grep -o 'Run 20[0-9-]*T[0-9]*Z' LOCK | head -1 | cut -d' ' -f2)"
+  if [ -n "$lrun" ] && [ ! -f "runs/$lrun/README.md" ]; then
+    echo "== LOCK holder $lrun has no run README: what it left (recover before redoing)"
+    if [ -d "runs/$lrun" ]; then find "runs/$lrun" -type f | sort | head -40; fi
+    git log --format='%h %s' --grep="Run $lrun" origin/main | cut -c1-160 | head -20
+  fi
+fi
 
 echo "== Lean"
 if ! command -v lake >/dev/null 2>&1 && [ ! -x "$HOME/.elan/bin/lake" ]; then
