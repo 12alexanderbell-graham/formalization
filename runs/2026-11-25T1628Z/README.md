@@ -2,7 +2,7 @@
 
 **THE RESULT:** parts 2/5 by rotation (STATE 3h; next step STATE 3i). The Lean theorem of this run and its statement are in section What we did.
 
-**What can a scientist now trust without checking it themselves, that they could not before?** For the Bonnor–Ebert sphere, the rate at which the extrema of the pressure-confined mass approach the singular isothermal sphere: the quotient of consecutive extremum radii and the quotient of consecutive mass deviations, by a kernel theorem (section What we did; `CLAIMS_READER.md`).
+**What can a scientist now trust without checking it themselves, that they could not before?** For the isothermal sphere, the rate of consecutive radii of the mass extrema and the rate of the mass values at every extremum, by a kernel theorem (section What we did; `CLAIMS_READER.md`).
 
 **Weakest unchecked step:** the chain of cells of the module `Checked.Math.BEState300` (kernel data), section What we did.
 
