@@ -112,6 +112,7 @@ import Checked.Math.GelfandPDECountTurning
 import Checked.Math.GelfandPDECountTurningValues
 import Checked.Math.GelfandPDECountTurningValuesFive
 import Checked.Math.GelfandTurningValuesSeven
+import Checked.Math.GelfandTurningRatio
 import Checked.Math.GelfandPDEBound
 import Checked.Math.GelfandTurningValuesFive
 import Checked.Cosmography.B1A3Bound
@@ -1325,6 +1326,14 @@ solution. -/
 
 theorem gelfand_turning_values_seven :
     nonvacuity% Checked.Math.GelfandTurningValuesSeven.gelfand_turning_values_seven := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! The rate of the turning values of the radial Gelfand branch (run 2026-11-25T0428Z): the same global regular
+solution. -/
+
+theorem gelfand_turning_ratio :
+    nonvacuity% Checked.Math.GelfandTurningRatio.gelfand_turning_ratio := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 

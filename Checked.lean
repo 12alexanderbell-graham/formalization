@@ -321,8 +321,11 @@ import Checked.Trust.SecondReadingGelfandTurns
 import Checked.Trust.SecondReadingGelfandFifthTurn
 import Checked.Trust.SecondReadingGelfandSixthTurn
 import Checked.Trust.SecondReadingGelfandSeventhTurn
+import Checked.Trust.SecondReadingGelfandTurnRatio
 import Checked.Trust.SecondReadingBEMono
 import Checked.Math.GelfandExtremaMain
+import Checked.Math.GelfandRatioCore
+import Checked.Math.GelfandTurningRatio
 import Checked.Math.GelfandExtrema
 import Checked.Trust.SecondReadingGelfandExtrema
 import Checked.Trust.SecondReadingGelfandLimit
@@ -751,3 +754,4 @@ import Checked.Trust.NecessityBO
 import Checked.Trust.NecessityBP
 import Checked.Trust.NecessityBQ
 import Checked.Trust.NecessityBR
+import Checked.Trust.NecessityBS

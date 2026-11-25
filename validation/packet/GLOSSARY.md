@@ -206,6 +206,15 @@ noncomputable def remA (D3 : ℝ → ℝ → ℝ → ℝ → ℝ) (D4 : ℝ → 
           (omega0 K a t₀) * yred a t₀ t ^ 4)
 ```
 
+## `Cosmography.BambaK.correctD4y`
+
+Proposed correction of (10.56)–(10.57): add `(Ω₀ − 1)²/120 + 5 q₀ (Ω₀ − 1)/12`.
+
+```lean
+noncomputable def correctD4y (q j s l Ω : ℝ) : ℝ :=
+  printedD4y q j s l Ω + (Ω - 1) ^ 2 / 120 + 5 * q * (Ω - 1) / 12
+```
+
 ## `Cosmography.BambaK.lumDist`
 
 Luminosity distance in FLRW with curvature constant `K`: `d_L = a₀ (1 + z) S_K(χ)`
@@ -232,6 +241,17 @@ noncomputable def omega0 (K : ℝ) (a : ℝ → ℝ) (t₀ : ℝ) : ℝ :=
 ```lean
 noncomputable def printedD3y (q j s Ω : ℝ) : ℝ :=
   (1 / 24) * (52 - 20 * q + 21 * q ^ 2 - 15 * q ^ 3 - 7 * j + 10 * q * j + s - 2 * Ω * (1 + 3 * q))
+```
+
+## `Cosmography.BambaK.printedD4y`
+
+`D⁴_{L,y}` as printed (Eqs. (10.56)–(10.57)), verbatim (`j² = j₀²`).
+
+```lean
+noncomputable def printedD4y (q j s l Ω : ℝ) : ℝ :=
+  (1 / 120) * (359 - 184 * q + 186 * q ^ 2 - 135 * q ^ 3 + 105 * q ^ 4 + 90 * q * j
+    - 105 * q ^ 2 * j - 15 * q * s + -57 * j + 10 * j ^ 2 + 9 * s - l
+    - 5 * Ω * (17 - 6 * q + 9 * q ^ 2 - 2 * j))
 ```
 
 ## `Cosmography.BambaK.remK`

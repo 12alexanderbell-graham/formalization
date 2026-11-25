@@ -511,6 +511,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Extrema of the radial Gelfand branch parameter after the fifth; band values of the number of radial solutions (run 2026-11-21T1028Z)
 - `Checked/Math/GSegData7.lean`, `Checked/Math/GelfandLam6.lean`, `Checked/Math/GelfandTurningValuesSeven.lean`, `Checked/Math/GelfandPDECountTurningValuesFive.lean`, `Checked/Trust/NecessityBM.lean`, `Checked/Trust/SecondReadingGelfandSixthTurn.lean`, `Checked/Trust/SecondReadingGelfandSeventhTurn.lean`, `Work/Math/GelfandTurningSevenBlindClosed.lean`, `Work/Math/GelfandPDECountTurningValuesFiveBlindClosed.lean`, `runs/2026-11-21T1028Z/scripts/`.
 
+## The rate of the radial Gelfand branch parameter between consecutive extrema (run 2026-11-25T0428Z)
+- `Checked/Math/GelfandRatioCore.lean`, `Checked/Math/GelfandTurningRatio.lean`, `Checked/Trust/NecessityBS.lean`, `Checked/Trust/SecondReadingGelfandTurnRatio.lean`, `Work/Math/GelfandTurningRatio.lean`, `Work/Math/GelfandTurningRatioBlindClosed.lean`; the proof: `runs/2026-11-25T0428Z/README.md`.
+
 ## Hypotheses of one statement of the B1 family; content descriptions in the records (run 2026-11-21T0828Z)
 - `Checked/Trust/NecessityBL.lean`, `scripts/trust/check_stale_necessity.py` (S-N6), `runs/2026-11-21T0828Z/t5/`, `_archive/STATE_steps_2026-11-18_to_2026-11-20.md`; the proof: `runs/2026-11-21T0828Z/README.md`.
 

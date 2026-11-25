@@ -1124,3 +1124,9 @@
 - Part 3 (rotation): blind round AW, the second on CLAIMS_READER.md: 5/5 defects accepted by every check and 5/5 valid by blind readers (four false provenance records through `literal_readings.txt`, one false doubt through an `objections.txt` pointer); three new rules (check_literals rule 1 (c), check_literal_targets T5, check_claims O2) → 0/5; one old registration of the same shape found and disclosed (Soave).
 - Annex LIV: `check_commit_msg.py --final` runs the mention check on staged records; PROMPT note; LEDGER experiment.
 - Next: CI read of this run's push; then parts 2/5 by rotation.
+## 2026-11-25T0428Z (scheduled run)
+- Env: repo ok (session clone reset to origin/main by `scripts/start_run.sh`); local Lean (elan), judge's build of 7f9995f restored by streaming; subagents: one Sonnet blind restater, one Opus referee, one Sonnet blind literal reader. LOCK of run 0228Z alive at start → auditor role in `runs/2026-11-25T0428Z/` only, LOCK taken over at 05:08Z (48.4, 150 min; its part-3 work untouched).
+- CI: 45535081586 (7f9995f) green on every job; 45529799839 (70c5035) red only at the frozen step of the checked job, repaired by run 0228Z.
+- Parts 2/5 (rotation): new headline `Checked.Math.GelfandTurningRatio.gelfand_turning_ratio` — for every regular solution of the isothermal-sphere equation, the quotient of consecutive deviations of the branch parameter from its singular value tends to minus the exponential of minus pi over the square root of seven; freeze → Checked in one run from the analytic tail near the focus (`Checked/Math/GelfandRatioCore.lean`), no new certificates; every hypothesis classified (`Checked/Trust/NecessityBS.lean`: 1, 3, 4 NEEDED, 2 REDUNDANT).
+- Annex LIV: LEDGER experiment (ask whether the proved analytic tail carries an asymptotic quantity before planning cells); PROMPT working note.
+- Next: CI read of the final push; then part 3 by rotation.
