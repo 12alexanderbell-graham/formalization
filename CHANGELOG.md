@@ -1179,3 +1179,9 @@
 - Part 3 (rotation): test AZ (pre-registered): readers cite after a closure by a verdict file 2/2 and by a checked equivalence 2/2, never on an open entry (0/2). Adopted the checked route only: an objection is closed by a Lean theorem equating the statement with a blind reading of the source, proved without any theorem of the program (`Claims.lean` `closureFaults`, eight planted controls); a file never closes one.
 - Annex LIV: PROMPT working note (meaning of an equivalence is in its proof's constants); LEDGER experiment.
 - Next: CI read of the final push; then parts 2/5 by rotation.
+## 2026-11-25T2228Z (scheduled run)
+- Env: repo ok (session clone set to origin/main; the stale local main kept as `stale-local-main`); local Lean (elan), judge's build of 0be38fb restored by streaming, `lake build Checked`; subagents: Sonnet blind restater and blind literal reader, Opus referee.
+- CI: 45702125173 (0be38fb, run 2028Z's final push) green on every job; nothing to promote.
+- Parts 2/5 (rotation): new headline `bonnor_ebert_turning_bounds`, freeze → Checked in one run, no new certificates: for every extremum from index five on, the quotient of consecutive Bonnor–Ebert extremum radii is between 9.2 and 12.9 and the quotient of consecutive mass deviations from the singular value between −0.42 and −0.21. Referee STANDS; blind restatement closed in Lean; every hypothesis classified.
+- Annex LIV: PROMPT working note (a position fact about a named term of an existential sequence by uniqueness plus one added conjunct); LEDGER experiment.
+- Next: CI read of the final push; then part 1 by rotation.

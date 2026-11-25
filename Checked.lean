@@ -325,6 +325,7 @@ import Checked.Trust.SecondReadingGelfandTurnRatio
 import Checked.Trust.SecondReadingGelfandTurnRadii
 import Checked.Trust.SecondReadingGelfandRadiiBand
 import Checked.Trust.SecondReadingBETurnRatio
+import Checked.Trust.SecondReadingBETurnBounds
 import Checked.Trust.SecondReadingBEMono
 import Checked.Math.GelfandExtremaMain
 import Checked.Math.GelfandRatioCore
@@ -334,6 +335,9 @@ import Checked.Math.GelfandRadiiCore
 import Checked.Math.GelfandTurningRadii
 import Checked.Math.BERatioCore
 import Checked.Math.BonnorEbertTurningRatio
+import Checked.Math.BEXi5
+import Checked.Math.BEBoundsCore
+import Checked.Math.BonnorEbertTurningBounds
 import Checked.Math.GelfandExtrema
 import Checked.Trust.SecondReadingGelfandExtrema
 import Checked.Trust.SecondReadingGelfandLimit
@@ -774,3 +778,4 @@ import Checked.Trust.NecessityBW
 import Checked.Trust.NecessityBXTools
 import Checked.Trust.NecessityBXCerts
 import Checked.Trust.NecessityBX
+import Checked.Trust.NecessityBY

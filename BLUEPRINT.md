@@ -600,3 +600,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Closure of an objection by a checked equivalence (run 2026-11-25T2028Z)
 - `scripts/trust/Claims.lean` (`closureFaults` and its controls), `scripts/trust/check_claims.py` (O1), `scripts/trust/check_claims_fresh.py` (F4), `scripts/trust/check_headline_mentions.py` (M3), `scripts/trust/objections.txt` (header), `runs/2026-11-25T2028Z/t5/` (brief, material, results), `runs/2026-11-25T2028Z/scripts/material_az.py`.
+
+## The Bonnor–Ebert mass extrema, bounds on consecutive radii and values from index five on (run 2026-11-25T2228Z)
+- `Checked/Math/BEXi5.lean`, `Checked/Math/BEBoundsCore.lean`, `Checked/Math/BonnorEbertTurningBounds.lean`, `Checked/Trust/NecessityBY.lean`, `Checked/Trust/SecondReadingBETurnBounds.lean`, `Work/Math/BonnorEbertTurningBounds.lean`, `Work/Math/BonnorEbertTurningBoundsBlindClosed.lean`; the proof: `runs/2026-11-25T2228Z/README.md`.
