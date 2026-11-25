@@ -72,7 +72,8 @@ This script guards them:
                              added since B naming the definition (as check_relock.py does for
                              frozen fingerprints); O1 (run 2026-11-21T1428Z, after blind red team
                              AV): an objections.txt line removed since B needs its headline re-frozen
-                             or withdrawn
+                             or withdrawn; O2 (run 2026-11-25T0228Z, red team AW d05): the file an
+                             objections.txt line points at names the headline
 
 Why: a wrong phrase would put false meaning into every generated claim that uses the definition
 (e.g. calling `angDist` a luminosity distance), exactly the class the generated claims remove.
@@ -1231,6 +1232,43 @@ def objection_removals(base, old_obj=None, new_obj=None, old_frozen=None, new_fr
     return bad
 
 
+def objection_paths(obj_text=None, read=None):
+    """O2 (run 2026-11-25T0228Z, after blind red team AW d05): the page prints, for an entry, "its text written in
+    `path`". AW d05 pointed an entry for `lookback_second_order` at FINDINGS.md, which says nothing against it, and the
+    page then showed a valid headline with an open objection (sticky by O1). So the file at `path` must name the
+    headline: its last name component occurs there as a whole word (where the objection's text is written)."""
+    if obj_text is None:
+        obj_text = (ROOT / OBJ).read_text(encoding="utf-8") if (ROOT / OBJ).exists() else ""
+    if read is None:
+        def read(p):
+            f = ROOT / p
+            return f.read_text(encoding="utf-8", errors="replace") if f.is_file() else None
+    bad = []
+    for l in obj_text.splitlines():
+        if not l.strip() or l.lstrip().startswith("#"):
+            continue
+        ps = [x.strip() for x in l.split("|")]
+        if len(ps) < 3:
+            bad.append(f"{OBJ}: malformed line: {l}")
+            continue
+        short = ps[0].split(".")[-1]
+        t = read(ps[2])
+        if t is None:
+            bad.append(f"{OBJ}: path {ps[2]} of the objection to {short} is not a file")
+        elif not re.search(r"(?<![\w.])" + re.escape(short) + r"(?![\w])", t):
+            bad.append(f"{OBJ}: {ps[2]} does not name {short} (O2: the objection's text must be written where the "
+                       f"entry says, naming the headline)")
+    return bad
+
+
+def _controls_o2():
+    obj = "A.lookback_second_order | 2026-01-01T0000Z | X.md | the statement drops a condition\n"
+    named = objection_paths(obj, lambda p: "`lookback_second_order` assumes ...")
+    other = objection_paths(obj, lambda p: "FINDINGS: lookback_second_order_bigO is fine")
+    missing = objection_paths(obj, lambda p: None)
+    return not named and len(other) == 1 and len(missing) == 1
+
+
 def _controls_o1():
     obj = "A.f | 2026-01-01T0000Z | LEDGER.md | the statement drops a condition of the source\n"
     fz = "A.f abc\nA.g def\n"
@@ -1248,7 +1286,10 @@ def base_check(base):
     if not _controls_o1():
         print("::error::check_claims O1 controls failed")
         return 1
-    ob1 = objection_removals(base)
+    if not _controls_o2():
+        print("::error::check_claims O2 controls failed")
+        return 1
+    ob1 = objection_removals(base) + objection_paths()
     for b in ob1:
         print("OBJECTIONS:", b)
     if ob1:

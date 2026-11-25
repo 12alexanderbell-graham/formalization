@@ -1117,3 +1117,10 @@
 - Part 1 (rotation): every hypothesis of `third_coefficient_lower_bound` classified (2, 9, 10, 17 NEEDED; 1, 15 REDUNDANT; 2 and 9 from run 1828Z's unrecorded generator, recovered), and `rl19_box_unmatched` 10 REDUNDANT, 9 (the law) NEEDED by a coasting / square-root scale factor with closed-form distances. Trust map open 42 → 34.
 - Annex LIV: `scripts/start_run.sh` lists the leftovers of a LOCK holder without a run README; LEDGER experiment.
 - Next: CI read of this run's push; then part 3 by rotation.
+
+## 2026-11-25T0228Z (scheduled run)
+- Env: repo ok (session clone = origin/main, no LOCK); local Lean (elan), Mathlib cache re-fetched, judge's build of 70c5035 restored by streaming; subagents: one Sonnet red team, ten Sonnet readers.
+- CI: 45529799839 (70c5035) red only in the checked job's frozen step (`check_headline_mentions.py` on run 0028Z's README front page); repaired (7f9995f); 45535081586 (7f9995f) green on every job → `third_coefficient_lower_bound` PROVED.
+- Part 3 (rotation): blind round AW, the second on CLAIMS_READER.md: 5/5 defects accepted by every check and 5/5 valid by blind readers (four false provenance records through `literal_readings.txt`, one false doubt through an `objections.txt` pointer); three new rules (check_literals rule 1 (c), check_literal_targets T5, check_claims O2) → 0/5; one old registration of the same shape found and disclosed (Soave).
+- Annex LIV: `check_commit_msg.py --final` runs the mention check on staged records; PROMPT note; LEDGER experiment.
+- Next: CI read of this run's push; then parts 2/5 by rotation.

@@ -34,7 +34,9 @@ Every numeric literal (numeral, decimal, `(n : ℝ)`) written in the statement o
      definition (`cosmoCoeff 4`: the meaning of the slot is the pinned definition's frozen phrase); or
  (b) covered by a literal reading registered for the headline in `scripts/trust/literal_readings.txt`
      (`<headline, unique suffix> <reader constant> [<reader constant> ...]`, optional
-     `source=<Name>[,<Name>]` field read by check_source_names.py). A reader constant is a `def` of a
+     `source=<Name>[,<Name>]` field read by check_source_names.py; since run 2026-11-25T0228Z (rule 1 (c), red
+     team AW) each name must also occur as a word in the sources clause the reader wrote in its runs/ copy,
+     `source:`/`sources:` in its first module doc, pairs before the rule in `source_clause_baseline.txt`). A reader constant is a `def` of a
      non-generated `Checked/Trust/SecondReading*.lean` module (so check_provenance.py rules 3-4 and
      check_blind_route.py apply: a blind reader's file under `runs/` next to its brief, committed first).
      Its body, with its explicit binders as wildcards (each matches one token or one bracketed group of
@@ -728,6 +730,48 @@ def source_ok(const_rel, names):
     return [n for n in names if n not in briefs]
 
 
+CLAUSE_BL = "scripts/trust/source_clause_baseline.txt"
+
+
+def sources_clause(text):
+    """the reader's own statement of what it read: in the first module doc of its runs/ copy, the text after
+    `source:`/`sources:` up to the close of the parenthesis that encloses it (to the end of the doc when none does)"""
+    m = re.search(r"/-!(.*?)-/", text, re.S)
+    if not m:
+        return ""
+    doc = m.group(1)
+    k = re.search(r"\bsources?\s*:", doc, re.I)
+    if not k:
+        return ""
+    depth = 0
+    for ch in doc[:k.start()]:
+        depth += (ch == "(") - (ch == ")")
+    if depth <= 0:
+        return doc[k.end():]
+    out, d = [], 1
+    for ch in doc[k.end():]:
+        d += (ch == "(") - (ch == ")")
+        if d == 0:
+            break
+        out.append(ch)
+    return "".join(out)
+
+
+def clause_ok(const_rel, names):
+    """Rule 1 (c) (run 2026-11-25T0228Z, blind red team AW d01, d03, d04): every registered source name occurs, as a
+    whole word, in the sources clause the reader wrote in its runs/ copy (what it says it read). A name that occurs
+    only in a brief (the problem's or a paper's name, or a note added to the folder after the reading) is not a
+    source the reader read: the page would print a source the reading never saw."""
+    copies = P.runs_copies(P.code((ROOT / const_rel).read_text()))
+    clauses = " ".join(sources_clause((ROOT / c).read_text(errors="replace")) for c in copies)
+    return [n for n in names if not re.search(r"(?<![\w])" + re.escape(n) + r"(?![\w])", clauses)]
+
+
+def load_clause_baseline():
+    """`<reader constant> <source name>` pairs registered before rule 1 (c), grandfathered; shrink-only (--base)"""
+    return {tuple(l.split("|")[0].split()[:2]) for l in entries(CLAUSE_BL) or [] if len(l.split("|")[0].split()) >= 2}
+
+
 def load_rows():
     if not MEANING.exists():
         return None
@@ -760,6 +804,12 @@ def main():
                 if miss:
                     errors.append(f"rule 1: {READINGS}: source {miss} of {c} is named in no brief of the run "
                                   f"folder of {consts[c][2]}'s runs/ copy")
+                cbl = load_clause_baseline()
+                cmiss = [n for n in clause_ok(consts[c][2], srcs) if (c.split(".")[-1], n) not in cbl]
+                if cmiss:
+                    errors.append(f"rule 1 (c): {READINGS}: source {cmiss} of {c} is not in the sources clause its "
+                                  f"reader wrote in the runs/ copy of {consts[c][2]} (what the reader says it read); "
+                                  f"a name that only a brief carries is not a source the reading saw")
     n_unc = 0
     for name in sorted(heads):
         row = heads[name]
@@ -812,6 +862,12 @@ def main():
                        for ol in old_lists.get(h.strip(), [])):
                     continue
                 errors.append(f"rule 4: {BASELINE} grew or changed against {base}: {key[:100]} (it may only shrink)")
+        oldc = P.git("show", f"{base}:{CLAUSE_BL}")
+        if oldc is not None:  # rule 1 (c) baseline: shrink-only (run 2026-11-25T0228Z)
+            was = {tuple(l.split("#")[0].split("|")[0].split()[:2]) for l in oldc.splitlines()
+                   if len(l.split("#")[0].split("|")[0].split()) >= 2}
+            for pair in sorted(load_clause_baseline() - was):
+                errors.append(f"rule 4: {CLAUSE_BL} grew against {base}: {' '.join(pair)} (it may only shrink)")
         oldr = P.git("show", f"{base}:{READINGS}")
         if oldr is not None:
             added = set(entries(READINGS) or []) - {l.split("#")[0].rstrip() for l in oldr.splitlines()}

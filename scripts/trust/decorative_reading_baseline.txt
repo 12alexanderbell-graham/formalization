@@ -1,0 +1,10 @@
+# T5 of scripts/trust/check_literal_targets.py (run 2026-11-25T0228Z, blind red team AW d02): a closed reader constant
+# registered for a headline needs a slot line in literal_slots.txt. Pairs registered before T5, grandfathered (their
+# numeral is 0, 1 or 2, which check_literals exempts, so the slot rule never asked for them). Shrink-only (--base).
+# Format: `<headline, last component> <reader constant, last component> | <note>`.
+gelfand_extrema gelfandSingularLambda | the singular solution's parameter 2; no slot line
+gelfand_turning_values gelfandSingularLambda | the singular solution's parameter 2; no slot line
+gelfand_turning_values_five gelfandSingularLambda | the singular solution's parameter 2; no slot line
+gelfand_turning_values_seven gelfandSingularLambda | the singular solution's parameter 2; no slot line
+bonnor_ebert_count beCountAboveCritical | the count 0 above the critical mass; no slot line
+bonnor_ebert_count beCountBelowFirstMin | the count 1 below the first minimum; no slot line

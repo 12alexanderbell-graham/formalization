@@ -400,6 +400,9 @@ def classify_both(row, consts, readings, slots, errors, strict=True):
     return toks, old, new
 
 
+DECORATIVE_BL = "scripts/trust/decorative_reading_baseline.txt"
+
+
 def main():
     base = sys.argv[sys.argv.index("--base") + 1] if "--base" in sys.argv else None
     report = "--report" in sys.argv
@@ -432,6 +435,30 @@ def main():
             errors.append(f"T3: {BASELINE}: {ps[0]} is not exactly one headline")
             continue
         bl[h] = ps[1].split()
+    # T5 (run 2026-11-25T0228Z, blind red team AW d02): a closed (binder-free arithmetic) reader constant registered
+    # for a headline needs a slot line. Without one it covers nothing here (T2), yet CLAIMS_READER.md prints it at the
+    # head of the headline's Status line as "the source's own form, as a blind reader wrote it from the source" and
+    # counts it among the definitions "registered for this statement and occur in it": AW d02 registered
+    # `bambaJLCDM := 1` (the printed jerk j₀ = 1 of flat ΛCDM) for `F4_values`, whose only 1 is the curvature
+    # constant K = 1. Pairs registered before T5, grandfathered: DECORATIVE_BL (shrink-only under --base).
+    dec_bl = {tuple(l.split("|")[0].split()[:2]) for l in L.entries(DECORATIVE_BL) or []
+              if len(l.split("|")[0].split()) >= 2}
+    for h, regs in sorted(readings.items()):
+        for c, _ in regs:
+            k = consts.get(c)
+            if k is None or k[0] or L.closed_values(k[1]) is None or c in slots:
+                continue
+            if (h.split(".")[-1], c.split(".")[-1]) not in dec_bl:
+                errors.append(f"T5: {h.split('.')[-1]}: closed reader constant {c} is registered with no slot line in "
+                              f"{SLOTS}: it covers no literal (T2) but the claims page prints it as a blind reading of "
+                              f"this statement; register the slot it was read for, or do not register it")
+    if base:
+        oldd = P.git("show", f"{base}:{DECORATIVE_BL}")
+        if oldd is not None:
+            was = {tuple(l.split("#")[0].split("|")[0].split()[:2]) for l in oldd.splitlines()
+                   if len(l.split("#")[0].split("|")[0].split()) >= 2}
+            for pair in sorted(dec_bl - was):
+                errors.append(f"T5: {DECORATIVE_BL} grew against {base}: {' '.join(pair)} (it may only shrink)")
     n_extra = 0
     lit_bl = L.load_baseline(heads, [])  # headlines grandfathered in check_literals' baseline: old span rule
     for name in sorted(heads):

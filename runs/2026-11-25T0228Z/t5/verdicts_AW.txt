@@ -1,0 +1,6 @@
+AW clean (StatementDeps clean outputs of BASE): ACCEPTED (every check green)
+AW d01 (StatementDeps reused): ACCEPTED (every check green)
+AW d02 (StatementDeps reused): ACCEPTED (every check green)
+AW d03 (StatementDeps reused): ACCEPTED (every check green)
+AW d04 (StatementDeps reused): ACCEPTED (every check green)
+AW d05 (StatementDeps reused): ACCEPTED (every check green)

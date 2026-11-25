@@ -1,0 +1,5 @@
+# Rule 1 (c) of scripts/trust/check_literals.py (run 2026-11-25T0228Z, blind red team AW d01/d03/d04): a `source=` name
+# of scripts/trust/literal_readings.txt must occur in the sources clause the blind reader wrote in its runs/ copy.
+# Pairs registered before the rule that fail it, grandfathered. Shrink-only (check_literals.py --base).
+# Format: `<reader constant, last component> <source name> | <why it is kept>`.
+kappaSoave Soave | the reader read the Soave correlation in three software documentation pages (Reaktoro, Cantera, IDAES), not Soave 1972; the page's "source names backed by the readers: Soave" overstates that (same shape as AW d01); kept because the docstrings of srk_omega1_exists / srk_omega1_unique name Soave (check_source_names) and a docstring change needs a relock
