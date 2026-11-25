@@ -55,9 +55,10 @@ fi
 # shellcheck disable=SC1091
 source "$HOME/.elan/env"
 lean --version
-if [ ! -d .lake/packages/mathlib/.lake/build ]; then
-  lake exe cache get 2>&1 | tail -2
-fi
+# Run 2026-11-25T1228Z (annex LIV): the session clone had a partial Mathlib build directory (Log/Base.olean
+# missing), so the old existence test skipped the cache and the first compile failed. `cache get` is idempotent
+# and takes about half a minute when everything is present: always run it.
+lake exe cache get 2>&1 | tail -2
 pip install -q --break-system-packages markdown-it-py==4.2.0 cmarkgfm==2024.11.20 mpmath sympy >/dev/null 2>&1 || true
 
 echo "== next (by hand)"

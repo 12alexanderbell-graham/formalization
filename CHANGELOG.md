@@ -1149,3 +1149,9 @@
 - Parts 2/5 (rotation): new headline `Checked.Math.GelfandTurningRadii.gelfand_turning_radii` — the quotient of consecutive turning radii of the radial Gelfand branch tends to exp(2π/√7), and from the seventh turning point on it lies in [10.3, 11.2] and the deviation quotient in [−0.33, −0.28]; freeze → Checked in one run from the segment bounds of run 0428Z plus one position bound (`Checked/Math/GelfandLam6Pos.lean`); every hypothesis classified (`Checked/Trust/NecessityBU.lean`: 1, 3, 4 NEEDED, 2 REDUNDANT).
 - Annex LIV: LEDGER experiment (state explicit bounds with a limit when the squeeze has explicit errors); PROMPT working note.
 - Next: CI read of the final push; then part 1 by rotation.
+## 2026-11-25T1228Z (scheduled run)
+- Env: repo ok (session clone = origin/main by `scripts/start_run.sh`); local Lean (elan), judge's builds of 6b0d99b and 8cc4f5e restored by streaming; no subagents.
+- CI: 45608767251 (8cc4f5e, run 1028Z's final push) green on every job → `gelfand_turning_radii` PROVED (STATE heading judged).
+- Part 1 (rotation): hypothesis 8 (closed or flat) of `l19_sq_curved` and `l19_sqg_curved` REDUNDANT (`Checked/Trust/NecessityBV.lean`): for open models the hyperbolic sine over its argument increases, and the ratio of the two distance integrals is certified for every curvature parameter, by 37 generated parameter boxes up to twenty and by an antiderivative continuous up to the present above twenty. Trust map open 33 → 31.
+- Annex LIV: `scripts/start_run.sh` always runs `lake exe cache get`; LEDGER experiment; PROMPT working note.
+- Next: CI read of the final push; then part 3 by rotation.
