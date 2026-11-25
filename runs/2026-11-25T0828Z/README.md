@@ -33,12 +33,12 @@
 - Trust map unchanged (NEEDED 775, REDUNDANT 254, open 33; 311 headlines). No Lean file changed.
 
 ## Next
-- CI read first: the run of this run's final push (Python checks changed: `check_literals.py`, `check_templates.py`; two new baselines; no Lean file). Green on every job → nothing to promote. Red → its first failing command with the newest ancestor green on every job (dcdaa3b) as base (`python3 scripts/trust/records_check.py dcdaa3b`).
+- CI read first: 45592084429, the run of this run's final push 6b0d99b (Python checks changed: `check_literals.py`, `check_templates.py`; two new baselines; no Lean file). Green on every job → nothing to promote. Red → its first failing command with the newest ancestor green on every job (dcdaa3b) as base (`python3 scripts/trust/records_check.py dcdaa3b`).
 - Part 3 next: the fields no round has touched — `literal_slots.txt` (a slot line at a role the reader did not mean), `headlines.txt`, and the B3 definition-header exemption of `check_blind_route.py` — as a fourth blind round, or a held-out reader test of the Status line itself (which of its items readers use: AX's readers passed over counts and source names in its middle, AW's took the provenance at its head as fact). The Soave record (`source_clause_baseline.txt`) stays as in run 0228Z's Next.
 - Part 1 next: as in section Next of `runs/2026-11-25T0628Z/README.md`.
 - Parts 2/5 next: as in section Next of `runs/2026-11-25T0428Z/README.md`.
 
 ## End
 - Local: `scripts/start_run.sh`, judge build of dcdaa3b restored by streaming, `lake build Checked` (3791 jobs), `StatementDeps.lean` (no relock; outputs and TRUST_MAP.md unchanged), the judge (two trees), `check_claims.py` per defect with `.lake/phrases.jsonl` in place, planted controls of the four new rules on a scratch tree, `Claims.lean` (pages unchanged), `records_check.py dcdaa3b` (46 commands, 0 failed).
-- CI of the final push: not read in this run (section Next).
+- CI of the final push 6b0d99b: 45592084429 (queued 10:08Z); at 10:12Z goal guard, packet, changes, leanchecker 4/4 and nanoda 4/4 (memoised: no Lean file changed) green; the checked and work jobs running — the next run reads it (section Next).
 - Message to Alexander (L.2): none (no finding, no promotion, nothing wrong).
