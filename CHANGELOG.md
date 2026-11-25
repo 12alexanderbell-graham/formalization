@@ -1155,3 +1155,9 @@
 - Part 1 (rotation): hypothesis 8 (closed or flat) of `l19_sq_curved` and `l19_sqg_curved` REDUNDANT (`Checked/Trust/NecessityBV.lean`): for open models the hyperbolic sine over its argument increases, and the ratio of the two distance integrals is certified for every curvature parameter, by 37 generated parameter boxes up to twenty and by an antiderivative continuous up to the present above twenty. Trust map open 33 → 31.
 - Annex LIV: `scripts/start_run.sh` always runs `lake exe cache get`; LEDGER experiment; PROMPT working note.
 - Next: CI read of the final push; then part 3 by rotation.
+## 2026-11-25T1428Z (scheduled run)
+- Env: repo ok (session clone = origin/main by `scripts/start_run.sh`); local Lean (elan), judge's build of 8cc4f5e restored by streaming and `lake build Checked` (3802 jobs); subagents: one red team, four readers (Sonnet).
+- CI: 45626806307 (21bff96, run 1228Z's final push) green on every job; nothing to promote.
+- Part 3 (rotation): blind round AY on CLAIMS_READER.md: 2 of 5 defects accepted by every check, both through `objections.txt`; 4/4 blind readers declined to cite on them (false doubt; d01 also hid a recorded doubt from its headline). Rule O3 of `check_claims.py --base` closes d01; d04 (a withdrawn query shown open) is the page's designed direction and stays open.
+- Annex LIV: LEDGER experiment (name bindings checked against every headline the name can denote); judge commits apply.py's leftovers; PROMPT working note.
+- Next: CI read of the final push; then parts 2/5 by rotation.

@@ -73,7 +73,9 @@ This script guards them:
                              frozen fingerprints); O1 (run 2026-11-21T1428Z, after blind red team
                              AV): an objections.txt line removed since B needs its headline re-frozen
                              or withdrawn; O2 (run 2026-11-25T0228Z, red team AW d05): the file an
-                             objections.txt line points at names the headline
+                             objections.txt line points at names the headline; O3 (run 2026-11-25T1428Z, red
+                             team AY d01): an objection whose file names a last name component
+                             several listed headlines share is entered for each of them
 
 Why: a wrong phrase would put false meaning into every generated claim that uses the definition
 (e.g. calling `angDist` a luminosity distance), exactly the class the generated claims remove.
@@ -1261,6 +1263,58 @@ def objection_paths(obj_text=None, read=None):
     return bad
 
 
+def _dotted_match(a, b):
+    """Two headline names (full, or a unique dotted suffix as headlines.txt and objections.txt allow) denote the same
+    theorem when one is a dotted suffix of the other."""
+    return a == b or a.endswith("." + b) or b.endswith("." + a)
+
+
+def objection_siblings(obj_text=None, heads_text=None):
+    """O3 (run 2026-11-25T1428Z, after blind red team AY d01): O2 tests that the objection's file names the headline by
+    its LAST name component. Two listed headlines can share it (`AvilesWitness.printedL0_false_at` and
+    `CPLExistence.printedL0_false_at`; `LEExists.exists_solution` and `GelfandExists.exists_solution`): AY d01 wrote a
+    note querying the first, entered it under the second, and the page showed "none" for the headline the note doubts.
+    A word test cannot tell which sibling a note means, and an entry can only lower trust, so the conservative rule:
+    when the file of an entry names a last name component that several listed headlines share, every one of those
+    headlines has an entry with that same path (each is then shown with the objection on the page)."""
+    if obj_text is None:
+        obj_text = (ROOT / OBJ).read_text(encoding="utf-8") if (ROOT / OBJ).exists() else ""
+    if heads_text is None:
+        heads_text = (ROOT / HEADS).read_text(encoding="utf-8") if (ROOT / HEADS).exists() else ""
+    heads = [l.split()[0] for l in heads_text.splitlines() if l.strip() and not l.lstrip().startswith("#")]
+    by_short = {}
+    for h in heads:
+        by_short.setdefault(h.split(".")[-1], []).append(h)
+    entries = []
+    for l in obj_text.splitlines():
+        if not l.strip() or l.lstrip().startswith("#"):
+            continue
+        ps = [x.strip() for x in l.split("|")]
+        if len(ps) >= 3:
+            entries.append((ps[0], ps[2]))
+    bad = []
+    for name, path in entries:
+        sibs = by_short.get(name.split(".")[-1], [])
+        if len(sibs) < 2:
+            continue
+        for s in sibs:
+            if not any(p == path and _dotted_match(n, s) for n, p in entries):
+                bad.append(f"{OBJ}: {path} names `{name.split('.')[-1]}`, which the listed headlines {', '.join(sibs)} "
+                           f"share; {s} has no entry with that path (O3: an objection whose text names a shared name "
+                           f"is entered for every headline of that name)")
+    return bad
+
+
+def _controls_o3():
+    heads = "A.M.f\nA.N.f\nA.g\n"
+    one = "M.f | 2026-01-01T0000Z | X.md | q\n"
+    both = one + "A.N.f | 2026-01-01T0000Z | X.md | q\n"
+    other_path = one + "N.f | 2026-01-01T0000Z | Y.md | q\n"
+    single = "A.g | 2026-01-01T0000Z | X.md | q\n"
+    return (len(objection_siblings(one, heads)) == 1 and not objection_siblings(both, heads)
+            and len(objection_siblings(other_path, heads)) == 2 and not objection_siblings(single, heads))
+
+
 def _controls_o2():
     obj = "A.lookback_second_order | 2026-01-01T0000Z | X.md | the statement drops a condition\n"
     named = objection_paths(obj, lambda p: "`lookback_second_order` assumes ...")
@@ -1289,7 +1343,10 @@ def base_check(base):
     if not _controls_o2():
         print("::error::check_claims O2 controls failed")
         return 1
-    ob1 = objection_removals(base) + objection_paths()
+    if not _controls_o3():
+        print("::error::check_claims O3 controls failed")
+        return 1
+    ob1 = objection_removals(base) + objection_paths() + objection_siblings()
     for b in ob1:
         print("OBJECTIONS:", b)
     if ob1:
