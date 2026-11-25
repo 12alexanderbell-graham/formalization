@@ -4,7 +4,7 @@
 
 **What can a scientist now trust without checking it themselves, that they could not before?** That a statement of the claims page shown with no open fidelity objection has none filed under a statement of the same short name instead: a fourth blind red team filed a note that doubts one statement under its namesake, the doubted statement showed "none", and the new rule O3 catches it.
 
-**Weakest unchecked step:** what an objection entry means: an entry is shown open with its text unprinted, and 4 of 4 blind readers declined to cite on it even when its own note withdraws the query (d04, not closed); and, as in round AX, the readers' honesty (a forged brief and reading still passes).
+**Weakest unchecked step:** what an objection entry means: an entry is shown open with its text unprinted, and 4 of 4 blind readers declined to cite on it even when its own note drops the query (d04, not closed); and, as in round AX, the readers' honesty (a forged brief and reading still passes).
 
 ## Start
 - 14:28Z. `scripts/start_run.sh`: local main = origin/main bbc1caf; no LOCK; LOCK taken (4bbb761).
@@ -17,7 +17,7 @@
 - Round AX's defects passed every check and misled no reader; the fields no round had touched were `literal_slots.txt`, `headlines.txt`, the B3 header exemption and the Status line itself. Does a fourth blind red team, told that readers act on the claim and the head of the Status line, get a record onto the page that changes what a reader would cite? Yes → which field, and a rule. No → the page's record of resisting blind rounds grows by one, and the next round goes to those fields with a larger budget.
 
 ## What we did
-- **Round AY** (`t5/`): brief `briefAY.md` committed alone (220e359 = snapshot), reader brief `reader_brief_AY.md` committed alone (bd5aec5) before the red team ran; snapshot `/home/claude/fzAY` with this run's StatementDeps and Claims outputs (incl. `phrases.jsonl`, whose absence cost round AX a rerun). Red team (Sonnet, blind, ≈ 32 min) delivered five defects and its untried routes; output committed verbatim (`t5/redteamAY/`) before the verdicts were written.
+- **Round AY** (`t5/`): brief `briefAY.md` committed alone (220e359 = snapshot), reader brief `reader_brief_AY.md` committed alone (bd5aec5) before the red team ran; snapshot `/home/claude/fzAY` with this run's StatementDeps and Claims outputs (incl. `phrases.jsonl`, whose absence cost round AX a rerun). Red team (Sonnet, blind, ≈ 32 min) delivered five defects and its untried routes; output copied verbatim (`t5/redteamAY/`; the regenerated pages each apply.py copies are not committed, Claims.lean reproduces them) and committed with the reader answers (a6d2905), not before them as in round AX.
 - **Judge** `t5/judge_ay.sh` (AX's, plus one change: it commits what an apply.py leaves uncommitted, as an author would), two trees in parallel, Claims.lean per defect: verdicts `t5/verdicts_AY.txt`. Two defects accepted by every check, three caught by Claims.lean rule P13. Table `t5/RESULTS_AY.md`.
 - **Readers:** two fresh blind Sonnet readers per accepted defect, four in one message, material by round AW's script: **4 of 4 declined to cite** the headline the defect marked as doubted (`t5/READERS_AY.md`).
   - d01: a note doubting `AvilesWitness.printedL0_false_at` entered under `CPLExistence.printedL0_false_at` (O2 asks only that the file name the last name component, which both share): the page shows the namesake as doubted and the doubted statement with "none".

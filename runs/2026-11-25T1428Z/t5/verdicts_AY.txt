@@ -1,0 +1,9 @@
+# Round AY verdicts (run 2026-11-25T1428Z). Judge judge_ay.sh, BASE 220e359, Claims.lean per defect; tree A: clean, d01, d04; tree B: d02, d03, d05.
+AY clean (StatementDeps clean outputs of BASE): ACCEPTED (every check green)
+AY d01 (StatementDeps reused): ACCEPTED (every check green)
+AY d04 (StatementDeps reused): ACCEPTED (every check green)
+AY d02 (StatementDeps reused): CAUGHT | Claims.lean :: scripts/trust/Claims.lean:383:0: error: claims generator errors: | check_numbers.py :: check_numbers selftest: 34 controls, 0 failing | check_claims.py --base "$BASE" :: 
+AY d03 (StatementDeps reused): CAUGHT | Claims.lean :: scripts/trust/Claims.lean:383:0: error: claims generator errors: | check_numbers.py :: check_numbers selftest: 34 controls, 0 failing | check_claims.py --base "$BASE" :: 
+AY d05: Claims.lean failed with P13 (phrase_certs.txt: the docstring of Checked.Trust.PhraseCerts.duffing_initial does not quote the line ...); the judge's Python checks of d05 were still running at the final push, so its line above may be missing: CAUGHT by Claims.lean.
+d01 page: Claims.lean on the judge tree reproduced the page apply.py ships (cmp).
+After O3 (this run): d01 CAUGHT by check_claims.py --base (O3: AvilesWitness.printedL0_false_at has no entry with that path).
