@@ -304,6 +304,8 @@ import Work.Math.GelfandTurningRatio
 import Work.Math.GelfandTurningRatioBlindClosed
 import Work.Math.GelfandTurningRadii
 import Work.Math.GelfandTurningRadiiBlindClosed
+import Work.Math.BonnorEbertTurningRatio
+import Work.Math.BonnorEbertTurningRatioBlindClosed
 import Work.Math.GelfandTurningSevenBlindClosed
 import Work.Math.BonnorEbertAllBlind
 import Work.Math.BonnorEbertAllBlindClosed

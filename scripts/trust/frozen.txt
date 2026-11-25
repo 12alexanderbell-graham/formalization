@@ -414,6 +414,7 @@ Checked.Math.BonnorEbertMax3.bonnor_ebert_third_max c2d82791-doc9741152724523035
 Checked.Math.BonnorEbertMin.bonnor_ebert_min 5e78febf-doc12077961383547148230
 Checked.Math.BonnorEbertMin2.bonnor_ebert_second_min 211dc9b5-doc6575042979500888613
 Checked.Math.BonnorEbertMonotone.bonnor_ebert_extrema_monotone 2b5ab476-doc9046362567395020306
+Checked.Math.BonnorEbertTurningRatio.bonnor_ebert_turning_ratio b794a0ba-doc7104134732076581917
 Checked.Math.Gelfand.gelfand_ball_critical 8bc55514-doc3099962857817823782
 Checked.Math.GelfandExists.exists_solution 20e32e81-doc6694226507590696985
 Checked.Math.GelfandExtrema.gelfand_extrema b0115572-doc11641840203187700132
@@ -2119,6 +2120,19 @@ doc:Checked.Math.BEOMain.main -doc6268730587207004740
 doc:Checked.Math.BEOMain.win_C -doc16356849750727773916
 doc:Checked.Math.BEOMain.win_M -doc14996125190601909739
 doc:Checked.Math.BEOTail.uv_lower2 -doc11540362218821937014
+doc:Checked.Math.BERatioCore.M_at_zero -doc12680651787031186132
+doc:Checked.Math.BERatioCore.P_anti_of_M -doc13640196584833519823
+doc:Checked.Math.BERatioCore.P_deriv -doc16642498372426371624
+doc:Checked.Math.BERatioCore.Sys.segB_bounds -doc14858604766332514584
+doc:Checked.Math.BERatioCore.Sys.sideB_left -doc972099418453373231
+doc:Checked.Math.BERatioCore.Sys.sideB_right -doc15293054222912050806
+doc:Checked.Math.BERatioCore.angB_id -doc2418144214566433376
+doc:Checked.Math.BERatioCore.fcB -doc9165630459066248907
+doc:Checked.Math.BERatioCore.neg_of_antiP -doc1117477979671483688
+doc:Checked.Math.BERatioCore.no_zero_insideB -doc6275386668443413516
+doc:Checked.Math.BERatioCore.pos_of_monoP -doc7153391946067722946
+doc:Checked.Math.BERatioCore.thB -doc5303570226210398262
+doc:Checked.Math.BERatioCore.zero_between -doc7423388197127723850
 doc:Checked.Math.BonnorEbertCountMain.count_abstract -doc10321223623607443773
 doc:Checked.Math.BonnorEbertCountMain.shiftSeq -doc3538185091093244679
 doc:Checked.Math.GCell.box -doc13997350109791766934
@@ -3971,6 +3985,7 @@ doc:Checked.Trust.SecondReading.beSecondMaxRadius -doc11142134783642598667
 doc:Checked.Trust.SecondReading.beSecondMinRadius -doc1903835562236803092
 doc:Checked.Trust.SecondReading.beSingularMass -doc6288022806669574417
 doc:Checked.Trust.SecondReading.beThirdMaxRadius -doc16335711745806211931
+doc:Checked.Trust.SecondReading.beTurnRatio -doc12701382628634675204
 doc:Checked.Trust.SecondReading.blasiusEdge -doc4842813862602201423
 doc:Checked.Trust.SecondReading.blasiusHalfLineTyped -doc14410342809527929474
 doc:Checked.Trust.SecondReading.blasiusHalfLine -doc5073422301478383058
@@ -4661,6 +4676,7 @@ moduledoc:Checked.Math.BEOData -mdoc14381083565869455786
 moduledoc:Checked.Math.BEOMain -mdoc339105483967209252
 moduledoc:Checked.Math.BEOTail -mdoc11333042694802537483
 moduledoc:Checked.Math.BEQData -mdoc5261983848398859491
+moduledoc:Checked.Math.BERatioCore -mdoc10555537030438300114
 moduledoc:Checked.Math.BEStart -mdoc2603103045724268153
 moduledoc:Checked.Math.BEState300 -mdoc16200356126842154058
 moduledoc:Checked.Math.BETail -mdoc3852217132670055615
@@ -4673,6 +4689,7 @@ moduledoc:Checked.Math.BonnorEbertMax -mdoc8203701529619995826
 moduledoc:Checked.Math.BonnorEbertMin2 -mdoc1599833873984954130
 moduledoc:Checked.Math.BonnorEbertMin -mdoc8384588527723447329
 moduledoc:Checked.Math.BonnorEbertMonotone -mdoc9214320537386287552
+moduledoc:Checked.Math.BonnorEbertTurningRatio -mdoc8842944109551458393
 moduledoc:Checked.Math.BonnorEbert -mdoc16108829127181183395
 moduledoc:Checked.Math.GCellQ -mdoc4960724099563984183
 moduledoc:Checked.Math.GCell -mdoc5299691976011732180
@@ -4995,6 +5012,7 @@ moduledoc:Checked.Trust.NecessityBVCerts1 -mdoc13704775483052811994
 moduledoc:Checked.Trust.NecessityBVCerts -mdoc8437243154214475690
 moduledoc:Checked.Trust.NecessityBVTools -mdoc2484745691410566536
 moduledoc:Checked.Trust.NecessityBV -mdoc13050102360268497524
+moduledoc:Checked.Trust.NecessityBW -mdoc8204883138119890649
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
@@ -5035,6 +5053,7 @@ moduledoc:Checked.Trust.SecondReadingBE3 -mdoc14632787277133674012
 moduledoc:Checked.Trust.SecondReadingBEAll -mdoc976914423985258474
 moduledoc:Checked.Trust.SecondReadingBECount -mdoc10532163440858416569
 moduledoc:Checked.Trust.SecondReadingBEMono -mdoc1596193682468258235
+moduledoc:Checked.Trust.SecondReadingBETurnRatio -mdoc7577028597457292727
 moduledoc:Checked.Trust.SecondReadingBlasius -mdoc10558104316128241795
 moduledoc:Checked.Trust.SecondReadingBound -mdoc13469660202480217973
 moduledoc:Checked.Trust.SecondReadingClaims -mdoc11105787854413030724
@@ -5101,4 +5120,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc3886518874120342245
+moduledoc:Checked.Trust.Witnesses -mdoc2868751789585559681

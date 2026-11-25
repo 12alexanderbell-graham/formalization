@@ -1161,3 +1161,9 @@
 - Part 3 (rotation): blind round AY on CLAIMS_READER.md: 2 of 5 defects accepted by every check, both through `objections.txt`; 4/4 blind readers declined to cite on them (false doubt; d01 also hid a recorded doubt from its headline). Rule O3 of `check_claims.py --base` closes d01; d04 (a withdrawn query shown open) is the page's designed direction and stays open.
 - Annex LIV: LEDGER experiment (name bindings checked against every headline the name can denote); judge commits apply.py's leftovers; PROMPT working note.
 - Next: CI read of the final push; then parts 2/5 by rotation.
+## 2026-11-25T1628Z (scheduled run)
+- Env: repo ok (session clone reset from a stale shallow main to origin/main); local Lean (elan), judge's build of 21bff96 restored by streaming, `lake build Checked` (3806 jobs with the new modules); subagents: one blind restater, one blind literal reader (Sonnet), one referee (Opus).
+- CI: 45653611577 (4631dbc, run 1428Z's final push): every check step green when read; final state in the run README, section End.
+- Parts 2/5 (rotation): PROMOTION of `bonnor_ebert_turning_ratio`: the extremum radii of the Bonnor–Ebert mass grow by the factor exp(2π/√7) in the limit and the deviations of the extremal masses from the singular value shrink by −exp(−π/√7); route `Checked/Math/BERatioCore.lean` (the angle of the Gelfand rate route measured from the zero ray of 2u − v). Referee STANDS; blind restatement closed in Lean; NecessityBW: 1, 3, 4 NEEDED, 2 REDUNDANT.
+- Annex LIV: PROMPT working note (ray rotation; promoted headline imports); LEDGER experiment.
+- Next: CI read of the final push; then part 1 by rotation.

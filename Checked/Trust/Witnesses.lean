@@ -114,6 +114,7 @@ import Checked.Math.GelfandPDECountTurningValuesFive
 import Checked.Math.GelfandTurningValuesSeven
 import Checked.Math.GelfandTurningRatio
 import Checked.Math.GelfandTurningRadii
+import Checked.Math.BonnorEbertTurningRatio
 import Checked.Math.GelfandPDEBound
 import Checked.Math.GelfandTurningValuesFive
 import Checked.Cosmography.B1A3Bound
@@ -1342,6 +1343,13 @@ regular solution. -/
 
 theorem gelfand_turning_radii :
     nonvacuity% Checked.Math.GelfandTurningRadii.gelfand_turning_radii := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! The rate of the extrema of the Bonnor–Ebert mass (run 2026-11-25T1628Z): the same global regular solution. -/
+
+theorem bonnor_ebert_turning_ratio :
+    nonvacuity% Checked.Math.BonnorEbertTurningRatio.bonnor_ebert_turning_ratio := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 

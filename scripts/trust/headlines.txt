@@ -372,3 +372,4 @@ Checked.Math.GelfandPDECountTurningValuesFive.gelfand_pde_radial_count_turning_v
 Checked.Math.GelfandTurningValuesSeven.gelfand_turning_values_seven
 Checked.Math.GelfandTurningRatio.gelfand_turning_ratio
 Checked.Math.GelfandTurningRadii.gelfand_turning_radii
+Checked.Math.BonnorEbertTurningRatio.bonnor_ebert_turning_ratio
