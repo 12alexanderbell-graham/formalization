@@ -514,6 +514,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Extrema of the radial Gelfand branch parameter after the fifth; band values of the number of radial solutions (run 2026-11-21T1028Z)
 - `Checked/Math/GSegData7.lean`, `Checked/Math/GelfandLam6.lean`, `Checked/Math/GelfandTurningValuesSeven.lean`, `Checked/Math/GelfandPDECountTurningValuesFive.lean`, `Checked/Trust/NecessityBM.lean`, `Checked/Trust/SecondReadingGelfandSixthTurn.lean`, `Checked/Trust/SecondReadingGelfandSeventhTurn.lean`, `Work/Math/GelfandTurningSevenBlindClosed.lean`, `Work/Math/GelfandPDECountTurningValuesFiveBlindClosed.lean`, `runs/2026-11-21T1028Z/scripts/`.
 
+## The rate of consecutive radii of the radial Gelfand branch parameter extrema, with bounds from index six on (run 2026-11-25T1028Z)
+- `Checked/Math/GelfandLam6Pos.lean`, `Checked/Math/GelfandRadiiCore.lean`, `Checked/Math/GelfandTurningRadii.lean`, `Checked/Trust/NecessityBU.lean`, `Checked/Trust/SecondReadingGelfandTurnRadii.lean`, `Work/Math/GelfandTurningRadii.lean`, `Work/Math/GelfandTurningRadiiBlindClosed.lean`; the proof: `runs/2026-11-25T1028Z/README.md`.
+
 ## The rate of the radial Gelfand branch parameter between consecutive extrema (run 2026-11-25T0428Z)
 - `Checked/Math/GelfandRatioCore.lean`, `Checked/Math/GelfandTurningRatio.lean`, `Checked/Trust/NecessityBS.lean`, `Checked/Trust/SecondReadingGelfandTurnRatio.lean`, `Work/Math/GelfandTurningRatio.lean`, `Work/Math/GelfandTurningRatioBlindClosed.lean`; the proof: `runs/2026-11-25T0428Z/README.md`.
 

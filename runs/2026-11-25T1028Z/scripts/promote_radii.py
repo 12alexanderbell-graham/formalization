@@ -30,6 +30,7 @@ COPIES = [
     ("Checked/Math/GelfandRadiiCore.lean", None),
     ("Checked/Math/GelfandTurningRadii.lean", None),
     ("Checked/Trust/SecondReadingGelfandTurnRadii.lean", None),
+    ("Checked/Trust/SecondReadingGelfandRadiiBand.lean", None),
     ("Checked/Trust/NecessityBU.lean", None),
     ("Work/Math/GelfandTurningRadii.lean", None),
     ("Work/Math/GelfandTurningRadiiBlindClosed.lean", None),
@@ -41,6 +42,8 @@ IMPORTS = [
     ("Checked.lean", "import Checked.Math.GelfandTurningRadii", "import Checked.Math.GelfandRadiiCore"),
     ("Checked.lean", "import Checked.Trust.SecondReadingGelfandTurnRadii",
      "import Checked.Trust.SecondReadingGelfandTurnRatio"),
+    ("Checked.lean", "import Checked.Trust.SecondReadingGelfandRadiiBand",
+     "import Checked.Trust.SecondReadingGelfandTurnRadii"),
     ("Checked.lean", "import Checked.Trust.NecessityBU", "import Checked.Trust.NecessityBT"),
     ("Work.lean", "import Work.Math.GelfandTurningRadii", "import Work.Math.GelfandTurningRatioBlindClosed"),
     ("Work.lean", "import Work.Math.GelfandTurningRadiiBlindClosed", "import Work.Math.GelfandTurningRadii"),
@@ -110,7 +113,7 @@ def add_readings() -> None:
     parent = [l for l in lines if l.split(" ")[0] == PARENT]
     assert len(parent) == 1, parent
     consts = parent[0].split(" ")[1:]
-    consts += ["Checked.Trust.SecondReading.gelfandTurnRadii", "Checked.Trust.SecondReading.gelfandRadiiFrom", "Checked.Trust.SecondReading.gelfandDevQuot"]
+    consts += ["Checked.Trust.SecondReading.gelfandTurnRadii", "Checked.Trust.SecondReading.gelfandRadiiFrom", "Checked.Trust.SecondReading.gelfandDevQuot", "Checked.Trust.SecondReading.gelfandRadiiBand"]
     lines.append(" ".join([HEADLINE] + consts))
     path.write_text("\n".join(lines) + "\n")
     print("readings added")

@@ -1143,3 +1143,9 @@
 - Part 3 (rotation): blind round AX, the third on CLAIMS_READER.md: four defects accepted by every check, 0 of 4 valid by blind readers, three of them false generated statements on the page; four new rules (`check_literals.py` strict span outside a six-pair baseline, rule 1 (d), rule 1 (c) disclaimer; `check_templates.py` rule 3) catch all four.
 - Annex LIV: LEDGER experiment (which part of the Status line readers act on); PROMPT working note.
 - Next: CI read of the final push; then parts 2/5 by rotation.
+## 2026-11-25T1028Z (scheduled run)
+- Env: repo ok (session clone = origin/main by `scripts/start_run.sh`); local Lean (elan), judge's build of dcdaa3b restored by streaming; subagents: one Sonnet blind restater, one Opus referee, one Sonnet blind literal reader.
+- CI: see the run README, section End (45592084429 of run 0828Z's final push).
+- Parts 2/5 (rotation): new headline `Checked.Math.GelfandTurningRadii.gelfand_turning_radii` — the quotient of consecutive turning radii of the radial Gelfand branch tends to exp(2π/√7), and from the seventh turning point on it lies in [10.3, 11.2] and the deviation quotient in [−0.33, −0.28]; freeze → Checked in one run from the segment bounds of run 0428Z plus one position bound (`Checked/Math/GelfandLam6Pos.lean`); every hypothesis classified (`Checked/Trust/NecessityBU.lean`: 1, 3, 4 NEEDED, 2 REDUNDANT).
+- Annex LIV: LEDGER experiment (state explicit bounds with a limit when the squeeze has explicit errors); PROMPT working note.
+- Next: CI read of the final push; then part 1 by rotation.

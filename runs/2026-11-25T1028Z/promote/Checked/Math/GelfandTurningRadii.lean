@@ -1,3 +1,5 @@
+import Checked.Math.GelfandRatioCore
+import Checked.Math.GelfandLam6Pos
 import Checked.Math.GelfandRadiiCore
 
 /-! Gelfand problem in the three-dimensional ball, `GelfandTurningRadii`: the turning sequence of the radial solution branch of `Checked.Math.GelfandTurningRatio.gelfand_turning_ratio`, with the rate at which consecutive turning radii grow: the quotient of consecutive turning radii tends to the exponential of two pi over the square root of seven, and from the seventh turning point on both that quotient and the quotient of consecutive deviations of the branch parameter from the value of the singular solution lie in explicit intervals. Promoted from `Work/Math/GelfandTurningRadii.lean` (frozen, proved and audited by run 2026-11-25T1028Z); the route is `Checked.Math.GelfandRadiiCore.radii_main`. -/

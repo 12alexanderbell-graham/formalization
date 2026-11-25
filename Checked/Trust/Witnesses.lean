@@ -113,6 +113,7 @@ import Checked.Math.GelfandPDECountTurningValues
 import Checked.Math.GelfandPDECountTurningValuesFive
 import Checked.Math.GelfandTurningValuesSeven
 import Checked.Math.GelfandTurningRatio
+import Checked.Math.GelfandTurningRadii
 import Checked.Math.GelfandPDEBound
 import Checked.Math.GelfandTurningValuesFive
 import Checked.Cosmography.B1A3Bound
@@ -1334,6 +1335,13 @@ solution. -/
 
 theorem gelfand_turning_ratio :
     nonvacuity% Checked.Math.GelfandTurningRatio.gelfand_turning_ratio := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+/-! The growth of consecutive turning radii of the radial Gelfand branch (run 2026-11-25T1028Z): the same global
+regular solution. -/
+
+theorem gelfand_turning_radii :
+    nonvacuity% Checked.Math.GelfandTurningRadii.gelfand_turning_radii := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 

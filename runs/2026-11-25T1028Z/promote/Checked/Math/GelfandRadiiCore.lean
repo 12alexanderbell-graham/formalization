@@ -248,17 +248,12 @@ theorem radii_main (w φ : ℝ → ℝ)
     rw [Real.exp_sub, Real.exp_log (ζpos _), Real.exp_log (ζpos _)]
   -- the error at the seventh turning point bounds every later one
   have e6 : ε K ≤ 1386 / 1000000 := by
-    simp only [hεdef, hKdef]
+    rw [hKdef]
+    simp only [hεdef]
     rw [Nz 6]
-    have hx : 0 < U w φ (ζ K) - 1 := by
-      have := (h2 3).2
-      have e := lam2 6
-      norm_num at this e
-      linarith
-    have hx' : U w φ (ζ K) - 1 ≤ 49 / 100000 := by
-      have e := lam2 6
-      norm_num at e l6
-      linarith [l6.2]
+    have e := lam2 6
+    have hx : 0 < U w φ (ζ 6) - 1 := by linarith [l6.1]
+    have hx' : U w φ (ζ 6) - 1 ≤ 49 / 100000 := by linarith [l6.2]
     rw [show (1386 / 1000000 : ℝ) = Real.sqrt ((1386 / 1000000) ^ 2) from
       (Real.sqrt_sq (by norm_num)).symm]
     apply Real.sqrt_le_sqrt
@@ -273,8 +268,9 @@ theorem radii_main (w φ : ℝ → ℝ)
     rw [e] at this
     refine this.congr' (Eventually.of_forall fun k => ?_)
     exact (hratio k).symm
-  · intro k hk
-    have nb := gr_num (Real.sqrt_nonneg _) (eK k hk) (B k hk).1 (B k hk).2.1 (B k hk).2.2.1 (B k hk).2.2.2
+  · intro k hk6
+    have hk : K ≤ k := hKdef ▸ hk6
+    have nb := gr_num (ε := ε k) (L := L k) (D := D k) (Real.sqrt_nonneg _) (eK k hk) (B k hk).1 (B k hk).2.1 (B k hk).2.2.1 (B k hk).2.2.2
     rw [hratio k, hq k hk]
     exact nb
 end Checked.Math.GelfandRadiiCore
