@@ -15,7 +15,8 @@ page with the registry. This one does, for every part of a Status line that come
       `scripts/trust/literal_readings.txt` lines (first occurrence order, `source=` tokens excluded), and the count
       "N definitions written by a blind second reader" equals their number;
   F3  per headline, the grandfathered-literal count equals the literal count of its `literal_baseline.txt` line;
-  F4  per headline, the number of open objections printed equals its lines in `scripts/trust/objections.txt`;
+  F4  per headline, the number of open objections printed equals its lines in `scripts/trust/objections.txt`
+      (and, since run 2026-11-25T2028Z, the number of closed ones its lines with a `closed by` field);
   F5  every Status line of CLAIMS_READER.md equals the Status line of the same headline in CLAIMS.md (one generation).
 
 It does not replace CI's regeneration (statements, axioms, hypothesis tallies come from Lean and are checked only
@@ -86,7 +87,7 @@ def check(claims, reader, heads, readings, baseline, objections):
     if [n for n, _ in rpage] != names:
         errs.append("F1 CLAIMS_READER.md headlines differ from CLAIMS.md: regenerate both with Claims.lean")
     # registries per headline
-    rd, base, obj = {}, {}, {}
+    rd, base, obj, closed = {}, {}, {}, {}
     for l in readings:
         toks = l.split()
         hn = resolve(names, toks[0])
@@ -110,6 +111,10 @@ def check(claims, reader, heads, readings, baseline, objections):
             hn = resolve(names, parts[0])
             if hn:
                 obj[hn] = obj.get(hn, 0) + 1
+        elif len(parts) == 5:
+            hn = resolve(names, parts[0])
+            if hn:
+                closed[hn] = closed.get(hn, 0) + 1
     for hn, st in page:
         want = rd.get(hn, [])
         got = printed_readers(st)
@@ -129,6 +134,11 @@ def check(claims, reader, heads, readings, baseline, objections):
         no = int(m.group(1)) if m else 0
         if no != obj.get(hn, 0):
             errs.append(f"F4 {hn}: CLAIMS.md prints {no} open objections, objections.txt has {obj.get(hn, 0)}")
+        # run 2026-11-25T2028Z (test AZ): closed entries (fifth field `closed by`) are counted the same way
+        m = re.search(r"fidelity objections closed on record \([^)]*\): (\d+):", st)
+        nc = int(m.group(1)) if m else 0
+        if nc != closed.get(hn, 0):
+            errs.append(f"F4 {hn}: CLAIMS.md prints {nc} closed objections, objections.txt has {closed.get(hn, 0)}")
     rmap = dict(rpage)
     for hn, st in page:
         if hn in rmap and rmap[hn] != st:
@@ -161,6 +171,7 @@ def selftest():
         "reading dropped after Claims": (c, r, H, L[:i] + [" ".join(L[i].split()[:-1])] + L[i + 1:], B, O),
         "headline added to the registry": (c, r, H + ["Checked.Foo.bar"], L, B, O),
         "objection added": (c, r, H, L, B, O + ["gelfand_turning_ratio | 2026-11-25T0628Z | README.md | x"]),
+        "closed objection added": (c, r, H, L, B, O + ["gelfand_turning_ratio | 2026-11-25T0628Z | README.md | x | closed by T.t"]),
         "baseline line added": (c, r, H, L, B + ["Checked.Math.GelfandTurningRatio.gelfand_turning_ratio | 7 | x"], O),
         "reader page from another generation": (c, r.replace("statement literals: 14 definitions", "statement literals: 15 definitions", 1), H, L, B, O),
     }

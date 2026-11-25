@@ -23,7 +23,12 @@ None of these proves that a statement matches its source; they are the record a 
 It opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection
 to the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an
 objection that is not shown there has not been recorded as one. An objection's own words are author prose and
-are not printed: the record shows that it is open and where it is written; no entry can mark it settled.
+are not printed: the record shows that it is open and where it is written. An objection is closed only by a
+Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a
+`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it) is equivalent
+to the headline's statement, proved without any theorem of this program (only its definitions and Mathlib: the
+generator of this page checks every constant of the proof and fails otherwise); the record then shows that it is
+closed and the name of that theorem. No other entry or text can mark an objection settled.
 
 Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);
 `√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =

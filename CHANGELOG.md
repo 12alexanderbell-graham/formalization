@@ -1173,3 +1173,9 @@
 - Part 1 (rotation): hypothesis 1 (matter density at least one tenth) of `l19_sq_curved` and `l19_sqg_curved` NEEDED (`Checked/Trust/NecessityBX.lean`): a closed model just above the density where the radicand vanishes at the farther source has a comoving distance past a right angle of the sine, and the residual does not grow; run 1228Z's planned redundancy route withdrawn (its scan left out the sine). Every hypothesis of both statements classified.
 - Annex LIV: PROMPT working note (scan the exact conclusion on the dropped region before planning a redundancy proof); LEDGER experiment.
 - Next: CI read of the final push; then part 3 by rotation.
+## 2026-11-25T2028Z (scheduled run)
+- Env: repo ok (session clone = origin/main by `scripts/start_run.sh`); local Lean (elan), judge's build of d198472 restored by streaming, `lake build Checked` replayed (3809 jobs); subagents: six blind Sonnet readers.
+- CI: 45683665296 (d198472, run 1828Z's final push) green on every job; nothing to promote.
+- Part 3 (rotation): test AZ (pre-registered): readers cite after a closure by a verdict file 2/2 and by a checked equivalence 2/2, never on an open entry (0/2). Adopted the checked route only: an objection is closed by a Lean theorem equating the statement with a blind reading of the source, proved without any theorem of the program (`Claims.lean` `closureFaults`, eight planted controls); a file never closes one.
+- Annex LIV: PROMPT working note (meaning of an equivalence is in its proof's constants); LEDGER experiment.
+- Next: CI read of the final push; then parts 2/5 by rotation.

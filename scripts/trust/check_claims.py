@@ -73,7 +73,9 @@ This script guards them:
                              frozen fingerprints); O1 (run 2026-11-21T1428Z, after blind red team
                              AV): an objections.txt line removed since B needs its headline re-frozen
                              or withdrawn; O2 (run 2026-11-25T0228Z, red team AW d05): the file an
-                             objections.txt line points at names the headline; O3 (run 2026-11-25T1428Z, red
+                             objections.txt line points at names the headline (an entry is its
+                             first four fields: a fifth `closed by <theorem>` field, checked by
+                             Claims.lean, keeps it; run 2026-11-25T2028Z, test AZ); O3 (run 2026-11-25T1428Z, red
                              team AY d01): an objection whose file names a last name component
                              several listed headlines share is entered for each of them
 
@@ -1218,12 +1220,16 @@ def objection_removals(base, old_obj=None, new_obj=None, old_frozen=None, new_fr
             if len(x) >= 2:
                 d[x[0]] = x[1]
         return d
-    have = set(lines(new_obj))
+    def key(l):
+        # run 2026-11-25T2028Z (test AZ): an entry is its first four fields; a fifth field `closed by <theorem>` may be
+        # added (Claims.lean checks the closure theorem) without the entry leaving the registry
+        return " | ".join(x.strip() for x in l.split("|")[:4])
+    have = {key(l) for l in lines(new_obj)}
     heads = lines(new_heads)
     of, nf = fp(old_frozen), fp(new_frozen)
     bad = []
     for l in lines(old_obj):
-        if l in have:
+        if key(l) in have:
             continue
         h = l.split(" | ")[0].strip()
         withdrawn = not any(_suffix(n.split()[0], h) for n in heads)
@@ -1331,7 +1337,11 @@ def _controls_o1():
     refrozen = objection_removals("B", obj, "", fz, "A.f xyz\nA.g def\n", hd)
     withdrawn = objection_removals("B", obj, "", fz, "A.g def\n", "A.g\n")
     kept = objection_removals("B", obj, obj, fz, fz, hd)
-    return len(removed) == 1 and not refrozen and not withdrawn and not kept
+    # run 2026-11-25T2028Z: a closure field keeps the entry; a changed summary or path is a removal
+    closed = objection_removals("B", obj, obj.rstrip("\n") + " | closed by C.t\n", fz, fz, hd)
+    reworded = objection_removals("B", obj, obj.replace("drops a condition", "is fine"), fz, fz, hd)
+    return (len(removed) == 1 and not refrozen and not withdrawn and not kept and not closed
+            and len(reworded) == 1)
 
 
 def base_check(base):

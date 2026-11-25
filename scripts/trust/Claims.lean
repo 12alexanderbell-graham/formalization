@@ -83,6 +83,100 @@ partial def deps (env : Environment) (stop : NameSet) (e : Expr) (acc : NameSet)
     | some ci => deps env stop ci.type acc
     | none => acc
 
+/-- Closure of a fidelity objection (run 2026-11-25T2028Z, test AZ, `runs/2026-11-25T2028Z/t5/RESULTS_AZ.md`): an
+entry of `objections.txt` may carry a fifth field `closed by <theorem>`. The theorem must state `R ↔ H` (or `H ↔ R`)
+with `H` the headline's statement (syntactically, or up to reducible unfolding) and `R` a definition of a
+`Checked.Trust.SecondReading*` module (a blind reader's statement of the source claim: the blind-route, brief-leak
+and provenance checks of those modules apply to it), and its proof may use no theorem of the program: every
+constant the proof reaches is followed through the program's definitions, and a program constant whose type is a
+proposition (a theorem, a proof stored as a definition) fails the closure, except the closure theorem's own
+compiler-generated auxiliaries (internal names under it). Two proved propositions are always equivalent
+(`iff_of_true`); this rule is what makes the equivalence a statement about meaning: it has to hold by unfolding and
+by Mathlib, not because both sides are proved by the program. `isProg` says which constants are the program's
+(`isCheckedConst` on the page; the controls below pass their own namespace). -/
+def closureFaults (env : Environment) (isProg : Name → Bool) (isReading : Name → Bool) (head t : Name) :
+    MetaM (Array String) := do
+  let some ci := env.find? t | return #[s!"closure theorem {t} not found"]
+  let some hc := env.find? head | return #[s!"headline {head} not found"]
+  let .thmInfo tv := ci | return #[s!"{t} is not a theorem"]
+  let mut bad : Array String := #[]
+  let ty := tv.type.consumeMData
+  if !ty.isAppOfArity ``Iff 2 then
+    return #[s!"{t} does not state an equivalence `R ↔ H`"]
+  let a := ty.appFn!.appArg!.consumeMData
+  let b := ty.appArg!.consumeMData
+  let hty := hc.type.consumeMData
+  let isH := fun (e : Expr) => do
+    if e == hty then return true
+    withReducible (isDefEq e hty)
+  let other? ← if ← isH b then pure (some a) else if ← isH a then pure (some b) else pure none
+  match other? with
+  | none => bad := bad.push s!"neither side of {t} is the statement of {head}"
+  | some r =>
+    match r.consumeMData with
+    | .const rn _ =>
+      if rn == head then bad := bad.push s!"the reading side of {t} is the headline itself"
+      else if !isReading rn then
+        bad := bad.push s!"the reading {rn} of {t} is not a definition of a `Checked.Trust.SecondReading*` module"
+      else match env.find? rn with
+        | some (.defnInfo _) => pure ()
+        | _ => bad := bad.push s!"the reading {rn} of {t} is not a definition"
+    | _ => bad := bad.push s!"the reading side of {t} is not a named definition (a blind reader's `def … : Prop`)"
+  -- the proof uses no theorem of the program
+  let mut todo : Array Name := tv.value.getUsedConstants
+  let mut seen : NameSet := {}
+  while !todo.isEmpty do
+    let c := todo.back!
+    todo := todo.pop
+    if seen.contains c || c == t then continue
+    seen := seen.insert c
+    unless isProg c do continue
+    let some cc := env.find? c | continue
+    let own := c.isInternal && t.isPrefixOf c
+    let isP ← isProp cc.type
+    if isP && !own then
+      bad := bad.push s!"the proof of {t} uses the program's theorem {c} (a closure must hold by unfolding and Mathlib)"
+      continue
+    match cc with
+    | .defnInfo d => todo := todo ++ d.value.getUsedConstants
+    | .thmInfo d => todo := todo ++ d.value.getUsedConstants
+    | .opaqueInfo d => todo := todo ++ d.value.getUsedConstants
+    | _ => pure ()
+  -- no closed subterm of the proof is a proof of either side (`iff_of_true p q` with `p`, `q` re-proved from
+  -- Mathlib alone; a bridge by unfolding, reordering or rewriting proves `R ↔ H` without proving `R` or `H`)
+  if let some r := other? then
+    let sides := #[hty, r]
+    let mut subs : Std.HashSet Expr := {}
+    let mut stack : Array Expr := #[tv.value]
+    while !stack.isEmpty do
+      let e := stack.back!
+      stack := stack.pop
+      if subs.contains e then continue
+      subs := subs.insert e
+      match e with
+      | .app f x => stack := (stack.push f).push x
+      | .lam _ d b _ => stack := (stack.push d).push b
+      | .forallE _ d b _ => stack := (stack.push d).push b
+      | .letE _ t v b _ => stack := ((stack.push t).push v).push b
+      | .mdata _ b => stack := stack.push b
+      | .proj _ _ b => stack := stack.push b
+      | _ => pure ()
+    let mut hit := false
+    for e in subs.toArray do
+      if hit then break
+      if e.hasLooseBVars || e.isSort || e.isMVar then continue
+      let ok ← try
+          let ty ← inferType e
+          if !(← isProp ty) then pure false
+          else sides.anyM fun s => do
+            if ty.consumeMData == s then return true
+            withReducible (isDefEq ty s)
+        catch _ => pure false
+      if ok then
+        bad := bad.push s!"the proof of {t} contains a proof of one side by itself (a closure must relate the two sides, not prove them)"
+        hit := true
+  return bad
+
 def reportable (env : Environment) (n : Name) : Bool :=
   !(privateToUserName n).isInternal && !(Lean.Meta.isMatcherCore env n) && !env.isProjectionFn n &&
   match env.find? n with
@@ -378,6 +472,57 @@ def explain (ctx : Ctx) (d : Name) : MetaM String := do
 
 end Claims
 
+/-! Planted controls of `Claims.closureFaults` (run 2026-11-25T2028Z): a fake headline, a fake blind reading, one
+valid closures and six forged ones. The generator fails before writing any page unless the valid one passes and each
+forged one is rejected for the reason it plants. -/
+namespace ClosureControls
+def SecondReading.reading : Prop := ∀ m : ℕ, m + 0 = m
+def SecondReading.weak : Prop := True
+def other : Prop := ∀ m : ℕ, m + 0 = m
+theorem head : ∀ n : ℕ, n + 0 = n := fun _ => rfl
+theorem helper : ∀ n : ℕ, n + 0 = n := fun _ => rfl
+set_option linter.defProp false in
+def stored : ∀ n : ℕ, n + 0 = n := fun _ => rfl
+/-- valid: holds by unfolding -/
+theorem good : SecondReading.reading ↔ ∀ n : ℕ, n + 0 = n := Iff.rfl
+/-- forged: a weak reading, the equivalence proved because both sides are proved by the program -/
+theorem uses_head : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_true trivial head
+/-- forged: as above through a helper theorem of the program -/
+theorem uses_helper : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_true trivial helper
+/-- forged: as above through a proof stored as a definition -/
+theorem uses_stored : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_true trivial stored
+/-- forged: a weak reading, both sides re-proved without any theorem of the program -/
+theorem reproves : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_true trivial (fun n => Nat.add_zero n)
+/-- valid: a bridge by rewriting under the binder -/
+theorem good_congr : SecondReading.reading ↔ ∀ n : ℕ, n + 0 = n := forall_congr' fun _ => Iff.rfl
+/-- forged: the reading is not a blind reader's definition -/
+theorem not_reading : other ↔ ∀ n : ℕ, n + 0 = n := Iff.rfl
+/-- forged: neither side is the headline's statement -/
+theorem wrong_side : SecondReading.reading ↔ ∀ n : ℕ, 0 + n = n := by
+  simp only [SecondReading.reading, Nat.add_zero, Nat.zero_add]
+end ClosureControls
+
+open Claims in
+run_cmd do
+  let env ← getEnv
+  let isProg := fun (c : Name) => (`ClosureControls).isPrefixOf c
+  let isRd := fun (c : Name) => (`ClosureControls.SecondReading).isPrefixOf c
+  let cases : List (Name × Option String) := [
+    (`ClosureControls.good, none),
+    (`ClosureControls.good_congr, none),
+    (`ClosureControls.reproves, some "contains a proof of one side"),
+    (`ClosureControls.uses_head, some "theorem ClosureControls.head"),
+    (`ClosureControls.uses_helper, some "theorem ClosureControls.helper"),
+    (`ClosureControls.uses_stored, some "theorem ClosureControls.stored"),
+    (`ClosureControls.not_reading, some "is not a definition of a"),
+    (`ClosureControls.wrong_side, some "neither side")]
+  for (t, want) in cases do
+    let faults ← liftTermElabM <| closureFaults env isProg isRd `ClosureControls.head t
+    match want with
+    | none => unless faults.isEmpty do throwError m!"closure control {t}: valid closure rejected: {faults.toList}"
+    | some w => unless faults.any (fun f => (f.splitOn w).length > 1) do
+        throwError m!"closure control {t}: forged closure not rejected for `{w}`: {faults.toList}"
+
 open Claims in
 set_option maxHeartbeats 0 in
 run_cmd do
@@ -548,8 +693,30 @@ run_cmd do
     | _ => errors := errors.push s!"literal_baseline.txt: malformed line {l}"
   -- open fidelity objections (run 2026-11-18T0828Z, `scripts/trust/objections.txt`): printed in the Status line
   let mut objections : NameMap (Array String) := {}
+  -- closed entries (run 2026-11-25T2028Z, test AZ): fifth field `closed by <theorem>`, checked by `closureFaults`
+  let mut closedObjs : NameMap (Array String) := {}
+  let isRd := fun (c : Name) => match env.getModuleIdxFor? c with
+    | some idx =>
+      let m := env.header.moduleNames[idx.toNat]!
+      (`Checked.Trust).isPrefixOf m && m.componentsRev.head!.toString.startsWith "SecondReading"
+    | none => false
   for l in ← readLines "scripts/trust/objections.txt" do
     match (l.splitOn " | ").map (·.trimAscii.copy) with
+    | [h, run, path, summary, clos] =>
+      match resolve hs h, (if clos.startsWith "closed by " then some ((clos.drop 10).toString) else none) with
+      | .ok hn, some tn =>
+        unless (← System.FilePath.pathExists path) do
+          errors := errors.push s!"objections.txt: {path} does not exist"
+        if summary.isEmpty then errors := errors.push s!"objections.txt: empty summary in {l}"
+        match resolve cands tn.trimAscii.copy with
+        | .ok t =>
+          let faults ← liftTermElabM <| closureFaults env (isCheckedConst env) isRd hn t
+          for f in faults do errors := errors.push s!"objections.txt: closure of the entry on {hn}: {f}"
+          closedObjs := closedObjs.insert hn (((closedObjs.find? hn).getD #[]).push
+            s!"raised in run {run}, its text written in {code path} (author prose, not printed on this page); closed by the Checked theorem {code t.toString}: a blind reader's statement of the source claim is equivalent to this statement, by a proof that uses no theorem of this program (checked by the generator of this page)")
+        | .error e => errors := errors.push s!"objections.txt: closure theorem: {e}"
+      | .error e, _ => errors := errors.push s!"objections.txt: {e}"
+      | _, none => errors := errors.push s!"objections.txt: fifth field must be `closed by <theorem>`: {l}"
     | [h, run, path, summary] =>
       -- resolved among the registered headlines only (a suffix may also name a witness theorem, e.g. in `Checked.Trust.NV`)
       match resolve hs h with
@@ -592,7 +759,12 @@ run_cmd do
     "It opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection",
     "to the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an",
     "objection that is not shown there has not been recorded as one. An objection's own words are author prose and",
-    "are not printed: the record shows that it is open and where it is written; no entry can mark it settled.", "",
+    "are not printed: the record shows that it is open and where it is written. An objection is closed only by a",
+    "Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a",
+    "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it) is equivalent",
+    "to the headline's statement, proved without any theorem of this program (only its definitions and Mathlib: the",
+    "generator of this page checks every constant of the proof and fails otherwise); the record then shows that it is",
+    "closed and the name of that theorem. No other entry or text can mark an objection settled.", "",
     "Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);",
     "`√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =",
     "derivative; `iteratedDeriv n f x` = n-th derivative; `HasDerivAt f f' x` = f has derivative f' at",
@@ -691,7 +863,10 @@ run_cmd do
       | some m => s!"; {m} literals of the statement are grandfathered as never read twice (`scripts/trust/literal_baseline.txt`)"
       | none => "; no literal of the statement is grandfathered as unread (`check_literals.py` requires every other literal to be read twice or certified by the proof)"
     let objs := (objections.find? hn).getD #[]
-    let objPart := if objs.isEmpty
+    let closed := (closedObjs.find? hn).getD #[]
+    let closedPart := if closed.isEmpty then ""
+      else s!"fidelity objections closed on record (`scripts/trust/objections.txt`; an entry is closed only as the header of this page says): {closed.size}: {"; ".intercalate closed.toList}; "
+    let objPart := closedPart ++ if objs.isEmpty
       then "open fidelity objections on record (`scripts/trust/objections.txt`, where every objection to the meaning of a listed headline is entered when it is first written anywhere): none"
       else s!"OPEN FIDELITY OBJECTIONS on record (`scripts/trust/objections.txt`): {objs.size}: {"; ".intercalate objs.toList}"
     unless frozenNames.contains hn do
@@ -745,7 +920,12 @@ run_cmd do
     "opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection to",
     "the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an",
     "objection that is not shown there has not been recorded as one. An objection's own words are author prose and",
-    "are not printed: the record shows that it is open and where it is written; no entry can mark it settled.", ""]
+    "are not printed: the record shows that it is open and where it is written. An objection is closed only by a",
+    "Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a",
+    "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it) is equivalent",
+    "to the headline's statement, proved without any theorem of this program (only its definitions and Mathlib: the",
+    "generator of this page checks every constant of the proof and fails otherwise); the record then shows that it is",
+    "closed and the name of that theorem. No other entry or text can mark an objection settled.", ""]
   -- the notation and total-function paragraphs of the header are copied (they are fixed generator text)
   let notIdx := (out.toList.take hdrEnd).findIdx? (·.startsWith "Notation (Lean/Mathlib")
   match notIdx with

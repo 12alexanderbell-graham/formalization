@@ -724,6 +724,8 @@ def load_obj():
         if l.startswith("#") or "|" not in l:
             continue
         parts = [p.strip() for p in l.split("|")]
+        if len(parts) >= 5:
+            continue  # run 2026-11-25T2028Z: a closed entry (fifth field `closed by`) is not open and licenses nothing
         for f in fulls:
             if f == parts[0] or f.endswith("." + parts[0]):
                 out.setdefault(f, set()).add(parts[2])

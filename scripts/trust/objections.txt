@@ -8,5 +8,12 @@
 # the same push that first records it anywhere, and stays until the headline is re-frozen (its claim changes) or
 # withdrawn (removed from Checked and headlines.txt). A status sentence in prose is never the record of an objection.
 # Format: `<headline, unique suffix> | <run that raised it> | <repository path where it is written> | <one line>`.
-# Claims.lean fails if the headline does not resolve or the path does not exist. Started empty: objections raised
+# Claims.lean fails if the headline does not resolve or the path does not exist.
+# Closure (run 2026-11-25T2028Z, test AZ, runs/2026-11-25T2028Z/t5/RESULTS_AZ.md): an entry may gain a fifth field
+# `closed by <theorem>`; it then stays here and the page shows it closed. Claims.lean (`closureFaults`) requires the
+# theorem to state `R ↔ H` with H the headline's statement and R a definition of a `Checked.Trust.SecondReading*`
+# module (a blind reader's statement of the source claim; check_blind_route.py and check_brief_leak.py apply), proved
+# with no theorem of the program (every constant of the proof is followed through the program's definitions). A
+# referee verdict, a note or any other file never closes an entry (test AZ: readers cite on a path-only closure 2/2,
+# and the program writes that file). check_claims.py O1 counts an entry by its first four fields. Started empty: objections raised
 # before this run were settled by re-freezes recorded in their run folders.
