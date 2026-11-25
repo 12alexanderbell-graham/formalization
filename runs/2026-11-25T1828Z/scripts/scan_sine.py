@@ -38,6 +38,8 @@ for k in [mpf(0), mpf(-0.025), mpf(-0.05), mpf(-0.075), mpf(-0.09), mpf(-0.1)]:
         r = 2*S(k, J5)/S(k, J3)
         out = []
         for nm, (a2, a3, a4, b) in fits.items():
+            if r <= 0:
+                out.append('%s D5<=0 (sine past a half turn)' % nm); continue
             dv = 5*log10(r*Q(a2, a3, a4, x3)/Q(a2, a3, a4, x5))
             out.append('%s %.4f(>%.3f)' % (nm, float(dv), float(b)))
-        print('  m=edge+%s J3=%.4f J5=%.4f sqrt(-k)J5=%.3f ratio=%.4f  %s' % (d, J3, J5, float(sqrt(-k)*J5), r, '  '.join(out)))
+        print('  m=edge+%s J3=%.4f J5=%.4f sqrt(-k)J5=%.3f ratio=%.4f  %s' % (d, float(J3), float(J5), float(sqrt(-k)*J5), float(r), '  '.join(out)))

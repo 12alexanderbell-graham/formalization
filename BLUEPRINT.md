@@ -594,3 +594,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## The rate of the Bonnor–Ebert mass extrema, consecutive radii and values (run 2026-11-25T1628Z)
 - `Checked/Math/BERatioCore.lean`, `Checked/Math/BonnorEbertTurningRatio.lean`, `Checked/Trust/NecessityBW.lean`, `Checked/Trust/SecondReadingBETurnRatio.lean`, `Work/Math/BonnorEbertTurningRatio.lean`, `Work/Math/BonnorEbertTurningRatioBlindClosed.lean`; the proof: `runs/2026-11-25T1628Z/README.md`.
+
+## Hypotheses of two statements of the B1 family (run 2026-11-25T1828Z)
+- `Checked/Trust/NecessityBXTools.lean`, `Checked/Trust/NecessityBXCerts.lean`, `Checked/Trust/NecessityBX.lean`, `runs/2026-11-25T1828Z/scripts/gen_bx.py`, `runs/2026-11-25T1828Z/scripts/scan_sine.py`.

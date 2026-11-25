@@ -3387,6 +3387,16 @@ doc:Checked.Trust.NCBV.ratio_all -doc6306162229159359912
 doc:Checked.Trust.NCBV.sinh_ratio -doc8149839310749216881
 doc:Checked.Trust.NCBV.sum_lowerO -doc15600231881793489177
 doc:Checked.Trust.NCBV.sum_upperO -doc17544442587735803226
+doc:Checked.Trust.NCBX.bx_cell_lo -doc17529817413648802292
+doc:Checked.Trust.NCBX.bx_cell_up -doc4540954729464279993
+doc:Checked.Trust.NCBX.bx_core -doc8166736623062669896
+doc:Checked.Trust.NCBX.bx_final -doc3408032915996202613
+doc:Checked.Trust.NCBX.bx_mono -doc5115735475783329209
+doc:Checked.Trust.NCBX.bx_shift -doc7465347212448079517
+doc:Checked.Trust.NCBX.bx_sum_lo -doc12746660194740414873
+doc:Checked.Trust.NCBX.bx_sum_up -doc7556424211784652001
+doc:Checked.Trust.NCBX.l19_sq_curved_h1 -doc9077188484563978304
+doc:Checked.Trust.NCBX.l19_sqg_curved_h1 -doc3770657186762951283
 doc:Checked.Trust.NCD.angDist_y_fifth_order_h1 -doc16486664563679115488
 doc:Checked.Trust.NCD.angDist_z_fifth_order_h1 -doc16370387082780242572
 doc:Checked.Trust.NCD.comoving_bounds -doc938577579625317224
@@ -5013,6 +5023,9 @@ moduledoc:Checked.Trust.NecessityBVCerts -mdoc8437243154214475690
 moduledoc:Checked.Trust.NecessityBVTools -mdoc2484745691410566536
 moduledoc:Checked.Trust.NecessityBV -mdoc13050102360268497524
 moduledoc:Checked.Trust.NecessityBW -mdoc8204883138119890649
+moduledoc:Checked.Trust.NecessityBXCerts -mdoc1570953759623357388
+moduledoc:Checked.Trust.NecessityBXTools -mdoc10489175671028163248
+moduledoc:Checked.Trust.NecessityBX -mdoc712783761848533495
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789

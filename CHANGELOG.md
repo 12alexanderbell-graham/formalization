@@ -1167,3 +1167,9 @@
 - Parts 2/5 (rotation): PROMOTION of `bonnor_ebert_turning_ratio`: the extremum radii of the Bonnor–Ebert mass grow by the factor exp(2π/√7) in the limit and the deviations of the extremal masses from the singular value shrink by −exp(−π/√7); route `Checked/Math/BERatioCore.lean` (the angle of the Gelfand rate route measured from the zero ray of 2u − v). Referee STANDS; blind restatement closed in Lean; NecessityBW: 1, 3, 4 NEEDED, 2 REDUNDANT.
 - Annex LIV: PROMPT working note (ray rotation; promoted headline imports); LEDGER experiment.
 - Next: CI read of the final push; then part 1 by rotation.
+## 2026-11-25T1828Z (scheduled run)
+- Env: repo ok (session clone = origin/main by `scripts/start_run.sh`); local Lean (elan), judge's build of 1c11b90 restored by streaming, `lake build Checked` (3809 jobs with the new modules); no subagents.
+- CI: 45668257029 (1c11b90, run 1628Z's final push) green on every job → `bonnor_ebert_turning_ratio` judged PROVED (STATE heading).
+- Part 1 (rotation): hypothesis 1 (matter density at least one tenth) of `l19_sq_curved` and `l19_sqg_curved` NEEDED (`Checked/Trust/NecessityBX.lean`): a closed model just above the density where the radicand vanishes at the farther source has a comoving distance past a right angle of the sine, and the residual does not grow; run 1228Z's planned redundancy route withdrawn (its scan left out the sine). Every hypothesis of both statements classified.
+- Annex LIV: PROMPT working note (scan the exact conclusion on the dropped region before planning a redundancy proof); LEDGER experiment.
+- Next: CI read of the final push; then part 3 by rotation.

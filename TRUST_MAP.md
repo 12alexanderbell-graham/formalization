@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1070 hypotheses in 186 headlines;
-781 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+783 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 258 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-31 open; headlines with every hypothesis classified: 158/186
+29 open; headlines with every hypothesis classified: 160/186
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -453,8 +453,8 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `B1L19.l19_sqg_central` (11): needed 2 (`l19_sqg_central_h2`), 3 (`l19_sqg_central_h3`), 4 (`l19_sqg_central_h4`), 8 (`l19_sqg_central_h8`), 9 (`l19_sqg_central_h9`), 10 (`l19_sqg_central_h10`), 11 (`l19_sqg_central_h11`); redundant (each alone, not together) 1 (`l19_sqg_central_r1`), 5 (`l19_sqg_central_r5`), 6 (`l19_sqg_central_r6`), 7 (`l19_sqg_central_r7`)
 - `B1L19.l19_sq_box` (15): needed 2 (`l19_sq_box_h2`), 3 (`l19_sq_box_h3`), 4 (`l19_sq_box_h4`), 8 (`l19_sq_box_h8`), 9 (`l19_sq_box_h9`), 10 (`l19_sq_box_h10`), 11 (`l19_sq_box_h11`), 12 (`l19_sq_box_h12`), 13 (`l19_sq_box_h13`), 14 (`l19_sq_box_h14`), 15 (`l19_sq_box_h15`); redundant (each alone, not together) 1 (`l19_sq_box_r1`), 5 (`l19_sq_box_r5`), 6 (`l19_sq_box_r6`), 7 (`l19_sq_box_r7`)
 - `B1L19.l19_sqg_box` (15): needed 2 (`l19_sqg_box_h2`), 3 (`l19_sqg_box_h3`), 4 (`l19_sqg_box_h4`), 8 (`l19_sqg_box_h8`), 9 (`l19_sqg_box_h9`), 10 (`l19_sqg_box_h10`), 11 (`l19_sqg_box_h11`), 12 (`l19_sqg_box_h12`), 13 (`l19_sqg_box_h13`), 14 (`l19_sqg_box_h14`), 15 (`l19_sqg_box_h15`); redundant (each alone, not together) 1 (`l19_sqg_box_r1`), 5 (`l19_sqg_box_r5`), 6 (`l19_sqg_box_r6`), 7 (`l19_sqg_box_r7`)
-- `B1L19Curved.l19_sq_curved` (13): needed 2 (`l19_sq_curved_h2`), 3 (`l19_sq_curved_h3`), 4 (`l19_sq_curved_h4`), 9 (`l19_sq_curved_h9`), 10 (`l19_sq_curved_h10`), 11 (`l19_sq_curved_h11`), 12 (`l19_sq_curved_h12`), 13 (`l19_sq_curved_h13`); redundant (each alone, not together) 5 (`l19_sq_curved_r5`), 6 (`l19_sq_curved_r6`), 7 (`l19_sq_curved_r7`), 8 (`l19_sq_curved_r8`); open 1
-- `B1L19Curved.l19_sqg_curved` (13): needed 2 (`l19_sqg_curved_h2`), 3 (`l19_sqg_curved_h3`), 4 (`l19_sqg_curved_h4`), 9 (`l19_sqg_curved_h9`), 10 (`l19_sqg_curved_h10`), 11 (`l19_sqg_curved_h11`), 12 (`l19_sqg_curved_h12`), 13 (`l19_sqg_curved_h13`); redundant (each alone, not together) 5 (`l19_sqg_curved_r5`), 6 (`l19_sqg_curved_r6`), 7 (`l19_sqg_curved_r7`), 8 (`l19_sqg_curved_r8`); open 1
+- `B1L19Curved.l19_sq_curved` (13): needed 1 (`l19_sq_curved_h1`), 2 (`l19_sq_curved_h2`), 3 (`l19_sq_curved_h3`), 4 (`l19_sq_curved_h4`), 9 (`l19_sq_curved_h9`), 10 (`l19_sq_curved_h10`), 11 (`l19_sq_curved_h11`), 12 (`l19_sq_curved_h12`), 13 (`l19_sq_curved_h13`); redundant (each alone, not together) 5 (`l19_sq_curved_r5`), 6 (`l19_sq_curved_r6`), 7 (`l19_sq_curved_r7`), 8 (`l19_sq_curved_r8`)
+- `B1L19Curved.l19_sqg_curved` (13): needed 1 (`l19_sqg_curved_h1`), 2 (`l19_sqg_curved_h2`), 3 (`l19_sqg_curved_h3`), 4 (`l19_sqg_curved_h4`), 9 (`l19_sqg_curved_h9`), 10 (`l19_sqg_curved_h10`), 11 (`l19_sqg_curved_h11`), 12 (`l19_sqg_curved_h12`), 13 (`l19_sqg_curved_h13`); redundant (each alone, not together) 5 (`l19_sqg_curved_r5`), 6 (`l19_sqg_curved_r6`), 7 (`l19_sqg_curved_r7`), 8 (`l19_sqg_curved_r8`)
 - `Chemistry.CubicEOS.isCritical_iff` (3): needed 1 (`isCritical_iff_h1`), 2 (`isCritical_iff_h2`), 3 (`isCritical_iff_h3`)
 - `Chemistry.CubicEOS.critCubic_existsUnique` (2): needed 1 (`critCubic_existsUnique_h1`), 2 (`critCubic_existsUnique_h2`)
 - `Chemistry.CubicEOS.exists_unique_critical` (5): needed 1 (`exists_unique_critical_h1`), 2 (`exists_unique_critical_h2`), 3 (`exists_unique_critical_h3`), 4 (`exists_unique_critical_h4`), 5 (`exists_unique_critical_h5`)

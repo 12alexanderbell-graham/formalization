@@ -3,8 +3,6 @@
 # A classified hypothesis never reopens (N2 --base); a new headline enters with open hypotheses only with a LEDGER line
 # naming it in backticks with `open <indices>`. Created run 2026-11-11T0028Z from the generated TRUST_MAP.md.
 FREta.eta_ratios | 3, 4
-B1L19Curved.l19_sq_curved | 1
-B1L19Curved.l19_sqg_curved | 1
 FalknerSkan.Limit.fs_monotone_of_limit | 2, 6, 8
 FalknerSkan.NegDecay.fs_neg_decay_max_shear | 1, 6, 13, 16
 FalknerSkan.NegDecay.fs_neg_decay_equal | 1
