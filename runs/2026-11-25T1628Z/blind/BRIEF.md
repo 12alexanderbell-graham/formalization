@@ -1,0 +1,12 @@
+# Blind restatement brief (run 2026-11-25T1628Z)
+
+You are formalizing one claim in Lean 4 + Mathlib. Do NOT read anything in the repository /home/claude/formalization (no `Checked/`, `Work/`, `runs/` other than your own output folder, no `*.md` files, no git history). Write your output only to `runs/2026-11-25T1628Z/blind/`. Do not compile; write carefully against current Mathlib names (`HasDerivWithinAt`, `HasDerivAt`, `deriv`, `StrictMonoOn`, `StrictAntiOn`, `Filter.Tendsto`, `Filter.atTop`, `nhds`, `Real.exp`, `Real.pi`, `Real.sqrt`).
+
+The claim (astrophysics: the Bonnor–Ebert sphere, i.e. the pressure-confined isothermal sphere):
+
+> Let w be the regular solution of w'' + (2/s) w' + e^w = 0 for s > 0 with w(0) = 0 (w differentiable on [0, ∞) with derivative φ, φ continuous at 0, and φ' = −(2/s)φ − e^w for s > 0; no condition on w'(0) is imposed beyond what these imply). The dimensionless pressure-confined mass at radius s is m(s) = s² (−φ(s)) e^{w(s)/2} / √(4π); the singular isothermal sphere has mass √(2/π).
+> Claim: there is a strictly increasing sequence ξ₀ < ξ₁ < ξ₂ < … of radii tending to infinity such that m is strictly increasing on [0, ξ₀], strictly decreasing on [ξ_{2k}, ξ_{2k+1}] and strictly increasing on [ξ_{2k+1}, ξ_{2k+2}] for every k ≥ 0 (so the ξ_k are the extrema of m: maxima at even index, minima at odd index), m(ξ₀) is the maximum of m over [0, ∞), each ξ_{2k+1} is the strict minimum of m over [ξ_{2k}, ∞) and each ξ_{2k+2} the strict maximum over [ξ_{2k+1}, ∞), m(ξ_{2k+1}) < √(2/π) < m(ξ_{2k}) for every k, m(s) → √(2/π) as s → ∞, ξ₀ ∈ [6.4507514, 6.4507515], and moreover:
+> (i) the extremum radii grow geometrically: ξ_{k+1}/ξ_k → exp(2π/√7) as k → ∞;
+> (ii) the deviations of the extremal masses from the singular value shrink geometrically with alternating sign: (m(ξ_{k+1}) − √(2/π)) / (m(ξ_k) − √(2/π)) → −exp(−π/√7) as k → ∞.
+
+Write `runs/2026-11-25T1628Z/blind/BonnorEbertTurningRatioBlind.lean` (`import Mathlib`, any definitions you need, one theorem `blind_bonnor_ebert_turning_ratio` stating the claim as faithfully as you can for every such w, `:= by sorry`) and a short `notes.md` listing every interpretive choice (solution class, how the extrema are characterised, how the limits are written). If your Write tool is refused, put both file contents in your final message. Always report both file contents in your final message.
