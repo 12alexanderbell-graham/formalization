@@ -24,7 +24,9 @@ B3 (brief does not contain the answer): no decimal literal (`0.480`), fraction `
    two or more digits, or integer of three or more digits from the reader file's code occurs in the brief
    (numbers compared by value; a brief that hands over the data is not a blind reading); and no line of
    the reader file's code of 25 or more non-space characters occurs in the brief (template lines exempt since run
-   2026-11-06T1028Z: imports, namespace/end/open, doc and comment lines without `:=`).
+   2026-11-06T1028Z: imports, namespace/end/open, doc and comment lines without `:=`; since run 2026-11-25T0628Z
+   also a definition header with nothing after `:=` and no numeral, relation, connective, quantifier or lambda in
+   its binders and type, `template_header`, controls in `--selftest`).
 B4 (isolation): the commit adding the reader file changes nothing outside `runs/<run>/`, and the commit
    adding the brief adds no `.lean` file and changes nothing under `Checked/`, `Work/` or `scripts/`.
 
@@ -92,6 +94,29 @@ def answer_numbers(code):
     return vals
 
 
+HEADER = re.compile(r"^(noncomputable\s+)?def\s+[^\s(:]+(\s+\([^()]*\))*\s*:\s*[^:=]*:=$")
+HEADER_CONTENT = re.compile(r"\d|[=<>≤≥≠∈∉∀∃∑∏λ|]|\bfun\b|Tendsto|↔|∧|∨|¬")
+
+
+def template_header(line):
+    """A definition header with no body on the line: `def name (x : T) … : T' :=`, binders and type free of
+    numerals, relations, connectives, quantifiers and lambdas (they could carry a reading)."""
+    s = line.strip()
+    return bool(HEADER.match(s)) and not HEADER_CONTENT.search(s[:-2])
+
+
+def selftest():
+    good = ["def gelfandTurnRatio (w : ℝ → ℝ) (ζ : ℕ → ℝ) : Prop :=",
+            "noncomputable def rhs (s : ℝ) (w φ : ℝ → ℝ) : ℝ :="]
+    bad = ["def r (h : x = 1) : Prop :=", "def r : ℝ := 0.480", "def c : ℝ := 2",
+           "def X (f : ℝ → ℝ) : Prop := Tendsto f atTop (𝓝 2)", "def Y (n : Fin 7) : Prop :=",
+           "def Z (f : ℝ → ℝ) : Prop := ∀ x, f x ≤ 1", "def W (p : ℝ × ℝ) : Prop :=\n  p.1 < p.2",
+           "def V (h : ∀ x : ℝ, 0 ≤ x) : Prop :=", "def U (f : ℝ → ℝ) : Prop := fun _ => True"]
+    fails = [g for g in good if not template_header(g)] + [b for b in bad if template_header(b)]
+    print(f"check_blind_route selftest: {len(good) + len(bad)} controls, {len(fails)} failing {fails}")
+    return 1 if fails else 0
+
+
 def brief_numbers(text):
     vals = set()
     for m in NUM.finditer(text):
@@ -152,6 +177,13 @@ def check_module(rel, base, order, errors):
                 if line.strip().startswith(("import ", "namespace ", "end ", "open ", "/--", "/-!", "--")) \
                         and ":=" not in line:
                     continue
+                # run 2026-11-25T0628Z (repair of a false positive): the header line of a definition the template
+                # hands over (name, binders, type; nothing after `:=`; no numeral, relation, quantifier or lambda)
+                # carries the program's interface, which the protocol gives every reader, not a reading; run
+                # 2026-11-25T0428Z's brief template tripped this rule with `def gelfandTurnRatio (w : ℝ → ℝ)
+                # (ζ : ℕ → ℝ) : Prop :=` while its reading (the body) was the reader's own
+                if template_header(line):
+                    continue
                 if len(ln) >= 25 and ln in flat:
                     p.append(f"B3: brief {good_brief} contains the reader's code line {line.strip()[:60]!r}")
                     break
@@ -188,6 +220,8 @@ def check_module(rel, base, order, errors):
 
 
 def main():
+    if "--selftest" in sys.argv:
+        return selftest()
     if "--base" not in sys.argv:
         print("check_blind_route: needs --base SHA (rules apply to second versions added or changed since SHA)")
         return 0

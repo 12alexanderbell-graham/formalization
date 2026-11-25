@@ -99,6 +99,18 @@ def mention_errors() -> list[str]:
             "fail):"] + ["  " + l for l in r.stdout.splitlines() if ": M" in l][:12]
 
 
+def claims_fresh_errors() -> list[str]:
+    """Run 2026-11-25T0628Z (annex LIV): runs 2026-11-20T1628Z and 2026-11-25T0428Z edited a registry that Claims.lean
+    prints after their last Claims run; the committed CLAIMS.md was stale and the checked job failed after the push.
+    A final commit reruns check_claims_fresh.py (seconds, pure Python) on the tree."""
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    r = subprocess.run([sys.executable, "scripts/trust/check_claims_fresh.py"], capture_output=True, text=True, cwd=root)
+    if r.returncode == 0:
+        return []
+    return ["final commit: check_claims_fresh.py fails (regenerate with `lake env lean scripts/trust/Claims.lean`):"] + \
+        ["  " + l for l in r.stdout.splitlines()][:12]
+
+
 def main(argv: list[str]) -> int:
     if argv[1:] == ["--selftest"]:
         return selftest()
@@ -111,6 +123,7 @@ def main(argv: list[str]) -> int:
     if argv[1] == "--final" and os.environ.get("CHECK_COMMIT_MSG_NO_INDEX") != "1":
         errs += index_errors()
         errs += mention_errors()
+        errs += claims_fresh_errors()
     for e in errs:
         print(e)
     return 1 if errs else 0

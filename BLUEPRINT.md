@@ -576,3 +576,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## F(R) ratios, hypothesis witnesses (run 2026-11-19T0628Z)
 - `Checked/Trust/NecessityAX.lean`: `eta_ratios_h1`.
+
+## Hypothesis of one statement of the B1 family (run 2026-11-25T0628Z)
+- `Checked/Trust/NecessityBT.lean`, `runs/2026-11-25T0628Z/scripts/scan_h2.py`, `runs/2026-11-25T0628Z/scripts/scan_curved.py`, `scripts/trust/check_claims_fresh.py`.

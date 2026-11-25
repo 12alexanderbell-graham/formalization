@@ -3344,6 +3344,14 @@ doc:Checked.Trust.NCBR.int_hi -doc1590295467950593374
 doc:Checked.Trust.NCBR.int_lo -doc10817146832211150547
 doc:Checked.Trust.NCBR.rl19_box_unmatched_h9 -doc8391471424636009509
 doc:Checked.Trust.NCBR.s2_half -doc10214271486004575491
+doc:Checked.Trust.NCBT.bt_bridge0 -doc4961349799967602346
+doc:Checked.Trust.NCBT.bt_bridge -doc3753448237508935178
+doc:Checked.Trust.NCBT.bt_core -doc11199188029842757450
+doc:Checked.Trust.NCBT.bt_inner -doc1575651821495672160
+doc:Checked.Trust.NCBT.bt_mono -doc9501737102440030389
+doc:Checked.Trust.NCBT.bt_ratio13 -doc6435806046128353938
+doc:Checked.Trust.NCBT.bt_w1 -doc16557516204127598195
+doc:Checked.Trust.NCBT.rl19_box_unmatched_r2 -doc17744624293650594622
 doc:Checked.Trust.NCD.angDist_y_fifth_order_h1 -doc16486664563679115488
 doc:Checked.Trust.NCD.angDist_z_fifth_order_h1 -doc16370387082780242572
 doc:Checked.Trust.NCD.comoving_bounds -doc938577579625317224
@@ -4952,6 +4960,7 @@ moduledoc:Checked.Trust.NecessityBP -mdoc14984623565310623795
 moduledoc:Checked.Trust.NecessityBQ -mdoc12758425912442478965
 moduledoc:Checked.Trust.NecessityBR -mdoc17696810065784232857
 moduledoc:Checked.Trust.NecessityBS -mdoc8203177601637579369
+moduledoc:Checked.Trust.NecessityBT -mdoc2784288875061614553
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789

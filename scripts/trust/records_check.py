@@ -53,6 +53,10 @@ def main():
             for l in [l for l in out if "error" in l.lower() or "fail" in l.lower() or l.startswith("  ")][:6]:
                 print("    " + l[:300])
     print(f"records_check: {len(cmds)} commands, {len(failed)} failed (base {base})")
+    # run 2026-11-25T0628Z: run 0428Z passed this with the base of its own earlier push, whose CI run was red; CI's
+    # frozen step uses the newest ancestor green on EVERY job, and three faults surfaced only there
+    print("records_check: the base must be the newest ancestor whose CI run was green on every job (what CI's "
+          "changes job uses), not origin/main and not an earlier push of this run unless its run was green")
     return 1 if failed else 0
 
 

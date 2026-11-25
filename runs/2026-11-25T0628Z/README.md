@@ -1,0 +1,44 @@
+# Run 2026-11-25T0628Z
+
+**THE RESULT:** part 1 by rotation (STATE 3c; next step STATE 3d). The Lean theorem of this run and its statement are in section What we did.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** For the box corollary of the B1 three-source fit statement, what its last open hypothesis costs, by a kernel theorem (section What we did; `TRUST_MAP.md`): every hypothesis of that statement is now classified. And a committed claims page that disagrees with the registries it prints is now caught before a push, in seconds, not after a twenty-minute judge.
+
+**Weakest unchecked step:** the hypotheses `TRUST_MAP.md` still lists as open, per headline (two in each of two curved B1 statements, section Next); and the B1 statements are about three redshifts and a uniform window, not about a fit to data with errors.
+
+## Start
+- 06:27Z. `scripts/start_run.sh`: local main = origin/main 72a6cfc; no LOCK (taken ce9e814, 48.4).
+- Env: repo ok (add_repo not exposed; the session clone was present). Local Lean v4.35.0 (elan), Mathlib cache; judge's build of 79b60f0 (artifact of 45556391704) restored by streaming; `lake build Checked` replayed it (3790 jobs). No subagents.
+
+## CI read
+- 45556391704 (79b60f0, run 0428Z's final push): goal guard, packet, changes, work, leanchecker 0/1/3 and nanoda 0/1/3 green at 06:28Z (shards 2 still running). **The checked job's trust step failed:** `CLAIMS.md in the repository is stale` — one line, the Status line of the new headline of run 0428Z: the committed page printed fifteen blind reader constants, the registry `scripts/trust/literal_readings.txt` held fourteen (run 0428Z dropped `gelfandSingularLambda` from the registration after its last Claims run, LEDGER of that run). Not a proof fault: every Lean job that finished is green. Repaired by copying the CI-generated `CLAIMS.md` and `CLAIMS_READER.md` of that run (artifact `author-files`; the tree differs from 79b60f0 only in records), then regenerated locally after this run's theorem. Two more faults were hidden behind it, because the frozen step never ran and run 0428Z had run `records_check.py` with the base 2db813e, whose own CI run 45552299483 was red (the PROMPT note asks for the newest ancestor green on every job, here 7f9995f): (1) `check_headline_mentions.py` with base 7f9995f fails on run 0428Z's README front page (18 findings; 45552299483 failed on the same lines) → its front page rewritten in vocabulary words and the original lines moved verbatim to a section at its end, as run 0228Z did for run 0028Z; (2) `check_blind_route.py` with base 7f9995f fails B3 on the new second reading `gelfandTurnRatio`: its brief's template contains the definition header `def gelfandTurnRatio (w : ℝ → ℝ) (ζ : ℕ → ℝ) : Prop :=`, which the protocol hands every reader (name, binders, type) and which the reader kept, while the reading (the body: index step one, value two, integer seven) is the reader's own. The rule cannot be met by a new reading (B1 orders the reading before the first commit of the Checked copy since the base), so B3's template exemption (imports, namespace, doc lines, since run 2026-11-06T1028Z) now also covers a definition header with nothing after `:=` and no numeral, relation, connective, quantifier or lambda in it (`template_header`, eleven controls in `--selftest`, which CI now runs). A repair of a false positive, narrower than the template exemption of run 1028Z; disclosed in LEDGER for the next part-3 red team. The promotion stays "PROVED once a main run is green on every job" until the run of this run's push is read (section Next).
+
+## Bottleneck (and what a yes/no changes)
+- `rl19_box_unmatched` had one open hypothesis, 2 (the density parameter at most one). Flat models with density up to twenty gave no witness in floats (run 0028Z). Yes (REDUNDANT for every density above one) → the statement is fully classified. No → a witness model, or the reason none exists in a closed form.
+
+## What we did
+- **`rl19_box_unmatched` 2 (Ω ≤ 1) REDUNDANT** (`Checked/Trust/NecessityBT.lean`, `rl19_box_unmatched_r2`; compiled first time, ≈ 45 s). A float scan (`scripts/scan_h2.py`) over densities from one to a million showed that above one the difference of the residuals at the nearest and the middle source alone never falls below 0.18 mag (the statement allows 0.1), so the proof uses only those two sources and no certified integral:
+  - **Bridge above density one** (`bt_bridge0`, `bt_bridge`): the luminosity distance is the same integral of `gL` as below one; the radicand is at least one on `[0, 1]` (`bt_inner`), so the change of variables needs no lower density bound (a copy of `NCBI.bi_bridge` with that positivity in place of its propagation from the source).
+  - **The integrand increases** above density one (`bt_mono`), so J₃ ≤ (1 − w₃)/(1 − w₁) · J₁ (`bt_ratio13`: the mirror of `NCBL.bl_ratio13`, whose inequality goes the other way below density one).
+  - **Residuals** (`B1Fit.ratio_step`, `B1Fit.ratio_clean`): κ J₁ P₃ ≤ 2 J₃ P₁ with κ = 0.95499; with the previous item, κ(1 − w₁) P₃ ≤ 2(1 − w₃) P₁. In the box (lower bounds a₂ ≥ 3.43, a₃ ≥ 1.57 only) P₃/P₁ ≥ 5.55 while the inequality allows 5.34 (`bt_core`: (3A − B) + p(9A − B) + q(27A − B) > 0 with p = a₂y/2, q = a₃y²/4, y = log₁₀ 2; margin 0.049). The two lower limits are enclosed by `wb` (`bt_w1`, `bt_w3`).
+- **Annex LIV: the committed claims pages checked against their registries before a push** (`scripts/trust/check_claims_fresh.py`, rules F1–F5, six planted controls; in CI's trust step before Claims.lean regenerates the pages, hence in `records_check.py`; and in `check_commit_msg.py --final`). Root cause of this run's red CI and of run 2026-11-20T1628Z's: a registry edited after the last Claims run, which only the Lean regeneration in CI compares. F2 reproduces the failure on run 0428Z's committed CLAIMS.md (fifteen printed, fourteen registered) and passes on the repaired one.
+- Axioms of the new theorem: propext, Classical.choice, Quot.sound (`#print axioms`).
+
+## Measure
+- `rl19_box_unmatched`: open 1 → 0 of 20 (redundant 12 → 13); fully classified.
+- Trust map (`TRUST_MAP.md`): NEEDED 775, REDUNDANT 253 → 254, open 34 → 33; non-vacuity 189/189; headlines 311.
+- Claims-page staleness caught before a push: 0 of 2 known cases → 2 of 2 (the selftest replays both shapes).
+- `records_check.py 7f9995f` (the base CI uses): 3 failing commands at the start of the run's records (stale claims page, mention check, blind route) → 0.
+
+## Local checks
+- See section End.
+
+## Next
+- CI read first: the run of this run's final push (the repaired CLAIMS.md and the new module `NecessityBT`). Green on every job → `gelfand_turning_ratio` PROVED: the judged template in its STATE.md heading (`check_stale_status.py`) and one L.2 line to Alexander. Red → `python3 scripts/trust/records_check.py <base>` with the newest ancestor green on every job.
+- Part 3 next: as in section Next of `runs/2026-11-25T0228Z/README.md`; and attack the new definition-header exemption of `check_blind_route.py` B3 (a header that carries a reading through a binder type made only of identifiers and arrows).
+- Parts 2/5 next: as in section Next of `runs/2026-11-25T0428Z/README.md`.
+- Part 1 next: the curved pair `l19_sq_curved`, `l19_sqg_curved`, hypotheses 1 (1/10 ≤ Ω) and 8 (1 ≤ Ω₀). Float scan `scripts/scan_curved.py`: no witness; the residual difference grows as either bound is crossed (0.76 mag at Ω = 1/10, 0.93 at 1/20, 1.63 at 0 with Ω₀ = 1; Ω₀ from 1 down to −3 at Ω ∈ {0.1, 0.3, 1}: 0.38–1.20), and slightly negative densities are unreachable. Both look REDUNDANT; the margins are large (the statement needs 1/4). Route for 1: below one tenth the integrand of the curved law is no longer monotone near the farthest source (the derivative of the radicand is positive only above v ≈ 0.44, the farthest source sits at 0.42), so use a crude two-interval bound (∫ over [w₅, w₃] from the minimum of the integrand there, J₃ from its maximum on [w₃, 1]) and a curved counterpart of `NCBI.bi_unreach` for the radicand at the source; the transverse factor needs sin x ≥ x − x³/6 at the farthest source. Route for 8: the open case has sinh, which only increases the farther distance relative to the nearer.
+
+## End
+- Local: `scripts/start_run.sh`, judge build of 79b60f0 restored by streaming, `lake build Checked` (3791 jobs), `lake env lean` of the new module (axioms propext, Classical.choice, Quot.sound), `precheck_names.py`, `TRUST_RELOCK=1 … StatementDeps.lean` (311 headlines, NV 189/189, necessity 775 / 254 / 33 open), `Claims.lean` (311 claims), `check_claims_fresh.py` (and `--selftest`), `records_check.py`.
+- Message to Alexander (L.2): none this run (no promotion judged; the hypothesis result is a trust-map entry, not a finding).
