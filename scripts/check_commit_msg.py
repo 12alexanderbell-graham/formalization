@@ -75,6 +75,30 @@ def index_errors() -> list[str]:
     return errs
 
 
+SCANNED = re.compile(r"^(STATE\.md|README\.md|BLUEPRINT\.md|runs/[^/]+/README\.md)$")
+
+
+def mention_errors() -> list[str]:
+    """Run 2026-11-25T0228Z (annex LIV): run 2026-11-25T0028Z ran records_check, then rewrote its run README's front
+    page, which named two headlines in words outside the mention vocabulary; the checked job of its final push failed
+    on check_headline_mentions.py alone, and the PROVED reading of a promotion waited another run. So a final commit
+    that stages STATE.md, README.md, BLUEPRINT.md or a run README reruns that check (about a minute) against
+    origin/main (every line new since the last push), with the stale-status part off (it needs the green base;
+    records_check.py runs it). CHECK_COMMIT_MSG_NO_MENTIONS=1 skips it."""
+    if os.environ.get("CHECK_COMMIT_MSG_NO_MENTIONS") == "1":
+        return []
+    staged = subprocess.run(["git", "diff", "--cached", "--name-only"], capture_output=True, text=True).stdout.split()
+    if not any(SCANNED.match(p) for p in staged):
+        return []
+    r = subprocess.run([sys.executable, "scripts/trust/check_headline_mentions.py", "--base", "origin/main",
+                        "--no-stale"], capture_output=True, text=True,
+                       cwd=os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    if r.returncode == 0:
+        return []
+    return ["final commit: check_headline_mentions.py fails on lines new since origin/main (CI's frozen step would "
+            "fail):"] + ["  " + l for l in r.stdout.splitlines() if ": M" in l][:12]
+
+
 def main(argv: list[str]) -> int:
     if argv[1:] == ["--selftest"]:
         return selftest()
@@ -86,6 +110,7 @@ def main(argv: list[str]) -> int:
     errs = check(argv[1][2:], text)
     if argv[1] == "--final" and os.environ.get("CHECK_COMMIT_MSG_NO_INDEX") != "1":
         errs += index_errors()
+        errs += mention_errors()
     for e in errs:
         print(e)
     return 1 if errs else 0

@@ -1234,10 +1234,14 @@ def main(argv):
         # run 2026-11-18T2028Z: stale pending statuses in STATE.md headings (check_stale_status.py; called from here so
         # the workflow file, and with it the nanoda/leanchecker memo hash, need not change)
         import check_stale_status
-        if check_stale_status.selftest():
+        if "--no-stale" in argv:  # authoring aid for scripts/check_commit_msg.py --final (run 2026-11-25T0228Z): the
+            # base there is origin/main, not the newest green ancestor, so the stale-status rule would misfire; CI
+            # never passes this flag and always runs the stale rule
+            pass
+        elif check_stale_status.selftest():
             errors.append("check_stale_status selftest failed")
         heads_reg = check_stale_status.registered()
-        stale = check_stale_status.findings((ROOT / "STATE.md").read_text(encoding="utf-8"), heads_reg,
+        stale = [] if "--no-stale" in argv else check_stale_status.findings((ROOT / "STATE.md").read_text(encoding="utf-8"), heads_reg,
                                             functools.lru_cache(maxsize=None)(check_stale_status.intro_commit),
                                             lambda c: check_stale_status.is_ancestor(c, green_base))
         errors += [f"STATE.md:{n}: STALE pending status (check_stale_status.py): {', '.join(h.split('.')[-1] for h in hs)} "
