@@ -40,3 +40,4 @@
 - Local: `scripts/start_run.sh`, judge's build of d198472 restored by streaming, `lake build Checked` (3809 jobs, replayed), `Claims.lean` (313 claims, controls passed, 4 min 54 s), the closure controls standalone (scratch file, faults printed), `check_claims.py`, `check_claims.py --base d198472`, `check_claims_fresh.py` and `--selftest`, `check_claim_vocab.py`, `goal_guard.py`, `records_check.py d198472` (after the commit).
 - CI read in this run: 45683665296 (d198472) green on every job.
 - Message to Alexander (L.2): none (no finding, nothing wrong, no decision of his).
+- CI of this run's final push 0be38fb: 45702125173 (started 21:12Z); the next run reads it (section Next).
