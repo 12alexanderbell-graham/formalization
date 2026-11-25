@@ -1,0 +1,26 @@
+diff --git a/TRUST_MAP.md b/TRUST_MAP.md
+index f16dd583..0a6bb714 100644
+--- a/TRUST_MAP.md
++++ b/TRUST_MAP.md
+@@ -17,7 +17,7 @@ Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1062 hypotheses in
+ 254 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+ 33 open; headlines with every hypothesis classified: 156/184
+ (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
+-Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
++Transcriptions (trust track T3): 50 PRINTED definitions; 50 carry a machine-checked
+ agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
+ FORMULA, MATH and WITNESS definitions with a blind second formulation: 31/31 (run 2026-11-05T0828Z;
+ ² on a FORMULA means a machine-checked agreement with a blind second formulation in
+diff --git a/scripts/trust/frozen.txt b/scripts/trust/frozen.txt
+index c39f9b24..7d08a111 100644
+--- a/scripts/trust/frozen.txt
++++ b/scripts/trust/frozen.txt
+@@ -25,7 +25,7 @@ Checked.Chemistry.RKAcentric.rk_coexistence_exists f24626fc-doc55714640699201515
+ Checked.Chemistry.RKAcentric.rk_coexistence_unique 81e298c0-doc9239692211929129705
+ Checked.Chemistry.SRKAcentric.srk_omega1_exists 8b7e0dbb-doc8393799193321055658
+ Checked.Chemistry.SRKAcentric.srk_omega1_unique ede3958-doc8006570102563803899
+-Checked.Cosmography.Aviles.AvilesL0Claim 718231ef8f06aaa1-CLAIM
++Checked.Cosmography.Aviles.AvilesL0Claim 718231ef8f06aaa1-PRINTED
+ Checked.Cosmography.Aviles.AvilesM0Claim ce1651bf5fd1dd30-CLAIM
+ Checked.Cosmography.Aviles.IsFlatLCDM 4c42ed3aaeef354-doc10676087278089017928
+ Checked.Cosmography.Aviles.avilesL0Claim_false df4012c7-doc16430977890812304099
