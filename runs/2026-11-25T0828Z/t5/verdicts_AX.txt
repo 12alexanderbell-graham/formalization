@@ -1,0 +1,20 @@
+# Round AX verdicts (run 2026-11-25T0828Z). Judge judge_ax.sh, BASE 6e7591b, SKIP_CLAIMS=1; tree A: d01; tree B: clean, d02-d04.
+# Judge output (every Python command of the goal guard, packet check, trust and frozen steps):
+AX clean (StatementDeps clean outputs of BASE): CAUGHT | check_claims.py :: 
+AX d01 (StatementDeps rerun): CAUGHT | check_claims.py ::  | check_relock.py "$BASE" :: ::error::1 frozen statement(s)/definition(s) changed or removed without a LEDGER.md entry naming them (annex XLIII: never weaken a statement and keep its name)
+AX d02 (StatementDeps reused): CAUGHT | check_claims.py :: 
+AX d03 (StatementDeps reused): CAUGHT | check_claims.py :: 
+AX d04 (StatementDeps reused): CAUGHT | check_claims.py :: 
+
+## check_claims
+# The snapshot had no .lake/phrases.jsonl (only Claims.lean writes it), so check_claims.py failed on the clean tree too.
+# Rerun with the file from this run's Claims.lean (pages unchanged), each defect applied and committed (the judge leaves
+# apply.py's LEDGER lines uncommitted, which is why check_relock fired on d01: committed as an author would, it passes):
+clean check_claims rc=0, check_claims --base rc=0, check_relock (committed) rc=0
+d01 check_claims rc=0, check_claims --base rc=0, check_relock (committed) rc=0
+d02 check_claims rc=0, check_claims --base rc=0, check_relock (committed) rc=0
+d03 check_claims rc=0, check_claims --base rc=0, check_relock (committed) rc=0
+d04 check_claims rc=0, check_claims --base rc=0, check_relock (committed) rc=0
+
+## Verdict
+d01 d02 d03 d04: ACCEPTED by every check (each judge finding is the phrases.jsonl artefact the clean tree shares, or the uncommitted LEDGER line of d01).

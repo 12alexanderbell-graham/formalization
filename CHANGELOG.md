@@ -1137,3 +1137,9 @@
 - Annex LIV: `scripts/trust/check_claims_fresh.py` (committed claims pages against the registries they print; CI trust step, records_check, `check_commit_msg.py --final`); PROMPT note; LEDGER experiment.
 - CI of the final push: 45568879141 (dcdaa3b) green on every job → `gelfand_turning_ratio` PROVED (STATE heading judged).
 - Next: part 3 by rotation.
+## 2026-11-25T0828Z (scheduled run)
+- Env: repo ok (session clone = origin/main by `scripts/start_run.sh`); local Lean (elan), judge's build of dcdaa3b restored by streaming; subagents: one red team, eight readers (Sonnet).
+- CI: nothing to read (45568879141 read green by run 0628Z; later commits are records with the skip marker).
+- Part 3 (rotation): blind round AX, the third on CLAIMS_READER.md: four defects accepted by every check, 0 of 4 valid by blind readers, three of them false generated statements on the page; four new rules (`check_literals.py` strict span outside a six-pair baseline, rule 1 (d), rule 1 (c) disclaimer; `check_templates.py` rule 3) catch all four.
+- Annex LIV: LEDGER experiment (which part of the Status line readers act on); PROMPT working note.
+- Next: CI read of the final push; then parts 2/5 by rotation.

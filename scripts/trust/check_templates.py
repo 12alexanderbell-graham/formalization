@@ -25,6 +25,9 @@ Rule 2 (--base): a line added to, changed in or removed from `claim_templates.tx
   same quantifiers, hypotheses and relation, only reader data differ). A narrowed hypothesis in a new claim
   produces a new template and so cannot pass silently; a changed template of an existing claim fires rule 1.
 
+Rule 3 (run 2026-11-25T0828Z, red team AX d01): every program proposition (`: Prop`) with a generated claim reading is labelled
+  CLAIM in def_kinds.txt (a PRINTED label took it out of rules 1-2 and changed the claims page's wording).
+
 Populated at run 2026-11-06T0228Z with the 30 claims then read (none grandfathered: every current claim
 is registered with its current template). Limits: the template is frozen, not validated — that it says what
 the source says is the business of the claim's blind restatement (not mechanically linked here); a template
@@ -41,6 +44,15 @@ import check_provenance as P  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 REG = "scripts/trust/claim_templates.txt"
+
+
+def is_prop(p, idx):
+    """the program declaration `p` is a proposition (`def … : Prop :=`)"""
+    loc = idx.get(p)
+    if loc is None:
+        return False
+    d = P.decl_text((ROOT / loc).read_text(), p, P.declarations((ROOT / loc).read_text())[0]) or ""
+    return bool(re.match(r"[^:=]*:\s*Prop\s*:=", re.sub(r"\s+", " ", d.split(":=", 1)[0] + ":=")))
 
 
 def claim_pairs(errors):
@@ -60,7 +72,17 @@ def claim_pairs(errors):
         if not g or len(prog) != 1:
             continue
         p = prog[0]
+        if kinds.get(p) != "CLAIM" and not is_prop(p, idx):
+            continue
         if kinds.get(p) != "CLAIM":
+            # Rule 3 (run 2026-11-25T0828Z, blind red team AX d01): a program definition whose agreement theorem
+            # compares it with a GENERATED claim reading (reader data substituted into the program's text) is a
+            # CLAIM, whatever def_kinds.txt says: relabelled PRINTED, it left this check's scope (its template line
+            # could be deleted) and the claims page dropped "the quantifiers and hypotheses are the program's
+            # formalisation" for `AvilesL0Claim`.
+            errors.append(f"rule 3: {p} agrees with the generated claim reading {g[0]} ({rel}) but is labelled "
+                          f"{kinds.get(p)} in scripts/trust/def_kinds.txt: a definition read by substituting reader "
+                          f"data into the program's text is a CLAIM (its quantifiers and hypotheses are the program's)")
             continue
         loc = idx.get(p)
         if loc is None:

@@ -1,0 +1,12 @@
+# Loose span match of scripts/trust/check_literals.py (run 2026-11-25T0828Z, blind red team AX d02): for a headline of
+# literal_baseline.txt the matched span of a reader body used to cover every numeral in it, including numerals a binder
+# wildcard swallowed (`b1a3Modulus := fun x => 5 * Real.logb 10 x` covered the fit coefficients inside its `x`). Now only
+# these pairs keep the loose match (registered before the rule; the numerals it adds are the 1s of each reader's own
+# polynomial written as a grouping); every other pair is matched strictly. Shrink-only (--base).
+# Format: `<headline, last component> <reader constant, last component> | <numerals the loose match adds>`.
+pr_omega1_exists kappaPR76 | 1 1
+pr_omega1_unique kappaPR76 | 1 1
+pr78_omega1_exists kappaPR78 | 1 1 1
+pr78_omega1_unique kappaPR78 | 1 1 1
+srk_omega1_exists kappaSoave | 1 1
+srk_omega1_unique kappaSoave | 1 1

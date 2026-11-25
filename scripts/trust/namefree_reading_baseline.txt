@@ -1,0 +1,153 @@
+# Rule 1 (d) of scripts/trust/check_literals.py (run 2026-11-25T0828Z, blind red team AX d04): a binder reader constant
+# with at most one numeral and no name but its binders matches any statement with that numeral. Pairs registered before
+# the rule (each read for its own headline's model), kept; they are the anchors a new pair is compared with (the new
+# headline's statement must name a program definition an anchor's statement names). Shrink-only (--base).
+# Format: `<headline, last component> <reader constant, last component> | <note>`.
+F12_separation fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+F13_wall_shear fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+F13_wall_shear fsnWallValue | registered before rule 1 (d); body `q 0`
+F14_reversed_wall_shear fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+F14_reversed_wall_shear fsnWallValue | registered before rule 1 (d); body `q 0`
+blasius_exists blasiusRhs | registered before rule 1 (d); body `- ( f η * q η / 2 )`
+blasius_wall_shear blasiusRhs | registered before rule 1 (d); body `- ( f η * q η / 2 )`
+bonnor_ebert_count beFirstMax | registered before rule 1 (d); body `ξ 0`
+bonnor_ebert_count beFirstMinRadius | registered before rule 1 (d); body `ξ 1`
+bonnor_ebert_count beMaxIndex | registered before rule 1 (d); body `2 * k`
+bonnor_ebert_count beSecondMaxRadius | registered before rule 1 (d); body `ξ 2`
+bonnor_ebert_count beSecondMinRadius | registered before rule 1 (d); body `ξ 3`
+bonnor_ebert_count beThirdMaxRadius | registered before rule 1 (d); body `ξ 4`
+bonnor_ebert_extrema beFirstMax | registered before rule 1 (d); body `ξ 0`
+bonnor_ebert_extrema beMaxIndex | registered before rule 1 (d); body `2 * k`
+bonnor_ebert_extrema_monotone beFirstMax | registered before rule 1 (d); body `ξ 0`
+bonnor_ebert_extrema_monotone beMaxIndex | registered before rule 1 (d); body `2 * k`
+fs_neg_decay_equal fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_decay_max_shear fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_decay_max_shear fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_11_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_11_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_12_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_12_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_13_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_13_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_14_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_14_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_15_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_15_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_16_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_16_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_17_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_17_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_18_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_18_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_19_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_19_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_1_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_1_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_2_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_2_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_3_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_3_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_4_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_4_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_5_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_5_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_6_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_6_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_7_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_7_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_8_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_8_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_9_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_9_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_reversed_wall_shear_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_reversed_wall_shear_exists fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_tenth_exists_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_tenth_monotone_lt fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_tenth_outside_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_tenth_outside_decay fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_tenth_reversed fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_tenth_reversed fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_tenth_two_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_tenth_two_decay fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_tenth_window fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_tenth_window fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_13_exists_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_13_window fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_13_window fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_14_exists_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_14_window fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_14_window fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_15_exists_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_15_window fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_15_window fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_16_exists_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_16_window fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_16_window fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_17_exists_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_17_two_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_17_two_decay fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_17_window fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_17_window fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_18_exists_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_18_two_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_18_two_decay fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_18_window fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_18_window fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_19_exists_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_19_two_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_19_two_decay fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_19_window fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_19_window fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_exists_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_two_decay fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_two_decay fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_neg_wall_shear_window fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_neg_wall_shear_window fsnWallValue | registered before rule 1 (d); body `q 0`
+fs_separation_below_printed fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_separation_equal fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+fs_separation_exists fsnDefectBelow | registered before rule 1 (d); body `M * ( 1 - p η ) ≤ q η`
+gelfand_extrema beFirstMax | registered before rule 1 (d); body `ξ 0`
+gelfand_extrema beMaxIndex | registered before rule 1 (d); body `2 * k`
+gelfand_pde_radial_count gelfandManyCentre | registered before rule 1 (d); body `u 0`
+gelfand_pde_radial_count_turning gcFirstMax | registered before rule 1 (d); body `l 0`
+gelfand_pde_radial_count_turning gcFirstMin | registered before rule 1 (d); body `l 1`
+gelfand_pde_radial_count_turning gcMaxIndex | registered before rule 1 (d); body `2 * k`
+gelfand_pde_radial_count_turning gcSecondMax | registered before rule 1 (d); body `l 2`
+gelfand_pde_radial_count_turning_values gcFirstMax | registered before rule 1 (d); body `l 0`
+gelfand_pde_radial_count_turning_values gcFirstMin | registered before rule 1 (d); body `l 1`
+gelfand_pde_radial_count_turning_values gcMaxIndex | registered before rule 1 (d); body `2 * k`
+gelfand_pde_radial_count_turning_values gcSecondMax | registered before rule 1 (d); body `l 2`
+gelfand_pde_radial_count_turning_values gelfandFourthTurn | registered before rule 1 (d); body `ζ 3`
+gelfand_pde_radial_count_turning_values_five gcFirstMax | registered before rule 1 (d); body `l 0`
+gelfand_pde_radial_count_turning_values_five gcFirstMin | registered before rule 1 (d); body `l 1`
+gelfand_pde_radial_count_turning_values_five gcMaxIndex | registered before rule 1 (d); body `2 * k`
+gelfand_pde_radial_count_turning_values_five gcSecondMax | registered before rule 1 (d); body `l 2`
+gelfand_pde_radial_count_turning_values_five gelfandFifthTurn | registered before rule 1 (d); body `ζ 4`
+gelfand_pde_radial_count_turning_values_five gelfandFourthTurn | registered before rule 1 (d); body `ζ 3`
+gelfand_pde_radial_count_values gelfandManyCentre | registered before rule 1 (d); body `u 0`
+gelfand_pde_radial_exists gelfandPdeLamRange | registered before rule 1 (d); body `lam ≤ 3.321992118`
+gelfand_pde_radial_many_centre gelfandManyCentre | registered before rule 1 (d); body `u 0`
+gelfand_pde_radial_many_centre gelfandManyNearSingular | registered before rule 1 (d); body `| lam - 2 | < ε`
+gelfand_turning_ratio beFirstMax | registered before rule 1 (d); body `ξ 0`
+gelfand_turning_ratio beMaxIndex | registered before rule 1 (d); body `2 * k`
+gelfand_turning_values beFirstMax | registered before rule 1 (d); body `ξ 0`
+gelfand_turning_values beMaxIndex | registered before rule 1 (d); body `2 * k`
+gelfand_turning_values gelfandFourthTurn | registered before rule 1 (d); body `ζ 3`
+gelfand_turning_values gelfandSecondTurn | registered before rule 1 (d); body `ζ 1`
+gelfand_turning_values gelfandThirdTurn | registered before rule 1 (d); body `ζ 2`
+gelfand_turning_values_five beFirstMax | registered before rule 1 (d); body `ξ 0`
+gelfand_turning_values_five beMaxIndex | registered before rule 1 (d); body `2 * k`
+gelfand_turning_values_five gelfandFifthTurn | registered before rule 1 (d); body `ζ 4`
+gelfand_turning_values_five gelfandFourthTurn | registered before rule 1 (d); body `ζ 3`
+gelfand_turning_values_five gelfandSecondTurn | registered before rule 1 (d); body `ζ 1`
+gelfand_turning_values_five gelfandThirdTurn | registered before rule 1 (d); body `ζ 2`
+gelfand_turning_values_seven beFirstMax | registered before rule 1 (d); body `ξ 0`
+gelfand_turning_values_seven beMaxIndex | registered before rule 1 (d); body `2 * k`
+gelfand_turning_values_seven gelfandFifthTurn | registered before rule 1 (d); body `ζ 4`
+gelfand_turning_values_seven gelfandFourthTurn | registered before rule 1 (d); body `ζ 3`
+gelfand_turning_values_seven gelfandSecondTurn | registered before rule 1 (d); body `ζ 1`
+gelfand_turning_values_seven gelfandSeventhTurn | registered before rule 1 (d); body `ζ 6`
+gelfand_turning_values_seven gelfandSixthTurn | registered before rule 1 (d); body `ζ 5`
+gelfand_turning_values_seven gelfandThirdTurn | registered before rule 1 (d); body `ζ 2`
+tf_initial_slope tfAtNucleus | registered before rule 1 (d); body `φ 0`
+townes_exists townesCentre | registered before rule 1 (d); body `θ 0 = c`

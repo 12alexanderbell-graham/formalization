@@ -651,10 +651,12 @@ def load_baseline(heads, errors):
 
 
 HIDDEN_BL = {}
+LOOSE_PAIRS = set()
 
 
 def analyse(row, consts, readings, errors, strict=True):
-    """(uncovered literal tokens in order, all literal values, statement tokens)"""
+    """(uncovered literal tokens in order, all literal values, statement tokens). strict=False: the loose span
+    match only for the pairs (headline, constant) of LOOSE_BL (run 2026-11-25T0828Z, blind red team AX d02)."""
     s = statement_text(row["module"], row["name"])
     if s is None:
         errors.append(f"rule 3: cannot read the statement of {row['name']} in {row['module']}")
@@ -671,7 +673,8 @@ def analyse(row, consts, readings, errors, strict=True):
         if not any(is_num(t) for t in const[1]):
             errors.append(f"rule 3: {READINGS}: {c} has no numeral in its body (it reads no literal)")
             continue
-        spans = covered_spans(toks, const, strict)
+        loose = (not strict) and (row["name"].split(".")[-1], c.split(".")[-1]) in LOOSE_PAIRS
+        spans = covered_spans(toks, const, not loose)
         if not spans:
             errors.append(f"rule 1: {row['name']}: the registered reading {c} does not occur in the statement "
                           f"(body with binders as wildcards, numerals by value)")
@@ -731,6 +734,50 @@ def source_ok(const_rel, names):
 
 
 CLAUSE_BL = "scripts/trust/source_clause_baseline.txt"
+# Run 2026-11-25T0828Z (blind red team AX d02, d04): two more shrink-only baselines of old registrations.
+LOOSE_BL = "scripts/trust/loose_span_baseline.txt"
+NAMEFREE_BL = "scripts/trust/namefree_reading_baseline.txt"
+# A sources clause that says the reader used no outside source backs no source name (AX d03: "Taylor" of
+# "Taylor odefun" in a clause ending "no external sources").
+NO_SOURCE = re.compile(r"\b(no|without)\s+(\w+\s+){0,3}?(sources?|references?|literature)\b|\bsources?\s*:\s*none\b", re.I)
+
+
+def pair_baseline(path):
+    """`<headline, last component> <reader constant, last component> | note` pairs"""
+    return {tuple(l.split("|")[0].split()[:2]) for l in entries(path) or [] if len(l.split("|")[0].split()) >= 2}
+
+
+def namefree(const):
+    """a binder reader constant of low specificity: at most one numeral and no name but its binders (`fun ζ => ζ 5`,
+    `fun ξ => ξ 0`). It matches any statement that applies anything to that numeral (AX d04: the Gelfand problem's
+    sixth turning point `ζ 5` covered the order 5 of a cosmography series)."""
+    binders, body, _ = const
+    if not binders:
+        return False
+    if sum(is_num(t) for t in body) > 1:
+        return False
+    return not any(re.match(r"[^\W\d]", t) and t not in binders and t != "fun" for t in body)
+
+
+_IMPORTS = {}
+GENERIC = re.compile(r"^Checked\.(Trust|Sim|Basic)\b")
+
+
+def module_imports(mod):
+    """the Checked modules a module imports directly, without the shared tool modules (Checked.Trust.*,
+    Checked.Sim.*, Checked.Basic)"""
+    if mod not in _IMPORTS:
+        f = ROOT / (mod.replace(".", "/") + ".lean")
+        txt = f.read_text() if f.exists() else ""
+        _IMPORTS[mod] = {m for m in re.findall(r"^import\s+(Checked\.\S+)", txt, re.M) if not GENERIC.match(m)}
+    return _IMPORTS[mod]
+
+
+def same_model(row, anchor):
+    """the headline's module is the anchor's, imports it or is imported by it, or both import a common model module"""
+    m, a = row["module"], anchor["module"]
+    im, ia = module_imports(m), module_imports(a)
+    return m == a or a in im or m in ia or bool(im & ia)
 
 
 def sources_clause(text):
@@ -764,6 +811,8 @@ def clause_ok(const_rel, names):
     source the reader read: the page would print a source the reading never saw."""
     copies = P.runs_copies(P.code((ROOT / const_rel).read_text()))
     clauses = " ".join(sources_clause((ROOT / c).read_text(errors="replace")) for c in copies)
+    if NO_SOURCE.search(clauses):
+        return list(names)
     return [n for n in names if not re.search(r"(?<![\w])" + re.escape(n) + r"(?![\w])", clauses)]
 
 
@@ -808,8 +857,29 @@ def main():
                 cmiss = [n for n in clause_ok(consts[c][2], srcs) if (c.split(".")[-1], n) not in cbl]
                 if cmiss:
                     errors.append(f"rule 1 (c): {READINGS}: source {cmiss} of {c} is not in the sources clause its "
-                                  f"reader wrote in the runs/ copy of {consts[c][2]} (what the reader says it read); "
-                                  f"a name that only a brief carries is not a source the reading saw")
+                                  f"reader wrote in the runs/ copy of {consts[c][2]} (what the reader says it read), or that clause says "
+                                  f"the reader used no outside source; a name that only a brief carries, or a word of a "
+                                  f"clause that disclaims sources, is not a source the reading saw")
+    global LOOSE_PAIRS
+    LOOSE_PAIRS = pair_baseline(LOOSE_BL)
+    # Rule 1 (d) (run 2026-11-25T0828Z, blind red team AX d04): a low-specificity binder constant (`namefree`) may
+    # be registered for a headline only if that pair is in the shrink-only NAMEFREE_BL, or the headline's module is,
+    # imports, is imported by, or shares a direct model import with the module of a baselined headline of the same
+    # constant (the same model: a later Gelfand count may reuse `ζ 5`; a cosmography series may not).
+    nfb = pair_baseline(NAMEFREE_BL)
+    byshort = {h.split(".")[-1]: h for h in heads}
+    for h, regs in readings.items():
+        for c, _ in regs:
+            hs, cs = h.split(".")[-1], c.split(".")[-1]
+            if c not in consts or not namefree(consts[c]) or (hs, cs) in nfb:
+                continue
+            anchors = [byshort[a] for a, k in nfb if k == cs and a in byshort]
+            if any(same_model(heads[h], heads[a]) for a in anchors):
+                continue
+            errors.append(f"rule 1 (d): {READINGS}: {cs} (body `{' '.join(consts[c][1])}`: one numeral and nothing "
+                          f"but its binders) is registered for {hs}, whose module shares no model module (itself or a direct "
+                          f"Checked import outside Trust/Sim/Basic) with a headline it was read for ({NAMEFREE_BL}): such a body matches any statement with "
+                          f"that numeral, so it is no reading of this one")
     n_unc = 0
     for name in sorted(heads):
         row = heads[name]
@@ -868,6 +938,13 @@ def main():
                    if len(l.split("#")[0].split("|")[0].split()) >= 2}
             for pair in sorted(load_clause_baseline() - was):
                 errors.append(f"rule 4: {CLAUSE_BL} grew against {base}: {' '.join(pair)} (it may only shrink)")
+        for blp in (LOOSE_BL, NAMEFREE_BL):  # shrink-only (run 2026-11-25T0828Z)
+            oldb = P.git("show", f"{base}:{blp}")
+            if oldb is not None:
+                was = {tuple(l.split("#")[0].split("|")[0].split()[:2]) for l in oldb.splitlines()
+                       if len(l.split("#")[0].split("|")[0].split()) >= 2}
+                for pair in sorted(pair_baseline(blp) - was):
+                    errors.append(f"rule 4: {blp} grew against {base}: {' '.join(pair)} (it may only shrink)")
         oldr = P.git("show", f"{base}:{READINGS}")
         if oldr is not None:
             added = set(entries(READINGS) or []) - {l.split("#")[0].rstrip() for l in oldr.splitlines()}
