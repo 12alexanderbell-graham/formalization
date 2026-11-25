@@ -1135,4 +1135,5 @@
 - CI: 45556391704 (79b60f0) red only at the trust step of the checked job (CLAIMS.md stale by one line: a reader constant dropped from the registry after the last Claims run); repaired from the CI-generated pages. Behind it, with CI's base 7f9995f: run 0428Z's README front page failed the mention check (rewritten, original lines moved to its end) and its second reading failed `check_blind_route.py` B3 on a template definition header (false positive; narrow exemption with eleven controls, disclosed in LEDGER).
 - Part 1 (rotation): `rl19_box_unmatched` 2 (Ω ≤ 1) REDUNDANT (`Checked/Trust/NecessityBT.lean`): above density one the integrand increases, so the residuals at the nearest and the middle source alone forbid the match; no certified integral. The statement is fully classified; trust map open 34 → 33.
 - Annex LIV: `scripts/trust/check_claims_fresh.py` (committed claims pages against the registries they print; CI trust step, records_check, `check_commit_msg.py --final`); PROMPT note; LEDGER experiment.
-- Next: CI read of the final push (`gelfand_turning_ratio` PROVED if green on every job); then part 3 by rotation.
+- CI of the final push: 45568879141 (dcdaa3b) green on every job → `gelfand_turning_ratio` PROVED (STATE heading judged).
+- Next: part 3 by rotation.
