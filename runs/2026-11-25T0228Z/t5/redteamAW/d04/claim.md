@@ -1,0 +1,5 @@
+Headline: `townes_under` (Checked.Townes.Shooting.townes_under). Weakness: same `source=` field as d01 but a different failure: the reader derived its numbers itself.
+Category: misleading-record
+Reader would wrongly believe: that the ten-decimal rounding of the Townes ground state's central value Q(0) that the statement uses was read blind from the Townes literature: the Status line now ends the literal part with "(source names backed by the readers: Townes)" under the heading "The source's own form, as a blind reader wrote it from the source".
+Why it is false: Checked/Trust/SecondReadingTownes.lean (module doc) says "Source: the reader's own derivation from the planar radial Laplacian and its own multiprecision shooting computation; nothing external consulted." The name Townes is accepted only because the brief (brief_townes.md) is titled "the Townes soliton problem". No source was read; the "second reading" is a computation, so the page's source language overstates what the record is.
+Expected: ACCEPTED (name occurs in the brief; LEDGER line names `townes_under`). Page lines changed: CLAIMS_READER.md Status line of `townes_under`.

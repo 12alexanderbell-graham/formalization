@@ -1,0 +1,20 @@
+# Red team AW report (run 2026-11-25T0228Z): five defects, all registry-only; Lean and `.github` untouched
+
+Snapshot BASE = c5c5dbbffc73d143191566a75ae2a8f7d42a6f16. On the clean snapshot every check of lean.yml's trust/frozen steps is green after regenerating, EXCEPT `check_headline_mentions.py --base BASE`, which fails on STATE.md:117 (stale pending status of `third_coefficient_lower_bound`; a pre-existing finding, not caused by any defect). Defects are judged against that: none adds a finding. Each apply.py edits registries, appends a neutral LEDGER line, patches the generated files (CLAIMS.md, CLAIMS_READER.md) to exactly what `lake env lean scripts/trust/Claims.lean` writes (tested: all five applied to a clean tree reproduce Lean's CLAIMS.md/CLAIMS_READER.md/PHRASE_LINES.md byte for byte), and makes one commit. None touches an input of StatementDeps.lean.
+
+| d | category | shape | line a reader would misread | expected |
+|---|---|---|---|---|
+| d01 | misleading-record | `literal_readings.txt` `source=Robinson` on the PR78 kappa reading (reader saw only Reaktoro/Cantera/IDAES docs, which disagree in two digits) | `pr78_omega1_exists` Status: "(source names backed by the readers: Robinson)" under "The source's own form, as a blind reader wrote it from the source" | ACCEPTED |
+| d02 | misleading-record | decorative reading: reader constant `bambaJLCDM := 1` registered for `F4_values` (body `1` occurs; closed constant 1 is slot-exempt) | `F4_values` Status opens with "The source's own form, as a blind reader wrote it ...: `bambaJLCDM` := `1`" and "1 definitions written by a blind second reader ... registered for this statement" | ACCEPTED |
+| d03 | misleading-record | `source=Howarth` made "backed" by an author note file `brief_sources_note.md` added to the old reader's run folder (source_ok reads every *brief*.md there) | `blasius_wall_shear` Status: "(source names backed by the readers: Howarth)" | ACCEPTED |
+| d04 | misleading-record | `source=Townes` on the Townes shooting reading, whose module doc says "own derivation ... nothing external consulted" | `townes_under` Status: "(source names backed by the readers: Townes)" | ACCEPTED |
+| d05 | misleading-record | objections.txt entry for the flagship headline pointing at FINDINGS.md (no check that the path records an objection; no words printed) | `lookback_second_order` Status: "OPEN FIDELITY OBJECTIONS on record (...): 1: raised in run 2026-11-18T0828Z, its text written in `FINDINGS.md`" instead of "...: none" | ACCEPTED (sticky: removal later needs a re-freeze) |
+
+## Tested and caught (not delivered; useful for the program)
+- Relabelling a definition's kind to PRINTED to hide the page's "⚠ contains decimal constants that no check compares with a source" (`chiSqOL`, FORMULA to PRINTED) or to hide "the quantifiers and hypotheses are the program's formalisation" (`correctD4`, `CCSD4ClaimPast`): with the frozen.txt kind suffix relocked and a LEDGER line, StatementDeps.lean (ran once, 13 min) FAILS for FORMULA to PRINTED ("rests on the PRINTED definition ... with no machine-checked blind second reading"); CLAIM to PRINTED passes StatementDeps but check_templates.py fails ("claim_templates.txt lists CCSD4ClaimPast, which has no generated reading") for every CLAIM that has a second reading. Closed.
+- Covering literals with a closed reader constant outside its slot (e.g. `cvdQExponent` on `flatCPL_coeffs`, `gelfandSingularLambda` on the PR cubic): check_literal_targets T2/T3 rejects; adding a slot to an already-registered constant breaks its other headlines (T3). Closed.
+- Phrase lines, P13 certificates (removal or swap of a CERT line), pins: guarded by P7-P13, --base removal rule, frozen relock.
+
+## Shapes not tried / observations
+- `objections.txt` prints its `run` field raw (not in a code span): free text reaches the page there too (same family as the closed summary shape; not used).
+- `source=` names need only be a substring of any *brief*.md text of the reader copy's run folder (d03 uses a new file; d01/d04 use words already in the briefs).
