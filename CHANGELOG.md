@@ -1257,3 +1257,9 @@
 - Target 0 angular sum (PROMPT 11): cases (ii) and (iii); harmonic sum of (4.33) diverges under the paper's harmonic-independent normalization (Lean, standard axioms). `validation/EXTERNAL_T0.md`, `EXTERNAL_BLOCKERS.md` appended. Target 0 NOT DONE.
 - Part 1 (rotation): receding-wall witness planned (window K ∈ [5043/1000, 5044/1000] at wall velocity −1/1000; invariants and energy bound), no Lean.
 - Annex LIV: PROMPT working note; LEDGER experiment.
+
+## 2026-11-26T2028Z (scheduled run; part 3 by rotation)
+- Env: repo ok; local Lean (elan, 4.35.0), judge's build of e73f59e restored; six Sonnet readers. `EXTERNAL_LOCK` live (run 1529Z): external targets left to it.
+- CI: 45883803792 (2b0ad6a) success; 45879038856 (e73f59e) failure already repaired by 2b0ad6a (check_headline_mentions M2); nothing to promote.
+- Part 3: fidelity record printed in two parts (A kernel-re-derived, B authorship-dependent) with split totals (part A complete 291/316); StatementDeps writes `.lake/necessity_shape.tsv`; packet regenerated. Reader test: 3 → 0 misclassifications; split kept.
+- Annex LIV: LEDGER experiment; PROMPT working note.

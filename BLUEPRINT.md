@@ -633,3 +633,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## External test, target 0: the sum over angular harmonics (run 2026-11-26T1828Z)
 - `runs/2026-11-26T1828Z/T0/angular_sum.lean` (standalone, Mathlib only; definitions copied from run 1529Z's blind reading): `card_harmonics`, `radial_sum`, `Li2_ne_zero` (Li₂(e^{−2i/s}) ≠ 0 for s > 0, via Mathlib's Bernoulli Fourier series), `harmonic_sum_diverges`, `pair_state_norm_diverges`, `weighted_sum_iff`. Record: `validation/EXTERNAL_T0.md` (last paragraph). Part 1 plan for the receding-wall witness: run README, section Part 1.
+
+## Part 3: the fidelity record in two parts (run 2026-11-26T2028Z)
+- `scripts/trust/Claims.lean` (two-part Status line, split totals in both headers), `scripts/trust/StatementDeps.lean` (`.lake/necessity_shape.tsv`); reader test `runs/2026-11-26T2028Z/t5/` (brief, pages, results), page builder `runs/2026-11-26T2028Z/scripts/make_pages.py`.
