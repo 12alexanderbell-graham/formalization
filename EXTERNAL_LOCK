@@ -1,2 +1,2 @@
 External test run 2026-11-26T1529Z (scheduled, started 15:29Z), standing instruction 11: Target S first (OpenAI 2026-10-06 release, Erdős families with Lean files), then 0, 1, 2, 3. Writes only runs/2026-11-26T1529Z/, validation/EXTERNAL_*.md, Work/External/, Checked/External/, CHANGELOG append while LOCK is held by another run.
-Heartbeat 20:00Z. Remove at end.
+Heartbeat 20:10Z. Remove at end.
