@@ -131,16 +131,34 @@ for e in ${EXTRA:-}; do
 done
 EXTRA_LIBS=$(echo "$EXTRA_LIBS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
 # 3. leanchecker on every copied module and the match module
-# Modules are replayed in batches of LC_BATCH per leanchecker process (default 20; 1 in a small
-# sandbox): one process over a whole closure was OOM-killed at 4.5 GB in the session sandbox (58 modules)
-# and a GitHub runner was shut down in the same step, while one process per module costs a full
-# environment load each (610 modules ≈ 2.5 h on GitHub).
+# Modules are replayed in batches of LC_BATCH per leanchecker process (default 8; 1 in a small
+# sandbox): one process over a whole closure was OOM-killed at 4.5 GB in the session sandbox (58 modules),
+# one process per module costs a full environment load each (610 modules ≈ 2.5 h on GitHub), and batches
+# of 20 lost the GitHub runner on the 610-module Navier–Stokes closure (run 45890308119: job ended with
+# no log after 71 min, i.e. the runner itself died, most likely out of memory).
+# Two guards: every leanchecker process raises its own oom_score_adj to 1000, so under memory pressure the
+# kernel kills it and not the runner; a batch that fails is replayed again one module per process, and
+# only a failure there fails the judge (a kernel error fails both ways; a memory kill only the batch).
 : > leanchecker.log
-LC_BATCH=${LC_BATCH:-20}
+LC_BATCH=${LC_BATCH:-8}
 ALL_MODS=$(cat closure_modules.txt; for e in ${EXTRA:-}; do echo "${e%%=*}"; done)
-printf '%s\n' $ALL_MODS | xargs -n "$LC_BATCH" sh -c 'lake env leanchecker "$@" >> leanchecker.log 2>&1 || { echo "FAIL batch: $*" >> leanchecker.log; exit 255; }' _ || {
-  tail -20 leanchecker.log; echo "FAIL: leanchecker"; exit 1; }
-echo "leanchecker: replayed $(printf '%s\n' $ALL_MODS | wc -l) modules in batches of $LC_BATCH: OK"
+lc() { bash -c 'echo 1000 > /proc/self/oom_score_adj 2>/dev/null; exec lake env leanchecker "$@"' _ "$@" >> leanchecker.log 2>&1; }
+LC_N=0; LC_FAIL=0; LC_RETRIED=0
+mapfile -t LC_LIST < <(printf '%s\n' $ALL_MODS)
+for ((i = 0; i < ${#LC_LIST[@]}; i += LC_BATCH)); do
+  batch=("${LC_LIST[@]:i:LC_BATCH}")
+  if lc "${batch[@]}"; then :; else
+    rc=$?; echo "batch exit $rc, replaying one module per process: ${batch[*]}" | tee -a leanchecker.log
+    LC_RETRIED=$((LC_RETRIED + ${#batch[@]}))
+    for m in "${batch[@]}"; do
+      lc "$m" || { echo "FAIL module: $m (exit $?)" | tee -a leanchecker.log; LC_FAIL=$((LC_FAIL + 1)); }
+    done
+  fi
+  LC_N=$((LC_N + ${#batch[@]}))
+  echo "leanchecker: $LC_N/${#LC_LIST[@]} modules; $(free -m | awk '/^Mem:/{print "mem used " $3 " MB of " $2}')"
+done
+[ "$LC_FAIL" = 0 ] || { tail -20 leanchecker.log; echo "FAIL: leanchecker ($LC_FAIL modules)"; exit 1; }
+echo "leanchecker: replayed ${#LC_LIST[@]} modules in batches of $LC_BATCH ($LC_RETRIED re-run singly after a batch failure): OK"
 # 4. nanoda (optional)
 if [ "${NANODA:-0}" = 1 ]; then
   L4E=${L4E_DIR:-$WORK/_lean4export}; NAN=${NANODA_DIR:-$WORK/_nanoda_lib}
