@@ -38,7 +38,7 @@ Reviews and audits of these results were not read before the verdicts below were
   T1-navier-stokes). Until it reports, the claim "the Lean proof checks" rests on the authors' word.
 - Advisory scan: 65 `local notation` lines in the solution closure, no sorry/axiom/native_decide.
 
-## Target 2 — "more than two thirds of the zeta zeros are simple and on the critical line" (Alpöge–Furman, argument by Claude; announced 41.6% → 67.2%) — **NOT DONE** (statement level done for the headline)
+## Target 2 — "more than two thirds of the zeta zeros are simple and on the critical line" (Alpöge–Furman, argument by Claude; announced 41.6% → 67.2%) — **DONE** for the target claim (67.2%, counted as the paper counts) and Theorems 1–2 as stated; the paper's (0,T) rate remark is NOT DONE (no Lean statement)
 
 - Source: arXiv 2608.13637 TeX (Theorem 1, Theorem 2, §1.1 definitions, the (0,T) sentence);
   anthropics/zeta-23-lean @11b6c7e `zeta23/Challenge.lean` (17 theorems).
@@ -54,10 +54,8 @@ Reviews and audits of these results were not read before the verdicts below were
   conservative direction); windows by positive ordinate; zero counts are finsums/ncard, whose junk values
   on infinite windows cannot help the frozen statements (an infinite window makes N = 0, which is how the
   headline closure handles it without assuming finiteness).
-- **Blocking link: the solution replay** — 190 modules, 62 k lines; running on GitHub (line T2-zeta23).
-  Advisory scan: two `axiom` declarations (`qc : ℚ`, `hqc : qc = 2*qc`) in
-  `Zeta23/FromPNTPlus/Tactic/AdditiveCombination.lean` (a tactic test file); 24 `set_option backward.*`;
-  the match's `#print axioms` decides whether either reaches the headline.
+- **Solution replay: PASSED** (GitHub run 45874989863, job 140099828860, 18:21–19:27Z): closure of `Solution` (190 modules) built in the pin; all 17 challenge theorems proved by the solution with axioms propext, Classical.choice, Quot.sound (match step; the challenge has only `def`s, for which the copy-and-prove match is sound); leanchecker on every module; nanoda: 72,933 declarations, no type errors. Re-run with the declaration comparison (`compare_decls.lean`) in run 45880627629.
+- Advisory scan (after the nested-comment fix): no sorry, axiom or native_decide in the solution closure; 24 `set_option backward.*`, 6 custom syntax.
 - Note: this result was produced at Anthropic, which also made the model running this audit; the
   procedure is the same as for the other targets.
 
