@@ -1,0 +1,9 @@
+READING PBench.SecondReading.hiemenzExists: no decided part []
+READING PBench.SecondReading.hiemenzUnder: no decided part []
+READING PBench.SecondReading.homannExists: no decided part []
+READING PBench.SecondReading.gelfandBound: no decided part []
+READING RB1.SecondReading.rn: DECIDED PART [a part of the reading RB1.SecondReading.rn is decided by arithmetic alone: 3.321992119 ≥ 1e-9 * ↑3321992119 ∨
+READING RB2.SecondReading.rn: DECIDED PART [a part of the reading RB2.SecondReading.rn is decided by arithmetic alone: 1.2325876568 ≤ 1e-10 * ↑12325876568 ∧ 1e-10 * ↑12325876569 ≤ 1.2325876569 ∨
+READING RB3.SecondReading.rn: no decided part []
+READING PC.SecondReading.r: DECIDED PART [a part of the reading PC.SecondReading.r is decided by arithmetic alone: 3 > 2]
+READING PC.SecondReading.rD: DECIDED PART [a part of the reading PC.SecondReading.rD is decided by arithmetic alone: 2 = 2 ∧ 3 = 3 ∨ 3 > 2,

@@ -65,11 +65,20 @@ re-spelling (`Real.log`, a natural number built from small literals under a boun
   field (`closed by <theorem> reading <definition>`) and still turns it into a blocking error; the 13 controls run on
   every generation. Forged closures the page can show as closed: 0.
 
-## 6. Next
+## 6. A first check on the reading, measured (not on the page)
 
-A check on the reading itself before closures return: (a) no disjunct, conjunct or premise of the reading at its
-literals is decided by `norm_num` alone (the BB shape), measured on the bench readings for false rejections; (b) a
-reading may not reach a statement equivalent to the headline under the reader's own definitions (the containment
-check, after unfolding, up to commutation of `∧`, `∨` and `<`/`>`); then a fresh red team. Also B5: a closure whose
-bridge needs the literal values (strict order of the times) needs the variables restricted to a box around the
-literals, which reopens the case-split class: measure before allowing it.
+`pclosure_rule_v3.lean`, `decidedParts`: every closed proposition inside the reading (reader definitions unfolded,
+proofs erased) that `norm_num` proves or refutes alone. Harness `reading_check_body.lean`, output `reading_check.out`:
+honest bench readings 0/4 flagged; BB forgeries 2/2 flagged; this run's `√(3.321992119 ^ 2)` variant 0/1 flagged
+(`norm_num` leaves the square root of a square standing). Same shape as the numeral checks: it catches what it was
+written against. It is evidence for the direction (check the reading), not a check to ship alone.
+
+## 7. Next
+
+Every check on the closure's statement or on the reading's text met so far is one re-spelling behind (names, numerals,
+casts, arithmetic-decided parts). The forgeries all need a reading written by someone who had the headline. The
+candidate that is not a text check is the reading's provenance: accept a closure only on a reading whose module
+`scripts/trust/check_blind_route.py` accepts (brief committed first and checked for leaks, reading committed alone as
+the reader wrote it), and measure whether a red team can pass an author-written reading through that route. Also B5:
+a bridge that needs the literal values (strict order of the times) needs the variables restricted to a box around the
+literals, which reopens the case-split class; measure before allowing it.
