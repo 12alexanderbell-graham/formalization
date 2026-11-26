@@ -161,6 +161,16 @@ CFG
   "$NAN/target/release/nanoda_bin" nanoda.json > nanoda.log 2>&1 || { tail -20 nanoda.log; echo "FAIL: nanoda"; exit 1; }
   tail -3 nanoda.log; echo "nanoda: OK ($(wc -l < export.ndjson) export lines)"
 fi
+# 4b. coverage of the blind readings by the closures (informative: a verdict is DONE only at full coverage)
+READ_FILES=""; CLOS_FILES=""
+for e in ${EXTRA:-}; do
+  mod=${e%%=*}; rel=${mod//.//}.lean
+  case "$mod" in Readings.*) READ_FILES="$READ_FILES $rel" ;; Closure.*) CLOS_FILES="$CLOS_FILES $rel" ;; esac
+done
+for r in $READ_FILES; do
+  # shellcheck disable=SC2086
+  python3 "$HERE/coverage.py" "$r" $CLOS_FILES || echo "coverage: $r has UNCOVERED theorems (see above)"
+done
 # 5. advisory scan
 python3 "$HERE/scan_escapes.py" "$WORK" "$SOL" | tail -2
 echo "== external replay PASSED: $SOL proves $CHAL (${THMS[*]})"
