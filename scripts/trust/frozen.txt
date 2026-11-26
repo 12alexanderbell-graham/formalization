@@ -911,6 +911,8 @@ doc:Checked.FSAtt.RFourteenHi.chain -doc601690074141114497
 doc:Checked.FSAtt.RFourteenLo.chain -doc2241043045771490766
 doc:Checked.FSAtt.RNineteenHi.chain -doc3159988306979488413
 doc:Checked.FSAtt.RNineteenLo.chain -doc12792488413071534339
+doc:Checked.FSAtt.RNinetyFiveHi.chain -doc13241869427855364146
+doc:Checked.FSAtt.RNinetyFiveLo.chain -doc14089460662178615621
 doc:Checked.FSAtt.RSeventeenHi.chain -doc1842327954745379052
 doc:Checked.FSAtt.RSeventeenLo.chain -doc5059692537009358096
 doc:Checked.FSAtt.RSixteenHi.chain -doc5895365862367128772
@@ -1192,6 +1194,11 @@ doc:Checked.FSRev.RNineteenOver.chain -doc18399078616677360615
 doc:Checked.FSRev.RNineteenSlow.chain -doc18421988995647970081
 doc:Checked.FSRev.RNineteenTube.chainC -doc6461862031642225866
 doc:Checked.FSRev.RNineteenTube.tube -doc3602453283822880242
+doc:Checked.FSRev.RNinetyFiveOver.chain -doc3496579349136369211
+doc:Checked.FSRev.RNinetyFiveSlow.chain -doc3063562003480924939
+doc:Checked.FSRev.RNinetyFiveTube.chainC -doc2156191055234166349
+doc:Checked.FSRev.RNinetyFiveTube.tube -doc18262992274267578903
+doc:Checked.FSRev.RNinetyFiveZero.chainC -doc2156191055234166349
 doc:Checked.FSRev.RPrintedNV.printed_ivp_exists -doc8323624028264574942
 doc:Checked.FSRev.RPrintedNV.scaled_exists -doc9427222045753200892
 doc:Checked.FSRev.RSevenOver.chain -doc440857822269956502
@@ -1223,6 +1230,8 @@ doc:Checked.FSRev.RTwelveOver.chain -doc10135389062384009410
 doc:Checked.FSRev.RTwelveSlow.chain -doc11913658909113141582
 doc:Checked.FSRev.RTwelveTube.chainC -doc30930754452209607
 doc:Checked.FSRev.RTwelveTube.tube -doc13989093313824594263
+doc:Checked.FSRev.RZero.PhiZ -doc18085624106108567127
+doc:Checked.FSRev.RZero.sideZ -doc1138030583789241062
 doc:Checked.FSRevW.WAssemble.neither_classRW -doc7377602648195849590
 doc:Checked.FSRevW.WAssemble.no_touch -doc9172388693406304721
 doc:Checked.FSRevW.WBase.ChainW -doc5599470155612103966
@@ -3761,6 +3770,8 @@ doc:Checked.Trust.NecessityBZ.blasius_scale -doc11470153501862024663
 doc:Checked.Trust.NecessityBZ.blasius_wall_eq -doc3163368867914854525
 doc:Checked.Trust.NecessityBZ.nonneg_wall_eq -doc9892399626910855039
 doc:Checked.Trust.NecessityBZ.pos_wall_eq -doc12322008972844506766
+doc:Checked.Trust.NecessityCB.fs_neg_decay_max_shear_h6 -doc14143989187824750593
+doc:Checked.Trust.NecessityCB.shifted_rev -doc2826092236053189302
 doc:Checked.Trust.NecessityEta.agree20_imp -doc9958743186863952861
 doc:Checked.Trust.NecessityEta.agree20 -doc9824130336149770711
 doc:Checked.Trust.NecessityEta.agree30_imp -doc6505485457868535128
@@ -4453,6 +4464,8 @@ moduledoc:Checked.FSAtt.RFourteenLo -mdoc16629147729127698046
 moduledoc:Checked.FSAtt.RNineteenCore -mdoc760911089919100379
 moduledoc:Checked.FSAtt.RNineteenHi -mdoc863225636592359584
 moduledoc:Checked.FSAtt.RNineteenLo -mdoc7650699200655839400
+moduledoc:Checked.FSAtt.RNinetyFiveHi -mdoc4434255645785693566
+moduledoc:Checked.FSAtt.RNinetyFiveLo -mdoc8421765953803007598
 moduledoc:Checked.FSAtt.RSeventeenCore -mdoc4290803583568100035
 moduledoc:Checked.FSAtt.RSeventeenHi -mdoc2303199413713452761
 moduledoc:Checked.FSAtt.RSeventeenLo -mdoc17084374952486968439
@@ -4505,6 +4518,7 @@ moduledoc:Checked.FSRev.R1988Printed -mdoc9110375540081446199
 moduledoc:Checked.FSRev.R1988Slow -mdoc8136316285143468470
 moduledoc:Checked.FSRev.R1988Tube -mdoc8336730602088910958
 moduledoc:Checked.FSRev.RAssembleA -mdoc13292274820462477739
+moduledoc:Checked.FSRev.RAssembleZ -mdoc563430149806321566
 moduledoc:Checked.FSRev.RAssemble -mdoc7553471211647114518
 moduledoc:Checked.FSRev.RBase -mdoc8878347330211057815
 moduledoc:Checked.FSRev.RCell -mdoc304214149788384886
@@ -4539,6 +4553,10 @@ moduledoc:Checked.FSRev.RNineTube -mdoc5151907530950342138
 moduledoc:Checked.FSRev.RNineteenOver -mdoc2331682052672733974
 moduledoc:Checked.FSRev.RNineteenSlow -mdoc10386148056385561469
 moduledoc:Checked.FSRev.RNineteenTube -mdoc15861810724383051836
+moduledoc:Checked.FSRev.RNinetyFiveOver -mdoc6917831033884414835
+moduledoc:Checked.FSRev.RNinetyFiveSlow -mdoc11658176673700741605
+moduledoc:Checked.FSRev.RNinetyFiveTube -mdoc12109183303480620334
+moduledoc:Checked.FSRev.RNinetyFiveZero -mdoc7628693731917652324
 moduledoc:Checked.FSRev.RPrintedNV -mdoc17645101431221228201
 moduledoc:Checked.FSRev.RSevenOver -mdoc3635035884687321561
 moduledoc:Checked.FSRev.RSevenSlow -mdoc12488608750342206575
@@ -4563,6 +4581,7 @@ moduledoc:Checked.FSRev.RTwelveOver -mdoc16078262042515528670
 moduledoc:Checked.FSRev.RTwelveSlow -mdoc3964280084232189618
 moduledoc:Checked.FSRev.RTwelveTube -mdoc15598065673675220337
 moduledoc:Checked.FSRev.RUnclamp -mdoc3484691393875075836
+moduledoc:Checked.FSRev.RZero -mdoc17355968850557451763
 moduledoc:Checked.FSRevW.WAssemble -mdoc8277844145141040685
 moduledoc:Checked.FSRevW.WBase -mdoc17791984126828370020
 moduledoc:Checked.FSRevW.WCell -mdoc5290835645886590690
@@ -5053,6 +5072,7 @@ moduledoc:Checked.Trust.NecessityBY -mdoc2412227483992831753
 moduledoc:Checked.Trust.NecessityBZ -mdoc14890039195938167804
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityCA -mdoc3827288613451758149
+moduledoc:Checked.Trust.NecessityCB -mdoc3613913200048203227
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
 moduledoc:Checked.Trust.NecessityEta -mdoc18282187098395309792

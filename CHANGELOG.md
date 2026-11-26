@@ -1203,3 +1203,8 @@
 - Parts 2/5 (rotation): new headline `bonnor_ebert_turning_decay`, freeze → Checked in one run, no new certificates: from index five on, the distance of the quotient of consecutive Bonnor–Ebert extremum radii (and of consecutive mass deviations from the singular value) to its limit is at most c₁ qⁿ (c₂ qⁿ) with c₁ ≤ 23/10, c₂ ≤ 3/20, 0 ≤ q ≤ 21/50. Referee STANDS; blind restatement closed in Lean; every hypothesis classified.
 - Annex LIV: `check_freeze_name.py --file` reports numerals beside a power of a variable (LITERAL); PROMPT working note; LEDGER experiment.
 - Next: CI read of the final push; then part 1 by rotation.
+
+## 2026-11-26T0628Z (scheduled run)
+- Part 1 by rotation. CI read: 45763705693 (0f19e0a) green on every job → `bonnor_ebert_turning_decay` PROVED.
+- Hypothesis 6 of `fs_neg_decay_max_shear` NEEDED (`Checked/Trust/NecessityCB.lean`): at β = −19/200 the reversed-flow solution translated to the zero of its stream function has a smaller wall shear than the attached solution. New: `RZero` (side condition), `RAssembleZ` (assembly naming the flow), six generated certificate modules. Scans for hypotheses 13 and 16 (both NEEDED by scan; plans in the run README).
+- Annex LIV: PROMPT working note; LEDGER experiment.
