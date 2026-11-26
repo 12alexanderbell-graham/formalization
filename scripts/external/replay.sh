@@ -7,13 +7,17 @@
 # result needs only the import closure of its headline module. This script extracts that closure into
 # a minimal Lake project pinned to the outside project's own toolchain and Mathlib revision (Mathlib
 # from the prebuilt cache), builds it, and runs the program's judges on it:
-#   1. Match: the frozen challenge file, verbatim in namespace `Chal`, with its `sorry` replaced by
-#      the solution theorem; it compiles only if the solution proves the challenge statement with the
-#      challenge's definitions (definitional unfolding allowed). Same question as leanprover/comparator,
-#      without its sandbox (landrun) and export dependencies.
-#   2. `#print axioms` of the matched theorem: only propext, Classical.choice, Quot.sound accepted.
+#   1. Compare (scripts/external/compare_decls.lean): every declaration of the challenge module must exist
+#      in the solution environment with the same kind, universes, type and (for definitions) value;
+#      the target theorems' statements are thereby identical; read from the challenge .olean, so only
+#      one environment is loaded. Same question as leanprover/comparator, without its sandbox.
+#      (Until run 2026-11-26T1529Z this step copied the challenge into `namespace Chal` and proved it by
+#      the solution theorem: unsound for `structure`s, which become new types — T1 replay failure,
+#      diagnosed in a chat session.)
+#   2. Axioms of each target theorem in the solution environment: only propext, Classical.choice,
+#      Quot.sound accepted (checked by compare_decls).
 #   3. leanchecker: the toolchain kernel replays every declaration of every copied module.
-#   4. nanoda (independent type checker, Rust): checks the export of the matched theorem and all its
+#   4. nanoda (independent type checker, Rust): checks the export of the target theorems and all their
 #      dependencies (Mathlib included) when NANODA=1 and the tools are present.
 #   5. scan_escapes.py over the closure (advisory).
 #
@@ -93,43 +97,18 @@ PY2
   echo 'name = "mathlib"'
   echo 'git = "https://github.com/leanprover-community/mathlib4.git"'
   echo "rev = \"$MATHLIB_REV\""
-  for l in $(cat closure_libs.txt) Match $(for e in ${EXTRA:-}; do echo "${e%%=*}" | cut -d. -f1; done | sort -u); do
+  for l in $(cat closure_libs.txt) $(for e in ${EXTRA:-}; do echo "${e%%=*}" | cut -d. -f1; done | sort -u); do
     echo '[[lean_lib]]'; echo "name = \"$l\""; done
 } > lakefile.toml
 [ -d .lake/packages/mathlib ] || lake update > lake_update.log 2>&1
 lake exe cache get > cache.log 2>&1 || true
 
-# 1. Match file
-mkdir -p Match
-CH_FILE=${CHAL//.//}.lean
-MATCH_MOD=Match.$(basename "${CHAL//.//}")
-python3 - "$CH_FILE" "$SOL" "$MATCH_MOD" "${THMS[@]}" <<'PY'
-import re, sys
-ch, sol, matchmod, *thms = sys.argv[1:]
-src = open(ch, encoding='utf-8').read()
-body = re.sub(r'^\s*import\s+.*\n', '', src, flags=re.M)
-# The whole challenge goes inside `namespace Chal` (works whether its theorems are namespaced or at the
-# root; its definitions become Chal.* and cannot clash with the solution's namesakes).
-for t in thms:
-    name = t.split('.')[-1]
-    body, n = re.subn(r'(theorem\s+' + re.escape(name) + r'\b[\s\S]*?:=)\s*by\s*\n?\s*sorry',
-                      r'\1 by first | exact _root_.' + t + ' | (apply _root_.' + t + ' <;> assumption)', body, count=1)
-    if n != 1: sys.exit(f'could not find `theorem {name} ... := by sorry` in {ch}')
-code_only = re.sub(r'--[^\n]*', '', re.sub(r'/-.*?-/', '', body, flags=re.S))
-if re.search(r'\bsorry\b', code_only): sys.exit('challenge has a sorry the script did not replace')
-chal_names = ['Chal.' + t for t in thms]
-out = (f'import {sol}\n\nnamespace Chal\n' + body + '\nend Chal\n\n'
-       + ''.join(f'#print axioms {c}\n' for c in chal_names))
-open(matchmod.replace('.', '/') + '.lean', 'w', encoding='utf-8').write(out)
-open('match_names.txt', 'w').write(' '.join(chal_names) + '\n')
-PY
+# 1-2. compare challenge declarations with the solution's; axioms of the targets
 lake build "$SOL" "$CHAL" > build.log 2>&1 || { tail -40 build.log; echo "FAIL: build"; exit 1; }
-lake env lean "${MATCH_MOD//.//}.lean" > match.log 2>&1 || { cat match.log; echo "FAIL: match"; exit 1; }
-cat match.log
-if grep -q "error" match.log; then echo "FAIL: match has errors"; exit 1; fi
-# 2. axioms
-python3 "$HERE/check_axioms.py" match.log || { echo "FAIL: axioms beyond propext, Classical.choice, Quot.sound"; exit 1; }
-lake build "$MATCH_MOD" > build_match.log 2>&1 || { tail -20 build_match.log; echo "FAIL: build match module"; exit 1; }
+lake env lean --run "$HERE/compare_decls.lean" "$CHAL" "$SOL" "${THMS[@]}" > compare.log 2>&1 || {
+  grep -v '^  •' compare.log | tail -40; echo "FAIL: compare"; exit 1; }
+grep -v '^  •' compare.log
+echo "${THMS[*]}" > target_names.txt
 # 2b. the program's own files (readings, closures, pins)
 EXTRA_LIBS=""
 for e in ${EXTRA:-}; do
@@ -150,10 +129,10 @@ EXTRA_LIBS=$(echo "$EXTRA_LIBS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
 # One module per leanchecker process: a single process over a large closure was killed by the memory
 # limit of the session sandbox (run 2026-11-26T1529Z: 4.5 GB anonymous memory on 58 modules).
 : > leanchecker.log
-for m in $(cat closure_modules.txt) "$MATCH_MOD" ${EXTRA:+$(for e in $EXTRA; do echo "${e%%=*}"; done)}; do
+for m in $(cat closure_modules.txt) ${EXTRA:+$(for e in $EXTRA; do echo "${e%%=*}"; done)}; do
   lake env leanchecker "$m" >> leanchecker.log 2>&1 || { tail -20 leanchecker.log; echo "FAIL: leanchecker $m"; exit 1; }
 done
-echo "leanchecker: replayed $(wc -l < closure_modules.txt) closure modules, the match module and ${EXTRA:+the extra modules}: OK"
+echo "leanchecker: replayed $(wc -l < closure_modules.txt) closure modules ${EXTRA:+and the extra modules}: OK"
 # 4. nanoda (optional)
 if [ "${NANODA:-0}" = 1 ]; then
   L4E=${L4E_DIR:-$WORK/_lean4export}; NAN=${NANODA_DIR:-$WORK/_nanoda_lib}
@@ -167,7 +146,7 @@ if [ "${NANODA:-0}" = 1 ]; then
     (cd "$NAN" && git checkout -q 8de7e0c4ed3052745a7f8725164efd9e76d84c56 && cargo build --release -q)
   fi
   # shellcheck disable=SC2046
-  lake env "$L4E/.lake/build/bin/lean4export" "$MATCH_MOD" -- $(cat match_names.txt) > export.ndjson
+  lake env "$L4E/.lake/build/bin/lean4export" "$SOL" -- $(cat target_names.txt) > export.ndjson
   cat > nanoda.json <<CFG
 { "export_file_path": "export.ndjson", "use_stdin": false,
   "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"],
