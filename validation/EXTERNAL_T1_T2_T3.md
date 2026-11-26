@@ -22,7 +22,7 @@ Reviews and audits of these results were not read before the verdicts below were
   reader notes that use as a recursive block algorithm would need noncommutative validity, which is not
   claimed and not checked).
 
-## Target 1 — OpenAI's Navier–Stokes blow-up (Clay alternatives (C) and (D)) — **NOT DONE** (statement level done)
+## Target 1 — OpenAI's Navier–Stokes blow-up (Clay alternatives (C) and (D)) — **DONE** (statement level and solution replay)
 
 - Source: Clay official problem text (Fefferman; fetched, equations as rendered), openai/NavierStokesAndEuler
   @f9e8bc5 `ComparatorChallenges/NavierStokes.lean` (adapted from DeepMind's formal-conjectures).
@@ -38,11 +38,20 @@ Reviews and audits of these results were not read before the verdicts below were
   statements and all 86 other reachable challenge declarations identical to the solution's, with axioms
   propext, Classical.choice, Quot.sound for both targets; it stopped on 9 private `local notation` syntax
   declarations of the challenge (not referenced by any statement; the comparison now skips unreachable
-  declarations and lists them). **Blocking link:** the independent replays (leanchecker per module, nanoda)
-  of that closure, re-dispatched after the fix; NOT DONE until they report.
+  declarations and lists them). (Then the blocking link was the independent replays of that closure; closed below.)
   (The first attempt, run 45872140013, failed in our tool: copied `structure`s are new types — diagnosed in a
   chat session, fixed by `compare_decls.lean`.)
 - Advisory scan: 65 `local notation` lines in the solution closure, no sorry/axiom/native_decide.
+- **Solution replay, done:** GitHub run 45906952810 (job 140205918569, scripts at 9b0d2d1): closure of 610
+  modules built in the pin; declaration comparison: the 32 challenge declarations reachable from the two
+  targets identical to the solution's (65 unreachable ones listed: recursors, projections, local notation),
+  axioms of `navier_stokes_breakdown_R3` and `navier_stokes_breakdown_periodic`: propext, Classical.choice,
+  Quot.sound; leanchecker replayed all 610 modules (batches of 2, 4 at a time, no batch failure, peak memory
+  ≈7 GB of 16); nanoda: 94,715 declarations, no type errors (19.7 M export lines). The same comparison had
+  already passed in runs 45880627629 (before the reachability fix, 9 notation declarations aside) and
+  45899681780 (cancelled by this run in leanchecker, 264/610 then).
+- Links resting on judgment: the blind reading of Clay's (C) and (D) (one Sonnet reader). Not claimed: that
+  the Lean proof follows OpenAI's written argument (the system certifies the stated theorem).
 
 ## Target 2 — "more than two thirds of the zeta zeros are simple and on the critical line" (Alpöge–Furman, argument by Claude; announced 41.6% → 67.2%) — **DONE** for the target claim (67.2%, counted as the paper counts) and Theorems 1–2 as stated; the paper's (0,T) rate remark is NOT DONE (no Lean statement)
 
