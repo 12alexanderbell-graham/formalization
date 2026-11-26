@@ -1,0 +1,25 @@
+== controls_body
+CONTROL PC.good: as planted []
+CONTROL PC.good_order: as planted []
+CONTROL PC.good_norm: as planted []
+CONTROL PC.old_style: as planted [PC.old_style must quantify over 2 real variables, one for each literal of PC.head]
+CONTROL PC.kept: as planted [the right side of PC.kept is not the statement of PC.head with each of its 2 literals replaced by one of the variables]
+CONTROL PC.one_var: as planted [the right side of PC.one_var is not the statement of PC.head with each of its 2 literals replaced by one of the variables]
+CONTROL PC.nobite: as planted [no theorem PC.nobite.bite stating that the literals of PC.headN bite (`¬ ∀ c, H[c]`)]
+CONTROL PC.nobite2: as planted [PC.nobite2.bite does not state `¬ ∀ c, H[c]` for PC.headN]
+CONTROL PC.case_split: as planted [the reading side of PC.case_split contains the headline's statement itself]
+CONTROL PC.wrong_rd: as planted [the left side of PC.wrong_rd at the literals of PC.head is not the reading PC.SecondReading.r]
+CONTROL PC.not_rd: as planted [PC.other is not a `def … : Prop` of a `Checked.Trust.SecondReading*` module (a blind reader's statement)]
+CONTROL PC.nolit: as planted [PC.headZ has no real literal other than 0 and 1: a parametric closure cannot vary it, so no closure of an objection on it is accepted]
+CONTROL PC.case_split2: as planted [the left side of PC.case_split2 keeps a numeral equal to a literal of PC.head (every occurrence of a literal's value must be a variable)]
+== pbench_body
+BENCH PBench.c_hiemenz_exists: ACCEPTED
+BENCH PBench.c_hiemenz_under: ACCEPTED
+BENCH PBench.c_homann_exists: ACCEPTED
+BENCH PBench.c_gelfand_bound: ACCEPTED
+== redteamBB/a1_body
+RESULT a1: REJECTED [the left side of RB1.cl keeps a numeral equal to a literal of Checked.Math.GelfandPDEBound.gelfand_pde_bound (every occurrence of a literal's value must be a variable)]
+== redteamBB/a2_body
+RESULT a2: REJECTED [the left side of RB2.cl keeps a numeral equal to a literal of Checked.Hiemenz.hiemenz_exists (every occurrence of a literal's value must be a variable)]
+== own/a3_body
+RESULT a3: ACCEPTED []

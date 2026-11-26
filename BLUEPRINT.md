@@ -610,6 +610,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## Closures of fidelity objections: bench, red team, suspension (run 2026-11-26T0228Z)
 - `scripts/trust/Claims.lean` (`closureFaults`, its controls, the suspension), `scripts/trust/objections.txt`; the measure: `runs/2026-11-26T0228Z/t5/RESULTS_BENCH.md`.
 
+## Closures of fidelity objections parametric in the literals (run 2026-11-26T0828Z)
+- `scripts/trust/Claims.lean` (`paramClosureFaults`, `realNumVal?`, `matchVaried`, `eraseProofs`, controls `ParamControls`), `scripts/trust/objections.txt`; the measure: `runs/2026-11-26T0828Z/t5/RESULTS_PARAM.md`; harness `runs/2026-11-26T0828Z/scripts/run_pclosure.sh`.
+
 ## The Bonnor–Ebert mass extrema, bounds on consecutive radii and values from index five on by a constant times a power of a ratio (run 2026-11-26T0428Z)
 - `Checked/Math/BEDecayCore.lean`, `Checked/Math/BonnorEbertTurningDecay.lean`, `Checked/Trust/NecessityCA.lean`, `Checked/Trust/SecondReadingBETurnDecayB.lean`, `Work/Math/BonnorEbertTurningDecay.lean`, `Work/Math/BonnorEbertTurningDecayBlindClosed.lean`; the proof: `runs/2026-11-26T0428Z/README.md`.
 

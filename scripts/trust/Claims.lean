@@ -207,6 +207,243 @@ def closureFaults (env : Environment) (isProg : Name → Bool) (isReading : Name
         hit := true
   return bad
 
+/-- Value of a closed real numeral (run 2026-11-26T0828Z, parametric closures; `runs/2026-11-26T0828Z/t5/RESULTS_PARAM.md`): a term built from `OfNat.ofNat`,
+`OfScientific.ofScientific`, `Neg.neg`, `Inv.inv`, `HAdd.hAdd`, `HSub.hSub`, `HMul.hMul`, `HDiv.hDiv` and `HPow.hPow`
+with a natural-number literal exponent, every type argument `ℝ` and every instance argument built only from
+constants of Lean or Mathlib (a program module could declare its own `OfNat ℝ 7` instance). `none` otherwise. -/
+partial def realNumVal? (env : Environment) (e : Expr) : Option ℚ := do
+  let e := e.consumeMData
+  if e.hasLooseBVars || e.hasFVar || e.hasMVar then none
+  let isR := fun (t : Expr) => t.consumeMData == mkConst ``Real
+  -- a theorem (e.g. the proof `d._proof_1 : Nat.AtLeastTwo 3` Lean abstracts out of a definition) carries no data
+  let libInst := fun (i : Expr) => i.getUsedConstants.all fun c =>
+    match env.find? c with
+    | some (.thmInfo _) => true
+    | _ => match env.getModuleIdxFor? c with
+      | some idx => (env.header.moduleNames[idx.toNat]!).getRoot != `Checked
+      | none => false
+  let natLit? : Expr → Option ℕ := fun n => match n.consumeMData with
+    | .lit (.natVal k) => some k
+    | x => if x.isAppOfArity ``OfNat.ofNat 3 then
+        match x.appFn!.appArg!.consumeMData with | .lit (.natVal k) => some k | _ => none
+      else none
+  let f := e.getAppFn
+  let args := e.getAppArgs
+  match f with
+  | .const ``OfNat.ofNat _ =>
+    guard (args.size == 3 && isR args[0]! && libInst args[2]!)
+    let k ← natLit? args[1]!
+    return ((k : ℕ) : ℚ)
+  | .const ``OfScientific.ofScientific _ =>
+    guard (args.size == 5 && isR args[0]! && libInst args[1]!)
+    let m ← natLit? args[2]!
+    let ex ← natLit? args[4]!
+    match args[3]!.consumeMData with
+    | .const ``Bool.true _ => return (m : ℚ) / (10 : ℚ) ^ ex
+    | .const ``Bool.false _ => return (m : ℚ) * (10 : ℚ) ^ ex
+    | _ => none
+  -- casts of natural and integer literals (red team BB, run 2026-11-26T0828Z: `(1e-9 : ℝ) * ((3321992119 : ℕ) : ℝ)`
+  -- re-spelt a literal past the check of kept numerals)
+  | .const ``Nat.cast _ =>
+    guard (args.size == 3 && isR args[0]! && libInst args[1]!)
+    let k ← natLit? args[2]!
+    return ((k : ℕ) : ℚ)
+  | .const ``Int.cast _ =>
+    guard (args.size == 3 && isR args[0]! && libInst args[1]!)
+    let z := args[2]!.consumeMData
+    if z.isAppOfArity ``Neg.neg 3 then return - (((← natLit? z.appArg!) : ℕ) : ℚ)
+    return (((← natLit? z) : ℕ) : ℚ)
+  | .const ``Neg.neg _ =>
+    guard (args.size == 3 && isR args[0]! && libInst args[1]!)
+    return - (← realNumVal? env args[2]!)
+  | .const ``Inv.inv _ =>
+    guard (args.size == 3 && isR args[0]! && libInst args[1]!)
+    return (← realNumVal? env args[2]!)⁻¹
+  | .const n _ =>
+    guard (args.size == 6 && isR args[0]! && libInst args[3]!)
+    if n == ``HPow.hPow then
+      guard (args[1]!.consumeMData == mkConst ``Nat && isR args[2]!)
+      let k ← natLit? args[5]!
+      return (← realNumVal? env args[4]!) ^ k
+    guard (isR args[1]! && isR args[2]!)
+    let a ← realNumVal? env args[4]!
+    let b ← realNumVal? env args[5]!
+    if n == ``HAdd.hAdd then return a + b
+    else if n == ``HSub.hSub then return a - b
+    else if n == ``HMul.hMul then return a * b
+    else if n == ``HDiv.hDiv then return a / b
+    else none
+  | _ => none
+
+/-- A literal of a headline that a parametric closure varies: a maximal closed real numeral whose value is neither 0
+nor 1 (those are structural: `0 < x`, `p → 1`). -/
+def isVariedLit (env : Environment) (e : Expr) : Bool :=
+  match realNumVal? env e with
+  | some q => q != 0 && q != 1
+  | none => false
+
+/-- Number of varied literals of `h` (maximal: a varied literal is not entered). -/
+partial def countVaried (env : Environment) (h : Expr) : Nat :=
+  let h := h.consumeMData
+  if isVariedLit env h then 1 else
+  if (realNumVal? env h).isSome then 0 else
+  match h with
+  | .app f a => countVaried env f + countVaried env a
+  | .lam _ t b _ => countVaried env t + countVaried env b
+  | .forallE _ t b _ => countVaried env t + countVaried env b
+  | .letE _ t v b _ => countVaried env t + countVaried env v + countVaried env b
+  | .proj _ _ b => countVaried env b
+  | _ => 0
+
+/-- `h` is `y` with every varied literal of `h` replaced by one of the variables `vars`, each used once; `st` records
+which literal each variable stands for. -/
+partial def matchVaried (env : Environment) (vars : Array Expr) (h y : Expr) (st : Array (Option Expr)) :
+    Option (Array (Option Expr)) := do
+  let h := h.consumeMData
+  let y := y.consumeMData
+  if isVariedLit env h then
+    let j ← vars.findIdx? (· == y)
+    guard st[j]!.isNone
+    return st.set! j (some h)
+  if (realNumVal? env h).isSome then
+    guard (h == y); return st
+  match h, y with
+  | .app f a, .app g b => matchVaried env vars a b (← matchVaried env vars f g st)
+  | .lam _ t b _, .lam _ t' b' _ => matchVaried env vars b b' (← matchVaried env vars t t' st)
+  | .forallE _ t b _, .forallE _ t' b' _ => matchVaried env vars b b' (← matchVaried env vars t t' st)
+  | .letE _ t v b _, .letE _ t' v' b' _ =>
+    matchVaried env vars b b' (← matchVaried env vars v v' (← matchVaried env vars t t' st))
+  | .proj s i b, .proj s' i' b' => do guard (s == s' && i == i'); matchVaried env vars b b' st
+  | _, _ => do guard (h == y); return st
+
+/-- Every closed real numeral replaced by a marker of its value (`7.5` and `15 / 2` become the same term). -/
+def normNumerals (env : Environment) (e : Expr) : Expr :=
+  e.replace fun s => (realNumVal? env s).map fun q => .lit (.strVal s!"ℝ:{q}")
+
+/-- The blind reader's own definitions (those `isReading` accepts) unfolded, so that a closure may write a reader's
+helper (`blindModulus d := 5 * Real.logb 10 d`) inline and vary its literals. -/
+def unfoldReader (env : Environment) (isReading : Name → Bool) (e : Expr) : Expr := Id.run do
+  let mut e := e
+  for _ in [0:8] do
+    let e' := e.replace fun s =>
+      match s.getAppFn with
+      | .const c ls =>
+        if isReading c then
+          match env.find? c with
+          | some (.defnInfo d) => some ((d.value.instantiateLevelParams d.levelParams ls).beta s.getAppArgs)
+          | _ => none
+        else none
+      | _ => none
+    if e' == e then break
+    e := e'
+  return e
+
+/-- The real numerals of `e` (values). -/
+def numeralValues (env : Environment) (e : Expr) : Array ℚ := Id.run do
+  let mut out : Array ℚ := #[]
+  let mut stack : Array Expr := #[e]
+  while !stack.isEmpty do
+    let s := stack.back!.consumeMData
+    stack := stack.pop
+    if let some q := realNumVal? env s then out := out.push q; continue
+    match s with
+    | .app f a => stack := (stack.push f).push a
+    | .lam _ t b _ => stack := (stack.push t).push b
+    | .forallE _ t b _ => stack := (stack.push t).push b
+    | .letE _ t v b _ => stack := ((stack.push t).push v).push b
+    | .proj _ _ b => stack := stack.push b
+    | _ => pure ()
+  return out
+
+/-- Every proof inside a statement replaced by one marker (proof irrelevance: a statement's meaning does not depend on
+which proof of an instance side condition it carries; the closure bench of run 2026-11-26T0828Z found a reading whose
+`ContinuousSMul ℝ ℝ` proof Lean had abstracted to `HomannSol._proof_1`, written in full in the closure). -/
+def eraseProofs (e : Expr) : MetaM Expr :=
+  Meta.transform e (pre := fun s => do
+    let p ← try isProof s catch _ => pure false
+    return if p then .done (.lit (.strVal "proof")) else .continue)
+
+/-- Parametric closure of a fidelity objection (run 2026-11-26T0828Z; replaces the rule of test AZ, which a red team
+beat by inlining the program's own proof, run 2026-11-26T0228Z). Let `c₀ = (c₀₁, …, c₀ₙ)` be the varied literals of
+the headline `H` (maximal closed real numerals other than 0 and 1, left to right) and `H[c]` the headline with them
+replaced by variables. The closure theorem `t` must state `∀ c₁ … cₙ : ℝ, X ↔ H[c]` (each variable standing for one
+literal, any order), where `X` at the headline's values is the body of the blind reading `rn` (a `def rn : Prop` of a
+`Checked.Trust.SecondReading*` module) up to the value of its real numerals; and `t.bite` must prove
+`¬ ∀ c₁ … cₙ : ℝ, H[c]` (the literals bite). Both on the standard axioms. Then `X c ↔ H[c]` holds at every value,
+including values where `H[c]` is false: an equivalence of truth values only at the certified literals (`True ↔ H`,
+or the program's proof inlined, red team BA) cannot be stated, since `∀ c, True ↔ H[c]` contradicts the bite. The
+proof may use any theorem: the statement, not the proof, carries the meaning. -/
+def paramClosureFaults (env : Environment) (isReading : Name → Bool) (head t rn : Name) :
+    MetaM (Array String) := do
+  let some ci := env.find? t | return #[s!"closure theorem {t} not found"]
+  let some hc := env.find? head | return #[s!"headline {head} not found"]
+  let .thmInfo tv := ci | return #[s!"{t} is not a theorem"]
+  let hty ← eraseProofs hc.type.consumeMData
+  let n := countVaried env hty
+  if n == 0 then
+    return #[s!"{head} has no real literal other than 0 and 1: a parametric closure cannot vary it, so no closure of an objection on it is accepted"]
+  let mut bad : Array String := #[]
+  -- the reading
+  let body? : Option Expr := match env.find? rn with
+    | some (.defnInfo d) => if isReading rn && d.type.consumeMData.isProp then some d.value else none
+    | _ => none
+  if body?.isNone then
+    bad := bad.push s!"{rn} is not a `def … : Prop` of a `Checked.Trust.SecondReading*` module (a blind reader's statement)"
+  -- the closure's statement
+  let r ← forallBoundedTelescope tv.type (some n) fun vars body => do
+    if vars.size != n then return (some s!"{t} must quantify over {n} real variables, one for each literal of {head}", none)
+    for v in vars do
+      unless (← inferType v).consumeMData == mkConst ``Real do
+        return (some s!"the variables of {t} must be real numbers", none)
+    let body := body.consumeMData
+    unless body.isAppOfArity ``Iff 2 do return (some s!"{t} does not state `∀ c, X ↔ H[c]`", none)
+    let x ← eraseProofs body.appFn!.appArg!.consumeMData
+    let y ← eraseProofs body.appArg!.consumeMData
+    match matchVaried env vars hty y (Array.replicate n none) with
+    | none => return (some s!"the right side of {t} is not the statement of {head} with each of its {n} literals replaced by one of the variables", none)
+    | some st =>
+      if st.any (·.isNone) then return (some s!"a variable of {t} stands for no literal of {head}", none)
+      if y != x && (x.find? (· == y)).isSome then
+        return (some s!"the reading side of {t} contains the headline's statement itself", none)
+      -- every numeral the left side keeps has a value none of the headline's literals has (red team residue, run
+      -- 2026-11-26T0828Z: `(a = 2 ∧ b = 3) ∨ b > a`, a case split true at the literals, holds the headline at them)
+      let lits := (st.map (·.get!)).filterMap (realNumVal? env)
+      if (numeralValues env (unfoldReader env isReading x)).any (lits.contains ·) then
+        return (some s!"the left side of {t} keeps a numeral equal to a literal of {head} (every occurrence of a literal's value must be a variable)", none)
+      let x0 := x.replaceFVars vars (st.map (·.get!))
+      return (none, some x0)
+  match r with
+  | (some f, _) => bad := bad.push f
+  | (none, some x0) =>
+    if let some b := body? then
+      let lhs ← eraseProofs (unfoldReader env isReading x0)
+      let rhs ← eraseProofs (unfoldReader env isReading b)
+      unless x0.consumeMData == mkConst rn || normNumerals env lhs == normNumerals env rhs do
+        bad := bad.push s!"the left side of {t} at the literals of {head} is not the reading {rn}"
+  | _ => pure ()
+  -- the bite
+  match env.find? (t ++ `bite) with
+  | some (.thmInfo bv) =>
+    let ok ← do
+      let bt := bv.type.consumeMData
+      if !bt.isAppOfArity ``Not 1 then pure false else
+      forallBoundedTelescope bt.appArg! (some n) fun vars body => do
+        if vars.size != n then return false
+        for v in vars do
+          unless (← inferType v).consumeMData == mkConst ``Real do return false
+        match matchVaried env vars hty (← eraseProofs body) (Array.replicate n none) with
+        | some st => return st.all (·.isSome)
+        | none => return false
+    unless ok do bad := bad.push s!"{t ++ `bite} does not state `¬ ∀ c, H[c]` for {head}"
+  | _ => bad := bad.push s!"no theorem {t ++ `bite} stating that the literals of {head} bite (`¬ ∀ c, H[c]`)"
+  -- axioms
+  for c in [t, t ++ `bite] do
+    if (env.find? c).isSome then
+      for a in ← collectAxioms c do
+        unless a == ``propext || a == ``Classical.choice || a == ``Quot.sound do
+          bad := bad.push s!"{c} uses the axiom {a}"
+  return bad
+
 def reportable (env : Environment) (n : Name) : Bool :=
   !(privateToUserName n).isInternal && !(Lean.Meta.isMatcherCore env n) && !env.isProjectionFn n &&
   match env.find? n with
@@ -591,6 +828,89 @@ run_cmd do
   let faults ← liftTermElabM <| closureFaults env isProg isRd `ClosureControls.head10 `ClosureControls.good_numeral
   unless faults.isEmpty do throwError m!"closure control good_numeral: valid closure rejected: {faults.toList}"
 
+/-! Planted controls of `Claims.paramClosureFaults` (run 2026-11-26T0828Z, `runs/2026-11-26T0828Z/t5/RESULTS_PARAM.md`):
+three valid closures and ten forged ones. The generator fails before writing any page unless each valid one is accepted
+and each forged one is rejected for the reason it plants. -/
+namespace ParamControls
+theorem head : (2 : ℝ) < 3 := by norm_num
+theorem head2 : (3 / 2 : ℝ) < 2 := by norm_num
+theorem headN : ∀ x : ℝ, 0 ≤ x ^ 2 ∨ x = 2 := fun x => Or.inl (sq_nonneg x)
+theorem headZ : ∀ x : ℝ, x * 0 = 0 := fun x => by ring
+namespace SecondReading
+def r : Prop := (3 : ℝ) > 2
+def r2 : Prop := (1.5 : ℝ) < 2
+def rN : Prop := True
+def rC : Prop := ((2 : ℝ) = 2 ∧ (3 : ℝ) = 3) ∨ (2 : ℝ) < 3
+def rD : Prop := ((2 : ℝ) = 2 ∧ (3 : ℝ) = 3) ∨ (3 : ℝ) > 2
+def rZ : Prop := True
+end SecondReading
+def other : Prop := (3 : ℝ) > 2
+/-- valid -/
+theorem good : ∀ a b : ℝ, b > a ↔ a < b := fun _ _ => Iff.rfl
+theorem good.bite : ¬ ∀ a b : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+/-- valid: variables in the other order -/
+theorem good_order : ∀ b a : ℝ, b > a ↔ a < b := fun _ _ => Iff.rfl
+theorem good_order.bite : ¬ ∀ b a : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+/-- valid: the reading writes 1.5 where the headline writes 3 / 2 -/
+theorem good_norm : ∀ a b : ℝ, a < b ↔ a < b := fun _ _ => Iff.rfl
+theorem good_norm.bite : ¬ ∀ a b : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+/-- forged: the test-AZ shape, not parametric -/
+theorem old_style : SecondReading.r ↔ (2 : ℝ) < 3 := iff_of_true (by unfold SecondReading.r; norm_num) head
+theorem old_style.bite : ¬ ∀ a b : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+/-- forged: variables quantified but the literals kept -/
+theorem kept : ∀ a b : ℝ, (3 : ℝ) > 2 ↔ (2 : ℝ) < 3 := fun _ _ => iff_of_true (by norm_num) (by norm_num)
+theorem kept.bite : ¬ ∀ a b : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+/-- forged: one literal varied, one kept -/
+theorem one_var : ∀ a b : ℝ, b > 2 ↔ 2 < b := fun _ _ => Iff.rfl
+theorem one_var.bite : ¬ ∀ a b : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+/-- forged: a literal that does not bite, with no bite theorem -/
+theorem nobite : ∀ c : ℝ, SecondReading.rN ↔ ∀ x : ℝ, 0 ≤ x ^ 2 ∨ x = c :=
+  fun _ => iff_of_true trivial fun x => Or.inl (sq_nonneg x)
+/-- forged: a literal that does not bite, with a bite theorem of another statement -/
+theorem nobite2 : ∀ c : ℝ, SecondReading.rN ↔ ∀ x : ℝ, 0 ≤ x ^ 2 ∨ x = c :=
+  fun _ => iff_of_true trivial fun x => Or.inl (sq_nonneg x)
+theorem nobite2.bite : ¬ ∀ c : ℝ, c * 0 = 1 := fun h => by have := h 0; norm_num at this
+/-- forged: a reading that holds the headline behind a case split on its literals -/
+theorem case_split : ∀ a b : ℝ, ((a = 2 ∧ b = 3) ∨ a < b) ↔ a < b := fun a b =>
+  ⟨fun h => h.elim (fun ⟨ha, hb⟩ => by subst ha hb; norm_num) id, Or.inr⟩
+theorem case_split.bite : ¬ ∀ a b : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+/-- forged: the left side is not the reading -/
+theorem wrong_rd : ∀ a b : ℝ, a < b ↔ a < b := fun _ _ => Iff.rfl
+theorem wrong_rd.bite : ¬ ∀ a b : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+/-- forged: the reading is not a blind reader's definition -/
+theorem not_rd : ∀ a b : ℝ, b > a ↔ a < b := fun _ _ => Iff.rfl
+theorem not_rd.bite : ¬ ∀ a b : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+/-- forged: a headline with no literal to vary -/
+theorem nolit : SecondReading.rZ ↔ ∀ x : ℝ, x * 0 = 0 := iff_of_true trivial headZ
+/-- forged: the case split with the headline restated (`b > a` for `a < b`), accepted by the first version -/
+theorem case_split2 : ∀ a b : ℝ, ((a = 2 ∧ b = 3) ∨ b > a) ↔ a < b := fun a b =>
+  ⟨fun h => h.elim (fun ⟨ha, hb⟩ => by subst ha hb; norm_num) id, Or.inr⟩
+theorem case_split2.bite : ¬ ∀ a b : ℝ, a < b := fun h => lt_irrefl _ (h 0 0)
+end ParamControls
+
+open Claims in
+run_cmd do
+  let env ← getEnv
+  let isRd := fun (c : Name) => (`ParamControls.SecondReading).isPrefixOf c
+  for (h, t, rn, w) in [(`ParamControls.head, `ParamControls.good, `ParamControls.SecondReading.r, none),
+      (`ParamControls.head, `ParamControls.good_order, `ParamControls.SecondReading.r, none),
+      (`ParamControls.head2, `ParamControls.good_norm, `ParamControls.SecondReading.r2, none),
+      (`ParamControls.head, `ParamControls.old_style, `ParamControls.SecondReading.r, some "must quantify"),
+      (`ParamControls.head, `ParamControls.kept, `ParamControls.SecondReading.r, some "right side"),
+      (`ParamControls.head, `ParamControls.one_var, `ParamControls.SecondReading.r, some "right side"),
+      (`ParamControls.headN, `ParamControls.nobite, `ParamControls.SecondReading.rN, some "no theorem"),
+      (`ParamControls.headN, `ParamControls.nobite2, `ParamControls.SecondReading.rN, some "does not state `¬"),
+      (`ParamControls.head, `ParamControls.case_split, `ParamControls.SecondReading.rC, some "contains the headline"),
+      (`ParamControls.head, `ParamControls.wrong_rd, `ParamControls.SecondReading.r, some "is not the reading"),
+      (`ParamControls.head, `ParamControls.not_rd, `ParamControls.other, some "is not a `def"),
+      (`ParamControls.headZ, `ParamControls.nolit, `ParamControls.SecondReading.rZ, some "no real literal"),
+      (`ParamControls.head, `ParamControls.case_split2, `ParamControls.SecondReading.rD, some "keeps a numeral")] do
+    let faults ← liftTermElabM <| paramClosureFaults env isRd h t rn
+    match w with
+    | none => unless faults.isEmpty do throwError m!"parametric closure control {t}: valid closure rejected: {faults.toList}"
+    | some s => unless faults.any (fun f => (f.splitOn s).length > 1) do
+        throwError m!"parametric closure control {t}: forged closure not rejected for `{s}`: {faults.toList}"
+
 open Claims in
 set_option maxHeartbeats 0 in
 run_cmd do
@@ -776,19 +1096,29 @@ run_cmd do
         unless (← System.FilePath.pathExists path) do
           errors := errors.push s!"objections.txt: {path} does not exist"
         if summary.isEmpty then errors := errors.push s!"objections.txt: empty summary in {l}"
-        match resolve cands tn.trimAscii.copy with
-        | .ok t =>
-          let faults ← liftTermElabM <| closureFaults env (isCheckedConst env) isRd hn t
+        -- run 2026-11-26T0828Z: `closed by <theorem> reading <definition>`, checked by the parametric rule
+        let (tnS, rnS) := match tn.splitOn " reading " with
+          | [a, b] => (a.trimAscii.copy, some b.trimAscii.copy)
+          | _ => (tn.trimAscii.copy, none)
+        match resolve cands tnS, rnS.map (resolve cands ·) with
+        | .ok t, some (.ok rn) =>
+          let faults ← liftTermElabM <| paramClosureFaults env isRd hn t rn
           for f in faults do errors := errors.push s!"objections.txt: closure of the entry on {hn}: {f}"
           -- Suspended (run 2026-11-26T0228Z, red team BA round 2, runs/2026-11-26T0228Z/t5/RESULTS_BENCH.md): a
           -- 45-line metaprogram inlined the program's own proof of a headline (no theorem constant left) and threaded
           -- the reading's proof through it (no closed proof of a side left); `closureFaults` accepted `True ↔ H`.
           -- No closure is accepted until the rule decides by more than constant names (planned: a closure parametric
           -- in the headline's literals). `closureFaults` and its controls stay, as the rule under repair.
-          errors := errors.push s!"objections.txt: closure of the entry on {hn}: closures are suspended (red team BA round 2 forged one that the rule accepted; runs/2026-11-26T0228Z/t5/RESULTS_BENCH.md): the entry stays open"
+          -- Still suspended (run 2026-11-26T0828Z, red team BB, runs/2026-11-26T0828Z/t5/RESULTS_PARAM.md): the
+          -- parametric rule rejects both forgeries of red team BA and 4/4 honest bench closures pass it, but a reading
+          -- that restates the headline behind a disjunct true at a re-spelt literal (`c ≥ √(3.321992119 ^ 2) ∨ …`)
+          -- passes; a statement-shape rule cannot see a re-spelling, so closures wait for a check on the reading.
+          errors := errors.push s!"objections.txt: closure of the entry on {hn}: closures are suspended (red teams BA and BB forged closures that the rule accepted; runs/2026-11-26T0828Z/t5/RESULTS_PARAM.md): the entry stays open"
           closedObjs := closedObjs.insert hn (((closedObjs.find? hn).getD #[]).push
-            s!"raised in run {run}, its text written in {code path} (author prose, not printed on this page); closed by the Checked theorem {code t.toString}: a blind reader's statement of the source claim is equivalent to this statement, by a proof that uses no theorem of this program (checked by the generator of this page)")
-        | .error e => errors := errors.push s!"objections.txt: closure theorem: {e}"
+            s!"raised in run {run}, its text written in {code path} (author prose, not printed on this page); closed by the Checked theorem {code t.toString}: a blind reader's statement of the source claim, with the headline's literals made variables, is equivalent to the headline at every value of them, and the literals bite (checked by the generator of this page)")
+        | .ok _, none => errors := errors.push s!"objections.txt: fifth field must be `closed by <theorem> reading <definition>`: {l}"
+        | .error e, _ => errors := errors.push s!"objections.txt: closure theorem: {e}"
+        | _, some (.error e) => errors := errors.push s!"objections.txt: closure reading: {e}"
       | .error e, _ => errors := errors.push s!"objections.txt: {e}"
       | _, none => errors := errors.push s!"objections.txt: fifth field must be `closed by <theorem>`: {l}"
     | [h, run, path, summary] =>
@@ -835,12 +1165,12 @@ run_cmd do
     "objection that is not shown there has not been recorded as one. An objection's own words are author prose and",
     "are not printed: the record shows that it is open and where it is written. An objection is closed only by a",
     "Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a",
-    "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it) is equivalent",
-    "to the headline's statement, proved without any theorem of this program (only its definitions, Mathlib and lemmas",
-    "of that closure itself resting on the same: the generator of this page checks every constant of the proof, and of",
-    "those lemmas, and fails otherwise); the record then shows that it is",
+    "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it), with the",
+    "headline's numerical literals made variables, is equivalent to the headline's statement at every value of them,",
+    "with a second theorem that the headline is false at some value (the generator of this page checks both",
+    "statements and fails otherwise); the record then shows that it is",
     "closed and the name of that theorem. No other entry or text can mark an objection settled. At present no",
-    "closure is accepted: a red team made the generator accept a forged one (run 2026-11-26T0228Z), so every",
+    "closure is accepted: red teams made the generator accept forged ones (runs 2026-11-26T0228Z and 0828Z), so every",
     "recorded objection stays open until the rule is repaired.", "",
     "Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);",
     "`√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =",
@@ -999,12 +1329,12 @@ run_cmd do
     "objection that is not shown there has not been recorded as one. An objection's own words are author prose and",
     "are not printed: the record shows that it is open and where it is written. An objection is closed only by a",
     "Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a",
-    "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it) is equivalent",
-    "to the headline's statement, proved without any theorem of this program (only its definitions, Mathlib and lemmas",
-    "of that closure itself resting on the same: the generator of this page checks every constant of the proof, and of",
-    "those lemmas, and fails otherwise); the record then shows that it is",
+    "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it), with the",
+    "headline's numerical literals made variables, is equivalent to the headline's statement at every value of them,",
+    "with a second theorem that the headline is false at some value (the generator of this page checks both",
+    "statements and fails otherwise); the record then shows that it is",
     "closed and the name of that theorem. No other entry or text can mark an objection settled. At present no",
-    "closure is accepted: a red team made the generator accept a forged one (run 2026-11-26T0228Z), so every",
+    "closure is accepted: red teams made the generator accept forged ones (runs 2026-11-26T0228Z and 0828Z), so every",
     "recorded objection stays open until the rule is repaired.", ""]
   -- the notation and total-function paragraphs of the header are copied (they are fixed generator text)
   let notIdx := (out.toList.take hdrEnd).findIdx? (·.startsWith "Notation (Lean/Mathlib")

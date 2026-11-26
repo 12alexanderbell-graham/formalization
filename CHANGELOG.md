@@ -1208,3 +1208,10 @@
 - Part 1 by rotation. CI read: 45763705693 (0f19e0a) green on every job → `bonnor_ebert_turning_decay` PROVED.
 - Hypothesis 6 of `fs_neg_decay_max_shear` NEEDED (`Checked/Trust/NecessityCB.lean`): at β = −19/200 the reversed-flow solution translated to the zero of its stream function has a smaller wall shear than the attached solution. New: `RZero` (side condition), `RAssembleZ` (assembly naming the flow), six generated certificate modules. Scans for hypotheses 13 and 16 (both NEEDED by scan; plans in the run README).
 - Annex LIV: PROMPT working note; LEDGER experiment.
+
+## 2026-11-26T0828Z (scheduled run)
+- Env: repo ok (worked from origin/main, then `scripts/start_run.sh`); local Lean (elan), judge's build of 7800b90 restored by streaming, `lake build Checked`; subagents: Sonnet red teamer, one fork (bench).
+- CI: 45776804653 (7800b90, run 0628Z's final push) green on every job; nothing to promote.
+- Part 3 (rotation): closures of fidelity objections parametric in the headline's literals (`Claims.paramClosureFaults`, 13 controls): honest bench 4/4 accepted; red team BB forged 2/2 against the first version, both rejected by v2, a re-spelt variant still passes; closures stay suspended (pre-registered). Pages' header updated.
+- Annex LIV: PROMPT working note; LEDGER experiment and experiment check.
+- Next: CI read of the final push; then parts 2/5 by rotation.
