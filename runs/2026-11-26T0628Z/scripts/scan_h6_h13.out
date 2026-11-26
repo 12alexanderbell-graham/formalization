@@ -1,0 +1,5 @@
+beta=-0.02: attached s=0.442982, reversed s=-0.068558 | h13: eta_z=6.7012 f2(0)=-0.60124 q2(0)=0.127526 q2>0 after: True -> q2(0)>s_att? False | h6: eta*=9.0112 p(0)=0.63676 q(0)=0.406910 qmin after=0.285 -> q(0)<s_att? True
+beta=-0.05: attached s=0.400323, reversed s=-0.108295 | h13: eta_z=4.2711 f2(0)=-0.35269 q2(0)=0.137786 q2>0 after: True -> q2(0)>s_att? False | h6: eta*=6.1211 p(0)=0.43868 q(0)=0.323796 qmin after=0.00129 -> q(0)<s_att? True
+beta=-0.1: attached s=0.319270, reversed s=-0.140546 | h13: eta_z=2.8010 f2(0)=-0.18832 q2(0)=0.153122 q2>0 after: True -> q2(0)>s_att? False | h6: eta*=4.1310 p(0)=0.31961 q(0)=0.320617 qmin after=9.23e-07 -> q(0)<s_att? False
+beta=-0.15: attached s=0.216361, reversed s=-0.133421 | h13: eta_z=1.7707 f2(0)=-0.07073 q2(0)=0.134971 q2>0 after: True -> q2(0)>s_att? False | h6: eta*=2.6507 p(0)=0.17965 q(0)=0.273987 qmin after=1.75e-09 -> q(0)<s_att? False
+beta=-0.19: attached s=0.085700, reversed s=-0.071336 | h13: eta_z=0.7507 f2(0)=-0.00671 q2(0)=0.071347 q2>0 after: True -> q2(0)>s_att? False | h6: eta*=1.1207 p(0)=0.03942 q(0)=0.141787 qmin after=4.64e-12 -> q(0)<s_att? False
