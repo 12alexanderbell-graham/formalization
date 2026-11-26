@@ -415,6 +415,7 @@ Checked.Math.BonnorEbertMin.bonnor_ebert_min 5e78febf-doc12077961383547148230
 Checked.Math.BonnorEbertMin2.bonnor_ebert_second_min 211dc9b5-doc6575042979500888613
 Checked.Math.BonnorEbertMonotone.bonnor_ebert_extrema_monotone 2b5ab476-doc9046362567395020306
 Checked.Math.BonnorEbertTurningBounds.bonnor_ebert_turning_bounds e3c92a22-doc16407376693811397038
+Checked.Math.BonnorEbertTurningDecay.bonnor_ebert_turning_decay f675b526-doc1854474807209285694
 Checked.Math.BonnorEbertTurningRatio.bonnor_ebert_turning_ratio b794a0ba-doc7104134732076581917
 Checked.Math.Gelfand.gelfand_ball_critical 8bc55514-doc3099962857817823782
 Checked.Math.GelfandExists.exists_solution 20e32e81-doc6694226507590696985
@@ -2035,6 +2036,9 @@ doc:Checked.Math.BECellQ.bend_q -doc14287315386179610655
 doc:Checked.Math.BECellQ.bseg_q -doc3744640711232050682
 doc:Checked.Math.BECellQ.gpoly -doc1088457638110400929
 doc:Checked.Math.BECellQ.pp_box -doc12325479447397341371
+doc:Checked.Math.BEDecayCore.decay_main -doc947777642128584578
+doc:Checked.Math.BEDecayCore.decay_num -doc10935751721865998497
+doc:Checked.Math.BEDecayCore.exp_diff_le -doc10602473059092811284
 doc:Checked.Math.BEFocus.Dq -doc12995336492113868228
 doc:Checked.Math.BEFocus.Lq -doc15505186830665376285
 doc:Checked.Math.BEFocus.Sys.N_le -doc11027711937930042832
@@ -3985,6 +3989,8 @@ doc:Checked.Trust.SecondReading.beCountAtMin -doc12653250744879203728
 doc:Checked.Trust.SecondReading.beCountBelowFirstMin -doc1915231569646826532
 doc:Checked.Trust.SecondReading.beCountFallBand -doc8252738023252284533
 doc:Checked.Trust.SecondReading.beCountRiseBand -doc17105665134402497009
+doc:Checked.Trust.SecondReading.beDecayDevBound -doc208354479613295634
+doc:Checked.Trust.SecondReading.beDecayRadiusBound -doc7243179032949089055
 doc:Checked.Trust.SecondReading.beDecreaseEnd -doc16532489407231177751
 doc:Checked.Trust.SecondReading.beDecreaseRange -doc9770628648679435329
 doc:Checked.Trust.SecondReading.beDevQuot -doc845877310038361351
@@ -4678,6 +4684,7 @@ moduledoc:Checked.Math.BEAllMain -mdoc15004690954592089079
 moduledoc:Checked.Math.BEBoundsCore -mdoc17564774409425564117
 moduledoc:Checked.Math.BECellQ -mdoc10997157589943964423
 moduledoc:Checked.Math.BEChain -mdoc4330682546558219368
+moduledoc:Checked.Math.BEDecayCore -mdoc12119405242522630360
 moduledoc:Checked.Math.BEEnd -mdoc4819347929467238744
 moduledoc:Checked.Math.BEFocus -mdoc8362874408678743658
 moduledoc:Checked.Math.BEGlobalExists -mdoc12747628854684125886
@@ -4714,6 +4721,7 @@ moduledoc:Checked.Math.BonnorEbertMin2 -mdoc1599833873984954130
 moduledoc:Checked.Math.BonnorEbertMin -mdoc8384588527723447329
 moduledoc:Checked.Math.BonnorEbertMonotone -mdoc9214320537386287552
 moduledoc:Checked.Math.BonnorEbertTurningBounds -mdoc12266272523429983875
+moduledoc:Checked.Math.BonnorEbertTurningDecay -mdoc7637799813739362086
 moduledoc:Checked.Math.BonnorEbertTurningRatio -mdoc8842944109551458393
 moduledoc:Checked.Math.BonnorEbert -mdoc16108829127181183395
 moduledoc:Checked.Math.GCellQ -mdoc4960724099563984183
@@ -5044,6 +5052,7 @@ moduledoc:Checked.Trust.NecessityBX -mdoc712783761848533495
 moduledoc:Checked.Trust.NecessityBY -mdoc2412227483992831753
 moduledoc:Checked.Trust.NecessityBZ -mdoc14890039195938167804
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
+moduledoc:Checked.Trust.NecessityCA -mdoc3827288613451758149
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
 moduledoc:Checked.Trust.NecessityEta -mdoc18282187098395309792
@@ -5084,6 +5093,7 @@ moduledoc:Checked.Trust.SecondReadingBEAll -mdoc976914423985258474
 moduledoc:Checked.Trust.SecondReadingBECount -mdoc10532163440858416569
 moduledoc:Checked.Trust.SecondReadingBEMono -mdoc1596193682468258235
 moduledoc:Checked.Trust.SecondReadingBETurnBounds -mdoc12993501495399426859
+moduledoc:Checked.Trust.SecondReadingBETurnDecayB -mdoc16369658807461966994
 moduledoc:Checked.Trust.SecondReadingBETurnRatio -mdoc7577028597457292727
 moduledoc:Checked.Trust.SecondReadingBlasius -mdoc10558104316128241795
 moduledoc:Checked.Trust.SecondReadingBound -mdoc13469660202480217973
@@ -5151,4 +5161,4 @@ moduledoc:Checked.Trust.TranscriptionsM16 -mdoc724071430278849793
 moduledoc:Checked.Trust.TranscriptionsRecordsFS -mdoc4834107753252792229
 moduledoc:Checked.Trust.TranscriptionsRecords -mdoc17174146035823868542
 moduledoc:Checked.Trust.Transcriptions -mdoc2849983251243849643
-moduledoc:Checked.Trust.Witnesses -mdoc8709773180399690892
+moduledoc:Checked.Trust.Witnesses -mdoc6539140499779662872

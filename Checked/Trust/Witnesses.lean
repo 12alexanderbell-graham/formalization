@@ -116,6 +116,7 @@ import Checked.Math.GelfandTurningRatio
 import Checked.Math.GelfandTurningRadii
 import Checked.Math.BonnorEbertTurningRatio
 import Checked.Math.BonnorEbertTurningBounds
+import Checked.Math.BonnorEbertTurningDecay
 import Checked.Math.GelfandPDEBound
 import Checked.Math.GelfandTurningValuesFive
 import Checked.Cosmography.B1A3Bound
@@ -1359,6 +1360,14 @@ global regular solution. -/
 
 theorem bonnor_ebert_turning_bounds :
     nonvacuity% Checked.Math.BonnorEbertTurningBounds.bonnor_ebert_turning_bounds := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! The geometrically shrinking bounds on the extrema of the Bonnor–Ebert mass from index five on (run
+2026-11-26T0428Z): the same global regular solution. -/
+
+theorem bonnor_ebert_turning_decay :
+    nonvacuity% Checked.Math.BonnorEbertTurningDecay.bonnor_ebert_turning_decay := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 

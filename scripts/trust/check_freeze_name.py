@@ -22,6 +22,13 @@ statement's own source):
   DOCWORD   a docstring word that is not a FUNCTION word, not in prose_vocab.txt and not a word of an identifier of
             the statement: V1 fails at promotion unless the generated claim happens to contain it — reword it
             before freezing (run 2026-11-20T2228Z: 'classical', 'symmetry' cost a second ten-minute relock).
+With --file, also (run 2026-11-26T0428Z, annex LIV; see LEDGER) numerals of a statement raised to, or multiplied
+by, a power of a variable (`23 / 10 * (21 / 50) ^ n`) are reported:
+  LITERAL   such a numeral is on a comparison side that is not numerals only, so it is no certified target
+            (check_literals.py a2) and needs a blind literal reading, whose brief would have to state the program's
+            own constant (check_brief_leak.py fails it). Restate before freezing: bound existential constants by
+            numeral-only sides (`∃ c q : ℝ, c ≤ 23 / 10 ∧ 0 ≤ q ∧ q ≤ 21 / 50 ∧ ∀ n, … ≤ c * q ^ n`); run 0428Z
+            froze the first form and needed a second freeze and a second reader.
 Exit status 1 if any STRENGTH word is found (NEW and DOCWORD are advisory). Not a CI check: the binding checks
 are V8/V13 of check_claim_vocab.py on the promoted headline.
 """
@@ -72,6 +79,16 @@ def doc_words(doc, stmt, vocab):
     return bad
 
 
+NUMGROUP = r"(?:\d+(?:\.\d+)?(?:\s*/\s*\d+(?:\.\d+)?)?|\(\s*\d+(?:\.\d+)?\s*/\s*\d+(?:\.\d+)?\s*\))"
+POWLIT = re.compile(NUMGROUP + r"(?:\s*\*\s*" + NUMGROUP + r")?\s*(?:\*\s*[^\W\d][\w₀-₉']*\s*)?\^\s*[^\W\d][\w₀-₉']*")
+
+
+def power_literals(stmt):
+    """Spans where a numeral is raised to, or multiplies, a power of a variable (advisory; see LITERAL)."""
+    flat = re.sub(r"\s+", " ", stmt)
+    return [m.group(0).strip() for m in POWLIT.finditer(flat)]
+
+
 def main(argv):
     if not argv:
         print(__doc__)
@@ -98,6 +115,8 @@ def main(argv):
         for full, doc, stmt in docs_in(argv[1]):
             dw = doc_words(doc, stmt, vocab)
             print(f"{full}: docstring " + ("ok" if not dw else "DOCWORD " + ",".join(dw)))
+            lits = power_literals(stmt)
+            print(f"{full}: literals " + ("ok" if not lits else "LITERAL " + " | ".join(lits)))
     return 1 if bad else 0
 
 

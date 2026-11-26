@@ -308,6 +308,8 @@ import Work.Math.BonnorEbertTurningRatio
 import Work.Math.BonnorEbertTurningRatioBlindClosed
 import Work.Math.BonnorEbertTurningBounds
 import Work.Math.BonnorEbertTurningBoundsBlindClosed
+import Work.Math.BonnorEbertTurningDecay
+import Work.Math.BonnorEbertTurningDecayBlindClosed
 import Work.Math.GelfandTurningSevenBlindClosed
 import Work.Math.BonnorEbertAllBlind
 import Work.Math.BonnorEbertAllBlindClosed

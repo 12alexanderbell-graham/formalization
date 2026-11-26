@@ -1197,3 +1197,9 @@
 - Part 3 (rotation): the closure rule of fidelity objections measured on six honest closures of real headlines (6/6 falsely rejected, through proofs Lean abstracts out of definitions), repaired (6/7 accepted), attacked by a red team (round 1: 2/8 forgeries accepted through a helper clause of the repair, closed; round 2: 1/4 accepted by inlining the program's own proof, not closable by names). Closures suspended on the claims page; 16 controls of the rule kept.
 - Annex LIV: PROMPT working note (a rule that decides by constant names is beaten by inlining; test a trust rule on real data and attack it before any page relies on it); LEDGER experiment; run 0028Z's experiment not checkable here (no new plan with a library search).
 - Next: CI read of the final push; then parts 2/5 by rotation.
+## 2026-11-26T0428Z (scheduled run)
+- Env: repo ok (session clone reset to origin/main, then `scripts/start_run.sh`); local Lean (elan), judge's build of 3a7afbb restored by streaming, `lake build Checked`; subagents: Sonnet blind restater and two blind literal readers, Opus referee.
+- CI: 45752585104 (9b07719, run 0228Z's final push) green on every job; nothing to promote.
+- Parts 2/5 (rotation): new headline `bonnor_ebert_turning_decay`, freeze → Checked in one run, no new certificates: from index five on, the distance of the quotient of consecutive Bonnor–Ebert extremum radii (and of consecutive mass deviations from the singular value) to its limit is at most c₁ qⁿ (c₂ qⁿ) with c₁ ≤ 23/10, c₂ ≤ 3/20, 0 ≤ q ≤ 21/50. Referee STANDS; blind restatement closed in Lean; every hypothesis classified.
+- Annex LIV: `check_freeze_name.py --file` reports numerals beside a power of a variable (LITERAL); PROMPT working note; LEDGER experiment.
+- Next: CI read of the final push; then part 1 by rotation.
