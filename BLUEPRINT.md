@@ -613,5 +613,5 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## The Bonnor–Ebert mass extrema, bounds on consecutive radii and values from index five on by a constant times a power of a ratio (run 2026-11-26T0428Z)
 - `Checked/Math/BEDecayCore.lean`, `Checked/Math/BonnorEbertTurningDecay.lean`, `Checked/Trust/NecessityCA.lean`, `Checked/Trust/SecondReadingBETurnDecayB.lean`, `Work/Math/BonnorEbertTurningDecay.lean`, `Work/Math/BonnorEbertTurningDecayBlindClosed.lean`; the proof: `runs/2026-11-26T0428Z/README.md`.
 
-## Hypotheses of one statement: a translated reversed-flow solution (run 2026-11-26T0628Z)
-- `Checked/Trust/NecessityCB.lean`, `Checked/FSRev/RZero.lean`, `Checked/FSRev/RAssembleZ.lean`, `Checked/FSRev/RNinetyFiveOver.lean`, `Checked/FSRev/RNinetyFiveSlow.lean`, `Checked/FSRev/RNinetyFiveTube.lean`, `Checked/FSRev/RNinetyFiveZero.lean`, `Checked/FSAtt/RNinetyFiveLo.lean`, `Checked/FSAtt/RNinetyFiveHi.lean`; generators and scans: `runs/2026-11-26T0628Z/scripts/`.
+## Hypotheses of one statement (run 2026-11-26T0628Z)
+- `Checked/Trust/NecessityCB.lean`, `Checked/FSRev/RZero.lean`, `Checked/FSRev/RAssembleZ.lean`, `Checked/FSRev/RNinetyFiveOver.lean`, `Checked/FSRev/RNinetyFiveSlow.lean`, `Checked/FSRev/RNinetyFiveTube.lean`, `Checked/FSRev/RNinetyFiveZero.lean`, `Checked/FSAtt/RNinetyFiveLo.lean`, `Checked/FSAtt/RNinetyFiveHi.lean`; the scripts: `runs/2026-11-26T0628Z/scripts/`.
