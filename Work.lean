@@ -633,3 +633,4 @@ import Work.Quantum.RadialAssemble
 import Work.Quantum.RadialGlobal
 import Work.Quantum.H2Events
 import Work.Quantum.H2PlusConditional
+import Work.Quantum.RegularUnique
