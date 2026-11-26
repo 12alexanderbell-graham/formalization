@@ -68,8 +68,27 @@ echo "$TOOLCHAIN" > lean-toolchain
 {
   echo 'name = "externalreplay"'
   echo 'defaultTargets = []'
-  echo '[leanOptions]'
-  echo 'autoImplicit = false'
+  # The outside project's own Lean options (autoImplicit etc.), not ours: a proof written with
+  # autoImplicit on fails to elaborate with it off (T2 run 45869342368: "Unknown identifier X").
+  python3 - "$SRC" <<'PY2'
+import os, re, sys
+src = sys.argv[1]
+t, l = os.path.join(src, 'lakefile.toml'), os.path.join(src, 'lakefile.lean')
+opts = []
+if os.path.exists(t):
+    txt = open(t, encoding='utf-8').read()
+    m = re.search(r'^\[leanOptions\]\s*\n(.*?)(?=^\[|\Z)', txt, flags=re.M | re.S)
+    if m:
+        opts = [ln for ln in m.group(1).splitlines() if '=' in ln and not ln.strip().startswith('#')]
+elif os.path.exists(l):
+    txt = open(l, encoding='utf-8').read()
+    for name, val in re.findall(r'⟨`([\w.]+)\s*,\s*([^⟩]+)⟩', txt):
+        val = val.strip()
+        opts.append(f'"{name}" = {val}' if val in ('true', 'false') or val.isdigit() else f'"{name}" = "{val}"')
+print('[leanOptions]')
+for o in opts:
+    print(o)
+PY2
   echo '[[require]]'
   echo 'name = "mathlib"'
   echo 'git = "https://github.com/leanprover-community/mathlib4.git"'
