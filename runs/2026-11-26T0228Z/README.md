@@ -36,3 +36,4 @@
 ## End
 - Local: `scripts/start_run.sh`, judge's build of 3a7afbb restored by streaming, `lake build Checked` (3815 jobs), the bench and the controls against three versions of the rule, `Claims.lean` three times (314 claims; header changed twice), the round-1 and round-2 forgeries rerun by this run against the final rule, `check_claims_fresh.py`, `check_headline_mentions.py --base 3a7afbb`, goal guard, `validation/make_packet.py`, `records_check.py 3a7afbb`.
 - Message to Alexander (L.2): the closure route was forgeable and is suspended (seriously wrong: a page-level trust lever).
+- CI of this run's final push 9b07719: 45752585104 (queued 04:01Z); the next run reads it (section Next).
