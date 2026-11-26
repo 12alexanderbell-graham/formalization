@@ -1269,3 +1269,8 @@
 - CI: 45897833805 (dc0f6df) failure on `check_headline_mentions.py` (run 2028Z's README); repaired 01a8c77. Newest green: 2b0ad6a.
 - Parts 2/5: H₂⁺ route steps 1–3 proved in Work (nine new `Work/Quantum/` modules); the freeze PROVED-CONDITIONAL on five certificate facts (`RegularUnique.freeze_of_IVP_certificate`).
 - Annex LIV: commit-msg hook installed by `scripts/start_run.sh`; PROMPT working note; LEDGER experiments.
+
+## 2026-11-26T1529Z, continued (late verdicts; same run, `EXTERNAL_LOCK` still held)
+- Verdicts: target 1 (Navier–Stokes) DONE (run 45906952810: declarations identical, standard axioms, leanchecker 610/610, nanoda 94,715 declarations); target 2 DONE for 67.2% and Theorems 1–2, its (0,T) rate NOT DONE. Alexander notified (L.2).
+- Tools: `compare_decls.lean` (replaces the Match step); leanchecker parallel batches with OOM guard and single-module retry; leanchecker shards in `external.yml`; build directory cached across dispatches (S4 cycle–clique). Blockers rows updated.
+- Annex LIV: LEDGER experiment (external replay, second round).
