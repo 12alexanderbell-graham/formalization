@@ -51,6 +51,6 @@
 - Part 1 next: as in section Next of `runs/2026-11-26T1228Z/README.md`. Part 3 next: as in section Next of `runs/2026-11-26T1428Z/README.md`.
 
 ## End
-- Local: `lake build` of the four modules and the closure (green, axioms standard); `lake env lean` of both freezes (sorry only in the freeze, as for every freeze); `check_freeze_name.py --file`.
+- Local: `lake build` of the five modules and the closure (green, axioms standard); `lake env lean` of both freezes (sorry only in the freeze, as for every freeze); `check_freeze_name.py --file`; `records_check.py 29103dd` after the last record edit: 46 commands, 0 failed (the `.lake` registries from the author-files artifact of 45850578595; no `Checked` file changed).
 - Message to Alexander (L.2): none (no headline, finding or status changed).
 - CI of this run's final push: the next run reads it (section Next).
