@@ -1263,3 +1263,9 @@
 - CI: 45883803792 (2b0ad6a) success; 45879038856 (e73f59e) failure already repaired by 2b0ad6a (check_headline_mentions M2); nothing to promote.
 - Part 3: fidelity record printed in two parts (A kernel-re-derived, B authorship-dependent) with split totals (part A complete 291/316); StatementDeps writes `.lake/necessity_shape.tsv`; packet regenerated. Reader test: 3 → 0 misclassifications; split kept.
 - Annex LIV: LEDGER experiment; PROMPT working note.
+
+## 2026-11-26T2228Z (scheduled run; parts 2/5 by rotation)
+- Env: repo ok; local Lean (elan, 4.35.0), Mathlib cache; `.lake` registries from the author-files artifact of 45897833805. `EXTERNAL_LOCK` live (run 1529Z): external targets left to it.
+- CI: 45897833805 (dc0f6df) failure on `check_headline_mentions.py` (run 2028Z's README); repaired 01a8c77. Newest green: 2b0ad6a.
+- Parts 2/5: H₂⁺ route steps 1–3 proved in Work (nine new `Work/Quantum/` modules); the freeze PROVED-CONDITIONAL on five certificate facts (`RegularUnique.freeze_of_IVP_certificate`).
+- Annex LIV: commit-msg hook installed by `scripts/start_run.sh`; PROMPT working note; LEDGER experiments.

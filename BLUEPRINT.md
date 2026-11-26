@@ -636,3 +636,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Part 3: the fidelity record in two parts (run 2026-11-26T2028Z)
 - `scripts/trust/Claims.lean` (two-part Status line, split totals in both headers), `scripts/trust/StatementDeps.lean` (`.lake/necessity_shape.tsv`); reader test `runs/2026-11-26T2028Z/t5/` (brief, pages, results), page builder `runs/2026-11-26T2028Z/scripts/make_pages.py`.
+
+## The hydrogen molecular ion at R = 2 bohr: route steps 1–3, the conditional freeze (run 2026-11-26T2228Z)
+- Angular root: `Work/Quantum/AngularAssembly.lean` (`ab`, `ab_geom`, `g_continuousOn`, `g_root_unique`, `unique_root_continuous`, `angular_root`). Radial solution: `Work/Quantum/FrobParam.lean` → `RadialStart.lean` (`radial_ode`, `start_continuousOn`) → `RadialFlow.lean` (`exists_flow`, `flow_solves`) → `RadialAssemble.lean` (`radial_flow`) → `RadialGlobal.lean` (`glue_family`, `radial_global`). Shooting: `Work/Quantum/H2Events.lean` (`Setup`, `over_open`, `no_double_zero`, `shoot`). Assembly: `Work/Quantum/H2PlusConditional.lean` (`angular_eta`, `freeze_of_certificate`) → `Work/Quantum/RegularUnique.lean` (`regular_eq`, `UnderIVP`, `OverIVP`, `freeze_of_IVP_certificate`). Route and certificate plan: `runs/2026-11-26T1628Z/README.md` section Route; `runs/2026-11-26T2228Z/README.md` section Next.
