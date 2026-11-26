@@ -246,7 +246,7 @@ AGREE = re.compile(r"\s*(?:\([^)]*\)\s*)?(?:(?:is|are|both|each|all|now|shown|al
 PLAN = re.compile(r"\b(?:show|shows|showing|whether|need to|needs to|decide|determine|check|test|tested|testing|"
                   r"classify|settle|resolve|work out|try|to be|if|still|not yet|open|unclassified|unresolved|"
                   r"unchecked|undone|next|todo|to do|pending|remain|prove)\b", re.IGNORECASE)
-MATH_BEFORE = re.compile(r"(?:[−+\-/^{=≥≤<>·×*(\[≈~]|\b(?:was|were|previously|formerly|about|other|another)|\bof\s+[a-zα-ω]|"
+MATH_BEFORE = re.compile(r"(?:[−+\-/^{=≥≤<>·×*(\[≈~→√]|\b(?:was|were|previously|formerly|about|other|another)|\bof\s+[a-zα-ω]|"
                          r"\b(?:β|η|Ω|λ|v|x|t|K|k|q|p|f)\s*(?:=|≥|≤|<|>))\s*$")
 MATH_AFTER = re.compile(r"\s*(?:[/^{}·×*−+=]|\s[a-zα-ω]\b(?!\w))|\s+(?:min|minutes?|s|h|hours?|seconds?|digits|days?|GB|MB|"
                         r"times|cells|steps|modules|headlines|lines|runs|jobs|commands|files|items|words|readers|of\s+\d)\b")
@@ -550,6 +550,8 @@ def selftest():
         ("- with zero wall value it refutes `mono_lt` (hypothesis 1).", []),           # refutation states NEEDED
         ("- push (`mono_lt`: six new modules, data ≈ 2 min); the other 6 disclosed open.", []),  # durations, counts
         ("- Next: hypothesis 1 of `mono_lt` takes 6 min; then 6 of `mono_lt`.", [("FS.mono_lt", 1), ("FS.mono_lt", 6)]),
+        # run 2026-11-26T0028Z: a limit or root before a numeral is a formula (`p → 1`, `√10`), not hypothesis 1 / 10
+        ("- `mono_lt` (a solution with p → 1 and q < 0 somewhere, q(0) = 1/(2√10)): hypothesis 6 REDUNDANT.", []),
     ]
     cases3 = [  # S-N3: `core_pins` has no open hypothesis
         ("- the bundled condition of `core_pins` is still open.", [("Fid.core_pins", None)]),

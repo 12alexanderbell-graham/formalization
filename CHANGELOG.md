@@ -1185,3 +1185,9 @@
 - Parts 2/5 (rotation): new headline `bonnor_ebert_turning_bounds`, freeze → Checked in one run, no new certificates: for every extremum from index five on, the quotient of consecutive Bonnor–Ebert extremum radii is between 9.2 and 12.9 and the quotient of consecutive mass deviations from the singular value between −0.42 and −0.21. Referee STANDS; blind restatement closed in Lean; every hypothesis classified.
 - Annex LIV: PROMPT working note (a position fact about a named term of an existential sequence by uniqueness plus one added conjunct); LEDGER experiment.
 - Next: CI read of the final push; then part 1 by rotation.
+## 2026-11-26T0028Z (scheduled run)
+- Env: repo ok (session clone set to origin/main, then `scripts/start_run.sh`); local Lean (elan), judge's build of 91ca6ba restored by streaming, `lake build Checked`; no subagents.
+- CI: 45720073336 (91ca6ba, run 2228Z's final push) green on every job → `bonnor_ebert_turning_bounds` judged PROVED (STATE heading).
+- Part 1 (rotation): hypothesis 1 (`β < 0`) of `fs_neg_decay_equal` and of `fs_neg_decay_max_shear` REDUNDANT (`Checked/Trust/NecessityBZ.lean`): for β > 0 by scaling to the coefficient-1/β problem and the existing generic Crocco comparison; for β = 0 by the Blasius amplitude scaling. `fs_neg_decay_equal` fully classified.
+- Annex LIV: PROMPT working note (search for the lemma generic in its coefficient before planning a new proof); LEDGER experiment; run 1828Z's experiment checked (agreement).
+- Next: CI read of the final push; then part 3 by rotation.

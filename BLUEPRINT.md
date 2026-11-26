@@ -603,3 +603,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## The Bonnor–Ebert mass extrema, bounds on consecutive radii and values from index five on (run 2026-11-25T2228Z)
 - `Checked/Math/BEXi5.lean`, `Checked/Math/BEBoundsCore.lean`, `Checked/Math/BonnorEbertTurningBounds.lean`, `Checked/Trust/NecessityBY.lean`, `Checked/Trust/SecondReadingBETurnBounds.lean`, `Work/Math/BonnorEbertTurningBounds.lean`, `Work/Math/BonnorEbertTurningBoundsBlindClosed.lean`; the proof: `runs/2026-11-25T2228Z/README.md`.
+
+## Hypotheses of two statements (run 2026-11-26T0028Z)
+- `Checked/Trust/NecessityBZ.lean`.

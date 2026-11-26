@@ -3753,6 +3753,10 @@ doc:Checked.Trust.NecessityBG.gelfand_pde_radial_bound_r4 -doc132097493897874844
 doc:Checked.Trust.NecessityBH.gelfand_pde_bound_h2 -doc6338698529969769870
 doc:Checked.Trust.NecessityBH.gelfand_pde_bound_h3 -doc4955523389404440778
 doc:Checked.Trust.NecessityBH.gelfand_pde_bound_h4 -doc11920278759697110423
+doc:Checked.Trust.NecessityBZ.blasius_scale -doc11470153501862024663
+doc:Checked.Trust.NecessityBZ.blasius_wall_eq -doc3163368867914854525
+doc:Checked.Trust.NecessityBZ.nonneg_wall_eq -doc9892399626910855039
+doc:Checked.Trust.NecessityBZ.pos_wall_eq -doc12322008972844506766
 doc:Checked.Trust.NecessityEta.agree20_imp -doc9958743186863952861
 doc:Checked.Trust.NecessityEta.agree20 -doc9824130336149770711
 doc:Checked.Trust.NecessityEta.agree30_imp -doc6505485457868535128
@@ -5038,6 +5042,7 @@ moduledoc:Checked.Trust.NecessityBXCerts -mdoc1570953759623357388
 moduledoc:Checked.Trust.NecessityBXTools -mdoc10489175671028163248
 moduledoc:Checked.Trust.NecessityBX -mdoc712783761848533495
 moduledoc:Checked.Trust.NecessityBY -mdoc2412227483992831753
+moduledoc:Checked.Trust.NecessityBZ -mdoc14890039195938167804
 moduledoc:Checked.Trust.NecessityB -mdoc13207381625636191510
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
