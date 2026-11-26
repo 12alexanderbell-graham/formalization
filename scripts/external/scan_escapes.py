@@ -36,10 +36,30 @@ PATTERNS = {
 
 
 def strip(src):
-    src = re.sub(r'/-.*?-/', lambda m: '\n' * m.group(0).count('\n'), src, flags=re.S)
-    src = re.sub(r'--[^\n]*', '', src)
-    src = re.sub(r'"(?:\\.|[^"\\])*"', '""', src)
-    return src
+    """Remove comments (Lean block comments NEST: `/- a /- b -/ c -/` is one comment; a non-nesting
+    regex left the tail of a docstring as code and reported its example `axiom` lines, run
+    2026-11-26T1529Z, zeta-23 AdditiveCombination.lean) and string literals; keep line numbers."""
+    out, i, depth, n = [], 0, 0, len(src)
+    while i < n:
+        if src.startswith('/-', i):
+            depth += 1; i += 2; continue
+        if depth and src.startswith('-/', i):
+            depth -= 1; i += 2; continue
+        if depth:
+            if src[i] == '\n':
+                out.append('\n')
+            i += 1; continue
+        if src.startswith('--', i):
+            j = src.find('\n', i)
+            i = n if j < 0 else j
+            continue
+        if src[i] == '"':
+            j = i + 1
+            while j < n and src[j] != '"':
+                j += 2 if src[j] == '\\' else 1
+            out.append('""'); i = j + 1; continue
+        out.append(src[i]); i += 1
+    return ''.join(out)
 
 
 def closure(root, mods):

@@ -64,3 +64,11 @@ Reviews and audits of these results were not read before the verdicts below were
 ## Time
 
 T3: brief 18:00Z → DONE 18:14Z. T1: brief 17:07Z → closure 17:29Z. T2: brief 17:41Z → closure 17:57Z.
+
+## After the verdicts: comparison with human reviews (read after commit c275b8f)
+
+| target | humans found | system found | comparison |
+|---|---|---|---|
+| T1 | F. A. de Luca audit (github, pinned 8937a8f): own Clay spec + bridge, Comparator theorems ⟹ Clay (C)/(D), comparator/nanoda PASS, translation boundary named as the residual; incrediblecrab: rebuild + comparator two kernels + "trusted statement shown satisfiable"; Bastounis–Circelli–Hansen (arXiv 2610.08144): internal Lean lemmas differ from the written proof's lemmas (e.g. m+5 vs m+4 derivatives), no claim about the headline statement; zboi29 "counter-proof": by its own README a programme, not a completed disproof | frozen (C), (D) ⟹ blind reading of Clay (C), (D); zero data / zero solution pins (the satisfiability point); solution replay pending | **same finding as the human audits** at the statement level, reached independently (bridge + satisfiability). The NL-proof-vs-Lean-proof divergence is outside what the system checks: it certifies the stated theorem, not that the Lean proof follows the paper's argument — recorded as a scope note, not a defect of the result |
+| T2 | Anthropic's AUDIT.md: 0 axiom declarations, `#print axioms` standard for 27 statements; third-party static audit (aidilamrym-ops): static scan clean, 67.2% = truncation of 2 − 1/cMT = 0.672500…, no Lean run | headline covered, decimal certified in Lean, (0,T) **rate sentence of the paper UNCOVERED** (not mentioned by either human audit); our advisory scan first reported two `axiom` lines that are inside a docstring | **system found something the humans did not** (uncovered rate). **Humans were right where the system was wrong**: the axiom hits were a false positive of `scan_escapes.py` (Lean block comments nest; the regex did not) — fixed in this run and re-run: 0 axiom hits |
+| T3 | not compared (no review read) | DONE | — |
