@@ -36,4 +36,4 @@
 ## End
 - Local: `scripts/start_run.sh`, judge's build of 7800b90 restored by streaming, `lake build Checked` (3828 jobs), the parametric rule's controls, bench and forgeries against three versions of the rule (`t5/v2_all.out`, `t5/reading_check.out`), `Claims.lean` (315 claims; header changed; 13 new controls as planted), `StatementDeps.lean`, `check_claims_fresh.py`, `check_headline_mentions.py --base 7800b90`, goal guard, `records_check.py 7800b90` (46 commands, 0 failed).
 - Message to Alexander (L.2): none (closures were already suspended; no page entry changed).
-- CI of this run's final push: recorded by the next commit of this README.
+- CI of this run's final push abf1764: 45791006708 (started 09:20Z); the next run reads it (section Next).
