@@ -1224,3 +1224,8 @@
 - Annex LIV: LEDGER experiment (a family with eight consecutive parts-2/5 runs hands the next one to a screened candidate outside it) and experiment check (LITERAL at freeze time: kept).
 - CI of the final push a53280d: 45809568668 green on every job (read in the run): `gelfand_turning_decay` PROVED; L.2 line to Alexander.
 - Next: part 1 by rotation.
+
+## 2026-11-26T1228Z (scheduled run)
+- Part 1 by rotation. CI: no push with Lean changes after a53280d (45809568668 read green by run 1028Z).
+- Ten hypotheses NEEDED (`Checked/Trust/NecessityCD.lean`, `Checked/Trust/NecessityCE.lean`): `fs_neg_decay_max_shear` 13, `fs_neg_tenth_monotone_lt` 4, `fs_separation_equal` 4, 5, 13, 14, `F12_separation` 4, 5, 9, `fs_separation_below_printed` 9; open 26 → 16. New: the attached stack at a suction start (`Checked/FSAtt/Suction.lean`), the separation stack at a suction start and at a moving wall (`Checked/FSSep/SuctionSep.lean`, `WallSep.lean`), six generated chain modules.
+- Annex LIV: PROMPT working note; LEDGER experiment.

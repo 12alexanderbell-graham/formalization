@@ -531,6 +531,13 @@ import Checked.FSSep.UCrocco
 import Checked.FSSep.UCompare
 import Checked.FSSep.UPair
 import Checked.FSSep.SSlowSol
+import Checked.FSSep.SuctionSep
+import Checked.FSSep.SuctionSepOver
+import Checked.FSSep.SuctionSepSlow
+import Checked.FSSep.WallSep
+import Checked.FSSep.WallSepOver
+import Checked.FSSep.WallSepSlow
+import Checked.FSSep.SSlowFiveThree
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
 import Checked.FalknerSkan.SeparationPrinted
@@ -551,6 +558,8 @@ import Checked.FSAtt.AFlow
 import Checked.FSAtt.AUnclamp
 import Checked.FSAtt.AAssemble
 import Checked.FSAtt.AWindow
+import Checked.FSAtt.Suction
+import Checked.FSAtt.SuctionSlow
 import Checked.FSAtt.N1988Lo
 import Checked.FSAtt.N1988Hi
 import Checked.FSAtt.N1988Core
@@ -796,4 +805,6 @@ import Checked.FSRev.RNinetyFiveZero
 import Checked.FSAtt.RNinetyFiveLo
 import Checked.FSAtt.RNinetyFiveHi
 import Checked.Trust.NecessityCB
+import Checked.Trust.NecessityCD
+import Checked.Trust.NecessityCE
 import Checked.Trust.NecessityCC

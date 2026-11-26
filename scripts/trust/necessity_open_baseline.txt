@@ -4,10 +4,10 @@
 # naming it in backticks with `open <indices>`. Created run 2026-11-11T0028Z from the generated TRUST_MAP.md.
 FREta.eta_ratios | 3, 4
 FalknerSkan.Limit.fs_monotone_of_limit | 2, 6, 8
-FalknerSkan.NegDecay.fs_neg_decay_max_shear | 13, 16
-FalknerSkan.SeparationEqual.fs_separation_equal | 4, 5, 8, 13, 14, 17
-FalknerSkan.SeparationPrinted.fs_separation_below_printed | 4, 5, 8, 9
-FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt | 4, 7
+FalknerSkan.NegDecay.fs_neg_decay_max_shear | 16
+FalknerSkan.SeparationEqual.fs_separation_equal | 8, 17
+FalknerSkan.SeparationPrinted.fs_separation_below_printed | 4, 5, 8
+FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt | 7
 FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots | 4, 5
-Records.F12_separation | 4, 5, 8, 9
+Records.F12_separation | 8
 Math.GelfandPDEBound.gelfand_pde_bound | 1
