@@ -1,0 +1,15 @@
+1134d8de scratch: copy
+
+ Checked/Trust/SecondReadingGelfandCopy.lean | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+b0cb7761 scratch: reading
+
+ .../routedemo/SecondReadingGelfandCopy.lean                | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+ff7ffc78 scratch: brief
+
+ runs/2026-11-26T1428Z/routedemo/reader_brief.md | 5 +++++
+ 1 file changed, 5 insertions(+)
+check_blind_route: 1 second versions added or changed since 422b684ffe4d; ok
+check_brief_leak: 1 briefs of reader files new since 422b684ffe4d; ok
+check_provenance: 78 second-version modules, 6 baselined; ok

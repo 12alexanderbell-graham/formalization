@@ -1,0 +1,5 @@
+# Brief for a blind literal reading (Gelfand problem in the unit ball)
+
+Source: the Gelfand problem Δu + λ e^u = 0 in the unit ball of three-dimensional space, u = 0 on the sphere. Read
+the source's bound on λ for classical solutions and write it as a Lean `def gelfandCopyBound : Prop` in namespace
+`Checked.Trust.SecondReading`, importing only what you need. Write the number exactly as the source prints it.
