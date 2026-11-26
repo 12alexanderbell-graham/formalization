@@ -18,5 +18,9 @@
 # and the program writes that file). Run 2026-11-26T0228Z (closure bench, runs/2026-11-26T0228Z/t5/RESULTS_BENCH.md): proofs
 # Lean abstracts out of definitions (`d._proof_n`), equation lemmas (`d.eq_1`) and helper lemmas of the closure named
 # `<closure theorem>.<name>` are followed under the same rule, not rejected (the first rule rejected 6/6 honest closures).
+# SUSPENDED (same run, red team BA round 2): a metaprogram inlined the program's own proof of a headline and threaded
+# the reading's proof through it; closureFaults accepted `True <-> H`. Claims.lean now rejects every closure field
+# (the entry stays open) until the rule decides by more than constant names (planned: closures parametric in the
+# headline's literals, so that `R c <-> H c` must hold for every value c, not only the certified one).
 # check_claims.py O1 counts an entry by its first four fields. Started empty: objections raised
 # before this run were settled by re-freezes recorded in their run folders.

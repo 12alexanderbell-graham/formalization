@@ -57,9 +57,33 @@ of `gelfand_pde_bound` or `hiemenz_exists` with a reading that does not state th
   an honest bridge is a term in the reading's proof). With hole A closed, hole B alone admits only a re-proof of the
   headline from Mathlib alone (the residue recorded by test AZ: cheap only for statements Mathlib proves in a line).
 
-## 3. Round 2
+## 3. Round 2 (brief committed alone first: `redteam_brief_BA2.md`, 88b4a36)
 
-See `redteam_brief_BA2.md` (committed alone before round 2) and section 3 below once filled.
+Same red teamer, against the rule with hole A closed. Files `redteamBA2/`. 4 attempts, **1 accepted**
+(`body5.lean`, closure `Bench.g : True ↔` the statement of `gelfand_pde_bound`), one killed by memory
+(`hiemenz_exists_bounded`, same method), ablation `body7.lean` rejected.
+
+- **Method:** a 45-line metaprogram (`mp.lean`, `Bench.Forge.inl`) takes the program's proof of the headline
+  (`Checked.Math.GSymFree.bound_no_radial`), replaces every program theorem constant by its value, recursively, copies
+  each program definition that uses a theorem under `Bench.g.«<name>»` (one component below the closure, same
+  module: an own helper), and threads the reading's proof `rr` in with `Eq.mpr (True.rec … rr)`.
+- **What it passes:** the constant rule sees no theorem of the program (the proof is the program's, under other
+  names); the closed-subterm rule sees no closed proof of a side (hole B). Without the threading (`body7.lean`) the
+  closed-subterm rule rejects it.
+- **What it shows:** test AZ recorded hole B as cheap only for statements Mathlib proves in a line, costly for the
+  certified-number statements. That is refuted: any proof the program has can be inlined mechanically, so the
+  rule's two checks decide by names and by closed subterms, and neither separates an equivalence of meaning from an
+  equivalence of truth values for a statement the program has proved.
+- **Decision (pre-registered: an accepted forgery reaching the program's proof is fixed in this run):** the route is
+  **suspended**. `Claims.lean` turns every `closed by` field into a blocking error (the entry stays open); both
+  pages' header says that no closure is accepted at present and why. `objections.txt` has no entry, so no page
+  entry changes. `closureFaults` and its 16 controls stay as the rule under repair.
+- **Repair planned (next part-3 step):** a closure parametric in the headline's literals — the theorem states
+  `∀ c, R c ↔ H[c]` with every certified literal of H replaced by a variable and `H[c₀]` the headline at the printed
+  values. Proving both sides then needs `H[c]` for every `c`, which the program has not proved and which is false
+  wherever the literals bite (the program's bite and necessity checks measure that), so neither inlining nor
+  threading helps; `True ↔ H[c]` is false at a value where `H[c]` fails. Measure it on this bench (all six honest
+  bridges restated parametrically) and on both red-team forgeries before re-enabling.
 
 ## Controls
 

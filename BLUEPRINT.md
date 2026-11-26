@@ -606,3 +606,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Hypotheses of two statements (run 2026-11-26T0028Z)
 - `Checked/Trust/NecessityBZ.lean`.
+
+## Closures of fidelity objections: bench, red team, suspension (run 2026-11-26T0228Z)
+- `scripts/trust/Claims.lean` (`closureFaults`, its controls, the suspension), `scripts/trust/objections.txt`; the measure: `runs/2026-11-26T0228Z/t5/RESULTS_BENCH.md`.

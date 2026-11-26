@@ -21,7 +21,9 @@ Lean theorem in `Checked` stating that a blind reader's statement of the source 
 to the headline's statement, proved without any theorem of this program (only its definitions, Mathlib and lemmas
 of that closure itself resting on the same: the generator of this page checks every constant of the proof, and of
 those lemmas, and fails otherwise); the record then shows that it is
-closed and the name of that theorem. No other entry or text can mark an objection settled.
+closed and the name of that theorem. No other entry or text can mark an objection settled. At present no
+closure is accepted: a red team made the generator accept a forged one (run 2026-11-26T0228Z), so every
+recorded objection stays open until the rule is repaired.
 
 Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);
 `√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =

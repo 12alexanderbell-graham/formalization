@@ -780,6 +780,12 @@ run_cmd do
         | .ok t =>
           let faults ← liftTermElabM <| closureFaults env (isCheckedConst env) isRd hn t
           for f in faults do errors := errors.push s!"objections.txt: closure of the entry on {hn}: {f}"
+          -- Suspended (run 2026-11-26T0228Z, red team BA round 2, runs/2026-11-26T0228Z/t5/RESULTS_BENCH.md): a
+          -- 45-line metaprogram inlined the program's own proof of a headline (no theorem constant left) and threaded
+          -- the reading's proof through it (no closed proof of a side left); `closureFaults` accepted `True ↔ H`.
+          -- No closure is accepted until the rule decides by more than constant names (planned: a closure parametric
+          -- in the headline's literals). `closureFaults` and its controls stay, as the rule under repair.
+          errors := errors.push s!"objections.txt: closure of the entry on {hn}: closures are suspended (red team BA round 2 forged one that the rule accepted; runs/2026-11-26T0228Z/t5/RESULTS_BENCH.md): the entry stays open"
           closedObjs := closedObjs.insert hn (((closedObjs.find? hn).getD #[]).push
             s!"raised in run {run}, its text written in {code path} (author prose, not printed on this page); closed by the Checked theorem {code t.toString}: a blind reader's statement of the source claim is equivalent to this statement, by a proof that uses no theorem of this program (checked by the generator of this page)")
         | .error e => errors := errors.push s!"objections.txt: closure theorem: {e}"
@@ -833,7 +839,9 @@ run_cmd do
     "to the headline's statement, proved without any theorem of this program (only its definitions, Mathlib and lemmas",
     "of that closure itself resting on the same: the generator of this page checks every constant of the proof, and of",
     "those lemmas, and fails otherwise); the record then shows that it is",
-    "closed and the name of that theorem. No other entry or text can mark an objection settled.", "",
+    "closed and the name of that theorem. No other entry or text can mark an objection settled. At present no",
+    "closure is accepted: a red team made the generator accept a forged one (run 2026-11-26T0228Z), so every",
+    "recorded objection stays open until the rule is repaired.", "",
     "Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);",
     "`√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =",
     "derivative; `iteratedDeriv n f x` = n-th derivative; `HasDerivAt f f' x` = f has derivative f' at",
@@ -995,7 +1003,9 @@ run_cmd do
     "to the headline's statement, proved without any theorem of this program (only its definitions, Mathlib and lemmas",
     "of that closure itself resting on the same: the generator of this page checks every constant of the proof, and of",
     "those lemmas, and fails otherwise); the record then shows that it is",
-    "closed and the name of that theorem. No other entry or text can mark an objection settled.", ""]
+    "closed and the name of that theorem. No other entry or text can mark an objection settled. At present no",
+    "closure is accepted: a red team made the generator accept a forged one (run 2026-11-26T0228Z), so every",
+    "recorded objection stays open until the rule is repaired.", ""]
   -- the notation and total-function paragraphs of the header are copied (they are fixed generator text)
   let notIdx := (out.toList.take hdrEnd).findIdx? (·.startsWith "Notation (Lean/Mathlib")
   match notIdx with

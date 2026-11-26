@@ -1191,3 +1191,9 @@
 - Part 1 (rotation): hypothesis 1 (`β < 0`) of `fs_neg_decay_equal` and of `fs_neg_decay_max_shear` REDUNDANT (`Checked/Trust/NecessityBZ.lean`): for β > 0 by scaling to the coefficient-1/β problem and the existing generic Crocco comparison; for β = 0 by the Blasius amplitude scaling. `fs_neg_decay_equal` fully classified.
 - Annex LIV: PROMPT working note (search for the lemma generic in its coefficient before planning a new proof); LEDGER experiment; run 1828Z's experiment checked (agreement).
 - Next: CI read of the final push; then part 3 by rotation.
+## 2026-11-26T0228Z (scheduled run)
+- Env: repo ok (session clone set to origin/main, then `scripts/start_run.sh`); local Lean (elan), judge's build of 3a7afbb restored by streaming, `lake build Checked`; one Sonnet red teamer (two rounds).
+- CI: 45734700171 (3a7afbb, run 0028Z's final push) green on every job; nothing to promote.
+- Part 3 (rotation): the closure rule of fidelity objections measured on six honest closures of real headlines (6/6 falsely rejected, through proofs Lean abstracts out of definitions), repaired (6/7 accepted), attacked by a red team (round 1: 2/8 forgeries accepted through a helper clause of the repair, closed; round 2: 1/4 accepted by inlining the program's own proof, not closable by names). Closures suspended on the claims page; 16 controls of the rule kept.
+- Annex LIV: PROMPT working note (a rule that decides by constant names is beaten by inlining; test a trust rule on real data and attack it before any page relies on it); LEDGER experiment; run 0028Z's experiment not checkable here (no new plan with a library search).
+- Next: CI read of the final push; then parts 2/5 by rotation.
