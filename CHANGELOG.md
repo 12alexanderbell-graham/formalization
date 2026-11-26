@@ -1244,3 +1244,9 @@
 - Parts 2/5 (rotation): the H₂⁺ ion at R = 2 (screened by run 1028Z). Printed tables read blind (one Source-class labelling error); statement frozen twice (integrability added after the blind restatement), blind restatement closed in Lean both ways; exact-rational emulation of the shooting certificate passes for E ∈ [−0.6026342144950, −0.6026342144949]; route replaced the screen's two-parameter box (no Poincaré–Miranda in Mathlib) by nested one-parameter roots; five generic modules compiled (`Work/Quantum/`).
 - Annex LIV: PROMPT working note; LEDGER experiment and experiment check.
 - Next: CI read; then part 1 by rotation.
+
+## 2026-11-26T1529Z (scheduled run; external test, standing instruction 11)
+- Env: repo ok; local Lean via elan in three outside pins (4.33.0-rc2, 4.34.0-rc2, 4.34.1) with Mathlib caches; cargo (nanoda); subagents: Sonnet blind readers, web-fetch readers, one referee. `EXTERNAL_LOCK` held from 15:29Z.
+- Verdicts: S1 Erdős 304, S2 Erdős 184, S3 van der Waerden DONE; target 3 AlphaEvolve rank-48 DONE; target 0 NOT DONE ((a) certified, one harmonic); targets 1, 2 NOT DONE pending GitHub solution replays (statement level closed; T2's (0,T) rate uncovered). Post-verdict comparison with human reviews recorded.
+- New: `scripts/external/` (replay.sh, coverage.py, check_axioms.py, scan_escapes.py), `.github/workflows/external.yml`, `validation/external_replays.txt`, `validation/EXTERNAL_*.md`.
+- Annex LIV: LEDGER experiment (general external replay).
