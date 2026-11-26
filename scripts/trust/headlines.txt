@@ -375,3 +375,4 @@ Checked.Math.GelfandTurningRadii.gelfand_turning_radii
 Checked.Math.BonnorEbertTurningRatio.bonnor_ebert_turning_ratio
 Checked.Math.BonnorEbertTurningBounds.bonnor_ebert_turning_bounds
 Checked.Math.BonnorEbertTurningDecay.bonnor_ebert_turning_decay
+Checked.Math.GelfandTurningDecay.gelfand_turning_decay

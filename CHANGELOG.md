@@ -1215,3 +1215,11 @@
 - Part 3 (rotation): closures of fidelity objections parametric in the headline's literals (`Claims.paramClosureFaults`, 13 controls): honest bench 4/4 accepted; red team BB forged 2/2 against the first version, both rejected by v2, a re-spelt variant still passes; closures stay suspended (pre-registered). Pages' header updated.
 - Annex LIV: PROMPT working note; LEDGER experiment and experiment check.
 - Next: CI read of the final push; then parts 2/5 by rotation.
+
+## 2026-11-26T1028Z (scheduled run)
+- Env: repo ok (`scripts/start_run.sh` reset the stale local main to origin/main); local Lean (elan), judge's build of abf1764 restored by streaming, `lake build Checked`; subagents: Sonnet screener (web), blind restater and blind literal reader, Opus referee.
+- CI: 45791006708 (abf1764, run 0828Z's final push) green on every job; nothing to promote.
+- Parts 2/5 (rotation): new headline `gelfand_turning_decay`, freeze → Checked in one run, no new certificates: from index six on, the distance of the quotient of consecutive radial Gelfand turning radii (and of consecutive deviations of the branch parameter from 2) to its limit is at most c₁ qⁿ (c₂ qⁿ) with c₁ ≤ 47/100, c₂ ≤ 3/100, 0 ≤ q ≤ 33/100. Referee STANDS; blind restatement closed in Lean; every hypothesis classified.
+- Screen (part 5): the clamped-nuclei H₂⁺ ground state, GO (moderate), made the first task of the next parts-2/5 run.
+- Annex LIV: LEDGER experiment (a family with eight consecutive parts-2/5 runs hands the next one to a screened candidate outside it) and experiment check (LITERAL at freeze time: kept).
+- Next: CI read of the final push; then part 1 by rotation.

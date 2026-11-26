@@ -117,6 +117,7 @@ import Checked.Math.GelfandTurningRadii
 import Checked.Math.BonnorEbertTurningRatio
 import Checked.Math.BonnorEbertTurningBounds
 import Checked.Math.BonnorEbertTurningDecay
+import Checked.Math.GelfandTurningDecay
 import Checked.Math.GelfandPDEBound
 import Checked.Math.GelfandTurningValuesFive
 import Checked.Cosmography.B1A3Bound
@@ -1368,6 +1369,14 @@ theorem bonnor_ebert_turning_bounds :
 
 theorem bonnor_ebert_turning_decay :
     nonvacuity% Checked.Math.BonnorEbertTurningDecay.bonnor_ebert_turning_decay := by
+  obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
+  exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
+
+/-! The geometrically shrinking bounds on the turning points of the radial Gelfand branch from index six on (run
+2026-11-26T1028Z): the same global regular solution. -/
+
+theorem gelfand_turning_decay :
+    nonvacuity% Checked.Math.GelfandTurningDecay.gelfand_turning_decay := by
   obtain ⟨w, φ, hw, hφ0, hφ, h0⟩ := Checked.Math.BEGlobalExists.exists_global
   exact ⟨w, φ, hw, hφ0, hφ, h0, trivial⟩
 

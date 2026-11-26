@@ -323,6 +323,7 @@ import Checked.Trust.SecondReadingGelfandSixthTurn
 import Checked.Trust.SecondReadingGelfandSeventhTurn
 import Checked.Trust.SecondReadingGelfandTurnRatio
 import Checked.Trust.SecondReadingGelfandTurnRadii
+import Checked.Trust.SecondReadingGelfandTurnDecay
 import Checked.Trust.SecondReadingGelfandRadiiBand
 import Checked.Trust.SecondReadingBETurnRatio
 import Checked.Trust.SecondReadingBETurnBounds
@@ -334,6 +335,8 @@ import Checked.Math.GelfandTurningRatio
 import Checked.Math.GelfandLam6Pos
 import Checked.Math.GelfandRadiiCore
 import Checked.Math.GelfandTurningRadii
+import Checked.Math.GelfandDecayCore
+import Checked.Math.GelfandTurningDecay
 import Checked.Math.BERatioCore
 import Checked.Math.BonnorEbertTurningRatio
 import Checked.Math.BEXi5
@@ -793,3 +796,4 @@ import Checked.FSRev.RNinetyFiveZero
 import Checked.FSAtt.RNinetyFiveLo
 import Checked.FSAtt.RNinetyFiveHi
 import Checked.Trust.NecessityCB
+import Checked.Trust.NecessityCC

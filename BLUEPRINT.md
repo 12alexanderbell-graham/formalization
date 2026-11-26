@@ -618,3 +618,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Hypotheses of one statement (run 2026-11-26T0628Z)
 - `Checked/Trust/NecessityCB.lean`, `Checked/FSRev/RZero.lean`, `Checked/FSRev/RAssembleZ.lean`, `Checked/FSRev/RNinetyFiveOver.lean`, `Checked/FSRev/RNinetyFiveSlow.lean`, `Checked/FSRev/RNinetyFiveTube.lean`, `Checked/FSRev/RNinetyFiveZero.lean`, `Checked/FSAtt/RNinetyFiveLo.lean`, `Checked/FSAtt/RNinetyFiveHi.lean`; the scripts: `runs/2026-11-26T0628Z/scripts/`.
+
+## The radial Gelfand branch parameter extrema, bounds on consecutive radii and values from index six on by a constant times a power of a ratio (run 2026-11-26T1028Z)
+- `Checked/Math/GelfandDecayCore.lean`, `Checked/Math/GelfandTurningDecay.lean`, `Checked/Trust/NecessityCC.lean`, `Checked/Trust/SecondReadingGelfandTurnDecay.lean`, `Work/Math/GelfandTurningDecay.lean`, `Work/Math/GelfandTurningDecayBlindClosed.lean`; the proof: `runs/2026-11-26T1028Z/README.md`.

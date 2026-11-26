@@ -7,15 +7,15 @@ For each headline theorem: the program-written definitions its *statement* rests
 (printed formulas, source claims) rest on reading the source correctly (trust track T3).
 Pure formulas, series templates, remainders and specs are omitted from the table.
 
-Headlines: 315. Resting on no unpinned physics definition: 315.
-Non-vacuity (trust track T2): 193 headlines have hypotheses; 193 of them have a
+Headlines: 316. Resting on no unpinned physics definition: 316.
+Non-vacuity (trust track T2): 194 headlines have hypotheses; 194 of them have a
 machine-checked witness that all their hypotheses hold at once (`Checked/Trust/Witnesses.lean`,
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
-Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1078 hypotheses in 188 headlines;
-790 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
-262 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-26 open; headlines with every hypothesis classified: 163/188
+Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1082 hypotheses in 189 headlines;
+793 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+263 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
+26 open; headlines with every hypothesis classified: 164/189
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -353,6 +353,7 @@ the docstring says; universally bound parameters are not listed.
 | `Math.BonnorEbertTurningRatio.bonnor_ebert_turning_ratio` | — | — | — | `bonnor_ebert_turning_ratio` | — |
 | `Math.BonnorEbertTurningBounds.bonnor_ebert_turning_bounds` | — | — | — | `bonnor_ebert_turning_bounds` | — |
 | `Math.BonnorEbertTurningDecay.bonnor_ebert_turning_decay` | — | — | — | `bonnor_ebert_turning_decay` | — |
+| `Math.GelfandTurningDecay.gelfand_turning_decay` | — | — | — | `gelfand_turning_decay` | — |
 
 ## Hypothesis necessity, per headline
 
@@ -566,6 +567,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `Math.BonnorEbertTurningRatio.bonnor_ebert_turning_ratio` (4): needed 1 (`bonnor_ebert_turning_ratio_h1`), 3 (`bonnor_ebert_turning_ratio_h3`), 4 (`bonnor_ebert_turning_ratio_h4`); redundant 2 (`bonnor_ebert_turning_ratio_r2`)
 - `Math.BonnorEbertTurningBounds.bonnor_ebert_turning_bounds` (4): needed 1 (`bonnor_ebert_turning_bounds_h1`), 3 (`bonnor_ebert_turning_bounds_h3`), 4 (`bonnor_ebert_turning_bounds_h4`); redundant 2 (`bonnor_ebert_turning_bounds_r2`)
 - `Math.BonnorEbertTurningDecay.bonnor_ebert_turning_decay` (4): needed 1 (`bonnor_ebert_turning_decay_h1`), 3 (`bonnor_ebert_turning_decay_h3`), 4 (`bonnor_ebert_turning_decay_h4`); redundant 2 (`bonnor_ebert_turning_decay_r2`)
+- `Math.GelfandTurningDecay.gelfand_turning_decay` (4): needed 1 (`gelfand_turning_decay_h1`), 3 (`gelfand_turning_decay_h3`), 4 (`gelfand_turning_decay_h4`); redundant 2 (`gelfand_turning_decay_r2`)
 
 ## FORMULA, MATH and WITNESS definitions (second formulation)
 
