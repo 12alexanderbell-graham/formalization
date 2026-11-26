@@ -4,7 +4,7 @@
 
 **What can a scientist now trust without checking it themselves, that they could not before?** Which part of a claim's fidelity record still stands if the program's authors wrote every reading themselves: for each of the 316 headlines the Status line separates (A) non-vacuity, hypothesis necessity and shape, re-derived by the kernel from the statement, from (B) objection entries, blind readings, grandfathered literals and the specifications that pin definitions; 291/316 headlines have part A complete. Before, the record was one list and 2/3 readers counted a program-written pinning specification as kernel evidence.
 
-**Weakest unchecked step:** the specifications that pin definitions. 494 definition uses on the claims page rest on a specification the program wrote (the kernel checks only that it determines the definition); no part-B item covers them, and 6/6 readers named exactly this (the Robertson ODE system of `rob_state40`) as what an outside party should redo.
+**Weakest unchecked step:** the specifications that pin definitions. 494 definition uses on the claims page rest on a specification the program wrote (the kernel checks only that it determines the definition); no part-B item covers them, and 6/6 readers named exactly this as what an outside party should redo.
 
 ## Start
 - 20:28Z. Session clone detached at e8e94a4 (= origin/main); local `main` was stale and divergent, reset to origin/main (`git checkout -B main origin/main`; `scripts/start_run.sh` then found nothing local-only). No `LOCK`; LOCK taken f8ff7bc.

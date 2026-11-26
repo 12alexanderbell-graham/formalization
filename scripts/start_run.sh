@@ -61,6 +61,23 @@ lean --version
 lake exe cache get 2>&1 | tail -2
 pip install -q --break-system-packages markdown-it-py==4.2.0 cmarkgfm==2024.11.20 mpmath sympy >/dev/null 2>&1 || true
 
+# Run 2026-11-26T2228Z (annex LIV): run 2026-11-26T2028Z's final push failed CI on check_headline_mentions (a run
+# README line naming a headline), the same failure as run 2026-11-25T0028Z, although check_commit_msg.py --final
+# reruns that check: the check is a manual step and was not run on the last edit. Install it as the clone's
+# commit-msg hook so every commit runs it: a message with the skip token is checked as --skip (fast), any other
+# as --final (index, headline mentions, CLAIMS freshness). CHECK_COMMIT_MSG_HOOK=0 at commit time bypasses it.
+echo "== commit-msg hook"
+cat > .git/hooks/commit-msg <<'HOOK'
+#!/usr/bin/env bash
+# Installed by scripts/start_run.sh (run 2026-11-26T2228Z, annex LIV).
+[ "${CHECK_COMMIT_MSG_HOOK:-1}" = "0" ] && exit 0
+root="$(git rev-parse --show-toplevel)"
+if grep -qiE '\[\s*(skip ci|ci skip|no ci|skip actions|actions skip)\s*\]' "$1"; then kind=--skip; else kind=--final; fi
+exec python3 "$root/scripts/check_commit_msg.py" "$kind" "$1"
+HOOK
+chmod +x .git/hooks/commit-msg
+echo "installed .git/hooks/commit-msg (check_commit_msg.py on every commit)"
+
 echo "== next (by hand)"
 if [ -e .lake/build ]; then
   echo ".lake/build exists: lake build Checked (in the background; the tool call limit is two minutes)"
