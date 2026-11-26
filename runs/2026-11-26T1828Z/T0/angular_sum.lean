@@ -350,3 +350,4 @@ end ExternalT0.Angular
 #print axioms ExternalT0.Angular.pair_state_norm_diverges
 #print axioms ExternalT0.Angular.weighted_sum_iff
 #print axioms ExternalT0.Angular.card_harmonics
+#print axioms ExternalT0.Angular.Li2_ne_zero

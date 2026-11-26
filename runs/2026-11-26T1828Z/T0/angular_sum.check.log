@@ -1,0 +1,8 @@
+Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)
+'ExternalT0.Angular.harmonic_sum_diverges' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ExternalT0.Angular.pair_state_norm_diverges' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ExternalT0.Angular.weighted_sum_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ExternalT0.Angular.card_harmonics' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ExternalT0.Angular.Li2_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+EXIT 0
+leanchecker AngularSum (olean built with --root=<scratch>, LEAN_PATH=<scratch>:Mathlib): EXIT 0
