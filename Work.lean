@@ -619,3 +619,5 @@ import Work.Math.BonnorEbertCountBlindClosed
 import Work.Math.GMaxPrinciple
 import Work.Math.GRadialPoisson
 import Work.Math.GSymFree
+import Work.Quantum.H2Tail
+import Work.Quantum.H2PlusBlindClosed
