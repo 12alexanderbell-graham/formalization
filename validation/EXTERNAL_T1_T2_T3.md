@@ -33,9 +33,15 @@ Reviews and audits of these results were not read before the verdicts below were
 - Pins (`T1/pins.lean`): zero data satisfy the frozen data conditions and the zero solution satisfies the
   frozen solution notions on ℝ³ and the torus, so "no solution exists" is not true for a junk reason;
   `∞` in `ContDiff ℝ ∞` is C^∞, not ω.
-- **Blocking link: the solution replay** — closure of `NavierStokes.ComparatorSolution` is 610 modules,
-  ~382 k lines; building it is beyond this session (two cores); running on GitHub (`external.yml`, line
-  T1-navier-stokes). Until it reports, the claim "the Lean proof checks" rests on the authors' word.
+- **Solution replay, partly done:** GitHub run 45880627629 (job 140118837233): the 610-module closure built in
+  the pin (the Lean kernel accepted every declaration), and the declaration comparison found the two target
+  statements and all 86 other reachable challenge declarations identical to the solution's, with axioms
+  propext, Classical.choice, Quot.sound for both targets; it stopped on 9 private `local notation` syntax
+  declarations of the challenge (not referenced by any statement; the comparison now skips unreachable
+  declarations and lists them). **Blocking link:** the independent replays (leanchecker per module, nanoda)
+  of that closure, re-dispatched after the fix; NOT DONE until they report.
+  (The first attempt, run 45872140013, failed in our tool: copied `structure`s are new types — diagnosed in a
+  chat session, fixed by `compare_decls.lean`.)
 - Advisory scan: 65 `local notation` lines in the solution closure, no sorry/axiom/native_decide.
 
 ## Target 2 — "more than two thirds of the zeta zeros are simple and on the critical line" (Alpöge–Furman, argument by Claude; announced 41.6% → 67.2%) — **DONE** for the target claim (67.2%, counted as the paper counts) and Theorems 1–2 as stated; the paper's (0,T) rate remark is NOT DONE (no Lean statement)
