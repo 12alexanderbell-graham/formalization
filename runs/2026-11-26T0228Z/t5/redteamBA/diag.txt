@@ -1,0 +1,41 @@
+
+open Claims in
+run_cmd do
+  let env ← getEnv
+  let some (.thmInfo tv) := env.find? `Checked | throwError "no"
+  let hty := (env.find? `Checked.Math.GelfandPDEBound.gelfand_pde_bound).get!.type
+  let mut subs : Std.HashSet Expr := {}
+  let mut stack : Array Expr := #[tv.value]
+  -- also values of every prog theorem reachable (approximate: all Checked.Math.* constants used)
+  let mut seen : NameSet := {}
+  let mut todo := tv.value.getUsedConstants
+  while !todo.isEmpty do
+    let c := todo.back!; todo := todo.pop
+    if seen.contains c || !(isCheckedConst env c) then continue
+    seen := seen.insert c
+    match env.find? c with
+    | some (.thmInfo d) => stack := stack.push d.value; todo := todo ++ d.value.getUsedConstants
+    | some (.defnInfo d) => todo := todo ++ d.value.getUsedConstants
+    | _ => pure ()
+  logInfo m!"{seen.size} program consts reached"
+  let mut n := 0
+  while !stack.isEmpty do
+    let e := stack.back!; stack := stack.pop
+    if subs.contains e then continue
+    subs := subs.insert e
+    match e with
+    | .app f x => stack := (stack.push f).push x
+    | .lam _ d b _ => stack := (stack.push d).push b
+    | .forallE _ d b _ => stack := (stack.push d).push b
+    | .letE _ t v b _ => stack := ((stack.push t).push v).push b
+    | .mdata _ b => stack := stack.push b
+    | .proj _ _ b => stack := stack.push b
+    | _ => pure ()
+  for e in subs.toArray do
+    if e.hasLooseBVars || e.isSort || e.isMVar then continue
+    let ok ← liftTermElabM <| try
+        let ty ← inferType e
+        if !(← isProp ty) then pure false
+        else if ty == hty then pure true else withReducible (isDefEq ty hty)
+      catch _ => pure false
+    if ok then logInfo m!"HIT: {(toString (← ppExpr e)).take 80}"

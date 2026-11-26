@@ -1,0 +1,10 @@
+
+open Claims in
+run_cmd do
+  let env ← getEnv
+  let isProg := fun (c : Name) => isCheckedConst env c || (`Bench).isPrefixOf c
+  let isRd := fun (c : Name) => (`Bench.SecondReading).isPrefixOf c
+  for (head, t) in [(`Checked.Hiemenz.hiemenz_exists, `Checked), (`Checked.Hiemenz.hiemenz_exists, `Bench.d2)] do
+    let faults ← liftTermElabM <| closureFaults env isProg isRd head t
+    if faults.isEmpty then logInfo m!"BENCH {t}: ACCEPTED"
+    else logInfo m!"BENCH {t}: REJECTED ({faults.size}): {faults.toList}"

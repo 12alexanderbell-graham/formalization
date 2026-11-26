@@ -99,7 +99,7 @@ honest closures of real headlines, all through proofs Lean abstracts out of defi
 `(9 + 1).AtLeastTwo` for a numeral 10), one also through an equation lemma (`d.eq_1`, from `rw [d]`) and one through
 Mathlib-only helper lemmas. Those three kinds are now followed instead of rejected (their statements and proofs under
 the same rules, their proofs scanned by the closed-subterm rule); a helper counts as the closure's own only when it is
-named `<closure theorem>.<name>`. -/
+named `<closure theorem>.<name>` (one component more) and declared in the closure's module (red team BA). -/
 def closureFaults (env : Environment) (isProg : Name → Bool) (isReading : Name → Bool) (head t : Name) :
     MetaM (Array String) := do
   let some ci := env.find? t | return #[s!"closure theorem {t} not found"]
@@ -155,7 +155,12 @@ def closureFaults (env : Environment) (isProg : Name → Bool) (isReading : Name
       | .str d s => (Lean.Meta.isEqnReservedNameSuffix s || s == "eq_def" || s == "eq_unfold") &&
           (match env.find? d with | some (.defnInfo _) => true | _ => false)
       | _ => false
-    let follow := isAux c || t.isPrefixOf c || isEqn
+    -- the closure's own helper: exactly one name component below the closure theorem, in the closure's own module
+    -- (red team BA, run 2026-11-26T0228Z: with `t.isPrefixOf c`, a closure theorem named `Checked` made every theorem
+    -- of the program its own helper; two forged closures of real headlines passed)
+    let ownHelper := (match c with | .str p _ => p == t | _ => false) &&
+      env.getModuleIdxFor? c == env.getModuleIdxFor? t
+    let follow := isAux c || ownHelper || isEqn
     if isP && !follow then
       bad := bad.push s!"the proof of {t} uses the program's theorem {c} (a closure must hold by unfolding and Mathlib; a helper of the closure itself must be named `{t}.<name>`)"
       continue
@@ -498,7 +503,7 @@ def explain (ctx : Ctx) (d : Name) : MetaM String := do
 end Claims
 
 /-! Planted controls of `Claims.closureFaults` (run 2026-11-25T2028Z): a fake headline, a fake blind reading, one
-valid closures and six forged ones (run 2026-11-26T0228Z: four more valid, four more forged). The generator fails before writing any page unless the valid one passes and each
+valid closures and six forged ones (run 2026-11-26T0228Z: three more valid, five more forged). The generator fails before writing any page unless the valid one passes and each
 forged one is rejected for the reason it plants. -/
 namespace ClosureControls
 def SecondReading.reading : Prop := ∀ m : ℕ, m + 0 = m
@@ -548,7 +553,12 @@ theorem helper_prog : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_tr
 theorem fake._proof_1 : ∀ n : ℕ, n + 0 = n := head
 /-- forged: a theorem of the program given an auxiliary's name -/
 theorem aux_named : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_true trivial fake._proof_1
+theorem Deep.strong : (∀ n : ℕ, n + 0 = n) ∧ True := ⟨head, trivial⟩
 end ClosureControls
+/-- forged (red team BA): a closure theorem named like the program's root namespace, so that every theorem of the
+program is a name below it -/
+theorem ClosureControls : ClosureControls.SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n :=
+  ⟨fun _ => ClosureControls.Deep.strong.1, fun _ => trivial⟩
 
 open Claims in
 run_cmd do
@@ -562,6 +572,7 @@ run_cmd do
     (`ClosureControls.helper_both, some "contains a proof of one side"),
     (`ClosureControls.helper_prog, some "theorem ClosureControls.head"),
     (`ClosureControls.aux_named, some "theorem ClosureControls.head"),
+    (`ClosureControls, some "theorem ClosureControls.Deep.strong"),
     (`ClosureControls.good, none),
     (`ClosureControls.good_congr, none),
     (`ClosureControls.reproves, some "contains a proof of one side"),
