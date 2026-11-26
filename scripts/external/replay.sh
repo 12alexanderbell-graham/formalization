@@ -130,7 +130,31 @@ for e in ${EXTRA:-}; do
   grep "depends on axioms" "check_$mod.log" || true
 done
 EXTRA_LIBS=$(echo "$EXTRA_LIBS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
-# 3. leanchecker on every copied module and the match module
+# 3. nanoda (optional) - runs BEFORE leanchecker so a leanchecker crash (memory, time) can never stop the
+#    independent check from reporting (Alexander, 2026-11-26: T1 verdict by morning whatever leanchecker does)
+if [ "${NANODA:-0}" = 1 ]; then
+  L4E=${L4E_DIR:-$WORK/_lean4export}; NAN=${NANODA_DIR:-$WORK/_nanoda_lib}
+  if [ ! -x "$L4E/.lake/build/bin/lean4export" ]; then
+    git clone -q https://github.com/leanprover/lean4export.git "$L4E"
+    tag=$(echo "$TOOLCHAIN" | sed -E 's/.*:(v[0-9]+\.[0-9]+)\..*/\1.0/')
+    (cd "$L4E" && git checkout -q "$tag" && echo "$TOOLCHAIN" > lean-toolchain && lake build > /dev/null)
+  fi
+  if [ ! -x "$NAN/target/release/nanoda_bin" ]; then
+    git clone -q https://github.com/ammkrn/nanoda_lib.git "$NAN"
+    (cd "$NAN" && git checkout -q 8de7e0c4ed3052745a7f8725164efd9e76d84c56 && cargo build --release -q)
+  fi
+  # shellcheck disable=SC2046
+  lake env "$L4E/.lake/build/bin/lean4export" "$SOL" -- $(cat target_names.txt) > export.ndjson
+  cat > nanoda.json <<CFG
+{ "export_file_path": "export.ndjson", "use_stdin": false,
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "unpermitted_axiom_hard_error": true, "nat_extension": true, "string_extension": true,
+  "print_success_message": true }
+CFG
+  "$NAN/target/release/nanoda_bin" nanoda.json > nanoda.log 2>&1 || { tail -20 nanoda.log; echo "FAIL: nanoda"; exit 1; }
+  tail -3 nanoda.log; echo "nanoda: OK ($(wc -l < export.ndjson) export lines)"; echo "== RESULT so far: match, axioms and nanoda PASSED (leanchecker follows)"
+fi
+# 4. leanchecker on every copied module and the match module
 # Each leanchecker invocation re-imports the environment of every module it is given, so batching saves
 # little; time is per module (S-egyptian on GitHub, batches of 8, one at a time: 61 modules in 46 min,
 # memory ≤ 1.7 GB of 16 GB; at that rate the 610-module Navier–Stokes closure would need ~7 h, over the
@@ -164,29 +188,6 @@ cat lc_logs/*.log > leanchecker.log
 [ "$(wc -w < lc_done.txt)" = "$LC_TOTAL" ] || { echo "FAIL: leanchecker ran $(wc -w < lc_done.txt) of $LC_TOTAL modules"; exit 1; }
 [ "$LC_FAIL" = 0 ] || { echo "FAIL: leanchecker ($LC_FAIL modules)"; exit 1; }
 echo "leanchecker: replayed $LC_TOTAL modules, batches of $LC_BATCH, $LC_JOBS at a time ($LC_RETRIED re-run singly after a batch failure): OK"
-# 4. nanoda (optional)
-if [ "${NANODA:-0}" = 1 ]; then
-  L4E=${L4E_DIR:-$WORK/_lean4export}; NAN=${NANODA_DIR:-$WORK/_nanoda_lib}
-  if [ ! -x "$L4E/.lake/build/bin/lean4export" ]; then
-    git clone -q https://github.com/leanprover/lean4export.git "$L4E"
-    tag=$(echo "$TOOLCHAIN" | sed -E 's/.*:(v[0-9]+\.[0-9]+)\..*/\1.0/')
-    (cd "$L4E" && git checkout -q "$tag" && echo "$TOOLCHAIN" > lean-toolchain && lake build > /dev/null)
-  fi
-  if [ ! -x "$NAN/target/release/nanoda_bin" ]; then
-    git clone -q https://github.com/ammkrn/nanoda_lib.git "$NAN"
-    (cd "$NAN" && git checkout -q 8de7e0c4ed3052745a7f8725164efd9e76d84c56 && cargo build --release -q)
-  fi
-  # shellcheck disable=SC2046
-  lake env "$L4E/.lake/build/bin/lean4export" "$SOL" -- $(cat target_names.txt) > export.ndjson
-  cat > nanoda.json <<CFG
-{ "export_file_path": "export.ndjson", "use_stdin": false,
-  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"],
-  "unpermitted_axiom_hard_error": true, "nat_extension": true, "string_extension": true,
-  "print_success_message": true }
-CFG
-  "$NAN/target/release/nanoda_bin" nanoda.json > nanoda.log 2>&1 || { tail -20 nanoda.log; echo "FAIL: nanoda"; exit 1; }
-  tail -3 nanoda.log; echo "nanoda: OK ($(wc -l < export.ndjson) export lines)"
-fi
 # 4b. coverage of the blind readings by the closures (informative: a verdict is DONE only at full coverage)
 READ_FILES=""; CLOS_FILES=""
 for e in ${EXTRA:-}; do
