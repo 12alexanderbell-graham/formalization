@@ -1,0 +1,1 @@
+R = 2.0: electronic E = -1.102634214490, total E + 1/R = -0.602634214490, separation constant A = -0.8117295846

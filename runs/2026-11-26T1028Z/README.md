@@ -17,6 +17,7 @@
 
 ## Screen (candidate (b), ten minutes)
 - Sonnet with web search, brief in the run's prompt (not a file): one candidate outside every family already certified. Result: **the clamped-nuclei H₂⁺ ground state** — the two-centre Coulomb problem separated in prolate spheroidal coordinates (two linked singular Sturm–Liouville problems in ξ ∈ [1, ∞) and η ∈ [−1, 1], unknowns E and the separation constant A); quantity the energy at R = 2 bohr, −0.6026342144949… Eh as reported (this is the total energy, with the nuclear repulsion 1/R = 0.5 included; the electronic eigenvalue E of the separated equations is then −1.1026342144949…: the run that takes it must check which one each table prints) (tables of 1953 and 1971, a variational value of 2006, multiprecision work 2021–22; citations in LEDGER). Prior-art search found no interval-arithmetic or computer-assisted proof of any H₂⁺ energy. Feasibility: regular singular points by Frobenius series (Taylor cells), a validated tail on [ξ₀, ∞), existence of the two-parameter root by a Miranda or interval-Newton box, ground state by node counts. Verdict GO (moderate); it confirms digits rather than refutes them. The screener's citations are from its search and memory, not checked against the tables: the run that takes it starts by reading the printed tables.
+- Floating-point scratch check of the separated equations (not evidence; `screen/h2plus_float.py`, output `screen/h2plus_float_out.txt`): the lowest even separation constant of the η problem in a Legendre basis and shooting of the ξ problem from ξ = 1 give the electronic energy −1.102634214490 at R = 2 (total −0.602634214490), agreeing with the reported value to about eleven digits, and the separation constant A ≈ −0.81173 in the convention of the script's docstring: the equations as written there are the ones to freeze.
 - Recorded as the first task of the next parts-2/5 run (STATE section Next; LEDGER experiment).
 
 ## What we did
@@ -47,4 +48,5 @@
 ## End
 - Local: `scripts/start_run.sh`, judge's build of abf1764 restored by streaming, `lake build Checked` (3832 jobs after the promotion), StatementDeps relock (new entries only, LEDGER), `Claims.lean` (316 claims), `check_freeze_name.py --file`, goal guard, `records_check.py abf1764` (section End is written before the final push; its result is in the final commit message).
 - Message to Alexander (L.2): none this run (the headline is PROVED only when CI is green; the next run sends the L.2 line, section Next).
-- CI of this run's final push: the next run reads it (section Next).
+- Final push a53280d; `records_check.py abf1764`: 46 commands, 0 failed.
+- CI of this run's final push a53280d: 45809568668 (started 11:19Z); the next run reads it (section Next), unless this run records it below.
