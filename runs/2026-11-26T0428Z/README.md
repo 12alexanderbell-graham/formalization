@@ -41,3 +41,6 @@
 - Part 3 next: as in section Next of `runs/2026-11-26T0228Z/README.md`.
 
 ## End
+- Local: `scripts/start_run.sh`, judge's build of 3a7afbb restored by streaming, `lake build Checked` (3819 jobs after the promotion), StatementDeps relock twice (the second after a module doc reworded for `check_prose.py`), `Claims.lean` (315 claims), every Python trust check, goal guard, `validation/make_packet.py`, `check_commit_msg.py --final`, `records_check.py 9b07719` (46 commands, 0 failed).
+- Message to Alexander (L.2): none this run (the promotion is reported when CI judges it, section Next).
+- CI of this run's final push 0f19e0a: 45763705693 (queued 05:45Z); the next run reads it (section Next).
