@@ -54,7 +54,7 @@ Section Next of run 1228Z: `fs_separation_below_printed` hypothesis 5 (p 0 = 0) 
 - Part 3 next: as in section Next of `runs/2026-11-26T0828Z/README.md`. Parts 2/5 next: as in section Next of `runs/2026-11-26T1628Z/README.md`.
 
 ## End
-- Local: elan, Lean 4.35.0, Mathlib cache; `lake env lean` of `T0/angular_sum.lean` (log saved), leanchecker on its olean; float scan for part 1. No `Checked` change; no judge's build restored.
+- Local: elan, Lean 4.35.0, Mathlib cache; judge build of 1a6d332 restored, StatementDeps and Claims regenerated, records_check 1a6d332 (46 commands, 0 failed); `lake env lean` of `T0/angular_sum.lean` (log saved), leanchecker on its olean; float scan for part 1. No `Checked` change; no judge's build restored.
 - CI read: 45867342244 (1a6d332, run 1628Z's final push) **success**; nothing to promote.
 - Message to Alexander (L.2): target 0 verdict update (angular sum: one harmonic only; harmonic sum diverges under the paper's definitions), sent as a notification.
 - Annex LIV: PROMPT working note (every assumption a reader lists gets a Lean answer in the same run; whole-paper search via the arXiv LaTeX source); LEDGER experiment.
