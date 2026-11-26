@@ -1,0 +1,18 @@
+BENCH Bench.c_hiemenz_exists: REJECTED (1): [the proof of Bench.c_hiemenz_exists uses the program's theorem Bench.SecondReading.HiemenzODE._proof_1 (a closure must hold by unfolding and Mathlib)]
+BENCH Bench.c_hiemenz_under: REJECTED (1): [the proof of Bench.c_hiemenz_under uses the program's theorem Bench.SecondReading.HiemenzODE._proof_1 (a closure must hold by unfolding and Mathlib)]
+BENCH Bench.c_homann_exists: REJECTED (2): [the proof of Bench.c_homann_exists uses the program's theorem Bench.SecondReading.HomannSol._proof_1 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_homann_exists uses the program's theorem Bench.SecondReading.HiemenzODE._proof_1 (a closure must hold by unfolding and Mathlib)]
+BENCH Bench.c_gelfand_bound: REJECTED (2): [the proof of Bench.c_gelfand_bound uses the program's theorem Bench.SecondReading.IsClassicalGelfandSolution._proof_1 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_gelfand_bound uses the program's theorem Bench.SecondReading.HomannSol._proof_1 (a closure must hold by unfolding and Mathlib)]
+BENCH Bench.c_a3_bound: REJECTED (8): [the proof of Bench.c_a3_bound uses the program's theorem Bench.mod_iff (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_a3_bound uses the program's theorem Bench.SecondReading.blindModulus._proof_2 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_a3_bound uses the program's theorem Bench.SecondReading.blindModulus._proof_1 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_a3_bound uses the program's theorem Bench.SecondReading.a3Bound._proof_1 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_a3_bound uses the program's theorem Bench.SecondReading.HomannSol._proof_1 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_a3_bound uses the program's theorem Bench.SecondReading.a3Bound._proof_2 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_a3_bound uses the program's theorem Bench.ld_pos (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_a3_bound uses the program's theorem Checked.Cosmography.B1.lusA2._proof_1 (a closure must hold by unfolding and Mathlib)]
+BENCH Bench.c_homann_exists_rw: REJECTED (4): [the proof of Bench.c_homann_exists_rw uses the program's theorem Bench.SecondReading.HomannSol.eq_1 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_homann_exists_rw uses the program's theorem Bench.SecondReading.HomannSol._proof_1 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_homann_exists_rw uses the program's theorem Bench.SecondReading.HiemenzODE._proof_1 (a closure must hold by unfolding and Mathlib),
+ the proof of Bench.c_homann_exists_rw uses the program's theorem Bench.SecondReading.homannExists.eq_1 (a closure must hold by unfolding and Mathlib)]

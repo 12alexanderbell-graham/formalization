@@ -93,7 +93,13 @@ proposition (a theorem, a proof stored as a definition) fails the closure, excep
 compiler-generated auxiliaries (internal names under it). Two proved propositions are always equivalent
 (`iff_of_true`); this rule is what makes the equivalence a statement about meaning: it has to hold by unfolding and
 by Mathlib, not because both sides are proved by the program. `isProg` says which constants are the program's
-(`isCheckedConst` on the page; the controls below pass their own namespace). -/
+(`isCheckedConst` on the page; the controls below pass their own namespace).
+Run 2026-11-26T0228Z (closure bench, `runs/2026-11-26T0228Z/t5/RESULTS_BENCH.md`): the first version rejected 6/6
+honest closures of real headlines, all through proofs Lean abstracts out of definitions (`d._proof_n`, e.g.
+`(9 + 1).AtLeastTwo` for a numeral 10), one also through an equation lemma (`d.eq_1`, from `rw [d]`) and one through
+Mathlib-only helper lemmas. Those three kinds are now followed instead of rejected (their statements and proofs under
+the same rules, their proofs scanned by the closed-subterm rule); a helper counts as the closure's own only when it is
+named `<closure theorem>.<name>`. -/
 def closureFaults (env : Environment) (isProg : Name → Bool) (isReading : Name → Bool) (head t : Name) :
     MetaM (Array String) := do
   let some ci := env.find? t | return #[s!"closure theorem {t} not found"]
@@ -122,9 +128,19 @@ def closureFaults (env : Environment) (isProg : Name → Bool) (isReading : Name
         | some (.defnInfo _) => pure ()
         | _ => bad := bad.push s!"the reading {rn} of {t} is not a definition"
     | _ => bad := bad.push s!"the reading side of {t} is not a named definition (a blind reader's `def … : Prop`)"
-  -- the proof uses no theorem of the program
+  -- the proof uses no theorem of the program. Followed, not rejected (run 2026-11-26T0228Z, closure bench
+  -- `runs/2026-11-26T0228Z/t5/`: the rule as first shipped rejected 6/6 honest closures of real headlines through
+  -- these alone): a proof Lean abstracts out of a definition's body (`d._proof_n`, `_auxLemma`: e.g.
+  -- `(9 + 1).AtLeastTwo` for the numeral 10 in any definition), an equation lemma of a definition (`d.eq_1`,
+  -- `d.eq_def`, made by `rw [d]` or `unfold d`), and the closure's own helpers (theorems named `<t>.<name>`). Each is
+  -- part of a definition's text or of the closure's own text, not a theorem of the program's library; its proof and
+  -- its statement are followed under the same rules, and its proof is scanned by the closed-subterm rule below.
+  let isAux := fun (c : Name) => match c with
+    | .str _ s => s.startsWith "_proof_" || s.startsWith "_auxLemma"
+    | _ => false
   let mut todo : Array Name := tv.value.getUsedConstants
   let mut seen : NameSet := {}
+  let mut followed : Array Expr := #[]
   while !todo.isEmpty do
     let c := todo.back!
     todo := todo.pop
@@ -132,11 +148,20 @@ def closureFaults (env : Environment) (isProg : Name → Bool) (isReading : Name
     seen := seen.insert c
     unless isProg c do continue
     let some cc := env.find? c | continue
-    let own := c.isInternal && t.isPrefixOf c
     let isP ← isProp cc.type
-    if isP && !own then
-      bad := bad.push s!"the proof of {t} uses the program's theorem {c} (a closure must hold by unfolding and Mathlib)"
+    -- an equation lemma of a definition (`isEqnThm` misses the ones `rw [d]` realizes; the name is enough, since a
+    -- followed constant is checked all the way down under the same rules)
+    let isEqn := match c with
+      | .str d s => (Lean.Meta.isEqnReservedNameSuffix s || s == "eq_def" || s == "eq_unfold") &&
+          (match env.find? d with | some (.defnInfo _) => true | _ => false)
+      | _ => false
+    let follow := isAux c || t.isPrefixOf c || isEqn
+    if isP && !follow then
+      bad := bad.push s!"the proof of {t} uses the program's theorem {c} (a closure must hold by unfolding and Mathlib; a helper of the closure itself must be named `{t}.<name>`)"
       continue
+    if isP then
+      todo := todo ++ cc.type.getUsedConstants
+      if let some v := cc.value? (allowOpaque := true) then followed := followed.push v
     match cc with
     | .defnInfo d => todo := todo ++ d.value.getUsedConstants
     | .thmInfo d => todo := todo ++ d.value.getUsedConstants
@@ -147,7 +172,7 @@ def closureFaults (env : Environment) (isProg : Name → Bool) (isReading : Name
   if let some r := other? then
     let sides := #[hty, r]
     let mut subs : Std.HashSet Expr := {}
-    let mut stack : Array Expr := #[tv.value]
+    let mut stack : Array Expr := #[tv.value] ++ followed
     while !stack.isEmpty do
       let e := stack.back!
       stack := stack.pop
@@ -473,7 +498,7 @@ def explain (ctx : Ctx) (d : Name) : MetaM String := do
 end Claims
 
 /-! Planted controls of `Claims.closureFaults` (run 2026-11-25T2028Z): a fake headline, a fake blind reading, one
-valid closures and six forged ones. The generator fails before writing any page unless the valid one passes and each
+valid closures and six forged ones (run 2026-11-26T0228Z: four more valid, four more forged). The generator fails before writing any page unless the valid one passes and each
 forged one is rejected for the reason it plants. -/
 namespace ClosureControls
 def SecondReading.reading : Prop := ∀ m : ℕ, m + 0 = m
@@ -500,6 +525,29 @@ theorem not_reading : other ↔ ∀ n : ℕ, n + 0 = n := Iff.rfl
 /-- forged: neither side is the headline's statement -/
 theorem wrong_side : SecondReading.reading ↔ ∀ n : ℕ, 0 + n = n := by
   simp only [SecondReading.reading, Nat.add_zero, Nat.zero_add]
+/-! Run 2026-11-26T0228Z: controls of the followed kinds (auxiliary proofs of definitions, equation lemmas, the
+closure's own helpers). The three valid ones were rejected by the first version of the rule. -/
+def SecondReading.reading10 : Prop := ∀ y : ℝ, y * 10 = 10 * y
+theorem head10 : ∀ x : ℝ, x * 10 = 10 * x := fun x => mul_comm x 10
+/-- valid: the reading's numeral 10 makes Lean abstract a proof of `(9 + 1).AtLeastTwo` out of its body -/
+theorem good_numeral : SecondReading.reading10 ↔ ∀ x : ℝ, x * 10 = 10 * x := Iff.rfl
+/-- valid: unfolding by `rw`, through the equation lemma of the reading -/
+theorem good_eqn : SecondReading.reading ↔ ∀ n : ℕ, n + 0 = n := by rw [SecondReading.reading]
+theorem good_helper.flip {P Q : Prop} (h : P ↔ Q) : Q ↔ P := h.symm
+/-- valid: a Mathlib-only helper named under the closure -/
+theorem good_helper : SecondReading.reading ↔ ∀ n : ℕ, n + 0 = n := good_helper.flip Iff.rfl
+theorem helper_side.side : ∀ n : ℕ, n + 0 = n := fun n => Nat.add_zero n
+/-- forged: a weak reading, the headline re-proved in a helper of the closure -/
+theorem helper_side : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_true trivial helper_side.side
+theorem helper_both.both : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_true trivial (fun n => Nat.add_zero n)
+/-- forged: the whole forged equivalence moved into a helper of the closure -/
+theorem helper_both : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := helper_both.both
+theorem helper_prog.via : ∀ n : ℕ, n + 0 = n := head
+/-- forged: a helper of the closure that uses the program's headline -/
+theorem helper_prog : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_true trivial helper_prog.via
+theorem fake._proof_1 : ∀ n : ℕ, n + 0 = n := head
+/-- forged: a theorem of the program given an auxiliary's name -/
+theorem aux_named : SecondReading.weak ↔ ∀ n : ℕ, n + 0 = n := iff_of_true trivial fake._proof_1
 end ClosureControls
 
 open Claims in
@@ -508,6 +556,12 @@ run_cmd do
   let isProg := fun (c : Name) => (`ClosureControls).isPrefixOf c
   let isRd := fun (c : Name) => (`ClosureControls.SecondReading).isPrefixOf c
   let cases : List (Name × Option String) := [
+    (`ClosureControls.good_eqn, none),
+    (`ClosureControls.good_helper, none),
+    (`ClosureControls.helper_side, some "contains a proof of one side"),
+    (`ClosureControls.helper_both, some "contains a proof of one side"),
+    (`ClosureControls.helper_prog, some "theorem ClosureControls.head"),
+    (`ClosureControls.aux_named, some "theorem ClosureControls.head"),
     (`ClosureControls.good, none),
     (`ClosureControls.good_congr, none),
     (`ClosureControls.reproves, some "contains a proof of one side"),
@@ -522,6 +576,9 @@ run_cmd do
     | none => unless faults.isEmpty do throwError m!"closure control {t}: valid closure rejected: {faults.toList}"
     | some w => unless faults.any (fun f => (f.splitOn w).length > 1) do
         throwError m!"closure control {t}: forged closure not rejected for `{w}`: {faults.toList}"
+  -- a headline with a numeral (run 2026-11-26T0228Z)
+  let faults ← liftTermElabM <| closureFaults env isProg isRd `ClosureControls.head10 `ClosureControls.good_numeral
+  unless faults.isEmpty do throwError m!"closure control good_numeral: valid closure rejected: {faults.toList}"
 
 open Claims in
 set_option maxHeartbeats 0 in
@@ -762,8 +819,9 @@ run_cmd do
     "are not printed: the record shows that it is open and where it is written. An objection is closed only by a",
     "Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a",
     "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it) is equivalent",
-    "to the headline's statement, proved without any theorem of this program (only its definitions and Mathlib: the",
-    "generator of this page checks every constant of the proof and fails otherwise); the record then shows that it is",
+    "to the headline's statement, proved without any theorem of this program (only its definitions, Mathlib and lemmas",
+    "of that closure itself resting on the same: the generator of this page checks every constant of the proof, and of",
+    "those lemmas, and fails otherwise); the record then shows that it is",
     "closed and the name of that theorem. No other entry or text can mark an objection settled.", "",
     "Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);",
     "`√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =",
@@ -923,8 +981,9 @@ run_cmd do
     "are not printed: the record shows that it is open and where it is written. An objection is closed only by a",
     "Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a",
     "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it) is equivalent",
-    "to the headline's statement, proved without any theorem of this program (only its definitions and Mathlib: the",
-    "generator of this page checks every constant of the proof and fails otherwise); the record then shows that it is",
+    "to the headline's statement, proved without any theorem of this program (only its definitions, Mathlib and lemmas",
+    "of that closure itself resting on the same: the generator of this page checks every constant of the proof, and of",
+    "those lemmas, and fails otherwise); the record then shows that it is",
     "closed and the name of that theorem. No other entry or text can mark an objection settled.", ""]
   -- the notation and total-function paragraphs of the header are copied (they are fixed generator text)
   let notIdx := (out.toList.take hdrEnd).findIdx? (·.startsWith "Notation (Lean/Mathlib")

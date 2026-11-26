@@ -26,8 +26,9 @@ objection that is not shown there has not been recorded as one. An objection's o
 are not printed: the record shows that it is open and where it is written. An objection is closed only by a
 Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a
 `Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it) is equivalent
-to the headline's statement, proved without any theorem of this program (only its definitions and Mathlib: the
-generator of this page checks every constant of the proof and fails otherwise); the record then shows that it is
+to the headline's statement, proved without any theorem of this program (only its definitions, Mathlib and lemmas
+of that closure itself resting on the same: the generator of this page checks every constant of the proof, and of
+those lemmas, and fails otherwise); the record then shows that it is
 closed and the name of that theorem. No other entry or text can mark an objection settled.
 
 Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);

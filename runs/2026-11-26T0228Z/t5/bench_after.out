@@ -1,0 +1,8 @@
+BENCH Bench.c_hiemenz_exists: ACCEPTED
+BENCH Bench.c_hiemenz_under: ACCEPTED
+BENCH Bench.c_homann_exists: ACCEPTED
+BENCH Bench.c_gelfand_bound: ACCEPTED
+BENCH Bench.c_a3_bound: REJECTED (2): [the proof of Bench.c_a3_bound uses the program's theorem Bench.mod_iff (a closure must hold by unfolding and Mathlib; a helper of the closure itself must be named `Bench.c_a3_bound.<name>`),
+ the proof of Bench.c_a3_bound uses the program's theorem Bench.ld_pos (a closure must hold by unfolding and Mathlib; a helper of the closure itself must be named `Bench.c_a3_bound.<name>`)]
+BENCH Bench.c_homann_exists_rw: ACCEPTED
+BENCH Bench.c_a3_bound_ns: ACCEPTED

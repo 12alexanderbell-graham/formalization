@@ -15,5 +15,8 @@
 # module (a blind reader's statement of the source claim; check_blind_route.py and check_brief_leak.py apply), proved
 # with no theorem of the program (every constant of the proof is followed through the program's definitions). A
 # referee verdict, a note or any other file never closes an entry (test AZ: readers cite on a path-only closure 2/2,
-# and the program writes that file). check_claims.py O1 counts an entry by its first four fields. Started empty: objections raised
+# and the program writes that file). Run 2026-11-26T0228Z (closure bench, runs/2026-11-26T0228Z/t5/RESULTS_BENCH.md): proofs
+# Lean abstracts out of definitions (`d._proof_n`), equation lemmas (`d.eq_1`) and helper lemmas of the closure named
+# `<closure theorem>.<name>` are followed under the same rule, not rejected (the first rule rejected 6/6 honest closures).
+# check_claims.py O1 counts an entry by its first four fields. Started empty: objections raised
 # before this run were settled by re-freezes recorded in their run folders.
