@@ -89,19 +89,18 @@ import re, sys
 ch, sol, matchmod, *thms = sys.argv[1:]
 src = open(ch, encoding='utf-8').read()
 body = re.sub(r'^\s*import\s+.*\n', '', src, flags=re.M)
-top = sorted({t.split('.')[0] for t in thms})
-for t in top:
-    body = re.sub(r'^namespace ' + t + r'\b', 'namespace Chal', body, flags=re.M)
-    body = re.sub(r'^end ' + t + r'\b', 'end Chal', body, flags=re.M)
+# The whole challenge goes inside `namespace Chal` (works whether its theorems are namespaced or at the
+# root; its definitions become Chal.* and cannot clash with the solution's namesakes).
 for t in thms:
     name = t.split('.')[-1]
     body, n = re.subn(r'(theorem\s+' + re.escape(name) + r'\b[\s\S]*?:=)\s*by\s*\n?\s*sorry',
-                      r'\1 by first | exact ' + t + ' | (apply ' + t + ' <;> assumption)', body, count=1)
+                      r'\1 by first | exact _root_.' + t + ' | (apply _root_.' + t + ' <;> assumption)', body, count=1)
     if n != 1: sys.exit(f'could not find `theorem {name} ... := by sorry` in {ch}')
 code_only = re.sub(r'--[^\n]*', '', re.sub(r'/-.*?-/', '', body, flags=re.S))
 if re.search(r'\bsorry\b', code_only): sys.exit('challenge has a sorry the script did not replace')
-chal_names = ['Chal.' + t.split('.', 1)[1] for t in thms]
-out = f'import {sol}\n' + body + '\n' + ''.join(f'#print axioms {c}\n' for c in chal_names)
+chal_names = ['Chal.' + t for t in thms]
+out = (f'import {sol}\n\nnamespace Chal\n' + body + '\nend Chal\n\n'
+       + ''.join(f'#print axioms {c}\n' for c in chal_names))
 open(matchmod.replace('.', '/') + '.lean', 'w', encoding='utf-8').write(out)
 open('match_names.txt', 'w').write(' '.join(chal_names) + '\n')
 PY
