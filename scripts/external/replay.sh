@@ -121,7 +121,12 @@ for e in ${EXTRA:-}; do
   lake build "$mod" > "build_$mod.log" 2>&1 || { tail -30 "build_$mod.log"; echo "FAIL: build $mod"; exit 1; }
   lake env lean "${mod//.//}.lean" > "check_$mod.log" 2>&1 || true
   if grep -q "error" "check_$mod.log"; then cat "check_$mod.log"; echo "FAIL: $mod has errors"; exit 1; fi
-  python3 "$HERE/check_axioms.py" "check_$mod.log" || { echo "FAIL: $mod axioms"; exit 1; }
+  # blind readings are statements with `sorry` by design: no axiom check; every other extra module
+  # (closures, pins) must print its axioms and they must be standard
+  case "$mod" in
+    Readings.*) ;;
+    *) python3 "$HERE/check_axioms.py" "check_$mod.log" || { echo "FAIL: $mod axioms"; exit 1; } ;;
+  esac
   grep "depends on axioms" "check_$mod.log" || true
 done
 EXTRA_LIBS=$(echo "$EXTRA_LIBS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
