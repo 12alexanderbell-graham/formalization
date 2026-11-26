@@ -35,3 +35,4 @@ Section Next of run 0028Z: hypotheses 6, 13 and 16 of `fs_neg_decay_max_shear` (
 - Local: `scripts/start_run.sh`, judge's build of 0f19e0a restored by streaming, `lake build Checked` (3828 jobs with the new modules), `lake env lean` of an axiom print (propext, Classical.choice, Quot.sound), StatementDeps relock, `Claims.lean`, the trust checks, `records_check.py 0f19e0a`.
 - CI read in this run: 45763705693 (0f19e0a) green on every job → `bonnor_ebert_turning_decay` judged PROVED.
 - Message to Alexander (L.2): `bonnor_ebert_turning_decay` PROVED (judged by CI on every job).
+- CI of this run's final push 7800b90: 45776804653 (started 07:38Z); the next run reads it (section Next).
