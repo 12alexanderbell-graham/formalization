@@ -1,0 +1,69 @@
+# External replays (standing instruction 11, run 2026-11-26T1529Z; annex LIV experiment, see LEDGER).
+# Strengthens the judge, weakens nothing: a separate workflow that replays outside results listed in
+# validation/external_replays.txt, each in the outside project's own Lean and Mathlib pin (which the
+# main judge, pinned to this repository's toolchain, cannot load). Per line: extract the import closure
+# of the solution module, build it with the Mathlib cache, check that the solution proves the frozen
+# challenge statement, `#print axioms`, leanchecker on every copied module, nanoda on the export of the
+# matched theorem, and build the program's blind readings / closures / pins against the same pin.
+name: External replay
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - validation/external_replays.txt
+      - scripts/external/**
+      - .github/workflows/external.yml
+
+permissions:
+  contents: read
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    outputs:
+      names: ${{ steps.m.outputs.names }}
+    steps:
+      - uses: actions/checkout@v5
+      - id: m
+        run: |
+          names=$(grep -v '^#' validation/external_replays.txt | grep -v '^\s*$' | cut -d'|' -f1 | sed 's/ *$//' | python3 -c "import json,sys; print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))")
+          echo "names=$names" >> "$GITHUB_OUTPUT"
+  replay:
+    needs: list
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        name: ${{ fromJSON(needs.list.outputs.names) }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Free disk and add swap
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          sudo fallocate -l 8G /extra-swap && sudo chmod 600 /extra-swap && sudo mkswap /extra-swap && sudo swapon /extra-swap || echo "swap not added"
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Read this line of the manifest
+        run: |
+          python3 - "${{ matrix.name }}" >> "$GITHUB_ENV" <<'PY'
+          import sys
+          for l in open('validation/external_replays.txt'):
+              if l.startswith('#') or not l.strip(): continue
+              f = [x.strip() for x in l.rstrip('\n').split('|')]
+              f += [''] * (8 - len(f))
+              if f[0] == sys.argv[1]:
+                  for k, v in zip(['X_NAME', 'X_URL', 'X_REV', 'X_SUB', 'X_SOL', 'X_CHAL', 'X_THMS', 'X_EXTRA'], f):
+                      print(f'{k}={v}')
+          PY
+      - name: Fetch the outside project at its pinned revision
+        run: |
+          mkdir outside && cd outside && git init -q && git remote add origin "$X_URL"
+          git fetch -q --depth 1 origin "$X_REV" && git checkout -q FETCH_HEAD
+          echo "fetched $X_URL at $(git rev-parse HEAD)"
+      - name: Replay (closure build, match, axioms, leanchecker, nanoda, program closures)
+        run: NANODA=1 EXTRA="$X_EXTRA" bash scripts/external/replay.sh "outside/$X_SUB" work "$X_SOL" "$X_CHAL" $X_THMS
