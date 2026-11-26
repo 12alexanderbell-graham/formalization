@@ -1167,6 +1167,15 @@ run_cmd do
     "registries CI checks, what has been machine-checked about the statement's meaning: a non-vacuity witness,",
     "how many hypotheses are shown needed or redundant, blind second readings of its literals, and its freeze.",
     "None of these proves that a statement matches its source; they are the record a fidelity objection meets.",
+    "**The record is printed in two parts** (run 2026-11-26T2028Z): **(A)** what the kernel re-derives from the",
+    "statement itself (the non-vacuity obligation and each hypothesis's necessity obligation are computed from the",
+    "statement by `Checked.Trust`, and a Checked theorem meets them), which holds whoever wrote the statement, the",
+    "witnesses and the proofs; and **(B)** what rests on who wrote a statement (objection entries, blind readings,",
+    "the specifications that pin definitions, second readings of definitions), which CI checks by route only.",
+    "Part A shows the statement is not vacuous and which hypotheses matter; it does not show that the statement",
+    "says what its source says. Part B is the only evidence of that, and it is evidence only as far as its writers",
+    "were independent of the authors, which no check on this repository can see (THE RESULT part 4, `validation/`).",
+    "SPLIT_TOTALS",
     "**What CI checks about a blind second reading is its route, not that its reader was blind:** its brief was",
     "committed before it and holds none of its numbers, and it was committed alone before its copy in `Checked`;",
     "a reading the authors wrote themselves, even a copy of the headline's own statement, passes the same checks",
@@ -1192,6 +1201,27 @@ run_cmd do
     "where f is not differentiable; an integral of a non-integrable function is 0. A claim that holds only",
     "because of one of these conventions says nothing about the mathematics outside the usual domain.", ""]
   let mut nDone := 0
+  let shapes : Std.HashMap String String ← do
+    let p : System.FilePath := ".lake/necessity_shape.tsv"
+    unless ← p.pathExists do
+      throwError "Claims.lean: .lake/necessity_shape.tsv is missing: run scripts/trust/StatementDeps.lean first"
+    let ls ← readLines p
+    pure <| ls.foldl (init := {}) fun m l => match l.splitOn "\t" with
+      | [n, v] => m.insert n v
+      | _ => m
+  -- totals of the two-part record (run 2026-11-26T2028Z)
+  let mut nAComplete := 0
+  let mut totNum := 0
+  let mut totNeed := 0
+  let mut totRed := 0
+  let mut totData := 0
+  let mut totOpen := 0
+  let mut totPin := 0
+  let mut totSec := 0
+  let mut totBare := 0
+  let mut nWithRdr := 0
+  let mut nWithBase := 0
+  let mut nWithObj := 0
   -- reader page CLAIMS_READER.md (run 2026-11-18T0828Z, rule 2 of `runs/2026-11-18T0828Z/t5/reader_brief.md`): this
   -- page without the author paraphrase blocks; `hdrEnd` = end of the header above, `paraSpans` = paraphrase blocks
   let hdrEnd := out.size
@@ -1285,7 +1315,36 @@ run_cmd do
       else s!"OPEN FIDELITY OBJECTIONS on record (`scripts/trust/objections.txt`): {objs.size}: {"; ".intercalate objs.toList}"
     unless frozenNames.contains hn do
       errors := errors.push s!"{hn} has no fingerprint in scripts/trust/frozen.txt"
-    out := out.push s!"**Status (generated):** {srcHead}the statement is proved in module {code modName} of `Checked`; axioms, computed by Lean when this page was generated: {", ".intercalate (axs.toList.map fun a => code a.toString)}. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source):** {objPart}; {nvPart}; {necPart}; {litPart}{basePart}; the statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources."
+    -- split of the record (run 2026-11-26T2028Z, part 3; section Next of runs/2026-11-26T1428Z/README.md): runs
+    -- 0228Z, 0828Z and 1428Z showed that every check on a reading certifies its route, not its author, so a copy
+    -- of the headline passes as a blind reading. What the kernel re-derives from the statement (the obligations
+    -- `nvObligation`, `necObligation`, `dropObligation` are computed from it) holds whoever wrote anything; the
+    -- rest is evidence only as far as its writers were independent. The line now says which is which, and the
+    -- header counts headlines whose part A is complete (the trust metric of this split).
+    -- shape entries (assumptions the numbering does not reach, or reaches only as a bundle), read from
+    -- `.lake/necessity_shape.tsv`, which StatementDeps.lean writes (CI and `records_check.py` run it first)
+    let shp := (shapes.get? hn.toString).getD ""
+    let aDone := (!nw || nvPart.startsWith "non-vacuity: the Checked theorem") && nOpen == 0 && shp.isEmpty
+    if aDone then nAComplete := nAComplete + 1
+    totNum := totNum + k; totNeed := totNeed + nNeed; totRed := totRed + nRed; totData := totData + nData; totOpen := totOpen + nOpen
+    let nPin := (defs.filter fun l => (l.splitOn "— **PINNED**").length > 1).size
+    let nSec := (defs.filter fun l => (l.splitOn "blind second formulation (").length > 1 ||
+      (l.splitOn "independent blind second reading of the source").length > 1).size
+    let nBare := defs.size - nPin - nSec
+    totPin := totPin + nPin; totSec := totSec + nSec; totBare := totBare + nBare
+    if !rdrs.isEmpty then nWithRdr := nWithRdr + 1
+    if (litBase.find? hn).isSome then nWithBase := nWithBase + 1
+    if !objs.isEmpty then nWithObj := nWithObj + 1
+    let shpPart := if shp.isEmpty then "no assumption outside the numbering (`TRUST_MAP.md`, shape)"
+      else s!"assumptions the numbering does not reach or reaches only formally (`TRUST_MAP.md`, shape): {shp}"
+    let why := (if nOpen > 0 then [s!"{nOpen} hypotheses open"] else []) ++
+      (if nw && !nvPart.startsWith "non-vacuity: the Checked theorem" then ["no non-vacuity witness"] else []) ++
+      (if shp.isEmpty then [] else ["shape entries"])
+    let aState := if aDone then "part A complete"
+      else s!"PART A INCOMPLETE ({", ".intercalate why})"
+    let defPart := if defs.isEmpty then "program definitions the claim uses: none"
+      else s!"program definitions the claim uses (listed under the claim): {nPin} pinned by a specification the program wrote (the kernel checks that the specification determines the definition, not that it says what the source means), {nSec} with a blind second reading or formulation, {nBare} with neither (only the formula printed is checked)"
+    out := out.push s!"**Status (generated):** {srcHead}the statement is proved in module {code modName} of `Checked`; axioms, computed by Lean when this page was generated: {", ".intercalate (axs.toList.map fun a => code a.toString)}. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source), in two parts. (A) Re-derived by the kernel from the statement; holds whoever wrote the statement, its witnesses and its proofs; shows the statement is not vacuous and which hypotheses matter, not that it says what its source says:** {nvPart}; {necPart}; {shpPart}; {aState}. **(B) Rests on who wrote a statement; CI checks the route of each item (commit order, briefs without the answer), not that its writer was independent of the authors, so each item is evidence of meaning only as far as that independence holds:** {objPart}; {litPart}{basePart}; {defPart}. The statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources."
     out := out.push ""
     if !data.isEmpty then
       out := out.push s!"**For every** {", ".intercalate data.toList}:"
@@ -1312,6 +1371,12 @@ run_cmd do
     out := out.push ""
     paraSpans := paraSpans.push (pStart, out.size)
     nDone := nDone + 1
+  -- the split totals (run 2026-11-26T2028Z) replace the placeholder line of the header
+  let totals := s!"**Split totals (generated):** {nDone} headlines. Part A complete (non-vacuity witnessed or nothing to witness, no numbered hypothesis open, no shape entry): **{nAComplete}/{nDone}**; numbered hypotheses {totNum}: {totNeed} shown needed, {totRed} shown redundant, {totData} data, {totOpen} open. Part B (never counted as machine-checked): {nWithRdr} headlines with a registered blind reading of their literals, {nWithBase} with literals grandfathered as never read twice, {nWithObj} with an open objection on record; definition uses: {totPin} pinned by a specification the program wrote, {totSec} with a blind second reading or formulation, {totBare} with neither."
+  let splitIdx := (out.toList.take hdrEnd).findIdx? (· == "SPLIT_TOTALS")
+  match splitIdx with
+  | some i => out := out.set! i totals
+  | none => errors := errors.push "CLAIMS.md: SPLIT_TOTALS placeholder not found in the header"
   IO.FS.writeFile "CLAIMS.md" (String.intercalate "\n" out.toList ++ "\n")
   -- CLAIMS_READER.md: a fixed header, then exactly the lines of CLAIMS.md after its header that lie in no paraphrase
   -- block; the page README.md and STATE.md send readers to (goal guard). Blind readers of the paraphrase-free page
@@ -1331,6 +1396,13 @@ run_cmd do
     "from this page. The Status line also carries the headline's **fidelity record**, generated from Lean and the",
     "registries CI checks: a non-vacuity witness, how many hypotheses are shown needed or redundant, blind second",
     "readings of its literals, and its freeze. None of these proves that a statement matches its source.",
+    "**The record is printed in two parts** (run 2026-11-26T2028Z): **(A)** what the kernel re-derives from the",
+    "statement itself (non-vacuity and hypothesis-necessity obligations computed from the statement, met by Checked",
+    "theorems), which holds whoever wrote the statement, the witnesses and the proofs; **(B)** what rests on who",
+    "wrote a statement (objection entries, blind readings, pinning specifications, second readings of definitions),",
+    "which CI checks by route only. Part A does not show that the statement says what its source says; part B is",
+    "the only evidence of that, and only as far as its writers were independent of the authors (THE RESULT part 4).",
+    "SPLIT_TOTALS",
     "**What CI checks about a blind second reading is its route, not that its reader was blind:** its brief was",
     "committed before it and holds none of its numbers, and it was committed alone before its copy in `Checked`;",
     "a reading the authors wrote themselves, even a copy of the headline's own statement, passes the same checks",
@@ -1356,6 +1428,7 @@ run_cmd do
   for l in rd do
     if l.startsWith "> " || l.startsWith "Author's paraphrase" then
       errors := errors.push s!"CLAIMS_READER.md: a paraphrase line reached the reader page: {l}"
+  rd := rd.map fun l => if l == "SPLIT_TOTALS" then totals else l
   IO.FS.writeFile "CLAIMS_READER.md" (String.intercalate "\n" rd.toList ++ "\n")
   -- PHRASE_LINES.md (rule P13, run 2026-11-09T1828Z): every certified reader line with its theorem's generated claim
   let mut pout : Array String := #[
