@@ -624,3 +624,4 @@ import Work.Quantum.H2PlusBlindClosed
 import Work.Quantum.PSeries
 import Work.Quantum.FluxSeries
 import Work.Quantum.GeomBound
+import Work.Quantum.Wronskian

@@ -885,7 +885,7 @@ GOAL (annex 36.0, PROMPT instruction 9): a system that lets scientists trust AI-
 
 ## Quantum chemistry: the hydrogen molecular ion at internuclear distance two bohr, total energy in an interval of width 10⁻¹³ hartree (THE RESULT parts 2 and 5; run 2026-11-26T1628Z): STATED (frozen, blind restatement closed in Lean both ways); no proof yet
 - Freeze `runs/2026-11-26T1628Z/lean/H2PlusSigmaG.lean` (second freeze 9103740): the separated equations at R = 2 have a solution with total energy E ∈ [−0.6026342144950, −0.6026342144949], L > 0 on [1, ∞), L → 0, ∫ L²ξ² < ∞, M > 0 on [−1, 1]. Literature values: `runs/2026-11-26T1628Z/tables/READING.md`.
-- Blind restatement closed: `Work/Quantum/H2PlusBlindClosed.lean` (`freeze_iff_blind`). Route and generic modules (`Work/Quantum/H2Tail.lean`, `PSeries.lean`, `FluxSeries.lean`, `GeomBound.lean`): run README, sections What we did and Route. Exact-rational emulation of the certificate passes (`runs/2026-11-26T1628Z/scripts/h2p_emulate.py`).
+- Blind restatement closed: `Work/Quantum/H2PlusBlindClosed.lean` (`freeze_iff_blind`). Route and generic modules (`Work/Quantum/H2Tail.lean`, `PSeries.lean`, `FluxSeries.lean`, `GeomBound.lean`, `Wronskian.lean`): run README, sections What we did and Route. Exact-rational emulation of the certificate passes (`runs/2026-11-26T1628Z/scripts/h2p_emulate.py`).
 - Not yet: the angular assembly (unique continuous root A(k)), the radial flow with parameters, the events and the sup argument, the certificate over ℚ; the change of variables to the three-dimensional operator and "positive eigenfunction ⇒ ground state" are outside the statement (module doc).
 
 ## Known gaps

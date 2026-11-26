@@ -1,6 +1,6 @@
 # Run 2026-11-26T1628Z
 
-**THE RESULT:** parts 2/5 by rotation (STATE 3t; next step STATE 3u): a new field for the trust system, quantum chemistry — the clamped-nuclei H₂⁺ ground state at R = 2 bohr. The statement is frozen and its blind restatement closed in Lean (both directions); the shooting certificate passes in exact-rational emulation for an interval of width 10⁻¹³ hartree around the printed value; four generic Lean modules of the route compiled (section What we did). No headline yet.
+**THE RESULT:** parts 2/5 by rotation (STATE 3t; next step STATE 3u): a new field for the trust system, quantum chemistry — the clamped-nuclei H₂⁺ ground state at R = 2 bohr. The statement is frozen and its blind restatement closed in Lean (both directions); the shooting certificate passes in exact-rational emulation for an interval of width 10⁻¹³ hartree around the printed value; five generic Lean modules of the route compiled (section What we did). No headline yet.
 
 **What can a scientist now trust without checking it themselves, that they could not before?** Nothing new at the level of a headline. What is new and machine-checked: that the program's Lean statement of the H₂⁺ separated problem says the same as an independent restatement written from the physics alone (a kernel-checked equivalence, `Work.Quantum.H2PlusBlindClosed.freeze_iff_blind`), and that the bound-state conditions (L → 0 and ∫ L² ξ² < ∞) follow from the two sign events the shooting certificate will produce (`Work.Quantum.H2Tail`).
 
@@ -31,6 +31,7 @@
    - `Work/Quantum/PSeries.lean`: power series with |cₙ| ≤ Cqⁿ: summable for |x|q < 1, differentiable on (−r, r) with rq < 1, derivative again such a series (`bound_deriv`).
    - `Work/Quantum/FluxSeries.lean`: ∑ bₙsⁿ solves ((w₀ + w₁s + w₂s²)M′)′ + (v₀ + v₁s + v₂s²)M = 0 on (−r, r) when bₙ satisfies the recurrence (`Rec`) and a geometric bound — one theorem for all three kinds of pieces (angular and radial at the singular ends, radial Taylor steps).
    - `Work/Quantum/GeomBound.lean`: the geometric bound for every n from finitely many checked coefficients and a four-lag recurrence inequality (strong induction).
+   - `Work/Quantum/Wronskian.lean` (route step 1, first piece): for two flux-form solutions with the weight vanishing at 0, W = M₁(wM₂′) − M₂(wM₁′) has derivative (V₁ − V₂)M₁M₂ and W(0) = 0, so W(1) > 0 when (V₁ − V₂)M₁M₂ > 0 on (0, 1): with M > 0 on the box, the angular root A(k) is unique.
 
 ## Route (the plan the next runs follow; replaces the screen's Miranda box)
 1. Angular: for k in [k₁, k₂] and A in a box [A₋, A₊] (A₋ = bracket at k₁ minus 10⁻¹², A₊ = bracket at k₂ plus 10⁻¹²), M_{k,A}(η) = ∑ bₙ(1 − η)ⁿ (FluxSeries, w = (0, 2, −1)); g(k, A) = M′(0). Sign change of g on [A₋, A₊] for every k (interval certificate over the k-box); g strictly increasing in A because M > 0 on [0, 1] on the whole box (Wronskian identity ((1 − η²)(M₁M₂′ − M₂M₁′))′ = (A₂ − A₁)M₁M₂ integrated over [0, 1]); so a unique root A(k), continuous in k; at k₁ and k₂ it lies in the tight brackets. Evenness from M′(0) = 0 and the symmetry η ↦ −η gives continuity at −1.
@@ -42,11 +43,11 @@
 - Fields with a frozen, blind-closed statement: + quantum chemistry (the first eigenvalue problem with two coupled parameters).
 - Fidelity: the blind restatement found one condition the first freeze lacked (square integrability); the freeze was corrected before any proof, and the equivalence is a kernel theorem rather than a referee's judgment.
 - Source check: one of two typeset sources labels the total energy "electronic" (Source class); the program's float plan and the second source decide which.
-- Route: one infeasible step of the screen's plan (a two-dimensional root theorem Mathlib lacks) replaced before any Lean was spent on it; four of the route's generic modules compiled; remaining: the angular assembly, the radial flow with parameters, the events and the certificate.
+- Route: one infeasible step of the screen's plan (a two-dimensional root theorem Mathlib lacks) replaced before any Lean was spent on it; five of the route's generic modules compiled; remaining: the angular assembly (its uniqueness lemma is `Work/Quantum/Wronskian.lean`), the radial flow with parameters, the events and the certificate.
 
 ## Next
 - CI read first: the run of this run's final push (new `Work/Quantum/` modules; `Work.lean` imports). Green → nothing to promote. Red → its first failing command with 29103dd as base.
-- Parts 2/5 next: route step 1 (the angular assembly: g continuous on the box by `continuousOn_tsum` with the certificate's uniform bound, the Wronskian monotonicity, the unique continuous root), then step 2. Certificates (step 4) last, once the statements they feed are fixed.
+- Parts 2/5 next: route step 1 (the angular assembly: the coefficients bₙ(k, A) defined by the recurrence, continuous in (k, A), with a geometric bound uniform on the box from `GeomBound`; g continuous by `continuousOn_tsum`; the unique root by `Wronskian.wronskian_pos`; continuity of the unique root), then step 2. Certificates (step 4) last, once the statements they feed are fixed.
 - Part 1 next: as in section Next of `runs/2026-11-26T1228Z/README.md`. Part 3 next: as in section Next of `runs/2026-11-26T1428Z/README.md`.
 
 ## End
