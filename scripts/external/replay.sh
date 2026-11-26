@@ -131,13 +131,16 @@ for e in ${EXTRA:-}; do
 done
 EXTRA_LIBS=$(echo "$EXTRA_LIBS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
 # 3. leanchecker on every copied module and the match module
-# One module per leanchecker process: a single process over a large closure was killed by the memory
-# limit of the session sandbox (run 2026-11-26T1529Z: 4.5 GB anonymous memory on 58 modules).
+# Modules are replayed in batches of LC_BATCH per leanchecker process (default 20; 1 in a small
+# sandbox): one process over a whole closure was OOM-killed at 4.5 GB in the session sandbox (58 modules)
+# and a GitHub runner was shut down in the same step, while one process per module costs a full
+# environment load each (610 modules ≈ 2.5 h on GitHub).
 : > leanchecker.log
-for m in $(cat closure_modules.txt) ${EXTRA:+$(for e in $EXTRA; do echo "${e%%=*}"; done)}; do
-  lake env leanchecker "$m" >> leanchecker.log 2>&1 || { tail -20 leanchecker.log; echo "FAIL: leanchecker $m"; exit 1; }
-done
-echo "leanchecker: replayed $(wc -l < closure_modules.txt) closure modules ${EXTRA:+and the extra modules}: OK"
+LC_BATCH=${LC_BATCH:-20}
+ALL_MODS=$(cat closure_modules.txt; for e in ${EXTRA:-}; do echo "${e%%=*}"; done)
+printf '%s\n' $ALL_MODS | xargs -n "$LC_BATCH" sh -c 'lake env leanchecker "$@" >> leanchecker.log 2>&1 || { echo "FAIL batch: $*" >> leanchecker.log; exit 255; }' _ || {
+  tail -20 leanchecker.log; echo "FAIL: leanchecker"; exit 1; }
+echo "leanchecker: replayed $(printf '%s\n' $ALL_MODS | wc -l) modules in batches of $LC_BATCH: OK"
 # 4. nanoda (optional)
 if [ "${NANODA:-0}" = 1 ]; then
   L4E=${L4E_DIR:-$WORK/_lean4export}; NAN=${NANODA_DIR:-$WORK/_nanoda_lib}
