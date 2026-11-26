@@ -104,3 +104,11 @@ fetch tool; not worked around).
 General fix from this comparison: `scripts/external/coverage.py` lists every theorem of a blind reading
 with no closure as UNCOVERED and exits non-zero; a target is DONE only when it reports every reading
 theorem closed (S1–S3: 3/3, 1/1, 3/3; T0(a): 5/5; family 159: 1/2).
+
+## Re-run with the declaration comparison (after the T1 diagnosis)
+
+GitHub run 45883014455 (scripts at 0a3f2c7: `compare_decls.lean` instead of the copy-and-prove match):
+S-egyptian, S-cycledecomp, S-vdw all PASSED — every challenge declaration identical to the solution's
+(kind, universes, type, value), target axioms standard, leanchecker per module, nanoda, and the program's
+blind readings and closures built in the same pin with standard axioms. The earlier match-based passes
+were sound (these challenges contain only `def`s); the comparison is the method from now on.
