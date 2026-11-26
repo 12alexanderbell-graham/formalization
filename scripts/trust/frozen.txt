@@ -1267,6 +1267,17 @@ doc:Checked.FSRevW.WTwoOver.chain -doc10605338601991106960
 doc:Checked.FSRevW.WTwoSlow.chain -doc10371006124190509424
 doc:Checked.FSRevW.WTwoTube.chainC -doc16817775120501884471
 doc:Checked.FSRevW.WTwoTube.tube -doc15884420671742172343
+doc:Checked.FSSep.BlowSep.ChainKS -doc17444448655235998645
+doc:Checked.FSSep.BlowSep.cS -doc17982929636185288378
+doc:Checked.FSSep.BlowSep.flowK_cont -doc4245380451332457882
+doc:Checked.FSSep.BlowSep.flowK -doc12740732080509976019
+doc:Checked.FSSep.BlowSep.local_sol -doc1122822952567526549
+doc:Checked.FSSep.BlowSep.neither_class -doc4720171564570812973
+doc:Checked.FSSep.BlowSep.slow_unclamp -doc5376312317379641999
+doc:Checked.FSSep.BlowSep.start -doc564652062813303668
+doc:Checked.FSSep.BlowSep.unclampS_neither -doc14984537309582549557
+doc:Checked.FSSep.BlowSepOver.chain -doc6496359185374122265
+doc:Checked.FSSep.BlowSepSlow.chain -doc5976850162665004631
 doc:Checked.FSSep.SAssemble.neither_class -doc4720171564570812973
 doc:Checked.FSSep.SAssemble.slow_unclamp -doc5376312317379641999
 doc:Checked.FSSep.SBase.ChainK -doc17700467122765634429
@@ -3801,6 +3812,7 @@ doc:Checked.Trust.NecessityBZ.pos_wall_eq -doc12322008972844506766
 doc:Checked.Trust.NecessityCB.fs_neg_decay_max_shear_h6 -doc14143989187824750593
 doc:Checked.Trust.NecessityCB.shifted_rev -doc2826092236053189302
 doc:Checked.Trust.NecessityCD.suction_tenth -doc18440346585291067253
+doc:Checked.Trust.NecessityCE.blow_sep -doc808581384702382722
 doc:Checked.Trust.NecessityCE.slow_sep -doc10162506286522776171
 doc:Checked.Trust.NecessityCE.suction_sep -doc16568152456789903645
 doc:Checked.Trust.NecessityCE.wall_sep -doc16267665098327306775
@@ -4630,6 +4642,9 @@ moduledoc:Checked.FSRevW.WTwoOver -mdoc17476112138462863566
 moduledoc:Checked.FSRevW.WTwoSlow -mdoc14307899032760705502
 moduledoc:Checked.FSRevW.WTwoTube -mdoc2697313066438241681
 moduledoc:Checked.FSRevW.WUnclamp -mdoc3568132634447846990
+moduledoc:Checked.FSSep.BlowSepOver -mdoc260457755397464194
+moduledoc:Checked.FSSep.BlowSepSlow -mdoc10160787588580144893
+moduledoc:Checked.FSSep.BlowSep -mdoc6596158631034604998
 moduledoc:Checked.FSSep.SAssemble -mdoc7915162812487625404
 moduledoc:Checked.FSSep.SBase -mdoc9345967552416858953
 moduledoc:Checked.FSSep.SCellWC -mdoc1338607485128572807
@@ -5120,7 +5135,7 @@ moduledoc:Checked.Trust.NecessityCA -mdoc3827288613451758149
 moduledoc:Checked.Trust.NecessityCB -mdoc3613913200048203227
 moduledoc:Checked.Trust.NecessityCC -mdoc8273987109616275683
 moduledoc:Checked.Trust.NecessityCD -mdoc15597949330338634459
-moduledoc:Checked.Trust.NecessityCE -mdoc1710750970356575191
+moduledoc:Checked.Trust.NecessityCE -mdoc12229686251882015945
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
 moduledoc:Checked.Trust.NecessityEta -mdoc18282187098395309792

@@ -538,6 +538,9 @@ import Checked.FSSep.WallSep
 import Checked.FSSep.WallSepOver
 import Checked.FSSep.WallSepSlow
 import Checked.FSSep.SSlowFiveThree
+import Checked.FSSep.BlowSep
+import Checked.FSSep.BlowSepOver
+import Checked.FSSep.BlowSepSlow
 import Checked.FalknerSkan.Separation
 import Checked.FalknerSkan.SeparationEqual
 import Checked.FalknerSkan.SeparationPrinted

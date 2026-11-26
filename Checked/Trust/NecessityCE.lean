@@ -10,6 +10,9 @@ import Checked.FSSep.WallSepOver
 import Checked.FSSep.WallSepSlow
 import Checked.FSSep.SSlowSol
 import Checked.FSSep.SSlowFiveThree
+import Checked.FSSep.BlowSep
+import Checked.FSSep.BlowSepOver
+import Checked.FSSep.BlowSepSlow
 import Checked.FalknerSkan.SeparationPrinted
 
 /-! Hypothesis necessity for the uniqueness of the Falkner–Skan separation value
@@ -24,8 +27,10 @@ pressure-gradient coefficient lies below the window of the first, far from the p
 NEEDED in the record and in the bound below the printed value
 (`Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed`, hypothesis 9 of each): the slow-approach
 solution of `Checked.FSSep.SSlowSol.slow_sol` from the certified chain `SSlowFiveThree` has zero shear at the wall,
-velocity tending to one and positive shear after the wall, at a coefficient above the printed value. Module
-`NecessityCE`. -/
+velocity tending to one and positive shear after the wall, at a coefficient above the printed value. The zero stream
+function at the wall is NEEDED in that bound too (hypothesis 4): a separation solution with blowing at the wall
+(`Checked.FSSep.BlowSep.core_sepS`, chains `BlowSepOver` and `BlowSepSlow`) has its coefficient above the printed
+value. Module `NecessityCE`. -/
 
 namespace Checked.Trust.NecessityCE
 open Set Filter Topology
@@ -130,5 +135,25 @@ theorem fs_separation_below_printed_h9 :
     necessity% Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed 9 := by
   obtain ⟨f, p, q, a1, a2, a3, a4, a5, a6, a7, a8⟩ := slow_sep
   exact ⟨-(100 / 503), f, p, q, a1, a2, a3, a4, a5, a6, a7, a8, by norm_num⟩
+
+/-- A separation solution with blowing at the wall whose pressure-gradient coefficient lies above the printed
+separation value. -/
+theorem blow_sep :
+    ∃ β : ℝ, -(1981 / 10000) < β ∧ ∃ f p q : ℝ → ℝ,
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt f (p η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt p (q η) (Ici 0) η) ∧
+      (∀ η ∈ Ici (0 : ℝ), HasDerivWithinAt q (-(f η * q η) - β * (1 - p η ^ 2)) (Ici 0) η) ∧
+      f 0 < 0 ∧ p 0 = 0 ∧ q 0 = 0 ∧ Tendsto p atTop (𝓝 1) ∧
+      (∀ η ∈ Ioi (0 : ℝ), 0 < q η) ∧
+      (∀ M : ℝ, ∀ᶠ η in atTop, M * (1 - p η) ≤ q η) := by
+  obtain ⟨β, hβ, -, f, p, q, h⟩ :=
+    Checked.FSSep.BlowSep.core_sepS (lo := 5049 / 1000) (hi := 5052 / 1000) (by norm_num) (by norm_num)
+      (by norm_num) Checked.FSSep.BlowSepOver.chain Checked.FSSep.BlowSepSlow.chain
+  exact ⟨β, by norm_num at hβ ⊢; linarith, f, p, q, h⟩
+
+theorem fs_separation_below_printed_h4 :
+    necessity% Checked.FalknerSkan.SeparationPrinted.fs_separation_below_printed 4 := by
+  obtain ⟨β, hβ, f, p, q, a1, a2, a3, -, a5, a6, a7, a8, a9⟩ := blow_sep
+  exact ⟨β, f, p, q, a1, a2, a3, a5, a6, a7, a8, a9, fun h => by linarith⟩
 
 end Checked.Trust.NecessityCE
