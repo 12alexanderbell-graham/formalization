@@ -70,5 +70,24 @@ jobs:
           mkdir outside && cd outside && git init -q && git remote add origin "$X_URL"
           git fetch -q --depth 1 origin "$X_REV" && git checkout -q FETCH_HEAD
           echo "fetched $X_URL at $(git rev-parse HEAD)"
+      # A closure too large to build within one job (S-cycleclique: 444 modules, still building after
+      # 348 min in run 45862470764) continues from the previous job's build outputs: the build directory is
+      # saved even when the replay step fails or times out, and restored by the next dispatch of the same
+      # line at the same revision. Trust is unchanged: the oleans are our own earlier build of the same
+      # sources, Lake rebuilds any module whose sources' hash differs, and leanchecker and nanoda re-check
+      # the declarations in them independently.
+      - name: Restore partial build of this line
+        uses: actions/cache/restore@v4
+        with:
+          path: work/.lake/build
+          key: ext-build-${{ matrix.name }}-${{ env.X_REV }}-${{ github.run_id }}
+          restore-keys: ext-build-${{ matrix.name }}-${{ env.X_REV }}-
       - name: Replay (closure build, match, axioms, leanchecker, nanoda, program closures)
+        timeout-minutes: 320
         run: NANODA=1 EXTRA="$X_EXTRA" bash scripts/external/replay.sh "outside/$X_SUB" work "$X_SOL" "$X_CHAL" $X_THMS
+      - name: Save build for the next dispatch
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: work/.lake/build
+          key: ext-build-${{ matrix.name }}-${{ env.X_REV }}-${{ github.run_id }}
