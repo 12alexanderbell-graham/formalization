@@ -51,7 +51,7 @@ def go(m):
         if mm:
             for x in mm.group(1).split(): go(x)
 for m in mods: go(m)
-bad = sorted(ext - {'Mathlib', 'Lean', 'Init', 'Std'})
+bad = sorted(ext - {'Mathlib', 'Lean', 'Init', 'Std', 'Lake', 'Batteries', 'Aesop', 'Qq', 'Plausible', 'ProofWidgets', 'LeanSearchClient', 'ImportGraph'})  # Mathlib and its own dependencies
 if bad:
     print('BLOCKER: closure needs packages other than Mathlib:', bad); sys.exit(3)
 for m in seen:
