@@ -38,12 +38,18 @@ What "finite" depends on (reader's list, checked):
 5. the order of limits — certified both ways: N → ∞ at fixed s is finite; expanding in G_N first gives the
    −(i/s³)(log N + O(1)) divergence.
 
+The paper's general argument (Eqs. sewing-main, sewing-bound: every sum over intermediate states converges
+absolutely, by unitarity and Cauchy–Schwarz) is certified at the Hilbert-space level
+(`sewing.lean`, `ExternalT0.Sewing.sewing`): for any Hilbert basis and any U₁, U₂ preserving norms (U₂ through
+its adjoint), Σ_α ⟨φ|U₂|e_α⟩⟨e_α|U₁|ψ⟩ = ⟨φ|U₂U₁|ψ⟩ and Σ_α |…| ≤ ‖φ‖‖ψ‖. Not certified: that the paper's
+time evolutions are unitary on its Hilbert space (its construction).
+
 What the claims page should say: "For one polarization and one angular harmonic, in the Gaussian state
 centred at zero, the paper's pair-creation-and-annihilation sum converges absolutely for every G_N > 0
 and equals Li₂(e^{−2i/s})/(2s²); its G_N³ Taylor coefficient diverges like log N; its imaginary part is
 −log s/s³ + O(1/s³). Certified in Lean from a blind reading. Not certified: the sum over angular harmonics
-and polarizations, and the paper's general finiteness argument (unitarity and Cauchy–Schwarz on its
-Hilbert space)."
+and polarizations, and that the paper's time evolutions are unitary (given unitarity, its absolute-convergence argument is
+certified in Lean)."
 
 ## (b) One-loop black hole entropy, Section 4.7 — arithmetic certified, input not
 
