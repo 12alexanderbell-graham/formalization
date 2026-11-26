@@ -84,3 +84,23 @@ Every link below was produced in this run; files under `runs/2026-11-26T1529Z/S/
 ## Time
 
 Statement fetch to three closures: 15:35Z–16:05Z (30 min). Builds and replays: 15:55Z–16:45Z on two cores.
+
+## After the verdicts: comparison with human reviews (part-3 evidence)
+
+Read after commit 1c347c7 (verdicts). Accessible: erdosproblems.com thread 304; arXiv 2610.17090
+(Y. Xie, "What the Machine Invented", an extraction of 38 of the release's families; it states that no
+Lean development was compiled or kernel-checked for it); two news summaries. Not accessible:
+erdosproblems.com blog "Erdős problems in the OpenAI proofs" and thread 184 (robots.txt refusal of the
+fetch tool; not worked around).
+
+| family | humans found | system found | comparison |
+|---|---|---|---|
+| S1 Erdős 304 | thread 304: no comments, problem still listed OPEN on the site; the survey does not cover it | statement matches the claim; solution checks (nanoda) | nothing to compare; the site has not adjudicated the claim |
+| S2 Erdős 184 | thread not readable; not covered by the survey | statement matches; solution checks | no human data reached |
+| S3 van der Waerden | not covered | statement matches (plus the small-k finiteness the frozen statement does not give, proved from Hales–Jewett) | no human data reached |
+| 159 Erdős 3 (added after reading the survey) | survey: the Lean reaches the companion, the claimed quantitative headline is not formalized | blind reading closed for the corollary (frozen ⟺ Erdős 3), headline Theorem 1.1 (r_k(N) ≤ C N exp(−c(log N)^ε)) UNCOVERED (`scripts/external/coverage.py`) | **system found what the humans found** — but this test was run after reading the survey (the reader was blind, the auditor was not), so it shows the gate can see the defect, not that it found it unprompted |
+| all | survey: the comparator configurations disable the nanoda recheck; no compilation was done | compiled, matched and re-checked with nanoda (S1–S3) | system did checks the human survey did not |
+
+General fix from this comparison: `scripts/external/coverage.py` lists every theorem of a blind reading
+with no closure as UNCOVERED and exits non-zero; a target is DONE only when it reports every reading
+theorem closed (S1–S3: 3/3, 1/1, 3/3; T0(a): 5/5; family 159: 1/2).
