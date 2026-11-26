@@ -9,6 +9,11 @@ name: External replay
 
 on:
   workflow_dispatch:
+    inputs:
+      only:
+        description: 'Run only the manifest lines whose name is in this space-separated list (empty: all)'
+        required: false
+        default: ''
   push:
     paths:
       - validation/external_replays.txt
@@ -27,7 +32,7 @@ jobs:
       - uses: actions/checkout@v5
       - id: m
         run: |
-          names=$(grep -v '^#' validation/external_replays.txt | grep -v '^\s*$' | cut -d'|' -f1 | sed 's/ *$//' | python3 -c "import json,sys; print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))")
+          names=$(grep -v '^#' validation/external_replays.txt | grep -v '^\s*$' | cut -d'|' -f1 | sed 's/ *$//' | ONLY="${{ github.event.inputs.only }}" python3 -c "import json,os,sys; o=os.environ.get('ONLY','').split(); print(json.dumps([l.strip() for l in sys.stdin if l.strip() and (not o or l.strip() in o)]))")
           echo "names=$names" >> "$GITHUB_OUTPUT"
   replay:
     needs: list
