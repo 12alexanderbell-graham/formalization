@@ -33,7 +33,8 @@ theorem radial_flow {k₁ k₂ T : ℝ} (hk₁ : 0 ≤ k₁) (hk₂ : k₂ ≤ 3
         HasDerivWithinAt (fun s => (α (p0 R k) s).1) ((α (p0 R k) t).2.1 / (t ^ 2 - 1)) (Icc 2 T) t ∧
         HasDerivWithinAt (fun s => (α (p0 R k) s).2.1)
           (-((4 * t - k * t ^ 2 + R k) * (α (p0 R k) t).1)) (Icc 2 T) t)) ∧
-      ∀ t ∈ Icc (2 : ℝ) T, ContinuousOn (fun k => α (p0 R k) t) (Icc k₁ k₂) := by
+      (∀ t ∈ Icc (2 : ℝ) T, ContinuousOn (fun k => α (p0 R k) t) (Icc k₁ k₂)) ∧
+      ContinuousOn (fun z : ℝ × ℝ => α (p0 R z.1) z.2) (Icc k₁ k₂ ×ˢ Icc 2 T) := by
   have hpc := p0_continuousOn hk₁ hk₂ hR hR3
   obtain ⟨C, hC⟩ := isCompact_Icc.exists_bound_of_continuousOn hpc
   set r := max C 0 with hr
@@ -43,7 +44,11 @@ theorem radial_flow {k₁ k₂ T : ℝ} (hk₁ : 0 ≤ k₁) (hk₂ : k₂ ≤ 3
   set B := r * Real.exp (NB T * (T - 2)) with hB
   have hB0 : 0 ≤ B := mul_nonneg hr0 (Real.exp_pos _).le
   obtain ⟨α, hα, L, hL⟩ := exists_flow hB0 hT hr0
-  refine ⟨α, fun k hk => ⟨(hα _ (hmem k hk)).1, fun t ht => ?_⟩, fun t ht => ?_⟩
+  have hlipt : ∀ t ∈ Icc (2 : ℝ) T,
+      LipschitzOnWith (Real.toNNReal L) (fun p => α p t) (Metric.closedBall (0 : E) r) := fun t ht =>
+    LipschitzOnWith.of_dist_le_mul fun p hp q hq => (hL t ht p hp q hq).trans
+      (mul_le_mul_of_nonneg_right (Real.le_coe_toNNReal L) dist_nonneg)
+  refine ⟨α, fun k hk => ⟨(hα _ (hmem k hk)).1, fun t ht => ?_⟩, fun t ht => ?_, ?_⟩
   · -- the clamps are inactive
     have h2 := (hα _ (hmem k hk)).1
     have hn : ‖((α (p0 R k) 2).1, (α (p0 R k) 2).2.1)‖ ≤ r := by
@@ -61,9 +66,13 @@ theorem radial_flow {k₁ k₂ T : ℝ} (hk₁ : 0 ≤ k₁) (hk₂ : k₂ ≤ 3
     rw [h2] at this
     simpa only [p0] using this
   · -- continuity in k through the Lipschitz dependence on the initial point
-    have hlip : LipschitzOnWith (Real.toNNReal L) (fun p => α p t) (Metric.closedBall (0 : E) r) := by
-      refine LipschitzOnWith.of_dist_le_mul fun p hp q hq => (hL t ht p hp q hq).trans ?_
-      exact mul_le_mul_of_nonneg_right (Real.le_coe_toNNReal L) dist_nonneg
-    exact hlip.continuousOn.comp hpc (fun k hk => hmem k hk)
+    exact (hlipt t ht).continuousOn.comp hpc (fun k hk => hmem k hk)
+  · -- joint continuity: Lipschitz in the initial point uniformly in ξ, continuous in ξ
+    have hj : ContinuousOn (fun w : E × ℝ => α w.1 w.2) (Metric.closedBall (0 : E) r ×ˢ Icc 2 T) :=
+      continuousOn_prod_of_continuousOn_lipschitzOnWith (fun w : E × ℝ => α w.1 w.2) (Real.toNNReal L)
+        (fun p hp => fun t ht => ((hα p hp).2 t ht).continuousWithinAt) (fun t ht => hlipt t ht)
+    have hm : ContinuousOn (fun z : ℝ × ℝ => (p0 R z.1, z.2)) (Icc k₁ k₂ ×ˢ Icc 2 T) :=
+      (hpc.comp continuousOn_fst (fun z hz => hz.1)).prodMk continuousOn_snd
+    exact hj.comp hm (fun z hz => ⟨hmem z.1 hz.1, hz.2⟩)
 
 end Work.Quantum.RadialAssemble

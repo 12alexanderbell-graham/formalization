@@ -99,15 +99,17 @@ theorem radial_global {k₁ k₂ : ℝ} (hk₁ : 0 ≤ k₁) (hk₂ : k₂ ≤ 3
     ∃ L L' : ℝ → ℝ → ℝ, (∀ k ∈ Icc k₁ k₂, L k 1 = 1 ∧ ∀ x, -(1 / 4 : ℝ) < x →
         HasDerivAt (L k) (L' k x) x ∧
         HasDerivAt (fun y => (y ^ 2 - 1) * L' k y) (-((4 * x - k * x ^ 2 + R k) * L k x)) x) ∧
-      ∀ x, -(1 / 4 : ℝ) < x →
-        ContinuousOn (fun k => L k x) (Icc k₁ k₂) ∧ ContinuousOn (fun k => L' k x) (Icc k₁ k₂) := by
+      (∀ x, -(1 / 4 : ℝ) < x →
+        ContinuousOn (fun k => L k x) (Icc k₁ k₂) ∧ ContinuousOn (fun k => L' k x) (Icc k₁ k₂)) ∧
+      ∀ B, 2 ≤ B → ContinuousOn (fun z : ℝ × ℝ => L z.1 z.2) (Icc k₁ k₂ ×ˢ Icc 1 B) := by
   -- one flow per horizon n + 3
   have hfl : ∀ n : ℕ, ∃ α : E → ℝ → E, (∀ k ∈ Icc k₁ k₂, α (p0 R k) 2 = p0 R k ∧
       (∀ t ∈ Icc (2 : ℝ) ((n : ℝ) + 3),
         HasDerivWithinAt (fun s => (α (p0 R k) s).1) ((α (p0 R k) t).2.1 / (t ^ 2 - 1)) (Icc 2 ((n : ℝ) + 3)) t ∧
         HasDerivWithinAt (fun s => (α (p0 R k) s).2.1)
           (-((4 * t - k * t ^ 2 + R k) * (α (p0 R k) t).1)) (Icc 2 ((n : ℝ) + 3)) t)) ∧
-      ∀ t ∈ Icc (2 : ℝ) ((n : ℝ) + 3), ContinuousOn (fun k => α (p0 R k) t) (Icc k₁ k₂) :=
+      (∀ t ∈ Icc (2 : ℝ) ((n : ℝ) + 3), ContinuousOn (fun k => α (p0 R k) t) (Icc k₁ k₂)) ∧
+      ContinuousOn (fun z : ℝ × ℝ => α (p0 R z.1) z.2) (Icc k₁ k₂ ×ˢ Icc 2 ((n : ℝ) + 3)) :=
     fun n => radial_flow hk₁ hk₂ (by have : (0 : ℝ) ≤ n := Nat.cast_nonneg n; linarith) hR hR3
   choose α hα using hfl
   -- the pair (L, P) of flow n
@@ -116,7 +118,7 @@ theorem radial_global {k₁ k₂ : ℝ} (hk₁ : 0 ≤ k₁) (hk₂ : k₂ ≤ 3
   let Lg : ℝ → ℝ → ℝ := fun k x => if x ≤ 2 then RL k (R k) (x - 1) else (s k ⌈x⌉₊ x).1
   let Pg : ℝ → ℝ → ℝ := fun k x => if x ≤ 2 then (x ^ 2 - 1) * RLd k (R k) (x - 1) else (s k ⌈x⌉₊ x).2
   let L'g : ℝ → ℝ → ℝ := fun k x => if x ≤ 2 then RLd k (R k) (x - 1) else (s k ⌈x⌉₊ x).2 / (x ^ 2 - 1)
-  refine ⟨Lg, L'g, fun k hk => ?_, fun x hxq => ?_⟩
+  refine ⟨Lg, L'g, fun k hk => ?_, fun x hxq => ?_, fun B hB => ?_⟩
   · have hk3 : |k| ≤ 3 := abs_le.mpr ⟨by linarith [hk.1], by linarith [hk.2]⟩
     have hA3 : |R k| ≤ 3 := abs_le.mpr ⟨by linarith [(hR3 k hk).1], (hR3 k hk).2⟩
     have hkI : k ∈ Icc (0 : ℝ) 3 := ⟨by linarith [hk.1], by linarith [hk.2]⟩
@@ -222,11 +224,64 @@ theorem radial_global {k₁ k₂ : ℝ} (hk₁ : 0 ≤ k₁) (hk₂ : k₂ ≤ 3
       push Not at hx
       set n := ⌈x⌉₊
       have hxn : x ∈ Icc (2 : ℝ) ((n : ℝ) + 3) := ⟨hx.le, by linarith [Nat.le_ceil x]⟩
-      have hc := (hα n).2 x hxn
+      have hc := (hα n).2.1 x hxn
       refine ⟨(continuous_fst.comp_continuousOn hc).congr (fun k _ => ?_),
         ((continuous_fst.comp_continuousOn (continuous_snd.comp_continuousOn hc)).div_const (x ^ 2 - 1)).congr
           (fun k _ => ?_)⟩
       · simp only [Lg, if_neg (not_le.mpr hx), Function.comp, hsdef, n]
       · simp only [L'g, if_neg (not_le.mpr hx), Function.comp, hsdef, n]
+
+  · -- joint continuity on [k₁, k₂] × [1, B]: Frobenius on [1, 2], the flow of horizon ⌈B⌉₊ + 3 on [2, B]
+    set S : Set (ℝ × ℝ) := {p | p.1 ∈ Icc (0 : ℝ) 3 ∧ p.2 ∈ Icc (0 : ℝ) 3}
+    have hS : ∀ p ∈ S, FrobParam.Small ((fun _ : ℝ × ℝ => (1 : ℝ)) p) ((fun p : ℝ × ℝ => 4 - p.1 + p.2) p)
+        ((fun p : ℝ × ℝ => 4 - 2 * p.1) p) ((fun p : ℝ × ℝ => -p.1) p) := fun p hp => small_of hp.1 hp.2
+    have c0 := FrobParam.sol_continuousOn₂ (W := fun _ : ℝ × ℝ => (1 : ℝ))
+      (V0 := fun p : ℝ × ℝ => 4 - p.1 + p.2) (V1 := fun p : ℝ × ℝ => 4 - 2 * p.1) (V2 := fun p : ℝ × ℝ => -p.1)
+      (by fun_prop) (by fun_prop) (by fun_prop) (by fun_prop) hS
+    have hm1 : ContinuousOn (fun z : ℝ × ℝ => ((z.1, R z.1), z.2 - 1)) (Icc k₁ k₂ ×ˢ Icc 1 2) :=
+      ((continuousOn_fst.prodMk (hR.comp continuousOn_fst (fun z hz => hz.1))).prodMk
+        (continuousOn_snd.sub continuousOn_const))
+    have hmap1 : MapsTo (fun z : ℝ × ℝ => ((z.1, R z.1), z.2 - 1)) (Icc k₁ k₂ ×ˢ Icc 1 2)
+        (S ×ˢ Icc (-(5 / 4)) (5 / 4)) := fun z hz =>
+      ⟨⟨⟨by linarith [hz.1.1], by linarith [hz.1.2]⟩, hR3 z.1 hz.1⟩, ⟨by linarith [hz.2.1], by linarith [hz.2.2]⟩⟩
+    have p1 : ContinuousOn (fun z : ℝ × ℝ => Lg z.1 z.2) (Icc k₁ k₂ ×ˢ Icc 1 2) := by
+      refine (c0.comp hm1 hmap1).congr (fun z hz => ?_)
+      simp only [Lg, if_pos hz.2.2, Function.comp, RL]
+    set n := ⌈B⌉₊
+    have hBn : B ≤ (n : ℝ) + 3 := by linarith [Nat.le_ceil B]
+    have p2 : ContinuousOn (fun z : ℝ × ℝ => Lg z.1 z.2) (Icc k₁ k₂ ×ˢ Icc 2 B) := by
+      have hj := ((hα n).2.2.mono (prod_mono subset_rfl (Icc_subset_Icc_right hBn)))
+      refine (continuous_fst.comp_continuousOn hj).congr (fun z hz => ?_)
+      have hk := hz.1
+      rcases hz.2.1.lt_or_eq with h | h
+      · -- consistency of the flows ⌈ξ⌉₊ and n at ξ
+        simp only [Lg, if_neg (not_le.mpr h), Function.comp]
+        have hk3 : |z.1| ≤ 3 := abs_le.mpr ⟨by linarith [hk.1], by linarith [hk.2]⟩
+        have hA3 : |R z.1| ≤ 3 := abs_le.mpr ⟨by linarith [(hR3 z.1 hk).1], (hR3 z.1 hk).2⟩
+        have hsn : ∀ m : ℕ, ∀ t ∈ Icc (2 : ℝ) ((m : ℝ) + 3),
+            HasDerivWithinAt (s z.1 m) (vf z.1 (R z.1) t (s z.1 m t)) (Icc 2 ((m : ℝ) + 3)) t := by
+          intro m t ht
+          obtain ⟨h1, h2⟩ := (hα m).1 z.1 hk |>.2 t ht
+          exact h1.prodMk h2
+        have hs2 : ∀ m, s z.1 m 2 = (RL z.1 (R z.1) 1, 3 * RLd z.1 (R z.1) 1) := by
+          intro m
+          have e := ((hα m).1 z.1 hk).1
+          simp only [hsdef]
+          rw [e]
+          simp only [p0]
+        have cons := (glue_family hk3 hA3 (s z.1) hs2 hsn).1
+        have := cons ⌈z.2⌉₊ n z.2 ⟨hz.2.1, by linarith [Nat.le_ceil z.2]⟩ (hz.2.2.trans hBn)
+        rw [this]
+      · -- at ξ = 2 the flow starts from the Frobenius value
+        have e := ((hα n).1 z.1 hk).1
+        have hz2 : z.2 = 2 := h.symm
+        simp only [Function.comp]
+        rw [hz2, e]
+        simp only [Lg, if_pos (le_refl (2 : ℝ)), p0]
+        norm_num
+    have hu : Icc k₁ k₂ ×ˢ Icc (1 : ℝ) B = Icc k₁ k₂ ×ˢ Icc 1 2 ∪ Icc k₁ k₂ ×ˢ Icc 2 B := by
+      rw [← prod_union, Icc_union_Icc_eq_Icc (by norm_num) hB]
+    rw [hu]
+    exact p1.union_of_isClosed p2 (isClosed_Icc.prod isClosed_Icc) (isClosed_Icc.prod isClosed_Icc)
 
 end Work.Quantum.RadialGlobal

@@ -226,6 +226,22 @@ theorem dsol_continuousOn (hW : Continuous W) (h0 : Continuous V0) (h1 : Continu
       _ = CF * (2 / 3) * (((n : ℝ) + 1) * (5 / 6 : ℝ) ^ n) := by
         rw [pow_succ, show (5 / 6 : ℝ) = 2 / 3 * (5 / 4) by norm_num, mul_pow]; ring
 
+/-- Joint continuity in the point and in s ∈ [−5/4, 5/4]. -/
+theorem sol_continuousOn₂ (hW : Continuous W) (h0 : Continuous V0) (h1 : Continuous V1) (h2 : Continuous V2)
+    {S : Set X} (hS : ∀ x ∈ S, Small (W x) (V0 x) (V1 x) (V2 x)) :
+    ContinuousOn (fun z : X × ℝ => sol (W z.1) (V0 z.1) (V1 z.1) (V2 z.1) z.2) (S ×ˢ Icc (-(5 / 4)) (5 / 4)) := by
+  have hu : Summable (fun n : ℕ => CF * (5 / 6 : ℝ) ^ n) :=
+    (summable_geometric_of_lt_one (by norm_num) (by norm_num)).mul_left CF
+  refine continuousOn_tsum (u := fun n : ℕ => CF * (5 / 6 : ℝ) ^ n) (fun n => ?_) hu (fun n z hz => ?_)
+  · exact (((fc_continuous hW h0 h1 h2 n).comp continuous_fst).mul (continuous_snd.pow n)).continuousOn
+  · rw [Real.norm_eq_abs, abs_mul, abs_pow]
+    have hb := fc_geom (hS z.1 hz.1) n
+    have hs : |z.2| ≤ 5 / 4 := abs_le.mpr ⟨hz.2.1, hz.2.2⟩
+    have hC := CF_nonneg
+    calc |fc (W z.1) (V0 z.1) (V1 z.1) (V2 z.1) n| * |z.2| ^ n ≤ CF * (2 / 3) ^ n * (5 / 4) ^ n := by
+          gcongr
+      _ = CF * (5 / 6) ^ n := by rw [mul_assoc, ← mul_pow]; norm_num
+
 end Continuity
 
 end Work.Quantum.FrobParam
