@@ -96,7 +96,7 @@ for t in top:
 for t in thms:
     name = t.split('.')[-1]
     body, n = re.subn(r'(theorem\s+' + re.escape(name) + r'\b[\s\S]*?:=)\s*by\s*\n?\s*sorry',
-                      r'\1 by exact ' + t, body, count=1)
+                      r'\1 by first | exact ' + t + ' | (apply ' + t + ' <;> assumption)', body, count=1)
     if n != 1: sys.exit(f'could not find `theorem {name} ... := by sorry` in {ch}')
 code_only = re.sub(r'--[^\n]*', '', re.sub(r'/-.*?-/', '', body, flags=re.S))
 if re.search(r'\bsorry\b', code_only): sys.exit('challenge has a sorry the script did not replace')
