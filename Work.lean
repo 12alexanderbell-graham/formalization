@@ -625,3 +625,4 @@ import Work.Quantum.PSeries
 import Work.Quantum.FluxSeries
 import Work.Quantum.GeomBound
 import Work.Quantum.Wronskian
+import Work.Quantum.AngularAssembly
