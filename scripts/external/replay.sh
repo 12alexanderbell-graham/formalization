@@ -130,9 +130,13 @@ for e in ${EXTRA:-}; do
 done
 EXTRA_LIBS=$(echo "$EXTRA_LIBS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
 # 3. leanchecker on every copied module and the match module
-# shellcheck disable=SC2046
-lake env leanchecker $(cat closure_libs.txt) Match $EXTRA_LIBS > leanchecker.log 2>&1 || { tail -20 leanchecker.log; echo "FAIL: leanchecker"; exit 1; }
-echo "leanchecker: replayed $(cat closure_libs.txt) Match: OK"
+# One module per leanchecker process: a single process over a large closure was killed by the memory
+# limit of the session sandbox (run 2026-11-26T1529Z: 4.5 GB anonymous memory on 58 modules).
+: > leanchecker.log
+for m in $(cat closure_modules.txt) "$MATCH_MOD" ${EXTRA:+$(for e in $EXTRA; do echo "${e%%=*}"; done)}; do
+  lake env leanchecker "$m" >> leanchecker.log 2>&1 || { tail -20 leanchecker.log; echo "FAIL: leanchecker $m"; exit 1; }
+done
+echo "leanchecker: replayed $(wc -l < closure_modules.txt) closure modules, the match module and ${EXTRA:+the extra modules}: OK"
 # 4. nanoda (optional)
 if [ "${NANODA:-0}" = 1 ]; then
   L4E=${L4E_DIR:-$WORK/_lean4export}; NAN=${NANODA_DIR:-$WORK/_nanoda_lib}
