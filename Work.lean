@@ -621,3 +621,4 @@ import Work.Math.GRadialPoisson
 import Work.Math.GSymFree
 import Work.Quantum.H2Tail
 import Work.Quantum.H2PlusBlindClosed
+import Work.Quantum.PSeries
