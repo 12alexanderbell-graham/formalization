@@ -26,8 +26,11 @@ surface). Printed total energies at R = 2: −0.6026342144949 hartree (arXiv phy
 What this statement does not say (fidelity record, for the audit): that ψ = L M is an eigenfunction of the
 three-dimensional operator (the separation is the classical change of variables, not formalised here), that a
 positive eigenfunction belongs to the lowest eigenvalue (a classical theorem for Schrödinger operators, not
-formalised here), or that the separable solution is square integrable (it follows from L → 0 and the equation,
-not stated).
+formalised here), or that ψ is square integrable in ℝ³ (the statement gives ∫₁^∞ L² ξ² dξ < ∞; with M bounded and the
+volume element (R/2)³(ξ² − η²) dξ dη dφ ≤ (R/2)³ ξ² dξ dη dφ this is the three-dimensional condition, not
+formalised). Re-freeze (same run): the integrability conjunct was added after the blind restatement
+(`runs/2026-11-26T1628Z/blind/`) wrote it as the bound-state condition and the first freeze (f9d5572) had
+only L → 0.
 -/
 
 namespace Work.Quantum.H2Plus
@@ -37,7 +40,7 @@ open Set Filter Topology
 equations: there is a total energy E in [−0.6026342144950, −0.6026342144949] (electronic energy E − 1/2), a
 separation constant A and functions L, M with derivatives L′, M′ such that ((ξ² − 1) L′)′ + (4ξ + 2(E − 1/2)ξ² + A) L = 0
 for ξ > 1, ((1 − η²) M′)′ − (2(E − 1/2)η² + A) M = 0 for −1 < η < 1, L continuous and positive on [1, ∞) with
-L(ξ) → 0 as ξ → ∞, and M continuous and positive on [−1, 1]. -/
+L(ξ) → 0 as ξ → ∞ and L(ξ)² ξ² integrable on [1, ∞), and M continuous and positive on [−1, 1]. -/
 theorem h2plus_separated_energy_two :
     ∃ E ∈ Icc (-0.6026342144950 : ℝ) (-0.6026342144949), ∃ A : ℝ, ∃ L L' M M' : ℝ → ℝ,
       ContinuousOn L (Ici 1) ∧
@@ -46,6 +49,7 @@ theorem h2plus_separated_energy_two :
         (-((4 * ξ + 2 * (E - 1 / 2) * ξ ^ 2 + A) * L ξ)) ξ) ∧
       (∀ ξ ∈ Ici (1 : ℝ), 0 < L ξ) ∧
       Tendsto L atTop (𝓝 0) ∧
+      MeasureTheory.IntegrableOn (fun ξ => L ξ ^ 2 * ξ ^ 2) (Ici 1) ∧
       ContinuousOn M (Icc (-1) 1) ∧
       (∀ η ∈ Ioo (-1 : ℝ) 1, HasDerivAt M (M' η) η) ∧
       (∀ η ∈ Ioo (-1 : ℝ) 1, HasDerivAt (fun x => (1 - x ^ 2) * M' x)
