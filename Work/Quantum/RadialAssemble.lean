@@ -28,11 +28,11 @@ theorem p0_continuousOn {k₁ k₂ : ℝ} (hk₁ : 0 ≤ k₁) (hk₂ : k₂ ≤
 
 theorem radial_flow {k₁ k₂ T : ℝ} (hk₁ : 0 ≤ k₁) (hk₂ : k₂ ≤ 3) (hT : 2 < T) {R : ℝ → ℝ}
     (hR : ContinuousOn R (Icc k₁ k₂)) (hR3 : ∀ k ∈ Icc k₁ k₂, R k ∈ Icc (0 : ℝ) 3) :
-    ∃ α : E → ℝ → E, ∀ k ∈ Icc k₁ k₂, α (p0 R k) 2 = p0 R k ∧
+    ∃ α : E → ℝ → E, (∀ k ∈ Icc k₁ k₂, α (p0 R k) 2 = p0 R k ∧
       (∀ t ∈ Icc (2 : ℝ) T,
         HasDerivWithinAt (fun s => (α (p0 R k) s).1) ((α (p0 R k) t).2.1 / (t ^ 2 - 1)) (Icc 2 T) t ∧
         HasDerivWithinAt (fun s => (α (p0 R k) s).2.1)
-          (-((4 * t - k * t ^ 2 + R k) * (α (p0 R k) t).1)) (Icc 2 T) t) ∧
+          (-((4 * t - k * t ^ 2 + R k) * (α (p0 R k) t).1)) (Icc 2 T) t)) ∧
       ∀ t ∈ Icc (2 : ℝ) T, ContinuousOn (fun k => α (p0 R k) t) (Icc k₁ k₂) := by
   have hpc := p0_continuousOn hk₁ hk₂ hR hR3
   obtain ⟨C, hC⟩ := isCompact_Icc.exists_bound_of_continuousOn hpc
@@ -43,7 +43,7 @@ theorem radial_flow {k₁ k₂ T : ℝ} (hk₁ : 0 ≤ k₁) (hk₂ : k₂ ≤ 3
   set B := r * Real.exp (NB T * (T - 2)) with hB
   have hB0 : 0 ≤ B := mul_nonneg hr0 (Real.exp_pos _).le
   obtain ⟨α, hα, L, hL⟩ := exists_flow hB0 hT hr0
-  refine ⟨α, fun k hk => ⟨(hα _ (hmem k hk)).1, fun t ht => ?_, fun t ht => ?_⟩⟩
+  refine ⟨α, fun k hk => ⟨(hα _ (hmem k hk)).1, fun t ht => ?_⟩, fun t ht => ?_⟩
   · -- the clamps are inactive
     have h2 := (hα _ (hmem k hk)).1
     have hn : ‖((α (p0 R k) 2).1, (α (p0 R k) 2).2.1)‖ ≤ r := by
