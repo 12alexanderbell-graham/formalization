@@ -84,10 +84,57 @@ jobs:
           restore-keys: ext-build-${{ matrix.name }}-${{ env.X_REV }}-
       - name: Replay (closure build, match, axioms, leanchecker, nanoda, program closures)
         timeout-minutes: 320
-        run: NANODA=1 EXTRA="$X_EXTRA" bash scripts/external/replay.sh "outside/$X_SUB" work "$X_SOL" "$X_CHAL" $X_THMS
-      - name: Save build for the next dispatch
+        run: LC_SKIP=1 NANODA=1 EXTRA="$X_EXTRA" bash scripts/external/replay.sh "outside/$X_SUB" work "$X_SOL" "$X_CHAL" $X_THMS
+      - name: Save build for the next dispatch and for the leanchecker shards
         if: always()
         uses: actions/cache/save@v4
         with:
           path: work/.lake/build
           key: ext-build-${{ matrix.name }}-${{ env.X_REV }}-${{ github.run_id }}
+  # leanchecker (the toolchain kernel's replay, second independent check) sharded over jobs (Alexander,
+  # 2026-11-26): each shard restores the replay job's build directory and replays every 4th module of the
+  # closure, so no runner holds more than a quarter of it and a lost shard names only its own modules.
+  # The replay job above has already reported build, declaration comparison, axioms and nanoda.
+  leanchecker:
+    needs: [list, replay]
+    if: always() && needs.list.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        name: ${{ fromJSON(needs.list.outputs.names) }}
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v5
+      - name: Free disk
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Read this line of the manifest
+        run: |
+          python3 - "${{ matrix.name }}" >> "$GITHUB_ENV" <<'PY'
+          import sys
+          for l in open('validation/external_replays.txt'):
+              if l.startswith('#') or not l.strip(): continue
+              f = [x.strip() for x in l.rstrip('\n').split('|')]
+              f += [''] * (8 - len(f))
+              if f[0] == sys.argv[1]:
+                  for k, v in zip(['X_NAME', 'X_URL', 'X_REV', 'X_SUB', 'X_SOL', 'X_CHAL', 'X_THMS', 'X_EXTRA'], f):
+                      print(f'{k}={v}')
+          PY
+      - name: Fetch the outside project at its pinned revision
+        run: |
+          mkdir outside && cd outside && git init -q && git remote add origin "$X_URL"
+          git fetch -q --depth 1 origin "$X_REV" && git checkout -q FETCH_HEAD
+      - name: Restore the replay job's build
+        uses: actions/cache/restore@v4
+        with:
+          path: work/.lake/build
+          key: ext-build-${{ matrix.name }}-${{ env.X_REV }}-${{ github.run_id }}
+          restore-keys: ext-build-${{ matrix.name }}-${{ env.X_REV }}-
+      - name: leanchecker on shard ${{ matrix.shard }} of 4
+        run: LC_SHARD=${{ matrix.shard }}/4 EXTRA="$X_EXTRA" bash scripts/external/replay.sh "outside/$X_SUB" work "$X_SOL" "$X_CHAL" $X_THMS

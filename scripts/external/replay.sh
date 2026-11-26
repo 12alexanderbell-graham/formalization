@@ -103,6 +103,63 @@ PY2
 [ -d .lake/packages/mathlib ] || lake update > lake_update.log 2>&1
 lake exe cache get > cache.log 2>&1 || true
 
+# leanchecker (step 4), as a function so that it can also run alone on a slice of the closure:
+# Each leanchecker invocation re-imports the environment of every module it is given, so batching saves
+# little; time is per module (S-egyptian on GitHub: ≈41 s/module; T1 Navier–Stokes ≈6.5 s/module). So
+# batches (LC_BATCH, default 2) run LC_JOBS at a time (default: number of cores).
+# Memory history: one process over a whole closure was OOM-killed at 4.5 GB in the session sandbox
+# (58 modules); a T1 job in batches of 20 lost its runner (run 45890308119, no log). Two guards: every
+# leanchecker process raises its own oom_score_adj to 1000, so under memory pressure the kernel kills it
+# and not the runner; a batch that fails is replayed again one module per process, one at a time, and only
+# a failure there fails the judge (a kernel error fails both ways; a memory kill only the batch).
+run_leanchecker() {
+  LC_BATCH=${LC_BATCH:-2}
+  LC_JOBS=${LC_JOBS:-$(nproc)}
+  ALL_MODS="$*"
+  LC_TOTAL=$(printf '%s\n' $ALL_MODS | wc -l)
+  mkdir -p lc_logs; : > lc_failed_batches.txt; : > lc_done.txt
+  lc_batch() {
+    local log="lc_logs/$1.log"
+    if bash -c 'echo 1000 > /proc/self/oom_score_adj 2>/dev/null; exec lake env leanchecker "$@"' _ "$@" > "$log" 2>&1; then :
+    else echo "exit $? on batch: $*" >> "$log"; echo "$*" >> lc_failed_batches.txt; fi
+    echo "$*" >> lc_done.txt
+    echo "leanchecker: $(wc -w < lc_done.txt)/$LC_TOTAL modules; $(free -m | awk '/^Mem:/{print "mem used " $3 " MB of " $2}')"
+  }
+  export -f lc_batch; export LC_TOTAL
+  printf '%s\n' $ALL_MODS | xargs -n "$LC_BATCH" -P "$LC_JOBS" bash -c 'lc_batch "$@"' _
+  LC_FAIL=0; LC_RETRIED=0
+  for m in $(cat lc_failed_batches.txt); do
+    LC_RETRIED=$((LC_RETRIED + 1))
+    bash -c 'echo 1000 > /proc/self/oom_score_adj 2>/dev/null; exec lake env leanchecker "$@"' _ "$m" > "lc_logs/retry_$m.log" 2>&1 || {
+      echo "FAIL module: $m (exit $?)"; tail -5 "lc_logs/retry_$m.log"; LC_FAIL=$((LC_FAIL + 1)); }
+  done
+  cat lc_logs/*.log > leanchecker.log
+  [ "$(wc -w < lc_done.txt)" = "$LC_TOTAL" ] || { echo "FAIL: leanchecker ran $(wc -w < lc_done.txt) of $LC_TOTAL modules"; exit 1; }
+  [ "$LC_FAIL" = 0 ] || { echo "FAIL: leanchecker ($LC_FAIL modules)"; exit 1; }
+  echo "leanchecker: replayed $LC_TOTAL modules, batches of $LC_BATCH, $LC_JOBS at a time ($LC_RETRIED re-run singly after a batch failure): OK"
+}
+
+# Shard mode (LC_SHARD=k/n, Alexander 2026-11-26: "shard leanchecker over several GitHub jobs"): rebuild
+# (a no-op on the build directory restored from the replay job), then leanchecker on modules number
+# k, k+n, k+2n, ... of the closure (plus the program's extra modules), and stop. Compare, axioms and nanoda
+# are the replay job's; a shard only adds the second kernel's replay of its slice.
+if [ -n "${LC_SHARD:-}" ]; then
+  k=${LC_SHARD%/*}; n=${LC_SHARD#*/}
+  for e in ${EXTRA:-}; do
+    mod=${e%%=*}; file=${e#*=}; rel=${mod//.//}.lean
+    mkdir -p "$(dirname "$rel")"; cp "$OLDPWD_SRC/$file" "$rel" 2>/dev/null || cp "$file" "$rel"
+  done
+  ALL=$(cat closure_modules.txt; for e in ${EXTRA:-}; do echo "${e%%=*}"; done)
+  # shellcheck disable=SC2086
+  lake build $ALL > build.log 2>&1 || { tail -40 build.log; echo "FAIL: build"; exit 1; }
+  SLICE=$(printf '%s\n' $ALL | awk -v k="$k" -v n="$n" '(NR - 1) % n == k - 1')
+  echo "leanchecker shard $k/$n: $(printf '%s\n' $SLICE | wc -l) of $(printf '%s\n' $ALL | wc -l) modules"
+  # shellcheck disable=SC2086
+  [ -z "$SLICE" ] || run_leanchecker $SLICE
+  echo "== leanchecker shard $k/$n PASSED"
+  exit 0
+fi
+
 # 1-2. compare challenge declarations with the solution's; axioms of the targets
 lake build "$SOL" "$CHAL" > build.log 2>&1 || { tail -40 build.log; echo "FAIL: build"; exit 1; }
 lake env lean --run "$HERE/compare_decls.lean" "$CHAL" "$SOL" "${THMS[@]}" > compare.log 2>&1 || {
@@ -154,40 +211,12 @@ CFG
   "$NAN/target/release/nanoda_bin" nanoda.json > nanoda.log 2>&1 || { tail -20 nanoda.log; echo "FAIL: nanoda"; exit 1; }
   tail -3 nanoda.log; echo "nanoda: OK ($(wc -l < export.ndjson) export lines)"; echo "== RESULT so far: match, axioms and nanoda PASSED (leanchecker follows)"
 fi
-# 4. leanchecker on every copied module and the match module
-# Each leanchecker invocation re-imports the environment of every module it is given, so batching saves
-# little; time is per module (S-egyptian on GitHub, batches of 8, one at a time: 61 modules in 46 min,
-# memory ≤ 1.7 GB of 16 GB; at that rate the 610-module Navier–Stokes closure would need ~7 h, over the
-# job limit). So batches (LC_BATCH, default 2) run LC_JOBS at a time (default: number of cores).
-# Memory history: one process over a whole closure was OOM-killed at 4.5 GB in the session sandbox
-# (58 modules); a T1 job in batches of 20 lost its runner (run 45890308119, no log). Two guards: every
-# leanchecker process raises its own oom_score_adj to 1000, so under memory pressure the kernel kills it
-# and not the runner; a batch that fails is replayed again one module per process, one at a time, and only
-# a failure there fails the judge (a kernel error fails both ways; a memory kill only the batch).
-LC_BATCH=${LC_BATCH:-2}
-LC_JOBS=${LC_JOBS:-$(nproc)}
-ALL_MODS=$(cat closure_modules.txt; for e in ${EXTRA:-}; do echo "${e%%=*}"; done)
-LC_TOTAL=$(printf '%s\n' $ALL_MODS | wc -l)
-mkdir -p lc_logs; : > lc_failed_batches.txt; : > lc_done.txt
-lc_batch() {
-  local log="lc_logs/$1.log"
-  if bash -c 'echo 1000 > /proc/self/oom_score_adj 2>/dev/null; exec lake env leanchecker "$@"' _ "$@" > "$log" 2>&1; then :
-  else echo "exit $? on batch: $*" >> "$log"; echo "$*" >> lc_failed_batches.txt; fi
-  echo "$*" >> lc_done.txt
-  echo "leanchecker: $(wc -w < lc_done.txt)/$LC_TOTAL modules; $(free -m | awk '/^Mem:/{print "mem used " $3 " MB of " $2}')"
-}
-export -f lc_batch; export LC_TOTAL
-printf '%s\n' $ALL_MODS | xargs -n "$LC_BATCH" -P "$LC_JOBS" bash -c 'lc_batch "$@"' _
-LC_FAIL=0; LC_RETRIED=0
-for m in $(cat lc_failed_batches.txt); do
-  LC_RETRIED=$((LC_RETRIED + 1))
-  bash -c 'echo 1000 > /proc/self/oom_score_adj 2>/dev/null; exec lake env leanchecker "$@"' _ "$m" > "lc_logs/retry_$m.log" 2>&1 || {
-    echo "FAIL module: $m (exit $?)"; tail -5 "lc_logs/retry_$m.log"; LC_FAIL=$((LC_FAIL + 1)); }
-done
-cat lc_logs/*.log > leanchecker.log
-[ "$(wc -w < lc_done.txt)" = "$LC_TOTAL" ] || { echo "FAIL: leanchecker ran $(wc -w < lc_done.txt) of $LC_TOTAL modules"; exit 1; }
-[ "$LC_FAIL" = 0 ] || { echo "FAIL: leanchecker ($LC_FAIL modules)"; exit 1; }
-echo "leanchecker: replayed $LC_TOTAL modules, batches of $LC_BATCH, $LC_JOBS at a time ($LC_RETRIED re-run singly after a batch failure): OK"
+# 4. leanchecker on every copied module and the program's extra modules (run_leanchecker, defined above)
+if [ "${LC_SKIP:-0}" = 1 ]; then
+  echo "leanchecker: not run in this job (LC_SKIP=1); the workflow runs it in LC_SHARD jobs over the same build"
+else
+  run_leanchecker $(cat closure_modules.txt; for e in ${EXTRA:-}; do echo "${e%%=*}"; done)
+fi
 # 4b. coverage of the blind readings by the closures (informative: a verdict is DONE only at full coverage)
 READ_FILES=""; CLOS_FILES=""
 for e in ${EXTRA:-}; do
