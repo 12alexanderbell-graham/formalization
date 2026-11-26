@@ -627,3 +627,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Hypotheses of five statements (run 2026-11-26T1228Z)
 - `Checked/Trust/NecessityCD.lean`, `Checked/Trust/NecessityCE.lean`, `Checked/FSAtt/Suction.lean`, `Checked/FSAtt/SuctionSlow.lean`, `Checked/FSSep/SuctionSep.lean`, `Checked/FSSep/SuctionSepOver.lean`, `Checked/FSSep/SuctionSepSlow.lean`, `Checked/FSSep/WallSep.lean`, `Checked/FSSep/WallSepOver.lean`, `Checked/FSSep/WallSepSlow.lean`, `Checked/FSSep/SSlowFiveThree.lean`, `Checked/FSSep/BlowSep.lean`, `Checked/FSSep/BlowSepOver.lean`, `Checked/FSSep/BlowSepSlow.lean`; scripts: `runs/2026-11-26T1228Z/scripts/`.
+
+## The hydrogen molecular ion at R = 2 bohr: freeze, blind closure, route (run 2026-11-26T1628Z)
+- `runs/2026-11-26T1628Z/lean/H2PlusSigmaG.lean` (freeze), `Work/Quantum/H2PlusBlindClosed.lean`, `Work/Quantum/H2Tail.lean`, `Work/Quantum/PSeries.lean`, `Work/Quantum/FluxSeries.lean`, `Work/Quantum/GeomBound.lean`; the route and the emulation: `runs/2026-11-26T1628Z/README.md`, `runs/2026-11-26T1628Z/scripts/`.

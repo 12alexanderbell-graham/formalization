@@ -1237,3 +1237,10 @@
 - Part 3 (rotation): a copy of the headline's statement offered as the blind reading passes `Claims.paramClosureFaults` (2/2, one a planted unfaithful headline) and its route passes `check_blind_route.py`, `check_brief_leak.py`, `check_provenance.py`; closures of fidelity objections abandoned (pre-registered 60fba3c). Both claims pages' header: CI checks the route of a second reading, not that its reader was blind; an objection leaves only by re-freeze or withdrawal.
 - Annex LIV: PROMPT working note; LEDGER experiment and experiment check.
 - Next: CI read; then parts 2/5 by rotation.
+
+## 2026-11-26T1628Z (scheduled run)
+- Env: repo ok (local main reset to origin/main, `scripts/start_run.sh`); local Lean (elan), Mathlib cache, no Checked build restored (no Checked change); subagents: Sonnet table reader (web), Sonnet blind restater. `EXTERNAL_LOCK` live (run 1529Z): external targets left to it.
+- CI: 45850578595 (29103dd, run 1428Z's final push) success; nothing to promote.
+- Parts 2/5 (rotation): the H₂⁺ ion at R = 2 (screened by run 1028Z). Printed tables read blind (one Source-class labelling error); statement frozen twice (integrability added after the blind restatement), blind restatement closed in Lean both ways; exact-rational emulation of the shooting certificate passes for E ∈ [−0.6026342144950, −0.6026342144949]; route replaced the screen's two-parameter box (no Poincaré–Miranda in Mathlib) by nested one-parameter roots; four generic modules compiled (`Work/Quantum/`).
+- Annex LIV: PROMPT working note; LEDGER experiment and experiment check.
+- Next: CI read; then part 1 by rotation.

@@ -1,0 +1,55 @@
+# Run 2026-11-26T1628Z
+
+**THE RESULT:** parts 2/5 by rotation (STATE 3t; next step STATE 3u): a new field for the trust system, quantum chemistry — the clamped-nuclei H₂⁺ ground state at R = 2 bohr. The statement is frozen and its blind restatement closed in Lean (both directions); the shooting certificate passes in exact-rational emulation for an interval of width 10⁻¹³ hartree around the printed value; four generic Lean modules of the route compiled (section What we did). No headline yet.
+
+**What can a scientist now trust without checking it themselves, that they could not before?** Nothing new at the level of a headline. What is new and machine-checked: that the program's Lean statement of the H₂⁺ separated problem says the same as an independent restatement written from the physics alone (a kernel-checked equivalence, `Work.Quantum.H2PlusBlindClosed.freeze_iff_blind`), and that the bound-state conditions (L → 0 and ∫ L² ξ² < ∞) follow from the two sign events the shooting certificate will produce (`Work.Quantum.H2Tail`).
+
+**Weakest unchecked step:** the exact-rational emulation `scripts/h2p_emulate.py` (Python, not Lean): it is the plan for the certificate, not a proof; no Lean statement depends on it yet.
+
+## Start
+- 16:28Z. The session clone was shallow with a stale local `main` (860fd46, an ancestor of origin/main); `git checkout -B main origin/main`, then `scripts/start_run.sh` (elan, Lean v4.35.0, Mathlib cache). No LOCK; LOCK taken 59a542a (48.4).
+- `EXTERNAL_LOCK`: run 2026-11-26T1529Z, heartbeat 16:12Z (16 minutes old at start): the external targets were left to it (PROMPT standing instruction 11); this run did the normal rotation and wrote only its own `runs/` folder, new `Work/Quantum/` modules, `Work.lean` imports and the records.
+- Env: repo ok (add_repo not exposed; the session clone was present). Local Lean (elan), Mathlib cache; no judge's build restored (no `Checked` change this run). Subagents: one Sonnet table reader (web), one Sonnet blind restater.
+- CI read first: 45850578595 (29103dd, run 1428Z's final push) **success on every job** (read 16:55Z). Nothing to promote. Newest ancestor green on every job: 29103dd. (45857751353 of 6cda4e7, Alexander's PROMPT edit, was still pending.)
+
+## Bottleneck (and what a yes/no changes)
+- Section Next of run 1028Z: the H₂⁺ ground state, first task of the next parts-2/5 run (LEDGER experiment: a family with eight consecutive parts-2/5 runs hands the next one to a screened candidate outside it). Yes (a certificate route that closes in Lean) → the trust system's first result in quantum chemistry and its first two-parameter eigenvalue problem. No → the blocker named exactly.
+- Hardest part first: the screen's plan said "a two-parameter root by a Miranda or interval-Newton box". Mathlib has no Poincaré–Miranda (it is equivalent to Brouwer's theorem): that plan could not close in Lean. Replaced before any Lean by nested one-parameter roots (section Route).
+
+## What we did
+1. **Printed tables** (brief `tables/BRIEF_TABLES.md`, committed alone in faf5466; reading `tables/READING.md`, committed alone as written in 2756d65). Both sources print the **total** energy at R = 2: −0.6026342144949 hartree (arXiv physics/0607081, labelled "electronic" in its text — a Source-class labelling error: its Eqs. (11), (21) and p = 1.48501462 make it the total) and −1.20526842899 Ry (arXiv 1401.8009, Table I) = −0.602634214495 hartree. Separation constant 0.8117295846248 (Madsen–Peek, via Table VI of 1401.8009); p = 1.48501462. The reader read a model extraction of the PDFs (its caveat is kept).
+2. **Float plan** (`scripts/h2p_float.py`, 60 digits, not evidence): k* = −ER²/2 = 2.205268428974 at shooting horizon 12 (total −0.60263421448703), −0.60263421449491 at horizon 14: the shooting error decays slower than e^{−2pX} alone, so the horizon for 13 printed digits is about 20, not 12.
+3. **Exact-rational emulation** (`scripts/h2p_emulate.py`; outputs `emulate_11dec.out`, `emulate_13dec.out`): intervals of Fractions rounded outward to 2⁻³⁰⁰, three kinds of series (angular Frobenius at η = 1, radial Frobenius at ξ = 1, radial Taylor steps at regular points ξ₀ with h = ξ₀/4), each with a tail bound by induction from its recurrence (the induction inequality printed with its margin). For the window E ∈ [−0.6026342144950, −0.6026342144949] (k ∈ [k₁, k₂], k₁ = 2.2052684289898, k₂ = 2.2052684289900):
+   - angular: at k₁ and k₂ the root A of M′(0) = 0 is bracketed to width 2·10⁻²¹ (0.81172958462472, 0.81172958462480; printed 0.8117295846248); M ≥ 0.6117 on [−1, 1] for every (k, A) in the box (16 pieces);
+   - radial, under (k₁): L(20) ≤ −3.88·10⁻⁵ for every A in the bracket (interval width 7·10⁻¹²);
+   - radial, over (k₂): L ≥ 0.0426 on [1, 5/2], L(20) ≥ 4.47·10⁻⁵, L′(20) ≥ 6.11·10⁻⁵, and N(ξ) = 4ξ − kξ² + A < 0 for ξ ≥ 5/2; 13 series pieces in all, 90–120 terms each, about 5 s in Python.
+   The coarser window [−0.60263421450, −0.60263421449] passes at horizon 15.
+4. **Freeze** (f9d5572, second freeze 9103740 in the same run, before any proof): `lean/H2PlusSigmaG.lean`, `Work.Quantum.H2Plus.h2plus_separated_energy_two`: there are E ∈ [−0.6026342144950, −0.6026342144949] (total energy; electronic E − 1/2), A and L, L′, M, M′ with ((ξ² − 1)L′)′ + (4ξ + 2(E − 1/2)ξ² + A)L = 0 on ξ > 1, ((1 − η²)M′)′ − (2(E − 1/2)η² + A)M = 0 on −1 < η < 1, L continuous and positive on [1, ∞), L → 0, ∫₁^∞ L²ξ² < ∞, M continuous and positive on [−1, 1]. Conventions and what the statement does not say (the change of variables, positive ⇒ ground state, the 3-D integral) in its module doc. `check_freeze_name.py --file`: name and literals ok; NEW words energy, plus, separated and DOCWORD words (hydrogen, molecular, ion, …) advisory, need prose_vocab lines at promotion.
+5. **Blind restatement** (Sonnet, brief committed with the first freeze; output saved as written in 17e7358): it derived the separated equations itself (same equations, opposite sign of A) and wrote the bound-state condition as continuity, L → 0 and ∫ L² ξ² < ∞ — the integrability conjunct, absent from the first freeze, was added by the second freeze (recorded in the module doc). Its file did not compile as written (`IntegrableOn` without `MeasureTheory.`). **Closed in Lean both ways** (`Work/Quantum/H2PlusBlindClosed.lean`, `freeze_iff_blind`: A_blind = −A, the expanded equations with L″ from the flux form by the quotient rule; axioms propext, Classical.choice, Quot.sound).
+6. **Generic Lean of the route** (all compiled locally with `lake build`, axioms standard, no sorry):
+   - `Work/Quantum/H2Tail.lean`: on a half-line where N ≤ 0, Q = L·(ξ² − 1)L′ is non-decreasing (derivative (ξ² − 1)L′² − NL² ≥ 0); `stays_above` (positive with positive slope at b ⇒ L ≥ L(b) for ever: the event "over" excludes decay and any later zero); `tail_of_nonincreasing` (positive and non-increasing with N ≤ −κξ² ⇒ L → 0 and L²ξ² integrable: κ∫ₐˣ ξ²L² ≤ −Q(a), no decay rate needed).
+   - `Work/Quantum/PSeries.lean`: power series with |cₙ| ≤ Cqⁿ: summable for |x|q < 1, differentiable on (−r, r) with rq < 1, derivative again such a series (`bound_deriv`).
+   - `Work/Quantum/FluxSeries.lean`: ∑ bₙsⁿ solves ((w₀ + w₁s + w₂s²)M′)′ + (v₀ + v₁s + v₂s²)M = 0 on (−r, r) when bₙ satisfies the recurrence (`Rec`) and a geometric bound — one theorem for all three kinds of pieces (angular and radial at the singular ends, radial Taylor steps).
+   - `Work/Quantum/GeomBound.lean`: the geometric bound for every n from finitely many checked coefficients and a four-lag recurrence inequality (strong induction).
+
+## Route (the plan the next runs follow; replaces the screen's Miranda box)
+1. Angular: for k in [k₁, k₂] and A in a box [A₋, A₊] (A₋ = bracket at k₁ minus 10⁻¹², A₊ = bracket at k₂ plus 10⁻¹²), M_{k,A}(η) = ∑ bₙ(1 − η)ⁿ (FluxSeries, w = (0, 2, −1)); g(k, A) = M′(0). Sign change of g on [A₋, A₊] for every k (interval certificate over the k-box); g strictly increasing in A because M > 0 on [0, 1] on the whole box (Wronskian identity ((1 − η²)(M₁M₂′ − M₂M₁′))′ = (A₂ − A₁)M₁M₂ integrated over [0, 1]); so a unique root A(k), continuous in k; at k₁ and k₂ it lies in the tight brackets. Evenness from M′(0) = 0 and the symmetry η ↦ −η gives continuity at −1.
+2. Radial: L_{k,A(k)} on [1, ∞): Frobenius piece on [1, 2] (FluxSeries, w = (0, 2, 1)), then a global flow with (k, A) as state components (Picard–Lindelöf with clamping, as `Checked/Townes/TExFlow.lean`), identified with the Taylor pieces by ODE uniqueness on [2, 20].
+3. Events: under(k) = ∃ ξ ≥ 1, L(ξ) < 0; over(k) = ∃ b ≥ 5/2, L > 0 on [1, b] and L′(b) > 0. Both open in k, disjoint by `stays_above`; under(k₁), over(k₂) from the certificate. At the supremum neither holds: L ≥ 0, so L > 0 (a double zero gives L ≡ 0), and L′ ≤ 0 past 5/2; `tail_of_nonincreasing` gives L → 0 and the integrability (as `Checked/Townes/TExAssemble.lean`).
+4. Certificates over ℚ: the emulation's series and tail inequalities as kernel computations (`Work/Sim/QPoly.lean` style), emitted by a generator from `h2p_emulate.py`.
+
+## Measure
+- Fields with a frozen, blind-closed statement: + quantum chemistry (the first eigenvalue problem with two coupled parameters).
+- Fidelity: the blind restatement found one condition the first freeze lacked (square integrability); the freeze was corrected before any proof, and the equivalence is a kernel theorem rather than a referee's judgment.
+- Source check: one of two typeset sources labels the total energy "electronic" (Source class); the program's float plan and the second source decide which.
+- Route: one infeasible step of the screen's plan (a two-dimensional root theorem Mathlib lacks) replaced before any Lean was spent on it; four of the route's generic modules compiled; remaining: the angular assembly, the radial flow with parameters, the events and the certificate.
+
+## Next
+- CI read first: the run of this run's final push (new `Work/Quantum/` modules; `Work.lean` imports). Green → nothing to promote. Red → its first failing command with 29103dd as base.
+- Parts 2/5 next: route step 1 (the angular assembly: g continuous on the box by `continuousOn_tsum` with the certificate's uniform bound, the Wronskian monotonicity, the unique continuous root), then step 2. Certificates (step 4) last, once the statements they feed are fixed.
+- Part 1 next: as in section Next of `runs/2026-11-26T1228Z/README.md`. Part 3 next: as in section Next of `runs/2026-11-26T1428Z/README.md`.
+
+## End
+- Local: `lake build` of the four modules and the closure (green, axioms standard); `lake env lean` of both freezes (sorry only in the freeze, as for every freeze); `check_freeze_name.py --file`.
+- Message to Alexander (L.2): none (no headline, finding or status changed).
+- CI of this run's final push: the next run reads it (section Next).
