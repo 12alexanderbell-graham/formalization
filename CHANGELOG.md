@@ -1230,3 +1230,10 @@
 - Ten hypotheses NEEDED in the first push (`Checked/Trust/NecessityCD.lean`, `Checked/Trust/NecessityCE.lean`): `fs_neg_decay_max_shear` 13, `fs_neg_tenth_monotone_lt` 4, `fs_separation_equal` 4, 5, 13, 14, `F12_separation` 4, 5, 9, `fs_separation_below_printed` 9; open 26 → 16. New: the attached stack at a suction start (`Checked/FSAtt/Suction.lean`), the separation stack at a suction start and at a moving wall (`Checked/FSSep/SuctionSep.lean`, `WallSep.lean`), six generated chain modules.
 - Annex LIV: PROMPT working note; LEDGER experiment.
 - Second push: `fs_separation_below_printed` 4 NEEDED (blowing separation stack `Checked/FSSep/BlowSep.lean`, energy corrected for f ≥ −1/1000; chains `BlowSepOver`, `BlowSepSlow`); open 16 → 15.
+
+## 2026-11-26T1428Z (scheduled run)
+- Env: repo ok (worked from origin/main, then `scripts/start_run.sh`); local Lean (elan), judge's build of a53280d restored by streaming, `lake build Checked` (3846 jobs); no subagents.
+- CI: 45831242351 (01d9447, run 1228Z's first final push) green on all 13 jobs; nothing to promote. 45837982832 (fc87bbf) success, read in this run.
+- Part 3 (rotation): a copy of the headline's statement offered as the blind reading passes `Claims.paramClosureFaults` (2/2, one a planted unfaithful headline) and its route passes `check_blind_route.py`, `check_brief_leak.py`, `check_provenance.py`; closures of fidelity objections abandoned (pre-registered 60fba3c). Both claims pages' header: CI checks the route of a second reading, not that its reader was blind; an objection leaves only by re-freeze or withdrawal.
+- Annex LIV: PROMPT working note; LEDGER experiment and experiment check.
+- Next: CI read; then parts 2/5 by rotation.

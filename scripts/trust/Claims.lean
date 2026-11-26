@@ -1113,7 +1113,14 @@ run_cmd do
           -- parametric rule rejects both forgeries of red team BA and 4/4 honest bench closures pass it, but a reading
           -- that restates the headline behind a disjunct true at a re-spelt literal (`c ≥ √(3.321992119 ^ 2) ∨ …`)
           -- passes; a statement-shape rule cannot see a re-spelling, so closures wait for a check on the reading.
-          errors := errors.push s!"objections.txt: closure of the entry on {hn}: closures are suspended (red teams BA and BB forged closures that the rule accepted; runs/2026-11-26T0828Z/t5/RESULTS_PARAM.md): the entry stays open"
+          -- Abandoned (run 2026-11-26T1428Z, runs/2026-11-26T1428Z/t5/RESULTS_COPY.md): the reading need not re-spell
+          -- anything. A copy of the headline's own statement, offered as the reading, passes this rule (an honest
+          -- agreeing reading may be the same term, so `X = H[c]` must be allowed) and its route passes
+          -- check_blind_route.py, check_brief_leak.py and check_provenance.py (brief, reading, copy in three commits);
+          -- with a planted unfaithful headline (3.5 for the source's 3.321992119) the copy closes the objection the
+          -- honest reading cannot. What separates the two is who wrote the reading, which no check on the repository
+          -- sees. A closure field stays a blocking error for good; an entry leaves only by re-freeze or withdrawal.
+          errors := errors.push s!"objections.txt: closure of the entry on {hn}: closures are abandoned (a copy of the headline's statement passes as the reading through every check; runs/2026-11-26T1428Z/t5/RESULTS_COPY.md): the entry stays open until the headline is re-frozen or withdrawn"
           closedObjs := closedObjs.insert hn (((closedObjs.find? hn).getD #[]).push
             s!"raised in run {run}, its text written in {code path} (author prose, not printed on this page); closed by the Checked theorem {code t.toString}: a blind reader's statement of the source claim, with the headline's literals made variables, is equivalent to the headline at every value of them, and the literals bite (checked by the generator of this page)")
         | .ok _, none => errors := errors.push s!"objections.txt: fifth field must be `closed by <theorem> reading <definition>`: {l}"
@@ -1160,18 +1167,18 @@ run_cmd do
     "registries CI checks, what has been machine-checked about the statement's meaning: a non-vacuity witness,",
     "how many hypotheses are shown needed or redundant, blind second readings of its literals, and its freeze.",
     "None of these proves that a statement matches its source; they are the record a fidelity objection meets.",
-    "It opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection",
-    "to the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an",
-    "objection that is not shown there has not been recorded as one. An objection's own words are author prose and",
-    "are not printed: the record shows that it is open and where it is written. An objection is closed only by a",
-    "Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a",
-    "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it), with the",
-    "headline's numerical literals made variables, is equivalent to the headline's statement at every value of them,",
-    "with a second theorem that the headline is false at some value (the generator of this page checks both",
-    "statements and fails otherwise); the record then shows that it is",
-    "closed and the name of that theorem. No other entry or text can mark an objection settled. At present no",
-    "closure is accepted: red teams made the generator accept forged ones (runs 2026-11-26T0228Z and 0828Z), so every",
-    "recorded objection stays open until the rule is repaired.", "",
+    "**What CI checks about a blind second reading is its route, not that its reader was blind:** its brief was",
+    "committed before it and holds none of its numbers, and it was committed alone before its copy in `Checked`;",
+    "a reading the authors wrote themselves, even a copy of the headline's own statement, passes the same checks",
+    "(run 2026-11-26T1428Z).",
+    "The record opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every",
+    "objection to the meaning of a listed headline is entered when it is first written anywhere (since run",
+    "2026-11-18T0828Z): an objection that is not shown there has not been recorded as one. An objection's own words",
+    "are author prose and are not printed: the record shows that it is open and where it is written. An objection",
+    "leaves the record only when its headline is re-frozen (its claim changes) or withdrawn. No entry, reading or",
+    "theorem marks an objection settled: closure by a Lean theorem that a second reading of the source is equivalent",
+    "to the headline was tested and abandoned, because a copy of the headline's statement passes as such a reading",
+    "(runs 2026-11-26T0228Z, 0828Z and 1428Z); the generator of this page fails on any closure field.", "",
     "Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);",
     "`√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =",
     "derivative; `iteratedDeriv n f x` = n-th derivative; `HasDerivAt f f' x` = f has derivative f' at",
@@ -1323,19 +1330,19 @@ run_cmd do
     "Lean computes for it). A headline listed here is proved; a withdrawn headline is removed from `Checked` and",
     "from this page. The Status line also carries the headline's **fidelity record**, generated from Lean and the",
     "registries CI checks: a non-vacuity witness, how many hypotheses are shown needed or redundant, blind second",
-    "readings of its literals, and its freeze. None of these proves that a statement matches its source. The record",
+    "readings of its literals, and its freeze. None of these proves that a statement matches its source.",
+    "**What CI checks about a blind second reading is its route, not that its reader was blind:** its brief was",
+    "committed before it and holds none of its numbers, and it was committed alone before its copy in `Checked`;",
+    "a reading the authors wrote themselves, even a copy of the headline's own statement, passes the same checks",
+    "(run 2026-11-26T1428Z). The record",
     "opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection to",
     "the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an",
     "objection that is not shown there has not been recorded as one. An objection's own words are author prose and",
-    "are not printed: the record shows that it is open and where it is written. An objection is closed only by a",
-    "Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a",
-    "`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it), with the",
-    "headline's numerical literals made variables, is equivalent to the headline's statement at every value of them,",
-    "with a second theorem that the headline is false at some value (the generator of this page checks both",
-    "statements and fails otherwise); the record then shows that it is",
-    "closed and the name of that theorem. No other entry or text can mark an objection settled. At present no",
-    "closure is accepted: red teams made the generator accept forged ones (runs 2026-11-26T0228Z and 0828Z), so every",
-    "recorded objection stays open until the rule is repaired.", ""]
+    "are not printed: the record shows that it is open and where it is written. An objection leaves the record only",
+    "when its headline is re-frozen (its claim changes) or withdrawn. No entry, reading or theorem marks an objection",
+    "settled: closure by a Lean theorem that a second reading of the source is equivalent to the headline was tested",
+    "and abandoned, because a copy of the headline's statement passes as such a reading (runs 2026-11-26T0228Z, 0828Z",
+    "and 1428Z); the generator of this page fails on any closure field.", ""]
   -- the notation and total-function paragraphs of the header are copied (they are fixed generator text)
   let notIdx := (out.toList.take hdrEnd).findIdx? (·.startsWith "Notation (Lean/Mathlib")
   match notIdx with

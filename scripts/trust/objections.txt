@@ -28,5 +28,11 @@
 # `<theorem>.bite : not (forall c, H[c])`). Honest bench 4/4 accepted; both red-team BA forgeries cannot be stated;
 # red team BB passed a reading that restates the headline beside a disjunct true at a re-spelt literal. STILL
 # SUSPENDED: every closure field remains a blocking error until a check on the reading itself is measured.
+# ABANDONED (run 2026-11-26T1428Z, runs/2026-11-26T1428Z/t5/RESULTS_COPY.md): the check on the reading planned above
+# would be a check of who wrote it. A copy of the headline's own statement, offered as the reading, passes
+# paramClosureFaults (an honest agreeing reading may be the same term) and its route passes check_blind_route.py,
+# check_brief_leak.py and check_provenance.py; against a planted unfaithful headline the copy closes the objection that
+# the honest reading cannot. No check on the repository sees the author of a commit, so no closure field is ever
+# accepted: an entry leaves this file only when its headline is re-frozen (its claim changes) or withdrawn.
 # check_claims.py O1 counts an entry by its first four fields. Started empty: objections raised
 # before this run were settled by re-freezes recorded in their run folders.

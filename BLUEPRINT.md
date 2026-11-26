@@ -622,5 +622,8 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 ## The radial Gelfand branch parameter extrema, bounds on consecutive radii and values from index six on by a constant times a power of a ratio (run 2026-11-26T1028Z)
 - `Checked/Math/GelfandDecayCore.lean`, `Checked/Math/GelfandTurningDecay.lean`, `Checked/Trust/NecessityCC.lean`, `Checked/Trust/SecondReadingGelfandTurnDecay.lean`, `Work/Math/GelfandTurningDecay.lean`, `Work/Math/GelfandTurningDecayBlindClosed.lean`; the proof: `runs/2026-11-26T1028Z/README.md`.
 
+## One registry field and one header (run 2026-11-26T1428Z)
+- `scripts/trust/Claims.lean`, `scripts/trust/objections.txt`; the measure: `runs/2026-11-26T1428Z/t5/RESULTS_COPY.md`; harness `runs/2026-11-26T1428Z/t5/copy_body.lean` (with `runs/2026-11-26T0828Z/scripts/run_pclosure.sh`).
+
 ## Hypotheses of five statements (run 2026-11-26T1228Z)
 - `Checked/Trust/NecessityCD.lean`, `Checked/Trust/NecessityCE.lean`, `Checked/FSAtt/Suction.lean`, `Checked/FSAtt/SuctionSlow.lean`, `Checked/FSSep/SuctionSep.lean`, `Checked/FSSep/SuctionSepOver.lean`, `Checked/FSSep/SuctionSepSlow.lean`, `Checked/FSSep/WallSep.lean`, `Checked/FSSep/WallSepOver.lean`, `Checked/FSSep/WallSepSlow.lean`, `Checked/FSSep/SSlowFiveThree.lean`, `Checked/FSSep/BlowSep.lean`, `Checked/FSSep/BlowSepOver.lean`, `Checked/FSSep/BlowSepSlow.lean`; scripts: `runs/2026-11-26T1228Z/scripts/`.

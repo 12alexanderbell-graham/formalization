@@ -1,0 +1,3 @@
+COPY Checked.Math.GelfandPDEBound.gelfand_pde_bound by CBench.c_copy reading CBench.SecondReading.gelfandCopy: ACCEPTED
+COPY CBench.weak_bound by CBench.c_weak reading CBench.SecondReading.weakCopy: ACCEPTED
+COPY CBench.weak_bound by CBench.c_copy reading CBench.SecondReading.gelfandCopy: REJECTED (1): [the left side of CBench.c_copy at the literals of CBench.weak_bound is not the reading CBench.SecondReading.gelfandCopy]

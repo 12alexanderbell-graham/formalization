@@ -11,19 +11,19 @@ regenerates it on every push and fails if the committed copy differs.
 Lean computes for it). A headline listed here is proved; a withdrawn headline is removed from `Checked` and
 from this page. The Status line also carries the headline's **fidelity record**, generated from Lean and the
 registries CI checks: a non-vacuity witness, how many hypotheses are shown needed or redundant, blind second
-readings of its literals, and its freeze. None of these proves that a statement matches its source. The record
+readings of its literals, and its freeze. None of these proves that a statement matches its source.
+**What CI checks about a blind second reading is its route, not that its reader was blind:** its brief was
+committed before it and holds none of its numbers, and it was committed alone before its copy in `Checked`;
+a reading the authors wrote themselves, even a copy of the headline's own statement, passes the same checks
+(run 2026-11-26T1428Z). The record
 opens with the headline's open fidelity objections from `scripts/trust/objections.txt`, where every objection to
 the meaning of a listed headline is entered when it is first written anywhere (since run 2026-11-18T0828Z): an
 objection that is not shown there has not been recorded as one. An objection's own words are author prose and
-are not printed: the record shows that it is open and where it is written. An objection is closed only by a
-Lean theorem in `Checked` stating that a blind reader's statement of the source claim (a definition of a
-`Checked.Trust.SecondReading*` module, written from the source alone, its brief committed before it), with the
-headline's numerical literals made variables, is equivalent to the headline's statement at every value of them,
-with a second theorem that the headline is false at some value (the generator of this page checks both
-statements and fails otherwise); the record then shows that it is
-closed and the name of that theorem. No other entry or text can mark an objection settled. At present no
-closure is accepted: red teams made the generator accept forged ones (runs 2026-11-26T0228Z and 0828Z), so every
-recorded objection stays open until the rule is repaired.
+are not printed: the record shows that it is open and where it is written. An objection leaves the record only
+when its headline is re-frozen (its claim changes) or withdrawn. No entry, reading or theorem marks an objection
+settled: closure by a Lean theorem that a second reading of the source is equivalent to the headline was tested
+and abandoned, because a copy of the headline's statement passes as such a reading (runs 2026-11-26T0228Z, 0828Z
+and 1428Z); the generator of this page fails on any closure field.
 
 Notation (Lean/Mathlib, printed as is): `Set.Icc a b` = [a, b]; `Set.Ioo a b` = (a, b);
 `√x` = square root; `Real.log` = natural logarithm; `Real.logb b x` = log base b; `deriv f x` =

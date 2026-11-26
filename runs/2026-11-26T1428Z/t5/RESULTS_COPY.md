@@ -21,9 +21,9 @@ runs/2026-11-26T1428Z/t5/copy_body.lean`; output `t5/copy.out`):
 
 | case | headline | reading | expected | result |
 |---|---|---|---|---|
-| C1 | `gelfand_pde_bound` (faithful) | copy of its statement | accepted (indistinguishable from an agreeing blind reading) | see `copy.out` |
-| C2 | `CBench.weak_bound`, planted unfaithful (3.5 for the source's 3.321992119; true, proved from the program's theorem) | copy of ITS statement | accepted: the objection "the source says 3.321992119" is closed | see `copy.out` |
-| C3 | `CBench.weak_bound` | the C1 copy (λ ≤ 3.321992119) through C1's closure theorem | rejected (control) | see `copy.out` |
+| C1 | `gelfand_pde_bound` (faithful) | copy of its statement | accepted (indistinguishable from an agreeing blind reading) | **ACCEPTED** |
+| C2 | `CBench.weak_bound`, planted unfaithful (3.5 for the source's 3.321992119; true, proved from the program's theorem) | copy of ITS statement | accepted: the objection "the source says 3.321992119" is closed | **ACCEPTED** |
+| C3 | `CBench.weak_bound` | the C1 copy (λ ≤ 3.321992119) through C1's closure theorem | rejected (control) | REJECTED ("the left side … is not the reading") |
 
 The honest blind reading of the source (λ ≤ 3.321992119) cannot close C2's objection: `∀ c, (… → λ ≤ 3.321992119)
 ↔ (… → λ ≤ c)` is false at c = 3.4, so no closure theorem exists. The rule therefore separates C2's forged closure from
@@ -67,3 +67,20 @@ every rule here"); it is now measured with the closure rule in the same case.
 - Author-written readings accepted by the blind-route checks (`check_blind_route`, `check_brief_leak`,
   `check_provenance`): 1/1.
 - Forged closures the page can show as closed: 0 (closures abandoned; the closure field is a blocking error).
+
+## 5. Side measure: how far a blind literal reading reaches (red team AY's untried `brute.py` class)
+
+`runs/2026-11-26T1428Z/scripts/measure_reuse.py` (needs a StatementDeps run; summary `t5/reuse_summary.out`). A reader
+constant covers the literals of any headline it is registered for whose statement contains its body; rule 1 (d) of
+`check_literals.py` confines only one-numeral binder constants, by the module-import relation `same_model`.
+
+- Registrations today: 1128 pairs, 243 constants, 120 of them registered for more than one headline; **83 pairs
+  would fail `same_model`** against every other headline of the same constant, all inside one model family (the
+  Gelfand and Bonnor–Ebert headlines live in modules that share no import). So the import relation is not a usable
+  anchor for a general rule: it would reject the program's own honest reuse.
+- Reach: 6008 (constant, headline) pairs where a registered constant with a numeral matches an unregistered headline
+  outside every import-model of its registrations (364 inside one); 87 reader constants with a numeral are registered
+  nowhere. A registration line is author-written, but what it binds (a reading of one source to the literals of a
+  headline of another) is machine-visible once the anchor is the reading's source rather than a module: candidates
+  for the next part-3 run are the `source=` field made mandatory and checked against the headline's own registered
+  source (`citations`/`frozen` records), not new text rules.

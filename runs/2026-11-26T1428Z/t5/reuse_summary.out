@@ -1,0 +1,70 @@
+A. registrations: 1128 pairs, 243 constants; 120 constants registered for more than one headline
+  cross-model registrations: 83
+B. reader constants with a numeral not registered anywhere: 87
+   unregistered matches in a model of the constant's registrations: 364
+   unregistered matches outside every model of its registrations: 6008
+cross-model registrations by constant:
+      5 gelfandRhs
+      5 gelfandCentre
+      4 gelfandPdeSpace
+      4 gelfandPdeRegular
+      4 gelfandPdeContinuous
+      4 gelfandPdeBall
+      3 gelfandRegular
+      3 gelfandPunctured
+      3 gelfandPdeClosedBall
+      3 gelfandManyCentre
+      3 gelfandDomain
+      3 beMass
+      2 tfRhs
+      2 tfRegular
+      2 tfNucleus
+      2 tfInfinity
+      2 tfDomain
+      2 blasiusWall
+      2 blasiusRhs
+      2 blasiusHalfLineTyped
+      2 blasiusHalfLine
+      2 blasiusEdge
+      2 beSingularMass
+      2 beOpenHalfLine
+      2 beNextMaxIndex
+      2 beMinIndex
+      2 beMaxIndex
+      2 beMassSeq
+      2 beHalfLine
+      2 beFirstMax
+      1 gelfandLambda
+      1 fsnWallValue
+      1 fsBetaRhs
+unregistered matches outside every model, by constant (top 30):
+    258 tfAtNucleus
+    258 beCountAboveCritical
+    256 gelfandManyCentre
+    254 gcFirstMax
+    244 beFirstMax
+    225 beCountBelowFirstMin
+    213 beFirstMinRadius
+    209 gcFirstMin
+    208 gelfandSecondTurn
+    206 beSecondMaxRadius
+    202 gelfandSingularLambda
+    202 gcSecondMax
+    201 gelfandThirdTurn
+    166 fsnWallValue
+    129 townesCentre
+    117 townesSlope
+    114 blasiusWall
+    105 townesHalfLine
+    104 tfDomain
+    102 blasiusHalfLineTyped
+    102 blasiusHalfLine
+     97 gelfandCentre
+     97 beSecondMinRadius
+     93 beHalfLine
+     92 gelfandFourthTurn
+     85 blasiusEdge
+     83 homannWall
+     83 hiemenzWall
+     80 gelfandSixthTurn
+     77 gcMaxIndex
