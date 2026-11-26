@@ -1250,3 +1250,10 @@
 - Verdicts: S1 Erdős 304, S2 Erdős 184, S3 van der Waerden DONE; target 3 AlphaEvolve rank-48 DONE; target 0 NOT DONE ((a) certified, one harmonic); targets 1, 2 NOT DONE pending GitHub solution replays (statement level closed; T2's (0,T) rate uncovered). Post-verdict comparison with human reviews recorded.
 - New: `scripts/external/` (replay.sh, coverage.py, check_axioms.py, scan_escapes.py), `.github/workflows/external.yml`, `validation/external_replays.txt`, `validation/EXTERNAL_*.md`.
 - Annex LIV: LEDGER experiment (general external replay).
+
+## 2026-11-26T1828Z (scheduled run; target 0 angular sum, then part 1 plan)
+- Env: repo ok; local Lean (elan, 4.35.0), Mathlib cache, leanchecker; one Sonnet referee. `EXTERNAL_LOCK` live (run 1529Z): other external targets left to it.
+- CI: 45867342244 (1a6d332, run 1628Z's final push) success; nothing to promote.
+- Target 0 angular sum (PROMPT 11): cases (ii) and (iii); harmonic sum of (4.33) diverges under the paper's harmonic-independent normalization (Lean, standard axioms). `validation/EXTERNAL_T0.md`, `EXTERNAL_BLOCKERS.md` appended. Target 0 NOT DONE.
+- Part 1 (rotation): receding-wall witness planned (window K ∈ [5043/1000, 5044/1000] at wall velocity −1/1000; invariants and energy bound), no Lean.
+- Annex LIV: PROMPT working note; LEDGER experiment.

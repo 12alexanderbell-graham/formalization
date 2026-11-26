@@ -35,3 +35,26 @@ STATE 3v / PROMPT 11 "Target 0, angular sum": `EXTERNAL_T0.md` item 2 left open 
 What the claims page should say: "finite for one polarization and one angular harmonic; with the paper's harmonic-independent normalization the same amplitude summed over harmonics diverges (Lean)."
 
 Time: reading 18:30–18:38Z; Lean 18:33–18:45Z; referee 18:39–18:40Z.
+
+## Measure
+- Target 0: the open blocker row 0 (a) closed as a statement about the outside result (one harmonic; the harmonic sum diverges, Lean) — one judgment link left (harmonic-independent width, inferred from (D.41)). Trust metric unchanged (no `Checked` change).
+- CI repair (records check M1/M2 of `check_headline_mentions.py`, base 1a6d332): the heading of `runs/2026-11-26T1529Z/README.md` shortened to the run id (its words "external test (standing instruction 11)" outside the vocabulary would have failed the next CI run); no check changed.
+
+## Part 1 (rotation): plan for the receding-wall witness (no Lean this run)
+Section Next of run 1228Z: `fs_separation_below_printed` hypothesis 5 (p 0 = 0) needs a separation solution with p(0) < 0 whose β lies at or above −0.1988376 (the conclusion is β < −1988376/10⁷). Float scan (`scripts/scan_receding.py`, not evidence; events as `SBase`) on the scaled field from (0, −d, 0):
+- d = 1/1000: K* = 5.043384 (β* = −0.198280, 5.6·10⁻⁴ above the bound); K = 5.043 over (at η ≈ 2.93), K = 5.044 slow (η ≈ 2.98): **window [5043/1000, 5044/1000]**, β ∈ (−0.198295, −0.198255). d = 1/500: K* = 5.057653; d = 1/200: K* = 5.101147 (more margin, further from the existing stack).
+- Along the trajectory (d = 1/1000): p < 0 only until η ≈ 0.041; min f = −3.0·10⁻⁵; max q = 0.811.
+- **Unclamping invariants for the port of `WallSep`/`BlowSep`** (the new part is p < 0 at the wall): −d ≤ p ≤ 1 (p non-decreasing while q ≥ 0); f ≥ −d (for η ≤ 1, f ≥ −dη; and p ≥ 0 from η = 1/10 on, because while p < 0 and η ≤ 1/10, q′ ≥ 1 − d² − K·dη·2 ≥ 0.98, so q ≥ 0.98η and p ≥ −d + 0.49η² ≥ 0 at η ≥ 0.046); f ≤ η (f′ = p ≤ 1); 0 ≤ q ≤ 2 by the blowing run's energy with C = −d: E = q²/2 + p³/3 − p − 2Kdp is non-increasing while f ≥ −d and 0 ≤ q ≤ 2, E(0) = d − d³/3 + 2Kd², so q ≤ 1.18 at d = 1/1000 (1.20 at d = 1/200); q > 0 on (0, ∞) as before (q′ = 1 − p² > 0 at a zero of q with p < 1). The clamps |f| ≤ η + 2, |p|, |q| ≤ 2 are never met.
+- Chains: `ChainKW`-shaped certificates from (0, −1/1000, 0) at K = 5043/1000 (Over) and 5044/1000 (SlowS), generated as in `runs/2026-11-26T1228Z/scripts/gen_sep_suction.py` / `emit_sep_wall.py` with the start changed.
+
+## Next
+- CI read first: the Lean judge run of this run's final push (no `Checked` change; expect green, nothing to promote).
+- External test: left to run 1529Z while its `EXTERNAL_LOCK` heartbeat is fresh (STATE 3w); target 0's claims-page sentence is in `EXTERNAL_T0.md`.
+- Part 1 next: port `WallSep` to the receding start (0, −1/1000, 0) with the invariants above (generator in the style of `runs/2026-11-26T1228Z/scripts/mk_sep_wall.py`; the `conseq` block of `SUnclamp.unclampS` changes: p ≥ −d instead of p ≥ 0, f ≥ −d instead of f ≥ 0 with the η ≥ 1/10 lemma, energy bound from `BlowSep`), chains at 5043/1000 and 5044/1000, then `fs_separation_below_printed_h5` in a new `Checked/Trust/NecessityCF.lean`. Then the positivity hypotheses (section Next of run 1228Z).
+- Part 3 next: as in section Next of `runs/2026-11-26T0828Z/README.md`. Parts 2/5 next: as in section Next of `runs/2026-11-26T1628Z/README.md`.
+
+## End
+- Local: elan, Lean 4.35.0, Mathlib cache; `lake env lean` of `T0/angular_sum.lean` (log saved), leanchecker on its olean; float scan for part 1. No `Checked` change; no judge's build restored.
+- CI read: 45867342244 (1a6d332, run 1628Z's final push) **success**; nothing to promote.
+- Message to Alexander (L.2): target 0 verdict update (angular sum: one harmonic only; harmonic sum diverges under the paper's definitions), sent as a notification.
+- Annex LIV: PROMPT working note (every assumption a reader lists gets a Lean answer in the same run; whole-paper search via the arXiv LaTeX source); LEDGER experiment.

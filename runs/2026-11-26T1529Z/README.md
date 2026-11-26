@@ -1,4 +1,4 @@
-# Run 2026-11-26T1529Z — external test (standing instruction 11)
+# Run 2026-11-26T1529Z
 
 **THE RESULT:** parts 2 and 3 — for the first time the trust system judged major AI-produced science it did not make, end to end, with tools that work on any outside Lean result. Verdicts (DONE / NOT DONE, every link listed): S1 Erdős 304, S2 Erdős 184, S3 van der Waerden **DONE**; target 3 (AlphaEvolve rank-48 ⟨4,4,4⟩) **DONE**; target 0 (Chandrasekaran null-cone gravity) **NOT DONE** ((a) certified as stated, scope one harmonic); targets 1 (OpenAI Navier–Stokes) and 2 (zeta zeros, 41.6% → 67.2%) **NOT DONE** pending their solution replays, statement level closed (target 2: the paper's (0,T) rate is not in the Lean). Records: `validation/EXTERNAL_S.md`, `EXTERNAL_T0.md`, `EXTERNAL_T1_T2_T3.md`, `EXTERNAL_BLOCKERS.md`.
 
