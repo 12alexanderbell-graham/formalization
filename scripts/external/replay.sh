@@ -128,8 +128,7 @@ lake env lean "${MATCH_MOD//.//}.lean" > match.log 2>&1 || { cat match.log; echo
 cat match.log
 if grep -q "error" match.log; then echo "FAIL: match has errors"; exit 1; fi
 # 2. axioms
-if grep "depends on axioms" match.log | grep -v "depends on axioms: \[propext, Classical.choice, Quot.sound\]" | grep -q .; then
-  echo "FAIL: axioms beyond propext, Classical.choice, Quot.sound"; exit 1; fi
+python3 "$HERE/check_axioms.py" match.log || { echo "FAIL: axioms beyond propext, Classical.choice, Quot.sound"; exit 1; }
 lake build "$MATCH_MOD" > build_match.log 2>&1 || { tail -20 build_match.log; echo "FAIL: build match module"; exit 1; }
 # 2b. the program's own files (readings, closures, pins)
 EXTRA_LIBS=""
@@ -143,8 +142,7 @@ for e in ${EXTRA:-}; do
   lake build "$mod" > "build_$mod.log" 2>&1 || { tail -30 "build_$mod.log"; echo "FAIL: build $mod"; exit 1; }
   lake env lean "${mod//.//}.lean" > "check_$mod.log" 2>&1 || true
   if grep -q "error" "check_$mod.log"; then cat "check_$mod.log"; echo "FAIL: $mod has errors"; exit 1; fi
-  if grep "depends on axioms" "check_$mod.log" | grep -v "depends on axioms: \[propext, Classical.choice, Quot.sound\]" | grep -q .; then
-    grep "depends on axioms" "check_$mod.log"; echo "FAIL: $mod axioms"; exit 1; fi
+  python3 "$HERE/check_axioms.py" "check_$mod.log" || { echo "FAIL: $mod axioms"; exit 1; }
   grep "depends on axioms" "check_$mod.log" || true
 done
 EXTRA_LIBS=$(echo "$EXTRA_LIBS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
