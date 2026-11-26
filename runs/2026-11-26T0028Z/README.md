@@ -37,3 +37,4 @@
 - Local: `scripts/start_run.sh`, judge's build of 91ca6ba restored by streaming, `lake build Checked` (3815 jobs with the new module), `lake env lean` of an axiom print (axioms of both theorems: propext, Classical.choice, Quot.sound), `TRUST_RELOCK=1 … StatementDeps.lean` (314 headlines, NV 192/192, necessity 786 / 261 / 27 open), `Claims.lean` (314 claims), `check_claims_fresh.py`, `check_headline_mentions.py --base 91ca6ba`, `check_stale_necessity.py`, goal guard, `validation/make_packet.py`, `records_check.py 91ca6ba` (after the commit).
 - CI read in this run: 45720073336 (91ca6ba) green on every job → `bonnor_ebert_turning_bounds` judged PROVED.
 - Message to Alexander (L.2): `bonnor_ebert_turning_bounds` PROVED (judged by CI on every job).
+- CI of this run's final push 3a7afbb: 45734700171 (started 01:17Z); the next run reads it (section Next).
