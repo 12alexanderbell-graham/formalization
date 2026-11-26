@@ -40,13 +40,13 @@
 - Breadth: one candidate outside the isothermal family screened (section Screen) and made the first task of the next parts-2/5 run.
 
 ## Next
-- CI read first: the run of this run's final push (new Checked modules `GelfandDecayCore`, `GelfandTurningDecay`, `NecessityCC`, `SecondReadingGelfandTurnDecay`; `Witnesses` changed; nanoda and leanchecker re-check the new modules). Green on every job → `gelfand_turning_decay` PROVED: the judged template in its STATE.md heading (`check_stale_status.py`) and one L.2 line to Alexander. Red → `python3 scripts/trust/records_check.py <base>` with the newest ancestor green on every job (abf1764).
+- CI read first: 45809568668 of this run's final push a53280d was read green on every job by this run (section End); nothing to promote. Newest ancestor green on every job: a53280d.
 - Parts 2/5 next: (b) first — the H₂⁺ ground state of section Screen: read the printed tables (the 1971 table or a later one, LEDGER) for E(R) at one R, write the separated equations with conventions at the top of a Work file, emulate the Frobenius cells at ξ = 1 and η = ±1 and the tail in exact rationals before any Lean (PROMPT working note on emulating a certificate first). The isothermal family second (the Gelfand and Bonnor–Ebert rates now both have explicit constants; remaining there: tighter constants from a smaller start error).
 - Part 3 next: as in section Next of `runs/2026-11-26T0828Z/README.md`.
 - Part 1 next: as in section Next of `runs/2026-11-26T0628Z/README.md`.
 
 ## End
 - Local: `scripts/start_run.sh`, judge's build of abf1764 restored by streaming, `lake build Checked` (3832 jobs after the promotion), StatementDeps relock (new entries only, LEDGER), `Claims.lean` (316 claims), `check_freeze_name.py --file`, goal guard, `records_check.py abf1764` (section End is written before the final push; its result is in the final commit message).
-- Message to Alexander (L.2): none this run (the headline is PROVED only when CI is green; the next run sends the L.2 line, section Next).
+- Message to Alexander (L.2): one line after the CI read below (new PROVED headline).
 - Final push a53280d; `records_check.py abf1764`: 46 commands, 0 failed.
-- CI of this run's final push a53280d: 45809568668 (started 11:19Z); the next run reads it (section Next), unless this run records it below.
+- CI of this run's final push a53280d: 45809568668 (started 11:19Z) **green on every job** (goal guard, packet, changes, work, checked incl. the trust and frozen steps, leanchecker 4/4, nanoda 4/4), read by this run at 12:13Z: `gelfand_turning_decay` PROVED; the judged template in its STATE.md heading; L.2 line sent to Alexander.

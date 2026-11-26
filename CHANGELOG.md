@@ -1222,4 +1222,5 @@
 - Parts 2/5 (rotation): new headline `gelfand_turning_decay`, freeze → Checked in one run, no new certificates: from index six on, the distance of the quotient of consecutive radial Gelfand turning radii (and of consecutive deviations of the branch parameter from 2) to its limit is at most c₁ qⁿ (c₂ qⁿ) with c₁ ≤ 47/100, c₂ ≤ 3/100, 0 ≤ q ≤ 33/100. Referee STANDS; blind restatement closed in Lean; every hypothesis classified.
 - Screen (part 5): the clamped-nuclei H₂⁺ ground state, GO (moderate), made the first task of the next parts-2/5 run.
 - Annex LIV: LEDGER experiment (a family with eight consecutive parts-2/5 runs hands the next one to a screened candidate outside it) and experiment check (LITERAL at freeze time: kept).
-- Next: CI read of the final push; then part 1 by rotation.
+- CI of the final push a53280d: 45809568668 green on every job (read in the run): `gelfand_turning_decay` PROVED; L.2 line to Alexander.
+- Next: part 1 by rotation.
