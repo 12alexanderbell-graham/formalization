@@ -28,6 +28,6 @@
 `validation/EXTERNAL_BLOCKERS.md`.
 
 ## Next
-- Read the GitHub replay of T1 (run 45890308119, job 140151124011; batched leanchecker) and S4 cycle–clique (run 45862470764, job 140056834017, old script); update the verdicts. T2 done (runs 45874989863, 45880627629).
+- Read the GitHub replay of T1 (run 45899681780; run 45890308119 lost its runner in the leanchecker step, fixed in replay.sh) and S4 cycle–clique (run 45862470764, job 140056834017, old script); update the verdicts. T2 done (runs 45874989863, 45880627629).
 - Target 0 (b), (c): the blocking links are physics inputs without formal counterparts (heat-kernel coefficient; Einstein operator on a space of solutions).
 - The rate O(log log T/log T) of target 2 has no Lean statement; tell the authors only through Alexander (47.1).
