@@ -651,3 +651,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Part 3: sourced readings G and H in Checked (run 2026-11-27T0828Z; readings by run 2026-11-27T0428Z)
 - `Checked/Trust/SecondReadingSpecG.lean`, `Checked/Trust/SecondReadingSpecH.lean` (from `runs/2026-11-27T0428Z/specG/`, `specH/`), `Checked/Trust/SpecAgreementGH.lean`, `scripts/trust/Claims.lean` (`blindSpecNote`: readers A–H, sourced or from memory, `pins_neg_`), `scripts/trust/source_excerpt.py`.
+
+## Part 3: readers' specifications of three definitions (run 2026-11-27T1028Z)
+- `Checked/Trust/SecondReadingSpecI.lean`, `Checked/Trust/SecondReadingSpecJ.lean`, `Checked/Trust/SecondReadingSpecK.lean`, `Checked/Trust/SpecAgreementIJK.lean`, `Checked/Trust/JunkImmaterial.lean`, `scripts/trust/Claims.lean`.
