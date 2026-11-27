@@ -93,6 +93,19 @@ theorem mem_mul {x y : ℝ} {a b : Iv} (hx : Iv.mem x a) (hy : Iv.mem y b) : Iv.
       linarith [le_max_left (max (p * r) (p * s)) (max (q * r) (q * s))]
   exact ⟨e1, e2⟩
 
+/-- Outward rounding to multiples of 2⁻²⁰⁰ (keeps the kernel's numbers short; error ≤ 2⁻²⁰⁰ per step). -/
+def rD : ℚ := 1606938044258990275541962092341162602522202993782792835301376  -- 2 ^ 200
+def rdn (q : ℚ) : ℚ := ((⌊q * rD⌋ : ℤ) : ℚ) / rD
+def rup (q : ℚ) : ℚ := ((⌈q * rD⌉ : ℤ) : ℚ) / rD
+def rnd (a : Iv) : Iv := ⟨rdn a.lo, rup a.hi⟩
+
+theorem mem_rnd {x : ℝ} {a : Iv} (hx : Iv.mem x a) : Iv.mem x (rnd a) := by
+  have hD : (0 : ℚ) < rD := by unfold rD; positivity
+  have h1 : rdn a.lo ≤ a.lo := by unfold rdn; rw [div_le_iff₀ hD]; exact Int.floor_le _
+  have h2 : a.hi ≤ rup a.hi := by unfold rup; rw [le_div_iff₀ hD]; exact Int.le_ceil _
+  unfold Iv.mem rnd at *
+  exact ⟨le_trans (by exact_mod_cast h1) hx.1, le_trans hx.2 (by exact_mod_cast h2)⟩
+
 /-- The state after n steps: enclosures of bₙ, bₙ₊₁, bₙ₊₂, of ∑_{j<n} (j + 1) bⱼ₊₁ (g's partial sum), of
 ∑_{j<n} bⱼ xʲ (M's partial sum at a point x of the interval X) and of xⁿ. -/
 structure St where
@@ -107,8 +120,8 @@ structure St where
 def step (K AI X : Iv) (n : ℕ) (st : St) : St :=
   let c : Iv := ⟨((n : ℚ) + 2) * ((n : ℚ) + 3) - K.hi + AI.lo, ((n : ℚ) + 2) * ((n : ℚ) + 3) - K.lo + AI.hi⟩
   let num := iadd (iadd (imul c st.b2) (imul (ismul 2 K) st.b1)) (ineg (imul K st.b0))
-  ⟨st.b1, st.b2, ismul (1 / (2 * ((n : ℚ) + 3) ^ 2)) num, iadd st.gs (ismul ((n : ℚ) + 1) st.b1),
-    iadd st.ms (imul st.b0 st.pw), imul st.pw X⟩
+  ⟨st.b1, st.b2, rnd (ismul (1 / (2 * ((n : ℚ) + 3) ^ 2)) num), rnd (iadd st.gs (ismul ((n : ℚ) + 1) st.b1)),
+    rnd (iadd st.ms (imul st.b0 st.pw)), rnd (imul st.pw X)⟩
 
 /-- The start: b₀ = 1, b₁ = (A − k)/2, b₂ = ((2 − k + A) b₁ + 2k)/8, empty sums, x⁰ = 1. -/
 def start (K AI : Iv) : St :=
@@ -160,20 +173,20 @@ theorem run_sound (K AI X : Iv) {k A x : ℝ} (hk : Iv.mem k K) (hA : Iv.mem A A
         unfold Iv.mem at *; push_cast; constructor <;> linarith [hk.1, hk.2, hA.1, hA.2]
       have hnum := mem_add (mem_add (mem_mul hc i2) (mem_mul hK2 i1)) (mem_neg (mem_mul hk i0))
       have hpos : (0 : ℚ) ≤ 1 / (2 * ((n : ℚ) + 3) ^ 2) := by positivity
-      have := mem_smul hpos hnum
+      have := mem_rnd (mem_smul hpos hnum)
       simp only [run, step]
       convert this using 1
       rw [show n + 1 + 2 = n + 3 by ring, ab_succ3]
       push_cast; ring
-    · have := mem_add is (mem_smul (c := (n : ℚ) + 1) (by positivity) i1)
+    · have := mem_rnd (mem_add is (mem_smul (c := (n : ℚ) + 1) (by positivity) i1))
       simp only [run, step]
       convert this using 1
       simp only [S, Finset.sum_range_succ]; push_cast; ring
-    · have := mem_add im (mem_mul i0 ip)
+    · have := mem_rnd (mem_add im (mem_mul i0 ip))
       simp only [run, step]
       convert this using 1
       simp only [SM, Finset.sum_range_succ]
-    · have := mem_mul ip hx
+    · have := mem_rnd (mem_mul ip hx)
       simp only [run, step]
       convert this using 1
       ring
@@ -295,12 +308,90 @@ theorem M_pos_of_check {K AI X : Iv} {N : ℕ} (h : checkM K AI X N = true) {k A
 /-! The window and the bracket. -/
 
 def Kw : Iv := ⟨22052684289898 / 10 ^ 13, 22052684289900 / 10 ^ 13⟩
-def aQ : ℚ := 811729584623719 / 10 ^ 15
-def bQ : ℚ := 811729584625801 / 10 ^ 15
+def aQ : ℚ := 81172958462467962 / 10 ^ 17
+def bQ : ℚ := 81172958462484056 / 10 ^ 17
 
-theorem check_lo : checkNeg Kw aQ 130 = true := by decide +kernel
-theorem check_hi : checkPos Kw bQ 130 = true := by decide +kernel
+/-- The k-window cut into 16 equal pieces (one interval for the whole window overestimates g by ≈ 5·10⁻¹³, more
+than the margin ≈ 4·10⁻¹⁴ the tight bracket leaves). -/
+def nP : ℕ := 16
+def Kp (i : ℕ) : Iv := ⟨Kw.lo + i * ((Kw.hi - Kw.lo) / nP), Kw.lo + (i + 1) * ((Kw.hi - Kw.lo) / nP)⟩
+
+/- One declaration per piece (a single `List.all` over the 16 pieces held every intermediate term in the kernel's
+cache: 4 GB and 30 min without finishing). -/
+theorem check_lo_0 : checkNeg (Kp 0) aQ 130 = true := by decide +kernel
+theorem check_lo_1 : checkNeg (Kp 1) aQ 130 = true := by decide +kernel
+theorem check_lo_2 : checkNeg (Kp 2) aQ 130 = true := by decide +kernel
+theorem check_lo_3 : checkNeg (Kp 3) aQ 130 = true := by decide +kernel
+theorem check_lo_4 : checkNeg (Kp 4) aQ 130 = true := by decide +kernel
+theorem check_lo_5 : checkNeg (Kp 5) aQ 130 = true := by decide +kernel
+theorem check_lo_6 : checkNeg (Kp 6) aQ 130 = true := by decide +kernel
+theorem check_lo_7 : checkNeg (Kp 7) aQ 130 = true := by decide +kernel
+theorem check_lo_8 : checkNeg (Kp 8) aQ 130 = true := by decide +kernel
+theorem check_lo_9 : checkNeg (Kp 9) aQ 130 = true := by decide +kernel
+theorem check_lo_10 : checkNeg (Kp 10) aQ 130 = true := by decide +kernel
+theorem check_lo_11 : checkNeg (Kp 11) aQ 130 = true := by decide +kernel
+theorem check_lo_12 : checkNeg (Kp 12) aQ 130 = true := by decide +kernel
+theorem check_lo_13 : checkNeg (Kp 13) aQ 130 = true := by decide +kernel
+theorem check_lo_14 : checkNeg (Kp 14) aQ 130 = true := by decide +kernel
+theorem check_lo_15 : checkNeg (Kp 15) aQ 130 = true := by decide +kernel
+theorem check_hi_0 : checkPos (Kp 0) bQ 130 = true := by decide +kernel
+theorem check_hi_1 : checkPos (Kp 1) bQ 130 = true := by decide +kernel
+theorem check_hi_2 : checkPos (Kp 2) bQ 130 = true := by decide +kernel
+theorem check_hi_3 : checkPos (Kp 3) bQ 130 = true := by decide +kernel
+theorem check_hi_4 : checkPos (Kp 4) bQ 130 = true := by decide +kernel
+theorem check_hi_5 : checkPos (Kp 5) bQ 130 = true := by decide +kernel
+theorem check_hi_6 : checkPos (Kp 6) bQ 130 = true := by decide +kernel
+theorem check_hi_7 : checkPos (Kp 7) bQ 130 = true := by decide +kernel
+theorem check_hi_8 : checkPos (Kp 8) bQ 130 = true := by decide +kernel
+theorem check_hi_9 : checkPos (Kp 9) bQ 130 = true := by decide +kernel
+theorem check_hi_10 : checkPos (Kp 10) bQ 130 = true := by decide +kernel
+theorem check_hi_11 : checkPos (Kp 11) bQ 130 = true := by decide +kernel
+theorem check_hi_12 : checkPos (Kp 12) bQ 130 = true := by decide +kernel
+theorem check_hi_13 : checkPos (Kp 13) bQ 130 = true := by decide +kernel
+theorem check_hi_14 : checkPos (Kp 14) bQ 130 = true := by decide +kernel
+theorem check_hi_15 : checkPos (Kp 15) bQ 130 = true := by decide +kernel
+
+theorem check_lo (i : ℕ) (hi : i < nP) : checkNeg (Kp i) aQ 130 = true := by
+  unfold nP at hi
+  interval_cases i
+  exacts [check_lo_0, check_lo_1, check_lo_2, check_lo_3, check_lo_4, check_lo_5, check_lo_6, check_lo_7, check_lo_8, check_lo_9, check_lo_10, check_lo_11, check_lo_12, check_lo_13, check_lo_14, check_lo_15]
+
+theorem check_hi (i : ℕ) (hi : i < nP) : checkPos (Kp i) bQ 130 = true := by
+  unfold nP at hi
+  interval_cases i
+  exacts [check_hi_0, check_hi_1, check_hi_2, check_hi_3, check_hi_4, check_hi_5, check_hi_6, check_hi_7, check_hi_8, check_hi_9, check_hi_10, check_hi_11, check_hi_12, check_hi_13, check_hi_14, check_hi_15]
 theorem check_M : checkM Kw ⟨aQ, bQ⟩ ⟨0, 1⟩ 60 = true := by decide +kernel
+
+/-- Every point of [lo, lo + P w] lies in one of the P pieces. -/
+theorem exists_piece {lo w x : ℝ} {P : ℕ} (hw : 0 < w) (hP : 0 < P) (h1 : lo ≤ x) (h2 : x ≤ lo + P * w) :
+    ∃ i < P, lo + i * w ≤ x ∧ x ≤ lo + (i + 1) * w := by
+  set j := ⌊(x - lo) / w⌋₊
+  have hq : 0 ≤ (x - lo) / w := div_nonneg (by linarith) hw.le
+  have hj1 : (j : ℝ) ≤ (x - lo) / w := Nat.floor_le hq
+  have hj2 : (x - lo) / w < j + 1 := Nat.lt_floor_add_one _
+  by_cases hjP : j < P
+  · refine ⟨j, hjP, ?_, ?_⟩
+    · have := (le_div_iff₀ hw).mp hj1; linarith
+    · have := (div_lt_iff₀ hw).mp hj2; linarith
+  · push Not at hjP
+    refine ⟨P - 1, by omega, ?_, ?_⟩
+    · have hle : ((P - 1 : ℕ) : ℝ) ≤ (x - lo) / w := by
+        refine le_trans ?_ hj1; exact_mod_cast (show P - 1 ≤ j by omega)
+      have := (le_div_iff₀ hw).mp hle; linarith
+    · have : ((P - 1 : ℕ) : ℝ) + 1 = P := by
+        rw [Nat.cast_sub (by omega)]; push_cast; ring
+      rw [this]; linarith
+
+theorem mem_piece {k : ℝ} (hk : k ∈ Icc H2PlusConditional.k₁ H2PlusConditional.k₂) :
+    ∃ i < nP, Iv.mem k (Kp i) := by
+  unfold H2PlusConditional.k₁ H2PlusConditional.k₂ at hk
+  obtain ⟨i, hi, h1, h2⟩ := exists_piece (lo := ((Kw.lo : ℚ) : ℝ)) (w := (((Kw.hi - Kw.lo) / nP : ℚ) : ℝ))
+    (x := k) (P := nP) (by unfold Kw nP; norm_num) (by unfold nP; norm_num)
+    (by unfold Kw; push_cast; linarith [hk.1]) (by unfold Kw nP; push_cast; linarith [hk.2])
+  refine ⟨i, hi, ?_⟩
+  unfold Iv.mem Kp
+  push_cast at h1 h2 ⊢
+  exact ⟨h1, h2⟩
 
 theorem mem_Kw {k : ℝ} (hk : k ∈ Icc H2PlusConditional.k₁ H2PlusConditional.k₂) : Iv.mem k Kw := by
   unfold Iv.mem Kw; unfold H2PlusConditional.k₁ H2PlusConditional.k₂ at hk; push_cast; exact hk
@@ -312,12 +403,16 @@ theorem box_of {k : ℝ} (hk : k ∈ Icc H2PlusConditional.k₁ H2PlusConditiona
   refine ⟨abs_le.mpr ⟨by linarith, by linarith⟩, abs_le.mpr ⟨by linarith, by linarith⟩⟩
 
 /-- Hypothesis `hlo` of `RegularUnique.freeze_of_IVP_certificate` at a = 0.811729584623719. -/
-theorem g_lo : ∀ k ∈ Icc H2PlusConditional.k₁ H2PlusConditional.k₂, g k (aQ : ℝ) < 0 := fun k hk =>
-  g_neg_of_check check_lo (mem_Kw hk) (box_of hk (by unfold aQ; norm_num) (by unfold aQ; norm_num))
+theorem g_lo : ∀ k ∈ Icc H2PlusConditional.k₁ H2PlusConditional.k₂, g k (aQ : ℝ) < 0 := fun k hk => by
+  obtain ⟨i, hi, hki⟩ := mem_piece hk
+  have := check_lo i hi
+  exact g_neg_of_check this hki (box_of hk (by unfold aQ; norm_num) (by unfold aQ; norm_num))
 
 /-- Hypothesis `hhi` of `RegularUnique.freeze_of_IVP_certificate` at b = 0.811729584625801. -/
-theorem g_hi : ∀ k ∈ Icc H2PlusConditional.k₁ H2PlusConditional.k₂, 0 < g k (bQ : ℝ) := fun k hk =>
-  g_pos_of_check check_hi (mem_Kw hk) (box_of hk (by unfold bQ; norm_num) (by unfold bQ; norm_num))
+theorem g_hi : ∀ k ∈ Icc H2PlusConditional.k₁ H2PlusConditional.k₂, 0 < g k (bQ : ℝ) := fun k hk => by
+  obtain ⟨i, hi, hki⟩ := mem_piece hk
+  have := check_hi i hi
+  exact g_pos_of_check this hki (box_of hk (by unfold bQ; norm_num) (by unfold bQ; norm_num))
 
 /-- Hypothesis `hM` of `RegularUnique.freeze_of_IVP_certificate`: M > 0 on [0, 1] for every (k, A) of the box
 (one interval for s, N = 60; the emulation `runs/2026-11-27T0828Z/scripts/m_interval.py` gives M ≥ 0.12). -/

@@ -647,9 +647,16 @@ def blindSpecNote (ctx : Ctx) (d : Name) : MetaM String := do
   let shortN := d.componentsRev.head!.toString
   let env ← getEnv
   let mut items : Array String := #[]
-  for r in ["A", "B", "C", "D", "E", "F"] do
+  for r in ["A", "B", "C", "D", "E", "F", "G", "H"] do
+    -- Readers G and H (run 2026-11-27T0428Z) were handed verbatim source excerpts (`runs/<run>/sources/`);
+    -- A to F wrote from memory (their web fetches were refused or not attempted). The page says which.
+    let srcTxt := if ["G", "H"].contains r then "sourced" else "from memory"
     let readerNs := (`Checked.Trust).str s!"SecondReadingSpec{r}"
-    let pinsN := (`Checked.Trust.SpecAgreement).str s!"pins_{shortN}_{r}"
+    -- `pins_neg_X_R` (run 2026-11-27T0828Z): the reader's specification determines minus the definition
+    let pinsPos := (`Checked.Trust.SpecAgreement).str s!"pins_{shortN}_{r}"
+    let pinsNegN := (`Checked.Trust.SpecAgreement).str s!"pins_neg_{shortN}_{r}"
+    let isNeg := !(env.contains pinsPos) && env.contains pinsNegN
+    let pinsN := if isNeg then pinsNegN else pinsPos
     let meetsN := (`Checked.Trust.SpecAgreement).str s!"meets_{shortN}_{r}"
     let notN := (`Checked.Trust.SpecAgreement).str s!"not_meets_{shortN}_{r}"
     -- `S d` with `S` a structure of the reader's module
@@ -673,7 +680,9 @@ def blindSpecNote (ctx : Ctx) (d : Name) : MetaM String := do
           | none => match c.iff? with
             | some (l, rhs) => some (l, rhs)
             | none => none
-        let some (l, rhs) := sides | return none
+        let some (l, rhs0) := sides | return none
+        if isNeg && !rhs0.isAppOfArity ``Neg.neg 3 then return none
+        let rhs := if isNeg then rhs0.appArg! else rhs0
         if !rhs.getAppFn.isConstOf d || !l.getAppFn.isFVarOf xs[0]!.fvarId! then return none
         let mut hs : Array String := #[]
         for x in xs[2:] do
@@ -688,16 +697,17 @@ def blindSpecNote (ctx : Ctx) (d : Name) : MetaM String := do
     let pinTxt := match pinShape with
       | some (_, hs) =>
         let hTxt := if hs.isEmpty then "" else s!" assuming {"; ".intercalate hs.toList}"
-        s!"the reader's specification {code (tidy ctx sN.toString)} determines it ({code (tidy ctx pinsN.toString)}){hTxt}"
+        let what := if isNeg then "determines minus it" else "determines it"
+        s!"the reader's specification {code (tidy ctx sN.toString)} {what} ({code (tidy ctx pinsN.toString)}){hTxt}"
       | none => "no theorem that the reader's specification determines it"
     if meetsS.isSome && pinShape.isSome then
-      items := items.push s!"reader {r} AGREES: the definition meets the reader's specification ({code (tidy ctx meetsN.toString)}) and {pinTxt}"
+      items := items.push s!"reader {r} ({srcTxt}) AGREES: the definition meets the reader's specification ({code (tidy ctx meetsN.toString)}) and {pinTxt}"
     else if notS.isSome then
-      items := items.push s!"reader {r} DISAGREES: the definition does not meet the reader's specification ({code (tidy ctx notN.toString)}); {pinTxt}"
+      items := items.push s!"reader {r} ({srcTxt}) DISAGREES: the definition does not meet the reader's specification ({code (tidy ctx notN.toString)}); {pinTxt}"
     else if meetsS.isSome then
-      items := items.push s!"reader {r}: the definition meets the reader's specification ({code (tidy ctx meetsN.toString)}); {pinTxt}"
+      items := items.push s!"reader {r} ({srcTxt}): the definition meets the reader's specification ({code (tidy ctx meetsN.toString)}); {pinTxt}"
     else
-      items := items.push s!"reader {r}: {pinTxt}; that the definition meets it is not proved"
+      items := items.push s!"reader {r} ({srcTxt}): {pinTxt}; that the definition meets it is not proved"
   if items.isEmpty then return ""
   return s!". Blind specification readings (part B: a reader who did not see the pinning specification wrote one from the source; `Checked/Trust/SpecAgreement*.lean`): {"; ".intercalate items.toList}"
 

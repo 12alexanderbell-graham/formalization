@@ -18,7 +18,7 @@ verbatim LaTeX excerpts of the three sources (`runs/2026-11-27T0428Z/sources/`).
 
 Results:
 * `curv` (Ricci scalar, Bamba et al. 2012 §XI): G and H AGREE (`meets_curv_G/H`, `pins_curv_G/H`). Both
-  readers found the source's own inconsistency: §VIII.C writes `R = 6(Ḣ + 2H²)`, §XI (11.6) `R = −6(Ḣ + 2H²)`
+  readers found the source's own inconsistency: §VIII.C writes `R = 6(Ḣ + 2H²)`, §XI (equation six of that section) `R = −6(Ḣ + 2H²)`
   for the same metric; readers C and D (memory) had the §VIII sign.
 * `curvK`: G AGREES; H DISAGREES (H reads the parameter as `Ω_K = −K/(H₀²a₀²)`, §X's named density
   parameter; the program's is the ratio `K/(H₀²a₀²)` printed in the coefficients, `= Ω₀ − 1`):

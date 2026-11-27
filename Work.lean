@@ -635,3 +635,4 @@ import Work.Quantum.H2Events
 import Work.Quantum.H2PlusConditional
 import Work.Quantum.RegularUnique
 import Work.Quantum.AngularCert
+import Work.Quantum.FrobCert

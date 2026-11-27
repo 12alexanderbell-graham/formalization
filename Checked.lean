@@ -824,3 +824,6 @@ import Checked.Trust.SpecAgreementCD
 import Checked.Trust.SecondReadingSpecE
 import Checked.Trust.SecondReadingSpecF
 import Checked.Trust.SpecAgreementEF
+import Checked.Trust.SecondReadingSpecG
+import Checked.Trust.SecondReadingSpecH
+import Checked.Trust.SpecAgreementGH

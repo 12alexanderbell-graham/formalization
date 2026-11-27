@@ -1297,3 +1297,10 @@
 - Target R (Alpöge's claimed RH/GRH proof): statement DONE (3 blind readers of 3 models, 10 readings closed against the byte-identical `Statements.lean` of four editions; ζ and L-functions pinned; hypotheses needed/redundant in Lean); coverage gaps named; escape scans clean; Sernau editions replaying (45956936114); original archive blocker R1 (175,187 modules). `validation/EXTERNAL_R.md`.
 - Target O: ten families of OpenAI's release judged at statement level (`validation/EXTERNAL_O.md`); O7's Lean statement does not state its claim; O3 replay PASSED; others replaying.
 - Tools: `replay.sh` (srcDir, moreLeanArgs, outside packages at manifest revisions, error printing), `coverage.py` (Prop readings, reader lemmas). Run README `runs/2026-11-27T0628Z/README.md`.
+
+## 2026-11-27T0828Z (scheduled run; run 0428Z's copy steps, then parts 2/5 by rotation)
+- Env: repo ok; local Lean (elan, 4.35.0), Mathlib cache; judge's build of 5c678d6 restored by streaming. `EXTERNAL_LOCK` live (run 0628Z): external targets left to it.
+- CI: 45956936101 (5c678d6) and 45947696027 (ea89f92) success; nothing to promote.
+- Part 3 (run 0428Z's Next): sourced readings G, H and their closure in `Checked/Trust/` (`SecondReadingSpecG`, `SecondReadingSpecH`, `SpecAgreementGH`); claims page marks each blind reading sourced or from memory and renders `pins_neg_`; `scripts/trust/source_excerpt.py`.
+- Parts 2/5: H₂⁺ route step 4 (i), (ii) proved in Work (`Work/Quantum/AngularCert.lean`: `M_pos`, `g_lo`, `g_hi`, kernel-evaluated rational interval recurrences; `freeze_of_radial_events`): open hypotheses of the freeze 5 → 2; of step 4 (iii), the Frobenius positivity at k₂ (`Work/Quantum/FrobCert.lean`, `RL_pos_k₂`; `freeze_of_radial_flows`). The angular bracket corrected first: run 2228Z's 10⁻¹² widening makes the radial events false at its corners (float check); new bracket = root hull ± 4·10⁻¹⁴.
+- Annex LIV: PROMPT working note (corner check of shared certificate parameters; interval certificates by kernel evaluation); LEDGER experiment.

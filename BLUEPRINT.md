@@ -645,3 +645,9 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Part 3: independent readers' specifications of twenty definitions (run 2026-11-27T0228Z)
 - `Checked/Trust/SecondReadingSpecA.lean`, `Checked/Trust/SecondReadingSpecB.lean`, `Checked/Trust/SecondReadingSpecC.lean`, `Checked/Trust/SecondReadingSpecD.lean`, `Checked/Trust/SecondReadingSpecE.lean`, `Checked/Trust/SecondReadingSpecF.lean` (from `runs/2026-11-27T0228Z/specA/` to `specF/`), `Checked/Trust/SpecAgreement.lean`, `Checked/Trust/SpecAgreementCD.lean`, `Checked/Trust/SpecAgreementEF.lean`, `scripts/trust/Claims.lean`.
+
+## H₂⁺ route step 4 (i), (ii) and the Frobenius part of (iii) (run 2026-11-27T0828Z)
+- `Work/Quantum/AngularCert.lean` (`Iv`, `mem_mul`, `mem_rnd`, `run`, `run_sound`, `tail_le`, `tailM_le`, `exists_piece`, `M_pos`, `g_lo`, `g_hi`, `freeze_of_radial_events`), `Work/Quantum/FrobCert.lean` (`runF`, `runF_sound`, `tail_series_le`, `RL_pos_k₂`, `freeze_of_radial_flows`); emulations and the bracket's corner check: `runs/2026-11-27T0828Z/scripts/` (`g_interval.py`, `g_pieces.py`, `m_interval.py`, `rl_interval.py`, `shoot_A_sens.py`, `bracket_choice.py`, `amplification.py`).
+
+## Part 3: sourced readings G and H in Checked (run 2026-11-27T0828Z; readings by run 2026-11-27T0428Z)
+- `Checked/Trust/SecondReadingSpecG.lean`, `Checked/Trust/SecondReadingSpecH.lean` (from `runs/2026-11-27T0428Z/specG/`, `specH/`), `Checked/Trust/SpecAgreementGH.lean`, `scripts/trust/Claims.lean` (`blindSpecNote`: readers A–H, sourced or from memory, `pins_neg_`), `scripts/trust/source_excerpt.py`.

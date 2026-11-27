@@ -1,4 +1,4 @@
-/- Copied verbatim (code unchanged) from `runs/2026-11-27T0428Z/specH/SecondReadingSpecH.lean`, written by blind reader H (Opus subagent, brief `runs/2026-11-27T0428Z/specH/briefH.md`; handed verbatim LaTeX excerpts of the three sources, `runs/2026-11-27T0428Z/sources/`, and read only those). Agreement with the program's pinned definitions: `Checked/Trust/SpecAgreementGH.lean`. -/
+/- Copied verbatim (code unchanged) from `runs/2026-11-27T0428Z/specH/SecondReadingSpecH.lean`, written by blind reader H (Opus subagent, brief `runs/2026-11-27T0428Z/specH/briefH.md`; handed verbatim LaTeX excerpts of the three sources, `runs/2026-11-27T0428Z/sources/`, and read only those; in its module doc the three parenthesised arXiv identifiers, which repeat the file names, are removed for check_prose rule 7, the only change). Agreement with the program's pinned definitions: `Checked/Trust/SpecAgreementGH.lean`. -/
 import Mathlib.Analysis.Calculus.Deriv.Basic
 import Mathlib.Analysis.SpecialFunctions.Sqrt
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
@@ -10,9 +10,9 @@ import Mathlib.Topology.Basic
 # Second reading H: specifications of four cosmological quantities / model conditions
 
 Sources (verbatim LaTeX excerpts in `runs/2026-11-27T0428Z/sources/`):
-* Bamba, Capozziello, Nojiri, Odintsov 2012 (arXiv:1205.3421v3), file `bamba2012_1205.3421v3.md`;
-* Aviles, Gruber, Luongo, Quevedo 2012 (arXiv:1204.2007), file `aviles2012_1204.2007.md`;
-* Capozziello, Lazkoz, Salzano 2011 (arXiv:1104.3096), file `capozziello2011_1104.3096.md`.
+* Bamba, Capozziello, Nojiri, Odintsov 2012, file `bamba2012_1205.3421v3.md`;
+* Aviles, Gruber, Luongo, Quevedo 2012, file `aviles2012_1204.2007.md`;
+* Capozziello, Lazkoz, Salzano 2011, file `capozziello2011_1104.3096.md`.
 
 Line numbers below are those of the transcription files (`.md`); the transcription headers give
 the corresponding lines of the LaTeX sources.
