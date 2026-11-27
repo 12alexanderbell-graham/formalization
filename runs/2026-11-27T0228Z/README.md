@@ -17,6 +17,7 @@
 - 45930007257 (949f9cc, the external run's final push during this run): **success** on every job; base for this run's last checks.
 - 45937210744 (d5e654d, this run's first final push, batches 1–2): **success** on every job (checked job, leanchecker and nanoda shards); batches 1–2 of the readings and agreements judged green.
 - 45942338661 (5092687, the third-batch push, rebased over run 0428Z's auditor commits): **failure** in the checked job's frozen step alone, `check_headline_mentions.py` (base d5e654d): 10 findings, all on lines 3, 5, 7 of `runs/2026-11-27T0428Z/README.md` (one phrase naming the two model conditions made them lines about a listed headline). Repaired by rewording that phrase ("the two expansion-law model sentences"); 0 findings locally. The checked job's log has no other error (its trust step, with StatementDeps and Claims, passed); no other job had failed when read.
+- 45947696027 (ea89f92, the repair push): **success** on every job (read 06:24Z). All three batches of readings and agreements are judged green; newest green commit for the next run's base: ea89f92.
 
 ## Bottleneck
 Section Next of `runs/2026-11-26T2028Z/README.md`: 494 definition uses on the claims page rest on a specification only the program wrote, and 6/6 readers of the two-part record named it as what an outside party should redo. Yes (readers' specifications agree) → those uses gain a part-B item that does not depend on the program's specification; no → a definition's meaning differs from an independent reading, which the page must show.
