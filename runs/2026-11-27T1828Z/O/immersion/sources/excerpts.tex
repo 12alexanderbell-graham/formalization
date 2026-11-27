@@ -1,0 +1,28 @@
+% main.tex lines 36-40 (abstract) and introduction.tex lines 1-22
+\begin{abstract}
+Every closed smooth Riemannian surface admits a smooth isometric immersion into
+Euclidean four-space, without an orientability assumption. This resolves the
+closed-surface form of the classical four-dimensional isometric-immersion problem.
+\end{abstract}
+\section{Introduction}\label{sec:introduction}
+
+Let $M$ be a closed smooth surface: a compact smooth two-dimensional manifold
+without boundary. We do not assume that $M$ is orientable or connected.
+For a smooth positive definite metric $g$ on $M$, an isometric immersion into
+Euclidean four-space is a smooth map $F:M\to\R^4$ satisfying
+\[
+ \langle dF_p(v),dF_p(w)\rangle=g_p(v,w)
+ \qquad(p\in M,\ v,w\in T_pM).
+\]
+Positive definiteness then makes $dF_p$ injective at every point.
+The question is whether every such metric can be realized in this dimension.
+
+\begin{theorem}\label{thm:main}
+Every closed smooth Riemannian surface $(M,g)$ admits a $C^\infty$ isometric
+immersion into $(\R^4,\delta_4)$, where $\delta_4=\sum_{i=1}^4 dx_i^2$.
+\end{theorem}
+
+The result concerns immersion; self-intersections are allowed. There is no
+restriction on Gaussian curvature or on the topology of the closed surface.
+In particular, the construction applies directly to nonorientable surfaces.
+

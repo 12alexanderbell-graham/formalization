@@ -1,0 +1,50 @@
+% paper.tex lines 42-90 (abstract and introduction up to the main theorem)
+\begin{abstract}
+We prove Barnette's conjecture: every finite simple cubic bipartite planar
+\(3\)-vertex-connected graph has a Hamiltonian cycle.
+\end{abstract}
+
+\section{Introduction}
+
+A graph is \emph{cubic} if every vertex has degree three, and
+\emph{bipartite} if its vertices can be divided into two classes with
+no edge inside either class. It is \emph{\(3\)-vertex-connected} if it
+has at least four vertices and deleting any set of at most two vertices
+leaves it connected. A \emph{Hamiltonian cycle} visits every vertex
+exactly once. We consider finite simple undirected graphs throughout
+the main statement.
+
+Barnette's conjecture, recorded by Gr\"unbaum in the 1969 Waterloo
+proceedings \cite{Barnette1969}, asserts that every cubic bipartite polyhedral
+graph is Hamiltonian, where polyhedral means planar and
+\(3\)-vertex-connected. It belongs to the line of questions initiated
+by Tait's conjecture for cubic polyhedral graphs, disproved by
+Tutte \cite{Tutte1946}; see \citet{APSW2016,GSW2023} for the history
+and equivalent formulations.
+
+Several partial results explain the role of face structure.
+Goodey proved the case in which all faces are quadrilaterals or
+hexagons \cite{Goodey1975}. Feder and Subi allowed arbitrarily
+large faces in one class of a proper three-coloring of the faces,
+requiring only quadrilaterals and hexagons in the other two classes
+\cite{FederSubi2006}. Their argument uses proper quasi spanning trees of faces
+after contracting a distinguished face class. Kardo\v{s} proved
+the related Barnette--Goodey conjecture for cubic polyhedral graphs
+with faces of size at most six, without assuming bipartiteness
+\cite{Kardos2020}. More recently, Schnieders proved the
+faces-at-most-eight case of Barnette's conjecture
+\cite[Corollary~1.13]{Schnieders2025}. We remove the face-size
+restriction within the full \(3\)-connected bipartite class.
+
+\begin{theorem}\label{thm:main}
+Every finite simple undirected graph that is cubic, bipartite,
+planar, and \(3\)-vertex-connected has a Hamiltonian cycle.
+\end{theorem}
+
+The difficulty is to obtain one spanning cycle. A spanning subgraph
+of degree two can have several cycle components, and local choices
+alone need not join them. We instead construct an acyclic edge set
+in a dual triangulation whose complement becomes one connected
+spanning cycle. The construction also retains a prescribed local
+pattern needed when the triangulation is cut into smaller pieces.
+

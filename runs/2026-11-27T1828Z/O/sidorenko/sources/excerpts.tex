@@ -1,0 +1,157 @@
+% abstract (main.tex 9-15), introduction.tex lines 1-26 and 279-345, complex.tex lines 1-56 (the table)
+\begin{abstract}
+We disprove Sidorenko's conjecture with a bipartite graph on \(35\) vertices
+and \(66\) edges: its homomorphism density in some finite simple graph is
+smaller than the conjectured lower bound. The same connected graph also
+disproves the forcing conjecture: at one fixed density, asymptotically
+matching the edge and pattern densities does not imply quasirandomness.
+\end{abstract}
+\section{Introduction}\label{sec:introduction}
+
+For finite simple undirected graphs \(H\) and \(G\) with
+\(|V(G)|\ge1\), write
+\[
+t(H,G)=\frac{\Hom(H,G)}{|V(G)|^{|V(H)|}},
+\qquad
+p(G)=\frac{2|E(G)|}{|V(G)|^2},
+\]
+where \(\Hom(H,G)\) counts every edge-preserving map, including
+noninjective maps. Sidorenko's conjecture asserts that
+\begin{equation}\label{eq:sidorenko}
+t(H,G)\ge p(G)^{|E(H)|}
+\end{equation}
+whenever \(H\) is bipartite and has at least one edge.
+We disprove this conjecture.
+
+\begin{theorem}\label{thm:main}
+Let \(H\) be the incidence graph of the \(22\) triples on \(13\) points
+in Table~\ref{tab:complex}. This bipartite graph has \(35\) vertices
+and \(66\) edges. There is a finite simple undirected graph \(G\)
+with at least one edge such that
+\[
+t(H,G)<p(G)^{66}.
+\]
+\end{theorem}
+\begin{corollary}[Amplification and injective supersaturation]
+\label{cor:amplification}
+For the same graph \(H\) as in Theorem~\ref{thm:main}, the following
+hold.
+\begin{enumerate}[label=(\roman*)]
+\item For every \(c>0\), there is a finite simple undirected graph
+\(F\) with \(p(F)>0\) such that
+\[
+t(H,F)<c\,p(F)^{66}.
+\]
+\item There are \(p_*\in(0,1)\), \(\delta_*>0\), and finite simple
+undirected graphs \(F_s\) of orders \(n_s\to\infty\) for which
+\(d_s=|E(F_s)|/\binom{n_s}{2}\to p_*\) and, for all sufficiently
+large \(s\),
+\[
+\operatorname{Inj}(H,F_s)
+\le(1-\delta_*)(n_s)_{35}d_s^{66}.
+\]
+\end{enumerate}
+\end{corollary}
+
+The proof in Section~\ref{sec:consequences} uses tensor powers and
+balanced blow-ups of a single host from Theorem~\ref{thm:main}.
+
+Part (ii) contradicts the injective Erd\H{o}s--Simonovits
+random-graph benchmark described in
+\cite[Section~1]{conlonfoxsudakov2010}: the sequence has one positive
+limiting density, so it eventually satisfies \(d_s>n_s^{-\gamma}\)
+for every fixed \(\gamma>0\), while retaining a fixed deficit.
+
+\subsection*{A consequence for the forcing conjecture}
+
+Fix \(0<p<1\). A graph \(F\) with \(m\) edges is \emph{\(p\)-forcing}
+if every sequence of finite simple graphs \(G_n\) with
+\(|V(G_n)|\to\infty\), \(p(G_n)\to p\), and
+\(t(F,G_n)\to p^m\) is quasirandom of density \(p\): for every fixed
+finite simple graph \(J\), one has
+\(t(J,G_n)\to p^{|E(J)|}\). It is \emph{forcing} if it is
+\(p\)-forcing for every \(p\in(0,1)\). The classical edge-and-four-cycle
+characterization of quasirandomness is due to Chung, Graham, and
+Wilson~\cite{chunggrahamwilson1989}. Skokan and Thoma studied which
+bipartite patterns can replace the four-cycle~\cite{skokanthoma2004}.
+Using this asymptotic formulation and following their question,
+Conlon, Fox, and Sudakov formulate the forcing conjecture: a graph is forcing if and
+only if it is bipartite and contains a cycle
+\cite[Section~1, equation~(2) and Conjecture~2]{conlonfoxsudakov2010}.
+
+For a symmetric \([0,1]\)-valued kernel \(W\) on a probability space,
+write
+\[
+t(F,W)=\E\prod_{uv\in E(F)}W(X_u,X_v),
+\]
+where the \(X_v\) are independent samples. In particular,
+\(t(K_2,W)=\E W\). We identify each finite probability kernel below
+with its step graphon on \([0,1]\).
+
+\begin{corollary}[Failure of the forcing conjecture]
+\label{cor:forcing}
+For the same connected bipartite graph \(H\) of
+Theorem~\ref{thm:main}, there are \(p\in(0,1)\) and a nonconstant
+graphon \(W\) such that
+\[
+t(K_2,W)=p,\qquad t(H,W)=p^{66}.
+\]
+Consequently, \(H\) is not \(p\)-forcing at this density and hence is
+not forcing, despite being bipartite and containing a cycle.
+\end{corollary}
+\section{The finite complex}
+\label{sec:complex}
+
+We specify the fixed triple system and certify the properties used in
+both the kernel construction and the singular-tail bound.
+
+Let $I=\{0,\ldots,12\}$ and $J=\{0,\ldots,21\}$. Associate to
+each $j\in J$ the three-element subset of $I$ in Table~\ref{tab:complex};
+we call these subsets \emph{faces} and also denote them by $j$.
+Let $E$ be the set of unordered point pairs contained in a face.
+The graph used throughout the paper is the incidence graph
+\[
+ H=(I\sqcup J,\mathscr C),\qquad
+ \mathscr C=\{(i,j):i\in j\}.
+\]
+The copies of $I$ and $J$ in this disjoint union are distinct even when
+their numerical labels agree. We call an incidence $(i,j)$ a
+\emph{corner}. Thus $H$ has $35$ vertices and $66$ edges.
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{7pt}
+\begin{tabular}{c@{\qquad}ccc@{\qquad}ccc@{\qquad}c}
+\toprule
+Face&\multicolumn{3}{c}{Points}&\multicolumn{3}{c}{Opposite face}&Bits\\
+ $j$&$i_1$&$i_2$&$i_3$&$j_{12}$&$j_{13}$&$j_{23}$&\\
+\midrule
+0 &0&1&3   &1&2&4   &000\\
+1 &0&1&9   &0&3&7   &010\\
+2 &0&2&3   &3&0&8   &001\\
+3 &0&2&9   &2&1&9   &110\\
+4 &1&3&10  &0&5&11  &001\\
+5 &1&7&10  &6&4&16  &000\\
+6 &1&7&12  &5&7&18  &100\\
+7 &1&9&12  &1&6&21  &110\\
+8 &2&3&4   &2&9&10  &101\\
+9 &2&4&9   &8&3&12  &100\\
+10&3&4&11  &8&11&13 &111\\
+11&3&10&11 &4&10&17 &101\\
+12&4&8&9   &13&9&21 &101\\
+13&4&8&11  &12&10&19&011\\
+14&5&6&7   &15&16&18&000\\
+15&5&6&11  &14&17&19&110\\
+16&5&7&10  &14&17&5 &010\\
+17&5&10&11 &16&15&11&111\\
+18&6&7&12  &14&20&6 &001\\
+19&6&8&11  &20&15&13&010\\
+20&6&8&12  &19&18&21&011\\
+21&8&9&12  &12&20&7 &111\\
+\bottomrule
+\end{tabular}
+\caption{The faces of the complex. The entry $j_{ab}$ is the other
+face containing $\{i_a,i_b\}$. Bit positions are read from left to right.}
+\label{tab:complex}
+\end{table}
