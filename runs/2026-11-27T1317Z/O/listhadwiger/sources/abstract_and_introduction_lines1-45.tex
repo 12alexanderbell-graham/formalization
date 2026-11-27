@@ -1,0 +1,51 @@
+\begin{abstract}
+We prove that every finite nonempty graph $G$ satisfies
+$\chi_{\mathrm{list}}(G)\le C h(G)$ for an absolute integer $C$, where
+$h(G)$ is the largest order of a clique minor. This resolves the Linear
+List Hadwiger conjecture affirmatively.
+\end{abstract}
+\section{Introduction}\label{sec:introduction}
+
+A clique minor records a form of complete interaction inside a graph:
+its vertices are represented by disjoint connected sets, and every two
+sets have an edge between them. For a finite nonempty simple graph $G$,
+let $h(G)$ be the largest order of a clique minor in $G$. Hadwiger
+conjectured that the chromatic number always satisfies
+$\chi(G)\le h(G)$ \cite{Hadwiger1943}. The companion manuscript
+\cite[Corollary~1.2]{OpenAIHadwigerCounterexample2026} constructs finite
+simple graphs with $\chi(G)>h(G)$, disproving this ordinary coefficient-one
+assertion. Its linear relaxation asks whether
+an absolute constant can replace the coefficient one. We prove a bound
+of this form even when allowable colors vary from vertex to vertex.
+
+A \emph{list assignment} $\mathcal L$ assigns a finite set of colors to
+each vertex. An $\mathcal L$-coloring is a proper coloring $c$ satisfying
+$c(v)\in\mathcal L(v)$ at every vertex. The list chromatic number
+$\ell(G)=\chi_{\mathrm{list}}(G)$ is the least integer $k$ for which every
+assignment with $|\mathcal L(v)|\ge k$ is colorable. List coloring was
+introduced independently by Vizing \cite{Vizing1976} and by Erd\H{o}s,
+Rubin, and Taylor \cite{ErdosRubinTaylor1980}. The linear list
+version of Hadwiger's conjecture was formulated by Kawarabayashi and
+Mohar \cite[Conjecture~1.3]{KawarabayashiMohar2007}.
+
+\begin{theorem}\label{thm:main}
+There is an absolute integer $C\ge1$ such that every finite nonempty
+simple graph $G$ satisfies
+\[
+ \ell(G)\le C h(G).
+\]
+\end{theorem}
+
+Thus the Linear List Hadwiger conjecture has an affirmative resolution.
+The constant is independent of the graph order, the list assignment, and
+the number of distinct colors appearing in its union. Taking the same
+list at every vertex immediately gives the ordinary conclusion.
+
+\begin{corollary}\label{cor:ordinary}
+Every finite nonempty simple graph $G$ satisfies $\chi(G)\le C h(G)$,
+with the constant $C$ in Theorem~\ref{thm:main}.
+\end{corollary}
+\begin{proof}
+A coloring from the common list $\{1,\ldots,\ell(G)\}$ shows that
+$\chi(G)\le\ell(G)$.
+\end{proof}

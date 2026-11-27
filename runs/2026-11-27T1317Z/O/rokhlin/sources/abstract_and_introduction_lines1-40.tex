@@ -1,0 +1,43 @@
+\begin{abstract}
+Every invertible mixing probability-preserving transformation is mixing of every finite order. Thus Rokhlin's multiple-mixing problem for a single transformation has an affirmative answer.
+\end{abstract}
+\section{Introduction}
+\label{sec:introduction}
+
+Let $(\Omega,\mathcal F,\mu)$ be a probability space and let $T$ be an
+invertible measurable transformation with measurable inverse that preserves
+$\mu$. The transformation is \emph{mixing} if
+\[
+ \mu(A\cap T^{-n}B)\longrightarrow\mu(A)\mu(B)
+ \qquad(|n|\to\infty)
+\]
+for every $A,B\in\mathcal F$. For an integer $k\ge2$, it is
+\emph{mixing of order $k$} if
+\[
+ \mu\left(\bigcap_{i=1}^k T^{-t_i}A_i\right)
+ \longrightarrow\prod_{i=1}^k\mu(A_i)
+\]
+whenever $t_1<\cdots<t_k$ are integers and
+$\min_{i<k}(t_{i+1}-t_i)\to\infty$, for every fixed choice of the
+measurable sets $A_i$. Invariance allows us to take $t_1=0$.
+
+\begin{theorem}
+\label{thm:main}
+Every invertible mixing probability-preserving transformation is mixing
+of every finite order. More explicitly, under the assumptions above, for
+every $k\ge3$ and every $A_1,\ldots,A_k\in\mathcal F$,
+\[
+ \mu\bigl(A_1\cap T^{-n_1}A_2\cap\cdots\cap
+             T^{-(n_1+\cdots+n_{k-1})}A_k\bigr)
+ \longrightarrow\prod_{i=1}^k\mu(A_i)
+\]
+as $\min(n_1,\ldots,n_{k-1})\to\infty$ through positive integers.
+No standardness or countable-generation assumption is imposed on the
+original probability space.
+\end{theorem}
+
+Corollary~\ref{cor:endomorphisms-flows} extends the conclusion to mixing
+endomorphisms on arbitrary probability spaces and to mixing flows whose
+Koopman operators are strongly continuous on $L^1$. These consequences
+are stated and proved in Section~\ref{sec:consequences}.
+
