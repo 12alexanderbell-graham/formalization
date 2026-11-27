@@ -1,0 +1,82 @@
+\begin{abstract}
+We prove the Gaussian propeller conjecture: for every finite measurable
+partition of a Euclidean space, the sum of the squared lengths of its
+Gaussian first moments is at most $9/(8\pi)$.
+For dimension at least two and at least three cells, three planar
+sectors of angle $2\pi/3$, extended by an orthogonal Euclidean factor,
+attain the bound.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+Let $\gamma_n$ denote the standard Gaussian probability measure on
+$\mathbb R^n$, with density
+$(2\pi)^{-n/2}\exp(-\|x\|^2/2)$.
+For a measurable set $A\subseteq\mathbb R^n$, its Gaussian first moment is
+$z(A)=\int_A x\,d\gamma_n(x)$. We call this unnormalized vector its
+\emph{centroid}. Thus a centroid is not divided by the measure of its
+cell. For positive integers $d,k$ and a measurable partition
+$\mathcal A=(A_1,\ldots,A_k)$ of $\mathbb R^d$, define
+\[
+ \mathcal F(\mathcal A)=\sum_{i=1}^k\|z(A_i)\|^2.
+\]
+Partitions are understood up to Gaussian null sets, and empty cells are
+allowed. The cell probabilities are unrestricted. All norms and inner
+products below are Euclidean.
+
+The propeller conjecture asks whether three planar sectors meeting at
+angles $2\pi/3$, extended by an orthogonal Euclidean factor, maximize
+this functional whenever $d\ge2$ and $k\ge3$. It arose in Khot and
+Naor's study of approximate kernel clustering~\cite{KhotNaor}, where
+Gaussian first moments govern approximation and Unique Games hardness.
+Their formulation uses $k$ cells in $\mathbb R^{k-1}$, with unused
+cells permitted. They proved that a maximizer can be chosen to be a
+conical partition in the span of its centroids and determined the
+three-cell value~\cite[Theorem~1.2 and Corollary~3.4]{KhotNaor}.
+
+Heilman, Jagannath, and Naor proved the bound for every finite partition
+of $\mathbb R^3$~\cite[Theorem~1.1]{HJN}. Their computer-assisted
+argument treats the remaining four-cell conical configurations through
+spherical geometry and a finite verification. We use that theorem as
+an established input. The new estimates below show that an extremizer with five or more
+active cells cannot have value greater than $9/(8\pi)$. Here an active
+cell has positive Gaussian measure. This proves the conjecture in all
+remaining dimensions.
+
+\begin{theorem}\label{thm:main}
+For all positive integers $d$ and $k$, every measurable partition
+$(A_1,\ldots,A_k)$ of $\mathbb R^d$ satisfies
+\[
+ \sum_{i=1}^k\left\|\int_{A_i}x\,d\gamma_d(x)\right\|^2
+ \le\frac9{8\pi}.
+\]
+Empty cells are allowed. The constant is sharp whenever $d\ge2$ and
+$k\ge3$: three planar sectors of angle $2\pi/3$, multiplied by the
+orthogonal complement of their plane, attain equality, with any further
+cells empty.
+\end{theorem}
+
+\subsection{The attaining propeller}
+\label{sec:example}
+The attaining partition illustrates an important feature of the
+problem: in every dimension at least two, only three cells are needed
+once at least three labels are available.
+
+Consider a sector $P$ in $\mathbb R^2$ of opening
+$2\alpha$, symmetric about the first coordinate axis. Polar integration
+gives
+\[
+ \int_P x\,d\gamma_2(x)
+ =\frac1{2\pi}\left(\int_0^\infty r^2e^{-r^2/2}\,dr\right)
+      \left(\int_{-\alpha}^{\alpha}(\cos\theta,\sin\theta)\,d\theta\right)
+ =\frac{\sin\alpha}{\sqrt{2\pi}}(1,0).
+\]
+For $\alpha=\pi/3$, three such sectors partition the plane and their
+squared centroid lengths sum to
+$3\sin^2(\pi/3)/(2\pi)=9/(8\pi)$.
+An orthogonal Gaussian factor contributes zero to every centroid, so
+the construction has the same value in every dimension at least two.
+The construction proves the attainment assertion in
+Theorem~\ref{thm:main}.
+Figure~\ref{fig:propeller-sectors} shows the planar partition and its
+centroid directions.

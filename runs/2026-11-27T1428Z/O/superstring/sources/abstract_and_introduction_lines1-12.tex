@@ -1,0 +1,19 @@
+\begin{abstract}
+We give a deterministic algorithm that, for every finite family of explicitly
+represented ordinary strings, outputs a common superstring of length at most
+twice the optimum in time polynomial in the total encoded input size, including
+symbol labels. The guarantee applies to the algorithm constructed here, not the
+classical maximum-overlap Greedy procedure.
+\end{abstract}
+\section{Introduction}\label{sec:intro}
+
+In the \emph{shortest common superstring problem}, the input is a finite collection $\mathcal S$ of finite strings, and the task is to find a shortest string containing every member of $\mathcal S$ as a contiguous substring. Write $\OPT(\mathcal S)$ for its minimum possible length. The strings are represented explicitly, with encoded symbol labels and string boundaries. Let $N$ be the total bit length of this representation and $L$ the sum of the string lengths measured in symbols. Each symbol and boundary occupies at least one bit, so $L,|\mathcal S|\le N$; operations on symbol labels are charged for their encoded lengths.
+
+\begin{theorem}\label{thm:main}
+There is a deterministic algorithm, polynomial in the total encoded input size, that on every finite collection $\mathcal S$ of explicitly represented ordinary strings outputs a common superstring $T$ satisfying
+\[
+\len{T}\le 2\OPT(\mathcal S).
+\]
+\end{theorem}
+
+\paragraph{History and significance.}

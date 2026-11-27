@@ -1,0 +1,27 @@
+\begin{abstract}
+We construct a torsion-free word-hyperbolic group that is not residually finite, answering the residual-finiteness question for hyperbolic groups negatively.
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+
+A group $G$ is \emph{residually finite} if each nonidentity element has a nonidentity image under a homomorphism to some finite group. Equivalently, its \emph{finite residual} $R_f(G)$, the intersection of the kernels of all such homomorphisms, is trivial. A finitely generated group is \emph{word-hyperbolic} if a Cayley graph has uniformly thin geodesic triangles: there is a constant such that every point of one side is within that distance of the other two sides. The residual-finiteness question asks whether every word-hyperbolic group is residually finite.
+
+The question belongs to the program initiated by Gromov's theory of hyperbolic groups \cite{Gromov1987}; see \cite[\S5]{AGM2009} for its formulation and consequences. It asks whether coarse negative curvature alone forces separation by finite quotients.
+
+\begin{theorem}\label{thm:main}
+There exists a torsion-free word-hyperbolic group that is not residually finite.
+\end{theorem}
+
+The group is the fundamental group of a finite Euclidean triangle complex. We prove that a member of a fixed finite family of nontrivial elements belongs to its finite residual. The argument is existential: it proves that one fixed member works for all finite quotients, without identifying which member. Thus the residual-finiteness question has a negative answer even within the torsion-free class.
+
+The same obstruction has a classical consequence for linear representations. A group is \emph{linear over a commutative field $K$} if it admits an injective homomorphism into $\mathrm{GL}_n(K)$ for some finite $n\geq 1$.
+
+\begin{corollary}[Finite-dimensional linear obstruction]\label{cor:nonlinear}
+Let $G$ be the finitely generated torsion-free word-hyperbolic group constructed in Theorem~\ref{thm:main}. For every commutative field $K$, every integer $n\geq 1$, and every homomorphism $\rho:G\to\mathrm{GL}_n(K)$,
+\[
+R_f(G)\subseteq\ker\rho.
+\]
+Consequently, one fixed nonidentity element of $G$ is killed by all these representations, simultaneously over all such fields and dimensions. In particular, $G$ is not linear over any commutative field.
+\end{corollary}
+
+\begin{proof}
