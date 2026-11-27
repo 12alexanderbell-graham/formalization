@@ -1,0 +1,37 @@
+\begin{abstract}
+We prove the Gaussian moat conjecture: no infinite walk through distinct
+Gaussian primes can have bounded steps. More strongly, for each fixed finite
+step bound, the connected components of the Gaussian-prime graph have
+uniformly bounded size. This bound applies to every starting prime, including
+primes on the coordinate axes, and is nonexplicit. The proof constructs a
+finite periodic sieve obstruction using geometric sampling and
+information-theoretic estimates.
+\end{abstract}
+
+\section{The Gaussian moat problem}\label{sec:introduction}\label{sec:intro}
+A Gaussian prime is an irreducible element of $\Z[i]$.
+We identify $a+bi$ with $(a,b)\in\Z^2$, write $N(a+bi)=a^2+b^2$,
+and use the Euclidean norm $|z|=\sqrt{N(z)}$.
+For a finite real $D$, let $G_D$ have all Gaussian primes as vertices,
+with an edge between distinct $z,w$ if $|z-w|\le D$.
+The Gaussian moat problem asks whether some $G_D$ contains an infinite
+path with no repeated vertex. Large gaps along a line do not settle the
+question in the plane, since a path may go around them.
+
+\begin{theorem}[Uniform component bound]\label{thm:main}\label{cor:uniform}
+For every finite real $D$ there is a finite $B_D$ such that every
+connected component of $G_D$ has at most $B_D$ vertices.
+The bound is independent of the starting prime and includes primes on
+the coordinate axes. Consequently every sequence of distinct Gaussian
+primes whose successive distances are at most $D$ has at most $B_D$ terms.
+\end{theorem}
+
+This proves the uniform form of the Gaussian moat conjecture and answers
+the infinite-walk question negatively. The bound $B_D$ is nonexplicit:
+the proof chooses
+sufficiently large scales after fixing $D$. For $D<1$, distinct lattice
+points cannot be adjacent, so $B_D=1$ suffices.
+
+Gethner and Stark trace the question to Basil Gordon at the 1962
+International Congress of Mathematicians in Stockholm
+\cite[p.~289]{GethnerStark}. Erd\H{o}s later credited Gordon and Motzkin,

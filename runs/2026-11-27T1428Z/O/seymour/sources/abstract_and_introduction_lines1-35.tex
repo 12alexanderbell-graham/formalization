@@ -1,0 +1,40 @@
+\begin{abstract}
+We prove that every nonempty finite oriented graph has a vertex with at least
+as many vertices at directed distance two as at directed distance one.
+This resolves Seymour's second neighborhood conjecture positively.
+\end{abstract}
+\section{Introduction}\label{sec:introduction}
+
+An \emph{oriented graph} is a finite directed graph with no loops, no multiple
+arcs, and no pair of opposite arcs.  Its underlying undirected graph need
+not be complete or connected.  For a vertex \(v\), write
+\[
+ N_1^+(v)=\{u:v\to u\},\qquad
+ N_2^+(v)=\{w\notin\{v\}\cup N_1^+(v):
+                 \text{ there is a vertex }u\text{ with }v\to u\to w\}.
+\]
+Thus \(N_2^+(v)\) consists of the vertices at directed distance exactly two
+from \(v\).  Each vertex is counted once, regardless of the number of paths
+reaching it.  Seymour's second neighborhood conjecture asserts that some
+vertex satisfies \(\abs{N_1^+(v)}\leq\abs{N_2^+(v)}\).
+
+\begin{theorem}\label{thm:main}
+Every nonempty finite oriented graph has a vertex \(v\) such that
+\[
+ \abs{N_1^+(v)}\leq \abs{N_2^+(v)}.
+\]
+\end{theorem}
+
+Theorem~\ref{thm:main} resolves the conjecture positively, without a
+connectivity or degree hypothesis.  In particular, a sink already satisfies
+the conclusion.  The conjecture is a basic comparison between the first two
+out-neighborhoods: removing vertices already reached in one step is essential
+to its assertion.
+
+The theorem also gives the established vertex- and arc-weighted forms of
+the conjecture through Seacrest's equivalences~\cite{Seacrest2015}.
+The vertex-weighted conclusions have two different quantifier orders:
+for every nonnegative weighting there is a suitable vertex, and there is
+a weighting of total mass one for which every vertex is suitable.
+Section~\ref{sec:weighted-consequences} states these forms precisely.
+Section~\ref{sec:directed-cycle-consequences} records consequences for
