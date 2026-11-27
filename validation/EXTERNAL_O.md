@@ -455,3 +455,9 @@ matroids, no independent covering, no packing/covering partition; Corollary 1.4:
 fails. Frozen: `main` and `partitional_intersection_counterexample` (second challenge). Readers use Mathlib's
 `Matroid`; B writes contraction onto C as `M ／ (E \ C)`, A and C as (M✶ ↾ C)✶ like the frozen one; closures not
 written this run. Solution closures: 33 files, 4,477 lines, no escape hits.
+
+O37 update (`matroid/closure/Closure.lean`): every reader's Theorem 1.1 closed against `main` — a reader's
+partition gives the frozen `HasPackingCovering` (closure of S in M ↾ P equal to P with S ⊆ P is `Spanning`; reader
+B's contraction M ／ (E \ C) is the frozen (M✶ ↾ C)✶ when C ⊆ E, by `dual_delete_dual` and `delete_eq_restrict`);
+reader A's "the conjecture is false" follows. 6/12; the six Corollary 1.4 readings await a closure against
+`InfiniteMatroidCorollaries`.
