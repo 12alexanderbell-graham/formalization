@@ -1,0 +1,43 @@
+\begin{abstract}
+Every nonexpansive selfmap of a nonempty closed bounded convex subset of a real reflexive Banach space has a fixed point. This resolves the reflexive-space fixed point problem for the given norm.
+\end{abstract}
+\section{Introduction}
+\label{sec:introduction}
+
+A Banach space has the \emph{fixed point property for nonexpansive maps}
+if every nonexpansive selfmap of each nonempty closed bounded convex
+subset has a fixed point. Here nonexpansiveness is measured in the given
+norm. We prove the following theorem.
+
+\begin{theorem}\label{thm:main}
+Let $X$ be a real reflexive Banach space, and let $C\subseteq X$ be
+nonempty, norm closed, bounded, and convex. If $F:C\to C$ satisfies
+\[
+  \norm{F(a)-F(b)}\le \norm{a-b}\qquad(a,b\in C),
+\]
+then $F$ has a fixed point.
+\end{theorem}
+
+Theorem~\ref{thm:main} establishes the positive assertion in the
+reflexive-space fixed point problem for the given norm.
+
+Bruck's theorem for commuting families gives a further consequence.
+
+\begin{corollary}[Commuting families]\label{cor:commuting}
+Let $X$ be a real reflexive Banach space, and let $C\subseteq X$ be
+nonempty, norm closed, bounded, and convex. For any pairwise commuting
+family $\mathcal S$ of nonexpansive selfmaps of $C$, the common fixed set
+\[
+  \operatorname{Fix}(\mathcal S)
+  =\{x\in C:T(x)=x\text{ for every }T\in\mathcal S\}
+\]
+is nonempty and is a nonexpansive retract of $C$. That is, there is a
+nonexpansive map $R:C\to\operatorname{Fix}(\mathcal S)$ that is the
+identity on $\operatorname{Fix}(\mathcal S)$.
+\end{corollary}
+
+\begin{proof}
+For the empty family, take $R=\operatorname{id}_C$. Otherwise,
+Theorem~\ref{thm:main} applies to every nonempty closed bounded convex
+subset $D$ of $C$, since a relatively norm-closed subset of the
+norm-closed set $C$ is norm closed in $X$. Thus $C$

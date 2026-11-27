@@ -1,0 +1,40 @@
+\section{Introduction}
+
+Let $h>0$ and let $(v_x)_{x\in\Z^2}$ be independent random variables,
+each uniform on $[-h,h]$. We consider the bounded self-adjoint operator
+\begin{equation}\label{setup:model}
+ (H_v u)(x)=\sum_{\abs{y-x}_1=1}u(y)+v_xu(x)
+ \qquad\text{on }\ell^2(\Z^2).
+\end{equation}
+Thus $v_x=h\omega_x$ in the usual notation with $\omega_x$ uniform on
+$[-1,1]$. Pure-point spectral type means that the closed span of the
+eigenvectors is the entire Hilbert space; it does not mean that every
+point of the spectrum is an eigenvalue.
+
+The planar spectral localization problem asks whether this pure-point
+conclusion holds throughout the spectrum for every nonzero width of the
+uniform distribution \cite[Example~2.1 and Problem~2]{Simon2000}.
+We prove that it does.
+
+\begin{theorem}\label{main:theorem}
+For each fixed $h>0$, almost surely $H_v$ has pure-point spectral type,
+admits a complete orthonormal eigenbasis, and has spectrum
+\[
+ \sigma(H_v)=[-4-h,4+h].
+\]
+Its eigenvalues are dense in this interval. The probability-one event
+in this statement is allowed to depend on $h$.
+\end{theorem}
+
+The conclusion includes arbitrarily weak nonzero disorder and the entire
+spectrum. It resolves the pure-point assertion of the two-dimensional
+Anderson localization conjecture for a uniform single-site distribution,
+as formulated in \cite[Problem~2]{Simon2000}. An arbitrary nondegenerate
+uniform interval reduces to the centered interval above by subtracting
+its midpoint from the operator. We do not assert one probability-one
+event for all disorder strengths, a bound uniform in energy, or a
+dynamical-localization theorem.
+
+\subsection*{Context and scope}
+Anderson introduced random site energies as a mechanism for suppressing
+quantum transport, motivated by spin diffusion and impurity conduction

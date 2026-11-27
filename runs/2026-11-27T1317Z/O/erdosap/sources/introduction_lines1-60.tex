@@ -1,0 +1,60 @@
+\section{Introduction}\label{ap:introduction}
+
+Erd\H{o}s asked whether every set $A$ of positive integers for which
+$\sum_{a\in A}1/a$ diverges contains arithmetic progressions of every
+finite length~\cite[Problem~4.33.6]{Erdos1974}.
+We prove a quantitative density bound that implies this assertion.
+For integers $k\ge3$ and $N\ge1$, let $r_k(N)$ be the largest
+cardinality of a subset of $[N]=\{1,\ldots,N\}$ containing no
+nonconstant $k$-term arithmetic progression
+$a,a+d,\ldots,a+(k-1)d$, with $d>0$.
+All logarithms are natural.
+
+\begin{theorem}\label{ap:main}
+For each fixed integer $k\ge3$ there are constants
+$C_k,c_k,\varepsilon_k>0$ such that, for every $N\ge2$,
+\begin{equation}\label{ap:density-bound}
+ r_k(N)\le C_kN\exp\bigl(-c_k(\log N)^{\varepsilon_k}\bigr).
+\end{equation}
+Equivalently, there is $A_k\ge1$ such that an $\alpha$-dense subset
+of $[N]$ contains a nonconstant $k$-term progression whenever
+\begin{equation}\label{ap:threshold}
+ \log N\ge A_k\bigl(2+\log(1/\alpha)\bigr)^{A_k},
+ \qquad 0<\alpha\le1.
+\end{equation}
+\end{theorem}
+
+
+The constants may depend on the fixed length $k$; the exponent is
+not optimized. The reciprocal-sum consequence follows immediately
+from summing the density bound over dyadic intervals.
+
+\begin{corollary}[Divergent reciprocal sums]\label{ap:reciprocal}
+Every set $A\subseteq\mathbb N$ with
+$\sum_{a\in A}a^{-1}=\infty$ contains nonconstant arithmetic
+progressions of every finite length.
+\end{corollary}
+
+\begin{proof}
+Fix $k\ge3$, and suppose that $A$ contains no nonconstant
+$k$-term progression. For $m\ge0$, translation identifies
+$[2^m,2^{m+1})\cap\mathbb Z$ with an interval of length $2^m$.
+Thus $|A\cap[2^m,2^{m+1})|\le r_k(2^m)$. Theorem~\ref{ap:main}
+implies, for $m\ge1$,
+\[
+ \sum_{a\in A\cap[2^m,2^{m+1})}\frac1a
+ \le 2^{-m}r_k(2^m)
+ \le C_k\exp\bigl(-c_k(m\log2)^{\varepsilon_k}\bigr).
+\]
+For every $d,\varepsilon>0$, the sequence $e^{-dm^\varepsilon}$
+is summable: since $m^\varepsilon/\log m\to\infty$, its terms
+are at most $m^{-2}$ for all sufficiently large $m$.
+The $m=0$ interval contributes at most one. The reciprocal sum of
+$A$ is therefore finite, a contradiction. Divergence also implies
+that $A$ is infinite, which supplies lengths one and two.
+\end{proof}
+
+\subsection{Density thresholds and summability}
+
+The threshold in \eqref{ap:threshold} is quasipolynomial in
+$1/\alpha$: the logarithm of a sufficient interval length is a fixed
