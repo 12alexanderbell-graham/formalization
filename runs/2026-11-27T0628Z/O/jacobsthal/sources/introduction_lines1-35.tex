@@ -1,0 +1,35 @@
+\section{Introduction}
+
+For a positive integer $n$, let $j(n)$ be the least positive integer $m$
+such that every interval of $m$ consecutive integers contains an integer
+coprime to $n$. Write $\omega(n)$ for the number of distinct prime divisors
+of $n$, with $\omega(1)=0$, and put
+\[
+ h(k)=\sup_{\substack{n\ge1\\\omega(n)\le k}}j(n),\qquad k\ge1.
+\]
+The starting point of the interval is arbitrary, and replacing $n$ by
+the product of its distinct prime divisors does not change $j(n)$.
+Thus $h(k)-1$ is the greatest length of an interval that can be covered
+by the divisibility classes of at most $k$ primes.
+
+Jacobsthal studied this function in a series of papers beginning in
+1960 \cite{Jacobsthal1960}. Erd\H{o}s subsequently recorded Jacobsthal's question
+whether $h(k)\ll k^2$ \cite[p.~163, equations (1) and (3)]{Erdos1962}.
+In Erd\H{o}s's notation, $C(k)+1$ is the maximum of $j(n)$ over integers
+with exactly $k$ distinct prime divisors. This equals our $h(k)$:
+adjoining prime divisors cannot decrease $j(n)$.
+We prove the following bound, which gives an affirmative answer and a
+further iterated-logarithmic saving.
+
+\begin{theorem}\label{thm:main}
+There is an absolute constant $C>0$ such that
+\[
+ h(k)\le C\frac{k^2}{(\log\log(3k))^2}
+ \qquad\text{for every integer }k\ge1.
+\]
+\end{theorem}
+
+All logarithms are natural. In particular the theorem gives a
+uniform quadratic bound for arbitrary sets of prime divisors, with
+no restriction on their sizes or on the interval's translation.
+

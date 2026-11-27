@@ -1,0 +1,25 @@
+\section{Introduction}\label{sec:introduction}
+
+For a convex body $K\subset\R^n$, its lattice covering density is
+\[
+ \theta_L(K)=\inf\left\{
+ \frac{\vol_n(K)}{\det\Lambda}:\Lambda\text{ is a full-rank lattice and }
+ K+\Lambda=\R^n\right\}.
+\]
+Here a convex body is compact with nonempty interior, and
+$\det\Lambda$ denotes lattice covolume. The density is the average number
+of translates covering a point in a fundamental cell: integrating the
+covering multiplicity over that cell gives $\vol_n(K)$. Thus density
+measures the overlap needed to cover space when the centers must form
+one lattice. We prove the following bound.
+
+\begin{theorem}\label{thm:main}
+There is an absolute constant $C>0$ such that, for every integer
+$n\ge2$ and every convex body $K\subset\R^n$, one full-rank lattice
+$\Lambda$ satisfies
+\[
+ K+\Lambda=\R^n,\qquad
+ \frac{\vol_n(K)}{\det\Lambda}\le Cn\log n.
+\]
+No symmetry or boundary regularity is assumed.
+\end{theorem}

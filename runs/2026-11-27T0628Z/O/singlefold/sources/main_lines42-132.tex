@@ -1,0 +1,91 @@
+\section{Introduction}
+Throughout, $\NN=\{0,1,2,\ldots\}$. A set $S\subseteq\NN^n$ is
+\emph{recursively enumerable} if a deterministic computation accepts exactly
+its members; it may run forever on other inputs. A \emph{Diophantine
+representation} of $S$ is a polynomial
+\[
+ P\in\ZZ[A_1,\ldots,A_n,W_1,\ldots,W_m]
+\]
+such that $a\in S$ if and only if $P(a,w)=0$ for some $w\in\NN^m$.
+The representation is \emph{single-fold} if this complete tuple $w$ is unique
+whenever it exists. It is \emph{finite-fold} if the set of such tuples is finite
+for every input. These definitions count all auxiliary variables, including
+those used to express subsidiary arithmetic operations.
+
+\begin{theorem}\label{thm:main}
+For every integer $n\ge1$ and every recursively enumerable set
+$S\subseteq\NN^n$, there are an integer $m\ge1$ and a polynomial
+$P\in\ZZ[A_1,\ldots,A_n,W_1,\ldots,W_m]$ such that, for every $a\in\NN^n$,
+\[
+ \#\{w\in\NN^m:P(a,w)=0\}=
+ \begin{cases}1,&a\in S,\\0,&a\notin S.\end{cases}
+\]
+\end{theorem}
+
+The Davis--Putnam--Robinson theorem established exponential Diophantine
+representations of recursively enumerable relations: the defining expressions
+may use exponentiation as well as addition and multiplication
+\cite[Section~1]{dpr1961}. Robinson had shown how suitable growth conditions
+yield an existential definition of exponentiation
+\cite[Section~3]{robinson1952}. Matiyasevich's 1970 construction of an
+exponentially growing Diophantine relation completed this route to polynomial
+representations \cite[Sections~1 and~3]{mati1970}. The resulting representation
+theorem implies the negative solution of Hilbert's tenth problem, since a
+decision procedure for polynomial solvability would decide membership in every
+recursively enumerable set. It does not bound the number of witnesses.
+
+Matiyasevich obtained a different strengthening in 1974: every recursively
+enumerable relation has an exponential representation with a unique complete
+auxiliary tuple \cite[Section~2, Main Theorem]{mati1974}. The same paper
+already formulates the remaining problem of polynomial representations with
+this uniqueness and reduces it to single-fold binary exponentiation
+\cite[Section~1]{mati1974}. This is the single-fold conjecture; allowing
+finitely many witnesses gives the finite-fold conjecture \cite{mati2010}.
+Theorem~\ref{thm:main} proves the single-fold assertion over $\NN$.
+The witness domain matters: Miller and Shlapentokh obtain single-fold
+definitions of computably enumerable sets of rational integers using
+witnesses in characteristic-zero polynomial rings, and finite-fold definitions
+of computably enumerable relations in polynomial rings over rings of
+integers of totally real number fields \cite{millershlapentokh2022}.
+
+Our arithmetic construction develops the classical strategy of recovering
+powers from Pell solutions and controlling their indices through growth
+bounds. Cantone, Cuzziol, and Omodeo give a recent account, including a
+paired-Pell representation and the problem of replacing its exponential
+cutoff \cite[Section~6, Lemma~6.1 and Theorem~5; Section~7]{cco2024}.
+We supply a cutoff using rational points on a rank-one elliptic curve.
+Poonen uses rank-one curves and denominator growth to obtain Diophantine
+definitions between rings of integers
+\cite[Theorem~1 and Section~2.3, Lemma~8]{poonen2002}.
+Here the N\'eron--Tate height compares the full logarithmic x-coordinate
+height with a quadratic function of an integer index, with uniformly bounded
+additive error \cite[Chapter~VIII, Proposition~9.1 and Theorem~9.3]{silverman}.
+The bounded additive error makes the exact index selection below possible.
+
+The computational construction uses the bit-masking method of Jones and
+Matiyasevich \cite{jm1984,jm1991}. Large-base encodings turn a finite
+register-machine history into finitely many integers, and Lucas's binomial
+congruence tests the permitted binary digits. Determining the base from the
+input and computation time already appears in Chaitin's account
+\cite[Sections~2.3 and~2.6]{chaitin1987}. We use a clock and a dyadic
+interval to select one base for the entire run. Throughout both constructions,
+uniqueness must include reduced rational coordinates, arithmetic quotients
+and slacks, and the variables of inactive cases. The proof keeps this
+complete-witness requirement through every substitution.
+
+The arithmetic constants in the proof are fixed once for all sets $S$ and
+all inputs. They include rational points and integers whose existence is
+established below, but whose numerical values are not specified. The theorem
+therefore gives existence of an integer polynomial without displaying its
+coefficients or a procedure for numerically choosing those constants.
+
+\begin{corollary}[Undecidability with an at-most-one-solution promise]
+\label{cor:unique-h10}
+There exist integers $m,D\ge1$ for which no algorithm has the following
+property: on every input polynomial $F\in\ZZ[W_1,\ldots,W_m]$ of total
+degree at most $D$ satisfying the promise
+\[
+ \#\{w\in\NN^m:F(w)=0\}\le1,
+\]
+the algorithm halts and correctly decides whether this set is nonempty.
+\end{corollary}
