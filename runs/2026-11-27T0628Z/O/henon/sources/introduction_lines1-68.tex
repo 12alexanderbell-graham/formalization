@@ -1,0 +1,68 @@
+\section{Introduction}\label{sec:introduction}
+
+The H\'enon--Lane--Emden system is
+\begin{equation}\label{eq:system}
+ -\Delta u=|x|^A v^p,\qquad
+ -\Delta v=|x|^B u^q
+ \qquad\text{in }\R^n\setminus\{0\}.
+\end{equation}
+Its subcritical nonexistence conjecture asks whether the weighted
+hyperbola alone rules out positive solutions, without symmetry or
+conditions at infinity. The unweighted case \(A=B=0\) is the classical
+Lane--Emden system.
+
+The scalar subcritical Liouville theorem of Gidas and Spruck is a
+starting point for this question~\cite{GidasSpruck1981}. For systems,
+Mitidieri developed a Rellich identity and early nonexistence
+regions~\cite{Mitidieri1993,Mitidieri1996}. Serrin and Zou proved the
+unweighted three-dimensional assertion under a growth condition;
+Pol\'a\v{c}ik, Quittner, and Souplet removed that condition, and
+Souplet settled dimension four~\cite{SerrinZou1996,
+PolacikQuittnerSouplet2007,Souplet2009}. Li, Li, and Wei obtained a
+further unweighted nonexistence region for \(p,q\ge1\) in every dimension
+\(n\ge5\)~\cite[Theorem~1.1]{LiLiWei2025}. Liouville theorems also serve
+as inputs to rescaling arguments for a priori bounds and singularity
+estimates~\cite{GidasSpruckBounds1981,PolacikQuittnerSouplet2007}.
+
+For the weighted system, Bidaut-V\'eron and Giacomini identified the
+critical hyperbola in the regular radial theory under admissible
+weights~\cite{BidautVeronGiacomini2010}. Phan formulated the unrestricted
+weighted question for \(A,B>-2\) as Conjecture~C and established
+bounded, low-dimensional, and conditional cases~\cite{Phan}.
+Fazly and Ghoussoub obtained bounded and stability-based results for
+nonnegative weights~\cite{FazlyGhoussoub2014}; Li and Zhang subsequently
+proved the weighted conjecture in dimension three without a boundedness
+assumption~\cite{LiZhang2019}. Results in restricted exponent ranges
+extend to dimensions four and five~\cite{Li2022}. More recently,
+Huang and Zou stated the all-real-weight, origin-continuous assertion
+as Conjecture~B and proved cases with stability, decay, or energy
+hypotheses~\cite{HuangZou}. Xu and Luo obtained a higher-order weighted
+theorem over the full exponent range for radial solutions subject to
+regularity and growth conditions~\cite{XuLuo2026}. The full nonradial
+question in higher dimensions is the subject of this paper.
+
+\begin{theorem}\label{thm:main}
+Let \(n\ge2\) be an integer, let \(p,q>0\), and let \(A,B\in\R\).
+Suppose that
+\begin{equation}\label{eq:subcritical}
+ \frac{n+A}{p+1}+\frac{n+B}{q+1}>n-2.
+\end{equation}
+There are no functions
+\[
+ u,v\in C^2(\R^n\setminus\{0\})\cap C(\R^n),
+ \qquad u(x)>0,\quad v(x)>0\quad(x\in\R^n),
+\]
+satisfying Equation~\eqref{eq:system} at every \(x\ne0\).
+\end{theorem}
+
+\begin{corollary}[Unweighted Lane--Emden conjecture]
+\label{cor:lane-emden}
+For every integer \(n\ge3\) and \(p,q>0\) satisfying
+\[
+ \frac{1}{p+1}+\frac{1}{q+1}>\frac{n-2}{n},
+\]
+there is no strictly positive \(C^2(\R^n)\) solution of
+\[
+ -\Delta u=v^p,\qquad -\Delta v=u^q\qquad\text{in }\R^n.
+\]
+\end{corollary}

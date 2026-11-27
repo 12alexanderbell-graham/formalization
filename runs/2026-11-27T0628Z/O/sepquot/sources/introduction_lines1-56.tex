@@ -1,0 +1,56 @@
+\section{Introduction}\label{sec:introduction}
+
+Every infinite-dimensional Banach space contains a separable
+infinite-dimensional closed subspace: take the closed span of a countable
+linearly independent set. The corresponding assertion for quotients is the
+\emph{separable quotient problem}, traditionally attributed to Banach and
+Mazur. For a scalar field $\mathbb F\in\{\R,\C\}$, let $\SQ_{\mathbb F}$
+denote the statement
+\begin{quote}
+Every infinite-dimensional Banach space over $\mathbb F$ admits a
+bounded linear surjection onto a separable infinite-dimensional
+Banach space.
+\end{quote}
+Equivalently, each such space $X$ has a closed subspace $M$ for which
+$X/M$ is separable and infinite dimensional. The equivalence follows by
+applying the open mapping theorem to the induced bijection from a space
+modulo the kernel of a surjection.
+
+We work with the axiom of Choice throughout. Write
+$\mathfrak c=2^{\aleph_0}$ for the cardinality of the continuum.
+For an uncountable cardinal $\kappa$, a probability measure on
+$\mathcal P(\kappa)$ is \emph{$\kappa$-additive} if it is additive on
+pairwise disjoint families of cardinality strictly less than $\kappa$;
+the sum over such a family means the supremum of its finite subsums.
+We say that $\kappa$ is \emph{real-valued measurable} if it carries such
+a measure vanishing on singletons. In particular, the hypothesis below
+requires a measure on \emph{every subset} of $\mathfrak c$, with this
+stronger additivity property.
+
+The two implications below are proved in ZFC. Their hypotheses are then
+realized in models at the indicated consistency strengths; this gives
+the relative-independence conclusion.
+
+\begin{theorem}\label{intro:main}
+For each $\mathbb F\in\{\R,\C\}$, ZFC proves the following implications.
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item If $\mathfrak c$ is real-valued measurable, then $\SQ_{\mathbb F}$
+ holds.
+ \item If the continuum hypothesis holds, then $\SQ_{\mathbb F}$ fails.
+\end{enumerate}
+Consequently, if ZFC with a measurable cardinal is consistent, then
+$\SQ_{\mathbb F}$ is independent of ZFC. Consistency of its failure
+requires only consistency of ZFC.
+\end{theorem}
+
+The CH counterexamples already occur at norm density $\aleph_1$, the
+smallest possible nonseparable density (Corollary~\ref{twist:density}).
+At this density, an earlier positive theorem yields a sharper consistency
+conclusion. Let $\SQ^{\aleph_1}_{\mathbb F}$ denote the assertion that
+every Banach space over $\mathbb F$ of norm density exactly $\aleph_1$
+has a separable infinite-dimensional quotient.
+
+\begin{corollary}\label{intro:small-density}
+If ZFC is consistent, then $\SQ^{\aleph_1}_{\mathbb F}$ is independent
+of ZFC for each $\mathbb F\in\{\R,\C\}$.
+\end{corollary}

@@ -1,0 +1,29 @@
+\section{Introduction}
+\label{sec:introduction}
+
+For integers \(s,t\ge2\), the Ramsey number \(r(s,t)\) is the least
+integer \(n\) such that every simple graph on \(n\) vertices contains
+either a complete graph \(K_s\) or an independent set of size \(t\).
+We determine the logarithmic exponent in the off-diagonal case \(s=5\).
+We write \(\alpha(G)\) for the largest size of an independent set in \(G\).
+All logarithms are natural.
+
+\begin{theorem}
+\label{thm:main}
+There is an absolute constant \(C>0\) such that, for every
+\(\varepsilon>0\), all sufficiently large integers \(t\) satisfy
+\[
+ \frac{t^4}{(\log t)^{3+\varepsilon}}
+ \ \le\ r(5,t)\ \le\
+ C\frac{t^4}{(\log t)^3}.
+\]
+The threshold for \(t\) may depend on \(\varepsilon\).
+Consequently,
+\[
+ \lim_{t\to\infty}
+ \frac{4\log t-\log r(5,t)}{\log\log t}=3.
+\]
+\end{theorem}
+
+The theorem resolves the sharp logarithmic-exponent question for
+\(r(5,t)\). It leaves open a constant-factor asymptotic for
