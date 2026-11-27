@@ -1,0 +1,30 @@
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialArrays.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialCeiling.lean:10	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialFaceFuel.lean:15	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialFamilies.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialFind.lean:11	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialLists.lean:10	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialLoops.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialMapFamilies.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialMatrixFold.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialMatrixSum.lean:11	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialOptimize.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialOriginalOutput.lean:10	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialRoots.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialRoundedStep.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialRoutine.lean:28	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialScalar.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialSearch.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialStored.lean:15	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialValueQuery.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/PolynomialVariance.lean:13	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/StoredBits.lean:39	syntax "" : tactic
+custom syntax	OAI/Analysis/MatrixSigning/Complexity/StoredBits.lean:40	macro_rules
+custom syntax	OAI/Combinatorics/ThinTrees/Arithmetic/BinaryArithmetic.lean:15	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Combinatorics/ThinTrees/Arithmetic/ScalarRealization.lean:15	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Combinatorics/ThinTrees/Arithmetic/UnaryArithmetic.lean:13	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Combinatorics/ThinTrees/Arithmetic/UnaryRoot.lean:12	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Combinatorics/ThinTrees/Encoding/GreedyRealization.lean:16	local notation "" => NaturalPolynomial.variable
+custom syntax	OAI/Combinatorics/ThinTrees/Normalization/Realization.lean:50	local notation "" => NaturalPolynomial.variable
+# closure: 736 files, 101101 lines; external packages: {'Mathlib': 664}
+# hits: custom syntax 28

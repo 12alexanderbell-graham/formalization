@@ -1,0 +1,167 @@
+instance attribute change	OAI/Analysis/Commutator/AbelianGNSMaximal.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/AbelianGNSSpectral.lean:11	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/AbelianSpectralIndicators.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/AbstractFreeCornerFromUnitary.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/AmplifiedTowerGeometry.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/AmplifiedTowerStage.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/CentralSpectralGeometry.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/ConstantSequenceClosedTransport.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/ConstantSequenceRange.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/CountableGNSColumn.lean:16	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/EqualProjectionPartition.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FaithfulNormalRepresentationLinks.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteFactorCornerTransport.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteMatrixSmallCorner.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteRectangularBound.lean:9	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteRectangularContraction.lean:10	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteSmallCorner.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteSquareConditionalBound.lean:11	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteSquareContraction.lean:11	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteStandardCompression.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteStandardGauge.lean:9	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteStandardMainInterface.lean:8	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteStandardRange.lean:8	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteStandardRepresented.lean:8	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FiniteStandardUnconditional.lean:9	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/FreeCornerFromUnitary.lean:11	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+custom syntax	OAI/Analysis/Commutator/FreeHankelBound.lean:29	local notation "" => Completion (factorSpace t S true)
+custom syntax	OAI/Analysis/Commutator/FreeHankelBound.lean:74	local notation "" => (letterOf t S true (s:A) hs hs0)
+custom syntax	OAI/Analysis/Commutator/FreeHankelBound.lean:75	local notation "" => (norm_letterOf_unitary t S true s hs hs0)
+custom syntax	OAI/Analysis/Commutator/FreeHankelBound.lean:76	local notation "" => (letterOf t S false (d:A) hd hd0)
+custom syntax	OAI/Analysis/Commutator/FreeHankelBound.lean:77	local notation "" => (norm_letterOf_unitary t S false d hd hd0)
+instance attribute change	OAI/Analysis/Commutator/FreeSequenceUnitary.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/GNSCornerTransport.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/GeneratedFreePair.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/GeneratedMatrixBicommutant.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/InfiniteBoundTransfer.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/InfiniteCenter.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/InfiniteDiagonalRange.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/IntertwinerCompression.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/IntertwinerSeminorm.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixAlgebraEquiv.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixCornerInclusion.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixDiffuseTransfer.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixFreePositionProducer.lean:17	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixFreeSymmetry.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixGNSCornerBound.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixGNSRealCorner.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixNormalTrace.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixStageGNSGeneration.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixStandardForm.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/MatrixVonNeumann.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/NormalBiprodGNS.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/NormalGNSSeparable.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/NormalOperatorHom.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/NormalRepresentationColumns.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/NormalRepresentationLinks.lean:16	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/NormalTracedFactorMain.lean:11	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/NormalizedTowerFreePosition.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/PartialUnitaryChain.lean:20	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/ProjectionFaithfulFunctional.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/ProjectionLifts.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/RelativeEquivFreePosition.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/RelativeTowerFreePosition.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/RepresentationMatrixNorm.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/RepresentedCornerBound.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/RepresentedFactorTransport.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/StableCenterRange.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/StableCentralSpectral.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/StableGNSModule.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/StableModelBound.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/StableUniversalAssembly.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/TracedSeparableFactorMain.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/TracialConstantFreeObstruction.lean:11	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+meta command / environment change	OAI/Analysis/Commutator/TracialDCorner.lean:8	run_cmd modifyEnv fun env =>
+instance attribute change	OAI/Analysis/Commutator/TracialDCorner.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+meta command / environment change	OAI/Analysis/Commutator/TracialDoubleCompression.lean:8	run_cmd modifyEnv fun env =>
+instance attribute change	OAI/Analysis/Commutator/TracialDoubleCompression.lean:18	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/TracialFreeOriginal.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/TracialFreePositionCriterion.lean:8	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+meta command / environment change	OAI/Analysis/Commutator/TracialGNSCorners.lean:9	run_cmd modifyEnv fun env =>
+instance attribute change	OAI/Analysis/Commutator/TracialGNSCorners.lean:21	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/TracialGeneratedAlgebra.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/TracialGeneratedFreeBound.lean:9	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/TracialRangeCommutation.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/TracialRepresentedCorner.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/TracialVectorSubalgebra.lean:15	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/UnitaryCenterTransport.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/UnitaryEquivMoments.lean:12	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+meta command / environment change	OAI/Analysis/Commutator/UnitarySequence.lean:8	run_cmd modifyEnv fun env =>
+instance attribute change	OAI/Analysis/Commutator/UnitarySequence.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/VectorFreeGeneration.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/VectorFreeOriginalBound.lean:14	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+instance attribute change	OAI/Analysis/Commutator/VectorStageGeneration.lean:13	attribute [-instance] NonUnitalStarSubalgebra.nonUnitalCStarAlgebra
+unsafe/opaque/partial	OAI/Analysis/KadisonSimilarity/Derivation/CommonCyclicEmbedding.lean:83	opaque cyclicCommonEmbeddingData :
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:22	local notation "" => canonicalGeneratedAlgebra τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:23	local notation "" => canonicalGeneratedGeometry τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:24	local notation "" => StarAlgHom.range (canonicalGeneratedFirst τ htr φ ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:25	local notation "" => StarAlgHom.range (canonicalGeneratedSecond τ htr φ ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:56	local notation "" => canonicalGeneratedMatrices τ htr φ ψ τR hψτ M
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:32	local notation "" => Ultrapower τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:33	local notation "" => quotientTrace τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:34	local notation "" => quotientTrace_tracial τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:35	local notation "" => constant τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:36	local notation "" => tracialUltrapowerMap τA τB hA hB ω trA trB φ hφ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:43	local notation "" => canonicalGeneratedAlgebra τQ trQ ι ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:44	local notation "" => canonicalGeneratedGeometry τQ trQ ι ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:45	local notation "" => StarAlgHom.range (canonicalGeneratedSecond τQ trQ ι ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeFactorComparison.lean:23	local notation "" => canonicalGeneratedAlgebra τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeFactorComparison.lean:24	local notation "" => canonicalGeneratedGeometry τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeFactorComparison.lean:25	local notation "" => StarAlgHom.range (canonicalGeneratedFirst τ htr φ ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeFactorComparison.lean:26	local notation "" => StarAlgHom.range (canonicalGeneratedSecond τ htr φ ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:27	local notation "" => Q.half.reflection
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:28	local notation "" => symmetryUnit (d : P)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:30	local notation "" => dihedralHalfProjection dU
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:31	local notation "" => symmetryHalfProjectionProof d Q.half.reflection_star
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:33	local notation "" => G.generatedDihedralAlgebra (d : P) (s : P)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:34	local notation "" => StarSubalgebra.topologicalClosure (factorAlgebra
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeMatrixBaseAction.lean:20	local notation "" => G.freeMatrixConjugationIsometry A D ι u hτ hf hgen
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeMatrixBaseAction.lean:21	local notation "" => matrixConjugateLetter D ι u
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeMatrixExtension.lean:38	local notation "" => G.freeMatrixExtensionUnitary A D ι u h1 hf hgen
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeMatrixFactorAction.lean:21	local notation "" => G.freeMatrixConjugationIsometry A D ι u hτ hf hgen
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:37	local notation "" => normalizedMatrixTrace τR n
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:38	local notation "" => normalizedMatrixTrace τB n
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:39	local notation "" => normalizedMatrixTrace_one τR hR
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:40	local notation "" => normalizedMatrixTrace_one τB hB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:41	local notation "" => normalizedMatrixTrace_tracial τR trR
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:42	local notation "" => normalizedMatrixTrace_tracial τB trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:43	local notation "" => matrixEntryHom (n := n) ρ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:44	local notation "" => normalizedMatrixTrace_entryHom τR τB ρ hρτ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:45	local notation "" => matrixConjugatedEmbedding τR τB hR hB ω trR trB ρ hρτ n
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:46	local notation "" => matrixConjugatedEmbedding_trace τR τB hR hB ω trR trB ρ hρτ n
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:47	local notation "" => matrixConjugatedEmbedding_injective τR τB hR hB ω trR trB ρ hρτ n hfR
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerModel.lean:91	local notation "" => symmetryUnit (d : P) (congrArg (fun x : D => (x : P)) hdsq)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerModel.lean:92	local notation "" => symmetryUnit (s : P) (congrArg (fun x : A => (x : P)) hssq)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerModel.lean:93	local notation "" => dihedralHalfProjection
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerTheorem.lean:69	local notation "" => symmetryUnit (d : P) (congrArg (fun x : D => (x : P)) hdsq)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerTheorem.lean:70	local notation "" => symmetryUnit (s : P) (congrArg (fun x : A => (x : P)) hssq)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerTheorem.lean:71	local notation "" => dihedralHalfProjection
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialHomCompression.lean:21	local notation "" => gnsTracialGeometry τB trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialHomCompression.lean:22	local notation "" => TracialCornerGeometry.baseInclusion (gnsTracialGeometry τB trB) φ.range
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialHomCompression.lean:29	local notation "" => tracialRangeIsometry τA (gnsTracialGeometry τB trB) φ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialHomCompression.lean:31	local notation "" => gnsTracialHomIsometry τA τB φ hφ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/UltrapowerFreePositionTransfer.lean:24	local notation "" => tracialUltrapowerMap τA τB hA hB ω trA trB φ hφ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/UltrapowerFreePositionTransfer.lean:25	local notation "" => quotientTrace τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/UltrapowerFreePositionTransfer.lean:26	local notation "" => gnsTracialGeometry τQ (quotientTrace_tracial τB hB ω trB)
+custom syntax	OAI/Analysis/KadisonSimilarity/Representation/CanonicalBaseExpectation.lean:21	local notation "" => canonicalGeneratedGeometry τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:24	local notation "" => normalizedMatrixTrace τR n
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:25	local notation "" => normalizedMatrixTrace τB n
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:26	local notation "" => normalizedMatrixTrace_one τR hR
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:27	local notation "" => normalizedMatrixTrace_one τB hB
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:28	local notation "" => normalizedMatrixTrace_tracial τR trR
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:29	local notation "" => normalizedMatrixTrace_tracial τB trB
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:30	local notation "" => matrixEntryHom (n := n) ρ
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:31	local notation "" => normalizedMatrixTrace_entryHom τR τB ρ hρτ
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialIncludedCorners.lean:22	local notation "" => tracialUltrapowerMap τA τB hA hB ω trA trB φ hφ
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralColumns.lean:23	local notation "" => symmetryUnit (d : P) (congrArg (fun x : D => (x : P)) hdsq)
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralColumns.lean:24	local notation "" => symmetryUnit (s : P) (congrArg (fun x : A => (x : P)) hssq)
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:24	local notation "" => symmetryUnit (d : P) (congrArg (fun x : D => (x : P)) hdsq)
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:25	local notation "" => symmetryUnit (s : P) (congrArg (fun x : A => (x : P)) hssq)
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:26	local notation "" => dihedralHalfProjection
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:39	local notation "" => CStarCorner.subalgebra p hp D hpD
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:40	local notation "" => CStarCorner.subalgebra p hp C hpC
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/UltrapowerGeneratedTransfer.lean:23	local notation "" => Ultrapower τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/UltrapowerGeneratedTransfer.lean:24	local notation "" => quotientTrace τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/UltrapowerGeneratedTransfer.lean:25	local notation "" => tracialUltrapowerMap τA τB hA hB ω trA trB φ hφ
+# closure: 1472 files, 194936 lines; external packages: {'Mathlib': 1085}
+# hits: custom syntax 76, instance attribute change 84, meta command / environment change 4, unsafe/opaque/partial 1
