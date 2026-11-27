@@ -1,0 +1,49 @@
+\section{Introduction}
+
+A real Hadamard matrix of order \(n\) is a matrix \(H\) with entries
+in \(\{-1,1\}\) such that \(HH^{\mathsf T}=nI_n\). It is
+\emph{circulant} if there are signs \(h_0,\ldots,h_{n-1}\) for which
+\[
+ H_{ij}=h_{j-i\bmod n}\qquad(0\leq i,j<n).
+\]
+Thus every row is a cyclic shift of the first. For such a sign matrix,
+define the periodic autocorrelations by
+\[
+ P_h(t)=\sum_{j=0}^{n-1}h_jh_{j+t\bmod n}
+ \qquad(0\leq t<n).
+\]
+Here \(P_h(0)=n\), and the Hadamard condition is equivalent to
+\(P_h(t)=0\) for every \(1\leq t<n\).
+The circulant Hadamard conjecture, traditionally attributed to Ryser
+\cite{Ryser1963,LeungSchmidt2012}, asserts that the only possible
+orders are \(1\) and \(4\). We prove this conjecture.
+
+\begin{theorem}\label{thm:main}
+For a positive integer \(n\), a real circulant Hadamard matrix of
+order \(n\) exists if and only if \(n\in\{1,4\}\).
+\end{theorem}
+
+The theorem also completes the classification of Barker-sequence
+lengths. For an integer \(n>1\), a sign sequence
+\(a=(a_0,\ldots,a_{n-1})\in\{-1,1\}^n\) is a \emph{Barker sequence}
+if its nontrivial aperiodic autocorrelations satisfy
+\[
+ |C_a(t)|\leq1\quad(1\leq t<n),\qquad
+ C_a(t)=\sum_{j=0}^{n-t-1}a_ja_{j+t}.
+\]
+The Barker-sequence conjecture asserts that no such sequence has
+length greater than \(13\). Turyn and Storer established the odd-length
+nonexistence theorem \cite{TurynStorer1961}; we use the later proof of
+Schmidt and Willms \cite{SchmidtWillms2016} for the exact list.
+For even length greater
+than two, the Barker inequalities imply that all nontrivial periodic
+autocorrelations vanish \cite{TurynStorer1961,Turyn1965}.
+Theorem~\ref{thm:main} therefore settles the remaining even case.
+
+\begin{corollary}[Barker-sequence lengths]\label{cor:barker}
+For an integer \(n>1\), a Barker sequence of length \(n\) exists if
+and only if
+\[
+ n\in\{2,3,4,5,7,11,13\}.
+\]
+\end{corollary}

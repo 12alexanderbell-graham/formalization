@@ -1,0 +1,116 @@
+\section{The classification problem}
+
+A finite nonempty set $A$ in a Euclidean space is \emph{Ramsey} if, for
+every integer $r\ge2$, there is an integer $D\ge1$ such that every map
+$c:\R^D\to\{1,\ldots,r\}$ is constant on a congruent copy of $A$.
+Congruence means preservation of every pairwise distance, at the original
+scale. The coloring is an arbitrary function. In particular, no
+measurability or other regularity is assumed.
+
+Erd\H{o}s, Graham, Montgomery, Rothschild, Spencer and Straus introduced
+Euclidean Ramsey theory and proved that every finite Ramsey set is
+spherical~\cite[Theorem~13]{egm-rss}. Graham later conjectured that
+sphericity is also sufficient~\cite{graham-survey}. Major positive
+results established the Ramsey property for nondegenerate triangles
+and then all nondegenerate simplices, by Frankl and
+R\"odl~\cite{frankl-rodl-triangles,frankl-rodl-simplices}; finite sets
+with a soluble transitive isometry group and cyclic trapezoids, by
+K\v{r}\'i\v{z}~\cite{kriz-permutation,kriz-trapezoids}; and vertex sets
+of regular polytopes, by Cantwell~\cite{cantwell-polytopes}.
+
+Leader, Russell and Walters proposed a different characterization:
+a finite set is Ramsey exactly when it embeds in a finite transitive
+Euclidean set~\cite[Conjecture~A]{lrw-transitive}. Transitivity means
+that the isometries of the finite set act transitively on its points.
+An isometric subset of such a set is called \emph{subtransitive}.
+Their group-theoretic and Hales--Jewett formulations led to the
+Block Sets Conjecture; subsequent work studies the possible block
+sizes~\cite{ilw-blocks}. The link with soluble symmetry has also
+expanded: Karamanlis embedded every simplex in a finite product of
+regular polygons~\cite{karamanlis-tori}, and Behague constructed
+soluble transitive extensions for many known Ramsey classes and
+further permutation configurations~\cite{behague-subsoluble}.
+Ivan, Leader and Walters developed generalized-prism constructions,
+with Ramsey conclusions under a soluble symmetry
+hypothesis~\cite{ilw-prisms}. Moore and, independently, Mirabi proved
+that adjoining a point outside the affine span of a Ramsey set
+preserves the Ramsey property~\cite{moore-pyramid,mirabi-extensions}.
+The affine-span restriction leaves the case of arbitrary coplanar
+circle points beyond this extension theorem.
+
+P\'alv\"olgyi has recently given a seven-point circle configuration
+that is not Ramsey, disproving the spherical
+conjecture~\cite[Theorem~1]{palvolgyi-heptagon}.
+The appendix to that version also states that generic seven-point circle
+configurations are not Ramsey. Its author's note announces a proof that
+all finite transitive sets are Ramsey and says that its exposition is
+still being prepared.\footnote{P\'alv\"olgyi attributes the writing, proofs, and
+ideas in that manuscript to ChatGPT. He labels the additional appendix
+claims as unchecked by him.}
+Our main theorem gives a necessary and sufficient algebraic condition
+for an arbitrary finite Euclidean configuration.
+
+\subsection{The exact tensor criterion}
+
+The problem is to characterize these finite sets up to congruence.
+A singleton is Ramsey. For any other set, let $d\ge1$ be its affine
+dimension, and choose a congruent representative
+$A=\{a_1,\ldots,a_s\}\subset\R^d$ whose affine span is $\R^d$.
+The points are distinct and $s\ge2$. Define
+\[
+ p_i=\begin{pmatrix}1\\a_i\end{pmatrix},\qquad
+ F=\Q\bigl((a_i)_\alpha:1\le i\le s,\ 1\le\alpha\le d\bigr),
+ \qquad B=F\otimes_{\Q}F.
+\]
+The commutative ring $B$ has a multiplication homomorphism
+\[
+ m_F:B\longrightarrow F,\qquad m_F(x\otimes y)=xy.
+\]
+An equality in $B$ is stronger than the equality obtained by applying
+$m_F$; this map need not be injective. Index the entries of $p_i$ and
+the rows and columns of a $(d+1)$-by-$(d+1)$ matrix by $0,1,\ldots,d$.
+Thus index $0$ is the constant coordinate.
+
+\begin{theorem}[Classification]\label{thm:classification}
+Let $A=\{a_1,\ldots,a_s\}\subset\R^d$ be a finite set of at least two
+points with affine span $\R^d$, and define $p_i,F,B,m_F$ as above.
+Then $A$ is Ramsey if and only if there is a matrix
+$P\in\operatorname{Mat}_{d+1}(B)$ such that
+\begin{align}
+ (p_i\otimes1)^T P(1\otimes p_i)&=0
+       &&(1\le i\le s),\label{eq:field-evaluations}\\
+ m_F(P_{\alpha\beta})&=\delta_{\alpha\beta}
+       &&(1\le\alpha,\beta\le d).\label{eq:field-spatial}
+\end{align}
+Here the entries of $p_i\otimes1$ and $1\otimes p_i$ are formed
+componentwise. There are no separate conditions on the multiplied
+constant row or constant column of $P$.
+\end{theorem}
+
+The condition is independent of the chosen congruent representative
+in its affine dimension; we also prove this directly through its tensor
+formulation. It uses exact relations in the coordinate field. It is
+not a procedure for recovering those relations from numerical
+approximations to arbitrary real coordinates.
+
+\subsection{Geometric consequences}
+
+Applying $m_F$ to the evaluation equations gives an ordinary sphere
+equation
+\[
+ \|a_i\|^2+\ell\cdot a_i+c=0\qquad(1\le i\le s)
+\]
+for some $\ell\in F^d$ and $c\in F$. The tensor condition requires the
+evaluation identities to hold before multiplication. This is the
+distinction between sphericity and the Ramsey property that the
+classification detects.
+
+Every subtransitive set satisfies the tensor condition. Another
+sufficient condition is that evaluation at the points of a spherical
+set gives independent functionals on the space of quadratic
+polynomials. It applies to every nonempty set of at most five points
+on a circle, and hence to every cyclic quadrilateral. In
+Corollary~\ref{cons:kites}, we combine this result with the
+non-subtransitive cyclic kites of Leader, Russell and
+Walters~\cite[Corollary~2]{lrw-kites}. Those kites are Ramsey, disproving
+the necessity direction of their proposed characterization and their

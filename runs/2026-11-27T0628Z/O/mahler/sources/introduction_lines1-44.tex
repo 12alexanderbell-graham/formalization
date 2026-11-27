@@ -1,0 +1,44 @@
+\section{Introduction}\label{sec:introduction}
+
+A convex body is a compact convex subset of $\R^n$ with nonempty
+interior. If $K=-K$, its center $0$ is an interior point, and its
+polar body is
+\[
+ K^\circ=\{y\in\R^n:\langle x,y\rangle\le1
+                         \text{ for every }x\in K\}.
+\]
+Write $|K|$ for $n$-dimensional Lebesgue volume and
+$P(K)=|K|\,|K^\circ|$ for the volume product. The two determinant
+factors cancel under an invertible linear change of coordinates, so
+$P(TK)=P(K)$. Mahler's symmetric volume-product problem asks how small
+this linear invariant can be. The conjectured value is $4^n/n!$,
+the product of a cube and its polar cross-polytope. We prove this bound
+in every dimension and classify the equality cases.
+
+The extremal bodies are defined recursively. A centered nondegenerate
+interval is a one-dimensional \emph{Hanner polytope}. Given Hanner
+polytopes $H_1\subset\R^k$ and $H_2\subset\R^l$, their Cartesian
+product and the convex hull
+\[
+ \begin{aligned}
+ H_1\oplus_\infty H_2&=H_1\times H_2,\\
+ H_1\oplus_1 H_2&=
+ \conv\bigl((H_1\times\{0\})\cup(\{0\}\times H_2)\bigr)
+ \end{aligned}
+\]
+are Hanner polytopes in $\R^{k+l}$. These are the $\ell_\infty$ and
+$\ell_1$ sums, respectively. This class contains cubes, cross-polytopes,
+and mixed recursive sums. We call an invertible linear image of a
+Hanner polytope a \emph{linear Hanner body}.
+
+\begin{theorem}\label{thm:main}
+For every integer $n\ge1$ and every origin-symmetric convex body
+$K\subset\R^n$,
+\begin{equation}\label{eq:main-inequality}
+ |K|\,|K^\circ|\ge\frac{4^n}{n!}.
+\end{equation}
+Equality holds if and only if $K$ is a linear Hanner body.
+\end{theorem}
+
+The linear equivalence in the statement respects the fixed origin
+used for polarity.
