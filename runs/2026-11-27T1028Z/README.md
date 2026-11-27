@@ -45,5 +45,5 @@ Section Next (b) of `runs/2026-11-27T0228Z/README.md` (part 3): 71 of the 494 pi
 
 ## End
 - Local: `lake build Checked` (3867 jobs, no error) with the judge's build of 5c678d6 restored; `#print axioms` on all 20 theorems of `SpecAgreementIJK` and the four `*_agrees_*` of `JunkImmaterial` (propext, Classical.choice, Quot.sound); no `sorry`/`axiom`/`native_decide`; `precheck_names` ok; `check_prose` 0 new (after replacing the arXiv identifier in the copies' module docs by words; code unchanged, `check_provenance` ok); StatementDeps relock (316 headlines, open 14); Claims (316; 471/494 pinned uses with an agreeing blind specification); `make_packet.py`, `check_numbers.py --write`, `make_verified_page.py`; `records_check.py 5c678d6` (rerun after the record rewording: `check_headline_mentions` 0 findings).
-- CI: run 45984094021 (868eee2, run 0828Z's final push) was queued when read; this run's final push is read by the next run.
+- CI: run 45984094021 (868eee2, run 0828Z's final push) in progress when read. This run's final push 5ee415b: Lean judge run **45992056288** (queued at 11:38Z behind it); the next run reads it first (section Next).
 - Message to Alexander (L.2): none (no headline or status changed; no verified finding; the external test's messages are run 0628Z's).
