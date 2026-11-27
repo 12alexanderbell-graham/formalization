@@ -1,0 +1,25 @@
+\section{Introduction}
+\label{sec:introduction}
+
+An independent set in a graph is a set of pairwise nonadjacent vertices.
+For a finite simple graph $G$, write $\alpha(G)$ for the largest size of
+an independent set. If $G$ has $n>0$ vertices, its average degree is
+$d(G)=2|E(G)|/n$. The graph is $K_r$-free if no $r$ vertices are pairwise
+adjacent; throughout, exclusion means exclusion as an ordinary subgraph.
+All logarithms are natural. For general graphs, the elementary bound
+$\alpha(G)\ge n/(d+1)$ is best possible, as disjoint unions of cliques
+show. Excluding a fixed clique forces larger independent sets. We prove
+that the improvement is a factor of order $\log d$.
+
+\begin{theorem}\label{thm:main}
+For every integer $r\ge4$, there is a constant $c_r>0$ such that every
+finite simple $K_r$-free graph $G$ with $n$ vertices and average degree $d\ge2$
+satisfies
+\[
+ \alpha(G)\ge c_r\frac{n\log d}{d}.
+\]
+\end{theorem}
+
+The constant is uniform in both the number of vertices and the average
+degree. The theorem gives a positive answer to the fixed-clique-size
+independence conjecture of Ajtai, Erd\H{o}s, Koml\'os and Szemer\'edi,
