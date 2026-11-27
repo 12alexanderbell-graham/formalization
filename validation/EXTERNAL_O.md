@@ -539,3 +539,53 @@ main claim no linked Lean statement states, and the scope text never says that c
 headline the Lean does not state, five of them with the unformalized claim in the scope document's own title. The
 heuristic finds only items whose document title points at another paper; the other 220 items are unchecked for this
 pattern (next step: every item, auditor batches).
+
+### Index check, second pass: the other 44 items that bundle papers the Lean document does not cover
+
+Three Sonnet auditors (exact paths, no web, briefs identical to the first pass), one reader per item; checked here
+against the challenge files: 143, 076, 271, 251, 015.
+
+- **Index overstatements (26):**
+  - **143:** "Resolves the uniform boundedness assertion in Hilbert's sixteenth problem" for every real planar polynomial
+    field. The Lean is the quintic Liénard family only: at most 2 limit cycles, and 2 attained
+    (`QuinticLienard.lean:39-42`).
+  - **076 (O15's document):** "ultraflat … merit factors tend to infinity, disproving Turyn's conjecture". The Lean has
+    the max bound and L^p flatness only.
+  - **271:** "Bloch's T^{3/2} law with its exact coefficient". The Lean has spontaneous magnetization only
+    (`Heisenberg.lean:206`).
+  - **251:** "equivalent to strong Ulam stability". The Lean has Dixmier's problem only.
+  - **015:** quartic and sextic packets. The Lean has prime degree only.
+  - **033:** Campana, Popa.
+  - **039:** Seshadri constants in dimension ≥ 3 and in characteristic p. The Lean has surfaces.
+  - **090:** Riesz, Coulomb and sphere energies.
+  - **104:** deterministic quasipolynomial algorithms. The Lean has one randomized algorithm.
+  - **114:** integer polymatroids. The Lean has equal-rank matroids.
+  - **116:** positive characteristic.
+  - **119:** the Hellinger conjecture (auditor moderately confident).
+  - **122:** the decoder upper bounds. The Lean has lower bounds only.
+  - **175:** graph decompositions.
+  - **211:** LQG for q ≤ 4, Liouville Brownian motion, spectra. The Lean has q > 4 only.
+  - **212:** no bigeodesics.
+  - **215:** the O(3) continuum limit.
+  - **220:** finite-range-dependent environments.
+  - **222:** jamming and bi-orthogonal disorder.
+  - **227:** autocorrelation limits (minor).
+  - **263:** Z + CM binding and first-ionization bounds.
+  - **289:** the counterexamples. The Lean has the positive stability result.
+  - **291:** equivariant Jiang–Su stability.
+  - **348:** the nonnegative-curvature classification and the L² gap. The Lean has positive curvature.
+  - **361:** the ℝ³ metric for every large k.
+  - **378:** the E^NP circuit lower bound (minor: the ETH disproof itself matches).
+- **Disclosed (13):** 032, 117, 157, 206, 229, 235, 237, 240, 261, 267, 290, 353, 359.
+- **Matches (4):** 003, 107, 342, 376.
+- **Unsure (1):** 238 (the Ω(log N) lower bound).
+
+**Total over both passes: 43 of the 246 Lean-linked CONTENTS items carry the Lean link on a headline claim that no linked
+Lean statement states, and their scope text does not say so.** That count includes 2 minor items and 1 moderately
+confident one. The other 176 items have one paper each and the same document; they are not yet audited for a headline
+stronger than the Lean.
+
+**What this means.** In about one in six items, the claim a reader of the index sees next to "[Lean]" is not the claim
+the Lean checks. The scope documents are accurate, but they list what is formalized and rarely what is not. The
+general gate: for each item, require an explicit line for every headline claim, either "stated in Lean (challenge,
+theorem)" or "not formalized".
