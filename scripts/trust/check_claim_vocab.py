@@ -155,6 +155,10 @@ def sections(path=None):
         # already in the phrase and adds fixed generator words and hypotheses of certificate theorems: it contributes
         # no vocabulary (otherwise "proved", "assuming" and certificate identifiers would become claim words)
         gen = [re.sub(r"\. Phrase lines proved in Lean \(statements in PHRASE_LINES\.md\): .*$", "", l) for l in gen]
+        # the blind-specification note of a PINNED definition (run 2026-11-27T0228Z, Claims.lean `blindSpecNote`) is
+        # fixed generator text plus theorem names and hypotheses: no vocabulary either (it made "source", "pinning",
+        # "order", "does" claim words of every headline using a pinned definition)
+        gen = [re.sub(r"\. Blind specification readings \(part B: .*$", "", l) for l in gen]
         out.append((full or lines[0].split("`")[0], "\n".join(gen), " ".join(para)))
     return out
 

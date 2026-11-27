@@ -1280,3 +1280,10 @@
 - CI: 45909963386 (9747463) success (read by run 2228Z); nothing to promote.
 - Part 1: hypothesis 5 of the bound below the printed separation value NEEDED (receding-wall stack `RecedeSep`, chains `RecedeSepOver`, `RecedeSepSlow`, `NecessityCF`); open 15 → 14. Float scan of the positivity hypotheses: witness candidate at β ≈ −2.4145 for three of them.
 - Annex LIV: PROMPT working note; LEDGER experiment.
+
+## 2026-11-27T0228Z (scheduled run; part 3 by rotation)
+- Env: repo ok; local Lean (elan, 4.35.0), Mathlib cache; judge's build of 8ffac48 restored by streaming. `EXTERNAL_LOCK` live at the start (run 1529Z), removed by it during this run.
+- CI: 45921657457 (d4eadd7) and 45922738468 (2c32a70) failed on `check_audits.py` alone (external run's README edited late), repaired by b27e3fd; nothing to promote.
+- Part 3: four blind readers' specifications of fourteen pinned definitions (`Checked/Trust/SecondReadingSpec{A,B,C,D}.lean`); agreement or proved disagreement per reading (`SpecAgreement.lean`, `SpecAgreementCD.lean`): 22 agree, 6 disagree; claims page shows them per definition; 413 of 494 pinned uses also determined by a blind reader's specification.
+- Check repair: StatementDeps / precheck_citations exempt reader-structure fields from the cited-headline rule.
+- Annex LIV: PROMPT working note; LEDGER experiment.

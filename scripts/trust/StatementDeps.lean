@@ -1077,9 +1077,16 @@ run_cmd do
         | _ => [t]
       | _ => [t]
     for v in variants do
+      -- fields of a blind reader's specification structure are not program claims (run 2026-11-27T0228Z: the
+      -- field `decel` of reader A's `CoeffSpecA` is a theorem `CoeffSpecA.decel : ∀ C, CoeffSpecA C → …`, and every
+      -- backticked `decel` in STATE.md resolved to it as an "unregistered headline"). Exempt only projections
+      -- declared under `Checked.Trust.SecondReading*` (reader output, route-checked by check_provenance rule 4 and
+      -- check_blind_route); a program structure's fields stay cited theorems, as since run 2026-11-07T0028Z.
+      let readerField (n : Name) : Bool :=
+        env.isProjectionFn n && "Checked.Trust.SecondReading".isPrefixOf n.toString
       let thms := cands.filter fun n =>
         (n.toString == v || n.toString.endsWith ("." ++ v)) &&
-        (env.find? n matches some (.thmInfo _))
+        (env.find? n matches some (.thmInfo _)) && !readerField n
       -- a dotted name in an existing Checked namespace that names nothing (red team D, defect D08
       -- cited invented theorems as if proved)
       if v.contains '.' && !v.contains '/' && !v.contains ' ' && !v.endsWith ".lean" && !v.endsWith ".md"

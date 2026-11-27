@@ -642,3 +642,6 @@ Target 1: cosmographic (low-redshift) expansions. Nodes with statuses (annex XXX
 
 ## Hypothesis 5 of the bound below the printed separation value (run 2026-11-27T0028Z)
 - `Checked/FSSep/RecedeSep.lean` (`early`, `late`, `unclampS`, `unclampS_neither`, `core_sepR`), `Checked/FSSep/RecedeSepOver.lean`, `Checked/FSSep/RecedeSepSlow.lean`, `Checked/Trust/NecessityCF.lean` (`recede_sep`); scripts and cells: `runs/2026-11-27T0028Z/scripts/`, `runs/2026-11-27T0028Z/cells/`.
+
+## Part 3: independent readers' specifications of fourteen definitions (run 2026-11-27T0228Z)
+- `Checked/Trust/SecondReadingSpecA.lean`, `Checked/Trust/SecondReadingSpecB.lean`, `Checked/Trust/SecondReadingSpecC.lean`, `Checked/Trust/SecondReadingSpecD.lean` (from `runs/2026-11-27T0228Z/specA/`, `specB/`, `specC/`, `specD/`), `Checked/Trust/SpecAgreement.lean`, `Checked/Trust/SpecAgreementCD.lean`, `scripts/trust/Claims.lean`.

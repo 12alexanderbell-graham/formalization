@@ -640,6 +640,67 @@ partial def peel (ctx : Ctx) (ty : Expr) (data hyps : Array String) (names : Arr
     let cs ← (conjuncts c).mapM (renderProp ctx)
     return (data, hyps, cs)
 
+/-- Blind specification readings of a pinned definition `d` (run 2026-11-27T0228Z): for each reader `R`, the
+agreement theorems of `Checked.Trust.SpecAgreement` checked for shape, rendered with the hypotheses under which
+the reader's specification determines `d`. Empty when no reader covered `d`. -/
+def blindSpecNote (ctx : Ctx) (d : Name) : MetaM String := do
+  let shortN := d.componentsRev.head!.toString
+  let env ← getEnv
+  let mut items : Array String := #[]
+  for r in ["A", "B", "C", "D"] do
+    let readerNs := (`Checked.Trust).str s!"SecondReadingSpec{r}"
+    let pinsN := (`Checked.Trust.SpecAgreement).str s!"pins_{shortN}_{r}"
+    let meetsN := (`Checked.Trust.SpecAgreement).str s!"meets_{shortN}_{r}"
+    let notN := (`Checked.Trust.SpecAgreement).str s!"not_meets_{shortN}_{r}"
+    -- `S d` with `S` a structure of the reader's module
+    let specOf (ty : Expr) : Option Name :=
+      match ty.getAppFn.constName? with
+      | some sN => if readerNs.isPrefixOf sN && ty.getAppNumArgs == 1 && ty.appArg!.isConstOf d then some sN else none
+      | none => none
+    let meetsS : Option Name := (env.find? meetsN).bind fun mi => specOf mi.type
+    let notS : Option Name := (env.find? notN).bind fun ni =>
+      if ni.type.isAppOfArity ``Not 1 then specOf ni.type.appArg! else none
+    -- the pin theorem: `∀ F, S F → … → F … = d …` (or `↔` for a condition), `S` the same structure
+    let pinShape ← match env.find? pinsN with
+      | none => pure none
+      | some pi => forallTelescope pi.type fun xs c => do
+        if xs.size < 2 then return none
+        let sT ← inferType xs[1]!
+        let some sN := sT.getAppFn.constName? | return none
+        if !(readerNs.isPrefixOf sN) || sT.getAppNumArgs != 1 || sT.appArg! != xs[0]! then return none
+        let sides : Option (Expr × Expr) := match c.eq? with
+          | some (_, l, rhs) => some (l, rhs)
+          | none => match c.iff? with
+            | some (l, rhs) => some (l, rhs)
+            | none => none
+        let some (l, rhs) := sides | return none
+        if !rhs.getAppFn.isConstOf d || !l.getAppFn.isFVarOf xs[0]!.fvarId! then return none
+        let mut hs : Array String := #[]
+        for x in xs[2:] do
+          let ty ← inferType x
+          if ← isProp ty then hs := hs.push (← renderProp ctx ty)
+        return some (sN, hs)
+    -- every theorem present must name the same reader structure
+    let sNs := ([meetsS, notS, pinShape.map (·.1)].filterMap id)
+    if sNs.isEmpty then continue
+    if !(sNs.all (· == sNs[0]!)) then continue
+    let sN := sNs[0]!
+    let pinTxt := match pinShape with
+      | some (_, hs) =>
+        let hTxt := if hs.isEmpty then "" else s!" assuming {"; ".intercalate hs.toList}"
+        s!"the reader's specification {code (tidy ctx sN.toString)} determines it ({code (tidy ctx pinsN.toString)}){hTxt}"
+      | none => "no theorem that the reader's specification determines it"
+    if meetsS.isSome && pinShape.isSome then
+      items := items.push s!"reader {r} AGREES: the definition meets the reader's specification ({code (tidy ctx meetsN.toString)}) and {pinTxt}"
+    else if notS.isSome then
+      items := items.push s!"reader {r} DISAGREES: the definition does not meet the reader's specification ({code (tidy ctx notN.toString)}); {pinTxt}"
+    else if meetsS.isSome then
+      items := items.push s!"reader {r}: the definition meets the reader's specification ({code (tidy ctx meetsN.toString)}); {pinTxt}"
+    else
+      items := items.push s!"reader {r}: {pinTxt}; that the definition meets it is not proved"
+  if items.isEmpty then return ""
+  return s!". Blind specification readings (part B: a reader who did not see the pinning specification wrote one from the source; `Checked/Trust/SpecAgreement*.lean`): {"; ".intercalate items.toList}"
+
 /-- A definition's meaning, with its own binder names. -/
 def explain (ctx : Ctx) (d : Name) : MetaM String := do
   let ci ← getConstInfo d
@@ -667,15 +728,21 @@ def explain (ctx : Ctx) (d : Name) : MetaM String := do
       notes := notes.push (if hs.isEmpty then s!"«{line}»" else s!"«{line}» only assuming {"; ".intercalate hs.toList}")
     let certNote := if notes.isEmpty then "" else
       s!". Phrase lines proved in Lean (statements in PHRASE_LINES.md): {", ".intercalate notes.toList}"
+    -- blind specification readings (run 2026-11-27T0228Z, `Checked/Trust/SpecAgreement.lean`): a pinning
+    -- specification is program-written; a reader who did not see it wrote its own from the source
+    -- (`Checked/Trust/SecondReadingSpec<R>.lean`, route checked by check_provenance rule 4 and check_blind_route).
+    -- Shown only when the theorems have the right shape: `meets_<d>_<R> : S d` with `S` declared in the reader's
+    -- module, `pins_<d>_<R> : ∀ F, S F → … → F … = d …`; `not_meets_<d>_<R> : ¬ S d` records a disagreement.
+    let blindNote ← blindSpecNote ctx d
     match ci with
     | .defnInfo dv =>
       lambdaTelescope dv.value fun xs body => do
         let head ← ppE ctx (mkAppN (.const d (ci.levelParams.map Level.param)) xs)
         if ← isProp body then
-          return s!"{pre}; by definition, means {← renderProp ctx body}{certNote}"
+          return s!"{pre}; by definition, means {← renderProp ctx body}{blindNote}{certNote}"
         else
-          return s!"{pre}; by definition, {code head} is {code (← ppE ctx body)}{certNote}"
-    | _ => return pre ++ certNote
+          return s!"{pre}; by definition, {code head} is {code (← ppE ctx body)}{blindNote}{certNote}"
+    | _ => return pre ++ blindNote ++ certNote
   | none =>
     let kind := (ctx.kinds.find? d).getD "UNCLASSIFIED"
     match ci with
@@ -1217,6 +1284,7 @@ run_cmd do
   let mut totData := 0
   let mut totOpen := 0
   let mut totPin := 0
+  let mut totPinB := 0
   let mut totSec := 0
   let mut totBare := 0
   let mut nWithRdr := 0
@@ -1331,7 +1399,10 @@ run_cmd do
     let nSec := (defs.filter fun l => (l.splitOn "blind second formulation (").length > 1 ||
       (l.splitOn "independent blind second reading of the source").length > 1).size
     let nBare := defs.size - nPin - nSec
-    totPin := totPin + nPin; totSec := totSec + nSec; totBare := totBare + nBare
+    -- pinned definitions that a blind specification reading also determines and that meet it (run 2026-11-27T0228Z)
+    let nPinB := (defs.filter fun l => (l.splitOn "— **PINNED**").length > 1 &&
+      (l.splitOn " AGREES: the definition meets the reader's specification").length > 1).size
+    totPin := totPin + nPin; totSec := totSec + nSec; totBare := totBare + nBare; totPinB := totPinB + nPinB
     if !rdrs.isEmpty then nWithRdr := nWithRdr + 1
     if (litBase.find? hn).isSome then nWithBase := nWithBase + 1
     if !objs.isEmpty then nWithObj := nWithObj + 1
@@ -1343,7 +1414,7 @@ run_cmd do
     let aState := if aDone then "part A complete"
       else s!"PART A INCOMPLETE ({", ".intercalate why})"
     let defPart := if defs.isEmpty then "program definitions the claim uses: none"
-      else s!"program definitions the claim uses (listed under the claim): {nPin} pinned by a specification the program wrote (the kernel checks that the specification determines the definition, not that it says what the source means), {nSec} with a blind second reading or formulation, {nBare} with neither (only the formula printed is checked)"
+      else s!"program definitions the claim uses (listed under the claim): {nPin} pinned by a specification the program wrote (the kernel checks that the specification determines the definition, not that it says what the source means), {nPinB} of them also determined by a blind reader's specification that they meet (on the domain printed with the definition), {nSec} with a blind second reading or formulation, {nBare} with neither (only the formula printed is checked)"
     out := out.push s!"**Status (generated):** {srcHead}the statement is proved in module {code modName} of `Checked`; axioms, computed by Lean when this page was generated: {", ".intercalate (axs.toList.map fun a => code a.toString)}. This status is decided by Lean and the registry `scripts/trust/headlines.txt`, never by prose: a headline is withdrawn only by removing it from `Checked` and the registry, which removes it from this page. **Fidelity record (generated; what has been machine-checked about what the statement means, not a proof that it matches its source), in two parts. (A) Re-derived by the kernel from the statement; holds whoever wrote the statement, its witnesses and its proofs; shows the statement is not vacuous and which hypotheses matter, not that it says what its source says:** {nvPart}; {necPart}; {shpPart}; {aState}. **(B) Rests on who wrote a statement; CI checks the route of each item (commit order, briefs without the answer), not that its writer was independent of the authors, so each item is evidence of meaning only as far as that independence holds:** {objPart}; {litPart}{basePart}; {defPart}. The statement is frozen (`scripts/trust/frozen.txt`): changing it needs a `LEDGER.md` entry naming it (`check_relock.py`), and a changed statement changes the claim on this page. CI regenerates this page on every push and fails if the committed copy differs, so it cannot lag the Lean sources."
     out := out.push ""
     if !data.isEmpty then
@@ -1372,7 +1443,7 @@ run_cmd do
     paraSpans := paraSpans.push (pStart, out.size)
     nDone := nDone + 1
   -- the split totals (run 2026-11-26T2028Z) replace the placeholder line of the header
-  let totals := s!"**Split totals (generated):** {nDone} headlines. Part A complete (non-vacuity witnessed or nothing to witness, no numbered hypothesis open, no shape entry): **{nAComplete}/{nDone}**; numbered hypotheses {totNum}: {totNeed} shown needed, {totRed} shown redundant, {totData} data, {totOpen} open. Part B (never counted as machine-checked): {nWithRdr} headlines with a registered blind reading of their literals, {nWithBase} with literals grandfathered as never read twice, {nWithObj} with an open objection on record; definition uses: {totPin} pinned by a specification the program wrote, {totSec} with a blind second reading or formulation, {totBare} with neither."
+  let totals := s!"**Split totals (generated):** {nDone} headlines. Part A complete (non-vacuity witnessed or nothing to witness, no numbered hypothesis open, no shape entry): **{nAComplete}/{nDone}**; numbered hypotheses {totNum}: {totNeed} shown needed, {totRed} shown redundant, {totData} data, {totOpen} open. Part B (never counted as machine-checked): {nWithRdr} headlines with a registered blind reading of their literals, {nWithBase} with literals grandfathered as never read twice, {nWithObj} with an open objection on record; definition uses: {totPin} pinned by a specification the program wrote ({totPinB} of them also determined by a blind reader's specification that they meet, on the domain printed with the definition), {totSec} with a blind second reading or formulation, {totBare} with neither."
   let splitIdx := (out.toList.take hdrEnd).findIdx? (· == "SPLIT_TOTALS")
   match splitIdx with
   | some i => out := out.set! i totals

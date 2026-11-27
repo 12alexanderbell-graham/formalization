@@ -9,6 +9,7 @@ import os, re, glob, sys
 
 thms = set()
 decls = set()
+props = set()
 for f in glob.glob('Checked/**/*.lean', recursive=True):
     ns = []
     inprop = None
@@ -26,7 +27,7 @@ for f in glob.glob('Checked/**/*.lean', recursive=True):
         # main was red from 5ec9b9a while this script reported 0)
         ms = re.match(r'\s*structure\s+([^\s:({\[]+).*:\s*Prop\s+where', line)
         if ms:
-            inprop = '.'.join(ns + [ms.group(1)]); continue
+            inprop = '.'.join(ns + [ms.group(1)]); props.add(inprop); continue
         if inprop:
             mf = re.match(r'\s+([^\s:({\[]+)\s*:', line)
             if mf and not line.lstrip().startswith('--'):
@@ -53,7 +54,9 @@ for t in toks:
     m = re.match(r'^(.*)\[(.*)\](.*)$', t)
     if m: variants = [m.group(1) + m.group(3), m.group(1) + m.group(2) + m.group(3)]
     for v in variants:
-        hits = [n for n in thms if n == v or n.endswith('.' + v)]
+        # fields of blind readers' specification structures are exempt, as in StatementDeps (run 2026-11-27T0228Z)
+        hits = [n for n in thms if (n == v or n.endswith('.' + v))
+                and not (n.startswith('Checked.Trust.SecondReading') and n.rsplit('.', 1)[0] in props)]
         if len(hits) == 1:
             n = hits[0]
             if not any(n == h or n.endswith('.' + h) for h in heads):
