@@ -391,8 +391,16 @@ jobs:
     concurrency:
       group: lean-judge-leanchecker-${{ matrix.shard }}-${{ github.sha }}
       cancel-in-progress: false
-    needs: changes
-    if: needs.changes.outputs.lock_only != 'true'
+    # Run 2026-11-27T1428Z (annex LIV, integrity event 39.5, see LEDGER; robustness, no check changes): the shard
+    # waits for the checked job of the same run and restores the build that job packed (artifact `checked-build`),
+    # so `lake build Checked` below replays traces instead of rebuilding Checked. Before this, every push built
+    # Checked in ten jobs at once (checked, work, 4 nanoda, 4 leanchecker; 110-150 min each, single-threaded), and
+    # two judged pushes held every runner of the account's concurrent-job limit: on 2026-11-27 the shards of
+    # 45984094021 and 45992056288 sat in their build step for 2-4 h while 13 external-replay dispatches queued
+    # from 10:22Z. `always()`: a shard still runs when a later check of the checked job fails; if the checked job
+    # left no build (cancelled, timed out, build failed), the shard builds Checked itself as before.
+    needs: [changes, checked]
+    if: always() && needs.changes.result == 'success' && needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest
     # 240 -> 350 (run 2026-11-18T2228Z; robustness, no check changes): shard 2 replayed for 182 min in trial 44373171551
     # and over 180 min on main 44385495297 while the other shards took 44-48 min; the partition is balanced on measured
@@ -440,6 +448,30 @@ jobs:
             if "$HOME/.elan/bin/elan" toolchain install "$(cat lean-toolchain)"; then break; fi
             echo "toolchain download failed (attempt $i of 10); retrying in 30 s"; sleep 30
           done
+      - name: Restore the checked job's build of this commit (artifact checked-build; robustness, no check changes; run 2026-11-27T1428Z, see LEDGER)
+        if: steps.memo.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: checked-build
+          path: ${{ runner.temp }}/checked-build
+      - name: Unpack it only if it was packed from this exact commit (lake build below rebuilds any module whose trace differs)
+        if: steps.memo.outputs.cache-hit != 'true'
+        run: |
+          f="$RUNNER_TEMP/checked-build/checked-build.tar.zst"
+          if [ -f "$f" ]; then
+            ls -l "$f"
+            mkdir -p .lake
+            if zstd -dc "$f" | tar -x --wildcards '.lake/build/*' && [ "$(cat .lake/build/CHECKED_BUILD_COMMIT 2>/dev/null)" = "$GITHUB_SHA" ]; then
+              echo "restored the checked job's build of $GITHUB_SHA ($(du -sh .lake/build | cut -f1))"
+            else
+              echo "build artifact unusable or from another commit: removed; lake builds Checked from scratch"; rm -rf .lake/build
+            fi
+            rm -f "$f"
+          else
+            echo "no build artifact from the checked job of this run: lake builds Checked from scratch"
+          fi
+          df -h /
       - uses: leanprover/lean-action@v1.7.0
         if: steps.memo.outputs.cache-hit != 'true'
         env:
@@ -485,8 +517,16 @@ jobs:
     concurrency:
       group: lean-judge-nanoda-${{ matrix.shard }}-${{ github.sha }}
       cancel-in-progress: false
-    needs: changes
-    if: needs.changes.outputs.lock_only != 'true'
+    # Run 2026-11-27T1428Z (annex LIV, integrity event 39.5, see LEDGER; robustness, no check changes): the shard
+    # waits for the checked job of the same run and restores the build that job packed (artifact `checked-build`),
+    # so `lake build Checked` below replays traces instead of rebuilding Checked. Before this, every push built
+    # Checked in ten jobs at once (checked, work, 4 nanoda, 4 leanchecker; 110-150 min each, single-threaded), and
+    # two judged pushes held every runner of the account's concurrent-job limit: on 2026-11-27 the shards of
+    # 45984094021 and 45992056288 sat in their build step for 2-4 h while 13 external-replay dispatches queued
+    # from 10:22Z. `always()`: a shard still runs when a later check of the checked job fails; if the checked job
+    # left no build (cancelled, timed out, build failed), the shard builds Checked itself as before.
+    needs: [changes, checked]
+    if: always() && needs.changes.result == 'success' && needs.changes.outputs.lock_only != 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -530,6 +570,30 @@ jobs:
             if "$HOME/.elan/bin/elan" toolchain install "$(cat lean-toolchain)"; then break; fi
             echo "toolchain download failed (attempt $i of 10); retrying in 30 s"; sleep 30
           done
+      - name: Restore the checked job's build of this commit (artifact checked-build; robustness, no check changes; run 2026-11-27T1428Z, see LEDGER)
+        if: steps.memo.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: checked-build
+          path: ${{ runner.temp }}/checked-build
+      - name: Unpack it only if it was packed from this exact commit (lake build below rebuilds any module whose trace differs)
+        if: steps.memo.outputs.cache-hit != 'true'
+        run: |
+          f="$RUNNER_TEMP/checked-build/checked-build.tar.zst"
+          if [ -f "$f" ]; then
+            ls -l "$f"
+            mkdir -p .lake
+            if zstd -dc "$f" | tar -x --wildcards '.lake/build/*' && [ "$(cat .lake/build/CHECKED_BUILD_COMMIT 2>/dev/null)" = "$GITHUB_SHA" ]; then
+              echo "restored the checked job's build of $GITHUB_SHA ($(du -sh .lake/build | cut -f1))"
+            else
+              echo "build artifact unusable or from another commit: removed; lake builds Checked from scratch"; rm -rf .lake/build
+            fi
+            rm -f "$f"
+          else
+            echo "no build artifact from the checked job of this run: lake builds Checked from scratch"
+          fi
+          df -h /
       - uses: leanprover/lean-action@v1.7.0
         if: steps.memo.outputs.cache-hit != 'true'
         env:
