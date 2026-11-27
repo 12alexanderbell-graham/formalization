@@ -647,7 +647,7 @@ def blindSpecNote (ctx : Ctx) (d : Name) : MetaM String := do
   let shortN := d.componentsRev.head!.toString
   let env ← getEnv
   let mut items : Array String := #[]
-  for r in ["A", "B", "C", "D"] do
+  for r in ["A", "B", "C", "D", "E", "F"] do
     let readerNs := (`Checked.Trust).str s!"SecondReadingSpec{r}"
     let pinsN := (`Checked.Trust.SpecAgreement).str s!"pins_{shortN}_{r}"
     let meetsN := (`Checked.Trust.SpecAgreement).str s!"meets_{shortN}_{r}"
