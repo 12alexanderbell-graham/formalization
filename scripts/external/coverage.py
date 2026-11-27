@@ -17,9 +17,35 @@ import sys
 
 
 def theorems(path):
+    """Reading theorems, and (run 2026-11-27T0628Z, target R) reading `def X : Prop` declarations,
+    with their namespace prefix (`namespace ReaderA` ... `end ReaderA`)."""
     src = open(path, encoding='utf-8').read()
     src = re.sub(r'/-.*?-/', '', src, flags=re.S)
-    return re.findall(r'^\s*theorem\s+([A-Za-z_][\w.\']*)', src, flags=re.M)
+    src = re.sub(r'--[^\n]*', '', src)
+    out, ns = [], []
+    for line in src.splitlines():
+        m = re.match(r'\s*namespace\s+([\w.]+)', line)
+        if m:
+            ns.append(m.group(1)); continue
+        m = re.match(r'\s*end\s+([\w.]+)\s*$', line)
+        if m and ns and ns[-1] == m.group(1):
+            ns.pop(); continue
+        m = (re.match(r'\s*theorem\s+([A-Za-z_][\w.\']*)', line)
+             or re.match(r'\s*def\s+([A-Za-z_][\w.\']*)\s*:\s*Prop\b', line))
+        if m:
+            out.append('.'.join(ns + [m.group(1)]))
+    return out
+
+
+def closure_mentions(path):
+    """Names a closure relates to a frozen statement: `type_of% @X`, or a fully qualified reading
+    name used in the statement of a closure theorem (`theorem t : ReaderA.ReadingRH ↔ ...`)."""
+    src = open(path, encoding='utf-8').read()
+    used = set(re.findall(r'type_of%\s*@([\w.\']+)', src))
+    for st in re.findall(r'^theorem\s+[\w.\']+\s*(.*?):=', src, flags=re.M | re.S):
+        if 'Frozen.' in st:
+            used |= set(re.findall(r'[A-Za-z_][\w\']*\.[\w.\']+', st))
+    return used
 
 
 def main():
@@ -27,10 +53,10 @@ def main():
     names = theorems(reading)
     used = set()
     for c in closures:
-        used |= set(re.findall(r'type_of%\s*@([\w.\']+)', open(c, encoding='utf-8').read()))
+        used |= closure_mentions(c)
     unc = 0
     for n in names:
-        hit = any(u == n or u.endswith('.' + n) for u in used)
+        hit = any(u == n or u.endswith('.' + n) for u in used) if '.' not in n else n in used
         print(f"{'closed   ' if hit else 'UNCOVERED'}  {n}")
         unc += not hit
     print(f'# {len(names) - unc}/{len(names)} reading theorems closed')

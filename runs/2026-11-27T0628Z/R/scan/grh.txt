@@ -1,0 +1,35 @@
+set_option debug/kernel	Lib/Cohomology/Etale/Basic.lean:734	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Etale/BijectiveComparisons.lean:78	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Etale/FilteredLimits.lean:715	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Hodge/FixedPointFormula.lean:953	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Hodge/GrothendieckSymbol.lean:152	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Hodge/Site.lean:45	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/PointClass/ProjectiveNonvanishing.lean:57	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/PointClass/ProjectiveNonvanishing.lean:244	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/PointClass/ProjectiveNonvanishing.lean:738	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/ChernClass.lean:66	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/ChernClass.lean:167	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/ChernClass.lean:521	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/ChernClass.lean:783	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/ConstantLineFormula.lean:52	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/PerfectLine.lean:38	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/TiltedLineFormula.lean:394	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/SmoothBaseChange.lean:52	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/TorsionTheories.lean:86	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/TorsionTheories.lean:201	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/WoodsHole.lean:80	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/General/Algebra/LongExactSequences.lean:336	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/Duality/GoodPairs.lean:51	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/Duality/LineIntegration.lean:361	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/Duality/LineIntegration.lean:501	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/HodgeTate/ExtCocycles.lean:48	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/HodgeTate/Map.lean:71	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/HodgeTate/Map.lean:492	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/Primitive/ComparisonTheorem.lean:150	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	New/Congruences/GaloisRepresentations/BaseLevelOfLabel.lean:65	set_option backward.isDefEq.respectTransparency false in
+set_option debug/kernel	New/OneLift/ComparisonOperator/GluingMaps.lean:344	set_option backward.isDefEq.respectTransparency false in
+set_option debug/kernel	New/OneLift/ComparisonOperator/GluingMaps.lean:361	set_option backward.isDefEq.respectTransparency false in
+set_option debug/kernel	New/OneLift/ComparisonOperator/GluingMaps.lean:948	set_option backward.isDefEq.respectTransparency false in
+set_option debug/kernel	New/OneLift/FalseLifts/PeriodsOfFalseLifts.lean:549	set_option backward.isDefEq.respectTransparency false in
+# closure: 803 files, 477124 lines; external packages: {'Mathlib': 9}
+# hits: set_option debug/kernel 33

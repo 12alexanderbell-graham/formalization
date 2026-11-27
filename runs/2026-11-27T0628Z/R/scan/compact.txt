@@ -1,0 +1,32 @@
+set_option debug/kernel	Lib/Cohomology/Duality/Contraction.lean:34	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Duality/Contraction.lean:193	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Etale/ContinuityAtlas.lean:27	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Etale/Functoriality.lean:41	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Hodge/GrothendieckSymbol.lean:17	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Hodge/HodgeSite.lean:14	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/Hodge/WitnessCocycles.lean:88	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/PointClass/GaloisRep.lean:166	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/PointClass/LinePointClass.lean:14	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/PointClass/PointClassProduct.lean:12	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/PointClass/ProjectivePointClass.lean:10	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/LineChernClass.lean:17	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/NormalizationPullback.lean:38	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/NormalizationPullback.lean:199	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/NormalizationPullback.lean:323	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/ProjectiveLine/PerfectLine.lean:15	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/Cohomology/SmoothBaseChange/SmoothBaseChange.lean:23	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/General/Algebra/CechDescent.lean:117	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/Duality/IntegrationOverLine.lean:17	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/HodgeTate/HodgeTateMap.lean:68	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/HodgeTate/HodgeTatePairs.lean:37	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	Lib/PadicComparison/Primitive/PrimitiveComparison.lean:50	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	New/Rows/ComparisonForms.lean:64	set_option backward.isDefEq.respectTransparency false in
+set_option debug/kernel	New/Rows/ComparisonForms.lean:165	set_option backward.isDefEq.respectTransparency false in
+set_option debug/kernel	New/Rows/MemberKernels.lean:193	set_option backward.isDefEq.respectTransparency false in
+set_option debug/kernel	New/Rows/MemberOrthogonality.lean:55	set_option backward.isDefEq.respectTransparency false
+set_option debug/kernel	New/Selmer/BaseLevelOfLabel.lean:60	set_option backward.isDefEq.respectTransparency false in
+set_option debug/kernel	New/SiegelWeil/AuxPairVanishing.lean:41	π k y := set_option backward.isDefEq.respectTransparency false in (smul_smul ..).trans (by
+set_option debug/kernel	New/SiegelWeil/AuxPairVanishing.lean:106	set_option backward.isDefEq.respectTransparency false in
+set_option debug/kernel	New/Trace/LabelRigidity.lean:10	set_option backward.isDefEq.respectTransparency false
+# closure: 794 files, 112827 lines; external packages: {'Mathlib': 2}
+# hits: set_option debug/kernel 30

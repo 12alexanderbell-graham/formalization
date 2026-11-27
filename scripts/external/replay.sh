@@ -43,12 +43,22 @@ echo "== external replay: $SOL / $CHAL; toolchain $TOOLCHAIN; mathlib $MATHLIB_R
 python3 - "$SRC" "$WORK" "$SOL" "$CHAL" <<'PY'
 import os, re, shutil, sys
 src, dst, *mods = sys.argv[1:]
-seen, ext = set(), set()
+seen, ext, where = set(), set(), {}
+# Modules resolve under the project root and under its lakefile's top-level `srcDir` (target R's
+# editions keep their library in src/ and Challenge.lean at the root; run 2026-11-27T0628Z).
+roots = [src]
+lt = os.path.join(src, 'lakefile.toml')
+if os.path.exists(lt):
+    head = re.split(r'^\[', open(lt, encoding='utf-8').read(), maxsplit=1, flags=re.M)[0]
+    sd = re.search(r'^srcDir\s*=\s*"([^"]+)"', head, flags=re.M)
+    if sd: roots.append(os.path.join(src, sd.group(1)))
 def go(m):
     if m in seen: return
-    p = os.path.join(src, m.replace('.', '/') + '.lean')
-    if not os.path.exists(p):
+    cands = [os.path.join(r, m.replace('.', '/') + '.lean') for r in roots]
+    cands = [c for c in cands if os.path.exists(c)]
+    if not cands:
         ext.add(m.split('.')[0]); return
+    p = where[m] = cands[0]
     seen.add(m)
     for line in open(p, encoding='utf-8'):
         mm = re.match(r'\s*(?:public\s+)?(?:meta\s+)?import\s+(.*)', line)
@@ -61,7 +71,7 @@ if bad:
 for m in seen:
     rel = m.replace('.', '/') + '.lean'
     os.makedirs(os.path.dirname(os.path.join(dst, rel)), exist_ok=True)
-    shutil.copy(os.path.join(src, rel), os.path.join(dst, rel))
+    shutil.copy(where[m], os.path.join(dst, rel))
 libs = sorted({m.split('.')[0] for m in seen})
 open(os.path.join(dst, 'closure_modules.txt'), 'w').write('\n'.join(sorted(seen)) + '\n')
 open(os.path.join(dst, 'closure_libs.txt'), 'w').write(' '.join(libs) + '\n')
@@ -84,6 +94,12 @@ if os.path.exists(t):
     m = re.search(r'^\[leanOptions\]\s*\n(.*?)(?=^\[|\Z)', txt, flags=re.M | re.S)
     if m:
         opts = [ln for ln in m.group(1).splitlines() if '=' in ln and not ln.strip().startswith('#')]
+    # Top-level moreLeanArgs (e.g. --tstack=400000 in target R's editions): without it deep
+    # elaboration can overflow the stack and a sound proof would FAIL on our side (run 2026-11-27T0628Z).
+    head = re.split(r'^\[', txt, maxsplit=1, flags=re.M)[0]
+    mla = re.search(r'^moreLeanArgs\s*=\s*\[.*?\]\s*$', head, flags=re.M)
+    if mla:
+        print(mla.group(0))
 elif os.path.exists(l):
     txt = open(l, encoding='utf-8').read()
     for name, val in re.findall(r'⟨`([\w.]+)\s*,\s*([^⟩]+)⟩', txt):
