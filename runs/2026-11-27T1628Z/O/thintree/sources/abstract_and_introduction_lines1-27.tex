@@ -1,0 +1,35 @@
+\begin{abstract}
+We prove that every finite loopless \(k\)-edge-connected multigraph on
+at least two vertices, with \(k\ge1\), has a spanning tree meeting each
+cut in at most \(C/k\) times the size of the cut,
+where \(C\) is a universal constant.
+This resolves the strong thin tree conjecture.
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+
+For a finite loopless undirected multigraph \(G=(V,E)\) and a nonempty proper
+subset \(S\subset V\), write \(\delta_G(S)\) for the edges with exactly
+one endpoint in \(S\). Parallel edges are counted separately.
+A graph is \(k\)-edge-connected if \(|\delta_G(S)|\ge k\) for
+every nonempty proper \(S\).
+A spanning tree \(T\) is \(\alpha\)-thin if
+\[
+ |\delta_T(S)|\le\alpha|\delta_G(S)|
+ \qquad(\varnothing\ne S\subsetneq V).
+\]
+A spanning tree retains connectivity using only \(|V|-1\) edges.
+Thinness asks that these edges occupy a small fraction of every cut
+simultaneously. The question is whether high edge connectivity alone
+forces such a tree, with a bound independent of the number of vertices.
+
+\begin{theorem}\label{thm:main}
+There is a universal constant \(C>0\) such that, for every integer
+\(k\ge1\), every finite \(k\)-edge-connected undirected multigraph
+without loops and with at least two vertices has a spanning tree \(T\)
+satisfying
+\[
+ |\delta_T(S)|\le\frac Ck\,|\delta_G(S)|
+ \qquad\text{for every }\varnothing\ne S\subsetneq V.
+\]
+\end{theorem}

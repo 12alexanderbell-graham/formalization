@@ -1,0 +1,81 @@
+\begin{abstract}
+We prove that every bounded complex-linear unital algebra homomorphism from a unital
+complex $C^*$-algebra into the bounded operators on an arbitrary Hilbert
+space is similar to a $*$-homomorphism. This resolves Kadison's similarity
+conjecture positively. We also obtain one universal hyperreflexivity constant
+for all unital von Neumann algebras on arbitrary complex Hilbert spaces.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+Kadison's similarity problem asks whether the adjoint operation of a
+\(C^*\)-algebra is respected, after a bounded change of Hilbert space
+coordinates, by every bounded representation of its underlying algebra.
+Kadison formulated the problem in 1955 in his study of the
+orthogonalization of operator representations \citep{Kadison1955}.
+Its force lies in the absence of any assumed relation between the
+algebraic representation and the involution: multiplicativity and
+boundedness alone must produce one equivalent Hilbert space inner
+product for which all represented adjoints are correct.  This paper
+resolves the problem positively in its unrestricted bounded unital form.
+
+\begin{theorem}[Similarity]\label{thm:similarity}
+Let \(A\) be any unital complex \(C^*\)-algebra, let \(H\) be any complex
+Hilbert space, and let \(\pi:A\to\mathcal B(H)\) be a bounded,
+complex-linear, unital algebra homomorphism.  There exists an operator
+\(S\in\mathcal B(H)\), invertible with bounded inverse, such that
+\[
+  \rho(a)=S\pi(a)S^{-1}\qquad(a\in A)
+\]
+is a \(*\)-homomorphism.  In particular,
+\(\rho(a^*)=\rho(a)^*\) for every \(a\in A\).
+\end{theorem}
+
+The theorem imposes no separability, nuclearity, finite generation,
+faithfulness, or normality condition.  The similarity may depend on the
+whole homomorphism.  The result concerns the existence of this single
+bounded invertible operator, and does not require an a priori bound for
+its condition number.
+
+% [introduction lines 33-94 omitted: historical context]
+\subsection{The uniform estimate and proof strategy}
+
+An inner derivation is a map $a\mapsto[Y,a]$. Complete boundedness
+means uniform boundedness of all entrywise finite matrix amplifications.
+Our main estimate controls those amplifications of an inner derivation
+by its norm at the scalar level.  For a represented unital
+von Neumann algebra \(P\subset\mathcal B(K)\) and
+\(Y\in\mathcal B(K)\), put
+\[
+  g_P(Y)=\sup_{a\in P,\,\|a\|\le1}\|Ya-aY\|,
+\]
+and write \(Y^{(h)}\) for the diagonal amplification of \(Y\) on
+\(K^h\).
+
+\begin{theorem}[Uniform commutator estimate]\label{thm:universal}
+There is an absolute constant \(C<\infty\) such that, for every complex
+Hilbert space \(K\), every unital von Neumann algebra
+\(P\subset\mathcal B(K)\), every \(Y\in\mathcal B(K)\), every integer
+\(h\ge1\), and every \(X\in M_h(P)\),
+\begin{equation}\label{eq:universal}
+  \|[Y^{(h)},X]\|\le C\,g_P(Y)\,\|X\|.
+\end{equation}
+Here \(M_h(P)\) acts naturally on \(K^h\), and \([T,U]=TU-UT\).
+\end{theorem}
+
+\begin{corollary}[Universal hyperreflexivity]\label{cor:hyperreflexivity}
+Let \(H\) be any complex Hilbert space and let
+\(M\subset\mathcal B(H)\) be a unital von Neumann algebra. For
+\(T\in\mathcal B(H)\), set
+\[
+ \alpha_M(T)=\sup\{\|(1-e)Te\|:e\in M',\ e=e^*=e^2\}.
+\]
+Then, with the absolute constant \(C\) from Theorem~\ref{thm:universal},
+\begin{equation}\label{eq:universal-hyperreflexivity}
+ \dist(T,M)\le 2C\,\alpha_M(T)\qquad(T\in\mathcal B(H)).
+\end{equation}
+Thus every such \(M\) is hyperreflexive with constant at most \(2C\),
+independently of the algebra, its representation, and the Hilbert space.
+No optimality of this constant is asserted.
+\end{corollary}
