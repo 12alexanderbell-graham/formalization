@@ -8,6 +8,9 @@ components (`OAI.<Area>.<Family>`) with the given module. A coverage verdict ("t
 must be made against this whole list: run 2026-11-27T0628Z first judged O20 and O21 against only the challenges
 near its size threshold and wrongly reported the Mahler equality case and the Euclidean Ramsey Classification as
 having no Lean statement.
+
+SUPERSEDED for coverage verdicts by `family_map.py` (run 2026-11-27T1248Z): grouping by solution directory still
+missed `CommutingDerivations` (O10) and `GrahamSpherical` (O21); the scope documents are the authoritative map.
 """
 import glob
 import json
