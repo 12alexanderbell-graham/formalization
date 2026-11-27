@@ -36,6 +36,14 @@ PATTERNS = {
     'set_option debug/kernel': r'set_option\s+(?:debug\.|maxRecDepth|backward\.)',
     'custom syntax': r'^\s*(?:@\[[^\]]*\]\s*)?(?:scoped\s+|local\s+)?(?:macro|elab|syntax|notation|infix|infixl|infixr|prefix|postfix|macro_rules|elab_rules)\b',
     '#exit': r'^\s*#exit\b',
+    # Run 2026-11-27T1628Z (annex LIV): OpenAI's KadisonSimilarity challenge runs
+    # `run_cmd Lean.modifyEnv fun env => ...` twice. Commands that run meta code at elaboration time can change
+    # the environment (`modifyEnv`, `addDeclWithoutChecking` adds a constant the kernel never saw); the
+    # independent kernel replays still re-check every declaration, but the scan must point at the place.
+    'meta command / environment change': r'^\s*(?:#eval|#eval!|run_cmd|run_elab|run_meta)\b|\bmodifyEnv\b|\baddDeclWithoutChecking\b|^\s*(?:builtin_)?initialize\b',
+    # Removing an instance for a declaration changes which instance elaborates it (O58: two challenges elaborate
+    # a constant of the same name through different `SupSet` paths); read the line.
+    'instance attribute change': r'^\s*attribute\s*\[\s*-\s*instance\b|^\s*attribute\s*\[\s*-',
 }
 
 
