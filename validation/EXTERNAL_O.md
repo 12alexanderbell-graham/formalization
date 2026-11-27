@@ -23,7 +23,7 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O12 | (second challenge of O4: `PlaneColoring.properColoring_seven`) | see O4 | — |
 | O13 | An infinite finitely presented simple amenable group (`SimpleAmenable`) | **NOT DONE** (statement DONE: 3/3, frozen ⇒ reading; replay dispatched) | none at statement level |
 | O14 | An exponential bound for sunflowers (`Sunflower`) | **NOT DONE** (3/7: every reader's qualitative Theorem 1.1 closed; replay dispatched) | the manuscript's explicit B_r = 2^{C H⁴ L^{5/2}} with an absolute C has no Lean statement: the Lean states only that some base C(r) exists (the Erdős–Rado sunflower conjecture itself) |
-| O15 | Real Littlewood polynomials are asymptotically minimal (`AsymptoticallyMinimalLittlewood`) | **NOT DONE** (3/6: the "Equivalently" form closed for every reader; replay dispatched) | the headline "lim m_N = 1" is not the Lean statement: the Lean has only the upper bound; the lower bound m_N ≥ 1 (orthogonality, stated as known) is not in it |
+| O15 | Real Littlewood polynomials are asymptotically minimal (`AsymptoticallyMinimalLittlewood`) | **NOT DONE** (statement DONE: 6/6 — the "Equivalently" form and, with the lower bound proved here, the "lim m_N = 1" form, every reader; replay dispatched) | the Lean states only the upper bound; the headline limit also needs m_N ≥ 1, which the source cites as known — proved here in Lean (discrete orthogonality at the N-th roots of unity), so the frozen statement does imply the headline |
 | O16 | The dyadic case of the Erdős similarity conjecture (`DyadicAvoidance`) | **NOT DONE** (statement DONE: 5/5, frozen ⇒ reading; replay dispatched) | none at statement level |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
@@ -192,8 +192,12 @@ lines (external packages Lemmata, FixedPointTheorems); scan: 34 `admit` hits, al
 
 **O15, Littlewood polynomials.** Frozen: `∀ η > 0, ∃ N₀ ≥ 1, ∀ N ≥ N₀, ∃ ε (±1 reals), ∀ |z| = 1,
 |∑ ε_k z^k| ≤ (1 + η)√N` — the manuscript's "Equivalently" form. Closed for every reader (frozen ⇒ reading).
-Uncovered: the headline "lim m_N = 1"; it needs also m_N ≥ 1, which the source gives as known (orthogonality,
-‖P‖₂² = N) and which no frozen statement carries. Solution closure: 24 files, 9,315 lines, no escape hits.
+The headline "lim m_N = 1" needs also m_N ≥ 1, which the source gives as known (orthogonality, ‖P‖₂² = N) and
+which no frozen statement carries; first recorded as uncovered (3/6), then closed the same run
+(`littlewood/closure/ClosureLimit.lean`, standard axioms): ∑_{j<N} |P(ω^j)|² = N² at the N-th roots of unity, so
+some e(j/N) has |P| ≥ √N, hence each reader's m_N ≥ 1 (reader A's `inf'` over `ℤˣ` signs and `⨆` over ℝ;
+reader B's `⨅` over a subtype; reader C's `sInf`/`sSup` over images); with the upper bound from the frozen
+statement, a squeeze gives the limit. 6/6. Solution closure: 24 files, 9,315 lines, no escape hits.
 
 **O16, dyadic Erdős similarity.** Frozen: for 0 < η < 1 a compact E ⊆ [0, 1] of measure > 1 − η with
 x + s·2^{−n} ∉ E for some n ≥ 1, for every x and s ≠ 0. Closed frozen ⇒ each reading, both forms (5/5). Solution
