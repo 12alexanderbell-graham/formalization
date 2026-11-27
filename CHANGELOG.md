@@ -1319,3 +1319,7 @@
 ## 2026-11-27T1228Z (scheduled run; part 1 by rotation)
 - Env: repo ok (`add_repo` not exposed; clone present, push works); local Lean (elan, 4.35.0), Mathlib cache; judge's build of 5c678d6 restored by streaming (disk at 99%: Mathlib cache archives and pip cache removed). `EXTERNAL_LOCK` live (run 0628Z): external targets left to it.
 - Part 1: two hypotheses NEEDED by closed-form witnesses: `FREta.eta_ratios` 3 (a vacuum F(R) model with expansion rate 3t and quadratic F, `Checked/Trust/NecessityCG.lean`) and `fs_monotone_of_limit` 8 (the exact solution f = −η³/9 at β = 2/3, `Checked/Trust/NecessityCH.lean`); open 14 → 12. PROMPT working note and LEDGER experiment (closed forms before certificates). Run README `runs/2026-11-27T1228Z/README.md`.
+
+## 2026-11-27T1317Z (manual firing; external-test long run under `EXTERNAL_LOCK`; run 1228Z holds `LOCK`)
+- Target O, O38–O43 read blind (Opus, Sonnet, Haiku) and closed locally against the frozen statements: reflexive fixed points 3/3, planar Anderson spectrum 3/3, Erdős reciprocal sums 3/3, "Hadwiger's conjecture is false" 3/3 (frozen `sSup` proved a genuine maximum), linear list Hadwiger 3/3 (frozen `sInf` proved non-vacuous), Rokhlin 1/3. No mismatch. Every gap found is disclosed by OpenAI, apart from O38's commuting-families corollary.
+- Target R and every replay are waiting on the GitHub job queue (backlog since 10:22Z). Run README `runs/2026-11-27T1317Z/README.md`.
