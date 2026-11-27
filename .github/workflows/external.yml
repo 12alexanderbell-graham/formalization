@@ -85,8 +85,25 @@ jobs:
       - name: Replay (closure build, match, axioms, leanchecker, nanoda, program closures)
         timeout-minutes: 320
         run: LC_SKIP=1 NANODA=1 EXTRA="$X_EXTRA" bash scripts/external/replay.sh "outside/$X_SUB" work "$X_SOL" "$X_CHAL" $X_THMS
-      - name: Save build for the next dispatch and for the leanchecker shards
+      # Run 2026-11-27T1428Z (annex LIV, see LEDGER): the build reaches the leanchecker shards as an artifact,
+      # no longer through the Actions cache. Every line saved its closure build to the cache (repository limit
+      # 10 GB, least recently used evicted first); on 2026-11-27 about thirty lines evicted the judge's own lake
+      # cache, the checked job of 868eee2 found "Cache not found", rebuilt all of Checked single-threaded and was
+      # cancelled by its 240-minute limit at module 3639 of 3862, so no judged push could go green. The cache is now
+      # written only when the replay step did not succeed (a closure too large for one job continues from it on
+      # the next dispatch, as before); the shards download the artifact of this run, or rebuild.
+      - name: Hand the build to the leanchecker shards of this run (artifact, two days)
         if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: ext-build-${{ matrix.name }}
+          path: work/.lake/build
+          retention-days: 2
+          if-no-files-found: ignore
+          include-hidden-files: true
+      - name: Save the partial build for the next dispatch (only when the replay did not finish)
+        if: failure() || cancelled()
         uses: actions/cache/save@v4
         with:
           path: work/.lake/build
@@ -135,8 +152,16 @@ jobs:
         run: |
           mkdir outside && cd outside && git init -q && git remote add origin "$X_URL"
           git fetch -q --depth 1 origin "$X_REV" && git checkout -q FETCH_HEAD
-      - name: Restore the replay job's build
+      - name: Download the replay job's build (artifact of this run)
+        id: art
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: ext-build-${{ matrix.name }}
+          path: work/.lake/build
+      - name: Restore the replay job's build (cache; only when this run has no artifact)
         id: restore
+        if: steps.art.outcome != 'success'
         uses: actions/cache/restore@v4
         with:
           path: work/.lake/build
@@ -144,6 +169,6 @@ jobs:
           restore-keys: ext-build-${{ matrix.name }}-${{ env.X_REV }}-
       - name: leanchecker on shard ${{ matrix.shard }} of 4
         run: |
-          echo "build restored: exact key hit = '${{ steps.restore.outputs.cache-hit }}', key = '${{ steps.restore.outputs.cache-matched-key }}'"
+          echo "build artifact: ${{ steps.art.outcome }}; cache fallback: exact key hit = '${{ steps.restore.outputs.cache-hit }}', key = '${{ steps.restore.outputs.cache-matched-key }}'"
           du -sh work/.lake/build 2>/dev/null || echo "no build directory restored: this shard rebuilds the closure"
           LC_JOBS=2 LC_SHARD=${{ matrix.shard }}/4 EXTRA="$X_EXTRA" bash scripts/external/replay.sh "outside/$X_SUB" work "$X_SOL" "$X_CHAL" $X_THMS

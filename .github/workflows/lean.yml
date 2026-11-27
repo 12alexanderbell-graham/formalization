@@ -144,7 +144,10 @@ jobs:
     # Repair, run 2026-11-12T1028Z (annex LIV, see LEDGER): the checked job of f789e4d (run 43175455329) sat in the
     # build step for 4 h (green checked jobs take 35-100 min) and, with the per-ref concurrency group, held every later
     # main checked job in "pending" until GitHub's 6 h default. A hung job now fails (red, never green) after 240 min (an uncached full build is ≈ 110–150 min).
-    timeout-minutes: 240
+    # 240 -> 350 (run 2026-11-27T1428Z; robustness, no check changes; see LEDGER): with its lake cache evicted, the
+    # checked job of 868eee2 (45984094021) was still building, not hung, when cancelled at 240 min (module 3639 of
+    # 3862, single-threaded); an uncached build of today's Checked needs ≈ 250 min. GitHub's hosted-runner limit is 360.
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v5
         with:
