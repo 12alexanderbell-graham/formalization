@@ -1,4 +1,4 @@
-# Run 2026-11-27T0628Z (external test: target R, then target O)
+# Run 2026-11-27T0628Z
 
 **THE RESULT:** part 2 and part 3 (the trust system on AI-produced mathematics it did not make, and what its gates catch): target R (Alpöge's claimed proof of RH and GRH for Dirichlet L-functions) judged at statement level by three blind readers of three models with every reading closed in Lean, and both Sernau editions' proofs replayed (match, standard axioms, nanoda; leanchecker pending); target O (OpenAI's release): 37 families read blind and closed against their frozen statements, 3 DONE end to end, the headline missing from the Lean in one (O7), parts missing in eleven; two of our own findings wrong and withdrawn the same morning (missed challenges), with the tool that prevents it.
 

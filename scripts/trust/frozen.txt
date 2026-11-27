@@ -3834,6 +3834,14 @@ doc:Checked.Trust.NecessityCE.slow_sep -doc10162506286522776171
 doc:Checked.Trust.NecessityCE.suction_sep -doc16568152456789903645
 doc:Checked.Trust.NecessityCE.wall_sep -doc16267665098327306775
 doc:Checked.Trust.NecessityCF.recede_sep -doc233189975152908019
+doc:Checked.Trust.NecessityCG.eta_ratios_h3 -doc1671133050718215969
+doc:Checked.Trust.NecessityCG.gA -doc9882290260619256382
+doc:Checked.Trust.NecessityCG.gF -doc4991700311815797623
+doc:Checked.Trust.NecessityCG.prod_hd -doc12703000659228959786
+doc:Checked.Trust.NecessityCH.chF -doc4976401965502430369
+doc:Checked.Trust.NecessityCH.chP -doc13079116588553071462
+doc:Checked.Trust.NecessityCH.chQ -doc14320652411803840610
+doc:Checked.Trust.NecessityCH.fs_monotone_of_limit_h8 -doc583888589030540964
 doc:Checked.Trust.NecessityEta.agree20_imp -doc9958743186863952861
 doc:Checked.Trust.NecessityEta.agree20 -doc9824130336149770711
 doc:Checked.Trust.NecessityEta.agree30_imp -doc6505485457868535128
@@ -5319,6 +5327,8 @@ moduledoc:Checked.Trust.NecessityCC -mdoc8273987109616275683
 moduledoc:Checked.Trust.NecessityCD -mdoc15597949330338634459
 moduledoc:Checked.Trust.NecessityCE -mdoc12229686251882015945
 moduledoc:Checked.Trust.NecessityCF -mdoc571128668161920175
+moduledoc:Checked.Trust.NecessityCG -mdoc8793994393698512269
+moduledoc:Checked.Trust.NecessityCH -mdoc2789229009913025886
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
 moduledoc:Checked.Trust.NecessityEta -mdoc18282187098395309792

@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1082 hypotheses in 189 headlines;
-805 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+807 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 263 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-14 open; headlines with every hypothesis classified: 164/189
+12 open; headlines with every hypothesis classified: 164/189
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -415,7 +415,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FRCosmo.exists_LCDM_model` (2): redundant (each alone, not together) 1 (`exists_LCDM_model_r1`), 2 (`exists_LCDM_model_r2`)
 - `FRCosmo.printedF0Mul_false_at` (2): redundant (each alone, not together) 1 (`printedF0Mul_false_at_r1`), 2 (`printedF0Mul_false_at_r2`)
 - `FRCosmo.printedF0_false_at` (3): redundant (each alone, not together) 1 (`printedF0_false_at_r1`), 2 (`printedF0_false_at_r2`), 3 (`printedF0_false_at_r3`)
-- `FREta.eta_ratios` (4): needed 1 (`eta_ratios_h1`); redundant 2 (`eta_ratios_r2`); open 3, 4
+- `FREta.eta_ratios` (4): needed 1 (`eta_ratios_h1`), 3 (`eta_ratios_h3`); redundant 2 (`eta_ratios_r2`); open 4
 - `FREta.eta20_hasDerivAt` (2): needed 1 (`eta20_hasDerivAt_h1`), 2 (`eta20_hasDerivAt_h2`)
 - `FREta.eta30_hasDerivAt` (2): needed 1 (`eta30_hasDerivAt_h1`), 2 (`eta30_hasDerivAt_h2`)
 - `FREta.printedEta20_false_at` (4): needed 4 (`printedEta20_false_at_h4`); redundant (each alone, not together) 1 (`printedEta20_false_at_r1`), 2 (`printedEta20_false_at_r2`), 3 (`printedEta20_false_at_r3`)
@@ -538,7 +538,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FalknerSkan.Limit.fs_fifth_limit_equal` (13): needed 1 (`fs_fifth_limit_equal_h1`), 2 (`fs_fifth_limit_equal_h2`), 3 (`fs_fifth_limit_equal_h3`), 4 (`fifth_limit_equal_h4`), 5 (`fs_fifth_limit_equal_h5`), 6 (`fs_fifth_limit_equal_h6`), 7 (`fs_fifth_limit_equal_h7`), 8 (`fs_fifth_limit_equal_h8`), 9 (`fs_fifth_limit_equal_h9`), 10 (`fifth_limit_equal_h10`), 11 (`fs_fifth_limit_equal_h11`), 12 (`fs_fifth_limit_equal_h12`), 13 (`fs_fifth_limit_equal_h13`)
 - `FalknerSkan.LimitTenth.fs_tenth_limit_window` (6): needed 1 (`fs_tenth_limit_window_h1`), 2 (`fs_tenth_limit_window_h2`), 3 (`fs_tenth_limit_window_h3`), 4 (`tenth_limit_window_h4`), 5 (`fs_tenth_limit_window_h5`), 6 (`fs_tenth_limit_window_h6`)
 - `FalknerSkan.LimitTenth.fs_tenth_limit_equal` (13): needed 1 (`fs_tenth_limit_equal_h1`), 2 (`fs_tenth_limit_equal_h2`), 3 (`fs_tenth_limit_equal_h3`), 4 (`tenth_limit_equal_h4`), 5 (`fs_tenth_limit_equal_h5`), 6 (`fs_tenth_limit_equal_h6`), 7 (`fs_tenth_limit_equal_h7`), 8 (`fs_tenth_limit_equal_h8`), 9 (`fs_tenth_limit_equal_h9`), 10 (`tenth_limit_equal_h10`), 11 (`fs_tenth_limit_equal_h11`), 12 (`fs_tenth_limit_equal_h12`), 13 (`fs_tenth_limit_equal_h13`)
-- `FalknerSkan.Limit.fs_monotone_of_limit` (9): needed 1 (`fs_monotone_of_limit_h1`), 3 (`fs_monotone_of_limit_h3`), 4 (`fs_monotone_of_limit_h4`), 5 (`fs_monotone_of_limit_h5`), 7 (`fs_monotone_of_limit_h7`), 9 (`fs_monotone_of_limit_h9`); open 2, 6, 8
+- `FalknerSkan.Limit.fs_monotone_of_limit` (9): needed 1 (`fs_monotone_of_limit_h1`), 3 (`fs_monotone_of_limit_h3`), 4 (`fs_monotone_of_limit_h4`), 5 (`fs_monotone_of_limit_h5`), 7 (`fs_monotone_of_limit_h7`), 8 (`fs_monotone_of_limit_h8`), 9 (`fs_monotone_of_limit_h9`); open 2, 6
 - `FalknerSkan.NegDecay.fs_neg_decay_max_shear` (16): needed 2 (`fs_neg_decay_max_shear_h2`), 3 (`fs_neg_decay_max_shear_h3`), 4 (`fs_neg_decay_max_shear_h4`), 5 (`fs_neg_decay_max_shear_h5`), 6 (`fs_neg_decay_max_shear_h6`), 8 (`fs_neg_decay_max_shear_h8`), 9 (`fs_neg_decay_max_shear_h9`), 10 (`fs_neg_decay_max_shear_h10`), 11 (`fs_neg_decay_max_shear_h11`), 12 (`fs_neg_decay_max_shear_h12`), 13 (`fs_neg_decay_max_shear_h13`), 14 (`fs_neg_decay_max_shear_h14`); redundant (each alone, not together) 1 (`fs_neg_decay_max_shear_r1`), 7 (`fs_neg_decay_max_shear_r7`), 15 (`fs_neg_decay_max_shear_r15`); open 16
 - `FalknerSkan.NegDecay.fs_neg_decay_equal` (18): needed 2 (`fs_neg_decay_equal_h2`), 3 (`fs_neg_decay_equal_h3`), 4 (`fs_neg_decay_equal_h4`), 5 (`fs_neg_decay_equal_h5`), 6 (`fs_neg_decay_equal_h6`), 8 (`fs_neg_decay_equal_h8`), 9 (`fs_neg_decay_equal_h9`), 10 (`fs_neg_decay_equal_h10`), 11 (`fs_neg_decay_equal_h11`), 12 (`fs_neg_decay_equal_h12`), 13 (`fs_neg_decay_equal_h13`), 14 (`fs_neg_decay_equal_h14`), 16 (`fs_neg_decay_equal_h16`), 17 (`fs_neg_decay_equal_h17`), 18 (`fs_neg_decay_equal_h18`); redundant (each alone, not together) 1 (`fs_neg_decay_equal_r1`), 7 (`fs_neg_decay_equal_r7`), 15 (`fs_neg_decay_equal_r15`)
 - `FalknerSkan.NegWindow.fs_neg_tenth_window` (8): needed 1 (`fs_neg_tenth_window_h1`), 2 (`fs_neg_tenth_window_h2`), 3 (`fs_neg_tenth_window_h3`), 4 (`fs_neg_tenth_window_h4`), 5 (`fs_neg_tenth_window_h5`), 7 (`fs_neg_tenth_window_h7`), 8 (`fs_neg_tenth_window_h8`); redundant 6 (`fs_neg_tenth_window_r6`)

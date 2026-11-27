@@ -2,8 +2,8 @@
 # A line shrinks when a witness (`necessity%`) or a redundancy proof (`dropped%`) lands, in the same commit.
 # A classified hypothesis never reopens (N2 --base); a new headline enters with open hypotheses only with a LEDGER line
 # naming it in backticks with `open <indices>`. Created run 2026-11-11T0028Z from the generated TRUST_MAP.md.
-FREta.eta_ratios | 3, 4
-FalknerSkan.Limit.fs_monotone_of_limit | 2, 6, 8
+FREta.eta_ratios | 4
+FalknerSkan.Limit.fs_monotone_of_limit | 2, 6
 FalknerSkan.NegDecay.fs_neg_decay_max_shear | 16
 FalknerSkan.SeparationEqual.fs_separation_equal | 8, 17
 FalknerSkan.SeparationPrinted.fs_separation_below_printed | 8
