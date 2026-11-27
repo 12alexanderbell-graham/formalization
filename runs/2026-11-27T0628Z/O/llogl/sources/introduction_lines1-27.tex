@@ -1,0 +1,27 @@
+\section{Introduction}\label{sec:introduction}
+
+Let $\mathbb T=\mathbb R/(2\pi\mathbb Z)$, with normalized Lebesgue
+measure $d\mu(x)=dx/(2\pi)$. For an integrable complex-valued function
+$f$, write
+\[
+ \widehat f(k)=\int_{\mathbb T} f(x)e^{-ikx}\,d\mu(x),
+ \qquad
+ S_N f(x)=\sum_{k=-N}^{N}\widehat f(k)e^{ikx}.
+\]
+The endpoint question concerns the Orlicz class
+\[
+ L\log L(\mathbb T)
+ =\left\{f:\int_{\mathbb T}|f(x)|\log(2+|f(x)|)\,d\mu(x)<\infty\right\}.
+\]
+
+\begin{theorem}[Almost-everywhere convergence in $L\log L$]
+\label{thm:main}
+For every complex-valued $f\in L\log L(\mathbb T)$, there is a measurable
+set $N_f$ of measure zero such that
+\[
+ \lim_{N\to\infty}S_Nf(x)=f(x)
+ \qquad (x\in\mathbb T\setminus N_f).
+\]
+The limit is along the full sequence $N=0,1,2,\ldots$.
+\end{theorem}
+
