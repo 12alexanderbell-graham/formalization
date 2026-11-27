@@ -1,0 +1,14 @@
+custom syntax	OAI/Algebra/Determinantal/BranchConductor.lean:224	local notation "" => ∏ i, p i
+custom syntax	OAI/Algebra/Determinantal/BranchConductor.lean:225	local notation "" => fun i => Polynomial.map (algebraMap S Q) (p i)
+custom syntax	OAI/Algebra/Determinantal/BranchConductor.lean:375	local notation "" => FractionRing S
+custom syntax	OAI/Algebra/Determinantal/BranchConductor.lean:429	local notation "" => FractionRing S
+custom syntax	OAI/Algebra/Determinantal/ConductorLocalization.lean:391	local notation "" => integralClosure S (AdjoinRoot (f.map (algebraMap S Q)))
+custom syntax	OAI/Algebra/Determinantal/GenericPolars.lean:221	local notation "" => (Option τ × PolarVars τ)
+custom syntax	OAI/Algebra/Determinantal/GenericPolars.lean:222	local notation "" => GenericField K P
+custom syntax	OAI/Algebra/Determinantal/LocalDerivations.lean:9	local notation "" => addVal B
+custom syntax	OAI/Algebra/Determinantal/LocalDerivations.lean:231	local notation "" => addVal B
+custom syntax	OAI/Algebra/Determinantal/Normalization.lean:81	local notation "" => integralClosure S (AdjoinRoot (f.map (algebraMap S Q)))
+custom syntax	OAI/Algebra/Determinantal/RankTransfer.lean:170	local notation "" => (Option τ × PolarVars τ)
+custom syntax	OAI/Algebra/Determinantal/RankTransfer.lean:171	local notation "" => GenericField K P
+# closure: 51 files, 20739 lines; external packages: {'Mathlib': 2}
+# hits: custom syntax 12
