@@ -18,6 +18,7 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O7 | A complete local domain without a small Cohen–Macaulay module (`SurfaceConeCandidateSupport`) | **NOT DONE** (0/9 readings closable) | **the family's only Lean statement does not state the claim**: it asserts that *some* complete Noetherian normal local domain of dimension 3 with residue field ℂ exists — any such ring (e.g. ℂ⟦x, y, z⟧) satisfies it — and says nothing about small Cohen–Macaulay modules; the manuscript's Theorem 1.1 and its disproof of the conjecture have no Lean statement |
 | O8 | The Falconer distance conjecture in all dimensions (`FalconerAllDimensions`) | **NOT DONE** (statement DONE: 3/3 closed; replay dispatched) | none at statement level |
 | O9 | The irrationality exponent of π is 2 (`PiExponent`) | **NOT DONE** (6/10 closed: μ(π) = 2 and the inequality, every reader; replay dispatched) | the abstract's consequence "the Flint–Hills series converges" has no Lean statement |
+| O10 | An explicit noncoordinate polynomial with affine three-space zero fibre (`AbhyankarSathaye`) | **NOT DONE** (Corollary 1.2 closed 3/3; replay dispatched) | the headline Theorem 1.1 is about an explicit F; no Lean statement names F (the Lean states only the existential corollary). Tested here: the source's identity x² + y³ = h·s, F(P) = −1 and ∇F(P) = 0 at P = (2, 0, −1/2, 1/2) hold (Lean, `noncoord/check/Gradient.lean`) |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
 
@@ -134,3 +135,15 @@ den ≥ 2 and 0 < |π − r| < den^(−ν)} = 2` (real `sSup`). Closed for every
 a real `sSup` equal to 2 forces the set nonempty and bounded, and rationals of denominator ≥ 2 correspond to
 coprime pairs (p, q), q ≥ 2 (`pairs_eq_image`, `SP_eq_SF`). Uncovered: the abstract's Flint–Hills corollary
 (no Lean statement). Closure: 869 files, 94,948 lines, no escape hits.
+
+## O10 (run 2026-11-27T0628Z; brief f3fee82, readings b1b49e5; files `runs/2026-11-27T0628Z/O/noncoord/`)
+
+Claim (paper.tex, sha256 60993c0b…): Theorem 1.1 — for the explicit F of (eq:xyz)–(eq:F) in ℂ[h,u,v,w],
+R/(F) ≅ ℂ^[3] and ∇F(2, 0, −1/2, 1/2) = 0, so F is not a coordinate; Corollary 1.2 — for every n ≥ 4 some
+f ∈ ℂ[z₁,…,zₙ] has ℂ[z]/(f) ≅ ℂ^[n−1] and is not a coordinate. Frozen: Corollary 1.2 only. Closed: every
+reader's corollary (A, C both ways; B, whose "coordinate" uses the first variable only, frozen ⇒ reading), and
+reader C's identity x² + y³ = h·s. Uncovered: the readings of Theorem 1.1 (9 of 13). **Small-case test of the
+manuscript (this run, Lean, standard axioms):** typed from the TeX, F has x² + y³ = h·s identically, F(P) = −1,
+and each partial derivative of F vanishes at P (`deriv_h/u/v/w` via the exact cofactor identities
+F(P + t eᵢ) = −1 + t²·Gᵢ(t), checked by `ring`) — the stated critical point is right. Solution closure:
+15 files, 1,445 lines, no escape hits.
