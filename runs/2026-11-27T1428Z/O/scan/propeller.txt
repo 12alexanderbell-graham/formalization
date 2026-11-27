@@ -1,0 +1,17 @@
+custom syntax	OAI/Probability/GaussianPropeller/ConeConcavity.lean:27	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Probability/GaussianPropeller/ConeConcavity.lean:28	local notation "" => stdGaussian E
+custom syntax	OAI/Probability/GaussianPropeller/ConeConcavity.lean:259	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Probability/GaussianPropeller/ConeConcavity.lean:260	local notation "" => stdGaussian E
+custom syntax	OAI/Probability/GaussianPropeller/HeatConvolution.lean:19	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Probability/GaussianPropeller/HeatConvolution.lean:20	local notation "" => stdGaussian E
+custom syntax	OAI/Probability/GaussianPropeller/Polar.lean:39	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Probability/GaussianPropeller/Polar.lean:40	local notation "" => sphere (0 : E) 1
+custom syntax	OAI/Probability/GaussianPropeller/Polar.lean:41	local notation "" => (volume : Measure E)
+custom syntax	OAI/Probability/GaussianPropeller/Polar.lean:193	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Probability/GaussianPropeller/Polar.lean:194	local notation "" => Metric.sphere (0:E) 1
+custom syntax	OAI/Probability/GaussianPropeller/SmoothedConcavity.lean:25	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Probability/GaussianPropeller/SmoothedConcavity.lean:26	local notation "" => stdGaussian E
+custom syntax	OAI/Probability/GaussianPropeller/Stein.lean:20	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Probability/GaussianPropeller/Stein.lean:21	local notation "" => stdGaussian E
+# closure: 47 files, 11622 lines; external packages: {'Mathlib': 1}
+# hits: custom syntax 15
