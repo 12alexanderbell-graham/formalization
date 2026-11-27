@@ -34,5 +34,6 @@
 - External test: while `EXTERNAL_LOCK` is fresh, run 1529Z keeps it (PROMPT 11).
 
 ## End
-- Local: `lake build Checked` (3850 jobs with the four new modules), axiom prints, `precheck_names.py` ok, StatementDeps relock, `Claims.lean`, `records_check.py 9747463` (section End of the final commit message).
+- Local: `lake build Checked` (3850 jobs with the four new modules), axiom prints, `precheck_names.py` ok, `check_prose.py` 0 new, StatementDeps relock (open 14), `Claims.lean` (316 claims), `records_check.py 9747463` (46 commands, 0 failed) before the first push and again after the last record edit.
+- Pushes: d4eadd7 (the Lean change and the records; CI run 45921657457, its checked job queued behind the external run's final CI run 45920242061 when this was written: the next run reads it, section Next) and this run's final push (records only, LOCK removed).
 - Message to Alexander (L.2): none (a necessity witness, no new headline or finding).
