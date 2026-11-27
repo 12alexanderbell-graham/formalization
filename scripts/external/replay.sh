@@ -160,6 +160,24 @@ PY2
 # outside packages were added): print its log and name the step.
 [ -d .lake/packages/mathlib ] || lake update > lake_update.log 2>&1 || {
   tail -60 lake_update.log; echo "FAIL: lake update (outside packages: $(cut -f1 extra_requires.txt 2>/dev/null | tr '\n' ' '))"; exit 1; }
+# Outside projects may patch their dependencies after resolution (OpenAI's release: lakefile `post_update`
+# applies patches/<package>-lean4341.patch to each git dependency; without them three rellich-kondrachov
+# modules fail to elaborate, O-qrh run 45966290931). Apply the same patches, recorded by hash. A patch changes
+# only proof sources of a dependency: headline statements are compared with the challenge and axioms printed.
+if [ -s extra_requires.txt ] && [ -d "$SRC/patches" ]; then
+  while IFS=$'\t' read -r n _u _r _d; do
+    for pf in "$SRC"/patches/"$n"-*.patch; do
+      [ -f "$pf" ] || continue
+      dir=".lake/packages/$n"
+      if git -C "$dir" apply --check --reverse "$pf" 2>/dev/null; then
+        echo "outside patch already applied: $(basename "$pf")"
+      else
+        git -C "$dir" apply "$pf" || { echo "FAIL: outside patch $(basename "$pf") does not apply to $n"; exit 1; }
+        echo "outside patch applied: $(basename "$pf") sha256 $(sha256sum "$pf" | cut -c1-16)"
+      fi
+    done
+  done < extra_requires.txt
+fi
 lake exe cache get > cache.log 2>&1 || true
 
 # leanchecker (step 4), as a function so that it can also run alone on a slice of the closure:

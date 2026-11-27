@@ -6,7 +6,7 @@ import ComparatorChallenges.CliqueFreeLog
 (run 2026-11-27T0628Z). Frozen statement taken with `type_of%`, never retyped. Direction frozen ⇒ reading:
 the readers' own edge counts, clique-freeness and independence numbers are related to Mathlib's. -/
 
-open Classical
+open scoped Classical
 
 namespace TargetO.CliqueFree
 
