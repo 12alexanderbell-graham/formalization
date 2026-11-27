@@ -1,0 +1,75 @@
+\section{Introduction}\label{sec:introduction}
+
+A proper $k$-coloring of the Euclidean plane is a function
+$c:\R^2\to\{1,\ldots,k\}$ such that $c(x)\ne c(y)$ whenever
+$\norm{x-y}=1$. The Hadwiger--Nelson problem asks for the least such
+$k$, denoted by $\chi(\R^2)$, with no regularity imposed on the color
+classes. Equivalently, it asks for the chromatic number of the graph
+whose vertices are all points of the plane and whose edges are the
+unit-distance pairs. Edges in a finite drawing of this graph may cross.
+
+The problem dates to Edward Nelson in 1950. Nelson obtained the lower
+bound four, and John Isbell found the upper bound seven by a hexagonal
+coloring; the historical record of these unpublished observations is
+recounted by \citet[pp.~15--19]{Soifer2003History}. Hadwiger's published
+formulation \citep{Hadwiger1961} asks for a covering by sets that avoid
+unit distance and gives the bounds four and seven. The seven-point
+construction of \citet{MoserMoser1961}, now called the Moser spindle,
+gives a particularly small finite obstruction to three colors. We use
+its two overlapping-triangle constraints again in the final step of our
+proof and verify the required placement explicitly.
+
+The lower bound remained four until \citet{deGrey2018} constructed a
+finite unit-distance graph that is not four-colorable in 2018.
+His corrected construction has 1,581 vertices. Subsequent work made
+these finite obstructions smaller and their verification more accessible:
+\citet{Heule2018} used satisfiability proofs and extraction of
+unsatisfiable cores to obtain 553-vertex examples, and
+\citet{Parts2020Minimization} obtained a 509-vertex graph.
+\citet{ExooIsmailescu2020} gave an alternative proof of the lower bound five,
+and Parts gave a human-verifiable proof \citep{Parts2020Human}.
+These advances concern finite obstructions to four colors. The
+compactness theorem of \citet[Theorem~1]{deBruijnErdos1951} says that a
+graph is $k$-colorable, for fixed finite $k$, if and only if every finite
+subgraph is $k$-colorable. Consequently an unrestricted lower bound can
+also be established without first displaying a finite graph witnessing
+it.
+
+The problem with measurable color classes has a different history.
+Write $\chi_m(\R^2)$ for the least number of colors when each class must
+be Lebesgue measurable. \citet{Falconer1981} proved
+$\chi_m(\R^2)\ge5$ using density points and rotations.
+\citet{Payne2009} developed this method for translation-invariant
+unit-distance subgraphs. In particular, the graph on all of $\R^2$
+whose edges have rational unit displacement vectors is two-colorable,
+while every measurable coloring requires at least five colors. Thus
+measurable and unrestricted colorings cannot be identified merely
+because their distance constraints look the same.
+
+For colorings by regular regions, \citet{Woodall1973} studied
+distance-avoiding closed covers and region decompositions. Townsend
+corrected Woodall's argument for a six-color lower bound in the
+planar-map setting, announcing the repair in 1981 and giving its details
+in 2005 \citep{Townsend1981,Townsend2005}. More recently,
+\citet{SokolovVoronov2025} proved a lower bound seven for polygonal
+colorings in a locally finite map framework. Their interface argument
+excludes both adjacent colors wherever distances to the interface take
+values both below and above one. We derive corresponding exclusions
+from weak measurable data, without assuming regular color boundaries.
+
+We prove the following result, working throughout in ZFC.
+
+\begin{theorem}\label{thm:main}
+The Euclidean plane has no proper five-coloring, even when arbitrary
+color classes are allowed. Consequently,
+\[
+  6\le \chi(\R^2)\le 7.
+\]
+\end{theorem}
+
+The remaining alternatives six and seven are unresolved.\footnote{
+The May 14, 2026 manuscript of \citet{Reed2026} announces
+$\chi(\R^2)=7$ through a circle-density argument. Its proposed strict
+bound of $\pi/3$ on the angular measure of a unit-independent subset
+of the unit circle fails for the half-open arc
+$\{e^{it}:0\le t<\pi/3\}$: this arc has angular measure $\pi/3$

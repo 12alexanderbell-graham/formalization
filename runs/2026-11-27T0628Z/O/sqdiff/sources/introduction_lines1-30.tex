@@ -1,0 +1,30 @@
+\section{Introduction}
+\label{sec:introduction}
+
+For a positive integer $N$, write $[N]=\{1,\ldots,N\}$. A set
+$A\subseteq[N]$ is \emph{square-difference-free} if
+\[
+ (A-A)\cap\{m^2:m\in\N,\ m\ge1\}=\varnothing.
+\]
+Thus the restriction concerns differences in the integers. Define
+\[
+ s(N)=\max\{|A|:A\subseteq[N]\text{ is square-difference-free}\}.
+\]
+Our main result is a fixed power saving in this extremal problem.
+
+\begin{theorem}
+\label{thm:main}
+There are absolute constants $c>0$ and $C<\infty$ such that, for every
+integer $N\ge1$ and every square-difference-free set $A\subseteq[N]$,
+\[
+ |A|\le C N^{1-c}.
+\]
+Equivalently, every subset of $[N]$ larger than $C N^{1-c}$ contains
+distinct elements whose absolute difference is the square of a positive
+integer.
+\end{theorem}
+
+The exponent obtained here is positive and absolute, but extremely small.
+The argument does not yield a useful numerical value or an optimal exponent.
+All finite constructions in the proof are fixed independently of $N$ and
+$A$; their size affects the constants and the exponent.
