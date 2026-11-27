@@ -147,7 +147,10 @@ PY2
   for l in $(cat closure_libs.txt) $(for e in ${EXTRA:-}; do echo "${e%%=*}" | cut -d. -f1; done | sort -u); do
     echo '[[lean_lib]]'; echo "name = \"$l\""; done
 } > lakefile.toml
-[ -d .lake/packages/mathlib ] || lake update > lake_update.log 2>&1
+# A failing `lake update` used to end the job with no message (set -e; O-qrh run 45959143968, after the
+# outside packages were added): print its log and name the step.
+[ -d .lake/packages/mathlib ] || lake update > lake_update.log 2>&1 || {
+  tail -60 lake_update.log; echo "FAIL: lake update (outside packages: $(cut -f1 extra_requires.txt 2>/dev/null | tr '\n' ' '))"; exit 1; }
 lake exe cache get > cache.log 2>&1 || true
 
 # leanchecker (step 4), as a function so that it can also run alone on a slice of the closure:
