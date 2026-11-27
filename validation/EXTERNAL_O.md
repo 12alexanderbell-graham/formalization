@@ -503,3 +503,39 @@ O22, O24, O26, O31, O33, O36), **none is an undisclosed mismatch in a Lean state
 torsion-free over 𝔽₂; CONTENTS 084: every ratio q) — the Lean link sits on a headline the Lean does not state, while the
 scope text describes the Lean accurately — and two minor unstated corollaries (O3's G non-surjunctive; O10's
 R/(F) ≅ ℂ^[3] for the named F). Referee (Sonnet, raw files only, adversarial): confirmed all five facts with file and line.
+
+## Index check, run 2026-11-27T1248Z: CONTENTS headlines under a Lean link that no Lean statement states
+
+`family_map.py --contents` flagged 26 of the 246 Lean-linked CONTENTS items (heuristic: the scope document's title is
+closer to a paper the document does not formalize than to any it does). Each was read against its CONTENTS headline,
+its scope text and the theorem statements of every challenge it links (197, 084, 150, 095, 207 here; the other 21 by a
+Sonnet auditor given exact paths, spot-checked here on 058, 182, 184, 307, 365). **Not a defect of any Lean statement:**
+every scope text describes its Lean accurately. The defect is in the index: the "[Lean]" link sits on a headline whose
+main claim no linked Lean statement states, and the scope text never says that claim is outside.
+
+| item | headline claim under the Lean link | what the Lean states | verdict |
+|---|---|---|---|
+| 197 | finitely presented **torsion-free** group, algebra over **𝔽₂** not directly finite | finite field of char 2; `KaplanskyFinitelyPresented.lean:10` asserts an element of odd prime order | overstatement (doc title too) |
+| 084 | geometric case, **every q ∈ (0,1)** | q = 1/2 only (`DyadicAvoidance`) | overstatement (doc title too) |
+| 150 | billiard flow **weakly mixing** | ergodic (`IrrationalTriangleBilliard.lean:108-117`: invariant sets have measure 0 or 1) | overstatement (doc title too) |
+| 095 | hyperbolicity cones **not spectrahedral shadows** (no semidefinite lift; Projected Lax disproved) | cone ≠ PSD region of a linear pencil (`HyperbolicCones.lean:67`): not spectrahedral; no lift statement | overstatement (doc title too) |
+| 207 | **ℓ¹**-Bass conjecture for every group | complex Bass trace over ℂ[G] (`BassTrace.lean`); no ℓ¹(G) | overstatement (doc title too) |
+| 058 | Kollár–Pardon classification of semialgebraic universal covers | a bounded semialgebraic domain with cocompact proper action is a bounded symmetric domain (`SymmetricDomains.lean:47`) | overstatement |
+| 082 | annular r-variation bounds, the symmetric L³×L³×L³ estimate | maximal hard-truncation estimate (`TriangularHilbert.lean:50`) | overstatement |
+| 182 | every intersective polynomial h, and prime arguments | squares only, h(m) = m² (`SquareDifference.lean:10`) | overstatement |
+| 184 | Alon–Krivelevich–Sudakov coloring O_F(Δ/log Δ) | only the K_r-free independence bound (`CliqueFreeLog.lean:11`) | overstatement |
+| 186 | hypergraph threshold widths, nonmonotone influence | graphs only (`SharpThreshold.lean:51`) | overstatement |
+| 218 | Ising universality, SLE₃ interface limits | a finite-graph likelihood-ratio bound (`BufferedIsing.lean:98`) | overstatement |
+| 256 | Howie's conjecture (nonsingular systems over any group) | Kervaire-type injectivity for one unimodular relator (`Kervaire.lean:31`) | overstatement |
+| 262 | **finite-matrix** potentials and **all equality cases** | scalar W, sharp constant, attainment (`LiebThirring.lean:82`) | overstatement |
+| 307 | **maximal** coarse assembly not rationally injective | the reduced (ordinary) assembly (`CoarseAssembly.lean:6629`); reduced failure does not imply maximal failure (μ_red = λ ∘ μ_max) | overstatement |
+| 337 | Cartan–Hadamard isoperimetry in manifolds, equality case | CAT(0) filling inequality, optimal constant (`SharpCAT0Filling.lean:135`) | overstatement |
+| 356 | Gigli's characterization of Alexandrov curvature | a weak-Hessian transfer lemma in RCD(K,N) (`WeakHessian.lean:220`) | overstatement |
+| 365 | joint metric and connection recovery from one boundary patch | only the scalar-conductivity nonuniqueness companion (`Conductivity.lean:77`) | overstatement |
+| 149, 009, 066, 210, 247, 260, 347, 363 | — | scope text says the remainder is outside (149 only implicitly) | disclosed |
+| 109 | — | the Lean bound n(log n)^{1/2+o(1)} is stronger than the headline's | matches |
+
+**17 of the 246 Lean-linked CONTENTS items** (two in our families: 184 = O11's document, 182 = O6's) put the Lean link on a
+headline the Lean does not state, five of them with the unformalized claim in the scope document's own title. The
+heuristic finds only items whose document title points at another paper; the other 220 items are unchecked for this
+pattern (next step: every item, auditor batches).
