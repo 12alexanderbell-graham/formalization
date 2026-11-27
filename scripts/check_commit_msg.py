@@ -124,6 +124,12 @@ def main(argv: list[str]) -> int:
         errs += index_errors()
         errs += mention_errors()
         errs += claims_fresh_errors()
+    # Run 2026-11-27T1228Z (annex LIV): the external-test run pushes only intermediate commits (skip token), so lines
+    # it wrote in its run README ("withdrawn", a level-1 heading over a document that names refuted statements) were
+    # never checked until another run's final push, whose CI they would have failed. Intermediate commits that stage a
+    # scanned record now run the same mention check.
+    if argv[1] == "--skip" and os.environ.get("CHECK_COMMIT_MSG_NO_INDEX") != "1":
+        errs += mention_errors()
     for e in errs:
         print(e)
     return 1 if errs else 0
