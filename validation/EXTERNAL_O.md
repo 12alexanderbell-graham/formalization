@@ -28,6 +28,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O17 | Almost-everywhere Fourier convergence in L log L (`FourierLLogL`) | **NOT DONE** (statement DONE: 3/3, frozen ⇒ reading; replay dispatched) | none at statement level: every reader's normalised measure is Mathlib's `haarAddCircle`, every reader's e^{ikx} is `fourier k`, so coefficients and partial sums are the frozen ones; the frozen hypothesis (integrability of ‖f‖ log(2+‖f‖)) follows from the readers' (lower integral < ∞) |
 | O18 | A power saving for planar unit distances (`PlanarUnitDistances`) | **NOT DONE** (statement DONE: 6/6, both forms; replay dispatched) | none at statement level: the readers' counts (2-element subsets for A and C, `Sym2` for B) proved equal to the frozen `Sym2` count |
 | O19 | A universal group of type F∞ (`UniversalFInfinity`) | **NOT DONE** (3/7: Theorem 1.1 closed for every reader; replay dispatched) | Corollary 1.2 (f.g. G embeds in H iff recursively presented) has no Lean statement; it rests on Higman's embedding theorem, not in Lean |
+| O20 | The symmetric Mahler conjecture and its equality cases (`MahlerConjecture`) | **NOT DONE** (3/6: the inequality closed for every reader; replay dispatched) | the equality case (iff K is a linear Hanner body), half of Theorem 1.1, has no Lean statement |
+| O21 | A classification of finite Euclidean Ramsey configurations (`EuclideanRamseySpherical`, `…Circle`, `…Transitive`) | **NOT DONE** (4 of 12 claim readings closed: every reader's necessity (iii), reader B's circle (ii); replays dispatched) | **the headline Classification theorem has no Lean statement**: the release states three consequences (a Ramsey set is cospherical — the classical 1973 theorem the paper cites —, at most five points on a circle are Ramsey, subtransitive sets are Ramsey); readers A and C's circle form (in ℝ^m) and every reader's subtransitive form not closed this run |
+| O22 | The circulant Hadamard conjecture (`CirculantHadamard` + `EvenBarker`) | **NOT DONE** (3/6: Theorem 1.1 closed for every reader; replays dispatched) | Corollary 1.2 (Barker lengths exactly {2,3,4,5,7,11,13}) is stated in Lean only for even lengths (`even_length_eq_two_or_four`); the odd case (cited) and existence are not |
 | — | Integral points on character varieties (`CharacterVarietiesAllSeamsSupport`) | **NOT STARTED** | observation (orchestrator only, not a blind reading): the family's only challenge is a lemma about the release's own `Diagram` structures (it imports OAI modules), not a statement of Theorem 1.1 in Mathlib terms; queued for the protocol |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
@@ -244,3 +247,31 @@ with `HasTypeFInfinity` (Hausdorff, connected, CW structure on univ with finitel
 ask less of the cover, A also continuity; A and C's own finite presentations give Mathlib's
 `Group.IsFinitelyPresented`). Uncovered: Corollary 1.2 (4 readings). Solution closure: 50 files, 19,991 lines, 5
 custom-syntax hits.
+
+## O20–O22 (run 2026-11-27T0628Z; brief 893ed69, readings 1e43daa; files `runs/2026-11-27T0628Z/O/{mahler,ramsey,hadamard}/`)
+
+**O20, symmetric Mahler.** Claim (introduction.tex, 64a324e8…): for n ≥ 1 and every origin-symmetric convex
+body K ⊂ ℝⁿ, |K||K°| ≥ 4ⁿ/n!, with equality iff K is a linear Hanner body. Frozen: the inequality, on
+`Fin n → ℝ` with a coordinate polar, as `toReal` products. Closed for every reader (frozen ⇒ reading): A in
+`Fin n → ℝ` directly; B and C in `EuclideanSpace` via the volume-preserving `EuclideanSpace.equiv`, under which
+their inner-product polar is the coordinate polar; the frozen real bound gives the readers' ℝ≥0∞ bound
+(`ofReal a.toReal ≤ a`). Uncovered: the equality case (3 readings). Solution closure: 229 files, 21,379 lines,
+5 custom-syntax hits.
+
+**O21, Euclidean Ramsey.** Claim (01-introduction.tex, 55d8307a…): the Classification theorem (A is Ramsey iff a
+matrix P over F ⊗_ℚ F satisfies the tensor evaluation identities and m_F(P_αβ) = δ_αβ), and in prose: subtransitive
+sets are Ramsey; ≤ 5 points on a circle are Ramsey; finite Ramsey sets are spherical (cited, EGMRSS). Frozen:
+three challenges, each on enumerations `Fin s → ℝ^d`; they cannot be imported together (each redeclares
+`Congruent` and `Ramsey`), so the closures are split by challenge. Closed: (iii) for every reader, (ii) for
+reader B (`enum`/`ofSet`/`toSet` carry a set's Ramsey property to an injective enumeration's and back).
+Uncovered: the Classification (3 readings), (i) (3), (ii) for A and C (stated for circles in ℝ^m; a closure needs
+a congruence of the circle into the plane — not attempted this run). Coverage prints 4/13: reader B's
+`HasTensorMatrix` is a `def … : Prop` counted as a reading; the claims are 4/12. Solution closures: 39 files,
+7,653 lines, no escape hits (all three).
+
+**O22, circulant Hadamard.** Claim (introduction.tex, 54c2d276…): for n > 0 a real circulant Hadamard matrix of
+order n exists iff n ∈ {1, 4} (Ryser's conjecture); corollary: for n > 1 a Barker sequence of length n exists iff
+n ∈ {2, 3, 4, 5, 7, 11, 13}. Frozen: Theorem 1.1 (`Fin n` subtraction) and the even Barker case (separate
+challenge; the two cannot be imported together). Closed: every reader's Theorem 1.1 (both directions of the
+existence statements: A asks the signs of h, given by the first row; B and C index by `ZMod n`, carried by
+`ZMod.finEquiv`). Uncovered: Corollary 1.2 (3). Solution closures (both): 73 files, 9,773 lines, no escape hits.

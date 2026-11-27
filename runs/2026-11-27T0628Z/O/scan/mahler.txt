@@ -1,0 +1,7 @@
+custom syntax	OAI/Analysis/Mahler/Hessian.lean:12	local notation "" => starRingEnd ℂ
+custom syntax	OAI/Analysis/Mahler/HomogeneousFlux.lean:6	local notation "" => starRingEnd ℂ
+custom syntax	OAI/Analysis/Mahler/MatrixHessian.lean:6	local notation "" => starRingEnd ℂ
+custom syntax	OAI/Analysis/Mahler/OpenHessian.lean:7	local notation "" => starRingEnd ℂ
+custom syntax	OAI/Analysis/Mahler/Positivity.lean:9	local notation "" => starRingEnd ℂ
+# closure: 229 files, 21379 lines; external packages: {'Mathlib': 209}
+# hits: custom syntax 5
