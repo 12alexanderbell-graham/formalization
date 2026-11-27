@@ -1,0 +1,6 @@
+custom syntax	OAI/NumberTheory/SingleFold/MacroMachine.lean:164	local notation "" => Counter.step (compile M start)
+custom syntax	OAI/NumberTheory/SingleFold/MacroMachine.lean:266	local notation "" => Counter.step (compile M start)
+custom syntax	OAI/NumberTheory/SingleFold/TuringSimulation.lean:205	local notation "" => Macro.step (program M initial)
+custom syntax	OAI/NumberTheory/SingleFold/TuringSimulation.lean:299	local notation "" => Macro.step (program M initial)
+# closure: 28 files, 7598 lines; external packages: {'Mathlib': 1}
+# hits: custom syntax 4

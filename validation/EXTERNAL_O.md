@@ -31,6 +31,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O20 | The symmetric Mahler conjecture and its equality cases (`MahlerConjecture`) | **NOT DONE** (3/6: the inequality closed for every reader; replay dispatched) | the equality case (iff K is a linear Hanner body), half of Theorem 1.1, has no Lean statement |
 | O21 | A classification of finite Euclidean Ramsey configurations (`EuclideanRamseySpherical`, `…Circle`, `…Transitive`) | **NOT DONE** (4 of 12 claim readings closed: every reader's necessity (iii), reader B's circle (ii); replays dispatched) | **the headline Classification theorem has no Lean statement**: the release states three consequences (a Ramsey set is cospherical — the classical 1973 theorem the paper cites —, at most five points on a circle are Ramsey, subtransitive sets are Ramsey); readers A and C's circle form (in ℝ^m) and every reader's subtransitive form not closed this run |
 | O22 | The circulant Hadamard conjecture (`CirculantHadamard` + `EvenBarker`) | **NOT DONE** (3/6: Theorem 1.1 closed for every reader; replays dispatched) | Corollary 1.2 (Barker lengths exactly {2,3,4,5,7,11,13}) is stated in Lean only for even lengths (`even_length_eq_two_or_four`); the odd case (cited) and existence are not |
+| O23 | A quadratic bound for Jacobsthal's function (`JacobsthalImproved` + `Jacobsthal`) | **NOT DONE** (statement DONE: 6/6 — Theorem 1.1 and Jacobsthal's quadratic question, every reader; replays dispatched) | none at statement level; the frozen iterated-log bound also gives the quadratic form (C' = C/(log log 3)²), closed in Lean |
+| O24 | Single-fold Diophantine representations (`SingleFold`) | **NOT DONE** (3/6: Theorem 1.1 closed for every reader; replay dispatched) | the Corollary (undecidability under an at-most-one-solution promise) has no Lean statement |
+| O25 | A single lattice covering bound of order n log n (`SingleLatticeCovering`) | **NOT DONE** (statement DONE: 3/3; replay dispatched) | none at statement level |
 | — | Integral points on character varieties (`CharacterVarietiesAllSeamsSupport`) | **NOT STARTED** | observation (orchestrator only, not a blind reading): the family's only challenge is a lemma about the release's own `Diagram` structures (it imports OAI modules), not a statement of Theorem 1.1 in Mathlib terms; queued for the protocol |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
@@ -289,3 +292,27 @@ existence statements: A asks the signs of h, given by the first row; B and C ind
   written against our Mathlib and judged at the outside pin; only the replay at the pin counts.
 - O-qrh-*: every earlier failure predates the dependency patches (RellichKondrachov type mismatches, a lake
   cache fetch); the patched runs are still going.
+
+## O23–O25 (run 2026-11-27T0628Z; brief c5c91a5, readings 1d9fc2b; files `runs/2026-11-27T0628Z/O/{jacobsthal,singlefold,latticecov}/`)
+
+**O23, Jacobsthal.** Claim (introduction.tex, 94390ede…): h(k) ≤ C k²/(log log 3k)² for every k ≥ 1, h(k) = sup of
+Jacobsthal's j(n) over ω(n) ≤ k; it answers Jacobsthal's question h(k) ≪ k². Frozen: some m with the covering
+property for every n with ω(n) ≤ k and m ≤ C k²/(log log 3k)². Closed for every reader (their j(n) ≤ m as m is
+admissible; sup ≤ m), both forms; the quadratic one from the same frozen statement since log log 3k ≥ log log 3 > 0
+(e < 3). The family's second challenge (`erdos_970_quadratic`) cannot be imported with the first; replayed alone.
+Solution closure: 819 files, 152,494 lines (PrimeNumberTheoremAnd, StrongPNT, AbsorptionCutoff), 55
+custom-syntax hits.
+
+**O24, single-fold representations.** Claim (main.tex, 1872e660…): every r.e. S ⊆ ℕⁿ (n ≥ 1) has m ≥ 1 and
+P ∈ ℤ[A, W] with exactly one witness w ∈ ℕ^m on S and none off S (Matiyasevich's single-fold conjecture); corollary:
+undecidability of solvability under an at-most-one-solution promise. Frozen: Theorem 1.1 (`REPred`, existence iff
+membership, witness uniqueness at every input). Closed for every reader (A and C count with `encard`, B with
+`∃!`). Uncovered: the Corollary (3). Solution closure: 28 files, 7,598 lines, 4 custom-syntax hits — small for the
+claim; the replay decides.
+
+**O25, lattice covering.** Claim (overview.tex, 99f45ea7…): an absolute C with, for n ≥ 2 and every convex body K,
+a full-rank lattice Λ with K + Λ = ℝⁿ and vol K / det Λ ≤ C n log n. Frozen: the same with Mathlib's `IsZLattice`
+and `ZLattice.covolume`. Closed for every reader: A (Λ = Aℤⁿ, det A ≠ 0) and C (ℤ-span of a linearly independent
+family) from a ℤ-basis of L indexed by `Fin n` (rank n) and `covolume_eq_det`; B in `EuclideanSpace` by pulling L
+back along the volume-preserving `EuclideanSpace.equiv` (`covolume_comap`). Solution closure: 41 files, 25,913
+lines, no escape hits.
