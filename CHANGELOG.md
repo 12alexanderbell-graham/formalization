@@ -1323,3 +1323,7 @@
 ## 2026-11-27T1317Z (manual firing; external-test long run under `EXTERNAL_LOCK`; run 1228Z holds `LOCK`)
 - Target O, O38–O43 read blind (Opus, Sonnet, Haiku) and closed locally against the frozen statements: reflexive fixed points 3/3, planar Anderson spectrum 3/3, Erdős reciprocal sums 3/3, "Hadwiger's conjecture is false" 3/3 (frozen `sSup` proved a genuine maximum), linear list Hadwiger 3/3 (frozen `sInf` proved non-vacuous), Rokhlin 1/3. No mismatch. Every gap found is disclosed by OpenAI, apart from O38's commuting-families corollary.
 - Target R and every replay are waiting on the GitHub job queue (backlog since 10:22Z). Run README `runs/2026-11-27T1317Z/README.md`.
+
+## 2026-11-27T1428Z (scheduled; external-test long run under `EXTERNAL_LOCK`; no `LOCK` held)
+- CI blocker repaired (LEDGER, two integrity entries): external replays had evicted the judge's lake cache from the 10 GB Actions cache, so every judged push since 10:45Z rebuilt Checked for over four hours and was cancelled; external builds now travel as artifacts, shards reuse the checked job's build, checked timeout 350 min; stale runs cancelled and their lines re-dispatched.
+- Target O, O44–O49 read blind (Opus, Sonnet, Haiku) and closed locally against the frozen statements: Seymour 3/3 both directions, Kaplansky zero divisors 3/3, Gaussian moat 3/3, log Brunn–Minkowski 3/3, Tingley 3/3, sensitivity 3/3 (the abstract's fixed α against the solution's own theorem). O50–O52 read. No mismatch. Alexander messaged with O38–O49. Run README `runs/2026-11-27T1428Z/README.md`.
