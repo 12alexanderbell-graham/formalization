@@ -81,3 +81,13 @@ nobody formalized (T2's rate) is reported as NOT DONE, not certified.
 6. **Explain nanoda's "Unable to print axioms"** with a planted non-standard axiom (part of item 1).
 
 Decision asked of Alexander: which of items 2–5 comes next after the red team.
+
+## 6. Item 1 done (red team), 2026-11-27 ~01:45Z
+
+`EXTERNAL_REDTEAM.md`: ten planted defects in a copy of S1's closure (weakened statement, hidden `sorry`,
+extra axiom, renamed definition, `native_decide`, wrapped axiom lists with the bad axiom on either line, a
+`sorry` reached through a reading, a sorry'd "closure" under a `Readings.*` name): all caught at the intended
+step; nanoda rejects a planted axiom by itself. The two suspected holes of section 3: the wrapped-list parser
+holds (P7b); the `Readings.*` skip cannot give a false DONE (coverage counts only `Closure.*`), but the replay's
+last line said PASSED — fixed: it now states the readings' coverage (`COMPLETE` needed for a DONE).
+Waiting for Alexander's choice among items 2–5.

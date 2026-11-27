@@ -1,0 +1,78 @@
+== res_P0.txt
+P0_control rc=0 574s
+compared 4 reachable challenge declarations: 0 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+COMPARE OK
+== external replay PASSED: OAI.NumberTheory.ShortEgyptian.Main proves ComparatorChallenges.ShortEgyptianFractions (OAI.ShortEgyptian.main)
+== res_P1.txt
+P1_weakened_statement rc=1 65s
+TYPE differs: OAI.ShortEgyptian.main
+compared 4 reachable challenge declarations: 1 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+COMPARE FAILED: 1
+FAIL: compare
+== res_P2.txt
+P2_hidden_sorry rc=1 68s
+compared 4 reachable challenge declarations: 0 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+COMPARE FAILED: 1
+FAIL: compare
+== res_P3.txt
+P3_extra_axiom rc=1 65s
+compared 4 reachable challenge declarations: 0 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound, OAI.ShortEgyptian.cheat]
+COMPARE FAILED: 1
+FAIL: compare
+== res_P4.txt
+P4_renamed_definition rc=1 78s
+VALUE differs: OAI.ShortEgyptian.maxMinLength
+MISSING in solution: OAI.ShortEgyptian.minLen
+compared 4 reachable challenge declarations: 2 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+COMPARE FAILED: 2
+FAIL: compare
+== res_P5.txt
+P5_native_decide rc=1 70s
+compared 4 reachable challenge declarations: 0 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound, OAI.ShortEgyptian.main_upper_expansions._native.native_decide.ax_1_1]
+COMPARE FAILED: 1
+FAIL: compare
+== res_P7.txt
+P7_P8_extras rc=1 121s
+compared 4 reachable challenge declarations: 0 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+COMPARE OK
+axioms: 1 lists checked, 0 declarations without axioms, 1 non-standard
+FAIL: Closure.RTWrap axioms
+== res_P7b.txt
+P7_P8_extras rc=1 85s
+compared 4 reachable challenge declarations: 0 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+COMPARE OK
+axioms: 1 lists checked, 0 declarations without axioms, 1 non-standard
+FAIL: Closure.RTWrapLate axioms
+== res_P8.txt
+P7_P8_extras rc=1 135s
+compared 4 reachable challenge declarations: 0 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+COMPARE OK
+axioms: 1 lists checked, 0 declarations without axioms, 1 non-standard
+FAIL: Closure.RTClosure axioms
+== res_P8b.txt
+P7_P8_extras rc=0 93s
+compared 4 reachable challenge declarations: 0 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+COMPARE OK
+'rt_fake_closure' depends on axioms: [sorryAx]
+== external replay PASSED: OAI.NumberTheory.ShortEgyptian.Main proves ComparatorChallenges.ShortEgyptianFractions (OAI.ShortEgyptian.main)
+== res_P8c.txt
+P7_P8_extras rc=0 77s
+compared 4 reachable challenge declarations: 0 differences
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+COMPARE OK
+'rt_fake_closure' depends on axioms: [sorryAx]
+== external replay PASSED: OAI.NumberTheory.ShortEgyptian.Main proves ComparatorChallenges.ShortEgyptianFractions (OAI.ShortEgyptian.main)
+Error: export file declares unpermitted axiom "OAI.ShortEgyptian.cheat"
+
+run with `-h` or `--help` for help
+nanoda rc=1

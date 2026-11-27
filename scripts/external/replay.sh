@@ -223,10 +223,16 @@ for e in ${EXTRA:-}; do
   mod=${e%%=*}; rel=${mod//.//}.lean
   case "$mod" in Readings.*) READ_FILES="$READ_FILES $rel" ;; Closure.*) CLOS_FILES="$CLOS_FILES $rel" ;; esac
 done
+COV="COMPLETE"
+[ -n "$READ_FILES" ] || COV="NONE (no blind reading supplied)"
 for r in $READ_FILES; do
   # shellcheck disable=SC2086
-  python3 "$HERE/coverage.py" "$r" $CLOS_FILES || echo "coverage: $r has UNCOVERED theorems (see above)"
+  python3 "$HERE/coverage.py" "$r" $CLOS_FILES || { echo "coverage: $r has UNCOVERED theorems (see above)"; COV="INCOMPLETE"; }
 done
 # 5. advisory scan
 python3 "$HERE/scan_escapes.py" "$WORK" "$SOL" | tail -2
 echo "== external replay PASSED: $SOL proves $CHAL (${THMS[*]})"
+# The pass above is about the outside proof only. A DONE also needs every theorem of the blind reading
+# closed (red team, run 2026-11-26T1529Z: a sorry'd "closure" placed under a Readings.* name passed the
+# replay with this line alone; coverage counted it UNCOVERED, so no false DONE, but the line misled).
+echo "== coverage of the blind readings by Closure.* modules: $COV (a DONE needs COMPLETE)"
