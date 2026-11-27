@@ -827,3 +827,8 @@ import Checked.Trust.SpecAgreementEF
 import Checked.Trust.SecondReadingSpecG
 import Checked.Trust.SecondReadingSpecH
 import Checked.Trust.SpecAgreementGH
+import Checked.Trust.SecondReadingSpecI
+import Checked.Trust.SecondReadingSpecJ
+import Checked.Trust.SecondReadingSpecK
+import Checked.Trust.SpecAgreementIJK
+import Checked.Trust.JunkImmaterial

@@ -1,10 +1,10 @@
 # Run 2026-11-27T1028Z
 
-**THE RESULT:** part 3 (what a reader may rely on without trusting the authors): the last three pinned definitions with no blind specification reading (the F(R) expansion-rate equation, the F(R) master equation and the dust density of Bamba et al. 2012 §XI) read by three sourced blind readers (Sonnet, Opus, Haiku), each reading closed in Lean against the program's definition. (Stub; filled as the run goes.)
+**THE RESULT:** part 3 (what a reader may rely on without trusting the authors): the last three pinned definitions with no blind specification reading (the F(R) expansion-rate equation, the F(R) master equation and the dust density of Bamba et al. 2012 §XI) read by three sourced blind readers (Sonnet, Opus, Haiku); all nine readings closed in Lean against the program's definitions, in `Checked` and on the claims page. Every pinned definition use on the claims page now has at least one independent reading. Also: the two junk-value disagreements of run 0228Z (critical point, equal area) proved immaterial for every cubic-equation-of-state state the chemistry headlines quantify over.
 
-**What can a scientist now trust without checking it themselves, that they could not before?** (filled at the end)
+**What can a scientist now trust without checking it themselves, that they could not before?** That the program's F(R) expansion-rate equation, master equation and dust density are what three independent readers of Bamba et al. 2012 §XI, given only the LaTeX source, take them to be: each definition meets each reader's specification and is determined by it (`Checked/Trust/SpecAgreementIJK.lean`, 18 theorems, standard axioms), where the readers' divided forms make sense (F′(R) and the scale factor nonzero). And that §XI's sign of the Ricci scalar, which all three readers flagged as minus the usual one, is one consistent convention, not a mix: the program's two equations for (a, F) are proved identical to the textbook metric F(R) equations for the Lagrangian f(x) = −F(−x), for every a and F (`friedmannEq_iff_standard`, `masterEq_iff_standard`). And that for every vdW, RK, SRK and PR isotherm at volumes above the co-volume, the program's critical-point and equal-area conditions mean exactly what readers E and F wrote (`Checked/Trust/JunkImmaterial.lean`), so no chemistry headline rests on Lean's junk derivative or junk integral.
 
-**Weakest unchecked step:** (filled at the end)
+**Weakest unchecked step:** the readers are subagents of the same model family as the author, briefed by the author; blindness is checked only structurally (`check_blind_route`). And the source excerpt is a transcription the orchestrator made (verbatim lines with the e-print's hash, copied from run 0428Z): a reader never saw the typeset PDF.
 
 ## Start
 - 10:27Z. Session clone detached; `git checkout -B main origin/main` (9f275ee); `scripts/start_run.sh` (elan 4.35.0, Mathlib cache, commit-msg hook).
@@ -17,4 +17,31 @@ Section Next (b) of `runs/2026-11-27T0228Z/README.md` (part 3): 71 of the 494 pi
 
 ## What we did
 - Sources (`sources/`, outside the readers' folders, B5): `bamba2012_1205.3421v3.md`, a byte-identical copy of run 0428Z's verbatim LaTeX excerpt of arXiv 1205.3421v3 (§II metric, §VIII.C, §X, §XI through (11.6); e-print sha256 in its header).
-- Briefs `specI/briefI.md` (Sonnet), `specJ/briefJ.md` (Opus), `specK/briefK.md` (Haiku): three items each, quantity + source + Lean type, never the formula; committed before the readers run.
+- Briefs `specI/briefI.md` (Sonnet), `specJ/briefJ.md` (Opus), `specK/briefK.md` (Haiku): three items each, quantity + source + Lean type, never the formula; committed before the readers run (83e7b55).
+- Readings committed alone (4f5370e), replies transcribed (`spec*/reply*.md`). All three compiled first time; reader J wrote every formula inline (no helpers), K added smoothness side conditions.
+- Closure (`agreement/theorems.lean`, generated file `agreement/SpecAgreementIJK.lean` by `agreement/mk_agreement.py`, 0e033ff): 
+
+| definition | I (Sonnet) | J (Opus) | K (Haiku) |
+|---|---|---|---|
+| `rhoM` | AGREES (a(t₀), a(t) > 0) | AGREES (a(t₀), a(t) ≠ 0) | AGREES (> 0, a differentiable at t₀) |
+| `FriedmannEq` | AGREES (a > 0, F′(R) ≠ 0) | AGREES (a ≠ 0, F′(R) ≠ 0) | AGREES (+ a C³ near t, F C² at R) |
+| `MasterEq` | AGREES (a > 0, F′(R) ≠ 0) | AGREES (a ≠ 0, F′(R) ≠ 0) | AGREES (+ a C⁴ near t, F C³ near R) |
+
+  Every reader generalised the source's `a⁻³` (written for a₀ = 1) to (a(t₀)/a(t))³, as the program does; every reader used §XI's `R = −6(Ḣ + 2H²)` and flagged it as opposite to §VIII.C and to the usual sign; J flagged the `+ +` of the printed master equation (a commented-out line break) and asked whether §XI mixes conventions.
+- **The convention question settled in Lean** (`friedmannEq_iff_standard`, `masterEq_iff_standard`): with f(x) = −F(−x) and Rₛ = 6(Ḣ + 2H²), the program's §XI equations are exactly 3f′H² = ρ + (Rₛf′ − f)/2 − 3HṘₛf″ and −2f′Ḣ = ρ + R̈ₛf″ + Ṙₛ(Ṙₛf‴ − Hf″), for every a and F, no smoothness assumed (Mathlib's derivative of a composition with negation needs none). Flipping the signs of R and of the Lagrangian together is a convention; F(R) = R is general relativity in both.
+- **LOCK released by run 0828Z at 10:38Z (868eee2); taken 10:45Z (59f0eff).** Copy steps done in this run: `Checked/Trust/SecondReadingSpec{I,J,K}.lean` (code unchanged, provenance header), `Checked/Trust/SpecAgreementIJK.lean` (theorem part with the imports), `Checked.lean`, `scripts/trust/Claims.lean` (`blindSpecNote` reads readers I, J, K, marked sourced).
+- **Part 3 (d) of run 0228Z's Next, decided without a definition change** (`Checked/Trust/JunkImmaterial.lean`, drafted in `junk/`): for `cubicP R a b u w T` with b > 0, u > −2, 1 + u + w > 0 (vdW, RK, SRK, PR 1976 and 1978), the isotherm and its derivative are differentiable at every volume above b and the isotherm is integrable on every interval above b; hence readers E's and F's critical-point and coexistence specifications are equivalent to the program's conditions there (`critical_agrees_E/F`, `coexistence_agrees_E/F`), and every program coexistence state with liquid volume above b meets the readers' (`coexistence_agrees_of_liquid_E/F`). Every chemistry headline quantifies only over such states (`b < v`, `b < vl`), so the junk admissions do not reach any of them; changing the definitions would cost a relock and every chemistry headline for no change in meaning. Not yet on the claims page (next).
+
+## Measure
+- Pinned definitions with a blind specification reading: 20 of 23 → 23 of 23; pinned definition uses on the claims page determined by an agreeing blind reading: 423 → 471 of 494 (the other 23 are uses of the critical-point and equal-area conditions, where readers E and F disagree only through junk values; `JunkImmaterial` proves that immaterial on every headline state, which the page does not show yet).
+- Blind specification readings: 48 → 57 (9 new, 9 agree); sourced readings 8 → 17.
+- Junk-value disagreements shown to reach a headline's states: 2 open → 0 (both proved immaterial for every cubic-EOS state above the co-volume).
+
+## Next
+- **CI read first:** the run of this run's final push (new `Checked/Trust` modules `SecondReadingSpec{I,J,K}`, `SpecAgreementIJK`, `JunkImmaterial`; `Claims.lean` reader list; relock, pages regenerated). Green on every job → nothing to promote (no headline changed). Red → its first failing command, base 5c678d6 (45956936101, green on every job) or the newest fully green descendant.
+- Part 3 next: (a) show `JunkImmaterial` on the claims page next to readers E's and F's DISAGREES on `IsCriticalIsotherm` and `IsMaxwellCoexistence` ("the disagreement does not reach a cubic isotherm above the co-volume", with the theorem names), e.g. a `materialNote` in `Claims.lean` keyed on `*_agrees_*` theorems naming the definition; likewise for reader F's empty-interval disagreement on the three ODE solution predicates (every simulator headline has a positive final time: prove it the same way); (b) the remaining memory-only readings (A–F) re-read with the source, starting with the links whose agreement rests on a convention (`curvK`, the order-2 coefficient's sign); (c) as in run 0228Z's Next, compare each pair of pins' domains mechanically.
+- Part 1 next: as in section Next of `runs/2026-11-27T0028Z/README.md`. Parts 2/5 next: as in section Next of `runs/2026-11-27T0828Z/README.md`.
+- External test: while `EXTERNAL_LOCK` is fresh, run 0628Z keeps it.
+
+## End
+- (filled at the end)

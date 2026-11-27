@@ -5,20 +5,22 @@
 Same theorem names and shapes as `Checked/Trust/SpecAgreementGH.lean`: `meets_X_R : SpecR X` (the program's
 definition is a model of reader R's specification) and `pins_X_R` (every function or condition meeting R's
 specification equals / is equivalent to the program's, on R's domain). Readers I (Sonnet), J (Opus) and
-K (Haiku) were handed a verbatim LaTeX excerpt of Bamba, Capozziello, Nojiri, Odintsov 2012 (arXiv
-1205.3421v3, §II, §VIII.C, §X, §XI through (11.6); `runs/2026-11-27T1028Z/sources/`) and, for each item,
+K (Haiku) were handed a verbatim LaTeX excerpt of Bamba, Capozziello, Nojiri, Odintsov 2012 (the arXiv
+e-print's §II, §VIII.C, §X and §XI up to its Ricci-scalar equation; `runs/2026-11-27T1028Z/sources/`) and, for each item,
 only the quantity, its section and the Lean type; none saw the program's text.
 
 Results: all nine readings AGREE.
-* `rhoM` (dust density, text after (11.2)): every reader generalised the source's `a⁻³` (written for
-  `a(t₀) = 1`) to `(a(t₀)/a(t))³`, as the program does; determined where `a(t₀)`, `a(t)` are nonzero (I, K:
+* `rhoM` (dust density, §XI text after the curvature-fluid density): every reader generalised the source's
+  `a⁻³` (written for a scale factor equal to one today) to the cube of the ratio of `a(t₀)` to `a(t)`, as the
+  program does; determined where `a(t₀)`, `a(t)` are nonzero (I, K:
   positive; K also asks `a` differentiable at `t₀`).
-* `FriedmannEq` ((11.1)–(11.2)) and `MasterEq` ((11.5)): each reader wrote the equation in the source's
+* `FriedmannEq` (§XI expansion-rate equation) and `MasterEq` (§XI master equation): each reader wrote the equation in the source's
   divided form; the program's multiplied forms are equivalent wherever `F′(R) ≠ 0`, which every reader
   requires (K adds smoothness of `a` and `F`, the program's form holds without it).
 * The convention question two readers raised (J: "§XI looks like a mix of conventions") is settled here
   in Lean: `friedmannEq_iff_standard`, `masterEq_iff_standard` prove that the program's §XI equations for
-  `(a, F)` are exactly the common-sign metric F(R) equations (`R = +6(Ḣ + 2H²)`, `(R f′ − f)/2`) for
+  `(a, F)` are exactly the common-sign metric F(R) equations (Ricci scalar `+6(Ḣ + 2H²)`, curvature-fluid
+  term `R f′ − f` halved) for
   `f(x) = −F(−x)`, for every `a`, `F` and with no smoothness assumption: §XI is one consistent convention
   (the sign of `R` and of the Lagrangian flipped together), not a mix.
 -/
@@ -194,7 +196,7 @@ theorem pins_MasterEq_K (P : ℝ → (ℝ → ℝ) → (ℝ → ℝ) → ℝ →
 /-! ## §XI is one convention: the common-sign F(R) equations for `f(x) = −F(−x)`
 
 Readers I, J, K all flagged that §XI's `R = −6(Ḣ + 2H²)` is minus the usual Ricci scalar of the stated metric
-(the source's §VIII.C has `+6`), and J asked whether (11.1)–(11.5) mix conventions. The two theorems below
+(the source's §VIII.C has `+6`), and J asked whether its expansion-rate and master equations mix conventions. The two theorems below
 answer it for every scale factor and every `F`, with no smoothness assumption (Mathlib's `deriv` of a
 composition with negation needs none): the program's §XI equations for `(a, F)` are the textbook metric F(R)
 equations, with Ricci scalar `+6(Ḣ + 2H²)` and curvature fluid `(R f′ − f)/2 − 3HṘf″`, for the Lagrangian

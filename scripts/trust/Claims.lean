@@ -647,10 +647,11 @@ def blindSpecNote (ctx : Ctx) (d : Name) : MetaM String := do
   let shortN := d.componentsRev.head!.toString
   let env ← getEnv
   let mut items : Array String := #[]
-  for r in ["A", "B", "C", "D", "E", "F", "G", "H"] do
-    -- Readers G and H (run 2026-11-27T0428Z) were handed verbatim source excerpts (`runs/<run>/sources/`);
-    -- A to F wrote from memory (their web fetches were refused or not attempted). The page says which.
-    let srcTxt := if ["G", "H"].contains r then "sourced" else "from memory"
+  for r in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"] do
+    -- Readers G and H (run 2026-11-27T0428Z) and I, J, K (run 2026-11-27T1028Z) were handed verbatim source
+    -- excerpts (`runs/<run>/sources/`); A to F wrote from memory (their web fetches were refused or not
+    -- attempted). The page says which.
+    let srcTxt := if ["G", "H", "I", "J", "K"].contains r then "sourced" else "from memory"
     let readerNs := (`Checked.Trust).str s!"SecondReadingSpec{r}"
     -- `pins_neg_X_R` (run 2026-11-27T0828Z): the reader's specification determines minus the definition
     let pinsPos := (`Checked.Trust.SpecAgreement).str s!"pins_{shortN}_{r}"
