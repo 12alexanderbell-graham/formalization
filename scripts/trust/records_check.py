@@ -20,6 +20,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+AUDIT_STEP = "- name: Closed audits stay closed"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from local_frozen_step import TRUST_STEP, step_block, step_commands  # noqa: E402
 
@@ -27,10 +28,14 @@ from local_frozen_step import TRUST_STEP, step_block, step_commands  # noqa: E40
 def commands(yml):
     trust = [l.strip() for l in step_block(yml, TRUST_STEP).splitlines() if l.strip().startswith("python3")]
     frozen = [c for c in step_commands(yml) if c.startswith("python3")]
+    # run 2026-11-27T1828Z (annex LIV): the work job's audit step also has a Lean-free base-diff rule (check_audits R1,
+    # closed run records changed without a LEDGER line naming them); run 1228Z edited run 0628Z's README, no local
+    # check ran it, and judge run 46020135102's work job failed on it after 170 min of building
+    work = [l.strip() for l in step_block(yml, AUDIT_STEP).splitlines() if l.strip().startswith("python3")]
     # precheck_citations (run 2026-11-13T2028Z): the citation registry rule lives in StatementDeps (Lean); run 1828Z
     # changed FINDINGS.md citations with Python checks only and every push from af2cc09 would have failed the trust step
     return (["python3 scripts/goal_guard.py", "python3 validation/make_packet.py --check",
-             "python3 scripts/trust/precheck_citations.py"] + trust + frozen)
+             "python3 scripts/trust/precheck_citations.py"] + trust + frozen + work)
 
 
 def main():
