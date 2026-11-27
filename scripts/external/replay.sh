@@ -203,7 +203,7 @@ if [ -n "${LC_SHARD:-}" ]; then
   done
   ALL=$(cat closure_modules.txt; for e in ${EXTRA:-}; do echo "${e%%=*}"; done)
   # shellcheck disable=SC2086
-  lake build $ALL > build.log 2>&1 || { tail -40 build.log; echo "FAIL: build"; exit 1; }
+  lake build $ALL > build.log 2>&1 || { grep -n -B3 -A15 "error" build.log | grep -v "^.*✔" | head -200; tail -20 build.log; echo "FAIL: build"; exit 1; }
   echo "shard build: $(grep -c 'Built ' build.log || true) modules (re)built, the rest from the restored build"
   SLICE=$(printf '%s\n' $ALL | awk -v k="$k" -v n="$n" '(NR - 1) % n == k - 1')
   echo "leanchecker shard $k/$n: $(printf '%s\n' $SLICE | wc -l) of $(printf '%s\n' $ALL | wc -l) modules"
@@ -214,7 +214,9 @@ if [ -n "${LC_SHARD:-}" ]; then
 fi
 
 # 1-2. compare challenge declarations with the solution's; axioms of the targets
-lake build "$SOL" "$CHAL" > build.log 2>&1 || { tail -40 build.log; echo "FAIL: build"; exit 1; }
+# On failure print the errors themselves, not only the tail: the O-qrh run 45962257301 showed only the names of
+# three failing modules of an outside package, its errors being thousands of lines above the tail.
+lake build "$SOL" "$CHAL" > build.log 2>&1 || { grep -n -B3 -A15 "error" build.log | grep -v "^.*✔" | head -200; tail -20 build.log; echo "FAIL: build"; exit 1; }
 lake env lean --run "$HERE/compare_decls.lean" "$CHAL" "$SOL" "${THMS[@]}" > compare.log 2>&1 || {
   grep -v '^  •' compare.log | tail -40; echo "FAIL: compare"; exit 1; }
 grep -v '^  •' compare.log
