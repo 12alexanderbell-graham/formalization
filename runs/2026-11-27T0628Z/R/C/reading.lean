@@ -101,7 +101,7 @@ For every modulus `N > 0` and every primitive character `χ` mod `N`, every zero
 `DirichletCharacter.LFunction χ` in the open critical strip `0 < Re s < 1` has `Re s = 1/2`.
 The trivial zeros and the pole at `s = 1` lie outside the strip. -/
 def ReadingGRH : Prop :=
-  ∀ N : ℕ, 0 < N → ∀ χ : DirichletCharacter ℂ N, ReadingIsPrimitive N χ →
+  ∀ N : ℕ, [NeZero N] → ∀ χ : DirichletCharacter ℂ N, ReadingIsPrimitive N χ →
     ∀ s : ℂ, DirichletCharacter.LFunction χ s = 0 → 0 < s.re → s.re < 1 → s.re = 1 / 2
 
 /-- GRH for Dirichlet L-functions, all-characters reading.
@@ -110,5 +110,5 @@ Same as `ReadingGRH`, but for every character `χ` mod `N > 0`, primitive or not
 Mathematically equivalent to `ReadingGRH`: the extra Euler factors of imprimitive
 characters have zeros only on `Re s = 0`. -/
 def ReadingGRH' : Prop :=
-  ∀ N : ℕ, 0 < N → ∀ χ : DirichletCharacter ℂ N,
+  ∀ N : ℕ, [NeZero N] → ∀ χ : DirichletCharacter ℂ N,
     ∀ s : ℂ, DirichletCharacter.LFunction χ s = 0 → 0 < s.re → s.re < 1 → s.re = 1 / 2
