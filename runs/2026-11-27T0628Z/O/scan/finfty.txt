@@ -1,0 +1,7 @@
+custom syntax	OAI/GroupTheory/UniversalGroup/TorusBundles.lean:100	local notation "" => (Fact.out : Function.Injective f)
+custom syntax	OAI/GroupTheory/UniversalGroup/TorusBundles.lean:364	local notation "" => (Fact.out : Function.Injective f)
+custom syntax	OAI/GroupTheory/UniversalGroup/TorusSpheres.lean:132	local notation "" => (Fact.out : Function.Injective f)
+custom syntax	OAI/GroupTheory/UniversalGroup/TorusSpheres.lean:296	local notation "" => (Fact.out : Function.Injective f)
+custom syntax	OAI/GroupTheory/UniversalGroup/TorusSpheres.lean:383	local notation "" => (Fact.out : Function.Injective f)
+# closure: 50 files, 19991 lines; external packages: {'Mathlib': 1}
+# hits: custom syntax 5

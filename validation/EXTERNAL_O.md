@@ -11,12 +11,12 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 |---|---|---|---|
 | O1 | The Quasi-Riemann Hypothesis (`QuasiRiemannHypothesis`, `DirichletSevenEighths`, `HeckeSevenEighths`) | **NOT DONE** (statement: ζ and Dirichlet parts closed; Hecke part open; replay dispatched) | the two manuscripts state different theorems (7/8 on 30 Sep, 11/12 on 5 Oct); the Lean states 7/8 |
 | O2 | Catalan's constant is irrational (`Catalan`) | **NOT DONE** (statement DONE: 7/7 readings closed; first replay: build of PrimeNumberTheoremAnd's Catalan module failed without OpenAI's dependency patch, re-dispatched with it) | none at statement level; the L(2, χ₋₄) form proved equal to the frozen series in Lean |
-| O3 | Kaplansky direct finiteness, characteristic two (`KaplanskyFinitelyPresented`) | **NOT DONE** (Theorem 1.1 closed 3/3; replay PASSED: match, axioms, nanoda 82,359 declarations, leanchecker 3 of 4 shards OK, 4th running) | the manuscript's Gottschalk (surjunctivity) consequence, stated as proved, has no Lean statement in this family |
+| O3 | Kaplansky direct finiteness, characteristic two (`KaplanskyFinitelyPresented`; second challenge `KaplanskyDirectFiniteness`, the f.g. form, replay line O-kaplansky2-fg) | **NOT DONE** (Theorem 1.1 closed 3/3; replay PASSED: match, axioms, nanoda 82,359 declarations, leanchecker 3 of 4 shards OK, 4th running) | the manuscript's Gottschalk (surjunctivity) consequence, stated as proved, has no Lean statement in this family |
 | O4 | The Euclidean plane is not five-colorable (`EuclideanFiveColor` + `PlaneColoring`) | **NOT DONE** (statement DONE: 9/9 closed with the family's two frozen statements; replays PASSED for both: `no_proper_five_coloring` nanoda 82,222 declarations, `properColoring_seven` nanoda 18,649, coverage COMPLETE on O-plane7; leanchecker shards running) | none: χ ≤ 7 (Isbell, cited by the manuscript) is the family's second challenge `properColoring_seven`; the first record of this row (χ ≤ 7 uncovered) was corrected the same run |
 | O5 | The additive indecomposability of the primes (`OstmannPrimes`) | **NOT DONE** (statement DONE: 7/7 closed; first replay: build of the solution failed before the dependency patches were applied, re-dispatched with them) | none at statement level |
 | O6 | A power saving for square-difference-free sets (`SquareDifference`) | **NOT DONE** (statement DONE: 6/6 closed; match and axioms PASSED, closures' axioms standard; nanoda crashed on a stack overflow (ours: its threads' 32 MiB default), re-dispatched with 1 GiB) | none at statement level; the frozen `C` is unconstrained and `c` is not bounded by 1, as in the source (readers B, C note c > 1 would make it false, so the theorem forces c ≤ 1) |
 | O7 | A complete local domain without a small Cohen–Macaulay module (`SurfaceConeCandidateSupport`) | **NOT DONE** (0/9 readings closable; the frozen statement's proof: match and axioms PASSED; readings do not elaborate under OpenAI's Mathlib pin (no `IsLocalRing.depth`), re-dispatched without them) | **the family's only Lean statement does not state the claim**: it asserts that *some* complete Noetherian normal local domain of dimension 3 with residue field ℂ exists — any such ring (e.g. ℂ⟦x, y, z⟧) satisfies it — and says nothing about small Cohen–Macaulay modules; the manuscript's Theorem 1.1 and its disproof of the conjecture have no Lean statement |
-| O8 | The Falconer distance conjecture in all dimensions (`FalconerAllDimensions`) | **NOT DONE** (statement DONE: 3/3 closed; replay dispatched) | none at statement level |
+| O8 | The Falconer distance conjecture in all dimensions (`FalconerAllDimensions`; second challenge `PlanarFalconer`, the d = 2 case, replay line O-falconer-planar) | **NOT DONE** (statement DONE: 3/3 closed; replay dispatched) | none at statement level |
 | O9 | The irrationality exponent of π is 2 (`PiExponent`) | **NOT DONE** (6/10 closed: μ(π) = 2 and the inequality, every reader; replay PASSED: match, axioms, nanoda 118,090 declarations; leanchecker pending) | the abstract's consequence "the Flint–Hills series converges" has no Lean statement |
 | O10 | An explicit noncoordinate polynomial with affine three-space zero fibre (`AbhyankarSathaye`) | **NOT DONE** (Corollary 1.2 closed 3/3; replay PASSED, run 45967351577) | the headline Theorem 1.1 is about an explicit F; no Lean statement names F (the Lean states only the existential corollary). Tested here: the source's identity x² + y³ = h·s, F(P) = −1 and ∇F(P) = 0 at P = (2, 0, −1/2, 1/2) hold (Lean, `noncoord/check/Gradient.lean`) |
 | O11 | A logarithmic independence bound for clique-free graphs (`CliqueFreeLog`) | **DONE pending leanchecker** (statement DONE: 3/3, frozen ⇒ reading; replay PASSED: match, axioms, nanoda 46,877 declarations, coverage COMPLETE; leanchecker shards pending) | none at statement level; a 5.5k-line proof of a bound removing Shearer's log log d factor for every r ≥ 4 checks |
@@ -25,6 +25,10 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O14 | An exponential bound for sunflowers (`Sunflower`) | **NOT DONE** (3/7: every reader's qualitative Theorem 1.1 closed; replay dispatched) | the manuscript's explicit B_r = 2^{C H⁴ L^{5/2}} with an absolute C has no Lean statement: the Lean states only that some base C(r) exists (the Erdős–Rado sunflower conjecture itself) |
 | O15 | Real Littlewood polynomials are asymptotically minimal (`AsymptoticallyMinimalLittlewood`) | **NOT DONE** (statement DONE: 6/6 — the "Equivalently" form and, with the lower bound proved here, the "lim m_N = 1" form, every reader; replay dispatched) | the Lean states only the upper bound; the headline limit also needs m_N ≥ 1, which the source cites as known — proved here in Lean (discrete orthogonality at the N-th roots of unity), so the frozen statement does imply the headline |
 | O16 | The dyadic case of the Erdős similarity conjecture (`DyadicAvoidance`) | **NOT DONE** (statement DONE: 5/5, frozen ⇒ reading; replay dispatched) | none at statement level |
+| O17 | Almost-everywhere Fourier convergence in L log L (`FourierLLogL`) | **NOT DONE** (statement DONE: 3/3, frozen ⇒ reading; replay dispatched) | none at statement level: every reader's normalised measure is Mathlib's `haarAddCircle`, every reader's e^{ikx} is `fourier k`, so coefficients and partial sums are the frozen ones; the frozen hypothesis (integrability of ‖f‖ log(2+‖f‖)) follows from the readers' (lower integral < ∞) |
+| O18 | A power saving for planar unit distances (`PlanarUnitDistances`) | **NOT DONE** (statement DONE: 6/6, both forms; replay dispatched) | none at statement level: the readers' counts (2-element subsets for A and C, `Sym2` for B) proved equal to the frozen `Sym2` count |
+| O19 | A universal group of type F∞ (`UniversalFInfinity`) | **NOT DONE** (3/7: Theorem 1.1 closed for every reader; replay dispatched) | Corollary 1.2 (f.g. G embeds in H iff recursively presented) has no Lean statement; it rests on Higman's embedding theorem, not in Lean |
+| — | Integral points on character varieties (`CharacterVarietiesAllSeamsSupport`) | **NOT STARTED** | observation (orchestrator only, not a blind reading): the family's only challenge is a lemma about the release's own `Diagram` structures (it imports OAI modules), not a statement of Theorem 1.1 in Mathlib terms; queued for the protocol |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
 
@@ -216,3 +220,27 @@ closure: 75 files, 8,455 lines, no escape hits.
   (`IsLocalRing.depth` is newer). The verdict does not depend on them (no closure exists); re-dispatched without.
   General lesson: a reading written against our Mathlib may not compile at an outside pin — the replay line then
   checks the readings under our pin only, and says so.
+
+## O17–O19 (run 2026-11-27T0628Z; brief 9c41e72, readings 990145b; files `runs/2026-11-27T0628Z/O/{llogl,unitdist,finfty}/`)
+
+**O17, Fourier series in L log L.** Claim (01-introduction.tex, 61ad5332…): for every complex f ∈ L log L(𝕋),
+𝕋 = ℝ/2πℤ with dμ = dx/2π, S_N f → f off a measurable null set, along the full sequence. Frozen: the same on
+`AddCircle (2π)` with `haarAddCircle`, Mathlib's `fourierCoeff` and `fourier`, hypotheses `AEStronglyMeasurable`
+and integrability of ‖f‖ log(2 + ‖f‖). Closed frozen ⇒ each reading (`llogl/closure/Closure.lean`): A's
+(ofReal 2π)⁻¹ • volume and B's ofReal(1/2π) • volume equal `haarAddCircle` (`volume_eq_smul_haarAddCircle`);
+A's character, the descent of t ↦ e^{ikt}, equals `fourier k`; the readers' lower-integral hypothesis gives the
+frozen `Integrable`. Solution closure: 156 files, 29,665 lines, no escape hits — small for the claim (the L log L
+endpoint of Carleson–Hunt, open since Kolmogorov's L¹ counterexample); the replay decides.
+
+**O18, unit distances.** Claim (00-introduction.tex, 25a795fb…): absolute 0 < C, 1 ≤ β < 4/3 with u(n) ≤ C n^β
+for all n; equivalently u(n) = O(n^{4/3−δ}). Frozen: the bound, u as the `sSup` of `Sym2` unit pairs. Closed
+for every reader, both forms (6/6): a bijection between 2-element unit subsets and `Sym2` unit pairs (A, C), set
+equality (B); big-O with δ = 4/3 − β. Solution closure: 40 files, 28,113 lines, no escape hits.
+
+**O19, universal F∞ group.** Claim (introduction.tex, 069ab99e…): Theorem 1.1, an F∞ group into which every
+finitely presented group embeds; Corollary 1.2, f.g. G embeds iff recursively presented. Frozen: Theorem 1.1
+with `HasTypeFInfinity` (Hausdorff, connected, CW structure on univ with finitely many cells per dimension,
+π₁ ≃* H, a surjective covering from a contractible space). Closed: every reader's Theorem 1.1 (readers B and C
+ask less of the cover, A also continuity; A and C's own finite presentations give Mathlib's
+`Group.IsFinitelyPresented`). Uncovered: Corollary 1.2 (4 readings). Solution closure: 50 files, 19,991 lines, 5
+custom-syntax hits.
