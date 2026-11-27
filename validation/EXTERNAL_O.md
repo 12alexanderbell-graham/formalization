@@ -28,8 +28,8 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O17 | Almost-everywhere Fourier convergence in L log L (`FourierLLogL`) | **DONE** (statement DONE: 3/3; replay PASSED: match, axioms, nanoda 60,516 declarations, leanchecker 4/4, coverage COMPLETE; run 45978039795) | none at statement level: every reader's normalised measure is Mathlib's `haarAddCircle`, every reader's e^{ikx} is `fourier k`, so coefficients and partial sums are the frozen ones; the frozen hypothesis (integrability of ‖f‖ log(2+‖f‖)) follows from the readers' (lower integral < ∞) |
 | O18 | A power saving for planar unit distances (`PlanarUnitDistances`) | **DONE** (statement DONE: 6/6, both forms; replay PASSED: match, axioms, nanoda 75,221 declarations, leanchecker 4/4, coverage COMPLETE; run 45978039795) | none at statement level: the readers' counts (2-element subsets for A and C, `Sym2` for B) proved equal to the frozen `Sym2` count |
 | O19 | A universal group of type F∞ (`UniversalFInfinity`) | **NOT DONE** (3/7: Theorem 1.1 closed for every reader; proof replay PASSED incl. leanchecker 4/4, nanoda 58,001 declarations) | Corollary 1.2 (f.g. G embeds in H iff recursively presented) has no Lean statement; it rests on Higman's embedding theorem, not in Lean |
-| O20 | The symmetric Mahler conjecture and its equality cases (`MahlerConjecture`) | **NOT DONE** (3/6: the inequality closed for every reader; replay dispatched) | the equality case (iff K is a linear Hanner body), half of Theorem 1.1, has no Lean statement |
-| O21 | A classification of finite Euclidean Ramsey configurations (`EuclideanRamseySpherical`, `…Circle`, `…Transitive`) | **NOT DONE** (4 of 12 claim readings closed: every reader's necessity (iii), reader B's circle (ii); replays dispatched) | **the headline Classification theorem has no Lean statement**: the release states three consequences (a Ramsey set is cospherical — the classical 1973 theorem the paper cites —, at most five points on a circle are Ramsey, subtransitive sets are Ramsey); readers A and C's circle form (in ℝ^m) and every reader's subtransitive form not closed this run |
+| O20 | The symmetric Mahler conjecture and its equality cases (`MahlerConjecture`) | **NOT DONE** (3/6: the inequality closed for every reader; replay dispatched) | ~~the equality case has no Lean statement~~ **withdrawn 11:20Z: wrong** — the family has a second challenge, `SymmetricMahlerEquality` (54 lines, `OAI.Analysis.Mahler.Classification`), stating it; closure against it pending |
+| O21 | A classification of finite Euclidean Ramsey configurations (`EuclideanRamseySpherical`, `…Circle`, `…Transitive`) | **NOT DONE** (4 of 12 claim readings closed: every reader's necessity (iii), reader B's circle (ii); replays dispatched) | ~~the headline Classification theorem has no Lean statement~~ **withdrawn 11:20Z: wrong** — the family has six challenges; `EuclideanRamsey.classification` (52 lines) states the Classification, and `EuclideanRamseyNine`, `EuclideanRamseyQuadratic` state further consequences; closures against them pending. (Original text: the release states three consequences (a Ramsey set is cospherical — the classical 1973 theorem the paper cites —, at most five points on a circle are Ramsey, subtransitive sets are Ramsey); readers A and C's circle form (in ℝ^m) and every reader's subtransitive form not closed this run |
 | O22 | The circulant Hadamard conjecture (`CirculantHadamard` + `EvenBarker`) | **NOT DONE** (3/6: Theorem 1.1 closed for every reader; replays dispatched) | Corollary 1.2 (Barker lengths exactly {2,3,4,5,7,11,13}) is stated in Lean only for even lengths (`even_length_eq_two_or_four`); the odd case (cited) and existence are not |
 | O23 | A quadratic bound for Jacobsthal's function (`JacobsthalImproved` + `Jacobsthal`) | **NOT DONE** (statement DONE: 6/6 — Theorem 1.1 and Jacobsthal's quadratic question, every reader; replays dispatched) | none at statement level; the frozen iterated-log bound also gives the quadratic form (C' = C/(log log 3)²), closed in Lean |
 | O24 | Single-fold Diophantine representations (`SingleFold`) | **NOT DONE** (3/6: Theorem 1.1 closed for every reader; replay dispatched) | the Corollary (undecidability under an at-most-one-solution promise) has no Lean statement |
@@ -340,3 +340,25 @@ Mathlib's `DirichletCharacter.LFunction` (the continuation — pinned in target 
 values as zero imaginary parts. Closed for every reader, and reader A's conductor form (4/4). Solution closure:
 306 files, 69,818 lines (PrimeNumberTheoremAnd), 56 custom-syntax hits. The claim is one of the central open
 problems of analytic number theory; the replay decides whether the proof checks.
+
+## Correction, 11:20Z: two "no Lean statement" findings withdrawn (our error)
+
+The O20 and O21 findings sent to Alexander at 10:30Z ("Mahler: equality case has no Lean statement";
+"Euclidean Ramsey: the Classification theorem has no Lean statement") were **wrong**. Each family has further
+comparator challenges that I had not listed: I mapped families to challenges by taking the challenges near the
+current size threshold, not by the solution module's directory. Listing every challenge by solution directory
+(`OAI.<Area>.<Family>.*`) shows:
+
+| family | challenges | missed |
+|---|---|---|
+| O20 Mahler | `MahlerConjecture`, `SymmetricMahlerEquality` | the equality case (Hanner bodies) |
+| O21 Euclidean Ramsey | `EuclideanRamsey` (Classification), `…Spherical`, `…Circle`, `…Transitive`, `…Nine`, `…Quadratic` | the headline and two consequences |
+| O5 Ostmann | `OstmannPrimes`, `OstmannComplete` (inverse Goldbach; no two infinite summands) | further claims (O5's readings closed 7/7 against `OstmannPrimes`) |
+| O15 Littlewood | `AsymptoticallyMinimalLittlewood`, `LittlewoodFiniteFlatness` | a second statement (O15's readings closed 6/6 against the first) |
+
+Every other "no Lean statement" finding (O3 Gottschalk, O7 small CM, O9 Flint–Hills, O10 explicit F, O14 explicit
+B_r, O19 Corollary 1.2, O22 Barker lengths, O24 Corollary, O26 every-constant form) was re-checked against the full
+list by solution directory and a keyword search of all 425 challenge files (Gottschalk, surjunctive, Flint, Hills,
+Barker, Hanner, recursively, REPred, Higman, Steinitz, …): no further challenge states those claims.
+General fix: `scripts/external/family_challenges.py` lists a family's challenges by solution directory; a coverage
+verdict cites its output.
