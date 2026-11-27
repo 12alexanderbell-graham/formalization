@@ -40,6 +40,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O29 | The sharp logarithmic exponent of r(5,t) (`RamseyFive`) | **NOT DONE** (statement DONE: 6/6 — bounds and limit, every reader; replay dispatched) | none at statement level |
 | O30 | The subcritical Hénon–Lane–Emden conjecture (`HenonEmden`) | **NOT DONE** (statement DONE: 6/6 — Theorem 1.1, and Corollary 1.2 derived in Lean from the frozen theorem at A = B = 0, every reader; replay dispatched) | none at statement level |
 | O31 | Relative independence of the separable quotient problem (`SeparableQuotientNegative`) | **NOT DONE** (1 of 6 claims: reader A's (ii); replay dispatched) | Theorem 1.1 (i) (real-valued measurable 𝔠 ⇒ SQ) has no Lean statement; only (ii) (CH ⇒ ¬SQ) is stated; the independence conclusions are about provability in ZFC (not statable, all readers agree) |
+| O32 | Finite algebraic envelopes and the Boone–Higman conjecture (`BooneHigman`) | **NOT DONE** (3/4: every reader's Theorem 1.1 with "some generating family", G in `Type`; replay dispatched) | none at statement level; reader A's extra "every generating family" form is not closed (true, needs a computability argument) |
+| O33 | An explicit failure of complex affine space cancellation (`ComplexCancellation`) | **NOT DONE** (7/10: Theorem 1.1, every reader; replay dispatched) | Corollary 1.2 (H is a stable coordinate but not a coordinate: the Stable Coordinate Conjecture fails) has no Lean statement |
+| O34 | Bi-Lipschitz absorption of c₀ without a linear copy of c₀ (`C0Absorption`) | **NOT DONE** (1/3: reader C; replay dispatched) | none at statement level; readers A and B define c₀ inside ℓ^∞ (isometric to the frozen `C₀(ℕ, ℝ)`; transport not written) |
 | — | Integral points on character varieties (`CharacterVarietiesAllSeamsSupport`) | **NOT STARTED** | observation (orchestrator only, not a blind reading): the family's only challenge is a lemma about the release's own `Diagram` structures (it imports OAI modules), not a statement of Theorem 1.1 in Mathlib terms; queued for the protocol |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
@@ -394,3 +397,26 @@ A's (ii). Not closed: (i) for every reader (no Lean statement); (ii) for B (stat
 (a type equal to ℝ or ℂ with an arbitrary `RCLike` instance) — true readings, but transporting the frozen ℝ/ℂ
 statement along an `RCLike` isomorphism is not written; coverage also lists reader A's `CH` definition. Solution
 closure: 51 files, 14,178 lines, 2 custom-syntax hits.
+
+## O32–O34 (run 2026-11-27T0628Z; brief 08b11e5, readings 9c11aab; files `runs/2026-11-27T0628Z/O/{boonehigman,cancellation,c0absorb}/`; one challenge each)
+
+**O32, Boone–Higman.** Claim (introduction.tex, 48b68815…): a finitely generated group has decidable word problem
+iff it embeds in a finitely presented simple group. Frozen: the same (`ComputablePred` on words for some finite
+generating family; `Group.IsFinitelyPresented`, `IsSimpleGroup`; universe-polymorphic). Closed at universe 0: B, C
+(C's decider is a total `Computable` Bool function — `ComputablePred.computable_iff`), A's "some family" form (A's
+finite presentations and simplicity converted both ways). Not closed: A's "every generating family" variant and A's
+statement for G in higher universes (A puts H in `Type`). The simplicity conversions are written to elaborate at
+both Mathlib pins (`IsSimpleGroup.eq_bot_or_eq_top_of_normal` changed signature). Solution closure: 47 files,
+37,197 lines, 6 custom-syntax hits.
+
+**O33, affine cancellation.** Claim (01-introduction.tex, 73508976…): A = ℂ[p,s,u,F,J]/(H) is a 4-dimensional domain
+with A[w] ≅ ℂ[5 variables] and A ≇ ℂ[4 variables] (Zariski cancellation fails over ℂ in dimension 4); corollary:
+H is a coordinate of P[w] but not of P. Frozen: Theorem 1.1 (plus finite type). Every reader wrote the same
+variables in the same order: their A is the frozen A by `rfl`. Closed: Theorem 1.1 (A's four parts and conjunction,
+B, C). Uncovered: Corollary 1.2 (3). Solution closure: 55 files, 5,573 lines, no escape hits.
+
+**O34, c₀ absorption.** Claim (01-introduction.tex, 13bfea3a…): a separable real Banach Z with no closed subspace
+isomorphic to c₀ and an onto bi-Lipschitz Z ⊕_∞ c₀ → Z (Kalton's Problem 2, negative). Frozen: with "no
+bounded-below linear map c₀ → Z", plus further properties. Closed: reader C (a closed copy of c₀ would give such a
+map). Not closed: A and B (c₀ as a subspace of ℓ^∞; the isometry with `C₀(ℕ, ℝ)` is not written). Solution closure:
+34 files, 7,918 lines, no escape hits.

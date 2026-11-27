@@ -1,0 +1,8 @@
+custom syntax	OAI/GroupTheory/BooneHigman/Diagrams.lean:368	local notation "" => endpointData x s t y₀ hs
+custom syntax	OAI/GroupTheory/BooneHigman/Diagrams.lean:369	local notation "" => endpointSymmetryData x s t y₀ hs
+custom syntax	OAI/GroupTheory/BooneHigman/Diagrams.lean:370	local notation "" => endpointBaker x s t y₀ hs
+custom syntax	OAI/GroupTheory/BooneHigman/Diagrams.lean:371	local notation "" => endpointRoot x s t y₀
+custom syntax	OAI/GroupTheory/BooneHigman/Diagrams.lean:372	local notation "" => endpointProject x s t y₀
+custom syntax	OAI/GroupTheory/BooneHigman/Diagrams.lean:373	local notation "" => MonoidHom.comp (Subgroup.subtype (group (Γ:=Γ) (X:=X))) (evaluation x)
+# closure: 47 files, 37197 lines; external packages: {'Mathlib': 9}
+# hits: custom syntax 6
