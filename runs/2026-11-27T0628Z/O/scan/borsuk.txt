@@ -1,0 +1,150 @@
+custom syntax	OAI/Geometry/Borsuk/LocalParity/LocalModel.lean:12	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/LocalParity/LocalModel.lean:13	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/LocalModel.lean:14	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/LocalParity/LocalModel.lean:15	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/MatrixParity.lean:17	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/LocalParity/MatrixParity.lean:18	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/MatrixParity.lean:19	local notation "" => traceSphere (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/LocalParity/MatrixParity.lean:20	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/Borsuk/LocalParity/NoFreeRidge.lean:13	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularBase.lean:16	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularBase.lean:17	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularModel.lean:13	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularModel.lean:14	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularPatch.lean:14	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularPatch.lean:15	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularPatch.lean:16	local notation "" => Matrix (Fin (k+1)) (Fin (k+1)) ℝ
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularPatch.lean:17	local notation "" => Matrix.toEuclideanCLM (n := Fin (k+1)) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularPatch.lean:33	local notation "" => EuclideanSpace ℝ rangeIndices
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularPatch.lean:34	local notation "" => EuclideanSpace ℝ domainIndices
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularPatch.lean:35	local notation "" => Matrix.toEuclideanCLM (n := rangeIndices) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularPatch.lean:107	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/LocalParity/RegularPatch.lean:108	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/SphereBlock.lean:12	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/LocalParity/SphereBlock.lean:13	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/SphereNullPatch.lean:13	local notation "" => EuclideanSpace ℝ (Fin n)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/SphereParity.lean:14	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/LocalParity/SphereParity.lean:15	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/LocalParity/TraceLocalModels.lean:15	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/LocalParity/TraceLocalModels.lean:16	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/BlockLine.lean:13	local notation "" => EuclideanSpace ℝ μ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/BlockLine.lean:14	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/BlockLine.lean:15	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/BlockLine.lean:16	local notation "" => Matrix.toEuclideanCLM (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/BlockParts.lean:13	local notation "" => EuclideanSpace ℝ μ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/BlockParts.lean:14	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/BlockParts.lean:15	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/BlockParts.lean:16	local notation "" => Matrix.toEuclideanCLM (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/CenterApproximation.lean:15	local notation "" => EuclideanSpace ℝ (UpperTriangle (Fin k))
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/CenterApproximation.lean:16	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/CenterApproximation.lean:17	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/CenterApproximation.lean:18	local notation "" => Matrix (Fin k) (Fin k) ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/CenterApproximation.lean:19	local notation "" => Matrix (Fin (k+1)) (Fin (k+1)) ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/CenterApproximation.lean:20	local notation "" => Matrix.toEuclideanCLM (n := Fin (k+1)) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/FibreContinuity.lean:11	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/FibreContinuity.lean:12	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/FibreContinuity.lean:13	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/FibreHomotopy.lean:13	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/FibreHomotopy.lean:14	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/FibreHomotopy.lean:15	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/FibreTransport.lean:10	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/FibreTransport.lean:11	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/FibreTransport.lean:12	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/LineRepresentative.lean:10	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/LineRepresentative.lean:11	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/LineRepresentative.lean:12	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixCompression.lean:10	local notation "" => EuclideanSpace ℝ μ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixCompression.lean:11	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixFibre.lean:11	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixFibre.lean:12	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixFibre.lean:13	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixKernel.lean:16	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixKernel.lean:17	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixKernel.lean:54	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixKernel.lean:55	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixNorm.lean:14	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixNorm.lean:41	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixNorm.lean:42	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixReflection.lean:11	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixReflection.lean:12	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixReflection.lean:13	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixTransport.lean:10	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixTransport.lean:11	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/MatrixTransport.lean:12	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/ModelRay.lean:12	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/ModelRay.lean:13	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/ModelRay.lean:14	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/PositiveSlice.lean:9	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/Rank.lean:14	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/Rank.lean:15	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/RankPreimage.lean:10	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/RankPreimage.lean:11	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/SignedExtension.lean:14	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/SignedExtension.lean:15	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/SpectralChart.lean:10	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/SpectralChart.lean:11	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/SpectralChart.lean:12	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/TraceHomotopy.lean:12	local notation "" => EuclideanSpace ℝ (UpperTriangle ν)
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/TraceHomotopy.lean:13	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/TraceHomotopy.lean:14	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/Borsuk/MatrixGeometry/TracePatchModels.lean:15	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/Borsuk/Projectors/ChartSurgery.lean:15	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Projectors/ChartSurgery.lean:16	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Projectors/ChartSurgery.lean:17	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/Borsuk/Projectors/CompactTargetHits.lean:34	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Projectors/CompactTargetHits.lean:35	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Projectors/NegativeQuadratic.lean:49	local notation "" => EuclideanSpace ℝ μ
+custom syntax	OAI/Geometry/Borsuk/Projectors/NegativeQuadratic.lean:50	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Projectors/NegativeQuadratic.lean:51	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Projectors/NegativeQuadratic.lean:52	local notation "" => Matrix.toEuclideanCLM (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Projectors/RaySet.lean:30	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/Projectors/RaySet.lean:31	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/Projectors/RaySet.lean:32	local notation "" => Matrix (Fin (k+1)) (Fin (k+1)) ℝ
+custom syntax	OAI/Geometry/Borsuk/Projectors/RaySet.lean:33	local notation "" => traceSphere (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/Projectors/RaySet.lean:34	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/Borsuk/Projectors/RaySet.lean:35	local notation "" => Matrix.toEuclideanCLM (n := Fin (k+1)) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/SphereGeometry/IntegralLift.lean:14	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/SphereGeometry/NormSphere.lean:13	local notation "" => EuclideanSpace ℝ (Fin n)
+custom syntax	OAI/Geometry/Borsuk/SphereGeometry/NormSphere.lean:14	local notation "" => normSphere n
+custom syntax	OAI/Geometry/Borsuk/SphereGeometry/OddSphereMap.lean:15	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/SphereGeometry/SphereExtension.lean:14	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/SphereGeometry/SphereMoments.lean:13	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/Borsuk/SphereGeometry/TraceSphere.lean:10	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Support/AllPairs.lean:12	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/AllPairs.lean:13	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/BalancedChart.lean:10	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/BalancedChart.lean:11	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Support/BalancedChart.lean:12	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/DisjointChambers.lean:43	local notation "" => EuclideanSpace ℝ μ
+custom syntax	OAI/Geometry/Borsuk/Support/DisjointChambers.lean:44	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/FacetTangent.lean:10	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/Support/FullSupport.lean:14	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/FullSupport.lean:15	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/LocalMix.lean:13	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/LocalMix.lean:14	local notation "" => EuclideanSpace ℝ (Fin k)
+custom syntax	OAI/Geometry/Borsuk/Support/LocalMix.lean:15	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Support/LocalMix.lean:16	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/MixedHits.lean:11	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/MixedHits.lean:12	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Support/MixedHits.lean:13	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/Borsuk/Support/MixedHits.lean:14	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/MixedHomotopy.lean:13	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/MixedHomotopy.lean:14	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Support/MixedHomotopy.lean:15	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/Borsuk/Support/MixedHomotopy.lean:16	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/NegativeFibre.lean:12	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/NegativeFibre.lean:13	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Support/NegativeFibre.lean:14	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/Purity.lean:12	local notation "" => EuclideanSpace ℝ (Fin (k+1))
+custom syntax	OAI/Geometry/Borsuk/Support/PurityChart.lean:12	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/PurityChart.lean:13	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Support/PurityChart.lean:14	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/PurityGeometry.lean:12	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/PurityGeometry.lean:13	local notation "" => Matrix ν ν ℝ
+custom syntax	OAI/Geometry/Borsuk/Support/PurityGeometry.lean:14	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/SixFaces.lean:12	local notation "" => EuclideanSpace ℝ (Fin 3)
+custom syntax	OAI/Geometry/Borsuk/Support/SpectralSupport.lean:11	local notation "" => EuclideanSpace ℝ ν
+custom syntax	OAI/Geometry/Borsuk/Support/SpectralSupport.lean:12	local notation "" => Matrix.toEuclideanCLM (n := ν) (𝕜 := ℝ)
+custom syntax	OAI/Geometry/Borsuk/Support/SupportIncidence.lean:48	local notation "" => EuclideanSpace ℝ (Fin 3)
+# closure: 269 files, 78964 lines; external packages: {'Mathlib': 269}
+# hits: custom syntax 148

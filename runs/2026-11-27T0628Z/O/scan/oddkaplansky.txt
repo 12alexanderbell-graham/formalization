@@ -1,0 +1,16 @@
+custom syntax	OAI/Algebra/OddKaplansky/Construction.lean:13	local notation "" => SourceGluing.modulus
+custom syntax	OAI/Algebra/OddKaplansky/Construction.lean:14	local notation "" => SourceGluing.p
+custom syntax	OAI/Algebra/OddKaplansky/Construction.lean:15	local notation "" => SourceGluing.H
+custom syntax	OAI/Algebra/OddKaplansky/Construction.lean:16	local notation "" => SourceGluing.G₀
+unsafe/opaque/partial	OAI/Algebra/OddKaplansky/GraphNumerics.lean:13	opaque binomWrapped : Subtype (Eq binomDefinition) := ⟨_, rfl⟩
+custom syntax	OAI/Algebra/OddKaplansky/Main.lean:12	local notation "" => SourceGluing.p
+custom syntax	OAI/Algebra/OddKaplansky/Main.lean:13	local notation "" => SourceGluing.modulus
+custom syntax	OAI/Algebra/OddKaplansky/SectorConstruction.lean:13	local notation "" => SourceGluing.modulus
+custom syntax	OAI/Algebra/OddKaplansky/SectorConstruction.lean:14	local notation "" => SourceGluing.p
+custom syntax	OAI/Algebra/OddKaplansky/SectorConstruction.lean:15	local notation "" => SourceGluing.H
+unsafe/opaque/partial	OAI/Algebra/OddKaplansky/SourceGluing.lean:13	opaque pWrapped : Subtype (Eq pDefinition) := ⟨_, rfl⟩
+custom syntax	OAI/Algebra/OddKaplansky/SquareConstruction.lean:13	local notation "" => SourceGluing.modulus
+custom syntax	OAI/Algebra/OddKaplansky/SquareConstruction.lean:14	local notation "" => SourceGluing.p
+custom syntax	OAI/Algebra/OddKaplansky/WreathActions.lean:17	local notation "" => MatrixUnits.lift (K := K) (freeUnit M hζ lmb)
+# closure: 138 files, 18517 lines; external packages: {'Mathlib': 2}
+# hits: custom syntax 12, unsafe/opaque/partial 2

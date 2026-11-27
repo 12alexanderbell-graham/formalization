@@ -43,6 +43,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O32 | Finite algebraic envelopes and the Boone–Higman conjecture (`BooneHigman`) | **NOT DONE** (3/4: every reader's Theorem 1.1 with "some generating family", G in `Type`; replay dispatched) | none at statement level; reader A's extra "every generating family" form is not closed (true, needs a computability argument) |
 | O33 | An explicit failure of complex affine space cancellation (`ComplexCancellation`) | **NOT DONE** (7/10: Theorem 1.1, every reader; replay dispatched) | Corollary 1.2 (H is a stable coordinate but not a coordinate: the Stable Coordinate Conjecture fails) has no Lean statement |
 | O34 | Bi-Lipschitz absorption of c₀ without a linear copy of c₀ (`C0Absorption`) | **NOT DONE** (1/3: reader C; replay dispatched) | none at statement level; readers A and B define c₀ inside ℓ^∞ (isometric to the frozen `C₀(ℕ, ℝ)`; transport not written) |
+| O35 | Kaplansky's direct finiteness conjecture in odd characteristic (`OddKaplansky`) | **NOT DONE** (statement DONE: 4/4, every reader; replay dispatched) | none at statement level; the prime p = minFac((C(1200,600)!)² + 1) is never evaluated — each reader's p is proved equal to the frozen one symbolically |
+| O36 | A nine-dimensional counterexample to Borsuk's covering assertion (`BorsukNine`) | **NOT DONE** (readings committed; closures not written this run; proof replay dispatched) | the frozen statement is about X in `EuclideanSpace ℝ (Fin 4 × Fin 4)`; "Borsuk fails in dimension nine" (a set in ℝ⁹) has no Lean statement — it needs the trace-one hyperplane identified with ℝ⁹ |
+| O37 | A counterexample to the infinite matroid packing/covering conjecture (`InfiniteMatroid` + `InfiniteMatroidCorollaries`) | **NOT DONE** (readings committed; closures not written this run; replays dispatched) | none found: Corollary 1.4 (intersection fails, partitional) is the second challenge |
 | — | Integral points on character varieties (`CharacterVarietiesAllSeamsSupport`) | **NOT STARTED** | observation (orchestrator only, not a blind reading): the family's only challenge is a lemma about the release's own `Diagram` structures (it imports OAI modules), not a statement of Theorem 1.1 in Mathlib terms; queued for the protocol |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
@@ -428,3 +431,27 @@ COMPLETE), O-qrh-dirichlet, O-qrh-hecke, O-mahler (3/6), O-hadamard (3/6), O-bar
 O-ramsey-trans; leanchecker shards queued behind the runner limit. O-sqdiff's re-run lost its runner ("received a
 shutdown signal", exit 143) after match and axioms — infrastructure; re-dispatched. Queued: R-sernau-grh/compact
 (dedicated re-run for the leanchecker shards), O23–O34 lines and the missed challenges.
+
+## O35–O37 (run 2026-11-27T0628Z; brief 4494e17, readings 3f45e7b; files `runs/2026-11-27T0628Z/O/{oddkaplansky,borsuk,matroid}/`)
+
+**O35, Kaplansky in odd characteristic.** Claim (01-introduction.tex, 726e3c3b…): with m = C(1200, 600) and p the
+least h > 1 dividing (m!)² + 1, p is an odd prime and there are a field of order p⁴, a finitely generated group
+with torsion and a, b ∈ K[G] with ab = 1 ≠ ba. Frozen: the same (p = `Nat.minFac`, both numbers `@[irreducible]`;
+plus characteristic p and an injective non-surjective cellular map). Closed for every reader (4/4): `Nat.find`
+(A), `sInf` (B, C) and A's least-integer form all equal `minFac` for any n ≥ 2; the frozen m is reached by `unseal`
+and `rfl` on the identical term — generating `sourceM`'s equation lemma, or stating C(1200,600) inside `rw`,
+exceeds the recursion limit (a trap for closures: nothing about the huge numbers may be reduced). Solution closure:
+138 files, 18,517 lines, 12 custom-syntax and 2 `partial` hits.
+
+**O36, Borsuk in dimension nine.** Claim (introduction.tex, 379065fa…): X = {uuᵀ : ‖u‖ = 1}, in the 9-dimensional
+trace-one hyperplane of Sym₄(ℝ) with the Frobenius metric, is compact of diameter √2 and not coverable by ten
+subsets of smaller diameter. Frozen: the same in `EuclideanSpace ℝ (Fin 4 × Fin 4)`. Readers work with `Matrix`
+and the Frobenius norm (A: Mathlib's scoped instance; B, C: written by hand); closures need the isometry between the
+two and are not written this run. The readers' second theorem (a set in ℝ⁹) is not stated in the Lean. Solution
+closure: 269 files, 78,964 lines, 148 custom-syntax hits.
+
+**O37, infinite matroids.** Claim (01-introduction.tex, 8abfb85a…): a countably infinite E with two self-dual
+matroids, no independent covering, no packing/covering partition; Corollary 1.4: both partitional, intersection
+fails. Frozen: `main` and `partitional_intersection_counterexample` (second challenge). Readers use Mathlib's
+`Matroid`; B writes contraction onto C as `M ／ (E \ C)`, A and C as (M✶ ↾ C)✶ like the frozen one; closures not
+written this run. Solution closures: 33 files, 4,477 lines, no escape hits.
