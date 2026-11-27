@@ -3,7 +3,7 @@
 **THE RESULT:** part 3 (what the gates catch on AI-produced mathematics the program did not make): target O's coverage
 step corrected and generalised. Families are now mapped through OpenAI's scope documents, and every gap is classed as
 disclosed or undisclosed. Of the twelve gaps reported earlier, none is an undisclosed Lean mismatch, and one (O10) was
-our own error, now withdrawn with a Lean closure. A new gate read all 246 Lean-linked items of the release index with
+our own error, now struck through with a Lean closure. A new gate read all 246 Lean-linked items of the release index with
 two readers each: **51 put the "[Lean]" link on a headline claim that no linked Lean statement states**, and their scope
 text does not say so.
 
