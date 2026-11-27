@@ -1,0 +1,41 @@
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\Tot}{Tot}
+\title{A Complete Local Domain without\\a Small Cohen--Macaulay Module}
+\author{OpenAI}
+\date{September 23, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We construct a three-dimensional complete Noetherian normal local domain
+containing $\C$, with residue field $\C$, that has no nonzero finitely generated
+maximal Cohen--Macaulay module. This disproves the domain form of the small
+Cohen--Macaulay module conjecture.
+\end{abstract}
+\tableofcontents
+\clearpage
+
+\section{Introduction}
+A \emph{small Cohen--Macaulay module} over a Noetherian local ring $(R,\mathfrak m)$
+is a nonzero finitely generated $R$-module $M$ such that
+$\depth_R M=\dim R$. Such a module is also called a maximal Cohen--Macaulay
+module. The domain form of the small Cohen--Macaulay module conjecture asks
+whether every complete Noetherian local domain has one.
+We prove the following negative answer.
+
+\begin{theorem}\label{thm:main}
+There exists a three-dimensional complete Noetherian normal local domain
+$R$ containing $\C$, with residue field $\C$, such that no nonzero finitely
+generated $R$-module has depth three.
+\end{theorem}
+
+The distinction between modules and algebras matters here. A module-finite extension domain $R\subseteq B$ that is
+Cohen--Macaulay supplies such a module, but the converse need not hold. Our obstruction applies to every finite module;
+it requires neither a grading nor an algebra structure.
+Hochster formulated the finite-module existence problem in his early
+work on Cohen--Macaulay modules and homological conjectures
+\cite{Hochster1973,Hochster1975}. In dimensions at most two, a complete
+local domain has a small Cohen--Macaulay module: its finite normalization
+is Cohen--Macaulay \cite[Section~2]{Hochster2017}. There are also important
+positive results in the graded setting. The theorem of Hartshorne,
+Peskine--Szpiro, and Hochster gives graded small Cohen--Macaulay modules
+for three-dimensional finitely generated nonnegatively graded domains

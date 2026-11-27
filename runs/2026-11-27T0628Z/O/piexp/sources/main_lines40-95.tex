@@ -1,0 +1,56 @@
+\maketitle
+
+\begin{abstract}
+We prove the conjecture that the irrationality exponent of \(\pi\) is \(2\).
+As a consequence, the classical Flint--Hills series
+\(\sum_{n\ge1}1/(n^3\sin^2 n)\) converges, with angles in radians.
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+
+For an irrational real number \(x\), its \emph{irrationality exponent}
+(also called its irrationality measure) is
+\[
+\mu(x)=\sup\left\{\nu>0:
+0<\left|x-\frac pq\right|<q^{-\nu}
+\text{ for infinitely many coprime }p,q\in\ZZ,\ q\ge2\right\}.
+\]
+The pigeonhole principle gives \(\mu(x)\ge2\). An upper bound limits
+how frequently rational numbers can approximate \(x\) exceptionally
+closely; irrationality alone supplies no finite upper bound. The expected
+value for the usual positive circle constant is \(2\). Waldschmidt
+records the corresponding epsilon-dependent approximation conjecture
+in \cite[p.~265]{waldschmidt}. Our main result proves it.
+
+\begin{theorem}\label{thm:main}
+The irrationality exponent of \(\pi\) is \(2\). More precisely, for every
+real \(\nu>2\), there is an integer \(Q(\nu)\) such that
+\[
+\left|\pi-\frac pq\right|\ge q^{-\nu}
+\qquad(p\in\ZZ,\ q\in\ZZ,\ q\ge Q(\nu)).
+\]
+\end{theorem}
+
+The inequality applies to all integer numerators and denominators,
+whether or not the fraction is reduced. The threshold may depend on
+\(\nu\), and the argument does not give it effectively. In particular,
+an exponent of \(2\) is different from a uniform positive lower bound
+of the form \(c/q^2\), or equivalently from bounded continued-fraction
+partial quotients.
+
+The related Flint--Hills problem, popularized by Pickover and discussed
+by Alekseyev \cite{alekseyev}, asks whether
+\[
+\sum_{n\ge1}\frac{1}{n^3\sin^2 n}
+\]
+converges, with angles in radians. Integers very close to multiples of
+\(\pi\) make individual denominators small. A rational-approximation
+bound controls how often such small values can occur, not just their
+individual size.
+
+\begin{corollary}\label{thm:flinthills}
+The classical Flint--Hills series converges.
+\end{corollary}
+
+Alekseyev showed that convergence requires
+\(\mu(\pi)\le5/2\) \cite[Corollary~4]{alekseyev};
