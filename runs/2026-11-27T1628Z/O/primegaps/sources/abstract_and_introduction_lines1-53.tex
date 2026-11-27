@@ -1,0 +1,62 @@
+\begin{abstract}
+For every fixed $C>0$, we prove that a positive proportion of consecutive
+prime gaps exceed $C\log p$, where $p$ is the smaller prime. The proportion
+is bounded below for every sufficiently large initial segment of the
+prime sequence, with a constant depending on $C$. It follows that the
+indices at which $p_n/n$ increases have positive lower asymptotic density,
+answering a question of Erd\H{o}s and Prachar.
+\end{abstract}
+
+\section{Introduction}
+
+Let $p_n$ denote the $n$th prime and write $d_n=p_{n+1}-p_n$.
+The prime number theorem identifies $\log p$ as the average scale of
+prime gaps near $p$. Individual gaps can be much larger.
+Westzynthius proved that $d_n/\log p_n$ is unbounded
+\cite{Westzynthius1931}; the constructions of Erd\H{o}s and Rankin
+gave increasingly strong quantitative lower bounds for exceptionally
+large gaps \cite{Erdos1935,Rankin1938}.
+Modern refinements were obtained independently by Ford, Green,
+Konyagin and Tao and by Maynard
+\cite{FordGreenKonyaginTao2016,Maynard2016Large}, followed by their
+joint work \cite{FordGreenKonyaginMaynardTao2018}.
+These results concern the size of very large gaps. A lower bound for
+the largest gap does not by itself give a positive proportion of
+gaps exceeding a fixed multiple of $\log p$.
+
+We study this frequency question with equal weight on the prime
+indices. For a set $A$ of positive integers, its lower asymptotic
+density is $\liminf_{N\to\infty}|A\cap[1,N]|/N$.
+
+\begin{theorem}\label{thm:main}
+For every fixed real $C>0$, there are constants $c(C)>0$ and $N_0(C)$
+such that, for every integer $N\ge N_0(C)$,
+\[
+ \#\{1\le n\le N:p_{n+1}-p_n>C\log p_n\}\ge c(C)N.
+\]
+\end{theorem}
+
+The density is ordinary lower density: the bound holds for every
+sufficiently large initial segment, and both constants may depend
+on the fixed threshold $C$.
+
+One consequence concerns successive values of $p_n/n$.
+Erd\H{o}s and Prachar asked whether the indices at which this ratio
+increases have positive lower density \cite[p.~256]{ErdosPrachar1962}.
+
+\begin{corollary}\label{cor:ratios}
+The set
+\[
+ \left\{n\ge1:\frac{p_n}{n}<\frac{p_{n+1}}{n+1}\right\}
+\]
+has positive lower asymptotic density.
+\end{corollary}
+\begin{proof}
+The displayed inequality is equivalent to
+$p_{n+1}-p_n>p_n/n$.
+The prime number theorem gives $p_n/n\sim\log p_n$.
+Apply Theorem~\ref{thm:main} with $C=2$ and discard the finitely many
+indices for which $p_n/n\ge2\log p_n$.
+\end{proof}
+
+Thus the corollary answers the Erd\H{o}s--Prachar question affirmatively.

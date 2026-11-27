@@ -1,0 +1,64 @@
+\begin{abstract}
+We prove that every irreducible integer quartic with no fixed prime-square
+divisor takes squarefree values with the predicted positive Euler-product
+density. More generally, we obtain the corresponding $(d-2)$-power-free
+density in degrees $4\le d\le8$. The proof combines number-field factorization,
+determinant estimates with adaptive auxiliary primes, and explicit
+low-degree geometry. Together with Browning's theorem for higher degrees,
+this gives the $(d-2)$-power-free density for every $d\ge4$.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+For an integer $k\ge2$, an integer $a$ is \emph{$k$-power-free} if no prime
+power $p^k$ divides $a$. This convention includes negative integers and
+excludes zero. Given $f\in\Z[x]$, write
+\[
+ \rho_f(q)=\#\{a\in\Z/q\Z:f(a)\equiv0\pmod q\},\qquad
+ S_{f,k}(X)=\#\{1\le n\le X:f(n)\text{ is $k$-power-free}\}.
+\]
+The necessary local condition is
+\begin{equation}
+ \rho_f(p^k)<p^k\quad\text{for every prime }p.
+ \label{eq:local-admissibility}
+\end{equation}
+It says that no prime $k$th power divides every value of $f$. The natural
+candidate for the density is the product of the proportions that survive
+these separate congruence conditions.
+
+\begin{theorem}\label{thm:density}
+Let $f\in\Z[x]$ be irreducible over $\Q$, of degree $d$ with
+$4\le d\le8$, and put $k=d-2$. If \eqref{eq:local-admissibility} holds,
+then
+\[
+ S_{f,k}(X)=c_{f,k}X+o_f(X),\qquad
+ c_{f,k}=\prod_p\left(1-\frac{\rho_f(p^k)}{p^k}\right)>0.
+\]
+No primitivity or sign condition on the leading coefficient is required.
+\end{theorem}
+
+For quartics this is a squarefree-value density theorem. In degrees
+$5,6,7,8$, the respective excluded powers are $3,4,5,6$.
+The statement concerns positive integer inputs and imposes no bound on
+the height of the fixed polynomial's coefficients. The error term is not
+asserted to be uniform as $f$ varies.
+
+In particular, the quartics $x^4+2$ and $x^4+1$ have positive squarefree-value
+density. The first is Eisenstein at $2$; the second is the eighth cyclotomic
+polynomial. For $x^4+2$, its value at zero excludes a fixed odd prime square,
+and its value at one excludes a fixed square of $2$. The value at zero
+of $x^4+1$ is one, so its local condition is immediate.
+
+% [introduction lines 43-109 omitted: history and related work]
+The new argument in this paper concerns degrees four through eight.
+For higher degrees, Browning's theorem supplies a direct consequence.
+
+\begin{corollary}\label{cor:all-degrees}
+Let $f\in\Z[x]$ be irreducible over $\Q$ of degree $d\ge4$, and
+put $k=d-2$. If $f$ has no fixed prime $k$th-power divisor, then
+\[
+ S_{f,k}(X)=c_{f,k}X+o_f(X),\qquad
+ c_{f,k}=\prod_p\left(1-\frac{\rho_f(p^k)}{p^k}\right)>0.
+\]
+\end{corollary}
