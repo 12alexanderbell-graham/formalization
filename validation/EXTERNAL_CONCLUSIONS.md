@@ -91,3 +91,4 @@ step; nanoda rejects a planted axiom by itself. The two suspected holes of secti
 holds (P7b); the `Readings.*` skip cannot give a false DONE (coverage counts only `Closure.*`), but the replay's
 last line said PASSED — fixed: it now states the readings' coverage (`COMPLETE` needed for a DONE).
 Waiting for Alexander's choice among items 2–5.
+Also: leanchecker sharded over four GitHub jobs works (run 45924592732, after the first try lost one shard's runner).

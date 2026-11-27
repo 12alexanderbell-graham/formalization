@@ -28,6 +28,6 @@
 `validation/EXTERNAL_BLOCKERS.md`.
 
 ## Next
-- T1 done (run 45906952810). Sharded-leanchecker run 45912270532 (first use): replay job green with LC_SKIP (build saved, 310 MB), shards 1–3 restored it and passed (153 + 152 + 152 modules, 5–8 min each, no rebuild), shard 4 still running at 00:58Z (40 min; possibly a cache miss and a rebuild) — read it and S4 cycle–clique (run 45908014732, building across jobs with the saved build directory; re-dispatch once if it times out) and S4 cycle–clique (run 45862470764, job 140056834017, old script); update the verdicts. T2 done (runs 45874989863, 45880627629).
+- T1 done (run 45906952810). Sharded leanchecker: first try 45912270532 lost shard 4's runner (no log); after adding swap and 2 processes per shard, run 45924592732 green (replay job, then four shards from the saved build, 0 modules rebuilt). Red team of replay.sh done (`validation/EXTERNAL_REDTEAM.md`). S4 cycle–clique: run 45908014732 building; the cross-dispatch build restore was not seen working in 45924592732 — check its restore log before relying on it. Next phase waits for Alexander's choice (`validation/EXTERNAL_CONCLUSIONS.md`).
 - Target 0 (b), (c): the blocking links are physics inputs without formal counterparts (heat-kernel coefficient; Einstein operator on a space of solutions).
 - The rate O(log log T/log T) of target 2 has no Lean statement; tell the authors only through Alexander (47.1).

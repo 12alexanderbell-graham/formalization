@@ -1,2 +1,0 @@
-External test run 2026-11-26T1529Z (scheduled, started 15:29Z), standing instruction 11: all targets have verdicts (final push 8ffac48); now the "after the last verdict" step - validation/EXTERNAL_CONCLUSIONS.md and the first no-decision item of its plan (red team against scripts/external/replay.sh). Writes only validation/EXTERNAL_*.md, scripts/external/, runs/2026-11-26T1529Z/.
-Heartbeat 02:24Z (11-27). Remove at end.
