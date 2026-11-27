@@ -16,7 +16,7 @@ theorem A_thm : (type_of% @OAI.SimpleAmenable.main) → (type_of% @ReaderA.O13Re
   rintro ⟨G, hG, hinf, hfp, hs, hfol⟩
   obtain ⟨n, s, hsf, ⟨e⟩⟩ := fp_of hfp
   refine ⟨G, hG, hinf, ⟨Fin n, inferInstance, s, hsf, ⟨e⟩⟩,
-    fun N hN => by haveI := hs; haveI := hN; exact IsSimpleGroup.eq_bot_or_eq_top_of_normal N, ?_⟩
+    fun N hN => by haveI := hs; haveI := hN; first | exact IsSimpleGroup.eq_bot_or_eq_top_of_normal N hN | exact IsSimpleGroup.eq_bot_or_eq_top_of_normal N, ?_⟩
   intro K ε hε
   obtain ⟨D, hD, h⟩ := hfol K ε hε
   refine ⟨D, hD, fun g hg => ?_⟩
@@ -34,7 +34,7 @@ theorem B_thm : (type_of% @OAI.SimpleAmenable.main) → (type_of% @ReaderB.readi
 theorem C_thm : (type_of% @OAI.SimpleAmenable.main) → (type_of% @ReaderC.reading) := by
   rintro ⟨G, hG, hinf, hfp, hs, hfol⟩
   obtain ⟨n, s, hsf, ⟨e⟩⟩ := fp_of hfp
-  refine ⟨G, hG, hinf, fun N hN => by haveI := hs; haveI := hN; exact IsSimpleGroup.eq_bot_or_eq_top_of_normal N, ?_,
+  refine ⟨G, hG, hinf, fun N hN => by haveI := hs; haveI := hN; first | exact IsSimpleGroup.eq_bot_or_eq_top_of_normal N hN | exact IsSimpleGroup.eq_bot_or_eq_top_of_normal N, ?_,
     ⟨Fin n, inferInstance, s, hsf, ⟨e⟩⟩⟩
   intro K ε hε
   obtain ⟨D, hD, h⟩ := hfol K ε hε

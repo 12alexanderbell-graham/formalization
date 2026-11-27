@@ -11,7 +11,8 @@ hashes, which were then checked against our own download.)
 
 **Statement: DONE** for all four editions. **Proof: NOT DONE** — the 20 November archive cannot be replayed
 here (blocker R1, below). Sernau `grh` edition: match, axioms and nanoda (222,117 declarations) PASSED, with every
-blind reading closed against it (09:16Z); leanchecker shards pending. Sernau `grh-compact`: replay running. **No mismatch found** between
+blind reading closed against it (09:16Z); Sernau `grh-compact`: the same, nanoda 209,639 declarations; leanchecker
+shards of both pending. **No mismatch found** between
 what the note claims and what the Lean states.
 
 ## Sources (pinned)
@@ -82,8 +83,8 @@ All three readers, independently, flagged the same gaps:
 - "the qN = M k + R sign-only proof of **Weil and Deligne**" (p. 2): no headline states it.
 - timeline item 17, "a significant weakening of **Vandiver**", footnote 6 (K-groups of Z, a belief):
   no headline.
-- "formalized the arguments **without assumptions**": checked for the Sernau `grh` edition by the replay
-  (axioms standard, nanoda PASSED), `grh-compact` pending and by the scan below; for the original only by the scan (R1).
+- "formalized the arguments **without assumptions**": checked for both Sernau editions by the replay
+  (axioms standard, nanoda PASSED) and by the scan below; for the original only by the scan (R1).
 - Editions: no difference in the statements (byte-identical); the proofs are different texts
   (original 17.4 M lines; `grh` 477 k; `grh-compact` 113 k).
 
@@ -109,10 +110,15 @@ readings/closures/pins/necessity built against each edition's own `Statements` m
   one "pretty printer error" is the cosmetic "Unable to print axioms"); our 32 closure, pin, necessity and
   `Frozen = Statements` theorems built against this edition, standard axioms; coverage of the 10 blind
   readings COMPLETE. Leanchecker (Lean's own replay of every module) runs in shard jobs after the replay job.
-- `grh-compact` edition: still building at 09:18Z.
+- **`grh-compact` edition (subdir `grh-compact`): PASSED** (job 140365540421): closure 794 files / 112,827 lines; 5
+  challenge declarations match; standard axioms only (37 axiom lines: headlines and our closures); nanoda checked
+  209,639 declarations with no type-checker error (94.9 M export lines); coverage of the 10 blind readings COMPLETE.
+- Leanchecker shards of both editions: not yet scheduled at 10:25Z (the workflow starts them when every replay
+  job of run 45956936114 has ended; one unrelated S line was still running).
 
-**Proof verdict so far:** for the `grh` edition, match + axioms + an independent kernel PASSED; DONE once its
-leanchecker shards pass. The original archive stays NOT DONE (R1).
+**Proof verdict so far:** for both Sernau editions, match + standard axioms + an independent kernel (nanoda)
+PASSED, with every blind reading closed against each edition's own `Statements`; DONE once their leanchecker
+shards pass. The original archive stays NOT DONE (R1).
 
 ## Blockers (also in `EXTERNAL_BLOCKERS.md`)
 
