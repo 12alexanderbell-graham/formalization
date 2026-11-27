@@ -1,0 +1,34 @@
+\section{Introduction}\label{sec:introduction}
+
+Let $m$ denote Lebesgue measure on $\R$. For a set $A\subseteq\R$, a
+\emph{nontrivial affine copy} of $A$ is a set
+\[
+ x+sA=\{x+sa:a\in A\},\qquad x\in\R,\quad s\in\R\setminus\{0\}.
+\]
+The set $A$ is \emph{measure universal} if every Lebesgue-measurable subset
+of $\R$ of positive measure contains such a copy. The Erd\H{o}s similarity
+conjecture asserts that no infinite subset of $\R$ is measure universal;
+the problem was posed by Erd\H{o}s in
+\cite[Problem~4.33.7*]{Erdos1974Problems}.
+Every nonempty finite pattern $F$ is measure universal. Indeed, if a measurable
+set contains a subset $E_0$ of finite positive measure, translation
+continuity in $L^1$ gives
+$m(\bigcap_{a\in F}(E_0-sa))\to m(E_0)>0$ as $s\to0$.
+A point in this intersection supplies an affine copy of $F$.
+The difficulty therefore lies in keeping infinitely many points in the
+same positive-measure set. We consider the single sequence
+\[
+ D=\{2^{-n}:n\in\N,\ n\ge1\}.
+\]
+
+\begin{theorem}\label{thm:main}
+For every $\eta\in(0,1)$, there is a compact set $E_\eta\subseteq[0,1]$
+with $m(E_\eta)>1-\eta$ such that
+\[
+ \text{for every }x\in\R\text{ and every }s\in\R\setminus\{0\},
+ \quad x+sD\nsubseteq E_\eta.
+\]
+Equivalently, for every such $x,s$ there is an integer $n\ge1$ with
+$x+s2^{-n}\notin E_\eta$.
+\end{theorem}
+

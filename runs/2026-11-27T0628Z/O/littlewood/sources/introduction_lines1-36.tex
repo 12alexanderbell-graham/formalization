@@ -1,0 +1,36 @@
+\section{Introduction}\label{sec:introduction}
+Write $\T=\R/\Z$ and $\e(t)=\exp(2\pi i t)$. All tori carry probability
+Haar measure. A Littlewood polynomial of length $N$ is a polynomial
+\[
+ P(z)=\sum_{k=0}^{N-1}\varepsilon_k z^k,
+ \qquad \varepsilon_k\in\{-1,1\}.
+\]
+Its maximum modulus is $\norm{P}_\infty=\max_{t\in\T}|P(\e(t))|$.
+Define
+\[
+ m_N=\min_{\varepsilon_0,\ldots,\varepsilon_{N-1}\in\{-1,1\}}
+       \frac{1}{\sqrt N}\norm{\sum_{k=0}^{N-1}\varepsilon_k z^k}_\infty.
+\]
+Orthogonality gives $\norm{P}_2^2=N$, so $m_N\ge1$. The real-sign
+analogue of Erd\H{o}s's fixed-gap question asks whether $m_N$ is
+eventually bounded below by $1+c$ for some absolute $c>0$.
+Erd\H{o}s's original question allowed complex unimodular coefficients
+and was refuted in that class by Kahane; the restriction to real signs
+is the question addressed here \cite[Problem~22]{Erdos1957}; see also
+\cite{Kahane1980} and \cite[Problems~4.13 and~4.31]{HaymanLingham2018}.
+
+\begin{theorem}\label{thm:main}
+For Littlewood polynomials with real coefficients,
+\[
+ \lim_{N\to\infty}m_N=1.
+\]
+Equivalently, for every $\eta>0$ there is $N_0$ such that for every integer
+$N\ge N_0$ there are signs $\varepsilon_0,\ldots,\varepsilon_{N-1}$ with
+\[
+ \max_{|z|=1}\left|\sum_{k=0}^{N-1}\varepsilon_kz^k\right|
+ \le(1+\eta)\sqrt N.
+\]
+\end{theorem}
+
+The theorem concerns every sufficiently large length, rather than a
+subsequence. It gives no uniform lower bound for $|P(z)|$ and hence does
