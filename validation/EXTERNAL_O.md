@@ -622,8 +622,8 @@ injectivity (256) and the symmetric trilinear estimate from the maximal bound by
 - **51 overstate the Lean.** Their headline under "[Lean]" makes a main claim that no linked Lean statement states or
   obviously implies, and the scope text does not say so.
 - 11 have a minor version of the same gap.
-- 47 disclose their gaps.
-- The rest match.
+- 54 disclose their gaps.
+- The other 130 match.
 
 The single most consequential is item 143: "Resolves the uniform boundedness assertion in Hilbert's sixteenth
 problem", where the Lean covers quintic Liénard systems only.
