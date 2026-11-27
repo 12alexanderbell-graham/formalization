@@ -1,0 +1,4 @@
+custom syntax	OAI/Analysis/SeparableQuotients/StrictSingularity.lean:215	local notation "" => state T hT M hM hI ε hε
+custom syntax	OAI/Analysis/SeparableQuotients/StrictSingularity.lean:216	local notation "" => seq T hT M hM hI ε hε
+# closure: 51 files, 14178 lines; external packages: {'Mathlib': 1}
+# hits: custom syntax 2

@@ -37,6 +37,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O26 | The Euclidean Steinitz–Bergström theorem (`SteinitzBergstrom`) | **NOT DONE** (8/11: Theorems 1.1 and 1.2 with one constant, every reader; replay dispatched) | the source's "the constant in Theorem 1.1 also suffices here", read by all three readers also as *every* 1.1-constant works for 1.2, is not in the Lean (it gives one common C) |
 | O27 | A doubling Hilbert subset with no finite-dimensional bi-Lipschitz embedding (`DoublingHilbert` + `CompactBanach`) | **NOT DONE** (4/6: readers A and C, both theorems; replays dispatched) | the source does not say open or closed balls; the Lean fixes open balls; reader B's closed-ball reading (constant 76800) does not follow — an ambiguity resolved by the Lean, not a mismatch with the text |
 | O28 | Uniform exclusion of Landau–Siegel zeros (`SiegelZeros`) | **NOT DONE** (statement DONE: 4/4, every reader; replay dispatched) | none at statement level: the frozen statement is the readers' up to argument order (`LFunction` pinned in target R) |
+| O29 | The sharp logarithmic exponent of r(5,t) (`RamseyFive`) | **NOT DONE** (statement DONE: 6/6 — bounds and limit, every reader; replay dispatched) | none at statement level |
+| O30 | The subcritical Hénon–Lane–Emden conjecture (`HenonEmden`) | **NOT DONE** (statement DONE: 6/6 — Theorem 1.1, and Corollary 1.2 derived in Lean from the frozen theorem at A = B = 0, every reader; replay dispatched) | none at statement level |
+| O31 | Relative independence of the separable quotient problem (`SeparableQuotientNegative`) | **NOT DONE** (1 of 6 claims: reader A's (ii); replay dispatched) | Theorem 1.1 (i) (real-valued measurable 𝔠 ⇒ SQ) has no Lean statement; only (ii) (CH ⇒ ¬SQ) is stated; the independence conclusions are about provability in ZFC (not statable, all readers agree) |
 | — | Integral points on character varieties (`CharacterVarietiesAllSeamsSupport`) | **NOT STARTED** | observation (orchestrator only, not a blind reading): the family's only challenge is a lemma about the release's own `Diagram` structures (it imports OAI modules), not a statement of Theorem 1.1 in Mathlib terms; queued for the protocol |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
@@ -371,3 +374,23 @@ is the frozen one indexed by `Option (Fin d)` under `finSuccEquiv`; the frozen e
 two distinct points). Not yet: B and C's equality case, A and C's Classification (their coefficient fields are
 other terms for the same field; the tensor-ring transport is not written). Replay lines added for every missed
 challenge (O-mahler-eq, O-ramsey-class, O-ramsey-nine, O-ramsey-quad, O-ostmann-complete, O-littlewood-flat).
+
+## O29–O31 (run 2026-11-27T0628Z; brief 0aae0c4, readings fbb30b3; files `runs/2026-11-27T0628Z/O/{ramsey5,henon,sepquot}/`; `family_challenges.py`: one challenge each)
+
+**O29, r(5,t).** Claim (introduction.tex, d7ffbe8e…): ∃ C > 0, ∀ ε > 0, eventually t⁴/(log t)^{3+ε} ≤ r(5,t) ≤ C t⁴/(log t)³;
+hence (4 log t − log r(5,t))/log log t → 3. Frozen: both, with `ramsey` = sInf over `SimpleGraph (Fin n)`. Closed for
+every reader: each reader's r(s,t) equals the frozen `ramsey` (A, C: cliques/independent sets of given cardinality;
+B: `¬CliqueFree` of G and Gᶜ via `isNClique_compl`). Solution closure: 482 files, 73,678 lines, no escape hits.
+
+**O30, Hénon–Lane–Emden.** Claim (01-introduction.tex, 6f100de2…): no positive u, v ∈ C²(ℝⁿ∖{0}) ∩ C(ℝⁿ) solving
+−Δu = |x|^A v^p, −Δv = |x|^B u^q off 0 when (n+A)/(p+1) + (n+B)/(q+1) > n − 2 (n ≥ 2, p, q > 0); corollary: the
+unweighted Lane–Emden conjecture. Frozen: Theorem 1.1 (`Laplacian.laplacian`, `ContDiffOn ℝ 2` off 0, continuity).
+Closed for every reader, both: the corollary follows in Lean from the frozen theorem (A = B = 0, the hypothesis
+times n, |x|⁰ = 1). Solution closure: 96 files, 12,709 lines, no escape hits.
+
+**O31, separable quotient problem.** Claim (introduction.tex, 743da2df…): ZFC proves (i) 𝔠 real-valued measurable ⇒
+SQ_𝔽 and (ii) CH ⇒ ¬SQ_𝔽; hence independence relative to a measurable cardinal. Frozen: (ii) only. Closed: reader
+A's (ii). Not closed: (i) for every reader (no Lean statement); (ii) for B (stated for every `RCLike 𝕜`) and C
+(a type equal to ℝ or ℂ with an arbitrary `RCLike` instance) — true readings, but transporting the frozen ℝ/ℂ
+statement along an `RCLike` isomorphism is not written; coverage also lists reader A's `CH` definition. Solution
+closure: 51 files, 14,178 lines, 2 custom-syntax hits.
