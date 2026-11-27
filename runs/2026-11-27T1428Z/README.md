@@ -70,6 +70,9 @@ against a stub of the solution theorem, so its axioms are standard only once the
     polynomial-time TM2 machines, which Mathlib lacks (blocker).
   - O52, torsion-free hyperbolic group: reader A closed. Reader B's reading is proved false in Lean: B read
     "within that distance of the other two sides" as near both sides, and that bounds every word length.
+  - O53–O55 (Turing degree rigidity, Kadison–Ringrose, strong Kadison–Kastler): read 3/3. O55 is closed for
+    readers A and B: the frozen Hausdorff distance is proved at most the readers' sup-inf distance. The O53 and O54
+    closures are not written.
 - Our own defects:
   - The O44 brief's excerpt ended one line before the directed-triangle sentence.
   - Reader C wrote its O47–O49 files under the wrong directory names (moved unchanged).
@@ -86,6 +89,8 @@ against a stub of the solution theorem, so its axioms are standard only once the
     particular, check that leanchecker shards print `build artifact: success`.
   - Read the target R leanchecker run (45985482988).
   - A closure that fails at OpenAI's Mathlib pin is a name change; fix it to elaborate at both pins.
-- Open closures: O50 sharpness (sectors equal up to null rays), O51 (TM2 composition), O52 reader C (word metric).
-- Then target O from 295 (Kadison–Ringrose), 241 (Turing degrees) and 289 (Kadison–Kastler), smallest first, by
-  `family_map.py`. Then target M.
+- Open closures: O50 sharpness (sectors equal up to null rays), O51 (TM2 composition), O52 reader C (word metric),
+  O53 (order-automorphism transport between quotients), O54 (spectral order instances, differential match), O55 reader C.
+- Read the replays O-turing, O-hochschild, O-kadisonkastler (dispatched at the end of this run).
+- Then target O from the next unread families by `family_map.py` (smallest first; 066 skipped, see O44–O46 section).
+  Message Alexander with the table at O57 (ten after O47). Then target M.

@@ -1,0 +1,194 @@
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:39	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:40	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:54	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:124	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:125	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:127	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:173	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:174	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:176	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:178	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:179	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:195	local notation "" => traceFreeLeftAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:278	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:287	local notation "" => traceFreeHilbertVector hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:352	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:353	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:355	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:357	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:358	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:361	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:362	local notation "" => traceFreeHilbertVector hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:385	local notation "" => traceFreeRightAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:429	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:430	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:432	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:434	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:435	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:438	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:439	local notation "" => traceFreeHilbertVector hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:454	local notation "" => traceFreeHilbertClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:471	local notation "" => traceFreeHilbertIntoClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:558	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:559	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:561	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:563	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:564	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceHilbert.lean:567	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:232	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:233	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:235	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:237	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:238	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:241	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:242	local notation "" => traceFreeHilbertVector hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:244	local notation "" => traceFreeHilbertClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:245	local notation "" => traceFreeHilbertIntoClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:246	local notation "" => traceFreeHilbertClosureTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:386	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:387	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:389	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:391	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:392	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:395	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:396	local notation "" => traceFreeHilbertVector hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:398	local notation "" => traceFreeHilbertClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:399	local notation "" => traceFreeHilbertIntoClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:400	local notation "" => traceFreeHilbertClosureTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:403	local notation "" => traceFreeHilbertEquiv hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:491	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:492	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:494	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:496	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:497	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:500	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:501	local notation "" => traceFreeHilbertVector hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:503	local notation "" => traceFreeHilbertClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:504	local notation "" => traceFreeHilbertIntoClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:505	local notation "" => traceFreeHilbertClosureTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:592	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:593	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:595	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:597	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:598	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:601	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:602	local notation "" => traceFreeHilbertVector hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:604	local notation "" => traceFreeHilbertClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:605	local notation "" => traceFreeHilbertIntoClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:606	local notation "" => traceFreeHilbertClosureTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:611	local notation "" => StarSubalgebra.map π (StarSubalgebra.comap
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:627	local notation "" => traceFreeSubalgebraClosure hfactor hdiff hfinite hunit Q
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:648	local notation "" => traceFreeSubalgebraInclusion hfactor hdiff hfinite hunit Q
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:746	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:747	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:749	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:751	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:752	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:755	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:756	local notation "" => traceFreeHilbertVector hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:758	local notation "" => traceFreeHilbertClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:759	local notation "" => traceFreeHilbertIntoClosure hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:760	local notation "" => traceFreeHilbertClosureTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/FactorGeneration/TraceTransport.lean:763	local notation "" => traceFreeHilbertEquiv hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/KadisonKastler/BlockFieldDecomposition.lean:17	local notation "" => fun n => Lp (K n) 2 (μ n)
+custom syntax	OAI/Analysis/KadisonKastler/CornerFieldDecomposition.lean:18	local notation "" => fun n => Lp (K n) 2 (μ n)
+custom syntax	OAI/Analysis/KadisonKastler/FieldCoordinateCenters.lean:18	local notation "" => fun n => Lp (K n) 2 (μ n)
+custom syntax	OAI/Analysis/KadisonKastler/FreeDiagonalCompression.lean:15	local notation "" => traceStateVector τ
+custom syntax	OAI/Analysis/KadisonKastler/FreeDiagonalCompression.lean:16	local notation "" => traceStateRepresentation τ
+custom syntax	OAI/Analysis/KadisonKastler/HilbertSumConjugateClosure.lean:23	local notation "" => fun n => Lp (K n) 2 (μ n)
+custom syntax	OAI/Analysis/KadisonKastler/HilbertSumCoordinateAction.lean:19	local notation "" => fun n => Lp (K n) 2 (μ n)
+custom syntax	OAI/Analysis/KadisonKastler/HilbertSumFieldAction.lean:18	local notation "" => fun n => Lp (K n) 2 (μ n)
+custom syntax	OAI/Analysis/KadisonKastler/HilbertSumFieldClosure.lean:19	local notation "" => fun n => Lp (K n) 2 (μ n)
+custom syntax	OAI/Analysis/KadisonKastler/HilbertSumFieldReconstruction.lean:41	local notation "" => fun n => Lp (K n) 2 (μ n)
+custom syntax	OAI/Analysis/KadisonKastler/HilbertSumFieldTransport.lean:20	local notation "" => fun n => Lp (K n) 2 (μ n)
+custom syntax	OAI/Analysis/KadisonKastler/TraceHilbertExtension.lean:36	local notation "" => traceFreeTrace hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/KadisonKastler/TraceHilbertExtension.lean:37	local notation "" => TraceFreePreHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/KadisonKastler/TraceHilbertExtension.lean:38	local notation "" => TraceFreeHilbert hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/KadisonKastler/TraceHilbertExtension.lean:39	local notation "" => traceFreeCopy hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/KadisonKastler/TraceHilbertExtension.lean:40	local notation "" => traceFreeInclusion hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/KadisonKastler/TraceHilbertExtension.lean:41	local notation "" => traceFreeHilbertAction hfactor hdiff hfinite hunit
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientCompleteness.lean:19	local notation "" => TracialSequenceQuotient τ ω
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientCompleteness.lean:20	local notation "" => tracialQuotientTrace τ ω
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientRepresentation.lean:17	local notation "" => TracialSequenceQuotient τ ω
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientRepresentation.lean:18	local notation "" => tracialQuotientTrace τ ω
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientRepresentation.lean:21	local notation "" => TraceStateHilbert φ
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientRepresentation.lean:22	local notation "" => traceStateRepresentation φ
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientVonNeumann.lean:18	local notation "" => TracialSequenceQuotient τ ω
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientVonNeumann.lean:19	local notation "" => tracialQuotientTrace τ ω
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientVonNeumann.lean:22	local notation "" => TraceStateHilbert φ
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientVonNeumann.lean:23	local notation "" => traceStateRepresentation φ
+custom syntax	OAI/Analysis/KadisonKastler/TracialQuotientVonNeumann.lean:24	local notation "" => traceStateVector φ
+unsafe/opaque/partial	OAI/Analysis/KadisonSimilarity/Derivation/CommonCyclicEmbedding.lean:83	opaque cyclicCommonEmbeddingData :
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:22	local notation "" => canonicalGeneratedAlgebra τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:23	local notation "" => canonicalGeneratedGeometry τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:24	local notation "" => StarAlgHom.range (canonicalGeneratedFirst τ htr φ ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:25	local notation "" => StarAlgHom.range (canonicalGeneratedSecond τ htr φ ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerCore.lean:56	local notation "" => canonicalGeneratedMatrices τ htr φ ψ τR hψτ M
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:32	local notation "" => Ultrapower τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:33	local notation "" => quotientTrace τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:34	local notation "" => quotientTrace_tracial τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:35	local notation "" => constant τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:36	local notation "" => tracialUltrapowerMap τA τB hA hB ω trA trB φ hφ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:43	local notation "" => canonicalGeneratedAlgebra τQ trQ ι ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:44	local notation "" => canonicalGeneratedGeometry τQ trQ ι ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeCornerEstimate.lean:45	local notation "" => StarAlgHom.range (canonicalGeneratedSecond τQ trQ ι ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeFactorComparison.lean:23	local notation "" => canonicalGeneratedAlgebra τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeFactorComparison.lean:24	local notation "" => canonicalGeneratedGeometry τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeFactorComparison.lean:25	local notation "" => StarAlgHom.range (canonicalGeneratedFirst τ htr φ ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/CanonicalFreeFactorComparison.lean:26	local notation "" => StarAlgHom.range (canonicalGeneratedSecond τ htr φ ψ)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:27	local notation "" => Q.half.reflection
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:28	local notation "" => symmetryUnit (d : P)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:30	local notation "" => dihedralHalfProjection dU
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:31	local notation "" => symmetryHalfProjectionProof d Q.half.reflection_star
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:33	local notation "" => G.generatedDihedralAlgebra (d : P) (s : P)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeCornerApplication.lean:34	local notation "" => StarSubalgebra.topologicalClosure (factorAlgebra
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeMatrixBaseAction.lean:20	local notation "" => G.freeMatrixConjugationIsometry A D ι u hτ hf hgen
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeMatrixBaseAction.lean:21	local notation "" => matrixConjugateLetter D ι u
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeMatrixExtension.lean:38	local notation "" => G.freeMatrixExtensionUnitary A D ι u h1 hf hgen
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/FreeMatrixFactorAction.lean:21	local notation "" => G.freeMatrixConjugationIsometry A D ι u hτ hf hgen
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:37	local notation "" => normalizedMatrixTrace τR n
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:38	local notation "" => normalizedMatrixTrace τB n
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:39	local notation "" => normalizedMatrixTrace_one τR hR
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:40	local notation "" => normalizedMatrixTrace_one τB hB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:41	local notation "" => normalizedMatrixTrace_tracial τR trR
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:42	local notation "" => normalizedMatrixTrace_tracial τB trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:43	local notation "" => matrixEntryHom (n := n) ρ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:44	local notation "" => normalizedMatrixTrace_entryHom τR τB ρ hρτ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:45	local notation "" => matrixConjugatedEmbedding τR τB hR hB ω trR trB ρ hρτ n
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:46	local notation "" => matrixConjugatedEmbedding_trace τR τB hR hB ω trR trB ρ hρτ n
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/MatrixFreeCornerApplication.lean:47	local notation "" => matrixConjugatedEmbedding_injective τR τB hR hB ω trR trB ρ hρτ n hfR
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerModel.lean:91	local notation "" => symmetryUnit (d : P) (congrArg (fun x : D => (x : P)) hdsq)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerModel.lean:92	local notation "" => symmetryUnit (s : P) (congrArg (fun x : A => (x : P)) hssq)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerModel.lean:93	local notation "" => dihedralHalfProjection
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerTheorem.lean:69	local notation "" => symmetryUnit (d : P) (congrArg (fun x : D => (x : P)) hdsq)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerTheorem.lean:70	local notation "" => symmetryUnit (s : P) (congrArg (fun x : A => (x : P)) hssq)
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialFreeCornerTheorem.lean:71	local notation "" => dihedralHalfProjection
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialHomCompression.lean:21	local notation "" => gnsTracialGeometry τB trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialHomCompression.lean:22	local notation "" => TracialCornerGeometry.baseInclusion (gnsTracialGeometry τB trB) φ.range
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialHomCompression.lean:29	local notation "" => tracialRangeIsometry τA (gnsTracialGeometry τB trB) φ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/TracialHomCompression.lean:31	local notation "" => gnsTracialHomIsometry τA τB φ hφ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/UltrapowerFreePositionTransfer.lean:24	local notation "" => tracialUltrapowerMap τA τB hA hB ω trA trB φ hφ
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/UltrapowerFreePositionTransfer.lean:25	local notation "" => quotientTrace τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/FreeProduct/UltrapowerFreePositionTransfer.lean:26	local notation "" => gnsTracialGeometry τQ (quotientTrace_tracial τB hB ω trB)
+custom syntax	OAI/Analysis/KadisonSimilarity/Representation/CanonicalBaseExpectation.lean:21	local notation "" => canonicalGeneratedGeometry τ htr φ ψ
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:24	local notation "" => normalizedMatrixTrace τR n
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:25	local notation "" => normalizedMatrixTrace τB n
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:26	local notation "" => normalizedMatrixTrace_one τR hR
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:27	local notation "" => normalizedMatrixTrace_one τB hB
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:28	local notation "" => normalizedMatrixTrace_tracial τR trR
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:29	local notation "" => normalizedMatrixTrace_tracial τB trB
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:30	local notation "" => matrixEntryHom (n := n) ρ
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/MatrixPopaPosition.lean:31	local notation "" => normalizedMatrixTrace_entryHom τR τB ρ hρτ
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialIncludedCorners.lean:22	local notation "" => tracialUltrapowerMap τA τB hA hB ω trA trB φ hφ
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralColumns.lean:23	local notation "" => symmetryUnit (d : P) (congrArg (fun x : D => (x : P)) hdsq)
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralColumns.lean:24	local notation "" => symmetryUnit (s : P) (congrArg (fun x : A => (x : P)) hssq)
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:24	local notation "" => symmetryUnit (d : P) (congrArg (fun x : D => (x : P)) hdsq)
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:25	local notation "" => symmetryUnit (s : P) (congrArg (fun x : A => (x : P)) hssq)
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:26	local notation "" => dihedralHalfProjection
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:39	local notation "" => CStarCorner.subalgebra p hp D hpD
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/TracialSpectralTest.lean:40	local notation "" => CStarCorner.subalgebra p hp C hpC
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/UltrapowerGeneratedTransfer.lean:23	local notation "" => Ultrapower τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/UltrapowerGeneratedTransfer.lean:24	local notation "" => quotientTrace τB hB ω trB
+custom syntax	OAI/Analysis/KadisonSimilarity/Tracial/UltrapowerGeneratedTransfer.lean:25	local notation "" => tracialUltrapowerMap τA τB hA hB ω trA trB φ hφ
+# closure: 2652 files, 326060 lines; external packages: {'Mathlib': 1014}
+# hits: custom syntax 191, unsafe/opaque/partial 1
