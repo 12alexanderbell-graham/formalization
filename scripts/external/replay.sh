@@ -133,17 +133,19 @@ print('[leanOptions]')
 for o in opts:
     print(o)
 PY2
-  echo '[[require]]'
-  echo 'name = "mathlib"'
-  echo 'git = "https://github.com/leanprover-community/mathlib4.git"'
-  echo "rev = \"$MATHLIB_REV\""
-  # outside packages of the closure (extra_requires.txt, step 0)
+  # outside packages of the closure (extra_requires.txt, step 0), BEFORE mathlib: Lake gives the last
+  # require's transitive versions precedence, and with Mathlib first `lake update` failed on mismatched
+  # Batteries/Cli pins and Mathlib's cache (O-qrh run 45961206551)
   if [ -s extra_requires.txt ]; then
     while IFS=$'\t' read -r n u r d; do
       echo '[[require]]'; echo "name = \"$n\""; echo "git = \"$u\""; echo "rev = \"$r\""
       [ -z "$d" ] || echo "subDir = \"$d\""
     done < extra_requires.txt
   fi
+  echo '[[require]]'
+  echo 'name = "mathlib"'
+  echo 'git = "https://github.com/leanprover-community/mathlib4.git"'
+  echo "rev = \"$MATHLIB_REV\""
   for l in $(cat closure_libs.txt) $(for e in ${EXTRA:-}; do echo "${e%%=*}" | cut -d. -f1; done | sort -u); do
     echo '[[lean_lib]]'; echo "name = \"$l\""; done
 } > lakefile.toml
