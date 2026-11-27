@@ -1,0 +1,74 @@
+\begin{abstract}
+We prove that the complex border determinantal complexity of the $m\times m$
+permanent is $\Omega(m^3)$, allowing arbitrary affine-linear determinant
+representations and coefficientwise limits. It also gives cubic lower bounds
+for exact determinantal complexity and for the numbers of vertices and edges
+in affine-linear algebraic branching programs, including coefficientwise
+limits with a fixed vertex or edge budget.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+For a matrix $X=(x_{ij})$ of independent variables, the permanent is
+\[
+ \per_m(X)=\sum_{\sigma\in S_m}\prod_{i=1}^m x_{i,\sigma(i)}.
+\]
+The permanent--determinant problem asks how large a determinant of
+affine-linear forms is needed to express $\per_m$. Valiant connected
+determinant projections to arithmetic formulas: his construction represents
+a polynomial computed by a formula with $s$ addition or multiplication
+operations as a determinant of order $s+2$
+\cite[Theorem~1]{Valiant1979Algebra}. His algebraic completeness theorem
+shows that, in characteristic different from two, polynomial families
+defined by summing polynomial-size formulas over Boolean strings of
+polynomial length are projections of polynomial-size permanents
+\cite[Theorem~2]{Valiant1979Algebra}. Valiant's projections substitute
+individual variables or field constants. The exact model below allows
+every matrix entry to be an arbitrary affine-linear form.
+
+For $f\in\C[x_1,\ldots,x_N]$, its \emph{determinantal complexity}
+$\dc(f)$ is the least positive integer $n$ for which
+\[
+ f=\det\left(A_0+\sum_{j=1}^N x_jA_j\right),
+ \qquad A_0,\ldots,A_N\in\Mat_n(\C).
+\]
+Its \emph{border determinantal complexity} $\bdc(f)$ is the least positive
+integer $n$ such that $f$ lies in the coefficientwise closure of
+\begin{equation}
+ \left\{\det\left(A_0+\sum_{j=1}^N x_jA_j\right):
+ A_0,\ldots,A_N\in\Mat_n(\C)\right\}.
+ \label{eq:border-definition}
+\end{equation}
+The closure is taken in the finite-dimensional space of polynomials of
+degree at most $n$; a polynomial of larger degree cannot belong to it.
+We allow $f$ to be constant or zero. Coefficientwise closure agrees with
+Zariski closure here, as explained in Section~\ref{sec:models}. The size
+$n$ stays fixed along an approximating sequence, while the complex
+coefficients of its matrix entries are unrestricted.
+
+\begin{theorem}
+\label{thm:main}
+There exist absolute constants $c>0$ and $m_0$ such that, for every integer
+$m\ge m_0$,
+\[
+ \bdc(\per_m)\ge c m^3.
+\]
+One may take $c=1/(5\,529\,600e)$ and $m_0=1408$.
+\end{theorem}
+
+The constants are not optimized. Proposition~\ref{prop:model-equivalence}
+identifies this coefficientwise model with the projective determinant-orbit
+closure formulation, including equal permanent and determinant orders.
+
+The same numerical lower bound holds for exact determinantal complexity.
+There is also a consequence for algebraic branching programs. An
+affine-linear algebraic branching program is a finite directed acyclic
+graph with a source and a sink and an affine-linear form on each edge; it
+computes the sum of products of edge labels along all source-to-sink paths.
+Over $\C$, computing $\per_m$ requires $\Omega(m^3)$ vertices and
+$\Omega(m^3)$ edges. The same bounds hold for coefficientwise limits when
+the relevant vertex or edge budget remains fixed along the approximation,
+even if the graph varies. Section~\ref{sec:consequences} gives the precise
+statements and determinant reductions.
+

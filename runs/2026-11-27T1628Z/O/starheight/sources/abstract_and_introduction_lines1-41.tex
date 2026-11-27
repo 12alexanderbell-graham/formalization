@@ -1,0 +1,47 @@
+\begin{abstract}
+Every regular language over a finite alphabet has generalized star height
+at most three, with complement taken in the same free monoid. We express
+finite-monoid computations using a prefix code of word pieces.
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+
+The star operation permits a finite language expression to describe an
+arbitrarily long repetition. Its nesting depth measures how many layers
+of repetition an expression uses. Once complement is allowed, Boolean
+conditions can replace some of those layers. The question studied here
+is whether a fixed number of layers suffices for every regular language,
+independently of its alphabet and recognizing automaton.
+
+Fix a finite alphabet $\Sigma$. A \emph{generalized regular expression}
+over $\Sigma$ uses $0$, $1$, the singleton letters of $\Sigma$, union,
+concatenation, complement, and Kleene star. The constants denote
+$\emptyset$ and $\{\eps\}$, and complement is always taken in $\Sigma^*$.
+Its height is determined by
+\[
+\begin{aligned}
+ \sht(0)=\sht(1)=\sht(a)&=0,\\
+ \sht(P\cup Q)=\sht(PQ)&=\max\{\sht(P),\sht(Q)\},\\
+ \sht(\neg P)&=\sht(P),&
+ \sht(P^*)&=1+\sht(P).
+\end{aligned}
+\]
+For a regular language $L\subseteq\Sigma^*$, write $h_\Sigma(L)$ for
+the least height of an expression defining $L$. In particular,
+complement preserves the nesting already present in its argument. Finite
+Boolean combinations preserve a common height bound, and the full
+language $\Sigma^*=\neg0$ has height zero.
+
+\begin{theorem}\label{thm:main}
+For every finite alphabet $\Sigma$ and every regular language
+$L\subseteq\Sigma^*$,
+\[
+                            h_\Sigma(L)\le3.
+\]
+\end{theorem}
+
+The expressions in the theorem use the letters of $\Sigma$ itself. Their
+finite parameters and their lengths may depend on the language. The
+construction gives an upper bound on nesting, without a bound on
+expression size or running time.
+

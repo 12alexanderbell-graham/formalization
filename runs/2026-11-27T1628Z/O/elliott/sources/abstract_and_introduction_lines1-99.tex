@@ -1,0 +1,110 @@
+\begin{abstract}
+We prove the ordinary two-point Chowla conjecture. For every fixed pair
+of nonproportional affine forms, the Liouville correlation has a
+power-of-logarithm saving at every cutoff, with an absolute exponent.
+We also prove the binary corrected Elliott conjecture for ordinary
+averages of complex multiplicative functions of modulus at most one,
+under uniform nonpretentiousness of at least one original factor.
+This qualitative conclusion holds in fixed residue classes and for
+fixed nonproportional affine forms.
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+
+For \(n\ge1\), let \(\Omega(n)\) be the number of prime factors of \(n\),
+counted with multiplicity, and let \(\lambda(n)=(-1)^{\Omega(n)}\).
+We study ordinary two-point averages: each integer up to the given
+cutoff has weight one. Thus the correlation measures whether the two prime-factor counts
+have the same parity more often than different parities on the full
+initial interval.
+The distinction from a logarithmic average is the distinction between
+\[
+ \frac1X\sum_{n\le X}a(n)
+ \qquad\text{and}\qquad
+ \frac1{\log X}\sum_{n\le X}\frac{a(n)}n.
+\]
+Logarithmic weighting combines information from many multiplicative
+scales; an ordinary estimate must control the terminal scale itself.
+Our quantitative conclusion concerns every fixed pair of
+nonproportional affine forms.
+
+\begin{theorem}[A logarithmic saving for affine Liouville correlations]
+\label{thm:q-affine}
+There is an absolute constant \(c>0\) such that, for every fixed choice
+of integers \(a_1,a_2\ge1\) and \(b_1,b_2\ge0\) with
+\(a_1b_2-a_2b_1\ne0\), there is a constant
+\(C_{a_1,a_2,b_1,b_2}\) for which
+\[
+ \left|\sum_{1\le n\le X}
+       \lambda(a_1n+b_1)\lambda(a_2n+b_2)\right|
+ \le C_{a_1,a_2,b_1,b_2}\frac{X}{(\log X)^c}
+ \qquad(X\ge3).
+\]
+The cutoff \(X\) may be any real number. No coprimality condition is
+imposed on the coefficients.
+\end{theorem}
+
+For $a_1=a_2=1$ and $b_1=0$, $b_2=h>0$, this resolves the
+ordinary two-point Chowla conjecture, with a logarithmic saving.
+The exponent is independent of the forms. The implied constants need
+not be effective, and no uniformity for coefficients growing with \(X\)
+is asserted. The proof first obtains the same saving for
+\(\lambda(n)\lambda(n+h)\) in each fixed residue class modulo each fixed
+positive integer, including nonunit and zero classes. Complete
+multiplicativity then gives the affine conclusion.
+
+We also prove a qualitative statement for general multiplicative
+functions. Let \(\mathbb D=\{z\in\C:|z|\le1\}\). A function
+\(f:\N\to\mathbb D\) is multiplicative when
+\(f(mn)=f(m)f(n)\) for coprime positive integers \(m,n\).
+For a Dirichlet character \(\chi\), a real number \(t\), and \(X\ge2\),
+define the nonnegative distance \(D\) by
+\begin{equation}\label{eq:distance}
+ D(f,\chi n^{it};X)^2
+ =\sum_{p\le X}\frac{1-\operatorname{Re}
+       (f(p)\overline{\chi(p)p^{it}})}p.
+\end{equation}
+All sums indexed by \(p\) are over primes. We call \(f\)
+\emph{uniformly nonpretentious} if, for every fixed Dirichlet character,
+\begin{equation}\label{eq:unp}
+ \inf_{|t|\le N}D(f,\chi n^{it};N)\longrightarrow\infty
+ \qquad(N\longrightarrow\infty).
+\end{equation}
+The prime cutoff and the height bound are the same \(N\).
+
+\begin{theorem}[Binary corrected Elliott]\label{thm:elliott}
+Let \(f_1,f_2:\N\to\mathbb D\) be multiplicative, and suppose that
+at least one satisfies \eqref{eq:unp}. For every fixed pair of distinct
+nonnegative integers \(h_1,h_2\),
+\[
+ \frac1N\sum_{n=1}^N f_1(n+h_1)f_2(n+h_2)\longrightarrow0
+ \qquad(N\longrightarrow\infty,\ N\in\N).
+\]
+\end{theorem}
+
+This proves the binary corrected Elliott conjecture for ordinary
+averages. The functions may be complex, need not have modulus one,
+and need not be completely multiplicative. There is no conjugation
+in the displayed product; the conjugated version follows because
+\eqref{eq:unp} is preserved by conjugation. We make no quantitative
+rate claim for this class of functions.
+
+\begin{corollary}[Affine correlations]\label{cor:affine}
+Let \(f_1,f_2:\N\to\mathbb D\) be multiplicative, with at least one
+satisfying \eqref{eq:unp}. For all fixed integers \(a_1,a_2\ge1\) and
+\(b_1,b_2\ge0\) with \(a_1b_2-a_2b_1\ne0\),
+\[
+ \frac1N\sum_{n=1}^N f_1(a_1n+b_1)f_2(a_2n+b_2)
+ \longrightarrow0.
+\]
+\end{corollary}
+
+Every fixed progression restriction is also permitted in
+\Cref{thm:elliott}; \Cref{prop:affine-progression} gives the precise
+statement through all real cutoffs and for every residue class.
+These conclusions use the hypothesis on an original factor \(f_j\).
+The finite local changes needed for dilations and residue restrictions
+preserve that hypothesis. In particular, Liouville satisfies the exact
+condition \eqref{eq:unp}; a quantitative distance bound is proved in
+\Cref{lem:affine-liouville-unp}.
+
