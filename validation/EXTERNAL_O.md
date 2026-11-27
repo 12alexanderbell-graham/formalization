@@ -10,18 +10,21 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | # | family (challenge) | verdict | finding |
 |---|---|---|---|
 | O1 | The Quasi-Riemann Hypothesis (`QuasiRiemannHypothesis`, `DirichletSevenEighths`, `HeckeSevenEighths`) | **NOT DONE** (statement: ζ and Dirichlet parts closed; Hecke part open; replay dispatched) | the two manuscripts state different theorems (7/8 on 30 Sep, 11/12 on 5 Oct); the Lean states 7/8 |
-| O2 | Catalan's constant is irrational (`Catalan`) | **NOT DONE** (statement DONE: 7/7 readings closed; replay dispatched) | none at statement level; the L(2, χ₋₄) form proved equal to the frozen series in Lean |
-| O3 | Kaplansky direct finiteness, characteristic two (`KaplanskyFinitelyPresented`) | **NOT DONE** (Theorem 1.1 closed 3/3; replay dispatched) | the manuscript's Gottschalk (surjunctivity) consequence, stated as proved, has no Lean statement in this family |
-| O4 | The Euclidean plane is not five-colorable (`EuclideanFiveColor` + `PlaneColoring`) | **NOT DONE** (statement DONE: 9/9 closed with the family's two frozen statements; replays dispatched) | none: χ ≤ 7 (Isbell, cited by the manuscript) is the family's second challenge `properColoring_seven`; the first record of this row (χ ≤ 7 uncovered) was corrected the same run |
-| O5 | The additive indecomposability of the primes (`OstmannPrimes`) | **NOT DONE** (statement DONE: 7/7 closed; replay dispatched) | none at statement level |
-| O6 | A power saving for square-difference-free sets (`SquareDifference`) | **NOT DONE** (statement DONE: 6/6 closed; replay dispatched) | none at statement level; the frozen `C` is unconstrained and `c` is not bounded by 1, as in the source (readers B, C note c > 1 would make it false, so the theorem forces c ≤ 1) |
-| O7 | A complete local domain without a small Cohen–Macaulay module (`SurfaceConeCandidateSupport`) | **NOT DONE** (0/9 readings closable) | **the family's only Lean statement does not state the claim**: it asserts that *some* complete Noetherian normal local domain of dimension 3 with residue field ℂ exists — any such ring (e.g. ℂ⟦x, y, z⟧) satisfies it — and says nothing about small Cohen–Macaulay modules; the manuscript's Theorem 1.1 and its disproof of the conjecture have no Lean statement |
+| O2 | Catalan's constant is irrational (`Catalan`) | **NOT DONE** (statement DONE: 7/7 readings closed; first replay: build of PrimeNumberTheoremAnd's Catalan module failed without OpenAI's dependency patch, re-dispatched with it) | none at statement level; the L(2, χ₋₄) form proved equal to the frozen series in Lean |
+| O3 | Kaplansky direct finiteness, characteristic two (`KaplanskyFinitelyPresented`) | **NOT DONE** (Theorem 1.1 closed 3/3; replay PASSED: match, axioms, nanoda 82,359 declarations, leanchecker 3 of 4 shards OK, 4th running) | the manuscript's Gottschalk (surjunctivity) consequence, stated as proved, has no Lean statement in this family |
+| O4 | The Euclidean plane is not five-colorable (`EuclideanFiveColor` + `PlaneColoring`) | **NOT DONE** (statement DONE: 9/9 closed with the family's two frozen statements; replays PASSED for both: `no_proper_five_coloring` nanoda 82,222 declarations, `properColoring_seven` nanoda 18,649, coverage COMPLETE on O-plane7; leanchecker shards running) | none: χ ≤ 7 (Isbell, cited by the manuscript) is the family's second challenge `properColoring_seven`; the first record of this row (χ ≤ 7 uncovered) was corrected the same run |
+| O5 | The additive indecomposability of the primes (`OstmannPrimes`) | **NOT DONE** (statement DONE: 7/7 closed; first replay: build of the solution failed before the dependency patches were applied, re-dispatched with them) | none at statement level |
+| O6 | A power saving for square-difference-free sets (`SquareDifference`) | **NOT DONE** (statement DONE: 6/6 closed; match and axioms PASSED, closures' axioms standard; nanoda crashed on a stack overflow (ours: its threads' 32 MiB default), re-dispatched with 1 GiB) | none at statement level; the frozen `C` is unconstrained and `c` is not bounded by 1, as in the source (readers B, C note c > 1 would make it false, so the theorem forces c ≤ 1) |
+| O7 | A complete local domain without a small Cohen–Macaulay module (`SurfaceConeCandidateSupport`) | **NOT DONE** (0/9 readings closable; the frozen statement's proof: match and axioms PASSED; readings do not elaborate under OpenAI's Mathlib pin (no `IsLocalRing.depth`), re-dispatched without them) | **the family's only Lean statement does not state the claim**: it asserts that *some* complete Noetherian normal local domain of dimension 3 with residue field ℂ exists — any such ring (e.g. ℂ⟦x, y, z⟧) satisfies it — and says nothing about small Cohen–Macaulay modules; the manuscript's Theorem 1.1 and its disproof of the conjecture have no Lean statement |
 | O8 | The Falconer distance conjecture in all dimensions (`FalconerAllDimensions`) | **NOT DONE** (statement DONE: 3/3 closed; replay dispatched) | none at statement level |
-| O9 | The irrationality exponent of π is 2 (`PiExponent`) | **NOT DONE** (6/10 closed: μ(π) = 2 and the inequality, every reader; replay dispatched) | the abstract's consequence "the Flint–Hills series converges" has no Lean statement |
-| O10 | An explicit noncoordinate polynomial with affine three-space zero fibre (`AbhyankarSathaye`) | **NOT DONE** (Corollary 1.2 closed 3/3; replay dispatched) | the headline Theorem 1.1 is about an explicit F; no Lean statement names F (the Lean states only the existential corollary). Tested here: the source's identity x² + y³ = h·s, F(P) = −1 and ∇F(P) = 0 at P = (2, 0, −1/2, 1/2) hold (Lean, `noncoord/check/Gradient.lean`) |
-| O11 | A logarithmic independence bound for clique-free graphs (`CliqueFreeLog`) | **NOT DONE** (statement DONE: 3/3, frozen ⇒ reading; replay dispatched) | none at statement level |
+| O9 | The irrationality exponent of π is 2 (`PiExponent`) | **NOT DONE** (6/10 closed: μ(π) = 2 and the inequality, every reader; replay PASSED: match, axioms, nanoda 118,090 declarations; leanchecker pending) | the abstract's consequence "the Flint–Hills series converges" has no Lean statement |
+| O10 | An explicit noncoordinate polynomial with affine three-space zero fibre (`AbhyankarSathaye`) | **NOT DONE** (Corollary 1.2 closed 3/3; replay PASSED, run 45967351577) | the headline Theorem 1.1 is about an explicit F; no Lean statement names F (the Lean states only the existential corollary). Tested here: the source's identity x² + y³ = h·s, F(P) = −1 and ∇F(P) = 0 at P = (2, 0, −1/2, 1/2) hold (Lean, `noncoord/check/Gradient.lean`) |
+| O11 | A logarithmic independence bound for clique-free graphs (`CliqueFreeLog`) | **DONE pending leanchecker** (statement DONE: 3/3, frozen ⇒ reading; replay PASSED: match, axioms, nanoda 46,877 declarations, coverage COMPLETE; leanchecker shards pending) | none at statement level; a 5.5k-line proof of a bound removing Shearer's log log d factor for every r ≥ 4 checks |
 | O12 | (second challenge of O4: `PlaneColoring.properColoring_seven`) | see O4 | — |
 | O13 | An infinite finitely presented simple amenable group (`SimpleAmenable`) | **NOT DONE** (statement DONE: 3/3, frozen ⇒ reading; replay dispatched) | none at statement level |
+| O14 | An exponential bound for sunflowers (`Sunflower`) | **NOT DONE** (3/7: every reader's qualitative Theorem 1.1 closed; replay dispatched) | the manuscript's explicit B_r = 2^{C H⁴ L^{5/2}} with an absolute C has no Lean statement: the Lean states only that some base C(r) exists (the Erdős–Rado sunflower conjecture itself) |
+| O15 | Real Littlewood polynomials are asymptotically minimal (`AsymptoticallyMinimalLittlewood`) | **NOT DONE** (3/6: the "Equivalently" form closed for every reader; replay dispatched) | the headline "lim m_N = 1" is not the Lean statement: the Lean has only the upper bound; the lower bound m_N ≥ 1 (orthogonality, stated as known) is not in it |
+| O16 | The dyadic case of the Erdős similarity conjecture (`DyadicAvoidance`) | **NOT DONE** (statement DONE: 5/5, frozen ⇒ reading; replay dispatched) | none at statement level |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
 
@@ -172,3 +175,40 @@ for every r ≥ 4); the replay decides whether it checks.
 FolnerAmenable G` (the source's Følner condition). Closed frozen ⇒ each reading (finite presentation via
 `exists_mulEquiv_presentedGroup`; simplicity with and without nontriviality; the Følner sets with the readers'
 symmetric differences). Solution closure: 550 files, 84,848 lines, 6 custom-syntax hits.
+
+## O14–O16 (run 2026-11-27T0628Z; brief 3fe4368 with exact paths and "no wildcards" — no reader saw another family's
+file this time; readings c0c63963; closures b810f86b)
+
+**O14, sunflowers.** Frozen: `∀ r ≥ 3, ∃ C : ℕ, 1 ≤ C ∧ ∀ k α (F : Finset (Finset α)), (all k-sets) → C^k < |F| →
+F has an r-sunflower` — uniform families, which is the Erdős–Rado sunflower conjecture. The manuscript states it for
+sets of size *at most* k, with B_r = 2^{C H⁴ L^{5/2}}. Closed (`sunflower/closure/Closure.lean`, standard axioms):
+reader C's bounded-size form from the uniform one by splitting F into its k + 1 layers (B = 2C); readers A and B's
+forms over a possibly infinite `Set` of sets (finiteness part of the conclusion) from C's, since a set family whose
+finite subfamilies are bounded is finite; reader A's `M_r(k) ≤ B_r^k` (a supremum in ℕ∞) the same way.
+Uncovered: the three quantitative readings and reader C's quantitative `M_r(k)` bound — the explicit B_r is the
+manuscript's own content beyond the conjecture and has no Lean statement. Solution closure: 7,272 files, 885,263
+lines (external packages Lemmata, FixedPointTheorems); scan: 34 `admit` hits, all an identifier named `admit`
+(scan_escapes.py now reports `admit` apart from `sorry`), 21 `partial def` metaprograms, no `debug.` options.
+
+**O15, Littlewood polynomials.** Frozen: `∀ η > 0, ∃ N₀ ≥ 1, ∀ N ≥ N₀, ∃ ε (±1 reals), ∀ |z| = 1,
+|∑ ε_k z^k| ≤ (1 + η)√N` — the manuscript's "Equivalently" form. Closed for every reader (frozen ⇒ reading).
+Uncovered: the headline "lim m_N = 1"; it needs also m_N ≥ 1, which the source gives as known (orthogonality,
+‖P‖₂² = N) and which no frozen statement carries. Solution closure: 24 files, 9,315 lines, no escape hits.
+
+**O16, dyadic Erdős similarity.** Frozen: for 0 < η < 1 a compact E ⊆ [0, 1] of measure > 1 − η with
+x + s·2^{−n} ∉ E for some n ≥ 1, for every x and s ≠ 0. Closed frozen ⇒ each reading, both forms (5/5). Solution
+closure: 75 files, 8,455 lines, no escape hits.
+
+## Replays read at 09:18Z (runs 45961122008, 45963613011, 45966220553, 45969890573)
+
+- PASSED (match, axioms, nanoda): O-kaplansky2, O-plane5, O-plane7 (coverage COMPLETE), O-piexp, O-cliquefree
+  (coverage COMPLETE), O-noncoord. Leanchecker shards: kaplansky2 3/4 OK, plane5 3/4 OK, others pending.
+- O-catalan, O-ostmann: the solution's build failed (PrimeNumberTheoremAnd's `Catalan.Consequences` and the
+  modules above it). Both jobs ran before replay.sh applied OpenAI's `patches/<pkg>-lean4341.patch` (2cb101a);
+  re-dispatched. Their leanchecker shards failed on the same build (bad imports), not on a check.
+- O-sqdiff: match and axioms PASSED; nanoda aborted (`thread 'thread_0' has overflowed its stack`). Ours, not
+  the proof's: replay.sh now gives nanoda's worker threads 1 GiB; re-dispatched. Leanchecker shards 2 and 4 OK.
+- O-smallcm: match and axioms PASSED; the blind readings do not elaborate under OpenAI's Mathlib pin
+  (`IsLocalRing.depth` is newer). The verdict does not depend on them (no closure exists); re-dispatched without.
+  General lesson: a reading written against our Mathlib may not compile at an outside pin — the replay line then
+  checks the readings under our pin only, and says so.

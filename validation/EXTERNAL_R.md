@@ -10,8 +10,8 @@ hashes, which were then checked against our own download.)
 ## Verdict
 
 **Statement: DONE** for all four editions. **Proof: NOT DONE** — the 20 November archive cannot be replayed
-here (blocker R1, below); the Sernau editions' replays are dispatched on GitHub (`external.yml`, lines
-`R-sernau-compact`, `R-sernau-grh`), verdict on the proof when they finish. **No mismatch found** between
+here (blocker R1, below). Sernau `grh` edition: match, axioms and nanoda (222,117 declarations) PASSED, with every
+blind reading closed against it (09:16Z); leanchecker shards pending. Sernau `grh-compact`: replay running. **No mismatch found** between
 what the note claims and what the Lean states.
 
 ## Sources (pinned)
@@ -82,8 +82,8 @@ All three readers, independently, flagged the same gaps:
 - "the qN = M k + R sign-only proof of **Weil and Deligne**" (p. 2): no headline states it.
 - timeline item 17, "a significant weakening of **Vandiver**", footnote 6 (K-groups of Z, a belief):
   no headline.
-- "formalized the arguments **without assumptions**": checked for the Sernau editions by the replay
-  (pending) and by the scan below; for the original only by the scan (R1).
+- "formalized the arguments **without assumptions**": checked for the Sernau `grh` edition by the replay
+  (axioms standard, nanoda PASSED), `grh-compact` pending and by the scan below; for the original only by the scan (R1).
 - Editions: no difference in the statements (byte-identical); the proofs are different texts
   (original 17.4 M lines; `grh` 477 k; `grh-compact` 113 k).
 
@@ -99,8 +99,20 @@ No `addDeclWithoutChecking`, `skipKernelTC`, `#eval`, `initialize`, `unsafe`.
 
 Replay (match against the frozen `Challenge`, axioms, nanoda, leanchecker in 4 shards, and our
 readings/closures/pins/necessity built against each edition's own `Statements` module,
-`FrozenIsStatements.lean`): dispatched for `R-sernau-compact` and `R-sernau-grh` (see run README for the
-run id). **Proof verdict pending.**
+`FrozenIsStatements.lean`): dispatched for `R-sernau-compact` and `R-sernau-grh` in run 45956936114.
+
+- **`grh` edition (lsernau/grh-lean 72fead1, subdir `grh`): PASSED** at 09:16Z (job 140365540395, 2 h 2 min):
+  closure 804 modules / 477,124 lines; the 5 challenge declarations match (0 differences); each of
+  `riemannHypothesis`, `riemannZeta_eq_zero_re`, `LFunction_ne_zero_of_half_lt_re`, `LFunction_eq_zero_re`,
+  `LFunction_eq_zero_re_of_isPrimitive` depends on `[propext, Classical.choice, Quot.sound]` only; nanoda (an
+  independent kernel, Rust) checked 222,117 declarations with no type-checker error (82.3 M export lines; its
+  one "pretty printer error" is the cosmetic "Unable to print axioms"); our 32 closure, pin, necessity and
+  `Frozen = Statements` theorems built against this edition, standard axioms; coverage of the 10 blind
+  readings COMPLETE. Leanchecker (Lean's own replay of every module) runs in shard jobs after the replay job.
+- `grh-compact` edition: still building at 09:18Z.
+
+**Proof verdict so far:** for the `grh` edition, match + axioms + an independent kernel PASSED; DONE once its
+leanchecker shards pass. The original archive stays NOT DONE (R1).
 
 ## Blockers (also in `EXTERNAL_BLOCKERS.md`)
 
