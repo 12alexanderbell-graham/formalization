@@ -1,20 +1,22 @@
-# Run 2026-11-27T1628Z (external test long run: target O open closures, then O56–O61)
+# Run 2026-11-27T1628Z (external test long run: target O open closures, then O56–O64)
 
 **THE RESULT:** part 2 and part 3 (the trust system on AI-produced mathematics it did not make). The open closures
 left by run 1428Z were written: O53 (Turing degree rigidity) 3/3, O54 (Kadison–Ringrose) for readers A and B, O55
 (strong Kadison–Kastler) reader C. Then six more families of OpenAI's release were read blind by three models and
 closed in Lean against the frozen statements: large prime gaps (O56), power-free polynomial values (O57), little
 finitistic dimension (O58), generalized star height (O59), ordinary two-point correlations (O60, both challenges)
-and the permanent's border determinantal complexity (O61). No statement mismatch was found. One reader misreading
-was caught and proved harmless (O60, reader B).
+the permanent's border determinantal complexity (O61), Kadison's similarity theorem (O62, Theorem 1.1) and the strong
+thin tree theorem (O63); Brennan's conjecture (O64) was read. No statement mismatch was found. One reader misreading
+was caught and proved harmless (O60, reader B); one ambiguity of a text splits the readers (O62, "the same C").
 
 **What can a scientist now trust without checking it themselves, that they could not before?** That the Lean
 statements of O53, O56, O57, O59, O60 and O61 say what three independent blind readings of the papers say, at
 every link closed here, and that O54, O55 and O58 do for the readers closed. Several links needed a proof rather
 than a glance: an arbitrary enumeration of the primes equals `Nat.nth` (O56), root counts in `ZMod q` equal residue
 counts and an unconditional Euler product gives the partial-product limit (O57), a frozen `sSup` density is a
-`liminf` (O56), a misplaced complex conjugate is cancelled by the symmetry `t ↦ −t` (O60), and topological closures
-of coefficient vectors are limits of sequences (O61).
+`liminf` (O56), a misplaced complex conjugate is cancelled by the symmetry `t ↦ −t` (O60), topological closures
+of coefficient vectors are limits of sequences (O61), and OpenAI's "spanning tree" (cut-connected and cut-minimal
+edge set) is a tree in Mathlib's sense with no parallel edges (O63).
 
 **Weakest unchecked step:** no family of this run is DONE. Every closure was compiled only against this
 repository's Mathlib; every replay at OpenAI's pin is dispatched and queued behind the judge's uncached build
@@ -51,15 +53,26 @@ repository's Mathlib; every replay at OpenAI's pin is dispatched and queued behi
     1.2 3/3 against `OrdinaryElliott`. Reader B conjugated `χ(p)` but not `p^{it}`; proved harmless by symmetry.
   - O61, permanent (doc 108): 8/8 (Theorem 1.1 explicit and existential, exact dc). `SmoothInitialForm` (a lemma
     of the paper's body) not read; its proof is replayed only.
+  - O62, Kadison similarity (doc 288, two challenges): Theorem 1.1 3/3 (the `⋆`-homomorphism built from the
+    frozen unit). Theorem 1.2 and Corollary 1.3 not closed. Readers split on Corollary 1.3's "the absolute constant
+    C from Theorem 1.2": A reads one constant for both, B and C read "every valid C"; the frozen statement fixes an
+    explicit constant, which gives A's form but not B's and C's (open judgment link).
+  - O63, strong thin trees (doc 174): 3/3.
+  - O64, Brennan (doc 072, three challenges): read 3/3, closures not written.
 - Passed over: doc 126 (perfect matching: superpolynomial in Lean, exponential in the paper, disclosed).
 - Readers' tool use: three readers report a refused Bash `grep` of Mathlib (Grep tool or own definitions instead).
 - Dispatched replays: O-turing, O-hochschild, O-kadisonkastler (with closures; run 1428Z's dispatch 46029450827
   cancelled first); O-primegaps, O-powerfree, O-finitistic, O-finitistic-asym; O-starheight, O-elliott-twopoint,
-  O-elliott-oe, O-permanent, O-permanent-initial.
+  O-elliott-oe, O-permanent, O-permanent-initial; O-thintree, O-thintree-algo, O-kadison (with the Theorem 1.1
+  closure), O-kadison-commutator, O-brennan, O-brennan-sharp, O-brennan-strict.
 
 ## Annex LIV
 - `scripts/external/compile_closure.sh`: local compilation of closures against frozen challenges outside the
   package root (the recipe was reinvented each run). PROMPT working note; LEDGER experiment.
+- `scan_escapes.py` now flags meta commands that change the environment (`run_cmd`, `#eval`, `modifyEnv`,
+  `addDeclWithoutChecking`, `initialize`) and instance-attribute removals; OpenAI's KadisonSimilarity challenge has
+  both. Planted control reports all. Re-scan of every earlier S and O solution: O-sunflower builds proof terms with
+  `run_cmd … addDecl` (kernel-checked), four families remove an instance in proof files; no escape.
 
 ## Next
 - CI: read judge run 46020135102 and its shards ("restored the checked job's build"); then the queued external
@@ -67,7 +80,9 @@ repository's Mathlib; every replay at OpenAI's pin is dispatched and queued behi
   fails at OpenAI's Mathlib pin is a name change: fix it to elaborate at both pins.
 - Read the S-cycleclique line: its replay job (140365540377) hit the job limit while nanoda ran (build saved for
   the next dispatch); leanchecker shard 4 (140508883565) failed, log not yet available.
-- Open closures: O50 sharpness, O51 (TM2 composition), O52 reader C (word metric vs Cayley-graph walks), O54 and
-  O58 reader C (blocked in Mathlib).
-- Then target O from the next families by `family_map.py` (smallest first; candidates read but not started: 288
-  Kadison similarity, 174 strong thin trees, 088 projection bodies, 072 Brennan).
+- Open closures: O64 (all four assertions of Theorem 1.1 and the Koebe corollary), O62 Theorem 1.2 and Corollary
+  1.3 (operator norm on `P` vs the readers' `sSup`; reader C's hand-written `ℓ²` norm), O50 sharpness, O51 (TM2
+  composition), O52 reader C (word metric vs Cayley-graph walks), O54 and O58 reader C (blocked in Mathlib).
+- O62's "same C" split: a referee who sees only the source text and the three readings (item 2 of the phase).
+- Then target O from the next families by `family_map.py` (smallest first; candidates: 088 projection bodies,
+  129 two-way automata). Message Alexander with the table at O74.
