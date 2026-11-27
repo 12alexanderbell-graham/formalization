@@ -1,0 +1,219 @@
+custom syntax	OAI/Algebra/Finitistic/Bar/BarPatternEmbedding.lean:15	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/BlockCoordinateGenerators.lean:31	local notation "" => (Functor.obj (ChainComplex.single₀ (ModuleCat D)) N)
+custom syntax	OAI/Algebra/Finitistic/Bar/CoproductHomotopy.lean:51	local notation "" => HomotopyCategory.quotient C c
+custom syntax	OAI/Algebra/Finitistic/Bar/CountHomologyDetection.lean:43	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/CountHomologyDetection.lean:49	local notation "" => SquareZero.twoSidedWeightComplex k D X N (inflated_ideal_zero D X N)
+custom syntax	OAI/Algebra/Finitistic/Bar/CountHomologyDetection.lean:50	local notation "" => tensorBarComplex k A D N (fstHom k D X)
+custom syntax	OAI/Algebra/Finitistic/Bar/CountRetracts.lean:53	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/CountRetracts.lean:60	local notation "" => SquareZero.twoSidedWeightComplex k D X N (inflated_ideal_zero D X N)
+custom syntax	OAI/Algebra/Finitistic/Bar/CountRetracts.lean:61	local notation "" => tensorBarComplex k A D N (fstHom k D X)
+custom syntax	OAI/Algebra/Finitistic/Bar/CountTorBounds.lean:15	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/CountTorBounds.lean:21	local notation "" => SquareZero.twoSidedWeightComplex k D X N (inflated_ideal_zero D X N)
+custom syntax	OAI/Algebra/Finitistic/Bar/CountTorBounds.lean:22	local notation "" => tensorBarComplex k A D N (fstHom k D X)
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedBarCoproduct.lean:17	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedBarCoproduct.lean:18	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedBarCoproduct.lean:24	local notation "" => SquareZero.twoSidedWeightComplex k D X N (inflated_ideal_zero D X N)
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedCountCoproduct.lean:19	local notation "" => SquareZero.twoSidedWeightComplex k D X N hN
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedCountShift.lean:21	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedCountShift.lean:22	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedCountShift.lean:23	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedCountShift.lean:24	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedCountShift.lean:25	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedCountShift.lean:30	local notation "" => ModuleCat D
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedCountShift.lean:31	local notation "" => ComplexShape.embeddingDownNat
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedCountShift.lean:32	local notation "" => Multibar.Indexed.signedBlockComplex k D X N (inflated_ideal_zero D X N)
+custom syntax	OAI/Algebra/Finitistic/Bar/DerivedTensorBarSplitting.lean:50	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/ExplicitSignedDifferential.lean:14	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/FlatSupportedAssembly.lean:19	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/FlatSupportedAssembly.lean:20	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/FlatSupportedAssembly.lean:21	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/FlatSupportedAssembly.lean:22	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/FlatSupportedAssembly.lean:23	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/GlobalIndexedComparison.lean:20	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/GlobalIndexedComparison.lean:21	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/GlobalIndexedComparison.lean:22	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/GlobalIndexedComparison.lean:23	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/GlobalIndexedComparison.lean:24	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedAssemblyComparison.lean:28	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedAssemblyComparison.lean:29	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedAssemblyComparison.lean:30	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedAssemblyComparison.lean:31	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedAssemblyComparison.lean:32	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedMultibarTotal.lean:17	local notation "" => (Functor.obj (ChainComplex.single₀ (ModuleCat D)) N)
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedMultibarTotal.lean:18	local notation "" => leadingBarSequence k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedMultibarTotal.lean:19	local notation "" => flatLeadingMultibar k D X Z
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedPatternEmbedding.lean:22	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedPatternEmbedding.lean:23	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedPatternEmbedding.lean:24	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedPatternEmbedding.lean:25	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/IndexedPatternEmbedding.lean:26	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/InflatedParityFaces.lean:14	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountObject.lean:22	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountObject.lean:23	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountObject.lean:24	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountObject.lean:25	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountObject.lean:26	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountObject.lean:31	local notation "" => ModuleCat D
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountObject.lean:32	local notation "" => ComplexShape.embeddingDownNat
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountObject.lean:33	local notation "" => Multibar.Indexed.signedBlockComplex k D X N (inflated_ideal_zero D X N)
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountRestriction.lean:24	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountRestriction.lean:25	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountRestriction.lean:26	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountRestriction.lean:27	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountRestriction.lean:28	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountRestriction.lean:34	local notation "" => ModuleCat D
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountRestriction.lean:35	local notation "" => ComplexShape.embeddingDownNat
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountRestriction.lean:36	local notation "" => Multibar.Indexed.signedBlockComplex k D X N (inflated_ideal_zero D X N)
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountShift.lean:19	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountShift.lean:20	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountShift.lean:21	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountShift.lean:22	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountShift.lean:23	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountShift.lean:28	local notation "" => ModuleCat D
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountShift.lean:29	local notation "" => ComplexShape.embeddingDownNat
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerCountShift.lean:30	local notation "" => Multibar.Indexed.signedBlockComplex k D X N (inflated_ideal_zero D X N)
+custom syntax	OAI/Algebra/Finitistic/Bar/IntegerDerivedMultibar.lean:49	local notation "" => (Functor.obj (ChainComplex.single₀ (ModuleCat D)) N)
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingBarSuffix.lean:16	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingBarSuffix.lean:17	local notation "" => barFunctor k D
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingSuffixFaces.lean:13	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingSupportedComparison.lean:29	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingSupportedComparison.lean:30	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingSupportedComparison.lean:31	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingSupportedComparison.lean:32	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingSupportedComparison.lean:33	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalComparison.lean:16	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalComparison.lean:17	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalComparison.lean:18	local notation "" => barFunctor k D
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalComparison.lean:19	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalComparison.lean:20	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalComparison.lean:21	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalComparison.lean:22	local notation "" => RecursiveTotal.iter B Z
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalComparison.lean:23	local notation "" => barBicomplex k D
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalDifferential.lean:16	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalDifferential.lean:17	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalDifferential.lean:18	local notation "" => barFunctor k D
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalDifferential.lean:19	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalDifferential.lean:20	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalDifferential.lean:21	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalDifferential.lean:22	local notation "" => RecursiveTotal.iter B Z
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalDifferential.lean:23	local notation "" => barBicomplex k D
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalEmbedding.lean:17	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalEmbedding.lean:18	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalEmbedding.lean:19	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalEmbedding.lean:20	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalEmbedding.lean:21	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/LeadingTotalEmbedding.lean:22	local notation "" => RecursiveTotal.iter B Z
+custom syntax	OAI/Algebra/Finitistic/Bar/LiteralMultibarCoordinates.lean:64	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/LiteralMultibarCoordinates.lean:65	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/ModuleMultibarCoordinates.lean:23	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/ModuleMultibarCoordinates.lean:38	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/ModuleMultibarCoordinates.lean:46	local notation "" => (Functor.obj (ChainComplex.single₀ (ModuleCat D)) N)
+custom syntax	OAI/Algebra/Finitistic/Bar/MultibarFlattenDerived.lean:13	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/PatternPrefixCoordinates.lean:15	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/PatternSuffixFaces.lean:15	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursivePrefixInclusions.lean:8	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursivePrefixInclusions.lean:57	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursivePrefixInclusions.lean:58	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursivePrefixInclusions.lean:59	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixCoefficient.lean:18	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixCoefficient.lean:19	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixCoefficient.lean:20	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixCoefficient.lean:21	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixDifferential.lean:20	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixDifferential.lean:21	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixDifferential.lean:22	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixDifferential.lean:23	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixEmbedding.lean:19	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixEmbedding.lean:20	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixEmbedding.lean:21	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixEmbedding.lean:22	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixFaces.lean:17	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixFaces.lean:18	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixFaces.lean:19	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixFaces.lean:20	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixInduction.lean:18	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixInduction.lean:19	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixInduction.lean:20	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixInduction.lean:21	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixSums.lean:20	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixSums.lean:21	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixSums.lean:22	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixSums.lean:23	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixTotal.lean:18	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixTotal.lean:19	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixTotal.lean:20	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveSuffixTotal.lean:21	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveTotalDifferential.lean:10	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/RecursiveTotalFlatten.lean:11	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/SignedBlockExplicit.lean:15	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/SuffixNaturality.lean:14	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/SuffixParityFaces.lean:13	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedInnerCoordinates.lean:21	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedInnerCoordinates.lean:22	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedInnerCoordinates.lean:23	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedInnerCoordinates.lean:24	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedInnerCoordinates.lean:25	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedOuterCoordinates.lean:21	local notation "" => TrivSqZeroExt D X
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedOuterCoordinates.lean:22	local notation "" => BimoduleTensor.twoSidedBarFunctor k D X
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedOuterCoordinates.lean:23	local notation "" => Functor.obj (ChainComplex.single₀ (ModuleCat D)) N
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedOuterCoordinates.lean:24	local notation "" => (fun _ : ℕ => XB)
+custom syntax	OAI/Algebra/Finitistic/Bar/SupportedOuterCoordinates.lean:25	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalAdditive.lean:13	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalAdditive.lean:15	local notation "" => moduleForgetAdd A
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBar.lean:28	local notation "" => barBicomplex k A Z
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBar.lean:29	local notation "" => barTotal k A Z
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBar.lean:30	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarComparison.lean:17	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarContraction.lean:14	local notation "" => barBicomplex k A Z
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarContraction.lean:15	local notation "" => barTotal k A Z
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarContraction.lean:16	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarContraction.lean:17	local notation "" => moduleForgetAdd A
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarDerived.lean:10	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarFunctor.lean:12	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarResolution.lean:11	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarResolution.lean:12	local notation "" => moduleForgetAdd A
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarResolution.lean:13	local notation "" => CategoryTheory.Functor.obj
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarResolution.lean:15	local notation "" => CategoryTheory.Functor.obj
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalBarResolution.lean:17	local notation "" => CategoryTheory.Functor.map
+custom syntax	OAI/Algebra/Finitistic/Bar/TotalMap.lean:10	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bar/TwoSidedBarFunctor.lean:16	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Bimodule/BimoduleBoundedPresentation.lean:18	local notation "" => OrdinarySimulation.TensorResolution.finiteDegrees length
+custom syntax	OAI/Algebra/Finitistic/Bimodule/BimoduleBoundedPresentation.lean:19	local notation "" => OrdinarySimulation.TensorResolution.finiteDegrees_strictMono length
+custom syntax	OAI/Algebra/Finitistic/Bimodule/BimoduleResolutionBarAPI.lean:24	local notation "" => ofNonpositiveResolution P X length ε hε hproj hbound
+custom syntax	OAI/Algebra/Finitistic/Bimodule/BimoduleVertex.lean:42	local notation "" => ThreeVertexAlgebra μ
+custom syntax	OAI/Algebra/Finitistic/Dimension/PDResidueAssociativity.lean:13	local notation "" => PDTensor.Residue (A := D)
+custom syntax	OAI/Algebra/Finitistic/Dimension/PDResidueAssociativity.lean:14	local notation "" => PDResidueProjection.InflatedResidue f
+custom syntax	OAI/Algebra/Finitistic/Dimension/PDResidueAssociativity.lean:15	local notation "" => BalancedTensor.Tensor k A SA V
+custom syntax	OAI/Algebra/Finitistic/Dimension/PDResidueAssociativity.lean:16	local notation "" => DerivedBar.Balanced.tensor f V
+custom syntax	OAI/Algebra/Finitistic/Dimension/PDResidueBaseBar.lean:25	local notation "" => PDTensor.Residue (A := D)
+custom syntax	OAI/Algebra/Finitistic/Dimension/PDResidueBaseBar.lean:26	local notation "" => PDResidueProjection.InflatedResidue f
+custom syntax	OAI/Algebra/Finitistic/Encoding/RelationVertexCoordinates.lean:12	local notation "" => QuadraticEncoding.B P
+custom syntax	OAI/Algebra/Finitistic/Encoding/RelationVertexCoordinates.lean:13	local notation "" => ConcreteQuadraticDiagram.quadratic P
+custom syntax	OAI/Algebra/Finitistic/Encoding/RelationVertexSequence.lean:16	local notation "" => QuadraticEncoding.B P
+custom syntax	OAI/Algebra/Finitistic/Encoding/RelationVertexSequence.lean:17	local notation "" => ConcreteQuadraticDiagram.quadratic P
+custom syntax	OAI/Algebra/Finitistic/Encoding/RelationVertexSequence.lean:18	local notation "" => Exactness.data s D₀ D₁ D₂ f g
+custom syntax	OAI/Algebra/Finitistic/Localization/IntegerExtensionFunctor.lean:11	local notation "" => ComplexShape.down ℕ
+custom syntax	OAI/Algebra/Finitistic/Localization/IntegerExtensionFunctor.lean:12	local notation "" => ComplexShape.embeddingDownNat
+custom syntax	OAI/Algebra/Finitistic/Rectification/AdjacentArrowSum.lean:14	local notation "" => ThreeVertexAlgebra μ
+custom syntax	OAI/Algebra/Finitistic/Rectification/ConcreteAdjacentGraded.lean:12	local notation "" => QuadraticEncoding.B P
+custom syntax	OAI/Algebra/Finitistic/Rectification/ConcreteAdjacentGraded.lean:13	local notation "" => ConcreteQuadraticDiagram.quadratic P
+custom syntax	OAI/Algebra/Finitistic/Rectification/CornerColumnComplex.lean:13	local notation "" => ThreeVertexAlgebra μ
+custom syntax	OAI/Algebra/Finitistic/Rectification/CornerColumnPaths.lean:12	local notation "" => ThreeVertexAlgebra μ
+custom syntax	OAI/Algebra/Finitistic/Rectification/CornerPathTransport.lean:13	local notation "" => ThreeVertexAlgebra μ
+custom syntax	OAI/Algebra/Finitistic/Rectification/FinalGradedAcyclic.lean:15	local notation "" => QuadraticEncoding.B P
+custom syntax	OAI/Algebra/Finitistic/Rectification/FinalGradedAcyclic.lean:16	local notation "" => ConcreteQuadraticDiagram.quadratic P
+custom syntax	OAI/Algebra/Finitistic/Rectification/FinalGradedAcyclic.lean:17	local notation "" => Exactness.data s D₀ D₁ D₂ f g
+custom syntax	OAI/Algebra/Finitistic/Rectification/FirstVertex.lean:37	local notation "" => QuadraticEncoding.B P
+custom syntax	OAI/Algebra/Finitistic/Rectification/FirstVertex.lean:38	local notation "" => ConcreteQuadraticDiagram.quadratic P
+custom syntax	OAI/Algebra/Finitistic/Rectification/GradedVertexAcyclic.lean:22	local notation "" => QuadraticEncoding.B P
+custom syntax	OAI/Algebra/Finitistic/Rectification/GradedVertexAcyclic.lean:23	local notation "" => ConcreteQuadraticDiagram.quadratic P
+custom syntax	OAI/Algebra/Finitistic/Rectification/SecondVertex.lean:13	local notation "" => QuadraticEncoding.B P
+custom syntax	OAI/Algebra/Finitistic/Rectification/SecondVertex.lean:14	local notation "" => ConcreteQuadraticDiagram.quadratic P
+custom syntax	OAI/Algebra/Finitistic/Rectification/ThirdVertex.lean:15	local notation "" => ConcreteQuadraticDiagram.quadratic P
+custom syntax	OAI/Algebra/Finitistic/Rectification/ThirdVertexFiltration.lean:12	local notation "" => ConcreteQuadraticDiagram.quadratic P
+custom syntax	OAI/Algebra/Finitistic/Rectification/VertexColumnComplex.lean:12	local notation "" => ThreeVertexAlgebra μ
+custom syntax	OAI/Algebra/Finitistic/Rectification/VertexColumnModels.lean:13	local notation "" => ThreeVertexAlgebra μ
+custom syntax	OAI/Algebra/Finitistic/Rectification/VertexZeroTotal.lean:14	local notation "" => QuadraticEncoding.B P
+custom syntax	OAI/Algebra/Finitistic/Rectification/VertexZeroTotal.lean:15	local notation "" => ConcreteQuadraticDiagram.quadratic P
+# closure: 588 files, 50183 lines; external packages: {'Mathlib': 374, 'Lean': 2}
+# hits: custom syntax 217
