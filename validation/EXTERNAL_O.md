@@ -589,3 +589,10 @@ stronger than the Lean.
 the Lean checks. The scope documents are accurate, but they list what is formalized and rarely what is not. The
 general gate: for each item, require an explicit line for every headline claim, either "stated in Lean (challenge,
 theorem)" or "not formalized".
+
+Second readers (Opus, two auditors, same brief, independent of the first): **all 28 single-reader overstatements of the
+second pass and of the first pass's auditor-only items confirmed** (082, 186, 218, 256, 262, 337, 356, 033, 039, 090,
+104, 114, 116, 119, 122, 175, 211, 212, 215, 220, 222, 227, 263, 289, 291, 348, 361, 378); 238 resolved as MATCHES
+(Θ(log N) is stated: `ThorpRemaining.lean:543`). Every one of the 43 now rests on two readers, or on one reader plus a check
+of the challenge files here. Readers note two implications counted as stated: Kervaire from the unimodular-relator
+injectivity (256) and the symmetric trilinear estimate from the maximal bound by Hölder (082).
