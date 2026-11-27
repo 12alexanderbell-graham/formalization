@@ -1,0 +1,20 @@
+\section{Introduction}
+\label{sec:introduction}
+
+If a linear map on a finite-dimensional vector space has a left inverse, that inverse is also a right inverse. A group algebra need not have finite dimension, but each of its elements still has finite support. Kaplansky's direct-finiteness conjecture asks whether this finite support is enough: for every field $K$, group $G$, and $a,b\in K[G]$, must $ab=1$ imply $ba=1$? Here $K[G]$ consists of finite formal sums $\sum_g c_g g$, multiplied using the group law.
+
+A unital ring with this property is \emph{directly finite}; it is \emph{stably finite} if all its finite square matrix rings are directly finite. This distinction matters to a counterexample. Producing matrices $AB=I\ne BA$ over a group algebra does not by itself produce scalar elements with the same property. Our construction first produces the matrix pair, then embeds its matrix algebra in a larger group algebra to obtain the following scalar conclusion.
+
+\begin{theorem}
+\label{thm:main}
+There exist a finite field $K$ of characteristic two, a finitely presented group $G$ containing an element of odd prime order, and elements $a_{\mathrm{out}},b_{\mathrm{out}}\in K[G]$ such that
+\[
+a_{\mathrm{out}}b_{\mathrm{out}}=1,
+\qquad b_{\mathrm{out}}a_{\mathrm{out}}\ne1.
+\]
+The field, group, and finite sums are specified by a terminating prescription involving finite sets and finite-field arithmetic.
+\end{theorem}
+
+Thus Theorem~\ref{thm:main} resolves the unrestricted conjecture negatively in characteristic two. The construction uses odd-order torsion and does not assert that $K=\F_2$. The prescription need not be computationally practical and has not been executed: its termination is proved, and the two product assertions have algebraic certificates independent of any decision procedure for the group word problem.
+
+\paragraph{History and positive results.}
