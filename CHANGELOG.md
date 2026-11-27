@@ -1287,3 +1287,8 @@
 - Part 3: four blind readers' specifications of fourteen pinned definitions (`Checked/Trust/SecondReadingSpec{A,B,C,D}.lean`); agreement or proved disagreement per reading (`SpecAgreement.lean`, `SpecAgreementCD.lean`): 22 agree, 6 disagree; claims page shows them per definition; 413 of 494 pinned uses also determined by a blind reader's specification.
 - Check repair: StatementDeps / precheck_citations exempt reader-structure fields from the cited-headline rule.
 - Annex LIV: PROMPT working note; LEDGER experiment.
+
+## 2026-11-27T0428Z (scheduled run; auditor role, LOCK held by run 0228Z)
+- Env: repo ok; local Lean (elan, 4.35.0), Mathlib cache, cosmography modules built locally. `LOCK` live (run 0228Z): writes only in `runs/2026-11-27T0428Z/` and here.
+- Part 3: sourced blind specification readings G (Sonnet) and H (Opus) of `curv`, `curvK`, `IsFlatLCDM`, `IsFlatCPL`, with verbatim LaTeX excerpts of the three sources handed over (`runs/2026-11-27T0428Z/sources/`). Lean (`runs/2026-11-27T0428Z/agreement/SpecAgreementGH.lean`, standard axioms): `curv` AGREES for both (run 0228Z's two disagreements were memory readings with the sign of the review's §VIII.C, which differs from its §XI); G agrees on all four; H disagrees on `curvK` (reads `Ω_K = −K/(H₀²a₀²)`) and on contracting universes for the two model conditions (equivalent where `H₀ > 0`). Not yet in `Checked` (LOCK): copy steps in the run README, section Next.
+- Annex LIV: `runs/2026-11-27T0428Z/scripts/source_excerpt.py` (arXiv LaTeX excerpts for readers in one command), to be moved to `scripts/trust/`.
