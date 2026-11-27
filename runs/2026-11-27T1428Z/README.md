@@ -62,11 +62,20 @@ against a stub of the solution theorem, so its axioms are standard only once the
   - O48, Tingley: 3/3.
   - O49, sensitivity: both sentences of Theorem 1.1 3/3. The abstract's fixed-α claim is 3/3 against
     `fixed_power_separation`.
-  - O50–O52 (Gaussian propeller, shortest common superstring, torsion-free hyperbolic group): read; closures open.
+  - O50, Gaussian propeller: the inequality 3/3. Mathlib had no theorem that `stdGaussian` on ℝ^d has the
+    density (2π)^{-d/2}e^{-‖x‖²/2}, which all three readers wrote. It was recorded as a blocker and then proved
+    in this run (`stdGaussian_eq_withDensity`, by characteristic functions; standard axioms). The sharpness
+    sentence is not closed.
+  - O51, superstring: no closure. Linking the readers' input encodings to the frozen one needs composition of
+    polynomial-time TM2 machines, which Mathlib lacks (blocker).
+  - O52, torsion-free hyperbolic group: reader A closed. Reader B's reading is proved false in Lean: B read
+    "within that distance of the other two sides" as near both sides, and that bounds every word length.
 - Our own defects:
   - The O44 brief's excerpt ended one line before the directed-triangle sentence.
   - Reader C wrote its O47–O49 files under the wrong directory names (moved unchanged).
-- Dispatched replays: O-seymour, O-zerodiv, O-moat (46020286133); O-logbm, O-tingley, O-sensitivity.
+- Dispatched replays: O-seymour, O-zerodiv, O-moat (46020286133); O-logbm, O-tingley, O-sensitivity (46023625611);
+  O-propeller, O-superstring, O-hyperbolic (dispatched after 69aa930; an earlier dispatch without O50's closure,
+  46026591992, was cancelled).
 - Alexander was messaged at about 15:20Z with the O38–O49 table and the CI repair.
 
 ## Next
@@ -77,6 +86,6 @@ against a stub of the solution theorem, so its axioms are standard only once the
     particular, check that leanchecker shards print `build artifact: success`.
   - Read the target R leanchecker run (45985482988).
   - A closure that fails at OpenAI's Mathlib pin is a name change; fix it to elaborate at both pins.
-- Closures for O50–O52.
+- Open closures: O50 sharpness (sectors equal up to null rays), O51 (TM2 composition), O52 reader C (word metric).
 - Then target O from 295 (Kadison–Ringrose), 241 (Turing degrees) and 289 (Kadison–Kastler), smallest first, by
   `family_map.py`. Then target M.
