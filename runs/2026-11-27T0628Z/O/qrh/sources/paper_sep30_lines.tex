@@ -1,0 +1,83 @@
+\begin{abstract}
+We prove that all finite-order Hecke $L$-functions over
+$\mathbb Q(\sqrt{-3})$ and all Dirichlet $L$-functions are zero-free in
+the half-plane $\Re s>7/8$, with the principal pole at $s=1$ allowed.
+In particular, the Riemann zeta function is zero-free in this half-plane,
+proving the quasi-Riemann hypothesis.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+
+\section{Introduction}\label{sec:introduction}
+
+Let $F=\mathbb Q(\sqrt{-3})$, let $\mathcal O$ be its ring of integers,
+and write $N\mathfrak a=|\mathcal O/\mathfrak a|$ for the norm of a
+nonzero integral ideal. A finite-order Hecke character $\eta$ modulo
+a nonzero integral ideal $\mathfrak f$ is a character of the ray class group
+modulo $\mathfrak f$, extended by zero to ideals not coprime to $\mathfrak f$.
+This agrees with the usual finite-order idelic definition: the complex
+place contributes no nontrivial finite-order continuous character
+\cite[Chapter VI, Section 1]{MilneCFT}. For $\Re s>1$, put
+\[
+ L_F(s,\eta)=\sum_{\mathfrak a\ne0}
+       \frac{\eta(\mathfrak a)}{(N\mathfrak a)^s}
+ =\prod_{\mathfrak p}
+       \left(1-\eta(\mathfrak p)(N\mathfrak p)^{-s}\right)^{-1}.
+\]
+The same notation denotes its meromorphic continuation. For a
+Dirichlet character $\chi$ modulo $q$, extended by zero on nonunits, we
+likewise write
+\[
+ L(s,\chi)=\sum_{n\ge1}\frac{\chi(n)}{n^s}
+ \qquad(\Re s>1)
+\]
+and then continue meromorphically; the character modulo $1$ gives the
+Riemann zeta function $\zeta(s)$. The problem here is uniform exclusion:
+to find a constant $\sigma_0<1$, independent of the character, its
+conductor, and the height, such that these functions have no zeros in
+$\Re s>\sigma_0$.
+
+For $\zeta$ alone, the existence of a fixed $\sigma_0<1$ for which
+$\zeta(s)\ne0$ in $\Re s>\sigma_0$ is called the quasi-Riemann
+hypothesis \cite[Section 1]{BCSS}. It asks for one gap valid at every
+height, not merely nonvanishing on $\Re s=1$. The corresponding uniform
+formulation over all Dirichlet characters appears in
+\cite[p.~288, Equation (1.4) and the following paragraph]{FG}.
+
+The connection between these functions and prime distribution has a
+long history. Dirichlet's 1837 proof of infinitude of primes in every
+reduced arithmetic progression introduced the character $L$-series
+that separate residue classes \cite{Dirichlet}. Riemann's 1859 memoir
+related the zeros of $\zeta$ to the distribution of primes and formulated
+the critical-line conjecture \cite{Riemann}. Hadamard and de la
+Vall\'ee Poussin independently proved in 1896 that $\zeta$ has no zero
+on $\Re s=1$, obtaining the prime number theorem
+\cite{Hadamard,ValleePoussin}. Hecke subsequently developed the
+character zeta functions and their analytic theory over number fields
+\cite{Hecke}.
+
+Classical zero-free regions for Hecke $L$-functions approach the line
+$\Re s=1$ as the conductor or height increases and can allow one
+simple real exceptional zero; a precise form for abelian extensions is given
+by \cite[Theorem 3.1]{TZ}. Such regions do not give uniform exclusion in
+a fixed half-plane. Zero-density estimates address a different question:
+they bound the number of zeros to the right of a given vertical line.
+For example, Guth and Maynard's large-value estimates improve zero-density
+bounds for $\zeta$ \cite[Theorem 1.2]{GM}, but these zero-density bounds
+do not exclude every zero.
+
+\begin{theorem}\label{thm:main}
+Every finite-order Hecke $L$-function over
+$F=\mathbb Q(\sqrt{-3})$ has no zero in $\Re s>7/8$.
+The same holds for every Dirichlet $L$-function, including $\zeta(s)$.
+A pole at $s=1$ for a principal character is allowed.
+\end{theorem}
+
+In particular, Theorem~\ref{thm:main} resolves the quasi-Riemann
+hypothesis affirmatively: the supremum of the real parts of the
+nontrivial zeros of $\zeta$, namely its zeros in $0<\Re s<1$, is at most
+$7/8$. The boundary $\Re s=7/8$ is not included, while any exceptional
+real zero in $(7/8,1)$ is excluded. The theorem does not establish the
+Riemann hypothesis or its generalized versions, which place nontrivial
+zeros on $\Re s=1/2$. The Riemann hypothesis remains open \cite{Clay}.
