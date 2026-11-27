@@ -1,0 +1,34 @@
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1976	local notation "" => essentialRange μX F
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1977	local notation "" => essentialRange μX (fun a => adjoint (F a))
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1978	local notation "" => essentialRange μY G
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1979	local notation "" => essentialRange μY (fun a => adjoint (G a))
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1980	local notation "" => essentialRange μC K
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1981	local notation "" => essentialRange μD N
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1982	local notation "" => essentialRange μC (fun a => adjoint (K a))
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1983	local notation "" => essentialRange μD (fun a => adjoint (N a))
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1984	local notation "" => (V₁ ⊓ W₁)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1985	local notation "" => (V₂ ⊓ W₂)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1986	local notation "" => (V₃ ⊓ W₃)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1987	local notation "" => (V₄ ⊓ W₄)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1988	local notation "" => (fun a => compress (F a) D₂ D₁)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1989	local notation "" => (fun a => compress (G a) D₄ D₃)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1990	local notation "" => (fun a => compress (K a) D₃ D₁)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:1991	local notation "" => (fun a => compress (N a) D₄ D₂)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2180	local notation "" => essentialRange μX F
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2181	local notation "" => essentialRange μX (fun a => adjoint (F a))
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2182	local notation "" => essentialRange μY G
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2183	local notation "" => essentialRange μY (fun a => adjoint (G a))
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2184	local notation "" => essentialRange μC K
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2185	local notation "" => essentialRange μD N
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2186	local notation "" => essentialRange μC (fun a => adjoint (K a))
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2187	local notation "" => essentialRange μD (fun a => adjoint (N a))
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2188	local notation "" => (V₁ ⊓ W₁)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2189	local notation "" => (V₂ ⊓ W₂)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2190	local notation "" => (V₃ ⊓ W₃)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2191	local notation "" => (V₄ ⊓ W₄)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2192	local notation "" => (fun a => compress (F a) D₂ D₁)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2193	local notation "" => (fun a => compress (G a) D₄ D₃)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2194	local notation "" => (fun a => compress (K a) D₃ D₁)
+custom syntax	OAI/Dynamics/MultipleMixing/Joinings.lean:2195	local notation "" => (fun a => compress (N a) D₄ D₂)
+# closure: 13 files, 27889 lines; external packages: {'Mathlib': 1}
+# hits: custom syntax 32
