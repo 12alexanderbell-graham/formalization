@@ -1,0 +1,8 @@
+custom syntax	OAI/GroupTheory/SimpleAmenable/CentralCovers/GrowthGeneration.lean:21	local notation "" => growthAnchorFamily n hn p
+custom syntax	OAI/GroupTheory/SimpleAmenable/Homology/NoetherianTor.lean:142	local notation "" => MonoidAlgebra ℤ G
+custom syntax	OAI/GroupTheory/SimpleAmenable/Homology/RingGroupHomology.lean:19	local notation "" => MonoidAlgebra ℤ G
+custom syntax	OAI/GroupTheory/SimpleAmenable/Homology/TorusCoefficientFinite.lean:77	local notation "" => MonoidAlgebra ℤ G
+custom syntax	OAI/GroupTheory/SimpleAmenable/PolygonGeometry/AxisAnchorFamily.lean:186	local notation "" => growthAnchorFamily n hn p
+custom syntax	OAI/GroupTheory/SimpleAmenable/PolygonGeometry/SortedAxisCuts.lean:152	local notation "" => sortedAxisCutSequence n k N p u v S hu hv hbound hlabels hoveru hoverv hkN hNk hkn
+# closure: 550 files, 84848 lines; external packages: {'Mathlib': 550}
+# hits: custom syntax 6

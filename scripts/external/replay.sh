@@ -32,6 +32,12 @@
 # step 0 with the list of packages: that is a blocker to record, not a pass.
 set -euo pipefail
 OLDPWD_SRC=$(pwd); SRC=$(cd "$1" && pwd); WORK=$2; SOL=$3; CHAL=$4; shift 4; THMS=("$@")
+# EXTRA tokens of the form @Module name further modules of the OUTSIDE project to copy and build with the
+# closure (e.g. a family's second comparator challenge, so one closure can combine two frozen statements:
+# target O family O4, run 2026-11-27T0628Z). They are frozen statements, never compared on this line.
+OUTSIDE_MODS=""; _EX=""
+for e in ${EXTRA:-}; do case "$e" in @*) OUTSIDE_MODS="$OUTSIDE_MODS ${e#@}" ;; *) _EX="$_EX $e" ;; esac; done
+EXTRA="${_EX# }"
 HERE=$(cd "$(dirname "$0")" && pwd)
 export PATH="$HOME/.elan/bin:$PATH"
 mkdir -p "$WORK"; WORK=$(cd "$WORK" && pwd)
@@ -40,7 +46,8 @@ MATHLIB_REV=$(python3 -c "import json,sys; m=json.load(open(sys.argv[1])); print
 echo "== external replay: $SOL / $CHAL; toolchain $TOOLCHAIN; mathlib $MATHLIB_REV"
 
 # 0. closure and its outside packages
-python3 - "$SRC" "$WORK" "$SOL" "$CHAL" <<'PY'
+# shellcheck disable=SC2086
+python3 - "$SRC" "$WORK" "$SOL" "$CHAL" $OUTSIDE_MODS <<'PY'
 import os, re, shutil, sys
 src, dst, *mods = sys.argv[1:]
 seen, ext, where = set(), set(), {}
