@@ -46,6 +46,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O35 | Kaplansky's direct finiteness conjecture in odd characteristic (`OddKaplansky`) | **NOT DONE** (statement DONE: 4/4, every reader; replay dispatched) | none at statement level; the prime p = minFac((C(1200,600)!)² + 1) is never evaluated — each reader's p is proved equal to the frozen one symbolically |
 | O36 | A nine-dimensional counterexample to Borsuk's covering assertion (`BorsukNine`) | **NOT DONE** (readings committed; closures not written this run; proof replay dispatched) | **1248Z: not a gap** — the frozen statement asserts `projectorSet ⊆ traceOneSymmetric` (a 9-dimensional affine subspace) and `docs/156.md` says exactly that; the identification with ℝ⁹ is a link of ours not yet closed, not a gap of the Lean. the frozen statement is about X in `EuclideanSpace ℝ (Fin 4 × Fin 4)`; "Borsuk fails in dimension nine" (a set in ℝ⁹) has no Lean statement — it needs the trace-one hyperplane identified with ℝ⁹ |
 | O37 | A counterexample to the infinite matroid packing/covering conjecture (`InfiniteMatroid` + `InfiniteMatroidCorollaries`) | **NOT DONE** (Theorem 1.1 closed for every reader — A's two forms, B, C's three — against `main`; Corollary 1.4 readings, against the second challenge, not written this run; replays dispatched) | none found: Corollary 1.4 (intersection fails, partitional) is the second challenge |
+| O38 | Fixed points of nonexpansive maps in reflexive Banach spaces (`ReflexiveFixedPoints`; scope document 328) | **NOT DONE** (Theorem 1.1 closed 3/3: readers A, B directly, reader C, which omits completeness, through a proof here that a space whose canonical map into the bidual is onto is complete; non-vacuity: ℝ is reflexive, proved; replay dispatched) | none at statement level; Corollary 1.2 (commuting families, through Bruck's cited theorem) has no Lean statement and the scope document does not mention it (undisclosed, minor) |
+| O39 | Pure-point spectrum for the two-dimensional Anderson model (`PlanarAndersonSpectrum`; scope document 261) | **NOT DONE** (conclusion (i), the spectrum, closed 3/3 across three models of the randomness, each transported to the frozen product law; B and C's "every operator with the formula" reduced to the frozen one by uniqueness; replay dispatched) | the headline — pure-point type, eigenbasis, dense eigenvalues — has no Lean statement; **disclosed** (`docs/261.md`: "It does not assert the pure-point spectral type claimed in the accompanying paper"); the Lean statement (spectrum = [−4−h, 4+h]) is the classical part (767-line proof) |
+| O40 | Quasipolynomial bounds for arithmetic progressions (`ErdosReciprocal`; scope document 159) | **NOT DONE** (Corollary 1.2 — Erdős's reciprocal-sum conjecture — closed 3/3, reader A's sum in ENNReal; the solution's closure is 4,774 files, 1.12 M lines; replay dispatched) | Theorem 1.1 (the density bound) and its threshold form have no Lean statement: **disclosed** (`docs/159.md`) |
 | — | Integral points on character varieties (`CharacterVarietiesAllSeamsSupport`) | **NOT STARTED** | observation (orchestrator only, not a blind reading): the family's only challenge is a lemma about the release's own `Diagram` structures (it imports OAI modules), not a statement of Theorem 1.1 in Mathlib terms; queued for the protocol |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
@@ -634,3 +637,12 @@ Limits of this verdict:
 - Each "overstatement" says only that the Lean does not state the headline. It does not say the headline is false.
 - Every judgment is a reading by model readers. Two readers agree on each verdict, but none of these verdicts is
   closed in Lean.
+
+
+## O38–O40 (run 2026-11-27T1317Z; brief d66b2e9, readings committed alone; files `runs/2026-11-27T1317Z/O/{fixedpoint,anderson,erdosap}/`)
+`family_map.py` first (one challenge each; scope documents 328, 261, 159). Readers A (Opus), B (Sonnet), C (Haiku);
+reader C ran one `ls` of the brief's directory (family names only). Closures compiled locally against the frozen
+statements (standard axioms): O38 3/3 Theorem 1.1, O39 3/3 conclusion (i), O40 3/3 Corollary 1.2. Escape scans
+(`scan/`): O38 86 files, no hits; O39 1 file, no hits; O40 4,774 files with 11,722 `local notation` lines and no other
+hits. Readers' remaining claims (O38 Corollary 1.2; O39 (ii)–(iv); O40 Theorem 1.1, threshold) have no Lean
+statement: disclosed for O39 and O40, not mentioned for O38's corollary.
