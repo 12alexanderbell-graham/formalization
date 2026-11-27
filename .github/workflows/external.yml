@@ -107,8 +107,13 @@ jobs:
         shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v5
-      - name: Free disk
-        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+      # Swap as in the replay job, and two leanchecker processes at a time instead of nproc: shard 4 of T1 in
+      # run 45912270532 lost its runner after 47 min with no log (shards 1-3 passed in 5-8 min), so a shard
+      # runs with more memory headroom, and says whether it restored the build or had to rebuild.
+      - name: Free disk and add swap
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          sudo fallocate -l 8G /extra-swap && sudo chmod 600 /extra-swap && sudo mkswap /extra-swap && sudo swapon /extra-swap || echo "swap not added"
       - name: Install elan
         run: |
           curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
@@ -131,10 +136,14 @@ jobs:
           mkdir outside && cd outside && git init -q && git remote add origin "$X_URL"
           git fetch -q --depth 1 origin "$X_REV" && git checkout -q FETCH_HEAD
       - name: Restore the replay job's build
+        id: restore
         uses: actions/cache/restore@v4
         with:
           path: work/.lake/build
           key: ext-build-${{ matrix.name }}-${{ env.X_REV }}-${{ github.run_id }}
           restore-keys: ext-build-${{ matrix.name }}-${{ env.X_REV }}-
       - name: leanchecker on shard ${{ matrix.shard }} of 4
-        run: LC_SHARD=${{ matrix.shard }}/4 EXTRA="$X_EXTRA" bash scripts/external/replay.sh "outside/$X_SUB" work "$X_SOL" "$X_CHAL" $X_THMS
+        run: |
+          echo "build restored: exact key hit = '${{ steps.restore.outputs.cache-hit }}', key = '${{ steps.restore.outputs.cache-matched-key }}'"
+          du -sh work/.lake/build 2>/dev/null || echo "no build directory restored: this shard rebuilds the closure"
+          LC_JOBS=2 LC_SHARD=${{ matrix.shard }}/4 EXTRA="$X_EXTRA" bash scripts/external/replay.sh "outside/$X_SUB" work "$X_SOL" "$X_CHAL" $X_THMS

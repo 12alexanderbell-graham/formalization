@@ -152,6 +152,7 @@ if [ -n "${LC_SHARD:-}" ]; then
   ALL=$(cat closure_modules.txt; for e in ${EXTRA:-}; do echo "${e%%=*}"; done)
   # shellcheck disable=SC2086
   lake build $ALL > build.log 2>&1 || { tail -40 build.log; echo "FAIL: build"; exit 1; }
+  echo "shard build: $(grep -c 'Built ' build.log || true) modules (re)built, the rest from the restored build"
   SLICE=$(printf '%s\n' $ALL | awk -v k="$k" -v n="$n" '(NR - 1) % n == k - 1')
   echo "leanchecker shard $k/$n: $(printf '%s\n' $SLICE | wc -l) of $(printf '%s\n' $ALL | wc -l) modules"
   # shellcheck disable=SC2086
