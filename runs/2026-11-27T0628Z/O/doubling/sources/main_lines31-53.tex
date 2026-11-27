@@ -1,0 +1,23 @@
+\section{Introduction}
+\label{sec:introduction}
+A metric space $(X,d)$ is \emph{doubling with constant at most $\lambda$} if every ball in $X$ is covered by at most $\lambda$ balls of half its radius, with centers in $X$. A map $f:X\to\R^k$ is a \emph{bi-Lipschitz embedding with distortion at most $D$} if there is a scale $a>0$ such that
+\[
+ a\,d(x,y)\le\norm{f(x)-f(y)}\le Da\,d(x,y)
+ \qquad(x,y\in X).
+\]
+Both the target dimension $k$ and the distortion $D$ are required to be finite.
+
+Every subset of a finite-dimensional Euclidean space is doubling. Lang and Plaut asked whether every doubling subset of Hilbert space admits a bi-Lipschitz embedding into some finite-dimensional Euclidean space; see \cite[Question 2.4]{LP}, restated in \cite[Question 1]{NN}. Gupta, Krauthgamer, and Lee independently formulated the question in the context of algorithmic dimension reduction \cite[Section 6, Question 1]{GKL}. The hypothesis already supplies a Hilbert-space realization, so the issue is whether a bound on metric covering complexity permits a reduction to finitely many Euclidean coordinates while preserving all distances up to a fixed factor.
+
+Assouad's theorem gives a positive result after changing the metric: every doubling metric space admits such an embedding for the distance $d^\alpha$, where $0<\alpha<1$ \cite{Assouad}. This operation is called \emph{snowflaking}. Naor and Neiman proved that, when $\alpha$ is close to $1$, the target dimension can be bounded in terms of the doubling constant alone, independently of $\alpha$ \cite[Theorem 1.2]{NN}. The distortion bound still depends on the snowflake exponent. For finite Hilbert subsets, Gottlieb and Krauthgamer obtained embeddings of snowflakes with distortion arbitrarily close to one, with dimension depending on the doubling constant, exponent, and permitted distortion \cite[Theorem 1.2]{GK}. The Lang--Plaut question concerns the original distance $d$, even when arbitrary finite dimension and distortion are allowed.
+
+For exponents $p>2$, Lafforgue and Naor constructed doubling subsets of $L_p$ admitting no bi-Lipschitz embedding into any finite-dimensional Euclidean space \cite[Theorem 1.1]{LN}. Independently, Bartal, Gottlieb, and Neiman obtained dimension-reduction obstructions for doubling subsets of $\ell_p$ using thin Laakso configurations \cite{BGN}. Baudier, \'Swi\k{e}cicki, and Swift later gave an elementary proof of the corresponding fixed-set theorem for $\ell_q$, $q>2$ \cite[Theorem 1]{BSS}. These results concern ambient exponents strictly greater than two and do not settle the Hilbert case. Schioppa announced a negative answer in \cite{Schioppa}, but withdrew the preprint after reporting a possible issue with its duality argument.
+
+We give a negative answer to this question.
+\begin{theorem}\label{thm:main}
+There is a fixed subset $S$ of real $\ell_2$, equipped with its induced Hilbert distance, whose doubling constant is at most $76800$ and which admits no bi-Lipschitz embedding into $\R^k$ for any positive integer $k$, at any finite distortion.
+\end{theorem}
+In particular, dimension and distortion bounds depending only on the doubling constant cannot hold for all doubling Hilbert subsets.
+
+The same metric space has an isometric realization in $L_p([0,1];\R)$ for every $1\le p<\infty$, by a normalized Gaussian series; Section~\ref{sec:lp} gives this consequence and its relation to earlier $L_p$ obstructions. Section~\ref{sec:banach} constructs a compact obstruction in every infinite-dimensional real Banach space, including Hilbert space, with a universal doubling constant and with no bi-Lipschitz embedding into any finite-dimensional real normed space.
+

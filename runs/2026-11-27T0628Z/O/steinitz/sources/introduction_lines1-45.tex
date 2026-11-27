@@ -1,0 +1,45 @@
+\section{Introduction}
+
+Let $v_1,\ldots,v_N$ be vectors in the Euclidean unit ball of $\R^d$.
+There are two natural ways to keep their partial sums small: choose signs
+in a prescribed order, or, when the family sums to zero, choose an order
+without changing any signs. The difficulty in the first problem is to
+control every prefix by one choice of signs, with a bound independent of
+$N$. We prove such a bound on the square-root scale in the dimension.
+
+\begin{theorem}[Prescribed-order signed prefixes]\label{thm:signing}
+There is an absolute constant $C$ such that, for all integers $d,N\ge1$ and
+every sequence $v_1,\ldots,v_N\in\R^d$ with $\lVert v_i\rVert_2\le1$,
+there are signs $\varepsilon_1,\ldots,\varepsilon_N\in\{-1,1\}$ for which
+\[
+ \max_{0\le k\le N}
+ \left\lVert\sum_{i=1}^k\varepsilon_i v_i\right\rVert_2\le C\sqrt d.
+\]
+The same signs control all prefixes, and $C$ is independent of $d$, $N$
+and the sequence.
+\end{theorem}
+
+The zero-sum ordering problem is quantified by the Euclidean Steinitz
+constant. For an indexed family with $\sum_{i=1}^N v_i=0$, define
+\[
+ \beta(v_1,\ldots,v_N)
+ =\min_{\pi\in\mathfrak S_N}\;
+   \max_{0\le k\le N}\left\lVert\sum_{i=1}^k v_{\pi(i)}\right\rVert_2,
+\]
+where $\mathfrak S_N$ is the set of permutations of $\{1,\ldots,N\}$
+and an empty sum is zero. Let $S_2(d)$ be the supremum of $\beta$ over
+all finite indexed zero-sum families of Euclidean unit-ball vectors in
+$\R^d$. The Euclidean Steinitz--Bergstr\"om conjecture asks whether
+$S_2(d)=O(\sqrt d)$. Theorem~\ref{thm:signing} gives its affirmative resolution.
+
+\begin{theorem}[Euclidean Steinitz--Bergstr\"om bound]\label{thm:steinitz}
+There is an absolute constant $C$ such that, for all integers $d,N\ge1$ and
+every indexed family $v_1,\ldots,v_N\in\R^d$ satisfying
+$\lVert v_i\rVert_2\le1$ and $\sum_{i=1}^N v_i=0$, some permutation
+$\pi\in\mathfrak S_N$ satisfies
+\[
+ \max_{0\le k\le N}\left\lVert\sum_{i=1}^k v_{\pi(i)}\right\rVert_2
+ \le C\sqrt d.
+\]
+The constant in Theorem~\ref{thm:signing} also suffices here.
+\end{theorem}
