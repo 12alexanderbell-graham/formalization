@@ -66,8 +66,32 @@ def go(m):
             for x in mm.group(1).split(): go(x)
 for m in mods: go(m)
 bad = sorted(ext - {'Mathlib', 'Lean', 'Init', 'Std', 'Lake', 'Batteries', 'Aesop', 'Qq', 'Plausible', 'ProofWidgets', 'LeanSearchClient', 'ImportGraph'})  # Mathlib and its own dependencies
-if bad:
-    print('BLOCKER: closure needs packages other than Mathlib:', bad); sys.exit(3)
+# Outside packages other than Mathlib (run 2026-11-27T0628Z, target O: OpenAI's quasi-RH closure imports
+# PrimeNumberTheoremAnd and RellichKondrachov): each module root is matched to a package of the outside
+# project's own lake-manifest.json (name compared without case, '-', '_', '«»'), and required at the
+# manifest's pinned revision, so Lake builds exactly the imported modules from that source. Unmatched
+# roots stay a BLOCKER.
+import json
+norm = lambda x: re.sub(r'[-_«»]', '', x).lower()
+reqs, unmatched = [], []
+try:
+    pk = json.load(open(os.path.join(src, 'lake-manifest.json')))['packages']
+except Exception:
+    pk = []
+for root in bad:
+    hit = [p for p in pk if norm(p['name']) == norm(root) and p.get('url')]
+    if hit:
+        p = hit[0]
+        reqs.append((p['name'].strip('«»'), p['url'], p['rev'], p.get('subDir') or ''))
+    else:
+        unmatched.append(root)
+if unmatched:
+    print('BLOCKER: closure needs packages not found in the outside manifest:', unmatched); sys.exit(3)
+with open(os.path.join(dst, 'extra_requires.txt'), 'w') as fh:
+    for r in reqs:
+        fh.write('\t'.join(r) + '\n')
+if reqs:
+    print('outside packages required at their manifest revisions:', [r[0] for r in reqs])
 for m in seen:
     rel = m.replace('.', '/') + '.lean'
     os.makedirs(os.path.dirname(os.path.join(dst, rel)), exist_ok=True)
@@ -113,6 +137,13 @@ PY2
   echo 'name = "mathlib"'
   echo 'git = "https://github.com/leanprover-community/mathlib4.git"'
   echo "rev = \"$MATHLIB_REV\""
+  # outside packages of the closure (extra_requires.txt, step 0)
+  if [ -s extra_requires.txt ]; then
+    while IFS=$'\t' read -r n u r d; do
+      echo '[[require]]'; echo "name = \"$n\""; echo "git = \"$u\""; echo "rev = \"$r\""
+      [ -z "$d" ] || echo "subDir = \"$d\""
+    done < extra_requires.txt
+  fi
   for l in $(cat closure_libs.txt) $(for e in ${EXTRA:-}; do echo "${e%%=*}" | cut -d. -f1; done | sort -u); do
     echo '[[lean_lib]]'; echo "name = \"$l\""; done
 } > lakefile.toml
