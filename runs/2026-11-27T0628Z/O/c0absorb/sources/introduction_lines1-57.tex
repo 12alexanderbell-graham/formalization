@@ -1,0 +1,57 @@
+\section{Introduction}\label{sec:introduction}
+
+All Banach spaces in this paper are real. A map \(F:X\to Y\) is a
+\emph{bi-Lipschitz embedding} if there are constants
+\(0<c\leq C<\infty\) such that
+\[
+ c\|x-x'\|_X\leq\|F(x)-F(x')\|_Y
+       \leq C\|x-x'\|_X\qquad(x,x'\in X).
+\]
+It is a \emph{bi-Lipschitz equivalence} when it is also onto \(Y\).
+The distinction between these two notions is central here: the result
+constructs an onto map between whole Banach spaces, while its linear
+obstruction concerns a subspace.
+
+The nonlinear geometry of Banach spaces asks how much linear structure
+is retained by maps that control distances but need not respect
+addition. Ribe proved that uniformly homeomorphic normed spaces have
+the same finite-dimensional linear structure up to one common
+distortion bound \cite[Theorem~1]{Ribe76}. Aharoni and Lindenstrauss
+constructed nonseparable Banach spaces that are bi-Lipschitz equivalent
+but not linearly isomorphic, and asked for separable examples
+\cite[pp.~281--282]{AL78}. Ribe later produced separable uniformly
+homeomorphic nonisomorphic spaces, and Aharoni and Lindenstrauss
+obtained uniformly convex examples that are uniformly homeomorphic
+but not Lipschitz equivalent \cite{Ribe84,AL85}.
+Johnson, Lindenstrauss and Schechtman
+developed both rigidity results and separable examples with different
+linear structures under the weaker relation of uniform homeomorphism
+\cite[Theorem~5.8 and Section~8(3)]{JLS96}. These results explain why a separable bi-Lipschitz
+counterexample requires more than a uniform deformation.
+
+The space \(c_0=c_0(\N)\) consists of real scalar sequences tending to
+zero, with the supremum norm. Godefroy, Kalton and Lancien proved that a
+Banach space bi-Lipschitz equivalent to a linear subspace of \(c_0\) is
+linearly isomorphic to a subspace of \(c_0\). They also proved that a
+Banach space bi-Lipschitz equivalent to \(c_0\) is linearly isomorphic
+to \(c_0\) \cite[Theorems~2.1--2.2]{GKL00}. These theorems concern the
+whole domain of an equivalence. They do not say that a Banach space
+containing a bi-Lipschitz image of \(c_0\) must contain a linear copy
+of \(c_0\). Kalton recorded the latter question as Problem~2, separately
+from the separable Lipschitz-isomorphism question in Problem~3
+\cite[pp.~21--22]{Kalton08}. H\'ajek, Johanis and Schlumprecht still described the
+embedding question as apparently open in their January 2024 preprint
+(arXiv:2401.00831v1), later published in 2025 \cite{HJS25}.
+
+For Banach spaces \(X,Y\), write \(X\oplus_\infty Y\) for their product
+with norm \(\|(x,y)\|=\max\{\|x\|,\|y\|\}\). The main result is the
+following whole-space form of a negative answer to the \(c_0\)
+embedding question.
+
+\begin{theorem}\label{thm:main}
+There is a separable real Banach space \(Z\) containing no closed linear
+subspace isomorphic to \(c_0\), and an onto bi-Lipschitz map
+\[
+                 F:Z\oplus_\infty c_0\longrightarrow Z.
+\]
+\end{theorem}

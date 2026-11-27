@@ -1,0 +1,20 @@
+\section{Introduction}\label{sec:introduction}
+
+The word problem for a group with a specified finite generating set asks
+whether a given word in the generators and their inverses represents the
+identity. It is \emph{decidable} if an algorithm answers this question for
+every word. A group is \emph{simple} here if it is nontrivial and its only
+normal subgroups are the identity subgroup and the whole group.
+
+\begin{theorem}\label{thm:main}
+For every finitely generated group \(G\), the following are equivalent:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(G\) has decidable word problem.
+\item \(G\) embeds in a finitely presented simple group.
+\end{enumerate}
+\end{theorem}
+
+An embedding throughout means an injective group homomorphism. In the
+constructive implication, \(G\) is supplied with a finite generating set
+and a word-problem decider; it need not be finitely presented.
+Theorem~\ref{thm:main} resolves the Boone--Higman conjecture positively.

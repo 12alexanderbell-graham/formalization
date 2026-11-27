@@ -1,0 +1,96 @@
+\section{Introduction}
+\label{sec:introduction}
+
+The Zariski cancellation problem asks whether an affine variety is determined
+by its cylinder when that cylinder is affine space. Over the complex numbers,
+its algebraic formulation is the implication
+\begin{equation}
+ A[w]\simeq \mathbb C\poly{n+1}
+ \quad\Longrightarrow\quad
+ A\simeq\mathbb C\poly n,
+ \label{eq:cancellation-question}
+\end{equation}
+where $A$ is a finitely generated commutative unital complex algebra, $w$ is
+an independent polynomial variable, and all isomorphisms fix the complex
+scalars. Here $C\poly r$ denotes a polynomial ring in $r$ variables over a
+ring $C$. The hypothesis says that adjoining one variable turns $A$ into a
+polynomial ring; the question is whether that variable can be cancelled.
+An isomorphism of cylinders need not respect the given projection to the
+affine line, so its existence alone does not identify polynomial
+coordinates on $A$.
+
+Cancellation for the affine line follows from the work of Abhyankar,
+Heinzer, and Eakin~\cite[Corollary~(2.8)]{AEH}. Cancellation for the
+complex affine plane was established through the work of Fujita,
+Miyanishi, and Sugie~\cite{Fujita,MiyanishiSugie}, using the structure of
+affine surfaces and cylinderlike open sets. In positive characteristic,
+Asanuma's work on polynomial fiber rings supplied threefolds whose
+one-variable cylinders are affine four-space~\cite{Asanuma}. Gupta
+proved that suitable members of this family are not affine three-space
+over their ground field~\cite{GuptaThreefold}, then established failure
+of cancellation in every dimension at least three over every field of
+positive characteristic~\cite{GuptaPositive}. The latter result uses a
+separate family of examples: adjoining variables to a threefold whose
+first cylinder is already polynomial would not produce higher-dimensional
+counterexamples.
+
+The characteristic-zero problem in dimensions at least three is still
+listed as open in Gaifullin--Petrov's July 2026
+preprint~\cite[p.~1]{GaifullinPetrov}. Gupta's
+survey~\cite{GuptaSurvey} explains its history and its connections with
+coordinates, polynomial fibrations, and the recognition of affine
+space. We give a negative answer to \eqref{eq:cancellation-question}
+over $\mathbb C$ for $n=4$.
+The defining polynomial also gives a negative answer to the Stable
+Coordinate Conjecture over $\kk$ in ambient dimension five, already after
+adjoining one variable.
+
+Let $p,s,u,F,J$ be algebraically independent over $\kk$, and set
+\begin{equation}
+ \begin{split}
+ P&=\kk[p,s,u,F,J],\qquad x=s^2+u^3+p^2F,\\
+ H&=x^2F-(1+2sx)J-p^2J^2-pu,\qquad A=P/(H).
+ \end{split}
+ \label{eq:example}
+\end{equation}
+Thus $x$ is an abbreviation for the displayed polynomial, and $H$ is a
+polynomial in exactly the five indicated variables.
+
+\begin{theorem}
+\label{thm:main}
+The algebra $A$ in \eqref{eq:example} is an integral complex algebra of
+dimension four. For an independent variable $w$,
+\[
+ A[w]\simeq\kk\poly5,
+ \qquad
+ A\not\simeq\kk\poly4.
+\]
+Consequently the Zariski cancellation problem over the complex numbers has
+a negative answer in dimension four.
+\end{theorem}
+
+\paragraph{The polynomial cylinder.}
+The stabilization belongs to the theory of residual and stable
+coordinates. A polynomial in $\kk[p]\poly4$ is a \emph{residual
+coordinate} if its image is a polynomial coordinate over the residue
+field of every prime of $\kk[p]$; it is \emph{one-stably a coordinate}
+if it becomes a coordinate after adjoining one variable. Our $H$ is a
+residual coordinate: it is a coordinate after inverting $p$, while a
+linear change in $F,J$ makes its reduction at $p=0$ a coordinate.
+Its one-stability therefore follows from the theorem of
+El Kahoui--Ouali~\cite[Theorem~1.1]{ElKahouiOuali}, generalized by
+Dutta--Lahiri~\cite[Theorem~3.4]{DuttaLahiri}.
+
+The Stable Coordinate Conjecture asks whether a polynomial
+$f\in\kk\poly n$ that becomes a coordinate in $\kk\poly{n+1}$ after
+adjoining one variable must already be a coordinate in $\kk\poly n$
+\cite[p.~342]{MakarLimanovVanRossumShpilrainYu}. The assertion concerns
+polynomial automorphisms of the ambient spaces.
+
+\begin{corollary}[Failure of the Stable Coordinate Conjecture]
+\label{cor:stable-coordinate}
+The polynomial $H$ in \eqref{eq:example} is not a coordinate of
+$P=\kk[p,s,u,F,J]$, but it is a coordinate of $P[w]$ for one independent
+variable $w$. Thus the Stable Coordinate Conjecture over $\kk$ fails in
+ambient dimension five after one stabilization.
+\end{corollary}
