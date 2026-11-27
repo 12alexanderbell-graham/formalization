@@ -12,6 +12,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O1 | The Quasi-Riemann Hypothesis (`QuasiRiemannHypothesis`, `DirichletSevenEighths`, `HeckeSevenEighths`) | **NOT DONE** (statement: ζ and Dirichlet parts closed; Hecke part open; replay dispatched) | the two manuscripts state different theorems (7/8 on 30 Sep, 11/12 on 5 Oct); the Lean states 7/8 |
 | O2 | Catalan's constant is irrational (`Catalan`) | **NOT DONE** (statement DONE: 7/7 readings closed; replay dispatched) | none at statement level; the L(2, χ₋₄) form proved equal to the frozen series in Lean |
 | O3 | Kaplansky direct finiteness, characteristic two (`KaplanskyFinitelyPresented`) | **NOT DONE** (Theorem 1.1 closed 3/3; replay dispatched) | the manuscript's Gottschalk (surjunctivity) consequence, stated as proved, has no Lean statement in this family |
+| O4 | The Euclidean plane is not five-colorable (`EuclideanFiveColor`) | **NOT DONE** (no-5-coloring closed 3/3; replay dispatched) | the headline's "consequently 6 ≤ χ(ℝ²) ≤ 7" bundles the cited χ ≤ 7 (Isbell), which has no Lean statement; the paper's own claim (χ ≥ 6) is closed |
+| O5 | The additive indecomposability of the primes (`OstmannPrimes`) | **NOT DONE** (statement DONE: 7/7 closed; replay dispatched) | none at statement level |
+| O6 | A power saving for square-difference-free sets (`SquareDifference`) | **NOT DONE** (statement DONE: 6/6 closed; replay dispatched) | none at statement level; the frozen `C` is unconstrained and `c` is not bounded by 1, as in the source (readers B, C note c > 1 would make it false, so the theorem forces c ≤ 1) |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
 
@@ -80,3 +83,27 @@ challenge of this family states it (the odd-characteristic family's `OddKaplansk
 `cellular b` injective and not surjective). A claim stated as proved with no Lean statement: reported, not
 a mismatch of the Lean. Also not formalizable as stated: "specified by a terminating prescription"
 (effectivity; reader A). Replay line `O-kaplansky2` dispatched.
+
+## O4–O6 (run 2026-11-27T0628Z; brief 4fd330c, readings ee3c89e; files `runs/2026-11-27T0628Z/O/{plane5,ostmann,sqdiff}/`)
+
+**O4, plane five-coloring.** Claim (introduction.tex, sha256 41222c5b…): "The Euclidean plane has no proper
+five-coloring, even when arbitrary color classes are allowed. Consequently, 6 ≤ χ(ℝ²) ≤ 7." Frozen: no
+`ℂ → Fin 5` with `‖p − q‖ = 1 → c p ≠ c q`. Closed (`closure/Closure.lean`, transport by the linear isometry
+`Complex.orthonormalBasisOneI.repr` to `EuclideanSpace ℝ (Fin 2)`): each reader's no-five-coloring ⟺ frozen
+(A with colours `Icc 1 5`, B with `dist`, C with `Fin 5`), and C's "no k < 6 works" ⇐ frozen. Uncovered
+(5 of 9): every reading containing χ ≤ 7 — Isbell's seven-coloring, cited by the manuscript, not proved there
+and not in any frozen statement. The solution closure is small: 70 files, 30,336 lines, no escape hits.
+
+**O5, Ostmann.** Frozen: `A.Nontrivial → B.Nontrivial → ((A + B) ∆ primes).Infinite` on `Set ℕ`. 7/7 readings
+closed (encard ≥ 2 ⟺ Nontrivial; explicit sumset = pointwise `+`; the "Equivalently" and intro forms follow).
+The manuscript's Theorem 2.x ("two infinite summands") was outside the excerpt; its Lean counterpart, if any,
+is not a headline. Closure: 4,358 files, 364,516 lines, imports PrimeNumberTheoremAnd and StrongPNT
+(required at the manifest's revisions); 161 custom-syntax hits, no other.
+
+**O6, square-difference-free sets.** Frozen: `∃ c C, 0 < c ∧ ∀ N ≥ 1, ∀ A ⊆ [1, N] (Finset ℤ),
+square-difference-free → |A| ≤ C N^(1−c)`. 6/6 closed (A both ways on `Finset ℤ`; B, C on `Finset ℕ` via the
+cast, frozen ⇒ reading; the "Equivalently" forms as contrapositives with the same constants). Closure: 81 files,
+24,221 lines, no escape hits.
+
+Escape scans of O2–O6 closures: `runs/2026-11-27T0628Z/O/scan/` (O2: 988 files, 574,902 lines, imports
+PrimeNumberTheoremAnd; O3: 126 files; none with sorry/axiom/native_decide).
