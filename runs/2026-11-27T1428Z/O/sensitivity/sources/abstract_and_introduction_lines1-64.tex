@@ -1,0 +1,71 @@
+\begin{abstract}
+We disprove the quadratic strengthening of the Sensitivity Conjecture by
+constructing nonconstant total Boolean functions whose block sensitivity grows
+faster than any constant multiple of sensitivity squared. In fact, for some
+fixed \(\alpha>2\), our examples have unbounded block sensitivity and satisfy
+\(\bs(f)\ge s(f)^\alpha\).
+\end{abstract}
+\section{Introduction}
+\label{sec:introduction}
+
+Sensitivity measures how many individual input bits can change a Boolean
+function's value; block sensitivity allows disjoint sets of bits to be
+flipped instead. We construct total Boolean functions for which the second
+quantity grows faster than any constant multiple of the square of the first.
+
+For a positive integer \(n\), write \([n]=\{1,\ldots,n\}\).
+If \(x\in\{0,1\}^n\) and \(B\subseteq[n]\), let \(x^B\) be obtained
+by flipping precisely the coordinates in \(B\); abbreviate
+\(x^{\{a\}}\) to \(x^a\).
+For a total Boolean function \(f:\{0,1\}^n\to\{0,1\}\), define
+\[
+ s(f,x)=\bigl|\{a\in[n]:f(x^a)\ne f(x)\}\bigr|,
+ \qquad s(f)=\max_x s(f,x).
+\]
+Its block sensitivity \(\bs(f,x)\) is the largest number of pairwise
+disjoint nonempty sets \(B_1,\ldots,B_m\subseteq[n]\) such that
+\(f(x^{B_j})\ne f(x)\) for every \(j\), and
+\(\bs(f)=\max_x\bs(f,x)\).
+
+The Sensitivity Conjecture asked whether block sensitivity is bounded by a
+polynomial in sensitivity, uniformly over the number of inputs and the
+function. The question goes back to Nisan's work on parallel computation,
+which introduced block sensitivity and already recorded Rubinstein's
+quadratic separation \cite[Section~2]{Nisan1989}.
+Nisan and Szegedy studied the problem through the degree of the unique
+multilinear real polynomial representing a Boolean function, and explicitly
+suggested the quadratic inequality \(\bs(f)\le s(f)^2\)
+\cite[Section~4]{NisanSzegedy1994}.
+Rubinstein's construction \cite{Rubinstein1995} showed that a polynomial
+upper bound would need degree at least two. Virza improved the separation
+to \(\bs(f)=\tfrac12s(f)^2+\tfrac12s(f)\) \cite{Virza2011}, and
+Ambainis and Sun subsequently obtained examples satisfying
+\[
+ \bs(f)=\frac23s(f)^2-\frac13s(f)
+\]
+\cite[Theorem~1]{AmbainisSun2011}.
+These improvements left open whether any universal quadratic upper bound
+could hold.
+
+Huang resolved the polynomial conjecture in 2019. His degree bound,
+together with Tal's refinement of the degree--block-sensitivity comparison
+\cite{Tal2013}, gives \(\bs(f)\le s(f)^4\) for every total Boolean function
+\cite[Theorem~1.5]{Huang2019}. Wellens later improved its leading constant,
+proving
+\(\bs(f)\le\sqrt{2/3}\,s(f)^4+1\)
+\cite[Corollary~4.2]{Wellens2022}.
+These results settle the polynomial question. The theorem below rules out
+its quadratic strengthening.
+
+\begin{theorem}\label{thm:main}
+For every real \(C>0\), there are a positive integer \(n\) and a
+nonconstant total Boolean function \(f:\{0,1\}^n\to\{0,1\}\) such that
+\[
+ \bs(f)>C\,s(f)^2.
+\]
+More precisely, for every integer \(d\ge1\) the construction below gives
+a nonconstant total Boolean function \(f\) with
+\[
+ \frac{\bs(f)}{s(f)^2}\ge \frac{2^d}{4(d+2)^2}.
+\]
+\end{theorem}

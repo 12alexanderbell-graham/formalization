@@ -1,0 +1,91 @@
+\begin{abstract}
+We prove the logarithmic Brunn--Minkowski conjecture for arbitrary
+origin-symmetric convex bodies in every dimension. The theorem also gives
+the symmetric $L_p$ Brunn--Minkowski inequality for every $0<p<1$.
+Combined with Saroglou's transfer theorem and a support-subspace reduction,
+it yields the logarithmic inequality for every even log-concave Radon
+measure and the scalar-dilation $(B)$-conjecture.
+\end{abstract}
+\section{Introduction}
+\label{sec:introduction}
+
+A convex body in $\R^n$ is a compact convex set with nonempty interior.
+If $K=-K$, then $0$ lies in its interior.
+Its support function is
+\[
+ h_K(u)=\max_{x\in K}\langle x,u\rangle,\qquad u\in S^{n-1}.
+\]
+For an origin-symmetric body this function is strictly positive.
+For a positive continuous function $f$ on the unit sphere, its
+\emph{Wulff body} is
+\[
+ \mathcal W[f]=\bigcap_{u\in S^{n-1}}
+ \{x\in\R^n:\langle x,u\rangle\le f(u)\}.
+\]
+It is a convex body: it contains the ball of radius $\min f>0$ and
+is contained in the ball of radius $\max f$. Write $|K|$ for
+$n$-dimensional Lebesgue measure. Our main result is the following.
+
+\begin{theorem}[Even logarithmic Brunn--Minkowski inequality]
+\label{thm:main}
+Let $n\ge1$ and let $K,L\subset\R^n$ be convex bodies satisfying
+$K=-K$ and $L=-L$. For every $0\le\lambda\le1$,
+\begin{equation}\label{eq:main}
+ \left|\mathcal W[h_K^{1-\lambda}h_L^\lambda]\right|
+ \ge |K|^{1-\lambda}|L|^\lambda.
+\end{equation}
+\end{theorem}
+
+The interpolation in \eqref{eq:main} takes the geometric mean of the
+support bounds before intersecting the half-spaces. This gives a
+strengthening, in the symmetric setting, of the multiplicative form
+of the classical Brunn--Minkowski inequality: the arithmetic--geometric
+mean inequality gives
+\[
+ \mathcal W[h_K^{1-\lambda}h_L^\lambda]
+ \subset (1-\lambda)K+\lambda L.
+\]
+In general $h_K^{1-\lambda}h_L^\lambda$ need not itself be a support
+function. The intersection defining $\mathcal W$ is essential throughout
+the argument.
+
+For $0<p<1$, the $L_p$ interpolation replaces the geometric mean of the
+support bounds by the weighted power mean
+$((1-\lambda)h_K^p+\lambda h_L^p)^{1/p}$, still taking the Wulff body.
+The logarithmic endpoint implies the full symmetric volume inequality in
+this intermediate range. B\"or\"oczky, Lutwak, Yang and Zhang record
+this monotone implication
+\cite[equation~(1.10) and the following paragraph, p.~1977]{BLZY2012}.
+The additive
+volume-power form below follows by normalizing the bodies and reweighting
+the interpolation parameter.
+
+\begin{corollary}[Symmetric $L_p$ Brunn--Minkowski inequality]
+\label{cor:lp}
+Let $n\ge1$, let $K,L\subset\R^n$ be full-dimensional origin-symmetric
+convex bodies, and let $0<p<1$. For every $0\le\lambda\le1$,
+\begin{equation}\label{eq:lp}
+ \left|\mathcal W\!\left[
+  \bigl((1-\lambda)h_K^p+\lambda h_L^p\bigr)^{1/p}
+ \right]\right|^{p/n}
+ \ge (1-\lambda)|K|^{p/n}+\lambda|L|^{p/n}.
+\end{equation}
+\end{corollary}
+
+The proof of Corollary~\ref{cor:lp} is given in
+Section~\ref{subsec:lp-proof}.
+
+
+The logarithmic volume theorem has a separate measure-theoretic consequence.
+An even log-concave density has the form $e^{-V}$, where $V$ is an even
+convex function with values in $\R\cup\{+\infty\}$; no probability
+normalization is required. Saroglou proved that the Lebesgue inequality in
+dimension $n$ implies the same Wulff inequality for every such density in
+that same dimension \cite[Theorem~3.1]{Saroglou2016}.
+Taking two scalar dilates of a single body then gives the $(B)$-conjecture:
+for the measure $d\mu=e^{-V(x)}\,dx$ and every origin-symmetric convex body
+$K$, the function $t\mapsto\mu(e^tK)$ is log-concave on $\R$
+\cite[Corollary~3.2]{Saroglou2016}.
+Section~\ref{sec:measure} applies this transfer and also treats even
+log-concave Radon measures supported on proper subspaces.
+
