@@ -1,0 +1,134 @@
+% Paper 1 (Petty's projection-volume conjecture): abstract and introduction lines 1-47
+\begin{abstract}
+We prove that ellipsoids uniquely minimize the volume of the projection body
+among convex bodies of fixed volume in every dimension at least four.
+This proves Petty's projection-volume conjecture in these dimensions.
+\end{abstract}
+\section{Introduction}
+\label{sec:introduction}
+
+For a convex body $K\subset\R^n$, its projection body $\Pi K$ is the
+origin-symmetric convex body whose support function is
+\[
+ h_{\Pi K}(u)=\operatorname{vol}_{n-1}
+       \bigl(\operatorname{proj}_{u^\perp}K\bigr),
+       \qquad u\in S^{n-1}.
+\]
+Here a convex body is compact, convex, and has nonempty interior, and
+$h_L(x)=\max_{y\in L}\ip{x}{y}$ denotes its support function.
+Thus $\Pi K$ records the volumes of the orthogonal shadows of $K$ in
+all directions. Write $|L|=\operatorname{vol}_n(L)$ and let $B_2^m$
+be the Euclidean unit ball in $\R^m$, with volume $\kappa_m$.
+The normalized projection volume is
+\[
+ R_n(K)=\frac{|\Pi K|}{|K|^{n-1}}.
+\]
+It is invariant under translations and invertible linear maps: the
+classical contravariance identity is
+$\Pi(TK)=|\det T|T^{-t}\Pi K$; see
+\cite[Equation~(1)]{Ludwig2002}. We verify this identity directly in
+Section~\ref{sec:conclusion}.
+
+Petty's projection-volume conjecture asserts, for $n\ge3$, that
+$R_n$ is minimized precisely by ellipsoids \cite{Petty1971}.
+The ball satisfies $\Pi B_2^n=\kappa_{n-1}B_2^n$, so the proposed
+minimum is fixed by the Euclidean case. This is an affine isoperimetric
+problem in which directional projection data are assembled into a
+second body before its volume is measured. The classical Petty
+inequality for the \emph{polar} of the projection body concerns a
+different functional; see \cite[Section~18.6]{Gardner2002}.
+We prove the unpolarized conjecture in every dimension at least four.
+
+\begin{theorem}\label{thm:main}
+For every integer $n\ge4$ and every convex body $K\subset\R^n$,
+\begin{equation}\label{eq:main}
+ \frac{|\Pi K|}{|K|^{n-1}}
+ \ge \kappa_{n-1}^{\,n}\kappa_n^{\,2-n}.
+\end{equation}
+Equality holds if and only if $K=a+TB_2^n$ for some $a\in\R^n$ and some
+invertible linear map $T$.
+\end{theorem}
+
+The theorem includes bodies without symmetry or boundary regularity.
+Its equality assertion is global and imposes no proximity to an
+
+% Paper 2 (product counterexample): abstract, introduction (main.tex lines 38-100) and Corollary (lines 421-431)
+\begin{abstract}
+The product of two ten-dimensional simplices has larger normalized
+projection-body volume than a twenty-dimensional simplex. This gives
+a counterexample to Brannen's proposed simplex maximum.
+\end{abstract}
+\section{Introduction}
+
+Throughout, a convex body in \(\R^d\) is compact and convex with nonempty
+interior, and \(d\ge2\). Write \(|K|\) for its \(d\)-dimensional
+volume and \(h_C(x)=\max_{y\in C}\langle x,y\rangle\) for the support
+function of a compact convex set \(C\). The projection body
+\(\Pi_d K\), also written \(\Pi K\) when the dimension is evident, is
+defined by
+\[
+ h_{\Pi K}(u)=\vol_{d-1}\bigl(\proj_{u^\perp}K\bigr),
+ \qquad u\in S^{d-1},
+\]
+extended homogeneously to all of \(\R^d\). Here \(S^{d-1}\) is the
+Euclidean unit sphere and \(\proj_{u^\perp}\) is orthogonal projection.
+We write \(B_2^j\) for the Euclidean unit ball in \(\R^j\) and
+\(\kappa_j=|B_2^j|\).
+The functional under consideration is
+\begin{equation}\label{eq:functional}
+ R_d(K)=\frac{|\Pi K|}{|K|^{d-1}},
+ \qquad c_d=\frac{(d+1)d^d}{d!}.
+\end{equation}
+
+The extremal values of this affine-invariant functional are classical
+questions in convex geometry. Petty established the affine covariance of
+the projection-body operator~\cite{Petty}; see also
+\cite[Equation~(1)]{Ludwig}. Brannen conjectured in 1996 that simplices
+maximize \(R_d\) among all convex bodies~\cite{Brannen}.
+The simplex value is \(c_d\), as we verify below. Thus the proposed
+simplex upper bound is
+\begin{equation}\label{eq:proposed-bound}
+ |\Pi K|\le c_d|K|^{d-1}.
+\end{equation}
+It is the volume of \(\Pi K\) itself that occurs here, not the volume of
+its polar: the classical projection inequalities involving the polar
+concern a different functional. For \(d\ge3\), Petty's separate minimum
+problem asks whether ellipsoids are the only minimizers of the same
+functional \(R_d\); see \cite[Section~1]{Saroglou} for these distinctions.
+
+In dimension three, Chen, Feng, Li, Xi, and Xu settle the minimum problem
+and also prove
+the bound \(R_3(K)\le18=c_3\) for all
+three-dimensional convex bodies, with tetrahedra attaining
+equality~\cite[Theorems~1.1 and~1.2]{ChenEtAl}. Feng, Hu, Liu, and Xu give
+counterexamples to \eqref{eq:proposed-bound} in every dimension
+\(d\ge9\), using polytopes with at most \(d+2\)
+facets~\cite[Theorem~1.3]{FengEtAl}. Their result already gives a
+negative answer to the unrestricted-dimensional simplex-maximum
+question. Their construction uses perturbed projections of a cube and
+Minkowski's existence theorem~\cite[Section~4]{FengEtAl}. The present
+paper supplies a direct Cartesian-product construction and its exact
+value: two ten-dimensional simplices suffice.
+
+\begin{theorem}\label{thm:counterexample}
+Let \(T_{10}=\conv(0,e_1,\ldots,e_{10})\subset\R^{10}\), where the
+\(e_i\) are the coordinate unit vectors, and let
+\(K=T_{10}\times T_{10}\subset\R^{20}\). Then
+\[
+ \frac{R_{20}(K)}{c_{20}}
+ =\frac{121\binom{20}{10}}{21\cdot2^{20}}
+ =\frac{22\,355\,476}{22\,020\,096}>1.
+\]
+Thus \(K\) violates \eqref{eq:proposed-bound} in dimension twenty.
+\end{theorem}
+Iterating the product test gives the following quantitative consequence.
+
+\begin{corollary}\label{cor:exponential-excess}
+There exist a constant \(\lambda>1\) and an integer \(N\ge20\) such that, for every
+integer \(n\ge N\), some full-dimensional convex polytope
+\(K_n\subset\R^n\) satisfies
+\[
+ \frac{R_n(K_n)}{R_n(T_n)}\ge\lambda^n.
+\]
+The polytopes \(K_n\) may be chosen as Cartesian products of simplices.
+\end{corollary}

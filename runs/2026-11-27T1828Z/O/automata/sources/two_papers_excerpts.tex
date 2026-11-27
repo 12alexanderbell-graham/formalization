@@ -1,0 +1,149 @@
+% Paper 1 (two-way nondeterministic complementation): abstract, introduction lines 1-52, automata.tex lines 171-180
+\begin{abstract}
+We prove that two-way nondeterministic finite automata cannot be
+complemented with a polynomial number of states independent of the
+alphabet. For each $n\ge4$ we construct an $n$-state automaton over a finite
+alphabet whose complement requires at least
+$\tfrac12 2^{\lfloor(n-4)/127\rfloor}-1$ states.
+\section{Introduction}
+\label{sec:introduction}
+
+A two-way nondeterministic finite automaton (2NFA) has a finite set of
+states and a single read-only head, which may move in either direction
+along an input bounded by endmarkers. It accepts when some finite
+computation reaches an accepting state. The complementation problem asks
+whether every $n$-state 2NFA over a finite alphabet $\Sigma$ has a 2NFA for
+the complementary language with at most $p(n)$ states, for one polynomial
+$p$ independent of $\Sigma$. We answer this question negatively.
+
+For exact state counts, there is one initial state and a set of accepting
+states. Each transition depends only on the current state and scanned
+symbol, updates the state, and moves the head left, right, or not at all.
+We start the head on the left endmarker and forbid moves beyond either
+endmarker. Missing transitions
+reject that branch; infinite nonaccepting computations do not accept.
+An accepting initial configuration counts as acceptance. All states,
+including initial and accepting states, are counted. A deterministic
+two-way automaton (2DFA) has at most one successor for each state and
+scanned symbol.
+
+For a finite set $H$, let $\mathcal R_H$ denote all binary relations on
+$H$. Products are composed in path order:
+$(p,r)\in AB$ if and only if $(p,q)\in A$ and $(q,r)\in B$ for some $q$.
+Use $\Sigma_H=\mathcal R_H$ as an input alphabet. The product $r(w)$ of a
+word $w=R_1\cdots R_k$ is $R_1\cdots R_k$, and the empty product is
+$r(\varepsilon)=I_H=\{(p,p):p\in H\}$. Define the relation-product
+liveness language
+\[
+ L_H=\{w\in\Sigma_H^*:r(w)\ne\varnothing\}.
+\]
+In particular, $L_H$ contains the empty word when $H$ is nonempty.
+For nonempty words, this is Sakoda and Sipser's family $B_h$, where
+$h=|H|$ \cite[Section~2.1 and Theorem~2.3]{SakodaSipser1978}; the name
+\emph{one-way liveness} is used in \cite[Section~2.2]{Kapoutsis2006}.
+
+\begin{theorem}\label{main:theorem}
+For every integer $n\ge4$, set $H=\{1,\ldots,n-2\}$ and
+$\Sigma_n=\mathcal R_H$. There is an $n$-state 2NFA $A_n$ recognizing
+$L_H$ such that every 2NFA recognizing
+$\Sigma_n^*\setminus L(A_n)$ has at least
+\[
+ \frac12\,2^{\lfloor(n-4)/127\rfloor}-1
+\]
+states. In particular, there is no polynomial state bound for
+complementation that is independent of the finite alphabet.
+\end{theorem}
+
+The alphabet $\Sigma_n$ consists of all binary relations on a set of
+$n-2$ points, so $|\Sigma_n|=2^{(n-2)^2}$. The parameter is the
+number of states, not the size of the transition table. Theorem~\ref{main:theorem}
+\begin{corollary}\label{auto:determinization}
+There are absolute constants $c>0$ and $n_0$ such that, for every
+$n\ge n_0$, every 2DFA recognizing the language of the $n$-state 2NFA
+$A_n$ in Theorem~\ref{main:theorem} has at least
+\[
+ c\,2^{\lfloor(n-4)/127\rfloor}
+\]
+states. Hence no polynomial state bound independent of the finite
+alphabet can determinize all 2NFAs.
+\end{corollary}
+
+% Paper 2 (one-way liveness): abstract, introduction lines 64-130
+\begin{abstract}
+One-way liveness on $h$ points accepts a word of binary relations when
+their ordered product is nonempty. For every $h\ge2$, it has a
+nondeterministic automaton with $h+3$ states and no left moves, whereas
+every equivalent $s$-state two-way deterministic automaton satisfies
+$4(s+2)^2\ge2^{\lfloor(h-2)/31\rfloor}$. Partial transition rules, stay
+moves, and nonaccepting infinite computations are allowed. The alphabets are
+finite and grow with $h$, so the result rules out an alphabet-independent
+polynomial state bound for deterministic two-way simulation, already for
+one-way nondeterministic sources.
+\end{abstract}
+\subsection{Model and statement}
+
+An automaton has a finite state set and one read-only head on a finite word
+over an alphabet $\Sigma$, bracketed by two distinct endmarkers outside
+$\Sigma$. Its head starts at the left endmarker in a designated initial
+state. A transition changes the state and moves the head left, right, or
+not at all; the head cannot cross an endmarker. A transition depends only
+on the current state and scanned symbol. Deterministic transition rules
+may be partial. A nondeterministic rule permits several successors.
+There are no additional heads, writable cells, work tapes, advice, or
+randomness. All states, including initial and accepting states, are counted.
+
+Acceptance means that a finite computation reaches an accepting state;
+a nonaccepting infinite computation rejects. We initially count an
+accepting initial configuration as success. If success instead requires
+a positive transition into an accepting state, the normalization in
+Section~\ref{sec:machines} uses one additional initial copy. The main
+bound below includes this extra state and holds with either convention.
+
+For a finite set $H$, let $\R{H}$ be the monoid of all binary relations
+on $H$. Products are in path order from left to right:
+\[
+ (x,z)\in AB
+ \quad\Longleftrightarrow\quad
+ \text{there exists }y\in H\text{ with }(x,y)\in A,\ (y,z)\in B.
+\]
+Write $\Id{F}=\{(x,x):x\in F\}$ for $F\subseteq H$; the identity is
+$\Id{H}$ and the zero is the empty relation $0$. For $H=[h]$ define
+\begin{equation}
+\label{eq:liveness-language}
+ \OWL_h=\{R_1\cdots R_\ell\in(\R{[h]})^*:
+                  R_1\cdots R_\ell\ne0\}.
+\end{equation}
+The product of the empty word is $\Id{[h]}$, so $\eps\in\OWL_h$.
+
+\begin{theorem}
+\label{thm:main}
+For every integer $h\ge2$, the language $\OWL_h$ is recognized by a
+nondeterministic automaton with $h+3$ states using no left moves. Every
+equivalent deterministic two-way automaton with $s$ states satisfies
+\begin{equation}
+\label{eq:main-bound}
+ 4(s+2)^2\ge 2^{\lfloor(h-2)/31\rfloor}.
+\end{equation}
+If an initially accepting configuration counts as acceptance, $s+2$ in
+\eqref{eq:main-bound} may be replaced by $s+1$.
+\end{theorem}
+
+\begin{corollary}
+\label{cor:no-polynomial}
+There are no absolute constants $C,c>0$ such that every $n$-state two-way
+nondeterministic automaton over every finite alphabet has an equivalent
+two-way deterministic automaton with at most $Cn^c$ states.
+\end{corollary}
+
+\begin{proof}
+Put $n=h+3$ in Theorem~\ref{thm:main}. Every deterministic equivalent
+for this family has at least
+\[
+ 2^{\frac12\lfloor(n-5)/31\rfloor-1}-2
+\]
+states. This bound exceeds $Cn^c$ for every fixed $C,c$ when $n$ is large
+enough. For each $h$ the alphabet has $2^{h^2}$ symbols and is finite.
+Since the constants in the proposed simulation must be independent of
+the alphabet, the family is within its scope.
+\end{proof}
+

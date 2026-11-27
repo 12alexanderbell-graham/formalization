@@ -1,0 +1,62 @@
+\begin{abstract}
+We prove a uniform upper bound for inverse-first-power integral means
+of normalized univalent disk maps with exponent strictly below \(1/4\).
+Consequently, the bounded universal integral-means spectrum satisfies
+\(B_b(-1)<1/4\), disproving Kraetzer's conjectured spectrum at \(p=-1\).
+\end{abstract}
+\section{Introduction}\label{sec:introduction}
+
+For a univalent function, the derivative can become large or small near
+the boundary even when the image domain is bounded. Integral means
+measure the rate of this concentration. Their universal spectrum records
+the largest possible growth exponent over a class of conformal maps;
+it brings questions about derivatives, coefficients, and the geometry
+of image boundaries into a common framework.
+
+Let \(\DD=\{z\in\C:|z|<1\}\), and let \(\SSS\) consist of all
+injective holomorphic maps \(f:\DD\to\C\) with \(f(0)=0\) and
+\(f'(0)=1\). Write \(\SSS_b\) for the subclass of maps with bounded
+image. The bound on the image may depend on \(f\), and no boundary
+regularity is imposed. For \(p\in\R\) and \(0\le r<1\), define
+\begin{align*}
+ M_p[f'](r)&=\frac1{2\pi}\int_{-\pi}^{\pi}|f'(re^{i\theta})|^p\,d\theta,\\
+ \beta_f(p)&=\limsup_{r\uparrow1}
+ \frac{\log M_p[f'](r)}{\log(1/(1-r))},
+ &B_b(p)&=\sup_{f\in\SSS_b}\beta_f(p).
+\end{align*}
+The derivative of a univalent map never vanishes, so all real powers
+are defined. The supremum in \(B_b\) is taken after each map's limiting
+exponent. Multiplying a map by a nonzero constant leaves that exponent
+unchanged, so normalization of the derivative does not change the
+bounded-class spectrum.
+
+\subsection{The conjecture and the uniform bound}
+
+Kraetzer's experiments with conformal maps onto bounded domains led
+to the prediction
+\begin{equation}\label{eq:kraetzer}
+ B_b(p)=
+ \begin{cases}
+ p^2/4,&|p|\le2,\\
+ |p|-1,&|p|\ge2.
+ \end{cases}
+\end{equation}
+The quadratic part is stated in his 1996 paper and explicitly
+restated in his thesis \cite{Kraetzer,KraetzerThesis}; the full
+quadratic--linear formulation also appears in Beliaev's discussion
+of numerical spectra \cite{Beliaev}. We prove a strict upper bound
+at the negative interior exponent \(p=-1\).
+
+\begin{theorem}[Uniform inverse-first-power bound]\label{thm:main}
+There exist constants \(0<\varepsilon<1/4\) and \(C<\infty\) such that
+\begin{equation}\label{eq:uniform}
+ M_{-1}[f'](r)\le C(1-r)^{-1/4+\varepsilon}
+ \qquad\text{for every }f\in\SSS\text{ and every }1/2\le r<1.
+\end{equation}
+Consequently \(B_b(-1)<1/4\), and Kraetzer's conjectured identity
+\eqref{eq:kraetzer} is false.
+\end{theorem}
+
+Both constants are independent of the map, including its image size.
+The proof gives existence of a positive gap but does not evaluate it
+numerically. The conclusion concerns the inverse first power; it does
