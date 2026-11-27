@@ -1,0 +1,2 @@
+# closure: 2384 files, 185097 lines; external packages: {'Mathlib': 598, 'Lean': 2}
+# hits: none

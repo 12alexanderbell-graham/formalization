@@ -15,6 +15,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O4 | The Euclidean plane is not five-colorable (`EuclideanFiveColor`) | **NOT DONE** (no-5-coloring closed 3/3; replay dispatched) | the headline's "consequently 6 ≤ χ(ℝ²) ≤ 7" bundles the cited χ ≤ 7 (Isbell), which has no Lean statement; the paper's own claim (χ ≥ 6) is closed |
 | O5 | The additive indecomposability of the primes (`OstmannPrimes`) | **NOT DONE** (statement DONE: 7/7 closed; replay dispatched) | none at statement level |
 | O6 | A power saving for square-difference-free sets (`SquareDifference`) | **NOT DONE** (statement DONE: 6/6 closed; replay dispatched) | none at statement level; the frozen `C` is unconstrained and `c` is not bounded by 1, as in the source (readers B, C note c > 1 would make it false, so the theorem forces c ≤ 1) |
+| O7 | A complete local domain without a small Cohen–Macaulay module (`SurfaceConeCandidateSupport`) | **NOT DONE** (0/9 readings closable) | **the family's only Lean statement does not state the claim**: it asserts that *some* complete Noetherian normal local domain of dimension 3 with residue field ℂ exists — any such ring (e.g. ℂ⟦x, y, z⟧) satisfies it — and says nothing about small Cohen–Macaulay modules; the manuscript's Theorem 1.1 and its disproof of the conjecture have no Lean statement |
+| O8 | The Falconer distance conjecture in all dimensions (`FalconerAllDimensions`) | **NOT DONE** (statement DONE: 3/3 closed; replay dispatched) | none at statement level |
+| O9 | The irrationality exponent of π is 2 (`PiExponent`) | **NOT DONE** (6/10 closed: μ(π) = 2 and the inequality, every reader; replay dispatched) | the abstract's consequence "the Flint–Hills series converges" has no Lean statement |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
 
@@ -107,3 +110,27 @@ cast, frozen ⇒ reading; the "Equivalently" forms as contrapositives with the s
 
 Escape scans of O2–O6 closures: `runs/2026-11-27T0628Z/O/scan/` (O2: 988 files, 574,902 lines, imports
 PrimeNumberTheoremAnd; O3: 126 files; none with sorry/axiom/native_decide).
+
+## O7–O9 (run 2026-11-27T0628Z; brief f0cdc21, readings 194ff62; files `runs/2026-11-27T0628Z/O/{smallcm,falconer,piexp}/`)
+
+**O7, small Cohen–Macaulay modules — a coverage finding.** Claim (paper.tex, sha256 76d8de92…): Theorem 1.1, "There
+exists a three-dimensional complete Noetherian normal local domain R containing ℂ, with residue field ℂ, such that
+no nonzero finitely generated R-module has depth three", which "disproves the domain form of the small
+Cohen–Macaulay module conjecture". The family's only comparator challenge, `OAI.SmallCM.candidate_ring_properties`,
+states the existence of a ring with the listed ring-theoretic properties and nothing about modules. Its solution
+(11 files, 7,844 lines) uses the paper's completed cone ring as the witness, but the *statement* is met by any
+regular complete local ℂ-algebra of dimension 3 (ℂ⟦x,y,z⟧; classical, not proved here in Lean — Mathlib lacks
+Krull dimension and completeness of multivariate power series). All 9 reading theorems of the three readers
+(the theorem, the disproof of the conjecture, and the conjecture as a `Prop`) are UNCOVERED. What the release's
+Lean certifies for this family is a support lemma, not the result.
+
+**O8, Falconer.** Frozen: `∀ d ≥ 2, ∀ E compact ⊆ EuclideanSpace ℝ (Fin d), (d : ℝ≥0∞)/2 < dimH E →
+0 < volume {r | ∃ x ∈ E, ∃ y ∈ E, dist x y = r}`. 3/3 closed both ways. Closure: 2,384 files, 185,097 lines,
+no escape hits.
+
+**O9, π.** Frozen: the "more precisely" inequality (with `2 ≤ Q`) ∧ `sSup {ν > 0 | infinitely many r : ℚ with
+den ≥ 2 and 0 < |π − r| < den^(−ν)} = 2` (real `sSup`). Closed for every reader: the inequality (readers A, C add
+`0 < q`, implied) and μ(π) = 2 in each reader's form (A: `EReal` sSup and `IsLUB`; B: `EReal`; C: `ℝ≥0∞` iSup) —
+a real `sSup` equal to 2 forces the set nonempty and bounded, and rationals of denominator ≥ 2 correspond to
+coprime pairs (p, q), q ≥ 2 (`pairs_eq_image`, `SP_eq_SF`). Uncovered: the abstract's Flint–Hills corollary
+(no Lean statement). Closure: 869 files, 94,948 lines, no escape hits.
