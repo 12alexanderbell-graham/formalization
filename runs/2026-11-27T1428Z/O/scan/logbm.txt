@@ -1,0 +1,59 @@
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:5151	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:5152	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:5225	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:5226	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:6469	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:6820	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:6821	local notation "" => (CubeGeometry.unitBox : Box ι)
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:6986	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:6987	local notation "" => (CubeGeometry.unitBox : Box ι)
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:7393	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:7394	local notation "" => ((Fintype.card ι:ℝ)/2+(2*(Fintype.card ι:ℝ)+1))
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:7395	local notation "" => (CubeGeometry.unitBox : Box ι)
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:7557	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:7558	local notation "" => ((Fintype.card ι:ℝ)/2+(2*(Fintype.card ι:ℝ)+1))
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:7559	local notation "" => (CubeGeometry.unitBox : Box ι)
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:7665	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:7805	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:7880	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8008	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8009	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8010	local notation "" => ((Fintype.card ι:ℝ)/2+(2*(Fintype.card ι:ℝ)+1))
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8232	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8233	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8234	local notation "" => ((Fintype.card ι:ℝ)/2+(2*(Fintype.card ι:ℝ)+1))
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8441	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8526	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8527	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8528	local notation "" => ((Fintype.card ι:ℝ)/2+(2*(Fintype.card ι:ℝ)+1))
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8713	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8794	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8795	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8979	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8980	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:8981	local notation "" => ((Fintype.card ι:ℝ)/2+(2*(Fintype.card ι:ℝ)+1))
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:9123	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:22445	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:22523	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:22579	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:22642	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:22704	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:23711	local notation "" => HessianInterpolation.hessian
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:23759	local notation "" => HessianInterpolation.hessian
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:23854	local notation "" => HessianInterpolation.hessian
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:23855	local notation "" => Matrix ι ι ℝ
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24013	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24071	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24072	local notation "" => (ι → ℝ)
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24119	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24120	local notation "" => PiLp.continuousLinearEquiv 2 ℝ (fun _:ι=>ℝ)
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24292	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24293	local notation "" => (ι→ℝ)
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24294	local notation "" => (coord (ι:=ι))
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24325	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24326	local notation "" => (coord (ι:=ι))
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24367	local notation "" => EuclideanSpace ℝ ι
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24368	local notation "" => (ι→ℝ)
+custom syntax	OAI/Geometry/LogVolume/BrunnMinkowski.lean:24369	local notation "" => (coord (ι:=ι))
+# closure: 1 files, 24490 lines; external packages: {'Mathlib': 1}
+# hits: custom syntax 57
