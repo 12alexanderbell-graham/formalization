@@ -34,6 +34,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O23 | A quadratic bound for Jacobsthal's function (`JacobsthalImproved` + `Jacobsthal`) | **NOT DONE** (statement DONE: 6/6 — Theorem 1.1 and Jacobsthal's quadratic question, every reader; replays dispatched) | none at statement level; the frozen iterated-log bound also gives the quadratic form (C' = C/(log log 3)²), closed in Lean |
 | O24 | Single-fold Diophantine representations (`SingleFold`) | **NOT DONE** (3/6: Theorem 1.1 closed for every reader; replay dispatched) | the Corollary (undecidability under an at-most-one-solution promise) has no Lean statement |
 | O25 | A single lattice covering bound of order n log n (`SingleLatticeCovering`) | **NOT DONE** (statement DONE: 3/3; replay dispatched) | none at statement level |
+| O26 | The Euclidean Steinitz–Bergström theorem (`SteinitzBergstrom`) | **NOT DONE** (8/11: Theorems 1.1 and 1.2 with one constant, every reader; replay dispatched) | the source's "the constant in Theorem 1.1 also suffices here", read by all three readers also as *every* 1.1-constant works for 1.2, is not in the Lean (it gives one common C) |
+| O27 | A doubling Hilbert subset with no finite-dimensional bi-Lipschitz embedding (`DoublingHilbert` + `CompactBanach`) | **NOT DONE** (4/6: readers A and C, both theorems; replays dispatched) | the source does not say open or closed balls; the Lean fixes open balls; reader B's closed-ball reading (constant 76800) does not follow — an ambiguity resolved by the Lean, not a mismatch with the text |
+| O28 | Uniform exclusion of Landau–Siegel zeros (`SiegelZeros`) | **NOT DONE** (statement DONE: 4/4, every reader; replay dispatched) | none at statement level: the frozen statement is the readers' up to argument order (`LFunction` pinned in target R) |
 | — | Integral points on character varieties (`CharacterVarietiesAllSeamsSupport`) | **NOT STARTED** | observation (orchestrator only, not a blind reading): the family's only challenge is a lemma about the release's own `Diagram` structures (it imports OAI modules), not a statement of Theorem 1.1 in Mathlib terms; queued for the protocol |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
@@ -316,3 +319,24 @@ and `ZLattice.covolume`. Closed for every reader: A (Λ = Aℤⁿ, det A ≠ 0) 
 family) from a ℤ-basis of L indexed by `Fin n` (rank n) and `covolume_eq_det`; B in `EuclideanSpace` by pulling L
 back along the volume-preserving `EuclideanSpace.equiv` (`covolume_comap`). Solution closure: 41 files, 25,913
 lines, no escape hits.
+
+## O26–O28 (run 2026-11-27T0628Z; brief 6a2ff84, readings e0665a9; files `runs/2026-11-27T0628Z/O/{steinitz,doubling,siegel}/`)
+
+**O26, Steinitz–Bergström.** Claims (introduction.tex, 84a36d95…): signed prefixes ≤ C√d (1.1); zero-sum orderings
+≤ C√d (1.2); "the constant in Theorem 1.1 also suffices here". Frozen: one C with both. Closed: 1.1, 1.2 and the
+common-constant form for every reader (8). Uncovered: the "every constant" reading (3; A, B and C each wrote it).
+Solution closure: 29 files, 15,082 lines, no escape hits.
+
+**O27, doubling Hilbert subset.** Claims (main.tex, 3eac74d0…): a subset of real ℓ₂ with doubling constant ≤ 76800
+and no bi-Lipschitz embedding into any ℝ^k at any distortion (the Lang–Plaut question, negative); a compact
+obstruction with universal doubling constant in every infinite-dimensional real Banach space (stated in prose,
+Section 8). Frozen: both, as two challenges (open balls; scale a > 0, distortion D ≥ 1). Closed for readers A and C
+(an embedding at distortion D < 1 is one at distortion 1). Not closed: reader B (closed balls) — the source's
+"balls" is ambiguous; the Lean takes open balls. Solution closures: 28 files, 4,664 lines, no escape hits.
+
+**O28, Landau–Siegel zeros.** Claim (paper.tex, b011ba9c…): an absolute c > 0 with (1 − β) log q ≥ c for every real
+zero β ∈ (0,1) of every primitive nonprincipal real Dirichlet L-function of conductor q ≥ 3. Frozen: the same with
+Mathlib's `DirichletCharacter.LFunction` (the continuation — pinned in target R by the identity theorem), real
+values as zero imaginary parts. Closed for every reader, and reader A's conductor form (4/4). Solution closure:
+306 files, 69,818 lines (PrimeNumberTheoremAnd), 56 custom-syntax hits. The claim is one of the central open
+problems of analytic number theory; the replay decides whether the proof checks.
