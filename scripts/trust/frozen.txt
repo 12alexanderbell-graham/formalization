@@ -1278,6 +1278,19 @@ doc:Checked.FSSep.BlowSep.start -doc564652062813303668
 doc:Checked.FSSep.BlowSep.unclampS_neither -doc14984537309582549557
 doc:Checked.FSSep.BlowSepOver.chain -doc6496359185374122265
 doc:Checked.FSSep.BlowSepSlow.chain -doc5976850162665004631
+doc:Checked.FSSep.RecedeSep.ChainKR -doc3400846417391970644
+doc:Checked.FSSep.RecedeSep.cS -doc256085149615078813
+doc:Checked.FSSep.RecedeSep.early -doc9250110743958620060
+doc:Checked.FSSep.RecedeSep.flowK_cont -doc4245380451332457882
+doc:Checked.FSSep.RecedeSep.flowK -doc5382395516361401608
+doc:Checked.FSSep.RecedeSep.late -doc327627337000411748
+doc:Checked.FSSep.RecedeSep.local_sol -doc1122822952567526549
+doc:Checked.FSSep.RecedeSep.neither_class -doc4720171564570812973
+doc:Checked.FSSep.RecedeSep.slow_unclamp -doc5376312317379641999
+doc:Checked.FSSep.RecedeSep.start -doc564652062813303668
+doc:Checked.FSSep.RecedeSep.unclampS_neither -doc14984537309582549557
+doc:Checked.FSSep.RecedeSepOver.chain -doc12285930608453975585
+doc:Checked.FSSep.RecedeSepSlow.chain -doc7075462243749658785
 doc:Checked.FSSep.SAssemble.neither_class -doc4720171564570812973
 doc:Checked.FSSep.SAssemble.slow_unclamp -doc5376312317379641999
 doc:Checked.FSSep.SBase.ChainK -doc17700467122765634429
@@ -3816,6 +3829,7 @@ doc:Checked.Trust.NecessityCE.blow_sep -doc808581384702382722
 doc:Checked.Trust.NecessityCE.slow_sep -doc10162506286522776171
 doc:Checked.Trust.NecessityCE.suction_sep -doc16568152456789903645
 doc:Checked.Trust.NecessityCE.wall_sep -doc16267665098327306775
+doc:Checked.Trust.NecessityCF.recede_sep -doc233189975152908019
 doc:Checked.Trust.NecessityEta.agree20_imp -doc9958743186863952861
 doc:Checked.Trust.NecessityEta.agree20 -doc9824130336149770711
 doc:Checked.Trust.NecessityEta.agree30_imp -doc6505485457868535128
@@ -4645,6 +4659,9 @@ moduledoc:Checked.FSRevW.WUnclamp -mdoc3568132634447846990
 moduledoc:Checked.FSSep.BlowSepOver -mdoc260457755397464194
 moduledoc:Checked.FSSep.BlowSepSlow -mdoc10160787588580144893
 moduledoc:Checked.FSSep.BlowSep -mdoc6596158631034604998
+moduledoc:Checked.FSSep.RecedeSepOver -mdoc14339566633817583392
+moduledoc:Checked.FSSep.RecedeSepSlow -mdoc6410005761979452529
+moduledoc:Checked.FSSep.RecedeSep -mdoc1732005112521942675
 moduledoc:Checked.FSSep.SAssemble -mdoc7915162812487625404
 moduledoc:Checked.FSSep.SBase -mdoc9345967552416858953
 moduledoc:Checked.FSSep.SCellWC -mdoc1338607485128572807
@@ -5136,6 +5153,7 @@ moduledoc:Checked.Trust.NecessityCB -mdoc3613913200048203227
 moduledoc:Checked.Trust.NecessityCC -mdoc8273987109616275683
 moduledoc:Checked.Trust.NecessityCD -mdoc15597949330338634459
 moduledoc:Checked.Trust.NecessityCE -mdoc12229686251882015945
+moduledoc:Checked.Trust.NecessityCF -mdoc571128668161920175
 moduledoc:Checked.Trust.NecessityC -mdoc11905603478198414506
 moduledoc:Checked.Trust.NecessityD -mdoc6841133499589061789
 moduledoc:Checked.Trust.NecessityEta -mdoc18282187098395309792

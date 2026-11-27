@@ -1274,3 +1274,9 @@
 - Verdicts: target 1 (Navier–Stokes) DONE (run 45906952810: declarations identical, standard axioms, leanchecker 610/610, nanoda 94,715 declarations); target 2 DONE for 67.2% and Theorems 1–2, its (0,T) rate NOT DONE. Alexander notified (L.2).
 - Tools: `compare_decls.lean` (replaces the Match step); leanchecker parallel batches with OOM guard and single-module retry; leanchecker shards in `external.yml`; build directory cached across dispatches (S4 cycle–clique). Blockers rows updated.
 - Annex LIV: LEDGER experiment (external replay, second round).
+
+## 2026-11-27T0028Z (scheduled run; part 1 by rotation)
+- Env: repo ok; local Lean (elan, 4.35.0), Mathlib cache; judge's build of 9747463 restored by streaming. `EXTERNAL_LOCK` live (run 1529Z): external targets left to it.
+- CI: 45909963386 (9747463) success (read by run 2228Z); nothing to promote.
+- Part 1: hypothesis 5 of the bound below the printed separation value NEEDED (receding-wall stack `RecedeSep`, chains `RecedeSepOver`, `RecedeSepSlow`, `NecessityCF`); open 15 → 14. Float scan of the positivity hypotheses: witness candidate at β ≈ −2.4145 for three of them.
+- Annex LIV: PROMPT working note; LEDGER experiment.

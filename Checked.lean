@@ -537,6 +537,9 @@ import Checked.FSSep.SuctionSepSlow
 import Checked.FSSep.WallSep
 import Checked.FSSep.WallSepOver
 import Checked.FSSep.WallSepSlow
+import Checked.FSSep.RecedeSep
+import Checked.FSSep.RecedeSepOver
+import Checked.FSSep.RecedeSepSlow
 import Checked.FSSep.SSlowFiveThree
 import Checked.FSSep.BlowSep
 import Checked.FSSep.BlowSepOver
@@ -810,4 +813,5 @@ import Checked.FSAtt.RNinetyFiveHi
 import Checked.Trust.NecessityCB
 import Checked.Trust.NecessityCD
 import Checked.Trust.NecessityCE
+import Checked.Trust.NecessityCF
 import Checked.Trust.NecessityCC

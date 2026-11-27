@@ -13,9 +13,9 @@ machine-checked witness that all their hypotheses hold at once (`Checked/Trust/W
 obligation computed from the statement by `Checked.Trust.nvObligation`); the others are
 unconditional (binders are plain data only).
 Hypothesis necessity (trust track T2b, run 2026-11-09T0628Z): 1082 hypotheses in 189 headlines;
-804 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
+805 shown NEEDED (a machine-checked example meeting every other hypothesis where the conclusion fails),
 263 shown REDUNDANT in Lean (the same statement proved without it), 0 with no obligation (instance arguments, proofs used as data),
-15 open; headlines with every hypothesis classified: 164/189
+14 open; headlines with every hypothesis classified: 164/189
 (section "Hypothesis necessity" below; obligations `necessity%`, `dropped%` in `Checked/Trust/NonVacuity.lean`).
 Transcriptions (trust track T3): 49 PRINTED definitions; 49 carry a machine-checked
 agreement with an independent blind second reading (`Checked/Trust/Transcriptions.lean`; marked ² below).
@@ -544,7 +544,7 @@ of an implication, with program definitions unfolded (`Checked.Trust.partsWalk`)
 - `FalknerSkan.NegWindow.fs_neg_tenth_window` (8): needed 1 (`fs_neg_tenth_window_h1`), 2 (`fs_neg_tenth_window_h2`), 3 (`fs_neg_tenth_window_h3`), 4 (`fs_neg_tenth_window_h4`), 5 (`fs_neg_tenth_window_h5`), 7 (`fs_neg_tenth_window_h7`), 8 (`fs_neg_tenth_window_h8`); redundant 6 (`fs_neg_tenth_window_r6`)
 - `FalknerSkan.NegWindow.fs_neg_tenth_monotone_lt` (7): needed 1 (`fs_neg_tenth_monotone_lt_h1`), 2 (`fs_neg_tenth_monotone_lt_h2`), 3 (`fs_neg_tenth_monotone_lt_h3`), 4 (`fs_neg_tenth_monotone_lt_h4`), 5 (`fs_neg_tenth_monotone_lt_h5`); redundant 6 (`fs_neg_tenth_monotone_lt_r6`); open 7
 - `FalknerSkan.SeparationEqual.fs_separation_equal` (18): needed 1 (`fs_separation_equal_h1`), 2 (`fs_separation_equal_h2`), 3 (`fs_separation_equal_h3`), 4 (`fs_separation_equal_h4`), 5 (`fs_separation_equal_h5`), 6 (`fs_separation_equal_h6`), 9 (`fs_separation_equal_h9`), 10 (`fs_separation_equal_h10`), 11 (`fs_separation_equal_h11`), 12 (`fs_separation_equal_h12`), 13 (`fs_separation_equal_h13`), 14 (`fs_separation_equal_h14`), 15 (`fs_separation_equal_h15`), 18 (`fs_separation_equal_h18`); redundant (each alone, not together) 7 (`fs_separation_equal_r7`), 16 (`fs_separation_equal_r16`); open 8, 17
-- `FalknerSkan.SeparationPrinted.fs_separation_below_printed` (9): needed 1 (`fs_separation_below_printed_h1`), 2 (`fs_separation_below_printed_h2`), 3 (`fs_separation_below_printed_h3`), 4 (`fs_separation_below_printed_h4`), 6 (`fs_separation_below_printed_h6`), 9 (`fs_separation_below_printed_h9`); redundant 7 (`fs_separation_below_printed_r7`); open 5, 8
+- `FalknerSkan.SeparationPrinted.fs_separation_below_printed` (9): needed 1 (`fs_separation_below_printed_h1`), 2 (`fs_separation_below_printed_h2`), 3 (`fs_separation_below_printed_h3`), 4 (`fs_separation_below_printed_h4`), 5 (`fs_separation_below_printed_h5`), 6 (`fs_separation_below_printed_h6`), 9 (`fs_separation_below_printed_h9`); redundant 7 (`fs_separation_below_printed_r7`); open 8
 - `FalknerSkan.NegWallShear.fs_neg_wall_shear_window` (8): needed 1 (`fs_neg_wall_shear_window_h1`), 2 (`fs_neg_wall_shear_window_h2`), 3 (`fs_neg_wall_shear_window_h3`), 4 (`fs_neg_wall_shear_window_h4`), 5 (`fs_neg_wall_shear_window_h5`), 7 (`fs_neg_wall_shear_window_h7`), 8 (`fs_neg_wall_shear_window_h8`); redundant 6 (`fs_neg_wall_shear_window_r6`)
 - `FalknerSkan.NegReversedWallShear.fs_neg_reversed_printed_overshoots` (6): needed 1 (`fs_neg_reversed_printed_overshoots_h1`), 2 (`fs_neg_reversed_printed_overshoots_h2`), 3 (`fs_neg_reversed_printed_overshoots_h3`), 6 (`fs_neg_reversed_printed_overshoots_h6`); open 4, 5
 - `FalknerSkan.NegWallShearRows.fs_neg_wall_shear_17_window` (8): needed 1 (`fs_neg_wall_shear_17_window_h1`), 2 (`fs_neg_wall_shear_17_window_h2`), 3 (`fs_neg_wall_shear_17_window_h3`), 4 (`fs_neg_wall_shear_17_window_h4`), 5 (`fs_neg_wall_shear_17_window_h5`), 7 (`fs_neg_wall_shear_17_window_h7`), 8 (`fs_neg_wall_shear_17_window_h8`); redundant 6 (`fs_neg_wall_shear_17_window_r6`)
