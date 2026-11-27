@@ -1,0 +1,26 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Borsuk's partition problem asks whether every bounded set of positive
+diameter in $\mathbb R^d$ can be covered by $d+1$ subsets of strictly
+smaller diameter. For a bounded set $Y$ of positive diameter, write $b(Y)$ for the least
+number of such subsets needed to cover $Y$. Covers and partitions give
+the same number: overlaps may be removed without increasing diameters.
+We prove that $b(Y)>10$ for a compact set in $\mathbb R^9$.
+
+Let $\operatorname{Sym}_4(\mathbb R)$ be the space of real symmetric
+$4\times4$ matrices, with Frobenius norm
+$\|A\|_F^2=\operatorname{tr}(A^2)$. Its trace-one affine hyperplane is
+a nine-dimensional Euclidean space. For a unit vector $u\in\mathbb R^4$,
+the matrix $uu^{\mathsf T}$ is the orthogonal projector onto the line
+spanned by $u$.
+
+\begin{theorem}\label{thm:main}
+The compact set
+\[
+ X=\{uu^{\mathsf T}:u\in\mathbb R^4,\ \|u\|=1\}
+ \subset\{A\in\operatorname{Sym}_4(\mathbb R):\operatorname{tr}A=1\},
+\]
+with the Frobenius metric, has diameter $\sqrt2$ and cannot be covered
+by ten subsets of diameter strictly less than $\sqrt2$.
+\end{theorem}
