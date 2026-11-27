@@ -596,3 +596,41 @@ second pass and of the first pass's auditor-only items confirmed** (082, 186, 21
 (Θ(log N) is stated: `ThorpRemaining.lean:543`). Every one of the 43 now rests on two readers, or on one reader plus a check
 of the challenge files here. Readers note two implications counted as stated: Kervaire from the unimodular-relator
 injectivity (256) and the symmetric trilinear estimate from the maximal bound by Hölder (082).
+
+### Index check, third pass: the remaining 176 single-paper items (eight Sonnet first readers, two Opus second readers on every non-match)
+
+- **Index overstatements (8):** both readers agree on each.
+  - **047:** the Dolgachev–Weisfeiler fibrations. The Lean states only ring-level cancellation.
+  - **079:** maximal Bochner–Riesz, paraboloid and cone restriction, Schrödinger smoothing, Nikodym.
+  - **091:** the B-conjecture.
+  - **180:** the Pfaffian three-edge-path form. The Lean states planar Barnette.
+  - **183:** the k-dependent k-set bound. The Lean states one uniform n^{4/3−ε} bound under extra genericity.
+  - **230:** finiteness of the gauge measure, i.e. Schramm's exact gauge. The Lean states positivity only.
+  - **299:** the Dadarlat–Toms answer, borderline: the Lean states only the criterion.
+  - **350:** growth faster than λ^{1/2+ε₀} in dimension five. The Lean states only an unbounded ratio.
+- **Minor (11):** a sharpness remark, a standard corollary, or a consequence through a cited theorem: 072, 089, 097 (O26's document: Θ(√d) needs a lower bound the Lean lacks), 162, 172 (O21: the LRW disproof rests on LRW's own cited non-subtransitivity), 246, 273, 274, 297, 303, 326.
+- **Disclosed (33):** 017, 027, 052, 087, 088, 096, 103, 126, 131, 152, 159, 161, 179, 191, 194, 195, 199, 242, 244, 252, 266, 269, 272, 276, 280, 281, 287, 301, 312, 323, 367, 371, 373.
+- **Matches:** every other item.
+- **Scope documents that contradict their own links (they understate the Lean; not overstatements):**
+  - 087 says "the nonsymmetric Mahler conjecture … not included" but links `GeneralMahler`.
+  - 167 says "the separate unit-distance power-saving theorem is not included" but links `PlanarUnitDistances`.
+  - 243 says "witnessed-symmetric-choice … not included" but links `WitnessedChoice`.
+  - 052 is inconsistent on integrability.
+
+**Final count, all 246 Lean-linked CONTENTS items read by two readers:**
+
+- **51 overstate the Lean.** Their headline under "[Lean]" makes a main claim that no linked Lean statement states or
+  obviously implies, and the scope text does not say so.
+- 11 have a minor version of the same gap.
+- 47 disclose their gaps.
+- The rest match.
+
+The single most consequential is item 143: "Resolves the uniform boundedness assertion in Hilbert's sixteenth
+problem", where the Lean covers quintic Liénard systems only.
+
+Limits of this verdict:
+
+- It judges the index, not the proofs.
+- Each "overstatement" says only that the Lean does not state the headline. It does not say the headline is false.
+- Every judgment is a reading by model readers. Two readers agree on each verdict, but none of these verdicts is
+  closed in Lean.
