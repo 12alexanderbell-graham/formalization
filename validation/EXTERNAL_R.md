@@ -11,8 +11,12 @@ hashes, which were then checked against our own download.)
 
 **Statement: DONE** for all four editions. **Proof: NOT DONE** — the 20 November archive cannot be replayed
 here (blocker R1, below). Sernau `grh` edition: match, axioms and nanoda (222,117 declarations) PASSED, with every
-blind reading closed against it (09:16Z); Sernau `grh-compact`: the same, nanoda 209,639 declarations; leanchecker
-shards of both pending. **No mismatch found** between
+blind reading closed against it (09:16Z); Sernau `grh-compact`: the same, nanoda 209,639 declarations. **Both Sernau
+editions: proof DONE** (run 2026-11-27T1828Z, read from GitHub run 45956936114): leanchecker shards 4/4 PASSED for
+`grh-compact` (jobs 140508883588, …629, …598, …672, last 16:40Z) and 4/4 for `grh` (…602, …682, …725, …597, last 19:29Z,
+shard 2 "replayed 203 modules … OK"), so match, standard axioms, nanoda and leanchecker all passed for both, every
+blind reading closed against each edition's own `Statements`. The 20 November archive stays NOT DONE (R1).
+**No mismatch found** between
 what the note claims and what the Lean states.
 
 ## Sources (pinned)
@@ -116,7 +120,7 @@ readings/closures/pins/necessity built against each edition's own `Statements` m
 - Leanchecker shards of both editions: not yet scheduled at 10:25Z (the workflow starts them when every replay
   job of run 45956936114 has ended; one unrelated S line was still running).
 
-**Proof verdict so far:** for both Sernau editions, match + standard axioms + an independent kernel (nanoda)
+**Proof verdict (superseded at the top by run 2026-11-27T1828Z: leanchecker 8/8 shards PASSED, both editions DONE):** for both Sernau editions, match + standard axioms + an independent kernel (nanoda)
 PASSED, with every blind reading closed against each edition's own `Statements`; DONE once their leanchecker
 shards pass. The original archive stays NOT DONE (R1).
 
