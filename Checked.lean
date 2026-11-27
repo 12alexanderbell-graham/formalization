@@ -815,3 +815,6 @@ import Checked.Trust.NecessityCD
 import Checked.Trust.NecessityCE
 import Checked.Trust.NecessityCF
 import Checked.Trust.NecessityCC
+import Checked.Trust.SecondReadingSpecA
+import Checked.Trust.SecondReadingSpecB
+import Checked.Trust.SpecAgreement
