@@ -282,8 +282,11 @@ if [ "${NANODA:-0}" = 1 ]; then
   fi
   # shellcheck disable=SC2046
   lake env "$L4E/.lake/build/bin/lean4export" "$SOL" -- $(cat target_names.txt) > export.ndjson
+  # stack: nanoda's worker threads default to 32 MiB and overflowed on OpenAI's SquareDifference closure
+  # (run 2026-11-27T0628Z, job of run 45963613011: "thread 'thread_0' has overflowed its stack"); 1 GiB is
+  # address space reserved, not memory used. NANODA_STACK overrides it.
   cat > nanoda.json <<CFG
-{ "export_file_path": "export.ndjson", "use_stdin": false,
+{ "export_file_path": "export.ndjson", "use_stdin": false, "stack_size_bytes": ${NANODA_STACK:-1073741824},
   "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"],
   "unpermitted_axiom_hard_error": true, "nat_extension": true, "string_extension": true,
   "print_success_message": true }
