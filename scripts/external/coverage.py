@@ -33,8 +33,13 @@ def theorems(path):
         m = (re.match(r'\s*theorem\s+([A-Za-z_][\w.\']*)', line)
              or re.match(r'\s*def\s+([A-Za-z_][\w.\']*)\s*:\s*Prop\b', line))
         if m:
-            out.append('.'.join(ns + [m.group(1)]))
-    return out
+            out.append(['.'.join(ns + [m.group(1)]), line.lstrip().startswith('theorem'), line + '\n'])
+        elif out:
+            out[-1][2] += line + '\n'
+    # A reader's theorem WITH a complete proof (no `sorry`) is the reader's own lemma (e.g. that a
+    # series converges, so a `tsum` is not a junk 0: target O, run 2026-11-27T0628Z), not a claim
+    # of the source; only `sorry`'d theorems and `Prop` definitions are claims to close.
+    return [n for n, is_thm, body in out if not is_thm or re.search(r'\bsorry\b', body)]
 
 
 def closure_mentions(path):

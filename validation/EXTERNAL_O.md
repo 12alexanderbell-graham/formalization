@@ -10,6 +10,8 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | # | family (challenge) | verdict | finding |
 |---|---|---|---|
 | O1 | The Quasi-Riemann Hypothesis (`QuasiRiemannHypothesis`, `DirichletSevenEighths`, `HeckeSevenEighths`) | **NOT DONE** (statement: ζ and Dirichlet parts closed; Hecke part open; replay dispatched) | the two manuscripts state different theorems (7/8 on 30 Sep, 11/12 on 5 Oct); the Lean states 7/8 |
+| O2 | Catalan's constant is irrational (`Catalan`) | **NOT DONE** (statement DONE: 7/7 readings closed; replay dispatched) | none at statement level; the L(2, χ₋₄) form proved equal to the frozen series in Lean |
+| O3 | Kaplansky direct finiteness, characteristic two (`KaplanskyFinitelyPresented`) | **NOT DONE** (Theorem 1.1 closed 3/3; replay dispatched) | the manuscript's Gottschalk (surjunctivity) consequence, stated as proved, has no Lean statement in this family |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
 
@@ -54,3 +56,27 @@ dispatched (run id in the run README).
 
 **Consistency with target R:** Alpöge's frozen `DirichletLNonvanishingRightOfHalf` would imply the
 release's Dirichlet and ζ statements at 7/8 (one-line Lean implication; not needed for either verdict).
+
+## O2. Catalan's constant is irrational — NOT DONE (statement DONE, proof pending)
+
+Run 2026-11-27T0628Z. Files: `runs/2026-11-27T0628Z/O/catalan/` (brief 850f128, readings 8e422fa).
+Claim (introduction.tex, sha256 dfef42bb…): G = β(2) = Σ (−1)^j/(2j+1)², "Catalan's constant is
+irrational". Frozen: `Irrational (∑' j : ℕ, (-1 : ℝ) ^ j / ((2 * j + 1 : ℕ) : ℝ) ^ 2)`.
+Readers A, B, C: 7 claim theorems (G irrational; β(2) irrational; L(2, χ₋₄) = G; L(2, χ₋₄) not rational;
+L(2, χ₋₄) a real irrational). **All 7 closed** (`closure/Closure.lean`), including a proof here that
+Mathlib's `LSeries` of `ZMod.χ₄` at 2 equals the frozen series (`catalan_LSeries`), so the statement is
+about the constant the source names, by any of its three definitions. Each reader proved its series
+summable (so `tsum` is not a junk 0). Replay line `O-catalan` dispatched.
+
+## O3. Kaplansky direct finiteness in characteristic two — NOT DONE
+
+Run 2026-11-27T0628Z. Files: `runs/2026-11-27T0628Z/O/kaplansky2/` (brief 850f128, readings 8e422fa).
+Claim (01-introduction.tex, sha256 4abc0e82…): Theorem 1.1 (finite field of characteristic two,
+finitely presented group with an element of odd prime order, a·b = 1 ≠ b·a in K[G]); and (lines 47–51)
+"It gives a negative resolution of Gottschalk's conjecture for the group in Theorem 1.1", the transfer
+"proved in full" in a later section. **Theorem 1.1: closed 3/3** (frozen ⟺ each reading; Fintype vs
+Finite, "odd prime" vs "prime ≠ 2"). **Not closed: the Gottschalk consequence** — no comparator
+challenge of this family states it (the odd-characteristic family's `OddKaplansky.MainClaim` does, with
+`cellular b` injective and not surjective). A claim stated as proved with no Lean statement: reported, not
+a mismatch of the Lean. Also not formalizable as stated: "specified by a terminating prescription"
+(effectivity; reader A). Replay line `O-kaplansky2` dispatched.
