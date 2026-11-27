@@ -1,0 +1,63 @@
+\begin{abstract}
+We prove that every bounded Hochschild cocycle of degree at least two
+on a complex von Neumann algebra, with values in the algebra itself,
+has a bounded primitive. Together with the established degree-one
+inner-derivation theorem, this resolves the Kadison--Ringrose cohomology
+conjecture positively.
+\end{abstract}
+\section{Introduction}\label{sec:introduction}
+
+The continuous Hochschild cohomology of an operator algebra measures
+the obstruction to solving its bounded cocycle equations. The theory
+also connects these equations with stability of multiplication under
+small perturbations~\cite[Chapter~7]{SinclairSmith1995}.
+For a von Neumann algebra acting on itself by multiplication, the
+degree-one equation is the derivation equation, and its vanishing is
+the inner-derivation theorem of Kadison and
+Sakai~\cite{Kadison1966,Sakai1966}.
+The higher-degree theory was developed by Johnson, Kadison, and
+Ringrose~\cite{KadisonRingrose1971,KadisonRingrose1971II,JKR1972}.
+Throughout, boundedness means ordinary
+operator-norm boundedness of a multilinear map. No complete-boundedness
+condition is imposed.
+
+For a complex von Neumann algebra \(M\), let \(C_b^k(M,M)\) be the
+Banach space of bounded complex \(k\)-linear maps \(M^k\to M\),
+with norm
+$\norm{f}=\sup_{\norm{a_1},\ldots,\norm{a_k}\leq1}
+\norm{f(a_1,\ldots,a_k)}$, and put \(C_b^0(M,M)=M\).
+For \(k\geq1\), the differential is
+\begin{align}
+(df)(a_1,\ldots,a_{k+1})
+={}&a_1f(a_2,\ldots,a_{k+1})\notag\\
+&+\sum_{j=1}^k(-1)^j
+ f(a_1,\ldots,a_ja_{j+1},\ldots,a_{k+1})\notag\\
+&+(-1)^{k+1}f(a_1,\ldots,a_k)a_{k+1}.
+\label{eq:differential}
+\end{align}
+In degree zero, \((db)(a)=ab-ba\). As usual, \(d^2=0\).
+We use the notation
+\[
+H_b^k(M,M)=
+\ker\bigl(d:C_b^k(M,M)\to C_b^{k+1}(M,M)\bigr)
+\big/
+\operatorname{im}\bigl(d:C_b^{k-1}(M,M)\to C_b^k(M,M)\bigr).
+\]
+The denominator is the actual image, without a closure.
+
+The Kadison--Ringrose cohomology conjecture asks whether
+\(H_b^k(M,M)=0\) for every complex von Neumann algebra \(M\) and
+every positive integer \(k\). Sinclair and Smith trace this
+self-coefficient formulation to 1967~\cite[p.~3376]{SinclairSmith1998}.
+Our main result settles the higher degrees.
+
+\begin{theorem}\label{thm:main}
+Let \(M\) be a complex von Neumann algebra and let \(k\geq2\).
+Every \(f\in C_b^k(M,M)\) satisfying \(df=0\) has the form
+\(f=dg\) for some \(g\in C_b^{k-1}(M,M)\).
+Consequently \(H_b^k(M,M)=0\).
+\end{theorem}
+
+Together with the inner-derivation theorem,
+Theorem~\ref{thm:main} resolves the Kadison--Ringrose cohomology
+conjecture positively.

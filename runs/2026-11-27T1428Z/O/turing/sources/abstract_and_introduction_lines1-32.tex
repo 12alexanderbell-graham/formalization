@@ -1,0 +1,37 @@
+\begin{abstract}
+We prove that every order automorphism of the full partial order of
+Turing degrees is the identity, resolving the rigidity conjecture for
+the Turing degrees positively.
+\end{abstract}
+\section{Introduction}\label{sec:introduction}
+
+Turing reducibility compares the information available from sets of
+integers: $A\leT B$ means that an oracle Turing machine with oracle $B$
+computes the characteristic function of $A$. Mutual reducibility
+defines Turing equivalence, and its equivalence classes form the
+partial order $(\DT,\leT)$ of Turing degrees. The underlying notion
+of relative computation goes back to Turing's oracle machines
+\cite[Section~4]{Turing1939}; see \cite{Soare1987} for standard
+degree-theoretic background. The automorphism problem asks how much
+of this information the abstract ordering retains.
+
+The rigidity conjecture for the Turing degrees asks whether every
+automorphism of this ordering fixes every degree.
+An automorphism here is any bijection
+$\pi:\DT\to\DT$ satisfying
+\[
+\mathbf a\leT\mathbf b
+\quad\Longleftrightarrow\quad
+\pi(\mathbf a)\leT\pi(\mathbf b).
+\]
+We work in ZFC and impose no definability or regularity hypothesis
+on $\pi$.
+
+\begin{theorem}\label{thm:rigidity}
+Every order automorphism of the full Turing-degree structure is
+the identity:
+\[
+\forall\pi\in\Aut(\DT,\leT)\ \forall\mathbf a\in\DT
+\qquad \pi(\mathbf a)=\mathbf a.
+\]
+\end{theorem}

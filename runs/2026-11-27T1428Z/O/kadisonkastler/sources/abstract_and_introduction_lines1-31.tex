@@ -1,0 +1,38 @@
+\begin{abstract}
+We prove that sufficiently close unital von Neumann algebras are
+conjugate by a unitary arbitrarily close to the identity. The tolerance
+depends only on the prescribed distance of that unitary from the
+identity, uniformly over all algebras, representations, and Hilbert
+spaces. This resolves the strong Kadison--Kastler conjecture.
+\end{abstract}
+\section{Introduction}
+\label{sec:introduction}
+
+For a von Neumann algebra $M\subseteq\B(H)$, write $M_1$ for its
+closed operator-norm unit ball. The Kadison--Kastler distance between
+two such algebras is
+\begin{equation}\label{eq:kk-definition}
+ d(M,N)=\max\left\{
+ \sup_{x\in M_1}\inf_{y\in N_1}\norm{x-y},\quad
+ \sup_{y\in N_1}\inf_{x\in M_1}\norm{x-y}\right\}.
+\end{equation}
+Kadison and Kastler introduced this metric in 1972
+\cite{KadisonKastler1972}. Their perturbation problem asks whether
+closeness of the unit balls forces spatial isomorphism, implemented by
+a unitary close to the identity. We prove the uniform form of this
+assertion.
+
+\begin{theorem}[Strong Kadison--Kastler stability]\label{thm:main}
+For every $\eps>0$ there is $\delta=\delta(\eps)>0$ such that the
+following holds. If $H$ is any complex Hilbert space and
+$M,N\subseteq\B(H)$ are unital von Neumann algebras with identity
+$I_H$ and $d(M,N)<\delta$, there is a unitary $u\in\B(H)$ satisfying
+\[
+ uMu^*=N,\qquad \norm{u-I_H}<\eps.
+\]
+\end{theorem}
+
+The tolerance is independent of the algebras, their type, their
+representations, and the cardinalities of their preduals and Hilbert
+spaces. Thus \Cref{thm:main} resolves the strong Kadison--Kastler
+conjecture positively. Its hypothesis concerns the ordinary distance
