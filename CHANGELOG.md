@@ -1284,7 +1284,7 @@
 ## 2026-11-27T0228Z (scheduled run; part 3 by rotation)
 - Env: repo ok; local Lean (elan, 4.35.0), Mathlib cache; judge's build of 8ffac48 restored by streaming. `EXTERNAL_LOCK` live at the start (run 1529Z), removed by it during this run.
 - CI: 45921657457 (d4eadd7) and 45922738468 (2c32a70) failed on `check_audits.py` alone (external run's README edited late), repaired by b27e3fd; nothing to promote.
-- Part 3: four blind readers' specifications of fourteen pinned definitions (`Checked/Trust/SecondReadingSpec{A,B,C,D}.lean`); agreement or proved disagreement per reading (`SpecAgreement.lean`, `SpecAgreementCD.lean`): 22 agree, 6 disagree; claims page shows them per definition; 413 of 494 pinned uses also determined by a blind reader's specification.
+- Part 3: six blind readers' specifications of twenty pinned definitions (`Checked/Trust/SecondReadingSpec{A,...,F}.lean`); agreement or proved disagreement per reading (`SpecAgreement.lean`, `SpecAgreementCD.lean`, `SpecAgreementEF.lean`): 27 agree, 13 disagree; claims page shows them per definition; 423 of 494 pinned uses also determined by a blind reader's specification.
 - Check repair: StatementDeps / precheck_citations exempt reader-structure fields from the cited-headline rule.
 - Annex LIV: PROMPT working note; LEDGER experiment.
 

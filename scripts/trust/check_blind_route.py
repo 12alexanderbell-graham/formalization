@@ -105,6 +105,33 @@ def template_header(line):
     return bool(HEADER.match(s)) and not HEADER_CONTENT.search(s[:-2])
 
 
+STRUCT_HEAD = re.compile(r"^structure\s+[^\s(:]+\s*\(.*\)\s*:\s*Prop\s+where$")
+
+
+def structure_header_lines(code):
+    """Indices of the lines of `structure NAME (binder) … : Prop where` headers (one or several lines) whose binders
+    and type carry no numeral, relation, connective (other than the function arrow), quantifier or lambda: the
+    interface a brief must hand over, as `template_header` for one-line `def` headers (run 2026-11-27T0228Z, repair
+    of a false positive: reader E broke the header of `MMSpecE`, whose type the brief fixes, over three lines, and
+    its middle line `(P : ℝ → … → Prop) :` matched the brief)."""
+    lines = code.splitlines()
+    out = set()
+    i = 0
+    while i < len(lines):
+        if lines[i].strip().startswith("structure "):
+            j = i
+            while j < len(lines) and not lines[j].rstrip().endswith("where") and j - i < 6:
+                j += 1
+            if j < len(lines):
+                head = " ".join(l.strip() for l in lines[i:j + 1])
+                if STRUCT_HEAD.match(head) and not HEADER_CONTENT.search(head[len("structure "):-len("where")]):
+                    out.update(range(i, j + 1))
+            i = j + 1
+        else:
+            i += 1
+    return out
+
+
 def selftest():
     good = ["def gelfandTurnRatio (w : ℝ → ℝ) (ζ : ℕ → ℝ) : Prop :=",
             "noncomputable def rhs (s : ℝ) (w φ : ℝ → ℝ) : ℝ :="]
@@ -113,7 +140,16 @@ def selftest():
            "def Z (f : ℝ → ℝ) : Prop := ∀ x, f x ≤ 1", "def W (p : ℝ × ℝ) : Prop :=\n  p.1 < p.2",
            "def V (h : ∀ x : ℝ, 0 ≤ x) : Prop :=", "def U (f : ℝ → ℝ) : Prop := fun _ => True"]
     fails = [g for g in good if not template_header(g)] + [b for b in bad if template_header(b)]
-    print(f"check_blind_route selftest: {len(good) + len(bad)} controls, {len(fails)} failing {fails}")
+    # multi-line structure headers (run 2026-11-27T0228Z): the header lines are exempt, a field line never is
+    sgood = "structure S\n    (P : ℝ → (ℝ → ℝ) → Prop) :\n    Prop where\n  f : ∀ x, P x id"
+    if structure_header_lines(sgood) != {0, 1, 2}:
+        fails.append(sgood)
+    for sbad in ["structure S (P : ℝ → Prop) (h : P 1) : Prop where\n  f : True",
+                 "structure S (P : ℝ → Prop) : Prop where\n  f : ∀ x, P x",
+                 "structure S (P : ℝ → Prop) [∀ x, Decidable (P x)] : Prop where"]:
+        if structure_header_lines(sbad) - ({0} if sbad.count("\n") and "∀ x, P x" in sbad else set()):
+            fails.append(sbad)
+    print(f"check_blind_route selftest: {len(good) + len(bad) + 4} controls, {len(fails)} failing {fails}")
     return 1 if fails else 0
 
 
@@ -169,7 +205,10 @@ def check_module(rel, base, order, errors):
             if leaked:
                 p.append(f"B3: brief {good_brief} contains the reader's numbers {[str(x) for x in leaked][:6]}")
             flat = re.sub(r"\s+", "", text)
-            for line in code.splitlines():
+            sheads = structure_header_lines(code)
+            for li, line in enumerate(code.splitlines()):
+                if li in sheads:
+                    continue
                 ln = re.sub(r"\s+", "", line)
                 # template lines a brief must hand over (run 2026-11-06T1028Z: the brief's file template
                 # tripped this rule on `import Mathlib.Data.Real.Basic`): imports, namespace/end/open and
