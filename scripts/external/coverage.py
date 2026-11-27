@@ -46,7 +46,9 @@ def closure_mentions(path):
     """Names a closure relates to a frozen statement: `type_of% @X`, or a fully qualified reading
     name used in the statement of a closure theorem (`theorem t : ReaderA.ReadingRH ↔ ...`)."""
     src = open(path, encoding='utf-8').read()
-    used = set(re.findall(r'type_of%\s*@([\w.\']+)', src))
+    # `type_of% @X.{u}` (universe-polymorphic reading, run 2026-11-27T0628Z sunflower): the capture
+    # must not keep the trailing `.` before the universe list.
+    used = set(m.rstrip('.') for m in re.findall(r'type_of%\s*@([\w.\']+)', src))
     for st in re.findall(r'^theorem\s+[\w.\']+\s*(.*?):=', src, flags=re.M | re.S):
         if 'Frozen.' in st:
             used |= set(re.findall(r'[A-Za-z_][\w\']*\.[\w.\']+', st))

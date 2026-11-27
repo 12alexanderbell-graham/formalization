@@ -6,7 +6,8 @@ instruction 11; run 2026-11-26T1529Z). General: works on any Lake project tree, 
 
 Reports, per file of the closure inside the project (imports that resolve outside it, e.g. Mathlib,
 are listed by package and not scanned), every occurrence of:
-  sorry / admit                      unfinished proof
+  sorry                              unfinished proof
+  admit                              unfinished proof, or an identifier named `admit` (read the line)
   axiom                              new axiom (kernel accepts it unchecked)
   native_decide / ofReduceBool / Lean.trustCompiler   compiler-trusted evaluation
   implemented_by / extern            runtime code replacing a definition
@@ -24,7 +25,10 @@ import sys
 from collections import Counter
 
 PATTERNS = {
-    'sorry': r'\bsorry\b|\badmit\b',
+    'sorry': r'\bsorry\b',
+    # `admit` is also an ordinary identifier (OpenAI's BorderVNP files bind `admit` as a hypothesis name
+    # 34 times; run 2026-11-27T0628Z): reported apart, so a `sorry` count is exactly the word `sorry`.
+    'admit (tactic or identifier)': r'\badmit\b',
     'axiom': r'^\s*(?:private\s+|protected\s+)?axiom\b',
     'native': r'\bnative_decide\b|\bofReduceBool\b|\btrustCompiler\b',
     'implemented_by': r'\bimplemented_by\b|@\[extern\b|\bextern\b',
