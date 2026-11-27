@@ -1,0 +1,206 @@
+custom syntax	OAI/Algebra/GroupRing/BFSTree.lean:12	local notation "" => rotation σ α
+custom syntax	OAI/Algebra/GroupRing/BFSTree.lean:13	local notation "" => pairing α
+custom syntax	OAI/Algebra/GroupRing/BFSTree.lean:14	local notation "" => graph σ α ha
+custom syntax	OAI/Algebra/GroupRing/BFSTree.lean:15	local notation "" => graph ρ π (pairing_involutive α ha)
+custom syntax	OAI/Algebra/GroupRing/BFSTree.lean:361	local notation "" => perm f P hf
+custom syntax	OAI/Algebra/GroupRing/BFSTree.lean:362	local notation "" => perm f (fun x=>¬P x) (not_invariant f P hf)
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:16	local notation "" => {d : D // turn Γ.origin mark h2 d=d}
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:17	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:18	local notation "" => ChainIsomorphism.Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:19	local notation "" => color Γ mark h2 paths
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:20	local notation "" => ListStageExponents.edge paths
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:21	local notation "" => StageSubgraphs.multiplicity (S) e
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:23	local notation "" => ActiveChain Γ mark h2 paths
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:114	local notation "" => graph len first last
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:115	local notation "" => graph (length len active) (firstPoint first active incident hf) (lastPoint last active incident hl)
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:183	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:184	local notation "" => ChainIsomorphism.Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:185	local notation "" => color Γ mark h2 paths
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:186	local notation "" => ListStageExponents.edge paths
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:187	local notation "" => StageSubgraphs.multiplicity (S) e
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:188	local notation "" => ChainActiveStages.ActiveChain Γ mark h2 paths j
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:189	local notation "" => ActiveV (S) m j
+custom syntax	OAI/Algebra/GroupRing/ChainActiveStages.lean:194	local notation "" => graph Γ mark h2 paths j
+custom syntax	OAI/Algebra/GroupRing/ChainCoverage.lean:210	local notation "" => turn Γ.origin mark h2
+custom syntax	OAI/Algebra/GroupRing/ChainCoverage.lean:211	local notation "" => next Γ.reverse τ
+custom syntax	OAI/Algebra/GroupRing/ChainCoverage.lean:212	local notation "" => {d : D // τ d=d}
+custom syntax	OAI/Algebra/GroupRing/ChainCoverage.lean:213	local notation "" => chainLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChainUsage.lean:14	local notation "" => {d : D // turn Γ.origin mark h2 d=d}
+custom syntax	OAI/Algebra/GroupRing/ChainUsage.lean:15	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChainUsage.lean:16	local notation "" => Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChainUsage.lean:17	local notation "" => word Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChainUsage.lean:19	local notation "" => color Γ mark h2 paths
+custom syntax	OAI/Algebra/GroupRing/ChainUsage.lean:20	local notation "" => ChunkComparisons.multiplicity col
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:106	local notation "" => turn Γ.origin mark h2
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:107	local notation "" => next Γ.reverse τ
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:108	local notation "" => {d : D // τ d=d}
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:109	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:110	local notation "" => chainLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:111	local notation "" => ChainIsomorphism.Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:112	local notation "" => word Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:351	local notation "" => {d : D // turn Γ.origin mark h2 d=d}
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:352	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:353	local notation "" => ChainIsomorphism.Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:413	local notation "" => color Γ mark h2 paths
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:414	local notation "" => Traversal (chunks Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/ChunkComparisons.lean:415	local notation "" => ListStageExponents.edge paths
+custom syntax	OAI/Algebra/GroupRing/ClosedWords.lean:4353	local notation "" => Equiv.swap p q*σ
+custom syntax	OAI/Algebra/GroupRing/ClosedWords.lean:4354	local notation "" => (α p,α q)::l
+custom syntax	OAI/Algebra/GroupRing/ClosedWords.lean:4355	local notation "" => forest σ' L'
+custom syntax	OAI/Algebra/GroupRing/ClosedWords.lean:4452	local notation "" => e.permCongr σ
+custom syntax	OAI/Algebra/GroupRing/ClosedWords.lean:4453	local notation "" => e.permCongr α
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:141	local notation "" => skeleton Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:142	local notation "" => skeleton Γ' mark' h2'
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:143	local notation "" => {d : D // turn Γ.origin mark h2 d=d}
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:144	local notation "" => {d : D' // turn Γ'.origin mark' h2' d=d}
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:145	local notation "" => Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:146	local notation "" => Rep Γ' mark' h2'
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:222	local notation "" => skeleton Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:223	local notation "" => skeleton Γ' mark' h2'
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:224	local notation "" => {d : D // turn Γ.origin mark h2 d=d}
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:225	local notation "" => {d : D' // turn Γ'.origin mark' h2' d=d}
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:226	local notation "" => Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:227	local notation "" => next Γ.reverse (turn Γ.origin mark h2)
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:228	local notation "" => next Γ'.reverse (turn Γ'.origin mark' h2')
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:229	local notation "" => chainLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:230	local notation "" => chainLength Γ' mark' h2'
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:293	local notation "" => skeleton Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:294	local notation "" => skeleton Γ' mark' h2'
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:295	local notation "" => {d : D // turn Γ.origin mark h2 d=d}
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:296	local notation "" => {d : D' // turn Γ'.origin mark' h2' d=d}
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:297	local notation "" => chainLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:298	local notation "" => chainLength Γ' mark' h2'
+custom syntax	OAI/Algebra/GroupRing/ComparisonCoding.lean:303	local notation "" => full Γ mark h2 Γ' mark' h2' hcovered hcovered' f hrank hlen
+custom syntax	OAI/Algebra/GroupRing/ConeArea.lean:16	local notation "" => freeLetter ∘ label
+custom syntax	OAI/Algebra/GroupRing/ConeArea.lean:17	local notation "" => GraphConePresentation.Group Γ letters R
+custom syntax	OAI/Algebra/GroupRing/ConeArea.lean:18	local notation "" => ConeSigned.eval Γ R label ∘ ConeSigned.labels Γ R label
+custom syntax	OAI/Algebra/GroupRing/ConeArea.lean:19	local notation "" => ConeChains.coneCharge Γ R label freeLetter
+custom syntax	OAI/Algebra/GroupRing/ConeChains.lean:18	local notation "" => GraphConePresentation.Group Γ (letters ∘ label) R
+custom syntax	OAI/Algebra/GroupRing/ConeSigned.lean:65	local notation "" => freeLetter ∘ label
+custom syntax	OAI/Algebra/GroupRing/ConeSigned.lean:66	local notation "" => GraphConePresentation.Group Γ letters R
+custom syntax	OAI/Algebra/GroupRing/ConeTorsion.lean:16	local notation "" => ConeSigned.freeLetter ∘ label
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:14	local notation "" => subgraphPair σ α ha T hT
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:15	local notation "" => α*β
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:16	local notation "" => α*σ
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:17	local notation "" => complement_involutive α β ha (subgraphPair_involutive σ α ha T hT)
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:19	local notation "" => graph φ γ hγ
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:20	local notation "" => spanning_cotree_isTree σ α ha T hT hz ht
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:190	local notation "" => rotation σ α
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:191	local notation "" => pairing α
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:192	local notation "" => α*σ
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:193	local notation "" => π*ρ
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:319	local notation "" => rotation σ α
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:320	local notation "" => pairing α
+custom syntax	OAI/Algebra/GroupRing/ConedMap.lean:321	local notation "" => α*σ
+custom syntax	OAI/Algebra/GroupRing/DegreeTwoSuppression.lean:146	local notation "" => DegreeTwoSuppression.turn Γ.origin mark h2
+custom syntax	OAI/Algebra/GroupRing/DegreeTwoSuppression.lean:147	local notation "" => DegreeTwoSuppression.turn_involutive Γ.origin mark h2
+custom syntax	OAI/Algebra/GroupRing/DegreeTwoSuppression.lean:148	local notation "" => ChainSuppression.next Γ.reverse τ
+custom syntax	OAI/Algebra/GroupRing/DegreeTwoSuppression.lean:149	local notation "" => {d : D // τ d=d}
+custom syntax	OAI/Algebra/GroupRing/DegreeTwoSuppression.lean:150	local notation "" => DegreeTwoSuppression.suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/DegreeTwoSuppression.lean:151	local notation "" => DegreeTwoSuppression.chainLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/Iso.lean:57	local notation "" => pathLength (chunks Γ mark h2 paths) (chunkLength Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/Iso.lean:58	local notation "" => pathLength (chunks Γ' mark' h2' paths') (chunkLength Γ' mark' h2' paths')
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:78	local notation "" => turn Γ.origin mark h2
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:79	local notation "" => {d : D // τ d=d}
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:80	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:81	local notation "" => word Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:297	local notation "" => turn Γ.origin mark h2
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:298	local notation "" => next Γ.reverse τ
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:299	local notation "" => {d : D // τ d=d}
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:300	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:301	local notation "" => InvolutionOrientation.Representative (PortGraph.reverse (suppressed Γ mark h2))
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:302	local notation "" => chainLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/ListPassages.lean:313	local notation "" => ChainSubdivision.graph (repLength Γ mark h2) (first Γ mark h2) (last Γ mark h2)
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:15	local notation "" => perm σ P hs
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:16	local notation "" => perm α P ha
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:17	local notation "" => perm σ (fun x=>¬P x) (not_invariant σ P hs)
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:18	local notation "" => perm α (fun x=>¬P x) (not_invariant α P ha)
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:179	local notation "" => fun x : O=>cycle σ x∈B
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:180	local notation "" => MapRestrict.rotation σ B
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:181	local notation "" => MapRestrict.pairing σ α hi B
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:182	local notation "" => MapRestrict.pairing_involutive σ α hi B
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:185	local notation "" => subgraphPair s a hai T hT
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:190	local notation "" => treePair σ α hi B T hT
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:217	local notation "" => rotation σ α hi B T hT
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:218	local notation "" => pairing σ α hi B T hT
+custom syntax	OAI/Algebra/GroupRing/MapRestrict.lean:255	local notation "" => quotient σ α hi B T hT hz ht
+custom syntax	OAI/Algebra/GroupRing/MultiplicityBound.lean:177	local notation "" => turn Γ.origin mark h2
+custom syntax	OAI/Algebra/GroupRing/MultiplicityBound.lean:178	local notation "" => next Γ.reverse τ
+custom syntax	OAI/Algebra/GroupRing/MultiplicityBound.lean:179	local notation "" => {d : D // τ d=d}
+custom syntax	OAI/Algebra/GroupRing/MultiplicityBound.lean:180	local notation "" => chainLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/MultiplicityBound.lean:242	local notation "" => turn Γ.origin mark h2
+custom syntax	OAI/Algebra/GroupRing/MultiplicityBound.lean:243	local notation "" => {d : D // τ d=d}
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:18	local notation "" => sideA len m side j firstA lastA outA pinA
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:19	local notation "" => sideB len m side j firstB lastB outB pinB
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:124	local notation "" => graph len m j side vside first last hf hl b
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:125	local notation "" => ChainSubdivision.graph (StageExpectation.activeLen len m j) first last
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:250	local notation "" => next Γ.reverse (turn Γ.origin mark h2)
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:251	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:252	local notation "" => Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:284	local notation "" => StageSubgraphs.ActiveV (S) (ListStageExponents.mult (S) paths) j
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:285	local notation "" => ChainActiveStages.ActiveChain Γ mark h2 paths j
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:310	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:311	local notation "" => Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:312	local notation "" => ChunkComparisons.multiplicity (color Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:313	local notation "" => repLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:314	local notation "" => ChainSide.chain Γ mark h2 side
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:315	local notation "" => ChainSide.vertex Γ mark h2 side paths j
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:316	local notation "" => ChainActiveStages.first Γ mark h2 paths j
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:317	local notation "" => ChainActiveStages.last Γ mark h2 paths j
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:318	local notation "" => ChainSide.active_first Γ mark h2 side paths j
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:319	local notation "" => ChainSide.active_last Γ mark h2 side hs paths j
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:320	local notation "" => ActiveV (S) (ListStageExponents.mult (S) paths) j
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:325	local notation "" => graph Γ mark h2 side hs paths j b
+custom syntax	OAI/Algebra/GroupRing/PartitionEntropy.lean:326	local notation "" => length Γ mark h2 side paths j b
+custom syntax	OAI/Algebra/GroupRing/PatternUniform.lean:77	local notation "" => Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/PatternUniform.lean:78	local notation "" => ChunkComparisons.multiplicity (color Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/PatternUniform.lean:79	local notation "" => repLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/PatternUniform.lean:178	local notation "" => Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/PatternUniform.lean:179	local notation "" => ChunkComparisons.multiplicity (color Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/PatternUniform.lean:180	local notation "" => repLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/PatternUniform.lean:181	local notation "" => pathLength (chunks Γ mark h2 paths) (chunkLength Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:52	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:53	local notation "" => ChainStageEmbedding.length Γ mark h2 paths j
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:54	local notation "" => ChainStageEmbedding.graph Γ mark h2 paths j
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:55	local notation "" => next Γ.reverse (turn Γ.origin mark h2)
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:167	local notation "" => ChainIsomorphism.Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:168	local notation "" => next Γ.reverse (turn Γ.origin mark h2)
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:169	local notation "" => repLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:170	local notation "" => ChunkComparisons.multiplicity (ChainChunkTransport.color Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:373	local notation "" => sideA len m side j firstA lastA outA pinA
+custom syntax	OAI/Algebra/GroupRing/RealizationTransport.lean:374	local notation "" => sideB len m side j firstB lastB outB pinB
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:64	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:65	local notation "" => ListStageExponents.mult (S) paths
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:66	local notation "" => ChainIsomorphism.Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:67	local notation "" => ChunkComparisons.multiplicity (color Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:162	local notation "" => suppressed Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:163	local notation "" => ListStageExponents.mult (S) paths
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:207	local notation "" => Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:208	local notation "" => ChunkComparisons.multiplicity (color Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:209	local notation "" => repLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:210	local notation "" => ChainSide.chain Γ mark h2 side
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:211	local notation "" => ChainSide.vertex Γ mark h2 side paths
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:212	local notation "" => ChainActiveStages.first Γ mark h2 paths
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:213	local notation "" => ChainActiveStages.last Γ mark h2 paths
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:214	local notation "" => ChainSide.active_first Γ mark h2 side paths
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:215	local notation "" => ChainSide.active_last Γ mark h2 side hsid paths
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:231	local notation "" => A Γ mark h2 side hsid paths hp root rep a
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:232	local notation "" => B Γ mark h2 side hsid paths hp root rep b
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:358	local notation "" => Rep Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:359	local notation "" => ChunkComparisons.multiplicity (color Γ mark h2 paths)
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:360	local notation "" => repLength Γ mark h2
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:361	local notation "" => ChainSide.vertex Γ mark h2 side paths
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:362	local notation "" => ActualStagePair.A Γ mark h2 side hsid paths hp root rep a
+custom syntax	OAI/Algebra/GroupRing/SidePins.lean:363	local notation "" => ActualStagePair.B Γ mark h2 side hsid paths hp root rep b
+custom syntax	OAI/Algebra/GroupRing/StageEntropy.lean:77	local notation "" => sideA len m j firstA lastA outA pinA
+custom syntax	OAI/Algebra/GroupRing/StageEntropy.lean:78	local notation "" => sideB len m j firstB lastB outB pinB
+custom syntax	OAI/Algebra/GroupRing/TreeCentroid.lean:282	local notation "" => subgraphPair σ α ha T hT
+custom syntax	OAI/Algebra/GroupRing/TreeCentroid.lean:283	local notation "" => α*β
+custom syntax	OAI/Algebra/GroupRing/TreeCentroid.lean:284	local notation "" => α*σ
+custom syntax	OAI/Algebra/GroupRing/TreeCentroid.lean:285	local notation "" => complement_involutive α β ha (subgraphPair_involutive σ α ha T hT)
+custom syntax	OAI/Algebra/GroupRing/TreeCentroid.lean:287	local notation "" => graph φ γ hγ
+custom syntax	OAI/Algebra/GroupRing/TreeCentroid.lean:288	local notation "" => spanning_cotree_isTree σ α ha T hT hz ht
+custom syntax	OAI/Algebra/GroupRing/TwoSideFullStage.lean:131	local notation "" => sideA len m j firstA lastA outA pinA
+custom syntax	OAI/Algebra/GroupRing/TwoSideFullStage.lean:132	local notation "" => sideB len m j firstB lastB outB pinB
+# closure: 123 files, 44340 lines; external packages: {'Mathlib': 123}
+# hits: custom syntax 204

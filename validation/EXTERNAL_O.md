@@ -52,6 +52,9 @@ before its verdict is committed. Readers: three models (Opus, Sonnet, Haiku) per
 | O41 | A counterexample to Hadwiger's conjecture (`HadwigerCounterexample`; scope document 157, with O42's paper) | **NOT DONE** ("Hadwiger's conjecture is false" closed 3/3 from `not_hadwiger_conjecture`, the frozen Hadwiger number shown a genuine maximum (t ≤ |V| for a K_t minor); Theorem 1.1 (α ≤ 2, cm < m/100) closures not written (connected matchings: Sym2 edges vs two-element finsets); replay dispatched) | none at statement level for the disproof; the corollary's χ_f bounds (and the fractional weakening's disproof) have no Lean statement: **disclosed** (`docs/157.md`) |
 | O42 | A linear list-coloring bound in terms of the Hadwiger number (`ListHadwiger`; scope document 157) | **NOT DONE** (Theorem 1.1 closed 3/3; the frozen `listChromaticNumber` (`sInf`) shown non-vacuous by Hall's theorem; Corollary 1.2 (χ ≤ C h) has no Lean statement, a one-line consequence; replay dispatched) | none at statement level |
 | O43 | Rokhlin's multiple-mixing problem for one transformation (`Rokhlin`; scope document 145) | **NOT DONE** (reader A's explicit Theorem 1.1 closed (gap filters, ℕ+ vs positive ℕ, the two mixing filters on ℤ proved related); readers B (ε–N, toReal) and C (`Equiv.Perm` with measurable inverse) and every reader's "order k for every k ≥ 2, arbitrary t₁" form not written; replay dispatched) | none found |
+| O44 | Seymour's second-neighborhood conjecture (`SeymourSecondNeighborhood`; scope document 173) | **NOT DONE** (Theorem 1.1 closed 3/3 **in both directions**: each reader's statement implies the frozen one and is implied by it; orientation shown needed (two vertices with both arcs: no good vertex); replay O-seymour dispatched) | none at statement level. The paper's directed-triangle consequence (minimum in- and outdegree ≥ n/3) has no Lean statement and the scope document does not mention it: undisclosed, minor (a stated corollary). It was not read blind: the brief's excerpt stopped one line before it (brief defect, ours) |
+| O45 | A counterexample to Kaplansky's zero-divisor conjecture (`TorsionFreeZeroDivisors`; scope document 196) | **NOT DONE** (first sentence of Theorem 1.1 closed 3/3, "Kaplansky's conjecture is false" 3/3; the "Moreover" clause (finite two-dimensional K(G,1)) closed for reader B; A (higher homotopy groups vanish) and C (simplicial complex) not closable in Mathlib; replay O-zerodiv dispatched) | none at statement level; the frozen classifying space (finite CW complex, cells in dimensions ≤ 2 with a 2-cell, contractible covering space, π₁ ≅ G) is a K(G,1) as the paper means it |
+| O46 | Uniformly bounded components of Gaussian-prime graphs (`GaussianMoat`; scope document 028) | **NOT DONE** (Theorem 1.1, its "Consequently" and the negative answer to the moat question each closed 3/3; the frozen `dist` in ℂ proved equal to each reader's distance; replay O-moat dispatched) | none at statement level |
 | — | Integral points on character varieties (`CharacterVarietiesAllSeamsSupport`) | **NOT STARTED** | observation (orchestrator only, not a blind reading): the family's only challenge is a lemma about the release's own `Diagram` structures (it imports OAI modules), not a statement of Theorem 1.1 in Mathlib terms; queued for the protocol |
 
 ## O1. The Quasi-Riemann Hypothesis — NOT DONE
@@ -656,3 +659,15 @@ Closures compiled locally against the frozen statements, standard axioms: O41 3/
 O42 3/3 Theorem 1.1; O43 1/3 explicit Theorem 1.1. Scans: O41 288 files, O42 53 files, no hits; O43 13 files,
 32 `local notation`/syntax lines, no other hits. Both frozen junk-value risks were checked rather than assumed: the
 Hadwiger number is an `sSup` (bounded: proved) and the list chromatic number an `sInf` (nonempty: proved by Hall).
+
+## O44–O46 (run 2026-11-27T1428Z; brief 0ed6b5c, readings committed alone at 2dc1534; files `runs/2026-11-27T1428Z/O/{seymour,zerodiv,moat}/`)
+Families chosen by `family_map.py`, smallest challenge first among the unread ones; 066 (bounded klt complements, 37
+lines) was skipped for now: its only challenge is a supporting lemma stated with the release's own definitions
+(`closedChartFieldRetraction`, `normalizedWeights`), and the scope document says the headline is outside the Lean.
+Closures compiled locally against the frozen statements (our Mathlib), standard axioms: O44 3/3 both directions;
+O45 3/3 Theorem 1.1 and 3/3 "conjecture false", 1/3 "Moreover"; O46 3/3 on each of its three claims. Scans: O44 43
+files, O46 41 files, no hits; O45 123 files, 204 `local notation` lines and no other hits.
+Brief defect (ours): the O44 excerpt ended one line before the directed-triangle sentence; readers A and B wrote
+that theorem from memory and said so, C left it out. Those two are not readings and were not closed. Reader C
+wrote torsion-freeness as Mathlib's `IsMulTorsionFree` (equal powers of commuting elements are equal); it is
+proved equivalent to the frozen "no nontrivial element of finite order" for groups (`tf_iff_mulTorsionFree`).
